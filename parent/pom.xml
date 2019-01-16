@@ -183,6 +183,7 @@
         <plugins>
             <plugin>
               <artifactId>maven-enforcer-plugin</artifactId>
+              <version>1.4.1</version>
               <executions>
                 <execution>
                   <goals>
@@ -200,6 +201,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.7.0</version>
                 <configuration>
                     <showDeprecation>true</showDeprecation>
                     <target>1.7</target>
@@ -209,6 +211,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.0.1</version>
                 <configuration>
                     <source>1.7</source>
                     <links>
@@ -231,6 +234,7 @@
             <plugin>
 		        <groupId>org.apache.maven.plugins</groupId>
 		        <artifactId>maven-jar-plugin</artifactId>
+                <version>3.1.0</version>
 		        <configuration>
 		          <archive>
 		            <manifest>
@@ -243,6 +247,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
+                <version>3.0.1</version>
                 <executions>
 				   <execution>
 				      <id>attach-sources</id>
@@ -284,6 +289,7 @@
                 <plugin>
                     <groupId>org.apache.rat</groupId>
                     <artifactId>apache-rat-plugin</artifactId>
+                    <version>0.12</version>
                     <configuration>
                         <excludes>
                             <exclude>release.properties</exclude>
