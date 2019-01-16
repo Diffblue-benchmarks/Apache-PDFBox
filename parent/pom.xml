@@ -317,6 +317,40 @@
                 <artifactId>download-maven-plugin</artifactId>
                 <version>1.3.0</version>
             </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-surefire-plugin</artifactId>
+              <version>3.0.0-M1</version>
+              <configuration>
+                <argLine>-Xmx2048m -Duser.timezone=UTC</argLine>
+                <systemPropertyVariables>
+                  <jacoco-agent.destfile>${project.build.directory}/jacoco.exec</jacoco-agent.destfile>
+                </systemPropertyVariables>
+                <testFailureIgnore>true</testFailureIgnore>
+                <reuseForks>false</reuseForks>
+              </configuration>
+            </plugin>
+            <plugin>
+              <groupId>org.jacoco</groupId>
+              <artifactId>jacoco-maven-plugin</artifactId>
+              <version>0.8.2</version>
+              <executions>
+                <execution>
+                  <id>instrument</id>
+                  <phase>process-test-classes</phase>
+                  <goals>
+                    <goal>instrument</goal>
+                  </goals>
+                </execution>
+                <execution>
+                  <id>restore-instrumented-classes</id>
+                  <phase>test</phase>
+                  <goals>
+                    <goal>restore-instrumented-classes</goal>
+                  </goals>
+                </execution>
+              </executions>
+            </plugin>
         </plugins>
         <pluginManagement>
             <plugins>
