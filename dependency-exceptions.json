@@ -1,0 +1,2572 @@
+[
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.EncodedFont\\.getEncoding\\:\\(\\)Lorg\\/apache\\/fontbox\\/encoding\\/Encoding\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.FontBoxFont\\.getName\\:\\(\\)Ljava\\/lang\\/String\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.FontBoxFont\\.getFontBBox\\:\\(\\)Lorg\\/apache\\/fontbox\\/util\\/BoundingBox\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.FontBoxFont\\.getFontMatrix\\:\\(\\)Ljava\\/util\\/List\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.FontBoxFont\\.getPath\\:\\(Ljava\\/lang\\/String\\;\\)Ljava\\/awt\\/geom\\/GeneralPath\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.FontBoxFont\\.getWidth\\:\\(Ljava\\/lang\\/String\\;\\)F"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.FontBoxFont\\.hasGlyph\\:\\(Ljava\\/lang\\/String\\;\\)Z"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.afm\\.AFMParser\\.parse\\:\\(\\)Lorg\\/apache\\/fontbox\\/afm\\/FontMetrics\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.afm\\.AFMParser\\.parse\\:\\(Z\\)Lorg\\/apache\\/fontbox\\/afm\\/FontMetrics\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.afm\\.AFMParser\\.parseFontMetric\\:\\(Z\\)Lorg\\/apache\\/fontbox\\/afm\\/FontMetrics\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.afm\\.AFMParser\\.parseKernData\\:\\(Lorg\\/apache\\/fontbox\\/afm\\/FontMetrics\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.afm\\.AFMParser\\.parseKernPair\\:\\(\\)Lorg\\/apache\\/fontbox\\/afm\\/KernPair\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.afm\\.AFMParser\\.hexToString\\:\\(Ljava\\/lang\\/String\\;\\)Ljava\\/lang\\/String\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.afm\\.AFMParser\\.parseComposite\\:\\(\\)Lorg\\/apache\\/fontbox\\/afm\\/Composite\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.afm\\.AFMParser\\.parseCharMetric\\:\\(\\)Lorg\\/apache\\/fontbox\\/afm\\/CharMetric\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.afm\\.AFMParser\\.verifySemicolon\\:\\(Ljava\\/util\\/StringTokenizer\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.afm\\.AFMParser\\.readBoolean\\:\\(\\)Z"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.afm\\.AFMParser\\.readInt\\:\\(\\)I"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.afm\\.AFMParser\\.readFloat\\:\\(\\)F"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.afm\\.AFMParser\\.readLine\\:\\(\\)Ljava\\/lang\\/String\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.afm\\.AFMParser\\.readString\\:\\(\\)Ljava\\/lang\\/String\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFCIDFont\\$PrivateType1CharStringReader\\.getType1CharString\\:\\(Ljava\\/lang\\/String\\;\\)Lorg\\/apache\\/fontbox\\/cff\\/Type1CharString\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFCIDFont\\.getType2CharString\\:\\(I\\)Lorg\\/apache\\/fontbox\\/cff\\/CIDKeyedType2CharString\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFCIDFont\\.getPath\\:\\(Ljava\\/lang\\/String\\;\\)Ljava\\/awt\\/geom\\/GeneralPath\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFCIDFont\\.getWidth\\:\\(Ljava\\/lang\\/String\\;\\)F"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFCIDFont\\.hasGlyph\\:\\(Ljava\\/lang\\/String\\;\\)Z"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFCIDFont\\.getType2CharString\\:\\(I\\)Lorg\\/apache\\/fontbox\\/cff\\/Type2CharString\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFDataInput\\.readCard8\\:\\(\\)I"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFDataInput\\.readCard16\\:\\(\\)I"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFDataInput\\.readOffset\\:\\(I\\)I"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFDataInput\\.readOffSize\\:\\(\\)I"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFDataInput\\.readSID\\:\\(\\)I"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFFont\\.getData\\:\\(\\)\\[B"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFFont\\.getType2CharString\\:\\(I\\)Lorg\\/apache\\/fontbox\\/cff\\/Type2CharString\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFParser\\$ByteSource\\.getBytes\\:\\(\\)\\[B"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFParser\\.parse\\:\\(\\[BLorg\\/apache\\/fontbox\\/cff\\/CFFParser\\$ByteSource\\;\\)Ljava\\/util\\/List\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFParser\\.parse\\:\\(\\[B\\)Ljava\\/util\\/List\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFParser\\.createTaggedCFFDataInput\\:\\(Lorg\\/apache\\/fontbox\\/cff\\/CFFDataInput\\;\\[B\\)Lorg\\/apache\\/fontbox\\/cff\\/CFFDataInput\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFParser\\.readTagName\\:\\(Lorg\\/apache\\/fontbox\\/cff\\/CFFDataInput\\;\\)Ljava\\/lang\\/String\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFParser\\.readLong\\:\\(Lorg\\/apache\\/fontbox\\/cff\\/CFFDataInput\\;\\)J"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFParser\\.readHeader\\:\\(Lorg\\/apache\\/fontbox\\/cff\\/CFFDataInput\\;\\)Lorg\\/apache\\/fontbox\\/cff\\/CFFParser\\$Header\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFParser\\.readIndexDataOffsets\\:\\(Lorg\\/apache\\/fontbox\\/cff\\/CFFDataInput\\;\\)\\[I"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFParser\\.readIndexData\\:\\(Lorg\\/apache\\/fontbox\\/cff\\/CFFDataInput\\;\\)\\[\\[B"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFParser\\.readStringIndexData\\:\\(Lorg\\/apache\\/fontbox\\/cff\\/CFFDataInput\\;\\)\\[Ljava\\/lang\\/String\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFParser\\.readDictData\\:\\(Lorg\\/apache\\/fontbox\\/cff\\/CFFDataInput\\;\\)Lorg\\/apache\\/fontbox\\/cff\\/CFFParser\\$DictData\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFParser\\.readDictData\\:\\(Lorg\\/apache\\/fontbox\\/cff\\/CFFDataInput\\;I\\)Lorg\\/apache\\/fontbox\\/cff\\/CFFParser\\$DictData\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFParser\\.readEntry\\:\\(Lorg\\/apache\\/fontbox\\/cff\\/CFFDataInput\\;\\)Lorg\\/apache\\/fontbox\\/cff\\/CFFParser\\$DictData\\$Entry\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFParser\\.readOperator\\:\\(Lorg\\/apache\\/fontbox\\/cff\\/CFFDataInput\\;I\\)Lorg\\/apache\\/fontbox\\/cff\\/CFFOperator\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFParser\\.readOperatorKey\\:\\(Lorg\\/apache\\/fontbox\\/cff\\/CFFDataInput\\;I\\)Lorg\\/apache\\/fontbox\\/cff\\/CFFOperator\\$Key\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFParser\\.readIntegerNumber\\:\\(Lorg\\/apache\\/fontbox\\/cff\\/CFFDataInput\\;I\\)Ljava\\/lang\\/Integer\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFParser\\.readRealNumber\\:\\(Lorg\\/apache\\/fontbox\\/cff\\/CFFDataInput\\;I\\)Ljava\\/lang\\/Double\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFParser\\.parseFont\\:\\(Lorg\\/apache\\/fontbox\\/cff\\/CFFDataInput\\;Ljava\\/lang\\/String\\;\\[B\\)Lorg\\/apache\\/fontbox\\/cff\\/CFFFont\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFParser\\.parseCIDFontDicts\\:\\(Lorg\\/apache\\/fontbox\\/cff\\/CFFDataInput\\;Lorg\\/apache\\/fontbox\\/cff\\/CFFParser\\$DictData\\;Lorg\\/apache\\/fontbox\\/cff\\/CFFCIDFont\\;I\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFParser\\.parseType1Dicts\\:\\(Lorg\\/apache\\/fontbox\\/cff\\/CFFDataInput\\;Lorg\\/apache\\/fontbox\\/cff\\/CFFParser\\$DictData\\;Lorg\\/apache\\/fontbox\\/cff\\/CFFType1Font\\;Lorg\\/apache\\/fontbox\\/cff\\/CFFCharset\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFParser\\.readString\\:\\(I\\)Ljava\\/lang\\/String\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFParser\\.getString\\:\\(Lorg\\/apache\\/fontbox\\/cff\\/CFFParser\\$DictData\\;Ljava\\/lang\\/String\\;\\)Ljava\\/lang\\/String\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFParser\\.readEncoding\\:\\(Lorg\\/apache\\/fontbox\\/cff\\/CFFDataInput\\;Lorg\\/apache\\/fontbox\\/cff\\/CFFCharset\\;\\)Lorg\\/apache\\/fontbox\\/cff\\/CFFEncoding\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFParser\\.readFormat0Encoding\\:\\(Lorg\\/apache\\/fontbox\\/cff\\/CFFDataInput\\;Lorg\\/apache\\/fontbox\\/cff\\/CFFCharset\\;I\\)Lorg\\/apache\\/fontbox\\/cff\\/CFFParser\\$Format0Encoding\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFParser\\.readFormat1Encoding\\:\\(Lorg\\/apache\\/fontbox\\/cff\\/CFFDataInput\\;Lorg\\/apache\\/fontbox\\/cff\\/CFFCharset\\;I\\)Lorg\\/apache\\/fontbox\\/cff\\/CFFParser\\$Format1Encoding\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFParser\\.readSupplement\\:\\(Lorg\\/apache\\/fontbox\\/cff\\/CFFDataInput\\;Lorg\\/apache\\/fontbox\\/cff\\/CFFParser\\$CFFBuiltInEncoding\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFParser\\.readFDSelect\\:\\(Lorg\\/apache\\/fontbox\\/cff\\/CFFDataInput\\;ILorg\\/apache\\/fontbox\\/cff\\/CFFCIDFont\\;\\)Lorg\\/apache\\/fontbox\\/cff\\/FDSelect\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFParser\\.readFormat0FDSelect\\:\\(Lorg\\/apache\\/fontbox\\/cff\\/CFFDataInput\\;IILorg\\/apache\\/fontbox\\/cff\\/CFFCIDFont\\;\\)Lorg\\/apache\\/fontbox\\/cff\\/CFFParser\\$Format0FDSelect\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFParser\\.readFormat3FDSelect\\:\\(Lorg\\/apache\\/fontbox\\/cff\\/CFFDataInput\\;IILorg\\/apache\\/fontbox\\/cff\\/CFFCIDFont\\;\\)Lorg\\/apache\\/fontbox\\/cff\\/CFFParser\\$Format3FDSelect\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFParser\\.readCharset\\:\\(Lorg\\/apache\\/fontbox\\/cff\\/CFFDataInput\\;IZ\\)Lorg\\/apache\\/fontbox\\/cff\\/CFFCharset\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFParser\\.readFormat0Charset\\:\\(Lorg\\/apache\\/fontbox\\/cff\\/CFFDataInput\\;IIZ\\)Lorg\\/apache\\/fontbox\\/cff\\/CFFParser\\$Format0Charset\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFParser\\.readFormat1Charset\\:\\(Lorg\\/apache\\/fontbox\\/cff\\/CFFDataInput\\;IIZ\\)Lorg\\/apache\\/fontbox\\/cff\\/CFFParser\\$Format1Charset\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFParser\\.readFormat2Charset\\:\\(Lorg\\/apache\\/fontbox\\/cff\\/CFFDataInput\\;IIZ\\)Lorg\\/apache\\/fontbox\\/cff\\/CFFParser\\$Format2Charset\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFType1Font\\$PrivateType1CharStringReader\\.getType1CharString\\:\\(Ljava\\/lang\\/String\\;\\)Lorg\\/apache\\/fontbox\\/cff\\/Type1CharString\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFType1Font\\.getPath\\:\\(Ljava\\/lang\\/String\\;\\)Ljava\\/awt\\/geom\\/GeneralPath\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFType1Font\\.getWidth\\:\\(Ljava\\/lang\\/String\\;\\)F"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFType1Font\\.getType1CharString\\:\\(Ljava\\/lang\\/String\\;\\)Lorg\\/apache\\/fontbox\\/cff\\/Type1CharString\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFType1Font\\.getType2CharString\\:\\(I\\)Lorg\\/apache\\/fontbox\\/cff\\/Type2CharString\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFType1Font\\.getType2CharString\\:\\(ILjava\\/lang\\/String\\;\\)Lorg\\/apache\\/fontbox\\/cff\\/Type2CharString\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.CFFType1Font\\.getEncoding\\:\\(\\)Lorg\\/apache\\/fontbox\\/encoding\\/Encoding\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.DataInput\\.getString\\:\\(\\)Ljava\\/lang\\/String\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.DataInput\\.readByte\\:\\(\\)B"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.DataInput\\.readUnsignedByte\\:\\(\\)I"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.DataInput\\.peekUnsignedByte\\:\\(I\\)I"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.DataInput\\.readShort\\:\\(\\)S"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.DataInput\\.readUnsignedShort\\:\\(\\)I"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.DataInput\\.readInt\\:\\(\\)I"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.DataInput\\.readBytes\\:\\(I\\)\\[B"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.DataOutput\\.print\\:\\(Ljava\\/lang\\/String\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.DataOutput\\.println\\:\\(Ljava\\/lang\\/String\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.Type1CharStringParser\\.parse\\:\\(\\[BLjava\\/util\\/List\\;\\)Ljava\\/util\\/List\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.Type1CharStringParser\\.parse\\:\\(\\[BLjava\\/util\\/List\\;Ljava\\/util\\/List\\;\\)Ljava\\/util\\/List\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.Type1CharStringParser\\.removeInteger\\:\\(Ljava\\/util\\/List\\;\\)Ljava\\/lang\\/Integer\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.Type1CharStringParser\\.readCommand\\:\\(Lorg\\/apache\\/fontbox\\/cff\\/DataInput\\;I\\)Lorg\\/apache\\/fontbox\\/cff\\/CharStringCommand\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.Type1CharStringParser\\.readNumber\\:\\(Lorg\\/apache\\/fontbox\\/cff\\/DataInput\\;I\\)Ljava\\/lang\\/Integer\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.Type2CharStringParser\\.parse\\:\\(\\[B\\[\\[B\\[\\[B\\)Ljava\\/util\\/List\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.Type2CharStringParser\\.parse\\:\\(\\[B\\[\\[B\\[\\[BZ\\)Ljava\\/util\\/List\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.Type2CharStringParser\\.readCommand\\:\\(ILorg\\/apache\\/fontbox\\/cff\\/DataInput\\;\\)Lorg\\/apache\\/fontbox\\/cff\\/CharStringCommand\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cff\\.Type2CharStringParser\\.readNumber\\:\\(ILorg\\/apache\\/fontbox\\/cff\\/DataInput\\;\\)Ljava\\/lang\\/Number\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cmap\\.CMap\\.readCode\\:\\(Ljava\\/io\\/InputStream\\;\\)I"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cmap\\.CMapParser\\.parse\\:\\(Ljava\\/io\\/File\\;\\)Lorg\\/apache\\/fontbox\\/cmap\\/CMap\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cmap\\.CMapParser\\.parsePredefined\\:\\(Ljava\\/lang\\/String\\;\\)Lorg\\/apache\\/fontbox\\/cmap\\/CMap\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cmap\\.CMapParser\\.parse\\:\\(Ljava\\/io\\/InputStream\\;\\)Lorg\\/apache\\/fontbox\\/cmap\\/CMap\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cmap\\.CMapParser\\.parseUsecmap\\:\\(Lorg\\/apache\\/fontbox\\/cmap\\/CMapParser\\$LiteralName\\;Lorg\\/apache\\/fontbox\\/cmap\\/CMap\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cmap\\.CMapParser\\.parseLiteralName\\:\\(Lorg\\/apache\\/fontbox\\/cmap\\/CMapParser\\$LiteralName\\;Ljava\\/io\\/PushbackInputStream\\;Lorg\\/apache\\/fontbox\\/cmap\\/CMap\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cmap\\.CMapParser\\.parseBegincodespacerange\\:\\(Ljava\\/lang\\/Number\\;Ljava\\/io\\/PushbackInputStream\\;Lorg\\/apache\\/fontbox\\/cmap\\/CMap\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cmap\\.CMapParser\\.parseBeginbfchar\\:\\(Ljava\\/lang\\/Number\\;Ljava\\/io\\/PushbackInputStream\\;Lorg\\/apache\\/fontbox\\/cmap\\/CMap\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cmap\\.CMapParser\\.parseBegincidrange\\:\\(ILjava\\/io\\/PushbackInputStream\\;Lorg\\/apache\\/fontbox\\/cmap\\/CMap\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cmap\\.CMapParser\\.parseBegincidchar\\:\\(Ljava\\/lang\\/Number\\;Ljava\\/io\\/PushbackInputStream\\;Lorg\\/apache\\/fontbox\\/cmap\\/CMap\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cmap\\.CMapParser\\.parseBeginbfrange\\:\\(Ljava\\/lang\\/Number\\;Ljava\\/io\\/PushbackInputStream\\;Lorg\\/apache\\/fontbox\\/cmap\\/CMap\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cmap\\.CMapParser\\.getExternalCMap\\:\\(Ljava\\/lang\\/String\\;\\)Ljava\\/io\\/InputStream\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cmap\\.CMapParser\\.parseNextToken\\:\\(Ljava\\/io\\/PushbackInputStream\\;\\)Ljava\\/lang\\/Object\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cmap\\.CMapParser\\.readUntilEndOfLine\\:\\(Ljava\\/io\\/InputStream\\;Ljava\\/lang\\/StringBuilder\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.cmap\\.CMapParser\\.createStringFromBytes\\:\\(\\[B\\)Ljava\\/lang\\/String\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.pfb\\.PfbParser\\.\\<init\\>\\:\\(Ljava\\/lang\\/String\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.pfb\\.PfbParser\\.\\<init\\>\\:\\(Ljava\\/io\\/InputStream\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.pfb\\.PfbParser\\.\\<init\\>\\:\\(\\[B\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.pfb\\.PfbParser\\.parsePfb\\:\\(\\[B\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.pfb\\.PfbParser\\.readPfbInput\\:\\(Ljava\\/io\\/InputStream\\;\\)\\[B"
+ }, 
+ {
+  "exceptions": [
+   "java.io.FileNotFoundException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.BufferedRandomAccessFile\\.\\<init\\>\\:\\(Ljava\\/lang\\/String\\;Ljava\\/lang\\/String\\;I\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.FileNotFoundException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.BufferedRandomAccessFile\\.\\<init\\>\\:\\(Ljava\\/io\\/File\\;Ljava\\/lang\\/String\\;I\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.BufferedRandomAccessFile\\.read\\:\\(\\)I"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.BufferedRandomAccessFile\\.fillBuffer\\:\\(\\)I"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.BufferedRandomAccessFile\\.invalidate\\:\\(\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.BufferedRandomAccessFile\\.read\\:\\(\\[BII\\)I"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.BufferedRandomAccessFile\\.getFilePointer\\:\\(\\)J"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.BufferedRandomAccessFile\\.seek\\:\\(J\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.CFFTable\\$ByteSource\\.getBytes\\:\\(\\)\\[B"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.CFFTable\\.read\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TrueTypeFont\\;Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.CmapSubtable\\.initData\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.CmapSubtable\\.initSubtable\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/CmapTable\\;ILorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.CmapSubtable\\.processSubtype8\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;I\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.CmapSubtable\\.processSubtype10\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;I\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.CmapSubtable\\.processSubtype12\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;I\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.CmapSubtable\\.processSubtype13\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;I\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.CmapSubtable\\.processSubtype14\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;I\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.CmapSubtable\\.processSubtype6\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;I\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.CmapSubtable\\.processSubtype4\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;I\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.CmapSubtable\\.processSubtype2\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;I\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.CmapSubtable\\.processSubtype0\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.CmapTable\\.read\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TrueTypeFont\\;Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.GlyfCompositeComp\\.\\<init\\>\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.GlyfCompositeDescript\\.\\<init\\>\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;Lorg\\/apache\\/fontbox\\/ttf\\/GlyphTable\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.GlyfDescript\\.\\<init\\>\\:\\(SLorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.GlyfDescript\\.readInstructions\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;I\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.GlyfSimpleDescript\\.\\<init\\>\\:\\(SLorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;S\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.GlyfSimpleDescript\\.readCoords\\:\\(ILorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;S\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.GlyfSimpleDescript\\.readFlags\\:\\(ILorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.GlyphData\\.initData\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/GlyphTable\\;Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;I\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.GlyphSubstitutionTable\\.read\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TrueTypeFont\\;Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.GlyphSubstitutionTable\\.readScriptList\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;J\\)Ljava\\/util\\/Map\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.GlyphSubstitutionTable\\.readScriptTable\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;J\\)Lorg\\/apache\\/fontbox\\/ttf\\/table\\/common\\/ScriptTable\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.GlyphSubstitutionTable\\.readLangSysTable\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;J\\)Lorg\\/apache\\/fontbox\\/ttf\\/table\\/common\\/LangSysTable\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.GlyphSubstitutionTable\\.readFeatureList\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;J\\)Lorg\\/apache\\/fontbox\\/ttf\\/table\\/common\\/FeatureListTable\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.GlyphSubstitutionTable\\.readFeatureTable\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;J\\)Lorg\\/apache\\/fontbox\\/ttf\\/table\\/common\\/FeatureTable\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.GlyphSubstitutionTable\\.readLookupList\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;J\\)Lorg\\/apache\\/fontbox\\/ttf\\/table\\/common\\/LookupListTable\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.GlyphSubstitutionTable\\.readLookupTable\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;J\\)Lorg\\/apache\\/fontbox\\/ttf\\/table\\/common\\/LookupTable\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.GlyphSubstitutionTable\\.readLookupSubTable\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;J\\)Lorg\\/apache\\/fontbox\\/ttf\\/table\\/common\\/LookupSubTable\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.GlyphSubstitutionTable\\.readLigatureSubstitutionSubtable\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;J\\)Lorg\\/apache\\/fontbox\\/ttf\\/table\\/common\\/LookupSubTable\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.GlyphSubstitutionTable\\.readLigatureSetTable\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;JI\\)Lorg\\/apache\\/fontbox\\/ttf\\/table\\/gsub\\/LigatureSetTable\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.GlyphSubstitutionTable\\.readLigatureTable\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;JI\\)Lorg\\/apache\\/fontbox\\/ttf\\/table\\/gsub\\/LigatureTable\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.GlyphSubstitutionTable\\.readCoverageTable\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;J\\)Lorg\\/apache\\/fontbox\\/ttf\\/table\\/common\\/CoverageTable\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.GlyphSubstitutionTable\\.readRangeRecord\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;\\)Lorg\\/apache\\/fontbox\\/ttf\\/table\\/common\\/RangeRecord\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.GlyphTable\\.read\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TrueTypeFont\\;Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.GlyphTable\\.getGlyphs\\:\\(\\)\\[Lorg\\/apache\\/fontbox\\/ttf\\/GlyphData\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.GlyphTable\\.getGlyph\\:\\(I\\)Lorg\\/apache\\/fontbox\\/ttf\\/GlyphData\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.GlyphTable\\.getGlyphData\\:\\(I\\)Lorg\\/apache\\/fontbox\\/ttf\\/GlyphData\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.HeaderTable\\.read\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TrueTypeFont\\;Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.HorizontalHeaderTable\\.read\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TrueTypeFont\\;Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.HorizontalMetricsTable\\.read\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TrueTypeFont\\;Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.IndexToLocationTable\\.read\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TrueTypeFont\\;Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.KerningSubtable\\$PairData\\.read\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.KerningSubtable\\$PairData0Format0\\.read\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.KerningSubtable\\.read\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;I\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.KerningSubtable\\.readSubtable0\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.KerningSubtable\\.readSubtable0Format0\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.KerningSubtable\\.readSubtable0Format2\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.KerningSubtable\\.readSubtable1\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.KerningTable\\.read\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TrueTypeFont\\;Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.MaximumProfileTable\\.read\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TrueTypeFont\\;Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.MemoryTTFDataStream\\.\\<init\\>\\:\\(Ljava\\/io\\/InputStream\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.MemoryTTFDataStream\\.readLong\\:\\(\\)J"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.MemoryTTFDataStream\\.readSignedInt\\:\\(\\)I"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.MemoryTTFDataStream\\.read\\:\\(\\)I"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.MemoryTTFDataStream\\.readUnsignedShort\\:\\(\\)I"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.MemoryTTFDataStream\\.readSignedShort\\:\\(\\)S"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.MemoryTTFDataStream\\.close\\:\\(\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.MemoryTTFDataStream\\.seek\\:\\(J\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.MemoryTTFDataStream\\.read\\:\\(\\[BII\\)I"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.MemoryTTFDataStream\\.getCurrentPosition\\:\\(\\)J"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.MemoryTTFDataStream\\.getOriginalData\\:\\(\\)Ljava\\/io\\/InputStream\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.NameRecord\\.initData\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TrueTypeFont\\;Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.NamingTable\\.read\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TrueTypeFont\\;Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.OS2WindowsMetricsTable\\.read\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TrueTypeFont\\;Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.OTFParser\\.parse\\:\\(Ljava\\/lang\\/String\\;\\)Lorg\\/apache\\/fontbox\\/ttf\\/OpenTypeFont\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.OTFParser\\.parse\\:\\(Ljava\\/io\\/File\\;\\)Lorg\\/apache\\/fontbox\\/ttf\\/OpenTypeFont\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.OTFParser\\.parse\\:\\(Ljava\\/io\\/InputStream\\;\\)Lorg\\/apache\\/fontbox\\/ttf\\/OpenTypeFont\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.OTFParser\\.parse\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;\\)Lorg\\/apache\\/fontbox\\/ttf\\/OpenTypeFont\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.OTFParser\\.parse\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;\\)Lorg\\/apache\\/fontbox\\/ttf\\/TrueTypeFont\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.OTFParser\\.parse\\:\\(Ljava\\/io\\/InputStream\\;\\)Lorg\\/apache\\/fontbox\\/ttf\\/TrueTypeFont\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.OTFParser\\.parse\\:\\(Ljava\\/io\\/File\\;\\)Lorg\\/apache\\/fontbox\\/ttf\\/TrueTypeFont\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.OTFParser\\.parse\\:\\(Ljava\\/lang\\/String\\;\\)Lorg\\/apache\\/fontbox\\/ttf\\/TrueTypeFont\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.OpenTypeFont\\.getCFF\\:\\(\\)Lorg\\/apache\\/fontbox\\/ttf\\/CFFTable\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.OpenTypeFont\\.getGlyph\\:\\(\\)Lorg\\/apache\\/fontbox\\/ttf\\/GlyphTable\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.OpenTypeFont\\.getPath\\:\\(Ljava\\/lang\\/String\\;\\)Ljava\\/awt\\/geom\\/GeneralPath\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.OpenTypeScript\\.parseScriptsFile\\:\\(Ljava\\/io\\/InputStream\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.PostScriptTable\\.read\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TrueTypeFont\\;Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.RAFDataStream\\.\\<init\\>\\:\\(Ljava\\/lang\\/String\\;Ljava\\/lang\\/String\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.RAFDataStream\\.\\<init\\>\\:\\(Ljava\\/io\\/File\\;Ljava\\/lang\\/String\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.RAFDataStream\\.readSignedShort\\:\\(\\)S"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.RAFDataStream\\.getCurrentPosition\\:\\(\\)J"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.RAFDataStream\\.close\\:\\(\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.RAFDataStream\\.read\\:\\(\\)I"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.RAFDataStream\\.readUnsignedShort\\:\\(\\)I"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.RAFDataStream\\.readLong\\:\\(\\)J"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.RAFDataStream\\.seek\\:\\(J\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.RAFDataStream\\.read\\:\\(\\[BII\\)I"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.RAFDataStream\\.getOriginalData\\:\\(\\)Ljava\\/io\\/InputStream\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTCDataStream\\.read\\:\\(\\)I"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTCDataStream\\.readLong\\:\\(\\)J"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTCDataStream\\.readUnsignedShort\\:\\(\\)I"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTCDataStream\\.readSignedShort\\:\\(\\)S"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTCDataStream\\.close\\:\\(\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTCDataStream\\.seek\\:\\(J\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTCDataStream\\.read\\:\\(\\[BII\\)I"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTCDataStream\\.getCurrentPosition\\:\\(\\)J"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTCDataStream\\.getOriginalData\\:\\(\\)Ljava\\/io\\/InputStream\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFDataStream\\.read32Fixed\\:\\(\\)F"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFDataStream\\.readString\\:\\(I\\)Ljava\\/lang\\/String\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFDataStream\\.readString\\:\\(ILjava\\/lang\\/String\\;\\)Ljava\\/lang\\/String\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFDataStream\\.readString\\:\\(ILjava\\/nio\\/charset\\/Charset\\;\\)Ljava\\/lang\\/String\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFDataStream\\.read\\:\\(\\)I"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFDataStream\\.readLong\\:\\(\\)J"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFDataStream\\.readSignedByte\\:\\(\\)I"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFDataStream\\.readUnsignedByte\\:\\(\\)I"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFDataStream\\.readUnsignedInt\\:\\(\\)J"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFDataStream\\.readUnsignedShort\\:\\(\\)I"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFDataStream\\.readUnsignedByteArray\\:\\(I\\)\\[I"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFDataStream\\.readUnsignedShortArray\\:\\(I\\)\\[I"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFDataStream\\.readSignedShort\\:\\(\\)S"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFDataStream\\.readInternationalDate\\:\\(\\)Ljava\\/util\\/Calendar\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFDataStream\\.readTag\\:\\(\\)Ljava\\/lang\\/String\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFDataStream\\.close\\:\\(\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFDataStream\\.seek\\:\\(J\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFDataStream\\.read\\:\\(I\\)\\[B"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFDataStream\\.read\\:\\(\\[BII\\)I"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFDataStream\\.getCurrentPosition\\:\\(\\)J"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFDataStream\\.getOriginalData\\:\\(\\)Ljava\\/io\\/InputStream\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFParser\\.parse\\:\\(Ljava\\/lang\\/String\\;\\)Lorg\\/apache\\/fontbox\\/ttf\\/TrueTypeFont\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFParser\\.parse\\:\\(Ljava\\/io\\/File\\;\\)Lorg\\/apache\\/fontbox\\/ttf\\/TrueTypeFont\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFParser\\.parse\\:\\(Ljava\\/io\\/InputStream\\;\\)Lorg\\/apache\\/fontbox\\/ttf\\/TrueTypeFont\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFParser\\.parseEmbedded\\:\\(Ljava\\/io\\/InputStream\\;\\)Lorg\\/apache\\/fontbox\\/ttf\\/TrueTypeFont\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFParser\\.parse\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;\\)Lorg\\/apache\\/fontbox\\/ttf\\/TrueTypeFont\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFParser\\.parseTables\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TrueTypeFont\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFParser\\.readTableDirectory\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TrueTypeFont\\;Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;\\)Lorg\\/apache\\/fontbox\\/ttf\\/TTFTable\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFSubsetter\\.\\<init\\>\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TrueTypeFont\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFSubsetter\\.\\<init\\>\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TrueTypeFont\\;Ljava\\/util\\/List\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFSubsetter\\.getGIDMap\\:\\(\\)Ljava\\/util\\/Map\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFSubsetter\\.writeFileHeader\\:\\(Ljava\\/io\\/DataOutputStream\\;I\\)J"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFSubsetter\\.writeTableHeader\\:\\(Ljava\\/io\\/DataOutputStream\\;Ljava\\/lang\\/String\\;J\\[B\\)J"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFSubsetter\\.writeTableBody\\:\\(Ljava\\/io\\/OutputStream\\;\\[B\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFSubsetter\\.buildHeadTable\\:\\(\\)\\[B"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFSubsetter\\.buildHheaTable\\:\\(\\)\\[B"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFSubsetter\\.buildNameTable\\:\\(\\)\\[B"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFSubsetter\\.buildMaxpTable\\:\\(\\)\\[B"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFSubsetter\\.buildOS2Table\\:\\(\\)\\[B"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFSubsetter\\.buildLocaTable\\:\\(\\[J\\)\\[B"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFSubsetter\\.addCompoundReferences\\:\\(\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFSubsetter\\.buildGlyfTable\\:\\(\\[J\\)\\[B"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFSubsetter\\.buildCmapTable\\:\\(\\)\\[B"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFSubsetter\\.buildPostTable\\:\\(\\)\\[B"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFSubsetter\\.buildHmtxTable\\:\\(\\)\\[B"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFSubsetter\\.copyBytes\\:\\(Ljava\\/io\\/InputStream\\;Ljava\\/io\\/OutputStream\\;JJI\\)J"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFSubsetter\\.writeToStream\\:\\(Ljava\\/io\\/OutputStream\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFSubsetter\\.writeFixed\\:\\(Ljava\\/io\\/DataOutputStream\\;D\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFSubsetter\\.writeUint32\\:\\(Ljava\\/io\\/DataOutputStream\\;J\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFSubsetter\\.writeUint16\\:\\(Ljava\\/io\\/DataOutputStream\\;I\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFSubsetter\\.writeSInt16\\:\\(Ljava\\/io\\/DataOutputStream\\;S\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFSubsetter\\.writeUint8\\:\\(Ljava\\/io\\/DataOutputStream\\;I\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFSubsetter\\.writeLongDateTime\\:\\(Ljava\\/io\\/DataOutputStream\\;Ljava\\/util\\/Calendar\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TTFTable\\.read\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TrueTypeFont\\;Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TrueTypeCollection\\$TrueTypeFontProcessor\\.process\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TrueTypeFont\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TrueTypeCollection\\.\\<init\\>\\:\\(Ljava\\/io\\/File\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TrueTypeCollection\\.\\<init\\>\\:\\(Ljava\\/io\\/InputStream\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TrueTypeCollection\\.\\<init\\>\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TrueTypeCollection\\.processAllFonts\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TrueTypeCollection\\$TrueTypeFontProcessor\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TrueTypeCollection\\.getFontAtIndex\\:\\(I\\)Lorg\\/apache\\/fontbox\\/ttf\\/TrueTypeFont\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TrueTypeCollection\\.getFontByName\\:\\(Ljava\\/lang\\/String\\;\\)Lorg\\/apache\\/fontbox\\/ttf\\/TrueTypeFont\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TrueTypeCollection\\.close\\:\\(\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TrueTypeFont\\.close\\:\\(\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TrueTypeFont\\.getTableBytes\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TTFTable\\;\\)\\[B"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TrueTypeFont\\.getTable\\:\\(Ljava\\/lang\\/String\\;\\)Lorg\\/apache\\/fontbox\\/ttf\\/TTFTable\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TrueTypeFont\\.getNaming\\:\\(\\)Lorg\\/apache\\/fontbox\\/ttf\\/NamingTable\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TrueTypeFont\\.getPostScript\\:\\(\\)Lorg\\/apache\\/fontbox\\/ttf\\/PostScriptTable\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TrueTypeFont\\.getOS2Windows\\:\\(\\)Lorg\\/apache\\/fontbox\\/ttf\\/OS2WindowsMetricsTable\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TrueTypeFont\\.getMaximumProfile\\:\\(\\)Lorg\\/apache\\/fontbox\\/ttf\\/MaximumProfileTable\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TrueTypeFont\\.getHeader\\:\\(\\)Lorg\\/apache\\/fontbox\\/ttf\\/HeaderTable\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TrueTypeFont\\.getHorizontalHeader\\:\\(\\)Lorg\\/apache\\/fontbox\\/ttf\\/HorizontalHeaderTable\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TrueTypeFont\\.getHorizontalMetrics\\:\\(\\)Lorg\\/apache\\/fontbox\\/ttf\\/HorizontalMetricsTable\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TrueTypeFont\\.getIndexToLocation\\:\\(\\)Lorg\\/apache\\/fontbox\\/ttf\\/IndexToLocationTable\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TrueTypeFont\\.getGlyph\\:\\(\\)Lorg\\/apache\\/fontbox\\/ttf\\/GlyphTable\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TrueTypeFont\\.getCmap\\:\\(\\)Lorg\\/apache\\/fontbox\\/ttf\\/CmapTable\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TrueTypeFont\\.getVerticalHeader\\:\\(\\)Lorg\\/apache\\/fontbox\\/ttf\\/VerticalHeaderTable\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TrueTypeFont\\.getVerticalMetrics\\:\\(\\)Lorg\\/apache\\/fontbox\\/ttf\\/VerticalMetricsTable\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TrueTypeFont\\.getVerticalOrigin\\:\\(\\)Lorg\\/apache\\/fontbox\\/ttf\\/VerticalOriginTable\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TrueTypeFont\\.getKerning\\:\\(\\)Lorg\\/apache\\/fontbox\\/ttf\\/KerningTable\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TrueTypeFont\\.getGsub\\:\\(\\)Lorg\\/apache\\/fontbox\\/ttf\\/GlyphSubstitutionTable\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TrueTypeFont\\.getOriginalData\\:\\(\\)Ljava\\/io\\/InputStream\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TrueTypeFont\\.readTable\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TTFTable\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TrueTypeFont\\.getNumberOfGlyphs\\:\\(\\)I"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TrueTypeFont\\.getUnitsPerEm\\:\\(\\)I"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TrueTypeFont\\.getAdvanceWidth\\:\\(I\\)I"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TrueTypeFont\\.getAdvanceHeight\\:\\(I\\)I"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TrueTypeFont\\.getName\\:\\(\\)Ljava\\/lang\\/String\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TrueTypeFont\\.readPostScriptNames\\:\\(\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TrueTypeFont\\.getUnicodeCmap\\:\\(\\)Lorg\\/apache\\/fontbox\\/ttf\\/CmapSubtable\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TrueTypeFont\\.getUnicodeCmap\\:\\(Z\\)Lorg\\/apache\\/fontbox\\/ttf\\/CmapSubtable\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TrueTypeFont\\.getUnicodeCmapLookup\\:\\(\\)Lorg\\/apache\\/fontbox\\/ttf\\/CmapLookup\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TrueTypeFont\\.getUnicodeCmapLookup\\:\\(Z\\)Lorg\\/apache\\/fontbox\\/ttf\\/CmapLookup\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TrueTypeFont\\.getUnicodeCmapImpl\\:\\(Z\\)Lorg\\/apache\\/fontbox\\/ttf\\/CmapSubtable\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TrueTypeFont\\.nameToGID\\:\\(Ljava\\/lang\\/String\\;\\)I"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TrueTypeFont\\.getGsubData\\:\\(\\)Lorg\\/apache\\/fontbox\\/ttf\\/model\\/GsubData\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TrueTypeFont\\.parseUniName\\:\\(Ljava\\/lang\\/String\\;\\)I"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TrueTypeFont\\.getPath\\:\\(Ljava\\/lang\\/String\\;\\)Ljava\\/awt\\/geom\\/GeneralPath\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TrueTypeFont\\.getWidth\\:\\(Ljava\\/lang\\/String\\;\\)F"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TrueTypeFont\\.hasGlyph\\:\\(Ljava\\/lang\\/String\\;\\)Z"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TrueTypeFont\\.getFontBBox\\:\\(\\)Lorg\\/apache\\/fontbox\\/util\\/BoundingBox\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.TrueTypeFont\\.getFontMatrix\\:\\(\\)Ljava\\/util\\/List\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.VerticalHeaderTable\\.read\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TrueTypeFont\\;Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.VerticalMetricsTable\\.read\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TrueTypeFont\\;Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.ttf\\.VerticalOriginTable\\.read\\:\\(Lorg\\/apache\\/fontbox\\/ttf\\/TrueTypeFont\\;Lorg\\/apache\\/fontbox\\/ttf\\/TTFDataStream\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.type1\\.Type1CharStringReader\\.getType1CharString\\:\\(Ljava\\/lang\\/String\\;\\)Lorg\\/apache\\/fontbox\\/cff\\/Type1CharString\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.type1\\.Type1Font\\.createWithPFB\\:\\(Ljava\\/io\\/InputStream\\;\\)Lorg\\/apache\\/fontbox\\/type1\\/Type1Font\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.type1\\.Type1Font\\.createWithPFB\\:\\(\\[B\\)Lorg\\/apache\\/fontbox\\/type1\\/Type1Font\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.type1\\.Type1Font\\.createWithSegments\\:\\(\\[B\\[B\\)Lorg\\/apache\\/fontbox\\/type1\\/Type1Font\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.type1\\.Type1Font\\.getPath\\:\\(Ljava\\/lang\\/String\\;\\)Ljava\\/awt\\/geom\\/GeneralPath\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.type1\\.Type1Font\\.getWidth\\:\\(Ljava\\/lang\\/String\\;\\)F"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.type1\\.Type1Font\\.getType1CharString\\:\\(Ljava\\/lang\\/String\\;\\)Lorg\\/apache\\/fontbox\\/cff\\/Type1CharString\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.type1\\.Type1Lexer\\.\\<init\\>\\:\\(\\[B\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.type1\\.Type1Lexer\\.nextToken\\:\\(\\)Lorg\\/apache\\/fontbox\\/type1\\/Token\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.type1\\.Type1Lexer\\.readToken\\:\\(Lorg\\/apache\\/fontbox\\/type1\\/Token\\;\\)Lorg\\/apache\\/fontbox\\/type1\\/Token\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.type1\\.Type1Parser\\.parse\\:\\(\\[B\\[B\\)Lorg\\/apache\\/fontbox\\/type1\\/Type1Font\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.type1\\.Type1Parser\\.parseASCII\\:\\(\\[B\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.type1\\.Type1Parser\\.readSimpleValue\\:\\(Ljava\\/lang\\/String\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.type1\\.Type1Parser\\.readEncoding\\:\\(\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.type1\\.Type1Parser\\.arrayToNumbers\\:\\(Ljava\\/util\\/List\\;\\)Ljava\\/util\\/List\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.type1\\.Type1Parser\\.readSimpleDict\\:\\(\\)Ljava\\/util\\/Map\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.type1\\.Type1Parser\\.readDictValue\\:\\(\\)Ljava\\/util\\/List\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.type1\\.Type1Parser\\.readValue\\:\\(\\)Ljava\\/util\\/List\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.type1\\.Type1Parser\\.readProc\\:\\(\\)Ljava\\/util\\/List\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.type1\\.Type1Parser\\.parseBinary\\:\\(\\[B\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.type1\\.Type1Parser\\.readPrivate\\:\\(Ljava\\/lang\\/String\\;Ljava\\/util\\/List\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.type1\\.Type1Parser\\.readSubrs\\:\\(I\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.type1\\.Type1Parser\\.readOtherSubrs\\:\\(\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.type1\\.Type1Parser\\.readCharStrings\\:\\(I\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.type1\\.Type1Parser\\.readDef\\:\\(\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.type1\\.Type1Parser\\.readPut\\:\\(\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.type1\\.Type1Parser\\.read\\:\\(Lorg\\/apache\\/fontbox\\/type1\\/Token\\$Kind\\;\\)Lorg\\/apache\\/fontbox\\/type1\\/Token\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.type1\\.Type1Parser\\.read\\:\\(Lorg\\/apache\\/fontbox\\/type1\\/Token\\$Kind\\;Ljava\\/lang\\/String\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.type1\\.Type1Parser\\.readMaybe\\:\\(Lorg\\/apache\\/fontbox\\/type1\\/Token\\$Kind\\;Ljava\\/lang\\/String\\;\\)Lorg\\/apache\\/fontbox\\/type1\\/Token\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.fontbox\\.util\\.autodetect\\.WindowsFontDirFinder\\.getWinDir\\:\\(Ljava\\/lang\\/String\\;\\)Ljava\\/lang\\/String\\;"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.commons.logging.LogConfigurationException"
+  ], 
+  "methodRegex": "org\\.apache\\.commons\\.logging\\.impl\\.LogFactoryImpl\\.getInstance\\:\\(Ljava\\/lang\\/Class\\;\\)Lorg\\/apache\\/commons\\/logging\\/Log\\;"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.commons.logging.LogConfigurationException"
+  ], 
+  "methodRegex": "org\\.apache\\.commons\\.logging\\.impl\\.LogFactoryImpl\\.getInstance\\:\\(Ljava\\/lang\\/String\\;\\)Lorg\\/apache\\/commons\\/logging\\/Log\\;"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.commons.logging.LogConfigurationException"
+  ], 
+  "methodRegex": "org\\.apache\\.commons\\.logging\\.impl\\.LogFactoryImpl\\.getContextClassLoader\\:\\(\\)Ljava\\/lang\\/ClassLoader\\;"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.commons.logging.LogConfigurationException"
+  ], 
+  "methodRegex": "org\\.apache\\.commons\\.logging\\.impl\\.LogFactoryImpl\\.getLogConstructor\\:\\(\\)Ljava\\/lang\\/reflect\\/Constructor\\;"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.commons.logging.LogConfigurationException"
+  ], 
+  "methodRegex": "org\\.apache\\.commons\\.logging\\.impl\\.LogFactoryImpl\\.newInstance\\:\\(Ljava\\/lang\\/String\\;\\)Lorg\\/apache\\/commons\\/logging\\/Log\\;"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.commons.logging.LogConfigurationException"
+  ], 
+  "methodRegex": "org\\.apache\\.commons\\.logging\\.impl\\.LogFactoryImpl\\.getContextClassLoaderInternal\\:\\(\\)Ljava\\/lang\\/ClassLoader\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.lang.SecurityException"
+  ], 
+  "methodRegex": "org\\.apache\\.commons\\.logging\\.impl\\.LogFactoryImpl\\.getSystemProperty\\:\\(Ljava\\/lang\\/String\\;Ljava\\/lang\\/String\\;\\)Ljava\\/lang\\/String\\;"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.commons.logging.LogConfigurationException"
+  ], 
+  "methodRegex": "org\\.apache\\.commons\\.logging\\.impl\\.LogFactoryImpl\\.discoverLogImplementation\\:\\(Ljava\\/lang\\/String\\;\\)Lorg\\/apache\\/commons\\/logging\\/Log\\;"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.commons.logging.LogConfigurationException"
+  ], 
+  "methodRegex": "org\\.apache\\.commons\\.logging\\.impl\\.LogFactoryImpl\\.createLogFromClass\\:\\(Ljava\\/lang\\/String\\;Ljava\\/lang\\/String\\;Z\\)Lorg\\/apache\\/commons\\/logging\\/Log\\;"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.commons.logging.LogConfigurationException"
+  ], 
+  "methodRegex": "org\\.apache\\.commons\\.logging\\.impl\\.LogFactoryImpl\\.getBaseClassLoader\\:\\(\\)Ljava\\/lang\\/ClassLoader\\;"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.commons.logging.LogConfigurationException"
+  ], 
+  "methodRegex": "org\\.apache\\.commons\\.logging\\.impl\\.LogFactoryImpl\\.handleFlawedHierarchy\\:\\(Ljava\\/lang\\/ClassLoader\\;Ljava\\/lang\\/Class\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.commons.logging.LogConfigurationException"
+  ], 
+  "methodRegex": "org\\.apache\\.commons\\.logging\\.impl\\.LogFactoryImpl\\.access\\$000\\:\\(\\)Ljava\\/lang\\/ClassLoader\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.lang.LinkageError", 
+   "java.lang.NoSuchMethodException", 
+   "java.lang.SecurityException", 
+   "java.lang.ClassNotFoundException"
+  ], 
+  "methodRegex": "org\\.apache\\.commons\\.logging\\.LogSource\\.setLogImplementation\\:\\(Ljava\\/lang\\/String\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.lang.LinkageError", 
+   "java.lang.ExceptionInInitializerError", 
+   "java.lang.NoSuchMethodException", 
+   "java.lang.SecurityException"
+  ], 
+  "methodRegex": "org\\.apache\\.commons\\.logging\\.LogSource\\.setLogImplementation\\:\\(Ljava\\/lang\\/Class\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.commons.logging.LogConfigurationException"
+  ], 
+  "methodRegex": "org\\.apache\\.commons\\.logging\\.LogFactory\\.getInstance\\:\\(Ljava\\/lang\\/Class\\;\\)Lorg\\/apache\\/commons\\/logging\\/Log\\;"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.commons.logging.LogConfigurationException"
+  ], 
+  "methodRegex": "org\\.apache\\.commons\\.logging\\.LogFactory\\.getInstance\\:\\(Ljava\\/lang\\/String\\;\\)Lorg\\/apache\\/commons\\/logging\\/Log\\;"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.commons.logging.LogConfigurationException"
+  ], 
+  "methodRegex": "org\\.apache\\.commons\\.logging\\.LogFactory\\.getFactory\\:\\(\\)Lorg\\/apache\\/commons\\/logging\\/LogFactory\\;"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.commons.logging.LogConfigurationException"
+  ], 
+  "methodRegex": "org\\.apache\\.commons\\.logging\\.LogFactory\\.getLog\\:\\(Ljava\\/lang\\/Class\\;\\)Lorg\\/apache\\/commons\\/logging\\/Log\\;"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.commons.logging.LogConfigurationException"
+  ], 
+  "methodRegex": "org\\.apache\\.commons\\.logging\\.LogFactory\\.getLog\\:\\(Ljava\\/lang\\/String\\;\\)Lorg\\/apache\\/commons\\/logging\\/Log\\;"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.commons.logging.LogConfigurationException"
+  ], 
+  "methodRegex": "org\\.apache\\.commons\\.logging\\.LogFactory\\.getContextClassLoader\\:\\(\\)Ljava\\/lang\\/ClassLoader\\;"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.commons.logging.LogConfigurationException"
+  ], 
+  "methodRegex": "org\\.apache\\.commons\\.logging\\.LogFactory\\.getContextClassLoaderInternal\\:\\(\\)Ljava\\/lang\\/ClassLoader\\;"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.commons.logging.LogConfigurationException"
+  ], 
+  "methodRegex": "org\\.apache\\.commons\\.logging\\.LogFactory\\.directGetContextClassLoader\\:\\(\\)Ljava\\/lang\\/ClassLoader\\;"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.commons.logging.LogConfigurationException"
+  ], 
+  "methodRegex": "org\\.apache\\.commons\\.logging\\.LogFactory\\.newFactory\\:\\(Ljava\\/lang\\/String\\;Ljava\\/lang\\/ClassLoader\\;Ljava\\/lang\\/ClassLoader\\;\\)Lorg\\/apache\\/commons\\/logging\\/LogFactory\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.lang.SecurityException"
+  ], 
+  "methodRegex": "org\\.apache\\.commons\\.logging\\.LogFactory\\.getSystemProperty\\:\\(Ljava\\/lang\\/String\\;Ljava\\/lang\\/String\\;\\)Ljava\\/lang\\/String\\;"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.xmpbox\\.DateConverter\\.toCalendar\\:\\(Ljava\\/lang\\/String\\;\\)Ljava\\/util\\/Calendar\\;"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.xmpbox.schema.XmpSchemaException"
+  ], 
+  "methodRegex": "org\\.apache\\.xmpbox\\.XMPMetadata\\.createAndAddPDFAExtensionSchemaWithNS\\:\\(Ljava\\/util\\/Map\\;\\)Lorg\\/apache\\/xmpbox\\/schema\\/PDFAExtensionSchema\\;"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.xmpbox.type.BadFieldValueException"
+  ], 
+  "methodRegex": "org\\.apache\\.xmpbox\\.schema\\.PDFAIdentificationSchema\\.setConformance\\:\\(Ljava\\/lang\\/String\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.xmpbox.type.BadFieldValueException"
+  ], 
+  "methodRegex": "org\\.apache\\.xmpbox\\.schema\\.PDFAIdentificationSchema\\.setConformanceProperty\\:\\(Lorg\\/apache\\/xmpbox\\/type\\/TextType\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.xmpbox.type.BadFieldValueException"
+  ], 
+  "methodRegex": "org\\.apache\\.xmpbox\\.schema\\.PhotoshopSchema\\.getTextLayers\\:\\(\\)Ljava\\/util\\/List\\;"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.xmpbox.type.BadFieldValueException"
+  ], 
+  "methodRegex": "org\\.apache\\.xmpbox\\.schema\\.XMPBasicJobTicketSchema\\.getJobs\\:\\(\\)Ljava\\/util\\/List\\;"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.xmpbox.type.BadFieldValueException"
+  ], 
+  "methodRegex": "org\\.apache\\.xmpbox\\.schema\\.XMPBasicSchema\\.getThumbnailsProperty\\:\\(\\)Ljava\\/util\\/List\\;"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.xmpbox.type.BadFieldValueException"
+  ], 
+  "methodRegex": "org\\.apache\\.xmpbox\\.schema\\.XMPSchema\\.setAbout\\:\\(Lorg\\/apache\\/xmpbox\\/type\\/Attribute\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "java.io.IOException"
+  ], 
+  "methodRegex": "org\\.apache\\.xmpbox\\.schema\\.XMPSchema\\.merge\\:\\(Lorg\\/apache\\/xmpbox\\/schema\\/XMPSchema\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.xmpbox.type.BadFieldValueException"
+  ], 
+  "methodRegex": "org\\.apache\\.xmpbox\\.schema\\.XMPSchema\\.getUnqualifiedArrayList\\:\\(Ljava\\/lang\\/String\\;\\)Ljava\\/util\\/List\\;"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.xmpbox.schema.XmpSchemaException"
+  ], 
+  "methodRegex": "org\\.apache\\.xmpbox\\.schema\\.XMPSchemaFactory\\.createXMPSchema\\:\\(Lorg\\/apache\\/xmpbox\\/XMPMetadata\\;Ljava\\/lang\\/String\\;\\)Lorg\\/apache\\/xmpbox\\/schema\\/XMPSchema\\;"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.xmpbox.type.BadFieldValueException"
+  ], 
+  "methodRegex": "org\\.apache\\.xmpbox\\.type\\.TypeMapping\\.instanciateStructuredType\\:\\(Lorg\\/apache\\/xmpbox\\/type\\/Types\\;Ljava\\/lang\\/String\\;\\)Lorg\\/apache\\/xmpbox\\/type\\/AbstractStructuredType\\;"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.xmpbox.schema.XmpSchemaException"
+  ], 
+  "methodRegex": "org\\.apache\\.xmpbox\\.type\\.TypeMapping\\.getAssociatedSchemaObject\\:\\(Lorg\\/apache\\/xmpbox\\/XMPMetadata\\;Ljava\\/lang\\/String\\;Ljava\\/lang\\/String\\;\\)Lorg\\/apache\\/xmpbox\\/schema\\/XMPSchema\\;"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.xmpbox.type.BadFieldValueException"
+  ], 
+  "methodRegex": "org\\.apache\\.xmpbox\\.type\\.TypeMapping\\.getSpecifiedPropertyType\\:\\(Ljavax\\/xml\\/namespace\\/QName\\;\\)Lorg\\/apache\\/xmpbox\\/type\\/PropertyType\\;"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.xmpbox.xml.XmpParsingException"
+  ], 
+  "methodRegex": "org\\.apache\\.xmpbox\\.xml\\.DomHelper\\.getUniqueElementChild\\:\\(Lorg\\/w3c\\/dom\\/Element\\;\\)Lorg\\/w3c\\/dom\\/Element\\;"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.xmpbox.xml.XmpParsingException"
+  ], 
+  "methodRegex": "org\\.apache\\.xmpbox\\.xml\\.DomHelper\\.getFirstChildElement\\:\\(Lorg\\/w3c\\/dom\\/Element\\;\\)Lorg\\/w3c\\/dom\\/Element\\;"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.xmpbox.xml.XmpParsingException"
+  ], 
+  "methodRegex": "org\\.apache\\.xmpbox\\.xml\\.DomHelper\\.getElementChildren\\:\\(Lorg\\/w3c\\/dom\\/Element\\;\\)Ljava\\/util\\/List\\;"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.xmpbox.xml.XmpParsingException"
+  ], 
+  "methodRegex": "org\\.apache\\.xmpbox\\.xml\\.DomXmpParser\\.\\<init\\>\\:\\(\\)V"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.xmpbox.xml.XmpParsingException"
+  ], 
+  "methodRegex": "org\\.apache\\.xmpbox\\.xml\\.DomXmpParser\\.parse\\:\\(\\[B\\)Lorg\\/apache\\/xmpbox\\/XMPMetadata\\;"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.xmpbox.xml.XmpParsingException"
+  ], 
+  "methodRegex": "org\\.apache\\.xmpbox\\.xml\\.DomXmpParser\\.parse\\:\\(Ljava\\/io\\/InputStream\\;\\)Lorg\\/apache\\/xmpbox\\/XMPMetadata\\;"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.xmpbox.xml.XmpParsingException"
+  ], 
+  "methodRegex": "org\\.apache\\.xmpbox\\.xml\\.DomXmpParser\\.parseDescriptionRoot\\:\\(Lorg\\/apache\\/xmpbox\\/XMPMetadata\\;Lorg\\/w3c\\/dom\\/Element\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.xmpbox.schema.XmpSchemaException", 
+   "org.apache.xmpbox.xml.XmpParsingException"
+  ], 
+  "methodRegex": "org\\.apache\\.xmpbox\\.xml\\.DomXmpParser\\.parseDescriptionRootAttr\\:\\(Lorg\\/apache\\/xmpbox\\/XMPMetadata\\;Lorg\\/w3c\\/dom\\/Element\\;Lorg\\/w3c\\/dom\\/Attr\\;Lorg\\/apache\\/xmpbox\\/type\\/TypeMapping\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.xmpbox.xml.XmpParsingException", 
+   "org.apache.xmpbox.schema.XmpSchemaException"
+  ], 
+  "methodRegex": "org\\.apache\\.xmpbox\\.xml\\.DomXmpParser\\.parseChildrenAsProperties\\:\\(Lorg\\/apache\\/xmpbox\\/XMPMetadata\\;Ljava\\/util\\/List\\;Lorg\\/apache\\/xmpbox\\/type\\/TypeMapping\\;Lorg\\/w3c\\/dom\\/Element\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.xmpbox.xml.XmpParsingException"
+  ], 
+  "methodRegex": "org\\.apache\\.xmpbox\\.xml\\.DomXmpParser\\.createProperty\\:\\(Lorg\\/apache\\/xmpbox\\/XMPMetadata\\;Lorg\\/w3c\\/dom\\/Element\\;Lorg\\/apache\\/xmpbox\\/type\\/PropertyType\\;Lorg\\/apache\\/xmpbox\\/type\\/ComplexPropertyContainer\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.xmpbox.xml.XmpParsingException"
+  ], 
+  "methodRegex": "org\\.apache\\.xmpbox\\.xml\\.DomXmpParser\\.manageDefinedType\\:\\(Lorg\\/apache\\/xmpbox\\/XMPMetadata\\;Lorg\\/w3c\\/dom\\/Element\\;Ljava\\/lang\\/String\\;Lorg\\/apache\\/xmpbox\\/type\\/ComplexPropertyContainer\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.xmpbox.xml.XmpParsingException"
+  ], 
+  "methodRegex": "org\\.apache\\.xmpbox\\.xml\\.DomXmpParser\\.manageStructuredType\\:\\(Lorg\\/apache\\/xmpbox\\/XMPMetadata\\;Lorg\\/w3c\\/dom\\/Element\\;Ljava\\/lang\\/String\\;Lorg\\/apache\\/xmpbox\\/type\\/ComplexPropertyContainer\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.xmpbox.xml.XmpParsingException"
+  ], 
+  "methodRegex": "org\\.apache\\.xmpbox\\.xml\\.DomXmpParser\\.manageSimpleType\\:\\(Lorg\\/apache\\/xmpbox\\/XMPMetadata\\;Lorg\\/w3c\\/dom\\/Element\\;Lorg\\/apache\\/xmpbox\\/type\\/Types\\;Lorg\\/apache\\/xmpbox\\/type\\/ComplexPropertyContainer\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.xmpbox.xml.XmpParsingException"
+  ], 
+  "methodRegex": "org\\.apache\\.xmpbox\\.xml\\.DomXmpParser\\.manageArray\\:\\(Lorg\\/apache\\/xmpbox\\/XMPMetadata\\;Lorg\\/w3c\\/dom\\/Element\\;Lorg\\/apache\\/xmpbox\\/type\\/PropertyType\\;Lorg\\/apache\\/xmpbox\\/type\\/ComplexPropertyContainer\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.xmpbox.xml.XmpParsingException"
+  ], 
+  "methodRegex": "org\\.apache\\.xmpbox\\.xml\\.DomXmpParser\\.manageLangAlt\\:\\(Lorg\\/apache\\/xmpbox\\/XMPMetadata\\;Lorg\\/w3c\\/dom\\/Element\\;Lorg\\/apache\\/xmpbox\\/type\\/ComplexPropertyContainer\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.xmpbox.xml.XmpParsingException"
+  ], 
+  "methodRegex": "org\\.apache\\.xmpbox\\.xml\\.DomXmpParser\\.parseDescriptionInner\\:\\(Lorg\\/apache\\/xmpbox\\/XMPMetadata\\;Lorg\\/w3c\\/dom\\/Element\\;Lorg\\/apache\\/xmpbox\\/type\\/ComplexPropertyContainer\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.xmpbox.xml.XmpParsingException"
+  ], 
+  "methodRegex": "org\\.apache\\.xmpbox\\.xml\\.DomXmpParser\\.parseLiElement\\:\\(Lorg\\/apache\\/xmpbox\\/XMPMetadata\\;Ljavax\\/xml\\/namespace\\/QName\\;Lorg\\/w3c\\/dom\\/Element\\;Lorg\\/apache\\/xmpbox\\/type\\/Types\\;\\)Lorg\\/apache\\/xmpbox\\/type\\/AbstractField\\;"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.xmpbox.xml.XmpParsingException"
+  ], 
+  "methodRegex": "org\\.apache\\.xmpbox\\.xml\\.DomXmpParser\\.parseLiDescription\\:\\(Lorg\\/apache\\/xmpbox\\/XMPMetadata\\;Ljavax\\/xml\\/namespace\\/QName\\;Lorg\\/w3c\\/dom\\/Element\\;\\)Lorg\\/apache\\/xmpbox\\/type\\/AbstractStructuredType\\;"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.xmpbox.xml.XmpParsingException"
+  ], 
+  "methodRegex": "org\\.apache\\.xmpbox\\.xml\\.DomXmpParser\\.parseInitialXpacket\\:\\(Lorg\\/w3c\\/dom\\/ProcessingInstruction\\;\\)Lorg\\/apache\\/xmpbox\\/XMPMetadata\\;"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.xmpbox.xml.XmpParsingException"
+  ], 
+  "methodRegex": "org\\.apache\\.xmpbox\\.xml\\.DomXmpParser\\.parseEndPacket\\:\\(Lorg\\/apache\\/xmpbox\\/XMPMetadata\\;Lorg\\/w3c\\/dom\\/ProcessingInstruction\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.xmpbox.xml.XmpParsingException"
+  ], 
+  "methodRegex": "org\\.apache\\.xmpbox\\.xml\\.DomXmpParser\\.findDescriptionsParent\\:\\(Lorg\\/w3c\\/dom\\/Element\\;\\)Lorg\\/w3c\\/dom\\/Element\\;"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.xmpbox.xml.XmpParsingException"
+  ], 
+  "methodRegex": "org\\.apache\\.xmpbox\\.xml\\.DomXmpParser\\.expectNaming\\:\\(Lorg\\/w3c\\/dom\\/Element\\;Ljava\\/lang\\/String\\;Ljava\\/lang\\/String\\;Ljava\\/lang\\/String\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.xmpbox.xml.XmpParsingException"
+  ], 
+  "methodRegex": "org\\.apache\\.xmpbox\\.xml\\.DomXmpParser\\.instanciateStructured\\:\\(Lorg\\/apache\\/xmpbox\\/type\\/TypeMapping\\;Lorg\\/apache\\/xmpbox\\/type\\/Types\\;Ljava\\/lang\\/String\\;Ljava\\/lang\\/String\\;\\)Lorg\\/apache\\/xmpbox\\/type\\/AbstractStructuredType\\;"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.xmpbox.xml.XmpParsingException"
+  ], 
+  "methodRegex": "org\\.apache\\.xmpbox\\.xml\\.DomXmpParser\\.checkPropertyDefinition\\:\\(Lorg\\/apache\\/xmpbox\\/XMPMetadata\\;Ljavax\\/xml\\/namespace\\/QName\\;\\)Lorg\\/apache\\/xmpbox\\/type\\/PropertyType\\;"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.xmpbox.xml.XmpParsingException"
+  ], 
+  "methodRegex": "org\\.apache\\.xmpbox\\.xml\\.PdfaExtensionHelper\\.validateNaming\\:\\(Lorg\\/apache\\/xmpbox\\/XMPMetadata\\;Lorg\\/w3c\\/dom\\/Element\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.xmpbox.xml.XmpParsingException"
+  ], 
+  "methodRegex": "org\\.apache\\.xmpbox\\.xml\\.PdfaExtensionHelper\\.checkNamespaceDeclaration\\:\\(Lorg\\/w3c\\/dom\\/Attr\\;Ljava\\/lang\\/Class\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.xmpbox.xml.XmpParsingException"
+  ], 
+  "methodRegex": "org\\.apache\\.xmpbox\\.xml\\.PdfaExtensionHelper\\.populateSchemaMapping\\:\\(Lorg\\/apache\\/xmpbox\\/XMPMetadata\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.xmpbox.xml.XmpParsingException"
+  ], 
+  "methodRegex": "org\\.apache\\.xmpbox\\.xml\\.PdfaExtensionHelper\\.populatePDFASchemaType\\:\\(Lorg\\/apache\\/xmpbox\\/XMPMetadata\\;Lorg\\/apache\\/xmpbox\\/type\\/PDFASchemaType\\;Lorg\\/apache\\/xmpbox\\/type\\/TypeMapping\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.xmpbox.xml.XmpParsingException"
+  ], 
+  "methodRegex": "org\\.apache\\.xmpbox\\.xml\\.PdfaExtensionHelper\\.populatePDFAPropertyType\\:\\(Lorg\\/apache\\/xmpbox\\/type\\/PDFAPropertyType\\;Lorg\\/apache\\/xmpbox\\/type\\/TypeMapping\\;Lorg\\/apache\\/xmpbox\\/schema\\/XMPSchemaFactory\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.xmpbox.xml.XmpParsingException"
+  ], 
+  "methodRegex": "org\\.apache\\.xmpbox\\.xml\\.PdfaExtensionHelper\\.populatePDFAType\\:\\(Lorg\\/apache\\/xmpbox\\/XMPMetadata\\;Lorg\\/apache\\/xmpbox\\/type\\/PDFATypeType\\;Lorg\\/apache\\/xmpbox\\/type\\/TypeMapping\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.xmpbox.xml.XmpParsingException"
+  ], 
+  "methodRegex": "org\\.apache\\.xmpbox\\.xml\\.PdfaExtensionHelper\\.populatePDFAFieldType\\:\\(Lorg\\/apache\\/xmpbox\\/type\\/PDFAFieldType\\;Lorg\\/apache\\/xmpbox\\/type\\/DefinedStructuredType\\;\\)V"
+ }, 
+ {
+  "exceptions": [
+   "org.apache.xmpbox.xml.XmpParsingException"
+  ], 
+  "methodRegex": "org\\.apache\\.xmpbox\\.xml\\.PdfaExtensionHelper\\.transformValueType\\:\\(Lorg\\/apache\\/xmpbox\\/type\\/TypeMapping\\;Ljava\\/lang\\/String\\;\\)Lorg\\/apache\\/xmpbox\\/type\\/PropertyType\\;"
+ }, 
+ {
+  "exceptions": [
+   "javax.xml.transform.TransformerException"
+  ], 
+  "methodRegex": "org\\.apache\\.xmpbox\\.xml\\.XmpSerializer\\.serialize\\:\\(Lorg\\/apache\\/xmpbox\\/XMPMetadata\\;Ljava\\/io\\/OutputStream\\;Z\\)V"
+ }, 
+ {
+  "exceptions": [
+   "javax.xml.transform.TransformerException"
+  ], 
+  "methodRegex": "org\\.apache\\.xmpbox\\.xml\\.XmpSerializer\\.save\\:\\(Lorg\\/w3c\\/dom\\/Node\\;Ljava\\/io\\/OutputStream\\;Ljava\\/lang\\/String\\;\\)V"
+ }
+]

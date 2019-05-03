@@ -8,3 +8,19 @@
 # merging a custom yml file on top of this one using the script
 # in dashboard/scripts/update-diffblue-yml. Any options specified here would
 # be overriden to keep consistency with other benchmarks.
+exceptionJson: true
+cbmcArguments:
+  java-stub-specified-exceptions-file: 'dependency-exceptions.json'
+  java-load-class:
+    - java.io.IOException
+    - java.lang.SecurityException
+    - java.lang.NoSuchMethodException
+    - org.apache.commons.logging.LogConfigurationException
+    - javax.xml.transform.TransformerException
+    - java.lang.ClassNotFoundException
+    - org.apache.xmpbox.xml.XmpParsingException
+    - java.lang.ExceptionInInitializerError
+    - org.apache.xmpbox.schema.XmpSchemaException
+    - java.io.FileNotFoundException
+    - org.apache.xmpbox.type.BadFieldValueException
+    - java.lang.LinkageError
