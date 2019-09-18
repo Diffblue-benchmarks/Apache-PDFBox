@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!--
  ! Licensed to the Apache Software Foundation (ASF) under one or more
  ! contributor license agreements.  See the NOTICE file distributed with
@@ -16,19 +15,15 @@
  ! See the License for the specific language governing permissions and
  ! limitations under the License.
  !-->
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-
   <parent>
     <groupId>org.apache.pdfbox</groupId>
     <artifactId>pdfbox-parent</artifactId>
     <version>3.0.0-SNAPSHOT</version>
     <relativePath>../parent/pom.xml</relativePath>
   </parent>
-
   <artifactId>pdfbox-debugger</artifactId>
-
   <packaging>jar</packaging>
   <name>Apache PDFBox Debugger</name>
   <description>
@@ -36,7 +31,6 @@
     This artefact contains the PDFDebugger.
   </description>
   <inceptionYear>2002</inceptionYear>
-
   <dependencies>
     <dependency>
       <groupId>org.bouncycastle</groupId>
@@ -44,30 +38,29 @@
       <optional>true</optional>
     </dependency>
     <dependency>
-        <groupId>${project.groupId}</groupId>
-        <artifactId>pdfbox</artifactId>
-        <version>${project.version}</version>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>pdfbox</artifactId>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
-        <groupId>org.apache.pdfbox</groupId>
-        <artifactId>jbig2-imageio</artifactId>
-        <scope>test</scope>
+      <groupId>org.apache.pdfbox</groupId>
+      <artifactId>jbig2-imageio</artifactId>
+      <scope>test</scope>
     </dependency>
     <!-- For legal reasons (incompatible license), these two dependencies 
         are to be used only in the tests and may not be distributed. 
         See also LEGAL-195 -->
     <dependency>
-        <groupId>com.github.jai-imageio</groupId>
-        <artifactId>jai-imageio-core</artifactId>
-        <scope>test</scope>
-    </dependency>    
+      <groupId>com.github.jai-imageio</groupId>
+      <artifactId>jai-imageio-core</artifactId>
+      <scope>test</scope>
+    </dependency>
     <dependency>
-        <groupId>com.github.jai-imageio</groupId>
-        <artifactId>jai-imageio-jpeg2000</artifactId>
-        <scope>test</scope>
+      <groupId>com.github.jai-imageio</groupId>
+      <artifactId>jai-imageio-jpeg2000</artifactId>
+      <scope>test</scope>
     </dependency>
   </dependencies>
-
   <build>
     <resources>
       <resource>
@@ -75,7 +68,23 @@
         <filtering>true</filtering>
       </resource>
     </resources>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.2.1</version>
+        <configuration>
+          <outputFile>target/${project.artifactId}-${project.version}-with-dependencies.jar</outputFile>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
   </build>
-
 </project>
-
