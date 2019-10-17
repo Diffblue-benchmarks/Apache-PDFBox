@@ -54,11 +54,6 @@
     	<version>1.4</version>
     </dependency>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
         <groupId>org.apache.pdfbox</groupId>
         <artifactId>jbig2-imageio</artifactId>
         <scope>test</scope>
