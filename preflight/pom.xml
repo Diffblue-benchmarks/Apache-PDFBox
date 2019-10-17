@@ -52,51 +52,6 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<configuration>
-					<skip>true</skip>
-                                        <argLine>${addmod}</argLine>
-				</configuration>
-				<executions>
-					<execution>
-						<id>surefire-test</id>
-						<phase>test</phase>
-						<goals>
-							<goal>test</goal>
-						</goals>
-						<configuration>
-							<skip>false</skip>
-							<excludes>
-								<exclude>**/integration/**</exclude>
-							</excludes>
-                                                        <argLine>${addmod}</argLine>
-						</configuration>
-					</execution>
-					<execution>
-						<id>surefire-itest</id>
-						<phase>integration-test</phase>
-						<goals>
-							<goal>test</goal>
-						</goals>
-						<configuration>
-							<skip>${skipITs}</skip>
-                                                        <argLine>${addmod}</argLine>
-							<includes>
-								<include>**/integration/*</include>
-							</includes>
-							<systemPropertyVariables>
-								<isartor.files>${isartor.files}</isartor.files>
-								<isartor.errors>${isartor.errors}</isartor.errors>
-								<invalid.files>${invalid.files}</invalid.files>
-								<invalid.errors>${invalid.errors}</invalid.errors>
-								<valid.files>${valid.files}</valid.files>
-							</systemPropertyVariables>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
 				<extensions>true</extensions>
