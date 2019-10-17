@@ -44,7 +44,6 @@
                     <dependency>
                         <groupId>javax.xml.bind</groupId>
                         <artifactId>jaxb-api</artifactId>
-                        <scope>provided</scope>
                     </dependency>
                 </dependencies>
             </profile>

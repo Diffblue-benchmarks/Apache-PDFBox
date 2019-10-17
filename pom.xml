@@ -42,17 +42,52 @@
     <url>http://svn.apache.org/viewvc/pdfbox/trunk</url>
   </scm>
 
+  <dependencies>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>fontbox</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>xmpbox</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>pdfbox</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>preflight</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>pdfbox-debugger</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>pdfbox-tools</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>pdfbox-examples</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+  </dependencies>
+
   <modules>
     <module>parent</module>
     <module>fontbox</module>
     <module>xmpbox</module>
     <module>pdfbox</module>
     <module>preflight</module>
-    <module>preflight-app</module>
     <module>debugger</module>
     <module>tools</module>
-    <module>app</module>
-    <module>debugger-app</module>
     <module>examples</module>
   </modules>
 
