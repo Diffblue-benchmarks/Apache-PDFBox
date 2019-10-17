@@ -1,0 +1,6 @@
+{
+  "phaseBase": {
+    "javaVersion": 7,
+    "preferDepsJar": true
+  }
+}
