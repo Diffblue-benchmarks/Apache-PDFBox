@@ -1,0 +1,179 @@
+package org.apache.pdfbox.pdmodel.common;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.util.List;
+import org.apache.pdfbox.cos.COSArray;
+import org.apache.pdfbox.cos.COSBase;
+import org.apache.pdfbox.cos.COSFloat;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+class PDRangeDiffblueTest {
+  /**
+   * Test getters and setters.
+   * <ul>
+   *   <li>When {@link COSArray#COSArray()}.</li>
+   * </ul>
+   * <p>
+   * Methods under test:
+   * <ul>
+   *   <li>{@link PDRange#PDRange(COSArray)}
+   *   <li>{@link PDRange#getCOSArray()}
+   *   <li>{@link PDRange#getCOSObject()}
+   * </ul>
+   */
+  @Test
+  @DisplayName("Test getters and setters; when COSArray()")
+  void testGettersAndSetters_whenCOSArray() {
+    // Arrange
+    COSArray range = new COSArray();
+
+    // Act
+    PDRange actualPdRange = new PDRange(range);
+    COSArray actualCOSArray = actualPdRange.getCOSArray();
+    COSBase actualCOSObject = actualPdRange.getCOSObject();
+
+    // Assert
+    assertTrue(actualCOSArray.toList().isEmpty());
+    assertSame(range, actualCOSArray);
+    assertSame(range, actualCOSObject);
+  }
+
+  /**
+   * Test getters and setters.
+   * <ul>
+   *   <li>When one.</li>
+   * </ul>
+   * <p>
+   * Methods under test:
+   * <ul>
+   *   <li>{@link PDRange#PDRange(COSArray, int)}
+   *   <li>{@link PDRange#getCOSArray()}
+   *   <li>{@link PDRange#getCOSObject()}
+   * </ul>
+   */
+  @Test
+  @DisplayName("Test getters and setters; when one")
+  void testGettersAndSetters_whenOne() {
+    // Arrange
+    COSArray range = new COSArray();
+
+    // Act
+    PDRange actualPdRange = new PDRange(range, 1);
+    COSArray actualCOSArray = actualPdRange.getCOSArray();
+    COSBase actualCOSObject = actualPdRange.getCOSObject();
+
+    // Assert
+    assertTrue(actualCOSArray.toList().isEmpty());
+    assertSame(range, actualCOSArray);
+    assertSame(range, actualCOSObject);
+  }
+
+  /**
+   * Test {@link PDRange#PDRange()}.
+   * <p>
+   * Method under test: {@link PDRange#PDRange()}
+   */
+  @Test
+  @DisplayName("Test new PDRange()")
+  void testNewPDRange() {
+    // Arrange and Act
+    PDRange actualPdRange = new PDRange();
+
+    // Assert
+    COSArray cOSArray = actualPdRange.getCOSArray();
+    List<? extends COSBase> toListResult = cOSArray.toList();
+    assertEquals(2, toListResult.size());
+    COSBase getResult = toListResult.get(0);
+    assertTrue(getResult instanceof COSFloat);
+    COSBase getResult2 = toListResult.get(1);
+    assertTrue(getResult2 instanceof COSFloat);
+    assertNull(getResult.getKey());
+    assertNull(getResult2.getKey());
+    assertEquals(0.0f, actualPdRange.getMin());
+    assertEquals(1.0f, actualPdRange.getMax());
+    assertFalse(getResult.isDirect());
+    assertFalse(getResult2.isDirect());
+    assertSame(cOSArray, actualPdRange.getCOSObject());
+  }
+
+  /**
+   * Test {@link PDRange#getMin()}.
+   * <ul>
+   *   <li>Given {@link PDRange#PDRange()}.</li>
+   *   <li>Then return zero.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDRange#getMin()}
+   */
+  @Test
+  @DisplayName("Test getMin(); given PDRange(); then return zero")
+  void testGetMin_givenPDRange_thenReturnZero() {
+    // Arrange, Act and Assert
+    assertEquals(0.0f, (new PDRange()).getMin());
+  }
+
+  /**
+   * Test {@link PDRange#setMin(float)}.
+   * <ul>
+   *   <li>Given {@link PDRange#PDRange()}.</li>
+   *   <li>Then {@link PDRange#PDRange()} Min is ten.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDRange#setMin(float)}
+   */
+  @Test
+  @DisplayName("Test setMin(float); given PDRange(); then PDRange() Min is ten")
+  void testSetMin_givenPDRange_thenPDRangeMinIsTen() {
+    // Arrange
+    PDRange pdRange = new PDRange();
+
+    // Act
+    pdRange.setMin(10.0f);
+
+    // Assert
+    assertEquals(10.0f, pdRange.getMin());
+  }
+
+  /**
+   * Test {@link PDRange#getMax()}.
+   * <ul>
+   *   <li>Given {@link PDRange#PDRange()}.</li>
+   *   <li>Then return one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDRange#getMax()}
+   */
+  @Test
+  @DisplayName("Test getMax(); given PDRange(); then return one")
+  void testGetMax_givenPDRange_thenReturnOne() {
+    // Arrange, Act and Assert
+    assertEquals(1.0f, (new PDRange()).getMax());
+  }
+
+  /**
+   * Test {@link PDRange#setMax(float)}.
+   * <ul>
+   *   <li>Given {@link PDRange#PDRange()}.</li>
+   *   <li>Then {@link PDRange#PDRange()} Max is ten.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDRange#setMax(float)}
+   */
+  @Test
+  @DisplayName("Test setMax(float); given PDRange(); then PDRange() Max is ten")
+  void testSetMax_givenPDRange_thenPDRangeMaxIsTen() {
+    // Arrange
+    PDRange pdRange = new PDRange();
+
+    // Act
+    pdRange.setMax(10.0f);
+
+    // Assert
+    assertEquals(10.0f, pdRange.getMax());
+  }
+}

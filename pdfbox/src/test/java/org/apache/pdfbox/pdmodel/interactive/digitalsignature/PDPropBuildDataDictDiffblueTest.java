@@ -1,0 +1,1201 @@
+package org.apache.pdfbox.pdmodel.interactive.digitalsignature;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.apache.pdfbox.cos.COSDictionary;
+import org.apache.pdfbox.cos.COSIncrement;
+import org.apache.pdfbox.cos.COSUpdateState;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+class PDPropBuildDataDictDiffblueTest {
+  /**
+   * Test {@link PDPropBuildDataDict#PDPropBuildDataDict()}.
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#PDPropBuildDataDict()}
+   */
+  @Test
+  @DisplayName("Test new PDPropBuildDataDict()")
+  void testNewPDPropBuildDataDict() {
+    // Arrange and Act
+    PDPropBuildDataDict actualPdPropBuildDataDict = new PDPropBuildDataDict();
+
+    // Assert
+    assertNull(actualPdPropBuildDataDict.getDate());
+    assertNull(actualPdPropBuildDataDict.getName());
+    assertNull(actualPdPropBuildDataDict.getOS());
+    assertNull(actualPdPropBuildDataDict.getVersion());
+    COSDictionary cOSObject = actualPdPropBuildDataDict.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertEquals(-1L, actualPdPropBuildDataDict.getMinimumRevision());
+    assertEquals(-1L, actualPdPropBuildDataDict.getRevision());
+    assertEquals(0, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertFalse(actualPdPropBuildDataDict.getPreRelease());
+    assertFalse(actualPdPropBuildDataDict.getTrustedMode());
+    assertTrue(cOSObject.getValues().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(cOSObject.isDirect());
+    assertTrue(actualPdPropBuildDataDict.getNonEFontNoWarn());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#PDPropBuildDataDict(COSDictionary)}.
+   * <ul>
+   *   <li>When {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then return Date is {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test:
+   * {@link PDPropBuildDataDict#PDPropBuildDataDict(COSDictionary)}
+   */
+  @Test
+  @DisplayName("Test new PDPropBuildDataDict(COSDictionary); when COSDictionary(); then return Date is 'null'")
+  void testNewPDPropBuildDataDict_whenCOSDictionary_thenReturnDateIsNull() {
+    // Arrange
+    COSDictionary dict = new COSDictionary();
+
+    // Act
+    PDPropBuildDataDict actualPdPropBuildDataDict = new PDPropBuildDataDict(dict);
+
+    // Assert
+    assertNull(actualPdPropBuildDataDict.getDate());
+    assertNull(actualPdPropBuildDataDict.getName());
+    assertNull(actualPdPropBuildDataDict.getOS());
+    assertNull(actualPdPropBuildDataDict.getVersion());
+    assertEquals(-1L, actualPdPropBuildDataDict.getMinimumRevision());
+    assertEquals(-1L, actualPdPropBuildDataDict.getRevision());
+    assertFalse(actualPdPropBuildDataDict.getPreRelease());
+    assertFalse(actualPdPropBuildDataDict.getTrustedMode());
+    assertTrue(dict.isDirect());
+    assertTrue(actualPdPropBuildDataDict.getNonEFontNoWarn());
+    assertSame(dict, actualPdPropBuildDataDict.getCOSObject());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#getCOSObject()}.
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#getCOSObject()}
+   */
+  @Test
+  @DisplayName("Test getCOSObject()")
+  void testGetCOSObject() {
+    // Arrange and Act
+    COSDictionary actualCOSObject = (new PDPropBuildDataDict()).getCOSObject();
+
+    // Assert
+    COSUpdateState updateState = actualCOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(actualCOSObject.getKey());
+    assertEquals(0, actualCOSObject.size());
+    COSIncrement toIncrementResult = actualCOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(actualCOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(actualCOSObject.getValues().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(actualCOSObject.isDirect());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#getName()}.
+   * <ul>
+   *   <li>Given {@link PDPropBuildDataDict#PDPropBuildDataDict()} Name is
+   * {@code Name}.</li>
+   *   <li>Then return {@code Name}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#getName()}
+   */
+  @Test
+  @DisplayName("Test getName(); given PDPropBuildDataDict() Name is 'Name'; then return 'Name'")
+  void testGetName_givenPDPropBuildDataDictNameIsName_thenReturnName() {
+    // Arrange
+    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
+    pdPropBuildDataDict.setName("Name");
+
+    // Act and Assert
+    assertEquals("Name", pdPropBuildDataDict.getName());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#getName()}.
+   * <ul>
+   *   <li>Given {@link PDPropBuildDataDict#PDPropBuildDataDict()}.</li>
+   *   <li>Then return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#getName()}
+   */
+  @Test
+  @DisplayName("Test getName(); given PDPropBuildDataDict(); then return 'null'")
+  void testGetName_givenPDPropBuildDataDict_thenReturnNull() {
+    // Arrange, Act and Assert
+    assertNull((new PDPropBuildDataDict()).getName());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#setName(String)}.
+   * <ul>
+   *   <li>When {@code NameName}.</li>
+   *   <li>Then {@link PDPropBuildDataDict#PDPropBuildDataDict()} Name is
+   * {@code NameName}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#setName(String)}
+   */
+  @Test
+  @DisplayName("Test setName(String); when 'NameName'; then PDPropBuildDataDict() Name is 'NameName'")
+  void testSetName_whenNameName_thenPDPropBuildDataDictNameIsNameName() {
+    // Arrange
+    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
+
+    // Act
+    pdPropBuildDataDict.setName("NameName");
+
+    // Assert
+    assertEquals("NameName", pdPropBuildDataDict.getName());
+    COSDictionary cOSObject = pdPropBuildDataDict.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#setName(String)}.
+   * <ul>
+   *   <li>When {@code Name}.</li>
+   *   <li>Then {@link PDPropBuildDataDict#PDPropBuildDataDict()} Name is
+   * {@code Name}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#setName(String)}
+   */
+  @Test
+  @DisplayName("Test setName(String); when 'Name'; then PDPropBuildDataDict() Name is 'Name'")
+  void testSetName_whenName_thenPDPropBuildDataDictNameIsName() {
+    // Arrange
+    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
+
+    // Act
+    pdPropBuildDataDict.setName("Name");
+
+    // Assert
+    assertEquals("Name", pdPropBuildDataDict.getName());
+    COSDictionary cOSObject = pdPropBuildDataDict.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#getDate()}.
+   * <ul>
+   *   <li>Given {@link PDPropBuildDataDict#PDPropBuildDataDict()} Date is
+   * {@code 2020-03-01}.</li>
+   *   <li>Then return {@code 2020-03-01}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#getDate()}
+   */
+  @Test
+  @DisplayName("Test getDate(); given PDPropBuildDataDict() Date is '2020-03-01'; then return '2020-03-01'")
+  void testGetDate_givenPDPropBuildDataDictDateIs20200301_thenReturn20200301() {
+    // Arrange
+    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
+    pdPropBuildDataDict.setDate("2020-03-01");
+
+    // Act and Assert
+    assertEquals("2020-03-01", pdPropBuildDataDict.getDate());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#getDate()}.
+   * <ul>
+   *   <li>Given {@link PDPropBuildDataDict#PDPropBuildDataDict()} Date is empty
+   * string.</li>
+   *   <li>Then return empty string.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#getDate()}
+   */
+  @Test
+  @DisplayName("Test getDate(); given PDPropBuildDataDict() Date is empty string; then return empty string")
+  void testGetDate_givenPDPropBuildDataDictDateIsEmptyString_thenReturnEmptyString() {
+    // Arrange
+    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
+    pdPropBuildDataDict.setDate("");
+
+    // Act and Assert
+    assertEquals("", pdPropBuildDataDict.getDate());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#getDate()}.
+   * <ul>
+   *   <li>Given {@link PDPropBuildDataDict#PDPropBuildDataDict()} Name is
+   * {@code Name}.</li>
+   *   <li>Then return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#getDate()}
+   */
+  @Test
+  @DisplayName("Test getDate(); given PDPropBuildDataDict() Name is 'Name'; then return 'null'")
+  void testGetDate_givenPDPropBuildDataDictNameIsName_thenReturnNull() {
+    // Arrange
+    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
+    pdPropBuildDataDict.setName("Name");
+
+    // Act and Assert
+    assertNull(pdPropBuildDataDict.getDate());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#getDate()}.
+   * <ul>
+   *   <li>Given {@link PDPropBuildDataDict#PDPropBuildDataDict()}.</li>
+   *   <li>Then return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#getDate()}
+   */
+  @Test
+  @DisplayName("Test getDate(); given PDPropBuildDataDict(); then return 'null'")
+  void testGetDate_givenPDPropBuildDataDict_thenReturnNull() {
+    // Arrange, Act and Assert
+    assertNull((new PDPropBuildDataDict()).getDate());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#setDate(String)}.
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#setDate(String)}
+   */
+  @Test
+  @DisplayName("Test setDate(String)")
+  void testSetDate() {
+    // Arrange
+    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
+
+    // Act
+    pdPropBuildDataDict.setDate("2020-03-01");
+
+    // Assert
+    assertEquals("2020-03-01", pdPropBuildDataDict.getDate());
+    COSDictionary cOSObject = pdPropBuildDataDict.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#setVersion(String)}.
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#setVersion(String)}
+   */
+  @Test
+  @DisplayName("Test setVersion(String)")
+  void testSetVersion() {
+    // Arrange
+    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
+
+    // Act
+    pdPropBuildDataDict.setVersion("1.0.2");
+
+    // Assert
+    assertEquals("1.0.2", pdPropBuildDataDict.getVersion());
+    COSDictionary cOSObject = pdPropBuildDataDict.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#getVersion()}.
+   * <ul>
+   *   <li>Given {@link PDPropBuildDataDict#PDPropBuildDataDict()} Name is
+   * {@code REx}.</li>
+   *   <li>Then return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#getVersion()}
+   */
+  @Test
+  @DisplayName("Test getVersion(); given PDPropBuildDataDict() Name is 'REx'; then return 'null'")
+  void testGetVersion_givenPDPropBuildDataDictNameIsREx_thenReturnNull() {
+    // Arrange
+    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
+    pdPropBuildDataDict.setName("REx");
+
+    // Act and Assert
+    assertNull(pdPropBuildDataDict.getVersion());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#getVersion()}.
+   * <ul>
+   *   <li>Given {@link PDPropBuildDataDict#PDPropBuildDataDict()} Version is
+   * {@code 1.0.2}.</li>
+   *   <li>Then return {@code 1.0.2}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#getVersion()}
+   */
+  @Test
+  @DisplayName("Test getVersion(); given PDPropBuildDataDict() Version is '1.0.2'; then return '1.0.2'")
+  void testGetVersion_givenPDPropBuildDataDictVersionIs102_thenReturn102() {
+    // Arrange
+    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
+    pdPropBuildDataDict.setVersion("1.0.2");
+
+    // Act and Assert
+    assertEquals("1.0.2", pdPropBuildDataDict.getVersion());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#getVersion()}.
+   * <ul>
+   *   <li>Given {@link PDPropBuildDataDict#PDPropBuildDataDict()}.</li>
+   *   <li>Then return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#getVersion()}
+   */
+  @Test
+  @DisplayName("Test getVersion(); given PDPropBuildDataDict(); then return 'null'")
+  void testGetVersion_givenPDPropBuildDataDict_thenReturnNull() {
+    // Arrange, Act and Assert
+    assertNull((new PDPropBuildDataDict()).getVersion());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#getVersion()}.
+   * <ul>
+   *   <li>Then return empty string.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#getVersion()}
+   */
+  @Test
+  @DisplayName("Test getVersion(); then return empty string")
+  void testGetVersion_thenReturnEmptyString() {
+    // Arrange
+    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
+    pdPropBuildDataDict.setVersion("");
+
+    // Act and Assert
+    assertEquals("", pdPropBuildDataDict.getVersion());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#getRevision()}.
+   * <ul>
+   *   <li>Given {@link PDPropBuildDataDict#PDPropBuildDataDict()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#getRevision()}
+   */
+  @Test
+  @DisplayName("Test getRevision(); given PDPropBuildDataDict()")
+  void testGetRevision_givenPDPropBuildDataDict() {
+    // Arrange, Act and Assert
+    assertEquals(-1L, (new PDPropBuildDataDict()).getRevision());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#getRevision()}.
+   * <ul>
+   *   <li>Given {@link PDPropBuildDataDict#PDPropBuildDataDict()} Name is
+   * {@code Name}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#getRevision()}
+   */
+  @Test
+  @DisplayName("Test getRevision(); given PDPropBuildDataDict() Name is 'Name'")
+  void testGetRevision_givenPDPropBuildDataDictNameIsName() {
+    // Arrange
+    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
+    pdPropBuildDataDict.setName("Name");
+
+    // Act and Assert
+    assertEquals(-1L, pdPropBuildDataDict.getRevision());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#getRevision()}.
+   * <ul>
+   *   <li>Given {@link PDPropBuildDataDict#PDPropBuildDataDict()} Revision is minus
+   * one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#getRevision()}
+   */
+  @Test
+  @DisplayName("Test getRevision(); given PDPropBuildDataDict() Revision is minus one")
+  void testGetRevision_givenPDPropBuildDataDictRevisionIsMinusOne() {
+    // Arrange
+    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
+    pdPropBuildDataDict.setRevision(-1L);
+
+    // Act and Assert
+    assertEquals(-1L, pdPropBuildDataDict.getRevision());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#setRevision(long)}.
+   * <ul>
+   *   <li>Then {@link PDPropBuildDataDict#PDPropBuildDataDict()} Revision is minus
+   * one hundred one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#setRevision(long)}
+   */
+  @Test
+  @DisplayName("Test setRevision(long); then PDPropBuildDataDict() Revision is minus one hundred one")
+  void testSetRevision_thenPDPropBuildDataDictRevisionIsMinusOneHundredOne() {
+    // Arrange
+    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
+
+    // Act
+    pdPropBuildDataDict.setRevision(-101L);
+
+    // Assert
+    assertEquals(-101L, pdPropBuildDataDict.getRevision());
+    COSDictionary cOSObject = pdPropBuildDataDict.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#setRevision(long)}.
+   * <ul>
+   *   <li>Then {@link PDPropBuildDataDict#PDPropBuildDataDict()} Revision is two
+   * hundred fifty-seven.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#setRevision(long)}
+   */
+  @Test
+  @DisplayName("Test setRevision(long); then PDPropBuildDataDict() Revision is two hundred fifty-seven")
+  void testSetRevision_thenPDPropBuildDataDictRevisionIsTwoHundredFiftySeven() {
+    // Arrange
+    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
+
+    // Act
+    pdPropBuildDataDict.setRevision(257L);
+
+    // Assert
+    COSDictionary cOSObject = pdPropBuildDataDict.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    assertEquals(257L, pdPropBuildDataDict.getRevision());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#setRevision(long)}.
+   * <ul>
+   *   <li>When one.</li>
+   *   <li>Then {@link PDPropBuildDataDict#PDPropBuildDataDict()} Revision is
+   * one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#setRevision(long)}
+   */
+  @Test
+  @DisplayName("Test setRevision(long); when one; then PDPropBuildDataDict() Revision is one")
+  void testSetRevision_whenOne_thenPDPropBuildDataDictRevisionIsOne() {
+    // Arrange
+    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
+
+    // Act
+    pdPropBuildDataDict.setRevision(1L);
+
+    // Assert
+    COSDictionary cOSObject = pdPropBuildDataDict.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    assertEquals(1L, pdPropBuildDataDict.getRevision());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#getMinimumRevision()}.
+   * <ul>
+   *   <li>Given {@link PDPropBuildDataDict#PDPropBuildDataDict()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#getMinimumRevision()}
+   */
+  @Test
+  @DisplayName("Test getMinimumRevision(); given PDPropBuildDataDict()")
+  void testGetMinimumRevision_givenPDPropBuildDataDict() {
+    // Arrange, Act and Assert
+    assertEquals(-1L, (new PDPropBuildDataDict()).getMinimumRevision());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#getMinimumRevision()}.
+   * <ul>
+   *   <li>Given {@link PDPropBuildDataDict#PDPropBuildDataDict()} MinimumRevision
+   * is minus one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#getMinimumRevision()}
+   */
+  @Test
+  @DisplayName("Test getMinimumRevision(); given PDPropBuildDataDict() MinimumRevision is minus one")
+  void testGetMinimumRevision_givenPDPropBuildDataDictMinimumRevisionIsMinusOne() {
+    // Arrange
+    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
+    pdPropBuildDataDict.setMinimumRevision(-1L);
+
+    // Act and Assert
+    assertEquals(-1L, pdPropBuildDataDict.getMinimumRevision());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#getMinimumRevision()}.
+   * <ul>
+   *   <li>Given {@link PDPropBuildDataDict#PDPropBuildDataDict()} Name is
+   * {@code Name}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#getMinimumRevision()}
+   */
+  @Test
+  @DisplayName("Test getMinimumRevision(); given PDPropBuildDataDict() Name is 'Name'")
+  void testGetMinimumRevision_givenPDPropBuildDataDictNameIsName() {
+    // Arrange
+    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
+    pdPropBuildDataDict.setName("Name");
+
+    // Act and Assert
+    assertEquals(-1L, pdPropBuildDataDict.getMinimumRevision());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#setMinimumRevision(long)}.
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#setMinimumRevision(long)}
+   */
+  @Test
+  @DisplayName("Test setMinimumRevision(long)")
+  void testSetMinimumRevision() {
+    // Arrange
+    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
+
+    // Act
+    pdPropBuildDataDict.setMinimumRevision(-101L);
+
+    // Assert
+    assertEquals(-101L, pdPropBuildDataDict.getMinimumRevision());
+    COSDictionary cOSObject = pdPropBuildDataDict.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#setMinimumRevision(long)}.
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#setMinimumRevision(long)}
+   */
+  @Test
+  @DisplayName("Test setMinimumRevision(long)")
+  void testSetMinimumRevision2() {
+    // Arrange
+    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
+
+    // Act
+    pdPropBuildDataDict.setMinimumRevision(257L);
+
+    // Assert
+    COSDictionary cOSObject = pdPropBuildDataDict.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    assertEquals(257L, pdPropBuildDataDict.getMinimumRevision());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#setMinimumRevision(long)}.
+   * <ul>
+   *   <li>When one.</li>
+   *   <li>Then {@link PDPropBuildDataDict#PDPropBuildDataDict()} MinimumRevision is
+   * one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#setMinimumRevision(long)}
+   */
+  @Test
+  @DisplayName("Test setMinimumRevision(long); when one; then PDPropBuildDataDict() MinimumRevision is one")
+  void testSetMinimumRevision_whenOne_thenPDPropBuildDataDictMinimumRevisionIsOne() {
+    // Arrange
+    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
+
+    // Act
+    pdPropBuildDataDict.setMinimumRevision(1L);
+
+    // Assert
+    COSDictionary cOSObject = pdPropBuildDataDict.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    assertEquals(1L, pdPropBuildDataDict.getMinimumRevision());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#getPreRelease()}.
+   * <ul>
+   *   <li>Given {@link PDPropBuildDataDict#PDPropBuildDataDict()} Name is
+   * {@code Name}.</li>
+   *   <li>Then return {@code false}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#getPreRelease()}
+   */
+  @Test
+  @DisplayName("Test getPreRelease(); given PDPropBuildDataDict() Name is 'Name'; then return 'false'")
+  void testGetPreRelease_givenPDPropBuildDataDictNameIsName_thenReturnFalse() {
+    // Arrange
+    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
+    pdPropBuildDataDict.setName("Name");
+
+    // Act and Assert
+    assertFalse(pdPropBuildDataDict.getPreRelease());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#getPreRelease()}.
+   * <ul>
+   *   <li>Given {@link PDPropBuildDataDict#PDPropBuildDataDict()} PreRelease is
+   * {@code false}.</li>
+   *   <li>Then return {@code false}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#getPreRelease()}
+   */
+  @Test
+  @DisplayName("Test getPreRelease(); given PDPropBuildDataDict() PreRelease is 'false'; then return 'false'")
+  void testGetPreRelease_givenPDPropBuildDataDictPreReleaseIsFalse_thenReturnFalse() {
+    // Arrange
+    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
+    pdPropBuildDataDict.setPreRelease(false);
+
+    // Act and Assert
+    assertFalse(pdPropBuildDataDict.getPreRelease());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#getPreRelease()}.
+   * <ul>
+   *   <li>Given {@link PDPropBuildDataDict#PDPropBuildDataDict()} PreRelease is
+   * {@code true}.</li>
+   *   <li>Then return {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#getPreRelease()}
+   */
+  @Test
+  @DisplayName("Test getPreRelease(); given PDPropBuildDataDict() PreRelease is 'true'; then return 'true'")
+  void testGetPreRelease_givenPDPropBuildDataDictPreReleaseIsTrue_thenReturnTrue() {
+    // Arrange
+    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
+    pdPropBuildDataDict.setPreRelease(true);
+
+    // Act and Assert
+    assertTrue(pdPropBuildDataDict.getPreRelease());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#getPreRelease()}.
+   * <ul>
+   *   <li>Given {@link PDPropBuildDataDict#PDPropBuildDataDict()}.</li>
+   *   <li>Then return {@code false}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#getPreRelease()}
+   */
+  @Test
+  @DisplayName("Test getPreRelease(); given PDPropBuildDataDict(); then return 'false'")
+  void testGetPreRelease_givenPDPropBuildDataDict_thenReturnFalse() {
+    // Arrange, Act and Assert
+    assertFalse((new PDPropBuildDataDict()).getPreRelease());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#setPreRelease(boolean)}.
+   * <ul>
+   *   <li>When {@code false}.</li>
+   *   <li>Then not {@link PDPropBuildDataDict#PDPropBuildDataDict()}
+   * PreRelease.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#setPreRelease(boolean)}
+   */
+  @Test
+  @DisplayName("Test setPreRelease(boolean); when 'false'; then not PDPropBuildDataDict() PreRelease")
+  void testSetPreRelease_whenFalse_thenNotPDPropBuildDataDictPreRelease() {
+    // Arrange
+    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
+
+    // Act
+    pdPropBuildDataDict.setPreRelease(false);
+
+    // Assert
+    COSDictionary cOSObject = pdPropBuildDataDict.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    assertFalse(pdPropBuildDataDict.getPreRelease());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#setPreRelease(boolean)}.
+   * <ul>
+   *   <li>When {@code true}.</li>
+   *   <li>Then {@link PDPropBuildDataDict#PDPropBuildDataDict()} PreRelease.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#setPreRelease(boolean)}
+   */
+  @Test
+  @DisplayName("Test setPreRelease(boolean); when 'true'; then PDPropBuildDataDict() PreRelease")
+  void testSetPreRelease_whenTrue_thenPDPropBuildDataDictPreRelease() {
+    // Arrange
+    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
+
+    // Act
+    pdPropBuildDataDict.setPreRelease(true);
+
+    // Assert
+    COSDictionary cOSObject = pdPropBuildDataDict.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    assertTrue(pdPropBuildDataDict.getPreRelease());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#getOS()}.
+   * <ul>
+   *   <li>Given {@link PDPropBuildDataDict#PDPropBuildDataDict()} Name is
+   * {@code Name}.</li>
+   *   <li>Then return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#getOS()}
+   */
+  @Test
+  @DisplayName("Test getOS(); given PDPropBuildDataDict() Name is 'Name'; then return 'null'")
+  void testGetOS_givenPDPropBuildDataDictNameIsName_thenReturnNull() {
+    // Arrange
+    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
+    pdPropBuildDataDict.setName("Name");
+
+    // Act and Assert
+    assertNull(pdPropBuildDataDict.getOS());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#getOS()}.
+   * <ul>
+   *   <li>Given {@link PDPropBuildDataDict#PDPropBuildDataDict()} OS is
+   * {@code Os}.</li>
+   *   <li>Then return {@code Os}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#getOS()}
+   */
+  @Test
+  @DisplayName("Test getOS(); given PDPropBuildDataDict() OS is 'Os'; then return 'Os'")
+  void testGetOS_givenPDPropBuildDataDictOsIsOs_thenReturnOs() {
+    // Arrange
+    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
+    pdPropBuildDataDict.setOS("Os");
+
+    // Act and Assert
+    assertEquals("Os", pdPropBuildDataDict.getOS());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#getOS()}.
+   * <ul>
+   *   <li>Given {@link PDPropBuildDataDict#PDPropBuildDataDict()}.</li>
+   *   <li>Then return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#getOS()}
+   */
+  @Test
+  @DisplayName("Test getOS(); given PDPropBuildDataDict(); then return 'null'")
+  void testGetOS_givenPDPropBuildDataDict_thenReturnNull() {
+    // Arrange, Act and Assert
+    assertNull((new PDPropBuildDataDict()).getOS());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#setOS(String)}.
+   * <ul>
+   *   <li>Given {@link PDPropBuildDataDict#PDPropBuildDataDict()}.</li>
+   *   <li>When {@code 42Os}.</li>
+   *   <li>Then {@link PDPropBuildDataDict#PDPropBuildDataDict()} OS is
+   * {@code 42Os}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#setOS(String)}
+   */
+  @Test
+  @DisplayName("Test setOS(String); given PDPropBuildDataDict(); when '42Os'; then PDPropBuildDataDict() OS is '42Os'")
+  void testSetOS_givenPDPropBuildDataDict_when42Os_thenPDPropBuildDataDictOsIs42Os() {
+    // Arrange
+    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
+
+    // Act
+    pdPropBuildDataDict.setOS("42Os");
+
+    // Assert
+    assertEquals("42Os", pdPropBuildDataDict.getOS());
+    COSDictionary cOSObject = pdPropBuildDataDict.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#setOS(String)}.
+   * <ul>
+   *   <li>Given {@link PDPropBuildDataDict#PDPropBuildDataDict()}.</li>
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link PDPropBuildDataDict#PDPropBuildDataDict()} OS is
+   * {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#setOS(String)}
+   */
+  @Test
+  @DisplayName("Test setOS(String); given PDPropBuildDataDict(); when 'null'; then PDPropBuildDataDict() OS is 'null'")
+  void testSetOS_givenPDPropBuildDataDict_whenNull_thenPDPropBuildDataDictOsIsNull() {
+    // Arrange
+    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
+
+    // Act
+    pdPropBuildDataDict.setOS(null);
+
+    // Assert
+    assertNull(pdPropBuildDataDict.getOS());
+    COSDictionary cOSObject = pdPropBuildDataDict.getCOSObject();
+    assertEquals(0, cOSObject.size());
+    assertTrue(cOSObject.getValues().isEmpty());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#setOS(String)}.
+   * <ul>
+   *   <li>Given {@link PDPropBuildDataDict#PDPropBuildDataDict()}.</li>
+   *   <li>When {@code Os}.</li>
+   *   <li>Then {@link PDPropBuildDataDict#PDPropBuildDataDict()} OS is
+   * {@code Os}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#setOS(String)}
+   */
+  @Test
+  @DisplayName("Test setOS(String); given PDPropBuildDataDict(); when 'Os'; then PDPropBuildDataDict() OS is 'Os'")
+  void testSetOS_givenPDPropBuildDataDict_whenOs_thenPDPropBuildDataDictOsIsOs() {
+    // Arrange
+    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
+
+    // Act
+    pdPropBuildDataDict.setOS("Os");
+
+    // Assert
+    assertEquals("Os", pdPropBuildDataDict.getOS());
+    COSDictionary cOSObject = pdPropBuildDataDict.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#setOS(String)}.
+   * <ul>
+   *   <li>Then {@link PDPropBuildDataDict#PDPropBuildDataDict()} COSObject Values
+   * size is two.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#setOS(String)}
+   */
+  @Test
+  @DisplayName("Test setOS(String); then PDPropBuildDataDict() COSObject Values size is two")
+  void testSetOS_thenPDPropBuildDataDictCOSObjectValuesSizeIsTwo() {
+    // Arrange
+    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
+    pdPropBuildDataDict.setName("Name");
+
+    // Act
+    pdPropBuildDataDict.setOS("Os");
+
+    // Assert
+    assertEquals("Os", pdPropBuildDataDict.getOS());
+    COSDictionary cOSObject = pdPropBuildDataDict.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#getNonEFontNoWarn()}.
+   * <ul>
+   *   <li>Given {@link PDPropBuildDataDict#PDPropBuildDataDict()} Name is
+   * {@code Name}.</li>
+   *   <li>Then return {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#getNonEFontNoWarn()}
+   */
+  @Test
+  @DisplayName("Test getNonEFontNoWarn(); given PDPropBuildDataDict() Name is 'Name'; then return 'true'")
+  void testGetNonEFontNoWarn_givenPDPropBuildDataDictNameIsName_thenReturnTrue() {
+    // Arrange
+    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
+    pdPropBuildDataDict.setName("Name");
+
+    // Act and Assert
+    assertTrue(pdPropBuildDataDict.getNonEFontNoWarn());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#getNonEFontNoWarn()}.
+   * <ul>
+   *   <li>Given {@link PDPropBuildDataDict#PDPropBuildDataDict()} NonEFontNoWarn is
+   * {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#getNonEFontNoWarn()}
+   */
+  @Test
+  @DisplayName("Test getNonEFontNoWarn(); given PDPropBuildDataDict() NonEFontNoWarn is 'true'")
+  void testGetNonEFontNoWarn_givenPDPropBuildDataDictNonEFontNoWarnIsTrue() {
+    // Arrange
+    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
+    pdPropBuildDataDict.setNonEFontNoWarn(true);
+
+    // Act and Assert
+    assertTrue(pdPropBuildDataDict.getNonEFontNoWarn());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#getNonEFontNoWarn()}.
+   * <ul>
+   *   <li>Given {@link PDPropBuildDataDict#PDPropBuildDataDict()}.</li>
+   *   <li>Then return {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#getNonEFontNoWarn()}
+   */
+  @Test
+  @DisplayName("Test getNonEFontNoWarn(); given PDPropBuildDataDict(); then return 'true'")
+  void testGetNonEFontNoWarn_givenPDPropBuildDataDict_thenReturnTrue() {
+    // Arrange, Act and Assert
+    assertTrue((new PDPropBuildDataDict()).getNonEFontNoWarn());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#getNonEFontNoWarn()}.
+   * <ul>
+   *   <li>Then return {@code false}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#getNonEFontNoWarn()}
+   */
+  @Test
+  @DisplayName("Test getNonEFontNoWarn(); then return 'false'")
+  void testGetNonEFontNoWarn_thenReturnFalse() {
+    // Arrange
+    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
+    pdPropBuildDataDict.setNonEFontNoWarn(false);
+
+    // Act and Assert
+    assertFalse(pdPropBuildDataDict.getNonEFontNoWarn());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#setNonEFontNoWarn(boolean)}.
+   * <ul>
+   *   <li>When {@code false}.</li>
+   *   <li>Then not {@link PDPropBuildDataDict#PDPropBuildDataDict()}
+   * NonEFontNoWarn.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#setNonEFontNoWarn(boolean)}
+   */
+  @Test
+  @DisplayName("Test setNonEFontNoWarn(boolean); when 'false'; then not PDPropBuildDataDict() NonEFontNoWarn")
+  void testSetNonEFontNoWarn_whenFalse_thenNotPDPropBuildDataDictNonEFontNoWarn() {
+    // Arrange
+    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
+
+    // Act
+    pdPropBuildDataDict.setNonEFontNoWarn(false);
+
+    // Assert
+    COSDictionary cOSObject = pdPropBuildDataDict.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    assertFalse(pdPropBuildDataDict.getNonEFontNoWarn());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#setNonEFontNoWarn(boolean)}.
+   * <ul>
+   *   <li>When {@code true}.</li>
+   *   <li>Then {@link PDPropBuildDataDict#PDPropBuildDataDict()}
+   * NonEFontNoWarn.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#setNonEFontNoWarn(boolean)}
+   */
+  @Test
+  @DisplayName("Test setNonEFontNoWarn(boolean); when 'true'; then PDPropBuildDataDict() NonEFontNoWarn")
+  void testSetNonEFontNoWarn_whenTrue_thenPDPropBuildDataDictNonEFontNoWarn() {
+    // Arrange
+    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
+
+    // Act
+    pdPropBuildDataDict.setNonEFontNoWarn(true);
+
+    // Assert
+    COSDictionary cOSObject = pdPropBuildDataDict.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    assertTrue(pdPropBuildDataDict.getNonEFontNoWarn());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#getTrustedMode()}.
+   * <ul>
+   *   <li>Given {@link PDPropBuildDataDict#PDPropBuildDataDict()} Name is
+   * {@code Name}.</li>
+   *   <li>Then return {@code false}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#getTrustedMode()}
+   */
+  @Test
+  @DisplayName("Test getTrustedMode(); given PDPropBuildDataDict() Name is 'Name'; then return 'false'")
+  void testGetTrustedMode_givenPDPropBuildDataDictNameIsName_thenReturnFalse() {
+    // Arrange
+    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
+    pdPropBuildDataDict.setName("Name");
+
+    // Act and Assert
+    assertFalse(pdPropBuildDataDict.getTrustedMode());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#getTrustedMode()}.
+   * <ul>
+   *   <li>Given {@link PDPropBuildDataDict#PDPropBuildDataDict()} TrustedMode is
+   * {@code false}.</li>
+   *   <li>Then return {@code false}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#getTrustedMode()}
+   */
+  @Test
+  @DisplayName("Test getTrustedMode(); given PDPropBuildDataDict() TrustedMode is 'false'; then return 'false'")
+  void testGetTrustedMode_givenPDPropBuildDataDictTrustedModeIsFalse_thenReturnFalse() {
+    // Arrange
+    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
+    pdPropBuildDataDict.setTrustedMode(false);
+
+    // Act and Assert
+    assertFalse(pdPropBuildDataDict.getTrustedMode());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#getTrustedMode()}.
+   * <ul>
+   *   <li>Given {@link PDPropBuildDataDict#PDPropBuildDataDict()} TrustedMode is
+   * {@code true}.</li>
+   *   <li>Then return {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#getTrustedMode()}
+   */
+  @Test
+  @DisplayName("Test getTrustedMode(); given PDPropBuildDataDict() TrustedMode is 'true'; then return 'true'")
+  void testGetTrustedMode_givenPDPropBuildDataDictTrustedModeIsTrue_thenReturnTrue() {
+    // Arrange
+    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
+    pdPropBuildDataDict.setTrustedMode(true);
+
+    // Act and Assert
+    assertTrue(pdPropBuildDataDict.getTrustedMode());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#getTrustedMode()}.
+   * <ul>
+   *   <li>Given {@link PDPropBuildDataDict#PDPropBuildDataDict()}.</li>
+   *   <li>Then return {@code false}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#getTrustedMode()}
+   */
+  @Test
+  @DisplayName("Test getTrustedMode(); given PDPropBuildDataDict(); then return 'false'")
+  void testGetTrustedMode_givenPDPropBuildDataDict_thenReturnFalse() {
+    // Arrange, Act and Assert
+    assertFalse((new PDPropBuildDataDict()).getTrustedMode());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#setTrustedMode(boolean)}.
+   * <ul>
+   *   <li>When {@code false}.</li>
+   *   <li>Then not {@link PDPropBuildDataDict#PDPropBuildDataDict()}
+   * TrustedMode.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#setTrustedMode(boolean)}
+   */
+  @Test
+  @DisplayName("Test setTrustedMode(boolean); when 'false'; then not PDPropBuildDataDict() TrustedMode")
+  void testSetTrustedMode_whenFalse_thenNotPDPropBuildDataDictTrustedMode() {
+    // Arrange
+    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
+
+    // Act
+    pdPropBuildDataDict.setTrustedMode(false);
+
+    // Assert
+    COSDictionary cOSObject = pdPropBuildDataDict.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    assertFalse(pdPropBuildDataDict.getTrustedMode());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#setTrustedMode(boolean)}.
+   * <ul>
+   *   <li>When {@code true}.</li>
+   *   <li>Then {@link PDPropBuildDataDict#PDPropBuildDataDict()} TrustedMode.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPropBuildDataDict#setTrustedMode(boolean)}
+   */
+  @Test
+  @DisplayName("Test setTrustedMode(boolean); when 'true'; then PDPropBuildDataDict() TrustedMode")
+  void testSetTrustedMode_whenTrue_thenPDPropBuildDataDictTrustedMode() {
+    // Arrange
+    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
+
+    // Act
+    pdPropBuildDataDict.setTrustedMode(true);
+
+    // Assert
+    COSDictionary cOSObject = pdPropBuildDataDict.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    assertTrue(pdPropBuildDataDict.getTrustedMode());
+  }
+}

@@ -1,0 +1,126 @@
+package org.apache.pdfbox.contentstream.operator.text;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import org.apache.pdfbox.contentstream.PDFStreamEngine;
+import org.apache.pdfbox.contentstream.operator.Operator;
+import org.apache.pdfbox.cos.COSBase;
+import org.apache.pdfbox.cos.COSString;
+import org.apache.pdfbox.text.PDFMarkedContentExtractor;
+import org.apache.pdfbox.util.Matrix;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+
+class ShowTextDiffblueTest {
+  /**
+   * Test getters and setters.
+   * <p>
+   * Methods under test:
+   * <ul>
+   *   <li>{@link ShowText#ShowText(PDFStreamEngine)}
+   *   <li>{@link ShowText#getName()}
+   * </ul>
+   */
+  @Test
+  @DisplayName("Test getters and setters")
+  void testGettersAndSetters() {
+    // Arrange, Act and Assert
+    assertEquals("Tj", (new ShowText(new PDFMarkedContentExtractor())).getName());
+  }
+
+  /**
+   * Test {@link ShowText#process(Operator, List)}.
+   * <ul>
+   *   <li>Given {@link PDFStreamEngine} {@link PDFStreamEngine#getTextMatrix()}
+   * return {@code null}.</li>
+   *   <li>Then calls {@link PDFStreamEngine#getTextMatrix()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ShowText#process(Operator, List)}
+   */
+  @Test
+  @DisplayName("Test process(Operator, List); given PDFStreamEngine getTextMatrix() return 'null'; then calls getTextMatrix()")
+  void testProcess_givenPDFStreamEngineGetTextMatrixReturnNull_thenCallsGetTextMatrix() throws IOException {
+    // Arrange
+    PDFStreamEngine context = mock(PDFStreamEngine.class);
+    when(context.getTextMatrix()).thenReturn(null);
+    ShowText showText = new ShowText(context);
+    Operator operator = Operator.getOperator("Operator");
+
+    ArrayList<COSBase> arguments = new ArrayList<>();
+    arguments.add(COSString.parseHex("0123456789ABCDEF"));
+
+    // Act
+    showText.process(operator, arguments);
+
+    // Assert that nothing has changed
+    verify(context).getTextMatrix();
+  }
+
+  /**
+   * Test {@link ShowText#process(Operator, List)}.
+   * <ul>
+   *   <li>Given {@link PDFStreamEngine}
+   * {@link PDFStreamEngine#showTextString(byte[])} does nothing.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ShowText#process(Operator, List)}
+   */
+  @Test
+  @DisplayName("Test process(Operator, List); given PDFStreamEngine showTextString(byte[]) does nothing")
+  void testProcess_givenPDFStreamEngineShowTextStringDoesNothing() throws IOException {
+    // Arrange
+    PDFStreamEngine context = mock(PDFStreamEngine.class);
+    doNothing().when(context).showTextString(Mockito.<byte[]>any());
+    when(context.getTextMatrix()).thenReturn(new Matrix());
+    ShowText showText = new ShowText(context);
+    Operator operator = Operator.getOperator("Operator");
+
+    ArrayList<COSBase> arguments = new ArrayList<>();
+    arguments.add(COSString.parseHex("0123456789ABCDEF"));
+
+    // Act
+    showText.process(operator, arguments);
+
+    // Assert that nothing has changed
+    verify(context).getTextMatrix();
+    verify(context).showTextString(isA(byte[].class));
+  }
+
+  /**
+   * Test {@link ShowText#process(Operator, List)}.
+   * <ul>
+   *   <li>Then throw {@link IOException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ShowText#process(Operator, List)}
+   */
+  @Test
+  @DisplayName("Test process(Operator, List); then throw IOException")
+  void testProcess_thenThrowIOException() throws IOException {
+    // Arrange
+    PDFStreamEngine context = mock(PDFStreamEngine.class);
+    doThrow(new IOException("foo")).when(context).showTextString(Mockito.<byte[]>any());
+    when(context.getTextMatrix()).thenReturn(new Matrix());
+    ShowText showText = new ShowText(context);
+    Operator operator = Operator.getOperator("Operator");
+
+    ArrayList<COSBase> arguments = new ArrayList<>();
+    arguments.add(COSString.parseHex("0123456789ABCDEF"));
+
+    // Act and Assert
+    assertThrows(IOException.class, () -> showText.process(operator, arguments));
+    verify(context).getTextMatrix();
+    verify(context).showTextString(isA(byte[].class));
+  }
+}

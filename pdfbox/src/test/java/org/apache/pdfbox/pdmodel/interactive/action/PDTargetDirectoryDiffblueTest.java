@@ -1,0 +1,796 @@
+package org.apache.pdfbox.pdmodel.interactive.action;
+
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import java.io.UnsupportedEncodingException;
+import org.apache.pdfbox.cos.COSBase;
+import org.apache.pdfbox.cos.COSDictionary;
+import org.apache.pdfbox.cos.COSIncrement;
+import org.apache.pdfbox.cos.COSName;
+import org.apache.pdfbox.cos.COSString;
+import org.apache.pdfbox.cos.COSUpdateState;
+import org.apache.pdfbox.pdmodel.common.COSObjectable;
+import org.apache.pdfbox.pdmodel.interactive.documentnavigation.destination.PDNamedDestination;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+
+class PDTargetDirectoryDiffblueTest {
+  /**
+   * Test {@link PDTargetDirectory#PDTargetDirectory(COSDictionary)}.
+   * <p>
+   * Method under test: {@link PDTargetDirectory#PDTargetDirectory(COSDictionary)}
+   */
+  @Test
+  @DisplayName("Test new PDTargetDirectory(COSDictionary)")
+  void testNewPDTargetDirectory() {
+    // Arrange
+    COSDictionary dictionary = new COSDictionary();
+
+    // Act and Assert
+    assertSame(dictionary, (new PDTargetDirectory(dictionary)).getCOSObject());
+  }
+
+  /**
+   * Test {@link PDTargetDirectory#PDTargetDirectory()}.
+   * <p>
+   * Method under test: {@link PDTargetDirectory#PDTargetDirectory()}
+   */
+  @Test
+  @DisplayName("Test new PDTargetDirectory()")
+  void testNewPDTargetDirectory2() {
+    // Arrange and Act
+    PDTargetDirectory actualPdTargetDirectory = new PDTargetDirectory();
+
+    // Assert
+    assertNull(actualPdTargetDirectory.getAnnotationName());
+    assertNull(actualPdTargetDirectory.getFilename());
+    COSDictionary cOSObject = actualPdTargetDirectory.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(actualPdTargetDirectory.getRelationship());
+    assertNull(cOSObject.getKey());
+    assertNull(actualPdTargetDirectory.getTargetDirectory());
+    assertNull(actualPdTargetDirectory.getNamedDestination());
+    assertEquals(-1, actualPdTargetDirectory.getAnnotationIndex());
+    assertEquals(-1, actualPdTargetDirectory.getPageNumber());
+    assertEquals(0, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(cOSObject.getValues().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+  }
+
+  /**
+   * Test {@link PDTargetDirectory#getCOSObject()}.
+   * <p>
+   * Method under test: {@link PDTargetDirectory#getCOSObject()}
+   */
+  @Test
+  @DisplayName("Test getCOSObject()")
+  void testGetCOSObject() {
+    // Arrange and Act
+    COSDictionary actualCOSObject = (new PDTargetDirectory()).getCOSObject();
+
+    // Assert
+    COSUpdateState updateState = actualCOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(actualCOSObject.getKey());
+    assertEquals(0, actualCOSObject.size());
+    COSIncrement toIncrementResult = actualCOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(actualCOSObject.isDirect());
+    assertFalse(actualCOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(actualCOSObject.getValues().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+  }
+
+  /**
+   * Test {@link PDTargetDirectory#getRelationship()}.
+   * <ul>
+   *   <li>Given {@link PDTargetDirectory#PDTargetDirectory()} Filename is
+   * {@code foo.txt}.</li>
+   *   <li>Then return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDTargetDirectory#getRelationship()}
+   */
+  @Test
+  @DisplayName("Test getRelationship(); given PDTargetDirectory() Filename is 'foo.txt'; then return 'null'")
+  void testGetRelationship_givenPDTargetDirectoryFilenameIsFooTxt_thenReturnNull() {
+    // Arrange
+    PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
+    pdTargetDirectory.setFilename("foo.txt");
+
+    // Act and Assert
+    assertNull(pdTargetDirectory.getRelationship());
+  }
+
+  /**
+   * Test {@link PDTargetDirectory#getRelationship()}.
+   * <ul>
+   *   <li>Given {@link PDTargetDirectory#PDTargetDirectory()}.</li>
+   *   <li>Then return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDTargetDirectory#getRelationship()}
+   */
+  @Test
+  @DisplayName("Test getRelationship(); given PDTargetDirectory(); then return 'null'")
+  void testGetRelationship_givenPDTargetDirectory_thenReturnNull() {
+    // Arrange, Act and Assert
+    assertNull((new PDTargetDirectory()).getRelationship());
+  }
+
+  /**
+   * Test {@link PDTargetDirectory#setRelationship(COSName)}.
+   * <ul>
+   *   <li>When {@link COSName#A}.</li>
+   *   <li>Then throw {@link IllegalArgumentException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDTargetDirectory#setRelationship(COSName)}
+   */
+  @Test
+  @DisplayName("Test setRelationship(COSName); when A; then throw IllegalArgumentException")
+  void testSetRelationship_whenA_thenThrowIllegalArgumentException() {
+    // Arrange, Act and Assert
+    assertThrows(IllegalArgumentException.class, () -> (new PDTargetDirectory()).setRelationship(COSName.A));
+  }
+
+  /**
+   * Test {@link PDTargetDirectory#getFilename()}.
+   * <ul>
+   *   <li>Given {@link PDTargetDirectory#PDTargetDirectory()} Filename is
+   * {@code foo.txt}.</li>
+   *   <li>Then return {@code foo.txt}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDTargetDirectory#getFilename()}
+   */
+  @Test
+  @DisplayName("Test getFilename(); given PDTargetDirectory() Filename is 'foo.txt'; then return 'foo.txt'")
+  void testGetFilename_givenPDTargetDirectoryFilenameIsFooTxt_thenReturnFooTxt() {
+    // Arrange
+    PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
+    pdTargetDirectory.setFilename("foo.txt");
+
+    // Act and Assert
+    assertEquals("foo.txt", pdTargetDirectory.getFilename());
+  }
+
+  /**
+   * Test {@link PDTargetDirectory#getFilename()}.
+   * <ul>
+   *   <li>Given {@link PDTargetDirectory#PDTargetDirectory()}.</li>
+   *   <li>Then return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDTargetDirectory#getFilename()}
+   */
+  @Test
+  @DisplayName("Test getFilename(); given PDTargetDirectory(); then return 'null'")
+  void testGetFilename_givenPDTargetDirectory_thenReturnNull() {
+    // Arrange, Act and Assert
+    assertNull((new PDTargetDirectory()).getFilename());
+  }
+
+  /**
+   * Test {@link PDTargetDirectory#getFilename()}.
+   * <ul>
+   *   <li>Then return empty string.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDTargetDirectory#getFilename()}
+   */
+  @Test
+  @DisplayName("Test getFilename(); then return empty string")
+  void testGetFilename_thenReturnEmptyString() {
+    // Arrange
+    PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
+    pdTargetDirectory.setFilename("");
+
+    // Act and Assert
+    assertEquals("", pdTargetDirectory.getFilename());
+  }
+
+  /**
+   * Test {@link PDTargetDirectory#setFilename(String)}.
+   * <ul>
+   *   <li>Given {@link PDTargetDirectory#PDTargetDirectory()}.</li>
+   *   <li>Then {@link PDTargetDirectory#PDTargetDirectory()} Filename is
+   * {@code foo.txt}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDTargetDirectory#setFilename(String)}
+   */
+  @Test
+  @DisplayName("Test setFilename(String); given PDTargetDirectory(); then PDTargetDirectory() Filename is 'foo.txt'")
+  void testSetFilename_givenPDTargetDirectory_thenPDTargetDirectoryFilenameIsFooTxt() {
+    // Arrange
+    PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
+
+    // Act
+    pdTargetDirectory.setFilename("foo.txt");
+
+    // Assert
+    assertEquals("foo.txt", pdTargetDirectory.getFilename());
+    COSDictionary cOSObject = pdTargetDirectory.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDTargetDirectory#getTargetDirectory()}.
+   * <ul>
+   *   <li>Given {@link PDTargetDirectory#PDTargetDirectory()} Filename is
+   * {@code foo.txt}.</li>
+   *   <li>Then return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDTargetDirectory#getTargetDirectory()}
+   */
+  @Test
+  @DisplayName("Test getTargetDirectory(); given PDTargetDirectory() Filename is 'foo.txt'; then return 'null'")
+  void testGetTargetDirectory_givenPDTargetDirectoryFilenameIsFooTxt_thenReturnNull() {
+    // Arrange
+    PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
+    pdTargetDirectory.setFilename("foo.txt");
+
+    // Act and Assert
+    assertNull(pdTargetDirectory.getTargetDirectory());
+  }
+
+  /**
+   * Test {@link PDTargetDirectory#getTargetDirectory()}.
+   * <ul>
+   *   <li>Given {@link PDTargetDirectory#PDTargetDirectory()}.</li>
+   *   <li>Then return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDTargetDirectory#getTargetDirectory()}
+   */
+  @Test
+  @DisplayName("Test getTargetDirectory(); given PDTargetDirectory(); then return 'null'")
+  void testGetTargetDirectory_givenPDTargetDirectory_thenReturnNull() {
+    // Arrange, Act and Assert
+    assertNull((new PDTargetDirectory()).getTargetDirectory());
+  }
+
+  /**
+   * Test {@link PDTargetDirectory#getTargetDirectory()}.
+   * <ul>
+   *   <li>Then return AnnotationName is {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDTargetDirectory#getTargetDirectory()}
+   */
+  @Test
+  @DisplayName("Test getTargetDirectory(); then return AnnotationName is 'null'")
+  void testGetTargetDirectory_thenReturnAnnotationNameIsNull() {
+    // Arrange
+    PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
+    pdTargetDirectory.setTargetDirectory(new PDTargetDirectory());
+
+    // Act
+    PDTargetDirectory actualTargetDirectory = pdTargetDirectory.getTargetDirectory();
+
+    // Assert
+    assertNull(actualTargetDirectory.getAnnotationName());
+    assertNull(actualTargetDirectory.getFilename());
+    COSDictionary cOSObject = actualTargetDirectory.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(actualTargetDirectory.getRelationship());
+    assertNull(cOSObject.getKey());
+    assertNull(actualTargetDirectory.getNamedDestination());
+    assertEquals(-1, actualTargetDirectory.getAnnotationIndex());
+    assertEquals(-1, actualTargetDirectory.getPageNumber());
+    assertEquals(0, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(cOSObject.getValues().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+  }
+
+  /**
+   * Test {@link PDTargetDirectory#setTargetDirectory(PDTargetDirectory)}.
+   * <ul>
+   *   <li>Given {@link COSDictionary}
+   * {@link COSDictionary#setItem(COSName, COSObjectable)} does nothing.</li>
+   *   <li>Then calls {@link COSDictionary#setItem(COSName, COSObjectable)}.</li>
+   * </ul>
+   * <p>
+   * Method under test:
+   * {@link PDTargetDirectory#setTargetDirectory(PDTargetDirectory)}
+   */
+  @Test
+  @DisplayName("Test setTargetDirectory(PDTargetDirectory); given COSDictionary setItem(COSName, COSObjectable) does nothing; then calls setItem(COSName, COSObjectable)")
+  void testSetTargetDirectory_givenCOSDictionarySetItemDoesNothing_thenCallsSetItem() {
+    // Arrange
+    COSDictionary dictionary = mock(COSDictionary.class);
+    doNothing().when(dictionary).setItem(Mockito.<COSName>any(), Mockito.<COSObjectable>any());
+    PDTargetDirectory pdTargetDirectory = new PDTargetDirectory(dictionary);
+
+    // Act
+    pdTargetDirectory.setTargetDirectory(new PDTargetDirectory());
+
+    // Assert that nothing has changed
+    verify(dictionary).setItem(isA(COSName.class), isA(COSObjectable.class));
+  }
+
+  /**
+   * Test {@link PDTargetDirectory#getPageNumber()}.
+   * <ul>
+   *   <li>Given {@link PDTargetDirectory#PDTargetDirectory()} Filename is
+   * {@code foo.txt}.</li>
+   *   <li>Then return minus one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDTargetDirectory#getPageNumber()}
+   */
+  @Test
+  @DisplayName("Test getPageNumber(); given PDTargetDirectory() Filename is 'foo.txt'; then return minus one")
+  void testGetPageNumber_givenPDTargetDirectoryFilenameIsFooTxt_thenReturnMinusOne() {
+    // Arrange
+    PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
+    pdTargetDirectory.setFilename("foo.txt");
+
+    // Act and Assert
+    assertEquals(-1, pdTargetDirectory.getPageNumber());
+  }
+
+  /**
+   * Test {@link PDTargetDirectory#getPageNumber()}.
+   * <ul>
+   *   <li>Given {@link PDTargetDirectory#PDTargetDirectory()} PageNumber is
+   * ten.</li>
+   *   <li>Then return ten.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDTargetDirectory#getPageNumber()}
+   */
+  @Test
+  @DisplayName("Test getPageNumber(); given PDTargetDirectory() PageNumber is ten; then return ten")
+  void testGetPageNumber_givenPDTargetDirectoryPageNumberIsTen_thenReturnTen() {
+    // Arrange
+    PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
+    pdTargetDirectory.setPageNumber(10);
+
+    // Act and Assert
+    assertEquals(10, pdTargetDirectory.getPageNumber());
+  }
+
+  /**
+   * Test {@link PDTargetDirectory#getPageNumber()}.
+   * <ul>
+   *   <li>Given {@link PDTargetDirectory#PDTargetDirectory()}.</li>
+   *   <li>Then return minus one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDTargetDirectory#getPageNumber()}
+   */
+  @Test
+  @DisplayName("Test getPageNumber(); given PDTargetDirectory(); then return minus one")
+  void testGetPageNumber_givenPDTargetDirectory_thenReturnMinusOne() {
+    // Arrange, Act and Assert
+    assertEquals(-1, (new PDTargetDirectory()).getPageNumber());
+  }
+
+  /**
+   * Test {@link PDTargetDirectory#setPageNumber(int)}.
+   * <ul>
+   *   <li>Then {@link PDTargetDirectory#PDTargetDirectory()} COSObject Values size
+   * is one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDTargetDirectory#setPageNumber(int)}
+   */
+  @Test
+  @DisplayName("Test setPageNumber(int); then PDTargetDirectory() COSObject Values size is one")
+  void testSetPageNumber_thenPDTargetDirectoryCOSObjectValuesSizeIsOne() {
+    // Arrange
+    PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
+
+    // Act
+    pdTargetDirectory.setPageNumber(10);
+
+    // Assert
+    COSDictionary cOSObject = pdTargetDirectory.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    assertEquals(10, pdTargetDirectory.getPageNumber());
+  }
+
+  /**
+   * Test {@link PDTargetDirectory#setPageNumber(int)}.
+   * <ul>
+   *   <li>Then {@link PDTargetDirectory#PDTargetDirectory()} PageNumber is minus
+   * one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDTargetDirectory#setPageNumber(int)}
+   */
+  @Test
+  @DisplayName("Test setPageNumber(int); then PDTargetDirectory() PageNumber is minus one")
+  void testSetPageNumber_thenPDTargetDirectoryPageNumberIsMinusOne() {
+    // Arrange
+    PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
+
+    // Act
+    pdTargetDirectory.setPageNumber(-100);
+
+    // Assert
+    assertEquals(-1, pdTargetDirectory.getPageNumber());
+    COSDictionary cOSObject = pdTargetDirectory.getCOSObject();
+    assertEquals(0, cOSObject.size());
+    assertTrue(cOSObject.getValues().isEmpty());
+  }
+
+  /**
+   * Test {@link PDTargetDirectory#getNamedDestination()}.
+   * <ul>
+   *   <li>Given {@link PDTargetDirectory#PDTargetDirectory()} Filename is
+   * {@code foo.txt}.</li>
+   *   <li>Then return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDTargetDirectory#getNamedDestination()}
+   */
+  @Test
+  @DisplayName("Test getNamedDestination(); given PDTargetDirectory() Filename is 'foo.txt'; then return 'null'")
+  void testGetNamedDestination_givenPDTargetDirectoryFilenameIsFooTxt_thenReturnNull() {
+    // Arrange
+    PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
+    pdTargetDirectory.setFilename("foo.txt");
+
+    // Act and Assert
+    assertNull(pdTargetDirectory.getNamedDestination());
+  }
+
+  /**
+   * Test {@link PDTargetDirectory#getNamedDestination()}.
+   * <ul>
+   *   <li>Given {@link PDTargetDirectory#PDTargetDirectory()}.</li>
+   *   <li>Then return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDTargetDirectory#getNamedDestination()}
+   */
+  @Test
+  @DisplayName("Test getNamedDestination(); given PDTargetDirectory(); then return 'null'")
+  void testGetNamedDestination_givenPDTargetDirectory_thenReturnNull() {
+    // Arrange, Act and Assert
+    assertNull((new PDTargetDirectory()).getNamedDestination());
+  }
+
+  /**
+   * Test {@link PDTargetDirectory#getNamedDestination()}.
+   * <ul>
+   *   <li>Then COSObject return {@link COSString}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDTargetDirectory#getNamedDestination()}
+   */
+  @Test
+  @DisplayName("Test getNamedDestination(); then COSObject return COSString")
+  void testGetNamedDestination_thenCOSObjectReturnCOSString() throws UnsupportedEncodingException {
+    // Arrange
+    PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
+    pdTargetDirectory.setNamedDestination(new PDNamedDestination("Dest"));
+
+    // Act
+    PDNamedDestination actualNamedDestination = pdTargetDirectory.getNamedDestination();
+
+    // Assert
+    COSBase cOSObject = actualNamedDestination.getCOSObject();
+    assertTrue(cOSObject instanceof COSString);
+    assertEquals("44657374", ((COSString) cOSObject).toHexString());
+    assertEquals("Dest", ((COSString) cOSObject).getASCII());
+    assertEquals("Dest", ((COSString) cOSObject).getString());
+    assertEquals("Dest", actualNamedDestination.getNamedDestination());
+    assertNull(cOSObject.getKey());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(((COSString) cOSObject).getForceHexForm());
+    byte[] expectedBytes = "Dest".getBytes("UTF-8");
+    assertArrayEquals(expectedBytes, ((COSString) cOSObject).getBytes());
+  }
+
+  /**
+   * Test {@link PDTargetDirectory#setNamedDestination(PDNamedDestination)}.
+   * <p>
+   * Method under test:
+   * {@link PDTargetDirectory#setNamedDestination(PDNamedDestination)}
+   */
+  @Test
+  @DisplayName("Test setNamedDestination(PDNamedDestination)")
+  void testSetNamedDestination() {
+    // Arrange
+    PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
+
+    // Act
+    pdTargetDirectory.setNamedDestination(new PDNamedDestination("Dest"));
+
+    // Assert
+    assertEquals("Dest", pdTargetDirectory.getNamedDestination().getNamedDestination());
+    COSDictionary cOSObject = pdTargetDirectory.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDTargetDirectory#setNamedDestination(PDNamedDestination)}.
+   * <ul>
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link PDTargetDirectory#PDTargetDirectory()} COSObject size is
+   * zero.</li>
+   * </ul>
+   * <p>
+   * Method under test:
+   * {@link PDTargetDirectory#setNamedDestination(PDNamedDestination)}
+   */
+  @Test
+  @DisplayName("Test setNamedDestination(PDNamedDestination); when 'null'; then PDTargetDirectory() COSObject size is zero")
+  void testSetNamedDestination_whenNull_thenPDTargetDirectoryCOSObjectSizeIsZero() {
+    // Arrange
+    PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
+
+    // Act
+    pdTargetDirectory.setNamedDestination(null);
+
+    // Assert
+    COSDictionary cOSObject = pdTargetDirectory.getCOSObject();
+    assertEquals(0, cOSObject.size());
+    assertTrue(cOSObject.getValues().isEmpty());
+  }
+
+  /**
+   * Test {@link PDTargetDirectory#setNamedDestination(PDNamedDestination)}.
+   * <ul>
+   *   <li>When {@link PDNamedDestination#PDNamedDestination()}.</li>
+   * </ul>
+   * <p>
+   * Method under test:
+   * {@link PDTargetDirectory#setNamedDestination(PDNamedDestination)}
+   */
+  @Test
+  @DisplayName("Test setNamedDestination(PDNamedDestination); when PDNamedDestination()")
+  void testSetNamedDestination_whenPDNamedDestination() {
+    // Arrange
+    PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
+
+    // Act
+    pdTargetDirectory.setNamedDestination(new PDNamedDestination());
+
+    // Assert
+    COSDictionary cOSObject = pdTargetDirectory.getCOSObject();
+    assertEquals(0, cOSObject.size());
+    assertTrue(cOSObject.getValues().isEmpty());
+  }
+
+  /**
+   * Test {@link PDTargetDirectory#getAnnotationIndex()}.
+   * <ul>
+   *   <li>Given {@link PDTargetDirectory#PDTargetDirectory()} AnnotationIndex is
+   * one.</li>
+   *   <li>Then return one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDTargetDirectory#getAnnotationIndex()}
+   */
+  @Test
+  @DisplayName("Test getAnnotationIndex(); given PDTargetDirectory() AnnotationIndex is one; then return one")
+  void testGetAnnotationIndex_givenPDTargetDirectoryAnnotationIndexIsOne_thenReturnOne() {
+    // Arrange
+    PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
+    pdTargetDirectory.setAnnotationIndex(1);
+
+    // Act and Assert
+    assertEquals(1, pdTargetDirectory.getAnnotationIndex());
+  }
+
+  /**
+   * Test {@link PDTargetDirectory#getAnnotationIndex()}.
+   * <ul>
+   *   <li>Given {@link PDTargetDirectory#PDTargetDirectory()} Filename is
+   * {@code foo.txt}.</li>
+   *   <li>Then return minus one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDTargetDirectory#getAnnotationIndex()}
+   */
+  @Test
+  @DisplayName("Test getAnnotationIndex(); given PDTargetDirectory() Filename is 'foo.txt'; then return minus one")
+  void testGetAnnotationIndex_givenPDTargetDirectoryFilenameIsFooTxt_thenReturnMinusOne() {
+    // Arrange
+    PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
+    pdTargetDirectory.setFilename("foo.txt");
+
+    // Act and Assert
+    assertEquals(-1, pdTargetDirectory.getAnnotationIndex());
+  }
+
+  /**
+   * Test {@link PDTargetDirectory#getAnnotationIndex()}.
+   * <ul>
+   *   <li>Given {@link PDTargetDirectory#PDTargetDirectory()}.</li>
+   *   <li>Then return minus one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDTargetDirectory#getAnnotationIndex()}
+   */
+  @Test
+  @DisplayName("Test getAnnotationIndex(); given PDTargetDirectory(); then return minus one")
+  void testGetAnnotationIndex_givenPDTargetDirectory_thenReturnMinusOne() {
+    // Arrange, Act and Assert
+    assertEquals(-1, (new PDTargetDirectory()).getAnnotationIndex());
+  }
+
+  /**
+   * Test {@link PDTargetDirectory#setAnnotationIndex(int)}.
+   * <ul>
+   *   <li>Then {@link PDTargetDirectory#PDTargetDirectory()} AnnotationIndex is
+   * minus one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDTargetDirectory#setAnnotationIndex(int)}
+   */
+  @Test
+  @DisplayName("Test setAnnotationIndex(int); then PDTargetDirectory() AnnotationIndex is minus one")
+  void testSetAnnotationIndex_thenPDTargetDirectoryAnnotationIndexIsMinusOne() {
+    // Arrange
+    PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
+
+    // Act
+    pdTargetDirectory.setAnnotationIndex(-100);
+
+    // Assert
+    assertEquals(-1, pdTargetDirectory.getAnnotationIndex());
+    COSDictionary cOSObject = pdTargetDirectory.getCOSObject();
+    assertEquals(0, cOSObject.size());
+    assertTrue(cOSObject.getValues().isEmpty());
+  }
+
+  /**
+   * Test {@link PDTargetDirectory#setAnnotationIndex(int)}.
+   * <ul>
+   *   <li>Then {@link PDTargetDirectory#PDTargetDirectory()} COSObject Values size
+   * is one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDTargetDirectory#setAnnotationIndex(int)}
+   */
+  @Test
+  @DisplayName("Test setAnnotationIndex(int); then PDTargetDirectory() COSObject Values size is one")
+  void testSetAnnotationIndex_thenPDTargetDirectoryCOSObjectValuesSizeIsOne() {
+    // Arrange
+    PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
+
+    // Act
+    pdTargetDirectory.setAnnotationIndex(1);
+
+    // Assert
+    COSDictionary cOSObject = pdTargetDirectory.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    assertEquals(1, pdTargetDirectory.getAnnotationIndex());
+  }
+
+  /**
+   * Test {@link PDTargetDirectory#getAnnotationName()}.
+   * <ul>
+   *   <li>Given {@link PDTargetDirectory#PDTargetDirectory()} AnnotationName is
+   * {@code Name}.</li>
+   *   <li>Then return {@code Name}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDTargetDirectory#getAnnotationName()}
+   */
+  @Test
+  @DisplayName("Test getAnnotationName(); given PDTargetDirectory() AnnotationName is 'Name'; then return 'Name'")
+  void testGetAnnotationName_givenPDTargetDirectoryAnnotationNameIsName_thenReturnName() {
+    // Arrange
+    PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
+    pdTargetDirectory.setAnnotationName("Name");
+
+    // Act and Assert
+    assertEquals("Name", pdTargetDirectory.getAnnotationName());
+  }
+
+  /**
+   * Test {@link PDTargetDirectory#getAnnotationName()}.
+   * <ul>
+   *   <li>Given {@link PDTargetDirectory#PDTargetDirectory()} Filename is
+   * {@code foo.txt}.</li>
+   *   <li>Then return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDTargetDirectory#getAnnotationName()}
+   */
+  @Test
+  @DisplayName("Test getAnnotationName(); given PDTargetDirectory() Filename is 'foo.txt'; then return 'null'")
+  void testGetAnnotationName_givenPDTargetDirectoryFilenameIsFooTxt_thenReturnNull() {
+    // Arrange
+    PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
+    pdTargetDirectory.setFilename("foo.txt");
+
+    // Act and Assert
+    assertNull(pdTargetDirectory.getAnnotationName());
+  }
+
+  /**
+   * Test {@link PDTargetDirectory#getAnnotationName()}.
+   * <ul>
+   *   <li>Given {@link PDTargetDirectory#PDTargetDirectory()}.</li>
+   *   <li>Then return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDTargetDirectory#getAnnotationName()}
+   */
+  @Test
+  @DisplayName("Test getAnnotationName(); given PDTargetDirectory(); then return 'null'")
+  void testGetAnnotationName_givenPDTargetDirectory_thenReturnNull() {
+    // Arrange, Act and Assert
+    assertNull((new PDTargetDirectory()).getAnnotationName());
+  }
+
+  /**
+   * Test {@link PDTargetDirectory#getAnnotationName()}.
+   * <ul>
+   *   <li>Then return empty string.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDTargetDirectory#getAnnotationName()}
+   */
+  @Test
+  @DisplayName("Test getAnnotationName(); then return empty string")
+  void testGetAnnotationName_thenReturnEmptyString() {
+    // Arrange
+    PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
+    pdTargetDirectory.setAnnotationName("");
+
+    // Act and Assert
+    assertEquals("", pdTargetDirectory.getAnnotationName());
+  }
+
+  /**
+   * Test {@link PDTargetDirectory#setAnnotationName(String)}.
+   * <ul>
+   *   <li>Then {@link PDTargetDirectory#PDTargetDirectory()} AnnotationName is
+   * {@code Name}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDTargetDirectory#setAnnotationName(String)}
+   */
+  @Test
+  @DisplayName("Test setAnnotationName(String); then PDTargetDirectory() AnnotationName is 'Name'")
+  void testSetAnnotationName_thenPDTargetDirectoryAnnotationNameIsName() {
+    // Arrange
+    PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
+
+    // Act
+    pdTargetDirectory.setAnnotationName("Name");
+
+    // Assert
+    assertEquals("Name", pdTargetDirectory.getAnnotationName());
+    COSDictionary cOSObject = pdTargetDirectory.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+  }
+}
