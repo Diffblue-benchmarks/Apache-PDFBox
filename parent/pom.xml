@@ -110,13 +110,45 @@
                     </execution>
                 </executions>
             </plugin>
+        <plugin>
+            <groupId>org.pitest</groupId>
+            <artifactId>pitest-maven</artifactId>
+            <version>1.17.1</version>
+            <configuration>
+                <failWhenNoMutations>false</failWhenNoMutations>
+                <exportLineCoverage>true</exportLineCoverage>
+                <targetTests>
+                            <param>**DiffblueTest*</param>
+                        </targetTests>
+                <outputFormats>
+                    <value>XML</value>
+                    <value>HTML</value>
+                </outputFormats>
+            </configuration>
+            <executions>
+                <execution>
+                    <id>run-mutation-tests</id>
+                    <phase>test</phase>
+                    <goals>
+                        <goal>mutationCoverage</goal>
+                    </goals>
+                </execution>
+            </executions>
+            <dependencies>
+                <dependency>
+                    <groupId>org.pitest</groupId>
+                    <artifactId>pitest-junit5-plugin</artifactId>
+                    <version>1.2.1</version>
+                </dependency>
+            </dependencies>
+        </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>3.6.0</version>
                 <!-- this one is for checkstyle:check -->
                 <configuration>
-                    <skip>${skipTests}</skip>
+                    <skip>false</skip>
                     <configLocation>checkstyle.xml</configLocation>
                     <consoleOutput>true</consoleOutput>
                     <includeTestSourceDirectory>true</includeTestSourceDirectory>
@@ -127,12 +159,12 @@
                 <executions>
                     <execution>
                         <id>check</id>
-                        <phase>validate</phase>
+                        <phase>none</phase>
                         <goals>
                             <goal>check</goal>
                         </goals>
                         <configuration>
-                            <skip>${skipTests}</skip>
+                            <skip>false</skip>
                             <configLocation>checkstyle.xml</configLocation>
                             <consoleOutput>true</consoleOutput>
                             <includeTestSourceDirectory>true</includeTestSourceDirectory>
