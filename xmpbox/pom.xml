@@ -36,12 +36,18 @@
 	</scm>
 
 	<dependencies>
-	    <dependency>
-	      <groupId>org.junit.jupiter</groupId>
-	      <artifactId>junit-jupiter</artifactId>
-          <version>${junit.version}</version>
-          <scope>test</scope>
-	    </dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-junit-jupiter</artifactId>
+			<version>5.14.1</version>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-api</artifactId>
@@ -51,6 +57,12 @@
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
 			<version>5.14.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.diffblue.cover</groupId>
+			<artifactId>cover-annotations</artifactId>
+			<version>1.6.0</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
