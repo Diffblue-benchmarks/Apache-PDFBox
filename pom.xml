@@ -43,7 +43,6 @@
     <module>app</module>
     <module>debugger-app</module>
     <module>examples</module>
-    <module>mutation-coverage-aggregation</module>
   </modules>
 
   <scm>
