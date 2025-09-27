@@ -4,33 +4,39 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDFText2HTMLDiffblueTest {
   /**
    * Test {@link PDFText2HTML#PDFText2HTML()}.
-   * <p>
-   * Method under test: default or parameterless constructor of
-   * {@link PDFText2HTML}
+   *
+   * <p>Method under test: default or parameterless constructor of {@link PDFText2HTML}
    */
   @Test
   @DisplayName("Test new PDFText2HTML()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDFText2HTML.<init>()"})
   void testNewPDFText2HTML() throws IOException {
     // Arrange and Act
     PDFText2HTML actualPdfText2HTML = new PDFText2HTML();
 
     // Assert
     assertEquals(" ", actualPdfText2HTML.getWordSeparator());
-    assertEquals("</div>\r\n", actualPdfText2HTML.getPageEnd());
-    assertEquals("</p>\r\n", actualPdfText2HTML.getParagraphEnd());
-    assertEquals("<div style=\"page-break-before:always; page-break-after:always\">",
+    assertEquals("</div>\n", actualPdfText2HTML.getPageEnd());
+    assertEquals("</p>\n", actualPdfText2HTML.getParagraphEnd());
+    assertEquals(
+        "<div style=\"page-break-before:always; page-break-after:always\">",
         actualPdfText2HTML.getPageStart());
     assertEquals("<p>", actualPdfText2HTML.getParagraphStart());
-    assertEquals("\r\n", actualPdfText2HTML.getArticleEnd());
-    assertEquals("\r\n", actualPdfText2HTML.getArticleStart());
-    assertEquals("\r\n", actualPdfText2HTML.getLineSeparator());
+    assertEquals("\n", actualPdfText2HTML.getArticleEnd());
+    assertEquals("\n", actualPdfText2HTML.getArticleStart());
+    assertEquals("\n", actualPdfText2HTML.getLineSeparator());
     assertNull(actualPdfText2HTML.getCurrentPage());
     assertNull(actualPdfText2HTML.getResources());
     assertNull(actualPdfText2HTML.getGraphicsState());

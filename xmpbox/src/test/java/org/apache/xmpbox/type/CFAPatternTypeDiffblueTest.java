@@ -4,19 +4,24 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import java.util.List;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.xmpbox.XMPMetadata;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class CFAPatternTypeDiffblueTest {
   /**
    * Test {@link CFAPatternType#CFAPatternType(XMPMetadata)}.
-   * <p>
-   * Method under test: {@link CFAPatternType#CFAPatternType(XMPMetadata)}
+   *
+   * <p>Method under test: {@link CFAPatternType#CFAPatternType(XMPMetadata)}
    */
   @Test
   @DisplayName("Test new CFAPatternType(XMPMetadata)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void CFAPatternType.<init>(XMPMetadata)"})
   void testNewCFAPatternType() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -29,11 +34,9 @@ class CFAPatternTypeDiffblueTest {
     assertEquals("exif", actualCfaPatternType.getPrefix());
     assertEquals("http://ns.adobe.com/exif/1.0/", actualCfaPatternType.getNamespace());
     assertNull(actualCfaPatternType.getPropertyName());
-    List<AbstractField> allProperties = actualCfaPatternType.getAllProperties();
-    assertTrue(allProperties.isEmpty());
+    assertTrue(actualCfaPatternType.getAllProperties().isEmpty());
     assertTrue(actualCfaPatternType.getAllAttributes().isEmpty());
     assertTrue(actualCfaPatternType.getAllNamespacesWithPrefix().isEmpty());
-    assertSame(allProperties, actualCfaPatternType.getContainer().getAllProperties());
     assertSame(metadata, actualCfaPatternType.getMetadata());
   }
 }

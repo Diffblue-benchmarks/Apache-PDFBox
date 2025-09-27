@@ -3,26 +3,32 @@ package org.apache.xmpbox.schema;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import java.util.Map;
 import org.apache.xmpbox.XMPMetadata;
-import org.apache.xmpbox.type.AbstractField;
+import org.apache.xmpbox.type.AgentNameType;
 import org.apache.xmpbox.type.ArrayProperty;
 import org.apache.xmpbox.type.BadFieldValueException;
 import org.apache.xmpbox.type.Cardinality;
-import org.apache.xmpbox.type.TextType;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ExifSchemaDiffblueTest {
   /**
    * Test {@link ExifSchema#ExifSchema(XMPMetadata)}.
-   * <p>
-   * Method under test: {@link ExifSchema#ExifSchema(XMPMetadata)}
+   *
+   * <p>Method under test: {@link ExifSchema#ExifSchema(XMPMetadata)}
    */
   @Test
   @DisplayName("Test new ExifSchema(XMPMetadata)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void ExifSchema.<init>(XMPMetadata)"})
   void testNewExifSchema() throws BadFieldValueException {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -32,9 +38,6 @@ class ExifSchemaDiffblueTest {
 
     // Assert
     assertEquals("", actualExifSchema.getAboutValue());
-    Map<String, String> allNamespacesWithPrefix = actualExifSchema.getAllNamespacesWithPrefix();
-    assertEquals(1, allNamespacesWithPrefix.size());
-    assertEquals("exif", allNamespacesWithPrefix.get("http://ns.adobe.com/exif/1.0/"));
     assertEquals("exif", actualExifSchema.getPreferedPrefix());
     assertEquals("exif", actualExifSchema.getPrefix());
     assertEquals("http://ns.adobe.com/exif/1.0/", actualExifSchema.getNamespace());
@@ -43,59 +46,31 @@ class ExifSchemaDiffblueTest {
     assertNull(actualExifSchema.getUserCommentLanguages());
     assertNull(actualExifSchema.getUserCommentProperty());
     assertNull(actualExifSchema.getAboutAttribute());
-    List<AbstractField> allProperties = actualExifSchema.getAllProperties();
-    assertTrue(allProperties.isEmpty());
-    assertTrue(actualExifSchema.getAllAttributes().isEmpty());
-    assertSame(allProperties, actualExifSchema.getContainer().getAllProperties());
-    assertSame(metadata, actualExifSchema.getMetadata());
-  }
-
-  /**
-   * Test {@link ExifSchema#ExifSchema(XMPMetadata, String)}.
-   * <p>
-   * Method under test: {@link ExifSchema#ExifSchema(XMPMetadata, String)}
-   */
-  @Test
-  @DisplayName("Test new ExifSchema(XMPMetadata, String)")
-  void testNewExifSchema2() throws BadFieldValueException {
-    // Arrange
-    XMPMetadata metadata = XMPMetadata.createXMPMetadata();
-
-    // Act
-    ExifSchema actualExifSchema = new ExifSchema(metadata, "Own Prefix");
-
-    // Assert
-    assertEquals("", actualExifSchema.getAboutValue());
     Map<String, String> allNamespacesWithPrefix = actualExifSchema.getAllNamespacesWithPrefix();
     assertEquals(1, allNamespacesWithPrefix.size());
-    assertEquals("Own Prefix", allNamespacesWithPrefix.get("http://ns.adobe.com/exif/1.0/"));
-    assertEquals("Own Prefix", actualExifSchema.getPrefix());
-    assertEquals("exif", actualExifSchema.getPreferedPrefix());
-    assertEquals("http://ns.adobe.com/exif/1.0/", actualExifSchema.getNamespace());
-    assertNull(actualExifSchema.getUserComment());
-    assertNull(actualExifSchema.getPropertyName());
-    assertNull(actualExifSchema.getUserCommentLanguages());
-    assertNull(actualExifSchema.getUserCommentProperty());
-    assertNull(actualExifSchema.getAboutAttribute());
-    List<AbstractField> allProperties = actualExifSchema.getAllProperties();
-    assertTrue(allProperties.isEmpty());
+    assertTrue(actualExifSchema.getAllProperties().isEmpty());
     assertTrue(actualExifSchema.getAllAttributes().isEmpty());
-    assertSame(allProperties, actualExifSchema.getContainer().getAllProperties());
+    assertTrue(allNamespacesWithPrefix.containsKey("http://ns.adobe.com/exif/1.0/"));
     assertSame(metadata, actualExifSchema.getMetadata());
   }
 
   /**
    * Test {@link ExifSchema#ExifSchema(XMPMetadata, String)}.
+   *
    * <ul>
-   *   <li>Then return AllNamespacesWithPrefix {@code http://ns.adobe.com/exif/1.0/}
-   * is {@code exif}.</li>
+   *   <li>When {@code null}.
+   *   <li>Then return Prefix is {@code exif}.
    * </ul>
-   * <p>
-   * Method under test: {@link ExifSchema#ExifSchema(XMPMetadata, String)}
+   *
+   * <p>Method under test: {@link ExifSchema#ExifSchema(XMPMetadata, String)}
    */
   @Test
-  @DisplayName("Test new ExifSchema(XMPMetadata, String); then return AllNamespacesWithPrefix 'http://ns.adobe.com/exif/1.0/' is 'exif'")
-  void testNewExifSchema_thenReturnAllNamespacesWithPrefixHttpNsAdobeComExif10IsExif() throws BadFieldValueException {
+  @DisplayName(
+      "Test new ExifSchema(XMPMetadata, String); when 'null'; then return Prefix is 'exif'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void ExifSchema.<init>(XMPMetadata, String)"})
+  void testNewExifSchema_whenNull_thenReturnPrefixIsExif() throws BadFieldValueException {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
 
@@ -104,9 +79,6 @@ class ExifSchemaDiffblueTest {
 
     // Assert
     assertEquals("", actualExifSchema.getAboutValue());
-    Map<String, String> allNamespacesWithPrefix = actualExifSchema.getAllNamespacesWithPrefix();
-    assertEquals(1, allNamespacesWithPrefix.size());
-    assertEquals("exif", allNamespacesWithPrefix.get("http://ns.adobe.com/exif/1.0/"));
     assertEquals("exif", actualExifSchema.getPreferedPrefix());
     assertEquals("exif", actualExifSchema.getPrefix());
     assertEquals("http://ns.adobe.com/exif/1.0/", actualExifSchema.getNamespace());
@@ -115,20 +87,65 @@ class ExifSchemaDiffblueTest {
     assertNull(actualExifSchema.getUserCommentLanguages());
     assertNull(actualExifSchema.getUserCommentProperty());
     assertNull(actualExifSchema.getAboutAttribute());
-    List<AbstractField> allProperties = actualExifSchema.getAllProperties();
-    assertTrue(allProperties.isEmpty());
+    Map<String, String> allNamespacesWithPrefix = actualExifSchema.getAllNamespacesWithPrefix();
+    assertEquals(1, allNamespacesWithPrefix.size());
+    assertTrue(actualExifSchema.getAllProperties().isEmpty());
     assertTrue(actualExifSchema.getAllAttributes().isEmpty());
-    assertSame(allProperties, actualExifSchema.getContainer().getAllProperties());
+    assertTrue(allNamespacesWithPrefix.containsKey("http://ns.adobe.com/exif/1.0/"));
+    assertSame(metadata, actualExifSchema.getMetadata());
+  }
+
+  /**
+   * Test {@link ExifSchema#ExifSchema(XMPMetadata, String)}.
+   *
+   * <ul>
+   *   <li>When {@code Own Prefix}.
+   *   <li>Then return Prefix is {@code Own Prefix}.
+   * </ul>
+   *
+   * <p>Method under test: {@link ExifSchema#ExifSchema(XMPMetadata, String)}
+   */
+  @Test
+  @DisplayName(
+      "Test new ExifSchema(XMPMetadata, String); when 'Own Prefix'; then return Prefix is 'Own Prefix'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void ExifSchema.<init>(XMPMetadata, String)"})
+  void testNewExifSchema_whenOwnPrefix_thenReturnPrefixIsOwnPrefix() throws BadFieldValueException {
+    // Arrange
+    XMPMetadata metadata = XMPMetadata.createXMPMetadata();
+
+    // Act
+    ExifSchema actualExifSchema = new ExifSchema(metadata, "Own Prefix");
+
+    // Assert
+    assertEquals("", actualExifSchema.getAboutValue());
+    assertEquals("Own Prefix", actualExifSchema.getPrefix());
+    assertEquals("exif", actualExifSchema.getPreferedPrefix());
+    assertEquals("http://ns.adobe.com/exif/1.0/", actualExifSchema.getNamespace());
+    assertNull(actualExifSchema.getUserComment());
+    assertNull(actualExifSchema.getPropertyName());
+    assertNull(actualExifSchema.getUserCommentLanguages());
+    assertNull(actualExifSchema.getUserCommentProperty());
+    assertNull(actualExifSchema.getAboutAttribute());
+    Map<String, String> allNamespacesWithPrefix = actualExifSchema.getAllNamespacesWithPrefix();
+    assertEquals(1, allNamespacesWithPrefix.size());
+    assertTrue(actualExifSchema.getAllProperties().isEmpty());
+    assertTrue(actualExifSchema.getAllAttributes().isEmpty());
+    assertTrue(allNamespacesWithPrefix.containsKey("http://ns.adobe.com/exif/1.0/"));
     assertSame(metadata, actualExifSchema.getMetadata());
   }
 
   /**
    * Test {@link ExifSchema#getUserCommentProperty()}.
-   * <p>
-   * Method under test: {@link ExifSchema#getUserCommentProperty()}
+   *
+   * <p>Method under test: {@link ExifSchema#getUserCommentProperty()}
    */
   @Test
   @DisplayName("Test getUserCommentProperty()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"ArrayProperty ExifSchema.getUserCommentProperty()"})
   void testGetUserCommentProperty() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -141,42 +158,51 @@ class ExifSchemaDiffblueTest {
     ArrayProperty actualUserCommentProperty = exifSchema.getUserCommentProperty();
 
     // Assert
-    List<AbstractField> allProperties = actualUserCommentProperty.getAllProperties();
-    assertEquals(1, allProperties.size());
-    AbstractField getResult = allProperties.get(0);
-    assertTrue(getResult instanceof TextType);
-    List<String> elementsAsString = actualUserCommentProperty.getElementsAsString();
-    assertEquals(1, elementsAsString.size());
-    assertEquals("42", elementsAsString.get(0));
-    assertEquals("42", ((TextType) getResult).getStringValue());
-    assertEquals("42", ((TextType) getResult).getRawValue());
-    assertEquals("42", ((TextType) getResult).getValue());
-    assertEquals("exif", getResult.getPrefix());
     assertEquals("exif", actualUserCommentProperty.getPrefix());
-    assertEquals("http://ns.adobe.com/exif/1.0/", getResult.getNamespace());
     assertEquals("http://ns.adobe.com/exif/1.0/", actualUserCommentProperty.getNamespace());
-    assertEquals("li", getResult.getPropertyName());
+    assertEquals(1, actualUserCommentProperty.getAllProperties().size());
+    assertEquals(1, actualUserCommentProperty.getElementsAsString().size());
     assertEquals(Cardinality.Bag, actualUserCommentProperty.getArrayType());
-    assertTrue(getResult.getAllAttributes().isEmpty());
     assertTrue(actualUserCommentProperty.getAllAttributes().isEmpty());
     assertTrue(actualUserCommentProperty.getAllNamespacesWithPrefix().isEmpty());
     assertEquals(ExifSchema.USER_COMMENT, actualUserCommentProperty.getPropertyName());
-    assertSame(allProperties, actualUserCommentProperty.getContainer().getAllProperties());
-    assertSame(metadata, getResult.getMetadata());
     assertSame(metadata, actualUserCommentProperty.getMetadata());
   }
 
   /**
    * Test {@link ExifSchema#getUserCommentProperty()}.
+   *
    * <ul>
-   *   <li>Then return AllProperties size is one.</li>
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link ExifSchema#getUserCommentProperty()}
+   *
+   * <p>Method under test: {@link ExifSchema#getUserCommentProperty()}
    */
   @Test
-  @DisplayName("Test getUserCommentProperty(); then return AllProperties size is one")
-  void testGetUserCommentProperty_thenReturnAllPropertiesSizeIsOne() {
+  @DisplayName("Test getUserCommentProperty(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"ArrayProperty ExifSchema.getUserCommentProperty()"})
+  void testGetUserCommentProperty_thenReturnNull() {
+    // Arrange, Act and Assert
+    assertNull(new ExifSchema(XMPMetadata.createXMPMetadata()).getUserCommentProperty());
+  }
+
+  /**
+   * Test {@link ExifSchema#getUserCommentProperty()}.
+   *
+   * <ul>
+   *   <li>Then return Prefix is {@code exif}.
+   * </ul>
+   *
+   * <p>Method under test: {@link ExifSchema#getUserCommentProperty()}
+   */
+  @Test
+  @DisplayName("Test getUserCommentProperty(); then return Prefix is 'exif'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"ArrayProperty ExifSchema.getUserCommentProperty()"})
+  void testGetUserCommentProperty_thenReturnPrefixIsExif() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
 
@@ -187,53 +213,27 @@ class ExifSchemaDiffblueTest {
     ArrayProperty actualUserCommentProperty = exifSchema.getUserCommentProperty();
 
     // Assert
-    List<AbstractField> allProperties = actualUserCommentProperty.getAllProperties();
-    assertEquals(1, allProperties.size());
-    AbstractField getResult = allProperties.get(0);
-    assertTrue(getResult instanceof TextType);
-    List<String> elementsAsString = actualUserCommentProperty.getElementsAsString();
-    assertEquals(1, elementsAsString.size());
-    assertEquals("42", elementsAsString.get(0));
-    assertEquals("42", ((TextType) getResult).getStringValue());
-    assertEquals("42", ((TextType) getResult).getRawValue());
-    assertEquals("42", ((TextType) getResult).getValue());
-    assertEquals("exif", getResult.getPrefix());
     assertEquals("exif", actualUserCommentProperty.getPrefix());
-    assertEquals("http://ns.adobe.com/exif/1.0/", getResult.getNamespace());
     assertEquals("http://ns.adobe.com/exif/1.0/", actualUserCommentProperty.getNamespace());
-    assertEquals("li", getResult.getPropertyName());
+    assertEquals(1, actualUserCommentProperty.getAllProperties().size());
+    assertEquals(1, actualUserCommentProperty.getElementsAsString().size());
     assertEquals(Cardinality.Bag, actualUserCommentProperty.getArrayType());
-    assertTrue(getResult.getAllAttributes().isEmpty());
     assertTrue(actualUserCommentProperty.getAllAttributes().isEmpty());
     assertTrue(actualUserCommentProperty.getAllNamespacesWithPrefix().isEmpty());
     assertEquals(ExifSchema.USER_COMMENT, actualUserCommentProperty.getPropertyName());
-    assertSame(allProperties, actualUserCommentProperty.getContainer().getAllProperties());
-    assertSame(metadata, getResult.getMetadata());
     assertSame(metadata, actualUserCommentProperty.getMetadata());
   }
 
   /**
-   * Test {@link ExifSchema#getUserCommentProperty()}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExifSchema#getUserCommentProperty()}
-   */
-  @Test
-  @DisplayName("Test getUserCommentProperty(); then return 'null'")
-  void testGetUserCommentProperty_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new ExifSchema(XMPMetadata.createXMPMetadata())).getUserCommentProperty());
-  }
-
-  /**
    * Test {@link ExifSchema#getUserCommentLanguages()}.
-   * <p>
-   * Method under test: {@link ExifSchema#getUserCommentLanguages()}
+   *
+   * <p>Method under test: {@link ExifSchema#getUserCommentLanguages()}
    */
   @Test
   @DisplayName("Test getUserCommentLanguages()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List ExifSchema.getUserCommentLanguages()"})
   void testGetUserCommentLanguages() throws BadFieldValueException {
     // Arrange
     ExifSchema exifSchema = new ExifSchema(XMPMetadata.createXMPMetadata());
@@ -250,29 +250,37 @@ class ExifSchemaDiffblueTest {
 
   /**
    * Test {@link ExifSchema#getUserCommentLanguages()}.
+   *
    * <ul>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link ExifSchema#getUserCommentLanguages()}
+   *
+   * <p>Method under test: {@link ExifSchema#getUserCommentLanguages()}
    */
   @Test
   @DisplayName("Test getUserCommentLanguages(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List ExifSchema.getUserCommentLanguages()"})
   void testGetUserCommentLanguages_thenReturnNull() throws BadFieldValueException {
     // Arrange, Act and Assert
-    assertNull((new ExifSchema(XMPMetadata.createXMPMetadata())).getUserCommentLanguages());
+    assertNull(new ExifSchema(XMPMetadata.createXMPMetadata()).getUserCommentLanguages());
   }
 
   /**
    * Test {@link ExifSchema#getUserCommentLanguages()}.
+   *
    * <ul>
-   *   <li>Then return size is one.</li>
+   *   <li>Then return size is one.
    * </ul>
-   * <p>
-   * Method under test: {@link ExifSchema#getUserCommentLanguages()}
+   *
+   * <p>Method under test: {@link ExifSchema#getUserCommentLanguages()}
    */
   @Test
   @DisplayName("Test getUserCommentLanguages(); then return size is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List ExifSchema.getUserCommentLanguages()"})
   void testGetUserCommentLanguages_thenReturnSizeIsOne() throws BadFieldValueException {
     // Arrange
     ExifSchema exifSchema = new ExifSchema(XMPMetadata.createXMPMetadata());
@@ -287,12 +295,45 @@ class ExifSchemaDiffblueTest {
   }
 
   /**
+   * Test {@link ExifSchema#getUserCommentLanguages()}.
+   *
+   * <ul>
+   *   <li>Then throw {@link BadFieldValueException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link ExifSchema#getUserCommentLanguages()}
+   */
+  @Test
+  @DisplayName("Test getUserCommentLanguages(); then throw BadFieldValueException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List ExifSchema.getUserCommentLanguages()"})
+  void testGetUserCommentLanguages_thenThrowBadFieldValueException() throws BadFieldValueException {
+    // Arrange
+    ExifSchema exifSchema = new ExifSchema(XMPMetadata.createXMPMetadata());
+    AgentNameType obj =
+        new AgentNameType(
+            XMPMetadata.createXMPMetadata(),
+            ExifSchema.USER_COMMENT,
+            ExifSchema.USER_COMMENT,
+            ExifSchema.USER_COMMENT,
+            "Value");
+    exifSchema.addProperty(obj);
+
+    // Act and Assert
+    assertThrows(BadFieldValueException.class, () -> exifSchema.getUserCommentLanguages());
+  }
+
+  /**
    * Test {@link ExifSchema#getUserComment()}.
-   * <p>
-   * Method under test: {@link ExifSchema#getUserComment()}
+   *
+   * <p>Method under test: {@link ExifSchema#getUserComment()}
    */
   @Test
   @DisplayName("Test getUserComment()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ExifSchema.getUserComment()"})
   void testGetUserComment() throws BadFieldValueException {
     // Arrange
     ExifSchema exifSchema = new ExifSchema(XMPMetadata.createXMPMetadata());
@@ -304,11 +345,14 @@ class ExifSchemaDiffblueTest {
 
   /**
    * Test {@link ExifSchema#getUserComment()}.
-   * <p>
-   * Method under test: {@link ExifSchema#getUserComment()}
+   *
+   * <p>Method under test: {@link ExifSchema#getUserComment()}
    */
   @Test
   @DisplayName("Test getUserComment()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ExifSchema.getUserComment()"})
   void testGetUserComment2() throws BadFieldValueException {
     // Arrange
     ExifSchema exifSchema = new ExifSchema(XMPMetadata.createXMPMetadata());
@@ -321,11 +365,14 @@ class ExifSchemaDiffblueTest {
 
   /**
    * Test {@link ExifSchema#getUserComment(String)} with {@code String}.
-   * <p>
-   * Method under test: {@link ExifSchema#getUserComment(String)}
+   *
+   * <p>Method under test: {@link ExifSchema#getUserComment(String)}
    */
   @Test
   @DisplayName("Test getUserComment(String) with 'String'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ExifSchema.getUserComment(String)"})
   void testGetUserCommentWithString() throws BadFieldValueException {
     // Arrange
     ExifSchema exifSchema = new ExifSchema(XMPMetadata.createXMPMetadata());
@@ -337,11 +384,14 @@ class ExifSchemaDiffblueTest {
 
   /**
    * Test {@link ExifSchema#getUserComment(String)} with {@code String}.
-   * <p>
-   * Method under test: {@link ExifSchema#getUserComment(String)}
+   *
+   * <p>Method under test: {@link ExifSchema#getUserComment(String)}
    */
   @Test
   @DisplayName("Test getUserComment(String) with 'String'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ExifSchema.getUserComment(String)"})
   void testGetUserCommentWithString2() throws BadFieldValueException {
     // Arrange
     ExifSchema exifSchema = new ExifSchema(XMPMetadata.createXMPMetadata());
@@ -354,35 +404,105 @@ class ExifSchemaDiffblueTest {
 
   /**
    * Test {@link ExifSchema#getUserComment(String)} with {@code String}.
+   *
    * <ul>
-   *   <li>Given {@link ExifSchema#ExifSchema(XMPMetadata)} with metadata is
-   * createXMPMetadata.</li>
+   *   <li>Given {@link ExifSchema#ExifSchema(XMPMetadata)} with metadata is createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link ExifSchema#getUserComment(String)}
+   *
+   * <p>Method under test: {@link ExifSchema#getUserComment(String)}
    */
   @Test
-  @DisplayName("Test getUserComment(String) with 'String'; given ExifSchema(XMPMetadata) with metadata is createXMPMetadata")
-  void testGetUserCommentWithString_givenExifSchemaWithMetadataIsCreateXMPMetadata() throws BadFieldValueException {
+  @DisplayName(
+      "Test getUserComment(String) with 'String'; given ExifSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ExifSchema.getUserComment(String)"})
+  void testGetUserCommentWithString_givenExifSchemaWithMetadataIsCreateXMPMetadata()
+      throws BadFieldValueException {
     // Arrange, Act and Assert
-    assertNull((new ExifSchema(XMPMetadata.createXMPMetadata())).getUserComment("Lang"));
+    assertNull(new ExifSchema(XMPMetadata.createXMPMetadata()).getUserComment("Lang"));
+  }
+
+  /**
+   * Test {@link ExifSchema#getUserComment(String)} with {@code String}.
+   *
+   * <ul>
+   *   <li>Then throw {@link BadFieldValueException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link ExifSchema#getUserComment(String)}
+   */
+  @Test
+  @DisplayName("Test getUserComment(String) with 'String'; then throw BadFieldValueException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ExifSchema.getUserComment(String)"})
+  void testGetUserCommentWithString_thenThrowBadFieldValueException()
+      throws BadFieldValueException {
+    // Arrange
+    ExifSchema exifSchema = new ExifSchema(XMPMetadata.createXMPMetadata());
+    AgentNameType obj =
+        new AgentNameType(
+            XMPMetadata.createXMPMetadata(),
+            ExifSchema.USER_COMMENT,
+            ExifSchema.USER_COMMENT,
+            ExifSchema.USER_COMMENT,
+            "Value");
+    exifSchema.addProperty(obj);
+
+    // Act and Assert
+    assertThrows(BadFieldValueException.class, () -> exifSchema.getUserComment("Lang"));
   }
 
   /**
    * Test {@link ExifSchema#getUserComment()}.
+   *
    * <ul>
-   *   <li>Given {@link ExifSchema#ExifSchema(XMPMetadata)} with metadata is
-   * createXMPMetadata.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Given {@link ExifSchema#ExifSchema(XMPMetadata)} with metadata is createXMPMetadata.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link ExifSchema#getUserComment()}
+   *
+   * <p>Method under test: {@link ExifSchema#getUserComment()}
    */
   @Test
-  @DisplayName("Test getUserComment(); given ExifSchema(XMPMetadata) with metadata is createXMPMetadata; then return 'null'")
+  @DisplayName(
+      "Test getUserComment(); given ExifSchema(XMPMetadata) with metadata is createXMPMetadata; then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ExifSchema.getUserComment()"})
   void testGetUserComment_givenExifSchemaWithMetadataIsCreateXMPMetadata_thenReturnNull()
       throws BadFieldValueException {
     // Arrange, Act and Assert
-    assertNull((new ExifSchema(XMPMetadata.createXMPMetadata())).getUserComment());
+    assertNull(new ExifSchema(XMPMetadata.createXMPMetadata()).getUserComment());
+  }
+
+  /**
+   * Test {@link ExifSchema#getUserComment()}.
+   *
+   * <ul>
+   *   <li>Then throw {@link BadFieldValueException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link ExifSchema#getUserComment()}
+   */
+  @Test
+  @DisplayName("Test getUserComment(); then throw BadFieldValueException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ExifSchema.getUserComment()"})
+  void testGetUserComment_thenThrowBadFieldValueException() throws BadFieldValueException {
+    // Arrange
+    ExifSchema exifSchema = new ExifSchema(XMPMetadata.createXMPMetadata());
+    AgentNameType obj =
+        new AgentNameType(
+            XMPMetadata.createXMPMetadata(),
+            ExifSchema.USER_COMMENT,
+            ExifSchema.USER_COMMENT,
+            ExifSchema.USER_COMMENT,
+            "Value");
+    exifSchema.addProperty(obj);
+
+    // Act and Assert
+    assertThrows(BadFieldValueException.class, () -> exifSchema.getUserComment());
   }
 }

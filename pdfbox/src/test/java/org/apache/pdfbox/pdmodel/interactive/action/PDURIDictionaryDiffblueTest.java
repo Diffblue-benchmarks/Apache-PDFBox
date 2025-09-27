@@ -5,36 +5,44 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSIncrement;
-import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.cos.COSUpdateState;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDURIDictionaryDiffblueTest {
   /**
    * Test {@link PDURIDictionary#PDURIDictionary(COSDictionary)}.
-   * <p>
-   * Method under test: {@link PDURIDictionary#PDURIDictionary(COSDictionary)}
+   *
+   * <p>Method under test: {@link PDURIDictionary#PDURIDictionary(COSDictionary)}
    */
   @Test
   @DisplayName("Test new PDURIDictionary(COSDictionary)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDURIDictionary.<init>(COSDictionary)"})
   void testNewPDURIDictionary() {
     // Arrange
     COSDictionary dictionary = new COSDictionary();
 
     // Act and Assert
-    assertSame(dictionary, (new PDURIDictionary(dictionary)).getCOSObject());
+    assertSame(dictionary, new PDURIDictionary(dictionary).getCOSObject());
   }
 
   /**
    * Test {@link PDURIDictionary#PDURIDictionary()}.
-   * <p>
-   * Method under test: {@link PDURIDictionary#PDURIDictionary()}
+   *
+   * <p>Method under test: {@link PDURIDictionary#PDURIDictionary()}
    */
   @Test
   @DisplayName("Test new PDURIDictionary()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDURIDictionary.<init>()"})
   void testNewPDURIDictionary2() {
     // Arrange and Act
     PDURIDictionary actualPduriDictionary = new PDURIDictionary();
@@ -57,14 +65,17 @@ class PDURIDictionaryDiffblueTest {
 
   /**
    * Test {@link PDURIDictionary#getCOSObject()}.
-   * <p>
-   * Method under test: {@link PDURIDictionary#getCOSObject()}
+   *
+   * <p>Method under test: {@link PDURIDictionary#getCOSObject()}
    */
   @Test
   @DisplayName("Test getCOSObject()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"COSDictionary PDURIDictionary.getCOSObject()"})
   void testGetCOSObject() {
     // Arrange and Act
-    COSDictionary actualCOSObject = (new PDURIDictionary()).getCOSObject();
+    COSDictionary actualCOSObject = new PDURIDictionary().getCOSObject();
 
     // Assert
     COSUpdateState updateState = actualCOSObject.getUpdateState();
@@ -82,49 +93,42 @@ class PDURIDictionaryDiffblueTest {
 
   /**
    * Test {@link PDURIDictionary#getBase()}.
+   *
    * <ul>
-   *   <li>Given {@link PDURIDictionary#PDURIDictionary(COSDictionary)} with
-   * dictionary is {@link COSStream#COSStream()}.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Given {@link PDURIDictionary#PDURIDictionary()}.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDURIDictionary#getBase()}
-   */
-  @Test
-  @DisplayName("Test getBase(); given PDURIDictionary(COSDictionary) with dictionary is COSStream(); then return 'null'")
-  void testGetBase_givenPDURIDictionaryWithDictionaryIsCOSStream_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new PDURIDictionary(new COSStream())).getBase());
-  }
-
-  /**
-   * Test {@link PDURIDictionary#getBase()}.
-   * <ul>
-   *   <li>Given {@link PDURIDictionary#PDURIDictionary()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDURIDictionary#getBase()}
+   *
+   * <p>Method under test: {@link PDURIDictionary#getBase()}
    */
   @Test
   @DisplayName("Test getBase(); given PDURIDictionary(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PDURIDictionary.getBase()"})
   void testGetBase_givenPDURIDictionary_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new PDURIDictionary()).getBase());
+    assertNull(new PDURIDictionary().getBase());
   }
 
   /**
    * Test {@link PDURIDictionary#setBase(String)}.
+   *
    * <ul>
-   *   <li>Given {@link PDURIDictionary#PDURIDictionary()}.</li>
-   *   <li>Then {@link PDURIDictionary#PDURIDictionary()} Base is {@code Base}.</li>
+   *   <li>Given {@link PDURIDictionary#PDURIDictionary()}.
+   *   <li>When {@code Base}.
+   *   <li>Then {@link PDURIDictionary#PDURIDictionary()} Base is {@code Base}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDURIDictionary#setBase(String)}
+   *
+   * <p>Method under test: {@link PDURIDictionary#setBase(String)}
    */
   @Test
-  @DisplayName("Test setBase(String); given PDURIDictionary(); then PDURIDictionary() Base is 'Base'")
-  void testSetBase_givenPDURIDictionary_thenPDURIDictionaryBaseIsBase() {
+  @DisplayName(
+      "Test setBase(String); given PDURIDictionary(); when 'Base'; then PDURIDictionary() Base is 'Base'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDURIDictionary.setBase(String)"})
+  void testSetBase_givenPDURIDictionary_whenBase_thenPDURIDictionaryBaseIsBase() {
     // Arrange
     PDURIDictionary pduriDictionary = new PDURIDictionary();
 
@@ -140,27 +144,31 @@ class PDURIDictionaryDiffblueTest {
 
   /**
    * Test {@link PDURIDictionary#setBase(String)}.
+   *
    * <ul>
-   *   <li>Then {@link PDURIDictionary#PDURIDictionary(COSDictionary)} with
-   * dictionary is {@link COSDictionary#COSDictionary()} Base is
-   * {@code Base}.</li>
+   *   <li>Given {@link PDURIDictionary#PDURIDictionary()}.
+   *   <li>When {@code null}.
+   *   <li>Then {@link PDURIDictionary#PDURIDictionary()} COSObject size is zero.
    * </ul>
-   * <p>
-   * Method under test: {@link PDURIDictionary#setBase(String)}
+   *
+   * <p>Method under test: {@link PDURIDictionary#setBase(String)}
    */
   @Test
-  @DisplayName("Test setBase(String); then PDURIDictionary(COSDictionary) with dictionary is COSDictionary() Base is 'Base'")
-  void testSetBase_thenPDURIDictionaryWithDictionaryIsCOSDictionaryBaseIsBase() {
+  @DisplayName(
+      "Test setBase(String); given PDURIDictionary(); when 'null'; then PDURIDictionary() COSObject size is zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDURIDictionary.setBase(String)"})
+  void testSetBase_givenPDURIDictionary_whenNull_thenPDURIDictionaryCOSObjectSizeIsZero() {
     // Arrange
-    PDURIDictionary pduriDictionary = new PDURIDictionary(new COSDictionary());
+    PDURIDictionary pduriDictionary = new PDURIDictionary();
 
     // Act
-    pduriDictionary.setBase("Base");
+    pduriDictionary.setBase(null);
 
-    // Assert
-    assertEquals("Base", pduriDictionary.getBase());
+    // Assert that nothing has changed
     COSDictionary cOSObject = pduriDictionary.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
+    assertEquals(0, cOSObject.size());
+    assertTrue(cOSObject.getValues().isEmpty());
   }
 }

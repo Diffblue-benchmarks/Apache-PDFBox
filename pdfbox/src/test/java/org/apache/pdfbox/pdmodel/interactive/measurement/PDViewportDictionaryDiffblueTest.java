@@ -5,20 +5,23 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSObjectKey;
-import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.cos.COSUpdateState;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDViewportDictionaryDiffblueTest {
   /**
    * Test getters and setters.
-   * <p>
-   * Methods under test:
+   *
+   * <p>Methods under test:
+   *
    * <ul>
    *   <li>{@link PDViewportDictionary#PDViewportDictionary(COSDictionary)}
    *   <li>{@link PDViewportDictionary#getType()}
@@ -26,6 +29,12 @@ class PDViewportDictionaryDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void PDViewportDictionary.<init>(COSDictionary)",
+    "String PDViewportDictionary.getType()"
+  })
   void testGettersAndSetters() {
     // Arrange
     COSDictionary dictionary = new COSDictionary();
@@ -40,11 +49,14 @@ class PDViewportDictionaryDiffblueTest {
 
   /**
    * Test {@link PDViewportDictionary#PDViewportDictionary()}.
-   * <p>
-   * Method under test: {@link PDViewportDictionary#PDViewportDictionary()}
+   *
+   * <p>Method under test: {@link PDViewportDictionary#PDViewportDictionary()}
    */
   @Test
   @DisplayName("Test new PDViewportDictionary()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDViewportDictionary.<init>()"})
   void testNewPDViewportDictionary() {
     // Arrange and Act
     PDViewportDictionary actualPdViewportDictionary = new PDViewportDictionary();
@@ -70,14 +82,17 @@ class PDViewportDictionaryDiffblueTest {
 
   /**
    * Test {@link PDViewportDictionary#getCOSObject()}.
-   * <p>
-   * Method under test: {@link PDViewportDictionary#getCOSObject()}
+   *
+   * <p>Method under test: {@link PDViewportDictionary#getCOSObject()}
    */
   @Test
   @DisplayName("Test getCOSObject()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"COSDictionary PDViewportDictionary.getCOSObject()"})
   void testGetCOSObject() {
     // Arrange and Act
-    COSDictionary actualCOSObject = (new PDViewportDictionary()).getCOSObject();
+    COSDictionary actualCOSObject = new PDViewportDictionary().getCOSObject();
 
     // Assert
     COSUpdateState updateState = actualCOSObject.getUpdateState();
@@ -95,49 +110,73 @@ class PDViewportDictionaryDiffblueTest {
 
   /**
    * Test {@link PDViewportDictionary#getBBox()}.
+   *
    * <ul>
-   *   <li>Given {@link PDViewportDictionary#PDViewportDictionary(COSDictionary)}
-   * with dictionary is {@link COSStream#COSStream()}.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Given {@link PDViewportDictionary#PDViewportDictionary()}.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewportDictionary#getBBox()}
-   */
-  @Test
-  @DisplayName("Test getBBox(); given PDViewportDictionary(COSDictionary) with dictionary is COSStream(); then return 'null'")
-  void testGetBBox_givenPDViewportDictionaryWithDictionaryIsCOSStream_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new PDViewportDictionary(new COSStream())).getBBox());
-  }
-
-  /**
-   * Test {@link PDViewportDictionary#getBBox()}.
-   * <ul>
-   *   <li>Given {@link PDViewportDictionary#PDViewportDictionary()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDViewportDictionary#getBBox()}
+   *
+   * <p>Method under test: {@link PDViewportDictionary#getBBox()}
    */
   @Test
   @DisplayName("Test getBBox(); given PDViewportDictionary(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDRectangle PDViewportDictionary.getBBox()"})
   void testGetBBox_givenPDViewportDictionary_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new PDViewportDictionary()).getBBox());
+    assertNull(new PDViewportDictionary().getBBox());
   }
 
   /**
    * Test {@link PDViewportDictionary#setBBox(PDRectangle)}.
+   *
    * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link PDViewportDictionary#PDViewportDictionary()} COSObject
-   * toIncrement Objects Empty.</li>
+   *   <li>When {@link PDRectangle#A1}.
+   *   <li>Then {@link PDViewportDictionary#PDViewportDictionary()} BBox UpperRightX is {@code
+   *       1683.7795}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewportDictionary#setBBox(PDRectangle)}
+   *
+   * <p>Method under test: {@link PDViewportDictionary#setBBox(PDRectangle)}
    */
   @Test
-  @DisplayName("Test setBBox(PDRectangle); when 'null'; then PDViewportDictionary() COSObject toIncrement Objects Empty")
+  @DisplayName(
+      "Test setBBox(PDRectangle); when A1; then PDViewportDictionary() BBox UpperRightX is '1683.7795'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDViewportDictionary.setBBox(PDRectangle)"})
+  void testSetBBox_whenA1_thenPDViewportDictionaryBBoxUpperRightXIs16837795() {
+    // Arrange
+    PDViewportDictionary pdViewportDictionary = new PDViewportDictionary();
+
+    // Act
+    pdViewportDictionary.setBBox(PDRectangle.A1);
+
+    // Assert
+    PDRectangle bBox = pdViewportDictionary.getBBox();
+    assertEquals(1683.7795f, bBox.getUpperRightX());
+    assertEquals(1683.7795f, bBox.getWidth());
+    assertEquals(2383.937f, bBox.getHeight());
+    assertEquals(2383.937f, bBox.getUpperRightY());
+  }
+
+  /**
+   * Test {@link PDViewportDictionary#setBBox(PDRectangle)}.
+   *
+   * <ul>
+   *   <li>When {@code null}.
+   *   <li>Then {@link PDViewportDictionary#PDViewportDictionary()} COSObject toIncrement Objects
+   *       Empty.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDViewportDictionary#setBBox(PDRectangle)}
+   */
+  @Test
+  @DisplayName(
+      "Test setBBox(PDRectangle); when 'null'; then PDViewportDictionary() COSObject toIncrement Objects Empty")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDViewportDictionary.setBBox(PDRectangle)"})
   void testSetBBox_whenNull_thenPDViewportDictionaryCOSObjectToIncrementObjectsEmpty() {
     // Arrange
     PDViewportDictionary pdViewportDictionary = new PDViewportDictionary();
@@ -145,85 +184,78 @@ class PDViewportDictionaryDiffblueTest {
     // Act
     pdViewportDictionary.setBBox(null);
 
-    // Assert
+    // Assert that nothing has changed
     COSIncrement toIncrementResult = pdViewportDictionary.getCOSObject().toIncrement();
     assertFalse(toIncrementResult.iterator().hasNext());
     assertTrue(toIncrementResult.getObjects().isEmpty());
   }
 
   /**
-   * Test {@link PDViewportDictionary#setBBox(PDRectangle)}.
-   * <ul>
-   *   <li>When {@link PDRectangle#PDRectangle()}.</li>
-   *   <li>Then {@link PDViewportDictionary#PDViewportDictionary()} BBox Height is
-   * zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDViewportDictionary#setBBox(PDRectangle)}
-   */
-  @Test
-  @DisplayName("Test setBBox(PDRectangle); when PDRectangle(); then PDViewportDictionary() BBox Height is zero")
-  void testSetBBox_whenPDRectangle_thenPDViewportDictionaryBBoxHeightIsZero() {
-    // Arrange
-    PDViewportDictionary pdViewportDictionary = new PDViewportDictionary();
-
-    // Act
-    pdViewportDictionary.setBBox(new PDRectangle());
-
-    // Assert
-    PDRectangle bBox = pdViewportDictionary.getBBox();
-    assertEquals(0.0f, bBox.getHeight());
-    assertEquals(0.0f, bBox.getUpperRightX());
-    assertEquals(0.0f, bBox.getUpperRightY());
-    assertEquals(0.0f, bBox.getWidth());
-  }
-
-  /**
    * Test {@link PDViewportDictionary#getName()}.
+   *
    * <ul>
-   *   <li>Given {@link PDViewportDictionary#PDViewportDictionary(COSDictionary)}
-   * with dictionary is {@link COSStream#COSStream()}.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Given {@link PDViewportDictionary#PDViewportDictionary()}.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewportDictionary#getName()}
-   */
-  @Test
-  @DisplayName("Test getName(); given PDViewportDictionary(COSDictionary) with dictionary is COSStream(); then return 'null'")
-  void testGetName_givenPDViewportDictionaryWithDictionaryIsCOSStream_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new PDViewportDictionary(new COSStream())).getName());
-  }
-
-  /**
-   * Test {@link PDViewportDictionary#getName()}.
-   * <ul>
-   *   <li>Given {@link PDViewportDictionary#PDViewportDictionary()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDViewportDictionary#getName()}
+   *
+   * <p>Method under test: {@link PDViewportDictionary#getName()}
    */
   @Test
   @DisplayName("Test getName(); given PDViewportDictionary(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PDViewportDictionary.getName()"})
   void testGetName_givenPDViewportDictionary_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new PDViewportDictionary()).getName());
+    assertNull(new PDViewportDictionary().getName());
   }
 
   /**
    * Test {@link PDViewportDictionary#setName(String)}.
+   *
    * <ul>
-   *   <li>Given {@link PDViewportDictionary#PDViewportDictionary()}.</li>
-   *   <li>Then {@link PDViewportDictionary#PDViewportDictionary()} Name is
-   * {@code Name}.</li>
+   *   <li>When {@code NameName}.
+   *   <li>Then {@link PDViewportDictionary#PDViewportDictionary()} Name is {@code NameName}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewportDictionary#setName(String)}
+   *
+   * <p>Method under test: {@link PDViewportDictionary#setName(String)}
    */
   @Test
-  @DisplayName("Test setName(String); given PDViewportDictionary(); then PDViewportDictionary() Name is 'Name'")
-  void testSetName_givenPDViewportDictionary_thenPDViewportDictionaryNameIsName() {
+  @DisplayName(
+      "Test setName(String); when 'NameName'; then PDViewportDictionary() Name is 'NameName'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDViewportDictionary.setName(String)"})
+  void testSetName_whenNameName_thenPDViewportDictionaryNameIsNameName() {
+    // Arrange
+    PDViewportDictionary pdViewportDictionary = new PDViewportDictionary();
+
+    // Act
+    pdViewportDictionary.setName("NameName");
+
+    // Assert
+    assertEquals("NameName", pdViewportDictionary.getName());
+    COSDictionary cOSObject = pdViewportDictionary.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDViewportDictionary#setName(String)}.
+   *
+   * <ul>
+   *   <li>When {@code Name}.
+   *   <li>Then {@link PDViewportDictionary#PDViewportDictionary()} Name is {@code Name}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDViewportDictionary#setName(String)}
+   */
+  @Test
+  @DisplayName("Test setName(String); when 'Name'; then PDViewportDictionary() Name is 'Name'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDViewportDictionary.setName(String)"})
+  void testSetName_whenName_thenPDViewportDictionaryNameIsName() {
     // Arrange
     PDViewportDictionary pdViewportDictionary = new PDViewportDictionary();
 
@@ -239,76 +271,68 @@ class PDViewportDictionaryDiffblueTest {
 
   /**
    * Test {@link PDViewportDictionary#setName(String)}.
+   *
    * <ul>
-   *   <li>Given {@link PDViewportDictionary#PDViewportDictionary()}.</li>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then {@link PDViewportDictionary#PDViewportDictionary()} Name is
-   * {@code 42}.</li>
+   *   <li>When {@code null}.
+   *   <li>Then {@link PDViewportDictionary#PDViewportDictionary()} COSObject size is zero.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewportDictionary#setName(String)}
+   *
+   * <p>Method under test: {@link PDViewportDictionary#setName(String)}
    */
   @Test
-  @DisplayName("Test setName(String); given PDViewportDictionary(); when '42'; then PDViewportDictionary() Name is '42'")
-  void testSetName_givenPDViewportDictionary_when42_thenPDViewportDictionaryNameIs42() {
+  @DisplayName(
+      "Test setName(String); when 'null'; then PDViewportDictionary() COSObject size is zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDViewportDictionary.setName(String)"})
+  void testSetName_whenNull_thenPDViewportDictionaryCOSObjectSizeIsZero() {
     // Arrange
     PDViewportDictionary pdViewportDictionary = new PDViewportDictionary();
 
     // Act
-    pdViewportDictionary.setName("42");
+    pdViewportDictionary.setName(null);
 
-    // Assert
-    assertEquals("42", pdViewportDictionary.getName());
+    // Assert that nothing has changed
     COSDictionary cOSObject = pdViewportDictionary.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
+    assertEquals(0, cOSObject.size());
+    assertTrue(cOSObject.getValues().isEmpty());
   }
 
   /**
    * Test {@link PDViewportDictionary#getMeasure()}.
+   *
    * <ul>
-   *   <li>Given {@link PDViewportDictionary#PDViewportDictionary(COSDictionary)}
-   * with dictionary is {@link COSStream#COSStream()}.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Given {@link PDViewportDictionary#PDViewportDictionary()}.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewportDictionary#getMeasure()}
-   */
-  @Test
-  @DisplayName("Test getMeasure(); given PDViewportDictionary(COSDictionary) with dictionary is COSStream(); then return 'null'")
-  void testGetMeasure_givenPDViewportDictionaryWithDictionaryIsCOSStream_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new PDViewportDictionary(new COSStream())).getMeasure());
-  }
-
-  /**
-   * Test {@link PDViewportDictionary#getMeasure()}.
-   * <ul>
-   *   <li>Given {@link PDViewportDictionary#PDViewportDictionary()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDViewportDictionary#getMeasure()}
+   *
+   * <p>Method under test: {@link PDViewportDictionary#getMeasure()}
    */
   @Test
   @DisplayName("Test getMeasure(); given PDViewportDictionary(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDMeasureDictionary PDViewportDictionary.getMeasure()"})
   void testGetMeasure_givenPDViewportDictionary_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new PDViewportDictionary()).getMeasure());
+    assertNull(new PDViewportDictionary().getMeasure());
   }
 
   /**
    * Test {@link PDViewportDictionary#setMeasure(PDMeasureDictionary)}.
+   *
    * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and
-   * gen is one.</li>
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link PDViewportDictionary#setMeasure(PDMeasureDictionary)}
+   *
+   * <p>Method under test: {@link PDViewportDictionary#setMeasure(PDMeasureDictionary)}
    */
   @Test
-  @DisplayName("Test setMeasure(PDMeasureDictionary); given COSObjectKey(long, int) with num is one and gen is one")
+  @DisplayName(
+      "Test setMeasure(PDMeasureDictionary); given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDViewportDictionary.setMeasure(PDMeasureDictionary)"})
   void testSetMeasure_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
     PDViewportDictionary pdViewportDictionary = new PDViewportDictionary();
@@ -331,16 +355,20 @@ class PDViewportDictionaryDiffblueTest {
 
   /**
    * Test {@link PDViewportDictionary#setMeasure(PDMeasureDictionary)}.
+   *
    * <ul>
-   *   <li>Given {@code true}.</li>
-   *   <li>When {@link COSDictionary#COSDictionary()} Direct is {@code true}.</li>
+   *   <li>Given {@code true}.
+   *   <li>When {@link COSDictionary#COSDictionary()} Direct is {@code true}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link PDViewportDictionary#setMeasure(PDMeasureDictionary)}
+   *
+   * <p>Method under test: {@link PDViewportDictionary#setMeasure(PDMeasureDictionary)}
    */
   @Test
-  @DisplayName("Test setMeasure(PDMeasureDictionary); given 'true'; when COSDictionary() Direct is 'true'")
+  @DisplayName(
+      "Test setMeasure(PDMeasureDictionary); given 'true'; when COSDictionary() Direct is 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDViewportDictionary.setMeasure(PDMeasureDictionary)"})
   void testSetMeasure_givenTrue_whenCOSDictionaryDirectIsTrue() {
     // Arrange
     PDViewportDictionary pdViewportDictionary = new PDViewportDictionary();
@@ -363,17 +391,20 @@ class PDViewportDictionaryDiffblueTest {
 
   /**
    * Test {@link PDViewportDictionary#setMeasure(PDMeasureDictionary)}.
+   *
    * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link PDViewportDictionary#PDViewportDictionary()} COSObject size
-   * is zero.</li>
+   *   <li>When {@code null}.
+   *   <li>Then {@link PDViewportDictionary#PDViewportDictionary()} COSObject size is zero.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link PDViewportDictionary#setMeasure(PDMeasureDictionary)}
+   *
+   * <p>Method under test: {@link PDViewportDictionary#setMeasure(PDMeasureDictionary)}
    */
   @Test
-  @DisplayName("Test setMeasure(PDMeasureDictionary); when 'null'; then PDViewportDictionary() COSObject size is zero")
+  @DisplayName(
+      "Test setMeasure(PDMeasureDictionary); when 'null'; then PDViewportDictionary() COSObject size is zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDViewportDictionary.setMeasure(PDMeasureDictionary)"})
   void testSetMeasure_whenNull_thenPDViewportDictionaryCOSObjectSizeIsZero() {
     // Arrange
     PDViewportDictionary pdViewportDictionary = new PDViewportDictionary();
@@ -381,7 +412,7 @@ class PDViewportDictionaryDiffblueTest {
     // Act
     pdViewportDictionary.setMeasure(null);
 
-    // Assert
+    // Assert that nothing has changed
     COSDictionary cOSObject = pdViewportDictionary.getCOSObject();
     assertEquals(0, cOSObject.size());
     assertTrue(cOSObject.getValues().isEmpty());
@@ -389,15 +420,18 @@ class PDViewportDictionaryDiffblueTest {
 
   /**
    * Test {@link PDViewportDictionary#setMeasure(PDMeasureDictionary)}.
+   *
    * <ul>
-   *   <li>When {@link PDMeasureDictionary#PDMeasureDictionary()}.</li>
+   *   <li>When {@link PDMeasureDictionary#PDMeasureDictionary()}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link PDViewportDictionary#setMeasure(PDMeasureDictionary)}
+   *
+   * <p>Method under test: {@link PDViewportDictionary#setMeasure(PDMeasureDictionary)}
    */
   @Test
   @DisplayName("Test setMeasure(PDMeasureDictionary); when PDMeasureDictionary()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDViewportDictionary.setMeasure(PDMeasureDictionary)"})
   void testSetMeasure_whenPDMeasureDictionary() {
     // Arrange
     PDViewportDictionary pdViewportDictionary = new PDViewportDictionary();

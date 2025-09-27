@@ -2,18 +2,24 @@ package org.apache.pdfbox.pdfparser.xref;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.pdfbox.cos.COSObjectKey;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class FreeXReferenceDiffblueTest {
   /**
    * Test {@link FreeXReference#FreeXReference(COSObjectKey, long)}.
-   * <p>
-   * Method under test: {@link FreeXReference#FreeXReference(COSObjectKey, long)}
+   *
+   * <p>Method under test: {@link FreeXReference#FreeXReference(COSObjectKey, long)}
    */
   @Test
   @DisplayName("Test new FreeXReference(COSObjectKey, long)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FreeXReference.<init>(COSObjectKey, long)"})
   void testNewFreeXReference() {
     // Arrange
     COSObjectKey key = new COSObjectKey(1L, 1);
@@ -31,8 +37,9 @@ class FreeXReferenceDiffblueTest {
 
   /**
    * Test getters and setters.
-   * <p>
-   * Methods under test:
+   *
+   * <p>Methods under test:
+   *
    * <ul>
    *   <li>{@link FreeXReference#toString()}
    *   <li>{@link FreeXReference#getReferencedKey()}
@@ -41,10 +48,16 @@ class FreeXReferenceDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "COSObjectKey FreeXReference.getReferencedKey()",
+    "long FreeXReference.getSecondColumnValue()",
+    "String FreeXReference.toString()"
+  })
   void testGettersAndSetters() {
     // Arrange
     COSObjectKey key = new COSObjectKey(1L, 1);
-
     FreeXReference freeXReference = new FreeXReference(key, 1L);
 
     // Act
@@ -59,15 +72,19 @@ class FreeXReferenceDiffblueTest {
 
   /**
    * Test {@link FreeXReference#getThirdColumnValue()}.
+   *
    * <ul>
-   *   <li>Given {@link FreeXReference#NULL_ENTRY}.</li>
-   *   <li>Then return {@code 65535}.</li>
+   *   <li>Given {@link FreeXReference#NULL_ENTRY}.
+   *   <li>Then return {@code 65535}.
    * </ul>
-   * <p>
-   * Method under test: {@link FreeXReference#getThirdColumnValue()}
+   *
+   * <p>Method under test: {@link FreeXReference#getThirdColumnValue()}
    */
   @Test
   @DisplayName("Test getThirdColumnValue(); given NULL_ENTRY; then return '65535'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"long FreeXReference.getThirdColumnValue()"})
   void testGetThirdColumnValue_givenNull_entry_thenReturn65535() {
     // Arrange, Act and Assert
     assertEquals(65535L, FreeXReference.NULL_ENTRY.getThirdColumnValue());

@@ -5,56 +5,58 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.pdfbox.cos.COSDictionary;
-import org.apache.pdfbox.cos.COSIncrement;
-import org.apache.pdfbox.cos.COSUpdateState;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDExportFormatAttributeObjectDiffblueTest {
   /**
-   * Test
-   * {@link PDExportFormatAttributeObject#PDExportFormatAttributeObject(COSDictionary)}.
-   * <p>
-   * Method under test:
-   * {@link PDExportFormatAttributeObject#PDExportFormatAttributeObject(COSDictionary)}
+   * Test {@link PDExportFormatAttributeObject#PDExportFormatAttributeObject(COSDictionary)}.
+   *
+   * <p>Method under test: {@link
+   * PDExportFormatAttributeObject#PDExportFormatAttributeObject(COSDictionary)}
    */
   @Test
   @DisplayName("Test new PDExportFormatAttributeObject(COSDictionary)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDExportFormatAttributeObject.<init>(COSDictionary)"})
   void testNewPDExportFormatAttributeObject() {
     // Arrange
     COSDictionary dictionary = new COSDictionary();
 
     // Act and Assert
-    assertSame(dictionary, (new PDExportFormatAttributeObject(dictionary)).getCOSObject());
+    assertSame(dictionary, new PDExportFormatAttributeObject(dictionary).getCOSObject());
   }
 
   /**
-   * Test
-   * {@link PDExportFormatAttributeObject#PDExportFormatAttributeObject(String)}.
-   * <p>
-   * Method under test:
-   * {@link PDExportFormatAttributeObject#PDExportFormatAttributeObject(String)}
+   * Test {@link PDExportFormatAttributeObject#PDExportFormatAttributeObject(String)}.
+   *
+   * <p>Method under test: {@link
+   * PDExportFormatAttributeObject#PDExportFormatAttributeObject(String)}
    */
   @Test
   @DisplayName("Test new PDExportFormatAttributeObject(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDExportFormatAttributeObject.<init>(String)"})
   void testNewPDExportFormatAttributeObject2() {
     // Arrange and Act
-    PDExportFormatAttributeObject actualPdExportFormatAttributeObject = new PDExportFormatAttributeObject("Owner");
+    PDExportFormatAttributeObject actualPdExportFormatAttributeObject =
+        new PDExportFormatAttributeObject("Owner");
 
     // Assert
     assertEquals("Owner", actualPdExportFormatAttributeObject.getOwner());
-    assertNull(actualPdExportFormatAttributeObject.getHeaders());
     assertNull(actualPdExportFormatAttributeObject.getBorderColors());
     assertNull(actualPdExportFormatAttributeObject.getBorderThickness());
     assertNull(actualPdExportFormatAttributeObject.getColumnGap());
     assertNull(actualPdExportFormatAttributeObject.getColumnWidths());
     assertNull(actualPdExportFormatAttributeObject.getScope());
     assertNull(actualPdExportFormatAttributeObject.getSummary());
-    COSDictionary cOSObject = actualPdExportFormatAttributeObject.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
-    assertNull(cOSObject.getKey());
+    assertNull(actualPdExportFormatAttributeObject.getHeaders());
     assertNull(actualPdExportFormatAttributeObject.getBBox());
     assertNull(actualPdExportFormatAttributeObject.getBackgroundColor());
     assertNull(actualPdExportFormatAttributeObject.getColor());
@@ -68,71 +70,98 @@ class PDExportFormatAttributeObjectDiffblueTest {
     assertEquals(0.0f, actualPdExportFormatAttributeObject.getSpaceBefore());
     assertEquals(0.0f, actualPdExportFormatAttributeObject.getStartIndent());
     assertEquals(0.0f, actualPdExportFormatAttributeObject.getTextIndent());
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
     assertEquals(1, actualPdExportFormatAttributeObject.getColSpan());
     assertEquals(1, actualPdExportFormatAttributeObject.getRowSpan());
     assertEquals(1, actualPdExportFormatAttributeObject.getColumnCount());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
     assertTrue(actualPdExportFormatAttributeObject.isEmpty());
-    assertEquals(PDLayoutAttributeObject.BLOCK_ALIGN_BEFORE, actualPdExportFormatAttributeObject.getBlockAlign());
-    assertEquals(PDLayoutAttributeObject.BLOCK_ALIGN_BEFORE, actualPdExportFormatAttributeObject.getRubyPosition());
-    assertEquals(PDLayoutAttributeObject.BORDER_STYLE_NONE, actualPdExportFormatAttributeObject.getListNumbering());
-    assertEquals(PDLayoutAttributeObject.BORDER_STYLE_NONE,
+    assertEquals(
+        PDLayoutAttributeObject.BLOCK_ALIGN_BEFORE,
+        actualPdExportFormatAttributeObject.getBlockAlign());
+    assertEquals(
+        PDLayoutAttributeObject.BLOCK_ALIGN_BEFORE,
+        actualPdExportFormatAttributeObject.getRubyPosition());
+    assertEquals(
+        PDLayoutAttributeObject.BORDER_STYLE_NONE,
+        actualPdExportFormatAttributeObject.getListNumbering());
+    assertEquals(
+        PDLayoutAttributeObject.BORDER_STYLE_NONE,
         actualPdExportFormatAttributeObject.getTextDecorationType());
-    assertEquals(PDLayoutAttributeObject.BORDER_STYLE_NONE, actualPdExportFormatAttributeObject.getBorderStyle());
-    assertEquals(PDLayoutAttributeObject.BORDER_STYLE_NONE, actualPdExportFormatAttributeObject.getTBorderStyle());
-    assertEquals(PDLayoutAttributeObject.GLYPH_ORIENTATION_VERTICAL_AUTO,
+    assertEquals(
+        PDLayoutAttributeObject.BORDER_STYLE_NONE,
+        actualPdExportFormatAttributeObject.getBorderStyle());
+    assertEquals(
+        PDLayoutAttributeObject.BORDER_STYLE_NONE,
+        actualPdExportFormatAttributeObject.getTBorderStyle());
+    assertEquals(
+        PDLayoutAttributeObject.GLYPH_ORIENTATION_VERTICAL_AUTO,
         actualPdExportFormatAttributeObject.getGlyphOrientationVertical());
-    assertEquals(PDLayoutAttributeObject.GLYPH_ORIENTATION_VERTICAL_AUTO,
+    assertEquals(
+        PDLayoutAttributeObject.GLYPH_ORIENTATION_VERTICAL_AUTO,
         actualPdExportFormatAttributeObject.getHeight());
-    assertEquals(PDLayoutAttributeObject.GLYPH_ORIENTATION_VERTICAL_AUTO,
+    assertEquals(
+        PDLayoutAttributeObject.GLYPH_ORIENTATION_VERTICAL_AUTO,
         actualPdExportFormatAttributeObject.getWidth());
-    assertEquals(PDLayoutAttributeObject.INLINE_ALIGN_START, actualPdExportFormatAttributeObject.getInlineAlign());
-    assertEquals(PDLayoutAttributeObject.INLINE_ALIGN_START, actualPdExportFormatAttributeObject.getTextAlign());
-    assertEquals(PDLayoutAttributeObject.LINE_HEIGHT_NORMAL, actualPdExportFormatAttributeObject.getLineHeight());
-    assertEquals(PDLayoutAttributeObject.PLACEMENT_INLINE, actualPdExportFormatAttributeObject.getPlacement());
-    assertEquals(PDLayoutAttributeObject.RUBY_ALIGN_DISTRIBUTE, actualPdExportFormatAttributeObject.getRubyAlign());
-    assertEquals(PDLayoutAttributeObject.WRITING_MODE_LRTB, actualPdExportFormatAttributeObject.getWritingMode());
+    assertEquals(
+        PDLayoutAttributeObject.INLINE_ALIGN_START,
+        actualPdExportFormatAttributeObject.getInlineAlign());
+    assertEquals(
+        PDLayoutAttributeObject.INLINE_ALIGN_START,
+        actualPdExportFormatAttributeObject.getTextAlign());
+    assertEquals(
+        PDLayoutAttributeObject.LINE_HEIGHT_NORMAL,
+        actualPdExportFormatAttributeObject.getLineHeight());
+    assertEquals(
+        PDLayoutAttributeObject.PLACEMENT_INLINE,
+        actualPdExportFormatAttributeObject.getPlacement());
+    assertEquals(
+        PDLayoutAttributeObject.RUBY_ALIGN_DISTRIBUTE,
+        actualPdExportFormatAttributeObject.getRubyAlign());
+    assertEquals(
+        PDLayoutAttributeObject.WRITING_MODE_LRTB,
+        actualPdExportFormatAttributeObject.getWritingMode());
   }
 
   /**
    * Test {@link PDExportFormatAttributeObject#getListNumbering()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDLayoutAttributeObject#BORDER_STYLE_NONE}.</li>
+   *   <li>Then return {@link PDLayoutAttributeObject#BORDER_STYLE_NONE}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDExportFormatAttributeObject#getListNumbering()}
+   *
+   * <p>Method under test: {@link PDExportFormatAttributeObject#getListNumbering()}
    */
   @Test
   @DisplayName("Test getListNumbering(); then return BORDER_STYLE_NONE")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PDExportFormatAttributeObject.getListNumbering()"})
   void testGetListNumbering_thenReturnBorder_style_none() {
     // Arrange, Act and Assert
-    assertEquals(PDLayoutAttributeObject.BORDER_STYLE_NONE,
-        (new PDExportFormatAttributeObject("Owner")).getListNumbering());
+    assertEquals(
+        PDLayoutAttributeObject.BORDER_STYLE_NONE,
+        new PDExportFormatAttributeObject("Owner").getListNumbering());
   }
 
   /**
    * Test {@link PDExportFormatAttributeObject#setListNumbering(String)}.
+   *
    * <ul>
-   *   <li>Then
-   * {@link PDExportFormatAttributeObject#PDExportFormatAttributeObject(String)}
-   * with {@code Owner} ListNumbering is {@code 42}.</li>
+   *   <li>Then {@link PDExportFormatAttributeObject#PDExportFormatAttributeObject(String)} with
+   *       {@code Owner} ListNumbering is {@code 42}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link PDExportFormatAttributeObject#setListNumbering(String)}
+   *
+   * <p>Method under test: {@link PDExportFormatAttributeObject#setListNumbering(String)}
    */
   @Test
-  @DisplayName("Test setListNumbering(String); then PDExportFormatAttributeObject(String) with 'Owner' ListNumbering is '42'")
+  @DisplayName(
+      "Test setListNumbering(String); then PDExportFormatAttributeObject(String) with 'Owner' ListNumbering is '42'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDExportFormatAttributeObject.setListNumbering(String)"})
   void testSetListNumbering_thenPDExportFormatAttributeObjectWithOwnerListNumberingIs42() {
     // Arrange
-    PDExportFormatAttributeObject pdExportFormatAttributeObject = new PDExportFormatAttributeObject("Owner");
+    PDExportFormatAttributeObject pdExportFormatAttributeObject =
+        new PDExportFormatAttributeObject("Owner");
 
     // Act
     pdExportFormatAttributeObject.setListNumbering("42");
@@ -147,32 +176,40 @@ class PDExportFormatAttributeObjectDiffblueTest {
 
   /**
    * Test {@link PDExportFormatAttributeObject#getRowSpan()}.
+   *
    * <ul>
-   *   <li>Given
-   * {@link PDExportFormatAttributeObject#PDExportFormatAttributeObject(String)}
-   * with {@code Owner}.</li>
-   *   <li>Then return one.</li>
+   *   <li>Given {@link PDExportFormatAttributeObject#PDExportFormatAttributeObject(String)} with
+   *       {@code Owner}.
+   *   <li>Then return one.
    * </ul>
-   * <p>
-   * Method under test: {@link PDExportFormatAttributeObject#getRowSpan()}
+   *
+   * <p>Method under test: {@link PDExportFormatAttributeObject#getRowSpan()}
    */
   @Test
-  @DisplayName("Test getRowSpan(); given PDExportFormatAttributeObject(String) with 'Owner'; then return one")
+  @DisplayName(
+      "Test getRowSpan(); given PDExportFormatAttributeObject(String) with 'Owner'; then return one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"int PDExportFormatAttributeObject.getRowSpan()"})
   void testGetRowSpan_givenPDExportFormatAttributeObjectWithOwner_thenReturnOne() {
     // Arrange, Act and Assert
-    assertEquals(1, (new PDExportFormatAttributeObject("Owner")).getRowSpan());
+    assertEquals(1, new PDExportFormatAttributeObject("Owner").getRowSpan());
   }
 
   /**
    * Test {@link PDExportFormatAttributeObject#setRowSpan(int)}.
-   * <p>
-   * Method under test: {@link PDExportFormatAttributeObject#setRowSpan(int)}
+   *
+   * <p>Method under test: {@link PDExportFormatAttributeObject#setRowSpan(int)}
    */
   @Test
   @DisplayName("Test setRowSpan(int)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDExportFormatAttributeObject.setRowSpan(int)"})
   void testSetRowSpan() {
     // Arrange
-    PDExportFormatAttributeObject pdExportFormatAttributeObject = new PDExportFormatAttributeObject("Owner");
+    PDExportFormatAttributeObject pdExportFormatAttributeObject =
+        new PDExportFormatAttributeObject("Owner");
 
     // Act
     pdExportFormatAttributeObject.setRowSpan(1);
@@ -186,32 +223,40 @@ class PDExportFormatAttributeObjectDiffblueTest {
 
   /**
    * Test {@link PDExportFormatAttributeObject#getColSpan()}.
+   *
    * <ul>
-   *   <li>Given
-   * {@link PDExportFormatAttributeObject#PDExportFormatAttributeObject(String)}
-   * with {@code Owner}.</li>
-   *   <li>Then return one.</li>
+   *   <li>Given {@link PDExportFormatAttributeObject#PDExportFormatAttributeObject(String)} with
+   *       {@code Owner}.
+   *   <li>Then return one.
    * </ul>
-   * <p>
-   * Method under test: {@link PDExportFormatAttributeObject#getColSpan()}
+   *
+   * <p>Method under test: {@link PDExportFormatAttributeObject#getColSpan()}
    */
   @Test
-  @DisplayName("Test getColSpan(); given PDExportFormatAttributeObject(String) with 'Owner'; then return one")
+  @DisplayName(
+      "Test getColSpan(); given PDExportFormatAttributeObject(String) with 'Owner'; then return one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"int PDExportFormatAttributeObject.getColSpan()"})
   void testGetColSpan_givenPDExportFormatAttributeObjectWithOwner_thenReturnOne() {
     // Arrange, Act and Assert
-    assertEquals(1, (new PDExportFormatAttributeObject("Owner")).getColSpan());
+    assertEquals(1, new PDExportFormatAttributeObject("Owner").getColSpan());
   }
 
   /**
    * Test {@link PDExportFormatAttributeObject#setColSpan(int)}.
-   * <p>
-   * Method under test: {@link PDExportFormatAttributeObject#setColSpan(int)}
+   *
+   * <p>Method under test: {@link PDExportFormatAttributeObject#setColSpan(int)}
    */
   @Test
   @DisplayName("Test setColSpan(int)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDExportFormatAttributeObject.setColSpan(int)"})
   void testSetColSpan() {
     // Arrange
-    PDExportFormatAttributeObject pdExportFormatAttributeObject = new PDExportFormatAttributeObject("Owner");
+    PDExportFormatAttributeObject pdExportFormatAttributeObject =
+        new PDExportFormatAttributeObject("Owner");
 
     // Act
     pdExportFormatAttributeObject.setColSpan(1);
@@ -225,35 +270,43 @@ class PDExportFormatAttributeObjectDiffblueTest {
 
   /**
    * Test {@link PDExportFormatAttributeObject#getHeaders()}.
+   *
    * <ul>
-   *   <li>Given
-   * {@link PDExportFormatAttributeObject#PDExportFormatAttributeObject(String)}
-   * with {@code Owner}.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Given {@link PDExportFormatAttributeObject#PDExportFormatAttributeObject(String)} with
+   *       {@code Owner}.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDExportFormatAttributeObject#getHeaders()}
+   *
+   * <p>Method under test: {@link PDExportFormatAttributeObject#getHeaders()}
    */
   @Test
-  @DisplayName("Test getHeaders(); given PDExportFormatAttributeObject(String) with 'Owner'; then return 'null'")
+  @DisplayName(
+      "Test getHeaders(); given PDExportFormatAttributeObject(String) with 'Owner'; then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String[] PDExportFormatAttributeObject.getHeaders()"})
   void testGetHeaders_givenPDExportFormatAttributeObjectWithOwner_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new PDExportFormatAttributeObject("Owner")).getHeaders());
+    assertNull(new PDExportFormatAttributeObject("Owner").getHeaders());
   }
 
   /**
    * Test {@link PDExportFormatAttributeObject#setHeaders(String[])}.
-   * <p>
-   * Method under test: {@link PDExportFormatAttributeObject#setHeaders(String[])}
+   *
+   * <p>Method under test: {@link PDExportFormatAttributeObject#setHeaders(String[])}
    */
   @Test
   @DisplayName("Test setHeaders(String[])")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDExportFormatAttributeObject.setHeaders(String[])"})
   void testSetHeaders() {
     // Arrange
-    PDExportFormatAttributeObject pdExportFormatAttributeObject = new PDExportFormatAttributeObject("Owner");
+    PDExportFormatAttributeObject pdExportFormatAttributeObject =
+        new PDExportFormatAttributeObject("Owner");
 
     // Act
-    pdExportFormatAttributeObject.setHeaders(new String[]{"Headers"});
+    pdExportFormatAttributeObject.setHeaders(new String[] {"Headers"});
 
     // Assert
     COSDictionary cOSObject = pdExportFormatAttributeObject.getCOSObject();
@@ -264,37 +317,46 @@ class PDExportFormatAttributeObjectDiffblueTest {
 
   /**
    * Test {@link PDExportFormatAttributeObject#getScope()}.
+   *
    * <ul>
-   *   <li>Given
-   * {@link PDExportFormatAttributeObject#PDExportFormatAttributeObject(String)}
-   * with {@code Owner}.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Given {@link PDExportFormatAttributeObject#PDExportFormatAttributeObject(String)} with
+   *       {@code Owner}.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDExportFormatAttributeObject#getScope()}
+   *
+   * <p>Method under test: {@link PDExportFormatAttributeObject#getScope()}
    */
   @Test
-  @DisplayName("Test getScope(); given PDExportFormatAttributeObject(String) with 'Owner'; then return 'null'")
+  @DisplayName(
+      "Test getScope(); given PDExportFormatAttributeObject(String) with 'Owner'; then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PDExportFormatAttributeObject.getScope()"})
   void testGetScope_givenPDExportFormatAttributeObjectWithOwner_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new PDExportFormatAttributeObject("Owner")).getScope());
+    assertNull(new PDExportFormatAttributeObject("Owner").getScope());
   }
 
   /**
    * Test {@link PDExportFormatAttributeObject#setScope(String)}.
+   *
    * <ul>
-   *   <li>Then
-   * {@link PDExportFormatAttributeObject#PDExportFormatAttributeObject(String)}
-   * with {@code Owner} Scope is {@code Scope}.</li>
+   *   <li>Then {@link PDExportFormatAttributeObject#PDExportFormatAttributeObject(String)} with
+   *       {@code Owner} Scope is {@code Scope}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDExportFormatAttributeObject#setScope(String)}
+   *
+   * <p>Method under test: {@link PDExportFormatAttributeObject#setScope(String)}
    */
   @Test
-  @DisplayName("Test setScope(String); then PDExportFormatAttributeObject(String) with 'Owner' Scope is 'Scope'")
+  @DisplayName(
+      "Test setScope(String); then PDExportFormatAttributeObject(String) with 'Owner' Scope is 'Scope'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDExportFormatAttributeObject.setScope(String)"})
   void testSetScope_thenPDExportFormatAttributeObjectWithOwnerScopeIsScope() {
     // Arrange
-    PDExportFormatAttributeObject pdExportFormatAttributeObject = new PDExportFormatAttributeObject("Owner");
+    PDExportFormatAttributeObject pdExportFormatAttributeObject =
+        new PDExportFormatAttributeObject("Owner");
 
     // Act
     pdExportFormatAttributeObject.setScope("Scope");
@@ -309,37 +371,46 @@ class PDExportFormatAttributeObjectDiffblueTest {
 
   /**
    * Test {@link PDExportFormatAttributeObject#getSummary()}.
+   *
    * <ul>
-   *   <li>Given
-   * {@link PDExportFormatAttributeObject#PDExportFormatAttributeObject(String)}
-   * with {@code Owner}.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Given {@link PDExportFormatAttributeObject#PDExportFormatAttributeObject(String)} with
+   *       {@code Owner}.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDExportFormatAttributeObject#getSummary()}
+   *
+   * <p>Method under test: {@link PDExportFormatAttributeObject#getSummary()}
    */
   @Test
-  @DisplayName("Test getSummary(); given PDExportFormatAttributeObject(String) with 'Owner'; then return 'null'")
+  @DisplayName(
+      "Test getSummary(); given PDExportFormatAttributeObject(String) with 'Owner'; then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PDExportFormatAttributeObject.getSummary()"})
   void testGetSummary_givenPDExportFormatAttributeObjectWithOwner_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new PDExportFormatAttributeObject("Owner")).getSummary());
+    assertNull(new PDExportFormatAttributeObject("Owner").getSummary());
   }
 
   /**
    * Test {@link PDExportFormatAttributeObject#setSummary(String)}.
+   *
    * <ul>
-   *   <li>Then
-   * {@link PDExportFormatAttributeObject#PDExportFormatAttributeObject(String)}
-   * with {@code Owner} Summary is {@code Summary}.</li>
+   *   <li>Then {@link PDExportFormatAttributeObject#PDExportFormatAttributeObject(String)} with
+   *       {@code Owner} Summary is {@code Summary}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDExportFormatAttributeObject#setSummary(String)}
+   *
+   * <p>Method under test: {@link PDExportFormatAttributeObject#setSummary(String)}
    */
   @Test
-  @DisplayName("Test setSummary(String); then PDExportFormatAttributeObject(String) with 'Owner' Summary is 'Summary'")
+  @DisplayName(
+      "Test setSummary(String); then PDExportFormatAttributeObject(String) with 'Owner' Summary is 'Summary'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDExportFormatAttributeObject.setSummary(String)"})
   void testSetSummary_thenPDExportFormatAttributeObjectWithOwnerSummaryIsSummary() {
     // Arrange
-    PDExportFormatAttributeObject pdExportFormatAttributeObject = new PDExportFormatAttributeObject("Owner");
+    PDExportFormatAttributeObject pdExportFormatAttributeObject =
+        new PDExportFormatAttributeObject("Owner");
 
     // Act
     pdExportFormatAttributeObject.setSummary("Summary");
@@ -354,34 +425,42 @@ class PDExportFormatAttributeObjectDiffblueTest {
 
   /**
    * Test {@link PDExportFormatAttributeObject#toString()}.
+   *
    * <ul>
-   *   <li>Given
-   * {@link PDExportFormatAttributeObject#PDExportFormatAttributeObject(String)}
-   * with {@code Owner}.</li>
-   *   <li>Then return {@code O=Owner}.</li>
+   *   <li>Given {@link PDExportFormatAttributeObject#PDExportFormatAttributeObject(String)} with
+   *       {@code Owner}.
+   *   <li>Then return {@code O=Owner}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDExportFormatAttributeObject#toString()}
+   *
+   * <p>Method under test: {@link PDExportFormatAttributeObject#toString()}
    */
   @Test
-  @DisplayName("Test toString(); given PDExportFormatAttributeObject(String) with 'Owner'; then return 'O=Owner'")
+  @DisplayName(
+      "Test toString(); given PDExportFormatAttributeObject(String) with 'Owner'; then return 'O=Owner'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PDExportFormatAttributeObject.toString()"})
   void testToString_givenPDExportFormatAttributeObjectWithOwner_thenReturnOOwner() {
     // Arrange, Act and Assert
-    assertEquals("O=Owner", (new PDExportFormatAttributeObject("Owner")).toString());
+    assertEquals("O=Owner", new PDExportFormatAttributeObject("Owner").toString());
   }
 
   /**
    * Test {@link PDExportFormatAttributeObject#toString()}.
+   *
    * <ul>
-   *   <li>Then return {@code O=null}.</li>
+   *   <li>Then return {@code O=null}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDExportFormatAttributeObject#toString()}
+   *
+   * <p>Method under test: {@link PDExportFormatAttributeObject#toString()}
    */
   @Test
   @DisplayName("Test toString(); then return 'O=null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PDExportFormatAttributeObject.toString()"})
   void testToString_thenReturnONull() {
     // Arrange, Act and Assert
-    assertEquals("O=null", (new PDExportFormatAttributeObject(new COSDictionary())).toString());
+    assertEquals("O=null", new PDExportFormatAttributeObject(new COSDictionary()).toString());
   }
 }

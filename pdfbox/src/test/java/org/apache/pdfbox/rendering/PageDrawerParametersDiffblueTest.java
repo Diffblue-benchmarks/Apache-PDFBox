@@ -4,20 +4,24 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.RenderingHints;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PageDrawerParametersDiffblueTest {
   /**
    * Test getters and setters.
-   * <p>
-   * Methods under test:
+   *
+   * <p>Methods under test:
+   *
    * <ul>
-   *   <li>
-   * {@link PageDrawerParameters#PageDrawerParameters(PDFRenderer, PDPage, boolean, RenderDestination, RenderingHints, float)}
+   *   <li>{@link PageDrawerParameters#PageDrawerParameters(PDFRenderer, PDPage, boolean,
+   *       RenderDestination, RenderingHints, float)}
    *   <li>{@link PageDrawerParameters#getDestination()}
    *   <li>{@link PageDrawerParameters#getImageDownscalingOptimizationThreshold()}
    *   <li>{@link PageDrawerParameters#getPage()}
@@ -28,17 +32,28 @@ class PageDrawerParametersDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void PageDrawerParameters.<init>(PDFRenderer, PDPage, boolean, RenderDestination, RenderingHints, float)",
+    "RenderDestination PageDrawerParameters.getDestination()",
+    "float PageDrawerParameters.getImageDownscalingOptimizationThreshold()",
+    "PDPage PageDrawerParameters.getPage()",
+    "PDFRenderer PageDrawerParameters.getRenderer()",
+    "RenderingHints PageDrawerParameters.getRenderingHints()",
+    "boolean PageDrawerParameters.isSubsamplingAllowed()"
+  })
   void testGettersAndSetters() {
     // Arrange
     PDFRenderer renderer = new PDFRenderer(new PDDocument());
     PDPage page = new PDPage();
 
     // Act
-    PageDrawerParameters actualPageDrawerParameters = new PageDrawerParameters(renderer, page, true,
-        RenderDestination.EXPORT, null, 10.0f);
+    PageDrawerParameters actualPageDrawerParameters =
+        new PageDrawerParameters(renderer, page, true, RenderDestination.EXPORT, null, 10.0f);
     RenderDestination actualDestination = actualPageDrawerParameters.getDestination();
-    float actualImageDownscalingOptimizationThreshold = actualPageDrawerParameters
-        .getImageDownscalingOptimizationThreshold();
+    float actualImageDownscalingOptimizationThreshold =
+        actualPageDrawerParameters.getImageDownscalingOptimizationThreshold();
     PDPage actualPage = actualPageDrawerParameters.getPage();
     PDFRenderer actualRenderer = actualPageDrawerParameters.getRenderer();
     RenderingHints actualRenderingHints = actualPageDrawerParameters.getRenderingHints();

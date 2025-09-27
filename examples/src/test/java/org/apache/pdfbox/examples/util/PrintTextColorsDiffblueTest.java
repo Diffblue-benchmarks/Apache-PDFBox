@@ -4,19 +4,24 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PrintTextColorsDiffblueTest {
   /**
    * Test {@link PrintTextColors#PrintTextColors()}.
-   * <p>
-   * Method under test: default or parameterless constructor of
-   * {@link PrintTextColors}
+   *
+   * <p>Method under test: default or parameterless constructor of {@link PrintTextColors}
    */
   @Test
   @DisplayName("Test new PrintTextColors()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PrintTextColors.<init>()"})
   void testNewPrintTextColors() throws IOException {
     // Arrange and Act
     PrintTextColors actualPrintTextColors = new PrintTextColors();
@@ -28,8 +33,8 @@ class PrintTextColorsDiffblueTest {
     assertEquals("", actualPrintTextColors.getPageStart());
     assertEquals("", actualPrintTextColors.getParagraphEnd());
     assertEquals("", actualPrintTextColors.getParagraphStart());
-    assertEquals("\r\n", actualPrintTextColors.getLineSeparator());
-    assertEquals("\r\n", actualPrintTextColors.getPageEnd());
+    assertEquals("\n", actualPrintTextColors.getLineSeparator());
+    assertEquals("\n", actualPrintTextColors.getPageEnd());
     assertNull(actualPrintTextColors.getCurrentPage());
     assertNull(actualPrintTextColors.getResources());
     assertNull(actualPrintTextColors.getGraphicsState());

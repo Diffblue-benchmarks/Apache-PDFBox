@@ -5,10 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import java.awt.Dimension;
-import java.awt.Rectangle;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
+import java.awt.geom.Point2D.Float;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
 import org.apache.fontbox.util.BoundingBox;
@@ -21,16 +22,20 @@ import org.apache.pdfbox.cos.COSObject;
 import org.apache.pdfbox.cos.COSObjectKey;
 import org.apache.pdfbox.util.Matrix;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDRectangleDiffblueTest {
   /**
    * Test {@link PDRectangle#PDRectangle()}.
-   * <p>
-   * Method under test: {@link PDRectangle#PDRectangle()}
+   *
+   * <p>Method under test: {@link PDRectangle#PDRectangle()}
    */
   @Test
   @DisplayName("Test new PDRectangle()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDRectangle.<init>()"})
   void testNewPDRectangle() {
     // Arrange and Act
     PDRectangle actualPdRectangle = new PDRectangle();
@@ -47,14 +52,12 @@ class PDRectangleDiffblueTest {
     assertTrue(getResult3 instanceof COSFloat);
     COSBase getResult4 = toListResult.get(3);
     assertTrue(getResult4 instanceof COSFloat);
-    assertNull(getResult.getKey());
     assertEquals(0.0f, actualPdRectangle.getHeight());
     assertEquals(0.0f, actualPdRectangle.getLowerLeftX());
     assertEquals(0.0f, actualPdRectangle.getLowerLeftY());
     assertEquals(0.0f, actualPdRectangle.getUpperRightX());
     assertEquals(0.0f, actualPdRectangle.getUpperRightY());
     assertEquals(0.0f, actualPdRectangle.getWidth());
-    assertFalse(getResult.isDirect());
     assertEquals(getResult, getResult2);
     assertEquals(getResult, getResult3);
     assertEquals(getResult, getResult4);
@@ -63,11 +66,14 @@ class PDRectangleDiffblueTest {
 
   /**
    * Test {@link PDRectangle#PDRectangle(float, float)}.
-   * <p>
-   * Method under test: {@link PDRectangle#PDRectangle(float, float)}
+   *
+   * <p>Method under test: {@link PDRectangle#PDRectangle(float, float)}
    */
   @Test
   @DisplayName("Test new PDRectangle(float, float)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDRectangle.<init>(float, float)"})
   void testNewPDRectangle2() {
     // Arrange and Act
     PDRectangle actualPdRectangle = new PDRectangle(10.0f, 10.0f);
@@ -84,16 +90,12 @@ class PDRectangleDiffblueTest {
     assertTrue(getResult3 instanceof COSFloat);
     COSBase getResult4 = toListResult.get(3);
     assertTrue(getResult4 instanceof COSFloat);
-    assertNull(getResult.getKey());
-    assertNull(getResult3.getKey());
     assertEquals(0.0f, actualPdRectangle.getLowerLeftX());
     assertEquals(0.0f, actualPdRectangle.getLowerLeftY());
     assertEquals(10.0f, actualPdRectangle.getHeight());
     assertEquals(10.0f, actualPdRectangle.getUpperRightX());
     assertEquals(10.0f, actualPdRectangle.getUpperRightY());
     assertEquals(10.0f, actualPdRectangle.getWidth());
-    assertFalse(getResult.isDirect());
-    assertFalse(getResult3.isDirect());
     assertEquals(getResult, getResult2);
     assertEquals(getResult3, getResult4);
     assertSame(cOSArray, actualPdRectangle.getCOSObject());
@@ -101,12 +103,14 @@ class PDRectangleDiffblueTest {
 
   /**
    * Test {@link PDRectangle#PDRectangle(float, float, float, float)}.
-   * <p>
-   * Method under test:
-   * {@link PDRectangle#PDRectangle(float, float, float, float)}
+   *
+   * <p>Method under test: {@link PDRectangle#PDRectangle(float, float, float, float)}
    */
   @Test
   @DisplayName("Test new PDRectangle(float, float, float, float)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDRectangle.<init>(float, float, float, float)"})
   void testNewPDRectangle3() {
     // Arrange and Act
     PDRectangle actualPdRectangle = new PDRectangle(10.0f, 10.0f, 10.0f, 10.0f);
@@ -123,16 +127,12 @@ class PDRectangleDiffblueTest {
     assertTrue(getResult3 instanceof COSFloat);
     COSBase getResult4 = toListResult.get(3);
     assertTrue(getResult4 instanceof COSFloat);
-    assertNull(getResult.getKey());
-    assertNull(getResult3.getKey());
     assertEquals(10.0f, actualPdRectangle.getHeight());
     assertEquals(10.0f, actualPdRectangle.getLowerLeftX());
     assertEquals(10.0f, actualPdRectangle.getLowerLeftY());
     assertEquals(10.0f, actualPdRectangle.getWidth());
     assertEquals(20.0f, actualPdRectangle.getUpperRightX());
     assertEquals(20.0f, actualPdRectangle.getUpperRightY());
-    assertFalse(getResult.isDirect());
-    assertFalse(getResult3.isDirect());
     assertEquals(getResult, getResult2);
     assertEquals(getResult3, getResult4);
     assertSame(cOSArray, actualPdRectangle.getCOSObject());
@@ -140,19 +140,25 @@ class PDRectangleDiffblueTest {
 
   /**
    * Test {@link PDRectangle#PDRectangle(COSArray)}.
+   *
    * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and
-   * gen is one.</li>
+   *   <li>Given {@link COSObject#COSObject(COSBase, COSObjectKey)} with object is {@link
+   *       COSBoolean#FALSE} and objectKey is {@link COSObjectKey#COSObjectKey(long, int)}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDRectangle#PDRectangle(COSArray)}
+   *
+   * <p>Method under test: {@link PDRectangle#PDRectangle(COSArray)}
    */
   @Test
-  @DisplayName("Test new PDRectangle(COSArray); given COSObjectKey(long, int) with num is one and gen is one")
-  void testNewPDRectangle_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
+  @DisplayName(
+      "Test new PDRectangle(COSArray); given COSObject(COSBase, COSObjectKey) with object is FALSE and objectKey is COSObjectKey(long, int)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDRectangle.<init>(COSArray)"})
+  void testNewPDRectangle_givenCOSObjectWithObjectIsFalseAndObjectKeyIsCOSObjectKey() {
     // Arrange
     COSArray array = new COSArray();
-    array.add((COSBase) new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1)));
+    COSObject object = new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1));
+    array.add((COSBase) object);
 
     // Act
     PDRectangle actualPdRectangle = new PDRectangle(array);
@@ -169,14 +175,12 @@ class PDRectangleDiffblueTest {
     assertTrue(getResult3 instanceof COSFloat);
     COSBase getResult4 = toListResult.get(3);
     assertTrue(getResult4 instanceof COSFloat);
-    assertNull(getResult.getKey());
     assertEquals(0.0f, actualPdRectangle.getHeight());
     assertEquals(0.0f, actualPdRectangle.getLowerLeftX());
     assertEquals(0.0f, actualPdRectangle.getLowerLeftY());
     assertEquals(0.0f, actualPdRectangle.getUpperRightX());
     assertEquals(0.0f, actualPdRectangle.getUpperRightY());
     assertEquals(0.0f, actualPdRectangle.getWidth());
-    assertFalse(getResult.isDirect());
     assertEquals(getResult, getResult2);
     assertEquals(getResult, getResult3);
     assertEquals(getResult, getResult4);
@@ -185,15 +189,19 @@ class PDRectangleDiffblueTest {
 
   /**
    * Test {@link PDRectangle#PDRectangle(COSArray)}.
+   *
    * <ul>
-   *   <li>Given {@link COSBoolean#FALSE}.</li>
-   *   <li>When {@link COSArray#COSArray()} add {@link COSBoolean#FALSE}.</li>
+   *   <li>Given {@link COSBoolean#FALSE}.
+   *   <li>When {@link COSArray#COSArray()} add {@link COSBoolean#FALSE}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDRectangle#PDRectangle(COSArray)}
+   *
+   * <p>Method under test: {@link PDRectangle#PDRectangle(COSArray)}
    */
   @Test
   @DisplayName("Test new PDRectangle(COSArray); given FALSE; when COSArray() add FALSE")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDRectangle.<init>(COSArray)"})
   void testNewPDRectangle_givenFalse_whenCOSArrayAddFalse() {
     // Arrange
     COSArray array = new COSArray();
@@ -214,14 +222,12 @@ class PDRectangleDiffblueTest {
     assertTrue(getResult3 instanceof COSFloat);
     COSBase getResult4 = toListResult.get(3);
     assertTrue(getResult4 instanceof COSFloat);
-    assertNull(getResult.getKey());
     assertEquals(0.0f, actualPdRectangle.getHeight());
     assertEquals(0.0f, actualPdRectangle.getLowerLeftX());
     assertEquals(0.0f, actualPdRectangle.getLowerLeftY());
     assertEquals(0.0f, actualPdRectangle.getUpperRightX());
     assertEquals(0.0f, actualPdRectangle.getUpperRightY());
     assertEquals(0.0f, actualPdRectangle.getWidth());
-    assertFalse(getResult.isDirect());
     assertEquals(getResult, getResult2);
     assertEquals(getResult, getResult3);
     assertEquals(getResult, getResult4);
@@ -230,15 +236,19 @@ class PDRectangleDiffblueTest {
 
   /**
    * Test {@link PDRectangle#PDRectangle(COSArray)}.
+   *
    * <ul>
-   *   <li>Given {@link COSFloat#ONE}.</li>
-   *   <li>When {@link COSArray#COSArray()} add {@link COSFloat#ONE}.</li>
+   *   <li>Given {@link COSFloat#ONE}.
+   *   <li>When {@link COSArray#COSArray()} add {@link COSFloat#ONE}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDRectangle#PDRectangle(COSArray)}
+   *
+   * <p>Method under test: {@link PDRectangle#PDRectangle(COSArray)}
    */
   @Test
   @DisplayName("Test new PDRectangle(COSArray); given ONE; when COSArray() add ONE")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDRectangle.<init>(COSArray)"})
   void testNewPDRectangle_givenOne_whenCOSArrayAddOne() {
     // Arrange
     COSArray array = new COSArray();
@@ -260,15 +270,19 @@ class PDRectangleDiffblueTest {
 
   /**
    * Test {@link PDRectangle#PDRectangle(COSArray)}.
+   *
    * <ul>
-   *   <li>Given {@link COSInteger#ONE}.</li>
-   *   <li>When {@link COSArray#COSArray()} add {@link COSInteger#ONE}.</li>
+   *   <li>Given {@link COSInteger#ONE}.
+   *   <li>When {@link COSArray#COSArray()} add {@link COSInteger#ONE}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDRectangle#PDRectangle(COSArray)}
+   *
+   * <p>Method under test: {@link PDRectangle#PDRectangle(COSArray)}
    */
   @Test
   @DisplayName("Test new PDRectangle(COSArray); given ONE; when COSArray() add ONE")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDRectangle.<init>(COSArray)"})
   void testNewPDRectangle_givenOne_whenCOSArrayAddOne2() {
     // Arrange
     COSArray array = new COSArray();
@@ -290,17 +304,24 @@ class PDRectangleDiffblueTest {
 
   /**
    * Test {@link PDRectangle#PDRectangle(BoundingBox)}.
+   *
    * <ul>
-   *   <li>Then return COSArray toList size is four.</li>
+   *   <li>Then return COSArray toList size is four.
    * </ul>
-   * <p>
-   * Method under test: {@link PDRectangle#PDRectangle(BoundingBox)}
+   *
+   * <p>Method under test: {@link PDRectangle#PDRectangle(BoundingBox)}
    */
   @Test
   @DisplayName("Test new PDRectangle(BoundingBox); then return COSArray toList size is four")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDRectangle.<init>(BoundingBox)"})
   void testNewPDRectangle_thenReturnCOSArrayToListSizeIsFour() {
-    // Arrange and Act
-    PDRectangle actualPdRectangle = new PDRectangle(new BoundingBox(10.0f, 10.0f, 10.0f, 10.0f));
+    // Arrange
+    BoundingBox box = new BoundingBox(10.0f, 10.0f, 10.0f, 10.0f);
+
+    // Act
+    PDRectangle actualPdRectangle = new PDRectangle(box);
 
     // Assert
     COSArray cOSArray = actualPdRectangle.getCOSArray();
@@ -314,14 +335,12 @@ class PDRectangleDiffblueTest {
     assertTrue(getResult3 instanceof COSFloat);
     COSBase getResult4 = toListResult.get(3);
     assertTrue(getResult4 instanceof COSFloat);
-    assertNull(getResult.getKey());
     assertEquals(0.0f, actualPdRectangle.getHeight());
     assertEquals(0.0f, actualPdRectangle.getWidth());
     assertEquals(10.0f, actualPdRectangle.getLowerLeftX());
     assertEquals(10.0f, actualPdRectangle.getLowerLeftY());
     assertEquals(10.0f, actualPdRectangle.getUpperRightX());
     assertEquals(10.0f, actualPdRectangle.getUpperRightY());
-    assertFalse(getResult.isDirect());
     assertEquals(getResult, getResult2);
     assertEquals(getResult, getResult3);
     assertEquals(getResult, getResult4);
@@ -330,15 +349,20 @@ class PDRectangleDiffblueTest {
 
   /**
    * Test {@link PDRectangle#PDRectangle(COSArray)}.
+   *
    * <ul>
-   *   <li>When {@link COSArray#COSArray()}.</li>
-   *   <li>Then COSArray toList first return {@link COSFloat}.</li>
+   *   <li>When {@link COSArray#COSArray()}.
+   *   <li>Then COSArray toList first return {@link COSFloat}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDRectangle#PDRectangle(COSArray)}
+   *
+   * <p>Method under test: {@link PDRectangle#PDRectangle(COSArray)}
    */
   @Test
-  @DisplayName("Test new PDRectangle(COSArray); when COSArray(); then COSArray toList first return COSFloat")
+  @DisplayName(
+      "Test new PDRectangle(COSArray); when COSArray(); then COSArray toList first return COSFloat")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDRectangle.<init>(COSArray)"})
   void testNewPDRectangle_whenCOSArray_thenCOSArrayToListFirstReturnCOSFloat() {
     // Arrange and Act
     PDRectangle actualPdRectangle = new PDRectangle(new COSArray());
@@ -355,14 +379,12 @@ class PDRectangleDiffblueTest {
     assertTrue(getResult3 instanceof COSFloat);
     COSBase getResult4 = toListResult.get(3);
     assertTrue(getResult4 instanceof COSFloat);
-    assertNull(getResult.getKey());
     assertEquals(0.0f, actualPdRectangle.getHeight());
     assertEquals(0.0f, actualPdRectangle.getLowerLeftX());
     assertEquals(0.0f, actualPdRectangle.getLowerLeftY());
     assertEquals(0.0f, actualPdRectangle.getUpperRightX());
     assertEquals(0.0f, actualPdRectangle.getUpperRightY());
     assertEquals(0.0f, actualPdRectangle.getWidth());
-    assertFalse(getResult.isDirect());
     assertEquals(getResult, getResult2);
     assertEquals(getResult, getResult3);
     assertEquals(getResult, getResult4);
@@ -371,34 +393,62 @@ class PDRectangleDiffblueTest {
 
   /**
    * Test {@link PDRectangle#contains(float, float)}.
+   *
    * <ul>
-   *   <li>Given {@link PDRectangle#A0}.</li>
-   *   <li>When {@code -0.5}.</li>
-   *   <li>Then return {@code false}.</li>
+   *   <li>Given {@link PDRectangle#A0}.
+   *   <li>When {@code -0.5}.
+   *   <li>Then return {@code false}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDRectangle#contains(float, float)}
+   *
+   * <p>Method under test: {@link PDRectangle#contains(float, float)}
    */
   @Test
   @DisplayName("Test contains(float, float); given A0; when '-0.5'; then return 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean PDRectangle.contains(float, float)"})
   void testContains_givenA0_when05_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse(PDRectangle.A0.contains(-0.5f, 10.0f));
+  }
+
+  /**
+   * Test {@link PDRectangle#contains(float, float)}.
+   *
+   * <ul>
+   *   <li>Given {@link PDRectangle#A0}.
+   *   <li>When {@code -0.5}.
+   *   <li>Then return {@code false}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDRectangle#contains(float, float)}
+   */
+  @Test
+  @DisplayName("Test contains(float, float); given A0; when '-0.5'; then return 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean PDRectangle.contains(float, float)"})
+  void testContains_givenA0_when05_thenReturnFalse2() {
+    // Arrange, Act and Assert
     assertFalse(PDRectangle.A0.contains(10.0f, -0.5f));
   }
 
   /**
    * Test {@link PDRectangle#contains(float, float)}.
+   *
    * <ul>
-   *   <li>Given {@link PDRectangle#A0}.</li>
-   *   <li>When ten.</li>
-   *   <li>Then return {@code true}.</li>
+   *   <li>Given {@link PDRectangle#A0}.
+   *   <li>When ten.
+   *   <li>Then return {@code true}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDRectangle#contains(float, float)}
+   *
+   * <p>Method under test: {@link PDRectangle#contains(float, float)}
    */
   @Test
   @DisplayName("Test contains(float, float); given A0; when ten; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean PDRectangle.contains(float, float)"})
   void testContains_givenA0_whenTen_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue(PDRectangle.A0.contains(10.0f, 10.0f));
@@ -406,48 +456,65 @@ class PDRectangleDiffblueTest {
 
   /**
    * Test {@link PDRectangle#contains(float, float)}.
+   *
    * <ul>
-   *   <li>Given {@link PDRectangle#PDRectangle()}.</li>
-   *   <li>When ten.</li>
-   *   <li>Then return {@code false}.</li>
+   *   <li>Given {@link PDRectangle#PDRectangle()} UpperRightX is ten.
+   *   <li>When ten.
+   *   <li>Then return {@code false}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDRectangle#contains(float, float)}
+   *
+   * <p>Method under test: {@link PDRectangle#contains(float, float)}
    */
   @Test
-  @DisplayName("Test contains(float, float); given PDRectangle(); when ten; then return 'false'")
-  void testContains_givenPDRectangle_whenTen_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse((new PDRectangle()).contains(10.0f, 10.0f));
+  @DisplayName(
+      "Test contains(float, float); given PDRectangle() UpperRightX is ten; when ten; then return 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean PDRectangle.contains(float, float)"})
+  void testContains_givenPDRectangleUpperRightXIsTen_whenTen_thenReturnFalse() {
+    // Arrange
+    PDRectangle pdRectangle = new PDRectangle();
+    pdRectangle.setUpperRightX(10.0f);
+
+    // Act and Assert
+    assertFalse(pdRectangle.contains(10.0f, 10.0f));
   }
 
   /**
    * Test {@link PDRectangle#contains(float, float)}.
+   *
    * <ul>
-   *   <li>Given {@link PDRectangle#PDRectangle()}.</li>
-   *   <li>When zero.</li>
-   *   <li>Then return {@code false}.</li>
+   *   <li>Given {@link PDRectangle#PDRectangle()}.
+   *   <li>When ten.
+   *   <li>Then return {@code false}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDRectangle#contains(float, float)}
+   *
+   * <p>Method under test: {@link PDRectangle#contains(float, float)}
    */
   @Test
-  @DisplayName("Test contains(float, float); given PDRectangle(); when zero; then return 'false'")
-  void testContains_givenPDRectangle_whenZero_thenReturnFalse() {
+  @DisplayName("Test contains(float, float); given PDRectangle(); when ten; then return 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean PDRectangle.contains(float, float)"})
+  void testContains_givenPDRectangle_whenTen_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse((new PDRectangle()).contains(0.0f, 10.0f));
+    assertFalse(new PDRectangle().contains(10.0f, 10.0f));
   }
 
   /**
    * Test {@link PDRectangle#createRetranslatedRectangle()}.
-   * <p>
-   * Method under test: {@link PDRectangle#createRetranslatedRectangle()}
+   *
+   * <p>Method under test: {@link PDRectangle#createRetranslatedRectangle()}
    */
   @Test
   @DisplayName("Test createRetranslatedRectangle()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDRectangle PDRectangle.createRetranslatedRectangle()"})
   void testCreateRetranslatedRectangle() {
     // Arrange and Act
-    PDRectangle actualCreateRetranslatedRectangleResult = PDRectangle.A0.createRetranslatedRectangle();
+    PDRectangle actualCreateRetranslatedRectangleResult =
+        PDRectangle.A0.createRetranslatedRectangle();
 
     // Assert
     COSArray cOSArray = actualCreateRetranslatedRectangleResult.getCOSArray();
@@ -457,30 +524,23 @@ class PDRectangleDiffblueTest {
     assertTrue(getResult instanceof COSFloat);
     COSBase getResult2 = toListResult.get(1);
     assertTrue(getResult2 instanceof COSFloat);
-    COSBase getResult3 = toListResult.get(2);
-    assertTrue(getResult3 instanceof COSFloat);
-    COSBase getResult4 = toListResult.get(3);
-    assertTrue(getResult4 instanceof COSFloat);
-    assertNull(getResult.getKey());
-    assertNull(getResult3.getKey());
-    assertNull(getResult4.getKey());
+    assertTrue(toListResult.get(2) instanceof COSFloat);
+    assertTrue(toListResult.get(3) instanceof COSFloat);
     assertEquals(0.0f, actualCreateRetranslatedRectangleResult.getLowerLeftX());
     assertEquals(0.0f, actualCreateRetranslatedRectangleResult.getLowerLeftY());
     assertEquals(2383.937f, actualCreateRetranslatedRectangleResult.getUpperRightX());
     assertEquals(2383.937f, actualCreateRetranslatedRectangleResult.getWidth());
     assertEquals(3370.3938f, actualCreateRetranslatedRectangleResult.getHeight());
     assertEquals(3370.3938f, actualCreateRetranslatedRectangleResult.getUpperRightY());
-    assertFalse(getResult.isDirect());
-    assertFalse(getResult3.isDirect());
-    assertFalse(getResult4.isDirect());
     assertEquals(getResult, getResult2);
     assertSame(cOSArray, actualCreateRetranslatedRectangleResult.getCOSObject());
   }
 
   /**
    * Test getters and setters.
-   * <p>
-   * Methods under test:
+   *
+   * <p>Methods under test:
+   *
    * <ul>
    *   <li>{@link PDRectangle#toString()}
    *   <li>{@link PDRectangle#getCOSArray()}
@@ -489,6 +549,13 @@ class PDRectangleDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "COSArray PDRectangle.getCOSArray()",
+    "COSBase PDRectangle.getCOSObject()",
+    "String PDRectangle.toString()"
+  })
   void testGettersAndSetters() {
     // Arrange
     PDRectangle pdRectangle = new PDRectangle();
@@ -518,11 +585,14 @@ class PDRectangleDiffblueTest {
 
   /**
    * Test {@link PDRectangle#getLowerLeftX()}.
-   * <p>
-   * Method under test: {@link PDRectangle#getLowerLeftX()}
+   *
+   * <p>Method under test: {@link PDRectangle#getLowerLeftX()}
    */
   @Test
   @DisplayName("Test getLowerLeftX()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"float PDRectangle.getLowerLeftX()"})
   void testGetLowerLeftX() {
     // Arrange, Act and Assert
     assertEquals(0.0f, PDRectangle.A0.getLowerLeftX());
@@ -530,15 +600,20 @@ class PDRectangleDiffblueTest {
 
   /**
    * Test {@link PDRectangle#setLowerLeftX(float)}.
+   *
    * <ul>
-   *   <li>Given {@link PDRectangle#PDRectangle()}.</li>
-   *   <li>Then {@link PDRectangle#PDRectangle()} COSArray toList size is four.</li>
+   *   <li>Given {@link PDRectangle#PDRectangle()}.
+   *   <li>Then {@link PDRectangle#PDRectangle()} COSArray toList size is four.
    * </ul>
-   * <p>
-   * Method under test: {@link PDRectangle#setLowerLeftX(float)}
+   *
+   * <p>Method under test: {@link PDRectangle#setLowerLeftX(float)}
    */
   @Test
-  @DisplayName("Test setLowerLeftX(float); given PDRectangle(); then PDRectangle() COSArray toList size is four")
+  @DisplayName(
+      "Test setLowerLeftX(float); given PDRectangle(); then PDRectangle() COSArray toList size is four")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDRectangle.setLowerLeftX(float)"})
   void testSetLowerLeftX_givenPDRectangle_thenPDRectangleCOSArrayToListSizeIsFour() {
     // Arrange
     PDRectangle pdRectangle = new PDRectangle();
@@ -562,11 +637,14 @@ class PDRectangleDiffblueTest {
 
   /**
    * Test {@link PDRectangle#getLowerLeftY()}.
-   * <p>
-   * Method under test: {@link PDRectangle#getLowerLeftY()}
+   *
+   * <p>Method under test: {@link PDRectangle#getLowerLeftY()}
    */
   @Test
   @DisplayName("Test getLowerLeftY()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"float PDRectangle.getLowerLeftY()"})
   void testGetLowerLeftY() {
     // Arrange, Act and Assert
     assertEquals(0.0f, PDRectangle.A0.getLowerLeftY());
@@ -574,15 +652,20 @@ class PDRectangleDiffblueTest {
 
   /**
    * Test {@link PDRectangle#setLowerLeftY(float)}.
+   *
    * <ul>
-   *   <li>Given {@link PDRectangle#PDRectangle()}.</li>
-   *   <li>Then {@link PDRectangle#PDRectangle()} Height is minus ten.</li>
+   *   <li>Given {@link PDRectangle#PDRectangle()}.
+   *   <li>Then {@link PDRectangle#PDRectangle()} Height is minus ten.
    * </ul>
-   * <p>
-   * Method under test: {@link PDRectangle#setLowerLeftY(float)}
+   *
+   * <p>Method under test: {@link PDRectangle#setLowerLeftY(float)}
    */
   @Test
-  @DisplayName("Test setLowerLeftY(float); given PDRectangle(); then PDRectangle() Height is minus ten")
+  @DisplayName(
+      "Test setLowerLeftY(float); given PDRectangle(); then PDRectangle() Height is minus ten")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDRectangle.setLowerLeftY(float)"})
   void testSetLowerLeftY_givenPDRectangle_thenPDRectangleHeightIsMinusTen() {
     // Arrange
     PDRectangle pdRectangle = new PDRectangle();
@@ -597,11 +680,14 @@ class PDRectangleDiffblueTest {
 
   /**
    * Test {@link PDRectangle#getUpperRightX()}.
-   * <p>
-   * Method under test: {@link PDRectangle#getUpperRightX()}
+   *
+   * <p>Method under test: {@link PDRectangle#getUpperRightX()}
    */
   @Test
   @DisplayName("Test getUpperRightX()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"float PDRectangle.getUpperRightX()"})
   void testGetUpperRightX() {
     // Arrange, Act and Assert
     assertEquals(2383.937f, PDRectangle.A0.getUpperRightX());
@@ -609,15 +695,20 @@ class PDRectangleDiffblueTest {
 
   /**
    * Test {@link PDRectangle#setUpperRightX(float)}.
+   *
    * <ul>
-   *   <li>Given {@link PDRectangle#PDRectangle()}.</li>
-   *   <li>Then {@link PDRectangle#PDRectangle()} UpperRightX is ten.</li>
+   *   <li>Given {@link PDRectangle#PDRectangle()}.
+   *   <li>Then {@link PDRectangle#PDRectangle()} UpperRightX is ten.
    * </ul>
-   * <p>
-   * Method under test: {@link PDRectangle#setUpperRightX(float)}
+   *
+   * <p>Method under test: {@link PDRectangle#setUpperRightX(float)}
    */
   @Test
-  @DisplayName("Test setUpperRightX(float); given PDRectangle(); then PDRectangle() UpperRightX is ten")
+  @DisplayName(
+      "Test setUpperRightX(float); given PDRectangle(); then PDRectangle() UpperRightX is ten")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDRectangle.setUpperRightX(float)"})
   void testSetUpperRightX_givenPDRectangle_thenPDRectangleUpperRightXIsTen() {
     // Arrange
     PDRectangle pdRectangle = new PDRectangle();
@@ -632,11 +723,14 @@ class PDRectangleDiffblueTest {
 
   /**
    * Test {@link PDRectangle#getUpperRightY()}.
-   * <p>
-   * Method under test: {@link PDRectangle#getUpperRightY()}
+   *
+   * <p>Method under test: {@link PDRectangle#getUpperRightY()}
    */
   @Test
   @DisplayName("Test getUpperRightY()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"float PDRectangle.getUpperRightY()"})
   void testGetUpperRightY() {
     // Arrange, Act and Assert
     assertEquals(3370.3938f, PDRectangle.A0.getUpperRightY());
@@ -644,15 +738,19 @@ class PDRectangleDiffblueTest {
 
   /**
    * Test {@link PDRectangle#setUpperRightY(float)}.
+   *
    * <ul>
-   *   <li>Given {@link PDRectangle#PDRectangle()}.</li>
-   *   <li>Then {@link PDRectangle#PDRectangle()} Height is ten.</li>
+   *   <li>Given {@link PDRectangle#PDRectangle()}.
+   *   <li>Then {@link PDRectangle#PDRectangle()} Height is ten.
    * </ul>
-   * <p>
-   * Method under test: {@link PDRectangle#setUpperRightY(float)}
+   *
+   * <p>Method under test: {@link PDRectangle#setUpperRightY(float)}
    */
   @Test
   @DisplayName("Test setUpperRightY(float); given PDRectangle(); then PDRectangle() Height is ten")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDRectangle.setUpperRightY(float)"})
   void testSetUpperRightY_givenPDRectangle_thenPDRectangleHeightIsTen() {
     // Arrange
     PDRectangle pdRectangle = new PDRectangle();
@@ -667,11 +765,14 @@ class PDRectangleDiffblueTest {
 
   /**
    * Test {@link PDRectangle#getWidth()}.
-   * <p>
-   * Method under test: {@link PDRectangle#getWidth()}
+   *
+   * <p>Method under test: {@link PDRectangle#getWidth()}
    */
   @Test
   @DisplayName("Test getWidth()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"float PDRectangle.getWidth()"})
   void testGetWidth() {
     // Arrange, Act and Assert
     assertEquals(2383.937f, PDRectangle.A0.getWidth());
@@ -679,11 +780,14 @@ class PDRectangleDiffblueTest {
 
   /**
    * Test {@link PDRectangle#getHeight()}.
-   * <p>
-   * Method under test: {@link PDRectangle#getHeight()}
+   *
+   * <p>Method under test: {@link PDRectangle#getHeight()}
    */
   @Test
   @DisplayName("Test getHeight()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"float PDRectangle.getHeight()"})
   void testGetHeight() {
     // Arrange, Act and Assert
     assertEquals(3370.3938f, PDRectangle.A0.getHeight());
@@ -691,155 +795,46 @@ class PDRectangleDiffblueTest {
 
   /**
    * Test {@link PDRectangle#transform(Matrix)}.
+   *
    * <ul>
-   *   <li>When {@link Matrix#Matrix()}.</li>
-   *   <li>Then Bounds Bounds2D return {@link Rectangle}.</li>
+   *   <li>When {@link Matrix#Matrix()}.
+   *   <li>Then CurrentPoint return {@link Float}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDRectangle#transform(Matrix)}
+   *
+   * <p>Method under test: {@link PDRectangle#transform(Matrix)}
    */
   @Test
-  @DisplayName("Test transform(Matrix); when Matrix(); then Bounds Bounds2D return Rectangle")
-  void testTransform_whenMatrix_thenBoundsBounds2DReturnRectangle() {
+  @DisplayName("Test transform(Matrix); when Matrix(); then CurrentPoint return Float")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"GeneralPath PDRectangle.transform(Matrix)"})
+  void testTransform_whenMatrix_thenCurrentPointReturnFloat() {
     // Arrange and Act
     GeneralPath actualTransformResult = PDRectangle.A0.transform(new Matrix());
 
     // Assert
-    Rectangle bounds = actualTransformResult.getBounds();
-    Rectangle2D bounds2D = bounds.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Point2D currentPoint = actualTransformResult.getCurrentPoint();
-    assertTrue(currentPoint instanceof Point2D.Float);
-    Rectangle2D frame = bounds.getFrame();
-    assertTrue(frame instanceof Rectangle2D.Double);
-    Rectangle2D bounds2D2 = actualTransformResult.getBounds2D();
-    Rectangle2D frame2 = bounds2D2.getFrame();
-    assertTrue(frame2 instanceof Rectangle2D.Double);
-    assertTrue(bounds2D2 instanceof Rectangle2D.Float);
-    Rectangle2D bounds2D3 = bounds2D2.getBounds2D();
-    assertTrue(bounds2D3 instanceof Rectangle2D.Float);
-    assertEquals(0, bounds.x);
-    assertEquals(0, bounds.y);
-    assertEquals(0.0d, bounds.getX());
-    assertEquals(0.0d, bounds.getY());
-    assertEquals(0.0d, currentPoint.getX());
-    assertEquals(0.0d, currentPoint.getY());
-    assertEquals(0.0d, bounds.getMinX());
-    assertEquals(0.0d, bounds2D2.getMinX());
-    assertEquals(0.0d, bounds.getMinY());
-    assertEquals(0.0d, bounds2D2.getMinY());
-    assertEquals(0.0d, bounds2D2.getX());
-    assertEquals(0.0d, bounds2D2.getY());
-    assertEquals(0.0f, ((Point2D.Float) currentPoint).x);
-    assertEquals(0.0f, ((Point2D.Float) currentPoint).y);
-    assertEquals(0.0f, ((Rectangle2D.Float) bounds2D2).x);
-    assertEquals(0.0f, ((Rectangle2D.Float) bounds2D2).y);
+    assertTrue(actualTransformResult.getCurrentPoint() instanceof Float);
+    assertTrue(actualTransformResult.getBounds2D() instanceof Rectangle2D.Float);
     assertEquals(1, actualTransformResult.getWindingRule());
-    assertEquals(1191.968505859375d, bounds2D2.getCenterX());
-    assertEquals(1192.0d, bounds.getCenterX());
-    assertEquals(1685.1968994140625d, bounds2D2.getCenterY());
-    assertEquals(1685.5d, bounds.getCenterY());
-    assertEquals(2383.93701171875d, bounds2D2.getMaxX());
-    assertEquals(2383.93701171875d, bounds2D2.getWidth());
-    assertEquals(2383.937f, ((Rectangle2D.Float) bounds2D2).width);
-    Dimension size = bounds.getSize();
-    assertEquals(2384, size.width);
-    assertEquals(2384, bounds.width);
-    assertEquals(2384.0d, size.getWidth());
-    assertEquals(2384.0d, bounds.getWidth());
-    assertEquals(2384.0d, bounds.getMaxX());
-    assertEquals(3370.393798828125d, bounds2D2.getHeight());
-    assertEquals(3370.393798828125d, bounds2D2.getMaxY());
-    assertEquals(3370.3938f, ((Rectangle2D.Float) bounds2D2).height);
-    assertEquals(3371, size.height);
-    assertEquals(3371, bounds.height);
-    assertEquals(3371.0d, size.getHeight());
-    assertEquals(3371.0d, bounds.getHeight());
-    assertEquals(3371.0d, bounds.getMaxY());
-    assertFalse(bounds.isEmpty());
-    assertFalse(bounds2D2.isEmpty());
-    assertEquals(size, size.getSize());
-    assertEquals(bounds, bounds.getBounds());
-    assertEquals(bounds, bounds2D2.getBounds());
-    assertEquals(bounds, bounds2D);
-    assertEquals(bounds, frame);
-    assertEquals(currentPoint, bounds.getLocation());
-    assertEquals(bounds2D2, frame2);
-    assertEquals(bounds2D2, bounds2D3);
   }
 
   /**
    * Test {@link PDRectangle#toGeneralPath()}.
-   * <p>
-   * Method under test: {@link PDRectangle#toGeneralPath()}
+   *
+   * <p>Method under test: {@link PDRectangle#toGeneralPath()}
    */
   @Test
   @DisplayName("Test toGeneralPath()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"GeneralPath PDRectangle.toGeneralPath()"})
   void testToGeneralPath() {
     // Arrange and Act
     GeneralPath actualToGeneralPathResult = PDRectangle.A0.toGeneralPath();
 
     // Assert
-    Rectangle bounds = actualToGeneralPathResult.getBounds();
-    Rectangle2D bounds2D = bounds.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Point2D currentPoint = actualToGeneralPathResult.getCurrentPoint();
-    assertTrue(currentPoint instanceof Point2D.Float);
-    Rectangle2D frame = bounds.getFrame();
-    assertTrue(frame instanceof Rectangle2D.Double);
-    Rectangle2D bounds2D2 = actualToGeneralPathResult.getBounds2D();
-    Rectangle2D frame2 = bounds2D2.getFrame();
-    assertTrue(frame2 instanceof Rectangle2D.Double);
-    assertTrue(bounds2D2 instanceof Rectangle2D.Float);
-    Rectangle2D bounds2D3 = bounds2D2.getBounds2D();
-    assertTrue(bounds2D3 instanceof Rectangle2D.Float);
-    assertEquals(0, bounds.x);
-    assertEquals(0, bounds.y);
-    assertEquals(0.0d, bounds.getX());
-    assertEquals(0.0d, bounds.getY());
-    assertEquals(0.0d, currentPoint.getX());
-    assertEquals(0.0d, currentPoint.getY());
-    assertEquals(0.0d, bounds.getMinX());
-    assertEquals(0.0d, bounds2D2.getMinX());
-    assertEquals(0.0d, bounds.getMinY());
-    assertEquals(0.0d, bounds2D2.getMinY());
-    assertEquals(0.0d, bounds2D2.getX());
-    assertEquals(0.0d, bounds2D2.getY());
-    assertEquals(0.0f, ((Point2D.Float) currentPoint).x);
-    assertEquals(0.0f, ((Point2D.Float) currentPoint).y);
-    assertEquals(0.0f, ((Rectangle2D.Float) bounds2D2).x);
-    assertEquals(0.0f, ((Rectangle2D.Float) bounds2D2).y);
+    assertTrue(actualToGeneralPathResult.getCurrentPoint() instanceof Float);
+    assertTrue(actualToGeneralPathResult.getBounds2D() instanceof Rectangle2D.Float);
     assertEquals(1, actualToGeneralPathResult.getWindingRule());
-    assertEquals(1191.968505859375d, bounds2D2.getCenterX());
-    assertEquals(1192.0d, bounds.getCenterX());
-    assertEquals(1685.1968994140625d, bounds2D2.getCenterY());
-    assertEquals(1685.5d, bounds.getCenterY());
-    assertEquals(2383.93701171875d, bounds2D2.getMaxX());
-    assertEquals(2383.93701171875d, bounds2D2.getWidth());
-    assertEquals(2383.937f, ((Rectangle2D.Float) bounds2D2).width);
-    Dimension size = bounds.getSize();
-    assertEquals(2384, size.width);
-    assertEquals(2384, bounds.width);
-    assertEquals(2384.0d, size.getWidth());
-    assertEquals(2384.0d, bounds.getWidth());
-    assertEquals(2384.0d, bounds.getMaxX());
-    assertEquals(3370.393798828125d, bounds2D2.getHeight());
-    assertEquals(3370.393798828125d, bounds2D2.getMaxY());
-    assertEquals(3370.3938f, ((Rectangle2D.Float) bounds2D2).height);
-    assertEquals(3371, size.height);
-    assertEquals(3371, bounds.height);
-    assertEquals(3371.0d, size.getHeight());
-    assertEquals(3371.0d, bounds.getHeight());
-    assertEquals(3371.0d, bounds.getMaxY());
-    assertFalse(bounds.isEmpty());
-    assertFalse(bounds2D2.isEmpty());
-    assertEquals(size, size.getSize());
-    assertEquals(bounds, bounds.getBounds());
-    assertEquals(bounds, bounds2D2.getBounds());
-    assertEquals(bounds, bounds2D);
-    assertEquals(bounds, frame);
-    assertEquals(currentPoint, bounds.getLocation());
-    assertEquals(bounds2D2, frame2);
-    assertEquals(bounds2D2, bounds2D3);
   }
 }

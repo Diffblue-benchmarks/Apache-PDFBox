@@ -4,17 +4,21 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import org.apache.pdfbox.io.RandomAccessReadBuffer;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class GlyphTableDiffblueTest {
   /**
    * Test getters and setters.
-   * <p>
-   * Methods under test:
+   *
+   * <p>Methods under test:
+   *
    * <ul>
    *   <li>default or parameterless constructor of {@link GlyphTable}
    *   <li>{@link GlyphTable#setGlyphs(GlyphData[])}
@@ -22,10 +26,13 @@ class GlyphTableDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void GlyphTable.<init>()", "void GlyphTable.setGlyphs(GlyphData[])"})
   void testGettersAndSetters() {
     // Arrange and Act
     GlyphTable actualGlyphTable = new GlyphTable();
-    actualGlyphTable.setGlyphs(new GlyphData[]{new GlyphData()});
+    actualGlyphTable.setGlyphs(new GlyphData[] {new GlyphData()});
 
     // Assert
     assertNull(actualGlyphTable.getTag());
@@ -37,24 +44,32 @@ class GlyphTableDiffblueTest {
 
   /**
    * Test {@link GlyphTable#read(TrueTypeFont, TTFDataStream)}.
+   *
    * <ul>
-   *   <li>Given {@link GlyphTable#GlyphTable()} Length is three.</li>
-   *   <li>Then {@link GlyphTable#GlyphTable()} Initialized.</li>
+   *   <li>Given {@link GlyphTable#GlyphTable()} Length is three.
+   *   <li>Then {@link GlyphTable#GlyphTable()} Initialized.
    * </ul>
-   * <p>
-   * Method under test: {@link GlyphTable#read(TrueTypeFont, TTFDataStream)}
+   *
+   * <p>Method under test: {@link GlyphTable#read(TrueTypeFont, TTFDataStream)}
    */
   @Test
-  @DisplayName("Test read(TrueTypeFont, TTFDataStream); given GlyphTable() Length is three; then GlyphTable() Initialized")
+  @DisplayName(
+      "Test read(TrueTypeFont, TTFDataStream); given GlyphTable() Length is three; then GlyphTable() Initialized")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void GlyphTable.read(TrueTypeFont, TTFDataStream)"})
   void testRead_givenGlyphTableLengthIsThree_thenGlyphTableInitialized() throws IOException {
     // Arrange
     GlyphTable glyphTable = new GlyphTable();
     glyphTable.setLength(3L);
-    TrueTypeFont ttf = new TrueTypeFont(
-        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
+    RandomAccessReadDataStream fontData =
+        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
+    TrueTypeFont ttf = new TrueTypeFont(fontData);
 
     // Act
-    glyphTable.read(ttf, new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
+    glyphTable.read(
+        ttf,
+        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
 
     // Assert
     assertTrue(glyphTable.getInitialized());
@@ -62,26 +77,34 @@ class GlyphTableDiffblueTest {
 
   /**
    * Test {@link GlyphTable#read(TrueTypeFont, TTFDataStream)}.
+   *
    * <ul>
-   *   <li>Given {@link GlyphTable#GlyphTable()} Length is three.</li>
-   *   <li>When {@code A}.</li>
-   *   <li>Then {@link GlyphTable#GlyphTable()} Initialized.</li>
+   *   <li>Given {@link GlyphTable#GlyphTable()} Length is three.
+   *   <li>When {@code A}.
+   *   <li>Then {@link GlyphTable#GlyphTable()} Initialized.
    * </ul>
-   * <p>
-   * Method under test: {@link GlyphTable#read(TrueTypeFont, TTFDataStream)}
+   *
+   * <p>Method under test: {@link GlyphTable#read(TrueTypeFont, TTFDataStream)}
    */
   @Test
-  @DisplayName("Test read(TrueTypeFont, TTFDataStream); given GlyphTable() Length is three; when 'A'; then GlyphTable() Initialized")
+  @DisplayName(
+      "Test read(TrueTypeFont, TTFDataStream); given GlyphTable() Length is three; when 'A'; then GlyphTable() Initialized")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void GlyphTable.read(TrueTypeFont, TTFDataStream)"})
   void testRead_givenGlyphTableLengthIsThree_whenA_thenGlyphTableInitialized() throws IOException {
     // Arrange
     GlyphTable glyphTable = new GlyphTable();
     glyphTable.setLength(3L);
-    TrueTypeFont ttf = new TrueTypeFont(
-        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
+    RandomAccessReadDataStream fontData =
+        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
+    TrueTypeFont ttf = new TrueTypeFont(fontData);
+    ByteArrayInputStream input =
+        new ByteArrayInputStream(new byte[] {'A', -1, 'A', -1, 'A', -1, 'A', -1});
+    RandomAccessReadBuffer randomAccessRead = new RandomAccessReadBuffer(input);
 
     // Act
-    glyphTable.read(ttf, new RandomAccessReadUnbufferedDataStream(
-        new RandomAccessReadBuffer(new ByteArrayInputStream(new byte[]{'A', -1, 'A', -1, 'A', -1, 'A', -1}))));
+    glyphTable.read(ttf, new RandomAccessReadUnbufferedDataStream(randomAccessRead));
 
     // Assert
     assertTrue(glyphTable.getInitialized());
@@ -89,23 +112,31 @@ class GlyphTableDiffblueTest {
 
   /**
    * Test {@link GlyphTable#read(TrueTypeFont, TTFDataStream)}.
+   *
    * <ul>
-   *   <li>Given {@link GlyphTable#GlyphTable()}.</li>
-   *   <li>Then {@link GlyphTable#GlyphTable()} Initialized.</li>
+   *   <li>Given {@link GlyphTable#GlyphTable()}.
+   *   <li>Then {@link GlyphTable#GlyphTable()} Initialized.
    * </ul>
-   * <p>
-   * Method under test: {@link GlyphTable#read(TrueTypeFont, TTFDataStream)}
+   *
+   * <p>Method under test: {@link GlyphTable#read(TrueTypeFont, TTFDataStream)}
    */
   @Test
-  @DisplayName("Test read(TrueTypeFont, TTFDataStream); given GlyphTable(); then GlyphTable() Initialized")
+  @DisplayName(
+      "Test read(TrueTypeFont, TTFDataStream); given GlyphTable(); then GlyphTable() Initialized")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void GlyphTable.read(TrueTypeFont, TTFDataStream)"})
   void testRead_givenGlyphTable_thenGlyphTableInitialized() throws IOException {
     // Arrange
     GlyphTable glyphTable = new GlyphTable();
-    TrueTypeFont ttf = new TrueTypeFont(
-        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
+    RandomAccessReadDataStream fontData =
+        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
+    TrueTypeFont ttf = new TrueTypeFont(fontData);
 
     // Act
-    glyphTable.read(ttf, new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
+    glyphTable.read(
+        ttf,
+        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
 
     // Assert
     assertTrue(glyphTable.getInitialized());
@@ -113,61 +144,77 @@ class GlyphTableDiffblueTest {
 
   /**
    * Test {@link GlyphTable#getGlyph(int, int)} with {@code gid}, {@code level}.
+   *
    * <ul>
-   *   <li>When minus one.</li>
+   *   <li>When minus one.
    * </ul>
-   * <p>
-   * Method under test: {@link GlyphTable#getGlyph(int, int)}
+   *
+   * <p>Method under test: {@link GlyphTable#getGlyph(int, int)}
    */
   @Test
   @DisplayName("Test getGlyph(int, int) with 'gid', 'level'; when minus one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"GlyphData GlyphTable.getGlyph(int, int)"})
   void testGetGlyphWithGidLevel_whenMinusOne() throws IOException {
     // Arrange, Act and Assert
-    assertNull((new GlyphTable()).getGlyph(-1, 1));
+    assertNull(new GlyphTable().getGlyph(-1, 1));
   }
 
   /**
    * Test {@link GlyphTable#getGlyph(int, int)} with {@code gid}, {@code level}.
+   *
    * <ul>
-   *   <li>When one.</li>
+   *   <li>When one.
    * </ul>
-   * <p>
-   * Method under test: {@link GlyphTable#getGlyph(int, int)}
+   *
+   * <p>Method under test: {@link GlyphTable#getGlyph(int, int)}
    */
   @Test
   @DisplayName("Test getGlyph(int, int) with 'gid', 'level'; when one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"GlyphData GlyphTable.getGlyph(int, int)"})
   void testGetGlyphWithGidLevel_whenOne() throws IOException {
     // Arrange, Act and Assert
-    assertNull((new GlyphTable()).getGlyph(1, 1));
+    assertNull(new GlyphTable().getGlyph(1, 1));
   }
 
   /**
    * Test {@link GlyphTable#getGlyph(int)} with {@code gid}.
+   *
    * <ul>
-   *   <li>When minus one.</li>
+   *   <li>When minus one.
    * </ul>
-   * <p>
-   * Method under test: {@link GlyphTable#getGlyph(int)}
+   *
+   * <p>Method under test: {@link GlyphTable#getGlyph(int)}
    */
   @Test
   @DisplayName("Test getGlyph(int) with 'gid'; when minus one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"GlyphData GlyphTable.getGlyph(int)"})
   void testGetGlyphWithGid_whenMinusOne() throws IOException {
     // Arrange, Act and Assert
-    assertNull((new GlyphTable()).getGlyph(-1));
+    assertNull(new GlyphTable().getGlyph(-1));
   }
 
   /**
    * Test {@link GlyphTable#getGlyph(int)} with {@code gid}.
+   *
    * <ul>
-   *   <li>When one.</li>
+   *   <li>When one.
    * </ul>
-   * <p>
-   * Method under test: {@link GlyphTable#getGlyph(int)}
+   *
+   * <p>Method under test: {@link GlyphTable#getGlyph(int)}
    */
   @Test
   @DisplayName("Test getGlyph(int) with 'gid'; when one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"GlyphData GlyphTable.getGlyph(int)"})
   void testGetGlyphWithGid_whenOne() throws IOException {
     // Arrange, Act and Assert
-    assertNull((new GlyphTable()).getGlyph(1));
+    assertNull(new GlyphTable().getGlyph(1));
   }
 }

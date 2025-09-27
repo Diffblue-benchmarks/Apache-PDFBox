@@ -4,19 +4,25 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import org.apache.xmpbox.XMPMetadata;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ThumbnailTypeDiffblueTest {
   /**
    * Test {@link ThumbnailType#ThumbnailType(XMPMetadata)}.
-   * <p>
-   * Method under test: {@link ThumbnailType#ThumbnailType(XMPMetadata)}
+   *
+   * <p>Method under test: {@link ThumbnailType#ThumbnailType(XMPMetadata)}
    */
   @Test
   @DisplayName("Test new ThumbnailType(XMPMetadata)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void ThumbnailType.<init>(XMPMetadata)"})
   void testNewThumbnailType() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -25,13 +31,7 @@ class ThumbnailTypeDiffblueTest {
     ThumbnailType actualThumbnailType = new ThumbnailType(metadata);
 
     // Assert
-    List<Attribute> allAttributes = actualThumbnailType.getAllAttributes();
-    assertEquals(1, allAttributes.size());
-    Attribute getResult = allAttributes.get(0);
-    assertEquals("Resource", getResult.getValue());
     assertEquals("http://ns.adobe.com/xap/1.0/g/img/", actualThumbnailType.getNamespace());
-    assertEquals("http://www.w3.org/1999/02/22-rdf-syntax-ns#", getResult.getNamespace());
-    assertEquals("parseType", getResult.getName());
     assertEquals("xmpGImg", actualThumbnailType.getPreferedPrefix());
     assertEquals("xmpGImg", actualThumbnailType.getPrefix());
     assertNull(actualThumbnailType.getHeight());
@@ -39,40 +39,48 @@ class ThumbnailTypeDiffblueTest {
     assertNull(actualThumbnailType.getPropertyName());
     assertNull(actualThumbnailType.getFormat());
     assertNull(actualThumbnailType.getImage());
-    List<AbstractField> allProperties = actualThumbnailType.getAllProperties();
-    assertTrue(allProperties.isEmpty());
+    assertEquals(1, actualThumbnailType.getAllAttributes().size());
+    assertTrue(actualThumbnailType.getAllProperties().isEmpty());
     assertTrue(actualThumbnailType.getAllNamespacesWithPrefix().isEmpty());
-    assertSame(allProperties, actualThumbnailType.getContainer().getAllProperties());
     assertSame(metadata, actualThumbnailType.getMetadata());
   }
 
   /**
    * Test {@link ThumbnailType#getHeight()}.
+   *
    * <ul>
    *   <li>Given {@link ThumbnailType#ThumbnailType(XMPMetadata)} with metadata is
-   * createXMPMetadata.</li>
-   *   <li>Then return {@code null}.</li>
+   *       createXMPMetadata.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link ThumbnailType#getHeight()}
+   *
+   * <p>Method under test: {@link ThumbnailType#getHeight()}
    */
   @Test
-  @DisplayName("Test getHeight(); given ThumbnailType(XMPMetadata) with metadata is createXMPMetadata; then return 'null'")
+  @DisplayName(
+      "Test getHeight(); given ThumbnailType(XMPMetadata) with metadata is createXMPMetadata; then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Integer ThumbnailType.getHeight()"})
   void testGetHeight_givenThumbnailTypeWithMetadataIsCreateXMPMetadata_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new ThumbnailType(XMPMetadata.createXMPMetadata())).getHeight());
+    assertNull(new ThumbnailType(XMPMetadata.createXMPMetadata()).getHeight());
   }
 
   /**
    * Test {@link ThumbnailType#getHeight()}.
+   *
    * <ul>
-   *   <li>Then return intValue is forty-two.</li>
+   *   <li>Then return intValue is forty-two.
    * </ul>
-   * <p>
-   * Method under test: {@link ThumbnailType#getHeight()}
+   *
+   * <p>Method under test: {@link ThumbnailType#getHeight()}
    */
   @Test
   @DisplayName("Test getHeight(); then return intValue is forty-two")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Integer ThumbnailType.getHeight()"})
   void testGetHeight_thenReturnIntValueIsFortyTwo() {
     // Arrange
     ThumbnailType thumbnailType = new ThumbnailType(XMPMetadata.createXMPMetadata());
@@ -84,11 +92,14 @@ class ThumbnailTypeDiffblueTest {
 
   /**
    * Test {@link ThumbnailType#setHeight(Integer)}.
-   * <p>
-   * Method under test: {@link ThumbnailType#setHeight(Integer)}
+   *
+   * <p>Method under test: {@link ThumbnailType#setHeight(Integer)}
    */
   @Test
   @DisplayName("Test setHeight(Integer)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void ThumbnailType.setHeight(Integer)"})
   void testSetHeight() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -107,6 +118,7 @@ class ThumbnailTypeDiffblueTest {
     assertNull(getResult.getNamespace());
     assertEquals(1, ((IntegerType) getResult).getValue().intValue());
     assertEquals(1, thumbnailType.getHeight().intValue());
+    assertEquals(1, ((Integer) ((IntegerType) getResult).getRawValue()).intValue());
     assertTrue(getResult.getAllAttributes().isEmpty());
     assertEquals(ThumbnailType.HEIGHT, getResult.getPropertyName());
     assertSame(metadata, getResult.getMetadata());
@@ -114,31 +126,40 @@ class ThumbnailTypeDiffblueTest {
 
   /**
    * Test {@link ThumbnailType#getWidth()}.
+   *
    * <ul>
    *   <li>Given {@link ThumbnailType#ThumbnailType(XMPMetadata)} with metadata is
-   * createXMPMetadata.</li>
-   *   <li>Then return {@code null}.</li>
+   *       createXMPMetadata.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link ThumbnailType#getWidth()}
+   *
+   * <p>Method under test: {@link ThumbnailType#getWidth()}
    */
   @Test
-  @DisplayName("Test getWidth(); given ThumbnailType(XMPMetadata) with metadata is createXMPMetadata; then return 'null'")
+  @DisplayName(
+      "Test getWidth(); given ThumbnailType(XMPMetadata) with metadata is createXMPMetadata; then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Integer ThumbnailType.getWidth()"})
   void testGetWidth_givenThumbnailTypeWithMetadataIsCreateXMPMetadata_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new ThumbnailType(XMPMetadata.createXMPMetadata())).getWidth());
+    assertNull(new ThumbnailType(XMPMetadata.createXMPMetadata()).getWidth());
   }
 
   /**
    * Test {@link ThumbnailType#getWidth()}.
+   *
    * <ul>
-   *   <li>Then return intValue is forty-two.</li>
+   *   <li>Then return intValue is forty-two.
    * </ul>
-   * <p>
-   * Method under test: {@link ThumbnailType#getWidth()}
+   *
+   * <p>Method under test: {@link ThumbnailType#getWidth()}
    */
   @Test
   @DisplayName("Test getWidth(); then return intValue is forty-two")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Integer ThumbnailType.getWidth()"})
   void testGetWidth_thenReturnIntValueIsFortyTwo() {
     // Arrange
     ThumbnailType thumbnailType = new ThumbnailType(XMPMetadata.createXMPMetadata());
@@ -150,11 +171,14 @@ class ThumbnailTypeDiffblueTest {
 
   /**
    * Test {@link ThumbnailType#setWidth(Integer)}.
-   * <p>
-   * Method under test: {@link ThumbnailType#setWidth(Integer)}
+   *
+   * <p>Method under test: {@link ThumbnailType#setWidth(Integer)}
    */
   @Test
   @DisplayName("Test setWidth(Integer)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void ThumbnailType.setWidth(Integer)"})
   void testSetWidth() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -173,6 +197,7 @@ class ThumbnailTypeDiffblueTest {
     assertNull(getResult.getNamespace());
     assertEquals(1, ((IntegerType) getResult).getValue().intValue());
     assertEquals(1, thumbnailType.getWidth().intValue());
+    assertEquals(1, ((Integer) ((IntegerType) getResult).getRawValue()).intValue());
     assertTrue(getResult.getAllAttributes().isEmpty());
     assertEquals(ThumbnailType.WIDTH, getResult.getPropertyName());
     assertSame(metadata, getResult.getMetadata());
@@ -180,31 +205,40 @@ class ThumbnailTypeDiffblueTest {
 
   /**
    * Test {@link ThumbnailType#getImage()}.
+   *
    * <ul>
    *   <li>Given {@link ThumbnailType#ThumbnailType(XMPMetadata)} with metadata is
-   * createXMPMetadata.</li>
-   *   <li>Then return {@code null}.</li>
+   *       createXMPMetadata.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link ThumbnailType#getImage()}
+   *
+   * <p>Method under test: {@link ThumbnailType#getImage()}
    */
   @Test
-  @DisplayName("Test getImage(); given ThumbnailType(XMPMetadata) with metadata is createXMPMetadata; then return 'null'")
+  @DisplayName(
+      "Test getImage(); given ThumbnailType(XMPMetadata) with metadata is createXMPMetadata; then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ThumbnailType.getImage()"})
   void testGetImage_givenThumbnailTypeWithMetadataIsCreateXMPMetadata_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new ThumbnailType(XMPMetadata.createXMPMetadata())).getImage());
+    assertNull(new ThumbnailType(XMPMetadata.createXMPMetadata()).getImage());
   }
 
   /**
    * Test {@link ThumbnailType#getImage()}.
+   *
    * <ul>
-   *   <li>Then return {@code Value}.</li>
+   *   <li>Then return {@code Value}.
    * </ul>
-   * <p>
-   * Method under test: {@link ThumbnailType#getImage()}
+   *
+   * <p>Method under test: {@link ThumbnailType#getImage()}
    */
   @Test
   @DisplayName("Test getImage(); then return 'Value'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ThumbnailType.getImage()"})
   void testGetImage_thenReturnValue() {
     // Arrange
     ThumbnailType thumbnailType = new ThumbnailType(XMPMetadata.createXMPMetadata());
@@ -216,11 +250,14 @@ class ThumbnailTypeDiffblueTest {
 
   /**
    * Test {@link ThumbnailType#setImage(String)}.
-   * <p>
-   * Method under test: {@link ThumbnailType#setImage(String)}
+   *
+   * <p>Method under test: {@link ThumbnailType#setImage(String)}
    */
   @Test
   @DisplayName("Test setImage(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void ThumbnailType.setImage(String)"})
   void testSetImage() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -247,31 +284,40 @@ class ThumbnailTypeDiffblueTest {
 
   /**
    * Test {@link ThumbnailType#getFormat()}.
+   *
    * <ul>
    *   <li>Given {@link ThumbnailType#ThumbnailType(XMPMetadata)} with metadata is
-   * createXMPMetadata.</li>
-   *   <li>Then return {@code null}.</li>
+   *       createXMPMetadata.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link ThumbnailType#getFormat()}
+   *
+   * <p>Method under test: {@link ThumbnailType#getFormat()}
    */
   @Test
-  @DisplayName("Test getFormat(); given ThumbnailType(XMPMetadata) with metadata is createXMPMetadata; then return 'null'")
+  @DisplayName(
+      "Test getFormat(); given ThumbnailType(XMPMetadata) with metadata is createXMPMetadata; then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ThumbnailType.getFormat()"})
   void testGetFormat_givenThumbnailTypeWithMetadataIsCreateXMPMetadata_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new ThumbnailType(XMPMetadata.createXMPMetadata())).getFormat());
+    assertNull(new ThumbnailType(XMPMetadata.createXMPMetadata()).getFormat());
   }
 
   /**
    * Test {@link ThumbnailType#getFormat()}.
+   *
    * <ul>
-   *   <li>Then return {@code Value}.</li>
+   *   <li>Then return {@code Value}.
    * </ul>
-   * <p>
-   * Method under test: {@link ThumbnailType#getFormat()}
+   *
+   * <p>Method under test: {@link ThumbnailType#getFormat()}
    */
   @Test
   @DisplayName("Test getFormat(); then return 'Value'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ThumbnailType.getFormat()"})
   void testGetFormat_thenReturnValue() {
     // Arrange
     ThumbnailType thumbnailType = new ThumbnailType(XMPMetadata.createXMPMetadata());
@@ -283,11 +329,14 @@ class ThumbnailTypeDiffblueTest {
 
   /**
    * Test {@link ThumbnailType#setFormat(String)}.
-   * <p>
-   * Method under test: {@link ThumbnailType#setFormat(String)}
+   *
+   * <p>Method under test: {@link ThumbnailType#setFormat(String)}
    */
   @Test
   @DisplayName("Test setFormat(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void ThumbnailType.setFormat(String)"})
   void testSetFormat() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();

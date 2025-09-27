@@ -5,404 +5,410 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Component.BaselineResizeBehavior;
+import java.awt.ComponentOrientation;
+import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.LayoutManager;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
+import java.awt.color.ColorSpace;
+import java.awt.color.ICC_ColorSpace;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
-import java.awt.image.ColorModel;
+import java.awt.geom.Rectangle2D.Double;
 import java.awt.image.DirectColorModel;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeListenerProxy;
 import java.util.Locale;
+import java.util.MissingResourceException;
 import javax.accessibility.AccessibleContext;
+import javax.swing.ActionMap;
 import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JLabel;
+import javax.swing.InputMap;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class FlagBitsPaneViewDiffblueTest {
   /**
-   * Test
-   * {@link FlagBitsPaneView#FlagBitsPaneView(String, String, Object[][], String[])}.
+   * Test {@link FlagBitsPaneView#FlagBitsPaneView(String, String, Object[][], String[])}.
+   *
    * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then first element Layout return {@link FlowLayout}.</li>
+   *   <li>When {@code 42}.
+   *   <li>Then Panel Layout return {@link GridBagLayout}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link FlagBitsPaneView#FlagBitsPaneView(String, String, Object[][], String[])}
+   *
+   * <p>Method under test: {@link FlagBitsPaneView#FlagBitsPaneView(String, String, Object[][],
+   * String[])}
    */
   @Test
-  @DisplayName("Test new FlagBitsPaneView(String, String, Object[][], String[]); when '42'; then first element Layout return FlowLayout")
-  void testNewFlagBitsPaneView_when42_thenFirstElementLayoutReturnFlowLayout() {
-    // Arrange, Act and Assert
-    JPanel panel = (new FlagBitsPaneView("Flag Header", "42", new Object[][]{new Object[]{"Table Row Data"}},
-        new String[]{"Column Names"})).getPanel();
-    Component[] components = panel.getComponents();
-    Component component = components[0];
-    assertTrue(((JPanel) component).getLayout() instanceof FlowLayout);
-    LayoutManager layout = panel.getLayout();
+  @DisplayName(
+      "Test new FlagBitsPaneView(String, String, Object[][], String[]); when '42'; then Panel Layout return GridBagLayout")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FlagBitsPaneView.<init>(String, String, Object[][], String[])"})
+  void testNewFlagBitsPaneView_when42_thenPanelLayoutReturnGridBagLayout() {
+    // Arrange
+    Object[][] tableRowData = new Object[][] {new Object[] {"Table Row Data"}};
+    String[] columnNames = new String[] {"Column Names"};
+
+    // Act and Assert
+    JPanel panel = new FlagBitsPaneView("Flag Header", "42", tableRowData, columnNames).getPanel();
+    assertTrue(panel.getLayout() instanceof GridBagLayout);
+    assertEquals(2, panel.getComponentCount());
+    assertEquals(2, panel.getComponents().length);
+    assertTrue(panel.isPreferredSizeSet());
+  }
+
+  /**
+   * Test {@link FlagBitsPaneView#getPanel()}.
+   *
+   * <p>Method under test: {@link FlagBitsPaneView#getPanel()}
+   */
+  @Test
+  @DisplayName("Test getPanel()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"JPanel FlagBitsPaneView.getPanel()"})
+  void testGetPanel() throws MissingResourceException {
+    // Arrange
+    Object[][] tableRowData = new Object[][] {new Object[] {"Table Row Data"}};
+    String[] columnNames = new String[] {"Column Names"};
+
+    // Act
+    JPanel actualPanel =
+        new FlagBitsPaneView("Flag Header", "42", tableRowData, columnNames).getPanel();
+
+    // Assert
+    LayoutManager layout = actualPanel.getLayout();
     assertTrue(layout instanceof GridBagLayout);
-    Rectangle boundsResult = panel.bounds();
+    Rectangle boundsResult = actualPanel.bounds();
     Rectangle2D bounds2D = boundsResult.getBounds2D();
     assertTrue(bounds2D instanceof Rectangle);
+    Color background = actualPanel.getBackground();
+    ColorSpace colorSpace = background.getColorSpace();
+    assertTrue(colorSpace instanceof ICC_ColorSpace);
     Rectangle2D frame = boundsResult.getFrame();
-    assertTrue(frame instanceof Rectangle2D.Double);
-    ColorModel colorModel = panel.getColorModel();
-    assertTrue(colorModel instanceof DirectColorModel);
-    Component component2 = components[1];
-    assertTrue(component2 instanceof Box);
-    assertTrue(((Box) component2).getLayout() instanceof BoxLayout);
-    Component[] components2 = ((Box) component2).getComponents();
-    assertTrue(components2[0] instanceof JLabel);
-    Component[] components3 = ((JPanel) component).getComponents();
-    assertTrue(components3[0] instanceof JLabel);
-    assertTrue(component instanceof JPanel);
-    assertTrue(components2[1] instanceof JScrollPane);
-    assertEquals("ComponentUI", ((Box) component2).getUIClassID());
-    assertEquals("PanelUI", ((JPanel) component).getUIClassID());
+    assertTrue(frame instanceof Double);
+    assertTrue(actualPanel.getColorModel() instanceof DirectColorModel);
+    Toolkit toolkit = actualPanel.getToolkit();
+    PropertyChangeListener[] propertyChangeListeners = toolkit.getPropertyChangeListeners();
+    assertTrue(propertyChangeListeners[0] instanceof PropertyChangeListenerProxy);
+    Component[] components = actualPanel.getComponents();
+    assertTrue(components[1] instanceof Box);
+    assertTrue(components[0] instanceof JPanel);
+    Locale locale = actualPanel.getLocale();
+    assertEquals("", locale.getCountry());
+    assertEquals("", locale.getDisplayCountry());
+    assertEquals("", locale.getDisplayScript());
+    assertEquals("", locale.getDisplayVariant());
+    assertEquals("", locale.getISO3Country());
+    assertEquals("", locale.getScript());
+    assertEquals("", locale.getVariant());
+    Cursor cursor = actualPanel.getCursor();
+    assertEquals("Default Cursor", cursor.getName());
+    Font font = actualPanel.getFont();
+    assertEquals("Dialog", font.getFamily());
+    assertEquals("Dialog", font.getName());
+    assertEquals("Dialog.plain", font.getFontName());
+    assertEquals("Dialog.plain", font.getPSName());
+    assertEquals("English", locale.getDisplayLanguage());
+    assertEquals("English", locale.getDisplayName());
+    assertEquals("PanelUI", actualPanel.getUIClassID());
+    assertEquals("en", locale.getLanguage());
+    assertEquals("eng", locale.getISO3Language());
     assertNull(((GridBagLayout) layout).columnWeights);
     assertNull(((GridBagLayout) layout).rowWeights);
     assertNull(((GridBagLayout) layout).columnWidths);
     assertNull(((GridBagLayout) layout).rowHeights);
-    assertNull(((Box) component2).getNextFocusableComponent());
-    assertNull(((JPanel) component).getNextFocusableComponent());
-    assertNull(component.getFocusCycleRootAncestor());
-    assertNull(component2.getFocusCycleRootAncestor());
-    assertNull(((Box) component2).getTopLevelAncestor());
-    assertNull(((JPanel) component).getTopLevelAncestor());
-    assertNull(((Box) component2).getFocusTraversalPolicy());
-    assertNull(((JPanel) component).getFocusTraversalPolicy());
-    assertNull(component.getGraphics());
-    assertNull(component2.getGraphics());
-    assertNull(component.getGraphicsConfiguration());
-    assertNull(component2.getGraphicsConfiguration());
-    assertNull(component.getDropTarget());
-    assertNull(component2.getDropTarget());
-    assertNull(component.getInputContext());
-    assertNull(component2.getInputContext());
-    assertNull(component.getInputMethodRequests());
-    assertNull(component2.getInputMethodRequests());
-    assertNull(component.getName());
-    assertNull(component2.getName());
-    assertNull(((Box) component2).getToolTipText());
-    assertNull(((JPanel) component).getToolTipText());
-    assertNull(((Box) component2).getInputVerifier());
-    assertNull(((JPanel) component).getInputVerifier());
-    assertNull(((Box) component2).getComponentPopupMenu());
-    assertNull(((JPanel) component).getComponentPopupMenu());
-    assertNull(((Box) component2).getRootPane());
-    assertNull(((JPanel) component).getRootPane());
-    assertNull(((Box) component2).getTransferHandler());
-    assertNull(((JPanel) component).getTransferHandler());
-    assertNull(((Box) component2).getBorder());
-    assertNull(((JPanel) component).getBorder());
-    assertEquals(0, component.getHeight());
-    assertEquals(0, component2.getHeight());
-    assertEquals(0, component.getWidth());
-    assertEquals(0, component2.getWidth());
-    assertEquals(0, component.getX());
-    assertEquals(0, component2.getX());
-    assertEquals(0, component.getY());
-    assertEquals(0, component2.getY());
-    assertEquals(0, ((Box) component2).getDebugGraphicsOptions());
-    assertEquals(0, ((JPanel) component).getDebugGraphicsOptions());
-    assertEquals(0, component.getComponentListeners().length);
-    assertEquals(0, component2.getComponentListeners().length);
-    assertEquals(0, component.getFocusListeners().length);
-    assertEquals(0, component2.getFocusListeners().length);
-    assertEquals(0, component.getHierarchyBoundsListeners().length);
-    assertEquals(0, component2.getHierarchyBoundsListeners().length);
-    assertEquals(0, component.getHierarchyListeners().length);
-    assertEquals(0, component2.getHierarchyListeners().length);
-    assertEquals(0, component.getInputMethodListeners().length);
-    assertEquals(0, component2.getInputMethodListeners().length);
-    assertEquals(0, component.getKeyListeners().length);
-    assertEquals(0, component2.getKeyListeners().length);
-    assertEquals(0, component.getMouseListeners().length);
-    assertEquals(0, component2.getMouseListeners().length);
-    assertEquals(0, component.getMouseMotionListeners().length);
-    assertEquals(0, component2.getMouseMotionListeners().length);
-    assertEquals(0, component.getMouseWheelListeners().length);
-    assertEquals(0, component2.getMouseWheelListeners().length);
-    assertEquals(0, component.getPropertyChangeListeners().length);
-    assertEquals(0, component2.getPropertyChangeListeners().length);
-    assertEquals(0, ((Box) component2).getContainerListeners().length);
-    assertEquals(0, ((JPanel) component).getContainerListeners().length);
-    assertEquals(0, ((Box) component2).getAncestorListeners().length);
-    assertEquals(0, ((JPanel) component).getAncestorListeners().length);
-    assertEquals(0, ((Box) component2).getRegisteredKeyStrokes().length);
-    assertEquals(0, ((JPanel) component).getRegisteredKeyStrokes().length);
-    assertEquals(0, ((Box) component2).getVetoableChangeListeners().length);
-    assertEquals(0, ((JPanel) component).getVetoableChangeListeners().length);
-    double[][] layoutWeights = ((GridBagLayout) layout).getLayoutWeights();
-    assertEquals(0, (layoutWeights[0]).length);
-    assertEquals(0, (layoutWeights[1]).length);
-    int[][] layoutDimensions = ((GridBagLayout) layout).getLayoutDimensions();
-    assertEquals(0, (layoutDimensions[0]).length);
-    assertEquals(0, (layoutDimensions[1]).length);
-    assertEquals(0.0f, component.getAlignmentX());
-    assertEquals(0.0f, component2.getAlignmentX());
-    assertEquals(0.5f, component.getAlignmentY());
-    assertEquals(0.5f, component2.getAlignmentY());
-    assertEquals(1, ((JPanel) component).getComponentCount());
-    assertEquals(1, components3.length);
-    assertEquals(2, panel.getComponentCount());
-    assertEquals(2, ((Box) component2).getComponentCount());
+    assertNull(actualPanel.getNextFocusableComponent());
+    assertNull(actualPanel.getFocusCycleRootAncestor());
+    assertNull(actualPanel.getParent());
+    assertNull(actualPanel.getTopLevelAncestor());
+    assertNull(actualPanel.getFocusTraversalPolicy());
+    assertNull(actualPanel.getGraphics());
+    assertNull(actualPanel.getGraphicsConfiguration());
+    assertNull(actualPanel.getDropTarget());
+    assertNull(actualPanel.getInputContext());
+    assertNull(actualPanel.getInputMethodRequests());
+    ActionMap actionMap = actualPanel.getActionMap();
+    assertNull(actionMap.keys());
+    assertNull(actualPanel.getName());
+    AccessibleContext accessibleContext = actualPanel.getAccessibleContext();
+    assertNull(accessibleContext.getAccessibleDescription());
+    assertNull(accessibleContext.getAccessibleName());
+    assertNull(actualPanel.getToolTipText());
+    assertNull(accessibleContext.getAccessibleParent());
+    assertNull(accessibleContext.getAccessibleAction());
+    assertNull(accessibleContext.getAccessibleEditableText());
+    assertNull(accessibleContext.getAccessibleIcon());
+    assertNull(accessibleContext.getAccessibleSelection());
+    assertNull(accessibleContext.getAccessibleTable());
+    assertNull(accessibleContext.getAccessibleText());
+    assertNull(accessibleContext.getAccessibleValue());
+    assertNull(actionMap.getParent());
+    InputMap inputMap = actualPanel.getInputMap();
+    assertNull(inputMap.getParent());
+    assertNull(actualPanel.getInputVerifier());
+    assertNull(actualPanel.getComponentPopupMenu());
+    assertNull(actualPanel.getRootPane());
+    assertNull(inputMap.keys());
+    assertNull(actualPanel.getTransferHandler());
+    assertNull(actualPanel.getBorder());
+    Color brighterResult = background.brighter();
+    assertEquals(-1, brighterResult.getRGB());
+    Color foreground = actualPanel.getForeground();
+    Color brighterResult2 = foreground.brighter();
+    Color brighterResult3 = brighterResult2.brighter();
+    assertEquals(-10066330, brighterResult3.getRGB());
+    assertEquals(-1118482, background.getRGB());
+    Color darkerResult = background.darker();
+    Color brighterResult4 = darkerResult.brighter();
+    assertEquals(-1184275, brighterResult4.getRGB());
+    assertEquals(-12040120, brighterResult2.getRGB());
+    assertEquals(-13421773, foreground.getRGB());
+    Color darkerResult2 = brighterResult2.darker();
+    assertEquals(-13487566, darkerResult2.getRGB());
+    Color darkerResult3 = foreground.darker();
+    assertEquals(-14474461, darkerResult3.getRGB());
+    Color darkerResult4 = darkerResult3.darker();
+    assertEquals(-15198184, darkerResult4.getRGB());
+    Color darkerResult5 = brighterResult.darker();
+    assertEquals(-5066062, darkerResult5.getRGB());
+    assertEquals(-5855578, darkerResult.getRGB());
+    Color brighterResult5 = darkerResult5.brighter();
+    assertEquals(-65794, brighterResult5.getRGB());
+    Color darkerResult6 = darkerResult.darker();
+    assertEquals(-9145228, darkerResult6.getRGB());
+    assertEquals(0, cursor.getType());
+    assertEquals(0, font.getMissingGlyphCode());
+    assertEquals(0, font.getStyle());
+    AffineTransform transform = font.getTransform();
+    assertEquals(0, transform.getType());
+    assertEquals(0, accessibleContext.getAccessibleRelationSet().size());
+    assertEquals(0, actionMap.size());
+    assertEquals(0, inputMap.size());
+    assertEquals(0, actualPanel.getDebugGraphicsOptions());
+    assertEquals(0, actualPanel.getHeight());
+    assertEquals(0, actualPanel.getWidth());
+    assertEquals(0, actualPanel.getX());
+    assertEquals(0, actualPanel.getY());
+    assertEquals(0, actualPanel.getComponentListeners().length);
+    assertEquals(0, actualPanel.getFocusListeners().length);
+    assertEquals(0, actualPanel.getHierarchyBoundsListeners().length);
+    assertEquals(0, actualPanel.getHierarchyListeners().length);
+    assertEquals(0, actualPanel.getInputMethodListeners().length);
+    assertEquals(0, actualPanel.getKeyListeners().length);
+    assertEquals(0, actualPanel.getMouseListeners().length);
+    assertEquals(0, actualPanel.getMouseMotionListeners().length);
+    assertEquals(0, actualPanel.getMouseWheelListeners().length);
+    assertEquals(0, actualPanel.getPropertyChangeListeners().length);
+    assertEquals(0, actualPanel.getContainerListeners().length);
+    assertEquals(0, toolkit.getAWTEventListeners().length);
+    assertEquals(0, actualPanel.getAncestorListeners().length);
+    assertEquals(0, actualPanel.getRegisteredKeyStrokes().length);
+    assertEquals(0, actualPanel.getVetoableChangeListeners().length);
+    Dimension size = actualPanel.getSize();
+    assertEquals(0, size.height);
+    assertEquals(0, size.width);
+    Insets insets = actualPanel.getInsets();
+    assertEquals(0, insets.bottom);
+    assertEquals(0, insets.left);
+    assertEquals(0, insets.right);
+    assertEquals(0, insets.top);
+    Point location = actualPanel.getLocation();
+    assertEquals(0, location.x);
+    assertEquals(0, location.y);
+    assertEquals(0, boundsResult.height);
+    assertEquals(0, boundsResult.width);
+    assertEquals(0, boundsResult.x);
+    assertEquals(0, boundsResult.y);
+    assertEquals(0.0d, size.getHeight());
+    assertEquals(0.0d, size.getWidth());
+    assertEquals(0.0d, location.getX());
+    assertEquals(0.0d, location.getY());
+    assertEquals(0.0d, boundsResult.getHeight());
+    assertEquals(0.0d, boundsResult.getWidth());
+    assertEquals(0.0d, boundsResult.getX());
+    assertEquals(0.0d, boundsResult.getY());
+    assertEquals(0.0d, transform.getShearX());
+    assertEquals(0.0d, transform.getShearY());
+    assertEquals(0.0d, transform.getTranslateX());
+    assertEquals(0.0d, transform.getTranslateY());
+    assertEquals(0.0d, boundsResult.getCenterX());
+    assertEquals(0.0d, boundsResult.getCenterY());
+    assertEquals(0.0d, boundsResult.getMaxX());
+    assertEquals(0.0d, boundsResult.getMaxY());
+    assertEquals(0.0d, boundsResult.getMinX());
+    assertEquals(0.0d, boundsResult.getMinY());
+    assertEquals(0.0f, font.getItalicAngle());
+    assertEquals(0.5f, actualPanel.getAlignmentX());
+    assertEquals(0.5f, actualPanel.getAlignmentY());
+    assertEquals(1, brighterResult3.getTransparency());
+    assertEquals(1, brighterResult5.getTransparency());
+    assertEquals(1, brighterResult4.getTransparency());
+    assertEquals(1, brighterResult.getTransparency());
+    assertEquals(1, brighterResult2.getTransparency());
+    assertEquals(1, darkerResult5.getTransparency());
+    assertEquals(1, darkerResult2.getTransparency());
+    assertEquals(1, darkerResult6.getTransparency());
+    assertEquals(1, darkerResult4.getTransparency());
+    assertEquals(1, darkerResult.getTransparency());
+    assertEquals(1, darkerResult3.getTransparency());
+    assertEquals(1, background.getTransparency());
+    assertEquals(1, foreground.getTransparency());
+    assertEquals(1, propertyChangeListeners.length);
+    assertEquals(1.0d, transform.getDeterminant());
+    assertEquals(1.0d, transform.getScaleX());
+    assertEquals(1.0d, transform.getScaleY());
+    assertEquals(102, brighterResult3.getBlue());
+    assertEquals(102, brighterResult3.getGreen());
+    assertEquals(102, brighterResult3.getRed());
+    assertEquals(116, darkerResult6.getBlue());
+    assertEquals(116, darkerResult6.getGreen());
+    assertEquals(116, darkerResult6.getRed());
+    assertEquals(12, font.getSize());
+    assertEquals(12.0f, font.getSize2D());
+    Color darkerResult7 = darkerResult5.darker();
+    assertEquals(124, darkerResult7.getBlue());
+    assertEquals(166, darkerResult.getBlue());
+    assertEquals(166, darkerResult.getGreen());
+    assertEquals(166, darkerResult.getRed());
+    assertEquals(178, darkerResult5.getBlue());
+    assertEquals(178, darkerResult5.getGreen());
+    assertEquals(178, darkerResult5.getRed());
+    assertEquals(2, actualPanel.getComponentCount());
     assertEquals(2, components.length);
-    assertEquals(2, components2.length);
-    assertEquals(2, layoutDimensions.length);
-    assertEquals(2, layoutWeights.length);
-    Dimension maximumSize = panel.getMaximumSize();
+    Dimension maximumSize = actualPanel.getMaximumSize();
     assertEquals(2.147483647E9d, maximumSize.getHeight());
     assertEquals(2.147483647E9d, maximumSize.getWidth());
-    Dimension minimumSize = component.getMinimumSize();
+    Dimension minimumSize = actualPanel.getMinimumSize();
     assertEquals(208, minimumSize.width);
-    Dimension minimumSize2 = panel.getMinimumSize();
-    assertEquals(208, minimumSize2.width);
-    assertEquals(208.0d, minimumSize2.getWidth());
-    Dimension minimumSize3 = component2.getMinimumSize();
-    assertEquals(24, minimumSize3.width);
-    Dimension preferredSize = panel.getPreferredSize();
+    assertEquals(208.0d, minimumSize.getWidth());
+    assertEquals(22, font.getAvailableAttributes().length);
+    assertEquals(237, brighterResult4.getBlue());
+    assertEquals(237, brighterResult4.getGreen());
+    assertEquals(237, brighterResult4.getRed());
+    assertEquals(238, background.getBlue());
+    assertEquals(238, background.getGreen());
+    assertEquals(238, background.getRed());
+    assertEquals(24, darkerResult4.getBlue());
+    assertEquals(24, darkerResult4.getGreen());
+    assertEquals(24, darkerResult4.getRed());
+    assertEquals(254, brighterResult5.getBlue());
+    assertEquals(254, brighterResult5.getGreen());
+    assertEquals(254, brighterResult5.getRed());
+    assertEquals(255, brighterResult3.getAlpha());
+    assertEquals(255, brighterResult5.getAlpha());
+    assertEquals(255, brighterResult4.getAlpha());
+    assertEquals(255, brighterResult.getAlpha());
+    assertEquals(255, brighterResult2.getAlpha());
+    assertEquals(255, darkerResult5.getAlpha());
+    assertEquals(255, darkerResult2.getAlpha());
+    assertEquals(255, darkerResult7.getAlpha());
+    assertEquals(255, darkerResult6.getAlpha());
+    assertEquals(255, darkerResult4.getAlpha());
+    assertEquals(255, darkerResult.getAlpha());
+    assertEquals(255, darkerResult3.getAlpha());
+    assertEquals(255, background.getAlpha());
+    assertEquals(255, foreground.getAlpha());
+    assertEquals(255, brighterResult.getBlue());
+    assertEquals(255, brighterResult.getGreen());
+    assertEquals(255, brighterResult.getRed());
+    Dimension preferredSize = actualPanel.getPreferredSize();
     assertEquals(300, preferredSize.width);
     assertEquals(300.0d, preferredSize.getWidth());
-    Dimension maximumSize2 = component.getMaximumSize();
-    assertEquals(32767, maximumSize2.height);
-    assertEquals(32767, maximumSize2.width);
-    Dimension maximumSize3 = component2.getMaximumSize();
-    assertEquals(32767, maximumSize3.width);
-    assertEquals(32794, maximumSize3.height);
-    Dimension preferredSize2 = component2.getPreferredSize();
-    assertEquals(430, preferredSize2.height);
-    assertEquals(453, preferredSize2.width);
-    assertEquals(49, minimumSize3.height);
-    assertEquals(50, minimumSize.height);
+    assertEquals(35, darkerResult3.getBlue());
+    assertEquals(35, darkerResult3.getGreen());
+    assertEquals(35, darkerResult3.getRed());
+    assertEquals(50, darkerResult2.getBlue());
+    assertEquals(50, darkerResult2.getGreen());
+    assertEquals(50, darkerResult2.getRed());
     assertEquals(500, preferredSize.height);
     assertEquals(500.0d, preferredSize.getHeight());
-    assertEquals(99, minimumSize2.height);
-    assertEquals(99.0d, minimumSize2.getHeight());
-    assertEquals(Component.BaselineResizeBehavior.OTHER, component.getBaselineResizeBehavior());
-    assertEquals(Component.BaselineResizeBehavior.OTHER, component2.getBaselineResizeBehavior());
-    assertFalse(component.getIgnoreRepaint());
-    assertFalse(component2.getIgnoreRepaint());
-    assertFalse(component.hasFocus());
-    assertFalse(component2.hasFocus());
-    assertFalse(component2.isBackgroundSet());
-    assertFalse(component.isCursorSet());
-    assertFalse(component2.isCursorSet());
-    assertFalse(component.isDisplayable());
-    assertFalse(component2.isDisplayable());
-    assertFalse(component2.isDoubleBuffered());
-    assertFalse(component.isFocusOwner());
-    assertFalse(component2.isFocusOwner());
-    assertFalse(component2.isFontSet());
-    assertFalse(component2.isForegroundSet());
-    assertFalse(component.isLightweight());
-    assertFalse(component2.isLightweight());
-    assertFalse(component.isMaximumSizeSet());
-    assertFalse(component2.isMaximumSizeSet());
-    assertFalse(component.isMinimumSizeSet());
-    assertFalse(component2.isMinimumSizeSet());
-    assertFalse(component2.isOpaque());
-    assertFalse(component.isPreferredSizeSet());
-    assertFalse(component2.isPreferredSizeSet());
-    assertFalse(component.isShowing());
-    assertFalse(component2.isShowing());
-    assertFalse(component.isValid());
-    assertFalse(component2.isValid());
-    assertFalse(((Box) component2).isFocusCycleRoot());
-    assertFalse(((JPanel) component).isFocusCycleRoot());
-    assertFalse(((Box) component2).isFocusTraversalPolicyProvider());
-    assertFalse(((JPanel) component).isFocusTraversalPolicyProvider());
-    assertFalse(((Box) component2).isFocusTraversalPolicySet());
-    assertFalse(((JPanel) component).isFocusTraversalPolicySet());
-    assertFalse(((Box) component2).getAutoscrolls());
-    assertFalse(((JPanel) component).getAutoscrolls());
-    assertFalse(((Box) component2).getInheritsPopupMenu());
-    assertFalse(((JPanel) component).getInheritsPopupMenu());
-    assertFalse(((Box) component2).isManagingFocus());
-    assertFalse(((JPanel) component).isManagingFocus());
-    assertFalse(((Box) component2).isPaintingForPrint());
-    assertFalse(((JPanel) component).isPaintingForPrint());
-    assertFalse(((Box) component2).isPaintingTile());
-    assertFalse(((JPanel) component).isPaintingTile());
-    assertFalse(((Box) component2).isValidateRoot());
-    assertFalse(((JPanel) component).isValidateRoot());
-    assertTrue(component.getFocusTraversalKeysEnabled());
-    assertTrue(component2.getFocusTraversalKeysEnabled());
-    assertTrue(component.isBackgroundSet());
-    assertTrue(component.isDoubleBuffered());
-    assertTrue(component.isEnabled());
-    assertTrue(component2.isEnabled());
-    assertTrue(component.isFocusable());
-    assertTrue(component2.isFocusable());
-    assertTrue(component.isFontSet());
-    assertTrue(component.isForegroundSet());
-    assertTrue(component.isOpaque());
-    assertTrue(panel.isPreferredSizeSet());
-    assertTrue(component.isVisible());
-    assertTrue(component2.isVisible());
-    assertTrue(((Box) component2).getVerifyInputWhenFocusTarget());
-    assertTrue(((JPanel) component).getVerifyInputWhenFocusTarget());
-    assertTrue(((Box) component2).isOptimizedDrawingEnabled());
-    assertTrue(((JPanel) component).isOptimizedDrawingEnabled());
-    assertTrue(((Box) component2).isRequestFocusEnabled());
-    assertTrue(((JPanel) component).isRequestFocusEnabled());
-    Color background = panel.getBackground();
-    Color brighterResult = background.brighter();
-    Color brighterResult2 = brighterResult.brighter();
-    assertEquals(brighterResult2, brighterResult.darker().brighter().brighter());
-    assertEquals(brighterResult2, background.darker().brighter().brighter());
-    assertEquals(brighterResult2, brighterResult2);
-    assertEquals(boundsResult, component.bounds());
-    assertEquals(boundsResult, component2.bounds());
-    assertEquals(boundsResult, panel.getBounds());
-    assertEquals(boundsResult, component.getBounds());
-    assertEquals(boundsResult, component2.getBounds());
-    assertEquals(boundsResult, boundsResult.getBounds());
-    assertEquals(boundsResult, panel.getVisibleRect());
-    assertEquals(boundsResult, ((Box) component2).getVisibleRect());
-    assertEquals(boundsResult, ((JPanel) component).getVisibleRect());
+    assertEquals(51, foreground.getBlue());
+    assertEquals(51, foreground.getGreen());
+    assertEquals(51, foreground.getRed());
+    assertEquals(6253, font.getNumGlyphs());
+    assertEquals(72, brighterResult2.getBlue());
+    assertEquals(72, brighterResult2.getGreen());
+    assertEquals(72, brighterResult2.getRed());
+    assertEquals(8, font.getAttributes().size());
+    assertEquals(92, minimumSize.height);
+    assertEquals(92.0d, minimumSize.getHeight());
+    assertEquals(BaselineResizeBehavior.OTHER, actualPanel.getBaselineResizeBehavior());
+    assertFalse(actualPanel.getIgnoreRepaint());
+    assertFalse(actualPanel.hasFocus());
+    assertFalse(actualPanel.isCursorSet());
+    assertFalse(actualPanel.isDisplayable());
+    assertFalse(actualPanel.isFocusOwner());
+    assertFalse(actualPanel.isLightweight());
+    assertFalse(actualPanel.isMaximumSizeSet());
+    assertFalse(actualPanel.isMinimumSizeSet());
+    assertFalse(actualPanel.isShowing());
+    assertFalse(actualPanel.isValid());
+    assertFalse(actualPanel.isFocusCycleRoot());
+    assertFalse(actualPanel.isFocusTraversalPolicyProvider());
+    assertFalse(actualPanel.isFocusTraversalPolicySet());
+    assertFalse(font.hasLayoutAttributes());
+    assertFalse(font.hasUniformLineMetrics());
+    assertFalse(font.isBold());
+    assertFalse(font.isItalic());
+    assertFalse(font.isTransformed());
+    assertFalse(toolkit.isAlwaysOnTopSupported());
+    assertFalse(locale.hasExtensions());
+    assertFalse(actualPanel.getAutoscrolls());
+    assertFalse(actualPanel.getInheritsPopupMenu());
+    assertFalse(actualPanel.isManagingFocus());
+    assertFalse(actualPanel.isPaintingForPrint());
+    assertFalse(actualPanel.isPaintingTile());
+    assertFalse(actualPanel.isValidateRoot());
+    assertTrue(actualPanel.getFocusTraversalKeysEnabled());
+    assertTrue(actualPanel.isBackgroundSet());
+    assertTrue(actualPanel.isEnabled());
+    assertTrue(actualPanel.isFocusable());
+    assertTrue(actualPanel.isFontSet());
+    assertTrue(actualPanel.isForegroundSet());
+    assertTrue(actualPanel.isPreferredSizeSet());
+    assertTrue(actualPanel.isVisible());
+    ComponentOrientation componentOrientation = actualPanel.getComponentOrientation();
+    assertTrue(componentOrientation.isHorizontal());
+    assertTrue(componentOrientation.isLeftToRight());
+    assertTrue(font.isPlain());
+    assertTrue(boundsResult.isEmpty());
+    assertTrue(transform.isIdentity());
+    assertTrue(locale.getExtensionKeys().isEmpty());
+    assertTrue(actualPanel.getVerifyInputWhenFocusTarget());
+    assertTrue(actualPanel.isDoubleBuffered());
+    assertTrue(actualPanel.isOpaque());
+    assertTrue(actualPanel.isOptimizedDrawingEnabled());
+    assertTrue(actualPanel.isRequestFocusEnabled());
     assertEquals(boundsResult, bounds2D);
     assertEquals(boundsResult, frame);
-    Point location = panel.getLocation();
-    assertEquals(location, component.getLocation());
-    assertEquals(location, component2.getLocation());
-    assertEquals(location, ((GridBagLayout) layout).getLayoutOrigin());
-    assertEquals(location, location.getLocation());
-    assertEquals(location, boundsResult.getLocation());
-    assertEquals(minimumSize, component.getPreferredSize());
-    Dimension size = panel.getSize();
-    assertEquals(size, component.getSize());
-    assertEquals(size, component2.getSize());
-    assertEquals(size, panel.size());
-    assertEquals(size, component.size());
-    assertEquals(size, component2.size());
-    assertEquals(size, size.getSize());
-    assertEquals(size, boundsResult.getSize());
-    assertEquals(maximumSize, maximumSize.getSize());
-    assertEquals(minimumSize2, minimumSize2.getSize());
-    assertEquals(preferredSize, preferredSize.getSize());
     assertEquals(Integer.MAX_VALUE, maximumSize.height);
     assertEquals(Integer.MAX_VALUE, maximumSize.width);
-    assertSame(background, component.getBackground());
-    assertSame(background, component2.getBackground());
-    Color foreground = panel.getForeground();
-    assertSame(foreground, component.getForeground());
-    assertSame(foreground, component2.getForeground());
-    Locale locale = panel.getLocale();
-    assertSame(locale, component.getLocale());
-    assertSame(locale, component2.getLocale());
-    AccessibleContext accessibleContext = panel.getAccessibleContext();
-    assertSame(accessibleContext, accessibleContext.getAccessibleComponent());
-    assertSame(panel, component.getParent());
-    assertSame(panel, component2.getParent());
-    assertSame(colorModel, component.getColorModel());
-    assertSame(colorModel, component2.getColorModel());
-  }
-
-  /**
-   * Test
-   * {@link FlagBitsPaneView#FlagBitsPaneView(String, String, Object[][], String[])}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then return Panel PreferredSize is Panel MinimumSize.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link FlagBitsPaneView#FlagBitsPaneView(String, String, Object[][], String[])}
-   */
-  @Test
-  @DisplayName("Test new FlagBitsPaneView(String, String, Object[][], String[]); when 'null'; then return Panel PreferredSize is Panel MinimumSize")
-  void testNewFlagBitsPaneView_whenNull_thenReturnPanelPreferredSizeIsPanelMinimumSize() {
-    // Arrange, Act and Assert
-    JPanel panel = (new FlagBitsPaneView("Flag Header", null, new Object[][]{new Object[]{"Table Row Data"}},
-        new String[]{"Column Names"})).getPanel();
-    Rectangle boundsResult = panel.bounds();
-    Rectangle2D bounds2D = boundsResult.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Rectangle2D frame = boundsResult.getFrame();
-    assertTrue(frame instanceof Rectangle2D.Double);
-    assertTrue(panel.getColorModel() instanceof DirectColorModel);
-    Color background = panel.getBackground();
-    Color brighterResult = background.brighter();
-    Color brighterResult2 = brighterResult.brighter();
-    assertEquals(brighterResult2, brighterResult.darker().brighter().brighter());
-    assertEquals(brighterResult2, background.darker().brighter().brighter());
-    assertEquals(brighterResult2, brighterResult2);
-    assertEquals(boundsResult, panel.getBounds());
-    assertEquals(boundsResult, boundsResult.getBounds());
-    assertEquals(boundsResult, panel.getVisibleRect());
-    assertEquals(boundsResult, bounds2D);
-    assertEquals(boundsResult, frame);
-    Point location = panel.getLocation();
-    assertEquals(location, location.getLocation());
-    assertEquals(location, boundsResult.getLocation());
-    Dimension size = panel.getSize();
-    assertEquals(size, panel.size());
-    assertEquals(size, size.getSize());
-    assertEquals(size, boundsResult.getSize());
-    Dimension maximumSize = panel.getMaximumSize();
-    assertEquals(maximumSize, maximumSize.getSize());
-    Dimension minimumSize = panel.getMinimumSize();
-    assertEquals(minimumSize, minimumSize.getSize());
-    assertEquals(minimumSize, panel.getPreferredSize());
-    AccessibleContext accessibleContext = panel.getAccessibleContext();
-    assertSame(accessibleContext, accessibleContext.getAccessibleComponent());
-  }
-
-  /**
-   * Test
-   * {@link FlagBitsPaneView#FlagBitsPaneView(String, String, Object[][], String[])}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then return Panel PreferredSize is Panel MinimumSize.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link FlagBitsPaneView#FlagBitsPaneView(String, String, Object[][], String[])}
-   */
-  @Test
-  @DisplayName("Test new FlagBitsPaneView(String, String, Object[][], String[]); when 'null'; then return Panel PreferredSize is Panel MinimumSize")
-  void testNewFlagBitsPaneView_whenNull_thenReturnPanelPreferredSizeIsPanelMinimumSize2() {
-    // Arrange, Act and Assert
-    JPanel panel = (new FlagBitsPaneView("Flag Header", "42", null, new String[]{"Column Names"})).getPanel();
-    Rectangle boundsResult = panel.bounds();
-    Rectangle2D bounds2D = boundsResult.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Rectangle2D frame = boundsResult.getFrame();
-    assertTrue(frame instanceof Rectangle2D.Double);
-    assertTrue(panel.getColorModel() instanceof DirectColorModel);
-    Color background = panel.getBackground();
-    Color brighterResult = background.brighter();
-    Color brighterResult2 = brighterResult.brighter();
-    assertEquals(brighterResult2, brighterResult.darker().brighter().brighter());
-    assertEquals(brighterResult2, background.darker().brighter().brighter());
-    assertEquals(brighterResult2, brighterResult2);
-    assertEquals(boundsResult, panel.getBounds());
-    assertEquals(boundsResult, boundsResult.getBounds());
-    assertEquals(boundsResult, panel.getVisibleRect());
-    assertEquals(boundsResult, bounds2D);
-    assertEquals(boundsResult, frame);
-    Point location = panel.getLocation();
-    assertEquals(location, location.getLocation());
-    assertEquals(location, boundsResult.getLocation());
-    Dimension size = panel.getSize();
-    assertEquals(size, panel.size());
-    assertEquals(size, size.getSize());
-    assertEquals(size, boundsResult.getSize());
-    Dimension maximumSize = panel.getMaximumSize();
-    assertEquals(maximumSize, maximumSize.getSize());
-    Dimension minimumSize = panel.getMinimumSize();
-    assertEquals(minimumSize, minimumSize.getSize());
-    assertEquals(minimumSize, panel.getPreferredSize());
-    AccessibleContext accessibleContext = panel.getAccessibleContext();
-    assertSame(accessibleContext, accessibleContext.getAccessibleComponent());
+    assertSame(colorSpace, brighterResult3.getColorSpace());
+    assertSame(colorSpace, brighterResult5.getColorSpace());
+    assertSame(colorSpace, brighterResult4.getColorSpace());
+    assertSame(colorSpace, brighterResult.getColorSpace());
+    assertSame(colorSpace, brighterResult2.getColorSpace());
+    assertSame(colorSpace, darkerResult5.getColorSpace());
+    assertSame(colorSpace, darkerResult2.getColorSpace());
+    assertSame(colorSpace, darkerResult7.getColorSpace());
+    assertSame(colorSpace, darkerResult6.getColorSpace());
+    assertSame(colorSpace, darkerResult4.getColorSpace());
+    assertSame(colorSpace, darkerResult.getColorSpace());
+    assertSame(colorSpace, darkerResult3.getColorSpace());
+    assertSame(colorSpace, foreground.getColorSpace());
   }
 }

@@ -5,18 +5,22 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSFloat;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDTristimulusDiffblueTest {
   /**
    * Test getters and setters.
-   * <p>
-   * Methods under test:
+   *
+   * <p>Methods under test:
+   *
    * <ul>
    *   <li>{@link PDTristimulus#PDTristimulus(COSArray)}
    *   <li>{@link PDTristimulus#getCOSObject()}
@@ -24,12 +28,15 @@ class PDTristimulusDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDTristimulus.<init>(COSArray)", "COSBase PDTristimulus.getCOSObject()"})
   void testGettersAndSetters() {
     // Arrange
     COSArray array = new COSArray();
 
     // Act
-    COSBase actualCOSObject = (new PDTristimulus(array)).getCOSObject();
+    COSBase actualCOSObject = new PDTristimulus(array).getCOSObject();
 
     // Assert
     assertTrue(actualCOSObject instanceof COSArray);
@@ -38,11 +45,14 @@ class PDTristimulusDiffblueTest {
 
   /**
    * Test {@link PDTristimulus#PDTristimulus()}.
-   * <p>
-   * Method under test: {@link PDTristimulus#PDTristimulus()}
+   *
+   * <p>Method under test: {@link PDTristimulus#PDTristimulus()}
    */
   @Test
   @DisplayName("Test new PDTristimulus()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDTristimulus.<init>()"})
   void testNewPDTristimulus() {
     // Arrange and Act
     PDTristimulus actualPdTristimulus = new PDTristimulus();
@@ -65,17 +75,21 @@ class PDTristimulusDiffblueTest {
 
   /**
    * Test {@link PDTristimulus#PDTristimulus(float[])}.
+   *
    * <ul>
-   *   <li>Then return COSObject toList size is three.</li>
+   *   <li>Then return COSObject toList size is three.
    * </ul>
-   * <p>
-   * Method under test: {@link PDTristimulus#PDTristimulus(float[])}
+   *
+   * <p>Method under test: {@link PDTristimulus#PDTristimulus(float[])}
    */
   @Test
   @DisplayName("Test new PDTristimulus(float[]); then return COSObject toList size is three")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDTristimulus.<init>(float[])"})
   void testNewPDTristimulus_thenReturnCOSObjectToListSizeIsThree() {
     // Arrange and Act
-    PDTristimulus actualPdTristimulus = new PDTristimulus(new float[]{10.0f, 0.5f, 10.0f, 0.5f});
+    PDTristimulus actualPdTristimulus = new PDTristimulus(new float[] {10.0f, 0.5f, 10.0f, 0.5f});
 
     // Assert
     COSBase cOSObject = actualPdTristimulus.getCOSObject();
@@ -100,50 +114,65 @@ class PDTristimulusDiffblueTest {
 
   /**
    * Test {@link PDTristimulus#PDTristimulus(float[])}.
+   *
    * <ul>
-   *   <li>When empty array of {@code float}.</li>
-   *   <li>Then return COSObject toList Empty.</li>
+   *   <li>When empty array of {@code float}.
+   *   <li>Then return COSObject toList Empty.
    * </ul>
-   * <p>
-   * Method under test: {@link PDTristimulus#PDTristimulus(float[])}
+   *
+   * <p>Method under test: {@link PDTristimulus#PDTristimulus(float[])}
    */
   @Test
-  @DisplayName("Test new PDTristimulus(float[]); when empty array of float; then return COSObject toList Empty")
+  @DisplayName(
+      "Test new PDTristimulus(float[]); when empty array of float; then return COSObject toList Empty")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDTristimulus.<init>(float[])"})
   void testNewPDTristimulus_whenEmptyArrayOfFloat_thenReturnCOSObjectToListEmpty() {
-    // Arrange, Act and Assert
-    COSBase cOSObject = (new PDTristimulus(new float[]{})).getCOSObject();
+    // Arrange and Act
+    PDTristimulus actualPdTristimulus = new PDTristimulus(new float[] {});
+
+    // Assert
+    COSBase cOSObject = actualPdTristimulus.getCOSObject();
     assertTrue(cOSObject instanceof COSArray);
     assertTrue(((COSArray) cOSObject).toList().isEmpty());
   }
 
   /**
    * Test {@link PDTristimulus#getX()}.
+   *
    * <ul>
-   *   <li>Given {@link PDTristimulus#PDTristimulus()}.</li>
-   *   <li>Then return zero.</li>
+   *   <li>Given {@link PDTristimulus#PDTristimulus()}.
+   *   <li>Then return zero.
    * </ul>
-   * <p>
-   * Method under test: {@link PDTristimulus#getX()}
+   *
+   * <p>Method under test: {@link PDTristimulus#getX()}
    */
   @Test
   @DisplayName("Test getX(); given PDTristimulus(); then return zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"float PDTristimulus.getX()"})
   void testGetX_givenPDTristimulus_thenReturnZero() {
     // Arrange, Act and Assert
-    assertEquals(0.0f, (new PDTristimulus()).getX());
+    assertEquals(0.0f, new PDTristimulus().getX());
   }
 
   /**
    * Test {@link PDTristimulus#setX(float)}.
+   *
    * <ul>
-   *   <li>Given {@link PDTristimulus#PDTristimulus()}.</li>
-   *   <li>Then {@link PDTristimulus#PDTristimulus()} COSObject
-   * {@link COSArray}.</li>
+   *   <li>Given {@link PDTristimulus#PDTristimulus()}.
+   *   <li>Then {@link PDTristimulus#PDTristimulus()} COSObject {@link COSArray}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDTristimulus#setX(float)}
+   *
+   * <p>Method under test: {@link PDTristimulus#setX(float)}
    */
   @Test
   @DisplayName("Test setX(float); given PDTristimulus(); then PDTristimulus() COSObject COSArray")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDTristimulus.setX(float)"})
   void testSetX_givenPDTristimulus_thenPDTristimulusCOSObjectCOSArray() {
     // Arrange
     PDTristimulus pdTristimulus = new PDTristimulus();
@@ -166,32 +195,39 @@ class PDTristimulusDiffblueTest {
 
   /**
    * Test {@link PDTristimulus#getY()}.
+   *
    * <ul>
-   *   <li>Given {@link PDTristimulus#PDTristimulus()}.</li>
-   *   <li>Then return zero.</li>
+   *   <li>Given {@link PDTristimulus#PDTristimulus()}.
+   *   <li>Then return zero.
    * </ul>
-   * <p>
-   * Method under test: {@link PDTristimulus#getY()}
+   *
+   * <p>Method under test: {@link PDTristimulus#getY()}
    */
   @Test
   @DisplayName("Test getY(); given PDTristimulus(); then return zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"float PDTristimulus.getY()"})
   void testGetY_givenPDTristimulus_thenReturnZero() {
     // Arrange, Act and Assert
-    assertEquals(0.0f, (new PDTristimulus()).getY());
+    assertEquals(0.0f, new PDTristimulus().getY());
   }
 
   /**
    * Test {@link PDTristimulus#setY(float)}.
+   *
    * <ul>
-   *   <li>Given {@link PDTristimulus#PDTristimulus()}.</li>
-   *   <li>Then {@link PDTristimulus#PDTristimulus()} COSObject
-   * {@link COSArray}.</li>
+   *   <li>Given {@link PDTristimulus#PDTristimulus()}.
+   *   <li>Then {@link PDTristimulus#PDTristimulus()} COSObject {@link COSArray}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDTristimulus#setY(float)}
+   *
+   * <p>Method under test: {@link PDTristimulus#setY(float)}
    */
   @Test
   @DisplayName("Test setY(float); given PDTristimulus(); then PDTristimulus() COSObject COSArray")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDTristimulus.setY(float)"})
   void testSetY_givenPDTristimulus_thenPDTristimulusCOSObjectCOSArray() {
     // Arrange
     PDTristimulus pdTristimulus = new PDTristimulus();
@@ -213,32 +249,39 @@ class PDTristimulusDiffblueTest {
 
   /**
    * Test {@link PDTristimulus#getZ()}.
+   *
    * <ul>
-   *   <li>Given {@link PDTristimulus#PDTristimulus()}.</li>
-   *   <li>Then return zero.</li>
+   *   <li>Given {@link PDTristimulus#PDTristimulus()}.
+   *   <li>Then return zero.
    * </ul>
-   * <p>
-   * Method under test: {@link PDTristimulus#getZ()}
+   *
+   * <p>Method under test: {@link PDTristimulus#getZ()}
    */
   @Test
   @DisplayName("Test getZ(); given PDTristimulus(); then return zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"float PDTristimulus.getZ()"})
   void testGetZ_givenPDTristimulus_thenReturnZero() {
     // Arrange, Act and Assert
-    assertEquals(0.0f, (new PDTristimulus()).getZ());
+    assertEquals(0.0f, new PDTristimulus().getZ());
   }
 
   /**
    * Test {@link PDTristimulus#setZ(float)}.
+   *
    * <ul>
-   *   <li>Given {@link PDTristimulus#PDTristimulus()}.</li>
-   *   <li>Then {@link PDTristimulus#PDTristimulus()} COSObject
-   * {@link COSArray}.</li>
+   *   <li>Given {@link PDTristimulus#PDTristimulus()}.
+   *   <li>Then {@link PDTristimulus#PDTristimulus()} COSObject {@link COSArray}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDTristimulus#setZ(float)}
+   *
+   * <p>Method under test: {@link PDTristimulus#setZ(float)}
    */
   @Test
   @DisplayName("Test setZ(float); given PDTristimulus(); then PDTristimulus() COSObject COSArray")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDTristimulus.setZ(float)"})
   void testSetZ_givenPDTristimulus_thenPDTristimulusCOSObjectCOSArray() {
     // Arrange
     PDTristimulus pdTristimulus = new PDTristimulus();

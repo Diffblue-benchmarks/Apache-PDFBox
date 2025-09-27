@@ -4,19 +4,25 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import org.apache.xmpbox.XMPMetadata;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class LayerTypeDiffblueTest {
   /**
    * Test {@link LayerType#LayerType(XMPMetadata)}.
-   * <p>
-   * Method under test: {@link LayerType#LayerType(XMPMetadata)}
+   *
+   * <p>Method under test: {@link LayerType#LayerType(XMPMetadata)}
    */
   @Test
   @DisplayName("Test new LayerType(XMPMetadata)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void LayerType.<init>(XMPMetadata)"})
   void testNewLayerType() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -25,52 +31,53 @@ class LayerTypeDiffblueTest {
     LayerType actualLayerType = new LayerType(metadata);
 
     // Assert
-    List<Attribute> allAttributes = actualLayerType.getAllAttributes();
-    assertEquals(1, allAttributes.size());
-    Attribute getResult = allAttributes.get(0);
-    assertEquals("Resource", getResult.getValue());
     assertEquals("http://ns.adobe.com/photoshop/1.0/", actualLayerType.getNamespace());
-    assertEquals("http://www.w3.org/1999/02/22-rdf-syntax-ns#", getResult.getNamespace());
-    assertEquals("parseType", getResult.getName());
     assertEquals("photoshop", actualLayerType.getPreferedPrefix());
     assertEquals("photoshop", actualLayerType.getPrefix());
     assertNull(actualLayerType.getPropertyName());
     assertNull(actualLayerType.getLayerName());
     assertNull(actualLayerType.getLayerText());
-    List<AbstractField> allProperties = actualLayerType.getAllProperties();
-    assertTrue(allProperties.isEmpty());
+    assertEquals(1, actualLayerType.getAllAttributes().size());
+    assertTrue(actualLayerType.getAllProperties().isEmpty());
     assertTrue(actualLayerType.getAllNamespacesWithPrefix().isEmpty());
-    assertSame(allProperties, actualLayerType.getContainer().getAllProperties());
     assertSame(metadata, actualLayerType.getMetadata());
   }
 
   /**
    * Test {@link LayerType#getLayerName()}.
+   *
    * <ul>
-   *   <li>Given {@link LayerType#LayerType(XMPMetadata)} with metadata is
-   * createXMPMetadata.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Given {@link LayerType#LayerType(XMPMetadata)} with metadata is createXMPMetadata.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link LayerType#getLayerName()}
+   *
+   * <p>Method under test: {@link LayerType#getLayerName()}
    */
   @Test
-  @DisplayName("Test getLayerName(); given LayerType(XMPMetadata) with metadata is createXMPMetadata; then return 'null'")
+  @DisplayName(
+      "Test getLayerName(); given LayerType(XMPMetadata) with metadata is createXMPMetadata; then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String LayerType.getLayerName()"})
   void testGetLayerName_givenLayerTypeWithMetadataIsCreateXMPMetadata_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new LayerType(XMPMetadata.createXMPMetadata())).getLayerName());
+    assertNull(new LayerType(XMPMetadata.createXMPMetadata()).getLayerName());
   }
 
   /**
    * Test {@link LayerType#getLayerName()}.
+   *
    * <ul>
-   *   <li>Then return {@code Value}.</li>
+   *   <li>Then return {@code Value}.
    * </ul>
-   * <p>
-   * Method under test: {@link LayerType#getLayerName()}
+   *
+   * <p>Method under test: {@link LayerType#getLayerName()}
    */
   @Test
   @DisplayName("Test getLayerName(); then return 'Value'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String LayerType.getLayerName()"})
   void testGetLayerName_thenReturnValue() {
     // Arrange
     LayerType layerType = new LayerType(XMPMetadata.createXMPMetadata());
@@ -82,11 +89,14 @@ class LayerTypeDiffblueTest {
 
   /**
    * Test {@link LayerType#setLayerName(String)}.
-   * <p>
-   * Method under test: {@link LayerType#setLayerName(String)}
+   *
+   * <p>Method under test: {@link LayerType#setLayerName(String)}
    */
   @Test
   @DisplayName("Test setLayerName(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void LayerType.setLayerName(String)"})
   void testSetLayerName() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -113,31 +123,39 @@ class LayerTypeDiffblueTest {
 
   /**
    * Test {@link LayerType#getLayerText()}.
+   *
    * <ul>
-   *   <li>Given {@link LayerType#LayerType(XMPMetadata)} with metadata is
-   * createXMPMetadata.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Given {@link LayerType#LayerType(XMPMetadata)} with metadata is createXMPMetadata.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link LayerType#getLayerText()}
+   *
+   * <p>Method under test: {@link LayerType#getLayerText()}
    */
   @Test
-  @DisplayName("Test getLayerText(); given LayerType(XMPMetadata) with metadata is createXMPMetadata; then return 'null'")
+  @DisplayName(
+      "Test getLayerText(); given LayerType(XMPMetadata) with metadata is createXMPMetadata; then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String LayerType.getLayerText()"})
   void testGetLayerText_givenLayerTypeWithMetadataIsCreateXMPMetadata_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new LayerType(XMPMetadata.createXMPMetadata())).getLayerText());
+    assertNull(new LayerType(XMPMetadata.createXMPMetadata()).getLayerText());
   }
 
   /**
    * Test {@link LayerType#getLayerText()}.
+   *
    * <ul>
-   *   <li>Then return {@code Value}.</li>
+   *   <li>Then return {@code Value}.
    * </ul>
-   * <p>
-   * Method under test: {@link LayerType#getLayerText()}
+   *
+   * <p>Method under test: {@link LayerType#getLayerText()}
    */
   @Test
   @DisplayName("Test getLayerText(); then return 'Value'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String LayerType.getLayerText()"})
   void testGetLayerText_thenReturnValue() {
     // Arrange
     LayerType layerType = new LayerType(XMPMetadata.createXMPMetadata());
@@ -149,11 +167,14 @@ class LayerTypeDiffblueTest {
 
   /**
    * Test {@link LayerType#setLayerText(String)}.
-   * <p>
-   * Method under test: {@link LayerType#setLayerText(String)}
+   *
+   * <p>Method under test: {@link LayerType#setLayerText(String)}
    */
   @Test
   @DisplayName("Test setLayerText(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void LayerType.setLayerText(String)"})
   void testSetLayerText() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();

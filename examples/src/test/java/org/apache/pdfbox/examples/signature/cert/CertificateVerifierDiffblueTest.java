@@ -2,13 +2,14 @@ package org.apache.pdfbox.examples.signature.cert;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.security.GeneralSecurityException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -24,21 +25,26 @@ import java.util.HashSet;
 import java.util.Set;
 import org.bouncycastle.jce.provider.X509CertificateObject;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class CertificateVerifierDiffblueTest {
   /**
-   * Test
-   * {@link CertificateVerifier#verifyCertificate(X509Certificate, Set, boolean, Date)}
-   * with {@code cert}, {@code additionalCerts}, {@code verifySelfSignedCert},
-   * {@code signDate}.
-   * <p>
-   * Method under test:
-   * {@link CertificateVerifier#verifyCertificate(X509Certificate, Set, boolean, Date)}
+   * Test {@link CertificateVerifier#verifyCertificate(X509Certificate, Set, boolean, Date)} with
+   * {@code cert}, {@code additionalCerts}, {@code verifySelfSignedCert}, {@code signDate}.
+   *
+   * <p>Method under test: {@link CertificateVerifier#verifyCertificate(X509Certificate, Set,
+   * boolean, Date)}
    */
   @Test
-  @DisplayName("Test verifyCertificate(X509Certificate, Set, boolean, Date) with 'cert', 'additionalCerts', 'verifySelfSignedCert', 'signDate'")
+  @DisplayName(
+      "Test verifyCertificate(X509Certificate, Set, boolean, Date) with 'cert', 'additionalCerts', 'verifySelfSignedCert', 'signDate'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "java.security.cert.PKIXCertPathBuilderResult CertificateVerifier.verifyCertificate(X509Certificate, Set, boolean, Date)"
+  })
   void testVerifyCertificateWithCertAdditionalCertsVerifySelfSignedCertSignDate()
       throws CertificateVerificationException {
     // Arrange
@@ -47,24 +53,39 @@ class CertificateVerifierDiffblueTest {
     HashSet<X509Certificate> additionalCerts = new HashSet<>();
 
     // Act and Assert
-    assertThrows(CertificateVerificationException.class, () -> CertificateVerifier.verifyCertificate(cert,
-        additionalCerts, true, Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant())));
-    verify(cert).getExtensionValue(eq("1.3.6.1.5.5.7.1.1"));
+    assertThrows(
+        CertificateVerificationException.class,
+        () ->
+            CertificateVerifier.verifyCertificate(
+                cert,
+                additionalCerts,
+                true,
+                Date.from(
+                    LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant())));
+    verify(cert).getExtensionValue("1.3.6.1.5.5.7.1.1");
   }
 
   /**
-   * Test
-   * {@link CertificateVerifier#verifyCertificate(X509Certificate, Set, boolean, Date)}
-   * with {@code cert}, {@code additionalCerts}, {@code verifySelfSignedCert},
-   * {@code signDate}.
-   * <p>
-   * Method under test:
-   * {@link CertificateVerifier#verifyCertificate(X509Certificate, Set, boolean, Date)}
+   * Test {@link CertificateVerifier#verifyCertificate(X509Certificate, Set, boolean, Date)} with
+   * {@code cert}, {@code additionalCerts}, {@code verifySelfSignedCert}, {@code signDate}.
+   *
+   * <p>Method under test: {@link CertificateVerifier#verifyCertificate(X509Certificate, Set,
+   * boolean, Date)}
    */
   @Test
-  @DisplayName("Test verifyCertificate(X509Certificate, Set, boolean, Date) with 'cert', 'additionalCerts', 'verifySelfSignedCert', 'signDate'")
-  void testVerifyCertificateWithCertAdditionalCertsVerifySelfSignedCertSignDate2() throws InvalidKeyException,
-      NoSuchAlgorithmException, SignatureException, CertificateException, CertificateVerificationException {
+  @DisplayName(
+      "Test verifyCertificate(X509Certificate, Set, boolean, Date) with 'cert', 'additionalCerts', 'verifySelfSignedCert', 'signDate'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "java.security.cert.PKIXCertPathBuilderResult CertificateVerifier.verifyCertificate(X509Certificate, Set, boolean, Date)"
+  })
+  void testVerifyCertificateWithCertAdditionalCertsVerifySelfSignedCertSignDate2()
+      throws InvalidKeyException,
+          NoSuchAlgorithmException,
+          SignatureException,
+          CertificateException,
+          CertificateVerificationException {
     // Arrange
     X509CertificateObject cert = mock(X509CertificateObject.class);
     doNothing().when(cert).verify(Mockito.<PublicKey>any(), Mockito.<Provider>any());
@@ -72,23 +93,34 @@ class CertificateVerifierDiffblueTest {
     HashSet<X509Certificate> additionalCerts = new HashSet<>();
 
     // Act and Assert
-    assertThrows(CertificateVerificationException.class, () -> CertificateVerifier.verifyCertificate(cert,
-        additionalCerts, false, Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant())));
+    assertThrows(
+        CertificateVerificationException.class,
+        () ->
+            CertificateVerifier.verifyCertificate(
+                cert,
+                additionalCerts,
+                false,
+                Date.from(
+                    LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant())));
     verify(cert).getPublicKey();
     verify(cert).verify((PublicKey) isNull(), isA(Provider.class));
   }
 
   /**
    * Test {@link CertificateVerifier#isSelfSigned(X509Certificate)}.
+   *
    * <ul>
-   *   <li>Given {@code null}.</li>
-   *   <li>Then return {@code true}.</li>
+   *   <li>Given {@code null}.
+   *   <li>Then return {@code true}.
    * </ul>
-   * <p>
-   * Method under test: {@link CertificateVerifier#isSelfSigned(X509Certificate)}
+   *
+   * <p>Method under test: {@link CertificateVerifier#isSelfSigned(X509Certificate)}
    */
   @Test
   @DisplayName("Test isSelfSigned(X509Certificate); given 'null'; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean CertificateVerifier.isSelfSigned(X509Certificate)"})
   void testIsSelfSigned_givenNull_thenReturnTrue() throws GeneralSecurityException {
     // Arrange
     X509CertificateObject cert = mock(X509CertificateObject.class);

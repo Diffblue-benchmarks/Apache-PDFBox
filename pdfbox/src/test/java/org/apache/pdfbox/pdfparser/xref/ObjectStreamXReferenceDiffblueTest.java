@@ -2,31 +2,38 @@ package org.apache.pdfbox.pdfparser.xref;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSBoolean;
 import org.apache.pdfbox.cos.COSObjectKey;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ObjectStreamXReferenceDiffblueTest {
   /**
-   * Test
-   * {@link ObjectStreamXReference#ObjectStreamXReference(int, COSObjectKey, COSBase, COSObjectKey)}.
-   * <p>
-   * Method under test:
-   * {@link ObjectStreamXReference#ObjectStreamXReference(int, COSObjectKey, COSBase, COSObjectKey)}
+   * Test {@link ObjectStreamXReference#ObjectStreamXReference(int, COSObjectKey, COSBase,
+   * COSObjectKey)}.
+   *
+   * <p>Method under test: {@link ObjectStreamXReference#ObjectStreamXReference(int, COSObjectKey,
+   * COSBase, COSObjectKey)}
    */
   @Test
   @DisplayName("Test new ObjectStreamXReference(int, COSObjectKey, COSBase, COSObjectKey)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void ObjectStreamXReference.<init>(int, COSObjectKey, COSBase, COSObjectKey)"
+  })
   void testNewObjectStreamXReference() {
     // Arrange
     COSObjectKey key = new COSObjectKey(1L, 1);
-
-    COSBoolean object = COSBoolean.FALSE;
     COSObjectKey parentKey = new COSObjectKey(1L, 1);
 
     // Act
-    ObjectStreamXReference actualObjectStreamXReference = new ObjectStreamXReference(1, key, object, parentKey);
+    ObjectStreamXReference actualObjectStreamXReference =
+        new ObjectStreamXReference(1, key, COSBoolean.FALSE, parentKey);
 
     // Assert
     assertEquals(1, actualObjectStreamXReference.getObjectStreamIndex());
@@ -36,14 +43,14 @@ class ObjectStreamXReferenceDiffblueTest {
     assertEquals(XReferenceType.OBJECT_STREAM_ENTRY, actualObjectStreamXReference.getType());
     assertSame(parentKey, actualObjectStreamXReference.getParentKey());
     assertSame(key, actualObjectStreamXReference.getReferencedKey());
-    COSBoolean expectedObject = object.FALSE;
-    assertSame(expectedObject, actualObjectStreamXReference.getObject());
+    assertSame(COSBoolean.FALSE, actualObjectStreamXReference.getObject());
   }
 
   /**
    * Test getters and setters.
-   * <p>
-   * Methods under test:
+   *
+   * <p>Methods under test:
+   *
    * <ul>
    *   <li>{@link ObjectStreamXReference#toString()}
    *   <li>{@link ObjectStreamXReference#getObject()}
@@ -54,13 +61,22 @@ class ObjectStreamXReferenceDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "COSBase ObjectStreamXReference.getObject()",
+    "int ObjectStreamXReference.getObjectStreamIndex()",
+    "COSObjectKey ObjectStreamXReference.getParentKey()",
+    "COSObjectKey ObjectStreamXReference.getReferencedKey()",
+    "String ObjectStreamXReference.toString()"
+  })
   void testGettersAndSetters() {
     // Arrange
     COSObjectKey key = new COSObjectKey(1L, 1);
-
     COSObjectKey parentKey = new COSObjectKey(1L, 1);
 
-    ObjectStreamXReference objectStreamXReference = new ObjectStreamXReference(1, key, COSBoolean.FALSE, parentKey);
+    ObjectStreamXReference objectStreamXReference =
+        new ObjectStreamXReference(1, key, COSBoolean.FALSE, parentKey);
 
     // Act
     String actualToStringResult = objectStreamXReference.toString();
@@ -69,7 +85,9 @@ class ObjectStreamXReferenceDiffblueTest {
     COSObjectKey actualParentKey = objectStreamXReference.getParentKey();
 
     // Assert
-    assertEquals("ObjectStreamEntry{ key=1 1 R, type=2, objectStreamIndex=1, parent=1 1 R }", actualToStringResult);
+    assertEquals(
+        "ObjectStreamEntry{ key=1 1 R, type=2, objectStreamIndex=1, parent=1 1 R }",
+        actualToStringResult);
     assertEquals(1, actualObjectStreamIndex);
     assertSame(parentKey, actualParentKey);
     assertSame(key, objectStreamXReference.getReferencedKey());
@@ -78,36 +96,45 @@ class ObjectStreamXReferenceDiffblueTest {
 
   /**
    * Test {@link ObjectStreamXReference#getSecondColumnValue()}.
+   *
    * <ul>
-   *   <li>Then return one.</li>
+   *   <li>Then return one.
    * </ul>
-   * <p>
-   * Method under test: {@link ObjectStreamXReference#getSecondColumnValue()}
+   *
+   * <p>Method under test: {@link ObjectStreamXReference#getSecondColumnValue()}
    */
   @Test
   @DisplayName("Test getSecondColumnValue(); then return one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"long ObjectStreamXReference.getSecondColumnValue()"})
   void testGetSecondColumnValue_thenReturnOne() {
     // Arrange
     COSObjectKey key = new COSObjectKey(1L, 1);
+    ObjectStreamXReference objectStreamXReference =
+        new ObjectStreamXReference(1, key, COSBoolean.FALSE, new COSObjectKey(1L, 1));
 
     // Act and Assert
-    assertEquals(1L,
-        (new ObjectStreamXReference(1, key, COSBoolean.FALSE, new COSObjectKey(1L, 1))).getSecondColumnValue());
+    assertEquals(1L, objectStreamXReference.getSecondColumnValue());
   }
 
   /**
    * Test {@link ObjectStreamXReference#getThirdColumnValue()}.
-   * <p>
-   * Method under test: {@link ObjectStreamXReference#getThirdColumnValue()}
+   *
+   * <p>Method under test: {@link ObjectStreamXReference#getThirdColumnValue()}
    */
   @Test
   @DisplayName("Test getThirdColumnValue()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"long ObjectStreamXReference.getThirdColumnValue()"})
   void testGetThirdColumnValue() {
     // Arrange
     COSObjectKey key = new COSObjectKey(1L, 1);
+    ObjectStreamXReference objectStreamXReference =
+        new ObjectStreamXReference(1, key, COSBoolean.FALSE, new COSObjectKey(1L, 1));
 
     // Act and Assert
-    assertEquals(1L,
-        (new ObjectStreamXReference(1, key, COSBoolean.FALSE, new COSObjectKey(1L, 1))).getThirdColumnValue());
+    assertEquals(1L, objectStreamXReference.getThirdColumnValue());
   }
 }

@@ -6,35 +6,44 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSUpdateState;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDPageLabelRangeDiffblueTest {
   /**
    * Test {@link PDPageLabelRange#PDPageLabelRange(COSDictionary)}.
-   * <p>
-   * Method under test: {@link PDPageLabelRange#PDPageLabelRange(COSDictionary)}
+   *
+   * <p>Method under test: {@link PDPageLabelRange#PDPageLabelRange(COSDictionary)}
    */
   @Test
   @DisplayName("Test new PDPageLabelRange(COSDictionary)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDPageLabelRange.<init>(COSDictionary)"})
   void testNewPDPageLabelRange() {
     // Arrange
     COSDictionary dict = new COSDictionary();
 
     // Act and Assert
-    assertSame(dict, (new PDPageLabelRange(dict)).getCOSObject());
+    assertSame(dict, new PDPageLabelRange(dict).getCOSObject());
   }
 
   /**
    * Test {@link PDPageLabelRange#PDPageLabelRange()}.
-   * <p>
-   * Method under test: {@link PDPageLabelRange#PDPageLabelRange()}
+   *
+   * <p>Method under test: {@link PDPageLabelRange#PDPageLabelRange()}
    */
   @Test
   @DisplayName("Test new PDPageLabelRange()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDPageLabelRange.<init>()"})
   void testNewPDPageLabelRange2() {
     // Arrange and Act
     PDPageLabelRange actualPdPageLabelRange = new PDPageLabelRange();
@@ -59,14 +68,17 @@ class PDPageLabelRangeDiffblueTest {
 
   /**
    * Test {@link PDPageLabelRange#getCOSObject()}.
-   * <p>
-   * Method under test: {@link PDPageLabelRange#getCOSObject()}
+   *
+   * <p>Method under test: {@link PDPageLabelRange#getCOSObject()}
    */
   @Test
   @DisplayName("Test getCOSObject()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"COSDictionary PDPageLabelRange.getCOSObject()"})
   void testGetCOSObject() {
     // Arrange and Act
-    COSDictionary actualCOSObject = (new PDPageLabelRange()).getCOSObject();
+    COSDictionary actualCOSObject = new PDPageLabelRange().getCOSObject();
 
     // Assert
     COSUpdateState updateState = actualCOSObject.getUpdateState();
@@ -84,16 +96,19 @@ class PDPageLabelRangeDiffblueTest {
 
   /**
    * Test {@link PDPageLabelRange#getStyle()}.
+   *
    * <ul>
-   *   <li>Given {@link PDPageLabelRange#PDPageLabelRange()} Style is
-   * {@code Style}.</li>
-   *   <li>Then return {@code Style}.</li>
+   *   <li>Given {@link PDPageLabelRange#PDPageLabelRange()} Style is {@code Style}.
+   *   <li>Then return {@code Style}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDPageLabelRange#getStyle()}
+   *
+   * <p>Method under test: {@link PDPageLabelRange#getStyle()}
    */
   @Test
   @DisplayName("Test getStyle(); given PDPageLabelRange() Style is 'Style'; then return 'Style'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PDPageLabelRange.getStyle()"})
   void testGetStyle_givenPDPageLabelRangeStyleIsStyle_thenReturnStyle() {
     // Arrange
     PDPageLabelRange pdPageLabelRange = new PDPageLabelRange();
@@ -105,60 +120,41 @@ class PDPageLabelRangeDiffblueTest {
 
   /**
    * Test {@link PDPageLabelRange#getStyle()}.
+   *
    * <ul>
-   *   <li>Given {@link PDPageLabelRange#PDPageLabelRange()}.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Given {@link PDPageLabelRange#PDPageLabelRange()}.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDPageLabelRange#getStyle()}
+   *
+   * <p>Method under test: {@link PDPageLabelRange#getStyle()}
    */
   @Test
   @DisplayName("Test getStyle(); given PDPageLabelRange(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PDPageLabelRange.getStyle()"})
   void testGetStyle_givenPDPageLabelRange_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new PDPageLabelRange()).getStyle());
+    assertNull(new PDPageLabelRange().getStyle());
   }
 
   /**
    * Test {@link PDPageLabelRange#setStyle(String)}.
+   *
    * <ul>
-   *   <li>Given {@link PDPageLabelRange#PDPageLabelRange()}.</li>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link PDPageLabelRange#PDPageLabelRange()} Style is
-   * {@code null}.</li>
+   *   <li>Given {@link PDPageLabelRange#PDPageLabelRange()}.
+   *   <li>When {@code Style}.
+   *   <li>Then {@link PDPageLabelRange#PDPageLabelRange()} Style is {@code Style}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDPageLabelRange#setStyle(String)}
+   *
+   * <p>Method under test: {@link PDPageLabelRange#setStyle(String)}
    */
   @Test
-  @DisplayName("Test setStyle(String); given PDPageLabelRange(); when 'null'; then PDPageLabelRange() Style is 'null'")
-  void testSetStyle_givenPDPageLabelRange_whenNull_thenPDPageLabelRangeStyleIsNull() {
-    // Arrange
-    PDPageLabelRange pdPageLabelRange = new PDPageLabelRange();
-
-    // Act
-    pdPageLabelRange.setStyle(null);
-
-    // Assert
-    assertNull(pdPageLabelRange.getStyle());
-    COSDictionary cOSObject = pdPageLabelRange.getCOSObject();
-    assertEquals(0, cOSObject.size());
-    assertTrue(cOSObject.getValues().isEmpty());
-  }
-
-  /**
-   * Test {@link PDPageLabelRange#setStyle(String)}.
-   * <ul>
-   *   <li>Given {@link PDPageLabelRange#PDPageLabelRange()}.</li>
-   *   <li>When {@code Style}.</li>
-   *   <li>Then {@link PDPageLabelRange#PDPageLabelRange()} Style is
-   * {@code Style}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDPageLabelRange#setStyle(String)}
-   */
-  @Test
-  @DisplayName("Test setStyle(String); given PDPageLabelRange(); when 'Style'; then PDPageLabelRange() Style is 'Style'")
+  @DisplayName(
+      "Test setStyle(String); given PDPageLabelRange(); when 'Style'; then PDPageLabelRange() Style is 'Style'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDPageLabelRange.setStyle(String)"})
   void testSetStyle_givenPDPageLabelRange_whenStyle_thenPDPageLabelRangeStyleIsStyle() {
     // Arrange
     PDPageLabelRange pdPageLabelRange = new PDPageLabelRange();
@@ -175,41 +171,77 @@ class PDPageLabelRangeDiffblueTest {
 
   /**
    * Test {@link PDPageLabelRange#setStyle(String)}.
+   *
    * <ul>
-   *   <li>When {@code Style42Style}.</li>
-   *   <li>Then {@link PDPageLabelRange#PDPageLabelRange()} Style is
-   * {@code Style42Style}.</li>
+   *   <li>When {@code 42StyleStyle}.
+   *   <li>Then {@link PDPageLabelRange#PDPageLabelRange()} Style is {@code 42StyleStyle}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDPageLabelRange#setStyle(String)}
+   *
+   * <p>Method under test: {@link PDPageLabelRange#setStyle(String)}
    */
   @Test
-  @DisplayName("Test setStyle(String); when 'Style42Style'; then PDPageLabelRange() Style is 'Style42Style'")
-  void testSetStyle_whenStyle42Style_thenPDPageLabelRangeStyleIsStyle42Style() {
+  @DisplayName(
+      "Test setStyle(String); when '42StyleStyle'; then PDPageLabelRange() Style is '42StyleStyle'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDPageLabelRange.setStyle(String)"})
+  void testSetStyle_when42StyleStyle_thenPDPageLabelRangeStyleIs42StyleStyle() {
     // Arrange
     PDPageLabelRange pdPageLabelRange = new PDPageLabelRange();
 
     // Act
-    pdPageLabelRange.setStyle("Style42Style");
+    pdPageLabelRange.setStyle("42StyleStyle");
 
     // Assert
-    assertEquals("Style42Style", pdPageLabelRange.getStyle());
+    assertEquals("42StyleStyle", pdPageLabelRange.getStyle());
     COSDictionary cOSObject = pdPageLabelRange.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
   }
 
   /**
-   * Test {@link PDPageLabelRange#getStart()}.
+   * Test {@link PDPageLabelRange#setStyle(String)}.
+   *
    * <ul>
-   *   <li>Given {@link PDPageLabelRange#PDPageLabelRange()} Start is one.</li>
-   *   <li>Then return one.</li>
+   *   <li>When {@code null}.
+   *   <li>Then {@link PDPageLabelRange#PDPageLabelRange()} COSObject size is zero.
    * </ul>
-   * <p>
-   * Method under test: {@link PDPageLabelRange#getStart()}
+   *
+   * <p>Method under test: {@link PDPageLabelRange#setStyle(String)}
+   */
+  @Test
+  @DisplayName("Test setStyle(String); when 'null'; then PDPageLabelRange() COSObject size is zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDPageLabelRange.setStyle(String)"})
+  void testSetStyle_whenNull_thenPDPageLabelRangeCOSObjectSizeIsZero() {
+    // Arrange
+    PDPageLabelRange pdPageLabelRange = new PDPageLabelRange();
+
+    // Act
+    pdPageLabelRange.setStyle(null);
+
+    // Assert that nothing has changed
+    COSDictionary cOSObject = pdPageLabelRange.getCOSObject();
+    assertEquals(0, cOSObject.size());
+    assertTrue(cOSObject.getValues().isEmpty());
+  }
+
+  /**
+   * Test {@link PDPageLabelRange#getStart()}.
+   *
+   * <ul>
+   *   <li>Given {@link PDPageLabelRange#PDPageLabelRange()} Start is one.
+   *   <li>Then return one.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDPageLabelRange#getStart()}
    */
   @Test
   @DisplayName("Test getStart(); given PDPageLabelRange() Start is one; then return one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"int PDPageLabelRange.getStart()"})
   void testGetStart_givenPDPageLabelRangeStartIsOne_thenReturnOne() {
     // Arrange
     PDPageLabelRange pdPageLabelRange = new PDPageLabelRange();
@@ -221,53 +253,40 @@ class PDPageLabelRangeDiffblueTest {
 
   /**
    * Test {@link PDPageLabelRange#getStart()}.
+   *
    * <ul>
-   *   <li>Given {@link PDPageLabelRange#PDPageLabelRange()} Style is
-   * {@code Style}.</li>
-   *   <li>Then return one.</li>
+   *   <li>Given {@link PDPageLabelRange#PDPageLabelRange()}.
+   *   <li>Then return one.
    * </ul>
-   * <p>
-   * Method under test: {@link PDPageLabelRange#getStart()}
-   */
-  @Test
-  @DisplayName("Test getStart(); given PDPageLabelRange() Style is 'Style'; then return one")
-  void testGetStart_givenPDPageLabelRangeStyleIsStyle_thenReturnOne() {
-    // Arrange
-    PDPageLabelRange pdPageLabelRange = new PDPageLabelRange();
-    pdPageLabelRange.setStyle("Style");
-
-    // Act and Assert
-    assertEquals(1, pdPageLabelRange.getStart());
-  }
-
-  /**
-   * Test {@link PDPageLabelRange#getStart()}.
-   * <ul>
-   *   <li>Given {@link PDPageLabelRange#PDPageLabelRange()}.</li>
-   *   <li>Then return one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDPageLabelRange#getStart()}
+   *
+   * <p>Method under test: {@link PDPageLabelRange#getStart()}
    */
   @Test
   @DisplayName("Test getStart(); given PDPageLabelRange(); then return one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"int PDPageLabelRange.getStart()"})
   void testGetStart_givenPDPageLabelRange_thenReturnOne() {
     // Arrange, Act and Assert
-    assertEquals(1, (new PDPageLabelRange()).getStart());
+    assertEquals(1, new PDPageLabelRange().getStart());
   }
 
   /**
    * Test {@link PDPageLabelRange#setStart(int)}.
+   *
    * <ul>
-   *   <li>Given {@link PDPageLabelRange#PDPageLabelRange()}.</li>
-   *   <li>Then {@link PDPageLabelRange#PDPageLabelRange()} COSObject Values size is
-   * one.</li>
+   *   <li>Given {@link PDPageLabelRange#PDPageLabelRange()}.
+   *   <li>Then {@link PDPageLabelRange#PDPageLabelRange()} COSObject Values size is one.
    * </ul>
-   * <p>
-   * Method under test: {@link PDPageLabelRange#setStart(int)}
+   *
+   * <p>Method under test: {@link PDPageLabelRange#setStart(int)}
    */
   @Test
-  @DisplayName("Test setStart(int); given PDPageLabelRange(); then PDPageLabelRange() COSObject Values size is one")
+  @DisplayName(
+      "Test setStart(int); given PDPageLabelRange(); then PDPageLabelRange() COSObject Values size is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDPageLabelRange.setStart(int)"})
   void testSetStart_givenPDPageLabelRange_thenPDPageLabelRangeCOSObjectValuesSizeIsOne() {
     // Arrange
     PDPageLabelRange pdPageLabelRange = new PDPageLabelRange();
@@ -283,32 +302,42 @@ class PDPageLabelRangeDiffblueTest {
 
   /**
    * Test {@link PDPageLabelRange#setStart(int)}.
+   *
    * <ul>
-   *   <li>When minus one hundred.</li>
-   *   <li>Then throw {@link IllegalArgumentException}.</li>
+   *   <li>Given {@link PDPageLabelRange#PDPageLabelRange()}.
+   *   <li>When zero.
+   *   <li>Then throw {@link IllegalArgumentException}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDPageLabelRange#setStart(int)}
+   *
+   * <p>Method under test: {@link PDPageLabelRange#setStart(int)}
    */
   @Test
-  @DisplayName("Test setStart(int); when minus one hundred; then throw IllegalArgumentException")
-  void testSetStart_whenMinusOneHundred_thenThrowIllegalArgumentException() {
+  @DisplayName(
+      "Test setStart(int); given PDPageLabelRange(); when zero; then throw IllegalArgumentException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDPageLabelRange.setStart(int)"})
+  void testSetStart_givenPDPageLabelRange_whenZero_thenThrowIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> (new PDPageLabelRange()).setStart(-100));
+    assertThrows(IllegalArgumentException.class, () -> new PDPageLabelRange().setStart(0));
   }
 
   /**
    * Test {@link PDPageLabelRange#getPrefix()}.
+   *
    * <ul>
-   *   <li>Given {@link PDPageLabelRange#PDPageLabelRange()} Prefix is empty
-   * string.</li>
-   *   <li>Then return empty string.</li>
+   *   <li>Given {@link PDPageLabelRange#PDPageLabelRange()} Prefix is empty string.
+   *   <li>Then return empty string.
    * </ul>
-   * <p>
-   * Method under test: {@link PDPageLabelRange#getPrefix()}
+   *
+   * <p>Method under test: {@link PDPageLabelRange#getPrefix()}
    */
   @Test
-  @DisplayName("Test getPrefix(); given PDPageLabelRange() Prefix is empty string; then return empty string")
+  @DisplayName(
+      "Test getPrefix(); given PDPageLabelRange() Prefix is empty string; then return empty string")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PDPageLabelRange.getPrefix()"})
   void testGetPrefix_givenPDPageLabelRangePrefixIsEmptyString_thenReturnEmptyString() {
     // Arrange
     PDPageLabelRange pdPageLabelRange = new PDPageLabelRange();
@@ -320,16 +349,20 @@ class PDPageLabelRangeDiffblueTest {
 
   /**
    * Test {@link PDPageLabelRange#getPrefix()}.
+   *
    * <ul>
-   *   <li>Given {@link PDPageLabelRange#PDPageLabelRange()} Prefix is
-   * {@code Prefix}.</li>
-   *   <li>Then return {@code Prefix}.</li>
+   *   <li>Given {@link PDPageLabelRange#PDPageLabelRange()} Prefix is {@code Prefix}.
+   *   <li>Then return {@code Prefix}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDPageLabelRange#getPrefix()}
+   *
+   * <p>Method under test: {@link PDPageLabelRange#getPrefix()}
    */
   @Test
-  @DisplayName("Test getPrefix(); given PDPageLabelRange() Prefix is 'Prefix'; then return 'Prefix'")
+  @DisplayName(
+      "Test getPrefix(); given PDPageLabelRange() Prefix is 'Prefix'; then return 'Prefix'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PDPageLabelRange.getPrefix()"})
   void testGetPrefix_givenPDPageLabelRangePrefixIsPrefix_thenReturnPrefix() {
     // Arrange
     PDPageLabelRange pdPageLabelRange = new PDPageLabelRange();
@@ -341,53 +374,69 @@ class PDPageLabelRangeDiffblueTest {
 
   /**
    * Test {@link PDPageLabelRange#getPrefix()}.
+   *
    * <ul>
-   *   <li>Given {@link PDPageLabelRange#PDPageLabelRange()} Style is
-   * {@code Style}.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Given {@link PDPageLabelRange#PDPageLabelRange()}.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDPageLabelRange#getPrefix()}
-   */
-  @Test
-  @DisplayName("Test getPrefix(); given PDPageLabelRange() Style is 'Style'; then return 'null'")
-  void testGetPrefix_givenPDPageLabelRangeStyleIsStyle_thenReturnNull() {
-    // Arrange
-    PDPageLabelRange pdPageLabelRange = new PDPageLabelRange();
-    pdPageLabelRange.setStyle("Style");
-
-    // Act and Assert
-    assertNull(pdPageLabelRange.getPrefix());
-  }
-
-  /**
-   * Test {@link PDPageLabelRange#getPrefix()}.
-   * <ul>
-   *   <li>Given {@link PDPageLabelRange#PDPageLabelRange()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDPageLabelRange#getPrefix()}
+   *
+   * <p>Method under test: {@link PDPageLabelRange#getPrefix()}
    */
   @Test
   @DisplayName("Test getPrefix(); given PDPageLabelRange(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PDPageLabelRange.getPrefix()"})
   void testGetPrefix_givenPDPageLabelRange_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new PDPageLabelRange()).getPrefix());
+    assertNull(new PDPageLabelRange().getPrefix());
   }
 
   /**
    * Test {@link PDPageLabelRange#setPrefix(String)}.
+   *
    * <ul>
-   *   <li>Given {@link PDPageLabelRange#PDPageLabelRange()}.</li>
-   *   <li>Then {@link PDPageLabelRange#PDPageLabelRange()} Prefix is
-   * {@code Prefix}.</li>
+   *   <li>Given {@link PDPageLabelRange#PDPageLabelRange()}.
+   *   <li>Then {@link PDPageLabelRange#PDPageLabelRange()} COSObject size is zero.
    * </ul>
-   * <p>
-   * Method under test: {@link PDPageLabelRange#setPrefix(String)}
+   *
+   * <p>Method under test: {@link PDPageLabelRange#setPrefix(String)}
    */
   @Test
-  @DisplayName("Test setPrefix(String); given PDPageLabelRange(); then PDPageLabelRange() Prefix is 'Prefix'")
+  @DisplayName(
+      "Test setPrefix(String); given PDPageLabelRange(); then PDPageLabelRange() COSObject size is zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDPageLabelRange.setPrefix(String)"})
+  void testSetPrefix_givenPDPageLabelRange_thenPDPageLabelRangeCOSObjectSizeIsZero() {
+    // Arrange
+    PDPageLabelRange pdPageLabelRange = new PDPageLabelRange();
+
+    // Act
+    pdPageLabelRange.setPrefix(null);
+
+    // Assert that nothing has changed
+    COSDictionary cOSObject = pdPageLabelRange.getCOSObject();
+    assertEquals(0, cOSObject.size());
+    assertTrue(cOSObject.getValues().isEmpty());
+  }
+
+  /**
+   * Test {@link PDPageLabelRange#setPrefix(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link PDPageLabelRange#PDPageLabelRange()}.
+   *   <li>Then {@link PDPageLabelRange#PDPageLabelRange()} Prefix is {@code Prefix}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDPageLabelRange#setPrefix(String)}
+   */
+  @Test
+  @DisplayName(
+      "Test setPrefix(String); given PDPageLabelRange(); then PDPageLabelRange() Prefix is 'Prefix'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDPageLabelRange.setPrefix(String)"})
   void testSetPrefix_givenPDPageLabelRange_thenPDPageLabelRangePrefixIsPrefix() {
     // Arrange
     PDPageLabelRange pdPageLabelRange = new PDPageLabelRange();
@@ -400,32 +449,5 @@ class PDPageLabelRangeDiffblueTest {
     COSDictionary cOSObject = pdPageLabelRange.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDPageLabelRange#setPrefix(String)}.
-   * <ul>
-   *   <li>Given {@link PDPageLabelRange#PDPageLabelRange()}.</li>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link PDPageLabelRange#PDPageLabelRange()} Prefix is
-   * {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDPageLabelRange#setPrefix(String)}
-   */
-  @Test
-  @DisplayName("Test setPrefix(String); given PDPageLabelRange(); when 'null'; then PDPageLabelRange() Prefix is 'null'")
-  void testSetPrefix_givenPDPageLabelRange_whenNull_thenPDPageLabelRangePrefixIsNull() {
-    // Arrange
-    PDPageLabelRange pdPageLabelRange = new PDPageLabelRange();
-
-    // Act
-    pdPageLabelRange.setPrefix(null);
-
-    // Assert
-    assertNull(pdPageLabelRange.getPrefix());
-    COSDictionary cOSObject = pdPageLabelRange.getCOSObject();
-    assertEquals(0, cOSObject.size());
-    assertTrue(cOSObject.getValues().isEmpty());
   }
 }

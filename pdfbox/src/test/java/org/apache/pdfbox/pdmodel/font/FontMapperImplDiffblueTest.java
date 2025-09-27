@@ -3,108 +3,184 @@ package org.apache.pdfbox.pdmodel.font;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 import org.apache.fontbox.FontBoxFont;
-import org.apache.fontbox.ttf.CmapTable;
-import org.apache.fontbox.ttf.DigitalSignatureTable;
-import org.apache.fontbox.ttf.GlyphSubstitutionTable;
-import org.apache.fontbox.ttf.GlyphTable;
-import org.apache.fontbox.ttf.HeaderTable;
-import org.apache.fontbox.ttf.HorizontalHeaderTable;
-import org.apache.fontbox.ttf.IndexToLocationTable;
-import org.apache.fontbox.ttf.KerningTable;
-import org.apache.fontbox.ttf.MaximumProfileTable;
-import org.apache.fontbox.ttf.NameRecord;
-import org.apache.fontbox.ttf.NamingTable;
 import org.apache.fontbox.ttf.OS2WindowsMetricsTable;
-import org.apache.fontbox.ttf.PostScriptTable;
 import org.apache.fontbox.ttf.TTFTable;
 import org.apache.fontbox.ttf.TrueTypeFont;
-import org.apache.fontbox.util.BoundingBox;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 class FontMapperImplDiffblueTest {
   /**
-   * Test {@link FontMapperImpl#setProvider(FontProvider)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then {@link FontMapperImpl} (default constructor) Provider is
-   * {@link FontProvider}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FontMapperImpl#setProvider(FontProvider)}
+   * Test new {@link FontMapperImpl} (default constructor).
+   *
+   * <p>Method under test: default or parameterless constructor of {@link FontMapperImpl}
    */
   @Test
-  @DisplayName("Test setProvider(FontProvider); given ArrayList(); then FontMapperImpl (default constructor) Provider is FontProvider")
-  void testSetProvider_givenArrayList_thenFontMapperImplProviderIsFontProvider() {
-    // Arrange
-    FontMapperImpl fontMapperImpl = new FontMapperImpl();
-    FontProvider fontProvider = mock(FontProvider.class);
-    Mockito.<List<? extends FontInfo>>when(fontProvider.getFontInfo()).thenReturn(new ArrayList<>());
-
-    // Act
-    fontMapperImpl.setProvider(fontProvider);
-
-    // Assert
-    verify(fontProvider).getFontInfo();
-    assertSame(fontProvider, fontMapperImpl.getProvider());
+  @DisplayName("Test new FontMapperImpl (default constructor)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FontMapperImpl.<init>()"})
+  void testNewFontMapperImpl() {
+    // Arrange, Act and Assert
+    FontProvider provider = new FontMapperImpl().getProvider();
+    assertTrue(provider instanceof FileSystemFontProvider);
+    assertEquals(
+        "TTF: DejaVuSans-Bold: /usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf\n"
+            + "TTF: DejaVuSans: /usr/share/fonts/truetype/dejavu/DejaVuSans.ttf\n"
+            + "TTF: DejaVuSansMono-Bold: /usr/share/fonts/truetype/dejavu/DejaVuSansMono-Bold.ttf\n"
+            + "TTF: DejaVuSansMono: /usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf\n"
+            + "TTF: DejaVuSerif-Bold: /usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf\n"
+            + "TTF: DejaVuSerif: /usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf\n"
+            + "TTF: LiberationMono-Bold: /usr/share/fonts/truetype/liberation/LiberationMono-Bold.ttf\n"
+            + "TTF: LiberationMono-BoldItalic: /usr/share/fonts/truetype/liberation/LiberationMono-BoldItalic.ttf\n"
+            + "TTF: LiberationMono-Italic: /usr/share/fonts/truetype/liberation/LiberationMono-Italic.ttf\n"
+            + "TTF: LiberationMono: /usr/share/fonts/truetype/liberation/LiberationMono-Regular.ttf\n"
+            + "TTF: LiberationSans-Bold: /usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf\n"
+            + "TTF: LiberationSans-BoldItalic: /usr/share/fonts/truetype/liberation/LiberationSans-BoldItalic.ttf\n"
+            + "TTF: LiberationSans-Italic: /usr/share/fonts/truetype/liberation/LiberationSans-Italic.ttf\n"
+            + "TTF: LiberationSans: /usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf\n"
+            + "TTF: LiberationSansNarrow-Bold: /usr/share/fonts/truetype/liberation/LiberationSansNarrow-Bold.ttf\n"
+            + "TTF: LiberationSansNarrow-BoldItalic: /usr/share/fonts/truetype/liberation/LiberationSansNarrow"
+            + "-BoldItalic.ttf\n"
+            + "TTF: LiberationSansNarrow-Italic: /usr/share/fonts/truetype/liberation/LiberationSansNarrow-Italic.ttf"
+            + "\n"
+            + "TTF: LiberationSansNarrow: /usr/share/fonts/truetype/liberation/LiberationSansNarrow-Regular.ttf\n"
+            + "TTF: LiberationSerif-Bold: /usr/share/fonts/truetype/liberation/LiberationSerif-Bold.ttf\n"
+            + "TTF: LiberationSerif-BoldItalic: /usr/share/fonts/truetype/liberation/LiberationSerif-BoldItalic.ttf"
+            + "\n"
+            + "TTF: LiberationSerif-Italic: /usr/share/fonts/truetype/liberation/LiberationSerif-Italic.ttf\n"
+            + "TTF: LiberationSerif: /usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf\n",
+        provider.toDebugString());
+    List<? extends FontInfo> fontInfo = provider.getFontInfo();
+    assertEquals(22, fontInfo.size());
+    FontInfo getResult = fontInfo.get(1);
+    assertEquals(-2306124482579791361L, getResult.getCodePageRange());
+    FontInfo getResult2 = fontInfo.get(20);
+    assertEquals(-2317383481648217953L, getResult2.getCodePageRange());
+    FontInfo getResult3 = fontInfo.get(21);
+    assertEquals(-2317383481648217953L, getResult3.getCodePageRange());
+    FontInfo getResult4 = fontInfo.get(0);
+    assertEquals(-281473366097409L, getResult4.getCodePageRange());
+    assertEquals(5, getResult.getWeightClassAsPanose());
+    assertEquals(5, getResult2.getWeightClassAsPanose());
+    assertEquals(5, getResult3.getWeightClassAsPanose());
+    assertEquals(8, getResult4.getWeightClassAsPanose());
   }
 
   /**
    * Test {@link FontMapperImpl#setProvider(FontProvider)}.
-   * <ul>
-   *   <li>Then calls {@link FontInfo#getPostScriptName()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FontMapperImpl#setProvider(FontProvider)}
+   *
+   * <p>Method under test: {@link FontMapperImpl#setProvider(FontProvider)}
    */
   @Test
-  @DisplayName("Test setProvider(FontProvider); then calls getPostScriptName()")
-  void testSetProvider_thenCallsGetPostScriptName() {
+  @DisplayName("Test setProvider(FontProvider)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FontMapperImpl.setProvider(FontProvider)"})
+  void testSetProvider() {
     // Arrange
     FontMapperImpl fontMapperImpl = new FontMapperImpl();
-    FontInfo fontInfo = mock(FontInfo.class);
-    when(fontInfo.getPostScriptName()).thenReturn("Post Script Name");
-
-    ArrayList<FontInfo> fontInfoList = new ArrayList<>();
-    fontInfoList.add(fontInfo);
-    FontProvider fontProvider = mock(FontProvider.class);
-    Mockito.<List<? extends FontInfo>>when(fontProvider.getFontInfo()).thenReturn(fontInfoList);
+    FileSystemFontProvider fontProvider = new FileSystemFontProvider(new FontCache());
 
     // Act
     fontMapperImpl.setProvider(fontProvider);
 
     // Assert
-    verify(fontInfo).getPostScriptName();
-    verify(fontProvider).getFontInfo();
     assertSame(fontProvider, fontMapperImpl.getProvider());
+  }
+
+  /**
+   * Test {@link FontMapperImpl#getProvider()}.
+   *
+   * <p>Method under test: {@link FontMapperImpl#getProvider()}
+   */
+  @Test
+  @DisplayName("Test getProvider()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"FontProvider FontMapperImpl.getProvider()"})
+  void testGetProvider() {
+    // Arrange and Act
+    FontProvider actualProvider = new FontMapperImpl().getProvider();
+
+    // Assert
+    assertTrue(actualProvider instanceof FileSystemFontProvider);
+    assertEquals(
+        "TTF: DejaVuSans-Bold: /usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf\n"
+            + "TTF: DejaVuSans: /usr/share/fonts/truetype/dejavu/DejaVuSans.ttf\n"
+            + "TTF: DejaVuSansMono-Bold: /usr/share/fonts/truetype/dejavu/DejaVuSansMono-Bold.ttf\n"
+            + "TTF: DejaVuSansMono: /usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf\n"
+            + "TTF: DejaVuSerif-Bold: /usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf\n"
+            + "TTF: DejaVuSerif: /usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf\n"
+            + "TTF: LiberationMono-Bold: /usr/share/fonts/truetype/liberation/LiberationMono-Bold.ttf\n"
+            + "TTF: LiberationMono-BoldItalic: /usr/share/fonts/truetype/liberation/LiberationMono-BoldItalic.ttf\n"
+            + "TTF: LiberationMono-Italic: /usr/share/fonts/truetype/liberation/LiberationMono-Italic.ttf\n"
+            + "TTF: LiberationMono: /usr/share/fonts/truetype/liberation/LiberationMono-Regular.ttf\n"
+            + "TTF: LiberationSans-Bold: /usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf\n"
+            + "TTF: LiberationSans-BoldItalic: /usr/share/fonts/truetype/liberation/LiberationSans-BoldItalic.ttf\n"
+            + "TTF: LiberationSans-Italic: /usr/share/fonts/truetype/liberation/LiberationSans-Italic.ttf\n"
+            + "TTF: LiberationSans: /usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf\n"
+            + "TTF: LiberationSansNarrow-Bold: /usr/share/fonts/truetype/liberation/LiberationSansNarrow-Bold.ttf\n"
+            + "TTF: LiberationSansNarrow-BoldItalic: /usr/share/fonts/truetype/liberation/LiberationSansNarrow"
+            + "-BoldItalic.ttf\n"
+            + "TTF: LiberationSansNarrow-Italic: /usr/share/fonts/truetype/liberation/LiberationSansNarrow-Italic.ttf"
+            + "\n"
+            + "TTF: LiberationSansNarrow: /usr/share/fonts/truetype/liberation/LiberationSansNarrow-Regular.ttf\n"
+            + "TTF: LiberationSerif-Bold: /usr/share/fonts/truetype/liberation/LiberationSerif-Bold.ttf\n"
+            + "TTF: LiberationSerif-BoldItalic: /usr/share/fonts/truetype/liberation/LiberationSerif-BoldItalic.ttf"
+            + "\n"
+            + "TTF: LiberationSerif-Italic: /usr/share/fonts/truetype/liberation/LiberationSerif-Italic.ttf\n"
+            + "TTF: LiberationSerif: /usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf\n",
+        actualProvider.toDebugString());
+    List<? extends FontInfo> fontInfo = actualProvider.getFontInfo();
+    assertEquals(22, fontInfo.size());
+    FontInfo getResult = fontInfo.get(1);
+    assertEquals(-2306124482579791361L, getResult.getCodePageRange());
+    FontInfo getResult2 = fontInfo.get(19);
+    assertEquals(-2317383481648217953L, getResult2.getCodePageRange());
+    FontInfo getResult3 = fontInfo.get(20);
+    assertEquals(-2317383481648217953L, getResult3.getCodePageRange());
+    FontInfo getResult4 = fontInfo.get(21);
+    assertEquals(-2317383481648217953L, getResult4.getCodePageRange());
+    FontInfo getResult5 = fontInfo.get(0);
+    assertEquals(-281473366097409L, getResult5.getCodePageRange());
+    FontInfo getResult6 = fontInfo.get(2);
+    assertEquals(-9288672620838433L, getResult6.getCodePageRange());
+    assertEquals(5, getResult.getWeightClassAsPanose());
+    assertEquals(5, getResult3.getWeightClassAsPanose());
+    assertEquals(5, getResult4.getWeightClassAsPanose());
+    assertEquals(8, getResult5.getWeightClassAsPanose());
+    assertEquals(8, getResult2.getWeightClassAsPanose());
+    assertEquals(8, getResult6.getWeightClassAsPanose());
   }
 
   /**
    * Test {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}.
+   *
    * <ul>
-   *   <li>Given {@code black}.</li>
-   *   <li>When {@link PDFontDescriptor#PDFontDescriptor()} FontName is
-   * {@code black}.</li>
+   *   <li>Given {@code black}.
+   *   <li>When {@link PDFontDescriptor#PDFontDescriptor()} FontName is {@code black}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}
+   *
+   * <p>Method under test: {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}
    */
   @Test
-  @DisplayName("Test getTrueTypeFont(String, PDFontDescriptor); given 'black'; when PDFontDescriptor() FontName is 'black'")
+  @DisplayName(
+      "Test getTrueTypeFont(String, PDFontDescriptor); given 'black'; when PDFontDescriptor() FontName is 'black'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"FontMapping FontMapperImpl.getTrueTypeFont(String, PDFontDescriptor)"})
   void testGetTrueTypeFont_givenBlack_whenPDFontDescriptorFontNameIsBlack() throws IOException {
     // Arrange
     FontMapperImpl fontMapperImpl = new FontMapperImpl();
@@ -114,172 +190,41 @@ class FontMapperImplDiffblueTest {
 
     // Act and Assert
     TrueTypeFont font = fontMapperImpl.getTrueTypeFont("Base Font", fontDescriptor).getFont();
-    HeaderTable header = font.getHeader();
-    Calendar created = header.getCreated();
-    assertTrue(created instanceof GregorianCalendar);
-    Calendar modified = header.getModified();
-    assertTrue(modified instanceof GregorianCalendar);
+    assertEquals("LiberationSans-Bold", font.getName());
+    assertEquals(137052L, font.getOriginalDataSize());
     Map<String, TTFTable> tableMap = font.getTableMap();
-    assertEquals(25, tableMap.size());
-    TTFTable getResult = tableMap.get("DSIG");
-    assertTrue(getResult instanceof DigitalSignatureTable);
-    NamingTable naming = font.getNaming();
-    List<NameRecord> nameRecords = naming.getNameRecords();
-    assertEquals(83, nameRecords.size());
-    NameRecord getResult2 = nameRecords.get(82);
-    assertEquals("Arial Gras", getResult2.getString());
-    assertEquals("Arial-BoldMT", naming.getPostScriptName());
-    assertEquals("Arial-BoldMT", font.getName());
-    assertEquals("Bold", naming.getFontSubFamily());
-    NameRecord getResult3 = nameRecords.get(81);
-    assertEquals("Gras", getResult3.getString());
-    assertEquals((short) -1286, header.getXMin());
-    HorizontalHeaderTable horizontalHeader = font.getHorizontalHeader();
-    assertEquals((short) -1286, horizontalHeader.getMinLeftSideBearing());
-    BoundingBox fontBBox = font.getFontBBox();
-    assertEquals(-376.46484f, fontBBox.getLowerLeftY());
-    assertEquals(-627.9297f, fontBBox.getLowerLeftX());
-    assertEquals((short) -771, header.getYMin());
-    assertEquals(1, header.getMacStyle());
-    assertEquals(1, getResult3.getPlatformEncodingId());
-    assertEquals(1, getResult2.getPlatformEncodingId());
-    assertEquals(1055.6641f, fontBBox.getUpperRightY());
-    KerningTable kerning = font.getKerning();
-    assertEquals(1095716573L, kerning.getCheckSum());
-    TTFTable getResult4 = tableMap.get("gasp");
-    assertEquals(1114121L, getResult4.getCheckSum());
-    assertEquals(11229, getResult3.getStringOffset());
-    assertEquals(11237, getResult2.getStringOffset());
-    assertEquals(12719L, naming.getLength());
-    assertEquals(1382640652L, getResult.getCheckSum());
-    IndexToLocationTable indexToLocation = font.getIndexToLocation();
-    assertEquals(1425008538L, indexToLocation.getCheckSum());
-    assertEquals(1432.1289f, fontBBox.getHeight());
-    OS2WindowsMetricsTable oS2Windows = font.getOS2Windows();
-    assertEquals(1466, oS2Windows.getCapHeight());
-    MaximumProfileTable maximumProfile = font.getMaximumProfile();
-    assertEquals(148, maximumProfile.getMaxCompositePoints());
-    assertEquals(155664L, indexToLocation.getOffset());
-    long[] offsets = indexToLocation.getOffsets();
-    assertEquals(1584L, offsets[8]);
-    TTFTable getResult5 = tableMap.get("fpgm");
-    assertEquals(1598L, getResult5.getLength());
-    assertEquals(1636646396000L, modified.getTimeInMillis());
-    GlyphTable glyph = font.getGlyph();
-    assertEquals(173856L, glyph.getOffset());
-    assertEquals(1867, maximumProfile.getMaxStackElements());
-    assertEquals(1942L, offsets[9]);
-    assertEquals(2, getResult3.getNameId());
-    assertEquals(20, getResult2.getStringLength());
-    assertEquals(2126814685L, glyph.getCheckSum());
-    PostScriptTable postScript = font.getPostScript();
-    assertEquals((short) 215, postScript.getUnderlineThickness());
-    assertEquals((short) 2162, header.getYMax());
-    assertEquals(2376L, offsets[PDPanoseClassification.LENGTH]);
-    assertEquals(2472L, offsets[11]);
-    assertEquals(2610L, offsets[PDPanose.LENGTH]);
-    assertEquals(2627.9297f, fontBBox.getWidth());
-    assertEquals(2748L, offsets[13]);
-    assertEquals(282L, offsets[5]);
-    assertEquals(3, getResult3.getPlatformId());
-    assertEquals(3, getResult2.getPlatformId());
-    assertEquals(3056L, offsets[14]);
-    assertEquals(3084, getResult3.getLanguageId());
-    assertEquals(3084, getResult2.getLanguageId());
-    assertEquals(310254220L, horizontalHeader.getCheckSum());
-    assertEquals(3123122598L, getResult5.getCheckSum());
-    assertEquals(3180L, offsets[15]);
-    assertEquals(3292L, offsets[Short.SIZE]);
-    assertEquals(3370L, offsets[17]);
-    assertEquals(3432L, offsets[18]);
-    assertEquals(3443287835L, font.getCmap().getCheckSum());
-    assertEquals(3518L, offsets[19]);
-    assertEquals(360013488L, oS2Windows.getCheckSum());
-    assertEquals(3683418909L, font.getHorizontalMetrics().getCheckSum());
-    assertEquals(3778L, offsets[20]);
-    assertEquals(3908L, offsets[21]);
-    assertEquals(4, getResult2.getNameId());
-    assertEquals(4072896406L, header.getCheckSum());
-    assertEquals(4280942807L, postScript.getCheckSum());
-    assertEquals(431756686L, maximumProfile.getCheckSum());
-    assertEquals(4330L, offsets[22]);
-    assertEquals(442L, offsets[6]);
-    assertEquals(4548, offsets.length);
-    assertEquals(456709493L, naming.getCheckSum());
-    assertEquals(4597, maximumProfile.getMaxSizeOfInstructions());
-    assertEquals(4674L, offsets[23]);
-    assertEquals(47, maximumProfile.getMaxStorage());
-    assertEquals(4956L, offsets[24]);
+    assertEquals(19, tableMap.size());
     byte[] byteArray = new byte[51];
     assertEquals(51, font.getOriginalData().read(byteArray));
-    assertEquals(5466L, kerning.getLength());
-    assertEquals(6, maximumProfile.getMaxCompositeContours());
-    GlyphSubstitutionTable gsub = font.getGsub();
-    assertEquals(610281544L, gsub.getCheckSum());
-    assertEquals(619938L, offsets[4523]);
-    assertEquals(620100L, offsets[4524]);
-    assertEquals(620274L, offsets[4525]);
-    assertEquals(620508L, offsets[4526]);
-    assertEquals(620724L, offsets[4527]);
-    assertEquals(620990L, offsets[4528]);
-    assertEquals(621258L, offsets[4529]);
-    assertEquals(621488L, offsets[4530]);
-    assertEquals(621710L, offsets[4531]);
-    assertEquals(621902L, offsets[4532]);
-    assertEquals(622116L, offsets[4533]);
-    assertEquals(622354L, offsets[4534]);
-    assertEquals(622584L, offsets[4535]);
-    assertEquals(622734L, offsets[4536]);
-    assertEquals(622806L, offsets[4537]);
-    assertEquals(623000L, offsets[4538]);
-    assertEquals(623060L, offsets[4539]);
-    assertEquals(623122L, offsets[4540]);
-    assertEquals(623368L, offsets[4541]);
-    assertEquals(623728L, offsets[4542]);
-    assertEquals(623886L, offsets[4543]);
-    assertEquals(623966L, offsets[4544]);
-    assertEquals(624012L, offsets[4545]);
-    assertEquals(624056L, offsets[4546]);
-    assertEquals(624130L, glyph.getLength());
-    assertEquals(624130L, offsets[4547]);
-    assertEquals(649956253000L, created.getTimeInMillis());
-    assertEquals(700, oS2Windows.getWeightClass());
-    assertEquals(722, maximumProfile.getMaxPoints());
-    assertEquals(797988L, kerning.getOffset());
-    byte[] panose = oS2Windows.getPanose();
-    assertEquals((byte) 7, panose[2]);
-    assertEquals(8, getResult3.getStringLength());
-    assertEquals(803456L, naming.getOffset());
-    assertEquals(816176L, postScript.getOffset());
-    assertEquals(816208L, getResult4.getOffset());
-    assertEquals(86, maximumProfile.getMaxFunctionDefs());
-    assertEquals(904L, offsets[7]);
-    assertEquals(938983416L, header.getCheckSumAdjustment());
-    assertEquals(947748L, gsub.getOffset());
-    assertEquals((short) 980, oS2Windows.getAverageCharWidth());
-    assertEquals(981628L, getResult.getOffset());
-    assertEquals(990208L, font.getOriginalDataSize());
+    assertTrue(tableMap.containsKey("OS/2"));
+    assertTrue(tableMap.containsKey("fpgm"));
     assertTrue(tableMap.containsKey("glyf"));
-    assertEquals(Integer.SIZE, oS2Windows.getFsSelection());
-    assertEquals(PDPanoseClassification.LENGTH, panose.length);
-    assertArrayEquals(new byte[]{0, 1, 0, 0, 0, 25, 1, 0, 0, 4, 0, -112, 'D', 'S', 'I', 'G', 'R', 'i', 'l', '\f', 0, 14,
-        -6, '|', 0, 0, '!', -124, 'G', 'D', 'E', 'F', 24, -26, 28, 'f', 0, '\f', 't', -104, 0, 0, 3, 'X', 'G', 'P', 'O',
-        'S', -67, -15, -101}, byteArray);
+    assertTrue(tableMap.containsKey("kern"));
+    assertArrayEquals(
+        new byte[] {
+          0, 1, 0, 0, 0, 19, 1, 0, 0, 4, 0, '0', 'F', 'F', 'T', 'M', 'h', -2, -32, -92, 0, 2, 23,
+          '@', 0, 0, 0, 28, 'G', 'D', 'E', 'F', 0, '\'', 2, -49, 0, 2, 6, '|', 0, 0, 0, '&', 'G',
+          'P', 'O', 'S', -43, '(', -15
+        },
+        byteArray);
   }
 
   /**
    * Test {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}.
+   *
    * <ul>
-   *   <li>Given {@code bold}.</li>
-   *   <li>When {@link PDFontDescriptor#PDFontDescriptor()} FontName is
-   * {@code bold}.</li>
+   *   <li>Given {@code bold}.
+   *   <li>When {@link PDFontDescriptor#PDFontDescriptor()} FontName is {@code bold}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}
+   *
+   * <p>Method under test: {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}
    */
   @Test
-  @DisplayName("Test getTrueTypeFont(String, PDFontDescriptor); given 'bold'; when PDFontDescriptor() FontName is 'bold'")
+  @DisplayName(
+      "Test getTrueTypeFont(String, PDFontDescriptor); given 'bold'; when PDFontDescriptor() FontName is 'bold'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"FontMapping FontMapperImpl.getTrueTypeFont(String, PDFontDescriptor)"})
   void testGetTrueTypeFont_givenBold_whenPDFontDescriptorFontNameIsBold() throws IOException {
     // Arrange
     FontMapperImpl fontMapperImpl = new FontMapperImpl();
@@ -289,172 +234,41 @@ class FontMapperImplDiffblueTest {
 
     // Act and Assert
     TrueTypeFont font = fontMapperImpl.getTrueTypeFont("Base Font", fontDescriptor).getFont();
-    HeaderTable header = font.getHeader();
-    Calendar created = header.getCreated();
-    assertTrue(created instanceof GregorianCalendar);
-    Calendar modified = header.getModified();
-    assertTrue(modified instanceof GregorianCalendar);
+    assertEquals("LiberationSans-Bold", font.getName());
+    assertEquals(137052L, font.getOriginalDataSize());
     Map<String, TTFTable> tableMap = font.getTableMap();
-    assertEquals(25, tableMap.size());
-    TTFTable getResult = tableMap.get("DSIG");
-    assertTrue(getResult instanceof DigitalSignatureTable);
-    NamingTable naming = font.getNaming();
-    List<NameRecord> nameRecords = naming.getNameRecords();
-    assertEquals(83, nameRecords.size());
-    NameRecord getResult2 = nameRecords.get(82);
-    assertEquals("Arial Gras", getResult2.getString());
-    assertEquals("Arial-BoldMT", naming.getPostScriptName());
-    assertEquals("Arial-BoldMT", font.getName());
-    assertEquals("Bold", naming.getFontSubFamily());
-    NameRecord getResult3 = nameRecords.get(81);
-    assertEquals("Gras", getResult3.getString());
-    assertEquals((short) -1286, header.getXMin());
-    HorizontalHeaderTable horizontalHeader = font.getHorizontalHeader();
-    assertEquals((short) -1286, horizontalHeader.getMinLeftSideBearing());
-    BoundingBox fontBBox = font.getFontBBox();
-    assertEquals(-376.46484f, fontBBox.getLowerLeftY());
-    assertEquals(-627.9297f, fontBBox.getLowerLeftX());
-    assertEquals((short) -771, header.getYMin());
-    assertEquals(1, header.getMacStyle());
-    assertEquals(1, getResult3.getPlatformEncodingId());
-    assertEquals(1, getResult2.getPlatformEncodingId());
-    assertEquals(1055.6641f, fontBBox.getUpperRightY());
-    KerningTable kerning = font.getKerning();
-    assertEquals(1095716573L, kerning.getCheckSum());
-    TTFTable getResult4 = tableMap.get("gasp");
-    assertEquals(1114121L, getResult4.getCheckSum());
-    assertEquals(11229, getResult3.getStringOffset());
-    assertEquals(11237, getResult2.getStringOffset());
-    assertEquals(12719L, naming.getLength());
-    assertEquals(1382640652L, getResult.getCheckSum());
-    IndexToLocationTable indexToLocation = font.getIndexToLocation();
-    assertEquals(1425008538L, indexToLocation.getCheckSum());
-    assertEquals(1432.1289f, fontBBox.getHeight());
-    OS2WindowsMetricsTable oS2Windows = font.getOS2Windows();
-    assertEquals(1466, oS2Windows.getCapHeight());
-    MaximumProfileTable maximumProfile = font.getMaximumProfile();
-    assertEquals(148, maximumProfile.getMaxCompositePoints());
-    assertEquals(155664L, indexToLocation.getOffset());
-    long[] offsets = indexToLocation.getOffsets();
-    assertEquals(1584L, offsets[8]);
-    TTFTable getResult5 = tableMap.get("fpgm");
-    assertEquals(1598L, getResult5.getLength());
-    assertEquals(1636646396000L, modified.getTimeInMillis());
-    GlyphTable glyph = font.getGlyph();
-    assertEquals(173856L, glyph.getOffset());
-    assertEquals(1867, maximumProfile.getMaxStackElements());
-    assertEquals(1942L, offsets[9]);
-    assertEquals(2, getResult3.getNameId());
-    assertEquals(20, getResult2.getStringLength());
-    assertEquals(2126814685L, glyph.getCheckSum());
-    PostScriptTable postScript = font.getPostScript();
-    assertEquals((short) 215, postScript.getUnderlineThickness());
-    assertEquals((short) 2162, header.getYMax());
-    assertEquals(2376L, offsets[PDPanoseClassification.LENGTH]);
-    assertEquals(2472L, offsets[11]);
-    assertEquals(2610L, offsets[PDPanose.LENGTH]);
-    assertEquals(2627.9297f, fontBBox.getWidth());
-    assertEquals(2748L, offsets[13]);
-    assertEquals(282L, offsets[5]);
-    assertEquals(3, getResult3.getPlatformId());
-    assertEquals(3, getResult2.getPlatformId());
-    assertEquals(3056L, offsets[14]);
-    assertEquals(3084, getResult3.getLanguageId());
-    assertEquals(3084, getResult2.getLanguageId());
-    assertEquals(310254220L, horizontalHeader.getCheckSum());
-    assertEquals(3123122598L, getResult5.getCheckSum());
-    assertEquals(3180L, offsets[15]);
-    assertEquals(3292L, offsets[Short.SIZE]);
-    assertEquals(3370L, offsets[17]);
-    assertEquals(3432L, offsets[18]);
-    assertEquals(3443287835L, font.getCmap().getCheckSum());
-    assertEquals(3518L, offsets[19]);
-    assertEquals(360013488L, oS2Windows.getCheckSum());
-    assertEquals(3683418909L, font.getHorizontalMetrics().getCheckSum());
-    assertEquals(3778L, offsets[20]);
-    assertEquals(3908L, offsets[21]);
-    assertEquals(4, getResult2.getNameId());
-    assertEquals(4072896406L, header.getCheckSum());
-    assertEquals(4280942807L, postScript.getCheckSum());
-    assertEquals(431756686L, maximumProfile.getCheckSum());
-    assertEquals(4330L, offsets[22]);
-    assertEquals(442L, offsets[6]);
-    assertEquals(4548, offsets.length);
-    assertEquals(456709493L, naming.getCheckSum());
-    assertEquals(4597, maximumProfile.getMaxSizeOfInstructions());
-    assertEquals(4674L, offsets[23]);
-    assertEquals(47, maximumProfile.getMaxStorage());
-    assertEquals(4956L, offsets[24]);
+    assertEquals(19, tableMap.size());
     byte[] byteArray = new byte[51];
     assertEquals(51, font.getOriginalData().read(byteArray));
-    assertEquals(5466L, kerning.getLength());
-    assertEquals(6, maximumProfile.getMaxCompositeContours());
-    GlyphSubstitutionTable gsub = font.getGsub();
-    assertEquals(610281544L, gsub.getCheckSum());
-    assertEquals(619938L, offsets[4523]);
-    assertEquals(620100L, offsets[4524]);
-    assertEquals(620274L, offsets[4525]);
-    assertEquals(620508L, offsets[4526]);
-    assertEquals(620724L, offsets[4527]);
-    assertEquals(620990L, offsets[4528]);
-    assertEquals(621258L, offsets[4529]);
-    assertEquals(621488L, offsets[4530]);
-    assertEquals(621710L, offsets[4531]);
-    assertEquals(621902L, offsets[4532]);
-    assertEquals(622116L, offsets[4533]);
-    assertEquals(622354L, offsets[4534]);
-    assertEquals(622584L, offsets[4535]);
-    assertEquals(622734L, offsets[4536]);
-    assertEquals(622806L, offsets[4537]);
-    assertEquals(623000L, offsets[4538]);
-    assertEquals(623060L, offsets[4539]);
-    assertEquals(623122L, offsets[4540]);
-    assertEquals(623368L, offsets[4541]);
-    assertEquals(623728L, offsets[4542]);
-    assertEquals(623886L, offsets[4543]);
-    assertEquals(623966L, offsets[4544]);
-    assertEquals(624012L, offsets[4545]);
-    assertEquals(624056L, offsets[4546]);
-    assertEquals(624130L, glyph.getLength());
-    assertEquals(624130L, offsets[4547]);
-    assertEquals(649956253000L, created.getTimeInMillis());
-    assertEquals(700, oS2Windows.getWeightClass());
-    assertEquals(722, maximumProfile.getMaxPoints());
-    assertEquals(797988L, kerning.getOffset());
-    byte[] panose = oS2Windows.getPanose();
-    assertEquals((byte) 7, panose[2]);
-    assertEquals(8, getResult3.getStringLength());
-    assertEquals(803456L, naming.getOffset());
-    assertEquals(816176L, postScript.getOffset());
-    assertEquals(816208L, getResult4.getOffset());
-    assertEquals(86, maximumProfile.getMaxFunctionDefs());
-    assertEquals(904L, offsets[7]);
-    assertEquals(938983416L, header.getCheckSumAdjustment());
-    assertEquals(947748L, gsub.getOffset());
-    assertEquals((short) 980, oS2Windows.getAverageCharWidth());
-    assertEquals(981628L, getResult.getOffset());
-    assertEquals(990208L, font.getOriginalDataSize());
+    assertTrue(tableMap.containsKey("OS/2"));
+    assertTrue(tableMap.containsKey("fpgm"));
     assertTrue(tableMap.containsKey("glyf"));
-    assertEquals(Integer.SIZE, oS2Windows.getFsSelection());
-    assertEquals(PDPanoseClassification.LENGTH, panose.length);
-    assertArrayEquals(new byte[]{0, 1, 0, 0, 0, 25, 1, 0, 0, 4, 0, -112, 'D', 'S', 'I', 'G', 'R', 'i', 'l', '\f', 0, 14,
-        -6, '|', 0, 0, '!', -124, 'G', 'D', 'E', 'F', 24, -26, 28, 'f', 0, '\f', 't', -104, 0, 0, 3, 'X', 'G', 'P', 'O',
-        'S', -67, -15, -101}, byteArray);
+    assertTrue(tableMap.containsKey("kern"));
+    assertArrayEquals(
+        new byte[] {
+          0, 1, 0, 0, 0, 19, 1, 0, 0, 4, 0, '0', 'F', 'F', 'T', 'M', 'h', -2, -32, -92, 0, 2, 23,
+          '@', 0, 0, 0, 28, 'G', 'D', 'E', 'F', 0, '\'', 2, -49, 0, 2, 6, '|', 0, 0, 0, '&', 'G',
+          'P', 'O', 'S', -43, '(', -15
+        },
+        byteArray);
   }
 
   /**
    * Test {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}.
+   *
    * <ul>
-   *   <li>Given {@code -}.</li>
-   *   <li>When {@link PDFontDescriptor#PDFontDescriptor()} FontName is
-   * {@code -}.</li>
+   *   <li>Given {@code -}.
+   *   <li>When {@link PDFontDescriptor#PDFontDescriptor()} FontName is {@code -}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}
+   *
+   * <p>Method under test: {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}
    */
   @Test
-  @DisplayName("Test getTrueTypeFont(String, PDFontDescriptor); given '-'; when PDFontDescriptor() FontName is '-'")
+  @DisplayName(
+      "Test getTrueTypeFont(String, PDFontDescriptor); given '-'; when PDFontDescriptor() FontName is '-'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"FontMapping FontMapperImpl.getTrueTypeFont(String, PDFontDescriptor)"})
   void testGetTrueTypeFont_givenDash_whenPDFontDescriptorFontNameIsDash() throws IOException {
     // Arrange
     FontMapperImpl fontMapperImpl = new FontMapperImpl();
@@ -464,323 +278,41 @@ class FontMapperImplDiffblueTest {
 
     // Act and Assert
     TrueTypeFont font = fontMapperImpl.getTrueTypeFont("Base Font", fontDescriptor).getFont();
-    HeaderTable header = font.getHeader();
-    Calendar created = header.getCreated();
-    assertTrue(created instanceof GregorianCalendar);
-    Calendar modified = header.getModified();
-    assertTrue(modified instanceof GregorianCalendar);
+    assertEquals("LiberationSans", font.getName());
+    assertEquals(139512L, font.getOriginalDataSize());
     Map<String, TTFTable> tableMap = font.getTableMap();
-    assertEquals(25, tableMap.size());
-    TTFTable getResult = tableMap.get("DSIG");
-    assertTrue(getResult instanceof DigitalSignatureTable);
-    NamingTable naming = font.getNaming();
-    assertEquals("ArialMT", naming.getPostScriptName());
-    assertEquals("ArialMT", font.getName());
-    assertEquals((short) -1361, header.getXMin());
-    HorizontalHeaderTable horizontalHeader = font.getHorizontalHeader();
-    assertEquals((short) -1361, horizontalHeader.getMinLeftSideBearing());
-    BoundingBox fontBBox = font.getFontBBox();
-    assertEquals(-324.70703f, fontBBox.getLowerLeftY());
-    assertEquals(-664.5508f, fontBBox.getLowerLeftX());
-    assertEquals((short) -665, header.getYMin());
-    GlyphSubstitutionTable gsub = font.getGsub();
-    assertEquals(1003500L, gsub.getOffset());
-    assertEquals(1037380L, getResult.getOffset());
-    assertEquals(1045960L, font.getOriginalDataSize());
-    assertEquals(11906L, naming.getLength());
-    MaximumProfileTable maximumProfile = font.getMaximumProfile();
-    assertEquals(1303, maximumProfile.getMaxStackElements());
-    assertEquals(1364.2578f, fontBBox.getHeight());
-    OS2WindowsMetricsTable oS2Windows = font.getOS2Windows();
-    assertEquals(1467, oS2Windows.getCapHeight());
-    PostScriptTable postScript = font.getPostScript();
-    assertEquals((short) 150, postScript.getUnderlineThickness());
-    IndexToLocationTable indexToLocation = font.getIndexToLocation();
-    assertEquals(155336L, indexToLocation.getOffset());
-    assertEquals(1613539914L, indexToLocation.getCheckSum());
-    assertEquals(1636646406000L, modified.getTimeInMillis());
-    long[] offsets = indexToLocation.getOffsets();
-    assertEquals(1730L, offsets[8]);
-    GlyphTable glyph = font.getGlyph();
-    assertEquals(173528L, glyph.getOffset());
-    assertEquals(202, maximumProfile.getMaxCompositePoints());
-    assertEquals(2075, header.getFlags());
-    assertEquals(2204L, offsets[9]);
-    assertEquals(221240180L, glyph.getCheckSum());
-    assertEquals(2664.5508f, fontBBox.getWidth());
-    assertEquals(2784L, offsets[PDPanoseClassification.LENGTH]);
-    assertEquals(2876L, offsets[11]);
-    TTFTable getResult2 = tableMap.get("fpgm");
-    assertEquals(2992L, getResult2.getLength());
-    assertEquals(2995022776L, gsub.getCheckSum());
-    CmapTable cmap = font.getCmap();
-    assertEquals(3, cmap.getCmaps().length);
-    assertEquals(3022L, offsets[PDPanose.LENGTH]);
-    assertEquals(304L, offsets[5]);
-    assertEquals(305339020L, horizontalHeader.getCheckSum());
-    assertEquals(3119, maximumProfile.getMaxSizeOfInstructions());
-    assertEquals(3206L, offsets[13]);
-    assertEquals(3297824582L, getResult.getCheckSum());
-    assertEquals(340417924L, oS2Windows.getCheckSum());
-    assertEquals(3443681063L, cmap.getCheckSum());
-    assertEquals(3496L, offsets[14]);
-    assertEquals(3634L, offsets[15]);
-    assertEquals(3650344429L, header.getCheckSumAdjustment());
-    assertEquals(3776L, offsets[Short.SIZE]);
-    assertEquals(3862L, offsets[17]);
-    assertEquals(3940L, offsets[18]);
-    assertEquals(398004210L, maximumProfile.getCheckSum());
-    assertEquals(4068041462L, header.getCheckSum());
-    assertEquals(4068L, offsets[19]);
-    assertEquals(4280942742L, postScript.getCheckSum());
-    assertEquals(4548, offsets.length);
-    assertEquals(4680L, offsets[20]);
-    assertEquals(4994L, offsets[21]);
-    assertEquals(502L, offsets[6]);
+    assertEquals(19, tableMap.size());
     byte[] byteArray = new byte[51];
     assertEquals(51, font.getOriginalData().read(byteArray));
-    KerningTable kerning = font.getKerning();
-    assertEquals(5472L, kerning.getLength());
-    assertEquals(5644L, offsets[22]);
-    List<NameRecord> nameRecords = naming.getNameRecords();
-    assertEquals(58, nameRecords.size());
-    assertEquals(6276L, offsets[23]);
-    assertEquals(634177065L, font.getHorizontalMetrics().getCheckSum());
-    assertEquals(649950890000L, created.getTimeInMillis());
-    assertEquals(670258L, offsets[4523]);
-    assertEquals(670414L, offsets[4524]);
-    assertEquals(670580L, offsets[4525]);
-    assertEquals(670832L, offsets[4526]);
-    assertEquals(671054L, offsets[4527]);
-    assertEquals(671322L, offsets[4528]);
-    assertEquals(671576L, offsets[4529]);
-    assertEquals(671798L, offsets[4530]);
-    assertEquals(672022L, offsets[4531]);
-    assertEquals(672208L, offsets[4532]);
-    assertEquals(672402L, offsets[4533]);
-    assertEquals(672638L, offsets[4534]);
-    assertEquals(672870L, offsets[4535]);
-    assertEquals(673032L, offsets[4536]);
-    assertEquals(673102L, offsets[4537]);
-    assertEquals(673308L, offsets[4538]);
-    assertEquals(673366L, offsets[4539]);
-    assertEquals(673424L, offsets[4540]);
-    assertEquals(673668L, offsets[4541]);
-    assertEquals(673994L, offsets[4542]);
-    assertEquals(6740, nameRecords.get(56).getStringOffset());
-    assertEquals(6740, nameRecords.get(57).getStringOffset());
-    assertEquals(674150L, offsets[4543]);
-    assertEquals(674240L, offsets[4544]);
-    assertEquals(674286L, offsets[4545]);
-    assertEquals(674330L, offsets[4546]);
-    assertEquals(674394L, glyph.getLength());
-    assertEquals(674394L, offsets[4547]);
-    assertEquals(6874L, offsets[24]);
-    assertEquals(758245357L, naming.getCheckSum());
-    assertEquals(847924L, kerning.getOffset());
-    assertEquals(853396L, naming.getOffset());
-    assertEquals(865304L, postScript.getOffset());
-    assertEquals(865336L, tableMap.get("gasp").getOffset());
-    assertEquals((short) 904, oS2Windows.getAverageCharWidth());
-    assertEquals(929118518L, kerning.getCheckSum());
-    assertEquals(950343211L, getResult2.getCheckSum());
-    assertEquals(990L, offsets[7]);
-    assertSame(glyph, tableMap.get("glyf"));
-    assertArrayEquals(new byte[]{0, 1, 0, 0, 0, 25, 1, 0, 0, 4, 0, -112, 'D', 'S', 'I', 'G', -60, -112, -49, 'F', 0, 15,
-        -44, 'D', 0, 0, '!', -124, 'G', 'D', 'E', 'F', 24, -26, 28, 'f', 0, '\r', '4', Byte.MIN_VALUE, 0, 0, 3, 'X',
-        'G', 'P', 'O', 'S', '2', 17, 23}, byteArray);
-  }
-
-  /**
-   * Test {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}.
-   * <ul>
-   *   <li>Given {@link FontMapperImpl} (default constructor) addSubstitute
-   * {@code +} and {@code +}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}
-   */
-  @Test
-  @DisplayName("Test getTrueTypeFont(String, PDFontDescriptor); given FontMapperImpl (default constructor) addSubstitute '+' and '+'")
-  void testGetTrueTypeFont_givenFontMapperImplAddSubstitutePlusSignAndPlusSign() throws IOException {
-    // Arrange
-    FontMapperImpl fontMapperImpl = new FontMapperImpl();
-    fontMapperImpl.addSubstitute("+", "+");
-
-    // Act and Assert
-    TrueTypeFont font = fontMapperImpl.getTrueTypeFont("+", new PDFontDescriptor()).getFont();
-    HeaderTable header = font.getHeader();
-    Calendar created = header.getCreated();
-    assertTrue(created instanceof GregorianCalendar);
-    Calendar modified = header.getModified();
-    assertTrue(modified instanceof GregorianCalendar);
-    Map<String, TTFTable> tableMap = font.getTableMap();
-    assertEquals(25, tableMap.size());
-    TTFTable getResult = tableMap.get("DSIG");
-    assertTrue(getResult instanceof DigitalSignatureTable);
-    NamingTable naming = font.getNaming();
-    assertEquals("ArialMT", naming.getPostScriptName());
-    assertEquals("ArialMT", font.getName());
-    assertEquals((short) -1361, header.getXMin());
-    HorizontalHeaderTable horizontalHeader = font.getHorizontalHeader();
-    assertEquals((short) -1361, horizontalHeader.getMinLeftSideBearing());
-    BoundingBox fontBBox = font.getFontBBox();
-    assertEquals(-324.70703f, fontBBox.getLowerLeftY());
-    assertEquals(-664.5508f, fontBBox.getLowerLeftX());
-    assertEquals((short) -665, header.getYMin());
-    GlyphSubstitutionTable gsub = font.getGsub();
-    assertEquals(1003500L, gsub.getOffset());
-    assertEquals(1037380L, getResult.getOffset());
-    assertEquals(1045960L, font.getOriginalDataSize());
-    assertEquals(11906L, naming.getLength());
-    MaximumProfileTable maximumProfile = font.getMaximumProfile();
-    assertEquals(1303, maximumProfile.getMaxStackElements());
-    assertEquals(1364.2578f, fontBBox.getHeight());
-    OS2WindowsMetricsTable oS2Windows = font.getOS2Windows();
-    assertEquals(1467, oS2Windows.getCapHeight());
-    PostScriptTable postScript = font.getPostScript();
-    assertEquals((short) 150, postScript.getUnderlineThickness());
-    IndexToLocationTable indexToLocation = font.getIndexToLocation();
-    assertEquals(155336L, indexToLocation.getOffset());
-    assertEquals(1613539914L, indexToLocation.getCheckSum());
-    assertEquals(1636646406000L, modified.getTimeInMillis());
-    long[] offsets = indexToLocation.getOffsets();
-    assertEquals(1730L, offsets[8]);
-    GlyphTable glyph = font.getGlyph();
-    assertEquals(173528L, glyph.getOffset());
-    assertEquals(202, maximumProfile.getMaxCompositePoints());
-    assertEquals(2075, header.getFlags());
-    assertEquals(2204L, offsets[9]);
-    assertEquals(221240180L, glyph.getCheckSum());
-    assertEquals(2664.5508f, fontBBox.getWidth());
-    assertEquals(2784L, offsets[PDPanoseClassification.LENGTH]);
-    assertEquals(2876L, offsets[11]);
-    TTFTable getResult2 = tableMap.get("fpgm");
-    assertEquals(2992L, getResult2.getLength());
-    assertEquals(2995022776L, gsub.getCheckSum());
-    CmapTable cmap = font.getCmap();
-    assertEquals(3, cmap.getCmaps().length);
-    assertEquals(3022L, offsets[PDPanose.LENGTH]);
-    assertEquals(304L, offsets[5]);
-    assertEquals(305339020L, horizontalHeader.getCheckSum());
-    assertEquals(3119, maximumProfile.getMaxSizeOfInstructions());
-    assertEquals(3206L, offsets[13]);
-    assertEquals(3297824582L, getResult.getCheckSum());
-    assertEquals(340417924L, oS2Windows.getCheckSum());
-    assertEquals(3443681063L, cmap.getCheckSum());
-    assertEquals(3496L, offsets[14]);
-    assertEquals(3634L, offsets[15]);
-    assertEquals(3650344429L, header.getCheckSumAdjustment());
-    assertEquals(3776L, offsets[Short.SIZE]);
-    assertEquals(3862L, offsets[17]);
-    assertEquals(3940L, offsets[18]);
-    assertEquals(398004210L, maximumProfile.getCheckSum());
-    assertEquals(4068041462L, header.getCheckSum());
-    assertEquals(4068L, offsets[19]);
-    assertEquals(4280942742L, postScript.getCheckSum());
-    assertEquals(4548, offsets.length);
-    assertEquals(4680L, offsets[20]);
-    assertEquals(4994L, offsets[21]);
-    assertEquals(502L, offsets[6]);
-    byte[] byteArray = new byte[51];
-    assertEquals(51, font.getOriginalData().read(byteArray));
-    KerningTable kerning = font.getKerning();
-    assertEquals(5472L, kerning.getLength());
-    assertEquals(5644L, offsets[22]);
-    List<NameRecord> nameRecords = naming.getNameRecords();
-    assertEquals(58, nameRecords.size());
-    assertEquals(6276L, offsets[23]);
-    assertEquals(634177065L, font.getHorizontalMetrics().getCheckSum());
-    assertEquals(649950890000L, created.getTimeInMillis());
-    assertEquals(670258L, offsets[4523]);
-    assertEquals(670414L, offsets[4524]);
-    assertEquals(670580L, offsets[4525]);
-    assertEquals(670832L, offsets[4526]);
-    assertEquals(671054L, offsets[4527]);
-    assertEquals(671322L, offsets[4528]);
-    assertEquals(671576L, offsets[4529]);
-    assertEquals(671798L, offsets[4530]);
-    assertEquals(672022L, offsets[4531]);
-    assertEquals(672208L, offsets[4532]);
-    assertEquals(672402L, offsets[4533]);
-    assertEquals(672638L, offsets[4534]);
-    assertEquals(672870L, offsets[4535]);
-    assertEquals(673032L, offsets[4536]);
-    assertEquals(673102L, offsets[4537]);
-    assertEquals(673308L, offsets[4538]);
-    assertEquals(673366L, offsets[4539]);
-    assertEquals(673424L, offsets[4540]);
-    assertEquals(673668L, offsets[4541]);
-    assertEquals(673994L, offsets[4542]);
-    assertEquals(6740, nameRecords.get(56).getStringOffset());
-    assertEquals(6740, nameRecords.get(57).getStringOffset());
-    assertEquals(674150L, offsets[4543]);
-    assertEquals(674240L, offsets[4544]);
-    assertEquals(674286L, offsets[4545]);
-    assertEquals(674330L, offsets[4546]);
-    assertEquals(674394L, glyph.getLength());
-    assertEquals(674394L, offsets[4547]);
-    assertEquals(6874L, offsets[24]);
-    assertEquals(758245357L, naming.getCheckSum());
-    assertEquals(847924L, kerning.getOffset());
-    assertEquals(853396L, naming.getOffset());
-    assertEquals(865304L, postScript.getOffset());
-    assertEquals(865336L, tableMap.get("gasp").getOffset());
-    assertEquals((short) 904, oS2Windows.getAverageCharWidth());
-    assertEquals(929118518L, kerning.getCheckSum());
-    assertEquals(950343211L, getResult2.getCheckSum());
-    assertEquals(990L, offsets[7]);
-    assertSame(glyph, tableMap.get("glyf"));
-    assertArrayEquals(new byte[]{0, 1, 0, 0, 0, 25, 1, 0, 0, 4, 0, -112, 'D', 'S', 'I', 'G', -60, -112, -49, 'F', 0, 15,
-        -44, 'D', 0, 0, '!', -124, 'G', 'D', 'E', 'F', 24, -26, 28, 'f', 0, '\r', '4', Byte.MIN_VALUE, 0, 0, 3, 'X',
-        'G', 'P', 'O', 'S', '2', 17, 23}, byteArray);
-  }
-
-  /**
-   * Test {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}.
-   * <ul>
-   *   <li>Given {@link FontMapperImpl} (default constructor).</li>
-   *   <li>When {@code Helvetica}.</li>
-   *   <li>Then return not Fallback.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}
-   */
-  @Test
-  @DisplayName("Test getTrueTypeFont(String, PDFontDescriptor); given FontMapperImpl (default constructor); when 'Helvetica'; then return not Fallback")
-  void testGetTrueTypeFont_givenFontMapperImpl_whenHelvetica_thenReturnNotFallback() throws IOException {
-    // Arrange
-    FontMapperImpl fontMapperImpl = new FontMapperImpl();
-
-    // Act
-    FontMapping<TrueTypeFont> actualTrueTypeFont = fontMapperImpl.getTrueTypeFont("Helvetica", new PDFontDescriptor());
-
-    // Assert
-    TrueTypeFont font = actualTrueTypeFont.getFont();
-    Map<String, TTFTable> tableMap = font.getTableMap();
-    assertEquals(25, tableMap.size());
-    assertEquals(3, font.getCmap().getCmaps().length);
-    assertFalse(actualTrueTypeFont.isFallback());
-    assertTrue(tableMap.containsKey("DSIG"));
+    assertTrue(tableMap.containsKey("OS/2"));
     assertTrue(tableMap.containsKey("fpgm"));
-    assertTrue(tableMap.containsKey("gasp"));
+    assertTrue(tableMap.containsKey("glyf"));
+    assertTrue(tableMap.containsKey("kern"));
+    assertArrayEquals(
+        new byte[] {
+          0, 1, 0, 0, 0, 19, 1, 0, 0, 4, 0, '0', 'F', 'F', 'T', 'M', 'h', -2, -32, 'f', 0, 2, ' ',
+          -36, 0, 0, 0, 28, 'G', 'D', 'E', 'F', 0, '\'', 2, -49, 0, 2, 15, -84, 0, 0, 0, '&', 'G',
+          'P', 'O', 'S', 'j', 'w', -101
+        },
+        byteArray);
   }
 
   /**
    * Test {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}.
+   *
    * <ul>
-   *   <li>Given {@code heavy}.</li>
-   *   <li>When {@link PDFontDescriptor#PDFontDescriptor()} FontName is
-   * {@code heavy}.</li>
+   *   <li>Given {@code heavy}.
+   *   <li>When {@link PDFontDescriptor#PDFontDescriptor()} FontName is {@code heavy}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}
+   *
+   * <p>Method under test: {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}
    */
   @Test
-  @DisplayName("Test getTrueTypeFont(String, PDFontDescriptor); given 'heavy'; when PDFontDescriptor() FontName is 'heavy'")
+  @DisplayName(
+      "Test getTrueTypeFont(String, PDFontDescriptor); given 'heavy'; when PDFontDescriptor() FontName is 'heavy'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"FontMapping FontMapperImpl.getTrueTypeFont(String, PDFontDescriptor)"})
   void testGetTrueTypeFont_givenHeavy_whenPDFontDescriptorFontNameIsHeavy() throws IOException {
     // Arrange
     FontMapperImpl fontMapperImpl = new FontMapperImpl();
@@ -790,752 +322,199 @@ class FontMapperImplDiffblueTest {
 
     // Act and Assert
     TrueTypeFont font = fontMapperImpl.getTrueTypeFont("Base Font", fontDescriptor).getFont();
-    HeaderTable header = font.getHeader();
-    Calendar created = header.getCreated();
-    assertTrue(created instanceof GregorianCalendar);
-    Calendar modified = header.getModified();
-    assertTrue(modified instanceof GregorianCalendar);
+    assertEquals("LiberationSans-Bold", font.getName());
+    assertEquals(137052L, font.getOriginalDataSize());
     Map<String, TTFTable> tableMap = font.getTableMap();
-    assertEquals(25, tableMap.size());
-    TTFTable getResult = tableMap.get("DSIG");
-    assertTrue(getResult instanceof DigitalSignatureTable);
-    NamingTable naming = font.getNaming();
-    List<NameRecord> nameRecords = naming.getNameRecords();
-    assertEquals(83, nameRecords.size());
-    NameRecord getResult2 = nameRecords.get(82);
-    assertEquals("Arial Gras", getResult2.getString());
-    assertEquals("Arial-BoldMT", naming.getPostScriptName());
-    assertEquals("Arial-BoldMT", font.getName());
-    assertEquals("Bold", naming.getFontSubFamily());
-    NameRecord getResult3 = nameRecords.get(81);
-    assertEquals("Gras", getResult3.getString());
-    assertEquals((short) -1286, header.getXMin());
-    HorizontalHeaderTable horizontalHeader = font.getHorizontalHeader();
-    assertEquals((short) -1286, horizontalHeader.getMinLeftSideBearing());
-    BoundingBox fontBBox = font.getFontBBox();
-    assertEquals(-376.46484f, fontBBox.getLowerLeftY());
-    assertEquals(-627.9297f, fontBBox.getLowerLeftX());
-    assertEquals((short) -771, header.getYMin());
-    assertEquals(1, header.getMacStyle());
-    assertEquals(1, getResult3.getPlatformEncodingId());
-    assertEquals(1, getResult2.getPlatformEncodingId());
-    assertEquals(1055.6641f, fontBBox.getUpperRightY());
-    KerningTable kerning = font.getKerning();
-    assertEquals(1095716573L, kerning.getCheckSum());
-    TTFTable getResult4 = tableMap.get("gasp");
-    assertEquals(1114121L, getResult4.getCheckSum());
-    assertEquals(11229, getResult3.getStringOffset());
-    assertEquals(11237, getResult2.getStringOffset());
-    assertEquals(12719L, naming.getLength());
-    assertEquals(1382640652L, getResult.getCheckSum());
-    IndexToLocationTable indexToLocation = font.getIndexToLocation();
-    assertEquals(1425008538L, indexToLocation.getCheckSum());
-    assertEquals(1432.1289f, fontBBox.getHeight());
-    OS2WindowsMetricsTable oS2Windows = font.getOS2Windows();
-    assertEquals(1466, oS2Windows.getCapHeight());
-    MaximumProfileTable maximumProfile = font.getMaximumProfile();
-    assertEquals(148, maximumProfile.getMaxCompositePoints());
-    assertEquals(155664L, indexToLocation.getOffset());
-    long[] offsets = indexToLocation.getOffsets();
-    assertEquals(1584L, offsets[8]);
-    TTFTable getResult5 = tableMap.get("fpgm");
-    assertEquals(1598L, getResult5.getLength());
-    assertEquals(1636646396000L, modified.getTimeInMillis());
-    GlyphTable glyph = font.getGlyph();
-    assertEquals(173856L, glyph.getOffset());
-    assertEquals(1867, maximumProfile.getMaxStackElements());
-    assertEquals(1942L, offsets[9]);
-    assertEquals(2, getResult3.getNameId());
-    assertEquals(20, getResult2.getStringLength());
-    assertEquals(2126814685L, glyph.getCheckSum());
-    PostScriptTable postScript = font.getPostScript();
-    assertEquals((short) 215, postScript.getUnderlineThickness());
-    assertEquals((short) 2162, header.getYMax());
-    assertEquals(2376L, offsets[PDPanoseClassification.LENGTH]);
-    assertEquals(2472L, offsets[11]);
-    assertEquals(2610L, offsets[PDPanose.LENGTH]);
-    assertEquals(2627.9297f, fontBBox.getWidth());
-    assertEquals(2748L, offsets[13]);
-    assertEquals(282L, offsets[5]);
-    assertEquals(3, getResult3.getPlatformId());
-    assertEquals(3, getResult2.getPlatformId());
-    assertEquals(3056L, offsets[14]);
-    assertEquals(3084, getResult3.getLanguageId());
-    assertEquals(3084, getResult2.getLanguageId());
-    assertEquals(310254220L, horizontalHeader.getCheckSum());
-    assertEquals(3123122598L, getResult5.getCheckSum());
-    assertEquals(3180L, offsets[15]);
-    assertEquals(3292L, offsets[Short.SIZE]);
-    assertEquals(3370L, offsets[17]);
-    assertEquals(3432L, offsets[18]);
-    assertEquals(3443287835L, font.getCmap().getCheckSum());
-    assertEquals(3518L, offsets[19]);
-    assertEquals(360013488L, oS2Windows.getCheckSum());
-    assertEquals(3683418909L, font.getHorizontalMetrics().getCheckSum());
-    assertEquals(3778L, offsets[20]);
-    assertEquals(3908L, offsets[21]);
-    assertEquals(4, getResult2.getNameId());
-    assertEquals(4072896406L, header.getCheckSum());
-    assertEquals(4280942807L, postScript.getCheckSum());
-    assertEquals(431756686L, maximumProfile.getCheckSum());
-    assertEquals(4330L, offsets[22]);
-    assertEquals(442L, offsets[6]);
-    assertEquals(4548, offsets.length);
-    assertEquals(456709493L, naming.getCheckSum());
-    assertEquals(4597, maximumProfile.getMaxSizeOfInstructions());
-    assertEquals(4674L, offsets[23]);
-    assertEquals(47, maximumProfile.getMaxStorage());
-    assertEquals(4956L, offsets[24]);
+    assertEquals(19, tableMap.size());
     byte[] byteArray = new byte[51];
     assertEquals(51, font.getOriginalData().read(byteArray));
-    assertEquals(5466L, kerning.getLength());
-    assertEquals(6, maximumProfile.getMaxCompositeContours());
-    GlyphSubstitutionTable gsub = font.getGsub();
-    assertEquals(610281544L, gsub.getCheckSum());
-    assertEquals(619938L, offsets[4523]);
-    assertEquals(620100L, offsets[4524]);
-    assertEquals(620274L, offsets[4525]);
-    assertEquals(620508L, offsets[4526]);
-    assertEquals(620724L, offsets[4527]);
-    assertEquals(620990L, offsets[4528]);
-    assertEquals(621258L, offsets[4529]);
-    assertEquals(621488L, offsets[4530]);
-    assertEquals(621710L, offsets[4531]);
-    assertEquals(621902L, offsets[4532]);
-    assertEquals(622116L, offsets[4533]);
-    assertEquals(622354L, offsets[4534]);
-    assertEquals(622584L, offsets[4535]);
-    assertEquals(622734L, offsets[4536]);
-    assertEquals(622806L, offsets[4537]);
-    assertEquals(623000L, offsets[4538]);
-    assertEquals(623060L, offsets[4539]);
-    assertEquals(623122L, offsets[4540]);
-    assertEquals(623368L, offsets[4541]);
-    assertEquals(623728L, offsets[4542]);
-    assertEquals(623886L, offsets[4543]);
-    assertEquals(623966L, offsets[4544]);
-    assertEquals(624012L, offsets[4545]);
-    assertEquals(624056L, offsets[4546]);
-    assertEquals(624130L, glyph.getLength());
-    assertEquals(624130L, offsets[4547]);
-    assertEquals(649956253000L, created.getTimeInMillis());
-    assertEquals(700, oS2Windows.getWeightClass());
-    assertEquals(722, maximumProfile.getMaxPoints());
-    assertEquals(797988L, kerning.getOffset());
-    byte[] panose = oS2Windows.getPanose();
-    assertEquals((byte) 7, panose[2]);
-    assertEquals(8, getResult3.getStringLength());
-    assertEquals(803456L, naming.getOffset());
-    assertEquals(816176L, postScript.getOffset());
-    assertEquals(816208L, getResult4.getOffset());
-    assertEquals(86, maximumProfile.getMaxFunctionDefs());
-    assertEquals(904L, offsets[7]);
-    assertEquals(938983416L, header.getCheckSumAdjustment());
-    assertEquals(947748L, gsub.getOffset());
-    assertEquals((short) 980, oS2Windows.getAverageCharWidth());
-    assertEquals(981628L, getResult.getOffset());
-    assertEquals(990208L, font.getOriginalDataSize());
+    assertTrue(tableMap.containsKey("OS/2"));
+    assertTrue(tableMap.containsKey("fpgm"));
     assertTrue(tableMap.containsKey("glyf"));
-    assertEquals(Integer.SIZE, oS2Windows.getFsSelection());
-    assertEquals(PDPanoseClassification.LENGTH, panose.length);
-    assertArrayEquals(new byte[]{0, 1, 0, 0, 0, 25, 1, 0, 0, 4, 0, -112, 'D', 'S', 'I', 'G', 'R', 'i', 'l', '\f', 0, 14,
-        -6, '|', 0, 0, '!', -124, 'G', 'D', 'E', 'F', 24, -26, 28, 'f', 0, '\f', 't', -104, 0, 0, 3, 'X', 'G', 'P', 'O',
-        'S', -67, -15, -101}, byteArray);
+    assertTrue(tableMap.containsKey("kern"));
+    assertArrayEquals(
+        new byte[] {
+          0, 1, 0, 0, 0, 19, 1, 0, 0, 4, 0, '0', 'F', 'F', 'T', 'M', 'h', -2, -32, -92, 0, 2, 23,
+          '@', 0, 0, 0, 28, 'G', 'D', 'E', 'F', 0, '\'', 2, -49, 0, 2, 6, '|', 0, 0, 0, '&', 'G',
+          'P', 'O', 'S', -43, '(', -15
+        },
+        byteArray);
   }
 
   /**
    * Test {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}.
+   *
    * <ul>
-   *   <li>When {@code Base Font}.</li>
-   *   <li>Then return Font Naming PostScriptName is {@code ArialMT}.</li>
+   *   <li>When {@code ,}.
+   *   <li>Then Font Header Modified return {@link GregorianCalendar}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}
+   *
+   * <p>Method under test: {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}
    */
   @Test
-  @DisplayName("Test getTrueTypeFont(String, PDFontDescriptor); when 'Base Font'; then return Font Naming PostScriptName is 'ArialMT'")
-  void testGetTrueTypeFont_whenBaseFont_thenReturnFontNamingPostScriptNameIsArialMT() throws IOException {
-    // Arrange
-    FontMapperImpl fontMapperImpl = new FontMapperImpl();
-
-    // Act and Assert
-    TrueTypeFont font = fontMapperImpl.getTrueTypeFont("Base Font", new PDFontDescriptor()).getFont();
-    HeaderTable header = font.getHeader();
-    Calendar created = header.getCreated();
-    assertTrue(created instanceof GregorianCalendar);
-    Calendar modified = header.getModified();
-    assertTrue(modified instanceof GregorianCalendar);
+  @DisplayName(
+      "Test getTrueTypeFont(String, PDFontDescriptor); when ','; then Font Header Modified return GregorianCalendar")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"FontMapping FontMapperImpl.getTrueTypeFont(String, PDFontDescriptor)"})
+  void testGetTrueTypeFont_whenComma_thenFontHeaderModifiedReturnGregorianCalendar()
+      throws IOException {
+    // Arrange, Act and Assert
+    TrueTypeFont font = new FontMapperImpl().getTrueTypeFont(",", null).getFont();
+    assertTrue(font.getHeader().getModified() instanceof GregorianCalendar);
     Map<String, TTFTable> tableMap = font.getTableMap();
-    assertEquals(25, tableMap.size());
-    TTFTable getResult = tableMap.get("DSIG");
-    assertTrue(getResult instanceof DigitalSignatureTable);
-    NamingTable naming = font.getNaming();
-    assertEquals("ArialMT", naming.getPostScriptName());
-    assertEquals("ArialMT", font.getName());
-    assertEquals((short) -1361, header.getXMin());
-    HorizontalHeaderTable horizontalHeader = font.getHorizontalHeader();
-    assertEquals((short) -1361, horizontalHeader.getMinLeftSideBearing());
-    BoundingBox fontBBox = font.getFontBBox();
-    assertEquals(-324.70703f, fontBBox.getLowerLeftY());
-    assertEquals(-664.5508f, fontBBox.getLowerLeftX());
-    assertEquals((short) -665, header.getYMin());
-    GlyphSubstitutionTable gsub = font.getGsub();
-    assertEquals(1003500L, gsub.getOffset());
-    assertEquals(1037380L, getResult.getOffset());
-    assertEquals(1045960L, font.getOriginalDataSize());
-    assertEquals(11906L, naming.getLength());
-    MaximumProfileTable maximumProfile = font.getMaximumProfile();
-    assertEquals(1303, maximumProfile.getMaxStackElements());
-    assertEquals(1364.2578f, fontBBox.getHeight());
-    OS2WindowsMetricsTable oS2Windows = font.getOS2Windows();
-    assertEquals(1467, oS2Windows.getCapHeight());
-    PostScriptTable postScript = font.getPostScript();
-    assertEquals((short) 150, postScript.getUnderlineThickness());
-    IndexToLocationTable indexToLocation = font.getIndexToLocation();
-    assertEquals(155336L, indexToLocation.getOffset());
-    assertEquals(1613539914L, indexToLocation.getCheckSum());
-    assertEquals(1636646406000L, modified.getTimeInMillis());
-    long[] offsets = indexToLocation.getOffsets();
-    assertEquals(1730L, offsets[8]);
-    GlyphTable glyph = font.getGlyph();
-    assertEquals(173528L, glyph.getOffset());
-    assertEquals(202, maximumProfile.getMaxCompositePoints());
-    assertEquals(2075, header.getFlags());
-    assertEquals(2204L, offsets[9]);
-    assertEquals(221240180L, glyph.getCheckSum());
-    assertEquals(2664.5508f, fontBBox.getWidth());
-    assertEquals(2784L, offsets[PDPanoseClassification.LENGTH]);
-    assertEquals(2876L, offsets[11]);
-    TTFTable getResult2 = tableMap.get("fpgm");
-    assertEquals(2992L, getResult2.getLength());
-    assertEquals(2995022776L, gsub.getCheckSum());
-    CmapTable cmap = font.getCmap();
-    assertEquals(3, cmap.getCmaps().length);
-    assertEquals(3022L, offsets[PDPanose.LENGTH]);
-    assertEquals(304L, offsets[5]);
-    assertEquals(305339020L, horizontalHeader.getCheckSum());
-    assertEquals(3119, maximumProfile.getMaxSizeOfInstructions());
-    assertEquals(3206L, offsets[13]);
-    assertEquals(3297824582L, getResult.getCheckSum());
-    assertEquals(340417924L, oS2Windows.getCheckSum());
-    assertEquals(3443681063L, cmap.getCheckSum());
-    assertEquals(3496L, offsets[14]);
-    assertEquals(3634L, offsets[15]);
-    assertEquals(3650344429L, header.getCheckSumAdjustment());
-    assertEquals(3776L, offsets[Short.SIZE]);
-    assertEquals(3862L, offsets[17]);
-    assertEquals(3940L, offsets[18]);
-    assertEquals(398004210L, maximumProfile.getCheckSum());
-    assertEquals(4068041462L, header.getCheckSum());
-    assertEquals(4068L, offsets[19]);
-    assertEquals(4280942742L, postScript.getCheckSum());
-    assertEquals(4548, offsets.length);
-    assertEquals(4680L, offsets[20]);
-    assertEquals(4994L, offsets[21]);
-    assertEquals(502L, offsets[6]);
-    byte[] byteArray = new byte[51];
-    assertEquals(51, font.getOriginalData().read(byteArray));
-    KerningTable kerning = font.getKerning();
-    assertEquals(5472L, kerning.getLength());
-    assertEquals(5644L, offsets[22]);
-    List<NameRecord> nameRecords = naming.getNameRecords();
-    assertEquals(58, nameRecords.size());
-    assertEquals(6276L, offsets[23]);
-    assertEquals(634177065L, font.getHorizontalMetrics().getCheckSum());
-    assertEquals(649950890000L, created.getTimeInMillis());
-    assertEquals(670258L, offsets[4523]);
-    assertEquals(670414L, offsets[4524]);
-    assertEquals(670580L, offsets[4525]);
-    assertEquals(670832L, offsets[4526]);
-    assertEquals(671054L, offsets[4527]);
-    assertEquals(671322L, offsets[4528]);
-    assertEquals(671576L, offsets[4529]);
-    assertEquals(671798L, offsets[4530]);
-    assertEquals(672022L, offsets[4531]);
-    assertEquals(672208L, offsets[4532]);
-    assertEquals(672402L, offsets[4533]);
-    assertEquals(672638L, offsets[4534]);
-    assertEquals(672870L, offsets[4535]);
-    assertEquals(673032L, offsets[4536]);
-    assertEquals(673102L, offsets[4537]);
-    assertEquals(673308L, offsets[4538]);
-    assertEquals(673366L, offsets[4539]);
-    assertEquals(673424L, offsets[4540]);
-    assertEquals(673668L, offsets[4541]);
-    assertEquals(673994L, offsets[4542]);
-    assertEquals(6740, nameRecords.get(56).getStringOffset());
-    assertEquals(6740, nameRecords.get(57).getStringOffset());
-    assertEquals(674150L, offsets[4543]);
-    assertEquals(674240L, offsets[4544]);
-    assertEquals(674286L, offsets[4545]);
-    assertEquals(674330L, offsets[4546]);
-    assertEquals(674394L, glyph.getLength());
-    assertEquals(674394L, offsets[4547]);
-    assertEquals(6874L, offsets[24]);
-    assertEquals(758245357L, naming.getCheckSum());
-    assertEquals(847924L, kerning.getOffset());
-    assertEquals(853396L, naming.getOffset());
-    assertEquals(865304L, postScript.getOffset());
-    assertEquals(865336L, tableMap.get("gasp").getOffset());
-    assertEquals((short) 904, oS2Windows.getAverageCharWidth());
-    assertEquals(929118518L, kerning.getCheckSum());
-    assertEquals(950343211L, getResult2.getCheckSum());
-    assertEquals(990L, offsets[7]);
-    assertSame(glyph, tableMap.get("glyf"));
-    assertArrayEquals(new byte[]{0, 1, 0, 0, 0, 25, 1, 0, 0, 4, 0, -112, 'D', 'S', 'I', 'G', -60, -112, -49, 'F', 0, 15,
-        -44, 'D', 0, 0, '!', -124, 'G', 'D', 'E', 'F', 24, -26, 28, 'f', 0, '\r', '4', Byte.MIN_VALUE, 0, 0, 3, 'X',
-        'G', 'P', 'O', 'S', '2', 17, 23}, byteArray);
+    assertEquals(19, tableMap.size());
+    assertEquals(3, font.getCmap().getCmaps().length);
+    assertTrue(tableMap.containsKey("fpgm"));
   }
 
   /**
    * Test {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}.
+   *
    * <ul>
-   *   <li>When {@code ,}.</li>
-   *   <li>Then return Font Naming PostScriptName is {@code ArialMT}.</li>
+   *   <li>When {@code Helvetica}.
+   *   <li>Then return not Fallback.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}
+   *
+   * <p>Method under test: {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}
    */
   @Test
-  @DisplayName("Test getTrueTypeFont(String, PDFontDescriptor); when ','; then return Font Naming PostScriptName is 'ArialMT'")
-  void testGetTrueTypeFont_whenComma_thenReturnFontNamingPostScriptNameIsArialMT() throws IOException {
+  @DisplayName(
+      "Test getTrueTypeFont(String, PDFontDescriptor); when 'Helvetica'; then return not Fallback")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"FontMapping FontMapperImpl.getTrueTypeFont(String, PDFontDescriptor)"})
+  void testGetTrueTypeFont_whenHelvetica_thenReturnNotFallback() throws IOException {
     // Arrange
     FontMapperImpl fontMapperImpl = new FontMapperImpl();
 
-    // Act and Assert
-    TrueTypeFont font = fontMapperImpl.getTrueTypeFont(",", new PDFontDescriptor()).getFont();
-    HeaderTable header = font.getHeader();
-    Calendar created = header.getCreated();
-    assertTrue(created instanceof GregorianCalendar);
-    Calendar modified = header.getModified();
-    assertTrue(modified instanceof GregorianCalendar);
+    // Act
+    FontMapping<TrueTypeFont> actualTrueTypeFont =
+        fontMapperImpl.getTrueTypeFont("Helvetica", new PDFontDescriptor());
+
+    // Assert
+    TrueTypeFont font = actualTrueTypeFont.getFont();
+    assertTrue(font.getHeader().getModified() instanceof GregorianCalendar);
     Map<String, TTFTable> tableMap = font.getTableMap();
-    assertEquals(25, tableMap.size());
-    TTFTable getResult = tableMap.get("DSIG");
-    assertTrue(getResult instanceof DigitalSignatureTable);
-    NamingTable naming = font.getNaming();
-    assertEquals("ArialMT", naming.getPostScriptName());
-    assertEquals("ArialMT", font.getName());
-    assertEquals((short) -1361, header.getXMin());
-    HorizontalHeaderTable horizontalHeader = font.getHorizontalHeader();
-    assertEquals((short) -1361, horizontalHeader.getMinLeftSideBearing());
-    BoundingBox fontBBox = font.getFontBBox();
-    assertEquals(-324.70703f, fontBBox.getLowerLeftY());
-    assertEquals(-664.5508f, fontBBox.getLowerLeftX());
-    assertEquals((short) -665, header.getYMin());
-    GlyphSubstitutionTable gsub = font.getGsub();
-    assertEquals(1003500L, gsub.getOffset());
-    assertEquals(1037380L, getResult.getOffset());
-    assertEquals(1045960L, font.getOriginalDataSize());
-    assertEquals(11906L, naming.getLength());
-    MaximumProfileTable maximumProfile = font.getMaximumProfile();
-    assertEquals(1303, maximumProfile.getMaxStackElements());
-    assertEquals(1364.2578f, fontBBox.getHeight());
-    OS2WindowsMetricsTable oS2Windows = font.getOS2Windows();
-    assertEquals(1467, oS2Windows.getCapHeight());
-    PostScriptTable postScript = font.getPostScript();
-    assertEquals((short) 150, postScript.getUnderlineThickness());
-    IndexToLocationTable indexToLocation = font.getIndexToLocation();
-    assertEquals(155336L, indexToLocation.getOffset());
-    assertEquals(1613539914L, indexToLocation.getCheckSum());
-    assertEquals(1636646406000L, modified.getTimeInMillis());
-    long[] offsets = indexToLocation.getOffsets();
-    assertEquals(1730L, offsets[8]);
-    GlyphTable glyph = font.getGlyph();
-    assertEquals(173528L, glyph.getOffset());
-    assertEquals(202, maximumProfile.getMaxCompositePoints());
-    assertEquals(2075, header.getFlags());
-    assertEquals(2204L, offsets[9]);
-    assertEquals(221240180L, glyph.getCheckSum());
-    assertEquals(2664.5508f, fontBBox.getWidth());
-    assertEquals(2784L, offsets[PDPanoseClassification.LENGTH]);
-    assertEquals(2876L, offsets[11]);
-    TTFTable getResult2 = tableMap.get("fpgm");
-    assertEquals(2992L, getResult2.getLength());
-    assertEquals(2995022776L, gsub.getCheckSum());
-    CmapTable cmap = font.getCmap();
-    assertEquals(3, cmap.getCmaps().length);
-    assertEquals(3022L, offsets[PDPanose.LENGTH]);
-    assertEquals(304L, offsets[5]);
-    assertEquals(305339020L, horizontalHeader.getCheckSum());
-    assertEquals(3119, maximumProfile.getMaxSizeOfInstructions());
-    assertEquals(3206L, offsets[13]);
-    assertEquals(3297824582L, getResult.getCheckSum());
-    assertEquals(340417924L, oS2Windows.getCheckSum());
-    assertEquals(3443681063L, cmap.getCheckSum());
-    assertEquals(3496L, offsets[14]);
-    assertEquals(3634L, offsets[15]);
-    assertEquals(3650344429L, header.getCheckSumAdjustment());
-    assertEquals(3776L, offsets[Short.SIZE]);
-    assertEquals(3862L, offsets[17]);
-    assertEquals(3940L, offsets[18]);
-    assertEquals(398004210L, maximumProfile.getCheckSum());
-    assertEquals(4068041462L, header.getCheckSum());
-    assertEquals(4068L, offsets[19]);
-    assertEquals(4280942742L, postScript.getCheckSum());
-    assertEquals(4548, offsets.length);
-    assertEquals(4680L, offsets[20]);
-    assertEquals(4994L, offsets[21]);
-    assertEquals(502L, offsets[6]);
-    byte[] byteArray = new byte[51];
-    assertEquals(51, font.getOriginalData().read(byteArray));
-    KerningTable kerning = font.getKerning();
-    assertEquals(5472L, kerning.getLength());
-    assertEquals(5644L, offsets[22]);
-    List<NameRecord> nameRecords = naming.getNameRecords();
-    assertEquals(58, nameRecords.size());
-    assertEquals(6276L, offsets[23]);
-    assertEquals(634177065L, font.getHorizontalMetrics().getCheckSum());
-    assertEquals(649950890000L, created.getTimeInMillis());
-    assertEquals(670258L, offsets[4523]);
-    assertEquals(670414L, offsets[4524]);
-    assertEquals(670580L, offsets[4525]);
-    assertEquals(670832L, offsets[4526]);
-    assertEquals(671054L, offsets[4527]);
-    assertEquals(671322L, offsets[4528]);
-    assertEquals(671576L, offsets[4529]);
-    assertEquals(671798L, offsets[4530]);
-    assertEquals(672022L, offsets[4531]);
-    assertEquals(672208L, offsets[4532]);
-    assertEquals(672402L, offsets[4533]);
-    assertEquals(672638L, offsets[4534]);
-    assertEquals(672870L, offsets[4535]);
-    assertEquals(673032L, offsets[4536]);
-    assertEquals(673102L, offsets[4537]);
-    assertEquals(673308L, offsets[4538]);
-    assertEquals(673366L, offsets[4539]);
-    assertEquals(673424L, offsets[4540]);
-    assertEquals(673668L, offsets[4541]);
-    assertEquals(673994L, offsets[4542]);
-    assertEquals(6740, nameRecords.get(56).getStringOffset());
-    assertEquals(6740, nameRecords.get(57).getStringOffset());
-    assertEquals(674150L, offsets[4543]);
-    assertEquals(674240L, offsets[4544]);
-    assertEquals(674286L, offsets[4545]);
-    assertEquals(674330L, offsets[4546]);
-    assertEquals(674394L, glyph.getLength());
-    assertEquals(674394L, offsets[4547]);
-    assertEquals(6874L, offsets[24]);
-    assertEquals(758245357L, naming.getCheckSum());
-    assertEquals(847924L, kerning.getOffset());
-    assertEquals(853396L, naming.getOffset());
-    assertEquals(865304L, postScript.getOffset());
-    assertEquals(865336L, tableMap.get("gasp").getOffset());
-    assertEquals((short) 904, oS2Windows.getAverageCharWidth());
-    assertEquals(929118518L, kerning.getCheckSum());
-    assertEquals(950343211L, getResult2.getCheckSum());
-    assertEquals(990L, offsets[7]);
-    assertSame(glyph, tableMap.get("glyf"));
-    assertArrayEquals(new byte[]{0, 1, 0, 0, 0, 25, 1, 0, 0, 4, 0, -112, 'D', 'S', 'I', 'G', -60, -112, -49, 'F', 0, 15,
-        -44, 'D', 0, 0, '!', -124, 'G', 'D', 'E', 'F', 24, -26, 28, 'f', 0, '\r', '4', Byte.MIN_VALUE, 0, 0, 3, 'X',
-        'G', 'P', 'O', 'S', '2', 17, 23}, byteArray);
+    assertEquals(19, tableMap.size());
+    assertEquals(3, font.getCmap().getCmaps().length);
+    assertFalse(actualTrueTypeFont.isFallback());
+    assertTrue(tableMap.containsKey("fpgm"));
   }
 
   /**
    * Test {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}.
+   *
    * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then return Font Naming PostScriptName is {@code ArialMT}.</li>
+   *   <li>When {@code null}.
+   *   <li>Then Font Header Modified return {@link GregorianCalendar}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}
+   *
+   * <p>Method under test: {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}
    */
   @Test
-  @DisplayName("Test getTrueTypeFont(String, PDFontDescriptor); when 'null'; then return Font Naming PostScriptName is 'ArialMT'")
-  void testGetTrueTypeFont_whenNull_thenReturnFontNamingPostScriptNameIsArialMT() throws IOException {
-    // Arrange
-    FontMapperImpl fontMapperImpl = new FontMapperImpl();
-
-    // Act and Assert
-    TrueTypeFont font = fontMapperImpl.getTrueTypeFont(null, new PDFontDescriptor()).getFont();
-    HeaderTable header = font.getHeader();
-    Calendar created = header.getCreated();
-    assertTrue(created instanceof GregorianCalendar);
-    Calendar modified = header.getModified();
-    assertTrue(modified instanceof GregorianCalendar);
+  @DisplayName(
+      "Test getTrueTypeFont(String, PDFontDescriptor); when 'null'; then Font Header Modified return GregorianCalendar")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"FontMapping FontMapperImpl.getTrueTypeFont(String, PDFontDescriptor)"})
+  void testGetTrueTypeFont_whenNull_thenFontHeaderModifiedReturnGregorianCalendar()
+      throws IOException {
+    // Arrange, Act and Assert
+    TrueTypeFont font = new FontMapperImpl().getTrueTypeFont(null, null).getFont();
+    assertTrue(font.getHeader().getModified() instanceof GregorianCalendar);
     Map<String, TTFTable> tableMap = font.getTableMap();
-    assertEquals(25, tableMap.size());
-    TTFTable getResult = tableMap.get("DSIG");
-    assertTrue(getResult instanceof DigitalSignatureTable);
-    NamingTable naming = font.getNaming();
-    assertEquals("ArialMT", naming.getPostScriptName());
-    assertEquals("ArialMT", font.getName());
-    assertEquals((short) -1361, header.getXMin());
-    HorizontalHeaderTable horizontalHeader = font.getHorizontalHeader();
-    assertEquals((short) -1361, horizontalHeader.getMinLeftSideBearing());
-    BoundingBox fontBBox = font.getFontBBox();
-    assertEquals(-324.70703f, fontBBox.getLowerLeftY());
-    assertEquals(-664.5508f, fontBBox.getLowerLeftX());
-    assertEquals((short) -665, header.getYMin());
-    GlyphSubstitutionTable gsub = font.getGsub();
-    assertEquals(1003500L, gsub.getOffset());
-    assertEquals(1037380L, getResult.getOffset());
-    assertEquals(1045960L, font.getOriginalDataSize());
-    assertEquals(11906L, naming.getLength());
-    MaximumProfileTable maximumProfile = font.getMaximumProfile();
-    assertEquals(1303, maximumProfile.getMaxStackElements());
-    assertEquals(1364.2578f, fontBBox.getHeight());
-    OS2WindowsMetricsTable oS2Windows = font.getOS2Windows();
-    assertEquals(1467, oS2Windows.getCapHeight());
-    PostScriptTable postScript = font.getPostScript();
-    assertEquals((short) 150, postScript.getUnderlineThickness());
-    IndexToLocationTable indexToLocation = font.getIndexToLocation();
-    assertEquals(155336L, indexToLocation.getOffset());
-    assertEquals(1613539914L, indexToLocation.getCheckSum());
-    assertEquals(1636646406000L, modified.getTimeInMillis());
-    long[] offsets = indexToLocation.getOffsets();
-    assertEquals(1730L, offsets[8]);
-    GlyphTable glyph = font.getGlyph();
-    assertEquals(173528L, glyph.getOffset());
-    assertEquals(202, maximumProfile.getMaxCompositePoints());
-    assertEquals(2075, header.getFlags());
-    assertEquals(2204L, offsets[9]);
-    assertEquals(221240180L, glyph.getCheckSum());
-    assertEquals(2664.5508f, fontBBox.getWidth());
-    assertEquals(2784L, offsets[PDPanoseClassification.LENGTH]);
-    assertEquals(2876L, offsets[11]);
-    TTFTable getResult2 = tableMap.get("fpgm");
-    assertEquals(2992L, getResult2.getLength());
-    assertEquals(2995022776L, gsub.getCheckSum());
-    CmapTable cmap = font.getCmap();
-    assertEquals(3, cmap.getCmaps().length);
-    assertEquals(3022L, offsets[PDPanose.LENGTH]);
-    assertEquals(304L, offsets[5]);
-    assertEquals(305339020L, horizontalHeader.getCheckSum());
-    assertEquals(3119, maximumProfile.getMaxSizeOfInstructions());
-    assertEquals(3206L, offsets[13]);
-    assertEquals(3297824582L, getResult.getCheckSum());
-    assertEquals(340417924L, oS2Windows.getCheckSum());
-    assertEquals(3443681063L, cmap.getCheckSum());
-    assertEquals(3496L, offsets[14]);
-    assertEquals(3634L, offsets[15]);
-    assertEquals(3650344429L, header.getCheckSumAdjustment());
-    assertEquals(3776L, offsets[Short.SIZE]);
-    assertEquals(3862L, offsets[17]);
-    assertEquals(3940L, offsets[18]);
-    assertEquals(398004210L, maximumProfile.getCheckSum());
-    assertEquals(4068041462L, header.getCheckSum());
-    assertEquals(4068L, offsets[19]);
-    assertEquals(4280942742L, postScript.getCheckSum());
-    assertEquals(4548, offsets.length);
-    assertEquals(4680L, offsets[20]);
-    assertEquals(4994L, offsets[21]);
-    assertEquals(502L, offsets[6]);
-    byte[] byteArray = new byte[51];
-    assertEquals(51, font.getOriginalData().read(byteArray));
-    KerningTable kerning = font.getKerning();
-    assertEquals(5472L, kerning.getLength());
-    assertEquals(5644L, offsets[22]);
-    List<NameRecord> nameRecords = naming.getNameRecords();
-    assertEquals(58, nameRecords.size());
-    assertEquals(6276L, offsets[23]);
-    assertEquals(634177065L, font.getHorizontalMetrics().getCheckSum());
-    assertEquals(649950890000L, created.getTimeInMillis());
-    assertEquals(670258L, offsets[4523]);
-    assertEquals(670414L, offsets[4524]);
-    assertEquals(670580L, offsets[4525]);
-    assertEquals(670832L, offsets[4526]);
-    assertEquals(671054L, offsets[4527]);
-    assertEquals(671322L, offsets[4528]);
-    assertEquals(671576L, offsets[4529]);
-    assertEquals(671798L, offsets[4530]);
-    assertEquals(672022L, offsets[4531]);
-    assertEquals(672208L, offsets[4532]);
-    assertEquals(672402L, offsets[4533]);
-    assertEquals(672638L, offsets[4534]);
-    assertEquals(672870L, offsets[4535]);
-    assertEquals(673032L, offsets[4536]);
-    assertEquals(673102L, offsets[4537]);
-    assertEquals(673308L, offsets[4538]);
-    assertEquals(673366L, offsets[4539]);
-    assertEquals(673424L, offsets[4540]);
-    assertEquals(673668L, offsets[4541]);
-    assertEquals(673994L, offsets[4542]);
-    assertEquals(6740, nameRecords.get(56).getStringOffset());
-    assertEquals(6740, nameRecords.get(57).getStringOffset());
-    assertEquals(674150L, offsets[4543]);
-    assertEquals(674240L, offsets[4544]);
-    assertEquals(674286L, offsets[4545]);
-    assertEquals(674330L, offsets[4546]);
-    assertEquals(674394L, glyph.getLength());
-    assertEquals(674394L, offsets[4547]);
-    assertEquals(6874L, offsets[24]);
-    assertEquals(758245357L, naming.getCheckSum());
-    assertEquals(847924L, kerning.getOffset());
-    assertEquals(853396L, naming.getOffset());
-    assertEquals(865304L, postScript.getOffset());
-    assertEquals(865336L, tableMap.get("gasp").getOffset());
-    assertEquals((short) 904, oS2Windows.getAverageCharWidth());
-    assertEquals(929118518L, kerning.getCheckSum());
-    assertEquals(950343211L, getResult2.getCheckSum());
-    assertEquals(990L, offsets[7]);
-    assertSame(glyph, tableMap.get("glyf"));
-    assertArrayEquals(new byte[]{0, 1, 0, 0, 0, 25, 1, 0, 0, 4, 0, -112, 'D', 'S', 'I', 'G', -60, -112, -49, 'F', 0, 15,
-        -44, 'D', 0, 0, '!', -124, 'G', 'D', 'E', 'F', 24, -26, 28, 'f', 0, '\r', '4', Byte.MIN_VALUE, 0, 0, 3, 'X',
-        'G', 'P', 'O', 'S', '2', 17, 23}, byteArray);
+    assertEquals(19, tableMap.size());
+    assertEquals(3, font.getCmap().getCmaps().length);
+    assertTrue(tableMap.containsKey("fpgm"));
   }
 
   /**
    * Test {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}.
+   *
    * <ul>
-   *   <li>When {@code +}.</li>
-   *   <li>Then return Font Naming PostScriptName is {@code ArialMT}.</li>
+   *   <li>When {@link PDFontDescriptor#PDFontDescriptor()}.
+   *   <li>Then return Font Name is {@code LiberationSans}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}
+   *
+   * <p>Method under test: {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}
    */
   @Test
-  @DisplayName("Test getTrueTypeFont(String, PDFontDescriptor); when '+'; then return Font Naming PostScriptName is 'ArialMT'")
-  void testGetTrueTypeFont_whenPlusSign_thenReturnFontNamingPostScriptNameIsArialMT() throws IOException {
+  @DisplayName(
+      "Test getTrueTypeFont(String, PDFontDescriptor); when PDFontDescriptor(); then return Font Name is 'LiberationSans'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"FontMapping FontMapperImpl.getTrueTypeFont(String, PDFontDescriptor)"})
+  void testGetTrueTypeFont_whenPDFontDescriptor_thenReturnFontNameIsLiberationSans()
+      throws IOException {
     // Arrange
     FontMapperImpl fontMapperImpl = new FontMapperImpl();
 
     // Act and Assert
-    TrueTypeFont font = fontMapperImpl.getTrueTypeFont("+", new PDFontDescriptor()).getFont();
-    HeaderTable header = font.getHeader();
-    Calendar created = header.getCreated();
-    assertTrue(created instanceof GregorianCalendar);
-    Calendar modified = header.getModified();
-    assertTrue(modified instanceof GregorianCalendar);
+    TrueTypeFont font =
+        fontMapperImpl.getTrueTypeFont("Base Font", new PDFontDescriptor()).getFont();
+    assertEquals("LiberationSans", font.getName());
+    assertEquals(139512L, font.getOriginalDataSize());
     Map<String, TTFTable> tableMap = font.getTableMap();
-    assertEquals(25, tableMap.size());
-    TTFTable getResult = tableMap.get("DSIG");
-    assertTrue(getResult instanceof DigitalSignatureTable);
-    NamingTable naming = font.getNaming();
-    assertEquals("ArialMT", naming.getPostScriptName());
-    assertEquals("ArialMT", font.getName());
-    assertEquals((short) -1361, header.getXMin());
-    HorizontalHeaderTable horizontalHeader = font.getHorizontalHeader();
-    assertEquals((short) -1361, horizontalHeader.getMinLeftSideBearing());
-    BoundingBox fontBBox = font.getFontBBox();
-    assertEquals(-324.70703f, fontBBox.getLowerLeftY());
-    assertEquals(-664.5508f, fontBBox.getLowerLeftX());
-    assertEquals((short) -665, header.getYMin());
-    GlyphSubstitutionTable gsub = font.getGsub();
-    assertEquals(1003500L, gsub.getOffset());
-    assertEquals(1037380L, getResult.getOffset());
-    assertEquals(1045960L, font.getOriginalDataSize());
-    assertEquals(11906L, naming.getLength());
-    MaximumProfileTable maximumProfile = font.getMaximumProfile();
-    assertEquals(1303, maximumProfile.getMaxStackElements());
-    assertEquals(1364.2578f, fontBBox.getHeight());
-    OS2WindowsMetricsTable oS2Windows = font.getOS2Windows();
-    assertEquals(1467, oS2Windows.getCapHeight());
-    PostScriptTable postScript = font.getPostScript();
-    assertEquals((short) 150, postScript.getUnderlineThickness());
-    IndexToLocationTable indexToLocation = font.getIndexToLocation();
-    assertEquals(155336L, indexToLocation.getOffset());
-    assertEquals(1613539914L, indexToLocation.getCheckSum());
-    assertEquals(1636646406000L, modified.getTimeInMillis());
-    long[] offsets = indexToLocation.getOffsets();
-    assertEquals(1730L, offsets[8]);
-    GlyphTable glyph = font.getGlyph();
-    assertEquals(173528L, glyph.getOffset());
-    assertEquals(202, maximumProfile.getMaxCompositePoints());
-    assertEquals(2075, header.getFlags());
-    assertEquals(2204L, offsets[9]);
-    assertEquals(221240180L, glyph.getCheckSum());
-    assertEquals(2664.5508f, fontBBox.getWidth());
-    assertEquals(2784L, offsets[PDPanoseClassification.LENGTH]);
-    assertEquals(2876L, offsets[11]);
-    TTFTable getResult2 = tableMap.get("fpgm");
-    assertEquals(2992L, getResult2.getLength());
-    assertEquals(2995022776L, gsub.getCheckSum());
-    CmapTable cmap = font.getCmap();
-    assertEquals(3, cmap.getCmaps().length);
-    assertEquals(3022L, offsets[PDPanose.LENGTH]);
-    assertEquals(304L, offsets[5]);
-    assertEquals(305339020L, horizontalHeader.getCheckSum());
-    assertEquals(3119, maximumProfile.getMaxSizeOfInstructions());
-    assertEquals(3206L, offsets[13]);
-    assertEquals(3297824582L, getResult.getCheckSum());
-    assertEquals(340417924L, oS2Windows.getCheckSum());
-    assertEquals(3443681063L, cmap.getCheckSum());
-    assertEquals(3496L, offsets[14]);
-    assertEquals(3634L, offsets[15]);
-    assertEquals(3650344429L, header.getCheckSumAdjustment());
-    assertEquals(3776L, offsets[Short.SIZE]);
-    assertEquals(3862L, offsets[17]);
-    assertEquals(3940L, offsets[18]);
-    assertEquals(398004210L, maximumProfile.getCheckSum());
-    assertEquals(4068041462L, header.getCheckSum());
-    assertEquals(4068L, offsets[19]);
-    assertEquals(4280942742L, postScript.getCheckSum());
-    assertEquals(4548, offsets.length);
-    assertEquals(4680L, offsets[20]);
-    assertEquals(4994L, offsets[21]);
-    assertEquals(502L, offsets[6]);
+    assertEquals(19, tableMap.size());
     byte[] byteArray = new byte[51];
     assertEquals(51, font.getOriginalData().read(byteArray));
-    KerningTable kerning = font.getKerning();
-    assertEquals(5472L, kerning.getLength());
-    assertEquals(5644L, offsets[22]);
-    List<NameRecord> nameRecords = naming.getNameRecords();
-    assertEquals(58, nameRecords.size());
-    assertEquals(6276L, offsets[23]);
-    assertEquals(634177065L, font.getHorizontalMetrics().getCheckSum());
-    assertEquals(649950890000L, created.getTimeInMillis());
-    assertEquals(670258L, offsets[4523]);
-    assertEquals(670414L, offsets[4524]);
-    assertEquals(670580L, offsets[4525]);
-    assertEquals(670832L, offsets[4526]);
-    assertEquals(671054L, offsets[4527]);
-    assertEquals(671322L, offsets[4528]);
-    assertEquals(671576L, offsets[4529]);
-    assertEquals(671798L, offsets[4530]);
-    assertEquals(672022L, offsets[4531]);
-    assertEquals(672208L, offsets[4532]);
-    assertEquals(672402L, offsets[4533]);
-    assertEquals(672638L, offsets[4534]);
-    assertEquals(672870L, offsets[4535]);
-    assertEquals(673032L, offsets[4536]);
-    assertEquals(673102L, offsets[4537]);
-    assertEquals(673308L, offsets[4538]);
-    assertEquals(673366L, offsets[4539]);
-    assertEquals(673424L, offsets[4540]);
-    assertEquals(673668L, offsets[4541]);
-    assertEquals(673994L, offsets[4542]);
-    assertEquals(6740, nameRecords.get(56).getStringOffset());
-    assertEquals(6740, nameRecords.get(57).getStringOffset());
-    assertEquals(674150L, offsets[4543]);
-    assertEquals(674240L, offsets[4544]);
-    assertEquals(674286L, offsets[4545]);
-    assertEquals(674330L, offsets[4546]);
-    assertEquals(674394L, glyph.getLength());
-    assertEquals(674394L, offsets[4547]);
-    assertEquals(6874L, offsets[24]);
-    assertEquals(758245357L, naming.getCheckSum());
-    assertEquals(847924L, kerning.getOffset());
-    assertEquals(853396L, naming.getOffset());
-    assertEquals(865304L, postScript.getOffset());
-    assertEquals(865336L, tableMap.get("gasp").getOffset());
-    assertEquals((short) 904, oS2Windows.getAverageCharWidth());
-    assertEquals(929118518L, kerning.getCheckSum());
-    assertEquals(950343211L, getResult2.getCheckSum());
-    assertEquals(990L, offsets[7]);
-    assertSame(glyph, tableMap.get("glyf"));
-    assertArrayEquals(new byte[]{0, 1, 0, 0, 0, 25, 1, 0, 0, 4, 0, -112, 'D', 'S', 'I', 'G', -60, -112, -49, 'F', 0, 15,
-        -44, 'D', 0, 0, '!', -124, 'G', 'D', 'E', 'F', 24, -26, 28, 'f', 0, '\r', '4', Byte.MIN_VALUE, 0, 0, 3, 'X',
-        'G', 'P', 'O', 'S', '2', 17, 23}, byteArray);
+    assertTrue(tableMap.containsKey("OS/2"));
+    assertTrue(tableMap.containsKey("fpgm"));
+    assertTrue(tableMap.containsKey("glyf"));
+    assertTrue(tableMap.containsKey("kern"));
+    assertArrayEquals(
+        new byte[] {
+          0, 1, 0, 0, 0, 19, 1, 0, 0, 4, 0, '0', 'F', 'F', 'T', 'M', 'h', -2, -32, 'f', 0, 2, ' ',
+          -36, 0, 0, 0, 28, 'G', 'D', 'E', 'F', 0, '\'', 2, -49, 0, 2, 15, -84, 0, 0, 0, '&', 'G',
+          'P', 'O', 'S', 'j', 'w', -101
+        },
+        byteArray);
+  }
+
+  /**
+   * Test {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}.
+   *
+   * <ul>
+   *   <li>When {@code +}.
+   *   <li>Then Font Header Modified return {@link GregorianCalendar}.
+   * </ul>
+   *
+   * <p>Method under test: {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}
+   */
+  @Test
+  @DisplayName(
+      "Test getTrueTypeFont(String, PDFontDescriptor); when '+'; then Font Header Modified return GregorianCalendar")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"FontMapping FontMapperImpl.getTrueTypeFont(String, PDFontDescriptor)"})
+  void testGetTrueTypeFont_whenPlusSign_thenFontHeaderModifiedReturnGregorianCalendar()
+      throws IOException {
+    // Arrange, Act and Assert
+    TrueTypeFont font = new FontMapperImpl().getTrueTypeFont("+", null).getFont();
+    assertTrue(font.getHeader().getModified() instanceof GregorianCalendar);
+    Map<String, TTFTable> tableMap = font.getTableMap();
+    assertEquals(19, tableMap.size());
+    assertEquals(3, font.getCmap().getCmaps().length);
+    assertTrue(tableMap.containsKey("fpgm"));
   }
 
   /**
    * Test {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}.
+   *
    * <ul>
-   *   <li>Given {@code black}.</li>
-   *   <li>When {@link PDFontDescriptor#PDFontDescriptor()} FontName is
-   * {@code black}.</li>
+   *   <li>Given {@code black}.
+   *   <li>When {@link PDFontDescriptor#PDFontDescriptor()} FontName is {@code black}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}
+   *
+   * <p>Method under test: {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}
    */
   @Test
-  @DisplayName("Test getFontBoxFont(String, PDFontDescriptor); given 'black'; when PDFontDescriptor() FontName is 'black'")
+  @DisplayName(
+      "Test getFontBoxFont(String, PDFontDescriptor); given 'black'; when PDFontDescriptor() FontName is 'black'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"FontMapping FontMapperImpl.getFontBoxFont(String, PDFontDescriptor)"})
   void testGetFontBoxFont_givenBlack_whenPDFontDescriptorFontNameIsBlack() throws IOException {
     // Arrange
     FontMapperImpl fontMapperImpl = new FontMapperImpl();
@@ -1545,173 +524,42 @@ class FontMapperImplDiffblueTest {
 
     // Act and Assert
     FontBoxFont font = fontMapperImpl.getFontBoxFont("Base Font", fontDescriptor).getFont();
-    HeaderTable header = ((TrueTypeFont) font).getHeader();
-    Calendar created = header.getCreated();
-    assertTrue(created instanceof GregorianCalendar);
-    Calendar modified = header.getModified();
-    assertTrue(modified instanceof GregorianCalendar);
-    Map<String, TTFTable> tableMap = ((TrueTypeFont) font).getTableMap();
-    assertEquals(25, tableMap.size());
-    TTFTable getResult = tableMap.get("DSIG");
-    assertTrue(getResult instanceof DigitalSignatureTable);
     assertTrue(font instanceof TrueTypeFont);
-    NamingTable naming = ((TrueTypeFont) font).getNaming();
-    List<NameRecord> nameRecords = naming.getNameRecords();
-    assertEquals(83, nameRecords.size());
-    NameRecord getResult2 = nameRecords.get(82);
-    assertEquals("Arial Gras", getResult2.getString());
-    assertEquals("Arial-BoldMT", font.getName());
-    assertEquals("Arial-BoldMT", naming.getPostScriptName());
-    assertEquals("Bold", naming.getFontSubFamily());
-    NameRecord getResult3 = nameRecords.get(81);
-    assertEquals("Gras", getResult3.getString());
-    assertEquals((short) -1286, header.getXMin());
-    HorizontalHeaderTable horizontalHeader = ((TrueTypeFont) font).getHorizontalHeader();
-    assertEquals((short) -1286, horizontalHeader.getMinLeftSideBearing());
-    BoundingBox fontBBox = font.getFontBBox();
-    assertEquals(-376.46484f, fontBBox.getLowerLeftY());
-    assertEquals(-627.9297f, fontBBox.getLowerLeftX());
-    assertEquals((short) -771, header.getYMin());
-    assertEquals(1, header.getMacStyle());
-    assertEquals(1, getResult3.getPlatformEncodingId());
-    assertEquals(1, getResult2.getPlatformEncodingId());
-    assertEquals(1055.6641f, fontBBox.getUpperRightY());
-    KerningTable kerning = ((TrueTypeFont) font).getKerning();
-    assertEquals(1095716573L, kerning.getCheckSum());
-    TTFTable getResult4 = tableMap.get("gasp");
-    assertEquals(1114121L, getResult4.getCheckSum());
-    assertEquals(11229, getResult3.getStringOffset());
-    assertEquals(11237, getResult2.getStringOffset());
-    assertEquals(12719L, naming.getLength());
-    assertEquals(1382640652L, getResult.getCheckSum());
-    IndexToLocationTable indexToLocation = ((TrueTypeFont) font).getIndexToLocation();
-    assertEquals(1425008538L, indexToLocation.getCheckSum());
-    assertEquals(1432.1289f, fontBBox.getHeight());
-    OS2WindowsMetricsTable oS2Windows = ((TrueTypeFont) font).getOS2Windows();
-    assertEquals(1466, oS2Windows.getCapHeight());
-    MaximumProfileTable maximumProfile = ((TrueTypeFont) font).getMaximumProfile();
-    assertEquals(148, maximumProfile.getMaxCompositePoints());
-    assertEquals(155664L, indexToLocation.getOffset());
-    long[] offsets = indexToLocation.getOffsets();
-    assertEquals(1584L, offsets[8]);
-    TTFTable getResult5 = tableMap.get("fpgm");
-    assertEquals(1598L, getResult5.getLength());
-    assertEquals(1636646396000L, modified.getTimeInMillis());
-    GlyphTable glyph = ((TrueTypeFont) font).getGlyph();
-    assertEquals(173856L, glyph.getOffset());
-    assertEquals(1867, maximumProfile.getMaxStackElements());
-    assertEquals(1942L, offsets[9]);
-    assertEquals(2, getResult3.getNameId());
-    assertEquals(20, getResult2.getStringLength());
-    assertEquals(2126814685L, glyph.getCheckSum());
-    PostScriptTable postScript = ((TrueTypeFont) font).getPostScript();
-    assertEquals((short) 215, postScript.getUnderlineThickness());
-    assertEquals((short) 2162, header.getYMax());
-    assertEquals(2376L, offsets[PDPanoseClassification.LENGTH]);
-    assertEquals(2472L, offsets[11]);
-    assertEquals(2610L, offsets[PDPanose.LENGTH]);
-    assertEquals(2627.9297f, fontBBox.getWidth());
-    assertEquals(2748L, offsets[13]);
-    assertEquals(282L, offsets[5]);
-    assertEquals(3, getResult3.getPlatformId());
-    assertEquals(3, getResult2.getPlatformId());
-    assertEquals(3056L, offsets[14]);
-    assertEquals(3084, getResult3.getLanguageId());
-    assertEquals(3084, getResult2.getLanguageId());
-    assertEquals(310254220L, horizontalHeader.getCheckSum());
-    assertEquals(3123122598L, getResult5.getCheckSum());
-    assertEquals(3180L, offsets[15]);
-    assertEquals(3292L, offsets[Short.SIZE]);
-    assertEquals(3370L, offsets[17]);
-    assertEquals(3432L, offsets[18]);
-    assertEquals(3443287835L, ((TrueTypeFont) font).getCmap().getCheckSum());
-    assertEquals(3518L, offsets[19]);
-    assertEquals(360013488L, oS2Windows.getCheckSum());
-    assertEquals(3683418909L, ((TrueTypeFont) font).getHorizontalMetrics().getCheckSum());
-    assertEquals(3778L, offsets[20]);
-    assertEquals(3908L, offsets[21]);
-    assertEquals(4, getResult2.getNameId());
-    assertEquals(4072896406L, header.getCheckSum());
-    assertEquals(4280942807L, postScript.getCheckSum());
-    assertEquals(431756686L, maximumProfile.getCheckSum());
-    assertEquals(4330L, offsets[22]);
-    assertEquals(442L, offsets[6]);
-    assertEquals(4548, offsets.length);
-    assertEquals(456709493L, naming.getCheckSum());
-    assertEquals(4597, maximumProfile.getMaxSizeOfInstructions());
-    assertEquals(4674L, offsets[23]);
-    assertEquals(47, maximumProfile.getMaxStorage());
-    assertEquals(4956L, offsets[24]);
+    assertEquals("LiberationSans-Bold", font.getName());
+    assertEquals(137052L, ((TrueTypeFont) font).getOriginalDataSize());
+    Map<String, TTFTable> tableMap = ((TrueTypeFont) font).getTableMap();
+    assertEquals(19, tableMap.size());
     byte[] byteArray = new byte[51];
     assertEquals(51, ((TrueTypeFont) font).getOriginalData().read(byteArray));
-    assertEquals(5466L, kerning.getLength());
-    assertEquals(6, maximumProfile.getMaxCompositeContours());
-    GlyphSubstitutionTable gsub = ((TrueTypeFont) font).getGsub();
-    assertEquals(610281544L, gsub.getCheckSum());
-    assertEquals(619938L, offsets[4523]);
-    assertEquals(620100L, offsets[4524]);
-    assertEquals(620274L, offsets[4525]);
-    assertEquals(620508L, offsets[4526]);
-    assertEquals(620724L, offsets[4527]);
-    assertEquals(620990L, offsets[4528]);
-    assertEquals(621258L, offsets[4529]);
-    assertEquals(621488L, offsets[4530]);
-    assertEquals(621710L, offsets[4531]);
-    assertEquals(621902L, offsets[4532]);
-    assertEquals(622116L, offsets[4533]);
-    assertEquals(622354L, offsets[4534]);
-    assertEquals(622584L, offsets[4535]);
-    assertEquals(622734L, offsets[4536]);
-    assertEquals(622806L, offsets[4537]);
-    assertEquals(623000L, offsets[4538]);
-    assertEquals(623060L, offsets[4539]);
-    assertEquals(623122L, offsets[4540]);
-    assertEquals(623368L, offsets[4541]);
-    assertEquals(623728L, offsets[4542]);
-    assertEquals(623886L, offsets[4543]);
-    assertEquals(623966L, offsets[4544]);
-    assertEquals(624012L, offsets[4545]);
-    assertEquals(624056L, offsets[4546]);
-    assertEquals(624130L, glyph.getLength());
-    assertEquals(624130L, offsets[4547]);
-    assertEquals(649956253000L, created.getTimeInMillis());
-    assertEquals(700, oS2Windows.getWeightClass());
-    assertEquals(722, maximumProfile.getMaxPoints());
-    assertEquals(797988L, kerning.getOffset());
-    byte[] panose = oS2Windows.getPanose();
-    assertEquals((byte) 7, panose[2]);
-    assertEquals(8, getResult3.getStringLength());
-    assertEquals(803456L, naming.getOffset());
-    assertEquals(816176L, postScript.getOffset());
-    assertEquals(816208L, getResult4.getOffset());
-    assertEquals(86, maximumProfile.getMaxFunctionDefs());
-    assertEquals(904L, offsets[7]);
-    assertEquals(938983416L, header.getCheckSumAdjustment());
-    assertEquals(947748L, gsub.getOffset());
-    assertEquals((short) 980, oS2Windows.getAverageCharWidth());
-    assertEquals(981628L, getResult.getOffset());
-    assertEquals(990208L, ((TrueTypeFont) font).getOriginalDataSize());
+    assertTrue(tableMap.containsKey("OS/2"));
+    assertTrue(tableMap.containsKey("fpgm"));
     assertTrue(tableMap.containsKey("glyf"));
-    assertEquals(Integer.SIZE, oS2Windows.getFsSelection());
-    assertEquals(PDPanoseClassification.LENGTH, panose.length);
-    assertArrayEquals(new byte[]{0, 1, 0, 0, 0, 25, 1, 0, 0, 4, 0, -112, 'D', 'S', 'I', 'G', 'R', 'i', 'l', '\f', 0, 14,
-        -6, '|', 0, 0, '!', -124, 'G', 'D', 'E', 'F', 24, -26, 28, 'f', 0, '\f', 't', -104, 0, 0, 3, 'X', 'G', 'P', 'O',
-        'S', -67, -15, -101}, byteArray);
+    assertTrue(tableMap.containsKey("kern"));
+    assertArrayEquals(
+        new byte[] {
+          0, 1, 0, 0, 0, 19, 1, 0, 0, 4, 0, '0', 'F', 'F', 'T', 'M', 'h', -2, -32, -92, 0, 2, 23,
+          '@', 0, 0, 0, 28, 'G', 'D', 'E', 'F', 0, '\'', 2, -49, 0, 2, 6, '|', 0, 0, 0, '&', 'G',
+          'P', 'O', 'S', -43, '(', -15
+        },
+        byteArray);
   }
 
   /**
    * Test {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}.
+   *
    * <ul>
-   *   <li>Given {@code bold}.</li>
-   *   <li>When {@link PDFontDescriptor#PDFontDescriptor()} FontName is
-   * {@code bold}.</li>
+   *   <li>Given {@code bold}.
+   *   <li>When {@link PDFontDescriptor#PDFontDescriptor()} FontName is {@code bold}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}
+   *
+   * <p>Method under test: {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}
    */
   @Test
-  @DisplayName("Test getFontBoxFont(String, PDFontDescriptor); given 'bold'; when PDFontDescriptor() FontName is 'bold'")
+  @DisplayName(
+      "Test getFontBoxFont(String, PDFontDescriptor); given 'bold'; when PDFontDescriptor() FontName is 'bold'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"FontMapping FontMapperImpl.getFontBoxFont(String, PDFontDescriptor)"})
   void testGetFontBoxFont_givenBold_whenPDFontDescriptorFontNameIsBold() throws IOException {
     // Arrange
     FontMapperImpl fontMapperImpl = new FontMapperImpl();
@@ -1721,173 +569,42 @@ class FontMapperImplDiffblueTest {
 
     // Act and Assert
     FontBoxFont font = fontMapperImpl.getFontBoxFont("Base Font", fontDescriptor).getFont();
-    HeaderTable header = ((TrueTypeFont) font).getHeader();
-    Calendar created = header.getCreated();
-    assertTrue(created instanceof GregorianCalendar);
-    Calendar modified = header.getModified();
-    assertTrue(modified instanceof GregorianCalendar);
-    Map<String, TTFTable> tableMap = ((TrueTypeFont) font).getTableMap();
-    assertEquals(25, tableMap.size());
-    TTFTable getResult = tableMap.get("DSIG");
-    assertTrue(getResult instanceof DigitalSignatureTable);
     assertTrue(font instanceof TrueTypeFont);
-    NamingTable naming = ((TrueTypeFont) font).getNaming();
-    List<NameRecord> nameRecords = naming.getNameRecords();
-    assertEquals(83, nameRecords.size());
-    NameRecord getResult2 = nameRecords.get(82);
-    assertEquals("Arial Gras", getResult2.getString());
-    assertEquals("Arial-BoldMT", font.getName());
-    assertEquals("Arial-BoldMT", naming.getPostScriptName());
-    assertEquals("Bold", naming.getFontSubFamily());
-    NameRecord getResult3 = nameRecords.get(81);
-    assertEquals("Gras", getResult3.getString());
-    assertEquals((short) -1286, header.getXMin());
-    HorizontalHeaderTable horizontalHeader = ((TrueTypeFont) font).getHorizontalHeader();
-    assertEquals((short) -1286, horizontalHeader.getMinLeftSideBearing());
-    BoundingBox fontBBox = font.getFontBBox();
-    assertEquals(-376.46484f, fontBBox.getLowerLeftY());
-    assertEquals(-627.9297f, fontBBox.getLowerLeftX());
-    assertEquals((short) -771, header.getYMin());
-    assertEquals(1, header.getMacStyle());
-    assertEquals(1, getResult3.getPlatformEncodingId());
-    assertEquals(1, getResult2.getPlatformEncodingId());
-    assertEquals(1055.6641f, fontBBox.getUpperRightY());
-    KerningTable kerning = ((TrueTypeFont) font).getKerning();
-    assertEquals(1095716573L, kerning.getCheckSum());
-    TTFTable getResult4 = tableMap.get("gasp");
-    assertEquals(1114121L, getResult4.getCheckSum());
-    assertEquals(11229, getResult3.getStringOffset());
-    assertEquals(11237, getResult2.getStringOffset());
-    assertEquals(12719L, naming.getLength());
-    assertEquals(1382640652L, getResult.getCheckSum());
-    IndexToLocationTable indexToLocation = ((TrueTypeFont) font).getIndexToLocation();
-    assertEquals(1425008538L, indexToLocation.getCheckSum());
-    assertEquals(1432.1289f, fontBBox.getHeight());
-    OS2WindowsMetricsTable oS2Windows = ((TrueTypeFont) font).getOS2Windows();
-    assertEquals(1466, oS2Windows.getCapHeight());
-    MaximumProfileTable maximumProfile = ((TrueTypeFont) font).getMaximumProfile();
-    assertEquals(148, maximumProfile.getMaxCompositePoints());
-    assertEquals(155664L, indexToLocation.getOffset());
-    long[] offsets = indexToLocation.getOffsets();
-    assertEquals(1584L, offsets[8]);
-    TTFTable getResult5 = tableMap.get("fpgm");
-    assertEquals(1598L, getResult5.getLength());
-    assertEquals(1636646396000L, modified.getTimeInMillis());
-    GlyphTable glyph = ((TrueTypeFont) font).getGlyph();
-    assertEquals(173856L, glyph.getOffset());
-    assertEquals(1867, maximumProfile.getMaxStackElements());
-    assertEquals(1942L, offsets[9]);
-    assertEquals(2, getResult3.getNameId());
-    assertEquals(20, getResult2.getStringLength());
-    assertEquals(2126814685L, glyph.getCheckSum());
-    PostScriptTable postScript = ((TrueTypeFont) font).getPostScript();
-    assertEquals((short) 215, postScript.getUnderlineThickness());
-    assertEquals((short) 2162, header.getYMax());
-    assertEquals(2376L, offsets[PDPanoseClassification.LENGTH]);
-    assertEquals(2472L, offsets[11]);
-    assertEquals(2610L, offsets[PDPanose.LENGTH]);
-    assertEquals(2627.9297f, fontBBox.getWidth());
-    assertEquals(2748L, offsets[13]);
-    assertEquals(282L, offsets[5]);
-    assertEquals(3, getResult3.getPlatformId());
-    assertEquals(3, getResult2.getPlatformId());
-    assertEquals(3056L, offsets[14]);
-    assertEquals(3084, getResult3.getLanguageId());
-    assertEquals(3084, getResult2.getLanguageId());
-    assertEquals(310254220L, horizontalHeader.getCheckSum());
-    assertEquals(3123122598L, getResult5.getCheckSum());
-    assertEquals(3180L, offsets[15]);
-    assertEquals(3292L, offsets[Short.SIZE]);
-    assertEquals(3370L, offsets[17]);
-    assertEquals(3432L, offsets[18]);
-    assertEquals(3443287835L, ((TrueTypeFont) font).getCmap().getCheckSum());
-    assertEquals(3518L, offsets[19]);
-    assertEquals(360013488L, oS2Windows.getCheckSum());
-    assertEquals(3683418909L, ((TrueTypeFont) font).getHorizontalMetrics().getCheckSum());
-    assertEquals(3778L, offsets[20]);
-    assertEquals(3908L, offsets[21]);
-    assertEquals(4, getResult2.getNameId());
-    assertEquals(4072896406L, header.getCheckSum());
-    assertEquals(4280942807L, postScript.getCheckSum());
-    assertEquals(431756686L, maximumProfile.getCheckSum());
-    assertEquals(4330L, offsets[22]);
-    assertEquals(442L, offsets[6]);
-    assertEquals(4548, offsets.length);
-    assertEquals(456709493L, naming.getCheckSum());
-    assertEquals(4597, maximumProfile.getMaxSizeOfInstructions());
-    assertEquals(4674L, offsets[23]);
-    assertEquals(47, maximumProfile.getMaxStorage());
-    assertEquals(4956L, offsets[24]);
+    assertEquals("LiberationSans-Bold", font.getName());
+    assertEquals(137052L, ((TrueTypeFont) font).getOriginalDataSize());
+    Map<String, TTFTable> tableMap = ((TrueTypeFont) font).getTableMap();
+    assertEquals(19, tableMap.size());
     byte[] byteArray = new byte[51];
     assertEquals(51, ((TrueTypeFont) font).getOriginalData().read(byteArray));
-    assertEquals(5466L, kerning.getLength());
-    assertEquals(6, maximumProfile.getMaxCompositeContours());
-    GlyphSubstitutionTable gsub = ((TrueTypeFont) font).getGsub();
-    assertEquals(610281544L, gsub.getCheckSum());
-    assertEquals(619938L, offsets[4523]);
-    assertEquals(620100L, offsets[4524]);
-    assertEquals(620274L, offsets[4525]);
-    assertEquals(620508L, offsets[4526]);
-    assertEquals(620724L, offsets[4527]);
-    assertEquals(620990L, offsets[4528]);
-    assertEquals(621258L, offsets[4529]);
-    assertEquals(621488L, offsets[4530]);
-    assertEquals(621710L, offsets[4531]);
-    assertEquals(621902L, offsets[4532]);
-    assertEquals(622116L, offsets[4533]);
-    assertEquals(622354L, offsets[4534]);
-    assertEquals(622584L, offsets[4535]);
-    assertEquals(622734L, offsets[4536]);
-    assertEquals(622806L, offsets[4537]);
-    assertEquals(623000L, offsets[4538]);
-    assertEquals(623060L, offsets[4539]);
-    assertEquals(623122L, offsets[4540]);
-    assertEquals(623368L, offsets[4541]);
-    assertEquals(623728L, offsets[4542]);
-    assertEquals(623886L, offsets[4543]);
-    assertEquals(623966L, offsets[4544]);
-    assertEquals(624012L, offsets[4545]);
-    assertEquals(624056L, offsets[4546]);
-    assertEquals(624130L, glyph.getLength());
-    assertEquals(624130L, offsets[4547]);
-    assertEquals(649956253000L, created.getTimeInMillis());
-    assertEquals(700, oS2Windows.getWeightClass());
-    assertEquals(722, maximumProfile.getMaxPoints());
-    assertEquals(797988L, kerning.getOffset());
-    byte[] panose = oS2Windows.getPanose();
-    assertEquals((byte) 7, panose[2]);
-    assertEquals(8, getResult3.getStringLength());
-    assertEquals(803456L, naming.getOffset());
-    assertEquals(816176L, postScript.getOffset());
-    assertEquals(816208L, getResult4.getOffset());
-    assertEquals(86, maximumProfile.getMaxFunctionDefs());
-    assertEquals(904L, offsets[7]);
-    assertEquals(938983416L, header.getCheckSumAdjustment());
-    assertEquals(947748L, gsub.getOffset());
-    assertEquals((short) 980, oS2Windows.getAverageCharWidth());
-    assertEquals(981628L, getResult.getOffset());
-    assertEquals(990208L, ((TrueTypeFont) font).getOriginalDataSize());
+    assertTrue(tableMap.containsKey("OS/2"));
+    assertTrue(tableMap.containsKey("fpgm"));
     assertTrue(tableMap.containsKey("glyf"));
-    assertEquals(Integer.SIZE, oS2Windows.getFsSelection());
-    assertEquals(PDPanoseClassification.LENGTH, panose.length);
-    assertArrayEquals(new byte[]{0, 1, 0, 0, 0, 25, 1, 0, 0, 4, 0, -112, 'D', 'S', 'I', 'G', 'R', 'i', 'l', '\f', 0, 14,
-        -6, '|', 0, 0, '!', -124, 'G', 'D', 'E', 'F', 24, -26, 28, 'f', 0, '\f', 't', -104, 0, 0, 3, 'X', 'G', 'P', 'O',
-        'S', -67, -15, -101}, byteArray);
+    assertTrue(tableMap.containsKey("kern"));
+    assertArrayEquals(
+        new byte[] {
+          0, 1, 0, 0, 0, 19, 1, 0, 0, 4, 0, '0', 'F', 'F', 'T', 'M', 'h', -2, -32, -92, 0, 2, 23,
+          '@', 0, 0, 0, 28, 'G', 'D', 'E', 'F', 0, '\'', 2, -49, 0, 2, 6, '|', 0, 0, 0, '&', 'G',
+          'P', 'O', 'S', -43, '(', -15
+        },
+        byteArray);
   }
 
   /**
    * Test {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}.
+   *
    * <ul>
-   *   <li>Given {@code -}.</li>
-   *   <li>When {@link PDFontDescriptor#PDFontDescriptor()} FontName is
-   * {@code -}.</li>
+   *   <li>Given {@code -}.
+   *   <li>When {@link PDFontDescriptor#PDFontDescriptor()} FontName is {@code -}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}
+   *
+   * <p>Method under test: {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}
    */
   @Test
-  @DisplayName("Test getFontBoxFont(String, PDFontDescriptor); given '-'; when PDFontDescriptor() FontName is '-'")
+  @DisplayName(
+      "Test getFontBoxFont(String, PDFontDescriptor); given '-'; when PDFontDescriptor() FontName is '-'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"FontMapping FontMapperImpl.getFontBoxFont(String, PDFontDescriptor)"})
   void testGetFontBoxFont_givenDash_whenPDFontDescriptorFontNameIsDash() throws IOException {
     // Arrange
     FontMapperImpl fontMapperImpl = new FontMapperImpl();
@@ -1897,147 +614,111 @@ class FontMapperImplDiffblueTest {
 
     // Act and Assert
     FontBoxFont font = fontMapperImpl.getFontBoxFont("Base Font", fontDescriptor).getFont();
-    HeaderTable header = ((TrueTypeFont) font).getHeader();
-    Calendar created = header.getCreated();
-    assertTrue(created instanceof GregorianCalendar);
-    Calendar modified = header.getModified();
-    assertTrue(modified instanceof GregorianCalendar);
-    Map<String, TTFTable> tableMap = ((TrueTypeFont) font).getTableMap();
-    assertEquals(25, tableMap.size());
-    TTFTable getResult = tableMap.get("DSIG");
-    assertTrue(getResult instanceof DigitalSignatureTable);
     assertTrue(font instanceof TrueTypeFont);
-    assertEquals("ArialMT", font.getName());
-    NamingTable naming = ((TrueTypeFont) font).getNaming();
-    assertEquals("ArialMT", naming.getPostScriptName());
-    assertEquals((short) -1361, header.getXMin());
-    HorizontalHeaderTable horizontalHeader = ((TrueTypeFont) font).getHorizontalHeader();
-    assertEquals((short) -1361, horizontalHeader.getMinLeftSideBearing());
-    BoundingBox fontBBox = font.getFontBBox();
-    assertEquals(-324.70703f, fontBBox.getLowerLeftY());
-    assertEquals(-664.5508f, fontBBox.getLowerLeftX());
-    assertEquals((short) -665, header.getYMin());
-    GlyphSubstitutionTable gsub = ((TrueTypeFont) font).getGsub();
-    assertEquals(1003500L, gsub.getOffset());
-    assertEquals(1037380L, getResult.getOffset());
-    assertEquals(1045960L, ((TrueTypeFont) font).getOriginalDataSize());
-    assertEquals(11906L, naming.getLength());
-    MaximumProfileTable maximumProfile = ((TrueTypeFont) font).getMaximumProfile();
-    assertEquals(1303, maximumProfile.getMaxStackElements());
-    assertEquals(1364.2578f, fontBBox.getHeight());
-    OS2WindowsMetricsTable oS2Windows = ((TrueTypeFont) font).getOS2Windows();
-    assertEquals(1467, oS2Windows.getCapHeight());
-    PostScriptTable postScript = ((TrueTypeFont) font).getPostScript();
-    assertEquals((short) 150, postScript.getUnderlineThickness());
-    IndexToLocationTable indexToLocation = ((TrueTypeFont) font).getIndexToLocation();
-    assertEquals(155336L, indexToLocation.getOffset());
-    assertEquals(1613539914L, indexToLocation.getCheckSum());
-    assertEquals(1636646406000L, modified.getTimeInMillis());
-    long[] offsets = indexToLocation.getOffsets();
-    assertEquals(1730L, offsets[8]);
-    GlyphTable glyph = ((TrueTypeFont) font).getGlyph();
-    assertEquals(173528L, glyph.getOffset());
-    assertEquals(202, maximumProfile.getMaxCompositePoints());
-    assertEquals(2075, header.getFlags());
-    assertEquals(2204L, offsets[9]);
-    assertEquals(221240180L, glyph.getCheckSum());
-    assertEquals(2664.5508f, fontBBox.getWidth());
-    assertEquals(2784L, offsets[PDPanoseClassification.LENGTH]);
-    assertEquals(2876L, offsets[11]);
-    TTFTable getResult2 = tableMap.get("fpgm");
-    assertEquals(2992L, getResult2.getLength());
-    assertEquals(2995022776L, gsub.getCheckSum());
-    CmapTable cmap = ((TrueTypeFont) font).getCmap();
-    assertEquals(3, cmap.getCmaps().length);
-    assertEquals(3022L, offsets[PDPanose.LENGTH]);
-    assertEquals(304L, offsets[5]);
-    assertEquals(305339020L, horizontalHeader.getCheckSum());
-    assertEquals(3119, maximumProfile.getMaxSizeOfInstructions());
-    assertEquals(3206L, offsets[13]);
-    assertEquals(3297824582L, getResult.getCheckSum());
-    assertEquals(340417924L, oS2Windows.getCheckSum());
-    assertEquals(3443681063L, cmap.getCheckSum());
-    assertEquals(3496L, offsets[14]);
-    assertEquals(3634L, offsets[15]);
-    assertEquals(3650344429L, header.getCheckSumAdjustment());
-    assertEquals(3776L, offsets[Short.SIZE]);
-    assertEquals(3862L, offsets[17]);
-    assertEquals(3940L, offsets[18]);
-    assertEquals(398004210L, maximumProfile.getCheckSum());
-    assertEquals(4068041462L, header.getCheckSum());
-    assertEquals(4068L, offsets[19]);
-    assertEquals(4280942742L, postScript.getCheckSum());
-    assertEquals(4548, offsets.length);
-    assertEquals(4680L, offsets[20]);
-    assertEquals(4994L, offsets[21]);
-    assertEquals(502L, offsets[6]);
+    assertEquals("LiberationSans", font.getName());
+    assertEquals(139512L, ((TrueTypeFont) font).getOriginalDataSize());
+    Map<String, TTFTable> tableMap = ((TrueTypeFont) font).getTableMap();
+    assertEquals(19, tableMap.size());
     byte[] byteArray = new byte[51];
     assertEquals(51, ((TrueTypeFont) font).getOriginalData().read(byteArray));
-    KerningTable kerning = ((TrueTypeFont) font).getKerning();
-    assertEquals(5472L, kerning.getLength());
-    assertEquals(5644L, offsets[22]);
-    List<NameRecord> nameRecords = naming.getNameRecords();
-    assertEquals(58, nameRecords.size());
-    assertEquals(6276L, offsets[23]);
-    assertEquals(634177065L, ((TrueTypeFont) font).getHorizontalMetrics().getCheckSum());
-    assertEquals(649950890000L, created.getTimeInMillis());
-    assertEquals(670258L, offsets[4523]);
-    assertEquals(670414L, offsets[4524]);
-    assertEquals(670580L, offsets[4525]);
-    assertEquals(670832L, offsets[4526]);
-    assertEquals(671054L, offsets[4527]);
-    assertEquals(671322L, offsets[4528]);
-    assertEquals(671576L, offsets[4529]);
-    assertEquals(671798L, offsets[4530]);
-    assertEquals(672022L, offsets[4531]);
-    assertEquals(672208L, offsets[4532]);
-    assertEquals(672402L, offsets[4533]);
-    assertEquals(672638L, offsets[4534]);
-    assertEquals(672870L, offsets[4535]);
-    assertEquals(673032L, offsets[4536]);
-    assertEquals(673102L, offsets[4537]);
-    assertEquals(673308L, offsets[4538]);
-    assertEquals(673366L, offsets[4539]);
-    assertEquals(673424L, offsets[4540]);
-    assertEquals(673668L, offsets[4541]);
-    assertEquals(673994L, offsets[4542]);
-    assertEquals(6740, nameRecords.get(56).getStringOffset());
-    assertEquals(6740, nameRecords.get(57).getStringOffset());
-    assertEquals(674150L, offsets[4543]);
-    assertEquals(674240L, offsets[4544]);
-    assertEquals(674286L, offsets[4545]);
-    assertEquals(674330L, offsets[4546]);
-    assertEquals(674394L, glyph.getLength());
-    assertEquals(674394L, offsets[4547]);
-    assertEquals(6874L, offsets[24]);
-    assertEquals(758245357L, naming.getCheckSum());
-    assertEquals(847924L, kerning.getOffset());
-    assertEquals(853396L, naming.getOffset());
-    assertEquals(865304L, postScript.getOffset());
-    assertEquals(865336L, tableMap.get("gasp").getOffset());
-    assertEquals((short) 904, oS2Windows.getAverageCharWidth());
-    assertEquals(929118518L, kerning.getCheckSum());
-    assertEquals(950343211L, getResult2.getCheckSum());
-    assertEquals(990L, offsets[7]);
-    assertSame(glyph, tableMap.get("glyf"));
-    assertArrayEquals(new byte[]{0, 1, 0, 0, 0, 25, 1, 0, 0, 4, 0, -112, 'D', 'S', 'I', 'G', -60, -112, -49, 'F', 0, 15,
-        -44, 'D', 0, 0, '!', -124, 'G', 'D', 'E', 'F', 24, -26, 28, 'f', 0, '\r', '4', Byte.MIN_VALUE, 0, 0, 3, 'X',
-        'G', 'P', 'O', 'S', '2', 17, 23}, byteArray);
+    assertTrue(tableMap.containsKey("OS/2"));
+    assertTrue(tableMap.containsKey("fpgm"));
+    assertTrue(tableMap.containsKey("glyf"));
+    assertTrue(tableMap.containsKey("kern"));
+    assertArrayEquals(
+        new byte[] {
+          0, 1, 0, 0, 0, 19, 1, 0, 0, 4, 0, '0', 'F', 'F', 'T', 'M', 'h', -2, -32, 'f', 0, 2, ' ',
+          -36, 0, 0, 0, 28, 'G', 'D', 'E', 'F', 0, '\'', 2, -49, 0, 2, 15, -84, 0, 0, 0, '&', 'G',
+          'P', 'O', 'S', 'j', 'w', -101
+        },
+        byteArray);
   }
 
   /**
    * Test {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}.
+   *
    * <ul>
-   *   <li>Given {@code heavy}.</li>
-   *   <li>When {@link PDFontDescriptor#PDFontDescriptor()} FontName is
-   * {@code heavy}.</li>
+   *   <li>Given {@link FontMapperImpl} (default constructor) addSubstitute {@code Times-Roman} and
+   *       {@code +}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}
+   *
+   * <p>Method under test: {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}
    */
   @Test
-  @DisplayName("Test getFontBoxFont(String, PDFontDescriptor); given 'heavy'; when PDFontDescriptor() FontName is 'heavy'")
+  @DisplayName(
+      "Test getFontBoxFont(String, PDFontDescriptor); given FontMapperImpl (default constructor) addSubstitute 'Times-Roman' and '+'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"FontMapping FontMapperImpl.getFontBoxFont(String, PDFontDescriptor)"})
+  void testGetFontBoxFont_givenFontMapperImplAddSubstituteTimesRomanAndPlusSign()
+      throws IOException {
+    // Arrange
+    FontMapperImpl fontMapperImpl = new FontMapperImpl();
+    fontMapperImpl.addSubstitute("Times-Roman", "+");
+
+    // Act and Assert
+    FontBoxFont font = fontMapperImpl.getFontBoxFont(null, null).getFont();
+    assertTrue(((TrueTypeFont) font).getHeader().getModified() instanceof GregorianCalendar);
+    assertTrue(font instanceof TrueTypeFont);
+    Map<String, TTFTable> tableMap = ((TrueTypeFont) font).getTableMap();
+    assertEquals(19, tableMap.size());
+    assertEquals(3, ((TrueTypeFont) font).getCmap().getCmaps().length);
+    assertTrue(tableMap.containsKey("fpgm"));
+  }
+
+  /**
+   * Test {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}.
+   *
+   * <ul>
+   *   <li>Given {@link FontMapperImpl} (default constructor).
+   *   <li>When {@code Helvetica}.
+   *   <li>Then return not Fallback.
+   * </ul>
+   *
+   * <p>Method under test: {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}
+   */
+  @Test
+  @DisplayName(
+      "Test getFontBoxFont(String, PDFontDescriptor); given FontMapperImpl (default constructor); when 'Helvetica'; then return not Fallback")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"FontMapping FontMapperImpl.getFontBoxFont(String, PDFontDescriptor)"})
+  void testGetFontBoxFont_givenFontMapperImpl_whenHelvetica_thenReturnNotFallback()
+      throws IOException {
+    // Arrange
+    FontMapperImpl fontMapperImpl = new FontMapperImpl();
+
+    // Act
+    FontMapping<FontBoxFont> actualFontBoxFont =
+        fontMapperImpl.getFontBoxFont("Helvetica", new PDFontDescriptor());
+
+    // Assert
+    FontBoxFont font = actualFontBoxFont.getFont();
+    assertTrue(((TrueTypeFont) font).getHeader().getModified() instanceof GregorianCalendar);
+    assertTrue(font instanceof TrueTypeFont);
+    Map<String, TTFTable> tableMap = ((TrueTypeFont) font).getTableMap();
+    assertEquals(19, tableMap.size());
+    assertEquals(3, ((TrueTypeFont) font).getCmap().getCmaps().length);
+    assertFalse(actualFontBoxFont.isFallback());
+    assertTrue(tableMap.containsKey("fpgm"));
+  }
+
+  /**
+   * Test {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}.
+   *
+   * <ul>
+   *   <li>Given {@code heavy}.
+   *   <li>When {@link PDFontDescriptor#PDFontDescriptor()} FontName is {@code heavy}.
+   * </ul>
+   *
+   * <p>Method under test: {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}
+   */
+  @Test
+  @DisplayName(
+      "Test getFontBoxFont(String, PDFontDescriptor); given 'heavy'; when PDFontDescriptor() FontName is 'heavy'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"FontMapping FontMapperImpl.getFontBoxFont(String, PDFontDescriptor)"})
   void testGetFontBoxFont_givenHeavy_whenPDFontDescriptorFontNameIsHeavy() throws IOException {
     // Arrange
     FontMapperImpl fontMapperImpl = new FontMapperImpl();
@@ -2047,947 +728,428 @@ class FontMapperImplDiffblueTest {
 
     // Act and Assert
     FontBoxFont font = fontMapperImpl.getFontBoxFont("Base Font", fontDescriptor).getFont();
-    HeaderTable header = ((TrueTypeFont) font).getHeader();
-    Calendar created = header.getCreated();
-    assertTrue(created instanceof GregorianCalendar);
-    Calendar modified = header.getModified();
-    assertTrue(modified instanceof GregorianCalendar);
-    Map<String, TTFTable> tableMap = ((TrueTypeFont) font).getTableMap();
-    assertEquals(25, tableMap.size());
-    TTFTable getResult = tableMap.get("DSIG");
-    assertTrue(getResult instanceof DigitalSignatureTable);
     assertTrue(font instanceof TrueTypeFont);
-    NamingTable naming = ((TrueTypeFont) font).getNaming();
-    List<NameRecord> nameRecords = naming.getNameRecords();
-    assertEquals(83, nameRecords.size());
-    NameRecord getResult2 = nameRecords.get(82);
-    assertEquals("Arial Gras", getResult2.getString());
-    assertEquals("Arial-BoldMT", font.getName());
-    assertEquals("Arial-BoldMT", naming.getPostScriptName());
-    assertEquals("Bold", naming.getFontSubFamily());
-    NameRecord getResult3 = nameRecords.get(81);
-    assertEquals("Gras", getResult3.getString());
-    assertEquals((short) -1286, header.getXMin());
-    HorizontalHeaderTable horizontalHeader = ((TrueTypeFont) font).getHorizontalHeader();
-    assertEquals((short) -1286, horizontalHeader.getMinLeftSideBearing());
-    BoundingBox fontBBox = font.getFontBBox();
-    assertEquals(-376.46484f, fontBBox.getLowerLeftY());
-    assertEquals(-627.9297f, fontBBox.getLowerLeftX());
-    assertEquals((short) -771, header.getYMin());
-    assertEquals(1, header.getMacStyle());
-    assertEquals(1, getResult3.getPlatformEncodingId());
-    assertEquals(1, getResult2.getPlatformEncodingId());
-    assertEquals(1055.6641f, fontBBox.getUpperRightY());
-    KerningTable kerning = ((TrueTypeFont) font).getKerning();
-    assertEquals(1095716573L, kerning.getCheckSum());
-    TTFTable getResult4 = tableMap.get("gasp");
-    assertEquals(1114121L, getResult4.getCheckSum());
-    assertEquals(11229, getResult3.getStringOffset());
-    assertEquals(11237, getResult2.getStringOffset());
-    assertEquals(12719L, naming.getLength());
-    assertEquals(1382640652L, getResult.getCheckSum());
-    IndexToLocationTable indexToLocation = ((TrueTypeFont) font).getIndexToLocation();
-    assertEquals(1425008538L, indexToLocation.getCheckSum());
-    assertEquals(1432.1289f, fontBBox.getHeight());
-    OS2WindowsMetricsTable oS2Windows = ((TrueTypeFont) font).getOS2Windows();
-    assertEquals(1466, oS2Windows.getCapHeight());
-    MaximumProfileTable maximumProfile = ((TrueTypeFont) font).getMaximumProfile();
-    assertEquals(148, maximumProfile.getMaxCompositePoints());
-    assertEquals(155664L, indexToLocation.getOffset());
-    long[] offsets = indexToLocation.getOffsets();
-    assertEquals(1584L, offsets[8]);
-    TTFTable getResult5 = tableMap.get("fpgm");
-    assertEquals(1598L, getResult5.getLength());
-    assertEquals(1636646396000L, modified.getTimeInMillis());
-    GlyphTable glyph = ((TrueTypeFont) font).getGlyph();
-    assertEquals(173856L, glyph.getOffset());
-    assertEquals(1867, maximumProfile.getMaxStackElements());
-    assertEquals(1942L, offsets[9]);
-    assertEquals(2, getResult3.getNameId());
-    assertEquals(20, getResult2.getStringLength());
-    assertEquals(2126814685L, glyph.getCheckSum());
-    PostScriptTable postScript = ((TrueTypeFont) font).getPostScript();
-    assertEquals((short) 215, postScript.getUnderlineThickness());
-    assertEquals((short) 2162, header.getYMax());
-    assertEquals(2376L, offsets[PDPanoseClassification.LENGTH]);
-    assertEquals(2472L, offsets[11]);
-    assertEquals(2610L, offsets[PDPanose.LENGTH]);
-    assertEquals(2627.9297f, fontBBox.getWidth());
-    assertEquals(2748L, offsets[13]);
-    assertEquals(282L, offsets[5]);
-    assertEquals(3, getResult3.getPlatformId());
-    assertEquals(3, getResult2.getPlatformId());
-    assertEquals(3056L, offsets[14]);
-    assertEquals(3084, getResult3.getLanguageId());
-    assertEquals(3084, getResult2.getLanguageId());
-    assertEquals(310254220L, horizontalHeader.getCheckSum());
-    assertEquals(3123122598L, getResult5.getCheckSum());
-    assertEquals(3180L, offsets[15]);
-    assertEquals(3292L, offsets[Short.SIZE]);
-    assertEquals(3370L, offsets[17]);
-    assertEquals(3432L, offsets[18]);
-    assertEquals(3443287835L, ((TrueTypeFont) font).getCmap().getCheckSum());
-    assertEquals(3518L, offsets[19]);
-    assertEquals(360013488L, oS2Windows.getCheckSum());
-    assertEquals(3683418909L, ((TrueTypeFont) font).getHorizontalMetrics().getCheckSum());
-    assertEquals(3778L, offsets[20]);
-    assertEquals(3908L, offsets[21]);
-    assertEquals(4, getResult2.getNameId());
-    assertEquals(4072896406L, header.getCheckSum());
-    assertEquals(4280942807L, postScript.getCheckSum());
-    assertEquals(431756686L, maximumProfile.getCheckSum());
-    assertEquals(4330L, offsets[22]);
-    assertEquals(442L, offsets[6]);
-    assertEquals(4548, offsets.length);
-    assertEquals(456709493L, naming.getCheckSum());
-    assertEquals(4597, maximumProfile.getMaxSizeOfInstructions());
-    assertEquals(4674L, offsets[23]);
-    assertEquals(47, maximumProfile.getMaxStorage());
-    assertEquals(4956L, offsets[24]);
+    assertEquals("LiberationSans-Bold", font.getName());
+    assertEquals(137052L, ((TrueTypeFont) font).getOriginalDataSize());
+    Map<String, TTFTable> tableMap = ((TrueTypeFont) font).getTableMap();
+    assertEquals(19, tableMap.size());
     byte[] byteArray = new byte[51];
     assertEquals(51, ((TrueTypeFont) font).getOriginalData().read(byteArray));
-    assertEquals(5466L, kerning.getLength());
-    assertEquals(6, maximumProfile.getMaxCompositeContours());
-    GlyphSubstitutionTable gsub = ((TrueTypeFont) font).getGsub();
-    assertEquals(610281544L, gsub.getCheckSum());
-    assertEquals(619938L, offsets[4523]);
-    assertEquals(620100L, offsets[4524]);
-    assertEquals(620274L, offsets[4525]);
-    assertEquals(620508L, offsets[4526]);
-    assertEquals(620724L, offsets[4527]);
-    assertEquals(620990L, offsets[4528]);
-    assertEquals(621258L, offsets[4529]);
-    assertEquals(621488L, offsets[4530]);
-    assertEquals(621710L, offsets[4531]);
-    assertEquals(621902L, offsets[4532]);
-    assertEquals(622116L, offsets[4533]);
-    assertEquals(622354L, offsets[4534]);
-    assertEquals(622584L, offsets[4535]);
-    assertEquals(622734L, offsets[4536]);
-    assertEquals(622806L, offsets[4537]);
-    assertEquals(623000L, offsets[4538]);
-    assertEquals(623060L, offsets[4539]);
-    assertEquals(623122L, offsets[4540]);
-    assertEquals(623368L, offsets[4541]);
-    assertEquals(623728L, offsets[4542]);
-    assertEquals(623886L, offsets[4543]);
-    assertEquals(623966L, offsets[4544]);
-    assertEquals(624012L, offsets[4545]);
-    assertEquals(624056L, offsets[4546]);
-    assertEquals(624130L, glyph.getLength());
-    assertEquals(624130L, offsets[4547]);
-    assertEquals(649956253000L, created.getTimeInMillis());
-    assertEquals(700, oS2Windows.getWeightClass());
-    assertEquals(722, maximumProfile.getMaxPoints());
-    assertEquals(797988L, kerning.getOffset());
-    byte[] panose = oS2Windows.getPanose();
-    assertEquals((byte) 7, panose[2]);
-    assertEquals(8, getResult3.getStringLength());
-    assertEquals(803456L, naming.getOffset());
-    assertEquals(816176L, postScript.getOffset());
-    assertEquals(816208L, getResult4.getOffset());
-    assertEquals(86, maximumProfile.getMaxFunctionDefs());
-    assertEquals(904L, offsets[7]);
-    assertEquals(938983416L, header.getCheckSumAdjustment());
-    assertEquals(947748L, gsub.getOffset());
-    assertEquals((short) 980, oS2Windows.getAverageCharWidth());
-    assertEquals(981628L, getResult.getOffset());
-    assertEquals(990208L, ((TrueTypeFont) font).getOriginalDataSize());
-    assertTrue(tableMap.containsKey("glyf"));
-    assertEquals(Integer.SIZE, oS2Windows.getFsSelection());
-    assertEquals(PDPanoseClassification.LENGTH, panose.length);
-    assertArrayEquals(new byte[]{0, 1, 0, 0, 0, 25, 1, 0, 0, 4, 0, -112, 'D', 'S', 'I', 'G', 'R', 'i', 'l', '\f', 0, 14,
-        -6, '|', 0, 0, '!', -124, 'G', 'D', 'E', 'F', 24, -26, 28, 'f', 0, '\f', 't', -104, 0, 0, 3, 'X', 'G', 'P', 'O',
-        'S', -67, -15, -101}, byteArray);
-  }
-
-  /**
-   * Test {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}.
-   * <ul>
-   *   <li>When {@code ,}.</li>
-   *   <li>Then return Font Name is {@code ArialMT}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}
-   */
-  @Test
-  @DisplayName("Test getFontBoxFont(String, PDFontDescriptor); when ','; then return Font Name is 'ArialMT'")
-  void testGetFontBoxFont_whenComma_thenReturnFontNameIsArialMT() throws IOException {
-    // Arrange
-    FontMapperImpl fontMapperImpl = new FontMapperImpl();
-
-    // Act and Assert
-    FontBoxFont font = fontMapperImpl.getFontBoxFont(",", new PDFontDescriptor()).getFont();
-    HeaderTable header = ((TrueTypeFont) font).getHeader();
-    Calendar created = header.getCreated();
-    assertTrue(created instanceof GregorianCalendar);
-    Calendar modified = header.getModified();
-    assertTrue(modified instanceof GregorianCalendar);
-    Map<String, TTFTable> tableMap = ((TrueTypeFont) font).getTableMap();
-    assertEquals(25, tableMap.size());
-    TTFTable getResult = tableMap.get("DSIG");
-    assertTrue(getResult instanceof DigitalSignatureTable);
-    assertTrue(font instanceof TrueTypeFont);
-    assertEquals("ArialMT", font.getName());
-    NamingTable naming = ((TrueTypeFont) font).getNaming();
-    assertEquals("ArialMT", naming.getPostScriptName());
-    assertEquals((short) -1361, header.getXMin());
-    HorizontalHeaderTable horizontalHeader = ((TrueTypeFont) font).getHorizontalHeader();
-    assertEquals((short) -1361, horizontalHeader.getMinLeftSideBearing());
-    BoundingBox fontBBox = font.getFontBBox();
-    assertEquals(-324.70703f, fontBBox.getLowerLeftY());
-    assertEquals(-664.5508f, fontBBox.getLowerLeftX());
-    assertEquals((short) -665, header.getYMin());
-    GlyphSubstitutionTable gsub = ((TrueTypeFont) font).getGsub();
-    assertEquals(1003500L, gsub.getOffset());
-    assertEquals(1037380L, getResult.getOffset());
-    assertEquals(1045960L, ((TrueTypeFont) font).getOriginalDataSize());
-    assertEquals(11906L, naming.getLength());
-    MaximumProfileTable maximumProfile = ((TrueTypeFont) font).getMaximumProfile();
-    assertEquals(1303, maximumProfile.getMaxStackElements());
-    assertEquals(1364.2578f, fontBBox.getHeight());
-    OS2WindowsMetricsTable oS2Windows = ((TrueTypeFont) font).getOS2Windows();
-    assertEquals(1467, oS2Windows.getCapHeight());
-    PostScriptTable postScript = ((TrueTypeFont) font).getPostScript();
-    assertEquals((short) 150, postScript.getUnderlineThickness());
-    IndexToLocationTable indexToLocation = ((TrueTypeFont) font).getIndexToLocation();
-    assertEquals(155336L, indexToLocation.getOffset());
-    assertEquals(1613539914L, indexToLocation.getCheckSum());
-    assertEquals(1636646406000L, modified.getTimeInMillis());
-    long[] offsets = indexToLocation.getOffsets();
-    assertEquals(1730L, offsets[8]);
-    GlyphTable glyph = ((TrueTypeFont) font).getGlyph();
-    assertEquals(173528L, glyph.getOffset());
-    assertEquals(202, maximumProfile.getMaxCompositePoints());
-    assertEquals(2075, header.getFlags());
-    assertEquals(2204L, offsets[9]);
-    assertEquals(221240180L, glyph.getCheckSum());
-    assertEquals(2664.5508f, fontBBox.getWidth());
-    assertEquals(2784L, offsets[PDPanoseClassification.LENGTH]);
-    assertEquals(2876L, offsets[11]);
-    TTFTable getResult2 = tableMap.get("fpgm");
-    assertEquals(2992L, getResult2.getLength());
-    assertEquals(2995022776L, gsub.getCheckSum());
-    CmapTable cmap = ((TrueTypeFont) font).getCmap();
-    assertEquals(3, cmap.getCmaps().length);
-    assertEquals(3022L, offsets[PDPanose.LENGTH]);
-    assertEquals(304L, offsets[5]);
-    assertEquals(305339020L, horizontalHeader.getCheckSum());
-    assertEquals(3119, maximumProfile.getMaxSizeOfInstructions());
-    assertEquals(3206L, offsets[13]);
-    assertEquals(3297824582L, getResult.getCheckSum());
-    assertEquals(340417924L, oS2Windows.getCheckSum());
-    assertEquals(3443681063L, cmap.getCheckSum());
-    assertEquals(3496L, offsets[14]);
-    assertEquals(3634L, offsets[15]);
-    assertEquals(3650344429L, header.getCheckSumAdjustment());
-    assertEquals(3776L, offsets[Short.SIZE]);
-    assertEquals(3862L, offsets[17]);
-    assertEquals(3940L, offsets[18]);
-    assertEquals(398004210L, maximumProfile.getCheckSum());
-    assertEquals(4068041462L, header.getCheckSum());
-    assertEquals(4068L, offsets[19]);
-    assertEquals(4280942742L, postScript.getCheckSum());
-    assertEquals(4548, offsets.length);
-    assertEquals(4680L, offsets[20]);
-    assertEquals(4994L, offsets[21]);
-    assertEquals(502L, offsets[6]);
-    byte[] byteArray = new byte[51];
-    assertEquals(51, ((TrueTypeFont) font).getOriginalData().read(byteArray));
-    KerningTable kerning = ((TrueTypeFont) font).getKerning();
-    assertEquals(5472L, kerning.getLength());
-    assertEquals(5644L, offsets[22]);
-    List<NameRecord> nameRecords = naming.getNameRecords();
-    assertEquals(58, nameRecords.size());
-    assertEquals(6276L, offsets[23]);
-    assertEquals(634177065L, ((TrueTypeFont) font).getHorizontalMetrics().getCheckSum());
-    assertEquals(649950890000L, created.getTimeInMillis());
-    assertEquals(670258L, offsets[4523]);
-    assertEquals(670414L, offsets[4524]);
-    assertEquals(670580L, offsets[4525]);
-    assertEquals(670832L, offsets[4526]);
-    assertEquals(671054L, offsets[4527]);
-    assertEquals(671322L, offsets[4528]);
-    assertEquals(671576L, offsets[4529]);
-    assertEquals(671798L, offsets[4530]);
-    assertEquals(672022L, offsets[4531]);
-    assertEquals(672208L, offsets[4532]);
-    assertEquals(672402L, offsets[4533]);
-    assertEquals(672638L, offsets[4534]);
-    assertEquals(672870L, offsets[4535]);
-    assertEquals(673032L, offsets[4536]);
-    assertEquals(673102L, offsets[4537]);
-    assertEquals(673308L, offsets[4538]);
-    assertEquals(673366L, offsets[4539]);
-    assertEquals(673424L, offsets[4540]);
-    assertEquals(673668L, offsets[4541]);
-    assertEquals(673994L, offsets[4542]);
-    assertEquals(6740, nameRecords.get(56).getStringOffset());
-    assertEquals(6740, nameRecords.get(57).getStringOffset());
-    assertEquals(674150L, offsets[4543]);
-    assertEquals(674240L, offsets[4544]);
-    assertEquals(674286L, offsets[4545]);
-    assertEquals(674330L, offsets[4546]);
-    assertEquals(674394L, glyph.getLength());
-    assertEquals(674394L, offsets[4547]);
-    assertEquals(6874L, offsets[24]);
-    assertEquals(758245357L, naming.getCheckSum());
-    assertEquals(847924L, kerning.getOffset());
-    assertEquals(853396L, naming.getOffset());
-    assertEquals(865304L, postScript.getOffset());
-    assertEquals(865336L, tableMap.get("gasp").getOffset());
-    assertEquals((short) 904, oS2Windows.getAverageCharWidth());
-    assertEquals(929118518L, kerning.getCheckSum());
-    assertEquals(950343211L, getResult2.getCheckSum());
-    assertEquals(990L, offsets[7]);
-    assertSame(glyph, tableMap.get("glyf"));
-    assertArrayEquals(new byte[]{0, 1, 0, 0, 0, 25, 1, 0, 0, 4, 0, -112, 'D', 'S', 'I', 'G', -60, -112, -49, 'F', 0, 15,
-        -44, 'D', 0, 0, '!', -124, 'G', 'D', 'E', 'F', 24, -26, 28, 'f', 0, '\r', '4', Byte.MIN_VALUE, 0, 0, 3, 'X',
-        'G', 'P', 'O', 'S', '2', 17, 23}, byteArray);
-  }
-
-  /**
-   * Test {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}.
-   * <ul>
-   *   <li>When {@code Helvetica}.</li>
-   *   <li>Then return not Fallback.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}
-   */
-  @Test
-  @DisplayName("Test getFontBoxFont(String, PDFontDescriptor); when 'Helvetica'; then return not Fallback")
-  void testGetFontBoxFont_whenHelvetica_thenReturnNotFallback() throws IOException {
-    // Arrange
-    FontMapperImpl fontMapperImpl = new FontMapperImpl();
-
-    // Act
-    FontMapping<FontBoxFont> actualFontBoxFont = fontMapperImpl.getFontBoxFont("Helvetica", new PDFontDescriptor());
-
-    // Assert
-    FontBoxFont font = actualFontBoxFont.getFont();
-    assertTrue(font instanceof TrueTypeFont);
-    Map<String, TTFTable> tableMap = ((TrueTypeFont) font).getTableMap();
-    assertEquals(25, tableMap.size());
-    assertEquals(3, ((TrueTypeFont) font).getCmap().getCmaps().length);
-    assertFalse(actualFontBoxFont.isFallback());
-    assertTrue(tableMap.containsKey("DSIG"));
+    assertTrue(tableMap.containsKey("OS/2"));
     assertTrue(tableMap.containsKey("fpgm"));
-    assertTrue(tableMap.containsKey("gasp"));
+    assertTrue(tableMap.containsKey("glyf"));
+    assertTrue(tableMap.containsKey("kern"));
+    assertArrayEquals(
+        new byte[] {
+          0, 1, 0, 0, 0, 19, 1, 0, 0, 4, 0, '0', 'F', 'F', 'T', 'M', 'h', -2, -32, -92, 0, 2, 23,
+          '@', 0, 0, 0, 28, 'G', 'D', 'E', 'F', 0, '\'', 2, -49, 0, 2, 6, '|', 0, 0, 0, '&', 'G',
+          'P', 'O', 'S', -43, '(', -15
+        },
+        byteArray);
   }
 
   /**
    * Test {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}.
+   *
    * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then return Font Name is {@code ArialMT}.</li>
+   *   <li>When {@code ,}.
+   *   <li>Then Font Header Modified return {@link GregorianCalendar}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}
+   *
+   * <p>Method under test: {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}
    */
   @Test
-  @DisplayName("Test getFontBoxFont(String, PDFontDescriptor); when 'null'; then return Font Name is 'ArialMT'")
-  void testGetFontBoxFont_whenNull_thenReturnFontNameIsArialMT() throws IOException {
-    // Arrange
-    FontMapperImpl fontMapperImpl = new FontMapperImpl();
-
-    // Act and Assert
-    FontBoxFont font = fontMapperImpl.getFontBoxFont(null, new PDFontDescriptor()).getFont();
-    HeaderTable header = ((TrueTypeFont) font).getHeader();
-    Calendar created = header.getCreated();
-    assertTrue(created instanceof GregorianCalendar);
-    Calendar modified = header.getModified();
-    assertTrue(modified instanceof GregorianCalendar);
-    Map<String, TTFTable> tableMap = ((TrueTypeFont) font).getTableMap();
-    assertEquals(25, tableMap.size());
-    TTFTable getResult = tableMap.get("DSIG");
-    assertTrue(getResult instanceof DigitalSignatureTable);
+  @DisplayName(
+      "Test getFontBoxFont(String, PDFontDescriptor); when ','; then Font Header Modified return GregorianCalendar")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"FontMapping FontMapperImpl.getFontBoxFont(String, PDFontDescriptor)"})
+  void testGetFontBoxFont_whenComma_thenFontHeaderModifiedReturnGregorianCalendar()
+      throws IOException {
+    // Arrange, Act and Assert
+    FontBoxFont font = new FontMapperImpl().getFontBoxFont(",", null).getFont();
+    assertTrue(((TrueTypeFont) font).getHeader().getModified() instanceof GregorianCalendar);
     assertTrue(font instanceof TrueTypeFont);
-    assertEquals("ArialMT", font.getName());
-    NamingTable naming = ((TrueTypeFont) font).getNaming();
-    assertEquals("ArialMT", naming.getPostScriptName());
-    assertEquals((short) -1361, header.getXMin());
-    HorizontalHeaderTable horizontalHeader = ((TrueTypeFont) font).getHorizontalHeader();
-    assertEquals((short) -1361, horizontalHeader.getMinLeftSideBearing());
-    BoundingBox fontBBox = font.getFontBBox();
-    assertEquals(-324.70703f, fontBBox.getLowerLeftY());
-    assertEquals(-664.5508f, fontBBox.getLowerLeftX());
-    assertEquals((short) -665, header.getYMin());
-    GlyphSubstitutionTable gsub = ((TrueTypeFont) font).getGsub();
-    assertEquals(1003500L, gsub.getOffset());
-    assertEquals(1037380L, getResult.getOffset());
-    assertEquals(1045960L, ((TrueTypeFont) font).getOriginalDataSize());
-    assertEquals(11906L, naming.getLength());
-    MaximumProfileTable maximumProfile = ((TrueTypeFont) font).getMaximumProfile();
-    assertEquals(1303, maximumProfile.getMaxStackElements());
-    assertEquals(1364.2578f, fontBBox.getHeight());
-    OS2WindowsMetricsTable oS2Windows = ((TrueTypeFont) font).getOS2Windows();
-    assertEquals(1467, oS2Windows.getCapHeight());
-    PostScriptTable postScript = ((TrueTypeFont) font).getPostScript();
-    assertEquals((short) 150, postScript.getUnderlineThickness());
-    IndexToLocationTable indexToLocation = ((TrueTypeFont) font).getIndexToLocation();
-    assertEquals(155336L, indexToLocation.getOffset());
-    assertEquals(1613539914L, indexToLocation.getCheckSum());
-    assertEquals(1636646406000L, modified.getTimeInMillis());
-    long[] offsets = indexToLocation.getOffsets();
-    assertEquals(1730L, offsets[8]);
-    GlyphTable glyph = ((TrueTypeFont) font).getGlyph();
-    assertEquals(173528L, glyph.getOffset());
-    assertEquals(202, maximumProfile.getMaxCompositePoints());
-    assertEquals(2075, header.getFlags());
-    assertEquals(2204L, offsets[9]);
-    assertEquals(221240180L, glyph.getCheckSum());
-    assertEquals(2664.5508f, fontBBox.getWidth());
-    assertEquals(2784L, offsets[PDPanoseClassification.LENGTH]);
-    assertEquals(2876L, offsets[11]);
-    TTFTable getResult2 = tableMap.get("fpgm");
-    assertEquals(2992L, getResult2.getLength());
-    assertEquals(2995022776L, gsub.getCheckSum());
-    CmapTable cmap = ((TrueTypeFont) font).getCmap();
-    assertEquals(3, cmap.getCmaps().length);
-    assertEquals(3022L, offsets[PDPanose.LENGTH]);
-    assertEquals(304L, offsets[5]);
-    assertEquals(305339020L, horizontalHeader.getCheckSum());
-    assertEquals(3119, maximumProfile.getMaxSizeOfInstructions());
-    assertEquals(3206L, offsets[13]);
-    assertEquals(3297824582L, getResult.getCheckSum());
-    assertEquals(340417924L, oS2Windows.getCheckSum());
-    assertEquals(3443681063L, cmap.getCheckSum());
-    assertEquals(3496L, offsets[14]);
-    assertEquals(3634L, offsets[15]);
-    assertEquals(3650344429L, header.getCheckSumAdjustment());
-    assertEquals(3776L, offsets[Short.SIZE]);
-    assertEquals(3862L, offsets[17]);
-    assertEquals(3940L, offsets[18]);
-    assertEquals(398004210L, maximumProfile.getCheckSum());
-    assertEquals(4068041462L, header.getCheckSum());
-    assertEquals(4068L, offsets[19]);
-    assertEquals(4280942742L, postScript.getCheckSum());
-    assertEquals(4548, offsets.length);
-    assertEquals(4680L, offsets[20]);
-    assertEquals(4994L, offsets[21]);
-    assertEquals(502L, offsets[6]);
-    byte[] byteArray = new byte[51];
-    assertEquals(51, ((TrueTypeFont) font).getOriginalData().read(byteArray));
-    KerningTable kerning = ((TrueTypeFont) font).getKerning();
-    assertEquals(5472L, kerning.getLength());
-    assertEquals(5644L, offsets[22]);
-    List<NameRecord> nameRecords = naming.getNameRecords();
-    assertEquals(58, nameRecords.size());
-    assertEquals(6276L, offsets[23]);
-    assertEquals(634177065L, ((TrueTypeFont) font).getHorizontalMetrics().getCheckSum());
-    assertEquals(649950890000L, created.getTimeInMillis());
-    assertEquals(670258L, offsets[4523]);
-    assertEquals(670414L, offsets[4524]);
-    assertEquals(670580L, offsets[4525]);
-    assertEquals(670832L, offsets[4526]);
-    assertEquals(671054L, offsets[4527]);
-    assertEquals(671322L, offsets[4528]);
-    assertEquals(671576L, offsets[4529]);
-    assertEquals(671798L, offsets[4530]);
-    assertEquals(672022L, offsets[4531]);
-    assertEquals(672208L, offsets[4532]);
-    assertEquals(672402L, offsets[4533]);
-    assertEquals(672638L, offsets[4534]);
-    assertEquals(672870L, offsets[4535]);
-    assertEquals(673032L, offsets[4536]);
-    assertEquals(673102L, offsets[4537]);
-    assertEquals(673308L, offsets[4538]);
-    assertEquals(673366L, offsets[4539]);
-    assertEquals(673424L, offsets[4540]);
-    assertEquals(673668L, offsets[4541]);
-    assertEquals(673994L, offsets[4542]);
-    assertEquals(6740, nameRecords.get(56).getStringOffset());
-    assertEquals(6740, nameRecords.get(57).getStringOffset());
-    assertEquals(674150L, offsets[4543]);
-    assertEquals(674240L, offsets[4544]);
-    assertEquals(674286L, offsets[4545]);
-    assertEquals(674330L, offsets[4546]);
-    assertEquals(674394L, glyph.getLength());
-    assertEquals(674394L, offsets[4547]);
-    assertEquals(6874L, offsets[24]);
-    assertEquals(758245357L, naming.getCheckSum());
-    assertEquals(847924L, kerning.getOffset());
-    assertEquals(853396L, naming.getOffset());
-    assertEquals(865304L, postScript.getOffset());
-    assertEquals(865336L, tableMap.get("gasp").getOffset());
-    assertEquals((short) 904, oS2Windows.getAverageCharWidth());
-    assertEquals(929118518L, kerning.getCheckSum());
-    assertEquals(950343211L, getResult2.getCheckSum());
-    assertEquals(990L, offsets[7]);
-    assertSame(glyph, tableMap.get("glyf"));
-    assertArrayEquals(new byte[]{0, 1, 0, 0, 0, 25, 1, 0, 0, 4, 0, -112, 'D', 'S', 'I', 'G', -60, -112, -49, 'F', 0, 15,
-        -44, 'D', 0, 0, '!', -124, 'G', 'D', 'E', 'F', 24, -26, 28, 'f', 0, '\r', '4', Byte.MIN_VALUE, 0, 0, 3, 'X',
-        'G', 'P', 'O', 'S', '2', 17, 23}, byteArray);
+    Map<String, TTFTable> tableMap = ((TrueTypeFont) font).getTableMap();
+    assertEquals(19, tableMap.size());
+    assertEquals(3, ((TrueTypeFont) font).getCmap().getCmaps().length);
+    assertTrue(tableMap.containsKey("fpgm"));
   }
 
   /**
    * Test {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}.
+   *
    * <ul>
-   *   <li>When {@link PDFontDescriptor#PDFontDescriptor()}.</li>
-   *   <li>Then return Font Name is {@code ArialMT}.</li>
+   *   <li>When {@code null}.
+   *   <li>Then Font Header Modified return {@link GregorianCalendar}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}
+   *
+   * <p>Method under test: {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}
    */
   @Test
-  @DisplayName("Test getFontBoxFont(String, PDFontDescriptor); when PDFontDescriptor(); then return Font Name is 'ArialMT'")
-  void testGetFontBoxFont_whenPDFontDescriptor_thenReturnFontNameIsArialMT() throws IOException {
+  @DisplayName(
+      "Test getFontBoxFont(String, PDFontDescriptor); when 'null'; then Font Header Modified return GregorianCalendar")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"FontMapping FontMapperImpl.getFontBoxFont(String, PDFontDescriptor)"})
+  void testGetFontBoxFont_whenNull_thenFontHeaderModifiedReturnGregorianCalendar()
+      throws IOException {
+    // Arrange, Act and Assert
+    FontBoxFont font = new FontMapperImpl().getFontBoxFont(null, null).getFont();
+    assertTrue(((TrueTypeFont) font).getHeader().getModified() instanceof GregorianCalendar);
+    assertTrue(font instanceof TrueTypeFont);
+    Map<String, TTFTable> tableMap = ((TrueTypeFont) font).getTableMap();
+    assertEquals(19, tableMap.size());
+    assertEquals(3, ((TrueTypeFont) font).getCmap().getCmaps().length);
+    assertTrue(tableMap.containsKey("fpgm"));
+  }
+
+  /**
+   * Test {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}.
+   *
+   * <ul>
+   *   <li>When {@link PDFontDescriptor#PDFontDescriptor()}.
+   *   <li>Then return Font Name is {@code LiberationSans}.
+   * </ul>
+   *
+   * <p>Method under test: {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}
+   */
+  @Test
+  @DisplayName(
+      "Test getFontBoxFont(String, PDFontDescriptor); when PDFontDescriptor(); then return Font Name is 'LiberationSans'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"FontMapping FontMapperImpl.getFontBoxFont(String, PDFontDescriptor)"})
+  void testGetFontBoxFont_whenPDFontDescriptor_thenReturnFontNameIsLiberationSans()
+      throws IOException {
     // Arrange
     FontMapperImpl fontMapperImpl = new FontMapperImpl();
 
     // Act and Assert
     FontBoxFont font = fontMapperImpl.getFontBoxFont("Base Font", new PDFontDescriptor()).getFont();
-    HeaderTable header = ((TrueTypeFont) font).getHeader();
-    Calendar created = header.getCreated();
-    assertTrue(created instanceof GregorianCalendar);
-    Calendar modified = header.getModified();
-    assertTrue(modified instanceof GregorianCalendar);
-    Map<String, TTFTable> tableMap = ((TrueTypeFont) font).getTableMap();
-    assertEquals(25, tableMap.size());
-    TTFTable getResult = tableMap.get("DSIG");
-    assertTrue(getResult instanceof DigitalSignatureTable);
     assertTrue(font instanceof TrueTypeFont);
-    assertEquals("ArialMT", font.getName());
-    NamingTable naming = ((TrueTypeFont) font).getNaming();
-    assertEquals("ArialMT", naming.getPostScriptName());
-    assertEquals((short) -1361, header.getXMin());
-    HorizontalHeaderTable horizontalHeader = ((TrueTypeFont) font).getHorizontalHeader();
-    assertEquals((short) -1361, horizontalHeader.getMinLeftSideBearing());
-    BoundingBox fontBBox = font.getFontBBox();
-    assertEquals(-324.70703f, fontBBox.getLowerLeftY());
-    assertEquals(-664.5508f, fontBBox.getLowerLeftX());
-    assertEquals((short) -665, header.getYMin());
-    GlyphSubstitutionTable gsub = ((TrueTypeFont) font).getGsub();
-    assertEquals(1003500L, gsub.getOffset());
-    assertEquals(1037380L, getResult.getOffset());
-    assertEquals(1045960L, ((TrueTypeFont) font).getOriginalDataSize());
-    assertEquals(11906L, naming.getLength());
-    MaximumProfileTable maximumProfile = ((TrueTypeFont) font).getMaximumProfile();
-    assertEquals(1303, maximumProfile.getMaxStackElements());
-    assertEquals(1364.2578f, fontBBox.getHeight());
-    OS2WindowsMetricsTable oS2Windows = ((TrueTypeFont) font).getOS2Windows();
-    assertEquals(1467, oS2Windows.getCapHeight());
-    PostScriptTable postScript = ((TrueTypeFont) font).getPostScript();
-    assertEquals((short) 150, postScript.getUnderlineThickness());
-    IndexToLocationTable indexToLocation = ((TrueTypeFont) font).getIndexToLocation();
-    assertEquals(155336L, indexToLocation.getOffset());
-    assertEquals(1613539914L, indexToLocation.getCheckSum());
-    assertEquals(1636646406000L, modified.getTimeInMillis());
-    long[] offsets = indexToLocation.getOffsets();
-    assertEquals(1730L, offsets[8]);
-    GlyphTable glyph = ((TrueTypeFont) font).getGlyph();
-    assertEquals(173528L, glyph.getOffset());
-    assertEquals(202, maximumProfile.getMaxCompositePoints());
-    assertEquals(2075, header.getFlags());
-    assertEquals(2204L, offsets[9]);
-    assertEquals(221240180L, glyph.getCheckSum());
-    assertEquals(2664.5508f, fontBBox.getWidth());
-    assertEquals(2784L, offsets[PDPanoseClassification.LENGTH]);
-    assertEquals(2876L, offsets[11]);
-    TTFTable getResult2 = tableMap.get("fpgm");
-    assertEquals(2992L, getResult2.getLength());
-    assertEquals(2995022776L, gsub.getCheckSum());
-    CmapTable cmap = ((TrueTypeFont) font).getCmap();
-    assertEquals(3, cmap.getCmaps().length);
-    assertEquals(3022L, offsets[PDPanose.LENGTH]);
-    assertEquals(304L, offsets[5]);
-    assertEquals(305339020L, horizontalHeader.getCheckSum());
-    assertEquals(3119, maximumProfile.getMaxSizeOfInstructions());
-    assertEquals(3206L, offsets[13]);
-    assertEquals(3297824582L, getResult.getCheckSum());
-    assertEquals(340417924L, oS2Windows.getCheckSum());
-    assertEquals(3443681063L, cmap.getCheckSum());
-    assertEquals(3496L, offsets[14]);
-    assertEquals(3634L, offsets[15]);
-    assertEquals(3650344429L, header.getCheckSumAdjustment());
-    assertEquals(3776L, offsets[Short.SIZE]);
-    assertEquals(3862L, offsets[17]);
-    assertEquals(3940L, offsets[18]);
-    assertEquals(398004210L, maximumProfile.getCheckSum());
-    assertEquals(4068041462L, header.getCheckSum());
-    assertEquals(4068L, offsets[19]);
-    assertEquals(4280942742L, postScript.getCheckSum());
-    assertEquals(4548, offsets.length);
-    assertEquals(4680L, offsets[20]);
-    assertEquals(4994L, offsets[21]);
-    assertEquals(502L, offsets[6]);
+    assertEquals("LiberationSans", font.getName());
+    assertEquals(139512L, ((TrueTypeFont) font).getOriginalDataSize());
+    Map<String, TTFTable> tableMap = ((TrueTypeFont) font).getTableMap();
+    assertEquals(19, tableMap.size());
     byte[] byteArray = new byte[51];
     assertEquals(51, ((TrueTypeFont) font).getOriginalData().read(byteArray));
-    KerningTable kerning = ((TrueTypeFont) font).getKerning();
-    assertEquals(5472L, kerning.getLength());
-    assertEquals(5644L, offsets[22]);
-    List<NameRecord> nameRecords = naming.getNameRecords();
-    assertEquals(58, nameRecords.size());
-    assertEquals(6276L, offsets[23]);
-    assertEquals(634177065L, ((TrueTypeFont) font).getHorizontalMetrics().getCheckSum());
-    assertEquals(649950890000L, created.getTimeInMillis());
-    assertEquals(670258L, offsets[4523]);
-    assertEquals(670414L, offsets[4524]);
-    assertEquals(670580L, offsets[4525]);
-    assertEquals(670832L, offsets[4526]);
-    assertEquals(671054L, offsets[4527]);
-    assertEquals(671322L, offsets[4528]);
-    assertEquals(671576L, offsets[4529]);
-    assertEquals(671798L, offsets[4530]);
-    assertEquals(672022L, offsets[4531]);
-    assertEquals(672208L, offsets[4532]);
-    assertEquals(672402L, offsets[4533]);
-    assertEquals(672638L, offsets[4534]);
-    assertEquals(672870L, offsets[4535]);
-    assertEquals(673032L, offsets[4536]);
-    assertEquals(673102L, offsets[4537]);
-    assertEquals(673308L, offsets[4538]);
-    assertEquals(673366L, offsets[4539]);
-    assertEquals(673424L, offsets[4540]);
-    assertEquals(673668L, offsets[4541]);
-    assertEquals(673994L, offsets[4542]);
-    assertEquals(6740, nameRecords.get(56).getStringOffset());
-    assertEquals(6740, nameRecords.get(57).getStringOffset());
-    assertEquals(674150L, offsets[4543]);
-    assertEquals(674240L, offsets[4544]);
-    assertEquals(674286L, offsets[4545]);
-    assertEquals(674330L, offsets[4546]);
-    assertEquals(674394L, glyph.getLength());
-    assertEquals(674394L, offsets[4547]);
-    assertEquals(6874L, offsets[24]);
-    assertEquals(758245357L, naming.getCheckSum());
-    assertEquals(847924L, kerning.getOffset());
-    assertEquals(853396L, naming.getOffset());
-    assertEquals(865304L, postScript.getOffset());
-    assertEquals(865336L, tableMap.get("gasp").getOffset());
-    assertEquals((short) 904, oS2Windows.getAverageCharWidth());
-    assertEquals(929118518L, kerning.getCheckSum());
-    assertEquals(950343211L, getResult2.getCheckSum());
-    assertEquals(990L, offsets[7]);
-    assertSame(glyph, tableMap.get("glyf"));
-    assertArrayEquals(new byte[]{0, 1, 0, 0, 0, 25, 1, 0, 0, 4, 0, -112, 'D', 'S', 'I', 'G', -60, -112, -49, 'F', 0, 15,
-        -44, 'D', 0, 0, '!', -124, 'G', 'D', 'E', 'F', 24, -26, 28, 'f', 0, '\r', '4', Byte.MIN_VALUE, 0, 0, 3, 'X',
-        'G', 'P', 'O', 'S', '2', 17, 23}, byteArray);
+    assertTrue(tableMap.containsKey("OS/2"));
+    assertTrue(tableMap.containsKey("fpgm"));
+    assertTrue(tableMap.containsKey("glyf"));
+    assertTrue(tableMap.containsKey("kern"));
+    assertArrayEquals(
+        new byte[] {
+          0, 1, 0, 0, 0, 19, 1, 0, 0, 4, 0, '0', 'F', 'F', 'T', 'M', 'h', -2, -32, 'f', 0, 2, ' ',
+          -36, 0, 0, 0, 28, 'G', 'D', 'E', 'F', 0, '\'', 2, -49, 0, 2, 15, -84, 0, 0, 0, '&', 'G',
+          'P', 'O', 'S', 'j', 'w', -101
+        },
+        byteArray);
   }
 
   /**
-   * Test {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}.
+   * Test {@link FontMapperImpl#getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)}.
+   *
    * <ul>
-   *   <li>When {@code +}.</li>
-   *   <li>Then return Font Name is {@code ArialMT}.</li>
+   *   <li>Given {@link FontMapperImpl} (default constructor) addSubstitute {@code ,} and {@code -}.
+   *   <li>When {@code ,}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}
+   *
+   * <p>Method under test: {@link FontMapperImpl#getCIDFont(String, PDFontDescriptor,
+   * PDCIDSystemInfo)}
    */
   @Test
-  @DisplayName("Test getFontBoxFont(String, PDFontDescriptor); when '+'; then return Font Name is 'ArialMT'")
-  void testGetFontBoxFont_whenPlusSign_thenReturnFontNameIsArialMT() throws IOException {
+  @DisplayName(
+      "Test getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo); given FontMapperImpl (default constructor) addSubstitute ',' and '-'; when ','")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "CIDFontMapping FontMapperImpl.getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)"
+  })
+  void testGetCIDFont_givenFontMapperImplAddSubstituteCommaAndDash_whenComma() throws IOException {
     // Arrange
     FontMapperImpl fontMapperImpl = new FontMapperImpl();
+    fontMapperImpl.addSubstitute(",", "-");
 
     // Act and Assert
-    FontBoxFont font = fontMapperImpl.getFontBoxFont("+", new PDFontDescriptor()).getFont();
-    HeaderTable header = ((TrueTypeFont) font).getHeader();
-    Calendar created = header.getCreated();
-    assertTrue(created instanceof GregorianCalendar);
-    Calendar modified = header.getModified();
-    assertTrue(modified instanceof GregorianCalendar);
-    Map<String, TTFTable> tableMap = ((TrueTypeFont) font).getTableMap();
-    assertEquals(25, tableMap.size());
-    TTFTable getResult = tableMap.get("DSIG");
-    assertTrue(getResult instanceof DigitalSignatureTable);
-    assertTrue(font instanceof TrueTypeFont);
-    assertEquals("ArialMT", font.getName());
-    NamingTable naming = ((TrueTypeFont) font).getNaming();
-    assertEquals("ArialMT", naming.getPostScriptName());
-    assertEquals((short) -1361, header.getXMin());
-    HorizontalHeaderTable horizontalHeader = ((TrueTypeFont) font).getHorizontalHeader();
-    assertEquals((short) -1361, horizontalHeader.getMinLeftSideBearing());
-    BoundingBox fontBBox = font.getFontBBox();
-    assertEquals(-324.70703f, fontBBox.getLowerLeftY());
-    assertEquals(-664.5508f, fontBBox.getLowerLeftX());
-    assertEquals((short) -665, header.getYMin());
-    GlyphSubstitutionTable gsub = ((TrueTypeFont) font).getGsub();
-    assertEquals(1003500L, gsub.getOffset());
-    assertEquals(1037380L, getResult.getOffset());
-    assertEquals(1045960L, ((TrueTypeFont) font).getOriginalDataSize());
-    assertEquals(11906L, naming.getLength());
-    MaximumProfileTable maximumProfile = ((TrueTypeFont) font).getMaximumProfile();
-    assertEquals(1303, maximumProfile.getMaxStackElements());
-    assertEquals(1364.2578f, fontBBox.getHeight());
-    OS2WindowsMetricsTable oS2Windows = ((TrueTypeFont) font).getOS2Windows();
-    assertEquals(1467, oS2Windows.getCapHeight());
-    PostScriptTable postScript = ((TrueTypeFont) font).getPostScript();
-    assertEquals((short) 150, postScript.getUnderlineThickness());
-    IndexToLocationTable indexToLocation = ((TrueTypeFont) font).getIndexToLocation();
-    assertEquals(155336L, indexToLocation.getOffset());
-    assertEquals(1613539914L, indexToLocation.getCheckSum());
-    assertEquals(1636646406000L, modified.getTimeInMillis());
-    long[] offsets = indexToLocation.getOffsets();
-    assertEquals(1730L, offsets[8]);
-    GlyphTable glyph = ((TrueTypeFont) font).getGlyph();
-    assertEquals(173528L, glyph.getOffset());
-    assertEquals(202, maximumProfile.getMaxCompositePoints());
-    assertEquals(2075, header.getFlags());
-    assertEquals(2204L, offsets[9]);
-    assertEquals(221240180L, glyph.getCheckSum());
-    assertEquals(2664.5508f, fontBBox.getWidth());
-    assertEquals(2784L, offsets[PDPanoseClassification.LENGTH]);
-    assertEquals(2876L, offsets[11]);
-    TTFTable getResult2 = tableMap.get("fpgm");
-    assertEquals(2992L, getResult2.getLength());
-    assertEquals(2995022776L, gsub.getCheckSum());
-    CmapTable cmap = ((TrueTypeFont) font).getCmap();
-    assertEquals(3, cmap.getCmaps().length);
-    assertEquals(3022L, offsets[PDPanose.LENGTH]);
-    assertEquals(304L, offsets[5]);
-    assertEquals(305339020L, horizontalHeader.getCheckSum());
-    assertEquals(3119, maximumProfile.getMaxSizeOfInstructions());
-    assertEquals(3206L, offsets[13]);
-    assertEquals(3297824582L, getResult.getCheckSum());
-    assertEquals(340417924L, oS2Windows.getCheckSum());
-    assertEquals(3443681063L, cmap.getCheckSum());
-    assertEquals(3496L, offsets[14]);
-    assertEquals(3634L, offsets[15]);
-    assertEquals(3650344429L, header.getCheckSumAdjustment());
-    assertEquals(3776L, offsets[Short.SIZE]);
-    assertEquals(3862L, offsets[17]);
-    assertEquals(3940L, offsets[18]);
-    assertEquals(398004210L, maximumProfile.getCheckSum());
-    assertEquals(4068041462L, header.getCheckSum());
-    assertEquals(4068L, offsets[19]);
-    assertEquals(4280942742L, postScript.getCheckSum());
-    assertEquals(4548, offsets.length);
-    assertEquals(4680L, offsets[20]);
-    assertEquals(4994L, offsets[21]);
-    assertEquals(502L, offsets[6]);
+    FontBoxFont trueTypeFont =
+        fontMapperImpl.getCIDFont(",", new PDFontDescriptor(), null).getTrueTypeFont();
+    assertTrue(
+        ((TrueTypeFont) trueTypeFont).getHeader().getModified() instanceof GregorianCalendar);
+    assertTrue(trueTypeFont instanceof TrueTypeFont);
+    Map<String, TTFTable> tableMap = ((TrueTypeFont) trueTypeFont).getTableMap();
+    assertEquals(19, tableMap.size());
+    assertEquals(3, ((TrueTypeFont) trueTypeFont).getCmap().getCmaps().length);
+    assertTrue(tableMap.containsKey("fpgm"));
+    OS2WindowsMetricsTable oS2Windows = ((TrueTypeFont) trueTypeFont).getOS2Windows();
+    assertSame(oS2Windows, tableMap.get("OS/2"));
+    assertArrayEquals(new byte[] {2, 11, 6, 4, 2, 2, 2, 2, 2, 4}, oS2Windows.getPanose());
+  }
+
+  /**
+   * Test {@link FontMapperImpl#getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)}.
+   *
+   * <ul>
+   *   <li>Given {@link FontMapperImpl} (default constructor) addSubstitute {@code ,} and {@code +}.
+   *   <li>When {@code ,}.
+   * </ul>
+   *
+   * <p>Method under test: {@link FontMapperImpl#getCIDFont(String, PDFontDescriptor,
+   * PDCIDSystemInfo)}
+   */
+  @Test
+  @DisplayName(
+      "Test getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo); given FontMapperImpl (default constructor) addSubstitute ',' and '+'; when ','")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "CIDFontMapping FontMapperImpl.getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)"
+  })
+  void testGetCIDFont_givenFontMapperImplAddSubstituteCommaAndPlusSign_whenComma()
+      throws IOException {
+    // Arrange
+    FontMapperImpl fontMapperImpl = new FontMapperImpl();
+    fontMapperImpl.addSubstitute(",", "+");
+    fontMapperImpl.addSubstitute(",", "-");
+
+    // Act and Assert
+    FontBoxFont trueTypeFont =
+        fontMapperImpl.getCIDFont(",", new PDFontDescriptor(), null).getTrueTypeFont();
+    assertTrue(
+        ((TrueTypeFont) trueTypeFont).getHeader().getModified() instanceof GregorianCalendar);
+    assertTrue(trueTypeFont instanceof TrueTypeFont);
+    Map<String, TTFTable> tableMap = ((TrueTypeFont) trueTypeFont).getTableMap();
+    assertEquals(19, tableMap.size());
+    assertEquals(3, ((TrueTypeFont) trueTypeFont).getCmap().getCmaps().length);
+    assertTrue(tableMap.containsKey("fpgm"));
+    OS2WindowsMetricsTable oS2Windows = ((TrueTypeFont) trueTypeFont).getOS2Windows();
+    assertSame(oS2Windows, tableMap.get("OS/2"));
+    assertArrayEquals(new byte[] {2, 11, 6, 4, 2, 2, 2, 2, 2, 4}, oS2Windows.getPanose());
+  }
+
+  /**
+   * Test {@link FontMapperImpl#getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)}.
+   *
+   * <ul>
+   *   <li>Given {@link FontMapperImpl} (default constructor) addSubstitute space and space.
+   * </ul>
+   *
+   * <p>Method under test: {@link FontMapperImpl#getCIDFont(String, PDFontDescriptor,
+   * PDCIDSystemInfo)}
+   */
+  @Test
+  @DisplayName(
+      "Test getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo); given FontMapperImpl (default constructor) addSubstitute space and space")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "CIDFontMapping FontMapperImpl.getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)"
+  })
+  void testGetCIDFont_givenFontMapperImplAddSubstituteSpaceAndSpace() throws IOException {
+    // Arrange
+    FontMapperImpl fontMapperImpl = new FontMapperImpl();
+    fontMapperImpl.addSubstitute(" ", " ");
+    PDFontDescriptor fontDescriptor = new PDFontDescriptor();
+    PDCIDSystemInfo cidSystemInfo = new PDCIDSystemInfo("Registry", "Ordering", 1);
+
+    // Act
+    CIDFontMapping actualCIDFont =
+        fontMapperImpl.getCIDFont("Courier", fontDescriptor, cidSystemInfo);
+
+    // Assert
+    FontBoxFont trueTypeFont = actualCIDFont.getTrueTypeFont();
+    assertTrue(trueTypeFont instanceof TrueTypeFont);
+    assertEquals("LiberationMono", trueTypeFont.getName());
+    assertNull(((TrueTypeFont) trueTypeFont).getGsub());
+    assertNull(((TrueTypeFont) trueTypeFont).getKerning());
+    assertEquals(108172L, ((TrueTypeFont) trueTypeFont).getOriginalDataSize());
     byte[] byteArray = new byte[51];
-    assertEquals(51, ((TrueTypeFont) font).getOriginalData().read(byteArray));
-    KerningTable kerning = ((TrueTypeFont) font).getKerning();
-    assertEquals(5472L, kerning.getLength());
-    assertEquals(5644L, offsets[22]);
-    List<NameRecord> nameRecords = naming.getNameRecords();
-    assertEquals(58, nameRecords.size());
-    assertEquals(6276L, offsets[23]);
-    assertEquals(634177065L, ((TrueTypeFont) font).getHorizontalMetrics().getCheckSum());
-    assertEquals(649950890000L, created.getTimeInMillis());
-    assertEquals(670258L, offsets[4523]);
-    assertEquals(670414L, offsets[4524]);
-    assertEquals(670580L, offsets[4525]);
-    assertEquals(670832L, offsets[4526]);
-    assertEquals(671054L, offsets[4527]);
-    assertEquals(671322L, offsets[4528]);
-    assertEquals(671576L, offsets[4529]);
-    assertEquals(671798L, offsets[4530]);
-    assertEquals(672022L, offsets[4531]);
-    assertEquals(672208L, offsets[4532]);
-    assertEquals(672402L, offsets[4533]);
-    assertEquals(672638L, offsets[4534]);
-    assertEquals(672870L, offsets[4535]);
-    assertEquals(673032L, offsets[4536]);
-    assertEquals(673102L, offsets[4537]);
-    assertEquals(673308L, offsets[4538]);
-    assertEquals(673366L, offsets[4539]);
-    assertEquals(673424L, offsets[4540]);
-    assertEquals(673668L, offsets[4541]);
-    assertEquals(673994L, offsets[4542]);
-    assertEquals(6740, nameRecords.get(56).getStringOffset());
-    assertEquals(6740, nameRecords.get(57).getStringOffset());
-    assertEquals(674150L, offsets[4543]);
-    assertEquals(674240L, offsets[4544]);
-    assertEquals(674286L, offsets[4545]);
-    assertEquals(674330L, offsets[4546]);
-    assertEquals(674394L, glyph.getLength());
-    assertEquals(674394L, offsets[4547]);
-    assertEquals(6874L, offsets[24]);
-    assertEquals(758245357L, naming.getCheckSum());
-    assertEquals(847924L, kerning.getOffset());
-    assertEquals(853396L, naming.getOffset());
-    assertEquals(865304L, postScript.getOffset());
-    assertEquals(865336L, tableMap.get("gasp").getOffset());
-    assertEquals((short) 904, oS2Windows.getAverageCharWidth());
-    assertEquals(929118518L, kerning.getCheckSum());
-    assertEquals(950343211L, getResult2.getCheckSum());
-    assertEquals(990L, offsets[7]);
-    assertSame(glyph, tableMap.get("glyf"));
-    assertArrayEquals(new byte[]{0, 1, 0, 0, 0, 25, 1, 0, 0, 4, 0, -112, 'D', 'S', 'I', 'G', -60, -112, -49, 'F', 0, 15,
-        -44, 'D', 0, 0, '!', -124, 'G', 'D', 'E', 'F', 24, -26, 28, 'f', 0, '\r', '4', Byte.MIN_VALUE, 0, 0, 3, 'X',
-        'G', 'P', 'O', 'S', '2', 17, 23}, byteArray);
+    assertEquals(51, ((TrueTypeFont) trueTypeFont).getOriginalData().read(byteArray));
+    assertEquals(674, ((TrueTypeFont) trueTypeFont).getNumberOfGlyphs());
+    assertFalse(actualCIDFont.isFallback());
+    Map<String, TTFTable> tableMap = ((TrueTypeFont) trueTypeFont).getTableMap();
+    assertEquals(Short.SIZE, tableMap.size());
+    assertTrue(tableMap.containsKey("OS/2"));
+    assertTrue(tableMap.containsKey("fpgm"));
+    assertTrue(tableMap.containsKey("gasp"));
+    assertTrue(tableMap.containsKey("glyf"));
+    assertEquals(Short.SIZE, ((TrueTypeFont) trueTypeFont).getTables().size());
+    assertArrayEquals(
+        new byte[] {
+          0, 1, 0, 0, 0, 16, 1, 0, 0, 4, 0, 0, 'F', 'F', 'T', 'M', 'g', 'Z', ';', -71, 0, 1, -90,
+          'p', 0, 0, 0, 28, 'G', 'D', 'E', 'F', 0, '\'', 2, -56, 0, 1, -90, 'H', 0, 0, 0, '&', 'O',
+          'S', '/', '2', -7, ' ', 'w'
+        },
+        byteArray);
   }
 
   /**
-   * Test
-   * {@link FontMapperImpl#getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)}.
+   * Test {@link FontMapperImpl#getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)}.
+   *
    * <ul>
-   *   <li>Given {@link FontMapperImpl} (default constructor) addSubstitute
-   * {@code +} and {@code +}.</li>
-   *   <li>When {@code +}.</li>
+   *   <li>Then TrueTypeFont Header Modified return {@link GregorianCalendar}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link FontMapperImpl#getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)}
+   *
+   * <p>Method under test: {@link FontMapperImpl#getCIDFont(String, PDFontDescriptor,
+   * PDCIDSystemInfo)}
    */
   @Test
-  @DisplayName("Test getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo); given FontMapperImpl (default constructor) addSubstitute '+' and '+'; when '+'")
-  void testGetCIDFont_givenFontMapperImplAddSubstitutePlusSignAndPlusSign_whenPlusSign() throws IOException {
+  @DisplayName(
+      "Test getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo); then TrueTypeFont Header Modified return GregorianCalendar")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "CIDFontMapping FontMapperImpl.getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)"
+  })
+  void testGetCIDFont_thenTrueTypeFontHeaderModifiedReturnGregorianCalendar() throws IOException {
     // Arrange
     FontMapperImpl fontMapperImpl = new FontMapperImpl();
-    fontMapperImpl.addSubstitute("+", "+");
-    PDFontDescriptor fontDescriptor = new PDFontDescriptor();
 
     // Act and Assert
-    FontBoxFont trueTypeFont = fontMapperImpl
-        .getCIDFont("+", fontDescriptor, new PDCIDSystemInfo("Registry", "Ordering", 1))
-        .getTrueTypeFont();
+    FontBoxFont trueTypeFont =
+        fontMapperImpl.getCIDFont(null, new PDFontDescriptor(), null).getTrueTypeFont();
+    assertTrue(
+        ((TrueTypeFont) trueTypeFont).getHeader().getModified() instanceof GregorianCalendar);
     assertTrue(trueTypeFont instanceof TrueTypeFont);
     Map<String, TTFTable> tableMap = ((TrueTypeFont) trueTypeFont).getTableMap();
     assertEquals(19, tableMap.size());
     assertEquals(3, ((TrueTypeFont) trueTypeFont).getCmap().getCmaps().length);
     assertTrue(tableMap.containsKey("fpgm"));
+    OS2WindowsMetricsTable oS2Windows = ((TrueTypeFont) trueTypeFont).getOS2Windows();
+    assertSame(oS2Windows, tableMap.get("OS/2"));
+    assertArrayEquals(new byte[] {2, 11, 6, 4, 2, 2, 2, 2, 2, 4}, oS2Windows.getPanose());
   }
 
   /**
-   * Test
-   * {@link FontMapperImpl#getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)}.
+   * Test {@link FontMapperImpl#getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)}.
+   *
    * <ul>
-   *   <li>Given {@link FontMapperImpl} (default constructor).</li>
-   *   <li>When {@code Base Font}.</li>
+   *   <li>When {@code Base Font}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link FontMapperImpl#getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)}
+   *
+   * <p>Method under test: {@link FontMapperImpl#getCIDFont(String, PDFontDescriptor,
+   * PDCIDSystemInfo)}
    */
   @Test
-  @DisplayName("Test getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo); given FontMapperImpl (default constructor); when 'Base Font'")
-  void testGetCIDFont_givenFontMapperImpl_whenBaseFont() throws IOException {
+  @DisplayName("Test getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo); when 'Base Font'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "CIDFontMapping FontMapperImpl.getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)"
+  })
+  void testGetCIDFont_whenBaseFont() throws IOException {
     // Arrange
     FontMapperImpl fontMapperImpl = new FontMapperImpl();
     PDFontDescriptor fontDescriptor = new PDFontDescriptor();
+    PDCIDSystemInfo cidSystemInfo = new PDCIDSystemInfo("Registry", "Ordering", 1);
 
     // Act and Assert
-    FontBoxFont trueTypeFont = fontMapperImpl
-        .getCIDFont("Base Font", fontDescriptor, new PDCIDSystemInfo("Registry", "Ordering", 1))
-        .getTrueTypeFont();
+    FontBoxFont trueTypeFont =
+        fontMapperImpl.getCIDFont("Base Font", fontDescriptor, cidSystemInfo).getTrueTypeFont();
+    assertTrue(
+        ((TrueTypeFont) trueTypeFont).getHeader().getModified() instanceof GregorianCalendar);
     assertTrue(trueTypeFont instanceof TrueTypeFont);
     Map<String, TTFTable> tableMap = ((TrueTypeFont) trueTypeFont).getTableMap();
     assertEquals(19, tableMap.size());
     assertEquals(3, ((TrueTypeFont) trueTypeFont).getCmap().getCmaps().length);
     assertTrue(tableMap.containsKey("fpgm"));
+    OS2WindowsMetricsTable oS2Windows = ((TrueTypeFont) trueTypeFont).getOS2Windows();
+    assertSame(oS2Windows, tableMap.get("OS/2"));
+    assertArrayEquals(new byte[] {2, 11, 6, 4, 2, 2, 2, 2, 2, 4}, oS2Windows.getPanose());
   }
 
   /**
-   * Test
-   * {@link FontMapperImpl#getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)}.
+   * Test {@link FontMapperImpl#getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)}.
+   *
    * <ul>
-   *   <li>Given {@link FontMapperImpl} (default constructor).</li>
-   *   <li>When {@code Base Font}.</li>
+   *   <li>When {@code ,}.
+   *   <li>Then TrueTypeFont Header Modified return {@link GregorianCalendar}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link FontMapperImpl#getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)}
+   *
+   * <p>Method under test: {@link FontMapperImpl#getCIDFont(String, PDFontDescriptor,
+   * PDCIDSystemInfo)}
    */
   @Test
-  @DisplayName("Test getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo); given FontMapperImpl (default constructor); when 'Base Font'")
-  void testGetCIDFont_givenFontMapperImpl_whenBaseFont2() throws IOException {
+  @DisplayName(
+      "Test getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo); when ','; then TrueTypeFont Header Modified return GregorianCalendar")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "CIDFontMapping FontMapperImpl.getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)"
+  })
+  void testGetCIDFont_whenComma_thenTrueTypeFontHeaderModifiedReturnGregorianCalendar()
+      throws IOException {
     // Arrange
     FontMapperImpl fontMapperImpl = new FontMapperImpl();
 
     // Act and Assert
-    FontBoxFont trueTypeFont = fontMapperImpl.getCIDFont("Base Font", new PDFontDescriptor(), null).getTrueTypeFont();
+    FontBoxFont trueTypeFont =
+        fontMapperImpl.getCIDFont(",", new PDFontDescriptor(), null).getTrueTypeFont();
+    assertTrue(
+        ((TrueTypeFont) trueTypeFont).getHeader().getModified() instanceof GregorianCalendar);
     assertTrue(trueTypeFont instanceof TrueTypeFont);
     Map<String, TTFTable> tableMap = ((TrueTypeFont) trueTypeFont).getTableMap();
     assertEquals(19, tableMap.size());
     assertEquals(3, ((TrueTypeFont) trueTypeFont).getCmap().getCmaps().length);
     assertTrue(tableMap.containsKey("fpgm"));
+    OS2WindowsMetricsTable oS2Windows = ((TrueTypeFont) trueTypeFont).getOS2Windows();
+    assertSame(oS2Windows, tableMap.get("OS/2"));
+    assertArrayEquals(new byte[] {2, 11, 6, 4, 2, 2, 2, 2, 2, 4}, oS2Windows.getPanose());
   }
 
   /**
-   * Test
-   * {@link FontMapperImpl#getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)}.
+   * Test {@link FontMapperImpl#getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)}.
+   *
    * <ul>
-   *   <li>Given {@link FontMapperImpl} (default constructor).</li>
-   *   <li>When {@code ,}.</li>
-   *   <li>Then TrueTypeFont return {@link TrueTypeFont}.</li>
+   *   <li>When {@code Courier}.
+   *   <li>Then return TrueTypeFont Name is {@code LiberationMono}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link FontMapperImpl#getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)}
+   *
+   * <p>Method under test: {@link FontMapperImpl#getCIDFont(String, PDFontDescriptor,
+   * PDCIDSystemInfo)}
    */
   @Test
-  @DisplayName("Test getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo); given FontMapperImpl (default constructor); when ','; then TrueTypeFont return TrueTypeFont")
-  void testGetCIDFont_givenFontMapperImpl_whenComma_thenTrueTypeFontReturnTrueTypeFont() throws IOException {
-    // Arrange
-    FontMapperImpl fontMapperImpl = new FontMapperImpl();
-    PDFontDescriptor fontDescriptor = new PDFontDescriptor();
-
-    // Act and Assert
-    FontBoxFont trueTypeFont = fontMapperImpl
-        .getCIDFont(",", fontDescriptor, new PDCIDSystemInfo("Registry", "Ordering", 1))
-        .getTrueTypeFont();
-    assertTrue(trueTypeFont instanceof TrueTypeFont);
-    Map<String, TTFTable> tableMap = ((TrueTypeFont) trueTypeFont).getTableMap();
-    assertEquals(19, tableMap.size());
-    assertEquals(3, ((TrueTypeFont) trueTypeFont).getCmap().getCmaps().length);
-    assertTrue(tableMap.containsKey("fpgm"));
-  }
-
-  /**
-   * Test
-   * {@link FontMapperImpl#getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)}.
-   * <ul>
-   *   <li>Given {@link FontMapperImpl} (default constructor).</li>
-   *   <li>When {@code null}.</li>
-   *   <li>Then TrueTypeFont return {@link TrueTypeFont}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link FontMapperImpl#getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)}
-   */
-  @Test
-  @DisplayName("Test getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo); given FontMapperImpl (default constructor); when 'null'; then TrueTypeFont return TrueTypeFont")
-  void testGetCIDFont_givenFontMapperImpl_whenNull_thenTrueTypeFontReturnTrueTypeFont() throws IOException {
+  @DisplayName(
+      "Test getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo); when 'Courier'; then return TrueTypeFont Name is 'LiberationMono'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "CIDFontMapping FontMapperImpl.getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)"
+  })
+  void testGetCIDFont_whenCourier_thenReturnTrueTypeFontNameIsLiberationMono() throws IOException {
     // Arrange
     FontMapperImpl fontMapperImpl = new FontMapperImpl();
     PDFontDescriptor fontDescriptor = new PDFontDescriptor();
+    PDCIDSystemInfo cidSystemInfo = new PDCIDSystemInfo("Registry", "Ordering", 1);
 
-    // Act and Assert
-    FontBoxFont trueTypeFont = fontMapperImpl
-        .getCIDFont(null, fontDescriptor, new PDCIDSystemInfo("Registry", "Ordering", 1))
-        .getTrueTypeFont();
+    // Act
+    CIDFontMapping actualCIDFont =
+        fontMapperImpl.getCIDFont("Courier", fontDescriptor, cidSystemInfo);
+
+    // Assert
+    FontBoxFont trueTypeFont = actualCIDFont.getTrueTypeFont();
     assertTrue(trueTypeFont instanceof TrueTypeFont);
+    assertEquals("LiberationMono", trueTypeFont.getName());
+    assertNull(((TrueTypeFont) trueTypeFont).getGsub());
+    assertNull(((TrueTypeFont) trueTypeFont).getKerning());
+    assertEquals(108172L, ((TrueTypeFont) trueTypeFont).getOriginalDataSize());
+    byte[] byteArray = new byte[51];
+    assertEquals(51, ((TrueTypeFont) trueTypeFont).getOriginalData().read(byteArray));
+    assertEquals(674, ((TrueTypeFont) trueTypeFont).getNumberOfGlyphs());
+    assertFalse(actualCIDFont.isFallback());
     Map<String, TTFTable> tableMap = ((TrueTypeFont) trueTypeFont).getTableMap();
-    assertEquals(19, tableMap.size());
-    assertEquals(3, ((TrueTypeFont) trueTypeFont).getCmap().getCmaps().length);
+    assertEquals(Short.SIZE, tableMap.size());
+    assertTrue(tableMap.containsKey("OS/2"));
     assertTrue(tableMap.containsKey("fpgm"));
-  }
-
-  /**
-   * Test
-   * {@link FontMapperImpl#getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)}.
-   * <ul>
-   *   <li>Given {@link FontMapperImpl} (default constructor).</li>
-   *   <li>When {@code +}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link FontMapperImpl#getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)}
-   */
-  @Test
-  @DisplayName("Test getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo); given FontMapperImpl (default constructor); when '+'")
-  void testGetCIDFont_givenFontMapperImpl_whenPlusSign() throws IOException {
-    // Arrange
-    FontMapperImpl fontMapperImpl = new FontMapperImpl();
-    PDFontDescriptor fontDescriptor = new PDFontDescriptor();
-
-    // Act and Assert
-    FontBoxFont trueTypeFont = fontMapperImpl
-        .getCIDFont("+", fontDescriptor, new PDCIDSystemInfo("Registry", "Ordering", 1))
-        .getTrueTypeFont();
-    assertTrue(trueTypeFont instanceof TrueTypeFont);
-    Map<String, TTFTable> tableMap = ((TrueTypeFont) trueTypeFont).getTableMap();
-    assertEquals(19, tableMap.size());
-    assertEquals(3, ((TrueTypeFont) trueTypeFont).getCmap().getCmaps().length);
-    assertTrue(tableMap.containsKey("fpgm"));
+    assertTrue(tableMap.containsKey("gasp"));
+    assertTrue(tableMap.containsKey("glyf"));
+    assertEquals(Short.SIZE, ((TrueTypeFont) trueTypeFont).getTables().size());
+    assertArrayEquals(
+        new byte[] {
+          0, 1, 0, 0, 0, 16, 1, 0, 0, 4, 0, 0, 'F', 'F', 'T', 'M', 'g', 'Z', ';', -71, 0, 1, -90,
+          'p', 0, 0, 0, 28, 'G', 'D', 'E', 'F', 0, '\'', 2, -56, 0, 1, -90, 'H', 0, 0, 0, '&', 'O',
+          'S', '/', '2', -7, ' ', 'w'
+        },
+        byteArray);
   }
 }

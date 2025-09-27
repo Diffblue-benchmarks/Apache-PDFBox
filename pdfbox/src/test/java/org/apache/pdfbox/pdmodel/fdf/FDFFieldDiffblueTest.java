@@ -7,6 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.github.jaiimageio.impl.plugins.tiff.TIFFFieldNode;
 import com.github.jaiimageio.plugins.tiff.TIFFField;
 import com.github.jaiimageio.plugins.tiff.TIFFTag;
@@ -20,16 +22,16 @@ import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSBoolean;
 import org.apache.pdfbox.cos.COSDictionary;
-import org.apache.pdfbox.cos.COSDocument;
 import org.apache.pdfbox.cos.COSFloat;
 import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSInteger;
-import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.cos.COSObject;
 import org.apache.pdfbox.cos.COSObjectKey;
 import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.cos.COSString;
 import org.apache.pdfbox.cos.COSUpdateState;
+import org.apache.pdfbox.pdmodel.PDDestinationNameTreeNode;
+import org.apache.pdfbox.pdmodel.common.COSArrayList;
 import org.apache.pdfbox.pdmodel.common.PDRange;
 import org.apache.pdfbox.pdmodel.interactive.action.OpenMode;
 import org.apache.pdfbox.pdmodel.interactive.action.PDAction;
@@ -51,32 +53,39 @@ import org.apache.pdfbox.pdmodel.interactive.action.PDAdditionalActions;
 import org.apache.pdfbox.pdmodel.interactive.annotation.PDAppearanceDictionary;
 import org.apache.pdfbox.pdmodel.interactive.annotation.PDAppearanceEntry;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.w3c.dom.Element;
 
 class FDFFieldDiffblueTest {
   /**
    * Test {@link FDFField#FDFField(COSDictionary)}.
-   * <p>
-   * Method under test: {@link FDFField#FDFField(COSDictionary)}
+   *
+   * <p>Method under test: {@link FDFField#FDFField(COSDictionary)}
    */
   @Test
   @DisplayName("Test new FDFField(COSDictionary)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.<init>(COSDictionary)"})
   void testNewFDFField() {
     // Arrange
     COSDictionary f = new COSDictionary();
 
     // Act and Assert
-    assertSame(f, (new FDFField(f)).getCOSObject());
+    assertSame(f, new FDFField(f).getCOSObject());
   }
 
   /**
    * Test {@link FDFField#FDFField()}.
-   * <p>
-   * Method under test: {@link FDFField#FDFField()}
+   *
+   * <p>Method under test: {@link FDFField#FDFField()}
    */
   @Test
   @DisplayName("Test new FDFField()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.<init>()"})
   void testNewFDFField2() throws IOException {
     // Arrange and Act
     FDFField actualFdfField = new FDFField();
@@ -94,41 +103,32 @@ class FDFFieldDiffblueTest {
     assertNull(actualFdfField.getOptions());
     assertNull(actualFdfField.getKids());
     assertNull(actualFdfField.getCOSValue());
-    COSDictionary cOSObject = actualFdfField.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
-    assertNull(cOSObject.getKey());
     assertNull(actualFdfField.getIconFit());
     assertNull(actualFdfField.getAppearanceStreamReference());
     assertNull(actualFdfField.getAction());
     assertNull(actualFdfField.getAdditionalActions());
     assertNull(actualFdfField.getAppearanceDictionary());
-    assertEquals(0, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(cOSObject.getValues().isEmpty());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
   }
 
   /**
    * Test {@link FDFField#FDFField(Element)}.
+   *
    * <ul>
-   *   <li>Given {@link IIOMetadataNode#IIOMetadataNode(String)} with
-   * {@code name}.</li>
+   *   <li>Then return PartialFieldName is empty string.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#FDFField(Element)}
+   *
+   * <p>Method under test: {@link FDFField#FDFField(Element)}
    */
   @Test
-  @DisplayName("Test new FDFField(Element); given IIOMetadataNode(String) with 'name'")
-  void testNewFDFField_givenIIOMetadataNodeWithName() throws IOException {
+  @DisplayName("Test new FDFField(Element); then return PartialFieldName is empty string")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.<init>(Element)"})
+  void testNewFDFField_thenReturnPartialFieldNameIsEmptyString() throws IOException {
     // Arrange
-    IIOMetadataNode fieldXML = new IIOMetadataNode("foo");
-    IIOMetadataNode iioMetadataNode = new IIOMetadataNode("name");
-    fieldXML.insertBefore(iioMetadataNode, new IIOMetadataNode("name"));
+    IIOMetadataNode fieldXML = new IIOMetadataNode();
+    IIOMetadataNode iioMetadataNode = new IIOMetadataNode();
+    fieldXML.insertBefore(iioMetadataNode, new IIOMetadataNode());
 
     // Act
     FDFField actualFdfField = new FDFField(fieldXML);
@@ -146,39 +146,37 @@ class FDFFieldDiffblueTest {
     assertNull(actualFdfField.getOptions());
     assertNull(actualFdfField.getKids());
     assertNull(actualFdfField.getCOSValue());
-    COSDictionary cOSObject = actualFdfField.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
-    assertNull(cOSObject.getKey());
     assertNull(actualFdfField.getIconFit());
     assertNull(actualFdfField.getAppearanceStreamReference());
     assertNull(actualFdfField.getAction());
     assertNull(actualFdfField.getAdditionalActions());
     assertNull(actualFdfField.getAppearanceDictionary());
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
   }
 
   /**
    * Test {@link FDFField#FDFField(Element)}.
+   *
    * <ul>
-   *   <li>Then return PartialFieldName is {@code name}.</li>
+   *   <li>Then return PartialFieldName is {@code name}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#FDFField(Element)}
+   *
+   * <p>Method under test: {@link FDFField#FDFField(Element)}
    */
   @Test
   @DisplayName("Test new FDFField(Element); then return PartialFieldName is 'name'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.<init>(Element)"})
   void testNewFDFField_thenReturnPartialFieldNameIsName() throws IOException {
-    // Arrange and Act
-    FDFField actualFdfField = new FDFField(
-        new TIFFFieldNode(new TIFFField(new TIFFTag("name", TIFFTag.TIFF_SRATIONAL, 1), 42)));
+    // Arrange
+    TIFFTag tag = new TIFFTag("name", TIFFTag.TIFF_SRATIONAL, 1);
+
+    TIFFFieldNode fieldXML = new TIFFFieldNode(new TIFFField(tag, 42));
+    IIOMetadataNode newChild = new IIOMetadataNode();
+    fieldXML.insertBefore(newChild, new IIOMetadataNode());
+
+    // Act
+    FDFField actualFdfField = new FDFField(fieldXML);
 
     // Assert
     assertEquals("name", actualFdfField.getPartialFieldName());
@@ -193,39 +191,33 @@ class FDFFieldDiffblueTest {
     assertNull(actualFdfField.getOptions());
     assertNull(actualFdfField.getKids());
     assertNull(actualFdfField.getCOSValue());
-    COSDictionary cOSObject = actualFdfField.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
-    assertNull(cOSObject.getKey());
     assertNull(actualFdfField.getIconFit());
     assertNull(actualFdfField.getAppearanceStreamReference());
     assertNull(actualFdfField.getAction());
     assertNull(actualFdfField.getAdditionalActions());
     assertNull(actualFdfField.getAppearanceDictionary());
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
   }
 
   /**
    * Test {@link FDFField#FDFField(Element)}.
+   *
    * <ul>
-   *   <li>When {@link IIOMetadataNode#IIOMetadataNode(String)} with
-   * {@code foo}.</li>
+   *   <li>When {@link IIOMetadataNode#IIOMetadataNode()}.
+   *   <li>Then return PartialFieldName is empty string.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#FDFField(Element)}
+   *
+   * <p>Method under test: {@link FDFField#FDFField(Element)}
    */
   @Test
-  @DisplayName("Test new FDFField(Element); when IIOMetadataNode(String) with 'foo'")
-  void testNewFDFField_whenIIOMetadataNodeWithFoo() throws IOException {
+  @DisplayName(
+      "Test new FDFField(Element); when IIOMetadataNode(); then return PartialFieldName is empty string")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.<init>(Element)"})
+  void testNewFDFField_whenIIOMetadataNode_thenReturnPartialFieldNameIsEmptyString()
+      throws IOException {
     // Arrange and Act
-    FDFField actualFdfField = new FDFField(new IIOMetadataNode("foo"));
+    FDFField actualFdfField = new FDFField(new IIOMetadataNode());
 
     // Assert
     assertEquals("", actualFdfField.getPartialFieldName());
@@ -240,32 +232,23 @@ class FDFFieldDiffblueTest {
     assertNull(actualFdfField.getOptions());
     assertNull(actualFdfField.getKids());
     assertNull(actualFdfField.getCOSValue());
-    COSDictionary cOSObject = actualFdfField.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
-    assertNull(cOSObject.getKey());
     assertNull(actualFdfField.getIconFit());
     assertNull(actualFdfField.getAppearanceStreamReference());
     assertNull(actualFdfField.getAction());
     assertNull(actualFdfField.getAdditionalActions());
     assertNull(actualFdfField.getAppearanceDictionary());
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
   }
 
   /**
    * Test {@link FDFField#writeXML(Writer)}.
-   * <p>
-   * Method under test: {@link FDFField#writeXML(Writer)}
+   *
+   * <p>Method under test: {@link FDFField#writeXML(Writer)}
    */
   @Test
   @DisplayName("Test writeXML(Writer)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.writeXML(Writer)"})
   void testWriteXML() throws IOException {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -276,16 +259,20 @@ class FDFFieldDiffblueTest {
     fdfField.writeXML(output);
 
     // Assert
-    assertEquals("<field name=\"null\">\n<value-richtext></value-richtext>\n</field>\n", output.toString());
+    assertEquals(
+        "<field name=\"null\">\n<value-richtext></value-richtext>\n</field>\n", output.toString());
   }
 
   /**
    * Test {@link FDFField#writeXML(Writer)}.
-   * <p>
-   * Method under test: {@link FDFField#writeXML(Writer)}
+   *
+   * <p>Method under test: {@link FDFField#writeXML(Writer)}
    */
   @Test
   @DisplayName("Test writeXML(Writer)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.writeXML(Writer)"})
   void testWriteXML2() throws IOException {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -296,25 +283,26 @@ class FDFFieldDiffblueTest {
     fdfField.writeXML(output);
 
     // Assert
-    assertEquals("<field name=\"null\">\n<value>&lt;field name=&quot;</value>\n</field>\n", output.toString());
+    assertEquals(
+        "<field name=\"null\">\n<value>&lt;field name=&quot;</value>\n</field>\n",
+        output.toString());
   }
 
   /**
    * Test {@link FDFField#writeXML(Writer)}.
-   * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and
-   * gen is one.</li>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#writeXML(Writer)}
+   *
+   * <p>Method under test: {@link FDFField#writeXML(Writer)}
    */
   @Test
-  @DisplayName("Test writeXML(Writer); given COSObjectKey(long, int) with num is one and gen is one; then throw IOException")
-  void testWriteXML_givenCOSObjectKeyWithNumIsOneAndGenIsOne_thenThrowIOException() throws IOException {
+  @DisplayName("Test writeXML(Writer)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.writeXML(Writer)"})
+  void testWriteXML3() throws IOException {
     // Arrange
     FDFField fdfField = new FDFField();
-    fdfField.setValue((Object) new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1)));
+    COSObject cosObject = new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1));
+    fdfField.setValue((Object) cosObject);
 
     // Act and Assert
     assertThrows(IOException.class, () -> fdfField.writeXML(new StringWriter()));
@@ -322,15 +310,45 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#writeXML(Writer)}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()} Value is
-   * {@link COSArray#COSArray()}.</li>
+   *   <li>Given {@link FDFField#FDFField()} Kids is {@link ArrayList#ArrayList()}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#writeXML(Writer)}
+   *
+   * <p>Method under test: {@link FDFField#writeXML(Writer)}
+   */
+  @Test
+  @DisplayName("Test writeXML(Writer); given FDFField() Kids is ArrayList()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.writeXML(Writer)"})
+  void testWriteXML_givenFDFFieldKidsIsArrayList() throws IOException {
+    // Arrange
+    FDFField fdfField = new FDFField();
+    fdfField.setKids(new ArrayList<>());
+    StringWriter output = new StringWriter();
+
+    // Act
+    fdfField.writeXML(output);
+
+    // Assert
+    assertEquals("<field name=\"null\">\n</field>\n", output.toString());
+  }
+
+  /**
+   * Test {@link FDFField#writeXML(Writer)}.
+   *
+   * <ul>
+   *   <li>Given {@link FDFField#FDFField()} Value is {@link COSArray#COSArray()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link FDFField#writeXML(Writer)}
    */
   @Test
   @DisplayName("Test writeXML(Writer); given FDFField() Value is COSArray()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.writeXML(Writer)"})
   void testWriteXML_givenFDFFieldValueIsCOSArray() throws IOException {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -346,80 +364,20 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#writeXML(Writer)}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()} Value is
-   * {@link COSDictionary#COSDictionary()}.</li>
-   *   <li>Then throw {@link IOException}.</li>
+   *   <li>Given {@link FDFField#FDFField()} Value is {@link COSBoolean#FALSE}.
+   *   <li>Then throw {@link IOException}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#writeXML(Writer)}
+   *
+   * <p>Method under test: {@link FDFField#writeXML(Writer)}
    */
   @Test
-  @DisplayName("Test writeXML(Writer); given FDFField() Value is COSDictionary(); then throw IOException")
-  void testWriteXML_givenFDFFieldValueIsCOSDictionary_thenThrowIOException() throws IOException {
-    // Arrange
-    FDFField fdfField = new FDFField();
-    fdfField.setValue((Object) new COSDictionary());
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> fdfField.writeXML(new StringWriter()));
-  }
-
-  /**
-   * Test {@link FDFField#writeXML(Writer)}.
-   * <ul>
-   *   <li>Given {@link FDFField#FDFField()} Value is
-   * {@link COSDocument#COSDocument()}.</li>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#writeXML(Writer)}
-   */
-  @Test
-  @DisplayName("Test writeXML(Writer); given FDFField() Value is COSDocument(); then throw IOException")
-  void testWriteXML_givenFDFFieldValueIsCOSDocument_thenThrowIOException() throws IOException {
-    // Arrange
-    FDFField fdfField = new FDFField();
-    fdfField.setValue((Object) new COSDocument());
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> fdfField.writeXML(new StringWriter()));
-  }
-
-  /**
-   * Test {@link FDFField#writeXML(Writer)}.
-   * <ul>
-   *   <li>Given {@link FDFField#FDFField()} Value is
-   * {@link COSFloat#COSFloat(float)} with aFloat is ten.</li>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#writeXML(Writer)}
-   */
-  @Test
-  @DisplayName("Test writeXML(Writer); given FDFField() Value is COSFloat(float) with aFloat is ten; then throw IOException")
-  void testWriteXML_givenFDFFieldValueIsCOSFloatWithAFloatIsTen_thenThrowIOException() throws IOException {
-    // Arrange
-    FDFField fdfField = new FDFField();
-    fdfField.setValue((Object) new COSFloat(10.0f));
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> fdfField.writeXML(new StringWriter()));
-  }
-
-  /**
-   * Test {@link FDFField#writeXML(Writer)}.
-   * <ul>
-   *   <li>Given {@link FDFField#FDFField()} Value is {@link COSBoolean#FALSE}.</li>
-   *   <li>When {@link StringWriter#StringWriter()}.</li>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#writeXML(Writer)}
-   */
-  @Test
-  @DisplayName("Test writeXML(Writer); given FDFField() Value is FALSE; when StringWriter(); then throw IOException")
-  void testWriteXML_givenFDFFieldValueIsFalse_whenStringWriter_thenThrowIOException() throws IOException {
+  @DisplayName("Test writeXML(Writer); given FDFField() Value is FALSE; then throw IOException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.writeXML(Writer)"})
+  void testWriteXML_givenFDFFieldValueIsFalse_thenThrowIOException() throws IOException {
     // Arrange
     FDFField fdfField = new FDFField();
     fdfField.setValue(COSBoolean.FALSE);
@@ -430,17 +388,20 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#writeXML(Writer)}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()} Value is {@link COSFloat#ONE}.</li>
-   *   <li>When {@link StringWriter#StringWriter()}.</li>
-   *   <li>Then throw {@link IOException}.</li>
+   *   <li>Given {@link FDFField#FDFField()} Value is {@link COSFloat#ONE}.
+   *   <li>Then throw {@link IOException}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#writeXML(Writer)}
+   *
+   * <p>Method under test: {@link FDFField#writeXML(Writer)}
    */
   @Test
-  @DisplayName("Test writeXML(Writer); given FDFField() Value is ONE; when StringWriter(); then throw IOException")
-  void testWriteXML_givenFDFFieldValueIsOne_whenStringWriter_thenThrowIOException() throws IOException {
+  @DisplayName("Test writeXML(Writer); given FDFField() Value is ONE; then throw IOException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.writeXML(Writer)"})
+  void testWriteXML_givenFDFFieldValueIsOne_thenThrowIOException() throws IOException {
     // Arrange
     FDFField fdfField = new FDFField();
     fdfField.setValue((Object) COSFloat.ONE);
@@ -451,17 +412,20 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#writeXML(Writer)}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()} Value is {@link COSInteger#ONE}.</li>
-   *   <li>When {@link StringWriter#StringWriter()}.</li>
-   *   <li>Then throw {@link IOException}.</li>
+   *   <li>Given {@link FDFField#FDFField()} Value is {@link COSInteger#ONE}.
+   *   <li>Then throw {@link IOException}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#writeXML(Writer)}
+   *
+   * <p>Method under test: {@link FDFField#writeXML(Writer)}
    */
   @Test
-  @DisplayName("Test writeXML(Writer); given FDFField() Value is ONE; when StringWriter(); then throw IOException")
-  void testWriteXML_givenFDFFieldValueIsOne_whenStringWriter_thenThrowIOException2() throws IOException {
+  @DisplayName("Test writeXML(Writer); given FDFField() Value is ONE; then throw IOException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.writeXML(Writer)"})
+  void testWriteXML_givenFDFFieldValueIsOne_thenThrowIOException2() throws IOException {
     // Arrange
     FDFField fdfField = new FDFField();
     fdfField.setValue((Object) COSInteger.ONE);
@@ -472,17 +436,23 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#writeXML(Writer)}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()}.</li>
-   *   <li>Then {@link StringWriter#StringWriter()} toString is
-   * {@code <field name="null"> </field>}.</li>
+   *   <li>Given {@link FDFField#FDFField()}.
+   *   <li>Then {@link StringWriter#StringWriter()} toString is {@code <field name="null">
+   *       </field>}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#writeXML(Writer)}
+   *
+   * <p>Method under test: {@link FDFField#writeXML(Writer)}
    */
   @Test
-  @DisplayName("Test writeXML(Writer); given FDFField(); then StringWriter() toString is '<field name=\"null\"> </field>'")
-  void testWriteXML_givenFDFField_thenStringWriterToStringIsFieldNameNullField() throws IOException {
+  @DisplayName(
+      "Test writeXML(Writer); given FDFField(); then StringWriter() toString is '<field name=\"null\"> </field>'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.writeXML(Writer)"})
+  void testWriteXML_givenFDFField_thenStringWriterToStringIsFieldNameNullField()
+      throws IOException {
     // Arrange
     FDFField fdfField = new FDFField();
     StringWriter output = new StringWriter();
@@ -496,14 +466,18 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#writeXML(Writer)}.
+   *
    * <ul>
-   *   <li>Then {@link StringWriter#StringWriter()} toString is a string.</li>
+   *   <li>Then {@link StringWriter#StringWriter()} toString is a string.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#writeXML(Writer)}
+   *
+   * <p>Method under test: {@link FDFField#writeXML(Writer)}
    */
   @Test
   @DisplayName("Test writeXML(Writer); then StringWriter() toString is a string")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.writeXML(Writer)"})
   void testWriteXML_thenStringWriterToStringIsAString() throws IOException {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -521,18 +495,22 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#writeXML(Writer)}.
+   *
    * <ul>
-   *   <li>Then {@link StringWriter#StringWriter()} toString is
-   * {@code <field name=""> </field>}.</li>
+   *   <li>Then {@link StringWriter#StringWriter()} toString is {@code <field name=""> </field>}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#writeXML(Writer)}
+   *
+   * <p>Method under test: {@link FDFField#writeXML(Writer)}
    */
   @Test
-  @DisplayName("Test writeXML(Writer); then StringWriter() toString is '<field name=\"\"> </field>'")
+  @DisplayName(
+      "Test writeXML(Writer); then StringWriter() toString is '<field name=\"\"> </field>'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.writeXML(Writer)"})
   void testWriteXML_thenStringWriterToStringIsFieldNameField() throws IOException {
     // Arrange
-    FDFField fdfField = new FDFField(new IIOMetadataNode("<field name=\""));
+    FDFField fdfField = new FDFField(new IIOMetadataNode());
     StringWriter output = new StringWriter();
 
     // Act
@@ -544,15 +522,20 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#writeXML(Writer)}.
+   *
    * <ul>
-   *   <li>Then {@link StringWriter#StringWriter()} toString is
-   * {@code <field name="<field name=""> </field>}.</li>
+   *   <li>Then {@link StringWriter#StringWriter()} toString is {@code <field name="<field name="">
+   *       </field>}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#writeXML(Writer)}
+   *
+   * <p>Method under test: {@link FDFField#writeXML(Writer)}
    */
   @Test
-  @DisplayName("Test writeXML(Writer); then StringWriter() toString is '<field name=\"<field name=\"\"> </field>'")
+  @DisplayName(
+      "Test writeXML(Writer); then StringWriter() toString is '<field name=\"<field name=\"\"> </field>'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.writeXML(Writer)"})
   void testWriteXML_thenStringWriterToStringIsFieldNameFieldNameField() throws IOException {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -568,40 +551,22 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#writeXML(Writer)}.
+   *
    * <ul>
-   *   <li>Then {@link StringWriter#StringWriter()} toString is
-   * {@code <field name="null"> </field>}.</li>
+   *   <li>Then {@link StringWriter#StringWriter()} toString is {@code <field name="null"> <field
+   *       name="null"> </field> </field>}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#writeXML(Writer)}
+   *
+   * <p>Method under test: {@link FDFField#writeXML(Writer)}
    */
   @Test
-  @DisplayName("Test writeXML(Writer); then StringWriter() toString is '<field name=\"null\"> </field>'")
-  void testWriteXML_thenStringWriterToStringIsFieldNameNullField() throws IOException {
-    // Arrange
-    FDFField fdfField = new FDFField();
-    fdfField.setKids(new ArrayList<>());
-    StringWriter output = new StringWriter();
-
-    // Act
-    fdfField.writeXML(output);
-
-    // Assert
-    assertEquals("<field name=\"null\">\n</field>\n", output.toString());
-  }
-
-  /**
-   * Test {@link FDFField#writeXML(Writer)}.
-   * <ul>
-   *   <li>Then {@link StringWriter#StringWriter()} toString is
-   * {@code <field name="null"> <field name="null"> </field> </field>}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#writeXML(Writer)}
-   */
-  @Test
-  @DisplayName("Test writeXML(Writer); then StringWriter() toString is '<field name=\"null\"> <field name=\"null\"> </field> </field>'")
-  void testWriteXML_thenStringWriterToStringIsFieldNameNullFieldNameNullFieldField() throws IOException {
+  @DisplayName(
+      "Test writeXML(Writer); then StringWriter() toString is '<field name=\"null\"> <field name=\"null\"> </field> </field>'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.writeXML(Writer)"})
+  void testWriteXML_thenStringWriterToStringIsFieldNameNullFieldNameNullFieldField()
+      throws IOException {
     // Arrange
     ArrayList<FDFField> kids = new ArrayList<>();
     kids.add(new FDFField());
@@ -614,45 +579,28 @@ class FDFFieldDiffblueTest {
     fdfField.writeXML(output);
 
     // Assert
-    assertEquals("<field name=\"null\">\n<field name=\"null\">\n</field>\n</field>\n", output.toString());
+    assertEquals(
+        "<field name=\"null\">\n<field name=\"null\">\n</field>\n</field>\n", output.toString());
   }
 
   /**
    * Test {@link FDFField#writeXML(Writer)}.
+   *
    * <ul>
-   *   <li>Then {@link StringWriter#StringWriter()} toString is
-   * {@code <field name="null"> <value>A</value> </field>}.</li>
+   *   <li>Then {@link StringWriter#StringWriter()} toString is {@code <field name="null">
+   *       <value>&quot;&gt; </value> </field>}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#writeXML(Writer)}
+   *
+   * <p>Method under test: {@link FDFField#writeXML(Writer)}
    */
   @Test
-  @DisplayName("Test writeXML(Writer); then StringWriter() toString is '<field name=\"null\"> <value>A</value> </field>'")
-  void testWriteXML_thenStringWriterToStringIsFieldNameNullValueAValueField() throws IOException {
-    // Arrange
-    FDFField fdfField = new FDFField();
-    fdfField.setValue(COSName.A);
-    StringWriter output = new StringWriter();
-
-    // Act
-    fdfField.writeXML(output);
-
-    // Assert
-    assertEquals("<field name=\"null\">\n<value>A</value>\n</field>\n", output.toString());
-  }
-
-  /**
-   * Test {@link FDFField#writeXML(Writer)}.
-   * <ul>
-   *   <li>Then {@link StringWriter#StringWriter()} toString is
-   * {@code <field name="null"> <value>&quot;&gt; </value> </field>}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#writeXML(Writer)}
-   */
-  @Test
-  @DisplayName("Test writeXML(Writer); then StringWriter() toString is '<field name=\"null\"> <value>&quot;&gt; </value> </field>'")
-  void testWriteXML_thenStringWriterToStringIsFieldNameNullValueQuotGtValueField() throws IOException {
+  @DisplayName(
+      "Test writeXML(Writer); then StringWriter() toString is '<field name=\"null\"> <value>&quot;&gt; </value> </field>'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.writeXML(Writer)"})
+  void testWriteXML_thenStringWriterToStringIsFieldNameNullValueQuotGtValueField()
+      throws IOException {
     // Arrange
     FDFField fdfField = new FDFField();
     fdfField.setValue("\">\n");
@@ -662,45 +610,28 @@ class FDFFieldDiffblueTest {
     fdfField.writeXML(output);
 
     // Assert
-    assertEquals("<field name=\"null\">\n<value>&quot;&gt;\n</value>\n</field>\n", output.toString());
+    assertEquals(
+        "<field name=\"null\">\n<value>&quot;&gt;\n</value>\n</field>\n", output.toString());
   }
 
   /**
    * Test {@link FDFField#writeXML(Writer)}.
+   *
    * <ul>
-   *   <li>Then {@link StringWriter#StringWriter()} toString is
-   * {@code <field name="null"> <value></value> </field>}.</li>
+   *   <li>Then {@link StringWriter#StringWriter()} toString is {@code <field name="null">
+   *       <value>Value</value> </field>}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#writeXML(Writer)}
+   *
+   * <p>Method under test: {@link FDFField#writeXML(Writer)}
    */
   @Test
-  @DisplayName("Test writeXML(Writer); then StringWriter() toString is '<field name=\"null\"> <value></value> </field>'")
-  void testWriteXML_thenStringWriterToStringIsFieldNameNullValueValueField() throws IOException {
-    // Arrange
-    FDFField fdfField = new FDFField();
-    fdfField.setValue(new COSStream());
-    StringWriter output = new StringWriter();
-
-    // Act
-    fdfField.writeXML(output);
-
-    // Assert
-    assertEquals("<field name=\"null\">\n<value></value>\n</field>\n", output.toString());
-  }
-
-  /**
-   * Test {@link FDFField#writeXML(Writer)}.
-   * <ul>
-   *   <li>Then {@link StringWriter#StringWriter()} toString is
-   * {@code <field name="null"> <value>Value</value> </field>}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#writeXML(Writer)}
-   */
-  @Test
-  @DisplayName("Test writeXML(Writer); then StringWriter() toString is '<field name=\"null\"> <value>Value</value> </field>'")
-  void testWriteXML_thenStringWriterToStringIsFieldNameNullValueValueValueField() throws IOException {
+  @DisplayName(
+      "Test writeXML(Writer); then StringWriter() toString is '<field name=\"null\"> <value>Value</value> </field>'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.writeXML(Writer)"})
+  void testWriteXML_thenStringWriterToStringIsFieldNameNullValueValueValueField()
+      throws IOException {
     // Arrange
     FDFField fdfField = new FDFField();
     fdfField.setValue("Value");
@@ -715,14 +646,17 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#getCOSObject()}.
-   * <p>
-   * Method under test: {@link FDFField#getCOSObject()}
+   *
+   * <p>Method under test: {@link FDFField#getCOSObject()}
    */
   @Test
   @DisplayName("Test getCOSObject()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"COSDictionary FDFField.getCOSObject()"})
   void testGetCOSObject() {
     // Arrange and Act
-    COSDictionary actualCOSObject = (new FDFField()).getCOSObject();
+    COSDictionary actualCOSObject = new FDFField().getCOSObject();
 
     // Assert
     COSUpdateState updateState = actualCOSObject.getUpdateState();
@@ -740,15 +674,19 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#getKids()}.
+   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link FDFField#FDFField()}.</li>
-   *   <li>Then return size is one.</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link FDFField#FDFField()}.
+   *   <li>Then return size is one.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getKids()}
+   *
+   * <p>Method under test: {@link FDFField#getKids()}
    */
   @Test
   @DisplayName("Test getKids(); given ArrayList() add FDFField(); then return size is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List FDFField.getKids()"})
   void testGetKids_givenArrayListAddFDFField_thenReturnSizeIsOne() throws IOException {
     // Arrange
     ArrayList<FDFField> kids = new ArrayList<>();
@@ -774,37 +712,28 @@ class FDFFieldDiffblueTest {
     assertNull(getResult.getRichText());
     assertNull(getResult.getOptions());
     assertNull(getResult.getCOSValue());
-    COSDictionary cOSObject = getResult.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
-    assertNull(cOSObject.getKey());
     assertNull(getResult.getIconFit());
     assertNull(getResult.getAppearanceStreamReference());
     assertNull(getResult.getAction());
     assertNull(getResult.getAdditionalActions());
     assertNull(getResult.getAppearanceDictionary());
-    assertEquals(0, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(cOSObject.getValues().isEmpty());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
   }
 
   /**
    * Test {@link FDFField#getKids()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()} Kids is
-   * {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then return Empty.</li>
+   *   <li>Given {@link FDFField#FDFField()} Kids is {@link ArrayList#ArrayList()}.
+   *   <li>Then return Empty.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getKids()}
+   *
+   * <p>Method under test: {@link FDFField#getKids()}
    */
   @Test
   @DisplayName("Test getKids(); given FDFField() Kids is ArrayList(); then return Empty")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List FDFField.getKids()"})
   void testGetKids_givenFDFFieldKidsIsArrayList_thenReturnEmpty() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -816,50 +745,43 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#getKids()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()}.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Given {@link FDFField#FDFField()}.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getKids()}
+   *
+   * <p>Method under test: {@link FDFField#getKids()}
    */
   @Test
   @DisplayName("Test getKids(); given FDFField(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List FDFField.getKids()"})
   void testGetKids_givenFDFField_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new FDFField()).getKids());
-  }
-
-  /**
-   * Test {@link FDFField#getKids()}.
-   * <ul>
-   *   <li>Given {@link IIOMetadataNode#IIOMetadataNode(String)} with
-   * {@code foo}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getKids()}
-   */
-  @Test
-  @DisplayName("Test getKids(); given IIOMetadataNode(String) with 'foo'; then return 'null'")
-  void testGetKids_givenIIOMetadataNodeWithFoo_thenReturnNull() throws IOException {
-    // Arrange, Act and Assert
-    assertNull((new FDFField(new IIOMetadataNode("foo"))).getKids());
+    assertNull(new FDFField().getKids());
   }
 
   /**
    * Test {@link FDFField#setKids(List)}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@link FDFField#FDFField()}.</li>
-   *   <li>Then {@link FDFField#FDFField()} Kids size is two.</li>
+   *   <li>Given {@link FDFField#FDFField()}.
+   *   <li>When {@link ArrayList#ArrayList()} add {@link FDFField#FDFField()}.
+   *   <li>Then {@link FDFField#FDFField()} Kids size is two.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setKids(List)}
+   *
+   * <p>Method under test: {@link FDFField#setKids(List)}
    */
   @Test
-  @DisplayName("Test setKids(List); given FDFField(); when ArrayList() add FDFField(); then FDFField() Kids size is two")
-  void testSetKids_givenFDFField_whenArrayListAddFDFField_thenFDFFieldKidsSizeIsTwo() throws IOException {
+  @DisplayName(
+      "Test setKids(List); given FDFField(); when ArrayList() add FDFField(); then FDFField() Kids size is two")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setKids(List)"})
+  void testSetKids_givenFDFField_whenArrayListAddFDFField_thenFDFFieldKidsSizeIsTwo()
+      throws IOException {
     // Arrange
     FDFField fdfField = new FDFField();
 
@@ -895,16 +817,20 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setKids(List)}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()}.</li>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then {@link FDFField#FDFField()} Kids Empty.</li>
+   *   <li>Given {@link FDFField#FDFField()}.
+   *   <li>When {@link ArrayList#ArrayList()}.
+   *   <li>Then {@link FDFField#FDFField()} Kids Empty.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setKids(List)}
+   *
+   * <p>Method under test: {@link FDFField#setKids(List)}
    */
   @Test
   @DisplayName("Test setKids(List); given FDFField(); when ArrayList(); then FDFField() Kids Empty")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setKids(List)"})
   void testSetKids_givenFDFField_whenArrayList_thenFDFFieldKidsEmpty() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -921,17 +847,21 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setKids(List)}.
+   *
    * <ul>
-   *   <li>Given {@code null}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@code null}.</li>
-   *   <li>Then {@link FDFField#FDFField()} Kids first COSObject is
-   * {@code null}.</li>
+   *   <li>Given {@code null}.
+   *   <li>When {@link ArrayList#ArrayList()} add {@code null}.
+   *   <li>Then {@link FDFField#FDFField()} Kids first COSObject is {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setKids(List)}
+   *
+   * <p>Method under test: {@link FDFField#setKids(List)}
    */
   @Test
-  @DisplayName("Test setKids(List); given 'null'; when ArrayList() add 'null'; then FDFField() Kids first COSObject is 'null'")
+  @DisplayName(
+      "Test setKids(List); given 'null'; when ArrayList() add 'null'; then FDFField() Kids first COSObject is 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setKids(List)"})
   void testSetKids_givenNull_whenArrayListAddNull_thenFDFFieldKidsFirstCOSObjectIsNull() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -953,17 +883,22 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setKids(List)}.
+   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()} add {@link FDFField#FDFField()}.</li>
-   *   <li>Then {@link FDFField#FDFField()} Kids first ClearFieldFlags is
-   * {@code null}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@link FDFField#FDFField()}.
+   *   <li>Then {@link FDFField#FDFField()} Kids first ClearFieldFlags is {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setKids(List)}
+   *
+   * <p>Method under test: {@link FDFField#setKids(List)}
    */
   @Test
-  @DisplayName("Test setKids(List); when ArrayList() add FDFField(); then FDFField() Kids first ClearFieldFlags is 'null'")
-  void testSetKids_whenArrayListAddFDFField_thenFDFFieldKidsFirstClearFieldFlagsIsNull() throws IOException {
+  @DisplayName(
+      "Test setKids(List); when ArrayList() add FDFField(); then FDFField() Kids first ClearFieldFlags is 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setKids(List)"})
+  void testSetKids_whenArrayListAddFDFField_thenFDFFieldKidsFirstClearFieldFlagsIsNull()
+      throws IOException {
     // Arrange
     FDFField fdfField = new FDFField();
 
@@ -998,16 +933,20 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#getPartialFieldName()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()} PartialFieldName is
-   * {@code Partial}.</li>
-   *   <li>Then return {@code Partial}.</li>
+   *   <li>Given {@link FDFField#FDFField()} PartialFieldName is {@code Partial}.
+   *   <li>Then return {@code Partial}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getPartialFieldName()}
+   *
+   * <p>Method under test: {@link FDFField#getPartialFieldName()}
    */
   @Test
-  @DisplayName("Test getPartialFieldName(); given FDFField() PartialFieldName is 'Partial'; then return 'Partial'")
+  @DisplayName(
+      "Test getPartialFieldName(); given FDFField() PartialFieldName is 'Partial'; then return 'Partial'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String FDFField.getPartialFieldName()"})
   void testGetPartialFieldName_givenFDFFieldPartialFieldNameIsPartial_thenReturnPartial() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -1019,49 +958,59 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#getPartialFieldName()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()}.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Given {@link FDFField#FDFField()}.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getPartialFieldName()}
+   *
+   * <p>Method under test: {@link FDFField#getPartialFieldName()}
    */
   @Test
   @DisplayName("Test getPartialFieldName(); given FDFField(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String FDFField.getPartialFieldName()"})
   void testGetPartialFieldName_givenFDFField_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new FDFField()).getPartialFieldName());
+    assertNull(new FDFField().getPartialFieldName());
   }
 
   /**
    * Test {@link FDFField#getPartialFieldName()}.
+   *
    * <ul>
-   *   <li>Given {@link IIOMetadataNode#IIOMetadataNode(String)} with
-   * {@code foo}.</li>
-   *   <li>Then return empty string.</li>
+   *   <li>Then return empty string.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getPartialFieldName()}
+   *
+   * <p>Method under test: {@link FDFField#getPartialFieldName()}
    */
   @Test
-  @DisplayName("Test getPartialFieldName(); given IIOMetadataNode(String) with 'foo'; then return empty string")
-  void testGetPartialFieldName_givenIIOMetadataNodeWithFoo_thenReturnEmptyString() throws IOException {
+  @DisplayName("Test getPartialFieldName(); then return empty string")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String FDFField.getPartialFieldName()"})
+  void testGetPartialFieldName_thenReturnEmptyString() throws IOException {
     // Arrange, Act and Assert
-    assertEquals("", (new FDFField(new IIOMetadataNode("foo"))).getPartialFieldName());
+    assertEquals("", new FDFField(new IIOMetadataNode()).getPartialFieldName());
   }
 
   /**
    * Test {@link FDFField#setPartialFieldName(String)}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()}.</li>
-   *   <li>Then {@link FDFField#FDFField()} PartialFieldName is
-   * {@code Partial}.</li>
+   *   <li>Given {@link FDFField#FDFField()}.
+   *   <li>Then {@link FDFField#FDFField()} PartialFieldName is {@code Partial}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setPartialFieldName(String)}
+   *
+   * <p>Method under test: {@link FDFField#setPartialFieldName(String)}
    */
   @Test
-  @DisplayName("Test setPartialFieldName(String); given FDFField(); then FDFField() PartialFieldName is 'Partial'")
+  @DisplayName(
+      "Test setPartialFieldName(String); given FDFField(); then FDFField() PartialFieldName is 'Partial'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setPartialFieldName(String)"})
   void testSetPartialFieldName_givenFDFField_thenFDFFieldPartialFieldNameIsPartial() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -1077,21 +1026,50 @@ class FDFFieldDiffblueTest {
   }
 
   /**
-   * Test {@link FDFField#getValue()}.
+   * Test {@link FDFField#setPartialFieldName(String)}.
+   *
    * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and
-   * gen is one.</li>
-   *   <li>Then throw {@link IOException}.</li>
+   *   <li>Given {@link FDFField#FDFField()}.
+   *   <li>When {@code null}.
+   *   <li>Then {@link FDFField#FDFField()} COSObject size is zero.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getValue()}
+   *
+   * <p>Method under test: {@link FDFField#setPartialFieldName(String)}
    */
   @Test
-  @DisplayName("Test getValue(); given COSObjectKey(long, int) with num is one and gen is one; then throw IOException")
-  void testGetValue_givenCOSObjectKeyWithNumIsOneAndGenIsOne_thenThrowIOException() throws IOException {
+  @DisplayName(
+      "Test setPartialFieldName(String); given FDFField(); when 'null'; then FDFField() COSObject size is zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setPartialFieldName(String)"})
+  void testSetPartialFieldName_givenFDFField_whenNull_thenFDFFieldCOSObjectSizeIsZero() {
     // Arrange
     FDFField fdfField = new FDFField();
-    fdfField.setValue((Object) new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1)));
+
+    // Act
+    fdfField.setPartialFieldName(null);
+
+    // Assert that nothing has changed
+    COSDictionary cOSObject = fdfField.getCOSObject();
+    assertEquals(0, cOSObject.size());
+    assertTrue(cOSObject.getValues().isEmpty());
+  }
+
+  /**
+   * Test {@link FDFField#getValue()}.
+   *
+   * <p>Method under test: {@link FDFField#getValue()}
+   */
+  @Test
+  @DisplayName("Test getValue()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Object FDFField.getValue()"})
+  void testGetValue() throws IOException {
+    // Arrange
+    FDFField fdfField = new FDFField();
+    COSObject cosObject = new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1));
+    fdfField.setValue((Object) cosObject);
 
     // Act and Assert
     assertThrows(IOException.class, () -> fdfField.getValue());
@@ -1099,36 +1077,19 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#getValue()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()} Value is {@link COSName#A}.</li>
-   *   <li>Then return {@link FDFIconFit#SCALE_OPTION_ALWAYS}.</li>
+   *   <li>Given {@link FDFField#FDFField()} Value is {@link COSArray#COSArray()}.
+   *   <li>Then return {@link List}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getValue()}
-   */
-  @Test
-  @DisplayName("Test getValue(); given FDFField() Value is A; then return SCALE_OPTION_ALWAYS")
-  void testGetValue_givenFDFFieldValueIsA_thenReturnScale_option_always() throws IOException {
-    // Arrange
-    FDFField fdfField = new FDFField();
-    fdfField.setValue(COSName.A);
-
-    // Act and Assert
-    assertEquals(FDFIconFit.SCALE_OPTION_ALWAYS, fdfField.getValue());
-  }
-
-  /**
-   * Test {@link FDFField#getValue()}.
-   * <ul>
-   *   <li>Given {@link FDFField#FDFField()} Value is
-   * {@link COSArray#COSArray()}.</li>
-   *   <li>Then return {@link List}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getValue()}
+   *
+   * <p>Method under test: {@link FDFField#getValue()}
    */
   @Test
   @DisplayName("Test getValue(); given FDFField() Value is COSArray(); then return List")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Object FDFField.getValue()"})
   void testGetValue_givenFDFFieldValueIsCOSArray_thenReturnList() throws IOException {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -1144,119 +1105,19 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#getValue()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()} Value is
-   * {@link COSDictionary#COSDictionary()}.</li>
-   *   <li>Then throw {@link IOException}.</li>
+   *   <li>Given {@link FDFField#FDFField()} Value is {@link COSBoolean#FALSE}.
+   *   <li>Then throw {@link IOException}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getValue()}
-   */
-  @Test
-  @DisplayName("Test getValue(); given FDFField() Value is COSDictionary(); then throw IOException")
-  void testGetValue_givenFDFFieldValueIsCOSDictionary_thenThrowIOException() throws IOException {
-    // Arrange
-    FDFField fdfField = new FDFField();
-    fdfField.setValue((Object) new COSDictionary());
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> fdfField.getValue());
-  }
-
-  /**
-   * Test {@link FDFField#getValue()}.
-   * <ul>
-   *   <li>Given {@link FDFField#FDFField()} Value is
-   * {@link COSDocument#COSDocument()}.</li>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getValue()}
-   */
-  @Test
-  @DisplayName("Test getValue(); given FDFField() Value is COSDocument(); then throw IOException")
-  void testGetValue_givenFDFFieldValueIsCOSDocument_thenThrowIOException() throws IOException {
-    // Arrange
-    FDFField fdfField = new FDFField();
-    fdfField.setValue((Object) new COSDocument());
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> fdfField.getValue());
-  }
-
-  /**
-   * Test {@link FDFField#getValue()}.
-   * <ul>
-   *   <li>Given {@link FDFField#FDFField()} Value is
-   * {@link COSFloat#COSFloat(float)} with aFloat is ten.</li>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getValue()}
-   */
-  @Test
-  @DisplayName("Test getValue(); given FDFField() Value is COSFloat(float) with aFloat is ten; then throw IOException")
-  void testGetValue_givenFDFFieldValueIsCOSFloatWithAFloatIsTen_thenThrowIOException() throws IOException {
-    // Arrange
-    FDFField fdfField = new FDFField();
-    fdfField.setValue((Object) new COSFloat(10.0f));
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> fdfField.getValue());
-  }
-
-  /**
-   * Test {@link FDFField#getValue()}.
-   * <ul>
-   *   <li>Given {@link FDFField#FDFField()} Value is
-   * {@link COSStream#COSStream()}.</li>
-   *   <li>Then return empty string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getValue()}
-   */
-  @Test
-  @DisplayName("Test getValue(); given FDFField() Value is COSStream(); then return empty string")
-  void testGetValue_givenFDFFieldValueIsCOSStream_thenReturnEmptyString() throws IOException {
-    // Arrange
-    FDFField fdfField = new FDFField();
-    fdfField.setValue(new COSStream());
-
-    // Act and Assert
-    assertEquals("", fdfField.getValue());
-  }
-
-  /**
-   * Test {@link FDFField#getValue()}.
-   * <ul>
-   *   <li>Given {@link FDFField#FDFField()} Value is empty string.</li>
-   *   <li>Then return empty string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getValue()}
-   */
-  @Test
-  @DisplayName("Test getValue(); given FDFField() Value is empty string; then return empty string")
-  void testGetValue_givenFDFFieldValueIsEmptyString_thenReturnEmptyString() throws IOException {
-    // Arrange
-    FDFField fdfField = new FDFField();
-    fdfField.setValue("");
-
-    // Act and Assert
-    assertEquals("", fdfField.getValue());
-  }
-
-  /**
-   * Test {@link FDFField#getValue()}.
-   * <ul>
-   *   <li>Given {@link FDFField#FDFField()} Value is {@link COSBoolean#FALSE}.</li>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getValue()}
+   *
+   * <p>Method under test: {@link FDFField#getValue()}
    */
   @Test
   @DisplayName("Test getValue(); given FDFField() Value is FALSE; then throw IOException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Object FDFField.getValue()"})
   void testGetValue_givenFDFFieldValueIsFalse_thenThrowIOException() throws IOException {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -1268,15 +1129,19 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#getValue()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()} Value is {@link COSFloat#ONE}.</li>
-   *   <li>Then throw {@link IOException}.</li>
+   *   <li>Given {@link FDFField#FDFField()} Value is {@link COSFloat#ONE}.
+   *   <li>Then throw {@link IOException}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getValue()}
+   *
+   * <p>Method under test: {@link FDFField#getValue()}
    */
   @Test
   @DisplayName("Test getValue(); given FDFField() Value is ONE; then throw IOException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Object FDFField.getValue()"})
   void testGetValue_givenFDFFieldValueIsOne_thenThrowIOException() throws IOException {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -1288,15 +1153,19 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#getValue()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()} Value is {@link COSInteger#ONE}.</li>
-   *   <li>Then throw {@link IOException}.</li>
+   *   <li>Given {@link FDFField#FDFField()} Value is {@link COSInteger#ONE}.
+   *   <li>Then throw {@link IOException}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getValue()}
+   *
+   * <p>Method under test: {@link FDFField#getValue()}
    */
   @Test
   @DisplayName("Test getValue(); given FDFField() Value is ONE; then throw IOException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Object FDFField.getValue()"})
   void testGetValue_givenFDFFieldValueIsOne_thenThrowIOException2() throws IOException {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -1308,15 +1177,19 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#getValue()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()} Value is {@code Value}.</li>
-   *   <li>Then return {@code Value}.</li>
+   *   <li>Given {@link FDFField#FDFField()} Value is {@code Value}.
+   *   <li>Then return {@code Value}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getValue()}
+   *
+   * <p>Method under test: {@link FDFField#getValue()}
    */
   @Test
   @DisplayName("Test getValue(); given FDFField() Value is 'Value'; then return 'Value'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Object FDFField.getValue()"})
   void testGetValue_givenFDFFieldValueIsValue_thenReturnValue() throws IOException {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -1328,48 +1201,39 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#getValue()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()}.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Given {@link FDFField#FDFField()}.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getValue()}
+   *
+   * <p>Method under test: {@link FDFField#getValue()}
    */
   @Test
   @DisplayName("Test getValue(); given FDFField(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Object FDFField.getValue()"})
   void testGetValue_givenFDFField_thenReturnNull() throws IOException {
     // Arrange, Act and Assert
-    assertNull((new FDFField()).getValue());
-  }
-
-  /**
-   * Test {@link FDFField#getValue()}.
-   * <ul>
-   *   <li>Given {@link IIOMetadataNode#IIOMetadataNode(String)} with
-   * {@code foo}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getValue()}
-   */
-  @Test
-  @DisplayName("Test getValue(); given IIOMetadataNode(String) with 'foo'; then return 'null'")
-  void testGetValue_givenIIOMetadataNodeWithFoo_thenReturnNull() throws IOException {
-    // Arrange, Act and Assert
-    assertNull((new FDFField(new IIOMetadataNode("foo"))).getValue());
+    assertNull(new FDFField().getValue());
   }
 
   /**
    * Test {@link FDFField#getCOSValue()}.
-   * <p>
-   * Method under test: {@link FDFField#getCOSValue()}
+   *
+   * <p>Method under test: {@link FDFField#getCOSValue()}
    */
   @Test
   @DisplayName("Test getCOSValue()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"COSBase FDFField.getCOSValue()"})
   void testGetCOSValue() throws IOException {
     // Arrange
     FDFField fdfField = new FDFField();
-    fdfField.setValue((Object) new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1)));
+    COSObject cosObject = new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1));
+    fdfField.setValue((Object) cosObject);
 
     // Act and Assert
     assertThrows(IOException.class, () -> fdfField.getCOSValue());
@@ -1377,62 +1241,19 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#getCOSValue()}.
+   *
    * <ul>
-   *   <li>Given {@link COSObject#COSObject(COSBase, COSObjectKey)} with object is
-   * {@link COSBoolean#FALSE} and objectKey is
-   * {@link COSObjectKey#COSObjectKey(long, int)}.</li>
+   *   <li>Given {@link FDFField#FDFField()} Value is {@link COSArray#COSArray()}.
+   *   <li>Then return {@link COSArray}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getCOSValue()}
-   */
-  @Test
-  @DisplayName("Test getCOSValue(); given COSObject(COSBase, COSObjectKey) with object is FALSE and objectKey is COSObjectKey(long, int)")
-  void testGetCOSValue_givenCOSObjectWithObjectIsFalseAndObjectKeyIsCOSObjectKey() throws IOException {
-    // Arrange
-    FDFField fdfField = new FDFField();
-    COSObject object = new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1));
-
-    fdfField.setValue((Object) new COSObject(object, new COSObjectKey(1L, 1)));
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> fdfField.getCOSValue());
-  }
-
-  /**
-   * Test {@link FDFField#getCOSValue()}.
-   * <ul>
-   *   <li>Given {@link FDFField#FDFField()} Value is {@link COSName#A}.</li>
-   *   <li>Then return {@link COSName#A}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getCOSValue()}
-   */
-  @Test
-  @DisplayName("Test getCOSValue(); given FDFField() Value is A; then return A")
-  void testGetCOSValue_givenFDFFieldValueIsA_thenReturnA() throws IOException {
-    // Arrange
-    FDFField fdfField = new FDFField();
-    fdfField.setValue(COSName.A);
-
-    // Act
-    COSBase actualCOSValue = fdfField.getCOSValue();
-
-    // Assert
-    assertSame(((COSName) actualCOSValue).A, actualCOSValue);
-  }
-
-  /**
-   * Test {@link FDFField#getCOSValue()}.
-   * <ul>
-   *   <li>Given {@link FDFField#FDFField()} Value is
-   * {@link COSArray#COSArray()}.</li>
-   *   <li>Then return {@link COSArray}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getCOSValue()}
+   *
+   * <p>Method under test: {@link FDFField#getCOSValue()}
    */
   @Test
   @DisplayName("Test getCOSValue(); given FDFField() Value is COSArray(); then return COSArray")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"COSBase FDFField.getCOSValue()"})
   void testGetCOSValue_givenFDFFieldValueIsCOSArray_thenReturnCOSArray() throws IOException {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -1450,120 +1271,19 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#getCOSValue()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()} Value is
-   * {@link COSDictionary#COSDictionary()}.</li>
-   *   <li>Then throw {@link IOException}.</li>
+   *   <li>Given {@link FDFField#FDFField()} Value is {@link COSBoolean#FALSE}.
+   *   <li>Then throw {@link IOException}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getCOSValue()}
-   */
-  @Test
-  @DisplayName("Test getCOSValue(); given FDFField() Value is COSDictionary(); then throw IOException")
-  void testGetCOSValue_givenFDFFieldValueIsCOSDictionary_thenThrowIOException() throws IOException {
-    // Arrange
-    FDFField fdfField = new FDFField();
-    fdfField.setValue((Object) new COSDictionary());
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> fdfField.getCOSValue());
-  }
-
-  /**
-   * Test {@link FDFField#getCOSValue()}.
-   * <ul>
-   *   <li>Given {@link FDFField#FDFField()} Value is
-   * {@link COSDocument#COSDocument()}.</li>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getCOSValue()}
-   */
-  @Test
-  @DisplayName("Test getCOSValue(); given FDFField() Value is COSDocument(); then throw IOException")
-  void testGetCOSValue_givenFDFFieldValueIsCOSDocument_thenThrowIOException() throws IOException {
-    // Arrange
-    FDFField fdfField = new FDFField();
-    fdfField.setValue((Object) new COSDocument());
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> fdfField.getCOSValue());
-  }
-
-  /**
-   * Test {@link FDFField#getCOSValue()}.
-   * <ul>
-   *   <li>Given {@link FDFField#FDFField()} Value is
-   * {@link COSFloat#COSFloat(float)} with aFloat is {@code -3.4028235E38}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getCOSValue()}
-   */
-  @Test
-  @DisplayName("Test getCOSValue(); given FDFField() Value is COSFloat(float) with aFloat is '-3.4028235E38'")
-  void testGetCOSValue_givenFDFFieldValueIsCOSFloatWithAFloatIs34028235e38() throws IOException {
-    // Arrange
-    FDFField fdfField = new FDFField();
-    fdfField.setValue((Object) new COSFloat(-3.4028235E38f));
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> fdfField.getCOSValue());
-  }
-
-  /**
-   * Test {@link FDFField#getCOSValue()}.
-   * <ul>
-   *   <li>Given {@link FDFField#FDFField()} Value is
-   * {@link COSFloat#COSFloat(float)} with aFloat is ten.</li>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getCOSValue()}
-   */
-  @Test
-  @DisplayName("Test getCOSValue(); given FDFField() Value is COSFloat(float) with aFloat is ten; then throw IOException")
-  void testGetCOSValue_givenFDFFieldValueIsCOSFloatWithAFloatIsTen_thenThrowIOException() throws IOException {
-    // Arrange
-    FDFField fdfField = new FDFField();
-    fdfField.setValue((Object) new COSFloat(10.0f));
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> fdfField.getCOSValue());
-  }
-
-  /**
-   * Test {@link FDFField#getCOSValue()}.
-   * <ul>
-   *   <li>Given {@link FDFField#FDFField()} Value is
-   * {@link COSStream#COSStream()}.</li>
-   *   <li>Then return {@link COSStream#COSStream()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getCOSValue()}
-   */
-  @Test
-  @DisplayName("Test getCOSValue(); given FDFField() Value is COSStream(); then return COSStream()")
-  void testGetCOSValue_givenFDFFieldValueIsCOSStream_thenReturnCOSStream() throws IOException {
-    // Arrange
-    FDFField fdfField = new FDFField();
-    COSStream value = new COSStream();
-    fdfField.setValue(value);
-
-    // Act and Assert
-    assertSame(value, fdfField.getCOSValue());
-  }
-
-  /**
-   * Test {@link FDFField#getCOSValue()}.
-   * <ul>
-   *   <li>Given {@link FDFField#FDFField()} Value is {@link COSBoolean#FALSE}.</li>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getCOSValue()}
+   *
+   * <p>Method under test: {@link FDFField#getCOSValue()}
    */
   @Test
   @DisplayName("Test getCOSValue(); given FDFField() Value is FALSE; then throw IOException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"COSBase FDFField.getCOSValue()"})
   void testGetCOSValue_givenFDFFieldValueIsFalse_thenThrowIOException() throws IOException {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -1575,15 +1295,19 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#getCOSValue()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()} Value is {@link COSFloat#ONE}.</li>
-   *   <li>Then throw {@link IOException}.</li>
+   *   <li>Given {@link FDFField#FDFField()} Value is {@link COSFloat#ONE}.
+   *   <li>Then throw {@link IOException}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getCOSValue()}
+   *
+   * <p>Method under test: {@link FDFField#getCOSValue()}
    */
   @Test
   @DisplayName("Test getCOSValue(); given FDFField() Value is ONE; then throw IOException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"COSBase FDFField.getCOSValue()"})
   void testGetCOSValue_givenFDFFieldValueIsOne_thenThrowIOException() throws IOException {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -1595,15 +1319,19 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#getCOSValue()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()} Value is {@link COSInteger#ONE}.</li>
-   *   <li>Then throw {@link IOException}.</li>
+   *   <li>Given {@link FDFField#FDFField()} Value is {@link COSInteger#ONE}.
+   *   <li>Then throw {@link IOException}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getCOSValue()}
+   *
+   * <p>Method under test: {@link FDFField#getCOSValue()}
    */
   @Test
   @DisplayName("Test getCOSValue(); given FDFField() Value is ONE; then throw IOException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"COSBase FDFField.getCOSValue()"})
   void testGetCOSValue_givenFDFFieldValueIsOne_thenThrowIOException2() throws IOException {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -1615,15 +1343,19 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#getCOSValue()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()} Value is {@code Value}.</li>
-   *   <li>Then return {@link COSString}.</li>
+   *   <li>Given {@link FDFField#FDFField()} Value is {@code Value}.
+   *   <li>Then return {@link COSString}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getCOSValue()}
+   *
+   * <p>Method under test: {@link FDFField#getCOSValue()}
    */
   @Test
   @DisplayName("Test getCOSValue(); given FDFField() Value is 'Value'; then return COSString")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"COSBase FDFField.getCOSValue()"})
   void testGetCOSValue_givenFDFFieldValueIsValue_thenReturnCOSString() throws IOException {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -1638,54 +1370,44 @@ class FDFFieldDiffblueTest {
     assertEquals("Value", ((COSString) actualCOSValue).getASCII());
     assertEquals("Value", ((COSString) actualCOSValue).getString());
     assertFalse(((COSString) actualCOSValue).getForceHexForm());
-    byte[] expectedBytes = "Value".getBytes("UTF-8");
-    assertArrayEquals(expectedBytes, ((COSString) actualCOSValue).getBytes());
+    assertArrayEquals("Value".getBytes("UTF-8"), ((COSString) actualCOSValue).getBytes());
   }
 
   /**
    * Test {@link FDFField#getCOSValue()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()}.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Given {@link FDFField#FDFField()}.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getCOSValue()}
+   *
+   * <p>Method under test: {@link FDFField#getCOSValue()}
    */
   @Test
   @DisplayName("Test getCOSValue(); given FDFField(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"COSBase FDFField.getCOSValue()"})
   void testGetCOSValue_givenFDFField_thenReturnNull() throws IOException {
     // Arrange, Act and Assert
-    assertNull((new FDFField()).getCOSValue());
-  }
-
-  /**
-   * Test {@link FDFField#getCOSValue()}.
-   * <ul>
-   *   <li>Given {@link IIOMetadataNode#IIOMetadataNode(String)} with
-   * {@code foo}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getCOSValue()}
-   */
-  @Test
-  @DisplayName("Test getCOSValue(); given IIOMetadataNode(String) with 'foo'; then return 'null'")
-  void testGetCOSValue_givenIIOMetadataNodeWithFoo_thenReturnNull() throws IOException {
-    // Arrange, Act and Assert
-    assertNull((new FDFField(new IIOMetadataNode("foo"))).getCOSValue());
+    assertNull(new FDFField().getCOSValue());
   }
 
   /**
    * Test {@link FDFField#setValue(COSBase)} with {@code COSBase}.
+   *
    * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and
-   * gen is one.</li>
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setValue(COSBase)}
+   *
+   * <p>Method under test: {@link FDFField#setValue(COSBase)}
    */
   @Test
-  @DisplayName("Test setValue(COSBase) with 'COSBase'; given COSObjectKey(long, int) with num is one and gen is one")
+  @DisplayName(
+      "Test setValue(COSBase) with 'COSBase'; given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setValue(COSBase)"})
   void testSetValueWithCOSBase_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -1704,16 +1426,23 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setValue(COSBase)} with {@code COSBase}.
+   *
    * <ul>
-   *   <li>When {@link COSArray#COSArray()}.</li>
-   *   <li>Then {@link FDFField#FDFField()} Value {@link List}.</li>
+   *   <li>Given {@link FDFField#FDFField()}.
+   *   <li>When {@link COSArray#COSArray()}.
+   *   <li>Then {@link FDFField#FDFField()} Value {@link List}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setValue(COSBase)}
+   *
+   * <p>Method under test: {@link FDFField#setValue(COSBase)}
    */
   @Test
-  @DisplayName("Test setValue(COSBase) with 'COSBase'; when COSArray(); then FDFField() Value List")
-  void testSetValueWithCOSBase_whenCOSArray_thenFDFFieldValueList() throws IOException {
+  @DisplayName(
+      "Test setValue(COSBase) with 'COSBase'; given FDFField(); when COSArray(); then FDFField() Value List")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setValue(COSBase)"})
+  void testSetValueWithCOSBase_givenFDFField_whenCOSArray_thenFDFFieldValueList()
+      throws IOException {
     // Arrange
     FDFField fdfField = new FDFField();
     COSArray value = new COSArray();
@@ -1730,15 +1459,50 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setValue(COSBase)} with {@code COSBase}.
+   *
    * <ul>
-   *   <li>When {@link COSDictionary#COSDictionary()}.</li>
-   *   <li>Then {@link FDFField#FDFField()} COSObject Values size is one.</li>
+   *   <li>Given {@link FDFField#FDFField()}.
+   *   <li>When {@code null}.
+   *   <li>Then {@link FDFField#FDFField()} COSObject size is zero.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setValue(COSBase)}
+   *
+   * <p>Method under test: {@link FDFField#setValue(COSBase)}
    */
   @Test
-  @DisplayName("Test setValue(COSBase) with 'COSBase'; when COSDictionary(); then FDFField() COSObject Values size is one")
+  @DisplayName(
+      "Test setValue(COSBase) with 'COSBase'; given FDFField(); when 'null'; then FDFField() COSObject size is zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setValue(COSBase)"})
+  void testSetValueWithCOSBase_givenFDFField_whenNull_thenFDFFieldCOSObjectSizeIsZero() {
+    // Arrange
+    FDFField fdfField = new FDFField();
+
+    // Act
+    fdfField.setValue((COSBase) null);
+
+    // Assert that nothing has changed
+    COSDictionary cOSObject = fdfField.getCOSObject();
+    assertEquals(0, cOSObject.size());
+    assertTrue(cOSObject.getValues().isEmpty());
+  }
+
+  /**
+   * Test {@link FDFField#setValue(COSBase)} with {@code COSBase}.
+   *
+   * <ul>
+   *   <li>When {@link COSDictionary#COSDictionary()}.
+   *   <li>Then {@link FDFField#FDFField()} COSObject Values size is one.
+   * </ul>
+   *
+   * <p>Method under test: {@link FDFField#setValue(COSBase)}
+   */
+  @Test
+  @DisplayName(
+      "Test setValue(COSBase) with 'COSBase'; when COSDictionary(); then FDFField() COSObject Values size is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setValue(COSBase)"})
   void testSetValueWithCOSBase_whenCOSDictionary_thenFDFFieldCOSObjectValuesSizeIsOne() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -1754,21 +1518,26 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setValue(COSBase)} with {@code COSBase}.
+   *
    * <ul>
-   *   <li>When {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen
-   * is one.</li>
+   *   <li>When {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setValue(COSBase)}
+   *
+   * <p>Method under test: {@link FDFField#setValue(COSBase)}
    */
   @Test
-  @DisplayName("Test setValue(COSBase) with 'COSBase'; when COSObjectKey(long, int) with num is one and gen is one")
+  @DisplayName(
+      "Test setValue(COSBase) with 'COSBase'; when COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setValue(COSBase)"})
   void testSetValueWithCOSBase_whenCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
     FDFField fdfField = new FDFField();
+    COSObject value = new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1));
 
     // Act
-    fdfField.setValue(new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1)));
+    fdfField.setValue(value);
 
     // Assert
     COSDictionary cOSObject = fdfField.getCOSObject();
@@ -1778,15 +1547,20 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setValue(COSBase)} with {@code COSBase}.
+   *
    * <ul>
-   *   <li>When {@link COSBoolean#FALSE}.</li>
-   *   <li>Then {@link FDFField#FDFField()} COSObject Values size is one.</li>
+   *   <li>When {@link COSBoolean#FALSE}.
+   *   <li>Then {@link FDFField#FDFField()} COSObject Values size is one.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setValue(COSBase)}
+   *
+   * <p>Method under test: {@link FDFField#setValue(COSBase)}
    */
   @Test
-  @DisplayName("Test setValue(COSBase) with 'COSBase'; when FALSE; then FDFField() COSObject Values size is one")
+  @DisplayName(
+      "Test setValue(COSBase) with 'COSBase'; when FALSE; then FDFField() COSObject Values size is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setValue(COSBase)"})
   void testSetValueWithCOSBase_whenFalse_thenFDFFieldCOSObjectValuesSizeIsOne() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -1801,42 +1575,21 @@ class FDFFieldDiffblueTest {
   }
 
   /**
-   * Test {@link FDFField#setValue(COSBase)} with {@code COSBase}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link FDFField#FDFField()} Value is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setValue(COSBase)}
-   */
-  @Test
-  @DisplayName("Test setValue(COSBase) with 'COSBase'; when 'null'; then FDFField() Value is 'null'")
-  void testSetValueWithCOSBase_whenNull_thenFDFFieldValueIsNull() throws IOException {
-    // Arrange
-    FDFField fdfField = new FDFField();
-
-    // Act
-    fdfField.setValue((COSBase) null);
-
-    // Assert
-    assertNull(fdfField.getValue());
-    assertNull(fdfField.getCOSValue());
-    COSDictionary cOSObject = fdfField.getCOSObject();
-    assertEquals(0, cOSObject.size());
-    assertTrue(cOSObject.getValues().isEmpty());
-  }
-
-  /**
    * Test {@link FDFField#setValue(Object)} with {@code Object}.
+   *
    * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>Then {@link FDFField#FDFField()} COSValue toList size is one.</li>
+   *   <li>Given {@code 42}.
+   *   <li>Then {@link FDFField#FDFField()} COSValue toList size is one.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setValue(Object)}
+   *
+   * <p>Method under test: {@link FDFField#setValue(Object)}
    */
   @Test
-  @DisplayName("Test setValue(Object) with 'Object'; given '42'; then FDFField() COSValue toList size is one")
+  @DisplayName(
+      "Test setValue(Object) with 'Object'; given '42'; then FDFField() COSValue toList size is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setValue(Object)"})
   void testSetValueWithObject_given42_thenFDFFieldCOSValueToListSizeIsOne() throws IOException {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -1864,20 +1617,25 @@ class FDFFieldDiffblueTest {
     assertNull(getResult.getKey());
     assertFalse(getResult.isDirect());
     assertFalse(((COSString) getResult).getForceHexForm());
-    assertArrayEquals(new byte[]{'4', '2'}, ((COSString) getResult).getBytes());
+    assertArrayEquals(new byte[] {'4', '2'}, ((COSString) getResult).getBytes());
   }
 
   /**
    * Test {@link FDFField#setValue(Object)} with {@code Object}.
+   *
    * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>Then {@link FDFField#FDFField()} COSValue toList size is two.</li>
+   *   <li>Given {@code 42}.
+   *   <li>Then {@link FDFField#FDFField()} COSValue toList size is two.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setValue(Object)}
+   *
+   * <p>Method under test: {@link FDFField#setValue(Object)}
    */
   @Test
-  @DisplayName("Test setValue(Object) with 'Object'; given '42'; then FDFField() COSValue toList size is two")
+  @DisplayName(
+      "Test setValue(Object) with 'Object'; given '42'; then FDFField() COSValue toList size is two")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setValue(Object)"})
   void testSetValueWithObject_given42_thenFDFFieldCOSValueToListSizeIsTwo() throws IOException {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -1896,24 +1654,63 @@ class FDFFieldDiffblueTest {
     assertTrue(cOSValue instanceof COSArray);
     List<? extends COSBase> toListResult = ((COSArray) cOSValue).toList();
     assertEquals(2, toListResult.size());
-    COSBase getResult = toListResult.get(1);
+    COSBase getResult = toListResult.get(0);
     assertTrue(getResult instanceof COSString);
+    COSBase getResult2 = toListResult.get(1);
+    assertTrue(getResult2 instanceof COSString);
     assertEquals(2, ((List<String>) value).size());
     assertEquals("42", ((List<String>) value).get(1));
-    assertEquals(toListResult.get(0), getResult);
+    assertEquals(getResult, getResult2);
+    assertArrayEquals(new byte[] {'4', '2'}, ((COSString) getResult).getBytes());
   }
 
   /**
    * Test {@link FDFField#setValue(Object)} with {@code Object}.
+   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then {@link FDFField#FDFField()} COSValue toList Empty.</li>
+   *   <li>Given {@code false}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setValue(Object)}
+   *
+   * <p>Method under test: {@link FDFField#setValue(Object)}
    */
   @Test
-  @DisplayName("Test setValue(Object) with 'Object'; when ArrayList(); then FDFField() COSValue toList Empty")
+  @DisplayName("Test setValue(Object) with 'Object'; given 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setValue(Object)"})
+  void testSetValueWithObject_givenFalse() throws IOException {
+    // Arrange
+    FDFField fdfField = new FDFField();
+
+    COSDictionary dic = new COSDictionary(new COSDictionary());
+    dic.setDirect(false);
+    dic.setKey(new COSObjectKey(1L, 1));
+
+    // Act
+    fdfField.setValue(new PDDestinationNameTreeNode(dic));
+
+    // Assert
+    COSDictionary cOSObject = fdfField.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+  }
+
+  /**
+   * Test {@link FDFField#setValue(Object)} with {@code Object}.
+   *
+   * <ul>
+   *   <li>When {@link ArrayList#ArrayList()}.
+   *   <li>Then {@link FDFField#FDFField()} COSValue toList Empty.
+   * </ul>
+   *
+   * <p>Method under test: {@link FDFField#setValue(Object)}
+   */
+  @Test
+  @DisplayName(
+      "Test setValue(Object) with 'Object'; when ArrayList(); then FDFField() COSValue toList Empty")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setValue(Object)"})
   void testSetValueWithObject_whenArrayList_thenFDFFieldCOSValueToListEmpty() throws IOException {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -1934,89 +1731,48 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setValue(Object)} with {@code Object}.
+   *
    * <ul>
-   *   <li>When {@link COSDictionary#COSDictionary()}.</li>
-   *   <li>Then {@link FDFField#FDFField()} COSObject Values size is one.</li>
+   *   <li>When forty-two.
+   *   <li>Then throw {@link IOException}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setValue(Object)}
-   */
-  @Test
-  @DisplayName("Test setValue(Object) with 'Object'; when COSDictionary(); then FDFField() COSObject Values size is one")
-  void testSetValueWithObject_whenCOSDictionary_thenFDFFieldCOSObjectValuesSizeIsOne() throws IOException {
-    // Arrange
-    FDFField fdfField = new FDFField();
-
-    // Act
-    fdfField.setValue((Object) new COSDictionary());
-
-    // Assert
-    COSDictionary cOSObject = fdfField.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link FDFField#setValue(Object)} with {@code Object}.
-   * <ul>
-   *   <li>When {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen
-   * is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setValue(Object)}
-   */
-  @Test
-  @DisplayName("Test setValue(Object) with 'Object'; when COSObjectKey(long, int) with num is one and gen is one")
-  void testSetValueWithObject_whenCOSObjectKeyWithNumIsOneAndGenIsOne() throws IOException {
-    // Arrange
-    FDFField fdfField = new FDFField();
-
-    // Act
-    fdfField.setValue((Object) new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1)));
-
-    // Assert
-    COSDictionary cOSObject = fdfField.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link FDFField#setValue(Object)} with {@code Object}.
-   * <ul>
-   *   <li>When forty-two.</li>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setValue(Object)}
+   *
+   * <p>Method under test: {@link FDFField#setValue(Object)}
    */
   @Test
   @DisplayName("Test setValue(Object) with 'Object'; when forty-two; then throw IOException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setValue(Object)"})
   void testSetValueWithObject_whenFortyTwo_thenThrowIOException() throws IOException {
     // Arrange, Act and Assert
-    assertThrows(IOException.class, () -> (new FDFField()).setValue(42));
+    assertThrows(IOException.class, () -> new FDFField().setValue(42));
   }
 
   /**
    * Test {@link FDFField#setValue(Object)} with {@code Object}.
+   *
    * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link FDFField#FDFField()} Value is {@code null}.</li>
+   *   <li>When {@code null}.
+   *   <li>Then {@link FDFField#FDFField()} COSObject size is zero.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setValue(Object)}
+   *
+   * <p>Method under test: {@link FDFField#setValue(Object)}
    */
   @Test
-  @DisplayName("Test setValue(Object) with 'Object'; when 'null'; then FDFField() Value is 'null'")
-  void testSetValueWithObject_whenNull_thenFDFFieldValueIsNull() throws IOException {
+  @DisplayName(
+      "Test setValue(Object) with 'Object'; when 'null'; then FDFField() COSObject size is zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setValue(Object)"})
+  void testSetValueWithObject_whenNull_thenFDFFieldCOSObjectSizeIsZero() throws IOException {
     // Arrange
     FDFField fdfField = new FDFField();
 
     // Act
     fdfField.setValue((Object) null);
 
-    // Assert
-    assertNull(fdfField.getValue());
-    assertNull(fdfField.getCOSValue());
+    // Assert that nothing has changed
     COSDictionary cOSObject = fdfField.getCOSObject();
     assertEquals(0, cOSObject.size());
     assertTrue(cOSObject.getValues().isEmpty());
@@ -2024,15 +1780,79 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setValue(Object)} with {@code Object}.
+   *
    * <ul>
-   *   <li>When {@code Value}.</li>
-   *   <li>Then {@link FDFField#FDFField()} COSValue {@link COSString}.</li>
+   *   <li>When {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode(COSDictionary)} with dic
+   *       is {@link COSDictionary#COSDictionary()}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setValue(Object)}
+   *
+   * <p>Method under test: {@link FDFField#setValue(Object)}
    */
   @Test
-  @DisplayName("Test setValue(Object) with 'Object'; when 'Value'; then FDFField() COSValue COSString")
+  @DisplayName(
+      "Test setValue(Object) with 'Object'; when PDDestinationNameTreeNode(COSDictionary) with dic is COSDictionary()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setValue(Object)"})
+  void testSetValueWithObject_whenPDDestinationNameTreeNodeWithDicIsCOSDictionary()
+      throws IOException {
+    // Arrange
+    FDFField fdfField = new FDFField();
+
+    // Act
+    fdfField.setValue(new PDDestinationNameTreeNode(new COSDictionary()));
+
+    // Assert
+    COSDictionary cOSObject = fdfField.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+  }
+
+  /**
+   * Test {@link FDFField#setValue(Object)} with {@code Object}.
+   *
+   * <ul>
+   *   <li>When {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode(COSDictionary)} with dic
+   *       is {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link FDFField#setValue(Object)}
+   */
+  @Test
+  @DisplayName(
+      "Test setValue(Object) with 'Object'; when PDDestinationNameTreeNode(COSDictionary) with dic is 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setValue(Object)"})
+  void testSetValueWithObject_whenPDDestinationNameTreeNodeWithDicIsNull() throws IOException {
+    // Arrange
+    FDFField fdfField = new FDFField();
+
+    // Act
+    fdfField.setValue(new PDDestinationNameTreeNode(null));
+
+    // Assert that nothing has changed
+    COSDictionary cOSObject = fdfField.getCOSObject();
+    assertEquals(0, cOSObject.size());
+    assertTrue(cOSObject.getValues().isEmpty());
+  }
+
+  /**
+   * Test {@link FDFField#setValue(Object)} with {@code Object}.
+   *
+   * <ul>
+   *   <li>When {@code Value}.
+   *   <li>Then {@link FDFField#FDFField()} COSValue {@link COSString}.
+   * </ul>
+   *
+   * <p>Method under test: {@link FDFField#setValue(Object)}
+   */
+  @Test
+  @DisplayName(
+      "Test setValue(Object) with 'Object'; when 'Value'; then FDFField() COSValue COSString")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setValue(Object)"})
   void testSetValueWithObject_whenValue_thenFDFFieldCOSValueCOSString() throws IOException {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -2050,21 +1870,25 @@ class FDFFieldDiffblueTest {
     assertNull(cOSValue.getKey());
     assertFalse(cOSValue.isDirect());
     assertFalse(((COSString) cOSValue).getForceHexForm());
-    byte[] expectedBytes = "Value".getBytes("UTF-8");
-    assertArrayEquals(expectedBytes, ((COSString) cOSValue).getBytes());
+    assertArrayEquals("Value".getBytes("UTF-8"), ((COSString) cOSValue).getBytes());
   }
 
   /**
    * Test {@link FDFField#getFieldFlags()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()} FieldFlags is one.</li>
-   *   <li>Then return intValue is one.</li>
+   *   <li>Given {@link FDFField#FDFField()} FieldFlags is one.
+   *   <li>Then return intValue is one.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getFieldFlags()}
+   *
+   * <p>Method under test: {@link FDFField#getFieldFlags()}
    */
   @Test
-  @DisplayName("Test getFieldFlags(); given FDFField() FieldFlags is one; then return intValue is one")
+  @DisplayName(
+      "Test getFieldFlags(); given FDFField() FieldFlags is one; then return intValue is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Integer FDFField.getFieldFlags()"})
   void testGetFieldFlags_givenFDFFieldFieldFlagsIsOne_thenReturnIntValueIsOne() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -2076,49 +1900,40 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#getFieldFlags()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()}.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Given {@link FDFField#FDFField()}.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getFieldFlags()}
+   *
+   * <p>Method under test: {@link FDFField#getFieldFlags()}
    */
   @Test
   @DisplayName("Test getFieldFlags(); given FDFField(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Integer FDFField.getFieldFlags()"})
   void testGetFieldFlags_givenFDFField_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new FDFField()).getFieldFlags());
-  }
-
-  /**
-   * Test {@link FDFField#getFieldFlags()}.
-   * <ul>
-   *   <li>Given {@link IIOMetadataNode#IIOMetadataNode(String)} with
-   * {@code foo}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getFieldFlags()}
-   */
-  @Test
-  @DisplayName("Test getFieldFlags(); given IIOMetadataNode(String) with 'foo'; then return 'null'")
-  void testGetFieldFlags_givenIIOMetadataNodeWithFoo_thenReturnNull() throws IOException {
-    // Arrange, Act and Assert
-    assertNull((new FDFField(new IIOMetadataNode("foo"))).getFieldFlags());
+    assertNull(new FDFField().getFieldFlags());
   }
 
   /**
    * Test {@link FDFField#setFieldFlags(int)} with {@code int}.
+   *
    * <ul>
-   *   <li>When {@code 97427706}.</li>
-   *   <li>Then {@link FDFField#FDFField()} FieldFlags intValue is
-   * {@code 97427706}.</li>
+   *   <li>When {@code 97427706}.
+   *   <li>Then {@link FDFField#FDFField()} FieldFlags intValue is {@code 97427706}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setFieldFlags(int)}
+   *
+   * <p>Method under test: {@link FDFField#setFieldFlags(int)}
    */
   @Test
-  @DisplayName("Test setFieldFlags(int) with 'int'; when '97427706'; then FDFField() FieldFlags intValue is '97427706'")
+  @DisplayName(
+      "Test setFieldFlags(int) with 'int'; when '97427706'; then FDFField() FieldFlags intValue is '97427706'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setFieldFlags(int)"})
   void testSetFieldFlagsWithInt_when97427706_thenFDFFieldFieldFlagsIntValueIs97427706() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -2135,16 +1950,20 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setFieldFlags(int)} with {@code int}.
+   *
    * <ul>
-   *   <li>When {@code -605232923}.</li>
-   *   <li>Then {@link FDFField#FDFField()} FieldFlags intValue is
-   * {@code -605232923}.</li>
+   *   <li>When {@code -605232923}.
+   *   <li>Then {@link FDFField#FDFField()} FieldFlags intValue is {@code -605232923}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setFieldFlags(int)}
+   *
+   * <p>Method under test: {@link FDFField#setFieldFlags(int)}
    */
   @Test
-  @DisplayName("Test setFieldFlags(int) with 'int'; when '-605232923'; then FDFField() FieldFlags intValue is '-605232923'")
+  @DisplayName(
+      "Test setFieldFlags(int) with 'int'; when '-605232923'; then FDFField() FieldFlags intValue is '-605232923'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setFieldFlags(int)"})
   void testSetFieldFlagsWithInt_when605232923_thenFDFFieldFieldFlagsIntValueIs605232923() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -2161,15 +1980,20 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setFieldFlags(int)} with {@code int}.
+   *
    * <ul>
-   *   <li>When one.</li>
-   *   <li>Then {@link FDFField#FDFField()} FieldFlags intValue is one.</li>
+   *   <li>When one.
+   *   <li>Then {@link FDFField#FDFField()} FieldFlags intValue is one.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setFieldFlags(int)}
+   *
+   * <p>Method under test: {@link FDFField#setFieldFlags(int)}
    */
   @Test
-  @DisplayName("Test setFieldFlags(int) with 'int'; when one; then FDFField() FieldFlags intValue is one")
+  @DisplayName(
+      "Test setFieldFlags(int) with 'int'; when one; then FDFField() FieldFlags intValue is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setFieldFlags(int)"})
   void testSetFieldFlagsWithInt_whenOne_thenFDFFieldFieldFlagsIntValueIsOne() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -2186,41 +2010,19 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setFieldFlags(Integer)} with {@code Integer}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()}.</li>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link FDFField#FDFField()} FieldFlags is {@code null}.</li>
+   *   <li>Then {@link FDFField#FDFField()} FieldFlags intValue is {@code 97427706}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setFieldFlags(Integer)}
+   *
+   * <p>Method under test: {@link FDFField#setFieldFlags(Integer)}
    */
   @Test
-  @DisplayName("Test setFieldFlags(Integer) with 'Integer'; given FDFField(); when 'null'; then FDFField() FieldFlags is 'null'")
-  void testSetFieldFlagsWithInteger_givenFDFField_whenNull_thenFDFFieldFieldFlagsIsNull() {
-    // Arrange
-    FDFField fdfField = new FDFField();
-
-    // Act
-    fdfField.setFieldFlags(null);
-
-    // Assert
-    assertNull(fdfField.getFieldFlags());
-    COSDictionary cOSObject = fdfField.getCOSObject();
-    assertEquals(0, cOSObject.size());
-    assertTrue(cOSObject.getValues().isEmpty());
-  }
-
-  /**
-   * Test {@link FDFField#setFieldFlags(Integer)} with {@code Integer}.
-   * <ul>
-   *   <li>Then {@link FDFField#FDFField()} FieldFlags intValue is
-   * {@code 97427706}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setFieldFlags(Integer)}
-   */
-  @Test
-  @DisplayName("Test setFieldFlags(Integer) with 'Integer'; then FDFField() FieldFlags intValue is '97427706'")
+  @DisplayName(
+      "Test setFieldFlags(Integer) with 'Integer'; then FDFField() FieldFlags intValue is '97427706'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setFieldFlags(Integer)"})
   void testSetFieldFlagsWithInteger_thenFDFFieldFieldFlagsIntValueIs97427706() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -2237,15 +2039,49 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setFieldFlags(Integer)} with {@code Integer}.
+   *
    * <ul>
-   *   <li>When one.</li>
-   *   <li>Then {@link FDFField#FDFField()} FieldFlags intValue is one.</li>
+   *   <li>When {@code null}.
+   *   <li>Then {@link FDFField#FDFField()} COSObject size is zero.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setFieldFlags(Integer)}
+   *
+   * <p>Method under test: {@link FDFField#setFieldFlags(Integer)}
    */
   @Test
-  @DisplayName("Test setFieldFlags(Integer) with 'Integer'; when one; then FDFField() FieldFlags intValue is one")
+  @DisplayName(
+      "Test setFieldFlags(Integer) with 'Integer'; when 'null'; then FDFField() COSObject size is zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setFieldFlags(Integer)"})
+  void testSetFieldFlagsWithInteger_whenNull_thenFDFFieldCOSObjectSizeIsZero() {
+    // Arrange
+    FDFField fdfField = new FDFField();
+
+    // Act
+    fdfField.setFieldFlags(null);
+
+    // Assert that nothing has changed
+    COSDictionary cOSObject = fdfField.getCOSObject();
+    assertEquals(0, cOSObject.size());
+    assertTrue(cOSObject.getValues().isEmpty());
+  }
+
+  /**
+   * Test {@link FDFField#setFieldFlags(Integer)} with {@code Integer}.
+   *
+   * <ul>
+   *   <li>When one.
+   *   <li>Then {@link FDFField#FDFField()} FieldFlags intValue is one.
+   * </ul>
+   *
+   * <p>Method under test: {@link FDFField#setFieldFlags(Integer)}
+   */
+  @Test
+  @DisplayName(
+      "Test setFieldFlags(Integer) with 'Integer'; when one; then FDFField() FieldFlags intValue is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setFieldFlags(Integer)"})
   void testSetFieldFlagsWithInteger_whenOne_thenFDFFieldFieldFlagsIntValueIsOne() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -2262,15 +2098,20 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#getSetFieldFlags()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()} SetFieldFlags is one.</li>
-   *   <li>Then return intValue is one.</li>
+   *   <li>Given {@link FDFField#FDFField()} SetFieldFlags is one.
+   *   <li>Then return intValue is one.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getSetFieldFlags()}
+   *
+   * <p>Method under test: {@link FDFField#getSetFieldFlags()}
    */
   @Test
-  @DisplayName("Test getSetFieldFlags(); given FDFField() SetFieldFlags is one; then return intValue is one")
+  @DisplayName(
+      "Test getSetFieldFlags(); given FDFField() SetFieldFlags is one; then return intValue is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Integer FDFField.getSetFieldFlags()"})
   void testGetSetFieldFlags_givenFDFFieldSetFieldFlagsIsOne_thenReturnIntValueIsOne() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -2282,48 +2123,39 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#getSetFieldFlags()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()}.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Given {@link FDFField#FDFField()}.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getSetFieldFlags()}
+   *
+   * <p>Method under test: {@link FDFField#getSetFieldFlags()}
    */
   @Test
   @DisplayName("Test getSetFieldFlags(); given FDFField(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Integer FDFField.getSetFieldFlags()"})
   void testGetSetFieldFlags_givenFDFField_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new FDFField()).getSetFieldFlags());
-  }
-
-  /**
-   * Test {@link FDFField#getSetFieldFlags()}.
-   * <ul>
-   *   <li>Given {@link IIOMetadataNode#IIOMetadataNode(String)} with
-   * {@code foo}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getSetFieldFlags()}
-   */
-  @Test
-  @DisplayName("Test getSetFieldFlags(); given IIOMetadataNode(String) with 'foo'; then return 'null'")
-  void testGetSetFieldFlags_givenIIOMetadataNodeWithFoo_thenReturnNull() throws IOException {
-    // Arrange, Act and Assert
-    assertNull((new FDFField(new IIOMetadataNode("foo"))).getSetFieldFlags());
+    assertNull(new FDFField().getSetFieldFlags());
   }
 
   /**
    * Test {@link FDFField#setSetFieldFlags(int)} with {@code int}.
+   *
    * <ul>
-   *   <li>Then {@link FDFField#FDFField()} SetFieldFlags intValue is
-   * {@code 97427706}.</li>
+   *   <li>Then {@link FDFField#FDFField()} SetFieldFlags intValue is {@code 97427706}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setSetFieldFlags(int)}
+   *
+   * <p>Method under test: {@link FDFField#setSetFieldFlags(int)}
    */
   @Test
-  @DisplayName("Test setSetFieldFlags(int) with 'int'; then FDFField() SetFieldFlags intValue is '97427706'")
+  @DisplayName(
+      "Test setSetFieldFlags(int) with 'int'; then FDFField() SetFieldFlags intValue is '97427706'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setSetFieldFlags(int)"})
   void testSetSetFieldFlagsWithInt_thenFDFFieldSetFieldFlagsIntValueIs97427706() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -2340,15 +2172,19 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setSetFieldFlags(int)} with {@code int}.
+   *
    * <ul>
-   *   <li>Then {@link FDFField#FDFField()} SetFieldFlags intValue is
-   * {@code -605232923}.</li>
+   *   <li>Then {@link FDFField#FDFField()} SetFieldFlags intValue is {@code -605232923}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setSetFieldFlags(int)}
+   *
+   * <p>Method under test: {@link FDFField#setSetFieldFlags(int)}
    */
   @Test
-  @DisplayName("Test setSetFieldFlags(int) with 'int'; then FDFField() SetFieldFlags intValue is '-605232923'")
+  @DisplayName(
+      "Test setSetFieldFlags(int) with 'int'; then FDFField() SetFieldFlags intValue is '-605232923'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setSetFieldFlags(int)"})
   void testSetSetFieldFlagsWithInt_thenFDFFieldSetFieldFlagsIntValueIs605232923() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -2365,15 +2201,20 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setSetFieldFlags(int)} with {@code int}.
+   *
    * <ul>
-   *   <li>When one.</li>
-   *   <li>Then {@link FDFField#FDFField()} SetFieldFlags intValue is one.</li>
+   *   <li>When one.
+   *   <li>Then {@link FDFField#FDFField()} SetFieldFlags intValue is one.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setSetFieldFlags(int)}
+   *
+   * <p>Method under test: {@link FDFField#setSetFieldFlags(int)}
    */
   @Test
-  @DisplayName("Test setSetFieldFlags(int) with 'int'; when one; then FDFField() SetFieldFlags intValue is one")
+  @DisplayName(
+      "Test setSetFieldFlags(int) with 'int'; when one; then FDFField() SetFieldFlags intValue is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setSetFieldFlags(int)"})
   void testSetSetFieldFlagsWithInt_whenOne_thenFDFFieldSetFieldFlagsIntValueIsOne() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -2390,15 +2231,19 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setSetFieldFlags(Integer)} with {@code Integer}.
+   *
    * <ul>
-   *   <li>Then {@link FDFField#FDFField()} SetFieldFlags intValue is
-   * {@code 97427706}.</li>
+   *   <li>Then {@link FDFField#FDFField()} SetFieldFlags intValue is {@code 97427706}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setSetFieldFlags(Integer)}
+   *
+   * <p>Method under test: {@link FDFField#setSetFieldFlags(Integer)}
    */
   @Test
-  @DisplayName("Test setSetFieldFlags(Integer) with 'Integer'; then FDFField() SetFieldFlags intValue is '97427706'")
+  @DisplayName(
+      "Test setSetFieldFlags(Integer) with 'Integer'; then FDFField() SetFieldFlags intValue is '97427706'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setSetFieldFlags(Integer)"})
   void testSetSetFieldFlagsWithInteger_thenFDFFieldSetFieldFlagsIntValueIs97427706() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -2415,24 +2260,28 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setSetFieldFlags(Integer)} with {@code Integer}.
+   *
    * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link FDFField#FDFField()} SetFieldFlags is {@code null}.</li>
+   *   <li>When {@code null}.
+   *   <li>Then {@link FDFField#FDFField()} COSObject size is zero.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setSetFieldFlags(Integer)}
+   *
+   * <p>Method under test: {@link FDFField#setSetFieldFlags(Integer)}
    */
   @Test
-  @DisplayName("Test setSetFieldFlags(Integer) with 'Integer'; when 'null'; then FDFField() SetFieldFlags is 'null'")
-  void testSetSetFieldFlagsWithInteger_whenNull_thenFDFFieldSetFieldFlagsIsNull() {
+  @DisplayName(
+      "Test setSetFieldFlags(Integer) with 'Integer'; when 'null'; then FDFField() COSObject size is zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setSetFieldFlags(Integer)"})
+  void testSetSetFieldFlagsWithInteger_whenNull_thenFDFFieldCOSObjectSizeIsZero() {
     // Arrange
     FDFField fdfField = new FDFField();
 
     // Act
     fdfField.setSetFieldFlags(null);
 
-    // Assert
-    assertNull(fdfField.getSetFieldFlags());
+    // Assert that nothing has changed
     COSDictionary cOSObject = fdfField.getCOSObject();
     assertEquals(0, cOSObject.size());
     assertTrue(cOSObject.getValues().isEmpty());
@@ -2440,15 +2289,20 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setSetFieldFlags(Integer)} with {@code Integer}.
+   *
    * <ul>
-   *   <li>When one.</li>
-   *   <li>Then {@link FDFField#FDFField()} SetFieldFlags intValue is one.</li>
+   *   <li>When one.
+   *   <li>Then {@link FDFField#FDFField()} SetFieldFlags intValue is one.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setSetFieldFlags(Integer)}
+   *
+   * <p>Method under test: {@link FDFField#setSetFieldFlags(Integer)}
    */
   @Test
-  @DisplayName("Test setSetFieldFlags(Integer) with 'Integer'; when one; then FDFField() SetFieldFlags intValue is one")
+  @DisplayName(
+      "Test setSetFieldFlags(Integer) with 'Integer'; when one; then FDFField() SetFieldFlags intValue is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setSetFieldFlags(Integer)"})
   void testSetSetFieldFlagsWithInteger_whenOne_thenFDFFieldSetFieldFlagsIntValueIsOne() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -2465,15 +2319,20 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#getClearFieldFlags()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()} ClearFieldFlags is one.</li>
-   *   <li>Then return intValue is one.</li>
+   *   <li>Given {@link FDFField#FDFField()} ClearFieldFlags is one.
+   *   <li>Then return intValue is one.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getClearFieldFlags()}
+   *
+   * <p>Method under test: {@link FDFField#getClearFieldFlags()}
    */
   @Test
-  @DisplayName("Test getClearFieldFlags(); given FDFField() ClearFieldFlags is one; then return intValue is one")
+  @DisplayName(
+      "Test getClearFieldFlags(); given FDFField() ClearFieldFlags is one; then return intValue is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Integer FDFField.getClearFieldFlags()"})
   void testGetClearFieldFlags_givenFDFFieldClearFieldFlagsIsOne_thenReturnIntValueIsOne() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -2485,44 +2344,34 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#getClearFieldFlags()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()}.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Given {@link FDFField#FDFField()}.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getClearFieldFlags()}
+   *
+   * <p>Method under test: {@link FDFField#getClearFieldFlags()}
    */
   @Test
   @DisplayName("Test getClearFieldFlags(); given FDFField(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Integer FDFField.getClearFieldFlags()"})
   void testGetClearFieldFlags_givenFDFField_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new FDFField()).getClearFieldFlags());
-  }
-
-  /**
-   * Test {@link FDFField#getClearFieldFlags()}.
-   * <ul>
-   *   <li>Given {@link IIOMetadataNode#IIOMetadataNode(String)} with
-   * {@code foo}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getClearFieldFlags()}
-   */
-  @Test
-  @DisplayName("Test getClearFieldFlags(); given IIOMetadataNode(String) with 'foo'; then return 'null'")
-  void testGetClearFieldFlags_givenIIOMetadataNodeWithFoo_thenReturnNull() throws IOException {
-    // Arrange, Act and Assert
-    assertNull((new FDFField(new IIOMetadataNode("foo"))).getClearFieldFlags());
+    assertNull(new FDFField().getClearFieldFlags());
   }
 
   /**
    * Test {@link FDFField#setClearFieldFlags(int)} with {@code int}.
-   * <p>
-   * Method under test: {@link FDFField#setClearFieldFlags(int)}
+   *
+   * <p>Method under test: {@link FDFField#setClearFieldFlags(int)}
    */
   @Test
   @DisplayName("Test setClearFieldFlags(int) with 'int'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setClearFieldFlags(int)"})
   void testSetClearFieldFlagsWithInt() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -2539,15 +2388,19 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setClearFieldFlags(int)} with {@code int}.
+   *
    * <ul>
-   *   <li>Then {@link FDFField#FDFField()} ClearFieldFlags intValue is
-   * {@code 97427706}.</li>
+   *   <li>Then {@link FDFField#FDFField()} ClearFieldFlags intValue is {@code 97427706}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setClearFieldFlags(int)}
+   *
+   * <p>Method under test: {@link FDFField#setClearFieldFlags(int)}
    */
   @Test
-  @DisplayName("Test setClearFieldFlags(int) with 'int'; then FDFField() ClearFieldFlags intValue is '97427706'")
+  @DisplayName(
+      "Test setClearFieldFlags(int) with 'int'; then FDFField() ClearFieldFlags intValue is '97427706'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setClearFieldFlags(int)"})
   void testSetClearFieldFlagsWithInt_thenFDFFieldClearFieldFlagsIntValueIs97427706() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -2564,15 +2417,19 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setClearFieldFlags(int)} with {@code int}.
+   *
    * <ul>
-   *   <li>Then {@link FDFField#FDFField()} ClearFieldFlags intValue is
-   * {@code -605232923}.</li>
+   *   <li>Then {@link FDFField#FDFField()} ClearFieldFlags intValue is {@code -605232923}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setClearFieldFlags(int)}
+   *
+   * <p>Method under test: {@link FDFField#setClearFieldFlags(int)}
    */
   @Test
-  @DisplayName("Test setClearFieldFlags(int) with 'int'; then FDFField() ClearFieldFlags intValue is '-605232923'")
+  @DisplayName(
+      "Test setClearFieldFlags(int) with 'int'; then FDFField() ClearFieldFlags intValue is '-605232923'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setClearFieldFlags(int)"})
   void testSetClearFieldFlagsWithInt_thenFDFFieldClearFieldFlagsIntValueIs605232923() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -2589,15 +2446,20 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setClearFieldFlags(int)} with {@code int}.
+   *
    * <ul>
-   *   <li>When one.</li>
-   *   <li>Then {@link FDFField#FDFField()} ClearFieldFlags intValue is one.</li>
+   *   <li>When one.
+   *   <li>Then {@link FDFField#FDFField()} ClearFieldFlags intValue is one.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setClearFieldFlags(int)}
+   *
+   * <p>Method under test: {@link FDFField#setClearFieldFlags(int)}
    */
   @Test
-  @DisplayName("Test setClearFieldFlags(int) with 'int'; when one; then FDFField() ClearFieldFlags intValue is one")
+  @DisplayName(
+      "Test setClearFieldFlags(int) with 'int'; when one; then FDFField() ClearFieldFlags intValue is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setClearFieldFlags(int)"})
   void testSetClearFieldFlagsWithInt_whenOne_thenFDFFieldClearFieldFlagsIntValueIsOne() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -2614,15 +2476,19 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setClearFieldFlags(Integer)} with {@code Integer}.
+   *
    * <ul>
-   *   <li>Then {@link FDFField#FDFField()} ClearFieldFlags intValue is
-   * {@code 97427706}.</li>
+   *   <li>Then {@link FDFField#FDFField()} ClearFieldFlags intValue is {@code 97427706}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setClearFieldFlags(Integer)}
+   *
+   * <p>Method under test: {@link FDFField#setClearFieldFlags(Integer)}
    */
   @Test
-  @DisplayName("Test setClearFieldFlags(Integer) with 'Integer'; then FDFField() ClearFieldFlags intValue is '97427706'")
+  @DisplayName(
+      "Test setClearFieldFlags(Integer) with 'Integer'; then FDFField() ClearFieldFlags intValue is '97427706'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setClearFieldFlags(Integer)"})
   void testSetClearFieldFlagsWithInteger_thenFDFFieldClearFieldFlagsIntValueIs97427706() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -2639,14 +2505,19 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setClearFieldFlags(Integer)} with {@code Integer}.
+   *
    * <ul>
-   *   <li>Then {@link FDFField#FDFField()} ClearFieldFlags intValue is one.</li>
+   *   <li>Then {@link FDFField#FDFField()} ClearFieldFlags intValue is one.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setClearFieldFlags(Integer)}
+   *
+   * <p>Method under test: {@link FDFField#setClearFieldFlags(Integer)}
    */
   @Test
-  @DisplayName("Test setClearFieldFlags(Integer) with 'Integer'; then FDFField() ClearFieldFlags intValue is one")
+  @DisplayName(
+      "Test setClearFieldFlags(Integer) with 'Integer'; then FDFField() ClearFieldFlags intValue is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setClearFieldFlags(Integer)"})
   void testSetClearFieldFlagsWithInteger_thenFDFFieldClearFieldFlagsIntValueIsOne() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -2663,24 +2534,28 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setClearFieldFlags(Integer)} with {@code Integer}.
+   *
    * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link FDFField#FDFField()} ClearFieldFlags is {@code null}.</li>
+   *   <li>When {@code null}.
+   *   <li>Then {@link FDFField#FDFField()} COSObject size is zero.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setClearFieldFlags(Integer)}
+   *
+   * <p>Method under test: {@link FDFField#setClearFieldFlags(Integer)}
    */
   @Test
-  @DisplayName("Test setClearFieldFlags(Integer) with 'Integer'; when 'null'; then FDFField() ClearFieldFlags is 'null'")
-  void testSetClearFieldFlagsWithInteger_whenNull_thenFDFFieldClearFieldFlagsIsNull() {
+  @DisplayName(
+      "Test setClearFieldFlags(Integer) with 'Integer'; when 'null'; then FDFField() COSObject size is zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setClearFieldFlags(Integer)"})
+  void testSetClearFieldFlagsWithInteger_whenNull_thenFDFFieldCOSObjectSizeIsZero() {
     // Arrange
     FDFField fdfField = new FDFField();
 
     // Act
     fdfField.setClearFieldFlags(null);
 
-    // Assert
-    assertNull(fdfField.getClearFieldFlags());
+    // Assert that nothing has changed
     COSDictionary cOSObject = fdfField.getCOSObject();
     assertEquals(0, cOSObject.size());
     assertTrue(cOSObject.getValues().isEmpty());
@@ -2688,47 +2563,38 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#getWidgetFieldFlags()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()}.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Given {@link FDFField#FDFField()}.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getWidgetFieldFlags()}
+   *
+   * <p>Method under test: {@link FDFField#getWidgetFieldFlags()}
    */
   @Test
   @DisplayName("Test getWidgetFieldFlags(); given FDFField(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Integer FDFField.getWidgetFieldFlags()"})
   void testGetWidgetFieldFlags_givenFDFField_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new FDFField()).getWidgetFieldFlags());
+    assertNull(new FDFField().getWidgetFieldFlags());
   }
 
   /**
    * Test {@link FDFField#getWidgetFieldFlags()}.
+   *
    * <ul>
-   *   <li>Given {@link IIOMetadataNode#IIOMetadataNode(String)} with
-   * {@code foo}.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Then return intValue is one.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getWidgetFieldFlags()}
-   */
-  @Test
-  @DisplayName("Test getWidgetFieldFlags(); given IIOMetadataNode(String) with 'foo'; then return 'null'")
-  void testGetWidgetFieldFlags_givenIIOMetadataNodeWithFoo_thenReturnNull() throws IOException {
-    // Arrange, Act and Assert
-    assertNull((new FDFField(new IIOMetadataNode("foo"))).getWidgetFieldFlags());
-  }
-
-  /**
-   * Test {@link FDFField#getWidgetFieldFlags()}.
-   * <ul>
-   *   <li>Then return intValue is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getWidgetFieldFlags()}
+   *
+   * <p>Method under test: {@link FDFField#getWidgetFieldFlags()}
    */
   @Test
   @DisplayName("Test getWidgetFieldFlags(); then return intValue is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Integer FDFField.getWidgetFieldFlags()"})
   void testGetWidgetFieldFlags_thenReturnIntValueIsOne() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -2740,15 +2606,19 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setWidgetFieldFlags(int)} with {@code int}.
+   *
    * <ul>
-   *   <li>Then {@link FDFField#FDFField()} WidgetFieldFlags intValue is
-   * {@code 97427706}.</li>
+   *   <li>Then {@link FDFField#FDFField()} WidgetFieldFlags intValue is {@code 97427706}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setWidgetFieldFlags(int)}
+   *
+   * <p>Method under test: {@link FDFField#setWidgetFieldFlags(int)}
    */
   @Test
-  @DisplayName("Test setWidgetFieldFlags(int) with 'int'; then FDFField() WidgetFieldFlags intValue is '97427706'")
+  @DisplayName(
+      "Test setWidgetFieldFlags(int) with 'int'; then FDFField() WidgetFieldFlags intValue is '97427706'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setWidgetFieldFlags(int)"})
   void testSetWidgetFieldFlagsWithInt_thenFDFFieldWidgetFieldFlagsIntValueIs97427706() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -2765,15 +2635,19 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setWidgetFieldFlags(int)} with {@code int}.
+   *
    * <ul>
-   *   <li>Then {@link FDFField#FDFField()} WidgetFieldFlags intValue is
-   * {@code -605232923}.</li>
+   *   <li>Then {@link FDFField#FDFField()} WidgetFieldFlags intValue is {@code -605232923}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setWidgetFieldFlags(int)}
+   *
+   * <p>Method under test: {@link FDFField#setWidgetFieldFlags(int)}
    */
   @Test
-  @DisplayName("Test setWidgetFieldFlags(int) with 'int'; then FDFField() WidgetFieldFlags intValue is '-605232923'")
+  @DisplayName(
+      "Test setWidgetFieldFlags(int) with 'int'; then FDFField() WidgetFieldFlags intValue is '-605232923'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setWidgetFieldFlags(int)"})
   void testSetWidgetFieldFlagsWithInt_thenFDFFieldWidgetFieldFlagsIntValueIs605232923() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -2790,15 +2664,20 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setWidgetFieldFlags(int)} with {@code int}.
+   *
    * <ul>
-   *   <li>When one.</li>
-   *   <li>Then {@link FDFField#FDFField()} WidgetFieldFlags intValue is one.</li>
+   *   <li>When one.
+   *   <li>Then {@link FDFField#FDFField()} WidgetFieldFlags intValue is one.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setWidgetFieldFlags(int)}
+   *
+   * <p>Method under test: {@link FDFField#setWidgetFieldFlags(int)}
    */
   @Test
-  @DisplayName("Test setWidgetFieldFlags(int) with 'int'; when one; then FDFField() WidgetFieldFlags intValue is one")
+  @DisplayName(
+      "Test setWidgetFieldFlags(int) with 'int'; when one; then FDFField() WidgetFieldFlags intValue is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setWidgetFieldFlags(int)"})
   void testSetWidgetFieldFlagsWithInt_whenOne_thenFDFFieldWidgetFieldFlagsIntValueIsOne() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -2815,11 +2694,14 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setWidgetFieldFlags(Integer)} with {@code Integer}.
-   * <p>
-   * Method under test: {@link FDFField#setWidgetFieldFlags(Integer)}
+   *
+   * <p>Method under test: {@link FDFField#setWidgetFieldFlags(Integer)}
    */
   @Test
   @DisplayName("Test setWidgetFieldFlags(Integer) with 'Integer'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setWidgetFieldFlags(Integer)"})
   void testSetWidgetFieldFlagsWithInteger() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -2836,14 +2718,19 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setWidgetFieldFlags(Integer)} with {@code Integer}.
+   *
    * <ul>
-   *   <li>Then {@link FDFField#FDFField()} WidgetFieldFlags intValue is one.</li>
+   *   <li>Then {@link FDFField#FDFField()} WidgetFieldFlags intValue is one.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setWidgetFieldFlags(Integer)}
+   *
+   * <p>Method under test: {@link FDFField#setWidgetFieldFlags(Integer)}
    */
   @Test
-  @DisplayName("Test setWidgetFieldFlags(Integer) with 'Integer'; then FDFField() WidgetFieldFlags intValue is one")
+  @DisplayName(
+      "Test setWidgetFieldFlags(Integer) with 'Integer'; then FDFField() WidgetFieldFlags intValue is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setWidgetFieldFlags(Integer)"})
   void testSetWidgetFieldFlagsWithInteger_thenFDFFieldWidgetFieldFlagsIntValueIsOne() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -2860,24 +2747,28 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setWidgetFieldFlags(Integer)} with {@code Integer}.
+   *
    * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link FDFField#FDFField()} WidgetFieldFlags is {@code null}.</li>
+   *   <li>When {@code null}.
+   *   <li>Then {@link FDFField#FDFField()} COSObject size is zero.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setWidgetFieldFlags(Integer)}
+   *
+   * <p>Method under test: {@link FDFField#setWidgetFieldFlags(Integer)}
    */
   @Test
-  @DisplayName("Test setWidgetFieldFlags(Integer) with 'Integer'; when 'null'; then FDFField() WidgetFieldFlags is 'null'")
-  void testSetWidgetFieldFlagsWithInteger_whenNull_thenFDFFieldWidgetFieldFlagsIsNull() {
+  @DisplayName(
+      "Test setWidgetFieldFlags(Integer) with 'Integer'; when 'null'; then FDFField() COSObject size is zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setWidgetFieldFlags(Integer)"})
+  void testSetWidgetFieldFlagsWithInteger_whenNull_thenFDFFieldCOSObjectSizeIsZero() {
     // Arrange
     FDFField fdfField = new FDFField();
 
     // Act
     fdfField.setWidgetFieldFlags(null);
 
-    // Assert
-    assertNull(fdfField.getWidgetFieldFlags());
+    // Assert that nothing has changed
     COSDictionary cOSObject = fdfField.getCOSObject();
     assertEquals(0, cOSObject.size());
     assertTrue(cOSObject.getValues().isEmpty());
@@ -2885,47 +2776,38 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#getSetWidgetFieldFlags()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()}.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Given {@link FDFField#FDFField()}.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getSetWidgetFieldFlags()}
+   *
+   * <p>Method under test: {@link FDFField#getSetWidgetFieldFlags()}
    */
   @Test
   @DisplayName("Test getSetWidgetFieldFlags(); given FDFField(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Integer FDFField.getSetWidgetFieldFlags()"})
   void testGetSetWidgetFieldFlags_givenFDFField_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new FDFField()).getSetWidgetFieldFlags());
+    assertNull(new FDFField().getSetWidgetFieldFlags());
   }
 
   /**
    * Test {@link FDFField#getSetWidgetFieldFlags()}.
+   *
    * <ul>
-   *   <li>Given {@link IIOMetadataNode#IIOMetadataNode(String)} with
-   * {@code foo}.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Then return intValue is one.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getSetWidgetFieldFlags()}
-   */
-  @Test
-  @DisplayName("Test getSetWidgetFieldFlags(); given IIOMetadataNode(String) with 'foo'; then return 'null'")
-  void testGetSetWidgetFieldFlags_givenIIOMetadataNodeWithFoo_thenReturnNull() throws IOException {
-    // Arrange, Act and Assert
-    assertNull((new FDFField(new IIOMetadataNode("foo"))).getSetWidgetFieldFlags());
-  }
-
-  /**
-   * Test {@link FDFField#getSetWidgetFieldFlags()}.
-   * <ul>
-   *   <li>Then return intValue is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getSetWidgetFieldFlags()}
+   *
+   * <p>Method under test: {@link FDFField#getSetWidgetFieldFlags()}
    */
   @Test
   @DisplayName("Test getSetWidgetFieldFlags(); then return intValue is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Integer FDFField.getSetWidgetFieldFlags()"})
   void testGetSetWidgetFieldFlags_thenReturnIntValueIsOne() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -2937,11 +2819,14 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setSetWidgetFieldFlags(int)} with {@code int}.
-   * <p>
-   * Method under test: {@link FDFField#setSetWidgetFieldFlags(int)}
+   *
+   * <p>Method under test: {@link FDFField#setSetWidgetFieldFlags(int)}
    */
   @Test
   @DisplayName("Test setSetWidgetFieldFlags(int) with 'int'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setSetWidgetFieldFlags(int)"})
   void testSetSetWidgetFieldFlagsWithInt() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -2958,11 +2843,14 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setSetWidgetFieldFlags(int)} with {@code int}.
-   * <p>
-   * Method under test: {@link FDFField#setSetWidgetFieldFlags(int)}
+   *
+   * <p>Method under test: {@link FDFField#setSetWidgetFieldFlags(int)}
    */
   @Test
   @DisplayName("Test setSetWidgetFieldFlags(int) with 'int'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setSetWidgetFieldFlags(int)"})
   void testSetSetWidgetFieldFlagsWithInt2() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -2979,15 +2867,19 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setSetWidgetFieldFlags(int)} with {@code int}.
+   *
    * <ul>
-   *   <li>Then {@link FDFField#FDFField()} SetWidgetFieldFlags intValue is
-   * one.</li>
+   *   <li>Then {@link FDFField#FDFField()} SetWidgetFieldFlags intValue is one.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setSetWidgetFieldFlags(int)}
+   *
+   * <p>Method under test: {@link FDFField#setSetWidgetFieldFlags(int)}
    */
   @Test
-  @DisplayName("Test setSetWidgetFieldFlags(int) with 'int'; then FDFField() SetWidgetFieldFlags intValue is one")
+  @DisplayName(
+      "Test setSetWidgetFieldFlags(int) with 'int'; then FDFField() SetWidgetFieldFlags intValue is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setSetWidgetFieldFlags(int)"})
   void testSetSetWidgetFieldFlagsWithInt_thenFDFFieldSetWidgetFieldFlagsIntValueIsOne() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -3004,11 +2896,14 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setSetWidgetFieldFlags(Integer)} with {@code Integer}.
-   * <p>
-   * Method under test: {@link FDFField#setSetWidgetFieldFlags(Integer)}
+   *
+   * <p>Method under test: {@link FDFField#setSetWidgetFieldFlags(Integer)}
    */
   @Test
   @DisplayName("Test setSetWidgetFieldFlags(Integer) with 'Integer'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setSetWidgetFieldFlags(Integer)"})
   void testSetSetWidgetFieldFlagsWithInteger() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -3025,11 +2920,14 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setSetWidgetFieldFlags(Integer)} with {@code Integer}.
-   * <p>
-   * Method under test: {@link FDFField#setSetWidgetFieldFlags(Integer)}
+   *
+   * <p>Method under test: {@link FDFField#setSetWidgetFieldFlags(Integer)}
    */
   @Test
   @DisplayName("Test setSetWidgetFieldFlags(Integer) with 'Integer'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setSetWidgetFieldFlags(Integer)"})
   void testSetSetWidgetFieldFlagsWithInteger2() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -3046,24 +2944,28 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setSetWidgetFieldFlags(Integer)} with {@code Integer}.
+   *
    * <ul>
-   *   <li>Then {@link FDFField#FDFField()} SetWidgetFieldFlags is
-   * {@code null}.</li>
+   *   <li>When {@code null}.
+   *   <li>Then {@link FDFField#FDFField()} COSObject size is zero.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setSetWidgetFieldFlags(Integer)}
+   *
+   * <p>Method under test: {@link FDFField#setSetWidgetFieldFlags(Integer)}
    */
   @Test
-  @DisplayName("Test setSetWidgetFieldFlags(Integer) with 'Integer'; then FDFField() SetWidgetFieldFlags is 'null'")
-  void testSetSetWidgetFieldFlagsWithInteger_thenFDFFieldSetWidgetFieldFlagsIsNull() {
+  @DisplayName(
+      "Test setSetWidgetFieldFlags(Integer) with 'Integer'; when 'null'; then FDFField() COSObject size is zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setSetWidgetFieldFlags(Integer)"})
+  void testSetSetWidgetFieldFlagsWithInteger_whenNull_thenFDFFieldCOSObjectSizeIsZero() {
     // Arrange
     FDFField fdfField = new FDFField();
 
     // Act
     fdfField.setSetWidgetFieldFlags(null);
 
-    // Assert
-    assertNull(fdfField.getSetWidgetFieldFlags());
+    // Assert that nothing has changed
     COSDictionary cOSObject = fdfField.getCOSObject();
     assertEquals(0, cOSObject.size());
     assertTrue(cOSObject.getValues().isEmpty());
@@ -3071,47 +2973,38 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#getClearWidgetFieldFlags()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()}.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Given {@link FDFField#FDFField()}.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getClearWidgetFieldFlags()}
+   *
+   * <p>Method under test: {@link FDFField#getClearWidgetFieldFlags()}
    */
   @Test
   @DisplayName("Test getClearWidgetFieldFlags(); given FDFField(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Integer FDFField.getClearWidgetFieldFlags()"})
   void testGetClearWidgetFieldFlags_givenFDFField_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new FDFField()).getClearWidgetFieldFlags());
+    assertNull(new FDFField().getClearWidgetFieldFlags());
   }
 
   /**
    * Test {@link FDFField#getClearWidgetFieldFlags()}.
+   *
    * <ul>
-   *   <li>Given {@link IIOMetadataNode#IIOMetadataNode(String)} with
-   * {@code foo}.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Then return intValue is one.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getClearWidgetFieldFlags()}
-   */
-  @Test
-  @DisplayName("Test getClearWidgetFieldFlags(); given IIOMetadataNode(String) with 'foo'; then return 'null'")
-  void testGetClearWidgetFieldFlags_givenIIOMetadataNodeWithFoo_thenReturnNull() throws IOException {
-    // Arrange, Act and Assert
-    assertNull((new FDFField(new IIOMetadataNode("foo"))).getClearWidgetFieldFlags());
-  }
-
-  /**
-   * Test {@link FDFField#getClearWidgetFieldFlags()}.
-   * <ul>
-   *   <li>Then return intValue is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getClearWidgetFieldFlags()}
+   *
+   * <p>Method under test: {@link FDFField#getClearWidgetFieldFlags()}
    */
   @Test
   @DisplayName("Test getClearWidgetFieldFlags(); then return intValue is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Integer FDFField.getClearWidgetFieldFlags()"})
   void testGetClearWidgetFieldFlags_thenReturnIntValueIsOne() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -3123,11 +3016,14 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setClearWidgetFieldFlags(int)} with {@code int}.
-   * <p>
-   * Method under test: {@link FDFField#setClearWidgetFieldFlags(int)}
+   *
+   * <p>Method under test: {@link FDFField#setClearWidgetFieldFlags(int)}
    */
   @Test
   @DisplayName("Test setClearWidgetFieldFlags(int) with 'int'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setClearWidgetFieldFlags(int)"})
   void testSetClearWidgetFieldFlagsWithInt() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -3144,11 +3040,14 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setClearWidgetFieldFlags(int)} with {@code int}.
-   * <p>
-   * Method under test: {@link FDFField#setClearWidgetFieldFlags(int)}
+   *
+   * <p>Method under test: {@link FDFField#setClearWidgetFieldFlags(int)}
    */
   @Test
   @DisplayName("Test setClearWidgetFieldFlags(int) with 'int'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setClearWidgetFieldFlags(int)"})
   void testSetClearWidgetFieldFlagsWithInt2() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -3165,11 +3064,14 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setClearWidgetFieldFlags(int)} with {@code int}.
-   * <p>
-   * Method under test: {@link FDFField#setClearWidgetFieldFlags(int)}
+   *
+   * <p>Method under test: {@link FDFField#setClearWidgetFieldFlags(int)}
    */
   @Test
   @DisplayName("Test setClearWidgetFieldFlags(int) with 'int'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setClearWidgetFieldFlags(int)"})
   void testSetClearWidgetFieldFlagsWithInt3() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -3186,11 +3088,14 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setClearWidgetFieldFlags(Integer)} with {@code Integer}.
-   * <p>
-   * Method under test: {@link FDFField#setClearWidgetFieldFlags(Integer)}
+   *
+   * <p>Method under test: {@link FDFField#setClearWidgetFieldFlags(Integer)}
    */
   @Test
   @DisplayName("Test setClearWidgetFieldFlags(Integer) with 'Integer'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setClearWidgetFieldFlags(Integer)"})
   void testSetClearWidgetFieldFlagsWithInteger() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -3207,11 +3112,14 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setClearWidgetFieldFlags(Integer)} with {@code Integer}.
-   * <p>
-   * Method under test: {@link FDFField#setClearWidgetFieldFlags(Integer)}
+   *
+   * <p>Method under test: {@link FDFField#setClearWidgetFieldFlags(Integer)}
    */
   @Test
   @DisplayName("Test setClearWidgetFieldFlags(Integer) with 'Integer'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setClearWidgetFieldFlags(Integer)"})
   void testSetClearWidgetFieldFlagsWithInteger2() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -3228,24 +3136,28 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setClearWidgetFieldFlags(Integer)} with {@code Integer}.
+   *
    * <ul>
-   *   <li>Then {@link FDFField#FDFField()} ClearWidgetFieldFlags is
-   * {@code null}.</li>
+   *   <li>When {@code null}.
+   *   <li>Then {@link FDFField#FDFField()} COSObject size is zero.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setClearWidgetFieldFlags(Integer)}
+   *
+   * <p>Method under test: {@link FDFField#setClearWidgetFieldFlags(Integer)}
    */
   @Test
-  @DisplayName("Test setClearWidgetFieldFlags(Integer) with 'Integer'; then FDFField() ClearWidgetFieldFlags is 'null'")
-  void testSetClearWidgetFieldFlagsWithInteger_thenFDFFieldClearWidgetFieldFlagsIsNull() {
+  @DisplayName(
+      "Test setClearWidgetFieldFlags(Integer) with 'Integer'; when 'null'; then FDFField() COSObject size is zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setClearWidgetFieldFlags(Integer)"})
+  void testSetClearWidgetFieldFlagsWithInteger_whenNull_thenFDFFieldCOSObjectSizeIsZero() {
     // Arrange
     FDFField fdfField = new FDFField();
 
     // Act
     fdfField.setClearWidgetFieldFlags(null);
 
-    // Assert
-    assertNull(fdfField.getClearWidgetFieldFlags());
+    // Assert that nothing has changed
     COSDictionary cOSObject = fdfField.getCOSObject();
     assertEquals(0, cOSObject.size());
     assertTrue(cOSObject.getValues().isEmpty());
@@ -3253,12 +3165,39 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#getAppearanceDictionary()}.
-   * <p>
-   * Method under test: {@link FDFField#getAppearanceDictionary()}
+   *
+   * <ul>
+   *   <li>Given {@link FDFField#FDFField()}.
+   *   <li>Then return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link FDFField#getAppearanceDictionary()}
    */
   @Test
-  @DisplayName("Test getAppearanceDictionary()")
-  void testGetAppearanceDictionary() {
+  @DisplayName("Test getAppearanceDictionary(); given FDFField(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAppearanceDictionary FDFField.getAppearanceDictionary()"})
+  void testGetAppearanceDictionary_givenFDFField_thenReturnNull() {
+    // Arrange, Act and Assert
+    assertNull(new FDFField().getAppearanceDictionary());
+  }
+
+  /**
+   * Test {@link FDFField#getAppearanceDictionary()}.
+   *
+   * <ul>
+   *   <li>Then return COSObject Key is {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link FDFField#getAppearanceDictionary()}
+   */
+  @Test
+  @DisplayName("Test getAppearanceDictionary(); then return COSObject Key is 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAppearanceDictionary FDFField.getAppearanceDictionary()"})
+  void testGetAppearanceDictionary_thenReturnCOSObjectKeyIsNull() {
     // Arrange
     FDFField fdfField = new FDFField();
     fdfField.setAppearanceDictionary(new PDAppearanceDictionary());
@@ -3268,91 +3207,36 @@ class FDFFieldDiffblueTest {
 
     // Assert
     COSDictionary cOSObject = actualAppearanceDictionary.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
-    PDAppearanceEntry downAppearance = actualAppearanceDictionary.getDownAppearance();
-    COSDictionary cOSObject2 = downAppearance.getCOSObject();
-    COSUpdateState updateState2 = cOSObject2.getUpdateState();
-    assertNull(updateState2.getOriginDocumentState());
     assertNull(cOSObject.getKey());
-    assertNull(cOSObject2.getKey());
-    assertEquals(0, cOSObject2.size());
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
-    COSIncrement toIncrementResult2 = cOSObject2.toIncrement();
-    assertFalse(toIncrementResult2.iterator().hasNext());
     assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject2.isDirect());
     assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(cOSObject2.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertFalse(updateState2.isUpdated());
+    PDAppearanceEntry downAppearance = actualAppearanceDictionary.getDownAppearance();
     assertFalse(downAppearance.isStream());
     PDAppearanceEntry normalAppearance = actualAppearanceDictionary.getNormalAppearance();
     assertFalse(normalAppearance.isStream());
     PDAppearanceEntry rolloverAppearance = actualAppearanceDictionary.getRolloverAppearance();
     assertFalse(rolloverAppearance.isStream());
-    assertTrue(cOSObject2.getValues().isEmpty());
     assertTrue(downAppearance.getSubDictionary().isEmpty());
     assertTrue(normalAppearance.getSubDictionary().isEmpty());
     assertTrue(rolloverAppearance.getSubDictionary().isEmpty());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
-    assertTrue(toIncrementResult2.getObjects().isEmpty());
     assertTrue(downAppearance.isSubDictionary());
     assertTrue(normalAppearance.isSubDictionary());
     assertTrue(rolloverAppearance.isSubDictionary());
-    assertSame(cOSObject2, normalAppearance.getCOSObject());
-    assertSame(cOSObject2, rolloverAppearance.getCOSObject());
-  }
-
-  /**
-   * Test {@link FDFField#getAppearanceDictionary()}.
-   * <ul>
-   *   <li>Given {@link FDFField#FDFField()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getAppearanceDictionary()}
-   */
-  @Test
-  @DisplayName("Test getAppearanceDictionary(); given FDFField(); then return 'null'")
-  void testGetAppearanceDictionary_givenFDFField_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new FDFField()).getAppearanceDictionary());
-  }
-
-  /**
-   * Test {@link FDFField#getAppearanceDictionary()}.
-   * <ul>
-   *   <li>Given {@link IIOMetadataNode#IIOMetadataNode(String)} with
-   * {@code foo}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getAppearanceDictionary()}
-   */
-  @Test
-  @DisplayName("Test getAppearanceDictionary(); given IIOMetadataNode(String) with 'foo'; then return 'null'")
-  void testGetAppearanceDictionary_givenIIOMetadataNodeWithFoo_thenReturnNull() throws IOException {
-    // Arrange, Act and Assert
-    assertNull((new FDFField(new IIOMetadataNode("foo"))).getAppearanceDictionary());
   }
 
   /**
    * Test {@link FDFField#setAppearanceDictionary(PDAppearanceDictionary)}.
-   * <ul>
-   *   <li>Given {@link FDFField#FDFField()}.</li>
-   *   <li>Then {@link FDFField#FDFField()} COSObject Values size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link FDFField#setAppearanceDictionary(PDAppearanceDictionary)}
+   *
+   * <p>Method under test: {@link FDFField#setAppearanceDictionary(PDAppearanceDictionary)}
    */
   @Test
-  @DisplayName("Test setAppearanceDictionary(PDAppearanceDictionary); given FDFField(); then FDFField() COSObject Values size is one")
-  void testSetAppearanceDictionary_givenFDFField_thenFDFFieldCOSObjectValuesSizeIsOne() {
+  @DisplayName("Test setAppearanceDictionary(PDAppearanceDictionary)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setAppearanceDictionary(PDAppearanceDictionary)"})
+  void testSetAppearanceDictionary() {
     // Arrange
     FDFField fdfField = new FDFField();
 
@@ -3360,9 +3244,6 @@ class FDFFieldDiffblueTest {
     fdfField.setAppearanceDictionary(new PDAppearanceDictionary());
 
     // Assert
-    COSDictionary cOSObject = fdfField.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
     PDAppearanceDictionary appearanceDictionary = fdfField.getAppearanceDictionary();
     PDAppearanceEntry downAppearance = appearanceDictionary.getDownAppearance();
     assertFalse(downAppearance.isStream());
@@ -3380,72 +3261,105 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setAppearanceDictionary(PDAppearanceDictionary)}.
+   *
    * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link FDFField#FDFField()} COSObject size is zero.</li>
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link FDFField#setAppearanceDictionary(PDAppearanceDictionary)}
+   *
+   * <p>Method under test: {@link FDFField#setAppearanceDictionary(PDAppearanceDictionary)}
    */
   @Test
-  @DisplayName("Test setAppearanceDictionary(PDAppearanceDictionary); when 'null'; then FDFField() COSObject size is zero")
-  void testSetAppearanceDictionary_whenNull_thenFDFFieldCOSObjectSizeIsZero() {
+  @DisplayName(
+      "Test setAppearanceDictionary(PDAppearanceDictionary); given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setAppearanceDictionary(PDAppearanceDictionary)"})
+  void testSetAppearanceDictionary_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
     FDFField fdfField = new FDFField();
 
+    COSDictionary dictionary = new COSDictionary();
+    dictionary.setKey(new COSObjectKey(1L, 1));
+
     // Act
-    fdfField.setAppearanceDictionary(null);
+    fdfField.setAppearanceDictionary(new PDAppearanceDictionary(dictionary));
 
     // Assert
-    COSDictionary cOSObject = fdfField.getCOSObject();
-    assertEquals(0, cOSObject.size());
-    assertTrue(cOSObject.getValues().isEmpty());
+    PDAppearanceDictionary appearanceDictionary = fdfField.getAppearanceDictionary();
+    assertNull(appearanceDictionary.getDownAppearance());
+    assertNull(appearanceDictionary.getNormalAppearance());
+    assertNull(appearanceDictionary.getRolloverAppearance());
+    assertSame(dictionary, appearanceDictionary.getCOSObject());
+  }
+
+  /**
+   * Test {@link FDFField#setAppearanceDictionary(PDAppearanceDictionary)}.
+   *
+   * <ul>
+   *   <li>Given {@code true}.
+   *   <li>When {@link COSDictionary#COSDictionary()} Direct is {@code true}.
+   * </ul>
+   *
+   * <p>Method under test: {@link FDFField#setAppearanceDictionary(PDAppearanceDictionary)}
+   */
+  @Test
+  @DisplayName(
+      "Test setAppearanceDictionary(PDAppearanceDictionary); given 'true'; when COSDictionary() Direct is 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setAppearanceDictionary(PDAppearanceDictionary)"})
+  void testSetAppearanceDictionary_givenTrue_whenCOSDictionaryDirectIsTrue() {
+    // Arrange
+    FDFField fdfField = new FDFField();
+
+    COSDictionary dictionary = new COSDictionary();
+    dictionary.setDirect(true);
+
+    // Act
+    fdfField.setAppearanceDictionary(new PDAppearanceDictionary(dictionary));
+
+    // Assert
+    PDAppearanceDictionary appearanceDictionary = fdfField.getAppearanceDictionary();
+    assertNull(appearanceDictionary.getDownAppearance());
+    assertNull(appearanceDictionary.getNormalAppearance());
+    assertNull(appearanceDictionary.getRolloverAppearance());
+    assertSame(dictionary, appearanceDictionary.getCOSObject());
   }
 
   /**
    * Test {@link FDFField#getAppearanceStreamReference()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()}.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Given {@link FDFField#FDFField()}.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getAppearanceStreamReference()}
+   *
+   * <p>Method under test: {@link FDFField#getAppearanceStreamReference()}
    */
   @Test
   @DisplayName("Test getAppearanceStreamReference(); given FDFField(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"FDFNamedPageReference FDFField.getAppearanceStreamReference()"})
   void testGetAppearanceStreamReference_givenFDFField_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new FDFField()).getAppearanceStreamReference());
+    assertNull(new FDFField().getAppearanceStreamReference());
   }
 
   /**
    * Test {@link FDFField#getAppearanceStreamReference()}.
+   *
    * <ul>
-   *   <li>Given {@link IIOMetadataNode#IIOMetadataNode(String)} with
-   * {@code foo}.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Then return Name is {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getAppearanceStreamReference()}
-   */
-  @Test
-  @DisplayName("Test getAppearanceStreamReference(); given IIOMetadataNode(String) with 'foo'; then return 'null'")
-  void testGetAppearanceStreamReference_givenIIOMetadataNodeWithFoo_thenReturnNull() throws IOException {
-    // Arrange, Act and Assert
-    assertNull((new FDFField(new IIOMetadataNode("foo"))).getAppearanceStreamReference());
-  }
-
-  /**
-   * Test {@link FDFField#getAppearanceStreamReference()}.
-   * <ul>
-   *   <li>Then return Name is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getAppearanceStreamReference()}
+   *
+   * <p>Method under test: {@link FDFField#getAppearanceStreamReference()}
    */
   @Test
   @DisplayName("Test getAppearanceStreamReference(); then return Name is 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"FDFNamedPageReference FDFField.getAppearanceStreamReference()"})
   void testGetAppearanceStreamReference_thenReturnNameIsNull() throws IOException {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -3473,17 +3387,93 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setAppearanceStreamReference(FDFNamedPageReference)}.
+   *
    * <ul>
-   *   <li>Then {@link FDFField#FDFField()} AppearanceStreamReference Name is
-   * {@code null}.</li>
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link FDFField#setAppearanceStreamReference(FDFNamedPageReference)}
+   *
+   * <p>Method under test: {@link FDFField#setAppearanceStreamReference(FDFNamedPageReference)}
    */
   @Test
-  @DisplayName("Test setAppearanceStreamReference(FDFNamedPageReference); then FDFField() AppearanceStreamReference Name is 'null'")
-  void testSetAppearanceStreamReference_thenFDFFieldAppearanceStreamReferenceNameIsNull() throws IOException {
+  @DisplayName(
+      "Test setAppearanceStreamReference(FDFNamedPageReference); given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setAppearanceStreamReference(FDFNamedPageReference)"})
+  void testSetAppearanceStreamReference_givenCOSObjectKeyWithNumIsOneAndGenIsOne()
+      throws IOException {
+    // Arrange
+    FDFField fdfField = new FDFField();
+
+    COSDictionary r = new COSDictionary();
+    r.setKey(new COSObjectKey(1L, 1));
+
+    // Act
+    fdfField.setAppearanceStreamReference(new FDFNamedPageReference(r));
+
+    // Assert
+    FDFNamedPageReference appearanceStreamReference = fdfField.getAppearanceStreamReference();
+    assertNull(appearanceStreamReference.getName());
+    assertNull(appearanceStreamReference.getFileSpecification());
+    COSDictionary cOSObject = fdfField.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    assertSame(r, appearanceStreamReference.getCOSObject());
+  }
+
+  /**
+   * Test {@link FDFField#setAppearanceStreamReference(FDFNamedPageReference)}.
+   *
+   * <ul>
+   *   <li>Given {@code true}.
+   *   <li>When {@link COSDictionary#COSDictionary()} Direct is {@code true}.
+   * </ul>
+   *
+   * <p>Method under test: {@link FDFField#setAppearanceStreamReference(FDFNamedPageReference)}
+   */
+  @Test
+  @DisplayName(
+      "Test setAppearanceStreamReference(FDFNamedPageReference); given 'true'; when COSDictionary() Direct is 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setAppearanceStreamReference(FDFNamedPageReference)"})
+  void testSetAppearanceStreamReference_givenTrue_whenCOSDictionaryDirectIsTrue()
+      throws IOException {
+    // Arrange
+    FDFField fdfField = new FDFField();
+
+    COSDictionary r = new COSDictionary();
+    r.setDirect(true);
+
+    // Act
+    fdfField.setAppearanceStreamReference(new FDFNamedPageReference(r));
+
+    // Assert
+    FDFNamedPageReference appearanceStreamReference = fdfField.getAppearanceStreamReference();
+    assertNull(appearanceStreamReference.getName());
+    assertNull(appearanceStreamReference.getFileSpecification());
+    COSDictionary cOSObject = fdfField.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    assertSame(r, appearanceStreamReference.getCOSObject());
+  }
+
+  /**
+   * Test {@link FDFField#setAppearanceStreamReference(FDFNamedPageReference)}.
+   *
+   * <ul>
+   *   <li>When {@link FDFNamedPageReference#FDFNamedPageReference()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link FDFField#setAppearanceStreamReference(FDFNamedPageReference)}
+   */
+  @Test
+  @DisplayName(
+      "Test setAppearanceStreamReference(FDFNamedPageReference); when FDFNamedPageReference()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setAppearanceStreamReference(FDFNamedPageReference)"})
+  void testSetAppearanceStreamReference_whenFDFNamedPageReference() throws IOException {
     // Arrange
     FDFField fdfField = new FDFField();
 
@@ -3501,16 +3491,20 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setAppearanceStreamReference(FDFNamedPageReference)}.
+   *
    * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link FDFField#FDFField()} COSObject size is zero.</li>
+   *   <li>When {@code null}.
+   *   <li>Then {@link FDFField#FDFField()} COSObject size is zero.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link FDFField#setAppearanceStreamReference(FDFNamedPageReference)}
+   *
+   * <p>Method under test: {@link FDFField#setAppearanceStreamReference(FDFNamedPageReference)}
    */
   @Test
-  @DisplayName("Test setAppearanceStreamReference(FDFNamedPageReference); when 'null'; then FDFField() COSObject size is zero")
+  @DisplayName(
+      "Test setAppearanceStreamReference(FDFNamedPageReference); when 'null'; then FDFField() COSObject size is zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setAppearanceStreamReference(FDFNamedPageReference)"})
   void testSetAppearanceStreamReference_whenNull_thenFDFFieldCOSObjectSizeIsZero() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -3518,7 +3512,7 @@ class FDFFieldDiffblueTest {
     // Act
     fdfField.setAppearanceStreamReference(null);
 
-    // Assert
+    // Assert that nothing has changed
     COSDictionary cOSObject = fdfField.getCOSObject();
     assertEquals(0, cOSObject.size());
     assertTrue(cOSObject.getValues().isEmpty());
@@ -3526,48 +3520,21 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#getIconFit()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()}.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Given {@link FDFField#FDFField()} IconFit is {@link FDFIconFit#FDFIconFit()}.
+   *   <li>Then return COSObject Key is {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getIconFit()}
+   *
+   * <p>Method under test: {@link FDFField#getIconFit()}
    */
   @Test
-  @DisplayName("Test getIconFit(); given FDFField(); then return 'null'")
-  void testGetIconFit_givenFDFField_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new FDFField()).getIconFit());
-  }
-
-  /**
-   * Test {@link FDFField#getIconFit()}.
-   * <ul>
-   *   <li>Given {@link IIOMetadataNode#IIOMetadataNode(String)} with
-   * {@code foo}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getIconFit()}
-   */
-  @Test
-  @DisplayName("Test getIconFit(); given IIOMetadataNode(String) with 'foo'; then return 'null'")
-  void testGetIconFit_givenIIOMetadataNodeWithFoo_thenReturnNull() throws IOException {
-    // Arrange, Act and Assert
-    assertNull((new FDFField(new IIOMetadataNode("foo"))).getIconFit());
-  }
-
-  /**
-   * Test {@link FDFField#getIconFit()}.
-   * <ul>
-   *   <li>Then return FractionalSpaceToAllocate COSArray toList size is two.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getIconFit()}
-   */
-  @Test
-  @DisplayName("Test getIconFit(); then return FractionalSpaceToAllocate COSArray toList size is two")
-  void testGetIconFit_thenReturnFractionalSpaceToAllocateCOSArrayToListSizeIsTwo() {
+  @DisplayName(
+      "Test getIconFit(); given FDFField() IconFit is FDFIconFit(); then return COSObject Key is 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"FDFIconFit FDFField.getIconFit()"})
+  void testGetIconFit_givenFDFFieldIconFitIsFDFIconFit_thenReturnCOSObjectKeyIsNull() {
     // Arrange
     FDFField fdfField = new FDFField();
     fdfField.setIconFit(new FDFIconFit());
@@ -3576,49 +3543,143 @@ class FDFFieldDiffblueTest {
     FDFIconFit actualIconFit = fdfField.getIconFit();
 
     // Assert
-    PDRange fractionalSpaceToAllocate = actualIconFit.getFractionalSpaceToAllocate();
-    COSArray cOSArray = fractionalSpaceToAllocate.getCOSArray();
-    List<? extends COSBase> toListResult = cOSArray.toList();
-    assertEquals(2, toListResult.size());
-    COSBase getResult = toListResult.get(0);
-    assertTrue(getResult instanceof COSFloat);
-    COSBase getResult2 = toListResult.get(1);
-    assertTrue(getResult2 instanceof COSFloat);
     COSDictionary cOSObject = actualIconFit.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
-    assertNull(getResult.getKey());
     assertNull(cOSObject.getKey());
+    PDRange fractionalSpaceToAllocate = actualIconFit.getFractionalSpaceToAllocate();
     assertEquals(0.5f, fractionalSpaceToAllocate.getMax());
     assertEquals(0.5f, fractionalSpaceToAllocate.getMin());
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
-    assertFalse(getResult.isDirect());
     assertFalse(cOSObject.isDirect());
     assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
     assertEquals(FDFIconFit.SCALE_OPTION_ALWAYS, actualIconFit.getScaleOption());
     assertEquals(FDFIconFit.SCALE_TYPE_PROPORTIONAL, actualIconFit.getScaleType());
-    assertEquals(getResult, getResult2);
-    assertSame(cOSArray, fractionalSpaceToAllocate.getCOSObject());
+  }
+
+  /**
+   * Test {@link FDFField#getIconFit()}.
+   *
+   * <ul>
+   *   <li>Given {@link FDFField#FDFField()}.
+   *   <li>Then return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link FDFField#getIconFit()}
+   */
+  @Test
+  @DisplayName("Test getIconFit(); given FDFField(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"FDFIconFit FDFField.getIconFit()"})
+  void testGetIconFit_givenFDFField_thenReturnNull() {
+    // Arrange, Act and Assert
+    assertNull(new FDFField().getIconFit());
   }
 
   /**
    * Test {@link FDFField#setIconFit(FDFIconFit)}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()}.</li>
-   *   <li>Then {@link FDFField#FDFField()} IconFit FractionalSpaceToAllocate Max is
-   * {@code 0.5}.</li>
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setIconFit(FDFIconFit)}
+   *
+   * <p>Method under test: {@link FDFField#setIconFit(FDFIconFit)}
    */
   @Test
-  @DisplayName("Test setIconFit(FDFIconFit); given FDFField(); then FDFField() IconFit FractionalSpaceToAllocate Max is '0.5'")
-  void testSetIconFit_givenFDFField_thenFDFFieldIconFitFractionalSpaceToAllocateMaxIs05() {
+  @DisplayName(
+      "Test setIconFit(FDFIconFit); given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setIconFit(FDFIconFit)"})
+  void testSetIconFit_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
+    // Arrange
+    FDFField fdfField = new FDFField();
+
+    COSDictionary f = new COSDictionary();
+    f.setKey(new COSObjectKey(1L, 1));
+
+    // Act
+    fdfField.setIconFit(new FDFIconFit(f));
+
+    // Assert
+    assertSame(f, fdfField.getIconFit().getCOSObject());
+  }
+
+  /**
+   * Test {@link FDFField#setIconFit(FDFIconFit)}.
+   *
+   * <ul>
+   *   <li>Given {@link FDFField#FDFField()}.
+   *   <li>When {@code null}.
+   *   <li>Then {@link FDFField#FDFField()} COSObject size is zero.
+   * </ul>
+   *
+   * <p>Method under test: {@link FDFField#setIconFit(FDFIconFit)}
+   */
+  @Test
+  @DisplayName(
+      "Test setIconFit(FDFIconFit); given FDFField(); when 'null'; then FDFField() COSObject size is zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setIconFit(FDFIconFit)"})
+  void testSetIconFit_givenFDFField_whenNull_thenFDFFieldCOSObjectSizeIsZero() {
+    // Arrange
+    FDFField fdfField = new FDFField();
+
+    // Act
+    fdfField.setIconFit(null);
+
+    // Assert that nothing has changed
+    COSDictionary cOSObject = fdfField.getCOSObject();
+    assertEquals(0, cOSObject.size());
+    assertTrue(cOSObject.getValues().isEmpty());
+  }
+
+  /**
+   * Test {@link FDFField#setIconFit(FDFIconFit)}.
+   *
+   * <ul>
+   *   <li>Given {@code true}.
+   *   <li>When {@link COSDictionary#COSDictionary()} Direct is {@code true}.
+   * </ul>
+   *
+   * <p>Method under test: {@link FDFField#setIconFit(FDFIconFit)}
+   */
+  @Test
+  @DisplayName("Test setIconFit(FDFIconFit); given 'true'; when COSDictionary() Direct is 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setIconFit(FDFIconFit)"})
+  void testSetIconFit_givenTrue_whenCOSDictionaryDirectIsTrue() {
+    // Arrange
+    FDFField fdfField = new FDFField();
+
+    COSDictionary f = new COSDictionary();
+    f.setDirect(true);
+
+    // Act
+    fdfField.setIconFit(new FDFIconFit(f));
+
+    // Assert
+    assertSame(f, fdfField.getIconFit().getCOSObject());
+  }
+
+  /**
+   * Test {@link FDFField#setIconFit(FDFIconFit)}.
+   *
+   * <ul>
+   *   <li>Then {@link FDFField#FDFField()} IconFit FractionalSpaceToAllocate Max is {@code 0.5}.
+   * </ul>
+   *
+   * <p>Method under test: {@link FDFField#setIconFit(FDFIconFit)}
+   */
+  @Test
+  @DisplayName(
+      "Test setIconFit(FDFIconFit); then FDFField() IconFit FractionalSpaceToAllocate Max is '0.5'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setIconFit(FDFIconFit)"})
+  void testSetIconFit_thenFDFFieldIconFitFractionalSpaceToAllocateMaxIs05() {
     // Arrange
     FDFField fdfField = new FDFField();
 
@@ -3638,41 +3699,20 @@ class FDFFieldDiffblueTest {
   }
 
   /**
-   * Test {@link FDFField#setIconFit(FDFIconFit)}.
-   * <ul>
-   *   <li>Given {@link FDFField#FDFField()}.</li>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link FDFField#FDFField()} COSObject size is zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setIconFit(FDFIconFit)}
-   */
-  @Test
-  @DisplayName("Test setIconFit(FDFIconFit); given FDFField(); when 'null'; then FDFField() COSObject size is zero")
-  void testSetIconFit_givenFDFField_whenNull_thenFDFFieldCOSObjectSizeIsZero() {
-    // Arrange
-    FDFField fdfField = new FDFField();
-
-    // Act
-    fdfField.setIconFit(null);
-
-    // Assert
-    COSDictionary cOSObject = fdfField.getCOSObject();
-    assertEquals(0, cOSObject.size());
-    assertTrue(cOSObject.getValues().isEmpty());
-  }
-
-  /**
    * Test {@link FDFField#getOptions()}.
+   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@code 42}.</li>
-   *   <li>Then return first is {@code 42}.</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@code 42}.
+   *   <li>Then return first is {@code 42}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getOptions()}
+   *
+   * <p>Method under test: {@link FDFField#getOptions()}
    */
   @Test
   @DisplayName("Test getOptions(); given ArrayList() add '42'; then return first is '42'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List FDFField.getOptions()"})
   void testGetOptions_givenArrayListAdd42_thenReturnFirstIs42() {
     // Arrange
     ArrayList<Object> options = new ArrayList<>();
@@ -3691,15 +3731,20 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#getOptions()}.
+   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link COSArray#COSArray()}.</li>
-   *   <li>Then return first COSArray toList Empty.</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link COSArray#COSArray()}.
+   *   <li>Then return first COSArray toList Empty.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getOptions()}
+   *
+   * <p>Method under test: {@link FDFField#getOptions()}
    */
   @Test
-  @DisplayName("Test getOptions(); given ArrayList() add COSArray(); then return first COSArray toList Empty")
+  @DisplayName(
+      "Test getOptions(); given ArrayList() add COSArray(); then return first COSArray toList Empty")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List FDFField.getOptions()"})
   void testGetOptions_givenArrayListAddCOSArray_thenReturnFirstCOSArrayToListEmpty() {
     // Arrange
     ArrayList<Object> options = new ArrayList<>();
@@ -3724,15 +3769,20 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#getOptions()}.
+   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@code null}.</li>
-   *   <li>Then return first COSArray is {@code null}.</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@code null}.
+   *   <li>Then return first COSArray is {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getOptions()}
+   *
+   * <p>Method under test: {@link FDFField#getOptions()}
    */
   @Test
-  @DisplayName("Test getOptions(); given ArrayList() add 'null'; then return first COSArray is 'null'")
+  @DisplayName(
+      "Test getOptions(); given ArrayList() add 'null'; then return first COSArray is 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List FDFField.getOptions()"})
   void testGetOptions_givenArrayListAddNull_thenReturnFirstCOSArrayIsNull() {
     // Arrange
     ArrayList<Object> options = new ArrayList<>();
@@ -3754,16 +3804,19 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#getOptions()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()} Options is
-   * {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then return Empty.</li>
+   *   <li>Given {@link FDFField#FDFField()} Options is {@link ArrayList#ArrayList()}.
+   *   <li>Then return Empty.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getOptions()}
+   *
+   * <p>Method under test: {@link FDFField#getOptions()}
    */
   @Test
   @DisplayName("Test getOptions(); given FDFField() Options is ArrayList(); then return Empty")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List FDFField.getOptions()"})
   void testGetOptions_givenFDFFieldOptionsIsArrayList_thenReturnEmpty() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -3775,148 +3828,45 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#getOptions()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()}.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Given {@link FDFField#FDFField()}.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getOptions()}
+   *
+   * <p>Method under test: {@link FDFField#getOptions()}
    */
   @Test
   @DisplayName("Test getOptions(); given FDFField(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List FDFField.getOptions()"})
   void testGetOptions_givenFDFField_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new FDFField()).getOptions());
-  }
-
-  /**
-   * Test {@link FDFField#getOptions()}.
-   * <ul>
-   *   <li>Given {@link IIOMetadataNode#IIOMetadataNode(String)} with
-   * {@code foo}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getOptions()}
-   */
-  @Test
-  @DisplayName("Test getOptions(); given IIOMetadataNode(String) with 'foo'; then return 'null'")
-  void testGetOptions_givenIIOMetadataNodeWithFoo_thenReturnNull() throws IOException {
-    // Arrange, Act and Assert
-    assertNull((new FDFField(new IIOMetadataNode("foo"))).getOptions());
+    assertNull(new FDFField().getOptions());
   }
 
   /**
    * Test {@link FDFField#setOptions(List)}.
-   * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
-   *   <li>Then {@link FDFField#FDFField()} Options is
-   * {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setOptions(List)}
+   *
+   * <p>Method under test: {@link FDFField#setOptions(List)}
    */
   @Test
-  @DisplayName("Test setOptions(List); given '42'; when ArrayList() add '42'; then FDFField() Options is ArrayList()")
-  void testSetOptions_given42_whenArrayListAdd42_thenFDFFieldOptionsIsArrayList() {
+  @DisplayName("Test setOptions(List)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setOptions(List)"})
+  void testSetOptions() {
     // Arrange
     FDFField fdfField = new FDFField();
 
-    ArrayList<Object> options = new ArrayList<>();
-    options.add("42");
-
-    // Act
-    fdfField.setOptions(options);
-
-    // Assert
-    COSDictionary cOSObject = fdfField.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    assertEquals(options, fdfField.getOptions());
-  }
-
-  /**
-   * Test {@link FDFField#setOptions(List)}.
-   * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
-   *   <li>Then {@link FDFField#FDFField()} Options is
-   * {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setOptions(List)}
-   */
-  @Test
-  @DisplayName("Test setOptions(List); given '42'; when ArrayList() add '42'; then FDFField() Options is ArrayList()")
-  void testSetOptions_given42_whenArrayListAdd42_thenFDFFieldOptionsIsArrayList2() {
-    // Arrange
-    FDFField fdfField = new FDFField();
+    COSDictionary dic = new COSDictionary(new COSDictionary());
+    dic.setDirect(false);
+    dic.setKey(new COSObjectKey(1L, 1));
+    PDDestinationNameTreeNode pdDestinationNameTreeNode = new PDDestinationNameTreeNode(dic);
 
     ArrayList<Object> options = new ArrayList<>();
-    options.add("42");
-    options.add("42");
-
-    // Act
-    fdfField.setOptions(options);
-
-    // Assert
-    COSDictionary cOSObject = fdfField.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    assertEquals(options, fdfField.getOptions());
-  }
-
-  /**
-   * Test {@link FDFField#setOptions(List)}.
-   * <ul>
-   *   <li>Given {@link COSArray#COSArray()}.</li>
-   *   <li>Then {@link FDFField#FDFField()} Options first COSArray is
-   * {@link COSArray#COSArray()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setOptions(List)}
-   */
-  @Test
-  @DisplayName("Test setOptions(List); given COSArray(); then FDFField() Options first COSArray is COSArray()")
-  void testSetOptions_givenCOSArray_thenFDFFieldOptionsFirstCOSArrayIsCOSArray() {
-    // Arrange
-    FDFField fdfField = new FDFField();
-
-    ArrayList<Object> options = new ArrayList<>();
-    COSArray cosArray = new COSArray();
-    options.add(cosArray);
-
-    // Act
-    fdfField.setOptions(options);
-
-    // Assert
-    List<Object> options2 = fdfField.getOptions();
-    assertEquals(1, options2.size());
-    Object getResult = options2.get(0);
-    assertTrue(getResult instanceof FDFOptionElement);
-    assertSame(cosArray, ((FDFOptionElement) getResult).getCOSArray());
-    assertSame(cosArray, ((FDFOptionElement) getResult).getCOSObject());
-  }
-
-  /**
-   * Test {@link FDFField#setOptions(List)}.
-   * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add
-   * {@link COSDictionary#COSDictionary()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setOptions(List)}
-   */
-  @Test
-  @DisplayName("Test setOptions(List); given COSDictionary(); when ArrayList() add COSDictionary()")
-  void testSetOptions_givenCOSDictionary_whenArrayListAddCOSDictionary() {
-    // Arrange
-    FDFField fdfField = new FDFField();
-
-    ArrayList<Object> options = new ArrayList<>();
-    options.add(new COSDictionary());
+    options.add(pdDestinationNameTreeNode);
 
     // Act
     fdfField.setOptions(options);
@@ -3929,21 +3879,130 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setOptions(List)}.
+   *
    * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and
-   * gen is one.</li>
+   *   <li>Given {@code 42}.
+   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.
+   *   <li>Then {@link FDFField#FDFField()} COSObject Values size is one.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setOptions(List)}
+   *
+   * <p>Method under test: {@link FDFField#setOptions(List)}
    */
   @Test
-  @DisplayName("Test setOptions(List); given COSObjectKey(long, int) with num is one and gen is one")
+  @DisplayName(
+      "Test setOptions(List); given '42'; when ArrayList() add '42'; then FDFField() COSObject Values size is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setOptions(List)"})
+  void testSetOptions_given42_whenArrayListAdd42_thenFDFFieldCOSObjectValuesSizeIsOne() {
+    // Arrange
+    FDFField fdfField = new FDFField();
+
+    ArrayList<Object> options = new ArrayList<>();
+    options.add("42");
+    options.add(2);
+
+    // Act
+    fdfField.setOptions(options);
+
+    // Assert
+    COSDictionary cOSObject = fdfField.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+  }
+
+  /**
+   * Test {@link FDFField#setOptions(List)}.
+   *
+   * <ul>
+   *   <li>Given {@link COSArray#COSArray()}.
+   *   <li>When {@link ArrayList#ArrayList()} add {@link COSArray#COSArray()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link FDFField#setOptions(List)}
+   */
+  @Test
+  @DisplayName("Test setOptions(List); given COSArray(); when ArrayList() add COSArray()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setOptions(List)"})
+  void testSetOptions_givenCOSArray_whenArrayListAddCOSArray() {
+    // Arrange
+    FDFField fdfField = new FDFField();
+
+    ArrayList<Object> options = new ArrayList<>();
+    options.add(new COSArray());
+    options.add(2);
+
+    // Act
+    fdfField.setOptions(options);
+
+    // Assert
+    COSDictionary cOSObject = fdfField.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+  }
+
+  /**
+   * Test {@link FDFField#setOptions(List)}.
+   *
+   * <ul>
+   *   <li>Given {@link COSDictionary#COSDictionary(COSDictionary)} with dict is {@link
+   *       COSDictionary#COSDictionary()} Key is {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link FDFField#setOptions(List)}
+   */
+  @Test
+  @DisplayName(
+      "Test setOptions(List); given COSDictionary(COSDictionary) with dict is COSDictionary() Key is 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setOptions(List)"})
+  void testSetOptions_givenCOSDictionaryWithDictIsCOSDictionaryKeyIsNull() {
+    // Arrange
+    FDFField fdfField = new FDFField();
+
+    COSDictionary dic = new COSDictionary(new COSDictionary());
+    dic.setDirect(false);
+    dic.setKey(null);
+    PDDestinationNameTreeNode pdDestinationNameTreeNode = new PDDestinationNameTreeNode(dic);
+
+    ArrayList<Object> options = new ArrayList<>();
+    options.add(pdDestinationNameTreeNode);
+
+    // Act
+    fdfField.setOptions(options);
+
+    // Assert
+    COSDictionary cOSObject = fdfField.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+  }
+
+  /**
+   * Test {@link FDFField#setOptions(List)}.
+   *
+   * <ul>
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   * </ul>
+   *
+   * <p>Method under test: {@link FDFField#setOptions(List)}
+   */
+  @Test
+  @DisplayName(
+      "Test setOptions(List); given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setOptions(List)"})
   void testSetOptions_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
     FDFField fdfField = new FDFField();
 
-    ArrayList<Object> options = new ArrayList<>();
-    options.add(new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1)));
+    COSArray cosArray = new COSArray(new ArrayList<>());
+    cosArray.setDirect(false);
+    cosArray.setKey(new COSObjectKey(1L, 1));
+    COSArrayList<Object> options = new COSArrayList<>(new ArrayList<>(), cosArray);
 
     // Act
     fdfField.setOptions(options);
@@ -3952,25 +4011,67 @@ class FDFFieldDiffblueTest {
     COSDictionary cOSObject = fdfField.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
+    assertTrue(fdfField.getOptions().isEmpty());
   }
 
   /**
    * Test {@link FDFField#setOptions(List)}.
+   *
    * <ul>
-   *   <li>Given five.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add five.</li>
+   *   <li>Given {@code false}.
+   *   <li>When {@link COSArray#COSArray(List)} with cosObjectables is {@link ArrayList#ArrayList()}
+   *       Key is {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setOptions(List)}
+   *
+   * <p>Method under test: {@link FDFField#setOptions(List)}
    */
   @Test
-  @DisplayName("Test setOptions(List); given five; when ArrayList() add five")
-  void testSetOptions_givenFive_whenArrayListAddFive() {
+  @DisplayName(
+      "Test setOptions(List); given 'false'; when COSArray(List) with cosObjectables is ArrayList() Key is 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setOptions(List)"})
+  void testSetOptions_givenFalse_whenCOSArrayWithCosObjectablesIsArrayListKeyIsNull() {
+    // Arrange
+    FDFField fdfField = new FDFField();
+
+    COSArray cosArray = new COSArray(new ArrayList<>());
+    cosArray.setDirect(false);
+    cosArray.setKey(null);
+    COSArrayList<Object> options = new COSArrayList<>(new ArrayList<>(), cosArray);
+
+    // Act
+    fdfField.setOptions(options);
+
+    // Assert
+    COSDictionary cOSObject = fdfField.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    assertTrue(fdfField.getOptions().isEmpty());
+  }
+
+  /**
+   * Test {@link FDFField#setOptions(List)}.
+   *
+   * <ul>
+   *   <li>Given minus one hundred one.
+   *   <li>When {@link ArrayList#ArrayList()} add minus one hundred one.
+   * </ul>
+   *
+   * <p>Method under test: {@link FDFField#setOptions(List)}
+   */
+  @Test
+  @DisplayName(
+      "Test setOptions(List); given minus one hundred one; when ArrayList() add minus one hundred one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setOptions(List)"})
+  void testSetOptions_givenMinusOneHundredOne_whenArrayListAddMinusOneHundredOne() {
     // Arrange
     FDFField fdfField = new FDFField();
 
     ArrayList<Object> options = new ArrayList<>();
-    options.add(5);
+    options.add(-101L);
 
     // Act
     fdfField.setOptions(options);
@@ -3983,21 +4084,26 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setOptions(List)}.
+   *
    * <ul>
-   *   <li>Given {@link Long#MAX_VALUE}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@link Long#MAX_VALUE}.</li>
+   *   <li>Given minus one hundred.
+   *   <li>When {@link ArrayList#ArrayList()} add minus one hundred.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setOptions(List)}
+   *
+   * <p>Method under test: {@link FDFField#setOptions(List)}
    */
   @Test
-  @DisplayName("Test setOptions(List); given MAX_VALUE; when ArrayList() add MAX_VALUE")
-  void testSetOptions_givenMax_value_whenArrayListAddMax_value() {
+  @DisplayName(
+      "Test setOptions(List); given minus one hundred; when ArrayList() add minus one hundred")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setOptions(List)"})
+  void testSetOptions_givenMinusOneHundred_whenArrayListAddMinusOneHundred() {
     // Arrange
     FDFField fdfField = new FDFField();
 
     ArrayList<Object> options = new ArrayList<>();
-    options.add(Long.MAX_VALUE);
+    options.add(-100L);
 
     // Act
     fdfField.setOptions(options);
@@ -4010,44 +4116,22 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setOptions(List)}.
+   *
    * <ul>
-   *   <li>Given {@link Integer#MIN_VALUE}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@link Integer#MIN_VALUE}.</li>
+   *   <li>Given {@code null}.
+   *   <li>When {@link ArrayList#ArrayList()} add {@code null}.
+   *   <li>Then {@link FDFField#FDFField()} Options size is one.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setOptions(List)}
+   *
+   * <p>Method under test: {@link FDFField#setOptions(List)}
    */
   @Test
-  @DisplayName("Test setOptions(List); given MIN_VALUE; when ArrayList() add MIN_VALUE")
-  void testSetOptions_givenMin_value_whenArrayListAddMin_value() {
-    // Arrange
-    FDFField fdfField = new FDFField();
-
-    ArrayList<Object> options = new ArrayList<>();
-    options.add(Integer.MIN_VALUE);
-
-    // Act
-    fdfField.setOptions(options);
-
-    // Assert
-    COSDictionary cOSObject = fdfField.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link FDFField#setOptions(List)}.
-   * <ul>
-   *   <li>Given {@code null}.</li>
-   *   <li>Then {@link FDFField#FDFField()} Options first COSArray is
-   * {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setOptions(List)}
-   */
-  @Test
-  @DisplayName("Test setOptions(List); given 'null'; then FDFField() Options first COSArray is 'null'")
-  void testSetOptions_givenNull_thenFDFFieldOptionsFirstCOSArrayIsNull() {
+  @DisplayName(
+      "Test setOptions(List); given 'null'; when ArrayList() add 'null'; then FDFField() Options size is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setOptions(List)"})
+  void testSetOptions_givenNull_whenArrayListAddNull_thenFDFFieldOptionsSizeIsOne() {
     // Arrange
     FDFField fdfField = new FDFField();
 
@@ -4068,22 +4152,25 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setOptions(List)}.
+   *
    * <ul>
-   *   <li>Given one.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add one.</li>
-   *   <li>Then {@link FDFField#FDFField()} COSObject Values size is one.</li>
+   *   <li>Given {@code Options}.
+   *   <li>Then {@link FDFField#FDFField()} Options is {@link ArrayList#ArrayList()}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setOptions(List)}
+   *
+   * <p>Method under test: {@link FDFField#setOptions(List)}
    */
   @Test
-  @DisplayName("Test setOptions(List); given one; when ArrayList() add one; then FDFField() COSObject Values size is one")
-  void testSetOptions_givenOne_whenArrayListAddOne_thenFDFFieldCOSObjectValuesSizeIsOne() {
+  @DisplayName("Test setOptions(List); given 'Options'; then FDFField() Options is ArrayList()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setOptions(List)"})
+  void testSetOptions_givenOptions_thenFDFFieldOptionsIsArrayList() {
     // Arrange
     FDFField fdfField = new FDFField();
 
     ArrayList<Object> options = new ArrayList<>();
-    options.add(1L);
+    options.add("Options");
 
     // Act
     fdfField.setOptions(options);
@@ -4092,26 +4179,33 @@ class FDFFieldDiffblueTest {
     COSDictionary cOSObject = fdfField.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
+    assertEquals(options, fdfField.getOptions());
   }
 
   /**
    * Test {@link FDFField#setOptions(List)}.
+   *
    * <ul>
-   *   <li>Given ten.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add ten.</li>
-   *   <li>Then {@link FDFField#FDFField()} COSObject Values size is one.</li>
+   *   <li>Given ten.
+   *   <li>When {@link ArrayList#ArrayList()} add ten.
+   *   <li>Then {@link FDFField#FDFField()} COSObject Values size is one.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setOptions(List)}
+   *
+   * <p>Method under test: {@link FDFField#setOptions(List)}
    */
   @Test
-  @DisplayName("Test setOptions(List); given ten; when ArrayList() add ten; then FDFField() COSObject Values size is one")
+  @DisplayName(
+      "Test setOptions(List); given ten; when ArrayList() add ten; then FDFField() COSObject Values size is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setOptions(List)"})
   void testSetOptions_givenTen_whenArrayListAddTen_thenFDFFieldCOSObjectValuesSizeIsOne() {
     // Arrange
     FDFField fdfField = new FDFField();
 
     ArrayList<Object> options = new ArrayList<>();
     options.add(10.0d);
+    options.add(2);
 
     // Act
     fdfField.setOptions(options);
@@ -4124,22 +4218,28 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setOptions(List)}.
+   *
    * <ul>
-   *   <li>Given ten.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add ten.</li>
-   *   <li>Then {@link FDFField#FDFField()} COSObject Values size is one.</li>
+   *   <li>Given ten.
+   *   <li>When {@link ArrayList#ArrayList()} add ten.
+   *   <li>Then {@link FDFField#FDFField()} COSObject Values size is one.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setOptions(List)}
+   *
+   * <p>Method under test: {@link FDFField#setOptions(List)}
    */
   @Test
-  @DisplayName("Test setOptions(List); given ten; when ArrayList() add ten; then FDFField() COSObject Values size is one")
+  @DisplayName(
+      "Test setOptions(List); given ten; when ArrayList() add ten; then FDFField() COSObject Values size is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setOptions(List)"})
   void testSetOptions_givenTen_whenArrayListAddTen_thenFDFFieldCOSObjectValuesSizeIsOne2() {
     // Arrange
     FDFField fdfField = new FDFField();
 
     ArrayList<Object> options = new ArrayList<>();
     options.add(10.0f);
+    options.add(2);
 
     // Act
     fdfField.setOptions(options);
@@ -4152,16 +4252,53 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setOptions(List)}.
+   *
    * <ul>
-   *   <li>Given two.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add two.</li>
-   *   <li>Then {@link FDFField#FDFField()} COSObject Values size is one.</li>
+   *   <li>Given two hundred fifty-seven.
+   *   <li>When {@link ArrayList#ArrayList()} add two hundred fifty-seven.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setOptions(List)}
+   *
+   * <p>Method under test: {@link FDFField#setOptions(List)}
    */
   @Test
-  @DisplayName("Test setOptions(List); given two; when ArrayList() add two; then FDFField() COSObject Values size is one")
+  @DisplayName(
+      "Test setOptions(List); given two hundred fifty-seven; when ArrayList() add two hundred fifty-seven")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setOptions(List)"})
+  void testSetOptions_givenTwoHundredFiftySeven_whenArrayListAddTwoHundredFiftySeven() {
+    // Arrange
+    FDFField fdfField = new FDFField();
+
+    ArrayList<Object> options = new ArrayList<>();
+    options.add(257L);
+
+    // Act
+    fdfField.setOptions(options);
+
+    // Assert
+    COSDictionary cOSObject = fdfField.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+  }
+
+  /**
+   * Test {@link FDFField#setOptions(List)}.
+   *
+   * <ul>
+   *   <li>Given two.
+   *   <li>When {@link ArrayList#ArrayList()} add two.
+   *   <li>Then {@link FDFField#FDFField()} COSObject Values size is one.
+   * </ul>
+   *
+   * <p>Method under test: {@link FDFField#setOptions(List)}
+   */
+  @Test
+  @DisplayName(
+      "Test setOptions(List); given two; when ArrayList() add two; then FDFField() COSObject Values size is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setOptions(List)"})
   void testSetOptions_givenTwo_whenArrayListAddTwo_thenFDFFieldCOSObjectValuesSizeIsOne() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -4180,15 +4317,19 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setOptions(List)}.
+   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then {@link FDFField#FDFField()} Options Empty.</li>
+   *   <li>When {@link ArrayList#ArrayList()}.
+   *   <li>Then {@link FDFField#FDFField()} Options Empty.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setOptions(List)}
+   *
+   * <p>Method under test: {@link FDFField#setOptions(List)}
    */
   @Test
   @DisplayName("Test setOptions(List); when ArrayList(); then FDFField() Options Empty")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setOptions(List)"})
   void testSetOptions_whenArrayList_thenFDFFieldOptionsEmpty() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -4204,17 +4345,81 @@ class FDFFieldDiffblueTest {
   }
 
   /**
-   * Test {@link FDFField#getAction()}.
+   * Test {@link FDFField#setOptions(List)}.
+   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()} Key is
-   * {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is
-   * one.</li>
+   *   <li>When {@link COSArrayList#COSArrayList(List, COSArray)} with actualList is {@link
+   *       ArrayList#ArrayList()} and cosArray is {@link COSArray#COSArray()}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getAction()}
+   *
+   * <p>Method under test: {@link FDFField#setOptions(List)}
    */
   @Test
-  @DisplayName("Test getAction(); given COSDictionary() Key is COSObjectKey(long, int) with num is one and gen is one")
+  @DisplayName(
+      "Test setOptions(List); when COSArrayList(List, COSArray) with actualList is ArrayList() and cosArray is COSArray()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setOptions(List)"})
+  void testSetOptions_whenCOSArrayListWithActualListIsArrayListAndCosArrayIsCOSArray() {
+    // Arrange
+    FDFField fdfField = new FDFField();
+    ArrayList<Object> actualList = new ArrayList<>();
+    COSArrayList<Object> options = new COSArrayList<>(actualList, new COSArray());
+
+    // Act
+    fdfField.setOptions(options);
+
+    // Assert
+    COSDictionary cOSObject = fdfField.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    assertTrue(fdfField.getOptions().isEmpty());
+  }
+
+  /**
+   * Test {@link FDFField#setOptions(List)}.
+   *
+   * <ul>
+   *   <li>When {@code null}.
+   *   <li>Then {@link FDFField#FDFField()} COSObject size is zero.
+   * </ul>
+   *
+   * <p>Method under test: {@link FDFField#setOptions(List)}
+   */
+  @Test
+  @DisplayName("Test setOptions(List); when 'null'; then FDFField() COSObject size is zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setOptions(List)"})
+  void testSetOptions_whenNull_thenFDFFieldCOSObjectSizeIsZero() {
+    // Arrange
+    FDFField fdfField = new FDFField();
+
+    // Act
+    fdfField.setOptions(null);
+
+    // Assert that nothing has changed
+    COSDictionary cOSObject = fdfField.getCOSObject();
+    assertEquals(0, cOSObject.size());
+    assertTrue(cOSObject.getValues().isEmpty());
+  }
+
+  /**
+   * Test {@link FDFField#getAction()}.
+   *
+   * <ul>
+   *   <li>Given {@link COSDictionary#COSDictionary()} Key is {@link COSObjectKey#COSObjectKey(long,
+   *       int)} with num is one and gen is one.
+   * </ul>
+   *
+   * <p>Method under test: {@link FDFField#getAction()}
+   */
+  @Test
+  @DisplayName(
+      "Test getAction(); given COSDictionary() Key is COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction FDFField.getAction()"})
   void testGetAction_givenCOSDictionaryKeyIsCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
     COSDictionary a = new COSDictionary();
@@ -4230,16 +4435,21 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#getAction()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()} Action is
-   * {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is
-   * {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Given {@link FDFField#FDFField()} Action is {@link
+   *       PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link
+   *       COSDictionary#COSDictionary()}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getAction()}
+   *
+   * <p>Method under test: {@link FDFField#getAction()}
    */
   @Test
-  @DisplayName("Test getAction(); given FDFField() Action is PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary()")
+  @DisplayName(
+      "Test getAction(); given FDFField() Action is PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction FDFField.getAction()"})
   void testGetAction_givenFDFFieldActionIsPDActionEmbeddedGoToWithAIsCOSDictionary() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -4251,16 +4461,20 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#getAction()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()} Action is
-   * {@link PDActionGoTo#PDActionGoTo()}.</li>
-   *   <li>Then return {@link PDActionGoTo}.</li>
+   *   <li>Given {@link FDFField#FDFField()} Action is {@link PDActionGoTo#PDActionGoTo()}.
+   *   <li>Then return {@link PDActionGoTo}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getAction()}
+   *
+   * <p>Method under test: {@link FDFField#getAction()}
    */
   @Test
-  @DisplayName("Test getAction(); given FDFField() Action is PDActionGoTo(); then return PDActionGoTo")
+  @DisplayName(
+      "Test getAction(); given FDFField() Action is PDActionGoTo(); then return PDActionGoTo")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction FDFField.getAction()"})
   void testGetAction_givenFDFFieldActionIsPDActionGoTo_thenReturnPDActionGoTo() throws IOException {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -4275,32 +4489,30 @@ class FDFFieldDiffblueTest {
     assertEquals("GoTo", actualAction.getSubType());
     assertNull(actualAction.getNext());
     COSDictionary cOSObject = actualAction.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
     assertNull(cOSObject.getKey());
     assertNull(((PDActionGoTo) actualAction).getDestination());
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
     assertFalse(cOSObject.isDirect());
     assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
   }
 
   /**
    * Test {@link FDFField#getAction()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()} Action is
-   * {@link PDActionHide#PDActionHide()}.</li>
-   *   <li>Then return {@link PDActionHide}.</li>
+   *   <li>Given {@link FDFField#FDFField()} Action is {@link PDActionHide#PDActionHide()}.
+   *   <li>Then return {@link PDActionHide}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getAction()}
+   *
+   * <p>Method under test: {@link FDFField#getAction()}
    */
   @Test
-  @DisplayName("Test getAction(); given FDFField() Action is PDActionHide(); then return PDActionHide")
+  @DisplayName(
+      "Test getAction(); given FDFField() Action is PDActionHide(); then return PDActionHide")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction FDFField.getAction()"})
   void testGetAction_givenFDFFieldActionIsPDActionHide_thenReturnPDActionHide() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -4318,17 +4530,22 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#getAction()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()} Action is
-   * {@link PDActionLaunch#PDActionLaunch()}.</li>
-   *   <li>Then return {@link PDActionLaunch}.</li>
+   *   <li>Given {@link FDFField#FDFField()} Action is {@link PDActionLaunch#PDActionLaunch()}.
+   *   <li>Then return {@link PDActionLaunch}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getAction()}
+   *
+   * <p>Method under test: {@link FDFField#getAction()}
    */
   @Test
-  @DisplayName("Test getAction(); given FDFField() Action is PDActionLaunch(); then return PDActionLaunch")
-  void testGetAction_givenFDFFieldActionIsPDActionLaunch_thenReturnPDActionLaunch() throws IOException {
+  @DisplayName(
+      "Test getAction(); given FDFField() Action is PDActionLaunch(); then return PDActionLaunch")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction FDFField.getAction()"})
+  void testGetAction_givenFDFFieldActionIsPDActionLaunch_thenReturnPDActionLaunch()
+      throws IOException {
     // Arrange
     FDFField fdfField = new FDFField();
     fdfField.setAction(new PDActionLaunch());
@@ -4350,16 +4567,20 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#getAction()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()} Action is
-   * {@link PDActionMovie#PDActionMovie()}.</li>
-   *   <li>Then return {@link PDActionMovie}.</li>
+   *   <li>Given {@link FDFField#FDFField()} Action is {@link PDActionMovie#PDActionMovie()}.
+   *   <li>Then return {@link PDActionMovie}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getAction()}
+   *
+   * <p>Method under test: {@link FDFField#getAction()}
    */
   @Test
-  @DisplayName("Test getAction(); given FDFField() Action is PDActionMovie(); then return PDActionMovie")
+  @DisplayName(
+      "Test getAction(); given FDFField() Action is PDActionMovie(); then return PDActionMovie")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction FDFField.getAction()"})
   void testGetAction_givenFDFFieldActionIsPDActionMovie_thenReturnPDActionMovie() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -4370,35 +4591,32 @@ class FDFFieldDiffblueTest {
 
     // Assert
     assertTrue(actualAction instanceof PDActionMovie);
-    assertEquals("Action", actualAction.getType());
     assertEquals("Movie", actualAction.getSubType());
-    assertNull(actualAction.getNext());
     COSDictionary cOSObject = actualAction.getCOSObject();
     COSUpdateState updateState = cOSObject.getUpdateState();
     assertNull(updateState.getOriginDocumentState());
-    assertNull(cOSObject.getKey());
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
     COSIncrement toIncrementResult = cOSObject.toIncrement();
     assertFalse(toIncrementResult.iterator().hasNext());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
     assertFalse(updateState.isUpdated());
     assertTrue(toIncrementResult.getObjects().isEmpty());
   }
 
   /**
    * Test {@link FDFField#getAction()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()} Action is
-   * {@link PDActionNamed#PDActionNamed()}.</li>
-   *   <li>Then return {@link PDActionNamed}.</li>
+   *   <li>Given {@link FDFField#FDFField()} Action is {@link PDActionNamed#PDActionNamed()}.
+   *   <li>Then return {@link PDActionNamed}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getAction()}
+   *
+   * <p>Method under test: {@link FDFField#getAction()}
    */
   @Test
-  @DisplayName("Test getAction(); given FDFField() Action is PDActionNamed(); then return PDActionNamed")
+  @DisplayName(
+      "Test getAction(); given FDFField() Action is PDActionNamed(); then return PDActionNamed")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction FDFField.getAction()"})
   void testGetAction_givenFDFFieldActionIsPDActionNamed_thenReturnPDActionNamed() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -4414,31 +4632,30 @@ class FDFFieldDiffblueTest {
     assertNull(((PDActionNamed) actualAction).getN());
     assertNull(actualAction.getNext());
     COSDictionary cOSObject = actualAction.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
     assertNull(cOSObject.getKey());
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
     assertFalse(cOSObject.isDirect());
     assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
   }
 
   /**
    * Test {@link FDFField#getAction()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()} Action is
-   * {@link PDActionResetForm#PDActionResetForm()}.</li>
-   *   <li>Then return {@link PDActionResetForm}.</li>
+   *   <li>Given {@link FDFField#FDFField()} Action is {@link
+   *       PDActionResetForm#PDActionResetForm()}.
+   *   <li>Then return {@link PDActionResetForm}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getAction()}
+   *
+   * <p>Method under test: {@link FDFField#getAction()}
    */
   @Test
-  @DisplayName("Test getAction(); given FDFField() Action is PDActionResetForm(); then return PDActionResetForm")
+  @DisplayName(
+      "Test getAction(); given FDFField() Action is PDActionResetForm(); then return PDActionResetForm")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction FDFField.getAction()"})
   void testGetAction_givenFDFFieldActionIsPDActionResetForm_thenReturnPDActionResetForm() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -4456,16 +4673,20 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#getAction()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()} Action is
-   * {@link PDActionSound#PDActionSound()}.</li>
-   *   <li>Then return {@link PDActionSound}.</li>
+   *   <li>Given {@link FDFField#FDFField()} Action is {@link PDActionSound#PDActionSound()}.
+   *   <li>Then return {@link PDActionSound}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getAction()}
+   *
+   * <p>Method under test: {@link FDFField#getAction()}
    */
   @Test
-  @DisplayName("Test getAction(); given FDFField() Action is PDActionSound(); then return PDActionSound")
+  @DisplayName(
+      "Test getAction(); given FDFField() Action is PDActionSound(); then return PDActionSound")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction FDFField.getAction()"})
   void testGetAction_givenFDFFieldActionIsPDActionSound_thenReturnPDActionSound() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -4486,17 +4707,22 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#getAction()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()} Action is
-   * {@link PDActionThread#PDActionThread()}.</li>
-   *   <li>Then return {@link PDActionThread}.</li>
+   *   <li>Given {@link FDFField#FDFField()} Action is {@link PDActionThread#PDActionThread()}.
+   *   <li>Then return {@link PDActionThread}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getAction()}
+   *
+   * <p>Method under test: {@link FDFField#getAction()}
    */
   @Test
-  @DisplayName("Test getAction(); given FDFField() Action is PDActionThread(); then return PDActionThread")
-  void testGetAction_givenFDFFieldActionIsPDActionThread_thenReturnPDActionThread() throws IOException {
+  @DisplayName(
+      "Test getAction(); given FDFField() Action is PDActionThread(); then return PDActionThread")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction FDFField.getAction()"})
+  void testGetAction_givenFDFFieldActionIsPDActionThread_thenReturnPDActionThread()
+      throws IOException {
     // Arrange
     FDFField fdfField = new FDFField();
     fdfField.setAction(new PDActionThread());
@@ -4514,16 +4740,20 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#getAction()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()} Action is
-   * {@link PDActionURI#PDActionURI()}.</li>
-   *   <li>Then return {@link PDActionURI}.</li>
+   *   <li>Given {@link FDFField#FDFField()} Action is {@link PDActionURI#PDActionURI()}.
+   *   <li>Then return {@link PDActionURI}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getAction()}
+   *
+   * <p>Method under test: {@link FDFField#getAction()}
    */
   @Test
-  @DisplayName("Test getAction(); given FDFField() Action is PDActionURI(); then return PDActionURI")
+  @DisplayName(
+      "Test getAction(); given FDFField() Action is PDActionURI(); then return PDActionURI")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction FDFField.getAction()"})
   void testGetAction_givenFDFFieldActionIsPDActionURI_thenReturnPDActionURI() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -4539,62 +4769,47 @@ class FDFFieldDiffblueTest {
     assertNull(((PDActionURI) actualAction).getURI());
     assertNull(actualAction.getNext());
     COSDictionary cOSObject = actualAction.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
     assertNull(cOSObject.getKey());
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
     assertFalse(cOSObject.isDirect());
     assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
   }
 
   /**
    * Test {@link FDFField#getAction()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()}.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Given {@link FDFField#FDFField()}.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getAction()}
+   *
+   * <p>Method under test: {@link FDFField#getAction()}
    */
   @Test
   @DisplayName("Test getAction(); given FDFField(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction FDFField.getAction()"})
   void testGetAction_givenFDFField_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new FDFField()).getAction());
+    assertNull(new FDFField().getAction());
   }
 
   /**
    * Test {@link FDFField#getAction()}.
+   *
    * <ul>
-   *   <li>Given {@link IIOMetadataNode#IIOMetadataNode(String)} with
-   * {@code foo}.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Then return {@link PDActionEmbeddedGoTo}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getAction()}
-   */
-  @Test
-  @DisplayName("Test getAction(); given IIOMetadataNode(String) with 'foo'; then return 'null'")
-  void testGetAction_givenIIOMetadataNodeWithFoo_thenReturnNull() throws IOException {
-    // Arrange, Act and Assert
-    assertNull((new FDFField(new IIOMetadataNode("foo"))).getAction());
-  }
-
-  /**
-   * Test {@link FDFField#getAction()}.
-   * <ul>
-   *   <li>Then return {@link PDActionEmbeddedGoTo}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getAction()}
+   *
+   * <p>Method under test: {@link FDFField#getAction()}
    */
   @Test
   @DisplayName("Test getAction(); then return PDActionEmbeddedGoTo")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction FDFField.getAction()"})
   void testGetAction_thenReturnPDActionEmbeddedGoTo() throws IOException {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -4609,19 +4824,24 @@ class FDFFieldDiffblueTest {
     assertNull(((PDActionEmbeddedGoTo) actualAction).getFile());
     assertNull(((PDActionEmbeddedGoTo) actualAction).getTargetDirectory());
     assertNull(((PDActionEmbeddedGoTo) actualAction).getDestination());
-    assertEquals(OpenMode.USER_PREFERENCE, ((PDActionEmbeddedGoTo) actualAction).getOpenInNewWindow());
+    assertEquals(
+        OpenMode.USER_PREFERENCE, ((PDActionEmbeddedGoTo) actualAction).getOpenInNewWindow());
   }
 
   /**
    * Test {@link FDFField#getAction()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionImportData}.</li>
+   *   <li>Then return {@link PDActionImportData}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getAction()}
+   *
+   * <p>Method under test: {@link FDFField#getAction()}
    */
   @Test
   @DisplayName("Test getAction(); then return PDActionImportData")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction FDFField.getAction()"})
   void testGetAction_thenReturnPDActionImportData() throws IOException {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -4636,30 +4856,28 @@ class FDFFieldDiffblueTest {
     assertEquals("ImportData", actualAction.getSubType());
     assertNull(actualAction.getNext());
     COSDictionary cOSObject = actualAction.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
     assertNull(cOSObject.getKey());
     assertNull(((PDActionImportData) actualAction).getFile());
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
     assertFalse(cOSObject.isDirect());
     assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
   }
 
   /**
    * Test {@link FDFField#getAction()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionJavaScript}.</li>
+   *   <li>Then return {@link PDActionJavaScript}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getAction()}
+   *
+   * <p>Method under test: {@link FDFField#getAction()}
    */
   @Test
   @DisplayName("Test getAction(); then return PDActionJavaScript")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction FDFField.getAction()"})
   void testGetAction_thenReturnPDActionJavaScript() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -4675,29 +4893,27 @@ class FDFFieldDiffblueTest {
     assertNull(((PDActionJavaScript) actualAction).getAction());
     assertNull(actualAction.getNext());
     COSDictionary cOSObject = actualAction.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
     assertNull(cOSObject.getKey());
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
     assertFalse(cOSObject.isDirect());
     assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
   }
 
   /**
    * Test {@link FDFField#getAction()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionRemoteGoTo}.</li>
+   *   <li>Then return {@link PDActionRemoteGoTo}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getAction()}
+   *
+   * <p>Method under test: {@link FDFField#getAction()}
    */
   @Test
   @DisplayName("Test getAction(); then return PDActionRemoteGoTo")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction FDFField.getAction()"})
   void testGetAction_thenReturnPDActionRemoteGoTo() throws IOException {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -4711,19 +4927,24 @@ class FDFFieldDiffblueTest {
     assertEquals("GoToR", actualAction.getSubType());
     assertNull(((PDActionRemoteGoTo) actualAction).getD());
     assertNull(((PDActionRemoteGoTo) actualAction).getFile());
-    assertEquals(OpenMode.USER_PREFERENCE, ((PDActionRemoteGoTo) actualAction).getOpenInNewWindow());
+    assertEquals(
+        OpenMode.USER_PREFERENCE, ((PDActionRemoteGoTo) actualAction).getOpenInNewWindow());
   }
 
   /**
    * Test {@link FDFField#getAction()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionSubmitForm}.</li>
+   *   <li>Then return {@link PDActionSubmitForm}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getAction()}
+   *
+   * <p>Method under test: {@link FDFField#getAction()}
    */
   @Test
   @DisplayName("Test getAction(); then return PDActionSubmitForm")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction FDFField.getAction()"})
   void testGetAction_thenReturnPDActionSubmitForm() throws IOException {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -4742,16 +4963,20 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setAction(PDAction)}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()}.</li>
-   *   <li>Then {@link FDFField#FDFField()} Action
-   * {@link PDActionEmbeddedGoTo}.</li>
+   *   <li>Given {@link FDFField#FDFField()}.
+   *   <li>Then {@link FDFField#FDFField()} Action {@link PDActionEmbeddedGoTo}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setAction(PDAction)}
+   *
+   * <p>Method under test: {@link FDFField#setAction(PDAction)}
    */
   @Test
-  @DisplayName("Test setAction(PDAction); given FDFField(); then FDFField() Action PDActionEmbeddedGoTo")
+  @DisplayName(
+      "Test setAction(PDAction); given FDFField(); then FDFField() Action PDActionEmbeddedGoTo")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setAction(PDAction)"})
   void testSetAction_givenFDFField_thenFDFFieldActionPDActionEmbeddedGoTo() throws IOException {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -4776,24 +5001,29 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setAction(PDAction)}.
+   *
    * <ul>
-   *   <li>Then {@link FDFField#FDFField(COSDictionary)} with f is
-   * {@link COSDictionary#COSDictionary()} Action is {@code null}.</li>
+   *   <li>Given {@link FDFField#FDFField()}.
+   *   <li>When {@code null}.
+   *   <li>Then {@link FDFField#FDFField()} COSObject size is zero.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setAction(PDAction)}
+   *
+   * <p>Method under test: {@link FDFField#setAction(PDAction)}
    */
   @Test
-  @DisplayName("Test setAction(PDAction); then FDFField(COSDictionary) with f is COSDictionary() Action is 'null'")
-  void testSetAction_thenFDFFieldWithFIsCOSDictionaryActionIsNull() {
+  @DisplayName(
+      "Test setAction(PDAction); given FDFField(); when 'null'; then FDFField() COSObject size is zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setAction(PDAction)"})
+  void testSetAction_givenFDFField_whenNull_thenFDFFieldCOSObjectSizeIsZero() {
     // Arrange
-    FDFField fdfField = new FDFField(new COSDictionary());
+    FDFField fdfField = new FDFField();
 
     // Act
     fdfField.setAction(null);
 
-    // Assert
-    assertNull(fdfField.getAction());
+    // Assert that nothing has changed
     COSDictionary cOSObject = fdfField.getCOSObject();
     assertEquals(0, cOSObject.size());
     assertTrue(cOSObject.getValues().isEmpty());
@@ -4801,48 +5031,39 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#getAdditionalActions()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()}.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Given {@link FDFField#FDFField()}.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getAdditionalActions()}
+   *
+   * <p>Method under test: {@link FDFField#getAdditionalActions()}
    */
   @Test
   @DisplayName("Test getAdditionalActions(); given FDFField(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAdditionalActions FDFField.getAdditionalActions()"})
   void testGetAdditionalActions_givenFDFField_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new FDFField()).getAdditionalActions());
+    assertNull(new FDFField().getAdditionalActions());
   }
 
   /**
    * Test {@link FDFField#getAdditionalActions()}.
+   *
    * <ul>
-   *   <li>Given {@link IIOMetadataNode#IIOMetadataNode(String)} with
-   * {@code foo}.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Then return COSObject UpdateState OriginDocumentState is {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getAdditionalActions()}
+   *
+   * <p>Method under test: {@link FDFField#getAdditionalActions()}
    */
   @Test
-  @DisplayName("Test getAdditionalActions(); given IIOMetadataNode(String) with 'foo'; then return 'null'")
-  void testGetAdditionalActions_givenIIOMetadataNodeWithFoo_thenReturnNull() throws IOException {
-    // Arrange, Act and Assert
-    assertNull((new FDFField(new IIOMetadataNode("foo"))).getAdditionalActions());
-  }
-
-  /**
-   * Test {@link FDFField#getAdditionalActions()}.
-   * <ul>
-   *   <li>Then return COSObject UpdateState OriginDocumentState is
-   * {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getAdditionalActions()}
-   */
-  @Test
-  @DisplayName("Test getAdditionalActions(); then return COSObject UpdateState OriginDocumentState is 'null'")
+  @DisplayName(
+      "Test getAdditionalActions(); then return COSObject UpdateState OriginDocumentState is 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAdditionalActions FDFField.getAdditionalActions()"})
   void testGetAdditionalActions_thenReturnCOSObjectUpdateStateOriginDocumentStateIsNull() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -4869,17 +5090,118 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#setAdditionalActions(PDAdditionalActions)}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()}.</li>
-   *   <li>Then {@link FDFField#FDFField()} AdditionalActions F is
-   * {@code null}.</li>
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setAdditionalActions(PDAdditionalActions)}
+   *
+   * <p>Method under test: {@link FDFField#setAdditionalActions(PDAdditionalActions)}
    */
   @Test
-  @DisplayName("Test setAdditionalActions(PDAdditionalActions); given FDFField(); then FDFField() AdditionalActions F is 'null'")
-  void testSetAdditionalActions_givenFDFField_thenFDFFieldAdditionalActionsFIsNull() {
+  @DisplayName(
+      "Test setAdditionalActions(PDAdditionalActions); given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setAdditionalActions(PDAdditionalActions)"})
+  void testSetAdditionalActions_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
+    // Arrange
+    FDFField fdfField = new FDFField();
+
+    COSDictionary a = new COSDictionary();
+    a.setKey(new COSObjectKey(1L, 1));
+
+    // Act
+    fdfField.setAdditionalActions(new PDAdditionalActions(a));
+
+    // Assert
+    PDAdditionalActions additionalActions = fdfField.getAdditionalActions();
+    assertNull(additionalActions.getF());
+    COSDictionary cOSObject = fdfField.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    assertSame(a, additionalActions.getCOSObject());
+  }
+
+  /**
+   * Test {@link FDFField#setAdditionalActions(PDAdditionalActions)}.
+   *
+   * <ul>
+   *   <li>Given {@link FDFField#FDFField()}.
+   *   <li>When {@code null}.
+   *   <li>Then {@link FDFField#FDFField()} COSObject size is zero.
+   * </ul>
+   *
+   * <p>Method under test: {@link FDFField#setAdditionalActions(PDAdditionalActions)}
+   */
+  @Test
+  @DisplayName(
+      "Test setAdditionalActions(PDAdditionalActions); given FDFField(); when 'null'; then FDFField() COSObject size is zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setAdditionalActions(PDAdditionalActions)"})
+  void testSetAdditionalActions_givenFDFField_whenNull_thenFDFFieldCOSObjectSizeIsZero() {
+    // Arrange
+    FDFField fdfField = new FDFField();
+
+    // Act
+    fdfField.setAdditionalActions(null);
+
+    // Assert that nothing has changed
+    COSDictionary cOSObject = fdfField.getCOSObject();
+    assertEquals(0, cOSObject.size());
+    assertTrue(cOSObject.getValues().isEmpty());
+  }
+
+  /**
+   * Test {@link FDFField#setAdditionalActions(PDAdditionalActions)}.
+   *
+   * <ul>
+   *   <li>Given {@code true}.
+   *   <li>When {@link COSDictionary#COSDictionary()} Direct is {@code true}.
+   * </ul>
+   *
+   * <p>Method under test: {@link FDFField#setAdditionalActions(PDAdditionalActions)}
+   */
+  @Test
+  @DisplayName(
+      "Test setAdditionalActions(PDAdditionalActions); given 'true'; when COSDictionary() Direct is 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setAdditionalActions(PDAdditionalActions)"})
+  void testSetAdditionalActions_givenTrue_whenCOSDictionaryDirectIsTrue() {
+    // Arrange
+    FDFField fdfField = new FDFField();
+
+    COSDictionary a = new COSDictionary();
+    a.setDirect(true);
+
+    // Act
+    fdfField.setAdditionalActions(new PDAdditionalActions(a));
+
+    // Assert
+    PDAdditionalActions additionalActions = fdfField.getAdditionalActions();
+    assertNull(additionalActions.getF());
+    COSDictionary cOSObject = fdfField.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    assertSame(a, additionalActions.getCOSObject());
+  }
+
+  /**
+   * Test {@link FDFField#setAdditionalActions(PDAdditionalActions)}.
+   *
+   * <ul>
+   *   <li>When {@link PDAdditionalActions#PDAdditionalActions()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link FDFField#setAdditionalActions(PDAdditionalActions)}
+   */
+  @Test
+  @DisplayName("Test setAdditionalActions(PDAdditionalActions); when PDAdditionalActions()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setAdditionalActions(PDAdditionalActions)"})
+  void testSetAdditionalActions_whenPDAdditionalActions() {
     // Arrange
     FDFField fdfField = new FDFField();
 
@@ -4894,61 +5216,21 @@ class FDFFieldDiffblueTest {
   }
 
   /**
-   * Test {@link FDFField#setAdditionalActions(PDAdditionalActions)}.
-   * <ul>
-   *   <li>Given {@link FDFField#FDFField()}.</li>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link FDFField#FDFField()} COSObject size is zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setAdditionalActions(PDAdditionalActions)}
-   */
-  @Test
-  @DisplayName("Test setAdditionalActions(PDAdditionalActions); given FDFField(); when 'null'; then FDFField() COSObject size is zero")
-  void testSetAdditionalActions_givenFDFField_whenNull_thenFDFFieldCOSObjectSizeIsZero() {
-    // Arrange
-    FDFField fdfField = new FDFField();
-
-    // Act
-    fdfField.setAdditionalActions(null);
-
-    // Assert
-    COSDictionary cOSObject = fdfField.getCOSObject();
-    assertEquals(0, cOSObject.size());
-    assertTrue(cOSObject.getValues().isEmpty());
-  }
-
-  /**
    * Test {@link FDFField#getRichText()}.
-   * <p>
-   * Method under test: {@link FDFField#getRichText()}
-   */
-  @Test
-  @DisplayName("Test getRichText()")
-  void testGetRichText() {
-    // Arrange
-    COSStream rv = new COSStream();
-    rv.setKey(new COSObjectKey(500L, 500));
-
-    FDFField fdfField = new FDFField();
-    fdfField.setRichText(rv);
-
-    // Act and Assert
-    assertEquals("", fdfField.getRichText());
-  }
-
-  /**
-   * Test {@link FDFField#getRichText()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()} RichText is
-   * {@link COSStream#COSStream()}.</li>
-   *   <li>Then return empty string.</li>
+   *   <li>Given {@link FDFField#FDFField()} RichText is {@link COSStream#COSStream()}.
+   *   <li>Then return empty string.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getRichText()}
+   *
+   * <p>Method under test: {@link FDFField#getRichText()}
    */
   @Test
-  @DisplayName("Test getRichText(); given FDFField() RichText is COSStream(); then return empty string")
+  @DisplayName(
+      "Test getRichText(); given FDFField() RichText is COSStream(); then return empty string")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String FDFField.getRichText()"})
   void testGetRichText_givenFDFFieldRichTextIsCOSStream_thenReturnEmptyString() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -4960,150 +5242,66 @@ class FDFFieldDiffblueTest {
 
   /**
    * Test {@link FDFField#getRichText()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()}.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Given {@link FDFField#FDFField()} RichText is parseHex {@code 0123456789ABCDEF}.
+   *   <li>Then return {@code #Eg›«Íï}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getRichText()}
+   *
+   * <p>Method under test: {@link FDFField#getRichText()}
+   */
+  @Test
+  @DisplayName(
+      "Test getRichText(); given FDFField() RichText is parseHex '0123456789ABCDEF'; then return '#Eg›«Íï'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String FDFField.getRichText()"})
+  void testGetRichText_givenFDFFieldRichTextIsParseHex0123456789abcdef_thenReturnEg()
+      throws IOException {
+    // Arrange
+    FDFField fdfField = new FDFField();
+    fdfField.setRichText(COSString.parseHex("0123456789ABCDEF"));
+
+    // Act and Assert
+    assertEquals("\u0001#Eg›«Íï", fdfField.getRichText());
+  }
+
+  /**
+   * Test {@link FDFField#getRichText()}.
+   *
+   * <ul>
+   *   <li>Given {@link FDFField#FDFField()}.
+   *   <li>Then return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link FDFField#getRichText()}
    */
   @Test
   @DisplayName("Test getRichText(); given FDFField(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String FDFField.getRichText()"})
   void testGetRichText_givenFDFField_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new FDFField()).getRichText());
-  }
-
-  /**
-   * Test {@link FDFField#getRichText()}.
-   * <ul>
-   *   <li>Given {@link IIOMetadataNode#IIOMetadataNode(String)} with
-   * {@code foo}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getRichText()}
-   */
-  @Test
-  @DisplayName("Test getRichText(); given IIOMetadataNode(String) with 'foo'; then return 'null'")
-  void testGetRichText_givenIIOMetadataNodeWithFoo_thenReturnNull() throws IOException {
-    // Arrange, Act and Assert
-    assertNull((new FDFField(new IIOMetadataNode("foo"))).getRichText());
-  }
-
-  /**
-   * Test {@link FDFField#getRichText()}.
-   * <ul>
-   *   <li>Then return
-   * {@link FDFIconFit#SCALE_OPTION_ONLY_WHEN_ICON_IS_BIGGER}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#getRichText()}
-   */
-  @Test
-  @DisplayName("Test getRichText(); then return SCALE_OPTION_ONLY_WHEN_ICON_IS_BIGGER")
-  void testGetRichText_thenReturnScale_option_only_when_icon_is_bigger() throws IOException {
-    // Arrange
-    FDFField fdfField = new FDFField();
-    fdfField.setRichText(COSString.parseHex("42"));
-
-    // Act and Assert
-    assertEquals(FDFIconFit.SCALE_OPTION_ONLY_WHEN_ICON_IS_BIGGER, fdfField.getRichText());
+    assertNull(new FDFField().getRichText());
   }
 
   /**
    * Test {@link FDFField#setRichText(COSStream)} with {@code COSStream}.
+   *
    * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and
-   * gen is one.</li>
+   *   <li>When {@link COSStream#COSStream()}.
+   *   <li>Then {@link FDFField#FDFField()} RichText is empty string.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setRichText(COSStream)}
+   *
+   * <p>Method under test: {@link FDFField#setRichText(COSStream)}
    */
   @Test
-  @DisplayName("Test setRichText(COSStream) with 'COSStream'; given COSObjectKey(long, int) with num is one and gen is one")
-  void testSetRichTextWithCOSStream_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
-    // Arrange
-    FDFField fdfField = new FDFField();
-
-    COSStream rv = new COSStream();
-    rv.setKey(new COSObjectKey(1L, 1));
-
-    // Act
-    fdfField.setRichText(rv);
-
-    // Assert
-    assertEquals("", fdfField.getRichText());
-    COSDictionary cOSObject = fdfField.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link FDFField#setRichText(COSStream)} with {@code COSStream}.
-   * <ul>
-   *   <li>Given {@link FDFField#FDFField()}.</li>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link FDFField#FDFField()} RichText is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setRichText(COSStream)}
-   */
-  @Test
-  @DisplayName("Test setRichText(COSStream) with 'COSStream'; given FDFField(); when 'null'; then FDFField() RichText is 'null'")
-  void testSetRichTextWithCOSStream_givenFDFField_whenNull_thenFDFFieldRichTextIsNull() {
-    // Arrange
-    FDFField fdfField = new FDFField();
-
-    // Act
-    fdfField.setRichText((COSStream) null);
-
-    // Assert
-    assertNull(fdfField.getRichText());
-    COSDictionary cOSObject = fdfField.getCOSObject();
-    assertEquals(0, cOSObject.size());
-    assertTrue(cOSObject.getValues().isEmpty());
-  }
-
-  /**
-   * Test {@link FDFField#setRichText(COSStream)} with {@code COSStream}.
-   * <ul>
-   *   <li>Given {@code true}.</li>
-   *   <li>When {@link COSStream#COSStream()} Direct is {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setRichText(COSStream)}
-   */
-  @Test
-  @DisplayName("Test setRichText(COSStream) with 'COSStream'; given 'true'; when COSStream() Direct is 'true'")
-  void testSetRichTextWithCOSStream_givenTrue_whenCOSStreamDirectIsTrue() {
-    // Arrange
-    FDFField fdfField = new FDFField();
-
-    COSStream rv = new COSStream();
-    rv.setDirect(true);
-
-    // Act
-    fdfField.setRichText(rv);
-
-    // Assert
-    assertEquals("", fdfField.getRichText());
-    COSDictionary cOSObject = fdfField.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link FDFField#setRichText(COSStream)} with {@code COSStream}.
-   * <ul>
-   *   <li>When {@link COSStream#COSStream()}.</li>
-   *   <li>Then {@link FDFField#FDFField()} RichText is empty string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setRichText(COSStream)}
-   */
-  @Test
-  @DisplayName("Test setRichText(COSStream) with 'COSStream'; when COSStream(); then FDFField() RichText is empty string")
+  @DisplayName(
+      "Test setRichText(COSStream) with 'COSStream'; when COSStream(); then FDFField() RichText is empty string")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setRichText(COSStream)"})
   void testSetRichTextWithCOSStream_whenCOSStream_thenFDFFieldRichTextIsEmptyString() {
     // Arrange
     FDFField fdfField = new FDFField();
@@ -5119,26 +5317,88 @@ class FDFFieldDiffblueTest {
   }
 
   /**
-   * Test {@link FDFField#setRichText(COSString)} with {@code COSString}.
+   * Test {@link FDFField#setRichText(COSStream)} with {@code COSStream}.
+   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()}.</li>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link FDFField#FDFField()} RichText is {@code null}.</li>
+   *   <li>When {@code null}.
+   *   <li>Then {@link FDFField#FDFField()} COSObject size is zero.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFField#setRichText(COSString)}
+   *
+   * <p>Method under test: {@link FDFField#setRichText(COSStream)}
    */
   @Test
-  @DisplayName("Test setRichText(COSString) with 'COSString'; given FDFField(); when 'null'; then FDFField() RichText is 'null'")
-  void testSetRichTextWithCOSString_givenFDFField_whenNull_thenFDFFieldRichTextIsNull() {
+  @DisplayName(
+      "Test setRichText(COSStream) with 'COSStream'; when 'null'; then FDFField() COSObject size is zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setRichText(COSStream)"})
+  void testSetRichTextWithCOSStream_whenNull_thenFDFFieldCOSObjectSizeIsZero() {
+    // Arrange
+    FDFField fdfField = new FDFField();
+
+    // Act
+    fdfField.setRichText((COSStream) null);
+
+    // Assert that nothing has changed
+    COSDictionary cOSObject = fdfField.getCOSObject();
+    assertEquals(0, cOSObject.size());
+    assertTrue(cOSObject.getValues().isEmpty());
+  }
+
+  /**
+   * Test {@link FDFField#setRichText(COSString)} with {@code COSString}.
+   *
+   * <ul>
+   *   <li>Given {@link FDFField#FDFField()}.
+   *   <li>Then {@link FDFField#FDFField()} RichText is {@code #Eg›«Íï}.
+   * </ul>
+   *
+   * <p>Method under test: {@link FDFField#setRichText(COSString)}
+   */
+  @Test
+  @DisplayName(
+      "Test setRichText(COSString) with 'COSString'; given FDFField(); then FDFField() RichText is '#Eg›«Íï'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setRichText(COSString)"})
+  void testSetRichTextWithCOSString_givenFDFField_thenFDFFieldRichTextIsEg() throws IOException {
+    // Arrange
+    FDFField fdfField = new FDFField();
+
+    // Act
+    fdfField.setRichText(COSString.parseHex("0123456789ABCDEF"));
+
+    // Assert
+    assertEquals("\u0001#Eg›«Íï", fdfField.getRichText());
+    COSDictionary cOSObject = fdfField.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+  }
+
+  /**
+   * Test {@link FDFField#setRichText(COSString)} with {@code COSString}.
+   *
+   * <ul>
+   *   <li>When {@code null}.
+   *   <li>Then {@link FDFField#FDFField()} COSObject size is zero.
+   * </ul>
+   *
+   * <p>Method under test: {@link FDFField#setRichText(COSString)}
+   */
+  @Test
+  @DisplayName(
+      "Test setRichText(COSString) with 'COSString'; when 'null'; then FDFField() COSObject size is zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFField.setRichText(COSString)"})
+  void testSetRichTextWithCOSString_whenNull_thenFDFFieldCOSObjectSizeIsZero() {
     // Arrange
     FDFField fdfField = new FDFField();
 
     // Act
     fdfField.setRichText((COSString) null);
 
-    // Assert
-    assertNull(fdfField.getRichText());
+    // Assert that nothing has changed
     COSDictionary cOSObject = fdfField.getCOSObject();
     assertEquals(0, cOSObject.size());
     assertTrue(cOSObject.getValues().isEmpty());

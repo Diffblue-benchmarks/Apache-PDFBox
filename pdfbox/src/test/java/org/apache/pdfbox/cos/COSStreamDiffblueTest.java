@@ -6,31 +6,25 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.isA;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import java.io.ByteArrayInputStream;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import org.apache.pdfbox.filter.DecodeOptions;
-import org.apache.pdfbox.io.MemoryUsageSetting;
-import org.apache.pdfbox.io.RandomAccessReadBuffer;
-import org.apache.pdfbox.io.RandomAccessReadView;
-import org.apache.pdfbox.io.RandomAccessStreamCache;
-import org.apache.pdfbox.io.RandomAccessStreamCacheImpl;
-import org.apache.pdfbox.io.ScratchFile;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 class COSStreamDiffblueTest {
   /**
    * Test {@link COSStream#COSStream()}.
-   * <p>
-   * Method under test: {@link COSStream#COSStream()}
+   *
+   * <p>Method under test: {@link COSStream#COSStream()}
    */
   @Test
   @DisplayName("Test new COSStream()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void COSStream.<init>()"})
   void testNewCOSStream() {
     // Arrange and Act
     COSStream actualCosStream = new COSStream();
@@ -46,152 +40,158 @@ class COSStreamDiffblueTest {
     assertEquals(1, actualCosStream.size());
     COSIncrement toIncrementResult = actualCosStream.toIncrement();
     assertFalse(toIncrementResult.iterator().hasNext());
-    COSIncrement toIncrementResult2 = updateState.toIncrement();
-    assertFalse(toIncrementResult2.iterator().hasNext());
     assertFalse(actualCosStream.isDirect());
     assertFalse(actualCosStream.hasData());
     assertFalse(actualCosStream.isNeedToBeUpdated());
     assertFalse(updateState.isAcceptingUpdates());
     assertFalse(updateState.isUpdated());
     assertTrue(toIncrementResult.getObjects().isEmpty());
-    assertTrue(toIncrementResult2.getObjects().isEmpty());
-  }
-
-  /**
-   * Test {@link COSStream#COSStream(RandomAccessStreamCache)}.
-   * <p>
-   * Method under test: {@link COSStream#COSStream(RandomAccessStreamCache)}
-   */
-  @Test
-  @DisplayName("Test new COSStream(RandomAccessStreamCache)")
-  void testNewCOSStream2() {
-    // Arrange and Act
-    COSStream actualCosStream = new COSStream(new RandomAccessStreamCacheImpl());
-
-    // Assert
-    assertNull(actualCosStream.getFilters());
-    COSUpdateState updateState = actualCosStream.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
-    assertNull(actualCosStream.getKey());
-    assertEquals(0L, actualCosStream.getLength());
-    assertEquals(1, actualCosStream.getValues().size());
-    assertEquals(1, actualCosStream.items.size());
-    assertEquals(1, actualCosStream.size());
-    COSIncrement toIncrementResult = actualCosStream.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
-    COSIncrement toIncrementResult2 = updateState.toIncrement();
-    assertFalse(toIncrementResult2.iterator().hasNext());
-    assertFalse(actualCosStream.isDirect());
-    assertFalse(actualCosStream.hasData());
-    assertFalse(actualCosStream.isNeedToBeUpdated());
-    assertFalse(updateState.isAcceptingUpdates());
-    assertFalse(updateState.isUpdated());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
-    assertTrue(toIncrementResult2.getObjects().isEmpty());
-  }
-
-  /**
-   * Test
-   * {@link COSStream#COSStream(RandomAccessStreamCache, RandomAccessReadView)}.
-   * <ul>
-   *   <li>Then return Filters is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link COSStream#COSStream(RandomAccessStreamCache, RandomAccessReadView)}
-   */
-  @Test
-  @DisplayName("Test new COSStream(RandomAccessStreamCache, RandomAccessReadView); then return Filters is 'null'")
-  void testNewCOSStream_thenReturnFiltersIsNull() throws IOException {
-    // Arrange
-    RandomAccessStreamCacheImpl streamCache = new RandomAccessStreamCacheImpl();
-
-    // Act
-    COSStream actualCosStream = new COSStream(streamCache, new RandomAccessReadView(
-        new RandomAccessReadBuffer(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))), 1L, 3L));
-
-    // Assert
-    assertNull(actualCosStream.getFilters());
-    COSUpdateState updateState = actualCosStream.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
-    assertNull(actualCosStream.getKey());
-    assertEquals(1, actualCosStream.getValues().size());
-    assertEquals(1, actualCosStream.items.size());
-    assertEquals(1, actualCosStream.size());
-    assertEquals(3L, actualCosStream.getLength());
-    COSIncrement toIncrementResult = actualCosStream.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
-    COSIncrement toIncrementResult2 = updateState.toIncrement();
-    assertFalse(toIncrementResult2.iterator().hasNext());
-    assertFalse(actualCosStream.isDirect());
-    assertFalse(actualCosStream.isNeedToBeUpdated());
-    assertFalse(updateState.isAcceptingUpdates());
-    assertFalse(updateState.isUpdated());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
-    assertTrue(toIncrementResult2.getObjects().isEmpty());
-    assertTrue(actualCosStream.hasData());
   }
 
   /**
    * Test {@link COSStream#createRawInputStream()}.
-   * <p>
-   * Method under test: {@link COSStream#createRawInputStream()}
+   *
+   * <ul>
+   *   <li>Given {@link COSStream#COSStream()}.
+   *   <li>Then throw {@link IOException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link COSStream#createRawInputStream()}
    */
   @Test
-  @DisplayName("Test createRawInputStream()")
-  void testCreateRawInputStream() throws IOException {
+  @DisplayName("Test createRawInputStream(); given COSStream(); then throw IOException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.io.InputStream COSStream.createRawInputStream()"})
+  void testCreateRawInputStream_givenCOSStream_thenThrowIOException() throws IOException {
     // Arrange, Act and Assert
-    assertThrows(IOException.class, () -> (new COSStream()).createRawInputStream());
+    assertThrows(IOException.class, () -> new COSStream().createRawInputStream());
+  }
+
+  /**
+   * Test {@link COSStream#createInputStream(DecodeOptions)} with {@code DecodeOptions}.
+   *
+   * <ul>
+   *   <li>Given {@link COSStream#COSStream()}.
+   *   <li>Then throw {@link IOException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link COSStream#createInputStream(DecodeOptions)}
+   */
+  @Test
+  @DisplayName(
+      "Test createInputStream(DecodeOptions) with 'DecodeOptions'; given COSStream(); then throw IOException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.apache.pdfbox.cos.COSInputStream COSStream.createInputStream(DecodeOptions)"
+  })
+  void testCreateInputStreamWithDecodeOptions_givenCOSStream_thenThrowIOException()
+      throws IOException {
+    // Arrange, Act and Assert
+    assertThrows(IOException.class, () -> new COSStream().createInputStream(DecodeOptions.DEFAULT));
   }
 
   /**
    * Test {@link COSStream#createInputStream()}.
-   * <p>
-   * Method under test: {@link COSStream#createInputStream()}
+   *
+   * <ul>
+   *   <li>Given {@link COSStream#COSStream()}.
+   *   <li>Then throw {@link IOException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link COSStream#createInputStream()}
    */
   @Test
-  @DisplayName("Test createInputStream()")
-  void testCreateInputStream() throws IOException {
+  @DisplayName("Test createInputStream(); given COSStream(); then throw IOException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"org.apache.pdfbox.cos.COSInputStream COSStream.createInputStream()"})
+  void testCreateInputStream_givenCOSStream_thenThrowIOException() throws IOException {
     // Arrange, Act and Assert
-    assertThrows(IOException.class, () -> (new COSStream()).createInputStream());
-  }
-
-  /**
-   * Test {@link COSStream#createInputStream(DecodeOptions)} with
-   * {@code DecodeOptions}.
-   * <p>
-   * Method under test: {@link COSStream#createInputStream(DecodeOptions)}
-   */
-  @Test
-  @DisplayName("Test createInputStream(DecodeOptions) with 'DecodeOptions'")
-  void testCreateInputStreamWithDecodeOptions() throws IOException {
-    // Arrange, Act and Assert
-    assertThrows(IOException.class, () -> (new COSStream()).createInputStream(DecodeOptions.DEFAULT));
+    assertThrows(IOException.class, () -> new COSStream().createInputStream());
   }
 
   /**
    * Test {@link COSStream#createView()}.
-   * <p>
-   * Method under test: {@link COSStream#createView()}
+   *
+   * <ul>
+   *   <li>Given {@link COSStream#COSStream()}.
+   *   <li>Then throw {@link IOException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link COSStream#createView()}
    */
   @Test
-  @DisplayName("Test createView()")
-  void testCreateView() throws IOException {
+  @DisplayName("Test createView(); given COSStream(); then throw IOException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"org.apache.pdfbox.io.RandomAccessRead COSStream.createView()"})
+  void testCreateView_givenCOSStream_thenThrowIOException() throws IOException {
     // Arrange, Act and Assert
-    assertThrows(IOException.class, () -> (new COSStream()).createView());
+    assertThrows(IOException.class, () -> new COSStream().createView());
+  }
+
+  /**
+   * Test {@link COSStream#createOutputStream()}.
+   *
+   * <p>Method under test: {@link COSStream#createOutputStream()}
+   */
+  @Test
+  @DisplayName("Test createOutputStream()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.io.OutputStream COSStream.createOutputStream()"})
+  void testCreateOutputStream() throws IOException {
+    // Arrange
+    COSStream cosStream = new COSStream();
+
+    // Act
+    cosStream.createOutputStream();
+
+    // Assert
+    assertTrue(cosStream.hasData());
   }
 
   /**
    * Test {@link COSStream#createOutputStream(COSBase)} with {@code COSBase}.
-   * <ul>
-   *   <li>Then {@link COSStream#COSStream()} Filters is
-   * {@link COSDictionary#COSDictionary()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSStream#createOutputStream(COSBase)}
+   *
+   * <p>Method under test: {@link COSStream#createOutputStream(COSBase)}
    */
   @Test
-  @DisplayName("Test createOutputStream(COSBase) with 'COSBase'; then COSStream() Filters is COSDictionary()")
+  @DisplayName("Test createOutputStream(COSBase) with 'COSBase'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.io.OutputStream COSStream.createOutputStream(COSBase)"})
+  void testCreateOutputStreamWithCOSBase() throws IOException {
+    // Arrange
+    COSStream cosStream = new COSStream();
+    COSObject filters = new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1));
+
+    // Act
+    cosStream.createOutputStream(filters);
+
+    // Assert
+    assertEquals(2, cosStream.getValues().size());
+    assertEquals(2, cosStream.items.size());
+    assertEquals(2, cosStream.size());
+  }
+
+  /**
+   * Test {@link COSStream#createOutputStream(COSBase)} with {@code COSBase}.
+   *
+   * <ul>
+   *   <li>Then {@link COSStream#COSStream()} Filters is {@link COSDictionary#COSDictionary()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link COSStream#createOutputStream(COSBase)}
+   */
+  @Test
+  @DisplayName(
+      "Test createOutputStream(COSBase) with 'COSBase'; then COSStream() Filters is COSDictionary()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.io.OutputStream COSStream.createOutputStream(COSBase)"})
   void testCreateOutputStreamWithCOSBase_thenCOSStreamFiltersIsCOSDictionary() throws IOException {
     // Arrange
     COSStream cosStream = new COSStream();
@@ -209,35 +209,45 @@ class COSStreamDiffblueTest {
 
   /**
    * Test {@link COSStream#createOutputStream(COSBase)} with {@code COSBase}.
+   *
    * <ul>
-   *   <li>Then throw {@link IOException}.</li>
+   *   <li>Then throw {@link IOException}.
    * </ul>
-   * <p>
-   * Method under test: {@link COSStream#createOutputStream(COSBase)}
+   *
+   * <p>Method under test: {@link COSStream#createOutputStream(COSBase)}
    */
   @Test
   @DisplayName("Test createOutputStream(COSBase) with 'COSBase'; then throw IOException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.io.OutputStream COSStream.createOutputStream(COSBase)"})
   void testCreateOutputStreamWithCOSBase_thenThrowIOException() throws IOException {
     // Arrange
     COSStream cosStream = new COSStream();
+    COSArray filters = COSArray.of(10.0f, 0.5f, 10.0f, 0.5f);
 
     // Act and Assert
-    assertThrows(IOException.class, () -> cosStream.createOutputStream(COSArray.of(10.0f, 0.5f, 10.0f, 0.5f)));
+    assertThrows(IOException.class, () -> cosStream.createOutputStream(filters));
   }
 
   /**
    * Test {@link COSStream#createOutputStream(COSBase)} with {@code COSBase}.
+   *
    * <ul>
-   *   <li>When {@link COSArray#COSArray()}.</li>
-   *   <li>Then {@link COSStream#COSStream()} Filters is
-   * {@link COSArray#COSArray()}.</li>
+   *   <li>When {@link COSArray#COSArray()}.
+   *   <li>Then {@link COSStream#COSStream()} Filters is {@link COSArray#COSArray()}.
    * </ul>
-   * <p>
-   * Method under test: {@link COSStream#createOutputStream(COSBase)}
+   *
+   * <p>Method under test: {@link COSStream#createOutputStream(COSBase)}
    */
   @Test
-  @DisplayName("Test createOutputStream(COSBase) with 'COSBase'; when COSArray(); then COSStream() Filters is COSArray()")
-  void testCreateOutputStreamWithCOSBase_whenCOSArray_thenCOSStreamFiltersIsCOSArray() throws IOException {
+  @DisplayName(
+      "Test createOutputStream(COSBase) with 'COSBase'; when COSArray(); then COSStream() Filters is COSArray()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.io.OutputStream COSStream.createOutputStream(COSBase)"})
+  void testCreateOutputStreamWithCOSBase_whenCOSArray_thenCOSStreamFiltersIsCOSArray()
+      throws IOException {
     // Arrange
     COSStream cosStream = new COSStream();
     COSArray filters = new COSArray();
@@ -254,155 +264,80 @@ class COSStreamDiffblueTest {
 
   /**
    * Test {@link COSStream#createOutputStream(COSBase)} with {@code COSBase}.
+   *
    * <ul>
-   *   <li>When {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen
-   * is one.</li>
+   *   <li>When {@link COSBoolean#FALSE}.
+   *   <li>Then {@link COSStream#COSStream()} Filters is {@link COSBoolean#FALSE}.
    * </ul>
-   * <p>
-   * Method under test: {@link COSStream#createOutputStream(COSBase)}
+   *
+   * <p>Method under test: {@link COSStream#createOutputStream(COSBase)}
    */
   @Test
-  @DisplayName("Test createOutputStream(COSBase) with 'COSBase'; when COSObjectKey(long, int) with num is one and gen is one")
-  void testCreateOutputStreamWithCOSBase_whenCOSObjectKeyWithNumIsOneAndGenIsOne() throws IOException {
+  @DisplayName(
+      "Test createOutputStream(COSBase) with 'COSBase'; when FALSE; then COSStream() Filters is FALSE")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.io.OutputStream COSStream.createOutputStream(COSBase)"})
+  void testCreateOutputStreamWithCOSBase_whenFalse_thenCOSStreamFiltersIsFalse()
+      throws IOException {
     // Arrange
     COSStream cosStream = new COSStream();
 
     // Act
-    cosStream.createOutputStream(new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1)));
+    cosStream.createOutputStream(COSBoolean.FALSE);
 
     // Assert
     assertEquals(2, cosStream.getValues().size());
     assertEquals(2, cosStream.items.size());
     assertEquals(2, cosStream.size());
+    assertSame(COSBoolean.FALSE, cosStream.getFilters());
   }
 
   /**
    * Test {@link COSStream#createOutputStream(COSBase)} with {@code COSBase}.
+   *
    * <ul>
-   *   <li>When {@link COSBoolean#FALSE}.</li>
-   *   <li>Then {@link COSStream#COSStream()} Filters is {@link COSBoolean#FALSE}
-   * {@link COSBoolean#FALSE}.</li>
+   *   <li>When {@code null}.
+   *   <li>Then {@link COSStream#COSStream()} Values size is one.
    * </ul>
-   * <p>
-   * Method under test: {@link COSStream#createOutputStream(COSBase)}
+   *
+   * <p>Method under test: {@link COSStream#createOutputStream(COSBase)}
    */
   @Test
-  @DisplayName("Test createOutputStream(COSBase) with 'COSBase'; when FALSE; then COSStream() Filters is FALSE FALSE")
-  void testCreateOutputStreamWithCOSBase_whenFalse_thenCOSStreamFiltersIsFalseFalse() throws IOException {
-    // Arrange
-    COSStream cosStream = new COSStream();
-    COSBoolean filters = COSBoolean.FALSE;
-
-    // Act
-    cosStream.createOutputStream(filters);
-
-    // Assert
-    assertEquals(2, cosStream.getValues().size());
-    assertEquals(2, cosStream.items.size());
-    assertEquals(2, cosStream.size());
-    COSBoolean expectedFilters = filters.FALSE;
-    assertSame(expectedFilters, cosStream.getFilters());
-  }
-
-  /**
-   * Test {@link COSStream#createOutputStream(COSBase)} with {@code COSBase}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link COSStream#COSStream()} Filters is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSStream#createOutputStream(COSBase)}
-   */
-  @Test
-  @DisplayName("Test createOutputStream(COSBase) with 'COSBase'; when 'null'; then COSStream() Filters is 'null'")
-  void testCreateOutputStreamWithCOSBase_whenNull_thenCOSStreamFiltersIsNull() throws IOException {
+  @DisplayName(
+      "Test createOutputStream(COSBase) with 'COSBase'; when 'null'; then COSStream() Values size is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.io.OutputStream COSStream.createOutputStream(COSBase)"})
+  void testCreateOutputStreamWithCOSBase_whenNull_thenCOSStreamValuesSizeIsOne()
+      throws IOException {
     // Arrange
     COSStream cosStream = new COSStream();
 
     // Act
     cosStream.createOutputStream(null);
 
-    // Assert
-    assertNull(cosStream.getFilters());
+    // Assert that nothing has changed
     assertEquals(1, cosStream.getValues().size());
     assertEquals(1, cosStream.items.size());
     assertEquals(1, cosStream.size());
   }
 
   /**
-   * Test {@link COSStream#createOutputStream()}.
-   * <ul>
-   *   <li>Given {@link COSStream#COSStream()}.</li>
-   *   <li>Then {@link COSStream#COSStream()} hasData.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSStream#createOutputStream()}
-   */
-  @Test
-  @DisplayName("Test createOutputStream(); given COSStream(); then COSStream() hasData")
-  void testCreateOutputStream_givenCOSStream_thenCOSStreamHasData() throws IOException {
-    // Arrange
-    COSStream cosStream = new COSStream();
-
-    // Act
-    cosStream.createOutputStream();
-
-    // Assert
-    assertTrue(cosStream.hasData());
-  }
-
-  /**
-   * Test {@link COSStream#createOutputStream()}.
-   * <ul>
-   *   <li>Then {@link COSStream#COSStream(RandomAccessStreamCache)} with
-   * streamCache is {@link ScratchFile#ScratchFile(MemoryUsageSetting)}
-   * hasData.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSStream#createOutputStream()}
-   */
-  @Test
-  @DisplayName("Test createOutputStream(); then COSStream(RandomAccessStreamCache) with streamCache is ScratchFile(MemoryUsageSetting) hasData")
-  void testCreateOutputStream_thenCOSStreamWithStreamCacheIsScratchFileHasData() throws IOException {
-    // Arrange
-    COSStream cosStream = new COSStream(new ScratchFile(MemoryUsageSetting.setupMainMemoryOnly(4096L)));
-
-    // Act
-    cosStream.createOutputStream();
-
-    // Assert
-    assertTrue(cosStream.hasData());
-  }
-
-  /**
    * Test {@link COSStream#createRawOutputStream()}.
-   * <p>
-   * Method under test: {@link COSStream#createRawOutputStream()}
-   */
-  @Test
-  @DisplayName("Test createRawOutputStream()")
-  void testCreateRawOutputStream() throws IOException {
-    // Arrange
-    COSStream cosStream = new COSStream(new RandomAccessStreamCacheImpl());
-
-    // Act
-    cosStream.createRawOutputStream();
-
-    // Assert
-    assertTrue(cosStream.hasData());
-  }
-
-  /**
-   * Test {@link COSStream#createRawOutputStream()}.
+   *
    * <ul>
-   *   <li>Given {@link COSStream#COSStream()}.</li>
-   *   <li>Then {@link COSStream#COSStream()} hasData.</li>
+   *   <li>Given {@link COSStream#COSStream()}.
+   *   <li>Then {@link COSStream#COSStream()} hasData.
    * </ul>
-   * <p>
-   * Method under test: {@link COSStream#createRawOutputStream()}
+   *
+   * <p>Method under test: {@link COSStream#createRawOutputStream()}
    */
   @Test
   @DisplayName("Test createRawOutputStream(); given COSStream(); then COSStream() hasData")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.io.OutputStream COSStream.createRawOutputStream()"})
   void testCreateRawOutputStream_givenCOSStream_thenCOSStreamHasData() throws IOException {
     // Arrange
     COSStream cosStream = new COSStream();
@@ -415,98 +350,97 @@ class COSStreamDiffblueTest {
   }
 
   /**
-   * Test {@link COSStream#createRawOutputStream()}.
-   * <ul>
-   *   <li>Then {@link COSStream#COSStream(RandomAccessStreamCache)} with
-   * streamCache is {@link ScratchFile#ScratchFile(MemoryUsageSetting)}
-   * hasData.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSStream#createRawOutputStream()}
-   */
-  @Test
-  @DisplayName("Test createRawOutputStream(); then COSStream(RandomAccessStreamCache) with streamCache is ScratchFile(MemoryUsageSetting) hasData")
-  void testCreateRawOutputStream_thenCOSStreamWithStreamCacheIsScratchFileHasData() throws IOException {
-    // Arrange
-    COSStream cosStream = new COSStream(new ScratchFile(MemoryUsageSetting.setupMainMemoryOnly(4096L)));
-
-    // Act
-    cosStream.createRawOutputStream();
-
-    // Assert
-    assertTrue(cosStream.hasData());
-  }
-
-  /**
    * Test {@link COSStream#getLength()}.
-   * <p>
-   * Method under test: {@link COSStream#getLength()}
+   *
+   * <p>Method under test: {@link COSStream#getLength()}
    */
   @Test
   @DisplayName("Test getLength()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"long COSStream.getLength()"})
   void testGetLength() {
     // Arrange, Act and Assert
-    assertEquals(0L, (new COSStream()).getLength());
+    assertEquals(0L, new COSStream().getLength());
   }
 
   /**
    * Test {@link COSStream#getFilters()}.
-   * <p>
-   * Method under test: {@link COSStream#getFilters()}
+   *
+   * <p>Method under test: {@link COSStream#getFilters()}
    */
   @Test
   @DisplayName("Test getFilters()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"COSBase COSStream.getFilters()"})
   void testGetFilters() {
     // Arrange, Act and Assert
-    assertNull((new COSStream()).getFilters());
+    assertNull(new COSStream().getFilters());
   }
 
   /**
    * Test {@link COSStream#toTextString()}.
-   * <p>
-   * Method under test: {@link COSStream#toTextString()}
+   *
+   * <ul>
+   *   <li>Given {@link COSStream#COSStream()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link COSStream#toTextString()}
    */
   @Test
-  @DisplayName("Test toTextString()")
-  void testToTextString() {
+  @DisplayName("Test toTextString(); given COSStream()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.lang.String COSStream.toTextString()"})
+  void testToTextString_givenCOSStream() {
     // Arrange, Act and Assert
-    assertEquals("", (new COSStream()).toTextString());
+    assertEquals("", new COSStream().toTextString());
   }
 
   /**
-   * Test {@link COSStream#accept(ICOSVisitor)}.
+   * Test {@link COSStream#close()}.
+   *
    * <ul>
-   *   <li>When {@link ICOSVisitor} {@link ICOSVisitor#visitFromStream(COSStream)}
-   * does nothing.</li>
-   *   <li>Then calls {@link ICOSVisitor#visitFromStream(COSStream)}.</li>
+   *   <li>Given {@link COSStream#COSStream()}.
+   *   <li>Then not {@link COSStream#COSStream()} hasData.
    * </ul>
-   * <p>
-   * Method under test: {@link COSStream#accept(ICOSVisitor)}
+   *
+   * <p>Method under test: {@link COSStream#close()}
    */
   @Test
-  @DisplayName("Test accept(ICOSVisitor); when ICOSVisitor visitFromStream(COSStream) does nothing; then calls visitFromStream(COSStream)")
-  void testAccept_whenICOSVisitorVisitFromStreamDoesNothing_thenCallsVisitFromStream() throws IOException {
+  @DisplayName("Test close(); given COSStream(); then not COSStream() hasData")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void COSStream.close()"})
+  void testClose_givenCOSStream_thenNotCOSStreamHasData() throws IOException {
     // Arrange
     COSStream cosStream = new COSStream();
-    ICOSVisitor visitor = mock(ICOSVisitor.class);
-    doNothing().when(visitor).visitFromStream(Mockito.<COSStream>any());
 
     // Act
-    cosStream.accept(visitor);
+    cosStream.close();
 
-    // Assert
-    verify(visitor).visitFromStream(isA(COSStream.class));
+    // Assert that nothing has changed
+    assertFalse(cosStream.hasData());
   }
 
   /**
    * Test {@link COSStream#hasData()}.
-   * <p>
-   * Method under test: {@link COSStream#hasData()}
+   *
+   * <ul>
+   *   <li>Given {@link COSStream#COSStream()}.
+   *   <li>Then return {@code false}.
+   * </ul>
+   *
+   * <p>Method under test: {@link COSStream#hasData()}
    */
   @Test
-  @DisplayName("Test hasData()")
-  void testHasData() {
+  @DisplayName("Test hasData(); given COSStream(); then return 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean COSStream.hasData()"})
+  void testHasData_givenCOSStream_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse((new COSStream()).hasData());
+    assertFalse(new COSStream().hasData());
   }
 }

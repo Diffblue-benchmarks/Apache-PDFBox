@@ -4,38 +4,46 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
+import javax.imageio.metadata.IIOMetadataNode;
 import org.apache.pdfbox.cos.COSDictionary;
-import org.apache.pdfbox.cos.COSIncrement;
-import org.apache.pdfbox.cos.COSUpdateState;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.w3c.dom.Element;
 
 class FDFAnnotationStrikeOutDiffblueTest {
   /**
    * Test {@link FDFAnnotationStrikeOut#FDFAnnotationStrikeOut(COSDictionary)}.
-   * <p>
-   * Method under test:
-   * {@link FDFAnnotationStrikeOut#FDFAnnotationStrikeOut(COSDictionary)}
+   *
+   * <p>Method under test: {@link FDFAnnotationStrikeOut#FDFAnnotationStrikeOut(COSDictionary)}
    */
   @Test
   @DisplayName("Test new FDFAnnotationStrikeOut(COSDictionary)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFAnnotationStrikeOut.<init>(COSDictionary)"})
   void testNewFDFAnnotationStrikeOut() {
     // Arrange
     COSDictionary a = new COSDictionary();
 
     // Act and Assert
-    assertSame(a, (new FDFAnnotationStrikeOut(a)).getCOSObject());
+    assertSame(a, new FDFAnnotationStrikeOut(a).getCOSObject());
   }
 
   /**
    * Test {@link FDFAnnotationStrikeOut#FDFAnnotationStrikeOut()}.
-   * <p>
-   * Method under test: {@link FDFAnnotationStrikeOut#FDFAnnotationStrikeOut()}
+   *
+   * <p>Method under test: {@link FDFAnnotationStrikeOut#FDFAnnotationStrikeOut()}
    */
   @Test
   @DisplayName("Test new FDFAnnotationStrikeOut()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFAnnotationStrikeOut.<init>()"})
   void testNewFDFAnnotationStrikeOut2() throws IOException {
     // Arrange and Act
     FDFAnnotationStrikeOut actualFdfAnnotationStrikeOut = new FDFAnnotationStrikeOut();
@@ -52,21 +60,10 @@ class FDFAnnotationStrikeOutDiffblueTest {
     assertNull(actualFdfAnnotationStrikeOut.getSubject());
     assertNull(actualFdfAnnotationStrikeOut.getTitle());
     assertNull(actualFdfAnnotationStrikeOut.getCreationDate());
-    COSDictionary cOSObject = actualFdfAnnotationStrikeOut.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
-    assertNull(cOSObject.getKey());
     assertNull(actualFdfAnnotationStrikeOut.getRectangle());
     assertNull(actualFdfAnnotationStrikeOut.getBorderEffect());
     assertNull(actualFdfAnnotationStrikeOut.getBorderStyle());
     assertEquals(1.0f, actualFdfAnnotationStrikeOut.getOpacity());
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
     assertFalse(actualFdfAnnotationStrikeOut.isHidden());
     assertFalse(actualFdfAnnotationStrikeOut.isInvisible());
     assertFalse(actualFdfAnnotationStrikeOut.isLocked());
@@ -77,6 +74,26 @@ class FDFAnnotationStrikeOutDiffblueTest {
     assertFalse(actualFdfAnnotationStrikeOut.isPrinted());
     assertFalse(actualFdfAnnotationStrikeOut.isReadOnly());
     assertFalse(actualFdfAnnotationStrikeOut.isToggleNoView());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
+  }
+
+  /**
+   * Test {@link FDFAnnotationStrikeOut#FDFAnnotationStrikeOut(Element)}.
+   *
+   * <ul>
+   *   <li>When {@link IIOMetadataNode#IIOMetadataNode()}.
+   *   <li>Then throw {@link IOException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link FDFAnnotationStrikeOut#FDFAnnotationStrikeOut(Element)}
+   */
+  @Test
+  @DisplayName(
+      "Test new FDFAnnotationStrikeOut(Element); when IIOMetadataNode(); then throw IOException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFAnnotationStrikeOut.<init>(Element)"})
+  void testNewFDFAnnotationStrikeOut_whenIIOMetadataNode_thenThrowIOException() throws IOException {
+    // Arrange, Act and Assert
+    assertThrows(IOException.class, () -> new FDFAnnotationStrikeOut(new IIOMetadataNode()));
   }
 }

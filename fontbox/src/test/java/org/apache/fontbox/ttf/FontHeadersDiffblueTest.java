@@ -1,20 +1,28 @@
 package org.apache.fontbox.ttf;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.UnsupportedEncodingException;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class FontHeadersDiffblueTest {
   /**
    * Test {@link FontHeaders#setFontFamily(String, String)}.
-   * <p>
-   * Method under test: {@link FontHeaders#setFontFamily(String, String)}
+   *
+   * <p>Method under test: {@link FontHeaders#setFontFamily(String, String)}
    */
   @Test
   @DisplayName("Test setFontFamily(String, String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FontHeaders.setFontFamily(String, String)"})
   void testSetFontFamily() {
     // Arrange
     FontHeaders fontHeaders = new FontHeaders();
@@ -29,11 +37,14 @@ class FontHeadersDiffblueTest {
 
   /**
    * Test {@link FontHeaders#setOtfROS(String, String, int)}.
-   * <p>
-   * Method under test: {@link FontHeaders#setOtfROS(String, String, int)}
+   *
+   * <p>Method under test: {@link FontHeaders#setOtfROS(String, String, int)}
    */
   @Test
   @DisplayName("Test setOtfROS(String, String, int)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FontHeaders.setOtfROS(String, String, int)"})
   void testSetOtfROS() {
     // Arrange
     FontHeaders fontHeaders = new FontHeaders();
@@ -49,8 +60,9 @@ class FontHeadersDiffblueTest {
 
   /**
    * Test getters and setters.
-   * <p>
-   * Methods under test:
+   *
+   * <p>Methods under test:
+   *
    * <ul>
    *   <li>default or parameterless constructor of {@link FontHeaders}
    *   <li>{@link FontHeaders#setError(String)}
@@ -74,6 +86,28 @@ class FontHeadersDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void FontHeaders.<init>()",
+    "String FontHeaders.getError()",
+    "String FontHeaders.getFontFamily()",
+    "String FontHeaders.getFontSubFamily()",
+    "Integer FontHeaders.getHeaderMacStyle()",
+    "String FontHeaders.getName()",
+    "byte[] FontHeaders.getNonOtfTableGCID142()",
+    "OS2WindowsMetricsTable FontHeaders.getOS2Windows()",
+    "String FontHeaders.getOtfOrdering()",
+    "String FontHeaders.getOtfRegistry()",
+    "int FontHeaders.getOtfSupplement()",
+    "boolean FontHeaders.isOpenTypePostScript()",
+    "void FontHeaders.setError(String)",
+    "void FontHeaders.setHeaderMacStyle(Integer)",
+    "void FontHeaders.setIsOTFAndPostScript(boolean)",
+    "void FontHeaders.setName(String)",
+    "void FontHeaders.setNonOtfGcid142(byte[])",
+    "void FontHeaders.setOs2Windows(OS2WindowsMetricsTable)"
+  })
   void testGettersAndSetters() throws UnsupportedEncodingException {
     // Arrange and Act
     FontHeaders actualFontHeaders = new FontHeaders();
@@ -86,24 +120,29 @@ class FontHeadersDiffblueTest {
     OS2WindowsMetricsTable os2Windows = new OS2WindowsMetricsTable();
     actualFontHeaders.setOs2Windows(os2Windows);
     String actualError = actualFontHeaders.getError();
-    actualFontHeaders.getFontFamily();
-    actualFontHeaders.getFontSubFamily();
+    String actualFontFamily = actualFontHeaders.getFontFamily();
+    String actualFontSubFamily = actualFontHeaders.getFontSubFamily();
     Integer actualHeaderMacStyle = actualFontHeaders.getHeaderMacStyle();
     String actualName = actualFontHeaders.getName();
     byte[] actualNonOtfTableGCID142 = actualFontHeaders.getNonOtfTableGCID142();
     OS2WindowsMetricsTable actualOS2Windows = actualFontHeaders.getOS2Windows();
-    actualFontHeaders.getOtfOrdering();
-    actualFontHeaders.getOtfRegistry();
+    String actualOtfOrdering = actualFontHeaders.getOtfOrdering();
+    String actualOtfRegistry = actualFontHeaders.getOtfRegistry();
     int actualOtfSupplement = actualFontHeaders.getOtfSupplement();
     boolean actualIsOpenTypePostScriptResult = actualFontHeaders.isOpenTypePostScript();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Exception", actualError);
     assertEquals("Name", actualName);
+    assertNull(actualFontFamily);
+    assertNull(actualFontSubFamily);
+    assertNull(actualOtfOrdering);
+    assertNull(actualOtfRegistry);
     assertEquals(0, actualOtfSupplement);
     assertEquals(1, actualHeaderMacStyle.intValue());
     assertTrue(actualIsOpenTypePostScriptResult);
     assertSame(os2Windows, actualOS2Windows);
     assertSame(nonOtfGcid142, actualNonOtfTableGCID142);
+    assertArrayEquals("AXAXAXAX".getBytes("UTF-8"), actualNonOtfTableGCID142);
   }
 }

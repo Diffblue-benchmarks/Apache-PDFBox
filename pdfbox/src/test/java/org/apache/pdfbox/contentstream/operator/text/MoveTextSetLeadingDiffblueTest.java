@@ -2,6 +2,8 @@ package org.apache.pdfbox.contentstream.operator.text;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,13 +17,15 @@ import org.apache.pdfbox.cos.COSInteger;
 import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.text.PDFMarkedContentExtractor;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class MoveTextSetLeadingDiffblueTest {
   /**
    * Test getters and setters.
-   * <p>
-   * Methods under test:
+   *
+   * <p>Methods under test:
+   *
    * <ul>
    *   <li>{@link MoveTextSetLeading#MoveTextSetLeading(PDFStreamEngine)}
    *   <li>{@link MoveTextSetLeading#getName()}
@@ -29,22 +33,31 @@ class MoveTextSetLeadingDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void MoveTextSetLeading.<init>(PDFStreamEngine)",
+    "java.lang.String MoveTextSetLeading.getName()"
+  })
   void testGettersAndSetters() {
     // Arrange, Act and Assert
-    assertEquals("TD", (new MoveTextSetLeading(new PDFMarkedContentExtractor())).getName());
+    assertEquals("TD", new MoveTextSetLeading(new PDFMarkedContentExtractor()).getName());
   }
 
   /**
    * Test {@link MoveTextSetLeading#process(Operator, List)}.
+   *
    * <ul>
-   *   <li>Given {@link COSFloat#COSFloat(float)} with aFloat is
-   * {@code -3.4028235E38}.</li>
+   *   <li>Given {@link COSFloat#COSFloat(float)} with aFloat is {@code -3.4028235E38}.
    * </ul>
-   * <p>
-   * Method under test: {@link MoveTextSetLeading#process(Operator, List)}
+   *
+   * <p>Method under test: {@link MoveTextSetLeading#process(Operator, List)}
    */
   @Test
   @DisplayName("Test process(Operator, List); given COSFloat(float) with aFloat is '-3.4028235E38'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void MoveTextSetLeading.process(Operator, List)"})
   void testProcess_givenCOSFloatWithAFloatIs34028235e38() throws IOException {
     // Arrange
     MoveTextSetLeading moveTextSetLeading = new MoveTextSetLeading(new PDFMarkedContentExtractor());
@@ -54,22 +67,29 @@ class MoveTextSetLeadingDiffblueTest {
     arguments.add(new COSFloat(-3.4028235E38f));
 
     // Act and Assert
-    assertThrows(MissingOperandException.class, () -> moveTextSetLeading.process(operator, arguments));
+    assertThrows(
+        MissingOperandException.class, () -> moveTextSetLeading.process(operator, arguments));
   }
 
   /**
    * Test {@link MoveTextSetLeading#process(Operator, List)}.
+   *
    * <ul>
-   *   <li>Given {@link COSFloat#COSFloat(float)} with aFloat is ten.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@link COSFloat#COSFloat(float)}
-   * with aFloat is ten.</li>
+   *   <li>Given {@link COSFloat#COSFloat(float)} with aFloat is ten.
+   *   <li>When {@link ArrayList#ArrayList()} add {@link COSFloat#COSFloat(float)} with aFloat is
+   *       ten.
    * </ul>
-   * <p>
-   * Method under test: {@link MoveTextSetLeading#process(Operator, List)}
+   *
+   * <p>Method under test: {@link MoveTextSetLeading#process(Operator, List)}
    */
   @Test
-  @DisplayName("Test process(Operator, List); given COSFloat(float) with aFloat is ten; when ArrayList() add COSFloat(float) with aFloat is ten")
-  void testProcess_givenCOSFloatWithAFloatIsTen_whenArrayListAddCOSFloatWithAFloatIsTen() throws IOException {
+  @DisplayName(
+      "Test process(Operator, List); given COSFloat(float) with aFloat is ten; when ArrayList() add COSFloat(float) with aFloat is ten")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void MoveTextSetLeading.process(Operator, List)"})
+  void testProcess_givenCOSFloatWithAFloatIsTen_whenArrayListAddCOSFloatWithAFloatIsTen()
+      throws IOException {
     // Arrange
     MoveTextSetLeading moveTextSetLeading = new MoveTextSetLeading(new PDFMarkedContentExtractor());
     Operator operator = Operator.getOperator("Operator");
@@ -78,21 +98,25 @@ class MoveTextSetLeadingDiffblueTest {
     arguments.add(new COSFloat(10.0f));
 
     // Act and Assert
-    assertThrows(MissingOperandException.class, () -> moveTextSetLeading.process(operator, arguments));
+    assertThrows(
+        MissingOperandException.class, () -> moveTextSetLeading.process(operator, arguments));
   }
 
   /**
    * Test {@link MoveTextSetLeading#process(Operator, List)}.
+   *
    * <ul>
-   *   <li>Given {@link COSStream#COSStream()}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add
-   * {@link COSStream#COSStream()}.</li>
+   *   <li>Given {@link COSStream#COSStream()}.
+   *   <li>When {@link ArrayList#ArrayList()} add {@link COSStream#COSStream()}.
    * </ul>
-   * <p>
-   * Method under test: {@link MoveTextSetLeading#process(Operator, List)}
+   *
+   * <p>Method under test: {@link MoveTextSetLeading#process(Operator, List)}
    */
   @Test
   @DisplayName("Test process(Operator, List); given COSStream(); when ArrayList() add COSStream()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void MoveTextSetLeading.process(Operator, List)"})
   void testProcess_givenCOSStream_whenArrayListAddCOSStream() throws IOException {
     // Arrange
     MoveTextSetLeading moveTextSetLeading = new MoveTextSetLeading(new PDFMarkedContentExtractor());
@@ -102,22 +126,29 @@ class MoveTextSetLeadingDiffblueTest {
     arguments.add(new COSStream());
 
     // Act and Assert
-    assertThrows(MissingOperandException.class, () -> moveTextSetLeading.process(operator, arguments));
+    assertThrows(
+        MissingOperandException.class, () -> moveTextSetLeading.process(operator, arguments));
   }
 
   /**
    * Test {@link MoveTextSetLeading#process(Operator, List)}.
+   *
    * <ul>
-   *   <li>Given {@link COSBoolean#FALSE}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@link COSBoolean#FALSE}.</li>
-   *   <li>Then throw {@link MissingOperandException}.</li>
+   *   <li>Given {@link COSBoolean#FALSE}.
+   *   <li>When {@link ArrayList#ArrayList()} add {@link COSBoolean#FALSE}.
+   *   <li>Then throw {@link MissingOperandException}.
    * </ul>
-   * <p>
-   * Method under test: {@link MoveTextSetLeading#process(Operator, List)}
+   *
+   * <p>Method under test: {@link MoveTextSetLeading#process(Operator, List)}
    */
   @Test
-  @DisplayName("Test process(Operator, List); given FALSE; when ArrayList() add FALSE; then throw MissingOperandException")
-  void testProcess_givenFalse_whenArrayListAddFalse_thenThrowMissingOperandException() throws IOException {
+  @DisplayName(
+      "Test process(Operator, List); given FALSE; when ArrayList() add FALSE; then throw MissingOperandException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void MoveTextSetLeading.process(Operator, List)"})
+  void testProcess_givenFalse_whenArrayListAddFalse_thenThrowMissingOperandException()
+      throws IOException {
     // Arrange
     MoveTextSetLeading moveTextSetLeading = new MoveTextSetLeading(new PDFMarkedContentExtractor());
     Operator operator = Operator.getOperator("Operator");
@@ -126,22 +157,29 @@ class MoveTextSetLeadingDiffblueTest {
     arguments.add(COSBoolean.FALSE);
 
     // Act and Assert
-    assertThrows(MissingOperandException.class, () -> moveTextSetLeading.process(operator, arguments));
+    assertThrows(
+        MissingOperandException.class, () -> moveTextSetLeading.process(operator, arguments));
   }
 
   /**
    * Test {@link MoveTextSetLeading#process(Operator, List)}.
+   *
    * <ul>
-   *   <li>Given {@link COSFloat#ONE}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@link COSFloat#ONE}.</li>
-   *   <li>Then throw {@link MissingOperandException}.</li>
+   *   <li>Given {@link COSFloat#ONE}.
+   *   <li>When {@link ArrayList#ArrayList()} add {@link COSFloat#ONE}.
+   *   <li>Then throw {@link MissingOperandException}.
    * </ul>
-   * <p>
-   * Method under test: {@link MoveTextSetLeading#process(Operator, List)}
+   *
+   * <p>Method under test: {@link MoveTextSetLeading#process(Operator, List)}
    */
   @Test
-  @DisplayName("Test process(Operator, List); given ONE; when ArrayList() add ONE; then throw MissingOperandException")
-  void testProcess_givenOne_whenArrayListAddOne_thenThrowMissingOperandException() throws IOException {
+  @DisplayName(
+      "Test process(Operator, List); given ONE; when ArrayList() add ONE; then throw MissingOperandException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void MoveTextSetLeading.process(Operator, List)"})
+  void testProcess_givenOne_whenArrayListAddOne_thenThrowMissingOperandException()
+      throws IOException {
     // Arrange
     MoveTextSetLeading moveTextSetLeading = new MoveTextSetLeading(new PDFMarkedContentExtractor());
     Operator operator = Operator.getOperator("Operator");
@@ -150,22 +188,29 @@ class MoveTextSetLeadingDiffblueTest {
     arguments.add(COSFloat.ONE);
 
     // Act and Assert
-    assertThrows(MissingOperandException.class, () -> moveTextSetLeading.process(operator, arguments));
+    assertThrows(
+        MissingOperandException.class, () -> moveTextSetLeading.process(operator, arguments));
   }
 
   /**
    * Test {@link MoveTextSetLeading#process(Operator, List)}.
+   *
    * <ul>
-   *   <li>Given {@link COSInteger#ONE}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@link COSInteger#ONE}.</li>
-   *   <li>Then throw {@link MissingOperandException}.</li>
+   *   <li>Given {@link COSInteger#ONE}.
+   *   <li>When {@link ArrayList#ArrayList()} add {@link COSInteger#ONE}.
+   *   <li>Then throw {@link MissingOperandException}.
    * </ul>
-   * <p>
-   * Method under test: {@link MoveTextSetLeading#process(Operator, List)}
+   *
+   * <p>Method under test: {@link MoveTextSetLeading#process(Operator, List)}
    */
   @Test
-  @DisplayName("Test process(Operator, List); given ONE; when ArrayList() add ONE; then throw MissingOperandException")
-  void testProcess_givenOne_whenArrayListAddOne_thenThrowMissingOperandException2() throws IOException {
+  @DisplayName(
+      "Test process(Operator, List); given ONE; when ArrayList() add ONE; then throw MissingOperandException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void MoveTextSetLeading.process(Operator, List)"})
+  void testProcess_givenOne_whenArrayListAddOne_thenThrowMissingOperandException2()
+      throws IOException {
     // Arrange
     MoveTextSetLeading moveTextSetLeading = new MoveTextSetLeading(new PDFMarkedContentExtractor());
     Operator operator = Operator.getOperator("Operator");
@@ -174,26 +219,33 @@ class MoveTextSetLeadingDiffblueTest {
     arguments.add(COSInteger.ONE);
 
     // Act and Assert
-    assertThrows(MissingOperandException.class, () -> moveTextSetLeading.process(operator, arguments));
+    assertThrows(
+        MissingOperandException.class, () -> moveTextSetLeading.process(operator, arguments));
   }
 
   /**
    * Test {@link MoveTextSetLeading#process(Operator, List)}.
+   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then throw {@link MissingOperandException}.</li>
+   *   <li>When {@link ArrayList#ArrayList()}.
+   *   <li>Then throw {@link MissingOperandException}.
    * </ul>
-   * <p>
-   * Method under test: {@link MoveTextSetLeading#process(Operator, List)}
+   *
+   * <p>Method under test: {@link MoveTextSetLeading#process(Operator, List)}
    */
   @Test
   @DisplayName("Test process(Operator, List); when ArrayList(); then throw MissingOperandException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void MoveTextSetLeading.process(Operator, List)"})
   void testProcess_whenArrayList_thenThrowMissingOperandException() throws IOException {
     // Arrange
     MoveTextSetLeading moveTextSetLeading = new MoveTextSetLeading(new PDFMarkedContentExtractor());
     Operator operator = Operator.getOperator("Operator");
 
     // Act and Assert
-    assertThrows(MissingOperandException.class, () -> moveTextSetLeading.process(operator, new ArrayList<>()));
+    assertThrows(
+        MissingOperandException.class,
+        () -> moveTextSetLeading.process(operator, new ArrayList<>()));
   }
 }

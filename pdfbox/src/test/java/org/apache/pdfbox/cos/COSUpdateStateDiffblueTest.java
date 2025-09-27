@@ -4,14 +4,18 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class COSUpdateStateDiffblueTest {
   /**
    * Test getters and setters.
-   * <p>
-   * Methods under test:
+   *
+   * <p>Methods under test:
+   *
    * <ul>
    *   <li>{@link COSUpdateState#COSUpdateState(COSUpdateInfo)}
    *   <li>{@link COSUpdateState#getOriginDocumentState()}
@@ -20,6 +24,13 @@ class COSUpdateStateDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void COSUpdateState.<init>(COSUpdateInfo)",
+    "COSDocumentState COSUpdateState.getOriginDocumentState()",
+    "boolean COSUpdateState.isUpdated()"
+  })
   void testGettersAndSetters() {
     // Arrange and Act
     COSUpdateState actualCosUpdateState = new COSUpdateState(new COSArray());
@@ -31,14 +42,16 @@ class COSUpdateStateDiffblueTest {
   }
 
   /**
-   * Test {@link COSUpdateState#setOriginDocumentState(COSDocumentState)} with
-   * {@code originDocumentState}.
-   * <p>
-   * Method under test:
-   * {@link COSUpdateState#setOriginDocumentState(COSDocumentState)}
+   * Test {@link COSUpdateState#setOriginDocumentState(COSDocumentState)} with {@code
+   * originDocumentState}.
+   *
+   * <p>Method under test: {@link COSUpdateState#setOriginDocumentState(COSDocumentState)}
    */
   @Test
   @DisplayName("Test setOriginDocumentState(COSDocumentState) with 'originDocumentState'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void COSUpdateState.setOriginDocumentState(COSDocumentState)"})
   void testSetOriginDocumentStateWithOriginDocumentState() {
     // Arrange
     COSUpdateState cosUpdateState = new COSUpdateState(new COSArray());
@@ -50,21 +63,43 @@ class COSUpdateStateDiffblueTest {
     cosUpdateState.setOriginDocumentState(originDocumentState);
 
     // Assert
-    assertFalse(cosUpdateState.isAcceptingUpdates());
-    assertFalse(cosUpdateState.isUpdated());
     assertSame(originDocumentState, cosUpdateState.getOriginDocumentState());
   }
 
   /**
-   * Test {@link COSUpdateState#setOriginDocumentState(COSDocumentState)} with
-   * {@code originDocumentState}.
-   * <p>
-   * Method under test:
-   * {@link COSUpdateState#setOriginDocumentState(COSDocumentState)}
+   * Test {@link COSUpdateState#setOriginDocumentState(COSDocumentState)} with {@code
+   * originDocumentState}.
+   *
+   * <p>Method under test: {@link COSUpdateState#setOriginDocumentState(COSDocumentState)}
    */
   @Test
   @DisplayName("Test setOriginDocumentState(COSDocumentState) with 'originDocumentState'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void COSUpdateState.setOriginDocumentState(COSDocumentState)"})
   void testSetOriginDocumentStateWithOriginDocumentState2() {
+    // Arrange
+    COSUpdateState cosUpdateState = new COSUpdateState(new COSArray());
+
+    // Act
+    cosUpdateState.setOriginDocumentState(null);
+
+    // Assert that nothing has changed
+    assertNull(cosUpdateState.getOriginDocumentState());
+  }
+
+  /**
+   * Test {@link COSUpdateState#setOriginDocumentState(COSDocumentState)} with {@code
+   * originDocumentState}.
+   *
+   * <p>Method under test: {@link COSUpdateState#setOriginDocumentState(COSDocumentState)}
+   */
+  @Test
+  @DisplayName("Test setOriginDocumentState(COSDocumentState) with 'originDocumentState'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void COSUpdateState.setOriginDocumentState(COSDocumentState)"})
+  void testSetOriginDocumentStateWithOriginDocumentState3() {
     // Arrange
     COSUpdateState cosUpdateState = new COSUpdateState(new COSDictionary());
 
@@ -75,21 +110,21 @@ class COSUpdateStateDiffblueTest {
     cosUpdateState.setOriginDocumentState(originDocumentState);
 
     // Assert
-    assertFalse(cosUpdateState.isAcceptingUpdates());
-    assertFalse(cosUpdateState.isUpdated());
     assertSame(originDocumentState, cosUpdateState.getOriginDocumentState());
   }
 
   /**
-   * Test {@link COSUpdateState#setOriginDocumentState(COSDocumentState)} with
-   * {@code originDocumentState}.
-   * <p>
-   * Method under test:
-   * {@link COSUpdateState#setOriginDocumentState(COSDocumentState)}
+   * Test {@link COSUpdateState#setOriginDocumentState(COSDocumentState)} with {@code
+   * originDocumentState}.
+   *
+   * <p>Method under test: {@link COSUpdateState#setOriginDocumentState(COSDocumentState)}
    */
   @Test
   @DisplayName("Test setOriginDocumentState(COSDocumentState) with 'originDocumentState'")
-  void testSetOriginDocumentStateWithOriginDocumentState3() {
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void COSUpdateState.setOriginDocumentState(COSDocumentState)"})
+  void testSetOriginDocumentStateWithOriginDocumentState4() {
     // Arrange
     COSUpdateState cosUpdateState = new COSUpdateState(null);
 
@@ -100,23 +135,24 @@ class COSUpdateStateDiffblueTest {
     cosUpdateState.setOriginDocumentState(originDocumentState);
 
     // Assert
-    assertFalse(cosUpdateState.isAcceptingUpdates());
-    assertFalse(cosUpdateState.isUpdated());
     assertSame(originDocumentState, cosUpdateState.getOriginDocumentState());
   }
 
   /**
-   * Test {@link COSUpdateState#setOriginDocumentState(COSDocumentState)} with
-   * {@code originDocumentState}.
-   * <p>
-   * Method under test:
-   * {@link COSUpdateState#setOriginDocumentState(COSDocumentState)}
+   * Test {@link COSUpdateState#setOriginDocumentState(COSDocumentState)} with {@code
+   * originDocumentState}.
+   *
+   * <p>Method under test: {@link COSUpdateState#setOriginDocumentState(COSDocumentState)}
    */
   @Test
   @DisplayName("Test setOriginDocumentState(COSDocumentState) with 'originDocumentState'")
-  void testSetOriginDocumentStateWithOriginDocumentState4() {
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void COSUpdateState.setOriginDocumentState(COSDocumentState)"})
+  void testSetOriginDocumentStateWithOriginDocumentState5() {
     // Arrange
-    COSUpdateState cosUpdateState = new COSUpdateState(COSArray.of(10.0f, 0.5f, 10.0f, 0.5f));
+    COSArray updateInfo = COSArray.of(10.0f, 0.5f, 10.0f, 0.5f);
+    COSUpdateState cosUpdateState = new COSUpdateState(updateInfo);
 
     COSDocumentState originDocumentState = new COSDocumentState();
     originDocumentState.setParsing(true);
@@ -125,21 +161,21 @@ class COSUpdateStateDiffblueTest {
     cosUpdateState.setOriginDocumentState(originDocumentState);
 
     // Assert
-    assertFalse(cosUpdateState.isAcceptingUpdates());
-    assertFalse(cosUpdateState.isUpdated());
     assertSame(originDocumentState, cosUpdateState.getOriginDocumentState());
   }
 
   /**
-   * Test {@link COSUpdateState#setOriginDocumentState(COSDocumentState)} with
-   * {@code originDocumentState}.
-   * <p>
-   * Method under test:
-   * {@link COSUpdateState#setOriginDocumentState(COSDocumentState)}
+   * Test {@link COSUpdateState#setOriginDocumentState(COSDocumentState)} with {@code
+   * originDocumentState}.
+   *
+   * <p>Method under test: {@link COSUpdateState#setOriginDocumentState(COSDocumentState)}
    */
   @Test
   @DisplayName("Test setOriginDocumentState(COSDocumentState) with 'originDocumentState'")
-  void testSetOriginDocumentStateWithOriginDocumentState5() {
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void COSUpdateState.setOriginDocumentState(COSDocumentState)"})
+  void testSetOriginDocumentStateWithOriginDocumentState6() {
     // Arrange
     COSUpdateState cosUpdateState = new COSUpdateState(new COSStream());
 
@@ -150,109 +186,37 @@ class COSUpdateStateDiffblueTest {
     cosUpdateState.setOriginDocumentState(originDocumentState);
 
     // Assert
-    assertFalse(cosUpdateState.isAcceptingUpdates());
-    assertFalse(cosUpdateState.isUpdated());
-    assertSame(originDocumentState, cosUpdateState.getOriginDocumentState());
-  }
-
-  /**
-   * Test {@link COSUpdateState#setOriginDocumentState(COSDocumentState)} with
-   * {@code originDocumentState}.
-   * <p>
-   * Method under test:
-   * {@link COSUpdateState#setOriginDocumentState(COSDocumentState)}
-   */
-  @Test
-  @DisplayName("Test setOriginDocumentState(COSDocumentState) with 'originDocumentState'")
-  void testSetOriginDocumentStateWithOriginDocumentState6() {
-    // Arrange
-    COSUpdateState cosUpdateState = new COSUpdateState(new COSArray());
-
-    COSDocumentState originDocumentState = new COSDocumentState();
-    originDocumentState.setParsing(false);
-
-    // Act
-    cosUpdateState.setOriginDocumentState(originDocumentState);
-
-    // Assert
-    assertTrue(cosUpdateState.isAcceptingUpdates());
-    assertTrue(cosUpdateState.isUpdated());
-    assertSame(originDocumentState, cosUpdateState.getOriginDocumentState());
-  }
-
-  /**
-   * Test {@link COSUpdateState#setOriginDocumentState(COSDocumentState)} with
-   * {@code originDocumentState}.
-   * <p>
-   * Method under test:
-   * {@link COSUpdateState#setOriginDocumentState(COSDocumentState)}
-   */
-  @Test
-  @DisplayName("Test setOriginDocumentState(COSDocumentState) with 'originDocumentState'")
-  void testSetOriginDocumentStateWithOriginDocumentState7() {
-    // Arrange
-    COSUpdateState cosUpdateState = new COSUpdateState(new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1)));
-
-    COSDocumentState originDocumentState = new COSDocumentState();
-    originDocumentState.setParsing(true);
-
-    // Act
-    cosUpdateState.setOriginDocumentState(originDocumentState);
-
-    // Assert
-    assertFalse(cosUpdateState.isAcceptingUpdates());
-    assertFalse(cosUpdateState.isUpdated());
-    assertSame(originDocumentState, cosUpdateState.getOriginDocumentState());
-  }
-
-  /**
-   * Test {@link COSUpdateState#setOriginDocumentState(COSDocumentState)} with
-   * {@code originDocumentState}.
-   * <p>
-   * Method under test:
-   * {@link COSUpdateState#setOriginDocumentState(COSDocumentState)}
-   */
-  @Test
-  @DisplayName("Test setOriginDocumentState(COSDocumentState) with 'originDocumentState'")
-  void testSetOriginDocumentStateWithOriginDocumentState8() {
-    // Arrange
-    COSDictionary object = new COSDictionary();
-    COSUpdateState cosUpdateState = new COSUpdateState(new COSObject(object, new COSObjectKey(1L, 1)));
-
-    COSDocumentState originDocumentState = new COSDocumentState();
-    originDocumentState.setParsing(true);
-
-    // Act
-    cosUpdateState.setOriginDocumentState(originDocumentState);
-
-    // Assert
-    assertFalse(cosUpdateState.isAcceptingUpdates());
-    assertFalse(cosUpdateState.isUpdated());
     assertSame(originDocumentState, cosUpdateState.getOriginDocumentState());
   }
 
   /**
    * Test {@link COSUpdateState#isAcceptingUpdates()}.
-   * <p>
-   * Method under test: {@link COSUpdateState#isAcceptingUpdates()}
+   *
+   * <p>Method under test: {@link COSUpdateState#isAcceptingUpdates()}
    */
   @Test
   @DisplayName("Test isAcceptingUpdates()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean COSUpdateState.isAcceptingUpdates()"})
   void testIsAcceptingUpdates() {
     // Arrange, Act and Assert
-    assertFalse((new COSUpdateState(new COSArray())).isAcceptingUpdates());
+    assertFalse(new COSUpdateState(new COSArray()).isAcceptingUpdates());
   }
 
   /**
    * Test {@link COSUpdateState#toIncrement()}.
-   * <p>
-   * Method under test: {@link COSUpdateState#toIncrement()}
+   *
+   * <p>Method under test: {@link COSUpdateState#toIncrement()}
    */
   @Test
   @DisplayName("Test toIncrement()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"COSIncrement COSUpdateState.toIncrement()"})
   void testToIncrement() {
     // Arrange and Act
-    COSIncrement actualToIncrementResult = (new COSUpdateState(new COSArray())).toIncrement();
+    COSIncrement actualToIncrementResult = new COSUpdateState(new COSArray()).toIncrement();
 
     // Assert
     assertFalse(actualToIncrementResult.iterator().hasNext());

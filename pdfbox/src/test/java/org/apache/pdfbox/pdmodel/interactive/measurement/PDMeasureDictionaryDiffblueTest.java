@@ -5,17 +5,21 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSUpdateState;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDMeasureDictionaryDiffblueTest {
   /**
    * Test getters and setters.
-   * <p>
-   * Methods under test:
+   *
+   * <p>Methods under test:
+   *
    * <ul>
    *   <li>{@link PDMeasureDictionary#PDMeasureDictionary(COSDictionary)}
    *   <li>{@link PDMeasureDictionary#getType()}
@@ -23,6 +27,12 @@ class PDMeasureDictionaryDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void PDMeasureDictionary.<init>(COSDictionary)",
+    "String PDMeasureDictionary.getType()"
+  })
   void testGettersAndSetters() {
     // Arrange
     COSDictionary dictionary = new COSDictionary();
@@ -37,11 +47,14 @@ class PDMeasureDictionaryDiffblueTest {
 
   /**
    * Test {@link PDMeasureDictionary#PDMeasureDictionary()}.
-   * <p>
-   * Method under test: {@link PDMeasureDictionary#PDMeasureDictionary()}
+   *
+   * <p>Method under test: {@link PDMeasureDictionary#PDMeasureDictionary()}
    */
   @Test
   @DisplayName("Test new PDMeasureDictionary()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDMeasureDictionary.<init>()"})
   void testNewPDMeasureDictionary() {
     // Arrange and Act
     PDMeasureDictionary actualPdMeasureDictionary = new PDMeasureDictionary();
@@ -65,14 +78,17 @@ class PDMeasureDictionaryDiffblueTest {
 
   /**
    * Test {@link PDMeasureDictionary#getCOSObject()}.
-   * <p>
-   * Method under test: {@link PDMeasureDictionary#getCOSObject()}
+   *
+   * <p>Method under test: {@link PDMeasureDictionary#getCOSObject()}
    */
   @Test
   @DisplayName("Test getCOSObject()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"COSDictionary PDMeasureDictionary.getCOSObject()"})
   void testGetCOSObject() {
     // Arrange and Act
-    COSDictionary actualCOSObject = (new PDMeasureDictionary()).getCOSObject();
+    COSDictionary actualCOSObject = new PDMeasureDictionary().getCOSObject();
 
     // Assert
     COSUpdateState updateState = actualCOSObject.getUpdateState();
@@ -90,91 +106,60 @@ class PDMeasureDictionaryDiffblueTest {
 
   /**
    * Test {@link PDMeasureDictionary#getSubtype()}.
+   *
    * <ul>
-   *   <li>Given {@link PDMeasureDictionary#PDMeasureDictionary(COSDictionary)} with
-   * dictionary is {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Given {@link PDMeasureDictionary#PDMeasureDictionary()}.
+   *   <li>Then return {@link PDRectlinearMeasureDictionary#SUBTYPE}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDMeasureDictionary#getSubtype()}
-   */
-  @Test
-  @DisplayName("Test getSubtype(); given PDMeasureDictionary(COSDictionary) with dictionary is COSDictionary()")
-  void testGetSubtype_givenPDMeasureDictionaryWithDictionaryIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertEquals(PDRectlinearMeasureDictionary.SUBTYPE, (new PDMeasureDictionary(new COSDictionary())).getSubtype());
-  }
-
-  /**
-   * Test {@link PDMeasureDictionary#getSubtype()}.
-   * <ul>
-   *   <li>Given {@link PDMeasureDictionary#PDMeasureDictionary()}.</li>
-   *   <li>Then return {@link PDRectlinearMeasureDictionary#SUBTYPE}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDMeasureDictionary#getSubtype()}
+   *
+   * <p>Method under test: {@link PDMeasureDictionary#getSubtype()}
    */
   @Test
   @DisplayName("Test getSubtype(); given PDMeasureDictionary(); then return SUBTYPE")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PDMeasureDictionary.getSubtype()"})
   void testGetSubtype_givenPDMeasureDictionary_thenReturnSubtype() {
     // Arrange, Act and Assert
-    assertEquals(PDRectlinearMeasureDictionary.SUBTYPE, (new PDMeasureDictionary()).getSubtype());
+    assertEquals(PDRectlinearMeasureDictionary.SUBTYPE, new PDMeasureDictionary().getSubtype());
   }
 
   /**
    * Test {@link PDMeasureDictionary#getSubtype()}.
+   *
    * <ul>
-   *   <li>Given
-   * {@link PDRectlinearMeasureDictionary#PDRectlinearMeasureDictionary()}.</li>
-   *   <li>Then return {@link PDRectlinearMeasureDictionary#SUBTYPE}.</li>
+   *   <li>Given {@link PDRectlinearMeasureDictionary#PDRectlinearMeasureDictionary()}.
+   *   <li>Then return {@link PDRectlinearMeasureDictionary#SUBTYPE}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDMeasureDictionary#getSubtype()}
+   *
+   * <p>Method under test: {@link PDMeasureDictionary#getSubtype()}
    */
   @Test
   @DisplayName("Test getSubtype(); given PDRectlinearMeasureDictionary(); then return SUBTYPE")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PDMeasureDictionary.getSubtype()"})
   void testGetSubtype_givenPDRectlinearMeasureDictionary_thenReturnSubtype() {
     // Arrange, Act and Assert
-    assertEquals(PDRectlinearMeasureDictionary.SUBTYPE, (new PDRectlinearMeasureDictionary()).getSubtype());
+    assertEquals(
+        PDRectlinearMeasureDictionary.SUBTYPE, new PDRectlinearMeasureDictionary().getSubtype());
   }
 
   /**
    * Test {@link PDMeasureDictionary#setSubtype(String)}.
+   *
    * <ul>
-   *   <li>Given {@link PDMeasureDictionary#PDMeasureDictionary()}.</li>
-   *   <li>Then {@link PDMeasureDictionary#PDMeasureDictionary()} Subtype is
-   * {@code Subtype}.</li>
+   *   <li>When {@code 42}.
+   *   <li>Then {@link PDMeasureDictionary#PDMeasureDictionary()} Subtype is {@code 42}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDMeasureDictionary#setSubtype(String)}
-   */
-  @Test
-  @DisplayName("Test setSubtype(String); given PDMeasureDictionary(); then PDMeasureDictionary() Subtype is 'Subtype'")
-  void testSetSubtype_givenPDMeasureDictionary_thenPDMeasureDictionarySubtypeIsSubtype() {
-    // Arrange
-    PDMeasureDictionary pdMeasureDictionary = new PDMeasureDictionary();
-
-    // Act
-    pdMeasureDictionary.setSubtype("Subtype");
-
-    // Assert
-    assertEquals("Subtype", pdMeasureDictionary.getSubtype());
-    COSDictionary cOSObject = pdMeasureDictionary.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDMeasureDictionary#setSubtype(String)}.
-   * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then {@link PDMeasureDictionary#PDMeasureDictionary()} Subtype is
-   * {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDMeasureDictionary#setSubtype(String)}
+   *
+   * <p>Method under test: {@link PDMeasureDictionary#setSubtype(String)}
    */
   @Test
   @DisplayName("Test setSubtype(String); when '42'; then PDMeasureDictionary() Subtype is '42'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDMeasureDictionary.setSubtype(String)"})
   void testSetSubtype_when42_thenPDMeasureDictionarySubtypeIs42() {
     // Arrange
     PDMeasureDictionary pdMeasureDictionary = new PDMeasureDictionary();
@@ -184,6 +169,66 @@ class PDMeasureDictionaryDiffblueTest {
 
     // Assert
     assertEquals("42", pdMeasureDictionary.getSubtype());
+    COSDictionary cOSObject = pdMeasureDictionary.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDMeasureDictionary#setSubtype(String)}.
+   *
+   * <ul>
+   *   <li>When {@code null}.
+   *   <li>Then {@link PDMeasureDictionary#PDMeasureDictionary()} COSObject Values size is one.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDMeasureDictionary#setSubtype(String)}
+   */
+  @Test
+  @DisplayName(
+      "Test setSubtype(String); when 'null'; then PDMeasureDictionary() COSObject Values size is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDMeasureDictionary.setSubtype(String)"})
+  void testSetSubtype_whenNull_thenPDMeasureDictionaryCOSObjectValuesSizeIsOne() {
+    // Arrange
+    PDMeasureDictionary pdMeasureDictionary = new PDMeasureDictionary();
+
+    // Act
+    pdMeasureDictionary.setSubtype(null);
+
+    // Assert that nothing has changed
+    COSDictionary cOSObject = pdMeasureDictionary.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    assertEquals(PDRectlinearMeasureDictionary.SUBTYPE, pdMeasureDictionary.getSubtype());
+  }
+
+  /**
+   * Test {@link PDMeasureDictionary#setSubtype(String)}.
+   *
+   * <ul>
+   *   <li>When {@code Subtype}.
+   *   <li>Then {@link PDMeasureDictionary#PDMeasureDictionary()} Subtype is {@code Subtype}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDMeasureDictionary#setSubtype(String)}
+   */
+  @Test
+  @DisplayName(
+      "Test setSubtype(String); when 'Subtype'; then PDMeasureDictionary() Subtype is 'Subtype'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDMeasureDictionary.setSubtype(String)"})
+  void testSetSubtype_whenSubtype_thenPDMeasureDictionarySubtypeIsSubtype() {
+    // Arrange
+    PDMeasureDictionary pdMeasureDictionary = new PDMeasureDictionary();
+
+    // Act
+    pdMeasureDictionary.setSubtype("Subtype");
+
+    // Assert
+    assertEquals("Subtype", pdMeasureDictionary.getSubtype());
     COSDictionary cOSObject = pdMeasureDictionary.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());

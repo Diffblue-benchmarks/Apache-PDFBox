@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
 import org.apache.pdfbox.cos.COSDictionary;
@@ -12,31 +14,38 @@ import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSUpdateState;
 import org.apache.pdfbox.pdmodel.interactive.action.PDActionJavaScript;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class FDFJavaScriptDiffblueTest {
   /**
    * Test {@link FDFJavaScript#FDFJavaScript(COSDictionary)}.
-   * <p>
-   * Method under test: {@link FDFJavaScript#FDFJavaScript(COSDictionary)}
+   *
+   * <p>Method under test: {@link FDFJavaScript#FDFJavaScript(COSDictionary)}
    */
   @Test
   @DisplayName("Test new FDFJavaScript(COSDictionary)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFJavaScript.<init>(COSDictionary)"})
   void testNewFDFJavaScript() {
     // Arrange
     COSDictionary javaScript = new COSDictionary();
 
     // Act and Assert
-    assertSame(javaScript, (new FDFJavaScript(javaScript)).getCOSObject());
+    assertSame(javaScript, new FDFJavaScript(javaScript).getCOSObject());
   }
 
   /**
    * Test {@link FDFJavaScript#FDFJavaScript()}.
-   * <p>
-   * Method under test: {@link FDFJavaScript#FDFJavaScript()}
+   *
+   * <p>Method under test: {@link FDFJavaScript#FDFJavaScript()}
    */
   @Test
   @DisplayName("Test new FDFJavaScript()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFJavaScript.<init>()"})
   void testNewFDFJavaScript2() {
     // Arrange and Act
     FDFJavaScript actualFdfJavaScript = new FDFJavaScript();
@@ -61,14 +70,17 @@ class FDFJavaScriptDiffblueTest {
 
   /**
    * Test {@link FDFJavaScript#getCOSObject()}.
-   * <p>
-   * Method under test: {@link FDFJavaScript#getCOSObject()}
+   *
+   * <p>Method under test: {@link FDFJavaScript#getCOSObject()}
    */
   @Test
   @DisplayName("Test getCOSObject()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"COSDictionary FDFJavaScript.getCOSObject()"})
   void testGetCOSObject() {
     // Arrange and Act
-    COSDictionary actualCOSObject = (new FDFJavaScript()).getCOSObject();
+    COSDictionary actualCOSObject = new FDFJavaScript().getCOSObject();
 
     // Assert
     COSUpdateState updateState = actualCOSObject.getUpdateState();
@@ -86,16 +98,19 @@ class FDFJavaScriptDiffblueTest {
 
   /**
    * Test {@link FDFJavaScript#getBefore()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFJavaScript#FDFJavaScript()} Before is
-   * {@code Before}.</li>
-   *   <li>Then return {@code Before}.</li>
+   *   <li>Given {@link FDFJavaScript#FDFJavaScript()} Before is {@code Before}.
+   *   <li>Then return {@code Before}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFJavaScript#getBefore()}
+   *
+   * <p>Method under test: {@link FDFJavaScript#getBefore()}
    */
   @Test
   @DisplayName("Test getBefore(); given FDFJavaScript() Before is 'Before'; then return 'Before'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String FDFJavaScript.getBefore()"})
   void testGetBefore_givenFDFJavaScriptBeforeIsBefore_thenReturnBefore() {
     // Arrange
     FDFJavaScript fdfJavaScript = new FDFJavaScript();
@@ -107,15 +122,20 @@ class FDFJavaScriptDiffblueTest {
 
   /**
    * Test {@link FDFJavaScript#getBefore()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFJavaScript#FDFJavaScript()} Before is empty string.</li>
-   *   <li>Then return empty string.</li>
+   *   <li>Given {@link FDFJavaScript#FDFJavaScript()} Before is empty string.
+   *   <li>Then return empty string.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFJavaScript#getBefore()}
+   *
+   * <p>Method under test: {@link FDFJavaScript#getBefore()}
    */
   @Test
-  @DisplayName("Test getBefore(); given FDFJavaScript() Before is empty string; then return empty string")
+  @DisplayName(
+      "Test getBefore(); given FDFJavaScript() Before is empty string; then return empty string")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String FDFJavaScript.getBefore()"})
   void testGetBefore_givenFDFJavaScriptBeforeIsEmptyString_thenReturnEmptyString() {
     // Arrange
     FDFJavaScript fdfJavaScript = new FDFJavaScript();
@@ -127,32 +147,42 @@ class FDFJavaScriptDiffblueTest {
 
   /**
    * Test {@link FDFJavaScript#getBefore()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFJavaScript#FDFJavaScript()}.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Given {@link FDFJavaScript#FDFJavaScript()}.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFJavaScript#getBefore()}
+   *
+   * <p>Method under test: {@link FDFJavaScript#getBefore()}
    */
   @Test
   @DisplayName("Test getBefore(); given FDFJavaScript(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String FDFJavaScript.getBefore()"})
   void testGetBefore_givenFDFJavaScript_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new FDFJavaScript()).getBefore());
+    assertNull(new FDFJavaScript().getBefore());
   }
 
   /**
    * Test {@link FDFJavaScript#setBefore(String)}.
+   *
    * <ul>
-   *   <li>Given {@link FDFJavaScript#FDFJavaScript()}.</li>
-   *   <li>Then {@link FDFJavaScript#FDFJavaScript()} Before is {@code Before}.</li>
+   *   <li>Given {@link FDFJavaScript#FDFJavaScript()}.
+   *   <li>When {@code Before}.
+   *   <li>Then {@link FDFJavaScript#FDFJavaScript()} Before is {@code Before}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFJavaScript#setBefore(String)}
+   *
+   * <p>Method under test: {@link FDFJavaScript#setBefore(String)}
    */
   @Test
-  @DisplayName("Test setBefore(String); given FDFJavaScript(); then FDFJavaScript() Before is 'Before'")
-  void testSetBefore_givenFDFJavaScript_thenFDFJavaScriptBeforeIsBefore() {
+  @DisplayName(
+      "Test setBefore(String); given FDFJavaScript(); when 'Before'; then FDFJavaScript() Before is 'Before'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFJavaScript.setBefore(String)"})
+  void testSetBefore_givenFDFJavaScript_whenBefore_thenFDFJavaScriptBeforeIsBefore() {
     // Arrange
     FDFJavaScript fdfJavaScript = new FDFJavaScript();
 
@@ -168,15 +198,19 @@ class FDFJavaScriptDiffblueTest {
 
   /**
    * Test {@link FDFJavaScript#getAfter()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFJavaScript#FDFJavaScript()} After is {@code After}.</li>
-   *   <li>Then return {@code After}.</li>
+   *   <li>Given {@link FDFJavaScript#FDFJavaScript()} After is {@code After}.
+   *   <li>Then return {@code After}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFJavaScript#getAfter()}
+   *
+   * <p>Method under test: {@link FDFJavaScript#getAfter()}
    */
   @Test
   @DisplayName("Test getAfter(); given FDFJavaScript() After is 'After'; then return 'After'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String FDFJavaScript.getAfter()"})
   void testGetAfter_givenFDFJavaScriptAfterIsAfter_thenReturnAfter() {
     // Arrange
     FDFJavaScript fdfJavaScript = new FDFJavaScript();
@@ -188,15 +222,20 @@ class FDFJavaScriptDiffblueTest {
 
   /**
    * Test {@link FDFJavaScript#getAfter()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFJavaScript#FDFJavaScript()} After is empty string.</li>
-   *   <li>Then return empty string.</li>
+   *   <li>Given {@link FDFJavaScript#FDFJavaScript()} After is empty string.
+   *   <li>Then return empty string.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFJavaScript#getAfter()}
+   *
+   * <p>Method under test: {@link FDFJavaScript#getAfter()}
    */
   @Test
-  @DisplayName("Test getAfter(); given FDFJavaScript() After is empty string; then return empty string")
+  @DisplayName(
+      "Test getAfter(); given FDFJavaScript() After is empty string; then return empty string")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String FDFJavaScript.getAfter()"})
   void testGetAfter_givenFDFJavaScriptAfterIsEmptyString_thenReturnEmptyString() {
     // Arrange
     FDFJavaScript fdfJavaScript = new FDFJavaScript();
@@ -208,53 +247,42 @@ class FDFJavaScriptDiffblueTest {
 
   /**
    * Test {@link FDFJavaScript#getAfter()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFJavaScript#FDFJavaScript()} Before is
-   * {@code Before}.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Given {@link FDFJavaScript#FDFJavaScript()}.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFJavaScript#getAfter()}
-   */
-  @Test
-  @DisplayName("Test getAfter(); given FDFJavaScript() Before is 'Before'; then return 'null'")
-  void testGetAfter_givenFDFJavaScriptBeforeIsBefore_thenReturnNull() {
-    // Arrange
-    FDFJavaScript fdfJavaScript = new FDFJavaScript();
-    fdfJavaScript.setBefore("Before");
-
-    // Act and Assert
-    assertNull(fdfJavaScript.getAfter());
-  }
-
-  /**
-   * Test {@link FDFJavaScript#getAfter()}.
-   * <ul>
-   *   <li>Given {@link FDFJavaScript#FDFJavaScript()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFJavaScript#getAfter()}
+   *
+   * <p>Method under test: {@link FDFJavaScript#getAfter()}
    */
   @Test
   @DisplayName("Test getAfter(); given FDFJavaScript(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String FDFJavaScript.getAfter()"})
   void testGetAfter_givenFDFJavaScript_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new FDFJavaScript()).getAfter());
+    assertNull(new FDFJavaScript().getAfter());
   }
 
   /**
    * Test {@link FDFJavaScript#setAfter(String)}.
+   *
    * <ul>
-   *   <li>Given {@link FDFJavaScript#FDFJavaScript()}.</li>
-   *   <li>Then {@link FDFJavaScript#FDFJavaScript()} After is {@code After}.</li>
+   *   <li>Given {@link FDFJavaScript#FDFJavaScript()}.
+   *   <li>When {@code After}.
+   *   <li>Then {@link FDFJavaScript#FDFJavaScript()} After is {@code After}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFJavaScript#setAfter(String)}
+   *
+   * <p>Method under test: {@link FDFJavaScript#setAfter(String)}
    */
   @Test
-  @DisplayName("Test setAfter(String); given FDFJavaScript(); then FDFJavaScript() After is 'After'")
-  void testSetAfter_givenFDFJavaScript_thenFDFJavaScriptAfterIsAfter() {
+  @DisplayName(
+      "Test setAfter(String); given FDFJavaScript(); when 'After'; then FDFJavaScript() After is 'After'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFJavaScript.setAfter(String)"})
+  void testSetAfter_givenFDFJavaScript_whenAfter_thenFDFJavaScriptAfterIsAfter() {
     // Arrange
     FDFJavaScript fdfJavaScript = new FDFJavaScript();
 
@@ -270,37 +298,19 @@ class FDFJavaScriptDiffblueTest {
 
   /**
    * Test {@link FDFJavaScript#getDoc()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFJavaScript#FDFJavaScript()} Before is
-   * {@code Before}.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Given {@link FDFJavaScript#FDFJavaScript()} Doc is {@link HashMap#HashMap()}.
+   *   <li>Then return Empty.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFJavaScript#getDoc()}
-   */
-  @Test
-  @DisplayName("Test getDoc(); given FDFJavaScript() Before is 'Before'; then return 'null'")
-  void testGetDoc_givenFDFJavaScriptBeforeIsBefore_thenReturnNull() {
-    // Arrange
-    FDFJavaScript fdfJavaScript = new FDFJavaScript();
-    fdfJavaScript.setBefore("Before");
-
-    // Act and Assert
-    assertNull(fdfJavaScript.getDoc());
-  }
-
-  /**
-   * Test {@link FDFJavaScript#getDoc()}.
-   * <ul>
-   *   <li>Given {@link FDFJavaScript#FDFJavaScript()} Doc is
-   * {@link HashMap#HashMap()}.</li>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFJavaScript#getDoc()}
+   *
+   * <p>Method under test: {@link FDFJavaScript#getDoc()}
    */
   @Test
   @DisplayName("Test getDoc(); given FDFJavaScript() Doc is HashMap(); then return Empty")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Map FDFJavaScript.getDoc()"})
   void testGetDoc_givenFDFJavaScriptDocIsHashMap_thenReturnEmpty() {
     // Arrange
     FDFJavaScript fdfJavaScript = new FDFJavaScript();
@@ -312,32 +322,40 @@ class FDFJavaScriptDiffblueTest {
 
   /**
    * Test {@link FDFJavaScript#getDoc()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFJavaScript#FDFJavaScript()}.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Given {@link FDFJavaScript#FDFJavaScript()}.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFJavaScript#getDoc()}
+   *
+   * <p>Method under test: {@link FDFJavaScript#getDoc()}
    */
   @Test
   @DisplayName("Test getDoc(); given FDFJavaScript(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Map FDFJavaScript.getDoc()"})
   void testGetDoc_givenFDFJavaScript_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new FDFJavaScript()).getDoc());
+    assertNull(new FDFJavaScript().getDoc());
   }
 
   /**
    * Test {@link FDFJavaScript#getDoc()}.
+   *
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code foo} is
-   * {@link PDActionJavaScript#PDActionJavaScript()}.</li>
-   *   <li>Then return Empty.</li>
+   *   <li>Given {@link HashMap#HashMap()} {@code foo} is {@link
+   *       PDActionJavaScript#PDActionJavaScript()}.
+   *   <li>Then return Empty.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFJavaScript#getDoc()}
+   *
+   * <p>Method under test: {@link FDFJavaScript#getDoc()}
    */
   @Test
   @DisplayName("Test getDoc(); given HashMap() 'foo' is PDActionJavaScript(); then return Empty")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Map FDFJavaScript.getDoc()"})
   void testGetDoc_givenHashMapFooIsPDActionJavaScript_thenReturnEmpty() {
     // Arrange
     HashMap<String, PDActionJavaScript> map = new HashMap<>();
@@ -352,16 +370,20 @@ class FDFJavaScriptDiffblueTest {
 
   /**
    * Test {@link FDFJavaScript#setDoc(Map)}.
+   *
    * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>When {@link HashMap#HashMap()} {@code 42} is
-   * {@link PDActionJavaScript#PDActionJavaScript()}.</li>
+   *   <li>Given {@code 42}.
+   *   <li>When {@link HashMap#HashMap()} {@code 42} is {@link
+   *       PDActionJavaScript#PDActionJavaScript()}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFJavaScript#setDoc(Map)}
+   *
+   * <p>Method under test: {@link FDFJavaScript#setDoc(Map)}
    */
   @Test
   @DisplayName("Test setDoc(Map); given '42'; when HashMap() '42' is PDActionJavaScript()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFJavaScript.setDoc(Map)"})
   void testSetDoc_given42_whenHashMap42IsPDActionJavaScript() {
     // Arrange
     FDFJavaScript fdfJavaScript = new FDFJavaScript();
@@ -382,15 +404,19 @@ class FDFJavaScriptDiffblueTest {
 
   /**
    * Test {@link FDFJavaScript#setDoc(Map)}.
+   *
    * <ul>
-   *   <li>Given {@code null}.</li>
-   *   <li>When {@link HashMap#HashMap()} {@code foo} is {@code null}.</li>
+   *   <li>Given {@code null}.
+   *   <li>When {@link HashMap#HashMap()} {@code foo} is {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFJavaScript#setDoc(Map)}
+   *
+   * <p>Method under test: {@link FDFJavaScript#setDoc(Map)}
    */
   @Test
   @DisplayName("Test setDoc(Map); given 'null'; when HashMap() 'foo' is 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFJavaScript.setDoc(Map)"})
   void testSetDoc_givenNull_whenHashMapFooIsNull() {
     // Arrange
     FDFJavaScript fdfJavaScript = new FDFJavaScript();
@@ -410,16 +436,21 @@ class FDFJavaScriptDiffblueTest {
 
   /**
    * Test {@link FDFJavaScript#setDoc(Map)}.
+   *
    * <ul>
-   *   <li>Given {@link PDActionJavaScript#PDActionJavaScript()}.</li>
-   *   <li>When {@link HashMap#HashMap()} {@code foo} is
-   * {@link PDActionJavaScript#PDActionJavaScript()}.</li>
+   *   <li>Given {@link PDActionJavaScript#PDActionJavaScript()}.
+   *   <li>When {@link HashMap#HashMap()} {@code foo} is {@link
+   *       PDActionJavaScript#PDActionJavaScript()}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFJavaScript#setDoc(Map)}
+   *
+   * <p>Method under test: {@link FDFJavaScript#setDoc(Map)}
    */
   @Test
-  @DisplayName("Test setDoc(Map); given PDActionJavaScript(); when HashMap() 'foo' is PDActionJavaScript()")
+  @DisplayName(
+      "Test setDoc(Map); given PDActionJavaScript(); when HashMap() 'foo' is PDActionJavaScript()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFJavaScript.setDoc(Map)"})
   void testSetDoc_givenPDActionJavaScript_whenHashMapFooIsPDActionJavaScript() {
     // Arrange
     FDFJavaScript fdfJavaScript = new FDFJavaScript();
@@ -439,16 +470,20 @@ class FDFJavaScriptDiffblueTest {
 
   /**
    * Test {@link FDFJavaScript#setDoc(Map)}.
+   *
    * <ul>
-   *   <li>When {@link HashMap#HashMap()}.</li>
-   *   <li>Then {@link FDFJavaScript#FDFJavaScript()} COSObject Values size is
-   * one.</li>
+   *   <li>When {@link HashMap#HashMap()}.
+   *   <li>Then {@link FDFJavaScript#FDFJavaScript()} COSObject Values size is one.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFJavaScript#setDoc(Map)}
+   *
+   * <p>Method under test: {@link FDFJavaScript#setDoc(Map)}
    */
   @Test
-  @DisplayName("Test setDoc(Map); when HashMap(); then FDFJavaScript() COSObject Values size is one")
+  @DisplayName(
+      "Test setDoc(Map); when HashMap(); then FDFJavaScript() COSObject Values size is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFJavaScript.setDoc(Map)"})
   void testSetDoc_whenHashMap_thenFDFJavaScriptCOSObjectValuesSizeIsOne() {
     // Arrange
     FDFJavaScript fdfJavaScript = new FDFJavaScript();

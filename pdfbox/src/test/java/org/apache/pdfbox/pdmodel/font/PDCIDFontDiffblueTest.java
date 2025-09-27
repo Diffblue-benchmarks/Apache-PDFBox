@@ -3,155 +3,189 @@ package org.apache.pdfbox.pdmodel.font;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import org.apache.pdfbox.cos.COSDictionary;
-import org.apache.pdfbox.cos.COSStream;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDCIDFontDiffblueTest {
   /**
    * Test {@link PDCIDFont#getCOSObject()}.
-   * <p>
-   * Method under test: {@link PDCIDFont#getCOSObject()}
+   *
+   * <p>Method under test: {@link PDCIDFont#getCOSObject()}
    */
   @Test
   @DisplayName("Test getCOSObject()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"COSDictionary PDCIDFont.getCOSObject()"})
   void testGetCOSObject() throws IOException {
     // Arrange
     PDCIDFontType0 pdcidFontType0 = new PDCIDFontType0(new COSDictionary(), null);
 
+    // Act
+    COSDictionary actualCOSObject = pdcidFontType0.getCOSObject();
+
+    // Assert
+    assertSame(pdcidFontType0.dict, actualCOSObject);
+  }
+
+  /**
+   * Test {@link PDCIDFont#getBaseFont()}.
+   *
+   * <ul>
+   *   <li>Then return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDCIDFont#getBaseFont()}
+   */
+  @Test
+  @DisplayName("Test getBaseFont(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.lang.String PDCIDFont.getBaseFont()"})
+  void testGetBaseFont_thenReturnNull() throws IOException {
+    // Arrange
+    PDCIDFontType0 pdcidFontType0 = new PDCIDFontType0(new COSDictionary(), null);
+
     // Act and Assert
-    assertSame(pdcidFontType0.dict, pdcidFontType0.getCOSObject());
-  }
-
-  /**
-   * Test {@link PDCIDFont#getBaseFont()}.
-   * <p>
-   * Method under test: {@link PDCIDFont#getBaseFont()}
-   */
-  @Test
-  @DisplayName("Test getBaseFont()")
-  void testGetBaseFont() throws IOException {
-    // Arrange, Act and Assert
-    assertNull((new PDCIDFontType0(new COSDictionary(), null)).getBaseFont());
-  }
-
-  /**
-   * Test {@link PDCIDFont#getBaseFont()}.
-   * <ul>
-   *   <li>Given {@link PDCIDFontType0#PDCIDFontType0(COSDictionary, PDType0Font)}
-   * with fontDictionary is {@link COSStream#COSStream()} and parent is
-   * {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDCIDFont#getBaseFont()}
-   */
-  @Test
-  @DisplayName("Test getBaseFont(); given PDCIDFontType0(COSDictionary, PDType0Font) with fontDictionary is COSStream() and parent is 'null'")
-  void testGetBaseFont_givenPDCIDFontType0WithFontDictionaryIsCOSStreamAndParentIsNull() throws IOException {
-    // Arrange, Act and Assert
-    assertNull((new PDCIDFontType0(new COSStream(), null)).getBaseFont());
+    assertNull(pdcidFontType0.getBaseFont());
   }
 
   /**
    * Test {@link PDCIDFont#getName()}.
+   *
    * <ul>
-   *   <li>Given {@link PDCIDFontType0#PDCIDFontType0(COSDictionary, PDType0Font)}
-   * with fontDictionary is {@link COSDictionary#COSDictionary()} and parent is
-   * {@code null}.</li>
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDCIDFont#getName()}
+   *
+   * <p>Method under test: {@link PDCIDFont#getName()}
    */
   @Test
-  @DisplayName("Test getName(); given PDCIDFontType0(COSDictionary, PDType0Font) with fontDictionary is COSDictionary() and parent is 'null'")
-  void testGetName_givenPDCIDFontType0WithFontDictionaryIsCOSDictionaryAndParentIsNull() throws IOException {
-    // Arrange, Act and Assert
-    assertNull((new PDCIDFontType0(new COSDictionary(), null)).getName());
-  }
+  @DisplayName("Test getName(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.lang.String PDCIDFont.getName()"})
+  void testGetName_thenReturnNull() throws IOException {
+    // Arrange
+    PDCIDFontType0 pdcidFontType0 = new PDCIDFontType0(new COSDictionary(), null);
 
-  /**
-   * Test {@link PDCIDFont#getName()}.
-   * <ul>
-   *   <li>Given {@link PDCIDFontType0#PDCIDFontType0(COSDictionary, PDType0Font)}
-   * with fontDictionary is {@link COSStream#COSStream()} and parent is
-   * {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDCIDFont#getName()}
-   */
-  @Test
-  @DisplayName("Test getName(); given PDCIDFontType0(COSDictionary, PDType0Font) with fontDictionary is COSStream() and parent is 'null'")
-  void testGetName_givenPDCIDFontType0WithFontDictionaryIsCOSStreamAndParentIsNull() throws IOException {
-    // Arrange, Act and Assert
-    assertNull((new PDCIDFontType0(new COSStream(), null)).getName());
+    // Act and Assert
+    assertNull(pdcidFontType0.getName());
   }
 
   /**
    * Test {@link PDCIDFont#getFontDescriptor()}.
-   * <p>
-   * Method under test: {@link PDCIDFont#getFontDescriptor()}
+   *
+   * <ul>
+   *   <li>Then return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDCIDFont#getFontDescriptor()}
    */
   @Test
-  @DisplayName("Test getFontDescriptor()")
-  void testGetFontDescriptor() throws IOException {
-    // Arrange, Act and Assert
-    assertNull((new PDCIDFontType0(new COSDictionary(), null)).getFontDescriptor());
-    assertNull((new PDCIDFontType0(new COSStream(), null)).getFontDescriptor());
+  @DisplayName("Test getFontDescriptor(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.apache.pdfbox.pdmodel.font.PDFontDescriptor PDCIDFont.getFontDescriptor()"
+  })
+  void testGetFontDescriptor_thenReturnNull() throws IOException {
+    // Arrange
+    PDCIDFontType0 pdcidFontType0 = new PDCIDFontType0(new COSDictionary(), null);
+
+    // Act and Assert
+    assertNull(pdcidFontType0.getFontDescriptor());
   }
 
   /**
    * Test {@link PDCIDFont#getParent()}.
+   *
    * <ul>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDCIDFont#getParent()}
+   *
+   * <p>Method under test: {@link PDCIDFont#getParent()}
    */
   @Test
   @DisplayName("Test getParent(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"org.apache.pdfbox.pdmodel.font.PDType0Font PDCIDFont.getParent()"})
   void testGetParent_thenReturnNull() throws IOException {
-    // Arrange, Act and Assert
-    assertNull((new PDCIDFontType0(new COSDictionary(), null)).getParent());
+    // Arrange
+    PDCIDFontType0 pdcidFontType0 = new PDCIDFontType0(new COSDictionary(), null);
+
+    // Act and Assert
+    assertNull(pdcidFontType0.getParent());
   }
 
   /**
    * Test {@link PDCIDFont#getAverageFontWidth()}.
-   * <p>
-   * Method under test: {@link PDCIDFont#getAverageFontWidth()}
+   *
+   * <ul>
+   *   <li>Then return one thousand.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDCIDFont#getAverageFontWidth()}
    */
   @Test
-  @DisplayName("Test getAverageFontWidth()")
-  void testGetAverageFontWidth() throws IOException {
-    // Arrange, Act and Assert
-    assertEquals(1000.0f, (new PDCIDFontType2(new COSDictionary(), null)).getAverageFontWidth());
-    assertEquals(1000.0f, (new PDCIDFontType2(new COSStream(), null)).getAverageFontWidth());
+  @DisplayName("Test getAverageFontWidth(); then return one thousand")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"float PDCIDFont.getAverageFontWidth()"})
+  void testGetAverageFontWidth_thenReturnOneThousand() throws IOException {
+    // Arrange
+    PDCIDFontType2 pdcidFontType2 = new PDCIDFontType2(new COSDictionary(), null);
+
+    // Act and Assert
+    assertEquals(1000.0f, pdcidFontType2.getAverageFontWidth());
   }
 
   /**
    * Test {@link PDCIDFont#getCIDSystemInfo()}.
-   * <p>
-   * Method under test: {@link PDCIDFont#getCIDSystemInfo()}
+   *
+   * <ul>
+   *   <li>Then return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDCIDFont#getCIDSystemInfo()}
    */
   @Test
-  @DisplayName("Test getCIDSystemInfo()")
-  void testGetCIDSystemInfo() throws IOException {
-    // Arrange, Act and Assert
-    assertNull((new PDCIDFontType0(new COSDictionary(), null)).getCIDSystemInfo());
-    assertNull((new PDCIDFontType0(new COSStream(), null)).getCIDSystemInfo());
+  @DisplayName("Test getCIDSystemInfo(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"org.apache.pdfbox.pdmodel.font.PDCIDSystemInfo PDCIDFont.getCIDSystemInfo()"})
+  void testGetCIDSystemInfo_thenReturnNull() throws IOException {
+    // Arrange
+    PDCIDFontType0 pdcidFontType0 = new PDCIDFontType0(new COSDictionary(), null);
+
+    // Act and Assert
+    assertNull(pdcidFontType0.getCIDSystemInfo());
   }
 
   /**
    * Test {@link PDCIDFont#readCIDToGIDMap()}.
-   * <p>
-   * Method under test: {@link PDCIDFont#readCIDToGIDMap()}
+   *
+   * <ul>
+   *   <li>Then return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDCIDFont#readCIDToGIDMap()}
    */
   @Test
-  @DisplayName("Test readCIDToGIDMap()")
-  void testReadCIDToGIDMap() throws IOException {
-    // Arrange, Act and Assert
-    assertNull((new PDCIDFontType0(new COSDictionary(), null)).readCIDToGIDMap());
-    assertNull((new PDCIDFontType0(new COSStream(), null)).readCIDToGIDMap());
+  @DisplayName("Test readCIDToGIDMap(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"int[] PDCIDFont.readCIDToGIDMap()"})
+  void testReadCIDToGIDMap_thenReturnNull() throws IOException {
+    // Arrange
+    PDCIDFontType0 pdcidFontType0 = new PDCIDFontType0(new COSDictionary(), null);
+
+    // Act and Assert
+    assertNull(pdcidFontType0.readCIDToGIDMap());
   }
 }

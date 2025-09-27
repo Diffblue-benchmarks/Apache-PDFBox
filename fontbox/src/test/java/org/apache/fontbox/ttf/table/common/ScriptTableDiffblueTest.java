@@ -3,16 +3,20 @@ package org.apache.fontbox.ttf.table.common;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ScriptTableDiffblueTest {
   /**
    * Test getters and setters.
-   * <p>
-   * Methods under test:
+   *
+   * <p>Methods under test:
+   *
    * <ul>
    *   <li>{@link ScriptTable#ScriptTable(LangSysTable, Map)}
    *   <li>{@link ScriptTable#getDefaultLangSysTable()}
@@ -21,10 +25,16 @@ class ScriptTableDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void ScriptTable.<init>(LangSysTable, Map)",
+    "LangSysTable ScriptTable.getDefaultLangSysTable()",
+    "Map ScriptTable.getLangSysTables()"
+  })
   void testGettersAndSetters() {
     // Arrange
-    LangSysTable defaultLangSysTable = new LangSysTable(1, 1, 3, new int[]{1, -1, 1, -1});
-
+    LangSysTable defaultLangSysTable = new LangSysTable(1, 1, 3, new int[] {1, -1, 1, -1});
     HashMap<String, LangSysTable> langSysTables = new HashMap<>();
 
     // Act
@@ -40,38 +50,46 @@ class ScriptTableDiffblueTest {
 
   /**
    * Test {@link ScriptTable#toString()}.
+   *
    * <ul>
-   *   <li>Then return
-   * {@code ScriptTable[hasDefault=false,langSysRecordsCount=0]}.</li>
+   *   <li>Then return {@code ScriptTable[hasDefault=false,langSysRecordsCount=0]}.
    * </ul>
-   * <p>
-   * Method under test: {@link ScriptTable#toString()}
+   *
+   * <p>Method under test: {@link ScriptTable#toString()}
    */
   @Test
   @DisplayName("Test toString(); then return 'ScriptTable[hasDefault=false,langSysRecordsCount=0]'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ScriptTable.toString()"})
   void testToString_thenReturnScriptTableHasDefaultFalseLangSysRecordsCount0() {
-    // Arrange, Act and Assert
-    assertEquals("ScriptTable[hasDefault=false,langSysRecordsCount=0]",
-        (new ScriptTable(null, new HashMap<>())).toString());
+    // Arrange
+    ScriptTable scriptTable = new ScriptTable(null, new HashMap<>());
+
+    // Act and Assert
+    assertEquals("ScriptTable[hasDefault=false,langSysRecordsCount=0]", scriptTable.toString());
   }
 
   /**
    * Test {@link ScriptTable#toString()}.
+   *
    * <ul>
-   *   <li>Then return
-   * {@code ScriptTable[hasDefault=true,langSysRecordsCount=0]}.</li>
+   *   <li>Then return {@code ScriptTable[hasDefault=true,langSysRecordsCount=0]}.
    * </ul>
-   * <p>
-   * Method under test: {@link ScriptTable#toString()}
+   *
+   * <p>Method under test: {@link ScriptTable#toString()}
    */
   @Test
   @DisplayName("Test toString(); then return 'ScriptTable[hasDefault=true,langSysRecordsCount=0]'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ScriptTable.toString()"})
   void testToString_thenReturnScriptTableHasDefaultTrueLangSysRecordsCount0() {
     // Arrange
-    LangSysTable defaultLangSysTable = new LangSysTable(1, 1, 3, new int[]{1, -1, 1, -1});
+    LangSysTable defaultLangSysTable = new LangSysTable(1, 1, 3, new int[] {1, -1, 1, -1});
+    ScriptTable scriptTable = new ScriptTable(defaultLangSysTable, new HashMap<>());
 
     // Act and Assert
-    assertEquals("ScriptTable[hasDefault=true,langSysRecordsCount=0]",
-        (new ScriptTable(defaultLangSysTable, new HashMap<>())).toString());
+    assertEquals("ScriptTable[hasDefault=true,langSysRecordsCount=0]", scriptTable.toString());
   }
 }

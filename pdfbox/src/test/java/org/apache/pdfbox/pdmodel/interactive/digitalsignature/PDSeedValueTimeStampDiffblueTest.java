@@ -5,20 +5,26 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSUpdateState;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDSeedValueTimeStampDiffblueTest {
   /**
    * Test {@link PDSeedValueTimeStamp#PDSeedValueTimeStamp()}.
-   * <p>
-   * Method under test: {@link PDSeedValueTimeStamp#PDSeedValueTimeStamp()}
+   *
+   * <p>Method under test: {@link PDSeedValueTimeStamp#PDSeedValueTimeStamp()}
    */
   @Test
   @DisplayName("Test new PDSeedValueTimeStamp()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDSeedValueTimeStamp.<init>()"})
   void testNewPDSeedValueTimeStamp() {
     // Arrange and Act
     PDSeedValueTimeStamp actualPdSeedValueTimeStamp = new PDSeedValueTimeStamp();
@@ -42,16 +48,20 @@ class PDSeedValueTimeStampDiffblueTest {
 
   /**
    * Test {@link PDSeedValueTimeStamp#PDSeedValueTimeStamp(COSDictionary)}.
+   *
    * <ul>
-   *   <li>When {@link COSDictionary#COSDictionary()}.</li>
-   *   <li>Then return URL is {@code null}.</li>
+   *   <li>When {@link COSDictionary#COSDictionary()}.
+   *   <li>Then return URL is {@code null}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link PDSeedValueTimeStamp#PDSeedValueTimeStamp(COSDictionary)}
+   *
+   * <p>Method under test: {@link PDSeedValueTimeStamp#PDSeedValueTimeStamp(COSDictionary)}
    */
   @Test
-  @DisplayName("Test new PDSeedValueTimeStamp(COSDictionary); when COSDictionary(); then return URL is 'null'")
+  @DisplayName(
+      "Test new PDSeedValueTimeStamp(COSDictionary); when COSDictionary(); then return URL is 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDSeedValueTimeStamp.<init>(COSDictionary)"})
   void testNewPDSeedValueTimeStamp_whenCOSDictionary_thenReturnUrlIsNull() {
     // Arrange
     COSDictionary dict = new COSDictionary();
@@ -68,14 +78,17 @@ class PDSeedValueTimeStampDiffblueTest {
 
   /**
    * Test {@link PDSeedValueTimeStamp#getCOSObject()}.
-   * <p>
-   * Method under test: {@link PDSeedValueTimeStamp#getCOSObject()}
+   *
+   * <p>Method under test: {@link PDSeedValueTimeStamp#getCOSObject()}
    */
   @Test
   @DisplayName("Test getCOSObject()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"COSDictionary PDSeedValueTimeStamp.getCOSObject()"})
   void testGetCOSObject() {
     // Arrange and Act
-    COSDictionary actualCOSObject = (new PDSeedValueTimeStamp()).getCOSObject();
+    COSDictionary actualCOSObject = new PDSeedValueTimeStamp().getCOSObject();
 
     // Assert
     COSUpdateState updateState = actualCOSObject.getUpdateState();
@@ -93,16 +106,20 @@ class PDSeedValueTimeStampDiffblueTest {
 
   /**
    * Test {@link PDSeedValueTimeStamp#getURL()}.
+   *
    * <ul>
-   *   <li>Given {@link PDSeedValueTimeStamp#PDSeedValueTimeStamp()} URL is empty
-   * string.</li>
-   *   <li>Then return empty string.</li>
+   *   <li>Given {@link PDSeedValueTimeStamp#PDSeedValueTimeStamp()} URL is empty string.
+   *   <li>Then return empty string.
    * </ul>
-   * <p>
-   * Method under test: {@link PDSeedValueTimeStamp#getURL()}
+   *
+   * <p>Method under test: {@link PDSeedValueTimeStamp#getURL()}
    */
   @Test
-  @DisplayName("Test getURL(); given PDSeedValueTimeStamp() URL is empty string; then return empty string")
+  @DisplayName(
+      "Test getURL(); given PDSeedValueTimeStamp() URL is empty string; then return empty string")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PDSeedValueTimeStamp.getURL()"})
   void testGetURL_givenPDSeedValueTimeStampUrlIsEmptyString_thenReturnEmptyString() {
     // Arrange
     PDSeedValueTimeStamp pdSeedValueTimeStamp = new PDSeedValueTimeStamp();
@@ -114,30 +131,38 @@ class PDSeedValueTimeStampDiffblueTest {
 
   /**
    * Test {@link PDSeedValueTimeStamp#getURL()}.
+   *
    * <ul>
-   *   <li>Given {@link PDSeedValueTimeStamp#PDSeedValueTimeStamp()}.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Given {@link PDSeedValueTimeStamp#PDSeedValueTimeStamp()}.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDSeedValueTimeStamp#getURL()}
+   *
+   * <p>Method under test: {@link PDSeedValueTimeStamp#getURL()}
    */
   @Test
   @DisplayName("Test getURL(); given PDSeedValueTimeStamp(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PDSeedValueTimeStamp.getURL()"})
   void testGetURL_givenPDSeedValueTimeStamp_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new PDSeedValueTimeStamp()).getURL());
+    assertNull(new PDSeedValueTimeStamp().getURL());
   }
 
   /**
    * Test {@link PDSeedValueTimeStamp#getURL()}.
+   *
    * <ul>
-   *   <li>Then return {@code https://example.org/example}.</li>
+   *   <li>Then return {@code https://example.org/example}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDSeedValueTimeStamp#getURL()}
+   *
+   * <p>Method under test: {@link PDSeedValueTimeStamp#getURL()}
    */
   @Test
   @DisplayName("Test getURL(); then return 'https://example.org/example'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PDSeedValueTimeStamp.getURL()"})
   void testGetURL_thenReturnHttpsExampleOrgExample() {
     // Arrange
     PDSeedValueTimeStamp pdSeedValueTimeStamp = new PDSeedValueTimeStamp();
@@ -149,12 +174,21 @@ class PDSeedValueTimeStampDiffblueTest {
 
   /**
    * Test {@link PDSeedValueTimeStamp#setURL(String)}.
-   * <p>
-   * Method under test: {@link PDSeedValueTimeStamp#setURL(String)}
+   *
+   * <ul>
+   *   <li>Then {@link PDSeedValueTimeStamp#PDSeedValueTimeStamp()} URL is {@code
+   *       https://example.org/example}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDSeedValueTimeStamp#setURL(String)}
    */
   @Test
-  @DisplayName("Test setURL(String)")
-  void testSetURL() {
+  @DisplayName(
+      "Test setURL(String); then PDSeedValueTimeStamp() URL is 'https://example.org/example'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDSeedValueTimeStamp.setURL(String)"})
+  void testSetURL_thenPDSeedValueTimeStampUrlIsHttpsExampleOrgExample() {
     // Arrange
     PDSeedValueTimeStamp pdSeedValueTimeStamp = new PDSeedValueTimeStamp();
 
@@ -169,51 +203,68 @@ class PDSeedValueTimeStampDiffblueTest {
   }
 
   /**
-   * Test {@link PDSeedValueTimeStamp#isTimestampRequired()}.
+   * Test {@link PDSeedValueTimeStamp#setURL(String)}.
+   *
    * <ul>
-   *   <li>Given {@link PDSeedValueTimeStamp#PDSeedValueTimeStamp()} URL is
-   * {@code https://example.org/example}.</li>
+   *   <li>When {@code null}.
+   *   <li>Then {@link PDSeedValueTimeStamp#PDSeedValueTimeStamp()} COSObject size is zero.
    * </ul>
-   * <p>
-   * Method under test: {@link PDSeedValueTimeStamp#isTimestampRequired()}
+   *
+   * <p>Method under test: {@link PDSeedValueTimeStamp#setURL(String)}
    */
   @Test
-  @DisplayName("Test isTimestampRequired(); given PDSeedValueTimeStamp() URL is 'https://example.org/example'")
-  void testIsTimestampRequired_givenPDSeedValueTimeStampUrlIsHttpsExampleOrgExample() {
+  @DisplayName(
+      "Test setURL(String); when 'null'; then PDSeedValueTimeStamp() COSObject size is zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDSeedValueTimeStamp.setURL(String)"})
+  void testSetURL_whenNull_thenPDSeedValueTimeStampCOSObjectSizeIsZero() {
     // Arrange
     PDSeedValueTimeStamp pdSeedValueTimeStamp = new PDSeedValueTimeStamp();
-    pdSeedValueTimeStamp.setURL("https://example.org/example");
 
-    // Act and Assert
-    assertFalse(pdSeedValueTimeStamp.isTimestampRequired());
+    // Act
+    pdSeedValueTimeStamp.setURL(null);
+
+    // Assert that nothing has changed
+    COSDictionary cOSObject = pdSeedValueTimeStamp.getCOSObject();
+    assertEquals(0, cOSObject.size());
+    assertTrue(cOSObject.getValues().isEmpty());
   }
 
   /**
    * Test {@link PDSeedValueTimeStamp#isTimestampRequired()}.
+   *
    * <ul>
-   *   <li>Given {@link PDSeedValueTimeStamp#PDSeedValueTimeStamp()}.</li>
-   *   <li>Then return {@code false}.</li>
+   *   <li>Given {@link PDSeedValueTimeStamp#PDSeedValueTimeStamp()}.
+   *   <li>Then return {@code false}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDSeedValueTimeStamp#isTimestampRequired()}
+   *
+   * <p>Method under test: {@link PDSeedValueTimeStamp#isTimestampRequired()}
    */
   @Test
   @DisplayName("Test isTimestampRequired(); given PDSeedValueTimeStamp(); then return 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean PDSeedValueTimeStamp.isTimestampRequired()"})
   void testIsTimestampRequired_givenPDSeedValueTimeStamp_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse((new PDSeedValueTimeStamp()).isTimestampRequired());
+    assertFalse(new PDSeedValueTimeStamp().isTimestampRequired());
   }
 
   /**
    * Test {@link PDSeedValueTimeStamp#isTimestampRequired()}.
+   *
    * <ul>
-   *   <li>Then return {@code true}.</li>
+   *   <li>Then return {@code true}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDSeedValueTimeStamp#isTimestampRequired()}
+   *
+   * <p>Method under test: {@link PDSeedValueTimeStamp#isTimestampRequired()}
    */
   @Test
   @DisplayName("Test isTimestampRequired(); then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean PDSeedValueTimeStamp.isTimestampRequired()"})
   void testIsTimestampRequired_thenReturnTrue() {
     // Arrange
     PDSeedValueTimeStamp pdSeedValueTimeStamp = new PDSeedValueTimeStamp();
@@ -225,16 +276,20 @@ class PDSeedValueTimeStampDiffblueTest {
 
   /**
    * Test {@link PDSeedValueTimeStamp#setTimestampRequired(boolean)}.
+   *
    * <ul>
-   *   <li>When {@code false}.</li>
-   *   <li>Then not {@link PDSeedValueTimeStamp#PDSeedValueTimeStamp()}
-   * TimestampRequired.</li>
+   *   <li>When {@code false}.
+   *   <li>Then not {@link PDSeedValueTimeStamp#PDSeedValueTimeStamp()} TimestampRequired.
    * </ul>
-   * <p>
-   * Method under test: {@link PDSeedValueTimeStamp#setTimestampRequired(boolean)}
+   *
+   * <p>Method under test: {@link PDSeedValueTimeStamp#setTimestampRequired(boolean)}
    */
   @Test
-  @DisplayName("Test setTimestampRequired(boolean); when 'false'; then not PDSeedValueTimeStamp() TimestampRequired")
+  @DisplayName(
+      "Test setTimestampRequired(boolean); when 'false'; then not PDSeedValueTimeStamp() TimestampRequired")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDSeedValueTimeStamp.setTimestampRequired(boolean)"})
   void testSetTimestampRequired_whenFalse_thenNotPDSeedValueTimeStampTimestampRequired() {
     // Arrange
     PDSeedValueTimeStamp pdSeedValueTimeStamp = new PDSeedValueTimeStamp();
@@ -251,16 +306,20 @@ class PDSeedValueTimeStampDiffblueTest {
 
   /**
    * Test {@link PDSeedValueTimeStamp#setTimestampRequired(boolean)}.
+   *
    * <ul>
-   *   <li>When {@code true}.</li>
-   *   <li>Then {@link PDSeedValueTimeStamp#PDSeedValueTimeStamp()}
-   * TimestampRequired.</li>
+   *   <li>When {@code true}.
+   *   <li>Then {@link PDSeedValueTimeStamp#PDSeedValueTimeStamp()} TimestampRequired.
    * </ul>
-   * <p>
-   * Method under test: {@link PDSeedValueTimeStamp#setTimestampRequired(boolean)}
+   *
+   * <p>Method under test: {@link PDSeedValueTimeStamp#setTimestampRequired(boolean)}
    */
   @Test
-  @DisplayName("Test setTimestampRequired(boolean); when 'true'; then PDSeedValueTimeStamp() TimestampRequired")
+  @DisplayName(
+      "Test setTimestampRequired(boolean); when 'true'; then PDSeedValueTimeStamp() TimestampRequired")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDSeedValueTimeStamp.setTimestampRequired(boolean)"})
   void testSetTimestampRequired_whenTrue_thenPDSeedValueTimeStampTimestampRequired() {
     // Arrange
     PDSeedValueTimeStamp pdSeedValueTimeStamp = new PDSeedValueTimeStamp();

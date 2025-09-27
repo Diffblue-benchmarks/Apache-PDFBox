@@ -4,43 +4,61 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.ArgumentMatchers.isNull;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.Color;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
+import javax.imageio.metadata.IIOMetadataNode;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSFloat;
 import org.apache.pdfbox.cos.COSIncrement;
-import org.apache.pdfbox.cos.COSUpdateState;
+import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.w3c.dom.Element;
 
 class FDFAnnotationSquareDiffblueTest {
   /**
    * Test {@link FDFAnnotationSquare#FDFAnnotationSquare(COSDictionary)}.
-   * <p>
-   * Method under test:
-   * {@link FDFAnnotationSquare#FDFAnnotationSquare(COSDictionary)}
+   *
+   * <p>Method under test: {@link FDFAnnotationSquare#FDFAnnotationSquare(COSDictionary)}
    */
   @Test
   @DisplayName("Test new FDFAnnotationSquare(COSDictionary)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFAnnotationSquare.<init>(COSDictionary)"})
   void testNewFDFAnnotationSquare() {
     // Arrange
     COSDictionary a = new COSDictionary();
 
     // Act and Assert
-    assertSame(a, (new FDFAnnotationSquare(a)).getCOSObject());
+    assertSame(a, new FDFAnnotationSquare(a).getCOSObject());
   }
 
   /**
    * Test {@link FDFAnnotationSquare#FDFAnnotationSquare()}.
-   * <p>
-   * Method under test: {@link FDFAnnotationSquare#FDFAnnotationSquare()}
+   *
+   * <p>Method under test: {@link FDFAnnotationSquare#FDFAnnotationSquare()}
    */
   @Test
   @DisplayName("Test new FDFAnnotationSquare()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFAnnotationSquare.<init>()"})
   void testNewFDFAnnotationSquare2() throws IOException {
     // Arrange and Act
     FDFAnnotationSquare actualFdfAnnotationSquare = new FDFAnnotationSquare();
@@ -57,22 +75,11 @@ class FDFAnnotationSquareDiffblueTest {
     assertNull(actualFdfAnnotationSquare.getSubject());
     assertNull(actualFdfAnnotationSquare.getTitle());
     assertNull(actualFdfAnnotationSquare.getCreationDate());
-    COSDictionary cOSObject = actualFdfAnnotationSquare.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
-    assertNull(cOSObject.getKey());
     assertNull(actualFdfAnnotationSquare.getRectangle());
     assertNull(actualFdfAnnotationSquare.getFringe());
     assertNull(actualFdfAnnotationSquare.getBorderEffect());
     assertNull(actualFdfAnnotationSquare.getBorderStyle());
     assertEquals(1.0f, actualFdfAnnotationSquare.getOpacity());
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
     assertFalse(actualFdfAnnotationSquare.isHidden());
     assertFalse(actualFdfAnnotationSquare.isInvisible());
     assertFalse(actualFdfAnnotationSquare.isLocked());
@@ -83,74 +90,132 @@ class FDFAnnotationSquareDiffblueTest {
     assertFalse(actualFdfAnnotationSquare.isPrinted());
     assertFalse(actualFdfAnnotationSquare.isReadOnly());
     assertFalse(actualFdfAnnotationSquare.isToggleNoView());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
   }
 
   /**
-   * Test {@link FDFAnnotationSquare#getInteriorColor()}.
+   * Test {@link FDFAnnotationSquare#FDFAnnotationSquare(Element)}.
+   *
    * <ul>
-   *   <li>Given {@link FDFAnnotationSquare#FDFAnnotationSquare(COSDictionary)} with
-   * a is {@link COSDictionary#COSDictionary()}.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>When {@link IIOMetadataNode#IIOMetadataNode()}.
+   *   <li>Then throw {@link IOException}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFAnnotationSquare#getInteriorColor()}
+   *
+   * <p>Method under test: {@link FDFAnnotationSquare#FDFAnnotationSquare(Element)}
    */
   @Test
-  @DisplayName("Test getInteriorColor(); given FDFAnnotationSquare(COSDictionary) with a is COSDictionary(); then return 'null'")
-  void testGetInteriorColor_givenFDFAnnotationSquareWithAIsCOSDictionary_thenReturnNull() {
+  @DisplayName(
+      "Test new FDFAnnotationSquare(Element); when IIOMetadataNode(); then throw IOException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFAnnotationSquare.<init>(Element)"})
+  void testNewFDFAnnotationSquare_whenIIOMetadataNode_thenThrowIOException() throws IOException {
     // Arrange, Act and Assert
-    assertNull((new FDFAnnotationSquare(new COSDictionary())).getInteriorColor());
+    assertThrows(IOException.class, () -> new FDFAnnotationSquare(new IIOMetadataNode()));
+  }
+
+  /**
+   * Test {@link FDFAnnotationSquare#setInteriorColor(Color)}.
+   *
+   * <ul>
+   *   <li>Given {@link COSDictionary} {@link COSDictionary#setItem(COSName, COSBase)} does nothing.
+   *   <li>Then calls {@link COSDictionary#setItem(COSName, COSBase)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link FDFAnnotationSquare#setInteriorColor(Color)}
+   */
+  @Test
+  @DisplayName(
+      "Test setInteriorColor(Color); given COSDictionary setItem(COSName, COSBase) does nothing; then calls setItem(COSName, COSBase)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFAnnotationSquare.setInteriorColor(Color)"})
+  void testSetInteriorColor_givenCOSDictionarySetItemDoesNothing_thenCallsSetItem() {
+    // Arrange
+    COSDictionary a = mock(COSDictionary.class);
+    doNothing().when(a).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
+
+    // Act
+    new FDFAnnotationSquare(a).setInteriorColor(null);
+
+    // Assert
+    verify(a).setItem(isA(COSName.class), (COSBase) isNull());
   }
 
   /**
    * Test {@link FDFAnnotationSquare#getInteriorColor()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFAnnotationSquare#FDFAnnotationSquare()}.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Given {@link FDFAnnotationSquare#FDFAnnotationSquare()}.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFAnnotationSquare#getInteriorColor()}
+   *
+   * <p>Method under test: {@link FDFAnnotationSquare#getInteriorColor()}
    */
   @Test
   @DisplayName("Test getInteriorColor(); given FDFAnnotationSquare(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Color FDFAnnotationSquare.getInteriorColor()"})
   void testGetInteriorColor_givenFDFAnnotationSquare_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new FDFAnnotationSquare()).getInteriorColor());
-  }
-
-  /**
-   * Test {@link FDFAnnotationSquare#getInteriorColor()}.
-   * <ul>
-   *   <li>Then return decode {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFAnnotationSquare#getInteriorColor()}
-   */
-  @Test
-  @DisplayName("Test getInteriorColor(); then return decode '42'")
-  void testGetInteriorColor_thenReturnDecode42() throws NumberFormatException {
-    // Arrange
-    FDFAnnotationSquare fdfAnnotationSquare = new FDFAnnotationSquare();
-    Color color = Color.decode("42");
-    fdfAnnotationSquare.setInteriorColor(color);
-
-    // Act and Assert
-    assertEquals(color, fdfAnnotationSquare.getInteriorColor());
+    assertNull(new FDFAnnotationSquare().getInteriorColor());
   }
 
   /**
    * Test {@link FDFAnnotationSquare#setFringe(PDRectangle)}.
+   *
    * <ul>
-   *   <li>When {@link PDRectangle#A0}.</li>
-   *   <li>Then {@link FDFAnnotationSquare#FDFAnnotationSquare()} Fringe UpperRightX
-   * is {@code 2383.937}.</li>
+   *   <li>Then {@link FDFAnnotationSquare#FDFAnnotationSquare()} COSObject toIncrement Objects size
+   *       is one.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFAnnotationSquare#setFringe(PDRectangle)}
+   *
+   * <p>Method under test: {@link FDFAnnotationSquare#setFringe(PDRectangle)}
    */
   @Test
-  @DisplayName("Test setFringe(PDRectangle); when A0; then FDFAnnotationSquare() Fringe UpperRightX is '2383.937'")
+  @DisplayName(
+      "Test setFringe(PDRectangle); then FDFAnnotationSquare() COSObject toIncrement Objects size is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFAnnotationSquare.setFringe(PDRectangle)"})
+  void testSetFringe_thenFDFAnnotationSquareCOSObjectToIncrementObjectsSizeIsOne() {
+    // Arrange
+    FDFAnnotationSquare fdfAnnotationSquare = new FDFAnnotationSquare();
+
+    // Act
+    fdfAnnotationSquare.setFringe(PDRectangle.LETTER);
+
+    // Assert
+    COSDictionary cOSObject = fdfAnnotationSquare.getCOSObject();
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertEquals(1, toIncrementResult.getObjects().size());
+    Iterator<COSBase> iteratorResult = toIncrementResult.iterator();
+    COSBase actualNextResult = iteratorResult.next();
+    assertFalse(iteratorResult.hasNext());
+    assertSame(cOSObject, actualNextResult);
+    PDRectangle fringe = fdfAnnotationSquare.getFringe();
+    assertEquals(792.0f, fringe.getHeight());
+    assertEquals(612.0f, fringe.getUpperRightX());
+    assertEquals(792.0f, fringe.getUpperRightY());
+    assertEquals(612.0f, fringe.getWidth());
+  }
+
+  /**
+   * Test {@link FDFAnnotationSquare#setFringe(PDRectangle)}.
+   *
+   * <ul>
+   *   <li>When {@link PDRectangle#A0}.
+   *   <li>Then {@link FDFAnnotationSquare#FDFAnnotationSquare()} Fringe UpperRightX is {@code
+   *       2383.937}.
+   * </ul>
+   *
+   * <p>Method under test: {@link FDFAnnotationSquare#setFringe(PDRectangle)}
+   */
+  @Test
+  @DisplayName(
+      "Test setFringe(PDRectangle); when A0; then FDFAnnotationSquare() Fringe UpperRightX is '2383.937'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFAnnotationSquare.setFringe(PDRectangle)"})
   void testSetFringe_whenA0_thenFDFAnnotationSquareFringeUpperRightXIs2383937() {
     // Arrange
     FDFAnnotationSquare fdfAnnotationSquare = new FDFAnnotationSquare();
@@ -168,16 +233,21 @@ class FDFAnnotationSquareDiffblueTest {
 
   /**
    * Test {@link FDFAnnotationSquare#setFringe(PDRectangle)}.
+   *
    * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link FDFAnnotationSquare#FDFAnnotationSquare()} COSObject
-   * toIncrement Objects Empty.</li>
+   *   <li>When {@code null}.
+   *   <li>Then {@link FDFAnnotationSquare#FDFAnnotationSquare()} COSObject toIncrement Objects
+   *       Empty.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFAnnotationSquare#setFringe(PDRectangle)}
+   *
+   * <p>Method under test: {@link FDFAnnotationSquare#setFringe(PDRectangle)}
    */
   @Test
-  @DisplayName("Test setFringe(PDRectangle); when 'null'; then FDFAnnotationSquare() COSObject toIncrement Objects Empty")
+  @DisplayName(
+      "Test setFringe(PDRectangle); when 'null'; then FDFAnnotationSquare() COSObject toIncrement Objects Empty")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFAnnotationSquare.setFringe(PDRectangle)"})
   void testSetFringe_whenNull_thenFDFAnnotationSquareCOSObjectToIncrementObjectsEmpty() {
     // Arrange
     FDFAnnotationSquare fdfAnnotationSquare = new FDFAnnotationSquare();
@@ -185,7 +255,7 @@ class FDFAnnotationSquareDiffblueTest {
     // Act
     fdfAnnotationSquare.setFringe(null);
 
-    // Assert
+    // Assert that nothing has changed
     COSIncrement toIncrementResult = fdfAnnotationSquare.getCOSObject().toIncrement();
     assertFalse(toIncrementResult.iterator().hasNext());
     assertTrue(toIncrementResult.getObjects().isEmpty());
@@ -193,47 +263,38 @@ class FDFAnnotationSquareDiffblueTest {
 
   /**
    * Test {@link FDFAnnotationSquare#getFringe()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFAnnotationSquare#FDFAnnotationSquare(COSDictionary)} with
-   * a is {@link COSDictionary#COSDictionary()}.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Given {@link FDFAnnotationSquare#FDFAnnotationSquare()}.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFAnnotationSquare#getFringe()}
-   */
-  @Test
-  @DisplayName("Test getFringe(); given FDFAnnotationSquare(COSDictionary) with a is COSDictionary(); then return 'null'")
-  void testGetFringe_givenFDFAnnotationSquareWithAIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new FDFAnnotationSquare(new COSDictionary())).getFringe());
-  }
-
-  /**
-   * Test {@link FDFAnnotationSquare#getFringe()}.
-   * <ul>
-   *   <li>Given {@link FDFAnnotationSquare#FDFAnnotationSquare()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFAnnotationSquare#getFringe()}
+   *
+   * <p>Method under test: {@link FDFAnnotationSquare#getFringe()}
    */
   @Test
   @DisplayName("Test getFringe(); given FDFAnnotationSquare(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDRectangle FDFAnnotationSquare.getFringe()"})
   void testGetFringe_givenFDFAnnotationSquare_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new FDFAnnotationSquare()).getFringe());
+    assertNull(new FDFAnnotationSquare().getFringe());
   }
 
   /**
    * Test {@link FDFAnnotationSquare#getFringe()}.
+   *
    * <ul>
-   *   <li>Then return COSArray toList third Key is {@code null}.</li>
+   *   <li>Then return COSArray toList third Key is {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFAnnotationSquare#getFringe()}
+   *
+   * <p>Method under test: {@link FDFAnnotationSquare#getFringe()}
    */
   @Test
   @DisplayName("Test getFringe(); then return COSArray toList third Key is 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDRectangle FDFAnnotationSquare.getFringe()"})
   void testGetFringe_thenReturnCOSArrayToListThirdKeyIsNull() {
     // Arrange
     FDFAnnotationSquare fdfAnnotationSquare = new FDFAnnotationSquare();
@@ -263,18 +324,24 @@ class FDFAnnotationSquareDiffblueTest {
 
   /**
    * Test {@link FDFAnnotationSquare#getFringe()}.
+   *
    * <ul>
-   *   <li>Then return Height is zero.</li>
+   *   <li>Then return Height is zero.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFAnnotationSquare#getFringe()}
+   *
+   * <p>Method under test: {@link FDFAnnotationSquare#getFringe()}
    */
   @Test
   @DisplayName("Test getFringe(); then return Height is zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDRectangle FDFAnnotationSquare.getFringe()"})
   void testGetFringe_thenReturnHeightIsZero() {
     // Arrange
     FDFAnnotationSquare fdfAnnotationSquare = new FDFAnnotationSquare();
-    fdfAnnotationSquare.setFringe(new PDRectangle(2.14748365E9f, 2.14748365E9f, 2.14748365E9f, 2.14748365E9f));
+    PDRectangle fringe =
+        new PDRectangle(2.14748365E9f, 2.14748365E9f, 2.14748365E9f, 2.14748365E9f);
+    fdfAnnotationSquare.setFringe(fringe);
 
     // Act
     PDRectangle actualFringe = fdfAnnotationSquare.getFringe();

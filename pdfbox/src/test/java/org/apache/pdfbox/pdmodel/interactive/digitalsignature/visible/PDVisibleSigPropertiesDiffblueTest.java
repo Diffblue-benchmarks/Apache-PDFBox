@@ -1,19 +1,24 @@
 package org.apache.pdfbox.pdmodel.interactive.digitalsignature.visible;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDVisibleSigPropertiesDiffblueTest {
   /**
    * Test getters and setters.
-   * <p>
-   * Methods under test:
+   *
+   * <p>Methods under test:
+   *
    * <ul>
    *   <li>default or parameterless constructor of {@link PDVisibleSigProperties}
    *   <li>{@link PDVisibleSigProperties#page(int)}
@@ -35,19 +40,46 @@ class PDVisibleSigPropertiesDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void PDVisibleSigProperties.<init>()",
+    "int PDVisibleSigProperties.getPage()",
+    "PDVisibleSignDesigner PDVisibleSigProperties.getPdVisibleSignature()",
+    "int PDVisibleSigProperties.getPreferredSize()",
+    "String PDVisibleSigProperties.getSignatureReason()",
+    "String PDVisibleSigProperties.getSignerLocation()",
+    "String PDVisibleSigProperties.getSignerName()",
+    "InputStream PDVisibleSigProperties.getVisibleSignature()",
+    "boolean PDVisibleSigProperties.isVisualSignEnabled()",
+    "PDVisibleSigProperties PDVisibleSigProperties.page(int)",
+    "PDVisibleSigProperties PDVisibleSigProperties.preferredSize(int)",
+    "PDVisibleSigProperties PDVisibleSigProperties.setPdVisibleSignature(PDVisibleSignDesigner)",
+    "void PDVisibleSigProperties.setVisibleSignature(InputStream)",
+    "PDVisibleSigProperties PDVisibleSigProperties.signatureReason(String)",
+    "PDVisibleSigProperties PDVisibleSigProperties.signerLocation(String)",
+    "PDVisibleSigProperties PDVisibleSigProperties.signerName(String)",
+    "PDVisibleSigProperties PDVisibleSigProperties.visualSignEnabled(boolean)"
+  })
   void testGettersAndSetters() throws IOException {
     // Arrange and Act
     PDVisibleSigProperties actualPdVisibleSigProperties = new PDVisibleSigProperties();
     PDVisibleSigProperties actualPageResult = actualPdVisibleSigProperties.page(1);
-    PDVisibleSigProperties actualPreferredSizeResult = actualPdVisibleSigProperties.preferredSize(3);
+    PDVisibleSigProperties actualPreferredSizeResult =
+        actualPdVisibleSigProperties.preferredSize(3);
     ByteArrayInputStream visibleSignature = new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"));
     actualPdVisibleSigProperties.setVisibleSignature(visibleSignature);
-    PDVisibleSigProperties actualSignatureReasonResult = actualPdVisibleSigProperties.signatureReason("Just cause");
-    PDVisibleSigProperties actualSignerLocationResult = actualPdVisibleSigProperties.signerLocation("Signer Location");
-    PDVisibleSigProperties actualSignerNameResult = actualPdVisibleSigProperties.signerName("Signer Name");
-    PDVisibleSigProperties actualVisualSignEnabledResult = actualPdVisibleSigProperties.visualSignEnabled(true);
+    PDVisibleSigProperties actualSignatureReasonResult =
+        actualPdVisibleSigProperties.signatureReason("Just cause");
+    PDVisibleSigProperties actualSignerLocationResult =
+        actualPdVisibleSigProperties.signerLocation("Signer Location");
+    PDVisibleSigProperties actualSignerNameResult =
+        actualPdVisibleSigProperties.signerName("Signer Name");
+    PDVisibleSigProperties actualVisualSignEnabledResult =
+        actualPdVisibleSigProperties.visualSignEnabled(true);
     int actualPage = actualPdVisibleSigProperties.getPage();
-    actualPdVisibleSigProperties.getPdVisibleSignature();
+    PDVisibleSignDesigner actualPdVisibleSignature =
+        actualPdVisibleSigProperties.getPdVisibleSignature();
     int actualPreferredSize = actualPdVisibleSigProperties.getPreferredSize();
     String actualSignatureReason = actualPdVisibleSigProperties.getSignatureReason();
     String actualSignerLocation = actualPdVisibleSigProperties.getSignerLocation();
@@ -55,10 +87,11 @@ class PDVisibleSigPropertiesDiffblueTest {
     InputStream actualVisibleSignature = actualPdVisibleSigProperties.getVisibleSignature();
     boolean actualIsVisualSignEnabledResult = actualPdVisibleSigProperties.isVisualSignEnabled();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Just cause", actualSignatureReason);
     assertEquals("Signer Location", actualSignerLocation);
     assertEquals("Signer Name", actualSignerName);
+    assertNull(actualPdVisibleSignature);
     assertEquals(1, actualPage);
     assertEquals(3, actualPreferredSize);
     assertEquals(8, actualVisibleSignature.read(new byte[8]));

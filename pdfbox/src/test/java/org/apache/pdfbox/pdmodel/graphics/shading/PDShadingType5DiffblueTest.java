@@ -3,6 +3,8 @@ package org.apache.pdfbox.pdmodel.graphics.shading;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.Paint;
 import java.awt.geom.AffineTransform;
 import java.io.IOException;
@@ -10,13 +12,15 @@ import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.util.Matrix;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDShadingType5DiffblueTest {
   /**
    * Test getters and setters.
-   * <p>
-   * Methods under test:
+   *
+   * <p>Methods under test:
+   *
    * <ul>
    *   <li>{@link PDShadingType5#PDShadingType5(COSDictionary)}
    *   <li>{@link PDShadingType5#getShadingType()}
@@ -24,6 +28,12 @@ class PDShadingType5DiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void PDShadingType5.<init>(COSDictionary)",
+    "int PDShadingType5.getShadingType()"
+  })
   void testGettersAndSetters() {
     // Arrange
     COSDictionary shadingDictionary = new COSDictionary();
@@ -38,43 +48,33 @@ class PDShadingType5DiffblueTest {
 
   /**
    * Test {@link PDShadingType5#getVerticesPerRow()}.
+   *
    * <ul>
-   *   <li>Given {@link PDShadingType5#PDShadingType5(COSDictionary)} with
-   * shadingDictionary is {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then return minus one.
    * </ul>
-   * <p>
-   * Method under test: {@link PDShadingType5#getVerticesPerRow()}
+   *
+   * <p>Method under test: {@link PDShadingType5#getVerticesPerRow()}
    */
   @Test
-  @DisplayName("Test getVerticesPerRow(); given PDShadingType5(COSDictionary) with shadingDictionary is COSDictionary()")
-  void testGetVerticesPerRow_givenPDShadingType5WithShadingDictionaryIsCOSDictionary() {
+  @DisplayName("Test getVerticesPerRow(); then return minus one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"int PDShadingType5.getVerticesPerRow()"})
+  void testGetVerticesPerRow_thenReturnMinusOne() {
     // Arrange, Act and Assert
-    assertEquals(-1, (new PDShadingType5(new COSDictionary())).getVerticesPerRow());
-  }
-
-  /**
-   * Test {@link PDShadingType5#getVerticesPerRow()}.
-   * <ul>
-   *   <li>Given {@link PDShadingType5#PDShadingType5(COSDictionary)} with
-   * shadingDictionary is {@link COSStream#COSStream()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDShadingType5#getVerticesPerRow()}
-   */
-  @Test
-  @DisplayName("Test getVerticesPerRow(); given PDShadingType5(COSDictionary) with shadingDictionary is COSStream()")
-  void testGetVerticesPerRow_givenPDShadingType5WithShadingDictionaryIsCOSStream() {
-    // Arrange, Act and Assert
-    assertEquals(-1, (new PDShadingType5(new COSStream())).getVerticesPerRow());
+    assertEquals(-1, new PDShadingType5(new COSDictionary()).getVerticesPerRow());
   }
 
   /**
    * Test {@link PDShadingType5#setVerticesPerRow(int)}.
-   * <p>
-   * Method under test: {@link PDShadingType5#setVerticesPerRow(int)}
+   *
+   * <p>Method under test: {@link PDShadingType5#setVerticesPerRow(int)}
    */
   @Test
   @DisplayName("Test setVerticesPerRow(int)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDShadingType5.setVerticesPerRow(int)"})
   void testSetVerticesPerRow() {
     // Arrange
     PDShadingType5 pdShadingType5 = new PDShadingType5(new COSDictionary());
@@ -91,11 +91,14 @@ class PDShadingType5DiffblueTest {
 
   /**
    * Test {@link PDShadingType5#setVerticesPerRow(int)}.
-   * <p>
-   * Method under test: {@link PDShadingType5#setVerticesPerRow(int)}
+   *
+   * <p>Method under test: {@link PDShadingType5#setVerticesPerRow(int)}
    */
   @Test
   @DisplayName("Test setVerticesPerRow(int)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDShadingType5.setVerticesPerRow(int)"})
   void testSetVerticesPerRow2() {
     // Arrange
     PDShadingType5 pdShadingType5 = new PDShadingType5(new COSDictionary());
@@ -112,11 +115,14 @@ class PDShadingType5DiffblueTest {
 
   /**
    * Test {@link PDShadingType5#toPaint(Matrix)}.
-   * <p>
-   * Method under test: {@link PDShadingType5#toPaint(Matrix)}
+   *
+   * <p>Method under test: {@link PDShadingType5#toPaint(Matrix)}
    */
   @Test
   @DisplayName("Test toPaint(Matrix)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Paint PDShadingType5.toPaint(Matrix)"})
   void testToPaint() {
     // Arrange
     PDShadingType5 pdShadingType5 = new PDShadingType5(new COSDictionary());
@@ -134,11 +140,14 @@ class PDShadingType5DiffblueTest {
 
   /**
    * Test {@link PDShadingType5#toPaint(Matrix)}.
-   * <p>
-   * Method under test: {@link PDShadingType5#toPaint(Matrix)}
+   *
+   * <p>Method under test: {@link PDShadingType5#toPaint(Matrix)}
    */
   @Test
   @DisplayName("Test toPaint(Matrix)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Paint PDShadingType5.toPaint(Matrix)"})
   void testToPaint2() {
     // Arrange
     PDShadingType5 pdShadingType5 = new PDShadingType5(new COSDictionary(new COSDictionary()));
@@ -156,17 +165,22 @@ class PDShadingType5DiffblueTest {
 
   /**
    * Test {@link PDShadingType5#collectTriangles(AffineTransform, Matrix)}.
+   *
    * <ul>
-   *   <li>Given {@link PDShadingType5#PDShadingType5(COSDictionary)} with
-   * shadingDictionary is {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Given {@link PDShadingType5#PDShadingType5(COSDictionary)} with shadingDictionary is
+   *       {@link COSDictionary#COSDictionary()}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link PDShadingType5#collectTriangles(AffineTransform, Matrix)}
+   *
+   * <p>Method under test: {@link PDShadingType5#collectTriangles(AffineTransform, Matrix)}
    */
   @Test
-  @DisplayName("Test collectTriangles(AffineTransform, Matrix); given PDShadingType5(COSDictionary) with shadingDictionary is COSDictionary()")
-  void testCollectTriangles_givenPDShadingType5WithShadingDictionaryIsCOSDictionary() throws IOException {
+  @DisplayName(
+      "Test collectTriangles(AffineTransform, Matrix); given PDShadingType5(COSDictionary) with shadingDictionary is COSDictionary()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.util.List PDShadingType5.collectTriangles(AffineTransform, Matrix)"})
+  void testCollectTriangles_givenPDShadingType5WithShadingDictionaryIsCOSDictionary()
+      throws IOException {
     // Arrange
     PDShadingType5 pdShadingType5 = new PDShadingType5(new COSDictionary());
     AffineTransform xform = new AffineTransform();
@@ -177,17 +191,22 @@ class PDShadingType5DiffblueTest {
 
   /**
    * Test {@link PDShadingType5#collectTriangles(AffineTransform, Matrix)}.
+   *
    * <ul>
-   *   <li>Given {@link PDShadingType5#PDShadingType5(COSDictionary)} with
-   * shadingDictionary is {@link COSStream#COSStream()}.</li>
+   *   <li>Given {@link PDShadingType5#PDShadingType5(COSDictionary)} with shadingDictionary is
+   *       {@link COSStream#COSStream()}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link PDShadingType5#collectTriangles(AffineTransform, Matrix)}
+   *
+   * <p>Method under test: {@link PDShadingType5#collectTriangles(AffineTransform, Matrix)}
    */
   @Test
-  @DisplayName("Test collectTriangles(AffineTransform, Matrix); given PDShadingType5(COSDictionary) with shadingDictionary is COSStream()")
-  void testCollectTriangles_givenPDShadingType5WithShadingDictionaryIsCOSStream() throws IOException {
+  @DisplayName(
+      "Test collectTriangles(AffineTransform, Matrix); given PDShadingType5(COSDictionary) with shadingDictionary is COSStream()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.util.List PDShadingType5.collectTriangles(AffineTransform, Matrix)"})
+  void testCollectTriangles_givenPDShadingType5WithShadingDictionaryIsCOSStream()
+      throws IOException {
     // Arrange
     PDShadingType5 pdShadingType5 = new PDShadingType5(new COSStream());
     AffineTransform xform = new AffineTransform();

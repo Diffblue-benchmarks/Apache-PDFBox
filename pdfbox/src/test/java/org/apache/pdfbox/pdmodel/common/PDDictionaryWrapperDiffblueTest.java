@@ -6,39 +6,47 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSUpdateState;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDDictionaryWrapperDiffblueTest {
   /**
    * Test {@link PDDictionaryWrapper#PDDictionaryWrapper(COSDictionary)}.
-   * <p>
-   * Method under test:
-   * {@link PDDictionaryWrapper#PDDictionaryWrapper(COSDictionary)}
+   *
+   * <p>Method under test: {@link PDDictionaryWrapper#PDDictionaryWrapper(COSDictionary)}
    */
   @Test
   @DisplayName("Test new PDDictionaryWrapper(COSDictionary)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDDictionaryWrapper.<init>(COSDictionary)"})
   void testNewPDDictionaryWrapper() {
     // Arrange
     COSDictionary dictionary = new COSDictionary();
 
     // Act and Assert
-    assertSame(dictionary, (new PDDictionaryWrapper(dictionary)).getCOSObject());
+    assertSame(dictionary, new PDDictionaryWrapper(dictionary).getCOSObject());
   }
 
   /**
    * Test {@link PDDictionaryWrapper#PDDictionaryWrapper()}.
-   * <p>
-   * Method under test: {@link PDDictionaryWrapper#PDDictionaryWrapper()}
+   *
+   * <p>Method under test: {@link PDDictionaryWrapper#PDDictionaryWrapper()}
    */
   @Test
   @DisplayName("Test new PDDictionaryWrapper()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDDictionaryWrapper.<init>()"})
   void testNewPDDictionaryWrapper2() {
     // Arrange and Act
-    COSDictionary actualCOSObject = (new PDDictionaryWrapper()).getCOSObject();
+    COSDictionary actualCOSObject = new PDDictionaryWrapper().getCOSObject();
 
     // Assert
     COSUpdateState updateState = actualCOSObject.getUpdateState();
@@ -56,14 +64,17 @@ class PDDictionaryWrapperDiffblueTest {
 
   /**
    * Test {@link PDDictionaryWrapper#getCOSObject()}.
-   * <p>
-   * Method under test: {@link PDDictionaryWrapper#getCOSObject()}
+   *
+   * <p>Method under test: {@link PDDictionaryWrapper#getCOSObject()}
    */
   @Test
   @DisplayName("Test getCOSObject()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"COSDictionary PDDictionaryWrapper.getCOSObject()"})
   void testGetCOSObject() {
     // Arrange and Act
-    COSDictionary actualCOSObject = (new PDDictionaryWrapper()).getCOSObject();
+    COSDictionary actualCOSObject = new PDDictionaryWrapper().getCOSObject();
 
     // Assert
     COSUpdateState updateState = actualCOSObject.getUpdateState();
@@ -80,14 +91,15 @@ class PDDictionaryWrapperDiffblueTest {
   }
 
   /**
-   * Test {@link PDDictionaryWrapper#equals(Object)}, and
-   * {@link PDDictionaryWrapper#hashCode()}.
+   * Test {@link PDDictionaryWrapper#equals(Object)}, and {@link PDDictionaryWrapper#hashCode()}.
+   *
    * <ul>
-   *   <li>When other is same.</li>
-   *   <li>Then return equal.</li>
+   *   <li>When other is same.
+   *   <li>Then return equal.
    * </ul>
-   * <p>
-   * Methods under test:
+   *
+   * <p>Methods under test:
+   *
    * <ul>
    *   <li>{@link PDDictionaryWrapper#equals(Object)}
    *   <li>{@link PDDictionaryWrapper#hashCode()}
@@ -95,6 +107,12 @@ class PDDictionaryWrapperDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is same; then return equal")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "boolean PDDictionaryWrapper.equals(Object)",
+    "int PDDictionaryWrapper.hashCode()"
+  })
   void testEqualsAndHashCode_whenOtherIsSame_thenReturnEqual() {
     // Arrange
     PDDictionaryWrapper pdDictionaryWrapper = new PDDictionaryWrapper();
@@ -107,15 +125,22 @@ class PDDictionaryWrapperDiffblueTest {
 
   /**
    * Test {@link PDDictionaryWrapper#equals(Object)}.
+   *
    * <ul>
-   *   <li>When other is different.</li>
-   *   <li>Then return not equal.</li>
+   *   <li>When other is different.
+   *   <li>Then return not equal.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDictionaryWrapper#equals(Object)}
+   *
+   * <p>Method under test: {@link PDDictionaryWrapper#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "boolean PDDictionaryWrapper.equals(Object)",
+    "int PDDictionaryWrapper.hashCode()"
+  })
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual() {
     // Arrange
     PDDictionaryWrapper pdDictionaryWrapper = new PDDictionaryWrapper();
@@ -126,15 +151,22 @@ class PDDictionaryWrapperDiffblueTest {
 
   /**
    * Test {@link PDDictionaryWrapper#equals(Object)}.
+   *
    * <ul>
-   *   <li>When other is {@code null}.</li>
-   *   <li>Then return not equal.</li>
+   *   <li>When other is {@code null}.
+   *   <li>Then return not equal.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDictionaryWrapper#equals(Object)}
+   *
+   * <p>Method under test: {@link PDDictionaryWrapper#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is 'null'; then return not equal")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "boolean PDDictionaryWrapper.equals(Object)",
+    "int PDDictionaryWrapper.hashCode()"
+  })
   void testEquals_whenOtherIsNull_thenReturnNotEqual() {
     // Arrange, Act and Assert
     assertNotEquals(new PDDictionaryWrapper(), null);
@@ -142,15 +174,22 @@ class PDDictionaryWrapperDiffblueTest {
 
   /**
    * Test {@link PDDictionaryWrapper#equals(Object)}.
+   *
    * <ul>
-   *   <li>When other is wrong type.</li>
-   *   <li>Then return not equal.</li>
+   *   <li>When other is wrong type.
+   *   <li>Then return not equal.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDictionaryWrapper#equals(Object)}
+   *
+   * <p>Method under test: {@link PDDictionaryWrapper#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is wrong type; then return not equal")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "boolean PDDictionaryWrapper.equals(Object)",
+    "int PDDictionaryWrapper.hashCode()"
+  })
   void testEquals_whenOtherIsWrongType_thenReturnNotEqual() {
     // Arrange, Act and Assert
     assertNotEquals(new PDDictionaryWrapper(), "Different type to PDDictionaryWrapper");

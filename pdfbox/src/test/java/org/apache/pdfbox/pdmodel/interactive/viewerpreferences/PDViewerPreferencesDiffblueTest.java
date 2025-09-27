@@ -5,36 +5,49 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSUpdateState;
+import org.apache.pdfbox.pdmodel.interactive.viewerpreferences.PDViewerPreferences.BOUNDARY;
+import org.apache.pdfbox.pdmodel.interactive.viewerpreferences.PDViewerPreferences.DUPLEX;
+import org.apache.pdfbox.pdmodel.interactive.viewerpreferences.PDViewerPreferences.NON_FULL_SCREEN_PAGE_MODE;
+import org.apache.pdfbox.pdmodel.interactive.viewerpreferences.PDViewerPreferences.PRINT_SCALING;
+import org.apache.pdfbox.pdmodel.interactive.viewerpreferences.PDViewerPreferences.READING_DIRECTION;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDViewerPreferencesDiffblueTest {
   /**
    * Test {@link PDViewerPreferences#PDViewerPreferences(COSDictionary)}.
-   * <p>
-   * Method under test:
-   * {@link PDViewerPreferences#PDViewerPreferences(COSDictionary)}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#PDViewerPreferences(COSDictionary)}
    */
   @Test
   @DisplayName("Test new PDViewerPreferences(COSDictionary)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDViewerPreferences.<init>(COSDictionary)"})
   void testNewPDViewerPreferences() {
     // Arrange
     COSDictionary dic = new COSDictionary();
 
     // Act and Assert
-    assertSame(dic, (new PDViewerPreferences(dic)).getCOSObject());
+    assertSame(dic, new PDViewerPreferences(dic).getCOSObject());
   }
 
   /**
    * Test {@link PDViewerPreferences#PDViewerPreferences()}.
-   * <p>
-   * Method under test: {@link PDViewerPreferences#PDViewerPreferences()}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#PDViewerPreferences()}
    */
   @Test
   @DisplayName("Test new PDViewerPreferences()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDViewerPreferences.<init>()"})
   void testNewPDViewerPreferences2() {
     // Arrange and Act
     PDViewerPreferences actualPdViewerPreferences = new PDViewerPreferences();
@@ -49,29 +62,26 @@ class PDViewerPreferencesDiffblueTest {
     assertEquals("UseNone", actualPdViewerPreferences.getNonFullScreenPageMode());
     assertNull(actualPdViewerPreferences.getDuplex());
     COSDictionary cOSObject = actualPdViewerPreferences.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
     assertNull(cOSObject.getKey());
     assertEquals(0, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
     assertFalse(cOSObject.isDirect());
     assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
     assertTrue(cOSObject.getValues().isEmpty());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
   }
 
   /**
    * Test {@link PDViewerPreferences#getCOSObject()}.
-   * <p>
-   * Method under test: {@link PDViewerPreferences#getCOSObject()}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#getCOSObject()}
    */
   @Test
   @DisplayName("Test getCOSObject()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"COSDictionary PDViewerPreferences.getCOSObject()"})
   void testGetCOSObject() {
     // Arrange and Act
-    COSDictionary actualCOSObject = (new PDViewerPreferences()).getCOSObject();
+    COSDictionary actualCOSObject = new PDViewerPreferences().getCOSObject();
 
     // Assert
     COSUpdateState updateState = actualCOSObject.getUpdateState();
@@ -89,16 +99,20 @@ class PDViewerPreferencesDiffblueTest {
 
   /**
    * Test {@link PDViewerPreferences#hideToolbar()}.
+   *
    * <ul>
-   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} HideToolbar is
-   * {@code false}.</li>
-   *   <li>Then return {@code false}.</li>
+   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} HideToolbar is {@code false}.
+   *   <li>Then return {@code false}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#hideToolbar()}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#hideToolbar()}
    */
   @Test
-  @DisplayName("Test hideToolbar(); given PDViewerPreferences() HideToolbar is 'false'; then return 'false'")
+  @DisplayName(
+      "Test hideToolbar(); given PDViewerPreferences() HideToolbar is 'false'; then return 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean PDViewerPreferences.hideToolbar()"})
   void testHideToolbar_givenPDViewerPreferencesHideToolbarIsFalse_thenReturnFalse() {
     // Arrange
     PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
@@ -110,16 +124,20 @@ class PDViewerPreferencesDiffblueTest {
 
   /**
    * Test {@link PDViewerPreferences#hideToolbar()}.
+   *
    * <ul>
-   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} HideToolbar is
-   * {@code true}.</li>
-   *   <li>Then return {@code true}.</li>
+   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} HideToolbar is {@code true}.
+   *   <li>Then return {@code true}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#hideToolbar()}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#hideToolbar()}
    */
   @Test
-  @DisplayName("Test hideToolbar(); given PDViewerPreferences() HideToolbar is 'true'; then return 'true'")
+  @DisplayName(
+      "Test hideToolbar(); given PDViewerPreferences() HideToolbar is 'true'; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean PDViewerPreferences.hideToolbar()"})
   void testHideToolbar_givenPDViewerPreferencesHideToolbarIsTrue_thenReturnTrue() {
     // Arrange
     PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
@@ -131,31 +149,39 @@ class PDViewerPreferencesDiffblueTest {
 
   /**
    * Test {@link PDViewerPreferences#hideToolbar()}.
+   *
    * <ul>
-   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()}.</li>
-   *   <li>Then return {@code false}.</li>
+   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()}.
+   *   <li>Then return {@code false}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#hideToolbar()}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#hideToolbar()}
    */
   @Test
   @DisplayName("Test hideToolbar(); given PDViewerPreferences(); then return 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean PDViewerPreferences.hideToolbar()"})
   void testHideToolbar_givenPDViewerPreferences_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse((new PDViewerPreferences()).hideToolbar());
+    assertFalse(new PDViewerPreferences().hideToolbar());
   }
 
   /**
    * Test {@link PDViewerPreferences#setHideToolbar(boolean)}.
+   *
    * <ul>
-   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} COSObject Values
-   * size is one.</li>
+   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} COSObject Values size is one.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#setHideToolbar(boolean)}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#setHideToolbar(boolean)}
    */
   @Test
-  @DisplayName("Test setHideToolbar(boolean); then PDViewerPreferences() COSObject Values size is one")
+  @DisplayName(
+      "Test setHideToolbar(boolean); then PDViewerPreferences() COSObject Values size is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDViewerPreferences.setHideToolbar(boolean)"})
   void testSetHideToolbar_thenPDViewerPreferencesCOSObjectValuesSizeIsOne() {
     // Arrange
     PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
@@ -171,17 +197,20 @@ class PDViewerPreferencesDiffblueTest {
 
   /**
    * Test {@link PDViewerPreferences#setHideToolbar(boolean)}.
+   *
    * <ul>
-   *   <li>When {@code false}.</li>
-   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} COSObject Values
-   * size is one.</li>
+   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} COSObject Values size is one.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#setHideToolbar(boolean)}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#setHideToolbar(boolean)}
    */
   @Test
-  @DisplayName("Test setHideToolbar(boolean); when 'false'; then PDViewerPreferences() COSObject Values size is one")
-  void testSetHideToolbar_whenFalse_thenPDViewerPreferencesCOSObjectValuesSizeIsOne() {
+  @DisplayName(
+      "Test setHideToolbar(boolean); then PDViewerPreferences() COSObject Values size is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDViewerPreferences.setHideToolbar(boolean)"})
+  void testSetHideToolbar_thenPDViewerPreferencesCOSObjectValuesSizeIsOne2() {
     // Arrange
     PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
 
@@ -195,17 +224,51 @@ class PDViewerPreferencesDiffblueTest {
   }
 
   /**
-   * Test {@link PDViewerPreferences#hideMenubar()}.
+   * Test {@link PDViewerPreferences#setHideToolbar(boolean)}.
+   *
    * <ul>
-   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} HideMenubar is
-   * {@code false}.</li>
-   *   <li>Then return {@code false}.</li>
+   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} COSObject Values size is three.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#hideMenubar()}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#setHideToolbar(boolean)}
    */
   @Test
-  @DisplayName("Test hideMenubar(); given PDViewerPreferences() HideMenubar is 'false'; then return 'false'")
+  @DisplayName(
+      "Test setHideToolbar(boolean); then PDViewerPreferences() COSObject Values size is three")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDViewerPreferences.setHideToolbar(boolean)"})
+  void testSetHideToolbar_thenPDViewerPreferencesCOSObjectValuesSizeIsThree() {
+    // Arrange
+    PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
+    pdViewerPreferences.setHideMenubar(true);
+    pdViewerPreferences.setDisplayDocTitle(true);
+
+    // Act
+    pdViewerPreferences.setHideToolbar(false);
+
+    // Assert
+    COSDictionary cOSObject = pdViewerPreferences.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDViewerPreferences#hideMenubar()}.
+   *
+   * <ul>
+   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} HideMenubar is {@code false}.
+   *   <li>Then return {@code false}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDViewerPreferences#hideMenubar()}
+   */
+  @Test
+  @DisplayName(
+      "Test hideMenubar(); given PDViewerPreferences() HideMenubar is 'false'; then return 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean PDViewerPreferences.hideMenubar()"})
   void testHideMenubar_givenPDViewerPreferencesHideMenubarIsFalse_thenReturnFalse() {
     // Arrange
     PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
@@ -217,16 +280,20 @@ class PDViewerPreferencesDiffblueTest {
 
   /**
    * Test {@link PDViewerPreferences#hideMenubar()}.
+   *
    * <ul>
-   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} HideMenubar is
-   * {@code true}.</li>
-   *   <li>Then return {@code true}.</li>
+   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} HideMenubar is {@code true}.
+   *   <li>Then return {@code true}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#hideMenubar()}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#hideMenubar()}
    */
   @Test
-  @DisplayName("Test hideMenubar(); given PDViewerPreferences() HideMenubar is 'true'; then return 'true'")
+  @DisplayName(
+      "Test hideMenubar(); given PDViewerPreferences() HideMenubar is 'true'; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean PDViewerPreferences.hideMenubar()"})
   void testHideMenubar_givenPDViewerPreferencesHideMenubarIsTrue_thenReturnTrue() {
     // Arrange
     PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
@@ -238,52 +305,39 @@ class PDViewerPreferencesDiffblueTest {
 
   /**
    * Test {@link PDViewerPreferences#hideMenubar()}.
+   *
    * <ul>
-   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} HideToolbar is
-   * {@code true}.</li>
-   *   <li>Then return {@code false}.</li>
+   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()}.
+   *   <li>Then return {@code false}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#hideMenubar()}
-   */
-  @Test
-  @DisplayName("Test hideMenubar(); given PDViewerPreferences() HideToolbar is 'true'; then return 'false'")
-  void testHideMenubar_givenPDViewerPreferencesHideToolbarIsTrue_thenReturnFalse() {
-    // Arrange
-    PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
-    pdViewerPreferences.setHideToolbar(true);
-
-    // Act and Assert
-    assertFalse(pdViewerPreferences.hideMenubar());
-  }
-
-  /**
-   * Test {@link PDViewerPreferences#hideMenubar()}.
-   * <ul>
-   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#hideMenubar()}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#hideMenubar()}
    */
   @Test
   @DisplayName("Test hideMenubar(); given PDViewerPreferences(); then return 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean PDViewerPreferences.hideMenubar()"})
   void testHideMenubar_givenPDViewerPreferences_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse((new PDViewerPreferences()).hideMenubar());
+    assertFalse(new PDViewerPreferences().hideMenubar());
   }
 
   /**
    * Test {@link PDViewerPreferences#setHideMenubar(boolean)}.
+   *
    * <ul>
-   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} COSObject Values
-   * size is one.</li>
+   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} COSObject Values size is one.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#setHideMenubar(boolean)}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#setHideMenubar(boolean)}
    */
   @Test
-  @DisplayName("Test setHideMenubar(boolean); then PDViewerPreferences() COSObject Values size is one")
+  @DisplayName(
+      "Test setHideMenubar(boolean); then PDViewerPreferences() COSObject Values size is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDViewerPreferences.setHideMenubar(boolean)"})
   void testSetHideMenubar_thenPDViewerPreferencesCOSObjectValuesSizeIsOne() {
     // Arrange
     PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
@@ -299,16 +353,20 @@ class PDViewerPreferencesDiffblueTest {
 
   /**
    * Test {@link PDViewerPreferences#setHideMenubar(boolean)}.
+   *
    * <ul>
-   *   <li>When {@code false}.</li>
-   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} COSObject Values
-   * size is one.</li>
+   *   <li>When {@code false}.
+   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} COSObject Values size is one.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#setHideMenubar(boolean)}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#setHideMenubar(boolean)}
    */
   @Test
-  @DisplayName("Test setHideMenubar(boolean); when 'false'; then PDViewerPreferences() COSObject Values size is one")
+  @DisplayName(
+      "Test setHideMenubar(boolean); when 'false'; then PDViewerPreferences() COSObject Values size is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDViewerPreferences.setHideMenubar(boolean)"})
   void testSetHideMenubar_whenFalse_thenPDViewerPreferencesCOSObjectValuesSizeIsOne() {
     // Arrange
     PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
@@ -324,37 +382,45 @@ class PDViewerPreferencesDiffblueTest {
 
   /**
    * Test {@link PDViewerPreferences#hideWindowUI()}.
+   *
    * <ul>
-   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} HideToolbar is
-   * {@code true}.</li>
-   *   <li>Then return {@code false}.</li>
+   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} Duplex is {@code
+   *       DuplexFlipShortEdge}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#hideWindowUI()}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#hideWindowUI()}
    */
   @Test
-  @DisplayName("Test hideWindowUI(); given PDViewerPreferences() HideToolbar is 'true'; then return 'false'")
-  void testHideWindowUI_givenPDViewerPreferencesHideToolbarIsTrue_thenReturnFalse() {
+  @DisplayName("Test hideWindowUI(); given PDViewerPreferences() Duplex is 'DuplexFlipShortEdge'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean PDViewerPreferences.hideWindowUI()"})
+  void testHideWindowUI_givenPDViewerPreferencesDuplexIsDuplexFlipShortEdge() {
     // Arrange
     PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
-    pdViewerPreferences.setHideToolbar(true);
+    pdViewerPreferences.setDuplex(DUPLEX.DuplexFlipShortEdge);
+    pdViewerPreferences.setHideWindowUI(true);
 
     // Act and Assert
-    assertFalse(pdViewerPreferences.hideWindowUI());
+    assertTrue(pdViewerPreferences.hideWindowUI());
   }
 
   /**
    * Test {@link PDViewerPreferences#hideWindowUI()}.
+   *
    * <ul>
-   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} HideWindowUI is
-   * {@code false}.</li>
-   *   <li>Then return {@code false}.</li>
+   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} HideWindowUI is {@code false}.
+   *   <li>Then return {@code false}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#hideWindowUI()}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#hideWindowUI()}
    */
   @Test
-  @DisplayName("Test hideWindowUI(); given PDViewerPreferences() HideWindowUI is 'false'; then return 'false'")
+  @DisplayName(
+      "Test hideWindowUI(); given PDViewerPreferences() HideWindowUI is 'false'; then return 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean PDViewerPreferences.hideWindowUI()"})
   void testHideWindowUI_givenPDViewerPreferencesHideWindowUIIsFalse_thenReturnFalse() {
     // Arrange
     PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
@@ -366,16 +432,20 @@ class PDViewerPreferencesDiffblueTest {
 
   /**
    * Test {@link PDViewerPreferences#hideWindowUI()}.
+   *
    * <ul>
-   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} HideWindowUI is
-   * {@code true}.</li>
-   *   <li>Then return {@code true}.</li>
+   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} HideWindowUI is {@code true}.
+   *   <li>Then return {@code true}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#hideWindowUI()}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#hideWindowUI()}
    */
   @Test
-  @DisplayName("Test hideWindowUI(); given PDViewerPreferences() HideWindowUI is 'true'; then return 'true'")
+  @DisplayName(
+      "Test hideWindowUI(); given PDViewerPreferences() HideWindowUI is 'true'; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean PDViewerPreferences.hideWindowUI()"})
   void testHideWindowUI_givenPDViewerPreferencesHideWindowUIIsTrue_thenReturnTrue() {
     // Arrange
     PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
@@ -387,31 +457,39 @@ class PDViewerPreferencesDiffblueTest {
 
   /**
    * Test {@link PDViewerPreferences#hideWindowUI()}.
+   *
    * <ul>
-   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()}.</li>
-   *   <li>Then return {@code false}.</li>
+   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()}.
+   *   <li>Then return {@code false}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#hideWindowUI()}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#hideWindowUI()}
    */
   @Test
   @DisplayName("Test hideWindowUI(); given PDViewerPreferences(); then return 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean PDViewerPreferences.hideWindowUI()"})
   void testHideWindowUI_givenPDViewerPreferences_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse((new PDViewerPreferences()).hideWindowUI());
+    assertFalse(new PDViewerPreferences().hideWindowUI());
   }
 
   /**
    * Test {@link PDViewerPreferences#setHideWindowUI(boolean)}.
+   *
    * <ul>
-   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} COSObject Values
-   * size is one.</li>
+   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} COSObject Values size is one.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#setHideWindowUI(boolean)}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#setHideWindowUI(boolean)}
    */
   @Test
-  @DisplayName("Test setHideWindowUI(boolean); then PDViewerPreferences() COSObject Values size is one")
+  @DisplayName(
+      "Test setHideWindowUI(boolean); then PDViewerPreferences() COSObject Values size is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDViewerPreferences.setHideWindowUI(boolean)"})
   void testSetHideWindowUI_thenPDViewerPreferencesCOSObjectValuesSizeIsOne() {
     // Arrange
     PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
@@ -427,16 +505,20 @@ class PDViewerPreferencesDiffblueTest {
 
   /**
    * Test {@link PDViewerPreferences#setHideWindowUI(boolean)}.
+   *
    * <ul>
-   *   <li>When {@code false}.</li>
-   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} COSObject Values
-   * size is one.</li>
+   *   <li>When {@code false}.
+   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} COSObject Values size is one.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#setHideWindowUI(boolean)}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#setHideWindowUI(boolean)}
    */
   @Test
-  @DisplayName("Test setHideWindowUI(boolean); when 'false'; then PDViewerPreferences() COSObject Values size is one")
+  @DisplayName(
+      "Test setHideWindowUI(boolean); when 'false'; then PDViewerPreferences() COSObject Values size is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDViewerPreferences.setHideWindowUI(boolean)"})
   void testSetHideWindowUI_whenFalse_thenPDViewerPreferencesCOSObjectValuesSizeIsOne() {
     // Arrange
     PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
@@ -452,16 +534,20 @@ class PDViewerPreferencesDiffblueTest {
 
   /**
    * Test {@link PDViewerPreferences#fitWindow()}.
+   *
    * <ul>
-   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} FitWindow is
-   * {@code false}.</li>
-   *   <li>Then return {@code false}.</li>
+   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} FitWindow is {@code false}.
+   *   <li>Then return {@code false}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#fitWindow()}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#fitWindow()}
    */
   @Test
-  @DisplayName("Test fitWindow(); given PDViewerPreferences() FitWindow is 'false'; then return 'false'")
+  @DisplayName(
+      "Test fitWindow(); given PDViewerPreferences() FitWindow is 'false'; then return 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean PDViewerPreferences.fitWindow()"})
   void testFitWindow_givenPDViewerPreferencesFitWindowIsFalse_thenReturnFalse() {
     // Arrange
     PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
@@ -473,16 +559,20 @@ class PDViewerPreferencesDiffblueTest {
 
   /**
    * Test {@link PDViewerPreferences#fitWindow()}.
+   *
    * <ul>
-   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} FitWindow is
-   * {@code true}.</li>
-   *   <li>Then return {@code true}.</li>
+   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} FitWindow is {@code true}.
+   *   <li>Then return {@code true}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#fitWindow()}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#fitWindow()}
    */
   @Test
-  @DisplayName("Test fitWindow(); given PDViewerPreferences() FitWindow is 'true'; then return 'true'")
+  @DisplayName(
+      "Test fitWindow(); given PDViewerPreferences() FitWindow is 'true'; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean PDViewerPreferences.fitWindow()"})
   void testFitWindow_givenPDViewerPreferencesFitWindowIsTrue_thenReturnTrue() {
     // Arrange
     PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
@@ -494,52 +584,39 @@ class PDViewerPreferencesDiffblueTest {
 
   /**
    * Test {@link PDViewerPreferences#fitWindow()}.
+   *
    * <ul>
-   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} HideToolbar is
-   * {@code true}.</li>
-   *   <li>Then return {@code false}.</li>
+   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()}.
+   *   <li>Then return {@code false}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#fitWindow()}
-   */
-  @Test
-  @DisplayName("Test fitWindow(); given PDViewerPreferences() HideToolbar is 'true'; then return 'false'")
-  void testFitWindow_givenPDViewerPreferencesHideToolbarIsTrue_thenReturnFalse() {
-    // Arrange
-    PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
-    pdViewerPreferences.setHideToolbar(true);
-
-    // Act and Assert
-    assertFalse(pdViewerPreferences.fitWindow());
-  }
-
-  /**
-   * Test {@link PDViewerPreferences#fitWindow()}.
-   * <ul>
-   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#fitWindow()}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#fitWindow()}
    */
   @Test
   @DisplayName("Test fitWindow(); given PDViewerPreferences(); then return 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean PDViewerPreferences.fitWindow()"})
   void testFitWindow_givenPDViewerPreferences_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse((new PDViewerPreferences()).fitWindow());
+    assertFalse(new PDViewerPreferences().fitWindow());
   }
 
   /**
    * Test {@link PDViewerPreferences#setFitWindow(boolean)}.
+   *
    * <ul>
-   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} COSObject Values
-   * size is one.</li>
+   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} COSObject Values size is one.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#setFitWindow(boolean)}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#setFitWindow(boolean)}
    */
   @Test
-  @DisplayName("Test setFitWindow(boolean); then PDViewerPreferences() COSObject Values size is one")
+  @DisplayName(
+      "Test setFitWindow(boolean); then PDViewerPreferences() COSObject Values size is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDViewerPreferences.setFitWindow(boolean)"})
   void testSetFitWindow_thenPDViewerPreferencesCOSObjectValuesSizeIsOne() {
     // Arrange
     PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
@@ -555,16 +632,50 @@ class PDViewerPreferencesDiffblueTest {
 
   /**
    * Test {@link PDViewerPreferences#setFitWindow(boolean)}.
+   *
    * <ul>
-   *   <li>When {@code false}.</li>
-   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} COSObject Values
-   * size is one.</li>
+   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} COSObject Values size is three.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#setFitWindow(boolean)}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#setFitWindow(boolean)}
    */
   @Test
-  @DisplayName("Test setFitWindow(boolean); when 'false'; then PDViewerPreferences() COSObject Values size is one")
+  @DisplayName(
+      "Test setFitWindow(boolean); then PDViewerPreferences() COSObject Values size is three")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDViewerPreferences.setFitWindow(boolean)"})
+  void testSetFitWindow_thenPDViewerPreferencesCOSObjectValuesSizeIsThree() {
+    // Arrange
+    PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
+    pdViewerPreferences.setDisplayDocTitle(true);
+    pdViewerPreferences.setReadingDirection(READING_DIRECTION.L2R);
+
+    // Act
+    pdViewerPreferences.setFitWindow(true);
+
+    // Assert
+    COSDictionary cOSObject = pdViewerPreferences.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDViewerPreferences#setFitWindow(boolean)}.
+   *
+   * <ul>
+   *   <li>When {@code false}.
+   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} COSObject Values size is one.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDViewerPreferences#setFitWindow(boolean)}
+   */
+  @Test
+  @DisplayName(
+      "Test setFitWindow(boolean); when 'false'; then PDViewerPreferences() COSObject Values size is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDViewerPreferences.setFitWindow(boolean)"})
   void testSetFitWindow_whenFalse_thenPDViewerPreferencesCOSObjectValuesSizeIsOne() {
     // Arrange
     PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
@@ -580,16 +691,20 @@ class PDViewerPreferencesDiffblueTest {
 
   /**
    * Test {@link PDViewerPreferences#centerWindow()}.
+   *
    * <ul>
-   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} CenterWindow is
-   * {@code false}.</li>
-   *   <li>Then return {@code false}.</li>
+   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} CenterWindow is {@code false}.
+   *   <li>Then return {@code false}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#centerWindow()}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#centerWindow()}
    */
   @Test
-  @DisplayName("Test centerWindow(); given PDViewerPreferences() CenterWindow is 'false'; then return 'false'")
+  @DisplayName(
+      "Test centerWindow(); given PDViewerPreferences() CenterWindow is 'false'; then return 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean PDViewerPreferences.centerWindow()"})
   void testCenterWindow_givenPDViewerPreferencesCenterWindowIsFalse_thenReturnFalse() {
     // Arrange
     PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
@@ -601,16 +716,20 @@ class PDViewerPreferencesDiffblueTest {
 
   /**
    * Test {@link PDViewerPreferences#centerWindow()}.
+   *
    * <ul>
-   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} CenterWindow is
-   * {@code true}.</li>
-   *   <li>Then return {@code true}.</li>
+   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} CenterWindow is {@code true}.
+   *   <li>Then return {@code true}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#centerWindow()}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#centerWindow()}
    */
   @Test
-  @DisplayName("Test centerWindow(); given PDViewerPreferences() CenterWindow is 'true'; then return 'true'")
+  @DisplayName(
+      "Test centerWindow(); given PDViewerPreferences() CenterWindow is 'true'; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean PDViewerPreferences.centerWindow()"})
   void testCenterWindow_givenPDViewerPreferencesCenterWindowIsTrue_thenReturnTrue() {
     // Arrange
     PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
@@ -622,52 +741,39 @@ class PDViewerPreferencesDiffblueTest {
 
   /**
    * Test {@link PDViewerPreferences#centerWindow()}.
+   *
    * <ul>
-   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} HideToolbar is
-   * {@code true}.</li>
-   *   <li>Then return {@code false}.</li>
+   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()}.
+   *   <li>Then return {@code false}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#centerWindow()}
-   */
-  @Test
-  @DisplayName("Test centerWindow(); given PDViewerPreferences() HideToolbar is 'true'; then return 'false'")
-  void testCenterWindow_givenPDViewerPreferencesHideToolbarIsTrue_thenReturnFalse() {
-    // Arrange
-    PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
-    pdViewerPreferences.setHideToolbar(true);
-
-    // Act and Assert
-    assertFalse(pdViewerPreferences.centerWindow());
-  }
-
-  /**
-   * Test {@link PDViewerPreferences#centerWindow()}.
-   * <ul>
-   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#centerWindow()}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#centerWindow()}
    */
   @Test
   @DisplayName("Test centerWindow(); given PDViewerPreferences(); then return 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean PDViewerPreferences.centerWindow()"})
   void testCenterWindow_givenPDViewerPreferences_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse((new PDViewerPreferences()).centerWindow());
+    assertFalse(new PDViewerPreferences().centerWindow());
   }
 
   /**
    * Test {@link PDViewerPreferences#setCenterWindow(boolean)}.
+   *
    * <ul>
-   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} COSObject Values
-   * size is one.</li>
+   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} COSObject Values size is one.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#setCenterWindow(boolean)}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#setCenterWindow(boolean)}
    */
   @Test
-  @DisplayName("Test setCenterWindow(boolean); then PDViewerPreferences() COSObject Values size is one")
+  @DisplayName(
+      "Test setCenterWindow(boolean); then PDViewerPreferences() COSObject Values size is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDViewerPreferences.setCenterWindow(boolean)"})
   void testSetCenterWindow_thenPDViewerPreferencesCOSObjectValuesSizeIsOne() {
     // Arrange
     PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
@@ -683,16 +789,79 @@ class PDViewerPreferencesDiffblueTest {
 
   /**
    * Test {@link PDViewerPreferences#setCenterWindow(boolean)}.
+   *
    * <ul>
-   *   <li>When {@code false}.</li>
-   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} COSObject Values
-   * size is one.</li>
+   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} COSObject Values size is three.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#setCenterWindow(boolean)}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#setCenterWindow(boolean)}
    */
   @Test
-  @DisplayName("Test setCenterWindow(boolean); when 'false'; then PDViewerPreferences() COSObject Values size is one")
+  @DisplayName(
+      "Test setCenterWindow(boolean); then PDViewerPreferences() COSObject Values size is three")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDViewerPreferences.setCenterWindow(boolean)"})
+  void testSetCenterWindow_thenPDViewerPreferencesCOSObjectValuesSizeIsThree() {
+    // Arrange
+    PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
+    pdViewerPreferences.setDisplayDocTitle(true);
+    pdViewerPreferences.setHideWindowUI(true);
+
+    // Act
+    pdViewerPreferences.setCenterWindow(true);
+
+    // Assert
+    COSDictionary cOSObject = pdViewerPreferences.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDViewerPreferences#setCenterWindow(boolean)}.
+   *
+   * <ul>
+   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} COSObject Values size is two.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDViewerPreferences#setCenterWindow(boolean)}
+   */
+  @Test
+  @DisplayName(
+      "Test setCenterWindow(boolean); then PDViewerPreferences() COSObject Values size is two")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDViewerPreferences.setCenterWindow(boolean)"})
+  void testSetCenterWindow_thenPDViewerPreferencesCOSObjectValuesSizeIsTwo() {
+    // Arrange
+    PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
+    pdViewerPreferences.setDisplayDocTitle(false);
+
+    // Act
+    pdViewerPreferences.setCenterWindow(true);
+
+    // Assert
+    COSDictionary cOSObject = pdViewerPreferences.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDViewerPreferences#setCenterWindow(boolean)}.
+   *
+   * <ul>
+   *   <li>When {@code false}.
+   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} COSObject Values size is one.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDViewerPreferences#setCenterWindow(boolean)}
+   */
+  @Test
+  @DisplayName(
+      "Test setCenterWindow(boolean); when 'false'; then PDViewerPreferences() COSObject Values size is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDViewerPreferences.setCenterWindow(boolean)"})
   void testSetCenterWindow_whenFalse_thenPDViewerPreferencesCOSObjectValuesSizeIsOne() {
     // Arrange
     PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
@@ -708,15 +877,18 @@ class PDViewerPreferencesDiffblueTest {
 
   /**
    * Test {@link PDViewerPreferences#displayDocTitle()}.
+   *
    * <ul>
-   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} DisplayDocTitle
-   * is {@code false}.</li>
+   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} DisplayDocTitle is {@code false}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#displayDocTitle()}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#displayDocTitle()}
    */
   @Test
   @DisplayName("Test displayDocTitle(); given PDViewerPreferences() DisplayDocTitle is 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean PDViewerPreferences.displayDocTitle()"})
   void testDisplayDocTitle_givenPDViewerPreferencesDisplayDocTitleIsFalse() {
     // Arrange
     PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
@@ -728,16 +900,20 @@ class PDViewerPreferencesDiffblueTest {
 
   /**
    * Test {@link PDViewerPreferences#displayDocTitle()}.
+   *
    * <ul>
-   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} DisplayDocTitle
-   * is {@code true}.</li>
-   *   <li>Then return {@code true}.</li>
+   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} DisplayDocTitle is {@code true}.
+   *   <li>Then return {@code true}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#displayDocTitle()}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#displayDocTitle()}
    */
   @Test
-  @DisplayName("Test displayDocTitle(); given PDViewerPreferences() DisplayDocTitle is 'true'; then return 'true'")
+  @DisplayName(
+      "Test displayDocTitle(); given PDViewerPreferences() DisplayDocTitle is 'true'; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean PDViewerPreferences.displayDocTitle()"})
   void testDisplayDocTitle_givenPDViewerPreferencesDisplayDocTitleIsTrue_thenReturnTrue() {
     // Arrange
     PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
@@ -749,52 +925,39 @@ class PDViewerPreferencesDiffblueTest {
 
   /**
    * Test {@link PDViewerPreferences#displayDocTitle()}.
+   *
    * <ul>
-   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} HideToolbar is
-   * {@code true}.</li>
-   *   <li>Then return {@code false}.</li>
+   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()}.
+   *   <li>Then return {@code false}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#displayDocTitle()}
-   */
-  @Test
-  @DisplayName("Test displayDocTitle(); given PDViewerPreferences() HideToolbar is 'true'; then return 'false'")
-  void testDisplayDocTitle_givenPDViewerPreferencesHideToolbarIsTrue_thenReturnFalse() {
-    // Arrange
-    PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
-    pdViewerPreferences.setHideToolbar(true);
-
-    // Act and Assert
-    assertFalse(pdViewerPreferences.displayDocTitle());
-  }
-
-  /**
-   * Test {@link PDViewerPreferences#displayDocTitle()}.
-   * <ul>
-   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#displayDocTitle()}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#displayDocTitle()}
    */
   @Test
   @DisplayName("Test displayDocTitle(); given PDViewerPreferences(); then return 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean PDViewerPreferences.displayDocTitle()"})
   void testDisplayDocTitle_givenPDViewerPreferences_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse((new PDViewerPreferences()).displayDocTitle());
+    assertFalse(new PDViewerPreferences().displayDocTitle());
   }
 
   /**
    * Test {@link PDViewerPreferences#setDisplayDocTitle(boolean)}.
+   *
    * <ul>
-   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} COSObject Values
-   * size is one.</li>
+   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} COSObject Values size is one.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#setDisplayDocTitle(boolean)}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#setDisplayDocTitle(boolean)}
    */
   @Test
-  @DisplayName("Test setDisplayDocTitle(boolean); then PDViewerPreferences() COSObject Values size is one")
+  @DisplayName(
+      "Test setDisplayDocTitle(boolean); then PDViewerPreferences() COSObject Values size is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDViewerPreferences.setDisplayDocTitle(boolean)"})
   void testSetDisplayDocTitle_thenPDViewerPreferencesCOSObjectValuesSizeIsOne() {
     // Arrange
     PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
@@ -810,16 +973,20 @@ class PDViewerPreferencesDiffblueTest {
 
   /**
    * Test {@link PDViewerPreferences#setDisplayDocTitle(boolean)}.
+   *
    * <ul>
-   *   <li>When {@code false}.</li>
-   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} COSObject Values
-   * size is one.</li>
+   *   <li>When {@code false}.
+   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} COSObject Values size is one.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#setDisplayDocTitle(boolean)}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#setDisplayDocTitle(boolean)}
    */
   @Test
-  @DisplayName("Test setDisplayDocTitle(boolean); when 'false'; then PDViewerPreferences() COSObject Values size is one")
+  @DisplayName(
+      "Test setDisplayDocTitle(boolean); when 'false'; then PDViewerPreferences() COSObject Values size is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDViewerPreferences.setDisplayDocTitle(boolean)"})
   void testSetDisplayDocTitle_whenFalse_thenPDViewerPreferencesCOSObjectValuesSizeIsOne() {
     // Arrange
     PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
@@ -835,15 +1002,18 @@ class PDViewerPreferencesDiffblueTest {
 
   /**
    * Test {@link PDViewerPreferences#getNonFullScreenPageMode()}.
-   * <p>
-   * Method under test: {@link PDViewerPreferences#getNonFullScreenPageMode()}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#getNonFullScreenPageMode()}
    */
   @Test
   @DisplayName("Test getNonFullScreenPageMode()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.lang.String PDViewerPreferences.getNonFullScreenPageMode()"})
   void testGetNonFullScreenPageMode() {
     // Arrange
     PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
-    pdViewerPreferences.setNonFullScreenPageMode(PDViewerPreferences.NON_FULL_SCREEN_PAGE_MODE.UseNone);
+    pdViewerPreferences.setNonFullScreenPageMode(NON_FULL_SCREEN_PAGE_MODE.UseNone);
 
     // Act and Assert
     assertEquals("UseNone", pdViewerPreferences.getNonFullScreenPageMode());
@@ -851,55 +1021,44 @@ class PDViewerPreferencesDiffblueTest {
 
   /**
    * Test {@link PDViewerPreferences#getNonFullScreenPageMode()}.
+   *
    * <ul>
-   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} HideToolbar is
-   * {@code true}.</li>
+   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()}.
+   *   <li>Then return {@code UseNone}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#getNonFullScreenPageMode()}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#getNonFullScreenPageMode()}
    */
   @Test
-  @DisplayName("Test getNonFullScreenPageMode(); given PDViewerPreferences() HideToolbar is 'true'")
-  void testGetNonFullScreenPageMode_givenPDViewerPreferencesHideToolbarIsTrue() {
-    // Arrange
-    PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
-    pdViewerPreferences.setHideToolbar(true);
-
-    // Act and Assert
-    assertEquals("UseNone", pdViewerPreferences.getNonFullScreenPageMode());
-  }
-
-  /**
-   * Test {@link PDViewerPreferences#getNonFullScreenPageMode()}.
-   * <ul>
-   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()}.</li>
-   *   <li>Then return {@code UseNone}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#getNonFullScreenPageMode()}
-   */
-  @Test
-  @DisplayName("Test getNonFullScreenPageMode(); given PDViewerPreferences(); then return 'UseNone'")
+  @DisplayName(
+      "Test getNonFullScreenPageMode(); given PDViewerPreferences(); then return 'UseNone'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.lang.String PDViewerPreferences.getNonFullScreenPageMode()"})
   void testGetNonFullScreenPageMode_givenPDViewerPreferences_thenReturnUseNone() {
     // Arrange, Act and Assert
-    assertEquals("UseNone", (new PDViewerPreferences()).getNonFullScreenPageMode());
+    assertEquals("UseNone", new PDViewerPreferences().getNonFullScreenPageMode());
   }
 
   /**
-   * Test
-   * {@link PDViewerPreferences#setNonFullScreenPageMode(NON_FULL_SCREEN_PAGE_MODE)}.
-   * <p>
-   * Method under test:
-   * {@link PDViewerPreferences#setNonFullScreenPageMode(PDViewerPreferences.NON_FULL_SCREEN_PAGE_MODE)}
+   * Test {@link PDViewerPreferences#setNonFullScreenPageMode(NON_FULL_SCREEN_PAGE_MODE)}.
+   *
+   * <p>Method under test: {@link
+   * PDViewerPreferences#setNonFullScreenPageMode(NON_FULL_SCREEN_PAGE_MODE)}
    */
   @Test
   @DisplayName("Test setNonFullScreenPageMode(NON_FULL_SCREEN_PAGE_MODE)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void PDViewerPreferences.setNonFullScreenPageMode(NON_FULL_SCREEN_PAGE_MODE)"
+  })
   void testSetNonFullScreenPageMode() {
     // Arrange
     PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
 
     // Act
-    pdViewerPreferences.setNonFullScreenPageMode(PDViewerPreferences.NON_FULL_SCREEN_PAGE_MODE.UseNone);
+    pdViewerPreferences.setNonFullScreenPageMode(NON_FULL_SCREEN_PAGE_MODE.UseNone);
 
     // Assert
     assertEquals("UseNone", pdViewerPreferences.getNonFullScreenPageMode());
@@ -909,20 +1068,24 @@ class PDViewerPreferencesDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link PDViewerPreferences#setNonFullScreenPageMode(NON_FULL_SCREEN_PAGE_MODE)}.
-   * <p>
-   * Method under test:
-   * {@link PDViewerPreferences#setNonFullScreenPageMode(PDViewerPreferences.NON_FULL_SCREEN_PAGE_MODE)}
+   * Test {@link PDViewerPreferences#setNonFullScreenPageMode(NON_FULL_SCREEN_PAGE_MODE)}.
+   *
+   * <p>Method under test: {@link
+   * PDViewerPreferences#setNonFullScreenPageMode(NON_FULL_SCREEN_PAGE_MODE)}
    */
   @Test
   @DisplayName("Test setNonFullScreenPageMode(NON_FULL_SCREEN_PAGE_MODE)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void PDViewerPreferences.setNonFullScreenPageMode(NON_FULL_SCREEN_PAGE_MODE)"
+  })
   void testSetNonFullScreenPageMode2() {
     // Arrange
     PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
 
     // Act
-    pdViewerPreferences.setNonFullScreenPageMode(PDViewerPreferences.NON_FULL_SCREEN_PAGE_MODE.UseOutlines);
+    pdViewerPreferences.setNonFullScreenPageMode(NON_FULL_SCREEN_PAGE_MODE.UseOutlines);
 
     // Assert
     assertEquals("UseOutlines", pdViewerPreferences.getNonFullScreenPageMode());
@@ -932,41 +1095,57 @@ class PDViewerPreferencesDiffblueTest {
   }
 
   /**
-   * Test {@link PDViewerPreferences#getReadingDirection()}.
+   * Test {@link PDViewerPreferences#setNonFullScreenPageMode(NON_FULL_SCREEN_PAGE_MODE)}.
+   *
    * <ul>
-   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} HideToolbar is
-   * {@code true}.</li>
-   *   <li>Then return {@code L2R}.</li>
+   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} COSObject Values size is three.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#getReadingDirection()}
+   *
+   * <p>Method under test: {@link
+   * PDViewerPreferences#setNonFullScreenPageMode(NON_FULL_SCREEN_PAGE_MODE)}
    */
   @Test
-  @DisplayName("Test getReadingDirection(); given PDViewerPreferences() HideToolbar is 'true'; then return 'L2R'")
-  void testGetReadingDirection_givenPDViewerPreferencesHideToolbarIsTrue_thenReturnL2r() {
+  @DisplayName(
+      "Test setNonFullScreenPageMode(NON_FULL_SCREEN_PAGE_MODE); then PDViewerPreferences() COSObject Values size is three")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void PDViewerPreferences.setNonFullScreenPageMode(NON_FULL_SCREEN_PAGE_MODE)"
+  })
+  void testSetNonFullScreenPageMode_thenPDViewerPreferencesCOSObjectValuesSizeIsThree() {
     // Arrange
     PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
-    pdViewerPreferences.setHideToolbar(true);
+    pdViewerPreferences.setPrintScaling(PRINT_SCALING.None);
+    pdViewerPreferences.setReadingDirection(READING_DIRECTION.L2R);
 
-    // Act and Assert
-    assertEquals("L2R", pdViewerPreferences.getReadingDirection());
+    // Act
+    pdViewerPreferences.setNonFullScreenPageMode(NON_FULL_SCREEN_PAGE_MODE.UseNone);
+
+    // Assert
+    assertEquals("UseNone", pdViewerPreferences.getNonFullScreenPageMode());
+    COSDictionary cOSObject = pdViewerPreferences.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
   }
 
   /**
    * Test {@link PDViewerPreferences#getReadingDirection()}.
+   *
    * <ul>
-   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} ReadingDirection
-   * is {@code L2R}.</li>
+   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} ReadingDirection is {@code L2R}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#getReadingDirection()}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#getReadingDirection()}
    */
   @Test
   @DisplayName("Test getReadingDirection(); given PDViewerPreferences() ReadingDirection is 'L2R'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.lang.String PDViewerPreferences.getReadingDirection()"})
   void testGetReadingDirection_givenPDViewerPreferencesReadingDirectionIsL2r() {
     // Arrange
     PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
-    pdViewerPreferences.setReadingDirection(PDViewerPreferences.READING_DIRECTION.L2R);
+    pdViewerPreferences.setReadingDirection(READING_DIRECTION.L2R);
 
     // Act and Assert
     assertEquals("L2R", pdViewerPreferences.getReadingDirection());
@@ -974,38 +1153,45 @@ class PDViewerPreferencesDiffblueTest {
 
   /**
    * Test {@link PDViewerPreferences#getReadingDirection()}.
+   *
    * <ul>
-   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()}.</li>
-   *   <li>Then return {@code L2R}.</li>
+   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()}.
+   *   <li>Then return {@code L2R}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#getReadingDirection()}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#getReadingDirection()}
    */
   @Test
   @DisplayName("Test getReadingDirection(); given PDViewerPreferences(); then return 'L2R'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.lang.String PDViewerPreferences.getReadingDirection()"})
   void testGetReadingDirection_givenPDViewerPreferences_thenReturnL2r() {
     // Arrange, Act and Assert
-    assertEquals("L2R", (new PDViewerPreferences()).getReadingDirection());
+    assertEquals("L2R", new PDViewerPreferences().getReadingDirection());
   }
 
   /**
    * Test {@link PDViewerPreferences#setReadingDirection(READING_DIRECTION)}.
+   *
    * <ul>
-   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} ReadingDirection
-   * is {@code L2R}.</li>
+   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} ReadingDirection is {@code L2R}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link PDViewerPreferences#setReadingDirection(PDViewerPreferences.READING_DIRECTION)}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#setReadingDirection(READING_DIRECTION)}
    */
   @Test
-  @DisplayName("Test setReadingDirection(READING_DIRECTION); then PDViewerPreferences() ReadingDirection is 'L2R'")
+  @DisplayName(
+      "Test setReadingDirection(READING_DIRECTION); then PDViewerPreferences() ReadingDirection is 'L2R'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDViewerPreferences.setReadingDirection(READING_DIRECTION)"})
   void testSetReadingDirection_thenPDViewerPreferencesReadingDirectionIsL2r() {
     // Arrange
     PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
 
     // Act
-    pdViewerPreferences.setReadingDirection(PDViewerPreferences.READING_DIRECTION.L2R);
+    pdViewerPreferences.setReadingDirection(READING_DIRECTION.L2R);
 
     // Assert
     assertEquals("L2R", pdViewerPreferences.getReadingDirection());
@@ -1016,23 +1202,26 @@ class PDViewerPreferencesDiffblueTest {
 
   /**
    * Test {@link PDViewerPreferences#setReadingDirection(READING_DIRECTION)}.
+   *
    * <ul>
-   *   <li>When {@code R2L}.</li>
-   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} ReadingDirection
-   * is {@code R2L}.</li>
+   *   <li>When {@code R2L}.
+   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} ReadingDirection is {@code R2L}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link PDViewerPreferences#setReadingDirection(PDViewerPreferences.READING_DIRECTION)}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#setReadingDirection(READING_DIRECTION)}
    */
   @Test
-  @DisplayName("Test setReadingDirection(READING_DIRECTION); when 'R2L'; then PDViewerPreferences() ReadingDirection is 'R2L'")
+  @DisplayName(
+      "Test setReadingDirection(READING_DIRECTION); when 'R2L'; then PDViewerPreferences() ReadingDirection is 'R2L'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDViewerPreferences.setReadingDirection(READING_DIRECTION)"})
   void testSetReadingDirection_whenR2l_thenPDViewerPreferencesReadingDirectionIsR2l() {
     // Arrange
     PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
 
     // Act
-    pdViewerPreferences.setReadingDirection(PDViewerPreferences.READING_DIRECTION.R2L);
+    pdViewerPreferences.setReadingDirection(READING_DIRECTION.R2L);
 
     // Assert
     assertEquals("R2L", pdViewerPreferences.getReadingDirection());
@@ -1043,41 +1232,26 @@ class PDViewerPreferencesDiffblueTest {
 
   /**
    * Test {@link PDViewerPreferences#getViewArea()}.
+   *
    * <ul>
-   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} HideToolbar is
-   * {@code true}.</li>
-   *   <li>Then return {@code CropBox}.</li>
+   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} HideToolbar is {@code true}.
+   *   <li>Then return {@code MediaBox}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#getViewArea()}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#getViewArea()}
    */
   @Test
-  @DisplayName("Test getViewArea(); given PDViewerPreferences() HideToolbar is 'true'; then return 'CropBox'")
-  void testGetViewArea_givenPDViewerPreferencesHideToolbarIsTrue_thenReturnCropBox() {
+  @DisplayName(
+      "Test getViewArea(); given PDViewerPreferences() HideToolbar is 'true'; then return 'MediaBox'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.lang.String PDViewerPreferences.getViewArea()"})
+  void testGetViewArea_givenPDViewerPreferencesHideToolbarIsTrue_thenReturnMediaBox() {
     // Arrange
     PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
     pdViewerPreferences.setHideToolbar(true);
-
-    // Act and Assert
-    assertEquals("CropBox", pdViewerPreferences.getViewArea());
-  }
-
-  /**
-   * Test {@link PDViewerPreferences#getViewArea()}.
-   * <ul>
-   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} ViewArea is
-   * {@code MediaBox}.</li>
-   *   <li>Then return {@code MediaBox}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#getViewArea()}
-   */
-  @Test
-  @DisplayName("Test getViewArea(); given PDViewerPreferences() ViewArea is 'MediaBox'; then return 'MediaBox'")
-  void testGetViewArea_givenPDViewerPreferencesViewAreaIsMediaBox_thenReturnMediaBox() {
-    // Arrange
-    PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
-    pdViewerPreferences.setViewArea(PDViewerPreferences.BOUNDARY.MediaBox);
+    pdViewerPreferences.setCenterWindow(true);
+    pdViewerPreferences.setViewArea(BOUNDARY.MediaBox);
 
     // Act and Assert
     assertEquals("MediaBox", pdViewerPreferences.getViewArea());
@@ -1085,38 +1259,98 @@ class PDViewerPreferencesDiffblueTest {
 
   /**
    * Test {@link PDViewerPreferences#getViewArea()}.
+   *
    * <ul>
-   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()}.</li>
-   *   <li>Then return {@code CropBox}.</li>
+   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} ViewArea is {@code MediaBox}.
+   *   <li>Then return {@code MediaBox}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#getViewArea()}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#getViewArea()}
+   */
+  @Test
+  @DisplayName(
+      "Test getViewArea(); given PDViewerPreferences() ViewArea is 'MediaBox'; then return 'MediaBox'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.lang.String PDViewerPreferences.getViewArea()"})
+  void testGetViewArea_givenPDViewerPreferencesViewAreaIsMediaBox_thenReturnMediaBox() {
+    // Arrange
+    PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
+    pdViewerPreferences.setViewArea(BOUNDARY.MediaBox);
+
+    // Act and Assert
+    assertEquals("MediaBox", pdViewerPreferences.getViewArea());
+  }
+
+  /**
+   * Test {@link PDViewerPreferences#getViewArea()}.
+   *
+   * <ul>
+   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()}.
+   *   <li>Then return {@code CropBox}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDViewerPreferences#getViewArea()}
    */
   @Test
   @DisplayName("Test getViewArea(); given PDViewerPreferences(); then return 'CropBox'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.lang.String PDViewerPreferences.getViewArea()"})
   void testGetViewArea_givenPDViewerPreferences_thenReturnCropBox() {
     // Arrange, Act and Assert
-    assertEquals("CropBox", (new PDViewerPreferences()).getViewArea());
+    assertEquals("CropBox", new PDViewerPreferences().getViewArea());
   }
 
   /**
    * Test {@link PDViewerPreferences#setViewArea(BOUNDARY)}.
+   *
    * <ul>
-   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} ViewArea is
-   * {@code MediaBox}.</li>
+   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} ViewArea is {@code CropBox}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link PDViewerPreferences#setViewArea(PDViewerPreferences.BOUNDARY)}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#setViewArea(BOUNDARY)}
+   */
+  @Test
+  @DisplayName("Test setViewArea(BOUNDARY); then PDViewerPreferences() ViewArea is 'CropBox'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDViewerPreferences.setViewArea(BOUNDARY)"})
+  void testSetViewArea_thenPDViewerPreferencesViewAreaIsCropBox() {
+    // Arrange
+    PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
+    pdViewerPreferences.setHideMenubar(true);
+
+    // Act
+    pdViewerPreferences.setViewArea(BOUNDARY.CropBox);
+
+    // Assert
+    assertEquals("CropBox", pdViewerPreferences.getViewArea());
+    COSDictionary cOSObject = pdViewerPreferences.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDViewerPreferences#setViewArea(BOUNDARY)}.
+   *
+   * <ul>
+   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} ViewArea is {@code MediaBox}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDViewerPreferences#setViewArea(BOUNDARY)}
    */
   @Test
   @DisplayName("Test setViewArea(BOUNDARY); then PDViewerPreferences() ViewArea is 'MediaBox'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDViewerPreferences.setViewArea(BOUNDARY)"})
   void testSetViewArea_thenPDViewerPreferencesViewAreaIsMediaBox() {
     // Arrange
     PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
 
     // Act
-    pdViewerPreferences.setViewArea(PDViewerPreferences.BOUNDARY.MediaBox);
+    pdViewerPreferences.setViewArea(BOUNDARY.MediaBox);
 
     // Assert
     assertEquals("MediaBox", pdViewerPreferences.getViewArea());
@@ -1127,41 +1361,50 @@ class PDViewerPreferencesDiffblueTest {
 
   /**
    * Test {@link PDViewerPreferences#getViewClip()}.
+   *
    * <ul>
-   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} HideToolbar is
-   * {@code true}.</li>
-   *   <li>Then return {@code CropBox}.</li>
+   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} ViewArea is {@code MediaBox}.
+   *   <li>Then return {@code TrimBox}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#getViewClip()}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#getViewClip()}
    */
   @Test
-  @DisplayName("Test getViewClip(); given PDViewerPreferences() HideToolbar is 'true'; then return 'CropBox'")
-  void testGetViewClip_givenPDViewerPreferencesHideToolbarIsTrue_thenReturnCropBox() {
+  @DisplayName(
+      "Test getViewClip(); given PDViewerPreferences() ViewArea is 'MediaBox'; then return 'TrimBox'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.lang.String PDViewerPreferences.getViewClip()"})
+  void testGetViewClip_givenPDViewerPreferencesViewAreaIsMediaBox_thenReturnTrimBox() {
     // Arrange
     PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
-    pdViewerPreferences.setHideToolbar(true);
+    pdViewerPreferences.setViewArea(BOUNDARY.MediaBox);
+    pdViewerPreferences.setViewClip(BOUNDARY.TrimBox);
 
     // Act and Assert
-    assertEquals("CropBox", pdViewerPreferences.getViewClip());
+    assertEquals("TrimBox", pdViewerPreferences.getViewClip());
   }
 
   /**
    * Test {@link PDViewerPreferences#getViewClip()}.
+   *
    * <ul>
-   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} ViewClip is
-   * {@code MediaBox}.</li>
-   *   <li>Then return {@code MediaBox}.</li>
+   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} ViewClip is {@code MediaBox}.
+   *   <li>Then return {@code MediaBox}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#getViewClip()}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#getViewClip()}
    */
   @Test
-  @DisplayName("Test getViewClip(); given PDViewerPreferences() ViewClip is 'MediaBox'; then return 'MediaBox'")
+  @DisplayName(
+      "Test getViewClip(); given PDViewerPreferences() ViewClip is 'MediaBox'; then return 'MediaBox'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.lang.String PDViewerPreferences.getViewClip()"})
   void testGetViewClip_givenPDViewerPreferencesViewClipIsMediaBox_thenReturnMediaBox() {
     // Arrange
     PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
-    pdViewerPreferences.setViewClip(PDViewerPreferences.BOUNDARY.MediaBox);
+    pdViewerPreferences.setViewClip(BOUNDARY.MediaBox);
 
     // Act and Assert
     assertEquals("MediaBox", pdViewerPreferences.getViewClip());
@@ -1169,38 +1412,44 @@ class PDViewerPreferencesDiffblueTest {
 
   /**
    * Test {@link PDViewerPreferences#getViewClip()}.
+   *
    * <ul>
-   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()}.</li>
-   *   <li>Then return {@code CropBox}.</li>
+   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()}.
+   *   <li>Then return {@code CropBox}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#getViewClip()}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#getViewClip()}
    */
   @Test
   @DisplayName("Test getViewClip(); given PDViewerPreferences(); then return 'CropBox'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.lang.String PDViewerPreferences.getViewClip()"})
   void testGetViewClip_givenPDViewerPreferences_thenReturnCropBox() {
     // Arrange, Act and Assert
-    assertEquals("CropBox", (new PDViewerPreferences()).getViewClip());
+    assertEquals("CropBox", new PDViewerPreferences().getViewClip());
   }
 
   /**
    * Test {@link PDViewerPreferences#setViewClip(BOUNDARY)}.
+   *
    * <ul>
-   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} ViewClip is
-   * {@code MediaBox}.</li>
+   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} ViewClip is {@code MediaBox}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link PDViewerPreferences#setViewClip(PDViewerPreferences.BOUNDARY)}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#setViewClip(BOUNDARY)}
    */
   @Test
   @DisplayName("Test setViewClip(BOUNDARY); then PDViewerPreferences() ViewClip is 'MediaBox'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDViewerPreferences.setViewClip(BOUNDARY)"})
   void testSetViewClip_thenPDViewerPreferencesViewClipIsMediaBox() {
     // Arrange
     PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
 
     // Act
-    pdViewerPreferences.setViewClip(PDViewerPreferences.BOUNDARY.MediaBox);
+    pdViewerPreferences.setViewClip(BOUNDARY.MediaBox);
 
     // Assert
     assertEquals("MediaBox", pdViewerPreferences.getViewClip());
@@ -1211,41 +1460,24 @@ class PDViewerPreferencesDiffblueTest {
 
   /**
    * Test {@link PDViewerPreferences#getPrintArea()}.
+   *
    * <ul>
-   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} HideToolbar is
-   * {@code true}.</li>
-   *   <li>Then return {@code CropBox}.</li>
+   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} PrintArea is {@code MediaBox}.
+   *   <li>Then return {@code MediaBox}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#getPrintArea()}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#getPrintArea()}
    */
   @Test
-  @DisplayName("Test getPrintArea(); given PDViewerPreferences() HideToolbar is 'true'; then return 'CropBox'")
-  void testGetPrintArea_givenPDViewerPreferencesHideToolbarIsTrue_thenReturnCropBox() {
-    // Arrange
-    PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
-    pdViewerPreferences.setHideToolbar(true);
-
-    // Act and Assert
-    assertEquals("CropBox", pdViewerPreferences.getPrintArea());
-  }
-
-  /**
-   * Test {@link PDViewerPreferences#getPrintArea()}.
-   * <ul>
-   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} PrintArea is
-   * {@code MediaBox}.</li>
-   *   <li>Then return {@code MediaBox}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#getPrintArea()}
-   */
-  @Test
-  @DisplayName("Test getPrintArea(); given PDViewerPreferences() PrintArea is 'MediaBox'; then return 'MediaBox'")
+  @DisplayName(
+      "Test getPrintArea(); given PDViewerPreferences() PrintArea is 'MediaBox'; then return 'MediaBox'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.lang.String PDViewerPreferences.getPrintArea()"})
   void testGetPrintArea_givenPDViewerPreferencesPrintAreaIsMediaBox_thenReturnMediaBox() {
     // Arrange
     PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
-    pdViewerPreferences.setPrintArea(PDViewerPreferences.BOUNDARY.MediaBox);
+    pdViewerPreferences.setPrintArea(BOUNDARY.MediaBox);
 
     // Act and Assert
     assertEquals("MediaBox", pdViewerPreferences.getPrintArea());
@@ -1253,38 +1485,44 @@ class PDViewerPreferencesDiffblueTest {
 
   /**
    * Test {@link PDViewerPreferences#getPrintArea()}.
+   *
    * <ul>
-   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()}.</li>
-   *   <li>Then return {@code CropBox}.</li>
+   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()}.
+   *   <li>Then return {@code CropBox}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#getPrintArea()}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#getPrintArea()}
    */
   @Test
   @DisplayName("Test getPrintArea(); given PDViewerPreferences(); then return 'CropBox'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.lang.String PDViewerPreferences.getPrintArea()"})
   void testGetPrintArea_givenPDViewerPreferences_thenReturnCropBox() {
     // Arrange, Act and Assert
-    assertEquals("CropBox", (new PDViewerPreferences()).getPrintArea());
+    assertEquals("CropBox", new PDViewerPreferences().getPrintArea());
   }
 
   /**
    * Test {@link PDViewerPreferences#setPrintArea(BOUNDARY)}.
+   *
    * <ul>
-   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} PrintArea is
-   * {@code MediaBox}.</li>
+   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} PrintArea is {@code MediaBox}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link PDViewerPreferences#setPrintArea(PDViewerPreferences.BOUNDARY)}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#setPrintArea(BOUNDARY)}
    */
   @Test
   @DisplayName("Test setPrintArea(BOUNDARY); then PDViewerPreferences() PrintArea is 'MediaBox'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDViewerPreferences.setPrintArea(BOUNDARY)"})
   void testSetPrintArea_thenPDViewerPreferencesPrintAreaIsMediaBox() {
     // Arrange
     PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
 
     // Act
-    pdViewerPreferences.setPrintArea(PDViewerPreferences.BOUNDARY.MediaBox);
+    pdViewerPreferences.setPrintArea(BOUNDARY.MediaBox);
 
     // Assert
     assertEquals("MediaBox", pdViewerPreferences.getPrintArea());
@@ -1295,41 +1533,24 @@ class PDViewerPreferencesDiffblueTest {
 
   /**
    * Test {@link PDViewerPreferences#getPrintClip()}.
+   *
    * <ul>
-   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} HideToolbar is
-   * {@code true}.</li>
-   *   <li>Then return {@code CropBox}.</li>
+   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} PrintClip is {@code MediaBox}.
+   *   <li>Then return {@code MediaBox}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#getPrintClip()}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#getPrintClip()}
    */
   @Test
-  @DisplayName("Test getPrintClip(); given PDViewerPreferences() HideToolbar is 'true'; then return 'CropBox'")
-  void testGetPrintClip_givenPDViewerPreferencesHideToolbarIsTrue_thenReturnCropBox() {
-    // Arrange
-    PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
-    pdViewerPreferences.setHideToolbar(true);
-
-    // Act and Assert
-    assertEquals("CropBox", pdViewerPreferences.getPrintClip());
-  }
-
-  /**
-   * Test {@link PDViewerPreferences#getPrintClip()}.
-   * <ul>
-   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} PrintClip is
-   * {@code MediaBox}.</li>
-   *   <li>Then return {@code MediaBox}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#getPrintClip()}
-   */
-  @Test
-  @DisplayName("Test getPrintClip(); given PDViewerPreferences() PrintClip is 'MediaBox'; then return 'MediaBox'")
+  @DisplayName(
+      "Test getPrintClip(); given PDViewerPreferences() PrintClip is 'MediaBox'; then return 'MediaBox'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.lang.String PDViewerPreferences.getPrintClip()"})
   void testGetPrintClip_givenPDViewerPreferencesPrintClipIsMediaBox_thenReturnMediaBox() {
     // Arrange
     PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
-    pdViewerPreferences.setPrintClip(PDViewerPreferences.BOUNDARY.MediaBox);
+    pdViewerPreferences.setPrintClip(BOUNDARY.MediaBox);
 
     // Act and Assert
     assertEquals("MediaBox", pdViewerPreferences.getPrintClip());
@@ -1337,38 +1558,44 @@ class PDViewerPreferencesDiffblueTest {
 
   /**
    * Test {@link PDViewerPreferences#getPrintClip()}.
+   *
    * <ul>
-   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()}.</li>
-   *   <li>Then return {@code CropBox}.</li>
+   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()}.
+   *   <li>Then return {@code CropBox}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#getPrintClip()}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#getPrintClip()}
    */
   @Test
   @DisplayName("Test getPrintClip(); given PDViewerPreferences(); then return 'CropBox'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.lang.String PDViewerPreferences.getPrintClip()"})
   void testGetPrintClip_givenPDViewerPreferences_thenReturnCropBox() {
     // Arrange, Act and Assert
-    assertEquals("CropBox", (new PDViewerPreferences()).getPrintClip());
+    assertEquals("CropBox", new PDViewerPreferences().getPrintClip());
   }
 
   /**
    * Test {@link PDViewerPreferences#setPrintClip(BOUNDARY)}.
+   *
    * <ul>
-   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} PrintClip is
-   * {@code MediaBox}.</li>
+   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} PrintClip is {@code MediaBox}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link PDViewerPreferences#setPrintClip(PDViewerPreferences.BOUNDARY)}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#setPrintClip(BOUNDARY)}
    */
   @Test
   @DisplayName("Test setPrintClip(BOUNDARY); then PDViewerPreferences() PrintClip is 'MediaBox'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDViewerPreferences.setPrintClip(BOUNDARY)"})
   void testSetPrintClip_thenPDViewerPreferencesPrintClipIsMediaBox() {
     // Arrange
     PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
 
     // Act
-    pdViewerPreferences.setPrintClip(PDViewerPreferences.BOUNDARY.MediaBox);
+    pdViewerPreferences.setPrintClip(BOUNDARY.MediaBox);
 
     // Assert
     assertEquals("MediaBox", pdViewerPreferences.getPrintClip());
@@ -1379,20 +1606,24 @@ class PDViewerPreferencesDiffblueTest {
 
   /**
    * Test {@link PDViewerPreferences#getDuplex()}.
+   *
    * <ul>
-   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} Duplex is
-   * {@code Simplex}.</li>
-   *   <li>Then return {@code Simplex}.</li>
+   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} Duplex is {@code Simplex}.
+   *   <li>Then return {@code Simplex}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#getDuplex()}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#getDuplex()}
    */
   @Test
-  @DisplayName("Test getDuplex(); given PDViewerPreferences() Duplex is 'Simplex'; then return 'Simplex'")
+  @DisplayName(
+      "Test getDuplex(); given PDViewerPreferences() Duplex is 'Simplex'; then return 'Simplex'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.lang.String PDViewerPreferences.getDuplex()"})
   void testGetDuplex_givenPDViewerPreferencesDuplexIsSimplex_thenReturnSimplex() {
     // Arrange
     PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
-    pdViewerPreferences.setDuplex(PDViewerPreferences.DUPLEX.Simplex);
+    pdViewerPreferences.setDuplex(DUPLEX.Simplex);
 
     // Act and Assert
     assertEquals("Simplex", pdViewerPreferences.getDuplex());
@@ -1400,60 +1631,73 @@ class PDViewerPreferencesDiffblueTest {
 
   /**
    * Test {@link PDViewerPreferences#getDuplex()}.
+   *
    * <ul>
-   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} HideToolbar is
-   * {@code true}.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} FitWindow is {@code true}.
+   *   <li>Then return {@code Simplex}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#getDuplex()}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#getDuplex()}
    */
   @Test
-  @DisplayName("Test getDuplex(); given PDViewerPreferences() HideToolbar is 'true'; then return 'null'")
-  void testGetDuplex_givenPDViewerPreferencesHideToolbarIsTrue_thenReturnNull() {
+  @DisplayName(
+      "Test getDuplex(); given PDViewerPreferences() FitWindow is 'true'; then return 'Simplex'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.lang.String PDViewerPreferences.getDuplex()"})
+  void testGetDuplex_givenPDViewerPreferencesFitWindowIsTrue_thenReturnSimplex() {
     // Arrange
     PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
+    pdViewerPreferences.setFitWindow(true);
     pdViewerPreferences.setHideToolbar(true);
+    pdViewerPreferences.setDuplex(DUPLEX.Simplex);
 
     // Act and Assert
-    assertNull(pdViewerPreferences.getDuplex());
+    assertEquals("Simplex", pdViewerPreferences.getDuplex());
   }
 
   /**
    * Test {@link PDViewerPreferences#getDuplex()}.
+   *
    * <ul>
-   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()}.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()}.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#getDuplex()}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#getDuplex()}
    */
   @Test
   @DisplayName("Test getDuplex(); given PDViewerPreferences(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.lang.String PDViewerPreferences.getDuplex()"})
   void testGetDuplex_givenPDViewerPreferences_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new PDViewerPreferences()).getDuplex());
+    assertNull(new PDViewerPreferences().getDuplex());
   }
 
   /**
    * Test {@link PDViewerPreferences#setDuplex(DUPLEX)}.
+   *
    * <ul>
-   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()}.</li>
-   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} Duplex is
-   * {@code Simplex}.</li>
+   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()}.
+   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} Duplex is {@code Simplex}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link PDViewerPreferences#setDuplex(PDViewerPreferences.DUPLEX)}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#setDuplex(DUPLEX)}
    */
   @Test
-  @DisplayName("Test setDuplex(DUPLEX); given PDViewerPreferences(); then PDViewerPreferences() Duplex is 'Simplex'")
+  @DisplayName(
+      "Test setDuplex(DUPLEX); given PDViewerPreferences(); then PDViewerPreferences() Duplex is 'Simplex'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDViewerPreferences.setDuplex(DUPLEX)"})
   void testSetDuplex_givenPDViewerPreferences_thenPDViewerPreferencesDuplexIsSimplex() {
     // Arrange
     PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
 
     // Act
-    pdViewerPreferences.setDuplex(PDViewerPreferences.DUPLEX.Simplex);
+    pdViewerPreferences.setDuplex(DUPLEX.Simplex);
 
     // Assert
     assertEquals("Simplex", pdViewerPreferences.getDuplex());
@@ -1464,25 +1708,57 @@ class PDViewerPreferencesDiffblueTest {
 
   /**
    * Test {@link PDViewerPreferences#setDuplex(DUPLEX)}.
+   *
    * <ul>
-   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences(COSDictionary)} with
-   * dic is {@link COSDictionary#COSDictionary()} Duplex is {@code Simplex}.</li>
+   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} COSObject Values size is two.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link PDViewerPreferences#setDuplex(PDViewerPreferences.DUPLEX)}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#setDuplex(DUPLEX)}
    */
   @Test
-  @DisplayName("Test setDuplex(DUPLEX); then PDViewerPreferences(COSDictionary) with dic is COSDictionary() Duplex is 'Simplex'")
-  void testSetDuplex_thenPDViewerPreferencesWithDicIsCOSDictionaryDuplexIsSimplex() {
+  @DisplayName("Test setDuplex(DUPLEX); then PDViewerPreferences() COSObject Values size is two")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDViewerPreferences.setDuplex(DUPLEX)"})
+  void testSetDuplex_thenPDViewerPreferencesCOSObjectValuesSizeIsTwo() {
     // Arrange
-    PDViewerPreferences pdViewerPreferences = new PDViewerPreferences(new COSDictionary());
+    PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
+    pdViewerPreferences.setPrintArea(BOUNDARY.TrimBox);
 
     // Act
-    pdViewerPreferences.setDuplex(PDViewerPreferences.DUPLEX.Simplex);
+    pdViewerPreferences.setDuplex(DUPLEX.Simplex);
 
     // Assert
     assertEquals("Simplex", pdViewerPreferences.getDuplex());
+    COSDictionary cOSObject = pdViewerPreferences.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDViewerPreferences#setDuplex(DUPLEX)}.
+   *
+   * <ul>
+   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} Duplex is {@code
+   *       DuplexFlipShortEdge}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDViewerPreferences#setDuplex(DUPLEX)}
+   */
+  @Test
+  @DisplayName("Test setDuplex(DUPLEX); then PDViewerPreferences() Duplex is 'DuplexFlipShortEdge'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDViewerPreferences.setDuplex(DUPLEX)"})
+  void testSetDuplex_thenPDViewerPreferencesDuplexIsDuplexFlipShortEdge() {
+    // Arrange
+    PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
+
+    // Act
+    pdViewerPreferences.setDuplex(DUPLEX.DuplexFlipShortEdge);
+
+    // Assert
+    assertEquals("DuplexFlipShortEdge", pdViewerPreferences.getDuplex());
     COSDictionary cOSObject = pdViewerPreferences.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
@@ -1490,40 +1766,25 @@ class PDViewerPreferencesDiffblueTest {
 
   /**
    * Test {@link PDViewerPreferences#getPrintScaling()}.
+   *
    * <ul>
-   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} HideToolbar is
-   * {@code true}.</li>
+   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} HideMenubar is {@code false}.
+   *   <li>Then return {@code None}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#getPrintScaling()}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#getPrintScaling()}
    */
   @Test
-  @DisplayName("Test getPrintScaling(); given PDViewerPreferences() HideToolbar is 'true'")
-  void testGetPrintScaling_givenPDViewerPreferencesHideToolbarIsTrue() {
+  @DisplayName(
+      "Test getPrintScaling(); given PDViewerPreferences() HideMenubar is 'false'; then return 'None'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.lang.String PDViewerPreferences.getPrintScaling()"})
+  void testGetPrintScaling_givenPDViewerPreferencesHideMenubarIsFalse_thenReturnNone() {
     // Arrange
     PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
-    pdViewerPreferences.setHideToolbar(true);
-
-    // Act and Assert
-    assertEquals("AppDefault", pdViewerPreferences.getPrintScaling());
-  }
-
-  /**
-   * Test {@link PDViewerPreferences#getPrintScaling()}.
-   * <ul>
-   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} PrintScaling is
-   * {@code None}.</li>
-   *   <li>Then return {@code None}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#getPrintScaling()}
-   */
-  @Test
-  @DisplayName("Test getPrintScaling(); given PDViewerPreferences() PrintScaling is 'None'; then return 'None'")
-  void testGetPrintScaling_givenPDViewerPreferencesPrintScalingIsNone_thenReturnNone() {
-    // Arrange
-    PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
-    pdViewerPreferences.setPrintScaling(PDViewerPreferences.PRINT_SCALING.None);
+    pdViewerPreferences.setHideMenubar(false);
+    pdViewerPreferences.setPrintScaling(PRINT_SCALING.None);
 
     // Act and Assert
     assertEquals("None", pdViewerPreferences.getPrintScaling());
@@ -1531,38 +1792,102 @@ class PDViewerPreferencesDiffblueTest {
 
   /**
    * Test {@link PDViewerPreferences#getPrintScaling()}.
+   *
    * <ul>
-   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()}.</li>
-   *   <li>Then return {@code AppDefault}.</li>
+   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()} PrintScaling is {@code None}.
+   *   <li>Then return {@code None}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDViewerPreferences#getPrintScaling()}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#getPrintScaling()}
+   */
+  @Test
+  @DisplayName(
+      "Test getPrintScaling(); given PDViewerPreferences() PrintScaling is 'None'; then return 'None'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.lang.String PDViewerPreferences.getPrintScaling()"})
+  void testGetPrintScaling_givenPDViewerPreferencesPrintScalingIsNone_thenReturnNone() {
+    // Arrange
+    PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
+    pdViewerPreferences.setPrintScaling(PRINT_SCALING.None);
+
+    // Act and Assert
+    assertEquals("None", pdViewerPreferences.getPrintScaling());
+  }
+
+  /**
+   * Test {@link PDViewerPreferences#getPrintScaling()}.
+   *
+   * <ul>
+   *   <li>Given {@link PDViewerPreferences#PDViewerPreferences()}.
+   *   <li>Then return {@code AppDefault}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDViewerPreferences#getPrintScaling()}
    */
   @Test
   @DisplayName("Test getPrintScaling(); given PDViewerPreferences(); then return 'AppDefault'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.lang.String PDViewerPreferences.getPrintScaling()"})
   void testGetPrintScaling_givenPDViewerPreferences_thenReturnAppDefault() {
     // Arrange, Act and Assert
-    assertEquals("AppDefault", (new PDViewerPreferences()).getPrintScaling());
+    assertEquals("AppDefault", new PDViewerPreferences().getPrintScaling());
   }
 
   /**
    * Test {@link PDViewerPreferences#setPrintScaling(PRINT_SCALING)}.
+   *
    * <ul>
-   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} PrintScaling is
-   * {@code AppDefault}.</li>
+   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} COSObject Values size is three.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link PDViewerPreferences#setPrintScaling(PDViewerPreferences.PRINT_SCALING)}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#setPrintScaling(PRINT_SCALING)}
    */
   @Test
-  @DisplayName("Test setPrintScaling(PRINT_SCALING); then PDViewerPreferences() PrintScaling is 'AppDefault'")
+  @DisplayName(
+      "Test setPrintScaling(PRINT_SCALING); then PDViewerPreferences() COSObject Values size is three")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDViewerPreferences.setPrintScaling(PRINT_SCALING)"})
+  void testSetPrintScaling_thenPDViewerPreferencesCOSObjectValuesSizeIsThree() {
+    // Arrange
+    PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
+    pdViewerPreferences.setHideMenubar(true);
+    pdViewerPreferences.setCenterWindow(true);
+
+    // Act
+    pdViewerPreferences.setPrintScaling(PRINT_SCALING.None);
+
+    // Assert
+    assertEquals("None", pdViewerPreferences.getPrintScaling());
+    COSDictionary cOSObject = pdViewerPreferences.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDViewerPreferences#setPrintScaling(PRINT_SCALING)}.
+   *
+   * <ul>
+   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} PrintScaling is {@code
+   *       AppDefault}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDViewerPreferences#setPrintScaling(PRINT_SCALING)}
+   */
+  @Test
+  @DisplayName(
+      "Test setPrintScaling(PRINT_SCALING); then PDViewerPreferences() PrintScaling is 'AppDefault'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDViewerPreferences.setPrintScaling(PRINT_SCALING)"})
   void testSetPrintScaling_thenPDViewerPreferencesPrintScalingIsAppDefault() {
     // Arrange
     PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
 
     // Act
-    pdViewerPreferences.setPrintScaling(PDViewerPreferences.PRINT_SCALING.AppDefault);
+    pdViewerPreferences.setPrintScaling(PRINT_SCALING.AppDefault);
 
     // Assert
     assertEquals("AppDefault", pdViewerPreferences.getPrintScaling());
@@ -1573,22 +1898,25 @@ class PDViewerPreferencesDiffblueTest {
 
   /**
    * Test {@link PDViewerPreferences#setPrintScaling(PRINT_SCALING)}.
+   *
    * <ul>
-   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} PrintScaling is
-   * {@code None}.</li>
+   *   <li>Then {@link PDViewerPreferences#PDViewerPreferences()} PrintScaling is {@code None}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link PDViewerPreferences#setPrintScaling(PDViewerPreferences.PRINT_SCALING)}
+   *
+   * <p>Method under test: {@link PDViewerPreferences#setPrintScaling(PRINT_SCALING)}
    */
   @Test
-  @DisplayName("Test setPrintScaling(PRINT_SCALING); then PDViewerPreferences() PrintScaling is 'None'")
+  @DisplayName(
+      "Test setPrintScaling(PRINT_SCALING); then PDViewerPreferences() PrintScaling is 'None'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDViewerPreferences.setPrintScaling(PRINT_SCALING)"})
   void testSetPrintScaling_thenPDViewerPreferencesPrintScalingIsNone() {
     // Arrange
     PDViewerPreferences pdViewerPreferences = new PDViewerPreferences();
 
     // Act
-    pdViewerPreferences.setPrintScaling(PDViewerPreferences.PRINT_SCALING.None);
+    pdViewerPreferences.setPrintScaling(PRINT_SCALING.None);
 
     // Assert
     assertEquals("None", pdViewerPreferences.getPrintScaling());

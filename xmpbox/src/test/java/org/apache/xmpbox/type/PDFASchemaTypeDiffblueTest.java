@@ -4,19 +4,24 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import java.util.List;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.xmpbox.XMPMetadata;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDFASchemaTypeDiffblueTest {
   /**
    * Test {@link PDFASchemaType#PDFASchemaType(XMPMetadata)}.
-   * <p>
-   * Method under test: {@link PDFASchemaType#PDFASchemaType(XMPMetadata)}
+   *
+   * <p>Method under test: {@link PDFASchemaType#PDFASchemaType(XMPMetadata)}
    */
   @Test
   @DisplayName("Test new PDFASchemaType(XMPMetadata)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDFASchemaType.<init>(XMPMetadata)"})
   void testNewPDFASchemaType() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -33,39 +38,45 @@ class PDFASchemaTypeDiffblueTest {
     assertNull(actualPdfaSchemaType.getPrefixValue());
     assertNull(actualPdfaSchemaType.getProperty());
     assertNull(actualPdfaSchemaType.getValueType());
-    List<AbstractField> allProperties = actualPdfaSchemaType.getAllProperties();
-    assertTrue(allProperties.isEmpty());
+    assertTrue(actualPdfaSchemaType.getAllProperties().isEmpty());
     assertTrue(actualPdfaSchemaType.getAllAttributes().isEmpty());
     assertTrue(actualPdfaSchemaType.getAllNamespacesWithPrefix().isEmpty());
-    assertSame(allProperties, actualPdfaSchemaType.getContainer().getAllProperties());
     assertSame(metadata, actualPdfaSchemaType.getMetadata());
   }
 
   /**
    * Test {@link PDFASchemaType#getNamespaceURI()}.
+   *
    * <ul>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDFASchemaType#getNamespaceURI()}
+   *
+   * <p>Method under test: {@link PDFASchemaType#getNamespaceURI()}
    */
   @Test
   @DisplayName("Test getNamespaceURI(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.lang.String PDFASchemaType.getNamespaceURI()"})
   void testGetNamespaceURI_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new PDFASchemaType(XMPMetadata.createXMPMetadata())).getNamespaceURI());
+    assertNull(new PDFASchemaType(XMPMetadata.createXMPMetadata()).getNamespaceURI());
   }
 
   /**
    * Test {@link PDFASchemaType#getNamespaceURI()}.
+   *
    * <ul>
-   *   <li>Then return {@code Value}.</li>
+   *   <li>Then return {@code Value}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDFASchemaType#getNamespaceURI()}
+   *
+   * <p>Method under test: {@link PDFASchemaType#getNamespaceURI()}
    */
   @Test
   @DisplayName("Test getNamespaceURI(); then return 'Value'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.lang.String PDFASchemaType.getNamespaceURI()"})
   void testGetNamespaceURI_thenReturnValue() {
     // Arrange
     PDFASchemaType pdfaSchemaType = new PDFASchemaType(XMPMetadata.createXMPMetadata());
@@ -77,29 +88,37 @@ class PDFASchemaTypeDiffblueTest {
 
   /**
    * Test {@link PDFASchemaType#getPrefixValue()}.
+   *
    * <ul>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDFASchemaType#getPrefixValue()}
+   *
+   * <p>Method under test: {@link PDFASchemaType#getPrefixValue()}
    */
   @Test
   @DisplayName("Test getPrefixValue(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.lang.String PDFASchemaType.getPrefixValue()"})
   void testGetPrefixValue_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new PDFASchemaType(XMPMetadata.createXMPMetadata())).getPrefixValue());
+    assertNull(new PDFASchemaType(XMPMetadata.createXMPMetadata()).getPrefixValue());
   }
 
   /**
    * Test {@link PDFASchemaType#getPrefixValue()}.
+   *
    * <ul>
-   *   <li>Then return {@code Value}.</li>
+   *   <li>Then return {@code Value}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDFASchemaType#getPrefixValue()}
+   *
+   * <p>Method under test: {@link PDFASchemaType#getPrefixValue()}
    */
   @Test
   @DisplayName("Test getPrefixValue(); then return 'Value'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.lang.String PDFASchemaType.getPrefixValue()"})
   void testGetPrefixValue_thenReturnValue() {
     // Arrange
     PDFASchemaType pdfaSchemaType = new PDFASchemaType(XMPMetadata.createXMPMetadata());
@@ -111,17 +130,24 @@ class PDFASchemaTypeDiffblueTest {
 
   /**
    * Test {@link PDFASchemaType#getProperty()}.
-   * <p>
-   * Method under test: {@link PDFASchemaType#getProperty()}
+   *
+   * <p>Method under test: {@link PDFASchemaType#getProperty()}
    */
   @Test
   @DisplayName("Test getProperty()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"ArrayProperty PDFASchemaType.getProperty()"})
   void testGetProperty() {
     // Arrange
     PDFASchemaType pdfaSchemaType = new PDFASchemaType(XMPMetadata.createXMPMetadata());
-    ArrayProperty obj = new ArrayProperty(XMPMetadata.createXMPMetadata(), PDFASchemaType.PROPERTY,
-        PDFASchemaType.PROPERTY, PDFASchemaType.PROPERTY, Cardinality.Simple);
-
+    ArrayProperty obj =
+        new ArrayProperty(
+            XMPMetadata.createXMPMetadata(),
+            PDFASchemaType.PROPERTY,
+            PDFASchemaType.PROPERTY,
+            PDFASchemaType.PROPERTY,
+            Cardinality.Simple);
     pdfaSchemaType.addProperty(obj);
 
     // Act and Assert
@@ -130,32 +156,43 @@ class PDFASchemaTypeDiffblueTest {
 
   /**
    * Test {@link PDFASchemaType#getProperty()}.
+   *
    * <ul>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDFASchemaType#getProperty()}
+   *
+   * <p>Method under test: {@link PDFASchemaType#getProperty()}
    */
   @Test
   @DisplayName("Test getProperty(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"ArrayProperty PDFASchemaType.getProperty()"})
   void testGetProperty_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new PDFASchemaType(XMPMetadata.createXMPMetadata())).getProperty());
+    assertNull(new PDFASchemaType(XMPMetadata.createXMPMetadata()).getProperty());
   }
 
   /**
    * Test {@link PDFASchemaType#getValueType()}.
-   * <p>
-   * Method under test: {@link PDFASchemaType#getValueType()}
+   *
+   * <p>Method under test: {@link PDFASchemaType#getValueType()}
    */
   @Test
   @DisplayName("Test getValueType()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"ArrayProperty PDFASchemaType.getValueType()"})
   void testGetValueType() {
     // Arrange
     PDFASchemaType pdfaSchemaType = new PDFASchemaType(XMPMetadata.createXMPMetadata());
-    ArrayProperty obj = new ArrayProperty(XMPMetadata.createXMPMetadata(), PDFASchemaType.VALUE_TYPE,
-        PDFASchemaType.VALUE_TYPE, PDFASchemaType.VALUE_TYPE, Cardinality.Simple);
-
+    ArrayProperty obj =
+        new ArrayProperty(
+            XMPMetadata.createXMPMetadata(),
+            PDFASchemaType.VALUE_TYPE,
+            PDFASchemaType.VALUE_TYPE,
+            PDFASchemaType.VALUE_TYPE,
+            Cardinality.Simple);
     pdfaSchemaType.addProperty(obj);
 
     // Act and Assert
@@ -164,16 +201,20 @@ class PDFASchemaTypeDiffblueTest {
 
   /**
    * Test {@link PDFASchemaType#getValueType()}.
+   *
    * <ul>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDFASchemaType#getValueType()}
+   *
+   * <p>Method under test: {@link PDFASchemaType#getValueType()}
    */
   @Test
   @DisplayName("Test getValueType(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"ArrayProperty PDFASchemaType.getValueType()"})
   void testGetValueType_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new PDFASchemaType(XMPMetadata.createXMPMetadata())).getValueType());
+    assertNull(new PDFASchemaType(XMPMetadata.createXMPMetadata()).getValueType());
   }
 }

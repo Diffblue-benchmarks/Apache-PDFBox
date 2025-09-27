@@ -4,38 +4,46 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
+import javax.imageio.metadata.IIOMetadataNode;
 import org.apache.pdfbox.cos.COSDictionary;
-import org.apache.pdfbox.cos.COSIncrement;
-import org.apache.pdfbox.cos.COSUpdateState;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.w3c.dom.Element;
 
 class FDFAnnotationSoundDiffblueTest {
   /**
    * Test {@link FDFAnnotationSound#FDFAnnotationSound(COSDictionary)}.
-   * <p>
-   * Method under test:
-   * {@link FDFAnnotationSound#FDFAnnotationSound(COSDictionary)}
+   *
+   * <p>Method under test: {@link FDFAnnotationSound#FDFAnnotationSound(COSDictionary)}
    */
   @Test
   @DisplayName("Test new FDFAnnotationSound(COSDictionary)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFAnnotationSound.<init>(COSDictionary)"})
   void testNewFDFAnnotationSound() {
     // Arrange
     COSDictionary a = new COSDictionary();
 
     // Act and Assert
-    assertSame(a, (new FDFAnnotationSound(a)).getCOSObject());
+    assertSame(a, new FDFAnnotationSound(a).getCOSObject());
   }
 
   /**
    * Test {@link FDFAnnotationSound#FDFAnnotationSound()}.
-   * <p>
-   * Method under test: {@link FDFAnnotationSound#FDFAnnotationSound()}
+   *
+   * <p>Method under test: {@link FDFAnnotationSound#FDFAnnotationSound()}
    */
   @Test
   @DisplayName("Test new FDFAnnotationSound()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFAnnotationSound.<init>()"})
   void testNewFDFAnnotationSound2() throws IOException {
     // Arrange and Act
     FDFAnnotationSound actualFdfAnnotationSound = new FDFAnnotationSound();
@@ -51,21 +59,10 @@ class FDFAnnotationSoundDiffblueTest {
     assertNull(actualFdfAnnotationSound.getSubject());
     assertNull(actualFdfAnnotationSound.getTitle());
     assertNull(actualFdfAnnotationSound.getCreationDate());
-    COSDictionary cOSObject = actualFdfAnnotationSound.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
-    assertNull(cOSObject.getKey());
     assertNull(actualFdfAnnotationSound.getRectangle());
     assertNull(actualFdfAnnotationSound.getBorderEffect());
     assertNull(actualFdfAnnotationSound.getBorderStyle());
     assertEquals(1.0f, actualFdfAnnotationSound.getOpacity());
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
     assertFalse(actualFdfAnnotationSound.isHidden());
     assertFalse(actualFdfAnnotationSound.isInvisible());
     assertFalse(actualFdfAnnotationSound.isLocked());
@@ -76,6 +73,26 @@ class FDFAnnotationSoundDiffblueTest {
     assertFalse(actualFdfAnnotationSound.isPrinted());
     assertFalse(actualFdfAnnotationSound.isReadOnly());
     assertFalse(actualFdfAnnotationSound.isToggleNoView());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
+  }
+
+  /**
+   * Test {@link FDFAnnotationSound#FDFAnnotationSound(Element)}.
+   *
+   * <ul>
+   *   <li>When {@link IIOMetadataNode#IIOMetadataNode()}.
+   *   <li>Then throw {@link IOException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link FDFAnnotationSound#FDFAnnotationSound(Element)}
+   */
+  @Test
+  @DisplayName(
+      "Test new FDFAnnotationSound(Element); when IIOMetadataNode(); then throw IOException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFAnnotationSound.<init>(Element)"})
+  void testNewFDFAnnotationSound_whenIIOMetadataNode_thenThrowIOException() throws IOException {
+    // Arrange, Act and Assert
+    assertThrows(IOException.class, () -> new FDFAnnotationSound(new IIOMetadataNode()));
   }
 }

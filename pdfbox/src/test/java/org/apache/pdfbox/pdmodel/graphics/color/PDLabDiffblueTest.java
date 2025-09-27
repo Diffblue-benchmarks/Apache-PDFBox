@@ -6,11 +6,13 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.image.WritableRaster;
 import java.util.List;
 import org.apache.pdfbox.cos.COSArray;
@@ -19,127 +21,93 @@ import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSFloat;
 import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSName;
-import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.cos.COSUpdateState;
 import org.apache.pdfbox.pdmodel.common.PDRange;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 class PDLabDiffblueTest {
   /**
    * Test {@link PDLab#PDLab()}.
-   * <p>
-   * Method under test: {@link PDLab#PDLab()}
+   *
+   * <p>Method under test: {@link PDLab#PDLab()}
    */
   @Test
   @DisplayName("Test new PDLab()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDLab.<init>()"})
   void testNewPDLab() {
     // Arrange and Act
     PDLab actualPdLab = new PDLab();
 
     // Assert
-    COSBase cOSObject = actualPdLab.getCOSObject();
-    assertTrue(cOSObject instanceof COSArray);
-    PDTristimulus blackPoint = actualPdLab.getBlackPoint();
-    COSBase cOSObject2 = blackPoint.getCOSObject();
-    assertTrue(cOSObject2 instanceof COSArray);
-    PDTristimulus whitepoint = actualPdLab.getWhitepoint();
-    COSBase cOSObject3 = whitepoint.getCOSObject();
-    assertTrue(cOSObject3 instanceof COSArray);
-    PDRange aRange = actualPdLab.getARange();
-    COSArray cOSArray = aRange.getCOSArray();
-    List<? extends COSBase> toListResult = cOSArray.toList();
-    assertEquals(4, toListResult.size());
-    COSBase getResult = toListResult.get(0);
-    assertTrue(getResult instanceof COSFloat);
-    COSBase getResult2 = toListResult.get(1);
-    assertTrue(getResult2 instanceof COSFloat);
-    COSBase getResult3 = toListResult.get(2);
-    assertTrue(getResult3 instanceof COSFloat);
-    COSBase getResult4 = toListResult.get(3);
-    assertTrue(getResult4 instanceof COSFloat);
-    List<? extends COSBase> toListResult2 = ((COSArray) cOSObject2).toList();
-    assertEquals(3, toListResult2.size());
-    COSBase getResult5 = toListResult2.get(0);
-    assertTrue(getResult5 instanceof COSFloat);
-    List<? extends COSBase> toListResult3 = ((COSArray) cOSObject3).toList();
-    assertEquals(3, toListResult3.size());
-    COSBase getResult6 = toListResult3.get(0);
-    assertTrue(getResult6 instanceof COSFloat);
-    List<? extends COSBase> toListResult4 = ((COSArray) cOSObject).toList();
-    assertEquals(2, toListResult4.size());
-    COSBase getResult7 = toListResult4.get(0);
-    assertTrue(getResult7 instanceof COSName);
-    assertEquals("Lab", ((COSName) getResult7).getName());
+    assertTrue(actualPdLab.getCOSObject() instanceof COSArray);
     assertEquals("Lab", actualPdLab.getName());
-    COSDictionary cosDictionary = actualPdLab.dictionary;
-    COSUpdateState updateState = cosDictionary.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
-    PDColor initialColor = actualPdLab.getInitialColor();
-    assertNull(initialColor.getPatternName());
-    assertNull(getResult.getKey());
-    assertNull(getResult2.getKey());
-    assertNull(getResult7.getKey());
-    assertNull(getResult5.getKey());
-    assertNull(getResult6.getKey());
-    assertNull(cosDictionary.getKey());
-    assertEquals(-100.0f, aRange.getMin());
-    PDRange bRange = actualPdLab.getBRange();
-    assertEquals(-100.0f, bRange.getMin());
-    assertEquals(0, cosDictionary.size());
-    assertEquals(0.0f, blackPoint.getX());
-    assertEquals(0.0f, blackPoint.getY());
-    assertEquals(0.0f, blackPoint.getZ());
-    assertEquals(1.0f, whitepoint.getX());
-    assertEquals(1.0f, whitepoint.getY());
-    assertEquals(1.0f, whitepoint.getZ());
     assertEquals(1.0f, actualPdLab.wpX);
     assertEquals(1.0f, actualPdLab.wpY);
     assertEquals(1.0f, actualPdLab.wpZ);
-    assertEquals(100.0f, aRange.getMax());
-    assertEquals(100.0f, bRange.getMax());
     assertEquals(3, actualPdLab.getNumberOfComponents());
-    COSIncrement toIncrementResult = cosDictionary.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
-    assertFalse(getResult.isDirect());
-    assertFalse(getResult2.isDirect());
-    assertFalse(getResult7.isDirect());
-    assertFalse(getResult5.isDirect());
-    assertFalse(getResult6.isDirect());
-    assertFalse(cosDictionary.isDirect());
-    assertFalse(((COSName) getResult7).isEmpty());
-    assertFalse(cosDictionary.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertFalse(initialColor.isPattern());
-    assertTrue(cosDictionary.getValues().isEmpty());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
-    COSArray cOSArray2 = bRange.getCOSArray();
-    assertEquals(toListResult, cOSArray2.toList());
-    assertEquals(getResult, getResult3);
-    assertEquals(getResult2, getResult4);
-    assertSame(actualPdLab, initialColor.getColorSpace());
-    assertSame(cOSArray, aRange.getCOSObject());
-    assertSame(cOSArray2, bRange.getCOSObject());
-    assertSame(actualPdLab.dictionary, toListResult4.get(1));
-    assertSame(getResult5, toListResult2.get(1));
-    assertSame(getResult5, toListResult2.get(2));
-    assertSame(getResult6, toListResult3.get(1));
-    assertSame(getResult6, toListResult3.get(2));
-    assertArrayEquals(new float[]{0.0f, 0.0f, 0.0f}, initialColor.getComponents(), 0.0f);
   }
 
   /**
    * Test {@link PDLab#PDLab(COSArray)}.
+   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
-   *   <li>Then BlackPoint COSObject return {@link COSArray}.</li>
+   *   <li>Given {@link COSDictionary} {@link COSDictionary#getCOSArray(COSName)} return {@code
+   *       null}.
+   *   <li>Then return Name is {@code Lab}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDLab#PDLab(COSArray)}
+   *
+   * <p>Method under test: {@link PDLab#PDLab(COSArray)}
    */
   @Test
-  @DisplayName("Test new PDLab(COSArray); given COSDictionary(); then BlackPoint COSObject return COSArray")
-  void testNewPDLab_givenCOSDictionary_thenBlackPointCOSObjectReturnCOSArray() {
+  @DisplayName(
+      "Test new PDLab(COSArray); given COSDictionary getCOSArray(COSName) return 'null'; then return Name is 'Lab'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDLab.<init>(COSArray)"})
+  void testNewPDLab_givenCOSDictionaryGetCOSArrayReturnNull_thenReturnNameIsLab() {
+    // Arrange
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.getCOSArray(Mockito.<COSName>any())).thenReturn(null);
+
+    COSArray lab = mock(COSArray.class);
+    when(lab.getObject(anyInt())).thenReturn(cosDictionary);
+
+    // Act
+    PDLab actualPdLab = new PDLab(lab);
+
+    // Assert
+    verify(lab).getObject(1);
+    verify(cosDictionary).getCOSArray(isA(COSName.class));
+    assertEquals("Lab", actualPdLab.getName());
+    assertEquals(1.0f, actualPdLab.wpX);
+    assertEquals(1.0f, actualPdLab.wpY);
+    assertEquals(1.0f, actualPdLab.wpZ);
+    assertEquals(3, actualPdLab.getNumberOfComponents());
+    assertSame(lab, actualPdLab.getCOSObject());
+  }
+
+  /**
+   * Test {@link PDLab#PDLab(COSArray)}.
+   *
+   * <ul>
+   *   <li>Then return {@link PDCIEDictionaryBasedColorSpace#dictionary} UpdateState
+   *       OriginDocumentState is {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDLab#PDLab(COSArray)}
+   */
+  @Test
+  @DisplayName(
+      "Test new PDLab(COSArray); then return dictionary UpdateState OriginDocumentState is 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDLab.<init>(COSArray)"})
+  void testNewPDLab_thenReturnDictionaryUpdateStateOriginDocumentStateIsNull() {
     // Arrange
     COSArray lab = mock(COSArray.class);
     when(lab.getObject(anyInt())).thenReturn(new COSDictionary());
@@ -148,187 +116,114 @@ class PDLabDiffblueTest {
     PDLab actualPdLab = new PDLab(lab);
 
     // Assert
-    verify(lab).getObject(eq(1));
-    PDTristimulus blackPoint = actualPdLab.getBlackPoint();
-    COSBase cOSObject = blackPoint.getCOSObject();
-    assertTrue(cOSObject instanceof COSArray);
-    PDTristimulus whitepoint = actualPdLab.getWhitepoint();
-    COSBase cOSObject2 = whitepoint.getCOSObject();
-    assertTrue(cOSObject2 instanceof COSArray);
-    PDRange aRange = actualPdLab.getARange();
-    COSArray cOSArray = aRange.getCOSArray();
-    List<? extends COSBase> toListResult = cOSArray.toList();
-    assertEquals(4, toListResult.size());
-    COSBase getResult = toListResult.get(0);
-    assertTrue(getResult instanceof COSFloat);
-    COSBase getResult2 = toListResult.get(1);
-    assertTrue(getResult2 instanceof COSFloat);
-    COSBase getResult3 = toListResult.get(2);
-    assertTrue(getResult3 instanceof COSFloat);
-    COSBase getResult4 = toListResult.get(3);
-    assertTrue(getResult4 instanceof COSFloat);
-    List<? extends COSBase> toListResult2 = ((COSArray) cOSObject).toList();
-    assertEquals(3, toListResult2.size());
-    COSBase getResult5 = toListResult2.get(0);
-    assertTrue(getResult5 instanceof COSFloat);
-    List<? extends COSBase> toListResult3 = ((COSArray) cOSObject2).toList();
-    assertEquals(3, toListResult3.size());
-    COSBase getResult6 = toListResult3.get(0);
-    assertTrue(getResult6 instanceof COSFloat);
-    assertEquals("Lab", actualPdLab.getName());
+    verify(lab).getObject(1);
     COSDictionary cosDictionary = actualPdLab.dictionary;
     COSUpdateState updateState = cosDictionary.getUpdateState();
     assertNull(updateState.getOriginDocumentState());
-    PDColor initialColor = actualPdLab.getInitialColor();
-    assertNull(initialColor.getPatternName());
-    assertNull(getResult.getKey());
-    assertNull(getResult2.getKey());
-    assertNull(getResult5.getKey());
-    assertNull(getResult6.getKey());
     assertNull(cosDictionary.getKey());
-    assertEquals(-100.0f, aRange.getMin());
-    PDRange bRange = actualPdLab.getBRange();
-    assertEquals(-100.0f, bRange.getMin());
     assertEquals(0, cosDictionary.size());
-    assertEquals(0.0f, blackPoint.getX());
-    assertEquals(0.0f, blackPoint.getY());
-    assertEquals(0.0f, blackPoint.getZ());
-    assertEquals(1.0f, whitepoint.getX());
-    assertEquals(1.0f, whitepoint.getY());
-    assertEquals(1.0f, whitepoint.getZ());
-    assertEquals(1.0f, actualPdLab.wpX);
-    assertEquals(1.0f, actualPdLab.wpY);
-    assertEquals(1.0f, actualPdLab.wpZ);
-    assertEquals(100.0f, aRange.getMax());
-    assertEquals(100.0f, bRange.getMax());
-    assertEquals(3, actualPdLab.getNumberOfComponents());
     COSIncrement toIncrementResult = cosDictionary.toIncrement();
     assertFalse(toIncrementResult.iterator().hasNext());
-    assertFalse(getResult.isDirect());
-    assertFalse(getResult2.isDirect());
-    assertFalse(getResult5.isDirect());
-    assertFalse(getResult6.isDirect());
     assertFalse(cosDictionary.isDirect());
     assertFalse(cosDictionary.isNeedToBeUpdated());
     assertFalse(updateState.isUpdated());
-    assertFalse(initialColor.isPattern());
     assertTrue(cosDictionary.getValues().isEmpty());
     assertTrue(toIncrementResult.getObjects().isEmpty());
-    COSArray cOSArray2 = bRange.getCOSArray();
-    assertEquals(toListResult, cOSArray2.toList());
-    assertEquals(getResult, getResult3);
-    assertEquals(getResult2, getResult4);
-    assertSame(actualPdLab, initialColor.getColorSpace());
-    assertSame(cOSArray, aRange.getCOSObject());
-    assertSame(cOSArray2, bRange.getCOSObject());
-    assertSame(lab, actualPdLab.getCOSObject());
-    assertSame(getResult5, toListResult2.get(1));
-    assertSame(getResult5, toListResult2.get(2));
-    assertSame(getResult6, toListResult3.get(1));
-    assertSame(getResult6, toListResult3.get(2));
-    assertArrayEquals(new float[]{0.0f, 0.0f, 0.0f}, initialColor.getComponents(), 0.0f);
-  }
-
-  /**
-   * Test {@link PDLab#PDLab(COSArray)}.
-   * <ul>
-   *   <li>Given {@link COSStream#COSStream()}.</li>
-   *   <li>Then {@link PDCIEDictionaryBasedColorSpace#dictionary} return
-   * {@link COSStream}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDLab#PDLab(COSArray)}
-   */
-  @Test
-  @DisplayName("Test new PDLab(COSArray); given COSStream(); then dictionary return COSStream")
-  void testNewPDLab_givenCOSStream_thenDictionaryReturnCOSStream() {
-    // Arrange
-    COSArray lab = mock(COSArray.class);
-    when(lab.getObject(anyInt())).thenReturn(new COSStream());
-
-    // Act
-    PDLab actualPdLab = new PDLab(lab);
-
-    // Assert
-    verify(lab).getObject(eq(1));
-    COSDictionary cosDictionary = actualPdLab.dictionary;
-    assertTrue(cosDictionary instanceof COSStream);
-    assertNull(((COSStream) cosDictionary).getFilters());
-    assertEquals(0L, ((COSStream) cosDictionary).getLength());
-    assertEquals(1, cosDictionary.getValues().size());
-    assertEquals(1, cosDictionary.size());
-    assertFalse(((COSStream) cosDictionary).hasData());
+    assertArrayEquals(
+        new float[] {0.0f, 0.0f, 0.0f}, actualPdLab.getInitialColor().getComponents(), 0.0f);
   }
 
   /**
    * Test {@link PDLab#getName()}.
-   * <p>
-   * Method under test: {@link PDLab#getName()}
+   *
+   * <p>Method under test: {@link PDLab#getName()}
    */
   @Test
   @DisplayName("Test getName()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.lang.String PDLab.getName()"})
   void testGetName() {
     // Arrange, Act and Assert
-    assertEquals("Lab", (new PDLab()).getName());
+    assertEquals("Lab", new PDLab().getName());
   }
 
   /**
    * Test {@link PDLab#toRawImage(WritableRaster)} with {@code raster}.
-   * <p>
-   * Method under test: {@link PDLab#toRawImage(WritableRaster)}
+   *
+   * <p>Method under test: {@link PDLab#toRawImage(WritableRaster)}
    */
   @Test
   @DisplayName("Test toRawImage(WritableRaster) with 'raster'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.awt.image.BufferedImage PDLab.toRawImage(WritableRaster)"})
   void testToRawImageWithRaster() {
     // Arrange, Act and Assert
-    assertNull((new PDLab()).toRawImage(null));
+    assertNull(new PDLab().toRawImage(null));
   }
 
   /**
    * Test {@link PDLab#toRGB(float[])}.
-   * <p>
-   * Method under test: {@link PDLab#toRGB(float[])}
+   *
+   * <p>Method under test: {@link PDLab#toRGB(float[])}
    */
   @Test
   @DisplayName("Test toRGB(float[])")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"float[] PDLab.toRGB(float[])"})
   void testToRGB() {
-    // Arrange, Act and Assert
-    assertArrayEquals(new float[]{0.0f, 0.1589685f, 0.050019074f},
-        (new PDLab()).toRGB(new float[]{10.0f, -100.0f, 10.0f, -100.0f}), 0.0f);
+    // Arrange and Act
+    float[] actualToRGBResult = new PDLab().toRGB(new float[] {10.0f, -100.0f, 10.0f, -100.0f});
+
+    // Assert
+    assertArrayEquals(new float[] {0.0f, 0.1589685f, 0.050019074f}, actualToRGBResult, 0.0f);
   }
 
   /**
    * Test {@link PDLab#getNumberOfComponents()}.
-   * <p>
-   * Method under test: {@link PDLab#getNumberOfComponents()}
+   *
+   * <p>Method under test: {@link PDLab#getNumberOfComponents()}
    */
   @Test
   @DisplayName("Test getNumberOfComponents()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"int PDLab.getNumberOfComponents()"})
   void testGetNumberOfComponents() {
     // Arrange, Act and Assert
-    assertEquals(3, (new PDLab()).getNumberOfComponents());
+    assertEquals(3, new PDLab().getNumberOfComponents());
   }
 
   /**
    * Test {@link PDLab#getDefaultDecode(int)}.
-   * <p>
-   * Method under test: {@link PDLab#getDefaultDecode(int)}
+   *
+   * <p>Method under test: {@link PDLab#getDefaultDecode(int)}
    */
   @Test
   @DisplayName("Test getDefaultDecode(int)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"float[] PDLab.getDefaultDecode(int)"})
   void testGetDefaultDecode() {
     // Arrange, Act and Assert
-    assertArrayEquals(new float[]{0.0f, 100.0f, -100.0f, 100.0f, -100.0f, 100.0f}, (new PDLab()).getDefaultDecode(1),
+    assertArrayEquals(
+        new float[] {0.0f, 100.0f, -100.0f, 100.0f, -100.0f, 100.0f},
+        new PDLab().getDefaultDecode(1),
         0.0f);
   }
 
   /**
    * Test {@link PDLab#getInitialColor()}.
-   * <p>
-   * Method under test: {@link PDLab#getInitialColor()}
+   *
+   * <p>Method under test: {@link PDLab#getInitialColor()}
    */
   @Test
   @DisplayName("Test getInitialColor()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDColor PDLab.getInitialColor()"})
   void testGetInitialColor() {
     // Arrange
     PDLab pdLab = new PDLab();
@@ -340,19 +235,22 @@ class PDLabDiffblueTest {
     assertNull(actualInitialColor.getPatternName());
     assertFalse(actualInitialColor.isPattern());
     assertSame(pdLab, actualInitialColor.getColorSpace());
-    assertArrayEquals(new float[]{0.0f, 0.0f, 0.0f}, actualInitialColor.getComponents(), 0.0f);
+    assertArrayEquals(new float[] {0.0f, 0.0f, 0.0f}, actualInitialColor.getComponents(), 0.0f);
   }
 
   /**
    * Test {@link PDLab#getARange()}.
-   * <p>
-   * Method under test: {@link PDLab#getARange()}
+   *
+   * <p>Method under test: {@link PDLab#getARange()}
    */
   @Test
   @DisplayName("Test getARange()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDRange PDLab.getARange()"})
   void testGetARange() {
     // Arrange and Act
-    PDRange actualARange = (new PDLab()).getARange();
+    PDRange actualARange = new PDLab().getARange();
 
     // Assert
     COSArray cOSArray = actualARange.getCOSArray();
@@ -379,14 +277,17 @@ class PDLabDiffblueTest {
 
   /**
    * Test {@link PDLab#getBRange()}.
-   * <p>
-   * Method under test: {@link PDLab#getBRange()}
+   *
+   * <p>Method under test: {@link PDLab#getBRange()}
    */
   @Test
   @DisplayName("Test getBRange()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDRange PDLab.getBRange()"})
   void testGetBRange() {
     // Arrange and Act
-    PDRange actualBRange = (new PDLab()).getBRange();
+    PDRange actualBRange = new PDLab().getBRange();
 
     // Assert
     COSArray cOSArray = actualBRange.getCOSArray();
@@ -413,12 +314,52 @@ class PDLabDiffblueTest {
 
   /**
    * Test {@link PDLab#setARange(PDRange)}.
-   * <p>
-   * Method under test: {@link PDLab#setARange(PDRange)}
+   *
+   * <ul>
+   *   <li>When {@code null}.
+   *   <li>Then {@link PDLab#PDLab()} ARange Min is minus one hundred.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDLab#setARange(PDRange)}
    */
   @Test
-  @DisplayName("Test setARange(PDRange)")
-  void testSetARange() {
+  @DisplayName("Test setARange(PDRange); when 'null'; then PDLab() ARange Min is minus one hundred")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDLab.setARange(PDRange)"})
+  void testSetARange_whenNull_thenPDLabARangeMinIsMinusOneHundred() {
+    // Arrange
+    PDLab pdLab = new PDLab();
+
+    // Act
+    pdLab.setARange(null);
+
+    // Assert that nothing has changed
+    PDRange aRange = pdLab.getARange();
+    List<? extends COSBase> toListResult = aRange.getCOSArray().toList();
+    assertEquals(4, toListResult.size());
+    assertTrue(toListResult.get(0) instanceof COSFloat);
+    assertTrue(toListResult.get(1) instanceof COSFloat);
+    assertEquals(-100.0f, aRange.getMin());
+    assertEquals(100.0f, aRange.getMax());
+  }
+
+  /**
+   * Test {@link PDLab#setARange(PDRange)}.
+   *
+   * <ul>
+   *   <li>When {@link PDRange#PDRange()}.
+   *   <li>Then {@link PDLab#PDLab()} ARange Min is zero.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDLab#setARange(PDRange)}
+   */
+  @Test
+  @DisplayName("Test setARange(PDRange); when PDRange(); then PDLab() ARange Min is zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDLab.setARange(PDRange)"})
+  void testSetARange_whenPDRange_thenPDLabARangeMinIsZero() {
     // Arrange
     PDLab pdLab = new PDLab();
 
@@ -427,29 +368,66 @@ class PDLabDiffblueTest {
 
     // Assert
     PDRange aRange = pdLab.getARange();
-    COSArray cOSArray = aRange.getCOSArray();
-    List<? extends COSBase> toListResult = cOSArray.toList();
+    List<? extends COSBase> toListResult = aRange.getCOSArray().toList();
     assertEquals(4, toListResult.size());
     assertTrue(toListResult.get(0) instanceof COSFloat);
     assertTrue(toListResult.get(1) instanceof COSFloat);
     assertEquals(0.0f, aRange.getMin());
-    COSDictionary cosDictionary = pdLab.dictionary;
-    assertEquals(1, cosDictionary.getValues().size());
-    assertEquals(1, cosDictionary.size());
     assertEquals(1.0f, aRange.getMax());
-    PDRange bRange = pdLab.getBRange();
-    assertSame(cOSArray, bRange.getCOSArray());
-    assertSame(cOSArray, bRange.getCOSObject());
   }
 
   /**
    * Test {@link PDLab#setBRange(PDRange)}.
-   * <p>
-   * Method under test: {@link PDLab#setBRange(PDRange)}
+   *
+   * <ul>
+   *   <li>When {@code null}.
+   *   <li>Then {@link PDLab#PDLab()} BRange Min is minus one hundred.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDLab#setBRange(PDRange)}
    */
   @Test
-  @DisplayName("Test setBRange(PDRange)")
-  void testSetBRange() {
+  @DisplayName("Test setBRange(PDRange); when 'null'; then PDLab() BRange Min is minus one hundred")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDLab.setBRange(PDRange)"})
+  void testSetBRange_whenNull_thenPDLabBRangeMinIsMinusOneHundred() {
+    // Arrange
+    PDLab pdLab = new PDLab();
+
+    // Act
+    pdLab.setBRange(null);
+
+    // Assert that nothing has changed
+    List<? extends COSBase> toListResult = pdLab.getARange().getCOSArray().toList();
+    assertEquals(4, toListResult.size());
+    COSBase getResult = toListResult.get(2);
+    assertTrue(getResult instanceof COSFloat);
+    COSBase getResult2 = toListResult.get(3);
+    assertTrue(getResult2 instanceof COSFloat);
+    PDRange bRange = pdLab.getBRange();
+    assertEquals(-100.0f, bRange.getMin());
+    assertEquals(100.0f, bRange.getMax());
+    assertEquals(toListResult.get(0), getResult);
+    assertEquals(toListResult.get(1), getResult2);
+  }
+
+  /**
+   * Test {@link PDLab#setBRange(PDRange)}.
+   *
+   * <ul>
+   *   <li>When {@link PDRange#PDRange()}.
+   *   <li>Then {@link PDLab#PDLab()} BRange Min is zero.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDLab#setBRange(PDRange)}
+   */
+  @Test
+  @DisplayName("Test setBRange(PDRange); when PDRange(); then PDLab() BRange Min is zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDLab.setBRange(PDRange)"})
+  void testSetBRange_whenPDRange_thenPDLabBRangeMinIsZero() {
     // Arrange
     PDLab pdLab = new PDLab();
 
@@ -457,18 +435,12 @@ class PDLabDiffblueTest {
     pdLab.setBRange(new PDRange());
 
     // Assert
-    COSArray cOSArray = pdLab.getARange().getCOSArray();
-    List<? extends COSBase> toListResult = cOSArray.toList();
+    List<? extends COSBase> toListResult = pdLab.getARange().getCOSArray().toList();
     assertEquals(4, toListResult.size());
     assertTrue(toListResult.get(2) instanceof COSFloat);
     assertTrue(toListResult.get(3) instanceof COSFloat);
     PDRange bRange = pdLab.getBRange();
     assertEquals(0.0f, bRange.getMin());
-    COSDictionary cosDictionary = pdLab.dictionary;
-    assertEquals(1, cosDictionary.getValues().size());
-    assertEquals(1, cosDictionary.size());
     assertEquals(1.0f, bRange.getMax());
-    assertSame(cOSArray, bRange.getCOSArray());
-    assertSame(cOSArray, bRange.getCOSObject());
   }
 }

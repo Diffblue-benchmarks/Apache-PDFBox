@@ -5,39 +5,55 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.ArgumentMatchers.isNull;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.Color;
 import java.io.IOException;
+import javax.imageio.metadata.IIOMetadataNode;
+import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSDictionary;
-import org.apache.pdfbox.cos.COSIncrement;
-import org.apache.pdfbox.cos.COSUpdateState;
+import org.apache.pdfbox.cos.COSName;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.w3c.dom.Element;
 
 class FDFAnnotationPolylineDiffblueTest {
   /**
    * Test {@link FDFAnnotationPolyline#FDFAnnotationPolyline(COSDictionary)}.
-   * <p>
-   * Method under test:
-   * {@link FDFAnnotationPolyline#FDFAnnotationPolyline(COSDictionary)}
+   *
+   * <p>Method under test: {@link FDFAnnotationPolyline#FDFAnnotationPolyline(COSDictionary)}
    */
   @Test
   @DisplayName("Test new FDFAnnotationPolyline(COSDictionary)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFAnnotationPolyline.<init>(COSDictionary)"})
   void testNewFDFAnnotationPolyline() {
     // Arrange
     COSDictionary a = new COSDictionary();
 
     // Act and Assert
-    assertSame(a, (new FDFAnnotationPolyline(a)).getCOSObject());
+    assertSame(a, new FDFAnnotationPolyline(a).getCOSObject());
   }
 
   /**
    * Test {@link FDFAnnotationPolyline#FDFAnnotationPolyline()}.
-   * <p>
-   * Method under test: {@link FDFAnnotationPolyline#FDFAnnotationPolyline()}
+   *
+   * <p>Method under test: {@link FDFAnnotationPolyline#FDFAnnotationPolyline()}
    */
   @Test
   @DisplayName("Test new FDFAnnotationPolyline()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFAnnotationPolyline.<init>()"})
   void testNewFDFAnnotationPolyline2() throws IOException {
     // Arrange and Act
     FDFAnnotationPolyline actualFdfAnnotationPolyline = new FDFAnnotationPolyline();
@@ -57,21 +73,10 @@ class FDFAnnotationPolylineDiffblueTest {
     assertNull(actualFdfAnnotationPolyline.getSubject());
     assertNull(actualFdfAnnotationPolyline.getTitle());
     assertNull(actualFdfAnnotationPolyline.getCreationDate());
-    COSDictionary cOSObject = actualFdfAnnotationPolyline.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
-    assertNull(cOSObject.getKey());
     assertNull(actualFdfAnnotationPolyline.getRectangle());
     assertNull(actualFdfAnnotationPolyline.getBorderEffect());
     assertNull(actualFdfAnnotationPolyline.getBorderStyle());
     assertEquals(1.0f, actualFdfAnnotationPolyline.getOpacity());
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
     assertFalse(actualFdfAnnotationPolyline.isHidden());
     assertFalse(actualFdfAnnotationPolyline.isInvisible());
     assertFalse(actualFdfAnnotationPolyline.isLocked());
@@ -82,94 +87,114 @@ class FDFAnnotationPolylineDiffblueTest {
     assertFalse(actualFdfAnnotationPolyline.isPrinted());
     assertFalse(actualFdfAnnotationPolyline.isReadOnly());
     assertFalse(actualFdfAnnotationPolyline.isToggleNoView());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
+  }
+
+  /**
+   * Test {@link FDFAnnotationPolyline#FDFAnnotationPolyline(Element)}.
+   *
+   * <ul>
+   *   <li>When {@link IIOMetadataNode#IIOMetadataNode()}.
+   *   <li>Then throw {@link IOException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link FDFAnnotationPolyline#FDFAnnotationPolyline(Element)}
+   */
+  @Test
+  @DisplayName(
+      "Test new FDFAnnotationPolyline(Element); when IIOMetadataNode(); then throw IOException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFAnnotationPolyline.<init>(Element)"})
+  void testNewFDFAnnotationPolyline_whenIIOMetadataNode_thenThrowIOException() throws IOException {
+    // Arrange, Act and Assert
+    assertThrows(IOException.class, () -> new FDFAnnotationPolyline(new IIOMetadataNode()));
   }
 
   /**
    * Test {@link FDFAnnotationPolyline#setVertices(float[])}.
+   *
    * <ul>
-   *   <li>Then {@link FDFAnnotationPolyline#FDFAnnotationPolyline()} COSObject
-   * Values size is three.</li>
+   *   <li>Then {@link FDFAnnotationPolyline#FDFAnnotationPolyline()} COSObject Values size is
+   *       three.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFAnnotationPolyline#setVertices(float[])}
+   *
+   * <p>Method under test: {@link FDFAnnotationPolyline#setVertices(float[])}
    */
   @Test
-  @DisplayName("Test setVertices(float[]); then FDFAnnotationPolyline() COSObject Values size is three")
+  @DisplayName(
+      "Test setVertices(float[]); then FDFAnnotationPolyline() COSObject Values size is three")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFAnnotationPolyline.setVertices(float[])"})
   void testSetVertices_thenFDFAnnotationPolylineCOSObjectValuesSizeIsThree() {
     // Arrange
     FDFAnnotationPolyline fdfAnnotationPolyline = new FDFAnnotationPolyline();
 
     // Act
-    fdfAnnotationPolyline.setVertices(new float[]{10.0f, 0.5f, 10.0f, 0.5f});
+    fdfAnnotationPolyline.setVertices(new float[] {10.0f, 0.5f, 10.0f, 0.5f});
 
     // Assert
     COSDictionary cOSObject = fdfAnnotationPolyline.getCOSObject();
     assertEquals(3, cOSObject.getValues().size());
     assertEquals(3, cOSObject.size());
-    assertArrayEquals(new float[]{10.0f, 0.5f, 10.0f, 0.5f}, fdfAnnotationPolyline.getVertices(), 0.0f);
+    assertArrayEquals(
+        new float[] {10.0f, 0.5f, 10.0f, 0.5f}, fdfAnnotationPolyline.getVertices(), 0.0f);
   }
 
   /**
    * Test {@link FDFAnnotationPolyline#getVertices()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFAnnotationPolyline#FDFAnnotationPolyline(COSDictionary)}
-   * with a is {@link COSDictionary#COSDictionary()}.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Given {@link FDFAnnotationPolyline#FDFAnnotationPolyline()}.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFAnnotationPolyline#getVertices()}
-   */
-  @Test
-  @DisplayName("Test getVertices(); given FDFAnnotationPolyline(COSDictionary) with a is COSDictionary(); then return 'null'")
-  void testGetVertices_givenFDFAnnotationPolylineWithAIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new FDFAnnotationPolyline(new COSDictionary())).getVertices());
-  }
-
-  /**
-   * Test {@link FDFAnnotationPolyline#getVertices()}.
-   * <ul>
-   *   <li>Given {@link FDFAnnotationPolyline#FDFAnnotationPolyline()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFAnnotationPolyline#getVertices()}
+   *
+   * <p>Method under test: {@link FDFAnnotationPolyline#getVertices()}
    */
   @Test
   @DisplayName("Test getVertices(); given FDFAnnotationPolyline(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"float[] FDFAnnotationPolyline.getVertices()"})
   void testGetVertices_givenFDFAnnotationPolyline_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new FDFAnnotationPolyline()).getVertices());
+    assertNull(new FDFAnnotationPolyline().getVertices());
   }
 
   /**
    * Test {@link FDFAnnotationPolyline#getVertices()}.
+   *
    * <ul>
-   *   <li>Then return array of {@code float} with ten and {@code 0.5}.</li>
+   *   <li>Then return array of {@code float} with ten and {@code 0.5}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFAnnotationPolyline#getVertices()}
+   *
+   * <p>Method under test: {@link FDFAnnotationPolyline#getVertices()}
    */
   @Test
   @DisplayName("Test getVertices(); then return array of float with ten and '0.5'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"float[] FDFAnnotationPolyline.getVertices()"})
   void testGetVertices_thenReturnArrayOfFloatWithTenAnd05() {
     // Arrange
     FDFAnnotationPolyline fdfAnnotationPolyline = new FDFAnnotationPolyline();
-    fdfAnnotationPolyline.setVertices(new float[]{10.0f, 0.5f, 10.0f, 0.5f});
+    fdfAnnotationPolyline.setVertices(new float[] {10.0f, 0.5f, 10.0f, 0.5f});
 
     // Act and Assert
-    assertArrayEquals(new float[]{10.0f, 0.5f, 10.0f, 0.5f}, fdfAnnotationPolyline.getVertices(), 0.0f);
+    assertArrayEquals(
+        new float[] {10.0f, 0.5f, 10.0f, 0.5f}, fdfAnnotationPolyline.getVertices(), 0.0f);
   }
 
   /**
    * Test {@link FDFAnnotationPolyline#setStartPointEndingStyle(String)}.
-   * <p>
-   * Method under test:
-   * {@link FDFAnnotationPolyline#setStartPointEndingStyle(String)}
+   *
+   * <p>Method under test: {@link FDFAnnotationPolyline#setStartPointEndingStyle(String)}
    */
   @Test
   @DisplayName("Test setStartPointEndingStyle(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFAnnotationPolyline.setStartPointEndingStyle(String)"})
   void testSetStartPointEndingStyle() {
     // Arrange
     FDFAnnotationPolyline fdfAnnotationPolyline = new FDFAnnotationPolyline();
@@ -186,35 +211,15 @@ class FDFAnnotationPolylineDiffblueTest {
 
   /**
    * Test {@link FDFAnnotationPolyline#setStartPointEndingStyle(String)}.
-   * <p>
-   * Method under test:
-   * {@link FDFAnnotationPolyline#setStartPointEndingStyle(String)}
+   *
+   * <p>Method under test: {@link FDFAnnotationPolyline#setStartPointEndingStyle(String)}
    */
   @Test
   @DisplayName("Test setStartPointEndingStyle(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFAnnotationPolyline.setStartPointEndingStyle(String)"})
   void testSetStartPointEndingStyle2() {
-    // Arrange
-    FDFAnnotationPolyline fdfAnnotationPolyline = new FDFAnnotationPolyline(new COSDictionary());
-
-    // Act
-    fdfAnnotationPolyline.setStartPointEndingStyle("Style");
-
-    // Assert
-    assertEquals("Style", fdfAnnotationPolyline.getStartPointEndingStyle());
-    COSDictionary cOSObject = fdfAnnotationPolyline.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link FDFAnnotationPolyline#setStartPointEndingStyle(String)}.
-   * <p>
-   * Method under test:
-   * {@link FDFAnnotationPolyline#setStartPointEndingStyle(String)}
-   */
-  @Test
-  @DisplayName("Test setStartPointEndingStyle(String)")
-  void testSetStartPointEndingStyle3() {
     // Arrange
     FDFAnnotationPolyline fdfAnnotationPolyline = new FDFAnnotationPolyline();
 
@@ -230,38 +235,20 @@ class FDFAnnotationPolylineDiffblueTest {
 
   /**
    * Test {@link FDFAnnotationPolyline#setStartPointEndingStyle(String)}.
-   * <p>
-   * Method under test:
-   * {@link FDFAnnotationPolyline#setStartPointEndingStyle(String)}
-   */
-  @Test
-  @DisplayName("Test setStartPointEndingStyle(String)")
-  void testSetStartPointEndingStyle4() {
-    // Arrange
-    FDFAnnotationPolyline fdfAnnotationPolyline = new FDFAnnotationPolyline();
-
-    // Act
-    fdfAnnotationPolyline.setStartPointEndingStyle(",|;");
-
-    // Assert
-    assertEquals(",|;", fdfAnnotationPolyline.getStartPointEndingStyle());
-    COSDictionary cOSObject = fdfAnnotationPolyline.getCOSObject();
-    assertEquals(3, cOSObject.getValues().size());
-    assertEquals(3, cOSObject.size());
-  }
-
-  /**
-   * Test {@link FDFAnnotationPolyline#setStartPointEndingStyle(String)}.
+   *
    * <ul>
-   *   <li>Given {@link FDFAnnotationPolyline#FDFAnnotationPolyline()}
-   * EndPointEndingStyle is {@code None}.</li>
+   *   <li>Given {@link FDFAnnotationPolyline#FDFAnnotationPolyline()} EndPointEndingStyle is {@code
+   *       None}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link FDFAnnotationPolyline#setStartPointEndingStyle(String)}
+   *
+   * <p>Method under test: {@link FDFAnnotationPolyline#setStartPointEndingStyle(String)}
    */
   @Test
-  @DisplayName("Test setStartPointEndingStyle(String); given FDFAnnotationPolyline() EndPointEndingStyle is 'None'")
+  @DisplayName(
+      "Test setStartPointEndingStyle(String); given FDFAnnotationPolyline() EndPointEndingStyle is 'None'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFAnnotationPolyline.setStartPointEndingStyle(String)"})
   void testSetStartPointEndingStyle_givenFDFAnnotationPolylineEndPointEndingStyleIsNone() {
     // Arrange
     FDFAnnotationPolyline fdfAnnotationPolyline = new FDFAnnotationPolyline();
@@ -278,12 +265,45 @@ class FDFAnnotationPolylineDiffblueTest {
   }
 
   /**
+   * Test {@link FDFAnnotationPolyline#setStartPointEndingStyle(String)}.
+   *
+   * <ul>
+   *   <li>Then {@link FDFAnnotationPolyline#FDFAnnotationPolyline()} StartPointEndingStyle is
+   *       {@code 42}.
+   * </ul>
+   *
+   * <p>Method under test: {@link FDFAnnotationPolyline#setStartPointEndingStyle(String)}
+   */
+  @Test
+  @DisplayName(
+      "Test setStartPointEndingStyle(String); then FDFAnnotationPolyline() StartPointEndingStyle is '42'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFAnnotationPolyline.setStartPointEndingStyle(String)"})
+  void testSetStartPointEndingStyle_thenFDFAnnotationPolylineStartPointEndingStyleIs42() {
+    // Arrange
+    FDFAnnotationPolyline fdfAnnotationPolyline = new FDFAnnotationPolyline();
+
+    // Act
+    fdfAnnotationPolyline.setStartPointEndingStyle("42");
+
+    // Assert
+    assertEquals("42", fdfAnnotationPolyline.getStartPointEndingStyle());
+    COSDictionary cOSObject = fdfAnnotationPolyline.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+  }
+
+  /**
    * Test {@link FDFAnnotationPolyline#getStartPointEndingStyle()}.
-   * <p>
-   * Method under test: {@link FDFAnnotationPolyline#getStartPointEndingStyle()}
+   *
+   * <p>Method under test: {@link FDFAnnotationPolyline#getStartPointEndingStyle()}
    */
   @Test
   @DisplayName("Test getStartPointEndingStyle()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String FDFAnnotationPolyline.getStartPointEndingStyle()"})
   void testGetStartPointEndingStyle() {
     // Arrange
     FDFAnnotationPolyline fdfAnnotationPolyline = new FDFAnnotationPolyline();
@@ -295,67 +315,35 @@ class FDFAnnotationPolylineDiffblueTest {
 
   /**
    * Test {@link FDFAnnotationPolyline#getStartPointEndingStyle()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFAnnotationPolyline#FDFAnnotationPolyline(COSDictionary)}
-   * with a is {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Given {@link FDFAnnotationPolyline#FDFAnnotationPolyline()}.
+   *   <li>Then return {@code None}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFAnnotationPolyline#getStartPointEndingStyle()}
-   */
-  @Test
-  @DisplayName("Test getStartPointEndingStyle(); given FDFAnnotationPolyline(COSDictionary) with a is COSDictionary()")
-  void testGetStartPointEndingStyle_givenFDFAnnotationPolylineWithAIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertEquals("None", (new FDFAnnotationPolyline(new COSDictionary())).getStartPointEndingStyle());
-  }
-
-  /**
-   * Test {@link FDFAnnotationPolyline#getStartPointEndingStyle()}.
-   * <ul>
-   *   <li>Given {@link FDFAnnotationPolyline#FDFAnnotationPolyline()}.</li>
-   *   <li>Then return {@code None}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFAnnotationPolyline#getStartPointEndingStyle()}
+   *
+   * <p>Method under test: {@link FDFAnnotationPolyline#getStartPointEndingStyle()}
    */
   @Test
   @DisplayName("Test getStartPointEndingStyle(); given FDFAnnotationPolyline(); then return 'None'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String FDFAnnotationPolyline.getStartPointEndingStyle()"})
   void testGetStartPointEndingStyle_givenFDFAnnotationPolyline_thenReturnNone() {
     // Arrange, Act and Assert
-    assertEquals("None", (new FDFAnnotationPolyline()).getStartPointEndingStyle());
+    assertEquals("None", new FDFAnnotationPolyline().getStartPointEndingStyle());
   }
 
   /**
    * Test {@link FDFAnnotationPolyline#setEndPointEndingStyle(String)}.
-   * <p>
-   * Method under test:
-   * {@link FDFAnnotationPolyline#setEndPointEndingStyle(String)}
+   *
+   * <p>Method under test: {@link FDFAnnotationPolyline#setEndPointEndingStyle(String)}
    */
   @Test
   @DisplayName("Test setEndPointEndingStyle(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFAnnotationPolyline.setEndPointEndingStyle(String)"})
   void testSetEndPointEndingStyle() {
-    // Arrange
-    FDFAnnotationPolyline fdfAnnotationPolyline = new FDFAnnotationPolyline(new COSDictionary());
-
-    // Act
-    fdfAnnotationPolyline.setEndPointEndingStyle("Style");
-
-    // Assert
-    assertEquals("Style", fdfAnnotationPolyline.getEndPointEndingStyle());
-    COSDictionary cOSObject = fdfAnnotationPolyline.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link FDFAnnotationPolyline#setEndPointEndingStyle(String)}.
-   * <p>
-   * Method under test:
-   * {@link FDFAnnotationPolyline#setEndPointEndingStyle(String)}
-   */
-  @Test
-  @DisplayName("Test setEndPointEndingStyle(String)")
-  void testSetEndPointEndingStyle2() {
     // Arrange
     FDFAnnotationPolyline fdfAnnotationPolyline = new FDFAnnotationPolyline();
 
@@ -371,16 +359,20 @@ class FDFAnnotationPolylineDiffblueTest {
 
   /**
    * Test {@link FDFAnnotationPolyline#setEndPointEndingStyle(String)}.
+   *
    * <ul>
-   *   <li>Given {@link FDFAnnotationPolyline#FDFAnnotationPolyline()}
-   * StartPointEndingStyle is {@code None}.</li>
+   *   <li>Given {@link FDFAnnotationPolyline#FDFAnnotationPolyline()} StartPointEndingStyle is
+   *       {@code None}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link FDFAnnotationPolyline#setEndPointEndingStyle(String)}
+   *
+   * <p>Method under test: {@link FDFAnnotationPolyline#setEndPointEndingStyle(String)}
    */
   @Test
-  @DisplayName("Test setEndPointEndingStyle(String); given FDFAnnotationPolyline() StartPointEndingStyle is 'None'")
+  @DisplayName(
+      "Test setEndPointEndingStyle(String); given FDFAnnotationPolyline() StartPointEndingStyle is 'None'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFAnnotationPolyline.setEndPointEndingStyle(String)"})
   void testSetEndPointEndingStyle_givenFDFAnnotationPolylineStartPointEndingStyleIsNone() {
     // Arrange
     FDFAnnotationPolyline fdfAnnotationPolyline = new FDFAnnotationPolyline();
@@ -398,16 +390,20 @@ class FDFAnnotationPolylineDiffblueTest {
 
   /**
    * Test {@link FDFAnnotationPolyline#setEndPointEndingStyle(String)}.
+   *
    * <ul>
-   *   <li>Then {@link FDFAnnotationPolyline#FDFAnnotationPolyline()}
-   * EndPointEndingStyle is {@code None}.</li>
+   *   <li>Then {@link FDFAnnotationPolyline#FDFAnnotationPolyline()} EndPointEndingStyle is {@code
+   *       None}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link FDFAnnotationPolyline#setEndPointEndingStyle(String)}
+   *
+   * <p>Method under test: {@link FDFAnnotationPolyline#setEndPointEndingStyle(String)}
    */
   @Test
-  @DisplayName("Test setEndPointEndingStyle(String); then FDFAnnotationPolyline() EndPointEndingStyle is 'None'")
+  @DisplayName(
+      "Test setEndPointEndingStyle(String); then FDFAnnotationPolyline() EndPointEndingStyle is 'None'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFAnnotationPolyline.setEndPointEndingStyle(String)"})
   void testSetEndPointEndingStyle_thenFDFAnnotationPolylineEndPointEndingStyleIsNone() {
     // Arrange
     FDFAnnotationPolyline fdfAnnotationPolyline = new FDFAnnotationPolyline();
@@ -424,16 +420,20 @@ class FDFAnnotationPolylineDiffblueTest {
 
   /**
    * Test {@link FDFAnnotationPolyline#setEndPointEndingStyle(String)}.
+   *
    * <ul>
-   *   <li>Then {@link FDFAnnotationPolyline#FDFAnnotationPolyline()}
-   * EndPointEndingStyle is {@code Style}.</li>
+   *   <li>Then {@link FDFAnnotationPolyline#FDFAnnotationPolyline()} EndPointEndingStyle is {@code
+   *       Style}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link FDFAnnotationPolyline#setEndPointEndingStyle(String)}
+   *
+   * <p>Method under test: {@link FDFAnnotationPolyline#setEndPointEndingStyle(String)}
    */
   @Test
-  @DisplayName("Test setEndPointEndingStyle(String); then FDFAnnotationPolyline() EndPointEndingStyle is 'Style'")
+  @DisplayName(
+      "Test setEndPointEndingStyle(String); then FDFAnnotationPolyline() EndPointEndingStyle is 'Style'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFAnnotationPolyline.setEndPointEndingStyle(String)"})
   void testSetEndPointEndingStyle_thenFDFAnnotationPolylineEndPointEndingStyleIsStyle() {
     // Arrange
     FDFAnnotationPolyline fdfAnnotationPolyline = new FDFAnnotationPolyline();
@@ -450,15 +450,20 @@ class FDFAnnotationPolylineDiffblueTest {
 
   /**
    * Test {@link FDFAnnotationPolyline#getEndPointEndingStyle()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFAnnotationPolyline#FDFAnnotationPolyline()}
-   * StartPointEndingStyle is {@code None}.</li>
+   *   <li>Given {@link FDFAnnotationPolyline#FDFAnnotationPolyline()} StartPointEndingStyle is
+   *       {@code None}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFAnnotationPolyline#getEndPointEndingStyle()}
+   *
+   * <p>Method under test: {@link FDFAnnotationPolyline#getEndPointEndingStyle()}
    */
   @Test
-  @DisplayName("Test getEndPointEndingStyle(); given FDFAnnotationPolyline() StartPointEndingStyle is 'None'")
+  @DisplayName(
+      "Test getEndPointEndingStyle(); given FDFAnnotationPolyline() StartPointEndingStyle is 'None'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String FDFAnnotationPolyline.getEndPointEndingStyle()"})
   void testGetEndPointEndingStyle_givenFDFAnnotationPolylineStartPointEndingStyleIsNone() {
     // Arrange
     FDFAnnotationPolyline fdfAnnotationPolyline = new FDFAnnotationPolyline();
@@ -470,85 +475,69 @@ class FDFAnnotationPolylineDiffblueTest {
 
   /**
    * Test {@link FDFAnnotationPolyline#getEndPointEndingStyle()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFAnnotationPolyline#FDFAnnotationPolyline(COSDictionary)}
-   * with a is {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Given {@link FDFAnnotationPolyline#FDFAnnotationPolyline()}.
+   *   <li>Then return {@code None}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFAnnotationPolyline#getEndPointEndingStyle()}
-   */
-  @Test
-  @DisplayName("Test getEndPointEndingStyle(); given FDFAnnotationPolyline(COSDictionary) with a is COSDictionary()")
-  void testGetEndPointEndingStyle_givenFDFAnnotationPolylineWithAIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertEquals("None", (new FDFAnnotationPolyline(new COSDictionary())).getEndPointEndingStyle());
-  }
-
-  /**
-   * Test {@link FDFAnnotationPolyline#getEndPointEndingStyle()}.
-   * <ul>
-   *   <li>Given {@link FDFAnnotationPolyline#FDFAnnotationPolyline()}.</li>
-   *   <li>Then return {@code None}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFAnnotationPolyline#getEndPointEndingStyle()}
+   *
+   * <p>Method under test: {@link FDFAnnotationPolyline#getEndPointEndingStyle()}
    */
   @Test
   @DisplayName("Test getEndPointEndingStyle(); given FDFAnnotationPolyline(); then return 'None'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String FDFAnnotationPolyline.getEndPointEndingStyle()"})
   void testGetEndPointEndingStyle_givenFDFAnnotationPolyline_thenReturnNone() {
     // Arrange, Act and Assert
-    assertEquals("None", (new FDFAnnotationPolyline()).getEndPointEndingStyle());
+    assertEquals("None", new FDFAnnotationPolyline().getEndPointEndingStyle());
   }
 
   /**
-   * Test {@link FDFAnnotationPolyline#getInteriorColor()}.
+   * Test {@link FDFAnnotationPolyline#setInteriorColor(Color)}.
+   *
    * <ul>
-   *   <li>Given {@link FDFAnnotationPolyline#FDFAnnotationPolyline(COSDictionary)}
-   * with a is {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Given {@link COSDictionary} {@link COSDictionary#setItem(COSName, COSBase)} does nothing.
+   *   <li>Then calls {@link COSDictionary#setItem(COSName, COSBase)}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFAnnotationPolyline#getInteriorColor()}
+   *
+   * <p>Method under test: {@link FDFAnnotationPolyline#setInteriorColor(Color)}
    */
   @Test
-  @DisplayName("Test getInteriorColor(); given FDFAnnotationPolyline(COSDictionary) with a is COSDictionary()")
-  void testGetInteriorColor_givenFDFAnnotationPolylineWithAIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertNull((new FDFAnnotationPolyline(new COSDictionary())).getInteriorColor());
+  @DisplayName(
+      "Test setInteriorColor(Color); given COSDictionary setItem(COSName, COSBase) does nothing; then calls setItem(COSName, COSBase)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFAnnotationPolyline.setInteriorColor(Color)"})
+  void testSetInteriorColor_givenCOSDictionarySetItemDoesNothing_thenCallsSetItem() {
+    // Arrange
+    COSDictionary a = mock(COSDictionary.class);
+    doNothing().when(a).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
+
+    // Act
+    new FDFAnnotationPolyline(a).setInteriorColor(null);
+
+    // Assert
+    verify(a).setItem(isA(COSName.class), (COSBase) isNull());
   }
 
   /**
    * Test {@link FDFAnnotationPolyline#getInteriorColor()}.
+   *
    * <ul>
-   *   <li>Given {@link FDFAnnotationPolyline#FDFAnnotationPolyline()}.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Given {@link FDFAnnotationPolyline#FDFAnnotationPolyline()}.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link FDFAnnotationPolyline#getInteriorColor()}
+   *
+   * <p>Method under test: {@link FDFAnnotationPolyline#getInteriorColor()}
    */
   @Test
   @DisplayName("Test getInteriorColor(); given FDFAnnotationPolyline(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Color FDFAnnotationPolyline.getInteriorColor()"})
   void testGetInteriorColor_givenFDFAnnotationPolyline_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new FDFAnnotationPolyline()).getInteriorColor());
-  }
-
-  /**
-   * Test {@link FDFAnnotationPolyline#getInteriorColor()}.
-   * <ul>
-   *   <li>Then return decode {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFAnnotationPolyline#getInteriorColor()}
-   */
-  @Test
-  @DisplayName("Test getInteriorColor(); then return decode '42'")
-  void testGetInteriorColor_thenReturnDecode42() throws NumberFormatException {
-    // Arrange
-    FDFAnnotationPolyline fdfAnnotationPolyline = new FDFAnnotationPolyline();
-    Color color = Color.decode("42");
-    fdfAnnotationPolyline.setInteriorColor(color);
-
-    // Act and Assert
-    assertEquals(color, fdfAnnotationPolyline.getInteriorColor());
+    assertNull(new FDFAnnotationPolyline().getInteriorColor());
   }
 }

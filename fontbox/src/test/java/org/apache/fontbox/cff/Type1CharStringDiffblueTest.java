@@ -6,75 +6,52 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.Dimension;
-import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.awt.geom.Rectangle2D.Double;
+import java.awt.geom.Rectangle2D.Float;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.fontbox.type1.Type1CharStringReader;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class Type1CharStringDiffblueTest {
   /**
-   * Test
-   * {@link Type1CharString#Type1CharString(Type1CharStringReader, String, String)}.
-   * <p>
-   * Method under test:
-   * {@link Type1CharString#Type1CharString(Type1CharStringReader, String, String)}
+   * Test {@link Type1CharString#Type1CharString(Type1CharStringReader, String, String)}.
+   *
+   * <p>Method under test: {@link Type1CharString#Type1CharString(Type1CharStringReader, String,
+   * String)}
    */
   @Test
   @DisplayName("Test new Type1CharString(Type1CharStringReader, String, String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void Type1CharString.<init>(Type1CharStringReader, String, String)"})
   void testNewType1CharString() {
     // Arrange and Act
-    Type1CharString actualType1CharString = new Type1CharString(mock(Type1CharStringReader.class), "Font Name",
-        "Glyph Name");
+    Type1CharString actualType1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
 
     // Assert
-    Rectangle2D bounds = actualType1CharString.getBounds();
-    Rectangle2D frame = bounds.getFrame();
-    assertTrue(frame instanceof Rectangle2D.Double);
-    GeneralPath path = actualType1CharString.getPath();
-    Rectangle2D bounds2D = path.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle2D.Float);
-    Rectangle2D bounds2D2 = bounds.getBounds2D();
-    assertTrue(bounds2D2 instanceof Rectangle2D.Float);
-    assertTrue(bounds instanceof Rectangle2D.Float);
+    assertTrue(actualType1CharString.getBounds() instanceof Float);
     assertEquals("Glyph Name", actualType1CharString.getName());
-    assertNull(path.getCurrentPoint());
     assertNull(actualType1CharString.getLastSequenceEntry());
     assertEquals(0, actualType1CharString.getWidth());
-    assertEquals(0.0d, bounds.getCenterX());
-    assertEquals(0.0d, bounds.getCenterY());
-    assertEquals(0.0d, bounds.getHeight());
-    assertEquals(0.0d, bounds.getMaxX());
-    assertEquals(0.0d, bounds.getMaxY());
-    assertEquals(0.0d, bounds.getMinX());
-    assertEquals(0.0d, bounds.getMinY());
-    assertEquals(0.0d, bounds.getWidth());
-    assertEquals(0.0d, bounds.getX());
-    assertEquals(0.0d, bounds.getY());
-    assertEquals(0.0f, ((Rectangle2D.Float) bounds).height);
-    assertEquals(0.0f, ((Rectangle2D.Float) bounds).width);
-    assertEquals(0.0f, ((Rectangle2D.Float) bounds).x);
-    assertEquals(0.0f, ((Rectangle2D.Float) bounds).y);
-    assertEquals(1, path.getWindingRule());
-    assertTrue(bounds.isEmpty());
     assertTrue(actualType1CharString.isSequenceEmpty());
-    assertEquals(bounds, path.getBounds());
-    assertEquals(bounds, bounds.getBounds());
-    assertEquals(bounds, frame);
-    assertEquals(bounds, bounds2D);
-    assertEquals(bounds, bounds2D2);
   }
 
   /**
    * Test getters and setters.
-   * <p>
-   * Methods under test:
+   *
+   * <p>Methods under test:
+   *
    * <ul>
    *   <li>{@link Type1CharString#toString()}
    *   <li>{@link Type1CharString#getName()}
@@ -82,9 +59,13 @@ class Type1CharStringDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String Type1CharString.getName()", "String Type1CharString.toString()"})
   void testGettersAndSetters() {
     // Arrange
-    Type1CharString type1CharString = new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
 
     // Act
     String actualToStringResult = type1CharString.toString();
@@ -96,1155 +77,89 @@ class Type1CharStringDiffblueTest {
 
   /**
    * Test {@link Type1CharString#getBounds()}.
-   * <p>
-   * Method under test: {@link Type1CharString#getBounds()}
+   *
+   * <p>Method under test: {@link Type1CharString#getBounds()}
    */
   @Test
   @DisplayName("Test getBounds()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Rectangle2D Type1CharString.getBounds()"})
   void testGetBounds() {
-    // Arrange and Act
-    Rectangle2D actualBounds = (new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name"))
-        .getBounds();
+    // Arrange
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+
+    // Act
+    Rectangle2D actualBounds = type1CharString.getBounds();
 
     // Assert
-    Rectangle bounds = actualBounds.getBounds();
-    Rectangle bounds2 = bounds.getBounds();
-    Rectangle bounds3 = bounds2.getBounds();
-    Rectangle bounds4 = bounds3.getBounds();
-    Rectangle bounds5 = bounds4.getBounds();
-    Rectangle bounds6 = bounds5.getBounds();
-    Rectangle2D bounds2D = bounds6.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Rectangle2D bounds2D2 = bounds5.getBounds2D();
-    assertTrue(bounds2D2 instanceof Rectangle);
-    Rectangle2D bounds2D3 = bounds4.getBounds2D();
-    assertTrue(bounds2D3 instanceof Rectangle);
-    Rectangle2D bounds2D4 = bounds.getBounds2D();
-    Rectangle bounds7 = bounds2D4.getBounds();
-    Rectangle bounds8 = bounds7.getBounds();
-    Rectangle bounds9 = bounds8.getBounds();
-    Rectangle2D bounds2D5 = bounds9.getBounds2D();
-    assertTrue(bounds2D5 instanceof Rectangle);
-    Rectangle2D bounds2D6 = actualBounds.getBounds2D();
-    Rectangle bounds10 = bounds2D6.getBounds();
-    Rectangle bounds11 = bounds10.getBounds();
-    Rectangle bounds12 = bounds11.getBounds();
-    Rectangle2D bounds2D7 = bounds12.getBounds2D();
-    assertTrue(bounds2D7 instanceof Rectangle);
     Rectangle2D frame = actualBounds.getFrame();
-    Rectangle bounds13 = frame.getBounds();
-    Rectangle bounds14 = bounds13.getBounds();
-    Rectangle bounds15 = bounds14.getBounds();
-    Rectangle2D bounds2D8 = bounds15.getBounds2D();
-    assertTrue(bounds2D8 instanceof Rectangle);
-    Rectangle2D bounds2D9 = bounds3.getBounds2D();
-    assertTrue(bounds2D9 instanceof Rectangle);
-    Rectangle2D bounds2D10 = bounds2.getBounds2D();
-    Rectangle bounds16 = bounds2D10.getBounds();
-    Rectangle bounds17 = bounds16.getBounds();
-    Rectangle2D bounds2D11 = bounds17.getBounds2D();
-    assertTrue(bounds2D11 instanceof Rectangle);
-    Rectangle2D bounds2D12 = bounds8.getBounds2D();
-    assertTrue(bounds2D12 instanceof Rectangle);
-    Rectangle2D bounds2D13 = bounds11.getBounds2D();
-    assertTrue(bounds2D13 instanceof Rectangle);
-    Rectangle2D frame2 = bounds2.getFrame();
-    Rectangle bounds18 = frame2.getBounds();
-    Rectangle bounds19 = bounds18.getBounds();
-    Rectangle2D bounds2D14 = bounds19.getBounds2D();
-    assertTrue(bounds2D14 instanceof Rectangle);
-    Rectangle2D frame3 = bounds.getFrame();
-    Rectangle bounds20 = frame3.getBounds();
-    Rectangle bounds21 = bounds20.getBounds();
-    Rectangle2D bounds2D15 = bounds21.getBounds2D();
-    assertTrue(bounds2D15 instanceof Rectangle);
-    Rectangle2D bounds2D16 = bounds14.getBounds2D();
-    assertTrue(bounds2D16 instanceof Rectangle);
-    assertTrue(bounds2D10 instanceof Rectangle);
-    Rectangle bounds22 = bounds2D9.getBounds();
-    Rectangle2D bounds2D17 = bounds22.getBounds2D();
-    assertTrue(bounds2D17 instanceof Rectangle);
-    Rectangle2D bounds2D18 = bounds16.getBounds2D();
-    assertTrue(bounds2D18 instanceof Rectangle);
-    Rectangle2D bounds2D19 = bounds7.getBounds2D();
-    assertTrue(bounds2D19 instanceof Rectangle);
-    Rectangle2D bounds2D20 = bounds2D6.getBounds2D();
-    Rectangle bounds23 = bounds2D20.getBounds();
-    Rectangle2D bounds2D21 = bounds23.getBounds2D();
-    assertTrue(bounds2D21 instanceof Rectangle);
-    Rectangle2D bounds2D22 = frame.getBounds2D();
-    Rectangle bounds24 = bounds2D22.getBounds();
-    Rectangle2D bounds2D23 = bounds24.getBounds2D();
-    assertTrue(bounds2D23 instanceof Rectangle);
-    Rectangle2D bounds2D24 = bounds10.getBounds2D();
-    assertTrue(bounds2D24 instanceof Rectangle);
-    Rectangle2D frame4 = bounds3.getFrame();
-    Rectangle bounds25 = frame4.getBounds();
-    Rectangle2D bounds2D25 = bounds25.getBounds2D();
-    assertTrue(bounds2D25 instanceof Rectangle);
-    Rectangle2D bounds2D26 = bounds18.getBounds2D();
-    assertTrue(bounds2D26 instanceof Rectangle);
-    Rectangle2D frame5 = bounds2D6.getFrame();
-    Rectangle bounds26 = frame5.getBounds();
-    Rectangle2D bounds2D27 = bounds26.getBounds2D();
-    assertTrue(bounds2D27 instanceof Rectangle);
-    Rectangle2D bounds2D28 = bounds20.getBounds2D();
-    assertTrue(bounds2D28 instanceof Rectangle);
-    Rectangle2D frame6 = frame.getFrame();
-    Rectangle bounds27 = frame6.getBounds();
-    Rectangle2D bounds2D29 = bounds27.getBounds2D();
-    assertTrue(bounds2D29 instanceof Rectangle);
-    Rectangle2D bounds2D30 = bounds13.getBounds2D();
-    assertTrue(bounds2D30 instanceof Rectangle);
-    assertTrue(bounds2D4 instanceof Rectangle);
-    Rectangle2D bounds2D31 = bounds2D3.getBounds2D();
-    assertTrue(bounds2D31 instanceof Rectangle);
-    Rectangle2D bounds2D32 = bounds2D9.getBounds2D();
-    assertTrue(bounds2D32 instanceof Rectangle);
-    Rectangle2D bounds2D33 = bounds2D10.getBounds2D();
-    assertTrue(bounds2D33 instanceof Rectangle);
-    Rectangle2D bounds2D34 = bounds2D24.getBounds2D();
-    assertTrue(bounds2D34 instanceof Rectangle);
-    Rectangle2D bounds2D35 = bounds2D30.getBounds2D();
-    assertTrue(bounds2D35 instanceof Rectangle);
-    Rectangle2D bounds2D36 = bounds2D4.getBounds2D();
-    assertTrue(bounds2D36 instanceof Rectangle);
-    Rectangle2D bounds2D37 = bounds2D33.getBounds2D();
-    assertTrue(bounds2D37 instanceof Rectangle);
-    Rectangle2D bounds2D38 = bounds2D36.getBounds2D();
-    assertTrue(bounds2D38 instanceof Rectangle);
-    Rectangle2D bounds2D39 = frame2.getBounds2D();
-    assertTrue(bounds2D39 instanceof Rectangle2D.Double);
-    Rectangle2D bounds2D40 = frame3.getBounds2D();
-    assertTrue(bounds2D40 instanceof Rectangle2D.Double);
-    assertTrue(bounds2D22 instanceof Rectangle2D.Double);
-    Rectangle2D frame7 = bounds4.getFrame();
-    assertTrue(frame7 instanceof Rectangle2D.Double);
-    assertTrue(frame4 instanceof Rectangle2D.Double);
-    assertTrue(frame2 instanceof Rectangle2D.Double);
-    Rectangle2D frame8 = bounds2D10.getFrame();
-    assertTrue(frame8 instanceof Rectangle2D.Double);
-    Rectangle2D frame9 = bounds2D4.getFrame();
-    assertTrue(frame9 instanceof Rectangle2D.Double);
-    assertTrue(frame5 instanceof Rectangle2D.Double);
-    Rectangle2D frame10 = bounds10.getFrame();
-    assertTrue(frame10 instanceof Rectangle2D.Double);
-    Rectangle2D frame11 = bounds13.getFrame();
-    assertTrue(frame11 instanceof Rectangle2D.Double);
-    assertTrue(frame3 instanceof Rectangle2D.Double);
-    Rectangle2D frame12 = frame2.getFrame();
-    assertTrue(frame12 instanceof Rectangle2D.Double);
-    Rectangle2D frame13 = frame3.getFrame();
-    assertTrue(frame13 instanceof Rectangle2D.Double);
-    assertTrue(frame6 instanceof Rectangle2D.Double);
-    assertTrue(frame instanceof Rectangle2D.Double);
-    Rectangle2D bounds2D41 = bounds2D20.getBounds2D();
-    assertTrue(bounds2D41 instanceof Rectangle2D.Float);
-    assertTrue(bounds2D20 instanceof Rectangle2D.Float);
-    assertTrue(bounds2D6 instanceof Rectangle2D.Float);
-    assertTrue(actualBounds instanceof Rectangle2D.Float);
-    Point location = bounds.getLocation();
-    Point location2 = location.getLocation();
-    Point location3 = location2.getLocation();
-    Point location4 = location3.getLocation();
-    assertEquals(0, location4.getLocation().y);
-    Point location5 = bounds3.getLocation();
-    Point location6 = location5.getLocation();
-    Point location7 = location6.getLocation();
-    assertEquals(0, location7.getLocation().y);
-    assertEquals(0, location4.y);
-    Point location8 = bounds4.getLocation();
-    Point location9 = location8.getLocation();
-    assertEquals(0, location9.getLocation().y);
-    assertEquals(0, location7.y);
-    Point location10 = bounds10.getLocation();
-    Point location11 = location10.getLocation();
-    assertEquals(0, location11.getLocation().y);
-    Point location12 = bounds13.getLocation();
-    Point location13 = location12.getLocation();
-    assertEquals(0, location13.getLocation().y);
-    assertEquals(0, location3.y);
-    Point location14 = ((Rectangle) bounds2D10).getLocation();
-    Point location15 = location14.getLocation();
-    assertEquals(0, location15.getLocation().y);
-    Point location16 = ((Rectangle) bounds2D4).getLocation();
-    Point location17 = location16.getLocation();
-    assertEquals(0, location17.getLocation().y);
-    Point location18 = bounds5.getLocation();
-    assertEquals(0, location18.getLocation().y);
-    assertEquals(0, location9.y);
-    assertEquals(0, location6.y);
-    Point location19 = bounds11.getLocation();
-    assertEquals(0, location19.getLocation().y);
-    Point location20 = bounds14.getLocation();
-    assertEquals(0, location20.getLocation().y);
-    Point location21 = bounds16.getLocation();
-    assertEquals(0, location21.getLocation().y);
-    Point location22 = bounds7.getLocation();
-    assertEquals(0, location22.getLocation().y);
-    assertEquals(0, location11.y);
-    Point location23 = bounds18.getLocation();
-    assertEquals(0, location23.getLocation().y);
-    Point location24 = bounds20.getLocation();
-    assertEquals(0, location24.getLocation().y);
-    assertEquals(0, location13.y);
-    assertEquals(0, location2.y);
-    Point location25 = ((Rectangle) bounds2D9).getLocation();
-    assertEquals(0, location25.getLocation().y);
-    assertEquals(0, location15.y);
-    assertEquals(0, location17.y);
-    assertEquals(0, bounds6.getLocation().y);
-    assertEquals(0, location18.y);
-    assertEquals(0, location8.y);
-    assertEquals(0, bounds9.getLocation().y);
-    assertEquals(0, bounds12.getLocation().y);
-    assertEquals(0, bounds15.getLocation().y);
-    assertEquals(0, location5.y);
-    assertEquals(0, bounds17.getLocation().y);
-    assertEquals(0, bounds8.getLocation().y);
-    assertEquals(0, location19.y);
-    assertEquals(0, bounds19.getLocation().y);
-    assertEquals(0, bounds21.getLocation().y);
-    assertEquals(0, location20.y);
-    assertEquals(0, bounds22.getLocation().y);
-    assertEquals(0, location21.y);
-    assertEquals(0, location22.y);
-    assertEquals(0, bounds23.getLocation().y);
-    assertEquals(0, bounds24.getLocation().y);
-    assertEquals(0, location10.y);
-    assertEquals(0, bounds25.getLocation().y);
-    assertEquals(0, location23.y);
-    assertEquals(0, bounds26.getLocation().y);
-    assertEquals(0, location24.y);
-    assertEquals(0, bounds27.getLocation().y);
-    assertEquals(0, location12.y);
-    assertEquals(0, location.y);
-    assertEquals(0, ((Rectangle) bounds2D3).getLocation().y);
-    assertEquals(0, location25.y);
-    assertEquals(0, location14.y);
-    assertEquals(0, ((Rectangle) bounds2D24).getLocation().y);
-    assertEquals(0, ((Rectangle) bounds2D30).getLocation().y);
-    assertEquals(0, location16.y);
-    assertEquals(0, ((Rectangle) bounds2D33).getLocation().y);
-    assertEquals(0, ((Rectangle) bounds2D36).getLocation().y);
-    assertEquals(0, bounds6.getBounds().y);
-    assertEquals(0, bounds6.y);
-    assertEquals(0, bounds5.y);
-    assertEquals(0, bounds9.getBounds().y);
-    assertEquals(0, bounds12.getBounds().y);
-    assertEquals(0, bounds15.getBounds().y);
-    assertEquals(0, bounds4.y);
-    assertEquals(0, bounds17.getBounds().y);
-    assertEquals(0, bounds9.y);
-    assertEquals(0, bounds12.y);
-    assertEquals(0, bounds19.getBounds().y);
-    assertEquals(0, bounds21.getBounds().y);
-    assertEquals(0, bounds15.y);
-    assertEquals(0, bounds3.y);
-    assertEquals(0, bounds22.getBounds().y);
-    assertEquals(0, bounds17.y);
-    assertEquals(0, bounds8.y);
-    assertEquals(0, bounds23.getBounds().y);
-    assertEquals(0, bounds24.getBounds().y);
-    assertEquals(0, bounds11.y);
-    assertEquals(0, bounds25.getBounds().y);
-    assertEquals(0, bounds19.y);
-    assertEquals(0, bounds26.getBounds().y);
-    assertEquals(0, bounds21.y);
-    assertEquals(0, bounds27.getBounds().y);
-    assertEquals(0, bounds14.y);
-    assertEquals(0, bounds2.y);
-    assertEquals(0, bounds2D3.getBounds().y);
-    assertEquals(0, bounds22.y);
-    assertEquals(0, bounds16.y);
-    assertEquals(0, bounds2D24.getBounds().y);
-    assertEquals(0, bounds2D30.getBounds().y);
-    assertEquals(0, bounds7.y);
-    assertEquals(0, bounds2D33.getBounds().y);
-    assertEquals(0, bounds2D36.getBounds().y);
-    assertEquals(0, bounds23.y);
-    assertEquals(0, bounds2D39.getBounds().y);
-    assertEquals(0, bounds2D40.getBounds().y);
-    assertEquals(0, bounds24.y);
-    assertEquals(0, bounds10.y);
-    assertEquals(0, frame7.getBounds().y);
-    assertEquals(0, bounds25.y);
-    assertEquals(0, bounds18.y);
-    assertEquals(0, frame8.getBounds().y);
-    assertEquals(0, frame9.getBounds().y);
-    assertEquals(0, bounds26.y);
-    assertEquals(0, frame10.getBounds().y);
-    assertEquals(0, frame11.getBounds().y);
-    assertEquals(0, bounds20.y);
-    assertEquals(0, frame12.getBounds().y);
-    assertEquals(0, frame13.getBounds().y);
-    assertEquals(0, bounds27.y);
-    assertEquals(0, bounds13.y);
-    assertEquals(0, bounds.y);
-    assertEquals(0, ((Rectangle) bounds2D).y);
-    assertEquals(0, ((Rectangle) bounds2D2).y);
-    assertEquals(0, ((Rectangle) bounds2D3).y);
-    assertEquals(0, ((Rectangle) bounds2D5).y);
-    assertEquals(0, ((Rectangle) bounds2D7).y);
-    assertEquals(0, ((Rectangle) bounds2D8).y);
-    assertEquals(0, ((Rectangle) bounds2D9).y);
-    assertEquals(0, ((Rectangle) bounds2D11).y);
-    assertEquals(0, ((Rectangle) bounds2D12).y);
-    assertEquals(0, ((Rectangle) bounds2D13).y);
-    assertEquals(0, ((Rectangle) bounds2D14).y);
-    assertEquals(0, ((Rectangle) bounds2D15).y);
-    assertEquals(0, ((Rectangle) bounds2D16).y);
-    assertEquals(0, ((Rectangle) bounds2D10).y);
-    assertEquals(0, ((Rectangle) bounds2D17).y);
-    assertEquals(0, ((Rectangle) bounds2D18).y);
-    assertEquals(0, ((Rectangle) bounds2D19).y);
-    assertEquals(0, ((Rectangle) bounds2D21).y);
-    assertEquals(0, ((Rectangle) bounds2D23).y);
-    assertEquals(0, ((Rectangle) bounds2D24).y);
-    assertEquals(0, ((Rectangle) bounds2D25).y);
-    assertEquals(0, ((Rectangle) bounds2D26).y);
-    assertEquals(0, ((Rectangle) bounds2D27).y);
-    assertEquals(0, ((Rectangle) bounds2D28).y);
-    assertEquals(0, ((Rectangle) bounds2D29).y);
-    assertEquals(0, ((Rectangle) bounds2D30).y);
-    assertEquals(0, ((Rectangle) bounds2D4).y);
-    assertEquals(0, ((Rectangle) bounds2D31).y);
-    assertEquals(0, ((Rectangle) bounds2D32).y);
-    assertEquals(0, ((Rectangle) bounds2D33).y);
-    assertEquals(0, ((Rectangle) bounds2D34).y);
-    assertEquals(0, ((Rectangle) bounds2D35).y);
-    assertEquals(0, ((Rectangle) bounds2D36).y);
-    assertEquals(0, ((Rectangle) bounds2D37).y);
-    assertEquals(0, ((Rectangle) bounds2D38).y);
-    assertEquals(0.0d, location4.getY());
-    assertEquals(0.0d, location7.getY());
-    assertEquals(0.0d, location3.getY());
-    assertEquals(0.0d, location9.getY());
-    assertEquals(0.0d, location6.getY());
-    assertEquals(0.0d, location11.getY());
-    assertEquals(0.0d, location13.getY());
-    assertEquals(0.0d, location2.getY());
-    assertEquals(0.0d, location15.getY());
-    assertEquals(0.0d, location17.getY());
-    assertEquals(0.0d, location18.getY());
-    assertEquals(0.0d, location8.getY());
-    assertEquals(0.0d, location5.getY());
-    assertEquals(0.0d, location19.getY());
-    assertEquals(0.0d, location20.getY());
-    assertEquals(0.0d, location21.getY());
-    assertEquals(0.0d, location22.getY());
-    assertEquals(0.0d, location10.getY());
-    assertEquals(0.0d, location23.getY());
-    assertEquals(0.0d, location24.getY());
-    assertEquals(0.0d, location12.getY());
-    assertEquals(0.0d, location.getY());
-    assertEquals(0.0d, location25.getY());
-    assertEquals(0.0d, location14.getY());
-    assertEquals(0.0d, location16.getY());
-    assertEquals(0.0d, bounds6.getY());
-    assertEquals(0.0d, bounds5.getY());
-    assertEquals(0.0d, bounds4.getY());
-    assertEquals(0.0d, bounds9.getY());
-    assertEquals(0.0d, bounds12.getY());
-    assertEquals(0.0d, bounds15.getY());
-    assertEquals(0.0d, bounds3.getY());
-    assertEquals(0.0d, bounds17.getY());
-    assertEquals(0.0d, bounds8.getY());
-    assertEquals(0.0d, bounds11.getY());
-    assertEquals(0.0d, bounds19.getY());
-    assertEquals(0.0d, bounds21.getY());
-    assertEquals(0.0d, bounds14.getY());
-    assertEquals(0.0d, bounds2.getY());
-    assertEquals(0.0d, bounds22.getY());
-    assertEquals(0.0d, bounds16.getY());
-    assertEquals(0.0d, bounds7.getY());
-    assertEquals(0.0d, bounds23.getY());
-    assertEquals(0.0d, bounds24.getY());
-    assertEquals(0.0d, bounds10.getY());
-    assertEquals(0.0d, bounds25.getY());
-    assertEquals(0.0d, bounds18.getY());
-    assertEquals(0.0d, bounds26.getY());
-    assertEquals(0.0d, bounds20.getY());
-    assertEquals(0.0d, bounds27.getY());
-    assertEquals(0.0d, bounds13.getY());
-    assertEquals(0.0d, bounds.getY());
-    assertEquals(0.0d, bounds6.getCenterY());
-    assertEquals(0.0d, bounds5.getCenterY());
-    assertEquals(0.0d, bounds4.getCenterY());
-    assertEquals(0.0d, bounds9.getCenterY());
-    assertEquals(0.0d, bounds12.getCenterY());
-    assertEquals(0.0d, bounds15.getCenterY());
-    assertEquals(0.0d, bounds3.getCenterY());
-    assertEquals(0.0d, bounds17.getCenterY());
-    assertEquals(0.0d, bounds8.getCenterY());
-    assertEquals(0.0d, bounds11.getCenterY());
-    assertEquals(0.0d, bounds19.getCenterY());
-    assertEquals(0.0d, bounds21.getCenterY());
-    assertEquals(0.0d, bounds14.getCenterY());
-    assertEquals(0.0d, bounds2.getCenterY());
-    assertEquals(0.0d, bounds2D3.getCenterY());
-    assertEquals(0.0d, bounds2D9.getCenterY());
-    assertEquals(0.0d, bounds2D10.getCenterY());
-    assertEquals(0.0d, bounds2D24.getCenterY());
-    assertEquals(0.0d, bounds2D30.getCenterY());
-    assertEquals(0.0d, bounds2D4.getCenterY());
-    assertEquals(0.0d, bounds2D33.getCenterY());
-    assertEquals(0.0d, bounds2D36.getCenterY());
-    assertEquals(0.0d, bounds2D20.getCenterY());
-    assertEquals(0.0d, bounds2D39.getCenterY());
-    assertEquals(0.0d, bounds2D40.getCenterY());
-    assertEquals(0.0d, bounds2D22.getCenterY());
-    assertEquals(0.0d, bounds2D6.getCenterY());
-    assertEquals(0.0d, bounds22.getCenterY());
-    assertEquals(0.0d, bounds16.getCenterY());
-    assertEquals(0.0d, bounds7.getCenterY());
-    assertEquals(0.0d, bounds23.getCenterY());
-    assertEquals(0.0d, bounds24.getCenterY());
-    assertEquals(0.0d, bounds10.getCenterY());
-    assertEquals(0.0d, bounds25.getCenterY());
-    assertEquals(0.0d, bounds18.getCenterY());
-    assertEquals(0.0d, bounds26.getCenterY());
-    assertEquals(0.0d, bounds20.getCenterY());
-    assertEquals(0.0d, bounds27.getCenterY());
-    assertEquals(0.0d, bounds13.getCenterY());
-    assertEquals(0.0d, bounds.getCenterY());
-    assertEquals(0.0d, frame7.getCenterY());
-    assertEquals(0.0d, frame4.getCenterY());
-    assertEquals(0.0d, frame2.getCenterY());
-    assertEquals(0.0d, frame8.getCenterY());
-    assertEquals(0.0d, frame9.getCenterY());
-    assertEquals(0.0d, frame5.getCenterY());
-    assertEquals(0.0d, frame10.getCenterY());
-    assertEquals(0.0d, frame11.getCenterY());
-    assertEquals(0.0d, frame3.getCenterY());
-    assertEquals(0.0d, frame12.getCenterY());
-    assertEquals(0.0d, frame13.getCenterY());
-    assertEquals(0.0d, frame6.getCenterY());
-    assertEquals(0.0d, frame.getCenterY());
-    assertEquals(0.0d, actualBounds.getCenterY());
-    assertEquals(0.0d, bounds6.getMaxY());
-    assertEquals(0.0d, bounds5.getMaxY());
-    assertEquals(0.0d, bounds4.getMaxY());
-    assertEquals(0.0d, bounds9.getMaxY());
-    assertEquals(0.0d, bounds12.getMaxY());
-    assertEquals(0.0d, bounds15.getMaxY());
-    assertEquals(0.0d, bounds3.getMaxY());
-    assertEquals(0.0d, bounds17.getMaxY());
-    assertEquals(0.0d, bounds8.getMaxY());
-    assertEquals(0.0d, bounds11.getMaxY());
-    assertEquals(0.0d, bounds19.getMaxY());
-    assertEquals(0.0d, bounds21.getMaxY());
-    assertEquals(0.0d, bounds14.getMaxY());
-    assertEquals(0.0d, bounds2.getMaxY());
-    assertEquals(0.0d, bounds2D3.getMaxY());
-    assertEquals(0.0d, bounds2D9.getMaxY());
-    assertEquals(0.0d, bounds2D10.getMaxY());
-    assertEquals(0.0d, bounds2D24.getMaxY());
-    assertEquals(0.0d, bounds2D30.getMaxY());
-    assertEquals(0.0d, bounds2D4.getMaxY());
-    assertEquals(0.0d, bounds2D33.getMaxY());
-    assertEquals(0.0d, bounds2D36.getMaxY());
-    assertEquals(0.0d, bounds2D20.getMaxY());
-    assertEquals(0.0d, bounds2D39.getMaxY());
-    assertEquals(0.0d, bounds2D40.getMaxY());
-    assertEquals(0.0d, bounds2D22.getMaxY());
-    assertEquals(0.0d, bounds2D6.getMaxY());
-    assertEquals(0.0d, bounds22.getMaxY());
-    assertEquals(0.0d, bounds16.getMaxY());
-    assertEquals(0.0d, bounds7.getMaxY());
-    assertEquals(0.0d, bounds23.getMaxY());
-    assertEquals(0.0d, bounds24.getMaxY());
-    assertEquals(0.0d, bounds10.getMaxY());
-    assertEquals(0.0d, bounds25.getMaxY());
-    assertEquals(0.0d, bounds18.getMaxY());
-    assertEquals(0.0d, bounds26.getMaxY());
-    assertEquals(0.0d, bounds20.getMaxY());
-    assertEquals(0.0d, bounds27.getMaxY());
-    assertEquals(0.0d, bounds13.getMaxY());
-    assertEquals(0.0d, bounds.getMaxY());
-    assertEquals(0.0d, frame7.getMaxY());
-    assertEquals(0.0d, frame4.getMaxY());
-    assertEquals(0.0d, frame2.getMaxY());
-    assertEquals(0.0d, frame8.getMaxY());
-    assertEquals(0.0d, frame9.getMaxY());
-    assertEquals(0.0d, frame5.getMaxY());
-    assertEquals(0.0d, frame10.getMaxY());
-    assertEquals(0.0d, frame11.getMaxY());
-    assertEquals(0.0d, frame3.getMaxY());
-    assertEquals(0.0d, frame12.getMaxY());
-    assertEquals(0.0d, frame13.getMaxY());
-    assertEquals(0.0d, frame6.getMaxY());
-    assertEquals(0.0d, frame.getMaxY());
-    assertEquals(0.0d, actualBounds.getMaxY());
-    assertEquals(0.0d, bounds6.getMinY());
-    assertEquals(0.0d, bounds5.getMinY());
-    assertEquals(0.0d, bounds4.getMinY());
-    assertEquals(0.0d, bounds9.getMinY());
-    assertEquals(0.0d, bounds12.getMinY());
-    assertEquals(0.0d, bounds15.getMinY());
-    assertEquals(0.0d, bounds3.getMinY());
-    assertEquals(0.0d, bounds17.getMinY());
-    assertEquals(0.0d, bounds8.getMinY());
-    assertEquals(0.0d, bounds11.getMinY());
-    assertEquals(0.0d, bounds19.getMinY());
-    assertEquals(0.0d, bounds21.getMinY());
-    assertEquals(0.0d, bounds14.getMinY());
-    assertEquals(0.0d, bounds2.getMinY());
-    assertEquals(0.0d, bounds2D3.getMinY());
-    assertEquals(0.0d, bounds2D9.getMinY());
-    assertEquals(0.0d, bounds2D10.getMinY());
-    assertEquals(0.0d, bounds2D24.getMinY());
-    assertEquals(0.0d, bounds2D30.getMinY());
-    assertEquals(0.0d, bounds2D4.getMinY());
-    assertEquals(0.0d, bounds2D33.getMinY());
-    assertEquals(0.0d, bounds2D36.getMinY());
-    assertEquals(0.0d, bounds2D20.getMinY());
-    assertEquals(0.0d, bounds2D39.getMinY());
-    assertEquals(0.0d, bounds2D40.getMinY());
-    assertEquals(0.0d, bounds2D22.getMinY());
-    assertEquals(0.0d, bounds2D6.getMinY());
-    assertEquals(0.0d, bounds22.getMinY());
-    assertEquals(0.0d, bounds16.getMinY());
-    assertEquals(0.0d, bounds7.getMinY());
-    assertEquals(0.0d, bounds23.getMinY());
-    assertEquals(0.0d, bounds24.getMinY());
-    assertEquals(0.0d, bounds10.getMinY());
-    assertEquals(0.0d, bounds25.getMinY());
-    assertEquals(0.0d, bounds18.getMinY());
-    assertEquals(0.0d, bounds26.getMinY());
-    assertEquals(0.0d, bounds20.getMinY());
-    assertEquals(0.0d, bounds27.getMinY());
-    assertEquals(0.0d, bounds13.getMinY());
-    assertEquals(0.0d, bounds.getMinY());
-    assertEquals(0.0d, frame7.getMinY());
-    assertEquals(0.0d, frame4.getMinY());
-    assertEquals(0.0d, frame2.getMinY());
-    assertEquals(0.0d, frame8.getMinY());
-    assertEquals(0.0d, frame9.getMinY());
-    assertEquals(0.0d, frame5.getMinY());
-    assertEquals(0.0d, frame10.getMinY());
-    assertEquals(0.0d, frame11.getMinY());
-    assertEquals(0.0d, frame3.getMinY());
-    assertEquals(0.0d, frame12.getMinY());
-    assertEquals(0.0d, frame13.getMinY());
-    assertEquals(0.0d, frame6.getMinY());
-    assertEquals(0.0d, frame.getMinY());
-    assertEquals(0.0d, actualBounds.getMinY());
-    assertEquals(0.0d, bounds2D3.getY());
-    assertEquals(0.0d, bounds2D9.getY());
-    assertEquals(0.0d, bounds2D10.getY());
-    assertEquals(0.0d, bounds2D24.getY());
-    assertEquals(0.0d, bounds2D30.getY());
-    assertEquals(0.0d, bounds2D4.getY());
-    assertEquals(0.0d, bounds2D33.getY());
-    assertEquals(0.0d, bounds2D36.getY());
-    assertEquals(0.0d, bounds2D20.getY());
-    assertEquals(0.0d, bounds2D39.getY());
-    assertEquals(0.0d, bounds2D40.getY());
-    assertEquals(0.0d, bounds2D22.getY());
-    assertEquals(0.0d, bounds2D6.getY());
-    assertEquals(0.0d, frame7.getY());
-    assertEquals(0.0d, frame4.getY());
-    assertEquals(0.0d, frame2.getY());
-    assertEquals(0.0d, frame8.getY());
-    assertEquals(0.0d, frame9.getY());
-    assertEquals(0.0d, frame5.getY());
-    assertEquals(0.0d, frame10.getY());
-    assertEquals(0.0d, frame11.getY());
-    assertEquals(0.0d, frame3.getY());
-    assertEquals(0.0d, frame12.getY());
-    assertEquals(0.0d, frame13.getY());
-    assertEquals(0.0d, frame6.getY());
-    assertEquals(0.0d, frame.getY());
-    assertEquals(0.0d, actualBounds.getY());
-    assertEquals(0.0f, ((Rectangle2D.Float) bounds2D41).y);
-    assertEquals(0.0f, ((Rectangle2D.Float) bounds2D20).y);
-    assertEquals(0.0f, ((Rectangle2D.Float) bounds2D6).y);
-    assertEquals(0.0f, ((Rectangle2D.Float) actualBounds).y);
+    assertTrue(frame instanceof Double);
+    Rectangle2D bounds2D = actualBounds.getBounds2D();
+    assertTrue(bounds2D instanceof Float);
+    assertTrue(actualBounds instanceof Float);
+    assertEquals(0.0d, bounds2D.getCenterX());
+    Rectangle bounds = actualBounds.getBounds();
+    assertEquals(0.0d, bounds.getCenterX());
+    assertEquals(0.0d, frame.getCenterX());
+    assertEquals(0.0d, actualBounds.getCenterX());
+    assertEquals(0.0d, bounds2D.getMaxX());
+    assertEquals(0.0d, bounds.getMaxX());
+    assertEquals(0.0d, frame.getMaxX());
+    assertEquals(0.0d, actualBounds.getMaxX());
   }
 
   /**
    * Test {@link Type1CharString#getBounds()}.
-   * <p>
-   * Method under test: {@link Type1CharString#getBounds()}
+   *
+   * <p>Method under test: {@link Type1CharString#getBounds()}
    */
   @Test
   @DisplayName("Test getBounds()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Rectangle2D Type1CharString.getBounds()"})
   void testGetBounds2() {
     // Arrange
-    Type1CharString type1CharString = new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
     type1CharString.addCommand(new ArrayList<>(), CharStringCommand.HSTEM);
 
     // Act
     Rectangle2D actualBounds = type1CharString.getBounds();
 
     // Assert
-    Rectangle bounds = actualBounds.getBounds();
-    Rectangle bounds2 = bounds.getBounds();
-    Rectangle bounds3 = bounds2.getBounds();
-    Rectangle bounds4 = bounds3.getBounds();
-    Rectangle bounds5 = bounds4.getBounds();
-    Rectangle bounds6 = bounds5.getBounds();
-    Rectangle2D bounds2D = bounds6.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Rectangle2D bounds2D2 = bounds5.getBounds2D();
-    assertTrue(bounds2D2 instanceof Rectangle);
-    Rectangle2D bounds2D3 = bounds4.getBounds2D();
-    assertTrue(bounds2D3 instanceof Rectangle);
-    Rectangle2D bounds2D4 = bounds.getBounds2D();
-    Rectangle bounds7 = bounds2D4.getBounds();
-    Rectangle bounds8 = bounds7.getBounds();
-    Rectangle bounds9 = bounds8.getBounds();
-    Rectangle2D bounds2D5 = bounds9.getBounds2D();
-    assertTrue(bounds2D5 instanceof Rectangle);
-    Rectangle2D bounds2D6 = actualBounds.getBounds2D();
-    Rectangle bounds10 = bounds2D6.getBounds();
-    Rectangle bounds11 = bounds10.getBounds();
-    Rectangle bounds12 = bounds11.getBounds();
-    Rectangle2D bounds2D7 = bounds12.getBounds2D();
-    assertTrue(bounds2D7 instanceof Rectangle);
     Rectangle2D frame = actualBounds.getFrame();
-    Rectangle bounds13 = frame.getBounds();
-    Rectangle bounds14 = bounds13.getBounds();
-    Rectangle bounds15 = bounds14.getBounds();
-    Rectangle2D bounds2D8 = bounds15.getBounds2D();
-    assertTrue(bounds2D8 instanceof Rectangle);
-    Rectangle2D bounds2D9 = bounds3.getBounds2D();
-    assertTrue(bounds2D9 instanceof Rectangle);
-    Rectangle2D bounds2D10 = bounds2.getBounds2D();
-    Rectangle bounds16 = bounds2D10.getBounds();
-    Rectangle bounds17 = bounds16.getBounds();
-    Rectangle2D bounds2D11 = bounds17.getBounds2D();
-    assertTrue(bounds2D11 instanceof Rectangle);
-    Rectangle2D bounds2D12 = bounds8.getBounds2D();
-    assertTrue(bounds2D12 instanceof Rectangle);
-    Rectangle2D bounds2D13 = bounds11.getBounds2D();
-    assertTrue(bounds2D13 instanceof Rectangle);
-    Rectangle2D frame2 = bounds2.getFrame();
-    Rectangle bounds18 = frame2.getBounds();
-    Rectangle bounds19 = bounds18.getBounds();
-    Rectangle2D bounds2D14 = bounds19.getBounds2D();
-    assertTrue(bounds2D14 instanceof Rectangle);
-    Rectangle2D frame3 = bounds.getFrame();
-    Rectangle bounds20 = frame3.getBounds();
-    Rectangle bounds21 = bounds20.getBounds();
-    Rectangle2D bounds2D15 = bounds21.getBounds2D();
-    assertTrue(bounds2D15 instanceof Rectangle);
-    Rectangle2D bounds2D16 = bounds14.getBounds2D();
-    assertTrue(bounds2D16 instanceof Rectangle);
-    assertTrue(bounds2D10 instanceof Rectangle);
-    Rectangle bounds22 = bounds2D9.getBounds();
-    Rectangle2D bounds2D17 = bounds22.getBounds2D();
-    assertTrue(bounds2D17 instanceof Rectangle);
-    Rectangle2D bounds2D18 = bounds16.getBounds2D();
-    assertTrue(bounds2D18 instanceof Rectangle);
-    Rectangle2D bounds2D19 = bounds7.getBounds2D();
-    assertTrue(bounds2D19 instanceof Rectangle);
-    Rectangle2D bounds2D20 = bounds2D6.getBounds2D();
-    Rectangle bounds23 = bounds2D20.getBounds();
-    Rectangle2D bounds2D21 = bounds23.getBounds2D();
-    assertTrue(bounds2D21 instanceof Rectangle);
-    Rectangle2D bounds2D22 = frame.getBounds2D();
-    Rectangle bounds24 = bounds2D22.getBounds();
-    Rectangle2D bounds2D23 = bounds24.getBounds2D();
-    assertTrue(bounds2D23 instanceof Rectangle);
-    Rectangle2D bounds2D24 = bounds10.getBounds2D();
-    assertTrue(bounds2D24 instanceof Rectangle);
-    Rectangle2D frame4 = bounds3.getFrame();
-    Rectangle bounds25 = frame4.getBounds();
-    Rectangle2D bounds2D25 = bounds25.getBounds2D();
-    assertTrue(bounds2D25 instanceof Rectangle);
-    Rectangle2D bounds2D26 = bounds18.getBounds2D();
-    assertTrue(bounds2D26 instanceof Rectangle);
-    Rectangle2D frame5 = bounds2D6.getFrame();
-    Rectangle bounds26 = frame5.getBounds();
-    Rectangle2D bounds2D27 = bounds26.getBounds2D();
-    assertTrue(bounds2D27 instanceof Rectangle);
-    Rectangle2D bounds2D28 = bounds20.getBounds2D();
-    assertTrue(bounds2D28 instanceof Rectangle);
-    Rectangle2D frame6 = frame.getFrame();
-    Rectangle bounds27 = frame6.getBounds();
-    Rectangle2D bounds2D29 = bounds27.getBounds2D();
-    assertTrue(bounds2D29 instanceof Rectangle);
-    Rectangle2D bounds2D30 = bounds13.getBounds2D();
-    assertTrue(bounds2D30 instanceof Rectangle);
-    assertTrue(bounds2D4 instanceof Rectangle);
-    Rectangle2D bounds2D31 = bounds2D3.getBounds2D();
-    assertTrue(bounds2D31 instanceof Rectangle);
-    Rectangle2D bounds2D32 = bounds2D9.getBounds2D();
-    assertTrue(bounds2D32 instanceof Rectangle);
-    Rectangle2D bounds2D33 = bounds2D10.getBounds2D();
-    assertTrue(bounds2D33 instanceof Rectangle);
-    Rectangle2D bounds2D34 = bounds2D24.getBounds2D();
-    assertTrue(bounds2D34 instanceof Rectangle);
-    Rectangle2D bounds2D35 = bounds2D30.getBounds2D();
-    assertTrue(bounds2D35 instanceof Rectangle);
-    Rectangle2D bounds2D36 = bounds2D4.getBounds2D();
-    assertTrue(bounds2D36 instanceof Rectangle);
-    Rectangle2D bounds2D37 = bounds2D33.getBounds2D();
-    assertTrue(bounds2D37 instanceof Rectangle);
-    Rectangle2D bounds2D38 = bounds2D36.getBounds2D();
-    assertTrue(bounds2D38 instanceof Rectangle);
-    Rectangle2D bounds2D39 = frame2.getBounds2D();
-    assertTrue(bounds2D39 instanceof Rectangle2D.Double);
-    Rectangle2D bounds2D40 = frame3.getBounds2D();
-    assertTrue(bounds2D40 instanceof Rectangle2D.Double);
-    assertTrue(bounds2D22 instanceof Rectangle2D.Double);
-    Rectangle2D frame7 = bounds4.getFrame();
-    assertTrue(frame7 instanceof Rectangle2D.Double);
-    assertTrue(frame4 instanceof Rectangle2D.Double);
-    assertTrue(frame2 instanceof Rectangle2D.Double);
-    Rectangle2D frame8 = bounds2D10.getFrame();
-    assertTrue(frame8 instanceof Rectangle2D.Double);
-    Rectangle2D frame9 = bounds2D4.getFrame();
-    assertTrue(frame9 instanceof Rectangle2D.Double);
-    assertTrue(frame5 instanceof Rectangle2D.Double);
-    Rectangle2D frame10 = bounds10.getFrame();
-    assertTrue(frame10 instanceof Rectangle2D.Double);
-    Rectangle2D frame11 = bounds13.getFrame();
-    assertTrue(frame11 instanceof Rectangle2D.Double);
-    assertTrue(frame3 instanceof Rectangle2D.Double);
-    Rectangle2D frame12 = frame2.getFrame();
-    assertTrue(frame12 instanceof Rectangle2D.Double);
-    Rectangle2D frame13 = frame3.getFrame();
-    assertTrue(frame13 instanceof Rectangle2D.Double);
-    assertTrue(frame6 instanceof Rectangle2D.Double);
-    assertTrue(frame instanceof Rectangle2D.Double);
-    Rectangle2D bounds2D41 = bounds2D20.getBounds2D();
-    assertTrue(bounds2D41 instanceof Rectangle2D.Float);
-    assertTrue(bounds2D20 instanceof Rectangle2D.Float);
-    assertTrue(bounds2D6 instanceof Rectangle2D.Float);
-    assertTrue(actualBounds instanceof Rectangle2D.Float);
-    Point location = bounds.getLocation();
-    Point location2 = location.getLocation();
-    Point location3 = location2.getLocation();
-    Point location4 = location3.getLocation();
-    assertEquals(0, location4.getLocation().y);
-    Point location5 = bounds3.getLocation();
-    Point location6 = location5.getLocation();
-    Point location7 = location6.getLocation();
-    assertEquals(0, location7.getLocation().y);
-    assertEquals(0, location4.y);
-    Point location8 = bounds4.getLocation();
-    Point location9 = location8.getLocation();
-    assertEquals(0, location9.getLocation().y);
-    assertEquals(0, location7.y);
-    Point location10 = bounds10.getLocation();
-    Point location11 = location10.getLocation();
-    assertEquals(0, location11.getLocation().y);
-    Point location12 = bounds13.getLocation();
-    Point location13 = location12.getLocation();
-    assertEquals(0, location13.getLocation().y);
-    assertEquals(0, location3.y);
-    Point location14 = ((Rectangle) bounds2D10).getLocation();
-    Point location15 = location14.getLocation();
-    assertEquals(0, location15.getLocation().y);
-    Point location16 = ((Rectangle) bounds2D4).getLocation();
-    Point location17 = location16.getLocation();
-    assertEquals(0, location17.getLocation().y);
-    Point location18 = bounds5.getLocation();
-    assertEquals(0, location18.getLocation().y);
-    assertEquals(0, location9.y);
-    assertEquals(0, location6.y);
-    Point location19 = bounds11.getLocation();
-    assertEquals(0, location19.getLocation().y);
-    Point location20 = bounds14.getLocation();
-    assertEquals(0, location20.getLocation().y);
-    Point location21 = bounds16.getLocation();
-    assertEquals(0, location21.getLocation().y);
-    Point location22 = bounds7.getLocation();
-    assertEquals(0, location22.getLocation().y);
-    assertEquals(0, location11.y);
-    Point location23 = bounds18.getLocation();
-    assertEquals(0, location23.getLocation().y);
-    Point location24 = bounds20.getLocation();
-    assertEquals(0, location24.getLocation().y);
-    assertEquals(0, location13.y);
-    assertEquals(0, location2.y);
-    Point location25 = ((Rectangle) bounds2D9).getLocation();
-    assertEquals(0, location25.getLocation().y);
-    assertEquals(0, location15.y);
-    assertEquals(0, location17.y);
-    assertEquals(0, bounds6.getLocation().y);
-    assertEquals(0, location18.y);
-    assertEquals(0, location8.y);
-    assertEquals(0, bounds9.getLocation().y);
-    assertEquals(0, bounds12.getLocation().y);
-    assertEquals(0, bounds15.getLocation().y);
-    assertEquals(0, location5.y);
-    assertEquals(0, bounds17.getLocation().y);
-    assertEquals(0, bounds8.getLocation().y);
-    assertEquals(0, location19.y);
-    assertEquals(0, bounds19.getLocation().y);
-    assertEquals(0, bounds21.getLocation().y);
-    assertEquals(0, location20.y);
-    assertEquals(0, bounds22.getLocation().y);
-    assertEquals(0, location21.y);
-    assertEquals(0, location22.y);
-    assertEquals(0, bounds23.getLocation().y);
-    assertEquals(0, bounds24.getLocation().y);
-    assertEquals(0, location10.y);
-    assertEquals(0, bounds25.getLocation().y);
-    assertEquals(0, location23.y);
-    assertEquals(0, bounds26.getLocation().y);
-    assertEquals(0, location24.y);
-    assertEquals(0, bounds27.getLocation().y);
-    assertEquals(0, location12.y);
-    assertEquals(0, location.y);
-    assertEquals(0, ((Rectangle) bounds2D3).getLocation().y);
-    assertEquals(0, location25.y);
-    assertEquals(0, location14.y);
-    assertEquals(0, ((Rectangle) bounds2D24).getLocation().y);
-    assertEquals(0, ((Rectangle) bounds2D30).getLocation().y);
-    assertEquals(0, location16.y);
-    assertEquals(0, ((Rectangle) bounds2D33).getLocation().y);
-    assertEquals(0, ((Rectangle) bounds2D36).getLocation().y);
-    assertEquals(0, bounds6.getBounds().y);
-    assertEquals(0, bounds6.y);
-    assertEquals(0, bounds5.y);
-    assertEquals(0, bounds9.getBounds().y);
-    assertEquals(0, bounds12.getBounds().y);
-    assertEquals(0, bounds15.getBounds().y);
-    assertEquals(0, bounds4.y);
-    assertEquals(0, bounds17.getBounds().y);
-    assertEquals(0, bounds9.y);
-    assertEquals(0, bounds12.y);
-    assertEquals(0, bounds19.getBounds().y);
-    assertEquals(0, bounds21.getBounds().y);
-    assertEquals(0, bounds15.y);
-    assertEquals(0, bounds3.y);
-    assertEquals(0, bounds22.getBounds().y);
-    assertEquals(0, bounds17.y);
-    assertEquals(0, bounds8.y);
-    assertEquals(0, bounds23.getBounds().y);
-    assertEquals(0, bounds24.getBounds().y);
-    assertEquals(0, bounds11.y);
-    assertEquals(0, bounds25.getBounds().y);
-    assertEquals(0, bounds19.y);
-    assertEquals(0, bounds26.getBounds().y);
-    assertEquals(0, bounds21.y);
-    assertEquals(0, bounds27.getBounds().y);
-    assertEquals(0, bounds14.y);
-    assertEquals(0, bounds2.y);
-    assertEquals(0, bounds2D3.getBounds().y);
-    assertEquals(0, bounds22.y);
-    assertEquals(0, bounds16.y);
-    assertEquals(0, bounds2D24.getBounds().y);
-    assertEquals(0, bounds2D30.getBounds().y);
-    assertEquals(0, bounds7.y);
-    assertEquals(0, bounds2D33.getBounds().y);
-    assertEquals(0, bounds2D36.getBounds().y);
-    assertEquals(0, bounds23.y);
-    assertEquals(0, bounds2D39.getBounds().y);
-    assertEquals(0, bounds2D40.getBounds().y);
-    assertEquals(0, bounds24.y);
-    assertEquals(0, bounds10.y);
-    assertEquals(0, frame7.getBounds().y);
-    assertEquals(0, bounds25.y);
-    assertEquals(0, bounds18.y);
-    assertEquals(0, frame8.getBounds().y);
-    assertEquals(0, frame9.getBounds().y);
-    assertEquals(0, bounds26.y);
-    assertEquals(0, frame10.getBounds().y);
-    assertEquals(0, frame11.getBounds().y);
-    assertEquals(0, bounds20.y);
-    assertEquals(0, frame12.getBounds().y);
-    assertEquals(0, frame13.getBounds().y);
-    assertEquals(0, bounds27.y);
-    assertEquals(0, bounds13.y);
-    assertEquals(0, bounds.y);
-    assertEquals(0, ((Rectangle) bounds2D).y);
-    assertEquals(0, ((Rectangle) bounds2D2).y);
-    assertEquals(0, ((Rectangle) bounds2D3).y);
-    assertEquals(0, ((Rectangle) bounds2D5).y);
-    assertEquals(0, ((Rectangle) bounds2D7).y);
-    assertEquals(0, ((Rectangle) bounds2D8).y);
-    assertEquals(0, ((Rectangle) bounds2D9).y);
-    assertEquals(0, ((Rectangle) bounds2D11).y);
-    assertEquals(0, ((Rectangle) bounds2D12).y);
-    assertEquals(0, ((Rectangle) bounds2D13).y);
-    assertEquals(0, ((Rectangle) bounds2D14).y);
-    assertEquals(0, ((Rectangle) bounds2D15).y);
-    assertEquals(0, ((Rectangle) bounds2D16).y);
-    assertEquals(0, ((Rectangle) bounds2D10).y);
-    assertEquals(0, ((Rectangle) bounds2D17).y);
-    assertEquals(0, ((Rectangle) bounds2D18).y);
-    assertEquals(0, ((Rectangle) bounds2D19).y);
-    assertEquals(0, ((Rectangle) bounds2D21).y);
-    assertEquals(0, ((Rectangle) bounds2D23).y);
-    assertEquals(0, ((Rectangle) bounds2D24).y);
-    assertEquals(0, ((Rectangle) bounds2D25).y);
-    assertEquals(0, ((Rectangle) bounds2D26).y);
-    assertEquals(0, ((Rectangle) bounds2D27).y);
-    assertEquals(0, ((Rectangle) bounds2D28).y);
-    assertEquals(0, ((Rectangle) bounds2D29).y);
-    assertEquals(0, ((Rectangle) bounds2D30).y);
-    assertEquals(0, ((Rectangle) bounds2D4).y);
-    assertEquals(0, ((Rectangle) bounds2D31).y);
-    assertEquals(0, ((Rectangle) bounds2D32).y);
-    assertEquals(0, ((Rectangle) bounds2D33).y);
-    assertEquals(0, ((Rectangle) bounds2D34).y);
-    assertEquals(0, ((Rectangle) bounds2D35).y);
-    assertEquals(0, ((Rectangle) bounds2D36).y);
-    assertEquals(0, ((Rectangle) bounds2D37).y);
-    assertEquals(0, ((Rectangle) bounds2D38).y);
-    assertEquals(0.0d, location4.getY());
-    assertEquals(0.0d, location7.getY());
-    assertEquals(0.0d, location3.getY());
-    assertEquals(0.0d, location9.getY());
-    assertEquals(0.0d, location6.getY());
-    assertEquals(0.0d, location11.getY());
-    assertEquals(0.0d, location13.getY());
-    assertEquals(0.0d, location2.getY());
-    assertEquals(0.0d, location15.getY());
-    assertEquals(0.0d, location17.getY());
-    assertEquals(0.0d, location18.getY());
-    assertEquals(0.0d, location8.getY());
-    assertEquals(0.0d, location5.getY());
-    assertEquals(0.0d, location19.getY());
-    assertEquals(0.0d, location20.getY());
-    assertEquals(0.0d, location21.getY());
-    assertEquals(0.0d, location22.getY());
-    assertEquals(0.0d, location10.getY());
-    assertEquals(0.0d, location23.getY());
-    assertEquals(0.0d, location24.getY());
-    assertEquals(0.0d, location12.getY());
-    assertEquals(0.0d, location.getY());
-    assertEquals(0.0d, location25.getY());
-    assertEquals(0.0d, location14.getY());
-    assertEquals(0.0d, location16.getY());
-    assertEquals(0.0d, bounds6.getY());
-    assertEquals(0.0d, bounds5.getY());
-    assertEquals(0.0d, bounds4.getY());
-    assertEquals(0.0d, bounds9.getY());
-    assertEquals(0.0d, bounds12.getY());
-    assertEquals(0.0d, bounds15.getY());
-    assertEquals(0.0d, bounds3.getY());
-    assertEquals(0.0d, bounds17.getY());
-    assertEquals(0.0d, bounds8.getY());
-    assertEquals(0.0d, bounds11.getY());
-    assertEquals(0.0d, bounds19.getY());
-    assertEquals(0.0d, bounds21.getY());
-    assertEquals(0.0d, bounds14.getY());
-    assertEquals(0.0d, bounds2.getY());
-    assertEquals(0.0d, bounds22.getY());
-    assertEquals(0.0d, bounds16.getY());
-    assertEquals(0.0d, bounds7.getY());
-    assertEquals(0.0d, bounds23.getY());
-    assertEquals(0.0d, bounds24.getY());
-    assertEquals(0.0d, bounds10.getY());
-    assertEquals(0.0d, bounds25.getY());
-    assertEquals(0.0d, bounds18.getY());
-    assertEquals(0.0d, bounds26.getY());
-    assertEquals(0.0d, bounds20.getY());
-    assertEquals(0.0d, bounds27.getY());
-    assertEquals(0.0d, bounds13.getY());
-    assertEquals(0.0d, bounds.getY());
-    assertEquals(0.0d, bounds6.getCenterY());
-    assertEquals(0.0d, bounds5.getCenterY());
-    assertEquals(0.0d, bounds4.getCenterY());
-    assertEquals(0.0d, bounds9.getCenterY());
-    assertEquals(0.0d, bounds12.getCenterY());
-    assertEquals(0.0d, bounds15.getCenterY());
-    assertEquals(0.0d, bounds3.getCenterY());
-    assertEquals(0.0d, bounds17.getCenterY());
-    assertEquals(0.0d, bounds8.getCenterY());
-    assertEquals(0.0d, bounds11.getCenterY());
-    assertEquals(0.0d, bounds19.getCenterY());
-    assertEquals(0.0d, bounds21.getCenterY());
-    assertEquals(0.0d, bounds14.getCenterY());
-    assertEquals(0.0d, bounds2.getCenterY());
-    assertEquals(0.0d, bounds2D3.getCenterY());
-    assertEquals(0.0d, bounds2D9.getCenterY());
-    assertEquals(0.0d, bounds2D10.getCenterY());
-    assertEquals(0.0d, bounds2D24.getCenterY());
-    assertEquals(0.0d, bounds2D30.getCenterY());
-    assertEquals(0.0d, bounds2D4.getCenterY());
-    assertEquals(0.0d, bounds2D33.getCenterY());
-    assertEquals(0.0d, bounds2D36.getCenterY());
-    assertEquals(0.0d, bounds2D20.getCenterY());
-    assertEquals(0.0d, bounds2D39.getCenterY());
-    assertEquals(0.0d, bounds2D40.getCenterY());
-    assertEquals(0.0d, bounds2D22.getCenterY());
-    assertEquals(0.0d, bounds2D6.getCenterY());
-    assertEquals(0.0d, bounds22.getCenterY());
-    assertEquals(0.0d, bounds16.getCenterY());
-    assertEquals(0.0d, bounds7.getCenterY());
-    assertEquals(0.0d, bounds23.getCenterY());
-    assertEquals(0.0d, bounds24.getCenterY());
-    assertEquals(0.0d, bounds10.getCenterY());
-    assertEquals(0.0d, bounds25.getCenterY());
-    assertEquals(0.0d, bounds18.getCenterY());
-    assertEquals(0.0d, bounds26.getCenterY());
-    assertEquals(0.0d, bounds20.getCenterY());
-    assertEquals(0.0d, bounds27.getCenterY());
-    assertEquals(0.0d, bounds13.getCenterY());
-    assertEquals(0.0d, bounds.getCenterY());
-    assertEquals(0.0d, frame7.getCenterY());
-    assertEquals(0.0d, frame4.getCenterY());
-    assertEquals(0.0d, frame2.getCenterY());
-    assertEquals(0.0d, frame8.getCenterY());
-    assertEquals(0.0d, frame9.getCenterY());
-    assertEquals(0.0d, frame5.getCenterY());
-    assertEquals(0.0d, frame10.getCenterY());
-    assertEquals(0.0d, frame11.getCenterY());
-    assertEquals(0.0d, frame3.getCenterY());
-    assertEquals(0.0d, frame12.getCenterY());
-    assertEquals(0.0d, frame13.getCenterY());
-    assertEquals(0.0d, frame6.getCenterY());
-    assertEquals(0.0d, frame.getCenterY());
-    assertEquals(0.0d, actualBounds.getCenterY());
-    assertEquals(0.0d, bounds6.getMaxY());
-    assertEquals(0.0d, bounds5.getMaxY());
-    assertEquals(0.0d, bounds4.getMaxY());
-    assertEquals(0.0d, bounds9.getMaxY());
-    assertEquals(0.0d, bounds12.getMaxY());
-    assertEquals(0.0d, bounds15.getMaxY());
-    assertEquals(0.0d, bounds3.getMaxY());
-    assertEquals(0.0d, bounds17.getMaxY());
-    assertEquals(0.0d, bounds8.getMaxY());
-    assertEquals(0.0d, bounds11.getMaxY());
-    assertEquals(0.0d, bounds19.getMaxY());
-    assertEquals(0.0d, bounds21.getMaxY());
-    assertEquals(0.0d, bounds14.getMaxY());
-    assertEquals(0.0d, bounds2.getMaxY());
-    assertEquals(0.0d, bounds2D3.getMaxY());
-    assertEquals(0.0d, bounds2D9.getMaxY());
-    assertEquals(0.0d, bounds2D10.getMaxY());
-    assertEquals(0.0d, bounds2D24.getMaxY());
-    assertEquals(0.0d, bounds2D30.getMaxY());
-    assertEquals(0.0d, bounds2D4.getMaxY());
-    assertEquals(0.0d, bounds2D33.getMaxY());
-    assertEquals(0.0d, bounds2D36.getMaxY());
-    assertEquals(0.0d, bounds2D20.getMaxY());
-    assertEquals(0.0d, bounds2D39.getMaxY());
-    assertEquals(0.0d, bounds2D40.getMaxY());
-    assertEquals(0.0d, bounds2D22.getMaxY());
-    assertEquals(0.0d, bounds2D6.getMaxY());
-    assertEquals(0.0d, bounds22.getMaxY());
-    assertEquals(0.0d, bounds16.getMaxY());
-    assertEquals(0.0d, bounds7.getMaxY());
-    assertEquals(0.0d, bounds23.getMaxY());
-    assertEquals(0.0d, bounds24.getMaxY());
-    assertEquals(0.0d, bounds10.getMaxY());
-    assertEquals(0.0d, bounds25.getMaxY());
-    assertEquals(0.0d, bounds18.getMaxY());
-    assertEquals(0.0d, bounds26.getMaxY());
-    assertEquals(0.0d, bounds20.getMaxY());
-    assertEquals(0.0d, bounds27.getMaxY());
-    assertEquals(0.0d, bounds13.getMaxY());
-    assertEquals(0.0d, bounds.getMaxY());
-    assertEquals(0.0d, frame7.getMaxY());
-    assertEquals(0.0d, frame4.getMaxY());
-    assertEquals(0.0d, frame2.getMaxY());
-    assertEquals(0.0d, frame8.getMaxY());
-    assertEquals(0.0d, frame9.getMaxY());
-    assertEquals(0.0d, frame5.getMaxY());
-    assertEquals(0.0d, frame10.getMaxY());
-    assertEquals(0.0d, frame11.getMaxY());
-    assertEquals(0.0d, frame3.getMaxY());
-    assertEquals(0.0d, frame12.getMaxY());
-    assertEquals(0.0d, frame13.getMaxY());
-    assertEquals(0.0d, frame6.getMaxY());
-    assertEquals(0.0d, frame.getMaxY());
-    assertEquals(0.0d, actualBounds.getMaxY());
-    assertEquals(0.0d, bounds6.getMinY());
-    assertEquals(0.0d, bounds5.getMinY());
-    assertEquals(0.0d, bounds4.getMinY());
-    assertEquals(0.0d, bounds9.getMinY());
-    assertEquals(0.0d, bounds12.getMinY());
-    assertEquals(0.0d, bounds15.getMinY());
-    assertEquals(0.0d, bounds3.getMinY());
-    assertEquals(0.0d, bounds17.getMinY());
-    assertEquals(0.0d, bounds8.getMinY());
-    assertEquals(0.0d, bounds11.getMinY());
-    assertEquals(0.0d, bounds19.getMinY());
-    assertEquals(0.0d, bounds21.getMinY());
-    assertEquals(0.0d, bounds14.getMinY());
-    assertEquals(0.0d, bounds2.getMinY());
-    assertEquals(0.0d, bounds2D3.getMinY());
-    assertEquals(0.0d, bounds2D9.getMinY());
-    assertEquals(0.0d, bounds2D10.getMinY());
-    assertEquals(0.0d, bounds2D24.getMinY());
-    assertEquals(0.0d, bounds2D30.getMinY());
-    assertEquals(0.0d, bounds2D4.getMinY());
-    assertEquals(0.0d, bounds2D33.getMinY());
-    assertEquals(0.0d, bounds2D36.getMinY());
-    assertEquals(0.0d, bounds2D20.getMinY());
-    assertEquals(0.0d, bounds2D39.getMinY());
-    assertEquals(0.0d, bounds2D40.getMinY());
-    assertEquals(0.0d, bounds2D22.getMinY());
-    assertEquals(0.0d, bounds2D6.getMinY());
-    assertEquals(0.0d, bounds22.getMinY());
-    assertEquals(0.0d, bounds16.getMinY());
-    assertEquals(0.0d, bounds7.getMinY());
-    assertEquals(0.0d, bounds23.getMinY());
-    assertEquals(0.0d, bounds24.getMinY());
-    assertEquals(0.0d, bounds10.getMinY());
-    assertEquals(0.0d, bounds25.getMinY());
-    assertEquals(0.0d, bounds18.getMinY());
-    assertEquals(0.0d, bounds26.getMinY());
-    assertEquals(0.0d, bounds20.getMinY());
-    assertEquals(0.0d, bounds27.getMinY());
-    assertEquals(0.0d, bounds13.getMinY());
-    assertEquals(0.0d, bounds.getMinY());
-    assertEquals(0.0d, frame7.getMinY());
-    assertEquals(0.0d, frame4.getMinY());
-    assertEquals(0.0d, frame2.getMinY());
-    assertEquals(0.0d, frame8.getMinY());
-    assertEquals(0.0d, frame9.getMinY());
-    assertEquals(0.0d, frame5.getMinY());
-    assertEquals(0.0d, frame10.getMinY());
-    assertEquals(0.0d, frame11.getMinY());
-    assertEquals(0.0d, frame3.getMinY());
-    assertEquals(0.0d, frame12.getMinY());
-    assertEquals(0.0d, frame13.getMinY());
-    assertEquals(0.0d, frame6.getMinY());
-    assertEquals(0.0d, frame.getMinY());
-    assertEquals(0.0d, actualBounds.getMinY());
-    assertEquals(0.0d, bounds2D3.getY());
-    assertEquals(0.0d, bounds2D9.getY());
-    assertEquals(0.0d, bounds2D10.getY());
-    assertEquals(0.0d, bounds2D24.getY());
-    assertEquals(0.0d, bounds2D30.getY());
-    assertEquals(0.0d, bounds2D4.getY());
-    assertEquals(0.0d, bounds2D33.getY());
-    assertEquals(0.0d, bounds2D36.getY());
-    assertEquals(0.0d, bounds2D20.getY());
-    assertEquals(0.0d, bounds2D39.getY());
-    assertEquals(0.0d, bounds2D40.getY());
-    assertEquals(0.0d, bounds2D22.getY());
-    assertEquals(0.0d, bounds2D6.getY());
-    assertEquals(0.0d, frame7.getY());
-    assertEquals(0.0d, frame4.getY());
-    assertEquals(0.0d, frame2.getY());
-    assertEquals(0.0d, frame8.getY());
-    assertEquals(0.0d, frame9.getY());
-    assertEquals(0.0d, frame5.getY());
-    assertEquals(0.0d, frame10.getY());
-    assertEquals(0.0d, frame11.getY());
-    assertEquals(0.0d, frame3.getY());
-    assertEquals(0.0d, frame12.getY());
-    assertEquals(0.0d, frame13.getY());
-    assertEquals(0.0d, frame6.getY());
-    assertEquals(0.0d, frame.getY());
-    assertEquals(0.0d, actualBounds.getY());
-    assertEquals(0.0f, ((Rectangle2D.Float) bounds2D41).y);
-    assertEquals(0.0f, ((Rectangle2D.Float) bounds2D20).y);
-    assertEquals(0.0f, ((Rectangle2D.Float) bounds2D6).y);
-    assertEquals(0.0f, ((Rectangle2D.Float) actualBounds).y);
+    assertTrue(frame instanceof Double);
+    Rectangle2D bounds2D = actualBounds.getBounds2D();
+    assertTrue(bounds2D instanceof Float);
+    assertTrue(actualBounds instanceof Float);
+    assertEquals(0.0d, bounds2D.getCenterX());
+    Rectangle bounds = actualBounds.getBounds();
+    assertEquals(0.0d, bounds.getCenterX());
+    assertEquals(0.0d, frame.getCenterX());
+    assertEquals(0.0d, actualBounds.getCenterX());
+    assertEquals(0.0d, bounds2D.getMaxX());
+    assertEquals(0.0d, bounds.getMaxX());
+    assertEquals(0.0d, frame.getMaxX());
+    assertEquals(0.0d, actualBounds.getMaxX());
   }
 
   /**
    * Test {@link Type1CharString#getBounds()}.
-   * <p>
-   * Method under test: {@link Type1CharString#getBounds()}
+   *
+   * <p>Method under test: {@link Type1CharString#getBounds()}
    */
   @Test
   @DisplayName("Test getBounds()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Rectangle2D Type1CharString.getBounds()"})
   void testGetBounds3() {
     // Arrange
-    Type1CharString type1CharString = new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
     type1CharString.addCommand(new ArrayList<>(), CharStringCommand.VSTEM);
     type1CharString.addCommand(new ArrayList<>(), CharStringCommand.HSTEM);
 
@@ -1252,5328 +167,333 @@ class Type1CharStringDiffblueTest {
     Rectangle2D actualBounds = type1CharString.getBounds();
 
     // Assert
-    Rectangle bounds = actualBounds.getBounds();
-    Rectangle bounds2 = bounds.getBounds();
-    Rectangle bounds3 = bounds2.getBounds();
-    Rectangle bounds4 = bounds3.getBounds();
-    Rectangle bounds5 = bounds4.getBounds();
-    Rectangle bounds6 = bounds5.getBounds();
-    Rectangle2D bounds2D = bounds6.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Rectangle2D bounds2D2 = bounds5.getBounds2D();
-    assertTrue(bounds2D2 instanceof Rectangle);
-    Rectangle2D bounds2D3 = bounds4.getBounds2D();
-    assertTrue(bounds2D3 instanceof Rectangle);
-    Rectangle2D bounds2D4 = bounds.getBounds2D();
-    Rectangle bounds7 = bounds2D4.getBounds();
-    Rectangle bounds8 = bounds7.getBounds();
-    Rectangle bounds9 = bounds8.getBounds();
-    Rectangle2D bounds2D5 = bounds9.getBounds2D();
-    assertTrue(bounds2D5 instanceof Rectangle);
-    Rectangle2D bounds2D6 = actualBounds.getBounds2D();
-    Rectangle bounds10 = bounds2D6.getBounds();
-    Rectangle bounds11 = bounds10.getBounds();
-    Rectangle bounds12 = bounds11.getBounds();
-    Rectangle2D bounds2D7 = bounds12.getBounds2D();
-    assertTrue(bounds2D7 instanceof Rectangle);
     Rectangle2D frame = actualBounds.getFrame();
-    Rectangle bounds13 = frame.getBounds();
-    Rectangle bounds14 = bounds13.getBounds();
-    Rectangle bounds15 = bounds14.getBounds();
-    Rectangle2D bounds2D8 = bounds15.getBounds2D();
-    assertTrue(bounds2D8 instanceof Rectangle);
-    Rectangle2D bounds2D9 = bounds3.getBounds2D();
-    assertTrue(bounds2D9 instanceof Rectangle);
-    Rectangle2D bounds2D10 = bounds2.getBounds2D();
-    Rectangle bounds16 = bounds2D10.getBounds();
-    Rectangle bounds17 = bounds16.getBounds();
-    Rectangle2D bounds2D11 = bounds17.getBounds2D();
-    assertTrue(bounds2D11 instanceof Rectangle);
-    Rectangle2D bounds2D12 = bounds8.getBounds2D();
-    assertTrue(bounds2D12 instanceof Rectangle);
-    Rectangle2D bounds2D13 = bounds11.getBounds2D();
-    assertTrue(bounds2D13 instanceof Rectangle);
-    Rectangle2D frame2 = bounds2.getFrame();
-    Rectangle bounds18 = frame2.getBounds();
-    Rectangle bounds19 = bounds18.getBounds();
-    Rectangle2D bounds2D14 = bounds19.getBounds2D();
-    assertTrue(bounds2D14 instanceof Rectangle);
-    Rectangle2D frame3 = bounds.getFrame();
-    Rectangle bounds20 = frame3.getBounds();
-    Rectangle bounds21 = bounds20.getBounds();
-    Rectangle2D bounds2D15 = bounds21.getBounds2D();
-    assertTrue(bounds2D15 instanceof Rectangle);
-    Rectangle2D bounds2D16 = bounds14.getBounds2D();
-    assertTrue(bounds2D16 instanceof Rectangle);
-    assertTrue(bounds2D10 instanceof Rectangle);
-    Rectangle bounds22 = bounds2D9.getBounds();
-    Rectangle2D bounds2D17 = bounds22.getBounds2D();
-    assertTrue(bounds2D17 instanceof Rectangle);
-    Rectangle2D bounds2D18 = bounds16.getBounds2D();
-    assertTrue(bounds2D18 instanceof Rectangle);
-    Rectangle2D bounds2D19 = bounds7.getBounds2D();
-    assertTrue(bounds2D19 instanceof Rectangle);
-    Rectangle2D bounds2D20 = bounds2D6.getBounds2D();
-    Rectangle bounds23 = bounds2D20.getBounds();
-    Rectangle2D bounds2D21 = bounds23.getBounds2D();
-    assertTrue(bounds2D21 instanceof Rectangle);
-    Rectangle2D bounds2D22 = frame.getBounds2D();
-    Rectangle bounds24 = bounds2D22.getBounds();
-    Rectangle2D bounds2D23 = bounds24.getBounds2D();
-    assertTrue(bounds2D23 instanceof Rectangle);
-    Rectangle2D bounds2D24 = bounds10.getBounds2D();
-    assertTrue(bounds2D24 instanceof Rectangle);
-    Rectangle2D frame4 = bounds3.getFrame();
-    Rectangle bounds25 = frame4.getBounds();
-    Rectangle2D bounds2D25 = bounds25.getBounds2D();
-    assertTrue(bounds2D25 instanceof Rectangle);
-    Rectangle2D bounds2D26 = bounds18.getBounds2D();
-    assertTrue(bounds2D26 instanceof Rectangle);
-    Rectangle2D frame5 = bounds2D6.getFrame();
-    Rectangle bounds26 = frame5.getBounds();
-    Rectangle2D bounds2D27 = bounds26.getBounds2D();
-    assertTrue(bounds2D27 instanceof Rectangle);
-    Rectangle2D bounds2D28 = bounds20.getBounds2D();
-    assertTrue(bounds2D28 instanceof Rectangle);
-    Rectangle2D frame6 = frame.getFrame();
-    Rectangle bounds27 = frame6.getBounds();
-    Rectangle2D bounds2D29 = bounds27.getBounds2D();
-    assertTrue(bounds2D29 instanceof Rectangle);
-    Rectangle2D bounds2D30 = bounds13.getBounds2D();
-    assertTrue(bounds2D30 instanceof Rectangle);
-    assertTrue(bounds2D4 instanceof Rectangle);
-    Rectangle2D bounds2D31 = bounds2D3.getBounds2D();
-    assertTrue(bounds2D31 instanceof Rectangle);
-    Rectangle2D bounds2D32 = bounds2D9.getBounds2D();
-    assertTrue(bounds2D32 instanceof Rectangle);
-    Rectangle2D bounds2D33 = bounds2D10.getBounds2D();
-    assertTrue(bounds2D33 instanceof Rectangle);
-    Rectangle2D bounds2D34 = bounds2D24.getBounds2D();
-    assertTrue(bounds2D34 instanceof Rectangle);
-    Rectangle2D bounds2D35 = bounds2D30.getBounds2D();
-    assertTrue(bounds2D35 instanceof Rectangle);
-    Rectangle2D bounds2D36 = bounds2D4.getBounds2D();
-    assertTrue(bounds2D36 instanceof Rectangle);
-    Rectangle2D bounds2D37 = bounds2D33.getBounds2D();
-    assertTrue(bounds2D37 instanceof Rectangle);
-    Rectangle2D bounds2D38 = bounds2D36.getBounds2D();
-    assertTrue(bounds2D38 instanceof Rectangle);
-    Rectangle2D bounds2D39 = frame2.getBounds2D();
-    assertTrue(bounds2D39 instanceof Rectangle2D.Double);
-    Rectangle2D bounds2D40 = frame3.getBounds2D();
-    assertTrue(bounds2D40 instanceof Rectangle2D.Double);
-    assertTrue(bounds2D22 instanceof Rectangle2D.Double);
-    Rectangle2D frame7 = bounds4.getFrame();
-    assertTrue(frame7 instanceof Rectangle2D.Double);
-    assertTrue(frame4 instanceof Rectangle2D.Double);
-    assertTrue(frame2 instanceof Rectangle2D.Double);
-    Rectangle2D frame8 = bounds2D10.getFrame();
-    assertTrue(frame8 instanceof Rectangle2D.Double);
-    Rectangle2D frame9 = bounds2D4.getFrame();
-    assertTrue(frame9 instanceof Rectangle2D.Double);
-    assertTrue(frame5 instanceof Rectangle2D.Double);
-    Rectangle2D frame10 = bounds10.getFrame();
-    assertTrue(frame10 instanceof Rectangle2D.Double);
-    Rectangle2D frame11 = bounds13.getFrame();
-    assertTrue(frame11 instanceof Rectangle2D.Double);
-    assertTrue(frame3 instanceof Rectangle2D.Double);
-    Rectangle2D frame12 = frame2.getFrame();
-    assertTrue(frame12 instanceof Rectangle2D.Double);
-    Rectangle2D frame13 = frame3.getFrame();
-    assertTrue(frame13 instanceof Rectangle2D.Double);
-    assertTrue(frame6 instanceof Rectangle2D.Double);
-    assertTrue(frame instanceof Rectangle2D.Double);
-    Rectangle2D bounds2D41 = bounds2D20.getBounds2D();
-    assertTrue(bounds2D41 instanceof Rectangle2D.Float);
-    assertTrue(bounds2D20 instanceof Rectangle2D.Float);
-    assertTrue(bounds2D6 instanceof Rectangle2D.Float);
-    assertTrue(actualBounds instanceof Rectangle2D.Float);
-    Point location = bounds.getLocation();
-    Point location2 = location.getLocation();
-    Point location3 = location2.getLocation();
-    Point location4 = location3.getLocation();
-    assertEquals(0, location4.getLocation().y);
-    Point location5 = bounds3.getLocation();
-    Point location6 = location5.getLocation();
-    Point location7 = location6.getLocation();
-    assertEquals(0, location7.getLocation().y);
-    assertEquals(0, location4.y);
-    Point location8 = bounds4.getLocation();
-    Point location9 = location8.getLocation();
-    assertEquals(0, location9.getLocation().y);
-    assertEquals(0, location7.y);
-    Point location10 = bounds10.getLocation();
-    Point location11 = location10.getLocation();
-    assertEquals(0, location11.getLocation().y);
-    Point location12 = bounds13.getLocation();
-    Point location13 = location12.getLocation();
-    assertEquals(0, location13.getLocation().y);
-    assertEquals(0, location3.y);
-    Point location14 = ((Rectangle) bounds2D10).getLocation();
-    Point location15 = location14.getLocation();
-    assertEquals(0, location15.getLocation().y);
-    Point location16 = ((Rectangle) bounds2D4).getLocation();
-    Point location17 = location16.getLocation();
-    assertEquals(0, location17.getLocation().y);
-    Point location18 = bounds5.getLocation();
-    assertEquals(0, location18.getLocation().y);
-    assertEquals(0, location9.y);
-    assertEquals(0, location6.y);
-    Point location19 = bounds11.getLocation();
-    assertEquals(0, location19.getLocation().y);
-    Point location20 = bounds14.getLocation();
-    assertEquals(0, location20.getLocation().y);
-    Point location21 = bounds16.getLocation();
-    assertEquals(0, location21.getLocation().y);
-    Point location22 = bounds7.getLocation();
-    assertEquals(0, location22.getLocation().y);
-    assertEquals(0, location11.y);
-    Point location23 = bounds18.getLocation();
-    assertEquals(0, location23.getLocation().y);
-    Point location24 = bounds20.getLocation();
-    assertEquals(0, location24.getLocation().y);
-    assertEquals(0, location13.y);
-    assertEquals(0, location2.y);
-    Point location25 = ((Rectangle) bounds2D9).getLocation();
-    assertEquals(0, location25.getLocation().y);
-    assertEquals(0, location15.y);
-    assertEquals(0, location17.y);
-    assertEquals(0, bounds6.getLocation().y);
-    assertEquals(0, location18.y);
-    assertEquals(0, location8.y);
-    assertEquals(0, bounds9.getLocation().y);
-    assertEquals(0, bounds12.getLocation().y);
-    assertEquals(0, bounds15.getLocation().y);
-    assertEquals(0, location5.y);
-    assertEquals(0, bounds17.getLocation().y);
-    assertEquals(0, bounds8.getLocation().y);
-    assertEquals(0, location19.y);
-    assertEquals(0, bounds19.getLocation().y);
-    assertEquals(0, bounds21.getLocation().y);
-    assertEquals(0, location20.y);
-    assertEquals(0, bounds22.getLocation().y);
-    assertEquals(0, location21.y);
-    assertEquals(0, location22.y);
-    assertEquals(0, bounds23.getLocation().y);
-    assertEquals(0, bounds24.getLocation().y);
-    assertEquals(0, location10.y);
-    assertEquals(0, bounds25.getLocation().y);
-    assertEquals(0, location23.y);
-    assertEquals(0, bounds26.getLocation().y);
-    assertEquals(0, location24.y);
-    assertEquals(0, bounds27.getLocation().y);
-    assertEquals(0, location12.y);
-    assertEquals(0, location.y);
-    assertEquals(0, ((Rectangle) bounds2D3).getLocation().y);
-    assertEquals(0, location25.y);
-    assertEquals(0, location14.y);
-    assertEquals(0, ((Rectangle) bounds2D24).getLocation().y);
-    assertEquals(0, ((Rectangle) bounds2D30).getLocation().y);
-    assertEquals(0, location16.y);
-    assertEquals(0, ((Rectangle) bounds2D33).getLocation().y);
-    assertEquals(0, ((Rectangle) bounds2D36).getLocation().y);
-    assertEquals(0, bounds6.getBounds().y);
-    assertEquals(0, bounds6.y);
-    assertEquals(0, bounds5.y);
-    assertEquals(0, bounds9.getBounds().y);
-    assertEquals(0, bounds12.getBounds().y);
-    assertEquals(0, bounds15.getBounds().y);
-    assertEquals(0, bounds4.y);
-    assertEquals(0, bounds17.getBounds().y);
-    assertEquals(0, bounds9.y);
-    assertEquals(0, bounds12.y);
-    assertEquals(0, bounds19.getBounds().y);
-    assertEquals(0, bounds21.getBounds().y);
-    assertEquals(0, bounds15.y);
-    assertEquals(0, bounds3.y);
-    assertEquals(0, bounds22.getBounds().y);
-    assertEquals(0, bounds17.y);
-    assertEquals(0, bounds8.y);
-    assertEquals(0, bounds23.getBounds().y);
-    assertEquals(0, bounds24.getBounds().y);
-    assertEquals(0, bounds11.y);
-    assertEquals(0, bounds25.getBounds().y);
-    assertEquals(0, bounds19.y);
-    assertEquals(0, bounds26.getBounds().y);
-    assertEquals(0, bounds21.y);
-    assertEquals(0, bounds27.getBounds().y);
-    assertEquals(0, bounds14.y);
-    assertEquals(0, bounds2.y);
-    assertEquals(0, bounds2D3.getBounds().y);
-    assertEquals(0, bounds22.y);
-    assertEquals(0, bounds16.y);
-    assertEquals(0, bounds2D24.getBounds().y);
-    assertEquals(0, bounds2D30.getBounds().y);
-    assertEquals(0, bounds7.y);
-    assertEquals(0, bounds2D33.getBounds().y);
-    assertEquals(0, bounds2D36.getBounds().y);
-    assertEquals(0, bounds23.y);
-    assertEquals(0, bounds2D39.getBounds().y);
-    assertEquals(0, bounds2D40.getBounds().y);
-    assertEquals(0, bounds24.y);
-    assertEquals(0, bounds10.y);
-    assertEquals(0, frame7.getBounds().y);
-    assertEquals(0, bounds25.y);
-    assertEquals(0, bounds18.y);
-    assertEquals(0, frame8.getBounds().y);
-    assertEquals(0, frame9.getBounds().y);
-    assertEquals(0, bounds26.y);
-    assertEquals(0, frame10.getBounds().y);
-    assertEquals(0, frame11.getBounds().y);
-    assertEquals(0, bounds20.y);
-    assertEquals(0, frame12.getBounds().y);
-    assertEquals(0, frame13.getBounds().y);
-    assertEquals(0, bounds27.y);
-    assertEquals(0, bounds13.y);
-    assertEquals(0, bounds.y);
-    assertEquals(0, ((Rectangle) bounds2D).y);
-    assertEquals(0, ((Rectangle) bounds2D2).y);
-    assertEquals(0, ((Rectangle) bounds2D3).y);
-    assertEquals(0, ((Rectangle) bounds2D5).y);
-    assertEquals(0, ((Rectangle) bounds2D7).y);
-    assertEquals(0, ((Rectangle) bounds2D8).y);
-    assertEquals(0, ((Rectangle) bounds2D9).y);
-    assertEquals(0, ((Rectangle) bounds2D11).y);
-    assertEquals(0, ((Rectangle) bounds2D12).y);
-    assertEquals(0, ((Rectangle) bounds2D13).y);
-    assertEquals(0, ((Rectangle) bounds2D14).y);
-    assertEquals(0, ((Rectangle) bounds2D15).y);
-    assertEquals(0, ((Rectangle) bounds2D16).y);
-    assertEquals(0, ((Rectangle) bounds2D10).y);
-    assertEquals(0, ((Rectangle) bounds2D17).y);
-    assertEquals(0, ((Rectangle) bounds2D18).y);
-    assertEquals(0, ((Rectangle) bounds2D19).y);
-    assertEquals(0, ((Rectangle) bounds2D21).y);
-    assertEquals(0, ((Rectangle) bounds2D23).y);
-    assertEquals(0, ((Rectangle) bounds2D24).y);
-    assertEquals(0, ((Rectangle) bounds2D25).y);
-    assertEquals(0, ((Rectangle) bounds2D26).y);
-    assertEquals(0, ((Rectangle) bounds2D27).y);
-    assertEquals(0, ((Rectangle) bounds2D28).y);
-    assertEquals(0, ((Rectangle) bounds2D29).y);
-    assertEquals(0, ((Rectangle) bounds2D30).y);
-    assertEquals(0, ((Rectangle) bounds2D4).y);
-    assertEquals(0, ((Rectangle) bounds2D31).y);
-    assertEquals(0, ((Rectangle) bounds2D32).y);
-    assertEquals(0, ((Rectangle) bounds2D33).y);
-    assertEquals(0, ((Rectangle) bounds2D34).y);
-    assertEquals(0, ((Rectangle) bounds2D35).y);
-    assertEquals(0, ((Rectangle) bounds2D36).y);
-    assertEquals(0, ((Rectangle) bounds2D37).y);
-    assertEquals(0, ((Rectangle) bounds2D38).y);
-    assertEquals(0.0d, location4.getY());
-    assertEquals(0.0d, location7.getY());
-    assertEquals(0.0d, location3.getY());
-    assertEquals(0.0d, location9.getY());
-    assertEquals(0.0d, location6.getY());
-    assertEquals(0.0d, location11.getY());
-    assertEquals(0.0d, location13.getY());
-    assertEquals(0.0d, location2.getY());
-    assertEquals(0.0d, location15.getY());
-    assertEquals(0.0d, location17.getY());
-    assertEquals(0.0d, location18.getY());
-    assertEquals(0.0d, location8.getY());
-    assertEquals(0.0d, location5.getY());
-    assertEquals(0.0d, location19.getY());
-    assertEquals(0.0d, location20.getY());
-    assertEquals(0.0d, location21.getY());
-    assertEquals(0.0d, location22.getY());
-    assertEquals(0.0d, location10.getY());
-    assertEquals(0.0d, location23.getY());
-    assertEquals(0.0d, location24.getY());
-    assertEquals(0.0d, location12.getY());
-    assertEquals(0.0d, location.getY());
-    assertEquals(0.0d, location25.getY());
-    assertEquals(0.0d, location14.getY());
-    assertEquals(0.0d, location16.getY());
-    assertEquals(0.0d, bounds6.getY());
-    assertEquals(0.0d, bounds5.getY());
-    assertEquals(0.0d, bounds4.getY());
-    assertEquals(0.0d, bounds9.getY());
-    assertEquals(0.0d, bounds12.getY());
-    assertEquals(0.0d, bounds15.getY());
-    assertEquals(0.0d, bounds3.getY());
-    assertEquals(0.0d, bounds17.getY());
-    assertEquals(0.0d, bounds8.getY());
-    assertEquals(0.0d, bounds11.getY());
-    assertEquals(0.0d, bounds19.getY());
-    assertEquals(0.0d, bounds21.getY());
-    assertEquals(0.0d, bounds14.getY());
-    assertEquals(0.0d, bounds2.getY());
-    assertEquals(0.0d, bounds22.getY());
-    assertEquals(0.0d, bounds16.getY());
-    assertEquals(0.0d, bounds7.getY());
-    assertEquals(0.0d, bounds23.getY());
-    assertEquals(0.0d, bounds24.getY());
-    assertEquals(0.0d, bounds10.getY());
-    assertEquals(0.0d, bounds25.getY());
-    assertEquals(0.0d, bounds18.getY());
-    assertEquals(0.0d, bounds26.getY());
-    assertEquals(0.0d, bounds20.getY());
-    assertEquals(0.0d, bounds27.getY());
-    assertEquals(0.0d, bounds13.getY());
-    assertEquals(0.0d, bounds.getY());
-    assertEquals(0.0d, bounds6.getCenterY());
-    assertEquals(0.0d, bounds5.getCenterY());
-    assertEquals(0.0d, bounds4.getCenterY());
-    assertEquals(0.0d, bounds9.getCenterY());
-    assertEquals(0.0d, bounds12.getCenterY());
-    assertEquals(0.0d, bounds15.getCenterY());
-    assertEquals(0.0d, bounds3.getCenterY());
-    assertEquals(0.0d, bounds17.getCenterY());
-    assertEquals(0.0d, bounds8.getCenterY());
-    assertEquals(0.0d, bounds11.getCenterY());
-    assertEquals(0.0d, bounds19.getCenterY());
-    assertEquals(0.0d, bounds21.getCenterY());
-    assertEquals(0.0d, bounds14.getCenterY());
-    assertEquals(0.0d, bounds2.getCenterY());
-    assertEquals(0.0d, bounds2D3.getCenterY());
-    assertEquals(0.0d, bounds2D9.getCenterY());
-    assertEquals(0.0d, bounds2D10.getCenterY());
-    assertEquals(0.0d, bounds2D24.getCenterY());
-    assertEquals(0.0d, bounds2D30.getCenterY());
-    assertEquals(0.0d, bounds2D4.getCenterY());
-    assertEquals(0.0d, bounds2D33.getCenterY());
-    assertEquals(0.0d, bounds2D36.getCenterY());
-    assertEquals(0.0d, bounds2D20.getCenterY());
-    assertEquals(0.0d, bounds2D39.getCenterY());
-    assertEquals(0.0d, bounds2D40.getCenterY());
-    assertEquals(0.0d, bounds2D22.getCenterY());
-    assertEquals(0.0d, bounds2D6.getCenterY());
-    assertEquals(0.0d, bounds22.getCenterY());
-    assertEquals(0.0d, bounds16.getCenterY());
-    assertEquals(0.0d, bounds7.getCenterY());
-    assertEquals(0.0d, bounds23.getCenterY());
-    assertEquals(0.0d, bounds24.getCenterY());
-    assertEquals(0.0d, bounds10.getCenterY());
-    assertEquals(0.0d, bounds25.getCenterY());
-    assertEquals(0.0d, bounds18.getCenterY());
-    assertEquals(0.0d, bounds26.getCenterY());
-    assertEquals(0.0d, bounds20.getCenterY());
-    assertEquals(0.0d, bounds27.getCenterY());
-    assertEquals(0.0d, bounds13.getCenterY());
-    assertEquals(0.0d, bounds.getCenterY());
-    assertEquals(0.0d, frame7.getCenterY());
-    assertEquals(0.0d, frame4.getCenterY());
-    assertEquals(0.0d, frame2.getCenterY());
-    assertEquals(0.0d, frame8.getCenterY());
-    assertEquals(0.0d, frame9.getCenterY());
-    assertEquals(0.0d, frame5.getCenterY());
-    assertEquals(0.0d, frame10.getCenterY());
-    assertEquals(0.0d, frame11.getCenterY());
-    assertEquals(0.0d, frame3.getCenterY());
-    assertEquals(0.0d, frame12.getCenterY());
-    assertEquals(0.0d, frame13.getCenterY());
-    assertEquals(0.0d, frame6.getCenterY());
-    assertEquals(0.0d, frame.getCenterY());
-    assertEquals(0.0d, actualBounds.getCenterY());
-    assertEquals(0.0d, bounds6.getMaxY());
-    assertEquals(0.0d, bounds5.getMaxY());
-    assertEquals(0.0d, bounds4.getMaxY());
-    assertEquals(0.0d, bounds9.getMaxY());
-    assertEquals(0.0d, bounds12.getMaxY());
-    assertEquals(0.0d, bounds15.getMaxY());
-    assertEquals(0.0d, bounds3.getMaxY());
-    assertEquals(0.0d, bounds17.getMaxY());
-    assertEquals(0.0d, bounds8.getMaxY());
-    assertEquals(0.0d, bounds11.getMaxY());
-    assertEquals(0.0d, bounds19.getMaxY());
-    assertEquals(0.0d, bounds21.getMaxY());
-    assertEquals(0.0d, bounds14.getMaxY());
-    assertEquals(0.0d, bounds2.getMaxY());
-    assertEquals(0.0d, bounds2D3.getMaxY());
-    assertEquals(0.0d, bounds2D9.getMaxY());
-    assertEquals(0.0d, bounds2D10.getMaxY());
-    assertEquals(0.0d, bounds2D24.getMaxY());
-    assertEquals(0.0d, bounds2D30.getMaxY());
-    assertEquals(0.0d, bounds2D4.getMaxY());
-    assertEquals(0.0d, bounds2D33.getMaxY());
-    assertEquals(0.0d, bounds2D36.getMaxY());
-    assertEquals(0.0d, bounds2D20.getMaxY());
-    assertEquals(0.0d, bounds2D39.getMaxY());
-    assertEquals(0.0d, bounds2D40.getMaxY());
-    assertEquals(0.0d, bounds2D22.getMaxY());
-    assertEquals(0.0d, bounds2D6.getMaxY());
-    assertEquals(0.0d, bounds22.getMaxY());
-    assertEquals(0.0d, bounds16.getMaxY());
-    assertEquals(0.0d, bounds7.getMaxY());
-    assertEquals(0.0d, bounds23.getMaxY());
-    assertEquals(0.0d, bounds24.getMaxY());
-    assertEquals(0.0d, bounds10.getMaxY());
-    assertEquals(0.0d, bounds25.getMaxY());
-    assertEquals(0.0d, bounds18.getMaxY());
-    assertEquals(0.0d, bounds26.getMaxY());
-    assertEquals(0.0d, bounds20.getMaxY());
-    assertEquals(0.0d, bounds27.getMaxY());
-    assertEquals(0.0d, bounds13.getMaxY());
-    assertEquals(0.0d, bounds.getMaxY());
-    assertEquals(0.0d, frame7.getMaxY());
-    assertEquals(0.0d, frame4.getMaxY());
-    assertEquals(0.0d, frame2.getMaxY());
-    assertEquals(0.0d, frame8.getMaxY());
-    assertEquals(0.0d, frame9.getMaxY());
-    assertEquals(0.0d, frame5.getMaxY());
-    assertEquals(0.0d, frame10.getMaxY());
-    assertEquals(0.0d, frame11.getMaxY());
-    assertEquals(0.0d, frame3.getMaxY());
-    assertEquals(0.0d, frame12.getMaxY());
-    assertEquals(0.0d, frame13.getMaxY());
-    assertEquals(0.0d, frame6.getMaxY());
-    assertEquals(0.0d, frame.getMaxY());
-    assertEquals(0.0d, actualBounds.getMaxY());
-    assertEquals(0.0d, bounds6.getMinY());
-    assertEquals(0.0d, bounds5.getMinY());
-    assertEquals(0.0d, bounds4.getMinY());
-    assertEquals(0.0d, bounds9.getMinY());
-    assertEquals(0.0d, bounds12.getMinY());
-    assertEquals(0.0d, bounds15.getMinY());
-    assertEquals(0.0d, bounds3.getMinY());
-    assertEquals(0.0d, bounds17.getMinY());
-    assertEquals(0.0d, bounds8.getMinY());
-    assertEquals(0.0d, bounds11.getMinY());
-    assertEquals(0.0d, bounds19.getMinY());
-    assertEquals(0.0d, bounds21.getMinY());
-    assertEquals(0.0d, bounds14.getMinY());
-    assertEquals(0.0d, bounds2.getMinY());
-    assertEquals(0.0d, bounds2D3.getMinY());
-    assertEquals(0.0d, bounds2D9.getMinY());
-    assertEquals(0.0d, bounds2D10.getMinY());
-    assertEquals(0.0d, bounds2D24.getMinY());
-    assertEquals(0.0d, bounds2D30.getMinY());
-    assertEquals(0.0d, bounds2D4.getMinY());
-    assertEquals(0.0d, bounds2D33.getMinY());
-    assertEquals(0.0d, bounds2D36.getMinY());
-    assertEquals(0.0d, bounds2D20.getMinY());
-    assertEquals(0.0d, bounds2D39.getMinY());
-    assertEquals(0.0d, bounds2D40.getMinY());
-    assertEquals(0.0d, bounds2D22.getMinY());
-    assertEquals(0.0d, bounds2D6.getMinY());
-    assertEquals(0.0d, bounds22.getMinY());
-    assertEquals(0.0d, bounds16.getMinY());
-    assertEquals(0.0d, bounds7.getMinY());
-    assertEquals(0.0d, bounds23.getMinY());
-    assertEquals(0.0d, bounds24.getMinY());
-    assertEquals(0.0d, bounds10.getMinY());
-    assertEquals(0.0d, bounds25.getMinY());
-    assertEquals(0.0d, bounds18.getMinY());
-    assertEquals(0.0d, bounds26.getMinY());
-    assertEquals(0.0d, bounds20.getMinY());
-    assertEquals(0.0d, bounds27.getMinY());
-    assertEquals(0.0d, bounds13.getMinY());
-    assertEquals(0.0d, bounds.getMinY());
-    assertEquals(0.0d, frame7.getMinY());
-    assertEquals(0.0d, frame4.getMinY());
-    assertEquals(0.0d, frame2.getMinY());
-    assertEquals(0.0d, frame8.getMinY());
-    assertEquals(0.0d, frame9.getMinY());
-    assertEquals(0.0d, frame5.getMinY());
-    assertEquals(0.0d, frame10.getMinY());
-    assertEquals(0.0d, frame11.getMinY());
-    assertEquals(0.0d, frame3.getMinY());
-    assertEquals(0.0d, frame12.getMinY());
-    assertEquals(0.0d, frame13.getMinY());
-    assertEquals(0.0d, frame6.getMinY());
-    assertEquals(0.0d, frame.getMinY());
-    assertEquals(0.0d, actualBounds.getMinY());
-    assertEquals(0.0d, bounds2D3.getY());
-    assertEquals(0.0d, bounds2D9.getY());
-    assertEquals(0.0d, bounds2D10.getY());
-    assertEquals(0.0d, bounds2D24.getY());
-    assertEquals(0.0d, bounds2D30.getY());
-    assertEquals(0.0d, bounds2D4.getY());
-    assertEquals(0.0d, bounds2D33.getY());
-    assertEquals(0.0d, bounds2D36.getY());
-    assertEquals(0.0d, bounds2D20.getY());
-    assertEquals(0.0d, bounds2D39.getY());
-    assertEquals(0.0d, bounds2D40.getY());
-    assertEquals(0.0d, bounds2D22.getY());
-    assertEquals(0.0d, bounds2D6.getY());
-    assertEquals(0.0d, frame7.getY());
-    assertEquals(0.0d, frame4.getY());
-    assertEquals(0.0d, frame2.getY());
-    assertEquals(0.0d, frame8.getY());
-    assertEquals(0.0d, frame9.getY());
-    assertEquals(0.0d, frame5.getY());
-    assertEquals(0.0d, frame10.getY());
-    assertEquals(0.0d, frame11.getY());
-    assertEquals(0.0d, frame3.getY());
-    assertEquals(0.0d, frame12.getY());
-    assertEquals(0.0d, frame13.getY());
-    assertEquals(0.0d, frame6.getY());
-    assertEquals(0.0d, frame.getY());
-    assertEquals(0.0d, actualBounds.getY());
-    assertEquals(0.0f, ((Rectangle2D.Float) bounds2D41).y);
-    assertEquals(0.0f, ((Rectangle2D.Float) bounds2D20).y);
-    assertEquals(0.0f, ((Rectangle2D.Float) bounds2D6).y);
-    assertEquals(0.0f, ((Rectangle2D.Float) actualBounds).y);
+    assertTrue(frame instanceof Double);
+    Rectangle2D bounds2D = actualBounds.getBounds2D();
+    assertTrue(bounds2D instanceof Float);
+    assertTrue(actualBounds instanceof Float);
+    assertEquals(0.0d, bounds2D.getCenterX());
+    Rectangle bounds = actualBounds.getBounds();
+    assertEquals(0.0d, bounds.getCenterX());
+    assertEquals(0.0d, frame.getCenterX());
+    assertEquals(0.0d, actualBounds.getCenterX());
+    assertEquals(0.0d, bounds2D.getMaxX());
+    assertEquals(0.0d, bounds.getMaxX());
+    assertEquals(0.0d, frame.getMaxX());
+    assertEquals(0.0d, actualBounds.getMaxX());
   }
 
   /**
    * Test {@link Type1CharString#getBounds()}.
-   * <p>
-   * Method under test: {@link Type1CharString#getBounds()}
+   *
+   * <p>Method under test: {@link Type1CharString#getBounds()}
    */
   @Test
   @DisplayName("Test getBounds()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Rectangle2D Type1CharString.getBounds()"})
   void testGetBounds4() {
     // Arrange
-    Type1CharString type1CharString = new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
     type1CharString.addCommand(new ArrayList<>(), null);
 
     // Act
     Rectangle2D actualBounds = type1CharString.getBounds();
 
     // Assert
-    Rectangle bounds = actualBounds.getBounds();
-    Rectangle bounds2 = bounds.getBounds();
-    Rectangle bounds3 = bounds2.getBounds();
-    Rectangle bounds4 = bounds3.getBounds();
-    Rectangle bounds5 = bounds4.getBounds();
-    Rectangle bounds6 = bounds5.getBounds();
-    Rectangle2D bounds2D = bounds6.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Rectangle2D bounds2D2 = bounds5.getBounds2D();
-    assertTrue(bounds2D2 instanceof Rectangle);
-    Rectangle2D bounds2D3 = bounds4.getBounds2D();
-    assertTrue(bounds2D3 instanceof Rectangle);
-    Rectangle2D bounds2D4 = bounds.getBounds2D();
-    Rectangle bounds7 = bounds2D4.getBounds();
-    Rectangle bounds8 = bounds7.getBounds();
-    Rectangle bounds9 = bounds8.getBounds();
-    Rectangle2D bounds2D5 = bounds9.getBounds2D();
-    assertTrue(bounds2D5 instanceof Rectangle);
-    Rectangle2D bounds2D6 = actualBounds.getBounds2D();
-    Rectangle bounds10 = bounds2D6.getBounds();
-    Rectangle bounds11 = bounds10.getBounds();
-    Rectangle bounds12 = bounds11.getBounds();
-    Rectangle2D bounds2D7 = bounds12.getBounds2D();
-    assertTrue(bounds2D7 instanceof Rectangle);
     Rectangle2D frame = actualBounds.getFrame();
-    Rectangle bounds13 = frame.getBounds();
-    Rectangle bounds14 = bounds13.getBounds();
-    Rectangle bounds15 = bounds14.getBounds();
-    Rectangle2D bounds2D8 = bounds15.getBounds2D();
-    assertTrue(bounds2D8 instanceof Rectangle);
-    Rectangle2D bounds2D9 = bounds3.getBounds2D();
-    assertTrue(bounds2D9 instanceof Rectangle);
-    Rectangle2D bounds2D10 = bounds2.getBounds2D();
-    Rectangle bounds16 = bounds2D10.getBounds();
-    Rectangle bounds17 = bounds16.getBounds();
-    Rectangle2D bounds2D11 = bounds17.getBounds2D();
-    assertTrue(bounds2D11 instanceof Rectangle);
-    Rectangle2D bounds2D12 = bounds8.getBounds2D();
-    assertTrue(bounds2D12 instanceof Rectangle);
-    Rectangle2D bounds2D13 = bounds11.getBounds2D();
-    assertTrue(bounds2D13 instanceof Rectangle);
-    Rectangle2D frame2 = bounds2.getFrame();
-    Rectangle bounds18 = frame2.getBounds();
-    Rectangle bounds19 = bounds18.getBounds();
-    Rectangle2D bounds2D14 = bounds19.getBounds2D();
-    assertTrue(bounds2D14 instanceof Rectangle);
-    Rectangle2D frame3 = bounds.getFrame();
-    Rectangle bounds20 = frame3.getBounds();
-    Rectangle bounds21 = bounds20.getBounds();
-    Rectangle2D bounds2D15 = bounds21.getBounds2D();
-    assertTrue(bounds2D15 instanceof Rectangle);
-    Rectangle2D bounds2D16 = bounds14.getBounds2D();
-    assertTrue(bounds2D16 instanceof Rectangle);
-    assertTrue(bounds2D10 instanceof Rectangle);
-    Rectangle bounds22 = bounds2D9.getBounds();
-    Rectangle2D bounds2D17 = bounds22.getBounds2D();
-    assertTrue(bounds2D17 instanceof Rectangle);
-    Rectangle2D bounds2D18 = bounds16.getBounds2D();
-    assertTrue(bounds2D18 instanceof Rectangle);
-    Rectangle2D bounds2D19 = bounds7.getBounds2D();
-    assertTrue(bounds2D19 instanceof Rectangle);
-    Rectangle2D bounds2D20 = bounds2D6.getBounds2D();
-    Rectangle bounds23 = bounds2D20.getBounds();
-    Rectangle2D bounds2D21 = bounds23.getBounds2D();
-    assertTrue(bounds2D21 instanceof Rectangle);
-    Rectangle2D bounds2D22 = frame.getBounds2D();
-    Rectangle bounds24 = bounds2D22.getBounds();
-    Rectangle2D bounds2D23 = bounds24.getBounds2D();
-    assertTrue(bounds2D23 instanceof Rectangle);
-    Rectangle2D bounds2D24 = bounds10.getBounds2D();
-    assertTrue(bounds2D24 instanceof Rectangle);
-    Rectangle2D frame4 = bounds3.getFrame();
-    Rectangle bounds25 = frame4.getBounds();
-    Rectangle2D bounds2D25 = bounds25.getBounds2D();
-    assertTrue(bounds2D25 instanceof Rectangle);
-    Rectangle2D bounds2D26 = bounds18.getBounds2D();
-    assertTrue(bounds2D26 instanceof Rectangle);
-    Rectangle2D frame5 = bounds2D6.getFrame();
-    Rectangle bounds26 = frame5.getBounds();
-    Rectangle2D bounds2D27 = bounds26.getBounds2D();
-    assertTrue(bounds2D27 instanceof Rectangle);
-    Rectangle2D bounds2D28 = bounds20.getBounds2D();
-    assertTrue(bounds2D28 instanceof Rectangle);
-    Rectangle2D frame6 = frame.getFrame();
-    Rectangle bounds27 = frame6.getBounds();
-    Rectangle2D bounds2D29 = bounds27.getBounds2D();
-    assertTrue(bounds2D29 instanceof Rectangle);
-    Rectangle2D bounds2D30 = bounds13.getBounds2D();
-    assertTrue(bounds2D30 instanceof Rectangle);
-    assertTrue(bounds2D4 instanceof Rectangle);
-    Rectangle2D bounds2D31 = bounds2D3.getBounds2D();
-    assertTrue(bounds2D31 instanceof Rectangle);
-    Rectangle2D bounds2D32 = bounds2D9.getBounds2D();
-    assertTrue(bounds2D32 instanceof Rectangle);
-    Rectangle2D bounds2D33 = bounds2D10.getBounds2D();
-    assertTrue(bounds2D33 instanceof Rectangle);
-    Rectangle2D bounds2D34 = bounds2D24.getBounds2D();
-    assertTrue(bounds2D34 instanceof Rectangle);
-    Rectangle2D bounds2D35 = bounds2D30.getBounds2D();
-    assertTrue(bounds2D35 instanceof Rectangle);
-    Rectangle2D bounds2D36 = bounds2D4.getBounds2D();
-    assertTrue(bounds2D36 instanceof Rectangle);
-    Rectangle2D bounds2D37 = bounds2D33.getBounds2D();
-    assertTrue(bounds2D37 instanceof Rectangle);
-    Rectangle2D bounds2D38 = bounds2D36.getBounds2D();
-    assertTrue(bounds2D38 instanceof Rectangle);
-    Rectangle2D bounds2D39 = frame2.getBounds2D();
-    assertTrue(bounds2D39 instanceof Rectangle2D.Double);
-    Rectangle2D bounds2D40 = frame3.getBounds2D();
-    assertTrue(bounds2D40 instanceof Rectangle2D.Double);
-    assertTrue(bounds2D22 instanceof Rectangle2D.Double);
-    Rectangle2D frame7 = bounds4.getFrame();
-    assertTrue(frame7 instanceof Rectangle2D.Double);
-    assertTrue(frame4 instanceof Rectangle2D.Double);
-    assertTrue(frame2 instanceof Rectangle2D.Double);
-    Rectangle2D frame8 = bounds2D10.getFrame();
-    assertTrue(frame8 instanceof Rectangle2D.Double);
-    Rectangle2D frame9 = bounds2D4.getFrame();
-    assertTrue(frame9 instanceof Rectangle2D.Double);
-    assertTrue(frame5 instanceof Rectangle2D.Double);
-    Rectangle2D frame10 = bounds10.getFrame();
-    assertTrue(frame10 instanceof Rectangle2D.Double);
-    Rectangle2D frame11 = bounds13.getFrame();
-    assertTrue(frame11 instanceof Rectangle2D.Double);
-    assertTrue(frame3 instanceof Rectangle2D.Double);
-    Rectangle2D frame12 = frame2.getFrame();
-    assertTrue(frame12 instanceof Rectangle2D.Double);
-    Rectangle2D frame13 = frame3.getFrame();
-    assertTrue(frame13 instanceof Rectangle2D.Double);
-    assertTrue(frame6 instanceof Rectangle2D.Double);
-    assertTrue(frame instanceof Rectangle2D.Double);
-    Rectangle2D bounds2D41 = bounds2D20.getBounds2D();
-    assertTrue(bounds2D41 instanceof Rectangle2D.Float);
-    assertTrue(bounds2D20 instanceof Rectangle2D.Float);
-    assertTrue(bounds2D6 instanceof Rectangle2D.Float);
-    assertTrue(actualBounds instanceof Rectangle2D.Float);
-    Point location = bounds.getLocation();
-    Point location2 = location.getLocation();
-    Point location3 = location2.getLocation();
-    Point location4 = location3.getLocation();
-    assertEquals(0, location4.getLocation().y);
-    Point location5 = bounds3.getLocation();
-    Point location6 = location5.getLocation();
-    Point location7 = location6.getLocation();
-    assertEquals(0, location7.getLocation().y);
-    assertEquals(0, location4.y);
-    Point location8 = bounds4.getLocation();
-    Point location9 = location8.getLocation();
-    assertEquals(0, location9.getLocation().y);
-    assertEquals(0, location7.y);
-    Point location10 = bounds10.getLocation();
-    Point location11 = location10.getLocation();
-    assertEquals(0, location11.getLocation().y);
-    Point location12 = bounds13.getLocation();
-    Point location13 = location12.getLocation();
-    assertEquals(0, location13.getLocation().y);
-    assertEquals(0, location3.y);
-    Point location14 = ((Rectangle) bounds2D10).getLocation();
-    Point location15 = location14.getLocation();
-    assertEquals(0, location15.getLocation().y);
-    Point location16 = ((Rectangle) bounds2D4).getLocation();
-    Point location17 = location16.getLocation();
-    assertEquals(0, location17.getLocation().y);
-    Point location18 = bounds5.getLocation();
-    assertEquals(0, location18.getLocation().y);
-    assertEquals(0, location9.y);
-    assertEquals(0, location6.y);
-    Point location19 = bounds11.getLocation();
-    assertEquals(0, location19.getLocation().y);
-    Point location20 = bounds14.getLocation();
-    assertEquals(0, location20.getLocation().y);
-    Point location21 = bounds16.getLocation();
-    assertEquals(0, location21.getLocation().y);
-    Point location22 = bounds7.getLocation();
-    assertEquals(0, location22.getLocation().y);
-    assertEquals(0, location11.y);
-    Point location23 = bounds18.getLocation();
-    assertEquals(0, location23.getLocation().y);
-    Point location24 = bounds20.getLocation();
-    assertEquals(0, location24.getLocation().y);
-    assertEquals(0, location13.y);
-    assertEquals(0, location2.y);
-    Point location25 = ((Rectangle) bounds2D9).getLocation();
-    assertEquals(0, location25.getLocation().y);
-    assertEquals(0, location15.y);
-    assertEquals(0, location17.y);
-    assertEquals(0, bounds6.getLocation().y);
-    assertEquals(0, location18.y);
-    assertEquals(0, location8.y);
-    assertEquals(0, bounds9.getLocation().y);
-    assertEquals(0, bounds12.getLocation().y);
-    assertEquals(0, bounds15.getLocation().y);
-    assertEquals(0, location5.y);
-    assertEquals(0, bounds17.getLocation().y);
-    assertEquals(0, bounds8.getLocation().y);
-    assertEquals(0, location19.y);
-    assertEquals(0, bounds19.getLocation().y);
-    assertEquals(0, bounds21.getLocation().y);
-    assertEquals(0, location20.y);
-    assertEquals(0, bounds22.getLocation().y);
-    assertEquals(0, location21.y);
-    assertEquals(0, location22.y);
-    assertEquals(0, bounds23.getLocation().y);
-    assertEquals(0, bounds24.getLocation().y);
-    assertEquals(0, location10.y);
-    assertEquals(0, bounds25.getLocation().y);
-    assertEquals(0, location23.y);
-    assertEquals(0, bounds26.getLocation().y);
-    assertEquals(0, location24.y);
-    assertEquals(0, bounds27.getLocation().y);
-    assertEquals(0, location12.y);
-    assertEquals(0, location.y);
-    assertEquals(0, ((Rectangle) bounds2D3).getLocation().y);
-    assertEquals(0, location25.y);
-    assertEquals(0, location14.y);
-    assertEquals(0, ((Rectangle) bounds2D24).getLocation().y);
-    assertEquals(0, ((Rectangle) bounds2D30).getLocation().y);
-    assertEquals(0, location16.y);
-    assertEquals(0, ((Rectangle) bounds2D33).getLocation().y);
-    assertEquals(0, ((Rectangle) bounds2D36).getLocation().y);
-    assertEquals(0, bounds6.getBounds().y);
-    assertEquals(0, bounds6.y);
-    assertEquals(0, bounds5.y);
-    assertEquals(0, bounds9.getBounds().y);
-    assertEquals(0, bounds12.getBounds().y);
-    assertEquals(0, bounds15.getBounds().y);
-    assertEquals(0, bounds4.y);
-    assertEquals(0, bounds17.getBounds().y);
-    assertEquals(0, bounds9.y);
-    assertEquals(0, bounds12.y);
-    assertEquals(0, bounds19.getBounds().y);
-    assertEquals(0, bounds21.getBounds().y);
-    assertEquals(0, bounds15.y);
-    assertEquals(0, bounds3.y);
-    assertEquals(0, bounds22.getBounds().y);
-    assertEquals(0, bounds17.y);
-    assertEquals(0, bounds8.y);
-    assertEquals(0, bounds23.getBounds().y);
-    assertEquals(0, bounds24.getBounds().y);
-    assertEquals(0, bounds11.y);
-    assertEquals(0, bounds25.getBounds().y);
-    assertEquals(0, bounds19.y);
-    assertEquals(0, bounds26.getBounds().y);
-    assertEquals(0, bounds21.y);
-    assertEquals(0, bounds27.getBounds().y);
-    assertEquals(0, bounds14.y);
-    assertEquals(0, bounds2.y);
-    assertEquals(0, bounds2D3.getBounds().y);
-    assertEquals(0, bounds22.y);
-    assertEquals(0, bounds16.y);
-    assertEquals(0, bounds2D24.getBounds().y);
-    assertEquals(0, bounds2D30.getBounds().y);
-    assertEquals(0, bounds7.y);
-    assertEquals(0, bounds2D33.getBounds().y);
-    assertEquals(0, bounds2D36.getBounds().y);
-    assertEquals(0, bounds23.y);
-    assertEquals(0, bounds2D39.getBounds().y);
-    assertEquals(0, bounds2D40.getBounds().y);
-    assertEquals(0, bounds24.y);
-    assertEquals(0, bounds10.y);
-    assertEquals(0, frame7.getBounds().y);
-    assertEquals(0, bounds25.y);
-    assertEquals(0, bounds18.y);
-    assertEquals(0, frame8.getBounds().y);
-    assertEquals(0, frame9.getBounds().y);
-    assertEquals(0, bounds26.y);
-    assertEquals(0, frame10.getBounds().y);
-    assertEquals(0, frame11.getBounds().y);
-    assertEquals(0, bounds20.y);
-    assertEquals(0, frame12.getBounds().y);
-    assertEquals(0, frame13.getBounds().y);
-    assertEquals(0, bounds27.y);
-    assertEquals(0, bounds13.y);
-    assertEquals(0, bounds.y);
-    assertEquals(0, ((Rectangle) bounds2D).y);
-    assertEquals(0, ((Rectangle) bounds2D2).y);
-    assertEquals(0, ((Rectangle) bounds2D3).y);
-    assertEquals(0, ((Rectangle) bounds2D5).y);
-    assertEquals(0, ((Rectangle) bounds2D7).y);
-    assertEquals(0, ((Rectangle) bounds2D8).y);
-    assertEquals(0, ((Rectangle) bounds2D9).y);
-    assertEquals(0, ((Rectangle) bounds2D11).y);
-    assertEquals(0, ((Rectangle) bounds2D12).y);
-    assertEquals(0, ((Rectangle) bounds2D13).y);
-    assertEquals(0, ((Rectangle) bounds2D14).y);
-    assertEquals(0, ((Rectangle) bounds2D15).y);
-    assertEquals(0, ((Rectangle) bounds2D16).y);
-    assertEquals(0, ((Rectangle) bounds2D10).y);
-    assertEquals(0, ((Rectangle) bounds2D17).y);
-    assertEquals(0, ((Rectangle) bounds2D18).y);
-    assertEquals(0, ((Rectangle) bounds2D19).y);
-    assertEquals(0, ((Rectangle) bounds2D21).y);
-    assertEquals(0, ((Rectangle) bounds2D23).y);
-    assertEquals(0, ((Rectangle) bounds2D24).y);
-    assertEquals(0, ((Rectangle) bounds2D25).y);
-    assertEquals(0, ((Rectangle) bounds2D26).y);
-    assertEquals(0, ((Rectangle) bounds2D27).y);
-    assertEquals(0, ((Rectangle) bounds2D28).y);
-    assertEquals(0, ((Rectangle) bounds2D29).y);
-    assertEquals(0, ((Rectangle) bounds2D30).y);
-    assertEquals(0, ((Rectangle) bounds2D4).y);
-    assertEquals(0, ((Rectangle) bounds2D31).y);
-    assertEquals(0, ((Rectangle) bounds2D32).y);
-    assertEquals(0, ((Rectangle) bounds2D33).y);
-    assertEquals(0, ((Rectangle) bounds2D34).y);
-    assertEquals(0, ((Rectangle) bounds2D35).y);
-    assertEquals(0, ((Rectangle) bounds2D36).y);
-    assertEquals(0, ((Rectangle) bounds2D37).y);
-    assertEquals(0, ((Rectangle) bounds2D38).y);
-    assertEquals(0.0d, location4.getY());
-    assertEquals(0.0d, location7.getY());
-    assertEquals(0.0d, location3.getY());
-    assertEquals(0.0d, location9.getY());
-    assertEquals(0.0d, location6.getY());
-    assertEquals(0.0d, location11.getY());
-    assertEquals(0.0d, location13.getY());
-    assertEquals(0.0d, location2.getY());
-    assertEquals(0.0d, location15.getY());
-    assertEquals(0.0d, location17.getY());
-    assertEquals(0.0d, location18.getY());
-    assertEquals(0.0d, location8.getY());
-    assertEquals(0.0d, location5.getY());
-    assertEquals(0.0d, location19.getY());
-    assertEquals(0.0d, location20.getY());
-    assertEquals(0.0d, location21.getY());
-    assertEquals(0.0d, location22.getY());
-    assertEquals(0.0d, location10.getY());
-    assertEquals(0.0d, location23.getY());
-    assertEquals(0.0d, location24.getY());
-    assertEquals(0.0d, location12.getY());
-    assertEquals(0.0d, location.getY());
-    assertEquals(0.0d, location25.getY());
-    assertEquals(0.0d, location14.getY());
-    assertEquals(0.0d, location16.getY());
-    assertEquals(0.0d, bounds6.getY());
-    assertEquals(0.0d, bounds5.getY());
-    assertEquals(0.0d, bounds4.getY());
-    assertEquals(0.0d, bounds9.getY());
-    assertEquals(0.0d, bounds12.getY());
-    assertEquals(0.0d, bounds15.getY());
-    assertEquals(0.0d, bounds3.getY());
-    assertEquals(0.0d, bounds17.getY());
-    assertEquals(0.0d, bounds8.getY());
-    assertEquals(0.0d, bounds11.getY());
-    assertEquals(0.0d, bounds19.getY());
-    assertEquals(0.0d, bounds21.getY());
-    assertEquals(0.0d, bounds14.getY());
-    assertEquals(0.0d, bounds2.getY());
-    assertEquals(0.0d, bounds22.getY());
-    assertEquals(0.0d, bounds16.getY());
-    assertEquals(0.0d, bounds7.getY());
-    assertEquals(0.0d, bounds23.getY());
-    assertEquals(0.0d, bounds24.getY());
-    assertEquals(0.0d, bounds10.getY());
-    assertEquals(0.0d, bounds25.getY());
-    assertEquals(0.0d, bounds18.getY());
-    assertEquals(0.0d, bounds26.getY());
-    assertEquals(0.0d, bounds20.getY());
-    assertEquals(0.0d, bounds27.getY());
-    assertEquals(0.0d, bounds13.getY());
-    assertEquals(0.0d, bounds.getY());
-    assertEquals(0.0d, bounds6.getCenterY());
-    assertEquals(0.0d, bounds5.getCenterY());
-    assertEquals(0.0d, bounds4.getCenterY());
-    assertEquals(0.0d, bounds9.getCenterY());
-    assertEquals(0.0d, bounds12.getCenterY());
-    assertEquals(0.0d, bounds15.getCenterY());
-    assertEquals(0.0d, bounds3.getCenterY());
-    assertEquals(0.0d, bounds17.getCenterY());
-    assertEquals(0.0d, bounds8.getCenterY());
-    assertEquals(0.0d, bounds11.getCenterY());
-    assertEquals(0.0d, bounds19.getCenterY());
-    assertEquals(0.0d, bounds21.getCenterY());
-    assertEquals(0.0d, bounds14.getCenterY());
-    assertEquals(0.0d, bounds2.getCenterY());
-    assertEquals(0.0d, bounds2D3.getCenterY());
-    assertEquals(0.0d, bounds2D9.getCenterY());
-    assertEquals(0.0d, bounds2D10.getCenterY());
-    assertEquals(0.0d, bounds2D24.getCenterY());
-    assertEquals(0.0d, bounds2D30.getCenterY());
-    assertEquals(0.0d, bounds2D4.getCenterY());
-    assertEquals(0.0d, bounds2D33.getCenterY());
-    assertEquals(0.0d, bounds2D36.getCenterY());
-    assertEquals(0.0d, bounds2D20.getCenterY());
-    assertEquals(0.0d, bounds2D39.getCenterY());
-    assertEquals(0.0d, bounds2D40.getCenterY());
-    assertEquals(0.0d, bounds2D22.getCenterY());
-    assertEquals(0.0d, bounds2D6.getCenterY());
-    assertEquals(0.0d, bounds22.getCenterY());
-    assertEquals(0.0d, bounds16.getCenterY());
-    assertEquals(0.0d, bounds7.getCenterY());
-    assertEquals(0.0d, bounds23.getCenterY());
-    assertEquals(0.0d, bounds24.getCenterY());
-    assertEquals(0.0d, bounds10.getCenterY());
-    assertEquals(0.0d, bounds25.getCenterY());
-    assertEquals(0.0d, bounds18.getCenterY());
-    assertEquals(0.0d, bounds26.getCenterY());
-    assertEquals(0.0d, bounds20.getCenterY());
-    assertEquals(0.0d, bounds27.getCenterY());
-    assertEquals(0.0d, bounds13.getCenterY());
-    assertEquals(0.0d, bounds.getCenterY());
-    assertEquals(0.0d, frame7.getCenterY());
-    assertEquals(0.0d, frame4.getCenterY());
-    assertEquals(0.0d, frame2.getCenterY());
-    assertEquals(0.0d, frame8.getCenterY());
-    assertEquals(0.0d, frame9.getCenterY());
-    assertEquals(0.0d, frame5.getCenterY());
-    assertEquals(0.0d, frame10.getCenterY());
-    assertEquals(0.0d, frame11.getCenterY());
-    assertEquals(0.0d, frame3.getCenterY());
-    assertEquals(0.0d, frame12.getCenterY());
-    assertEquals(0.0d, frame13.getCenterY());
-    assertEquals(0.0d, frame6.getCenterY());
-    assertEquals(0.0d, frame.getCenterY());
-    assertEquals(0.0d, actualBounds.getCenterY());
-    assertEquals(0.0d, bounds6.getMaxY());
-    assertEquals(0.0d, bounds5.getMaxY());
-    assertEquals(0.0d, bounds4.getMaxY());
-    assertEquals(0.0d, bounds9.getMaxY());
-    assertEquals(0.0d, bounds12.getMaxY());
-    assertEquals(0.0d, bounds15.getMaxY());
-    assertEquals(0.0d, bounds3.getMaxY());
-    assertEquals(0.0d, bounds17.getMaxY());
-    assertEquals(0.0d, bounds8.getMaxY());
-    assertEquals(0.0d, bounds11.getMaxY());
-    assertEquals(0.0d, bounds19.getMaxY());
-    assertEquals(0.0d, bounds21.getMaxY());
-    assertEquals(0.0d, bounds14.getMaxY());
-    assertEquals(0.0d, bounds2.getMaxY());
-    assertEquals(0.0d, bounds2D3.getMaxY());
-    assertEquals(0.0d, bounds2D9.getMaxY());
-    assertEquals(0.0d, bounds2D10.getMaxY());
-    assertEquals(0.0d, bounds2D24.getMaxY());
-    assertEquals(0.0d, bounds2D30.getMaxY());
-    assertEquals(0.0d, bounds2D4.getMaxY());
-    assertEquals(0.0d, bounds2D33.getMaxY());
-    assertEquals(0.0d, bounds2D36.getMaxY());
-    assertEquals(0.0d, bounds2D20.getMaxY());
-    assertEquals(0.0d, bounds2D39.getMaxY());
-    assertEquals(0.0d, bounds2D40.getMaxY());
-    assertEquals(0.0d, bounds2D22.getMaxY());
-    assertEquals(0.0d, bounds2D6.getMaxY());
-    assertEquals(0.0d, bounds22.getMaxY());
-    assertEquals(0.0d, bounds16.getMaxY());
-    assertEquals(0.0d, bounds7.getMaxY());
-    assertEquals(0.0d, bounds23.getMaxY());
-    assertEquals(0.0d, bounds24.getMaxY());
-    assertEquals(0.0d, bounds10.getMaxY());
-    assertEquals(0.0d, bounds25.getMaxY());
-    assertEquals(0.0d, bounds18.getMaxY());
-    assertEquals(0.0d, bounds26.getMaxY());
-    assertEquals(0.0d, bounds20.getMaxY());
-    assertEquals(0.0d, bounds27.getMaxY());
-    assertEquals(0.0d, bounds13.getMaxY());
-    assertEquals(0.0d, bounds.getMaxY());
-    assertEquals(0.0d, frame7.getMaxY());
-    assertEquals(0.0d, frame4.getMaxY());
-    assertEquals(0.0d, frame2.getMaxY());
-    assertEquals(0.0d, frame8.getMaxY());
-    assertEquals(0.0d, frame9.getMaxY());
-    assertEquals(0.0d, frame5.getMaxY());
-    assertEquals(0.0d, frame10.getMaxY());
-    assertEquals(0.0d, frame11.getMaxY());
-    assertEquals(0.0d, frame3.getMaxY());
-    assertEquals(0.0d, frame12.getMaxY());
-    assertEquals(0.0d, frame13.getMaxY());
-    assertEquals(0.0d, frame6.getMaxY());
-    assertEquals(0.0d, frame.getMaxY());
-    assertEquals(0.0d, actualBounds.getMaxY());
-    assertEquals(0.0d, bounds6.getMinY());
-    assertEquals(0.0d, bounds5.getMinY());
-    assertEquals(0.0d, bounds4.getMinY());
-    assertEquals(0.0d, bounds9.getMinY());
-    assertEquals(0.0d, bounds12.getMinY());
-    assertEquals(0.0d, bounds15.getMinY());
-    assertEquals(0.0d, bounds3.getMinY());
-    assertEquals(0.0d, bounds17.getMinY());
-    assertEquals(0.0d, bounds8.getMinY());
-    assertEquals(0.0d, bounds11.getMinY());
-    assertEquals(0.0d, bounds19.getMinY());
-    assertEquals(0.0d, bounds21.getMinY());
-    assertEquals(0.0d, bounds14.getMinY());
-    assertEquals(0.0d, bounds2.getMinY());
-    assertEquals(0.0d, bounds2D3.getMinY());
-    assertEquals(0.0d, bounds2D9.getMinY());
-    assertEquals(0.0d, bounds2D10.getMinY());
-    assertEquals(0.0d, bounds2D24.getMinY());
-    assertEquals(0.0d, bounds2D30.getMinY());
-    assertEquals(0.0d, bounds2D4.getMinY());
-    assertEquals(0.0d, bounds2D33.getMinY());
-    assertEquals(0.0d, bounds2D36.getMinY());
-    assertEquals(0.0d, bounds2D20.getMinY());
-    assertEquals(0.0d, bounds2D39.getMinY());
-    assertEquals(0.0d, bounds2D40.getMinY());
-    assertEquals(0.0d, bounds2D22.getMinY());
-    assertEquals(0.0d, bounds2D6.getMinY());
-    assertEquals(0.0d, bounds22.getMinY());
-    assertEquals(0.0d, bounds16.getMinY());
-    assertEquals(0.0d, bounds7.getMinY());
-    assertEquals(0.0d, bounds23.getMinY());
-    assertEquals(0.0d, bounds24.getMinY());
-    assertEquals(0.0d, bounds10.getMinY());
-    assertEquals(0.0d, bounds25.getMinY());
-    assertEquals(0.0d, bounds18.getMinY());
-    assertEquals(0.0d, bounds26.getMinY());
-    assertEquals(0.0d, bounds20.getMinY());
-    assertEquals(0.0d, bounds27.getMinY());
-    assertEquals(0.0d, bounds13.getMinY());
-    assertEquals(0.0d, bounds.getMinY());
-    assertEquals(0.0d, frame7.getMinY());
-    assertEquals(0.0d, frame4.getMinY());
-    assertEquals(0.0d, frame2.getMinY());
-    assertEquals(0.0d, frame8.getMinY());
-    assertEquals(0.0d, frame9.getMinY());
-    assertEquals(0.0d, frame5.getMinY());
-    assertEquals(0.0d, frame10.getMinY());
-    assertEquals(0.0d, frame11.getMinY());
-    assertEquals(0.0d, frame3.getMinY());
-    assertEquals(0.0d, frame12.getMinY());
-    assertEquals(0.0d, frame13.getMinY());
-    assertEquals(0.0d, frame6.getMinY());
-    assertEquals(0.0d, frame.getMinY());
-    assertEquals(0.0d, actualBounds.getMinY());
-    assertEquals(0.0d, bounds2D3.getY());
-    assertEquals(0.0d, bounds2D9.getY());
-    assertEquals(0.0d, bounds2D10.getY());
-    assertEquals(0.0d, bounds2D24.getY());
-    assertEquals(0.0d, bounds2D30.getY());
-    assertEquals(0.0d, bounds2D4.getY());
-    assertEquals(0.0d, bounds2D33.getY());
-    assertEquals(0.0d, bounds2D36.getY());
-    assertEquals(0.0d, bounds2D20.getY());
-    assertEquals(0.0d, bounds2D39.getY());
-    assertEquals(0.0d, bounds2D40.getY());
-    assertEquals(0.0d, bounds2D22.getY());
-    assertEquals(0.0d, bounds2D6.getY());
-    assertEquals(0.0d, frame7.getY());
-    assertEquals(0.0d, frame4.getY());
-    assertEquals(0.0d, frame2.getY());
-    assertEquals(0.0d, frame8.getY());
-    assertEquals(0.0d, frame9.getY());
-    assertEquals(0.0d, frame5.getY());
-    assertEquals(0.0d, frame10.getY());
-    assertEquals(0.0d, frame11.getY());
-    assertEquals(0.0d, frame3.getY());
-    assertEquals(0.0d, frame12.getY());
-    assertEquals(0.0d, frame13.getY());
-    assertEquals(0.0d, frame6.getY());
-    assertEquals(0.0d, frame.getY());
-    assertEquals(0.0d, actualBounds.getY());
-    assertEquals(0.0f, ((Rectangle2D.Float) bounds2D41).y);
-    assertEquals(0.0f, ((Rectangle2D.Float) bounds2D20).y);
-    assertEquals(0.0f, ((Rectangle2D.Float) bounds2D6).y);
-    assertEquals(0.0f, ((Rectangle2D.Float) actualBounds).y);
+    assertTrue(frame instanceof Double);
+    Rectangle2D bounds2D = actualBounds.getBounds2D();
+    assertTrue(bounds2D instanceof Float);
+    assertTrue(actualBounds instanceof Float);
+    assertEquals(0.0d, bounds2D.getCenterX());
+    Rectangle bounds = actualBounds.getBounds();
+    assertEquals(0.0d, bounds.getCenterX());
+    assertEquals(0.0d, frame.getCenterX());
+    assertEquals(0.0d, actualBounds.getCenterX());
+    assertEquals(0.0d, bounds2D.getMaxX());
+    assertEquals(0.0d, bounds.getMaxX());
+    assertEquals(0.0d, frame.getMaxX());
+    assertEquals(0.0d, actualBounds.getMaxX());
   }
 
   /**
    * Test {@link Type1CharString#getBounds()}.
-   * <p>
-   * Method under test: {@link Type1CharString#getBounds()}
+   *
+   * <p>Method under test: {@link Type1CharString#getBounds()}
    */
   @Test
   @DisplayName("Test getBounds()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Rectangle2D Type1CharString.getBounds()"})
   void testGetBounds5() {
     // Arrange
-    Type1CharString type1CharString = new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
     type1CharString.addCommand(new ArrayList<>(), CharStringCommand.VMOVETO);
 
     // Act
     Rectangle2D actualBounds = type1CharString.getBounds();
 
     // Assert
-    Rectangle bounds = actualBounds.getBounds();
-    Rectangle bounds2 = bounds.getBounds();
-    Rectangle bounds3 = bounds2.getBounds();
-    Rectangle bounds4 = bounds3.getBounds();
-    Rectangle bounds5 = bounds4.getBounds();
-    Rectangle bounds6 = bounds5.getBounds();
-    Rectangle2D bounds2D = bounds6.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Rectangle2D bounds2D2 = bounds5.getBounds2D();
-    assertTrue(bounds2D2 instanceof Rectangle);
-    Rectangle2D bounds2D3 = bounds4.getBounds2D();
-    assertTrue(bounds2D3 instanceof Rectangle);
-    Rectangle2D bounds2D4 = bounds.getBounds2D();
-    Rectangle bounds7 = bounds2D4.getBounds();
-    Rectangle bounds8 = bounds7.getBounds();
-    Rectangle bounds9 = bounds8.getBounds();
-    Rectangle2D bounds2D5 = bounds9.getBounds2D();
-    assertTrue(bounds2D5 instanceof Rectangle);
-    Rectangle2D bounds2D6 = actualBounds.getBounds2D();
-    Rectangle bounds10 = bounds2D6.getBounds();
-    Rectangle bounds11 = bounds10.getBounds();
-    Rectangle bounds12 = bounds11.getBounds();
-    Rectangle2D bounds2D7 = bounds12.getBounds2D();
-    assertTrue(bounds2D7 instanceof Rectangle);
     Rectangle2D frame = actualBounds.getFrame();
-    Rectangle bounds13 = frame.getBounds();
-    Rectangle bounds14 = bounds13.getBounds();
-    Rectangle bounds15 = bounds14.getBounds();
-    Rectangle2D bounds2D8 = bounds15.getBounds2D();
-    assertTrue(bounds2D8 instanceof Rectangle);
-    Rectangle2D bounds2D9 = bounds3.getBounds2D();
-    assertTrue(bounds2D9 instanceof Rectangle);
-    Rectangle2D bounds2D10 = bounds2.getBounds2D();
-    Rectangle bounds16 = bounds2D10.getBounds();
-    Rectangle bounds17 = bounds16.getBounds();
-    Rectangle2D bounds2D11 = bounds17.getBounds2D();
-    assertTrue(bounds2D11 instanceof Rectangle);
-    Rectangle2D bounds2D12 = bounds8.getBounds2D();
-    assertTrue(bounds2D12 instanceof Rectangle);
-    Rectangle2D bounds2D13 = bounds11.getBounds2D();
-    assertTrue(bounds2D13 instanceof Rectangle);
-    Rectangle2D frame2 = bounds2.getFrame();
-    Rectangle bounds18 = frame2.getBounds();
-    Rectangle bounds19 = bounds18.getBounds();
-    Rectangle2D bounds2D14 = bounds19.getBounds2D();
-    assertTrue(bounds2D14 instanceof Rectangle);
-    Rectangle2D frame3 = bounds.getFrame();
-    Rectangle bounds20 = frame3.getBounds();
-    Rectangle bounds21 = bounds20.getBounds();
-    Rectangle2D bounds2D15 = bounds21.getBounds2D();
-    assertTrue(bounds2D15 instanceof Rectangle);
-    Rectangle2D bounds2D16 = bounds14.getBounds2D();
-    assertTrue(bounds2D16 instanceof Rectangle);
-    assertTrue(bounds2D10 instanceof Rectangle);
-    Rectangle bounds22 = bounds2D9.getBounds();
-    Rectangle2D bounds2D17 = bounds22.getBounds2D();
-    assertTrue(bounds2D17 instanceof Rectangle);
-    Rectangle2D bounds2D18 = bounds16.getBounds2D();
-    assertTrue(bounds2D18 instanceof Rectangle);
-    Rectangle2D bounds2D19 = bounds7.getBounds2D();
-    assertTrue(bounds2D19 instanceof Rectangle);
-    Rectangle2D bounds2D20 = bounds2D6.getBounds2D();
-    Rectangle bounds23 = bounds2D20.getBounds();
-    Rectangle2D bounds2D21 = bounds23.getBounds2D();
-    assertTrue(bounds2D21 instanceof Rectangle);
-    Rectangle2D bounds2D22 = frame.getBounds2D();
-    Rectangle bounds24 = bounds2D22.getBounds();
-    Rectangle2D bounds2D23 = bounds24.getBounds2D();
-    assertTrue(bounds2D23 instanceof Rectangle);
-    Rectangle2D bounds2D24 = bounds10.getBounds2D();
-    assertTrue(bounds2D24 instanceof Rectangle);
-    Rectangle2D frame4 = bounds3.getFrame();
-    Rectangle bounds25 = frame4.getBounds();
-    Rectangle2D bounds2D25 = bounds25.getBounds2D();
-    assertTrue(bounds2D25 instanceof Rectangle);
-    Rectangle2D bounds2D26 = bounds18.getBounds2D();
-    assertTrue(bounds2D26 instanceof Rectangle);
-    Rectangle2D frame5 = bounds2D6.getFrame();
-    Rectangle bounds26 = frame5.getBounds();
-    Rectangle2D bounds2D27 = bounds26.getBounds2D();
-    assertTrue(bounds2D27 instanceof Rectangle);
-    Rectangle2D bounds2D28 = bounds20.getBounds2D();
-    assertTrue(bounds2D28 instanceof Rectangle);
-    Rectangle2D frame6 = frame.getFrame();
-    Rectangle bounds27 = frame6.getBounds();
-    Rectangle2D bounds2D29 = bounds27.getBounds2D();
-    assertTrue(bounds2D29 instanceof Rectangle);
-    Rectangle2D bounds2D30 = bounds13.getBounds2D();
-    assertTrue(bounds2D30 instanceof Rectangle);
-    assertTrue(bounds2D4 instanceof Rectangle);
-    Rectangle2D bounds2D31 = bounds2D3.getBounds2D();
-    assertTrue(bounds2D31 instanceof Rectangle);
-    Rectangle2D bounds2D32 = bounds2D9.getBounds2D();
-    assertTrue(bounds2D32 instanceof Rectangle);
-    Rectangle2D bounds2D33 = bounds2D10.getBounds2D();
-    assertTrue(bounds2D33 instanceof Rectangle);
-    Rectangle2D bounds2D34 = bounds2D24.getBounds2D();
-    assertTrue(bounds2D34 instanceof Rectangle);
-    Rectangle2D bounds2D35 = bounds2D30.getBounds2D();
-    assertTrue(bounds2D35 instanceof Rectangle);
-    Rectangle2D bounds2D36 = bounds2D4.getBounds2D();
-    assertTrue(bounds2D36 instanceof Rectangle);
-    Rectangle2D bounds2D37 = bounds2D33.getBounds2D();
-    assertTrue(bounds2D37 instanceof Rectangle);
-    Rectangle2D bounds2D38 = bounds2D36.getBounds2D();
-    assertTrue(bounds2D38 instanceof Rectangle);
-    Rectangle2D bounds2D39 = frame2.getBounds2D();
-    assertTrue(bounds2D39 instanceof Rectangle2D.Double);
-    Rectangle2D bounds2D40 = frame3.getBounds2D();
-    assertTrue(bounds2D40 instanceof Rectangle2D.Double);
-    assertTrue(bounds2D22 instanceof Rectangle2D.Double);
-    Rectangle2D frame7 = bounds4.getFrame();
-    assertTrue(frame7 instanceof Rectangle2D.Double);
-    assertTrue(frame4 instanceof Rectangle2D.Double);
-    assertTrue(frame2 instanceof Rectangle2D.Double);
-    Rectangle2D frame8 = bounds2D10.getFrame();
-    assertTrue(frame8 instanceof Rectangle2D.Double);
-    Rectangle2D frame9 = bounds2D4.getFrame();
-    assertTrue(frame9 instanceof Rectangle2D.Double);
-    assertTrue(frame5 instanceof Rectangle2D.Double);
-    Rectangle2D frame10 = bounds10.getFrame();
-    assertTrue(frame10 instanceof Rectangle2D.Double);
-    Rectangle2D frame11 = bounds13.getFrame();
-    assertTrue(frame11 instanceof Rectangle2D.Double);
-    assertTrue(frame3 instanceof Rectangle2D.Double);
-    Rectangle2D frame12 = frame2.getFrame();
-    assertTrue(frame12 instanceof Rectangle2D.Double);
-    Rectangle2D frame13 = frame3.getFrame();
-    assertTrue(frame13 instanceof Rectangle2D.Double);
-    assertTrue(frame6 instanceof Rectangle2D.Double);
-    assertTrue(frame instanceof Rectangle2D.Double);
-    Rectangle2D bounds2D41 = bounds2D20.getBounds2D();
-    assertTrue(bounds2D41 instanceof Rectangle2D.Float);
-    assertTrue(bounds2D20 instanceof Rectangle2D.Float);
-    assertTrue(bounds2D6 instanceof Rectangle2D.Float);
-    assertTrue(actualBounds instanceof Rectangle2D.Float);
-    Point location = bounds.getLocation();
-    Point location2 = location.getLocation();
-    Point location3 = location2.getLocation();
-    Point location4 = location3.getLocation();
-    assertEquals(0, location4.getLocation().y);
-    Point location5 = bounds3.getLocation();
-    Point location6 = location5.getLocation();
-    Point location7 = location6.getLocation();
-    assertEquals(0, location7.getLocation().y);
-    assertEquals(0, location4.y);
-    Point location8 = bounds4.getLocation();
-    Point location9 = location8.getLocation();
-    assertEquals(0, location9.getLocation().y);
-    assertEquals(0, location7.y);
-    Point location10 = bounds10.getLocation();
-    Point location11 = location10.getLocation();
-    assertEquals(0, location11.getLocation().y);
-    Point location12 = bounds13.getLocation();
-    Point location13 = location12.getLocation();
-    assertEquals(0, location13.getLocation().y);
-    assertEquals(0, location3.y);
-    Point location14 = ((Rectangle) bounds2D10).getLocation();
-    Point location15 = location14.getLocation();
-    assertEquals(0, location15.getLocation().y);
-    Point location16 = ((Rectangle) bounds2D4).getLocation();
-    Point location17 = location16.getLocation();
-    assertEquals(0, location17.getLocation().y);
-    Point location18 = bounds5.getLocation();
-    assertEquals(0, location18.getLocation().y);
-    assertEquals(0, location9.y);
-    assertEquals(0, location6.y);
-    Point location19 = bounds11.getLocation();
-    assertEquals(0, location19.getLocation().y);
-    Point location20 = bounds14.getLocation();
-    assertEquals(0, location20.getLocation().y);
-    Point location21 = bounds16.getLocation();
-    assertEquals(0, location21.getLocation().y);
-    Point location22 = bounds7.getLocation();
-    assertEquals(0, location22.getLocation().y);
-    assertEquals(0, location11.y);
-    Point location23 = bounds18.getLocation();
-    assertEquals(0, location23.getLocation().y);
-    Point location24 = bounds20.getLocation();
-    assertEquals(0, location24.getLocation().y);
-    assertEquals(0, location13.y);
-    assertEquals(0, location2.y);
-    Point location25 = ((Rectangle) bounds2D9).getLocation();
-    assertEquals(0, location25.getLocation().y);
-    assertEquals(0, location15.y);
-    assertEquals(0, location17.y);
-    assertEquals(0, bounds6.getLocation().y);
-    assertEquals(0, location18.y);
-    assertEquals(0, location8.y);
-    assertEquals(0, bounds9.getLocation().y);
-    assertEquals(0, bounds12.getLocation().y);
-    assertEquals(0, bounds15.getLocation().y);
-    assertEquals(0, location5.y);
-    assertEquals(0, bounds17.getLocation().y);
-    assertEquals(0, bounds8.getLocation().y);
-    assertEquals(0, location19.y);
-    assertEquals(0, bounds19.getLocation().y);
-    assertEquals(0, bounds21.getLocation().y);
-    assertEquals(0, location20.y);
-    assertEquals(0, bounds22.getLocation().y);
-    assertEquals(0, location21.y);
-    assertEquals(0, location22.y);
-    assertEquals(0, bounds23.getLocation().y);
-    assertEquals(0, bounds24.getLocation().y);
-    assertEquals(0, location10.y);
-    assertEquals(0, bounds25.getLocation().y);
-    assertEquals(0, location23.y);
-    assertEquals(0, bounds26.getLocation().y);
-    assertEquals(0, location24.y);
-    assertEquals(0, bounds27.getLocation().y);
-    assertEquals(0, location12.y);
-    assertEquals(0, location.y);
-    assertEquals(0, ((Rectangle) bounds2D3).getLocation().y);
-    assertEquals(0, location25.y);
-    assertEquals(0, location14.y);
-    assertEquals(0, ((Rectangle) bounds2D24).getLocation().y);
-    assertEquals(0, ((Rectangle) bounds2D30).getLocation().y);
-    assertEquals(0, location16.y);
-    assertEquals(0, ((Rectangle) bounds2D33).getLocation().y);
-    assertEquals(0, ((Rectangle) bounds2D36).getLocation().y);
-    assertEquals(0, bounds6.getBounds().y);
-    assertEquals(0, bounds6.y);
-    assertEquals(0, bounds5.y);
-    assertEquals(0, bounds9.getBounds().y);
-    assertEquals(0, bounds12.getBounds().y);
-    assertEquals(0, bounds15.getBounds().y);
-    assertEquals(0, bounds4.y);
-    assertEquals(0, bounds17.getBounds().y);
-    assertEquals(0, bounds9.y);
-    assertEquals(0, bounds12.y);
-    assertEquals(0, bounds19.getBounds().y);
-    assertEquals(0, bounds21.getBounds().y);
-    assertEquals(0, bounds15.y);
-    assertEquals(0, bounds3.y);
-    assertEquals(0, bounds22.getBounds().y);
-    assertEquals(0, bounds17.y);
-    assertEquals(0, bounds8.y);
-    assertEquals(0, bounds23.getBounds().y);
-    assertEquals(0, bounds24.getBounds().y);
-    assertEquals(0, bounds11.y);
-    assertEquals(0, bounds25.getBounds().y);
-    assertEquals(0, bounds19.y);
-    assertEquals(0, bounds26.getBounds().y);
-    assertEquals(0, bounds21.y);
-    assertEquals(0, bounds27.getBounds().y);
-    assertEquals(0, bounds14.y);
-    assertEquals(0, bounds2.y);
-    assertEquals(0, bounds2D3.getBounds().y);
-    assertEquals(0, bounds22.y);
-    assertEquals(0, bounds16.y);
-    assertEquals(0, bounds2D24.getBounds().y);
-    assertEquals(0, bounds2D30.getBounds().y);
-    assertEquals(0, bounds7.y);
-    assertEquals(0, bounds2D33.getBounds().y);
-    assertEquals(0, bounds2D36.getBounds().y);
-    assertEquals(0, bounds23.y);
-    assertEquals(0, bounds2D39.getBounds().y);
-    assertEquals(0, bounds2D40.getBounds().y);
-    assertEquals(0, bounds24.y);
-    assertEquals(0, bounds10.y);
-    assertEquals(0, frame7.getBounds().y);
-    assertEquals(0, bounds25.y);
-    assertEquals(0, bounds18.y);
-    assertEquals(0, frame8.getBounds().y);
-    assertEquals(0, frame9.getBounds().y);
-    assertEquals(0, bounds26.y);
-    assertEquals(0, frame10.getBounds().y);
-    assertEquals(0, frame11.getBounds().y);
-    assertEquals(0, bounds20.y);
-    assertEquals(0, frame12.getBounds().y);
-    assertEquals(0, frame13.getBounds().y);
-    assertEquals(0, bounds27.y);
-    assertEquals(0, bounds13.y);
-    assertEquals(0, bounds.y);
-    assertEquals(0, ((Rectangle) bounds2D).y);
-    assertEquals(0, ((Rectangle) bounds2D2).y);
-    assertEquals(0, ((Rectangle) bounds2D3).y);
-    assertEquals(0, ((Rectangle) bounds2D5).y);
-    assertEquals(0, ((Rectangle) bounds2D7).y);
-    assertEquals(0, ((Rectangle) bounds2D8).y);
-    assertEquals(0, ((Rectangle) bounds2D9).y);
-    assertEquals(0, ((Rectangle) bounds2D11).y);
-    assertEquals(0, ((Rectangle) bounds2D12).y);
-    assertEquals(0, ((Rectangle) bounds2D13).y);
-    assertEquals(0, ((Rectangle) bounds2D14).y);
-    assertEquals(0, ((Rectangle) bounds2D15).y);
-    assertEquals(0, ((Rectangle) bounds2D16).y);
-    assertEquals(0, ((Rectangle) bounds2D10).y);
-    assertEquals(0, ((Rectangle) bounds2D17).y);
-    assertEquals(0, ((Rectangle) bounds2D18).y);
-    assertEquals(0, ((Rectangle) bounds2D19).y);
-    assertEquals(0, ((Rectangle) bounds2D21).y);
-    assertEquals(0, ((Rectangle) bounds2D23).y);
-    assertEquals(0, ((Rectangle) bounds2D24).y);
-    assertEquals(0, ((Rectangle) bounds2D25).y);
-    assertEquals(0, ((Rectangle) bounds2D26).y);
-    assertEquals(0, ((Rectangle) bounds2D27).y);
-    assertEquals(0, ((Rectangle) bounds2D28).y);
-    assertEquals(0, ((Rectangle) bounds2D29).y);
-    assertEquals(0, ((Rectangle) bounds2D30).y);
-    assertEquals(0, ((Rectangle) bounds2D4).y);
-    assertEquals(0, ((Rectangle) bounds2D31).y);
-    assertEquals(0, ((Rectangle) bounds2D32).y);
-    assertEquals(0, ((Rectangle) bounds2D33).y);
-    assertEquals(0, ((Rectangle) bounds2D34).y);
-    assertEquals(0, ((Rectangle) bounds2D35).y);
-    assertEquals(0, ((Rectangle) bounds2D36).y);
-    assertEquals(0, ((Rectangle) bounds2D37).y);
-    assertEquals(0, ((Rectangle) bounds2D38).y);
-    assertEquals(0.0d, location4.getY());
-    assertEquals(0.0d, location7.getY());
-    assertEquals(0.0d, location3.getY());
-    assertEquals(0.0d, location9.getY());
-    assertEquals(0.0d, location6.getY());
-    assertEquals(0.0d, location11.getY());
-    assertEquals(0.0d, location13.getY());
-    assertEquals(0.0d, location2.getY());
-    assertEquals(0.0d, location15.getY());
-    assertEquals(0.0d, location17.getY());
-    assertEquals(0.0d, location18.getY());
-    assertEquals(0.0d, location8.getY());
-    assertEquals(0.0d, location5.getY());
-    assertEquals(0.0d, location19.getY());
-    assertEquals(0.0d, location20.getY());
-    assertEquals(0.0d, location21.getY());
-    assertEquals(0.0d, location22.getY());
-    assertEquals(0.0d, location10.getY());
-    assertEquals(0.0d, location23.getY());
-    assertEquals(0.0d, location24.getY());
-    assertEquals(0.0d, location12.getY());
-    assertEquals(0.0d, location.getY());
-    assertEquals(0.0d, location25.getY());
-    assertEquals(0.0d, location14.getY());
-    assertEquals(0.0d, location16.getY());
-    assertEquals(0.0d, bounds6.getY());
-    assertEquals(0.0d, bounds5.getY());
-    assertEquals(0.0d, bounds4.getY());
-    assertEquals(0.0d, bounds9.getY());
-    assertEquals(0.0d, bounds12.getY());
-    assertEquals(0.0d, bounds15.getY());
-    assertEquals(0.0d, bounds3.getY());
-    assertEquals(0.0d, bounds17.getY());
-    assertEquals(0.0d, bounds8.getY());
-    assertEquals(0.0d, bounds11.getY());
-    assertEquals(0.0d, bounds19.getY());
-    assertEquals(0.0d, bounds21.getY());
-    assertEquals(0.0d, bounds14.getY());
-    assertEquals(0.0d, bounds2.getY());
-    assertEquals(0.0d, bounds22.getY());
-    assertEquals(0.0d, bounds16.getY());
-    assertEquals(0.0d, bounds7.getY());
-    assertEquals(0.0d, bounds23.getY());
-    assertEquals(0.0d, bounds24.getY());
-    assertEquals(0.0d, bounds10.getY());
-    assertEquals(0.0d, bounds25.getY());
-    assertEquals(0.0d, bounds18.getY());
-    assertEquals(0.0d, bounds26.getY());
-    assertEquals(0.0d, bounds20.getY());
-    assertEquals(0.0d, bounds27.getY());
-    assertEquals(0.0d, bounds13.getY());
-    assertEquals(0.0d, bounds.getY());
-    assertEquals(0.0d, bounds6.getCenterY());
-    assertEquals(0.0d, bounds5.getCenterY());
-    assertEquals(0.0d, bounds4.getCenterY());
-    assertEquals(0.0d, bounds9.getCenterY());
-    assertEquals(0.0d, bounds12.getCenterY());
-    assertEquals(0.0d, bounds15.getCenterY());
-    assertEquals(0.0d, bounds3.getCenterY());
-    assertEquals(0.0d, bounds17.getCenterY());
-    assertEquals(0.0d, bounds8.getCenterY());
-    assertEquals(0.0d, bounds11.getCenterY());
-    assertEquals(0.0d, bounds19.getCenterY());
-    assertEquals(0.0d, bounds21.getCenterY());
-    assertEquals(0.0d, bounds14.getCenterY());
-    assertEquals(0.0d, bounds2.getCenterY());
-    assertEquals(0.0d, bounds2D3.getCenterY());
-    assertEquals(0.0d, bounds2D9.getCenterY());
-    assertEquals(0.0d, bounds2D10.getCenterY());
-    assertEquals(0.0d, bounds2D24.getCenterY());
-    assertEquals(0.0d, bounds2D30.getCenterY());
-    assertEquals(0.0d, bounds2D4.getCenterY());
-    assertEquals(0.0d, bounds2D33.getCenterY());
-    assertEquals(0.0d, bounds2D36.getCenterY());
-    assertEquals(0.0d, bounds2D20.getCenterY());
-    assertEquals(0.0d, bounds2D39.getCenterY());
-    assertEquals(0.0d, bounds2D40.getCenterY());
-    assertEquals(0.0d, bounds2D22.getCenterY());
-    assertEquals(0.0d, bounds2D6.getCenterY());
-    assertEquals(0.0d, bounds22.getCenterY());
-    assertEquals(0.0d, bounds16.getCenterY());
-    assertEquals(0.0d, bounds7.getCenterY());
-    assertEquals(0.0d, bounds23.getCenterY());
-    assertEquals(0.0d, bounds24.getCenterY());
-    assertEquals(0.0d, bounds10.getCenterY());
-    assertEquals(0.0d, bounds25.getCenterY());
-    assertEquals(0.0d, bounds18.getCenterY());
-    assertEquals(0.0d, bounds26.getCenterY());
-    assertEquals(0.0d, bounds20.getCenterY());
-    assertEquals(0.0d, bounds27.getCenterY());
-    assertEquals(0.0d, bounds13.getCenterY());
-    assertEquals(0.0d, bounds.getCenterY());
-    assertEquals(0.0d, frame7.getCenterY());
-    assertEquals(0.0d, frame4.getCenterY());
-    assertEquals(0.0d, frame2.getCenterY());
-    assertEquals(0.0d, frame8.getCenterY());
-    assertEquals(0.0d, frame9.getCenterY());
-    assertEquals(0.0d, frame5.getCenterY());
-    assertEquals(0.0d, frame10.getCenterY());
-    assertEquals(0.0d, frame11.getCenterY());
-    assertEquals(0.0d, frame3.getCenterY());
-    assertEquals(0.0d, frame12.getCenterY());
-    assertEquals(0.0d, frame13.getCenterY());
-    assertEquals(0.0d, frame6.getCenterY());
-    assertEquals(0.0d, frame.getCenterY());
-    assertEquals(0.0d, actualBounds.getCenterY());
-    assertEquals(0.0d, bounds6.getMaxY());
-    assertEquals(0.0d, bounds5.getMaxY());
-    assertEquals(0.0d, bounds4.getMaxY());
-    assertEquals(0.0d, bounds9.getMaxY());
-    assertEquals(0.0d, bounds12.getMaxY());
-    assertEquals(0.0d, bounds15.getMaxY());
-    assertEquals(0.0d, bounds3.getMaxY());
-    assertEquals(0.0d, bounds17.getMaxY());
-    assertEquals(0.0d, bounds8.getMaxY());
-    assertEquals(0.0d, bounds11.getMaxY());
-    assertEquals(0.0d, bounds19.getMaxY());
-    assertEquals(0.0d, bounds21.getMaxY());
-    assertEquals(0.0d, bounds14.getMaxY());
-    assertEquals(0.0d, bounds2.getMaxY());
-    assertEquals(0.0d, bounds2D3.getMaxY());
-    assertEquals(0.0d, bounds2D9.getMaxY());
-    assertEquals(0.0d, bounds2D10.getMaxY());
-    assertEquals(0.0d, bounds2D24.getMaxY());
-    assertEquals(0.0d, bounds2D30.getMaxY());
-    assertEquals(0.0d, bounds2D4.getMaxY());
-    assertEquals(0.0d, bounds2D33.getMaxY());
-    assertEquals(0.0d, bounds2D36.getMaxY());
-    assertEquals(0.0d, bounds2D20.getMaxY());
-    assertEquals(0.0d, bounds2D39.getMaxY());
-    assertEquals(0.0d, bounds2D40.getMaxY());
-    assertEquals(0.0d, bounds2D22.getMaxY());
-    assertEquals(0.0d, bounds2D6.getMaxY());
-    assertEquals(0.0d, bounds22.getMaxY());
-    assertEquals(0.0d, bounds16.getMaxY());
-    assertEquals(0.0d, bounds7.getMaxY());
-    assertEquals(0.0d, bounds23.getMaxY());
-    assertEquals(0.0d, bounds24.getMaxY());
-    assertEquals(0.0d, bounds10.getMaxY());
-    assertEquals(0.0d, bounds25.getMaxY());
-    assertEquals(0.0d, bounds18.getMaxY());
-    assertEquals(0.0d, bounds26.getMaxY());
-    assertEquals(0.0d, bounds20.getMaxY());
-    assertEquals(0.0d, bounds27.getMaxY());
-    assertEquals(0.0d, bounds13.getMaxY());
-    assertEquals(0.0d, bounds.getMaxY());
-    assertEquals(0.0d, frame7.getMaxY());
-    assertEquals(0.0d, frame4.getMaxY());
-    assertEquals(0.0d, frame2.getMaxY());
-    assertEquals(0.0d, frame8.getMaxY());
-    assertEquals(0.0d, frame9.getMaxY());
-    assertEquals(0.0d, frame5.getMaxY());
-    assertEquals(0.0d, frame10.getMaxY());
-    assertEquals(0.0d, frame11.getMaxY());
-    assertEquals(0.0d, frame3.getMaxY());
-    assertEquals(0.0d, frame12.getMaxY());
-    assertEquals(0.0d, frame13.getMaxY());
-    assertEquals(0.0d, frame6.getMaxY());
-    assertEquals(0.0d, frame.getMaxY());
-    assertEquals(0.0d, actualBounds.getMaxY());
-    assertEquals(0.0d, bounds6.getMinY());
-    assertEquals(0.0d, bounds5.getMinY());
-    assertEquals(0.0d, bounds4.getMinY());
-    assertEquals(0.0d, bounds9.getMinY());
-    assertEquals(0.0d, bounds12.getMinY());
-    assertEquals(0.0d, bounds15.getMinY());
-    assertEquals(0.0d, bounds3.getMinY());
-    assertEquals(0.0d, bounds17.getMinY());
-    assertEquals(0.0d, bounds8.getMinY());
-    assertEquals(0.0d, bounds11.getMinY());
-    assertEquals(0.0d, bounds19.getMinY());
-    assertEquals(0.0d, bounds21.getMinY());
-    assertEquals(0.0d, bounds14.getMinY());
-    assertEquals(0.0d, bounds2.getMinY());
-    assertEquals(0.0d, bounds2D3.getMinY());
-    assertEquals(0.0d, bounds2D9.getMinY());
-    assertEquals(0.0d, bounds2D10.getMinY());
-    assertEquals(0.0d, bounds2D24.getMinY());
-    assertEquals(0.0d, bounds2D30.getMinY());
-    assertEquals(0.0d, bounds2D4.getMinY());
-    assertEquals(0.0d, bounds2D33.getMinY());
-    assertEquals(0.0d, bounds2D36.getMinY());
-    assertEquals(0.0d, bounds2D20.getMinY());
-    assertEquals(0.0d, bounds2D39.getMinY());
-    assertEquals(0.0d, bounds2D40.getMinY());
-    assertEquals(0.0d, bounds2D22.getMinY());
-    assertEquals(0.0d, bounds2D6.getMinY());
-    assertEquals(0.0d, bounds22.getMinY());
-    assertEquals(0.0d, bounds16.getMinY());
-    assertEquals(0.0d, bounds7.getMinY());
-    assertEquals(0.0d, bounds23.getMinY());
-    assertEquals(0.0d, bounds24.getMinY());
-    assertEquals(0.0d, bounds10.getMinY());
-    assertEquals(0.0d, bounds25.getMinY());
-    assertEquals(0.0d, bounds18.getMinY());
-    assertEquals(0.0d, bounds26.getMinY());
-    assertEquals(0.0d, bounds20.getMinY());
-    assertEquals(0.0d, bounds27.getMinY());
-    assertEquals(0.0d, bounds13.getMinY());
-    assertEquals(0.0d, bounds.getMinY());
-    assertEquals(0.0d, frame7.getMinY());
-    assertEquals(0.0d, frame4.getMinY());
-    assertEquals(0.0d, frame2.getMinY());
-    assertEquals(0.0d, frame8.getMinY());
-    assertEquals(0.0d, frame9.getMinY());
-    assertEquals(0.0d, frame5.getMinY());
-    assertEquals(0.0d, frame10.getMinY());
-    assertEquals(0.0d, frame11.getMinY());
-    assertEquals(0.0d, frame3.getMinY());
-    assertEquals(0.0d, frame12.getMinY());
-    assertEquals(0.0d, frame13.getMinY());
-    assertEquals(0.0d, frame6.getMinY());
-    assertEquals(0.0d, frame.getMinY());
-    assertEquals(0.0d, actualBounds.getMinY());
-    assertEquals(0.0d, bounds2D3.getY());
-    assertEquals(0.0d, bounds2D9.getY());
-    assertEquals(0.0d, bounds2D10.getY());
-    assertEquals(0.0d, bounds2D24.getY());
-    assertEquals(0.0d, bounds2D30.getY());
-    assertEquals(0.0d, bounds2D4.getY());
-    assertEquals(0.0d, bounds2D33.getY());
-    assertEquals(0.0d, bounds2D36.getY());
-    assertEquals(0.0d, bounds2D20.getY());
-    assertEquals(0.0d, bounds2D39.getY());
-    assertEquals(0.0d, bounds2D40.getY());
-    assertEquals(0.0d, bounds2D22.getY());
-    assertEquals(0.0d, bounds2D6.getY());
-    assertEquals(0.0d, frame7.getY());
-    assertEquals(0.0d, frame4.getY());
-    assertEquals(0.0d, frame2.getY());
-    assertEquals(0.0d, frame8.getY());
-    assertEquals(0.0d, frame9.getY());
-    assertEquals(0.0d, frame5.getY());
-    assertEquals(0.0d, frame10.getY());
-    assertEquals(0.0d, frame11.getY());
-    assertEquals(0.0d, frame3.getY());
-    assertEquals(0.0d, frame12.getY());
-    assertEquals(0.0d, frame13.getY());
-    assertEquals(0.0d, frame6.getY());
-    assertEquals(0.0d, frame.getY());
-    assertEquals(0.0d, actualBounds.getY());
-    assertEquals(0.0f, ((Rectangle2D.Float) bounds2D41).y);
-    assertEquals(0.0f, ((Rectangle2D.Float) bounds2D20).y);
-    assertEquals(0.0f, ((Rectangle2D.Float) bounds2D6).y);
-    assertEquals(0.0f, ((Rectangle2D.Float) actualBounds).y);
+    assertTrue(frame instanceof Double);
+    Rectangle2D bounds2D = actualBounds.getBounds2D();
+    assertTrue(bounds2D instanceof Float);
+    assertTrue(actualBounds instanceof Float);
+    assertEquals(0.0d, bounds2D.getCenterX());
+    Rectangle bounds = actualBounds.getBounds();
+    assertEquals(0.0d, bounds.getCenterX());
+    assertEquals(0.0d, frame.getCenterX());
+    assertEquals(0.0d, actualBounds.getCenterX());
+    assertEquals(0.0d, bounds2D.getMaxX());
+    assertEquals(0.0d, bounds.getMaxX());
+    assertEquals(0.0d, frame.getMaxX());
+    assertEquals(0.0d, actualBounds.getMaxX());
   }
 
   /**
    * Test {@link Type1CharString#getBounds()}.
-   * <p>
-   * Method under test: {@link Type1CharString#getBounds()}
+   *
+   * <p>Method under test: {@link Type1CharString#getBounds()}
    */
   @Test
   @DisplayName("Test getBounds()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Rectangle2D Type1CharString.getBounds()"})
   void testGetBounds6() {
     // Arrange
-    Type1CharString type1CharString = new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
     type1CharString.addCommand(new ArrayList<>(), CharStringCommand.RLINETO);
 
     // Act
     Rectangle2D actualBounds = type1CharString.getBounds();
 
     // Assert
-    Rectangle bounds = actualBounds.getBounds();
-    Rectangle bounds2 = bounds.getBounds();
-    Rectangle bounds3 = bounds2.getBounds();
-    Rectangle bounds4 = bounds3.getBounds();
-    Rectangle bounds5 = bounds4.getBounds();
-    Rectangle bounds6 = bounds5.getBounds();
-    Rectangle2D bounds2D = bounds6.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Rectangle2D bounds2D2 = bounds5.getBounds2D();
-    assertTrue(bounds2D2 instanceof Rectangle);
-    Rectangle2D bounds2D3 = bounds4.getBounds2D();
-    assertTrue(bounds2D3 instanceof Rectangle);
-    Rectangle2D bounds2D4 = bounds.getBounds2D();
-    Rectangle bounds7 = bounds2D4.getBounds();
-    Rectangle bounds8 = bounds7.getBounds();
-    Rectangle bounds9 = bounds8.getBounds();
-    Rectangle2D bounds2D5 = bounds9.getBounds2D();
-    assertTrue(bounds2D5 instanceof Rectangle);
-    Rectangle2D bounds2D6 = actualBounds.getBounds2D();
-    Rectangle bounds10 = bounds2D6.getBounds();
-    Rectangle bounds11 = bounds10.getBounds();
-    Rectangle bounds12 = bounds11.getBounds();
-    Rectangle2D bounds2D7 = bounds12.getBounds2D();
-    assertTrue(bounds2D7 instanceof Rectangle);
     Rectangle2D frame = actualBounds.getFrame();
-    Rectangle bounds13 = frame.getBounds();
-    Rectangle bounds14 = bounds13.getBounds();
-    Rectangle bounds15 = bounds14.getBounds();
-    Rectangle2D bounds2D8 = bounds15.getBounds2D();
-    assertTrue(bounds2D8 instanceof Rectangle);
-    Rectangle2D bounds2D9 = bounds3.getBounds2D();
-    assertTrue(bounds2D9 instanceof Rectangle);
-    Rectangle2D bounds2D10 = bounds2.getBounds2D();
-    Rectangle bounds16 = bounds2D10.getBounds();
-    Rectangle bounds17 = bounds16.getBounds();
-    Rectangle2D bounds2D11 = bounds17.getBounds2D();
-    assertTrue(bounds2D11 instanceof Rectangle);
-    Rectangle2D bounds2D12 = bounds8.getBounds2D();
-    assertTrue(bounds2D12 instanceof Rectangle);
-    Rectangle2D bounds2D13 = bounds11.getBounds2D();
-    assertTrue(bounds2D13 instanceof Rectangle);
-    Rectangle2D frame2 = bounds2.getFrame();
-    Rectangle bounds18 = frame2.getBounds();
-    Rectangle bounds19 = bounds18.getBounds();
-    Rectangle2D bounds2D14 = bounds19.getBounds2D();
-    assertTrue(bounds2D14 instanceof Rectangle);
-    Rectangle2D frame3 = bounds.getFrame();
-    Rectangle bounds20 = frame3.getBounds();
-    Rectangle bounds21 = bounds20.getBounds();
-    Rectangle2D bounds2D15 = bounds21.getBounds2D();
-    assertTrue(bounds2D15 instanceof Rectangle);
-    Rectangle2D bounds2D16 = bounds14.getBounds2D();
-    assertTrue(bounds2D16 instanceof Rectangle);
-    assertTrue(bounds2D10 instanceof Rectangle);
-    Rectangle bounds22 = bounds2D9.getBounds();
-    Rectangle2D bounds2D17 = bounds22.getBounds2D();
-    assertTrue(bounds2D17 instanceof Rectangle);
-    Rectangle2D bounds2D18 = bounds16.getBounds2D();
-    assertTrue(bounds2D18 instanceof Rectangle);
-    Rectangle2D bounds2D19 = bounds7.getBounds2D();
-    assertTrue(bounds2D19 instanceof Rectangle);
-    Rectangle2D bounds2D20 = bounds2D6.getBounds2D();
-    Rectangle bounds23 = bounds2D20.getBounds();
-    Rectangle2D bounds2D21 = bounds23.getBounds2D();
-    assertTrue(bounds2D21 instanceof Rectangle);
-    Rectangle2D bounds2D22 = frame.getBounds2D();
-    Rectangle bounds24 = bounds2D22.getBounds();
-    Rectangle2D bounds2D23 = bounds24.getBounds2D();
-    assertTrue(bounds2D23 instanceof Rectangle);
-    Rectangle2D bounds2D24 = bounds10.getBounds2D();
-    assertTrue(bounds2D24 instanceof Rectangle);
-    Rectangle2D frame4 = bounds3.getFrame();
-    Rectangle bounds25 = frame4.getBounds();
-    Rectangle2D bounds2D25 = bounds25.getBounds2D();
-    assertTrue(bounds2D25 instanceof Rectangle);
-    Rectangle2D bounds2D26 = bounds18.getBounds2D();
-    assertTrue(bounds2D26 instanceof Rectangle);
-    Rectangle2D frame5 = bounds2D6.getFrame();
-    Rectangle bounds26 = frame5.getBounds();
-    Rectangle2D bounds2D27 = bounds26.getBounds2D();
-    assertTrue(bounds2D27 instanceof Rectangle);
-    Rectangle2D bounds2D28 = bounds20.getBounds2D();
-    assertTrue(bounds2D28 instanceof Rectangle);
-    Rectangle2D frame6 = frame.getFrame();
-    Rectangle bounds27 = frame6.getBounds();
-    Rectangle2D bounds2D29 = bounds27.getBounds2D();
-    assertTrue(bounds2D29 instanceof Rectangle);
-    Rectangle2D bounds2D30 = bounds13.getBounds2D();
-    assertTrue(bounds2D30 instanceof Rectangle);
-    assertTrue(bounds2D4 instanceof Rectangle);
-    Rectangle2D bounds2D31 = bounds2D3.getBounds2D();
-    assertTrue(bounds2D31 instanceof Rectangle);
-    Rectangle2D bounds2D32 = bounds2D9.getBounds2D();
-    assertTrue(bounds2D32 instanceof Rectangle);
-    Rectangle2D bounds2D33 = bounds2D10.getBounds2D();
-    assertTrue(bounds2D33 instanceof Rectangle);
-    Rectangle2D bounds2D34 = bounds2D24.getBounds2D();
-    assertTrue(bounds2D34 instanceof Rectangle);
-    Rectangle2D bounds2D35 = bounds2D30.getBounds2D();
-    assertTrue(bounds2D35 instanceof Rectangle);
-    Rectangle2D bounds2D36 = bounds2D4.getBounds2D();
-    assertTrue(bounds2D36 instanceof Rectangle);
-    Rectangle2D bounds2D37 = bounds2D33.getBounds2D();
-    assertTrue(bounds2D37 instanceof Rectangle);
-    Rectangle2D bounds2D38 = bounds2D36.getBounds2D();
-    assertTrue(bounds2D38 instanceof Rectangle);
-    Rectangle2D bounds2D39 = frame2.getBounds2D();
-    assertTrue(bounds2D39 instanceof Rectangle2D.Double);
-    Rectangle2D bounds2D40 = frame3.getBounds2D();
-    assertTrue(bounds2D40 instanceof Rectangle2D.Double);
-    assertTrue(bounds2D22 instanceof Rectangle2D.Double);
-    Rectangle2D frame7 = bounds4.getFrame();
-    assertTrue(frame7 instanceof Rectangle2D.Double);
-    assertTrue(frame4 instanceof Rectangle2D.Double);
-    assertTrue(frame2 instanceof Rectangle2D.Double);
-    Rectangle2D frame8 = bounds2D10.getFrame();
-    assertTrue(frame8 instanceof Rectangle2D.Double);
-    Rectangle2D frame9 = bounds2D4.getFrame();
-    assertTrue(frame9 instanceof Rectangle2D.Double);
-    assertTrue(frame5 instanceof Rectangle2D.Double);
-    Rectangle2D frame10 = bounds10.getFrame();
-    assertTrue(frame10 instanceof Rectangle2D.Double);
-    Rectangle2D frame11 = bounds13.getFrame();
-    assertTrue(frame11 instanceof Rectangle2D.Double);
-    assertTrue(frame3 instanceof Rectangle2D.Double);
-    Rectangle2D frame12 = frame2.getFrame();
-    assertTrue(frame12 instanceof Rectangle2D.Double);
-    Rectangle2D frame13 = frame3.getFrame();
-    assertTrue(frame13 instanceof Rectangle2D.Double);
-    assertTrue(frame6 instanceof Rectangle2D.Double);
-    assertTrue(frame instanceof Rectangle2D.Double);
-    Rectangle2D bounds2D41 = bounds2D20.getBounds2D();
-    assertTrue(bounds2D41 instanceof Rectangle2D.Float);
-    assertTrue(bounds2D20 instanceof Rectangle2D.Float);
-    assertTrue(bounds2D6 instanceof Rectangle2D.Float);
-    assertTrue(actualBounds instanceof Rectangle2D.Float);
-    Point location = bounds.getLocation();
-    Point location2 = location.getLocation();
-    Point location3 = location2.getLocation();
-    Point location4 = location3.getLocation();
-    assertEquals(0, location4.getLocation().y);
-    Point location5 = bounds3.getLocation();
-    Point location6 = location5.getLocation();
-    Point location7 = location6.getLocation();
-    assertEquals(0, location7.getLocation().y);
-    assertEquals(0, location4.y);
-    Point location8 = bounds4.getLocation();
-    Point location9 = location8.getLocation();
-    assertEquals(0, location9.getLocation().y);
-    assertEquals(0, location7.y);
-    Point location10 = bounds10.getLocation();
-    Point location11 = location10.getLocation();
-    assertEquals(0, location11.getLocation().y);
-    Point location12 = bounds13.getLocation();
-    Point location13 = location12.getLocation();
-    assertEquals(0, location13.getLocation().y);
-    assertEquals(0, location3.y);
-    Point location14 = ((Rectangle) bounds2D10).getLocation();
-    Point location15 = location14.getLocation();
-    assertEquals(0, location15.getLocation().y);
-    Point location16 = ((Rectangle) bounds2D4).getLocation();
-    Point location17 = location16.getLocation();
-    assertEquals(0, location17.getLocation().y);
-    Point location18 = bounds5.getLocation();
-    assertEquals(0, location18.getLocation().y);
-    assertEquals(0, location9.y);
-    assertEquals(0, location6.y);
-    Point location19 = bounds11.getLocation();
-    assertEquals(0, location19.getLocation().y);
-    Point location20 = bounds14.getLocation();
-    assertEquals(0, location20.getLocation().y);
-    Point location21 = bounds16.getLocation();
-    assertEquals(0, location21.getLocation().y);
-    Point location22 = bounds7.getLocation();
-    assertEquals(0, location22.getLocation().y);
-    assertEquals(0, location11.y);
-    Point location23 = bounds18.getLocation();
-    assertEquals(0, location23.getLocation().y);
-    Point location24 = bounds20.getLocation();
-    assertEquals(0, location24.getLocation().y);
-    assertEquals(0, location13.y);
-    assertEquals(0, location2.y);
-    Point location25 = ((Rectangle) bounds2D9).getLocation();
-    assertEquals(0, location25.getLocation().y);
-    assertEquals(0, location15.y);
-    assertEquals(0, location17.y);
-    assertEquals(0, bounds6.getLocation().y);
-    assertEquals(0, location18.y);
-    assertEquals(0, location8.y);
-    assertEquals(0, bounds9.getLocation().y);
-    assertEquals(0, bounds12.getLocation().y);
-    assertEquals(0, bounds15.getLocation().y);
-    assertEquals(0, location5.y);
-    assertEquals(0, bounds17.getLocation().y);
-    assertEquals(0, bounds8.getLocation().y);
-    assertEquals(0, location19.y);
-    assertEquals(0, bounds19.getLocation().y);
-    assertEquals(0, bounds21.getLocation().y);
-    assertEquals(0, location20.y);
-    assertEquals(0, bounds22.getLocation().y);
-    assertEquals(0, location21.y);
-    assertEquals(0, location22.y);
-    assertEquals(0, bounds23.getLocation().y);
-    assertEquals(0, bounds24.getLocation().y);
-    assertEquals(0, location10.y);
-    assertEquals(0, bounds25.getLocation().y);
-    assertEquals(0, location23.y);
-    assertEquals(0, bounds26.getLocation().y);
-    assertEquals(0, location24.y);
-    assertEquals(0, bounds27.getLocation().y);
-    assertEquals(0, location12.y);
-    assertEquals(0, location.y);
-    assertEquals(0, ((Rectangle) bounds2D3).getLocation().y);
-    assertEquals(0, location25.y);
-    assertEquals(0, location14.y);
-    assertEquals(0, ((Rectangle) bounds2D24).getLocation().y);
-    assertEquals(0, ((Rectangle) bounds2D30).getLocation().y);
-    assertEquals(0, location16.y);
-    assertEquals(0, ((Rectangle) bounds2D33).getLocation().y);
-    assertEquals(0, ((Rectangle) bounds2D36).getLocation().y);
-    assertEquals(0, bounds6.getBounds().y);
-    assertEquals(0, bounds6.y);
-    assertEquals(0, bounds5.y);
-    assertEquals(0, bounds9.getBounds().y);
-    assertEquals(0, bounds12.getBounds().y);
-    assertEquals(0, bounds15.getBounds().y);
-    assertEquals(0, bounds4.y);
-    assertEquals(0, bounds17.getBounds().y);
-    assertEquals(0, bounds9.y);
-    assertEquals(0, bounds12.y);
-    assertEquals(0, bounds19.getBounds().y);
-    assertEquals(0, bounds21.getBounds().y);
-    assertEquals(0, bounds15.y);
-    assertEquals(0, bounds3.y);
-    assertEquals(0, bounds22.getBounds().y);
-    assertEquals(0, bounds17.y);
-    assertEquals(0, bounds8.y);
-    assertEquals(0, bounds23.getBounds().y);
-    assertEquals(0, bounds24.getBounds().y);
-    assertEquals(0, bounds11.y);
-    assertEquals(0, bounds25.getBounds().y);
-    assertEquals(0, bounds19.y);
-    assertEquals(0, bounds26.getBounds().y);
-    assertEquals(0, bounds21.y);
-    assertEquals(0, bounds27.getBounds().y);
-    assertEquals(0, bounds14.y);
-    assertEquals(0, bounds2.y);
-    assertEquals(0, bounds2D3.getBounds().y);
-    assertEquals(0, bounds22.y);
-    assertEquals(0, bounds16.y);
-    assertEquals(0, bounds2D24.getBounds().y);
-    assertEquals(0, bounds2D30.getBounds().y);
-    assertEquals(0, bounds7.y);
-    assertEquals(0, bounds2D33.getBounds().y);
-    assertEquals(0, bounds2D36.getBounds().y);
-    assertEquals(0, bounds23.y);
-    assertEquals(0, bounds2D39.getBounds().y);
-    assertEquals(0, bounds2D40.getBounds().y);
-    assertEquals(0, bounds24.y);
-    assertEquals(0, bounds10.y);
-    assertEquals(0, frame7.getBounds().y);
-    assertEquals(0, bounds25.y);
-    assertEquals(0, bounds18.y);
-    assertEquals(0, frame8.getBounds().y);
-    assertEquals(0, frame9.getBounds().y);
-    assertEquals(0, bounds26.y);
-    assertEquals(0, frame10.getBounds().y);
-    assertEquals(0, frame11.getBounds().y);
-    assertEquals(0, bounds20.y);
-    assertEquals(0, frame12.getBounds().y);
-    assertEquals(0, frame13.getBounds().y);
-    assertEquals(0, bounds27.y);
-    assertEquals(0, bounds13.y);
-    assertEquals(0, bounds.y);
-    assertEquals(0, ((Rectangle) bounds2D).y);
-    assertEquals(0, ((Rectangle) bounds2D2).y);
-    assertEquals(0, ((Rectangle) bounds2D3).y);
-    assertEquals(0, ((Rectangle) bounds2D5).y);
-    assertEquals(0, ((Rectangle) bounds2D7).y);
-    assertEquals(0, ((Rectangle) bounds2D8).y);
-    assertEquals(0, ((Rectangle) bounds2D9).y);
-    assertEquals(0, ((Rectangle) bounds2D11).y);
-    assertEquals(0, ((Rectangle) bounds2D12).y);
-    assertEquals(0, ((Rectangle) bounds2D13).y);
-    assertEquals(0, ((Rectangle) bounds2D14).y);
-    assertEquals(0, ((Rectangle) bounds2D15).y);
-    assertEquals(0, ((Rectangle) bounds2D16).y);
-    assertEquals(0, ((Rectangle) bounds2D10).y);
-    assertEquals(0, ((Rectangle) bounds2D17).y);
-    assertEquals(0, ((Rectangle) bounds2D18).y);
-    assertEquals(0, ((Rectangle) bounds2D19).y);
-    assertEquals(0, ((Rectangle) bounds2D21).y);
-    assertEquals(0, ((Rectangle) bounds2D23).y);
-    assertEquals(0, ((Rectangle) bounds2D24).y);
-    assertEquals(0, ((Rectangle) bounds2D25).y);
-    assertEquals(0, ((Rectangle) bounds2D26).y);
-    assertEquals(0, ((Rectangle) bounds2D27).y);
-    assertEquals(0, ((Rectangle) bounds2D28).y);
-    assertEquals(0, ((Rectangle) bounds2D29).y);
-    assertEquals(0, ((Rectangle) bounds2D30).y);
-    assertEquals(0, ((Rectangle) bounds2D4).y);
-    assertEquals(0, ((Rectangle) bounds2D31).y);
-    assertEquals(0, ((Rectangle) bounds2D32).y);
-    assertEquals(0, ((Rectangle) bounds2D33).y);
-    assertEquals(0, ((Rectangle) bounds2D34).y);
-    assertEquals(0, ((Rectangle) bounds2D35).y);
-    assertEquals(0, ((Rectangle) bounds2D36).y);
-    assertEquals(0, ((Rectangle) bounds2D37).y);
-    assertEquals(0, ((Rectangle) bounds2D38).y);
-    assertEquals(0.0d, location4.getY());
-    assertEquals(0.0d, location7.getY());
-    assertEquals(0.0d, location3.getY());
-    assertEquals(0.0d, location9.getY());
-    assertEquals(0.0d, location6.getY());
-    assertEquals(0.0d, location11.getY());
-    assertEquals(0.0d, location13.getY());
-    assertEquals(0.0d, location2.getY());
-    assertEquals(0.0d, location15.getY());
-    assertEquals(0.0d, location17.getY());
-    assertEquals(0.0d, location18.getY());
-    assertEquals(0.0d, location8.getY());
-    assertEquals(0.0d, location5.getY());
-    assertEquals(0.0d, location19.getY());
-    assertEquals(0.0d, location20.getY());
-    assertEquals(0.0d, location21.getY());
-    assertEquals(0.0d, location22.getY());
-    assertEquals(0.0d, location10.getY());
-    assertEquals(0.0d, location23.getY());
-    assertEquals(0.0d, location24.getY());
-    assertEquals(0.0d, location12.getY());
-    assertEquals(0.0d, location.getY());
-    assertEquals(0.0d, location25.getY());
-    assertEquals(0.0d, location14.getY());
-    assertEquals(0.0d, location16.getY());
-    assertEquals(0.0d, bounds6.getY());
-    assertEquals(0.0d, bounds5.getY());
-    assertEquals(0.0d, bounds4.getY());
-    assertEquals(0.0d, bounds9.getY());
-    assertEquals(0.0d, bounds12.getY());
-    assertEquals(0.0d, bounds15.getY());
-    assertEquals(0.0d, bounds3.getY());
-    assertEquals(0.0d, bounds17.getY());
-    assertEquals(0.0d, bounds8.getY());
-    assertEquals(0.0d, bounds11.getY());
-    assertEquals(0.0d, bounds19.getY());
-    assertEquals(0.0d, bounds21.getY());
-    assertEquals(0.0d, bounds14.getY());
-    assertEquals(0.0d, bounds2.getY());
-    assertEquals(0.0d, bounds22.getY());
-    assertEquals(0.0d, bounds16.getY());
-    assertEquals(0.0d, bounds7.getY());
-    assertEquals(0.0d, bounds23.getY());
-    assertEquals(0.0d, bounds24.getY());
-    assertEquals(0.0d, bounds10.getY());
-    assertEquals(0.0d, bounds25.getY());
-    assertEquals(0.0d, bounds18.getY());
-    assertEquals(0.0d, bounds26.getY());
-    assertEquals(0.0d, bounds20.getY());
-    assertEquals(0.0d, bounds27.getY());
-    assertEquals(0.0d, bounds13.getY());
-    assertEquals(0.0d, bounds.getY());
-    assertEquals(0.0d, bounds6.getCenterY());
-    assertEquals(0.0d, bounds5.getCenterY());
-    assertEquals(0.0d, bounds4.getCenterY());
-    assertEquals(0.0d, bounds9.getCenterY());
-    assertEquals(0.0d, bounds12.getCenterY());
-    assertEquals(0.0d, bounds15.getCenterY());
-    assertEquals(0.0d, bounds3.getCenterY());
-    assertEquals(0.0d, bounds17.getCenterY());
-    assertEquals(0.0d, bounds8.getCenterY());
-    assertEquals(0.0d, bounds11.getCenterY());
-    assertEquals(0.0d, bounds19.getCenterY());
-    assertEquals(0.0d, bounds21.getCenterY());
-    assertEquals(0.0d, bounds14.getCenterY());
-    assertEquals(0.0d, bounds2.getCenterY());
-    assertEquals(0.0d, bounds2D3.getCenterY());
-    assertEquals(0.0d, bounds2D9.getCenterY());
-    assertEquals(0.0d, bounds2D10.getCenterY());
-    assertEquals(0.0d, bounds2D24.getCenterY());
-    assertEquals(0.0d, bounds2D30.getCenterY());
-    assertEquals(0.0d, bounds2D4.getCenterY());
-    assertEquals(0.0d, bounds2D33.getCenterY());
-    assertEquals(0.0d, bounds2D36.getCenterY());
-    assertEquals(0.0d, bounds2D20.getCenterY());
-    assertEquals(0.0d, bounds2D39.getCenterY());
-    assertEquals(0.0d, bounds2D40.getCenterY());
-    assertEquals(0.0d, bounds2D22.getCenterY());
-    assertEquals(0.0d, bounds2D6.getCenterY());
-    assertEquals(0.0d, bounds22.getCenterY());
-    assertEquals(0.0d, bounds16.getCenterY());
-    assertEquals(0.0d, bounds7.getCenterY());
-    assertEquals(0.0d, bounds23.getCenterY());
-    assertEquals(0.0d, bounds24.getCenterY());
-    assertEquals(0.0d, bounds10.getCenterY());
-    assertEquals(0.0d, bounds25.getCenterY());
-    assertEquals(0.0d, bounds18.getCenterY());
-    assertEquals(0.0d, bounds26.getCenterY());
-    assertEquals(0.0d, bounds20.getCenterY());
-    assertEquals(0.0d, bounds27.getCenterY());
-    assertEquals(0.0d, bounds13.getCenterY());
-    assertEquals(0.0d, bounds.getCenterY());
-    assertEquals(0.0d, frame7.getCenterY());
-    assertEquals(0.0d, frame4.getCenterY());
-    assertEquals(0.0d, frame2.getCenterY());
-    assertEquals(0.0d, frame8.getCenterY());
-    assertEquals(0.0d, frame9.getCenterY());
-    assertEquals(0.0d, frame5.getCenterY());
-    assertEquals(0.0d, frame10.getCenterY());
-    assertEquals(0.0d, frame11.getCenterY());
-    assertEquals(0.0d, frame3.getCenterY());
-    assertEquals(0.0d, frame12.getCenterY());
-    assertEquals(0.0d, frame13.getCenterY());
-    assertEquals(0.0d, frame6.getCenterY());
-    assertEquals(0.0d, frame.getCenterY());
-    assertEquals(0.0d, actualBounds.getCenterY());
-    assertEquals(0.0d, bounds6.getMaxY());
-    assertEquals(0.0d, bounds5.getMaxY());
-    assertEquals(0.0d, bounds4.getMaxY());
-    assertEquals(0.0d, bounds9.getMaxY());
-    assertEquals(0.0d, bounds12.getMaxY());
-    assertEquals(0.0d, bounds15.getMaxY());
-    assertEquals(0.0d, bounds3.getMaxY());
-    assertEquals(0.0d, bounds17.getMaxY());
-    assertEquals(0.0d, bounds8.getMaxY());
-    assertEquals(0.0d, bounds11.getMaxY());
-    assertEquals(0.0d, bounds19.getMaxY());
-    assertEquals(0.0d, bounds21.getMaxY());
-    assertEquals(0.0d, bounds14.getMaxY());
-    assertEquals(0.0d, bounds2.getMaxY());
-    assertEquals(0.0d, bounds2D3.getMaxY());
-    assertEquals(0.0d, bounds2D9.getMaxY());
-    assertEquals(0.0d, bounds2D10.getMaxY());
-    assertEquals(0.0d, bounds2D24.getMaxY());
-    assertEquals(0.0d, bounds2D30.getMaxY());
-    assertEquals(0.0d, bounds2D4.getMaxY());
-    assertEquals(0.0d, bounds2D33.getMaxY());
-    assertEquals(0.0d, bounds2D36.getMaxY());
-    assertEquals(0.0d, bounds2D20.getMaxY());
-    assertEquals(0.0d, bounds2D39.getMaxY());
-    assertEquals(0.0d, bounds2D40.getMaxY());
-    assertEquals(0.0d, bounds2D22.getMaxY());
-    assertEquals(0.0d, bounds2D6.getMaxY());
-    assertEquals(0.0d, bounds22.getMaxY());
-    assertEquals(0.0d, bounds16.getMaxY());
-    assertEquals(0.0d, bounds7.getMaxY());
-    assertEquals(0.0d, bounds23.getMaxY());
-    assertEquals(0.0d, bounds24.getMaxY());
-    assertEquals(0.0d, bounds10.getMaxY());
-    assertEquals(0.0d, bounds25.getMaxY());
-    assertEquals(0.0d, bounds18.getMaxY());
-    assertEquals(0.0d, bounds26.getMaxY());
-    assertEquals(0.0d, bounds20.getMaxY());
-    assertEquals(0.0d, bounds27.getMaxY());
-    assertEquals(0.0d, bounds13.getMaxY());
-    assertEquals(0.0d, bounds.getMaxY());
-    assertEquals(0.0d, frame7.getMaxY());
-    assertEquals(0.0d, frame4.getMaxY());
-    assertEquals(0.0d, frame2.getMaxY());
-    assertEquals(0.0d, frame8.getMaxY());
-    assertEquals(0.0d, frame9.getMaxY());
-    assertEquals(0.0d, frame5.getMaxY());
-    assertEquals(0.0d, frame10.getMaxY());
-    assertEquals(0.0d, frame11.getMaxY());
-    assertEquals(0.0d, frame3.getMaxY());
-    assertEquals(0.0d, frame12.getMaxY());
-    assertEquals(0.0d, frame13.getMaxY());
-    assertEquals(0.0d, frame6.getMaxY());
-    assertEquals(0.0d, frame.getMaxY());
-    assertEquals(0.0d, actualBounds.getMaxY());
-    assertEquals(0.0d, bounds6.getMinY());
-    assertEquals(0.0d, bounds5.getMinY());
-    assertEquals(0.0d, bounds4.getMinY());
-    assertEquals(0.0d, bounds9.getMinY());
-    assertEquals(0.0d, bounds12.getMinY());
-    assertEquals(0.0d, bounds15.getMinY());
-    assertEquals(0.0d, bounds3.getMinY());
-    assertEquals(0.0d, bounds17.getMinY());
-    assertEquals(0.0d, bounds8.getMinY());
-    assertEquals(0.0d, bounds11.getMinY());
-    assertEquals(0.0d, bounds19.getMinY());
-    assertEquals(0.0d, bounds21.getMinY());
-    assertEquals(0.0d, bounds14.getMinY());
-    assertEquals(0.0d, bounds2.getMinY());
-    assertEquals(0.0d, bounds2D3.getMinY());
-    assertEquals(0.0d, bounds2D9.getMinY());
-    assertEquals(0.0d, bounds2D10.getMinY());
-    assertEquals(0.0d, bounds2D24.getMinY());
-    assertEquals(0.0d, bounds2D30.getMinY());
-    assertEquals(0.0d, bounds2D4.getMinY());
-    assertEquals(0.0d, bounds2D33.getMinY());
-    assertEquals(0.0d, bounds2D36.getMinY());
-    assertEquals(0.0d, bounds2D20.getMinY());
-    assertEquals(0.0d, bounds2D39.getMinY());
-    assertEquals(0.0d, bounds2D40.getMinY());
-    assertEquals(0.0d, bounds2D22.getMinY());
-    assertEquals(0.0d, bounds2D6.getMinY());
-    assertEquals(0.0d, bounds22.getMinY());
-    assertEquals(0.0d, bounds16.getMinY());
-    assertEquals(0.0d, bounds7.getMinY());
-    assertEquals(0.0d, bounds23.getMinY());
-    assertEquals(0.0d, bounds24.getMinY());
-    assertEquals(0.0d, bounds10.getMinY());
-    assertEquals(0.0d, bounds25.getMinY());
-    assertEquals(0.0d, bounds18.getMinY());
-    assertEquals(0.0d, bounds26.getMinY());
-    assertEquals(0.0d, bounds20.getMinY());
-    assertEquals(0.0d, bounds27.getMinY());
-    assertEquals(0.0d, bounds13.getMinY());
-    assertEquals(0.0d, bounds.getMinY());
-    assertEquals(0.0d, frame7.getMinY());
-    assertEquals(0.0d, frame4.getMinY());
-    assertEquals(0.0d, frame2.getMinY());
-    assertEquals(0.0d, frame8.getMinY());
-    assertEquals(0.0d, frame9.getMinY());
-    assertEquals(0.0d, frame5.getMinY());
-    assertEquals(0.0d, frame10.getMinY());
-    assertEquals(0.0d, frame11.getMinY());
-    assertEquals(0.0d, frame3.getMinY());
-    assertEquals(0.0d, frame12.getMinY());
-    assertEquals(0.0d, frame13.getMinY());
-    assertEquals(0.0d, frame6.getMinY());
-    assertEquals(0.0d, frame.getMinY());
-    assertEquals(0.0d, actualBounds.getMinY());
-    assertEquals(0.0d, bounds2D3.getY());
-    assertEquals(0.0d, bounds2D9.getY());
-    assertEquals(0.0d, bounds2D10.getY());
-    assertEquals(0.0d, bounds2D24.getY());
-    assertEquals(0.0d, bounds2D30.getY());
-    assertEquals(0.0d, bounds2D4.getY());
-    assertEquals(0.0d, bounds2D33.getY());
-    assertEquals(0.0d, bounds2D36.getY());
-    assertEquals(0.0d, bounds2D20.getY());
-    assertEquals(0.0d, bounds2D39.getY());
-    assertEquals(0.0d, bounds2D40.getY());
-    assertEquals(0.0d, bounds2D22.getY());
-    assertEquals(0.0d, bounds2D6.getY());
-    assertEquals(0.0d, frame7.getY());
-    assertEquals(0.0d, frame4.getY());
-    assertEquals(0.0d, frame2.getY());
-    assertEquals(0.0d, frame8.getY());
-    assertEquals(0.0d, frame9.getY());
-    assertEquals(0.0d, frame5.getY());
-    assertEquals(0.0d, frame10.getY());
-    assertEquals(0.0d, frame11.getY());
-    assertEquals(0.0d, frame3.getY());
-    assertEquals(0.0d, frame12.getY());
-    assertEquals(0.0d, frame13.getY());
-    assertEquals(0.0d, frame6.getY());
-    assertEquals(0.0d, frame.getY());
-    assertEquals(0.0d, actualBounds.getY());
-    assertEquals(0.0f, ((Rectangle2D.Float) bounds2D41).y);
-    assertEquals(0.0f, ((Rectangle2D.Float) bounds2D20).y);
-    assertEquals(0.0f, ((Rectangle2D.Float) bounds2D6).y);
-    assertEquals(0.0f, ((Rectangle2D.Float) actualBounds).y);
+    assertTrue(frame instanceof Double);
+    Rectangle2D bounds2D = actualBounds.getBounds2D();
+    assertTrue(bounds2D instanceof Float);
+    assertTrue(actualBounds instanceof Float);
+    assertEquals(0.0d, bounds2D.getCenterX());
+    Rectangle bounds = actualBounds.getBounds();
+    assertEquals(0.0d, bounds.getCenterX());
+    assertEquals(0.0d, frame.getCenterX());
+    assertEquals(0.0d, actualBounds.getCenterX());
+    assertEquals(0.0d, bounds2D.getMaxX());
+    assertEquals(0.0d, bounds.getMaxX());
+    assertEquals(0.0d, frame.getMaxX());
+    assertEquals(0.0d, actualBounds.getMaxX());
   }
 
   /**
    * Test {@link Type1CharString#getBounds()}.
-   * <p>
-   * Method under test: {@link Type1CharString#getBounds()}
+   *
+   * <p>Method under test: {@link Type1CharString#getBounds()}
    */
   @Test
   @DisplayName("Test getBounds()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Rectangle2D Type1CharString.getBounds()"})
   void testGetBounds7() {
     // Arrange
-    Type1CharString type1CharString = new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
     type1CharString.addCommand(new ArrayList<>(), CharStringCommand.HLINETO);
 
     // Act
     Rectangle2D actualBounds = type1CharString.getBounds();
 
     // Assert
-    Rectangle bounds = actualBounds.getBounds();
-    Rectangle bounds2 = bounds.getBounds();
-    Rectangle bounds3 = bounds2.getBounds();
-    Rectangle bounds4 = bounds3.getBounds();
-    Rectangle bounds5 = bounds4.getBounds();
-    Rectangle bounds6 = bounds5.getBounds();
-    Rectangle2D bounds2D = bounds6.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Rectangle2D bounds2D2 = bounds5.getBounds2D();
-    assertTrue(bounds2D2 instanceof Rectangle);
-    Rectangle2D bounds2D3 = bounds4.getBounds2D();
-    assertTrue(bounds2D3 instanceof Rectangle);
-    Rectangle2D bounds2D4 = bounds.getBounds2D();
-    Rectangle bounds7 = bounds2D4.getBounds();
-    Rectangle bounds8 = bounds7.getBounds();
-    Rectangle bounds9 = bounds8.getBounds();
-    Rectangle2D bounds2D5 = bounds9.getBounds2D();
-    assertTrue(bounds2D5 instanceof Rectangle);
-    Rectangle2D bounds2D6 = actualBounds.getBounds2D();
-    Rectangle bounds10 = bounds2D6.getBounds();
-    Rectangle bounds11 = bounds10.getBounds();
-    Rectangle bounds12 = bounds11.getBounds();
-    Rectangle2D bounds2D7 = bounds12.getBounds2D();
-    assertTrue(bounds2D7 instanceof Rectangle);
     Rectangle2D frame = actualBounds.getFrame();
-    Rectangle bounds13 = frame.getBounds();
-    Rectangle bounds14 = bounds13.getBounds();
-    Rectangle bounds15 = bounds14.getBounds();
-    Rectangle2D bounds2D8 = bounds15.getBounds2D();
-    assertTrue(bounds2D8 instanceof Rectangle);
-    Rectangle2D bounds2D9 = bounds3.getBounds2D();
-    assertTrue(bounds2D9 instanceof Rectangle);
-    Rectangle2D bounds2D10 = bounds2.getBounds2D();
-    Rectangle bounds16 = bounds2D10.getBounds();
-    Rectangle bounds17 = bounds16.getBounds();
-    Rectangle2D bounds2D11 = bounds17.getBounds2D();
-    assertTrue(bounds2D11 instanceof Rectangle);
-    Rectangle2D bounds2D12 = bounds8.getBounds2D();
-    assertTrue(bounds2D12 instanceof Rectangle);
-    Rectangle2D bounds2D13 = bounds11.getBounds2D();
-    assertTrue(bounds2D13 instanceof Rectangle);
-    Rectangle2D frame2 = bounds2.getFrame();
-    Rectangle bounds18 = frame2.getBounds();
-    Rectangle bounds19 = bounds18.getBounds();
-    Rectangle2D bounds2D14 = bounds19.getBounds2D();
-    assertTrue(bounds2D14 instanceof Rectangle);
-    Rectangle2D frame3 = bounds.getFrame();
-    Rectangle bounds20 = frame3.getBounds();
-    Rectangle bounds21 = bounds20.getBounds();
-    Rectangle2D bounds2D15 = bounds21.getBounds2D();
-    assertTrue(bounds2D15 instanceof Rectangle);
-    Rectangle2D bounds2D16 = bounds14.getBounds2D();
-    assertTrue(bounds2D16 instanceof Rectangle);
-    assertTrue(bounds2D10 instanceof Rectangle);
-    Rectangle bounds22 = bounds2D9.getBounds();
-    Rectangle2D bounds2D17 = bounds22.getBounds2D();
-    assertTrue(bounds2D17 instanceof Rectangle);
-    Rectangle2D bounds2D18 = bounds16.getBounds2D();
-    assertTrue(bounds2D18 instanceof Rectangle);
-    Rectangle2D bounds2D19 = bounds7.getBounds2D();
-    assertTrue(bounds2D19 instanceof Rectangle);
-    Rectangle2D bounds2D20 = bounds2D6.getBounds2D();
-    Rectangle bounds23 = bounds2D20.getBounds();
-    Rectangle2D bounds2D21 = bounds23.getBounds2D();
-    assertTrue(bounds2D21 instanceof Rectangle);
-    Rectangle2D bounds2D22 = frame.getBounds2D();
-    Rectangle bounds24 = bounds2D22.getBounds();
-    Rectangle2D bounds2D23 = bounds24.getBounds2D();
-    assertTrue(bounds2D23 instanceof Rectangle);
-    Rectangle2D bounds2D24 = bounds10.getBounds2D();
-    assertTrue(bounds2D24 instanceof Rectangle);
-    Rectangle2D frame4 = bounds3.getFrame();
-    Rectangle bounds25 = frame4.getBounds();
-    Rectangle2D bounds2D25 = bounds25.getBounds2D();
-    assertTrue(bounds2D25 instanceof Rectangle);
-    Rectangle2D bounds2D26 = bounds18.getBounds2D();
-    assertTrue(bounds2D26 instanceof Rectangle);
-    Rectangle2D frame5 = bounds2D6.getFrame();
-    Rectangle bounds26 = frame5.getBounds();
-    Rectangle2D bounds2D27 = bounds26.getBounds2D();
-    assertTrue(bounds2D27 instanceof Rectangle);
-    Rectangle2D bounds2D28 = bounds20.getBounds2D();
-    assertTrue(bounds2D28 instanceof Rectangle);
-    Rectangle2D frame6 = frame.getFrame();
-    Rectangle bounds27 = frame6.getBounds();
-    Rectangle2D bounds2D29 = bounds27.getBounds2D();
-    assertTrue(bounds2D29 instanceof Rectangle);
-    Rectangle2D bounds2D30 = bounds13.getBounds2D();
-    assertTrue(bounds2D30 instanceof Rectangle);
-    assertTrue(bounds2D4 instanceof Rectangle);
-    Rectangle2D bounds2D31 = bounds2D3.getBounds2D();
-    assertTrue(bounds2D31 instanceof Rectangle);
-    Rectangle2D bounds2D32 = bounds2D9.getBounds2D();
-    assertTrue(bounds2D32 instanceof Rectangle);
-    Rectangle2D bounds2D33 = bounds2D10.getBounds2D();
-    assertTrue(bounds2D33 instanceof Rectangle);
-    Rectangle2D bounds2D34 = bounds2D24.getBounds2D();
-    assertTrue(bounds2D34 instanceof Rectangle);
-    Rectangle2D bounds2D35 = bounds2D30.getBounds2D();
-    assertTrue(bounds2D35 instanceof Rectangle);
-    Rectangle2D bounds2D36 = bounds2D4.getBounds2D();
-    assertTrue(bounds2D36 instanceof Rectangle);
-    Rectangle2D bounds2D37 = bounds2D33.getBounds2D();
-    assertTrue(bounds2D37 instanceof Rectangle);
-    Rectangle2D bounds2D38 = bounds2D36.getBounds2D();
-    assertTrue(bounds2D38 instanceof Rectangle);
-    Rectangle2D bounds2D39 = frame2.getBounds2D();
-    assertTrue(bounds2D39 instanceof Rectangle2D.Double);
-    Rectangle2D bounds2D40 = frame3.getBounds2D();
-    assertTrue(bounds2D40 instanceof Rectangle2D.Double);
-    assertTrue(bounds2D22 instanceof Rectangle2D.Double);
-    Rectangle2D frame7 = bounds4.getFrame();
-    assertTrue(frame7 instanceof Rectangle2D.Double);
-    assertTrue(frame4 instanceof Rectangle2D.Double);
-    assertTrue(frame2 instanceof Rectangle2D.Double);
-    Rectangle2D frame8 = bounds2D10.getFrame();
-    assertTrue(frame8 instanceof Rectangle2D.Double);
-    Rectangle2D frame9 = bounds2D4.getFrame();
-    assertTrue(frame9 instanceof Rectangle2D.Double);
-    assertTrue(frame5 instanceof Rectangle2D.Double);
-    Rectangle2D frame10 = bounds10.getFrame();
-    assertTrue(frame10 instanceof Rectangle2D.Double);
-    Rectangle2D frame11 = bounds13.getFrame();
-    assertTrue(frame11 instanceof Rectangle2D.Double);
-    assertTrue(frame3 instanceof Rectangle2D.Double);
-    Rectangle2D frame12 = frame2.getFrame();
-    assertTrue(frame12 instanceof Rectangle2D.Double);
-    Rectangle2D frame13 = frame3.getFrame();
-    assertTrue(frame13 instanceof Rectangle2D.Double);
-    assertTrue(frame6 instanceof Rectangle2D.Double);
-    assertTrue(frame instanceof Rectangle2D.Double);
-    Rectangle2D bounds2D41 = bounds2D20.getBounds2D();
-    assertTrue(bounds2D41 instanceof Rectangle2D.Float);
-    assertTrue(bounds2D20 instanceof Rectangle2D.Float);
-    assertTrue(bounds2D6 instanceof Rectangle2D.Float);
-    assertTrue(actualBounds instanceof Rectangle2D.Float);
-    Point location = bounds.getLocation();
-    Point location2 = location.getLocation();
-    Point location3 = location2.getLocation();
-    Point location4 = location3.getLocation();
-    assertEquals(0, location4.getLocation().y);
-    Point location5 = bounds3.getLocation();
-    Point location6 = location5.getLocation();
-    Point location7 = location6.getLocation();
-    assertEquals(0, location7.getLocation().y);
-    assertEquals(0, location4.y);
-    Point location8 = bounds4.getLocation();
-    Point location9 = location8.getLocation();
-    assertEquals(0, location9.getLocation().y);
-    assertEquals(0, location7.y);
-    Point location10 = bounds10.getLocation();
-    Point location11 = location10.getLocation();
-    assertEquals(0, location11.getLocation().y);
-    Point location12 = bounds13.getLocation();
-    Point location13 = location12.getLocation();
-    assertEquals(0, location13.getLocation().y);
-    assertEquals(0, location3.y);
-    Point location14 = ((Rectangle) bounds2D10).getLocation();
-    Point location15 = location14.getLocation();
-    assertEquals(0, location15.getLocation().y);
-    Point location16 = ((Rectangle) bounds2D4).getLocation();
-    Point location17 = location16.getLocation();
-    assertEquals(0, location17.getLocation().y);
-    Point location18 = bounds5.getLocation();
-    assertEquals(0, location18.getLocation().y);
-    assertEquals(0, location9.y);
-    assertEquals(0, location6.y);
-    Point location19 = bounds11.getLocation();
-    assertEquals(0, location19.getLocation().y);
-    Point location20 = bounds14.getLocation();
-    assertEquals(0, location20.getLocation().y);
-    Point location21 = bounds16.getLocation();
-    assertEquals(0, location21.getLocation().y);
-    Point location22 = bounds7.getLocation();
-    assertEquals(0, location22.getLocation().y);
-    assertEquals(0, location11.y);
-    Point location23 = bounds18.getLocation();
-    assertEquals(0, location23.getLocation().y);
-    Point location24 = bounds20.getLocation();
-    assertEquals(0, location24.getLocation().y);
-    assertEquals(0, location13.y);
-    assertEquals(0, location2.y);
-    Point location25 = ((Rectangle) bounds2D9).getLocation();
-    assertEquals(0, location25.getLocation().y);
-    assertEquals(0, location15.y);
-    assertEquals(0, location17.y);
-    assertEquals(0, bounds6.getLocation().y);
-    assertEquals(0, location18.y);
-    assertEquals(0, location8.y);
-    assertEquals(0, bounds9.getLocation().y);
-    assertEquals(0, bounds12.getLocation().y);
-    assertEquals(0, bounds15.getLocation().y);
-    assertEquals(0, location5.y);
-    assertEquals(0, bounds17.getLocation().y);
-    assertEquals(0, bounds8.getLocation().y);
-    assertEquals(0, location19.y);
-    assertEquals(0, bounds19.getLocation().y);
-    assertEquals(0, bounds21.getLocation().y);
-    assertEquals(0, location20.y);
-    assertEquals(0, bounds22.getLocation().y);
-    assertEquals(0, location21.y);
-    assertEquals(0, location22.y);
-    assertEquals(0, bounds23.getLocation().y);
-    assertEquals(0, bounds24.getLocation().y);
-    assertEquals(0, location10.y);
-    assertEquals(0, bounds25.getLocation().y);
-    assertEquals(0, location23.y);
-    assertEquals(0, bounds26.getLocation().y);
-    assertEquals(0, location24.y);
-    assertEquals(0, bounds27.getLocation().y);
-    assertEquals(0, location12.y);
-    assertEquals(0, location.y);
-    assertEquals(0, ((Rectangle) bounds2D3).getLocation().y);
-    assertEquals(0, location25.y);
-    assertEquals(0, location14.y);
-    assertEquals(0, ((Rectangle) bounds2D24).getLocation().y);
-    assertEquals(0, ((Rectangle) bounds2D30).getLocation().y);
-    assertEquals(0, location16.y);
-    assertEquals(0, ((Rectangle) bounds2D33).getLocation().y);
-    assertEquals(0, ((Rectangle) bounds2D36).getLocation().y);
-    assertEquals(0, bounds6.getBounds().y);
-    assertEquals(0, bounds6.y);
-    assertEquals(0, bounds5.y);
-    assertEquals(0, bounds9.getBounds().y);
-    assertEquals(0, bounds12.getBounds().y);
-    assertEquals(0, bounds15.getBounds().y);
-    assertEquals(0, bounds4.y);
-    assertEquals(0, bounds17.getBounds().y);
-    assertEquals(0, bounds9.y);
-    assertEquals(0, bounds12.y);
-    assertEquals(0, bounds19.getBounds().y);
-    assertEquals(0, bounds21.getBounds().y);
-    assertEquals(0, bounds15.y);
-    assertEquals(0, bounds3.y);
-    assertEquals(0, bounds22.getBounds().y);
-    assertEquals(0, bounds17.y);
-    assertEquals(0, bounds8.y);
-    assertEquals(0, bounds23.getBounds().y);
-    assertEquals(0, bounds24.getBounds().y);
-    assertEquals(0, bounds11.y);
-    assertEquals(0, bounds25.getBounds().y);
-    assertEquals(0, bounds19.y);
-    assertEquals(0, bounds26.getBounds().y);
-    assertEquals(0, bounds21.y);
-    assertEquals(0, bounds27.getBounds().y);
-    assertEquals(0, bounds14.y);
-    assertEquals(0, bounds2.y);
-    assertEquals(0, bounds2D3.getBounds().y);
-    assertEquals(0, bounds22.y);
-    assertEquals(0, bounds16.y);
-    assertEquals(0, bounds2D24.getBounds().y);
-    assertEquals(0, bounds2D30.getBounds().y);
-    assertEquals(0, bounds7.y);
-    assertEquals(0, bounds2D33.getBounds().y);
-    assertEquals(0, bounds2D36.getBounds().y);
-    assertEquals(0, bounds23.y);
-    assertEquals(0, bounds2D39.getBounds().y);
-    assertEquals(0, bounds2D40.getBounds().y);
-    assertEquals(0, bounds24.y);
-    assertEquals(0, bounds10.y);
-    assertEquals(0, frame7.getBounds().y);
-    assertEquals(0, bounds25.y);
-    assertEquals(0, bounds18.y);
-    assertEquals(0, frame8.getBounds().y);
-    assertEquals(0, frame9.getBounds().y);
-    assertEquals(0, bounds26.y);
-    assertEquals(0, frame10.getBounds().y);
-    assertEquals(0, frame11.getBounds().y);
-    assertEquals(0, bounds20.y);
-    assertEquals(0, frame12.getBounds().y);
-    assertEquals(0, frame13.getBounds().y);
-    assertEquals(0, bounds27.y);
-    assertEquals(0, bounds13.y);
-    assertEquals(0, bounds.y);
-    assertEquals(0, ((Rectangle) bounds2D).y);
-    assertEquals(0, ((Rectangle) bounds2D2).y);
-    assertEquals(0, ((Rectangle) bounds2D3).y);
-    assertEquals(0, ((Rectangle) bounds2D5).y);
-    assertEquals(0, ((Rectangle) bounds2D7).y);
-    assertEquals(0, ((Rectangle) bounds2D8).y);
-    assertEquals(0, ((Rectangle) bounds2D9).y);
-    assertEquals(0, ((Rectangle) bounds2D11).y);
-    assertEquals(0, ((Rectangle) bounds2D12).y);
-    assertEquals(0, ((Rectangle) bounds2D13).y);
-    assertEquals(0, ((Rectangle) bounds2D14).y);
-    assertEquals(0, ((Rectangle) bounds2D15).y);
-    assertEquals(0, ((Rectangle) bounds2D16).y);
-    assertEquals(0, ((Rectangle) bounds2D10).y);
-    assertEquals(0, ((Rectangle) bounds2D17).y);
-    assertEquals(0, ((Rectangle) bounds2D18).y);
-    assertEquals(0, ((Rectangle) bounds2D19).y);
-    assertEquals(0, ((Rectangle) bounds2D21).y);
-    assertEquals(0, ((Rectangle) bounds2D23).y);
-    assertEquals(0, ((Rectangle) bounds2D24).y);
-    assertEquals(0, ((Rectangle) bounds2D25).y);
-    assertEquals(0, ((Rectangle) bounds2D26).y);
-    assertEquals(0, ((Rectangle) bounds2D27).y);
-    assertEquals(0, ((Rectangle) bounds2D28).y);
-    assertEquals(0, ((Rectangle) bounds2D29).y);
-    assertEquals(0, ((Rectangle) bounds2D30).y);
-    assertEquals(0, ((Rectangle) bounds2D4).y);
-    assertEquals(0, ((Rectangle) bounds2D31).y);
-    assertEquals(0, ((Rectangle) bounds2D32).y);
-    assertEquals(0, ((Rectangle) bounds2D33).y);
-    assertEquals(0, ((Rectangle) bounds2D34).y);
-    assertEquals(0, ((Rectangle) bounds2D35).y);
-    assertEquals(0, ((Rectangle) bounds2D36).y);
-    assertEquals(0, ((Rectangle) bounds2D37).y);
-    assertEquals(0, ((Rectangle) bounds2D38).y);
-    assertEquals(0.0d, location4.getY());
-    assertEquals(0.0d, location7.getY());
-    assertEquals(0.0d, location3.getY());
-    assertEquals(0.0d, location9.getY());
-    assertEquals(0.0d, location6.getY());
-    assertEquals(0.0d, location11.getY());
-    assertEquals(0.0d, location13.getY());
-    assertEquals(0.0d, location2.getY());
-    assertEquals(0.0d, location15.getY());
-    assertEquals(0.0d, location17.getY());
-    assertEquals(0.0d, location18.getY());
-    assertEquals(0.0d, location8.getY());
-    assertEquals(0.0d, location5.getY());
-    assertEquals(0.0d, location19.getY());
-    assertEquals(0.0d, location20.getY());
-    assertEquals(0.0d, location21.getY());
-    assertEquals(0.0d, location22.getY());
-    assertEquals(0.0d, location10.getY());
-    assertEquals(0.0d, location23.getY());
-    assertEquals(0.0d, location24.getY());
-    assertEquals(0.0d, location12.getY());
-    assertEquals(0.0d, location.getY());
-    assertEquals(0.0d, location25.getY());
-    assertEquals(0.0d, location14.getY());
-    assertEquals(0.0d, location16.getY());
-    assertEquals(0.0d, bounds6.getY());
-    assertEquals(0.0d, bounds5.getY());
-    assertEquals(0.0d, bounds4.getY());
-    assertEquals(0.0d, bounds9.getY());
-    assertEquals(0.0d, bounds12.getY());
-    assertEquals(0.0d, bounds15.getY());
-    assertEquals(0.0d, bounds3.getY());
-    assertEquals(0.0d, bounds17.getY());
-    assertEquals(0.0d, bounds8.getY());
-    assertEquals(0.0d, bounds11.getY());
-    assertEquals(0.0d, bounds19.getY());
-    assertEquals(0.0d, bounds21.getY());
-    assertEquals(0.0d, bounds14.getY());
-    assertEquals(0.0d, bounds2.getY());
-    assertEquals(0.0d, bounds22.getY());
-    assertEquals(0.0d, bounds16.getY());
-    assertEquals(0.0d, bounds7.getY());
-    assertEquals(0.0d, bounds23.getY());
-    assertEquals(0.0d, bounds24.getY());
-    assertEquals(0.0d, bounds10.getY());
-    assertEquals(0.0d, bounds25.getY());
-    assertEquals(0.0d, bounds18.getY());
-    assertEquals(0.0d, bounds26.getY());
-    assertEquals(0.0d, bounds20.getY());
-    assertEquals(0.0d, bounds27.getY());
-    assertEquals(0.0d, bounds13.getY());
-    assertEquals(0.0d, bounds.getY());
-    assertEquals(0.0d, bounds6.getCenterY());
-    assertEquals(0.0d, bounds5.getCenterY());
-    assertEquals(0.0d, bounds4.getCenterY());
-    assertEquals(0.0d, bounds9.getCenterY());
-    assertEquals(0.0d, bounds12.getCenterY());
-    assertEquals(0.0d, bounds15.getCenterY());
-    assertEquals(0.0d, bounds3.getCenterY());
-    assertEquals(0.0d, bounds17.getCenterY());
-    assertEquals(0.0d, bounds8.getCenterY());
-    assertEquals(0.0d, bounds11.getCenterY());
-    assertEquals(0.0d, bounds19.getCenterY());
-    assertEquals(0.0d, bounds21.getCenterY());
-    assertEquals(0.0d, bounds14.getCenterY());
-    assertEquals(0.0d, bounds2.getCenterY());
-    assertEquals(0.0d, bounds2D3.getCenterY());
-    assertEquals(0.0d, bounds2D9.getCenterY());
-    assertEquals(0.0d, bounds2D10.getCenterY());
-    assertEquals(0.0d, bounds2D24.getCenterY());
-    assertEquals(0.0d, bounds2D30.getCenterY());
-    assertEquals(0.0d, bounds2D4.getCenterY());
-    assertEquals(0.0d, bounds2D33.getCenterY());
-    assertEquals(0.0d, bounds2D36.getCenterY());
-    assertEquals(0.0d, bounds2D20.getCenterY());
-    assertEquals(0.0d, bounds2D39.getCenterY());
-    assertEquals(0.0d, bounds2D40.getCenterY());
-    assertEquals(0.0d, bounds2D22.getCenterY());
-    assertEquals(0.0d, bounds2D6.getCenterY());
-    assertEquals(0.0d, bounds22.getCenterY());
-    assertEquals(0.0d, bounds16.getCenterY());
-    assertEquals(0.0d, bounds7.getCenterY());
-    assertEquals(0.0d, bounds23.getCenterY());
-    assertEquals(0.0d, bounds24.getCenterY());
-    assertEquals(0.0d, bounds10.getCenterY());
-    assertEquals(0.0d, bounds25.getCenterY());
-    assertEquals(0.0d, bounds18.getCenterY());
-    assertEquals(0.0d, bounds26.getCenterY());
-    assertEquals(0.0d, bounds20.getCenterY());
-    assertEquals(0.0d, bounds27.getCenterY());
-    assertEquals(0.0d, bounds13.getCenterY());
-    assertEquals(0.0d, bounds.getCenterY());
-    assertEquals(0.0d, frame7.getCenterY());
-    assertEquals(0.0d, frame4.getCenterY());
-    assertEquals(0.0d, frame2.getCenterY());
-    assertEquals(0.0d, frame8.getCenterY());
-    assertEquals(0.0d, frame9.getCenterY());
-    assertEquals(0.0d, frame5.getCenterY());
-    assertEquals(0.0d, frame10.getCenterY());
-    assertEquals(0.0d, frame11.getCenterY());
-    assertEquals(0.0d, frame3.getCenterY());
-    assertEquals(0.0d, frame12.getCenterY());
-    assertEquals(0.0d, frame13.getCenterY());
-    assertEquals(0.0d, frame6.getCenterY());
-    assertEquals(0.0d, frame.getCenterY());
-    assertEquals(0.0d, actualBounds.getCenterY());
-    assertEquals(0.0d, bounds6.getMaxY());
-    assertEquals(0.0d, bounds5.getMaxY());
-    assertEquals(0.0d, bounds4.getMaxY());
-    assertEquals(0.0d, bounds9.getMaxY());
-    assertEquals(0.0d, bounds12.getMaxY());
-    assertEquals(0.0d, bounds15.getMaxY());
-    assertEquals(0.0d, bounds3.getMaxY());
-    assertEquals(0.0d, bounds17.getMaxY());
-    assertEquals(0.0d, bounds8.getMaxY());
-    assertEquals(0.0d, bounds11.getMaxY());
-    assertEquals(0.0d, bounds19.getMaxY());
-    assertEquals(0.0d, bounds21.getMaxY());
-    assertEquals(0.0d, bounds14.getMaxY());
-    assertEquals(0.0d, bounds2.getMaxY());
-    assertEquals(0.0d, bounds2D3.getMaxY());
-    assertEquals(0.0d, bounds2D9.getMaxY());
-    assertEquals(0.0d, bounds2D10.getMaxY());
-    assertEquals(0.0d, bounds2D24.getMaxY());
-    assertEquals(0.0d, bounds2D30.getMaxY());
-    assertEquals(0.0d, bounds2D4.getMaxY());
-    assertEquals(0.0d, bounds2D33.getMaxY());
-    assertEquals(0.0d, bounds2D36.getMaxY());
-    assertEquals(0.0d, bounds2D20.getMaxY());
-    assertEquals(0.0d, bounds2D39.getMaxY());
-    assertEquals(0.0d, bounds2D40.getMaxY());
-    assertEquals(0.0d, bounds2D22.getMaxY());
-    assertEquals(0.0d, bounds2D6.getMaxY());
-    assertEquals(0.0d, bounds22.getMaxY());
-    assertEquals(0.0d, bounds16.getMaxY());
-    assertEquals(0.0d, bounds7.getMaxY());
-    assertEquals(0.0d, bounds23.getMaxY());
-    assertEquals(0.0d, bounds24.getMaxY());
-    assertEquals(0.0d, bounds10.getMaxY());
-    assertEquals(0.0d, bounds25.getMaxY());
-    assertEquals(0.0d, bounds18.getMaxY());
-    assertEquals(0.0d, bounds26.getMaxY());
-    assertEquals(0.0d, bounds20.getMaxY());
-    assertEquals(0.0d, bounds27.getMaxY());
-    assertEquals(0.0d, bounds13.getMaxY());
-    assertEquals(0.0d, bounds.getMaxY());
-    assertEquals(0.0d, frame7.getMaxY());
-    assertEquals(0.0d, frame4.getMaxY());
-    assertEquals(0.0d, frame2.getMaxY());
-    assertEquals(0.0d, frame8.getMaxY());
-    assertEquals(0.0d, frame9.getMaxY());
-    assertEquals(0.0d, frame5.getMaxY());
-    assertEquals(0.0d, frame10.getMaxY());
-    assertEquals(0.0d, frame11.getMaxY());
-    assertEquals(0.0d, frame3.getMaxY());
-    assertEquals(0.0d, frame12.getMaxY());
-    assertEquals(0.0d, frame13.getMaxY());
-    assertEquals(0.0d, frame6.getMaxY());
-    assertEquals(0.0d, frame.getMaxY());
-    assertEquals(0.0d, actualBounds.getMaxY());
-    assertEquals(0.0d, bounds6.getMinY());
-    assertEquals(0.0d, bounds5.getMinY());
-    assertEquals(0.0d, bounds4.getMinY());
-    assertEquals(0.0d, bounds9.getMinY());
-    assertEquals(0.0d, bounds12.getMinY());
-    assertEquals(0.0d, bounds15.getMinY());
-    assertEquals(0.0d, bounds3.getMinY());
-    assertEquals(0.0d, bounds17.getMinY());
-    assertEquals(0.0d, bounds8.getMinY());
-    assertEquals(0.0d, bounds11.getMinY());
-    assertEquals(0.0d, bounds19.getMinY());
-    assertEquals(0.0d, bounds21.getMinY());
-    assertEquals(0.0d, bounds14.getMinY());
-    assertEquals(0.0d, bounds2.getMinY());
-    assertEquals(0.0d, bounds2D3.getMinY());
-    assertEquals(0.0d, bounds2D9.getMinY());
-    assertEquals(0.0d, bounds2D10.getMinY());
-    assertEquals(0.0d, bounds2D24.getMinY());
-    assertEquals(0.0d, bounds2D30.getMinY());
-    assertEquals(0.0d, bounds2D4.getMinY());
-    assertEquals(0.0d, bounds2D33.getMinY());
-    assertEquals(0.0d, bounds2D36.getMinY());
-    assertEquals(0.0d, bounds2D20.getMinY());
-    assertEquals(0.0d, bounds2D39.getMinY());
-    assertEquals(0.0d, bounds2D40.getMinY());
-    assertEquals(0.0d, bounds2D22.getMinY());
-    assertEquals(0.0d, bounds2D6.getMinY());
-    assertEquals(0.0d, bounds22.getMinY());
-    assertEquals(0.0d, bounds16.getMinY());
-    assertEquals(0.0d, bounds7.getMinY());
-    assertEquals(0.0d, bounds23.getMinY());
-    assertEquals(0.0d, bounds24.getMinY());
-    assertEquals(0.0d, bounds10.getMinY());
-    assertEquals(0.0d, bounds25.getMinY());
-    assertEquals(0.0d, bounds18.getMinY());
-    assertEquals(0.0d, bounds26.getMinY());
-    assertEquals(0.0d, bounds20.getMinY());
-    assertEquals(0.0d, bounds27.getMinY());
-    assertEquals(0.0d, bounds13.getMinY());
-    assertEquals(0.0d, bounds.getMinY());
-    assertEquals(0.0d, frame7.getMinY());
-    assertEquals(0.0d, frame4.getMinY());
-    assertEquals(0.0d, frame2.getMinY());
-    assertEquals(0.0d, frame8.getMinY());
-    assertEquals(0.0d, frame9.getMinY());
-    assertEquals(0.0d, frame5.getMinY());
-    assertEquals(0.0d, frame10.getMinY());
-    assertEquals(0.0d, frame11.getMinY());
-    assertEquals(0.0d, frame3.getMinY());
-    assertEquals(0.0d, frame12.getMinY());
-    assertEquals(0.0d, frame13.getMinY());
-    assertEquals(0.0d, frame6.getMinY());
-    assertEquals(0.0d, frame.getMinY());
-    assertEquals(0.0d, actualBounds.getMinY());
-    assertEquals(0.0d, bounds2D3.getY());
-    assertEquals(0.0d, bounds2D9.getY());
-    assertEquals(0.0d, bounds2D10.getY());
-    assertEquals(0.0d, bounds2D24.getY());
-    assertEquals(0.0d, bounds2D30.getY());
-    assertEquals(0.0d, bounds2D4.getY());
-    assertEquals(0.0d, bounds2D33.getY());
-    assertEquals(0.0d, bounds2D36.getY());
-    assertEquals(0.0d, bounds2D20.getY());
-    assertEquals(0.0d, bounds2D39.getY());
-    assertEquals(0.0d, bounds2D40.getY());
-    assertEquals(0.0d, bounds2D22.getY());
-    assertEquals(0.0d, bounds2D6.getY());
-    assertEquals(0.0d, frame7.getY());
-    assertEquals(0.0d, frame4.getY());
-    assertEquals(0.0d, frame2.getY());
-    assertEquals(0.0d, frame8.getY());
-    assertEquals(0.0d, frame9.getY());
-    assertEquals(0.0d, frame5.getY());
-    assertEquals(0.0d, frame10.getY());
-    assertEquals(0.0d, frame11.getY());
-    assertEquals(0.0d, frame3.getY());
-    assertEquals(0.0d, frame12.getY());
-    assertEquals(0.0d, frame13.getY());
-    assertEquals(0.0d, frame6.getY());
-    assertEquals(0.0d, frame.getY());
-    assertEquals(0.0d, actualBounds.getY());
-    assertEquals(0.0f, ((Rectangle2D.Float) bounds2D41).y);
-    assertEquals(0.0f, ((Rectangle2D.Float) bounds2D20).y);
-    assertEquals(0.0f, ((Rectangle2D.Float) bounds2D6).y);
-    assertEquals(0.0f, ((Rectangle2D.Float) actualBounds).y);
+    assertTrue(frame instanceof Double);
+    Rectangle2D bounds2D = actualBounds.getBounds2D();
+    assertTrue(bounds2D instanceof Float);
+    assertTrue(actualBounds instanceof Float);
+    assertEquals(0.0d, bounds2D.getCenterX());
+    Rectangle bounds = actualBounds.getBounds();
+    assertEquals(0.0d, bounds.getCenterX());
+    assertEquals(0.0d, frame.getCenterX());
+    assertEquals(0.0d, actualBounds.getCenterX());
+    assertEquals(0.0d, bounds2D.getMaxX());
+    assertEquals(0.0d, bounds.getMaxX());
+    assertEquals(0.0d, frame.getMaxX());
+    assertEquals(0.0d, actualBounds.getMaxX());
   }
 
   /**
    * Test {@link Type1CharString#getBounds()}.
-   * <p>
-   * Method under test: {@link Type1CharString#getBounds()}
+   *
+   * <p>Method under test: {@link Type1CharString#getBounds()}
    */
   @Test
   @DisplayName("Test getBounds()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Rectangle2D Type1CharString.getBounds()"})
   void testGetBounds8() {
     // Arrange
-    Type1CharString type1CharString = new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
     type1CharString.addCommand(new ArrayList<>(), CharStringCommand.VLINETO);
 
     // Act
     Rectangle2D actualBounds = type1CharString.getBounds();
 
     // Assert
-    Rectangle bounds = actualBounds.getBounds();
-    Rectangle bounds2 = bounds.getBounds();
-    Rectangle bounds3 = bounds2.getBounds();
-    Rectangle bounds4 = bounds3.getBounds();
-    Rectangle bounds5 = bounds4.getBounds();
-    Rectangle bounds6 = bounds5.getBounds();
-    Rectangle2D bounds2D = bounds6.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Rectangle2D bounds2D2 = bounds5.getBounds2D();
-    assertTrue(bounds2D2 instanceof Rectangle);
-    Rectangle2D bounds2D3 = bounds4.getBounds2D();
-    assertTrue(bounds2D3 instanceof Rectangle);
-    Rectangle2D bounds2D4 = bounds.getBounds2D();
-    Rectangle bounds7 = bounds2D4.getBounds();
-    Rectangle bounds8 = bounds7.getBounds();
-    Rectangle bounds9 = bounds8.getBounds();
-    Rectangle2D bounds2D5 = bounds9.getBounds2D();
-    assertTrue(bounds2D5 instanceof Rectangle);
-    Rectangle2D bounds2D6 = actualBounds.getBounds2D();
-    Rectangle bounds10 = bounds2D6.getBounds();
-    Rectangle bounds11 = bounds10.getBounds();
-    Rectangle bounds12 = bounds11.getBounds();
-    Rectangle2D bounds2D7 = bounds12.getBounds2D();
-    assertTrue(bounds2D7 instanceof Rectangle);
     Rectangle2D frame = actualBounds.getFrame();
-    Rectangle bounds13 = frame.getBounds();
-    Rectangle bounds14 = bounds13.getBounds();
-    Rectangle bounds15 = bounds14.getBounds();
-    Rectangle2D bounds2D8 = bounds15.getBounds2D();
-    assertTrue(bounds2D8 instanceof Rectangle);
-    Rectangle2D bounds2D9 = bounds3.getBounds2D();
-    assertTrue(bounds2D9 instanceof Rectangle);
-    Rectangle2D bounds2D10 = bounds2.getBounds2D();
-    Rectangle bounds16 = bounds2D10.getBounds();
-    Rectangle bounds17 = bounds16.getBounds();
-    Rectangle2D bounds2D11 = bounds17.getBounds2D();
-    assertTrue(bounds2D11 instanceof Rectangle);
-    Rectangle2D bounds2D12 = bounds8.getBounds2D();
-    assertTrue(bounds2D12 instanceof Rectangle);
-    Rectangle2D bounds2D13 = bounds11.getBounds2D();
-    assertTrue(bounds2D13 instanceof Rectangle);
-    Rectangle2D frame2 = bounds2.getFrame();
-    Rectangle bounds18 = frame2.getBounds();
-    Rectangle bounds19 = bounds18.getBounds();
-    Rectangle2D bounds2D14 = bounds19.getBounds2D();
-    assertTrue(bounds2D14 instanceof Rectangle);
-    Rectangle2D frame3 = bounds.getFrame();
-    Rectangle bounds20 = frame3.getBounds();
-    Rectangle bounds21 = bounds20.getBounds();
-    Rectangle2D bounds2D15 = bounds21.getBounds2D();
-    assertTrue(bounds2D15 instanceof Rectangle);
-    Rectangle2D bounds2D16 = bounds14.getBounds2D();
-    assertTrue(bounds2D16 instanceof Rectangle);
-    assertTrue(bounds2D10 instanceof Rectangle);
-    Rectangle bounds22 = bounds2D9.getBounds();
-    Rectangle2D bounds2D17 = bounds22.getBounds2D();
-    assertTrue(bounds2D17 instanceof Rectangle);
-    Rectangle2D bounds2D18 = bounds16.getBounds2D();
-    assertTrue(bounds2D18 instanceof Rectangle);
-    Rectangle2D bounds2D19 = bounds7.getBounds2D();
-    assertTrue(bounds2D19 instanceof Rectangle);
-    Rectangle2D bounds2D20 = bounds2D6.getBounds2D();
-    Rectangle bounds23 = bounds2D20.getBounds();
-    Rectangle2D bounds2D21 = bounds23.getBounds2D();
-    assertTrue(bounds2D21 instanceof Rectangle);
-    Rectangle2D bounds2D22 = frame.getBounds2D();
-    Rectangle bounds24 = bounds2D22.getBounds();
-    Rectangle2D bounds2D23 = bounds24.getBounds2D();
-    assertTrue(bounds2D23 instanceof Rectangle);
-    Rectangle2D bounds2D24 = bounds10.getBounds2D();
-    assertTrue(bounds2D24 instanceof Rectangle);
-    Rectangle2D frame4 = bounds3.getFrame();
-    Rectangle bounds25 = frame4.getBounds();
-    Rectangle2D bounds2D25 = bounds25.getBounds2D();
-    assertTrue(bounds2D25 instanceof Rectangle);
-    Rectangle2D bounds2D26 = bounds18.getBounds2D();
-    assertTrue(bounds2D26 instanceof Rectangle);
-    Rectangle2D frame5 = bounds2D6.getFrame();
-    Rectangle bounds26 = frame5.getBounds();
-    Rectangle2D bounds2D27 = bounds26.getBounds2D();
-    assertTrue(bounds2D27 instanceof Rectangle);
-    Rectangle2D bounds2D28 = bounds20.getBounds2D();
-    assertTrue(bounds2D28 instanceof Rectangle);
-    Rectangle2D frame6 = frame.getFrame();
-    Rectangle bounds27 = frame6.getBounds();
-    Rectangle2D bounds2D29 = bounds27.getBounds2D();
-    assertTrue(bounds2D29 instanceof Rectangle);
-    Rectangle2D bounds2D30 = bounds13.getBounds2D();
-    assertTrue(bounds2D30 instanceof Rectangle);
-    assertTrue(bounds2D4 instanceof Rectangle);
-    Rectangle2D bounds2D31 = bounds2D3.getBounds2D();
-    assertTrue(bounds2D31 instanceof Rectangle);
-    Rectangle2D bounds2D32 = bounds2D9.getBounds2D();
-    assertTrue(bounds2D32 instanceof Rectangle);
-    Rectangle2D bounds2D33 = bounds2D10.getBounds2D();
-    assertTrue(bounds2D33 instanceof Rectangle);
-    Rectangle2D bounds2D34 = bounds2D24.getBounds2D();
-    assertTrue(bounds2D34 instanceof Rectangle);
-    Rectangle2D bounds2D35 = bounds2D30.getBounds2D();
-    assertTrue(bounds2D35 instanceof Rectangle);
-    Rectangle2D bounds2D36 = bounds2D4.getBounds2D();
-    assertTrue(bounds2D36 instanceof Rectangle);
-    Rectangle2D bounds2D37 = bounds2D33.getBounds2D();
-    assertTrue(bounds2D37 instanceof Rectangle);
-    Rectangle2D bounds2D38 = bounds2D36.getBounds2D();
-    assertTrue(bounds2D38 instanceof Rectangle);
-    Rectangle2D bounds2D39 = frame2.getBounds2D();
-    assertTrue(bounds2D39 instanceof Rectangle2D.Double);
-    Rectangle2D bounds2D40 = frame3.getBounds2D();
-    assertTrue(bounds2D40 instanceof Rectangle2D.Double);
-    assertTrue(bounds2D22 instanceof Rectangle2D.Double);
-    Rectangle2D frame7 = bounds4.getFrame();
-    assertTrue(frame7 instanceof Rectangle2D.Double);
-    assertTrue(frame4 instanceof Rectangle2D.Double);
-    assertTrue(frame2 instanceof Rectangle2D.Double);
-    Rectangle2D frame8 = bounds2D10.getFrame();
-    assertTrue(frame8 instanceof Rectangle2D.Double);
-    Rectangle2D frame9 = bounds2D4.getFrame();
-    assertTrue(frame9 instanceof Rectangle2D.Double);
-    assertTrue(frame5 instanceof Rectangle2D.Double);
-    Rectangle2D frame10 = bounds10.getFrame();
-    assertTrue(frame10 instanceof Rectangle2D.Double);
-    Rectangle2D frame11 = bounds13.getFrame();
-    assertTrue(frame11 instanceof Rectangle2D.Double);
-    assertTrue(frame3 instanceof Rectangle2D.Double);
-    Rectangle2D frame12 = frame2.getFrame();
-    assertTrue(frame12 instanceof Rectangle2D.Double);
-    Rectangle2D frame13 = frame3.getFrame();
-    assertTrue(frame13 instanceof Rectangle2D.Double);
-    assertTrue(frame6 instanceof Rectangle2D.Double);
-    assertTrue(frame instanceof Rectangle2D.Double);
-    Rectangle2D bounds2D41 = bounds2D20.getBounds2D();
-    assertTrue(bounds2D41 instanceof Rectangle2D.Float);
-    assertTrue(bounds2D20 instanceof Rectangle2D.Float);
-    assertTrue(bounds2D6 instanceof Rectangle2D.Float);
-    assertTrue(actualBounds instanceof Rectangle2D.Float);
-    Point location = bounds.getLocation();
-    Point location2 = location.getLocation();
-    Point location3 = location2.getLocation();
-    Point location4 = location3.getLocation();
-    assertEquals(0, location4.getLocation().y);
-    Point location5 = bounds3.getLocation();
-    Point location6 = location5.getLocation();
-    Point location7 = location6.getLocation();
-    assertEquals(0, location7.getLocation().y);
-    assertEquals(0, location4.y);
-    Point location8 = bounds4.getLocation();
-    Point location9 = location8.getLocation();
-    assertEquals(0, location9.getLocation().y);
-    assertEquals(0, location7.y);
-    Point location10 = bounds10.getLocation();
-    Point location11 = location10.getLocation();
-    assertEquals(0, location11.getLocation().y);
-    Point location12 = bounds13.getLocation();
-    Point location13 = location12.getLocation();
-    assertEquals(0, location13.getLocation().y);
-    assertEquals(0, location3.y);
-    Point location14 = ((Rectangle) bounds2D10).getLocation();
-    Point location15 = location14.getLocation();
-    assertEquals(0, location15.getLocation().y);
-    Point location16 = ((Rectangle) bounds2D4).getLocation();
-    Point location17 = location16.getLocation();
-    assertEquals(0, location17.getLocation().y);
-    Point location18 = bounds5.getLocation();
-    assertEquals(0, location18.getLocation().y);
-    assertEquals(0, location9.y);
-    assertEquals(0, location6.y);
-    Point location19 = bounds11.getLocation();
-    assertEquals(0, location19.getLocation().y);
-    Point location20 = bounds14.getLocation();
-    assertEquals(0, location20.getLocation().y);
-    Point location21 = bounds16.getLocation();
-    assertEquals(0, location21.getLocation().y);
-    Point location22 = bounds7.getLocation();
-    assertEquals(0, location22.getLocation().y);
-    assertEquals(0, location11.y);
-    Point location23 = bounds18.getLocation();
-    assertEquals(0, location23.getLocation().y);
-    Point location24 = bounds20.getLocation();
-    assertEquals(0, location24.getLocation().y);
-    assertEquals(0, location13.y);
-    assertEquals(0, location2.y);
-    Point location25 = ((Rectangle) bounds2D9).getLocation();
-    assertEquals(0, location25.getLocation().y);
-    assertEquals(0, location15.y);
-    assertEquals(0, location17.y);
-    assertEquals(0, bounds6.getLocation().y);
-    assertEquals(0, location18.y);
-    assertEquals(0, location8.y);
-    assertEquals(0, bounds9.getLocation().y);
-    assertEquals(0, bounds12.getLocation().y);
-    assertEquals(0, bounds15.getLocation().y);
-    assertEquals(0, location5.y);
-    assertEquals(0, bounds17.getLocation().y);
-    assertEquals(0, bounds8.getLocation().y);
-    assertEquals(0, location19.y);
-    assertEquals(0, bounds19.getLocation().y);
-    assertEquals(0, bounds21.getLocation().y);
-    assertEquals(0, location20.y);
-    assertEquals(0, bounds22.getLocation().y);
-    assertEquals(0, location21.y);
-    assertEquals(0, location22.y);
-    assertEquals(0, bounds23.getLocation().y);
-    assertEquals(0, bounds24.getLocation().y);
-    assertEquals(0, location10.y);
-    assertEquals(0, bounds25.getLocation().y);
-    assertEquals(0, location23.y);
-    assertEquals(0, bounds26.getLocation().y);
-    assertEquals(0, location24.y);
-    assertEquals(0, bounds27.getLocation().y);
-    assertEquals(0, location12.y);
-    assertEquals(0, location.y);
-    assertEquals(0, ((Rectangle) bounds2D3).getLocation().y);
-    assertEquals(0, location25.y);
-    assertEquals(0, location14.y);
-    assertEquals(0, ((Rectangle) bounds2D24).getLocation().y);
-    assertEquals(0, ((Rectangle) bounds2D30).getLocation().y);
-    assertEquals(0, location16.y);
-    assertEquals(0, ((Rectangle) bounds2D33).getLocation().y);
-    assertEquals(0, ((Rectangle) bounds2D36).getLocation().y);
-    assertEquals(0, bounds6.getBounds().y);
-    assertEquals(0, bounds6.y);
-    assertEquals(0, bounds5.y);
-    assertEquals(0, bounds9.getBounds().y);
-    assertEquals(0, bounds12.getBounds().y);
-    assertEquals(0, bounds15.getBounds().y);
-    assertEquals(0, bounds4.y);
-    assertEquals(0, bounds17.getBounds().y);
-    assertEquals(0, bounds9.y);
-    assertEquals(0, bounds12.y);
-    assertEquals(0, bounds19.getBounds().y);
-    assertEquals(0, bounds21.getBounds().y);
-    assertEquals(0, bounds15.y);
-    assertEquals(0, bounds3.y);
-    assertEquals(0, bounds22.getBounds().y);
-    assertEquals(0, bounds17.y);
-    assertEquals(0, bounds8.y);
-    assertEquals(0, bounds23.getBounds().y);
-    assertEquals(0, bounds24.getBounds().y);
-    assertEquals(0, bounds11.y);
-    assertEquals(0, bounds25.getBounds().y);
-    assertEquals(0, bounds19.y);
-    assertEquals(0, bounds26.getBounds().y);
-    assertEquals(0, bounds21.y);
-    assertEquals(0, bounds27.getBounds().y);
-    assertEquals(0, bounds14.y);
-    assertEquals(0, bounds2.y);
-    assertEquals(0, bounds2D3.getBounds().y);
-    assertEquals(0, bounds22.y);
-    assertEquals(0, bounds16.y);
-    assertEquals(0, bounds2D24.getBounds().y);
-    assertEquals(0, bounds2D30.getBounds().y);
-    assertEquals(0, bounds7.y);
-    assertEquals(0, bounds2D33.getBounds().y);
-    assertEquals(0, bounds2D36.getBounds().y);
-    assertEquals(0, bounds23.y);
-    assertEquals(0, bounds2D39.getBounds().y);
-    assertEquals(0, bounds2D40.getBounds().y);
-    assertEquals(0, bounds24.y);
-    assertEquals(0, bounds10.y);
-    assertEquals(0, frame7.getBounds().y);
-    assertEquals(0, bounds25.y);
-    assertEquals(0, bounds18.y);
-    assertEquals(0, frame8.getBounds().y);
-    assertEquals(0, frame9.getBounds().y);
-    assertEquals(0, bounds26.y);
-    assertEquals(0, frame10.getBounds().y);
-    assertEquals(0, frame11.getBounds().y);
-    assertEquals(0, bounds20.y);
-    assertEquals(0, frame12.getBounds().y);
-    assertEquals(0, frame13.getBounds().y);
-    assertEquals(0, bounds27.y);
-    assertEquals(0, bounds13.y);
-    assertEquals(0, bounds.y);
-    assertEquals(0, ((Rectangle) bounds2D).y);
-    assertEquals(0, ((Rectangle) bounds2D2).y);
-    assertEquals(0, ((Rectangle) bounds2D3).y);
-    assertEquals(0, ((Rectangle) bounds2D5).y);
-    assertEquals(0, ((Rectangle) bounds2D7).y);
-    assertEquals(0, ((Rectangle) bounds2D8).y);
-    assertEquals(0, ((Rectangle) bounds2D9).y);
-    assertEquals(0, ((Rectangle) bounds2D11).y);
-    assertEquals(0, ((Rectangle) bounds2D12).y);
-    assertEquals(0, ((Rectangle) bounds2D13).y);
-    assertEquals(0, ((Rectangle) bounds2D14).y);
-    assertEquals(0, ((Rectangle) bounds2D15).y);
-    assertEquals(0, ((Rectangle) bounds2D16).y);
-    assertEquals(0, ((Rectangle) bounds2D10).y);
-    assertEquals(0, ((Rectangle) bounds2D17).y);
-    assertEquals(0, ((Rectangle) bounds2D18).y);
-    assertEquals(0, ((Rectangle) bounds2D19).y);
-    assertEquals(0, ((Rectangle) bounds2D21).y);
-    assertEquals(0, ((Rectangle) bounds2D23).y);
-    assertEquals(0, ((Rectangle) bounds2D24).y);
-    assertEquals(0, ((Rectangle) bounds2D25).y);
-    assertEquals(0, ((Rectangle) bounds2D26).y);
-    assertEquals(0, ((Rectangle) bounds2D27).y);
-    assertEquals(0, ((Rectangle) bounds2D28).y);
-    assertEquals(0, ((Rectangle) bounds2D29).y);
-    assertEquals(0, ((Rectangle) bounds2D30).y);
-    assertEquals(0, ((Rectangle) bounds2D4).y);
-    assertEquals(0, ((Rectangle) bounds2D31).y);
-    assertEquals(0, ((Rectangle) bounds2D32).y);
-    assertEquals(0, ((Rectangle) bounds2D33).y);
-    assertEquals(0, ((Rectangle) bounds2D34).y);
-    assertEquals(0, ((Rectangle) bounds2D35).y);
-    assertEquals(0, ((Rectangle) bounds2D36).y);
-    assertEquals(0, ((Rectangle) bounds2D37).y);
-    assertEquals(0, ((Rectangle) bounds2D38).y);
-    assertEquals(0.0d, location4.getY());
-    assertEquals(0.0d, location7.getY());
-    assertEquals(0.0d, location3.getY());
-    assertEquals(0.0d, location9.getY());
-    assertEquals(0.0d, location6.getY());
-    assertEquals(0.0d, location11.getY());
-    assertEquals(0.0d, location13.getY());
-    assertEquals(0.0d, location2.getY());
-    assertEquals(0.0d, location15.getY());
-    assertEquals(0.0d, location17.getY());
-    assertEquals(0.0d, location18.getY());
-    assertEquals(0.0d, location8.getY());
-    assertEquals(0.0d, location5.getY());
-    assertEquals(0.0d, location19.getY());
-    assertEquals(0.0d, location20.getY());
-    assertEquals(0.0d, location21.getY());
-    assertEquals(0.0d, location22.getY());
-    assertEquals(0.0d, location10.getY());
-    assertEquals(0.0d, location23.getY());
-    assertEquals(0.0d, location24.getY());
-    assertEquals(0.0d, location12.getY());
-    assertEquals(0.0d, location.getY());
-    assertEquals(0.0d, location25.getY());
-    assertEquals(0.0d, location14.getY());
-    assertEquals(0.0d, location16.getY());
-    assertEquals(0.0d, bounds6.getY());
-    assertEquals(0.0d, bounds5.getY());
-    assertEquals(0.0d, bounds4.getY());
-    assertEquals(0.0d, bounds9.getY());
-    assertEquals(0.0d, bounds12.getY());
-    assertEquals(0.0d, bounds15.getY());
-    assertEquals(0.0d, bounds3.getY());
-    assertEquals(0.0d, bounds17.getY());
-    assertEquals(0.0d, bounds8.getY());
-    assertEquals(0.0d, bounds11.getY());
-    assertEquals(0.0d, bounds19.getY());
-    assertEquals(0.0d, bounds21.getY());
-    assertEquals(0.0d, bounds14.getY());
-    assertEquals(0.0d, bounds2.getY());
-    assertEquals(0.0d, bounds22.getY());
-    assertEquals(0.0d, bounds16.getY());
-    assertEquals(0.0d, bounds7.getY());
-    assertEquals(0.0d, bounds23.getY());
-    assertEquals(0.0d, bounds24.getY());
-    assertEquals(0.0d, bounds10.getY());
-    assertEquals(0.0d, bounds25.getY());
-    assertEquals(0.0d, bounds18.getY());
-    assertEquals(0.0d, bounds26.getY());
-    assertEquals(0.0d, bounds20.getY());
-    assertEquals(0.0d, bounds27.getY());
-    assertEquals(0.0d, bounds13.getY());
-    assertEquals(0.0d, bounds.getY());
-    assertEquals(0.0d, bounds6.getCenterY());
-    assertEquals(0.0d, bounds5.getCenterY());
-    assertEquals(0.0d, bounds4.getCenterY());
-    assertEquals(0.0d, bounds9.getCenterY());
-    assertEquals(0.0d, bounds12.getCenterY());
-    assertEquals(0.0d, bounds15.getCenterY());
-    assertEquals(0.0d, bounds3.getCenterY());
-    assertEquals(0.0d, bounds17.getCenterY());
-    assertEquals(0.0d, bounds8.getCenterY());
-    assertEquals(0.0d, bounds11.getCenterY());
-    assertEquals(0.0d, bounds19.getCenterY());
-    assertEquals(0.0d, bounds21.getCenterY());
-    assertEquals(0.0d, bounds14.getCenterY());
-    assertEquals(0.0d, bounds2.getCenterY());
-    assertEquals(0.0d, bounds2D3.getCenterY());
-    assertEquals(0.0d, bounds2D9.getCenterY());
-    assertEquals(0.0d, bounds2D10.getCenterY());
-    assertEquals(0.0d, bounds2D24.getCenterY());
-    assertEquals(0.0d, bounds2D30.getCenterY());
-    assertEquals(0.0d, bounds2D4.getCenterY());
-    assertEquals(0.0d, bounds2D33.getCenterY());
-    assertEquals(0.0d, bounds2D36.getCenterY());
-    assertEquals(0.0d, bounds2D20.getCenterY());
-    assertEquals(0.0d, bounds2D39.getCenterY());
-    assertEquals(0.0d, bounds2D40.getCenterY());
-    assertEquals(0.0d, bounds2D22.getCenterY());
-    assertEquals(0.0d, bounds2D6.getCenterY());
-    assertEquals(0.0d, bounds22.getCenterY());
-    assertEquals(0.0d, bounds16.getCenterY());
-    assertEquals(0.0d, bounds7.getCenterY());
-    assertEquals(0.0d, bounds23.getCenterY());
-    assertEquals(0.0d, bounds24.getCenterY());
-    assertEquals(0.0d, bounds10.getCenterY());
-    assertEquals(0.0d, bounds25.getCenterY());
-    assertEquals(0.0d, bounds18.getCenterY());
-    assertEquals(0.0d, bounds26.getCenterY());
-    assertEquals(0.0d, bounds20.getCenterY());
-    assertEquals(0.0d, bounds27.getCenterY());
-    assertEquals(0.0d, bounds13.getCenterY());
-    assertEquals(0.0d, bounds.getCenterY());
-    assertEquals(0.0d, frame7.getCenterY());
-    assertEquals(0.0d, frame4.getCenterY());
-    assertEquals(0.0d, frame2.getCenterY());
-    assertEquals(0.0d, frame8.getCenterY());
-    assertEquals(0.0d, frame9.getCenterY());
-    assertEquals(0.0d, frame5.getCenterY());
-    assertEquals(0.0d, frame10.getCenterY());
-    assertEquals(0.0d, frame11.getCenterY());
-    assertEquals(0.0d, frame3.getCenterY());
-    assertEquals(0.0d, frame12.getCenterY());
-    assertEquals(0.0d, frame13.getCenterY());
-    assertEquals(0.0d, frame6.getCenterY());
-    assertEquals(0.0d, frame.getCenterY());
-    assertEquals(0.0d, actualBounds.getCenterY());
-    assertEquals(0.0d, bounds6.getMaxY());
-    assertEquals(0.0d, bounds5.getMaxY());
-    assertEquals(0.0d, bounds4.getMaxY());
-    assertEquals(0.0d, bounds9.getMaxY());
-    assertEquals(0.0d, bounds12.getMaxY());
-    assertEquals(0.0d, bounds15.getMaxY());
-    assertEquals(0.0d, bounds3.getMaxY());
-    assertEquals(0.0d, bounds17.getMaxY());
-    assertEquals(0.0d, bounds8.getMaxY());
-    assertEquals(0.0d, bounds11.getMaxY());
-    assertEquals(0.0d, bounds19.getMaxY());
-    assertEquals(0.0d, bounds21.getMaxY());
-    assertEquals(0.0d, bounds14.getMaxY());
-    assertEquals(0.0d, bounds2.getMaxY());
-    assertEquals(0.0d, bounds2D3.getMaxY());
-    assertEquals(0.0d, bounds2D9.getMaxY());
-    assertEquals(0.0d, bounds2D10.getMaxY());
-    assertEquals(0.0d, bounds2D24.getMaxY());
-    assertEquals(0.0d, bounds2D30.getMaxY());
-    assertEquals(0.0d, bounds2D4.getMaxY());
-    assertEquals(0.0d, bounds2D33.getMaxY());
-    assertEquals(0.0d, bounds2D36.getMaxY());
-    assertEquals(0.0d, bounds2D20.getMaxY());
-    assertEquals(0.0d, bounds2D39.getMaxY());
-    assertEquals(0.0d, bounds2D40.getMaxY());
-    assertEquals(0.0d, bounds2D22.getMaxY());
-    assertEquals(0.0d, bounds2D6.getMaxY());
-    assertEquals(0.0d, bounds22.getMaxY());
-    assertEquals(0.0d, bounds16.getMaxY());
-    assertEquals(0.0d, bounds7.getMaxY());
-    assertEquals(0.0d, bounds23.getMaxY());
-    assertEquals(0.0d, bounds24.getMaxY());
-    assertEquals(0.0d, bounds10.getMaxY());
-    assertEquals(0.0d, bounds25.getMaxY());
-    assertEquals(0.0d, bounds18.getMaxY());
-    assertEquals(0.0d, bounds26.getMaxY());
-    assertEquals(0.0d, bounds20.getMaxY());
-    assertEquals(0.0d, bounds27.getMaxY());
-    assertEquals(0.0d, bounds13.getMaxY());
-    assertEquals(0.0d, bounds.getMaxY());
-    assertEquals(0.0d, frame7.getMaxY());
-    assertEquals(0.0d, frame4.getMaxY());
-    assertEquals(0.0d, frame2.getMaxY());
-    assertEquals(0.0d, frame8.getMaxY());
-    assertEquals(0.0d, frame9.getMaxY());
-    assertEquals(0.0d, frame5.getMaxY());
-    assertEquals(0.0d, frame10.getMaxY());
-    assertEquals(0.0d, frame11.getMaxY());
-    assertEquals(0.0d, frame3.getMaxY());
-    assertEquals(0.0d, frame12.getMaxY());
-    assertEquals(0.0d, frame13.getMaxY());
-    assertEquals(0.0d, frame6.getMaxY());
-    assertEquals(0.0d, frame.getMaxY());
-    assertEquals(0.0d, actualBounds.getMaxY());
-    assertEquals(0.0d, bounds6.getMinY());
-    assertEquals(0.0d, bounds5.getMinY());
-    assertEquals(0.0d, bounds4.getMinY());
-    assertEquals(0.0d, bounds9.getMinY());
-    assertEquals(0.0d, bounds12.getMinY());
-    assertEquals(0.0d, bounds15.getMinY());
-    assertEquals(0.0d, bounds3.getMinY());
-    assertEquals(0.0d, bounds17.getMinY());
-    assertEquals(0.0d, bounds8.getMinY());
-    assertEquals(0.0d, bounds11.getMinY());
-    assertEquals(0.0d, bounds19.getMinY());
-    assertEquals(0.0d, bounds21.getMinY());
-    assertEquals(0.0d, bounds14.getMinY());
-    assertEquals(0.0d, bounds2.getMinY());
-    assertEquals(0.0d, bounds2D3.getMinY());
-    assertEquals(0.0d, bounds2D9.getMinY());
-    assertEquals(0.0d, bounds2D10.getMinY());
-    assertEquals(0.0d, bounds2D24.getMinY());
-    assertEquals(0.0d, bounds2D30.getMinY());
-    assertEquals(0.0d, bounds2D4.getMinY());
-    assertEquals(0.0d, bounds2D33.getMinY());
-    assertEquals(0.0d, bounds2D36.getMinY());
-    assertEquals(0.0d, bounds2D20.getMinY());
-    assertEquals(0.0d, bounds2D39.getMinY());
-    assertEquals(0.0d, bounds2D40.getMinY());
-    assertEquals(0.0d, bounds2D22.getMinY());
-    assertEquals(0.0d, bounds2D6.getMinY());
-    assertEquals(0.0d, bounds22.getMinY());
-    assertEquals(0.0d, bounds16.getMinY());
-    assertEquals(0.0d, bounds7.getMinY());
-    assertEquals(0.0d, bounds23.getMinY());
-    assertEquals(0.0d, bounds24.getMinY());
-    assertEquals(0.0d, bounds10.getMinY());
-    assertEquals(0.0d, bounds25.getMinY());
-    assertEquals(0.0d, bounds18.getMinY());
-    assertEquals(0.0d, bounds26.getMinY());
-    assertEquals(0.0d, bounds20.getMinY());
-    assertEquals(0.0d, bounds27.getMinY());
-    assertEquals(0.0d, bounds13.getMinY());
-    assertEquals(0.0d, bounds.getMinY());
-    assertEquals(0.0d, frame7.getMinY());
-    assertEquals(0.0d, frame4.getMinY());
-    assertEquals(0.0d, frame2.getMinY());
-    assertEquals(0.0d, frame8.getMinY());
-    assertEquals(0.0d, frame9.getMinY());
-    assertEquals(0.0d, frame5.getMinY());
-    assertEquals(0.0d, frame10.getMinY());
-    assertEquals(0.0d, frame11.getMinY());
-    assertEquals(0.0d, frame3.getMinY());
-    assertEquals(0.0d, frame12.getMinY());
-    assertEquals(0.0d, frame13.getMinY());
-    assertEquals(0.0d, frame6.getMinY());
-    assertEquals(0.0d, frame.getMinY());
-    assertEquals(0.0d, actualBounds.getMinY());
-    assertEquals(0.0d, bounds2D3.getY());
-    assertEquals(0.0d, bounds2D9.getY());
-    assertEquals(0.0d, bounds2D10.getY());
-    assertEquals(0.0d, bounds2D24.getY());
-    assertEquals(0.0d, bounds2D30.getY());
-    assertEquals(0.0d, bounds2D4.getY());
-    assertEquals(0.0d, bounds2D33.getY());
-    assertEquals(0.0d, bounds2D36.getY());
-    assertEquals(0.0d, bounds2D20.getY());
-    assertEquals(0.0d, bounds2D39.getY());
-    assertEquals(0.0d, bounds2D40.getY());
-    assertEquals(0.0d, bounds2D22.getY());
-    assertEquals(0.0d, bounds2D6.getY());
-    assertEquals(0.0d, frame7.getY());
-    assertEquals(0.0d, frame4.getY());
-    assertEquals(0.0d, frame2.getY());
-    assertEquals(0.0d, frame8.getY());
-    assertEquals(0.0d, frame9.getY());
-    assertEquals(0.0d, frame5.getY());
-    assertEquals(0.0d, frame10.getY());
-    assertEquals(0.0d, frame11.getY());
-    assertEquals(0.0d, frame3.getY());
-    assertEquals(0.0d, frame12.getY());
-    assertEquals(0.0d, frame13.getY());
-    assertEquals(0.0d, frame6.getY());
-    assertEquals(0.0d, frame.getY());
-    assertEquals(0.0d, actualBounds.getY());
-    assertEquals(0.0f, ((Rectangle2D.Float) bounds2D41).y);
-    assertEquals(0.0f, ((Rectangle2D.Float) bounds2D20).y);
-    assertEquals(0.0f, ((Rectangle2D.Float) bounds2D6).y);
-    assertEquals(0.0f, ((Rectangle2D.Float) actualBounds).y);
+    assertTrue(frame instanceof Double);
+    Rectangle2D bounds2D = actualBounds.getBounds2D();
+    assertTrue(bounds2D instanceof Float);
+    assertTrue(actualBounds instanceof Float);
+    assertEquals(0.0d, bounds2D.getCenterX());
+    Rectangle bounds = actualBounds.getBounds();
+    assertEquals(0.0d, bounds.getCenterX());
+    assertEquals(0.0d, frame.getCenterX());
+    assertEquals(0.0d, actualBounds.getCenterX());
+    assertEquals(0.0d, bounds2D.getMaxX());
+    assertEquals(0.0d, bounds.getMaxX());
+    assertEquals(0.0d, frame.getMaxX());
+    assertEquals(0.0d, actualBounds.getMaxX());
   }
 
   /**
    * Test {@link Type1CharString#getBounds()}.
-   * <p>
-   * Method under test: {@link Type1CharString#getBounds()}
+   *
+   * <p>Method under test: {@link Type1CharString#getBounds()}
    */
   @Test
   @DisplayName("Test getBounds()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Rectangle2D Type1CharString.getBounds()"})
   void testGetBounds9() {
     // Arrange
-    Type1CharString type1CharString = new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
     type1CharString.addCommand(new ArrayList<>(), CharStringCommand.RRCURVETO);
 
     // Act
     Rectangle2D actualBounds = type1CharString.getBounds();
 
     // Assert
-    Rectangle bounds = actualBounds.getBounds();
-    Rectangle bounds2 = bounds.getBounds();
-    Rectangle bounds3 = bounds2.getBounds();
-    Rectangle bounds4 = bounds3.getBounds();
-    Rectangle bounds5 = bounds4.getBounds();
-    Rectangle bounds6 = bounds5.getBounds();
-    Rectangle2D bounds2D = bounds6.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Rectangle2D bounds2D2 = bounds5.getBounds2D();
-    assertTrue(bounds2D2 instanceof Rectangle);
-    Rectangle2D bounds2D3 = bounds4.getBounds2D();
-    assertTrue(bounds2D3 instanceof Rectangle);
-    Rectangle2D bounds2D4 = bounds.getBounds2D();
-    Rectangle bounds7 = bounds2D4.getBounds();
-    Rectangle bounds8 = bounds7.getBounds();
-    Rectangle bounds9 = bounds8.getBounds();
-    Rectangle2D bounds2D5 = bounds9.getBounds2D();
-    assertTrue(bounds2D5 instanceof Rectangle);
-    Rectangle2D bounds2D6 = actualBounds.getBounds2D();
-    Rectangle bounds10 = bounds2D6.getBounds();
-    Rectangle bounds11 = bounds10.getBounds();
-    Rectangle bounds12 = bounds11.getBounds();
-    Rectangle2D bounds2D7 = bounds12.getBounds2D();
-    assertTrue(bounds2D7 instanceof Rectangle);
     Rectangle2D frame = actualBounds.getFrame();
-    Rectangle bounds13 = frame.getBounds();
-    Rectangle bounds14 = bounds13.getBounds();
-    Rectangle bounds15 = bounds14.getBounds();
-    Rectangle2D bounds2D8 = bounds15.getBounds2D();
-    assertTrue(bounds2D8 instanceof Rectangle);
-    Rectangle2D bounds2D9 = bounds3.getBounds2D();
-    assertTrue(bounds2D9 instanceof Rectangle);
-    Rectangle2D bounds2D10 = bounds2.getBounds2D();
-    Rectangle bounds16 = bounds2D10.getBounds();
-    Rectangle bounds17 = bounds16.getBounds();
-    Rectangle2D bounds2D11 = bounds17.getBounds2D();
-    assertTrue(bounds2D11 instanceof Rectangle);
-    Rectangle2D bounds2D12 = bounds8.getBounds2D();
-    assertTrue(bounds2D12 instanceof Rectangle);
-    Rectangle2D bounds2D13 = bounds11.getBounds2D();
-    assertTrue(bounds2D13 instanceof Rectangle);
-    Rectangle2D frame2 = bounds2.getFrame();
-    Rectangle bounds18 = frame2.getBounds();
-    Rectangle bounds19 = bounds18.getBounds();
-    Rectangle2D bounds2D14 = bounds19.getBounds2D();
-    assertTrue(bounds2D14 instanceof Rectangle);
-    Rectangle2D frame3 = bounds.getFrame();
-    Rectangle bounds20 = frame3.getBounds();
-    Rectangle bounds21 = bounds20.getBounds();
-    Rectangle2D bounds2D15 = bounds21.getBounds2D();
-    assertTrue(bounds2D15 instanceof Rectangle);
-    Rectangle2D bounds2D16 = bounds14.getBounds2D();
-    assertTrue(bounds2D16 instanceof Rectangle);
-    assertTrue(bounds2D10 instanceof Rectangle);
-    Rectangle bounds22 = bounds2D9.getBounds();
-    Rectangle2D bounds2D17 = bounds22.getBounds2D();
-    assertTrue(bounds2D17 instanceof Rectangle);
-    Rectangle2D bounds2D18 = bounds16.getBounds2D();
-    assertTrue(bounds2D18 instanceof Rectangle);
-    Rectangle2D bounds2D19 = bounds7.getBounds2D();
-    assertTrue(bounds2D19 instanceof Rectangle);
-    Rectangle2D bounds2D20 = bounds2D6.getBounds2D();
-    Rectangle bounds23 = bounds2D20.getBounds();
-    Rectangle2D bounds2D21 = bounds23.getBounds2D();
-    assertTrue(bounds2D21 instanceof Rectangle);
-    Rectangle2D bounds2D22 = frame.getBounds2D();
-    Rectangle bounds24 = bounds2D22.getBounds();
-    Rectangle2D bounds2D23 = bounds24.getBounds2D();
-    assertTrue(bounds2D23 instanceof Rectangle);
-    Rectangle2D bounds2D24 = bounds10.getBounds2D();
-    assertTrue(bounds2D24 instanceof Rectangle);
-    Rectangle2D frame4 = bounds3.getFrame();
-    Rectangle bounds25 = frame4.getBounds();
-    Rectangle2D bounds2D25 = bounds25.getBounds2D();
-    assertTrue(bounds2D25 instanceof Rectangle);
-    Rectangle2D bounds2D26 = bounds18.getBounds2D();
-    assertTrue(bounds2D26 instanceof Rectangle);
-    Rectangle2D frame5 = bounds2D6.getFrame();
-    Rectangle bounds26 = frame5.getBounds();
-    Rectangle2D bounds2D27 = bounds26.getBounds2D();
-    assertTrue(bounds2D27 instanceof Rectangle);
-    Rectangle2D bounds2D28 = bounds20.getBounds2D();
-    assertTrue(bounds2D28 instanceof Rectangle);
-    Rectangle2D frame6 = frame.getFrame();
-    Rectangle bounds27 = frame6.getBounds();
-    Rectangle2D bounds2D29 = bounds27.getBounds2D();
-    assertTrue(bounds2D29 instanceof Rectangle);
-    Rectangle2D bounds2D30 = bounds13.getBounds2D();
-    assertTrue(bounds2D30 instanceof Rectangle);
-    assertTrue(bounds2D4 instanceof Rectangle);
-    Rectangle2D bounds2D31 = bounds2D3.getBounds2D();
-    assertTrue(bounds2D31 instanceof Rectangle);
-    Rectangle2D bounds2D32 = bounds2D9.getBounds2D();
-    assertTrue(bounds2D32 instanceof Rectangle);
-    Rectangle2D bounds2D33 = bounds2D10.getBounds2D();
-    assertTrue(bounds2D33 instanceof Rectangle);
-    Rectangle2D bounds2D34 = bounds2D24.getBounds2D();
-    assertTrue(bounds2D34 instanceof Rectangle);
-    Rectangle2D bounds2D35 = bounds2D30.getBounds2D();
-    assertTrue(bounds2D35 instanceof Rectangle);
-    Rectangle2D bounds2D36 = bounds2D4.getBounds2D();
-    assertTrue(bounds2D36 instanceof Rectangle);
-    Rectangle2D bounds2D37 = bounds2D33.getBounds2D();
-    assertTrue(bounds2D37 instanceof Rectangle);
-    Rectangle2D bounds2D38 = bounds2D36.getBounds2D();
-    assertTrue(bounds2D38 instanceof Rectangle);
-    Rectangle2D bounds2D39 = frame2.getBounds2D();
-    assertTrue(bounds2D39 instanceof Rectangle2D.Double);
-    Rectangle2D bounds2D40 = frame3.getBounds2D();
-    assertTrue(bounds2D40 instanceof Rectangle2D.Double);
-    assertTrue(bounds2D22 instanceof Rectangle2D.Double);
-    Rectangle2D frame7 = bounds4.getFrame();
-    assertTrue(frame7 instanceof Rectangle2D.Double);
-    assertTrue(frame4 instanceof Rectangle2D.Double);
-    assertTrue(frame2 instanceof Rectangle2D.Double);
-    Rectangle2D frame8 = bounds2D10.getFrame();
-    assertTrue(frame8 instanceof Rectangle2D.Double);
-    Rectangle2D frame9 = bounds2D4.getFrame();
-    assertTrue(frame9 instanceof Rectangle2D.Double);
-    assertTrue(frame5 instanceof Rectangle2D.Double);
-    Rectangle2D frame10 = bounds10.getFrame();
-    assertTrue(frame10 instanceof Rectangle2D.Double);
-    Rectangle2D frame11 = bounds13.getFrame();
-    assertTrue(frame11 instanceof Rectangle2D.Double);
-    assertTrue(frame3 instanceof Rectangle2D.Double);
-    Rectangle2D frame12 = frame2.getFrame();
-    assertTrue(frame12 instanceof Rectangle2D.Double);
-    Rectangle2D frame13 = frame3.getFrame();
-    assertTrue(frame13 instanceof Rectangle2D.Double);
-    assertTrue(frame6 instanceof Rectangle2D.Double);
-    assertTrue(frame instanceof Rectangle2D.Double);
-    Rectangle2D bounds2D41 = bounds2D20.getBounds2D();
-    assertTrue(bounds2D41 instanceof Rectangle2D.Float);
-    assertTrue(bounds2D20 instanceof Rectangle2D.Float);
-    assertTrue(bounds2D6 instanceof Rectangle2D.Float);
-    assertTrue(actualBounds instanceof Rectangle2D.Float);
-    Point location = bounds.getLocation();
-    Point location2 = location.getLocation();
-    Point location3 = location2.getLocation();
-    Point location4 = location3.getLocation();
-    assertEquals(0, location4.getLocation().y);
-    Point location5 = bounds3.getLocation();
-    Point location6 = location5.getLocation();
-    Point location7 = location6.getLocation();
-    assertEquals(0, location7.getLocation().y);
-    assertEquals(0, location4.y);
-    Point location8 = bounds4.getLocation();
-    Point location9 = location8.getLocation();
-    assertEquals(0, location9.getLocation().y);
-    assertEquals(0, location7.y);
-    Point location10 = bounds10.getLocation();
-    Point location11 = location10.getLocation();
-    assertEquals(0, location11.getLocation().y);
-    Point location12 = bounds13.getLocation();
-    Point location13 = location12.getLocation();
-    assertEquals(0, location13.getLocation().y);
-    assertEquals(0, location3.y);
-    Point location14 = ((Rectangle) bounds2D10).getLocation();
-    Point location15 = location14.getLocation();
-    assertEquals(0, location15.getLocation().y);
-    Point location16 = ((Rectangle) bounds2D4).getLocation();
-    Point location17 = location16.getLocation();
-    assertEquals(0, location17.getLocation().y);
-    Point location18 = bounds5.getLocation();
-    assertEquals(0, location18.getLocation().y);
-    assertEquals(0, location9.y);
-    assertEquals(0, location6.y);
-    Point location19 = bounds11.getLocation();
-    assertEquals(0, location19.getLocation().y);
-    Point location20 = bounds14.getLocation();
-    assertEquals(0, location20.getLocation().y);
-    Point location21 = bounds16.getLocation();
-    assertEquals(0, location21.getLocation().y);
-    Point location22 = bounds7.getLocation();
-    assertEquals(0, location22.getLocation().y);
-    assertEquals(0, location11.y);
-    Point location23 = bounds18.getLocation();
-    assertEquals(0, location23.getLocation().y);
-    Point location24 = bounds20.getLocation();
-    assertEquals(0, location24.getLocation().y);
-    assertEquals(0, location13.y);
-    assertEquals(0, location2.y);
-    Point location25 = ((Rectangle) bounds2D9).getLocation();
-    assertEquals(0, location25.getLocation().y);
-    assertEquals(0, location15.y);
-    assertEquals(0, location17.y);
-    assertEquals(0, bounds6.getLocation().y);
-    assertEquals(0, location18.y);
-    assertEquals(0, location8.y);
-    assertEquals(0, bounds9.getLocation().y);
-    assertEquals(0, bounds12.getLocation().y);
-    assertEquals(0, bounds15.getLocation().y);
-    assertEquals(0, location5.y);
-    assertEquals(0, bounds17.getLocation().y);
-    assertEquals(0, bounds8.getLocation().y);
-    assertEquals(0, location19.y);
-    assertEquals(0, bounds19.getLocation().y);
-    assertEquals(0, bounds21.getLocation().y);
-    assertEquals(0, location20.y);
-    assertEquals(0, bounds22.getLocation().y);
-    assertEquals(0, location21.y);
-    assertEquals(0, location22.y);
-    assertEquals(0, bounds23.getLocation().y);
-    assertEquals(0, bounds24.getLocation().y);
-    assertEquals(0, location10.y);
-    assertEquals(0, bounds25.getLocation().y);
-    assertEquals(0, location23.y);
-    assertEquals(0, bounds26.getLocation().y);
-    assertEquals(0, location24.y);
-    assertEquals(0, bounds27.getLocation().y);
-    assertEquals(0, location12.y);
-    assertEquals(0, location.y);
-    assertEquals(0, ((Rectangle) bounds2D3).getLocation().y);
-    assertEquals(0, location25.y);
-    assertEquals(0, location14.y);
-    assertEquals(0, ((Rectangle) bounds2D24).getLocation().y);
-    assertEquals(0, ((Rectangle) bounds2D30).getLocation().y);
-    assertEquals(0, location16.y);
-    assertEquals(0, ((Rectangle) bounds2D33).getLocation().y);
-    assertEquals(0, ((Rectangle) bounds2D36).getLocation().y);
-    assertEquals(0, bounds6.getBounds().y);
-    assertEquals(0, bounds6.y);
-    assertEquals(0, bounds5.y);
-    assertEquals(0, bounds9.getBounds().y);
-    assertEquals(0, bounds12.getBounds().y);
-    assertEquals(0, bounds15.getBounds().y);
-    assertEquals(0, bounds4.y);
-    assertEquals(0, bounds17.getBounds().y);
-    assertEquals(0, bounds9.y);
-    assertEquals(0, bounds12.y);
-    assertEquals(0, bounds19.getBounds().y);
-    assertEquals(0, bounds21.getBounds().y);
-    assertEquals(0, bounds15.y);
-    assertEquals(0, bounds3.y);
-    assertEquals(0, bounds22.getBounds().y);
-    assertEquals(0, bounds17.y);
-    assertEquals(0, bounds8.y);
-    assertEquals(0, bounds23.getBounds().y);
-    assertEquals(0, bounds24.getBounds().y);
-    assertEquals(0, bounds11.y);
-    assertEquals(0, bounds25.getBounds().y);
-    assertEquals(0, bounds19.y);
-    assertEquals(0, bounds26.getBounds().y);
-    assertEquals(0, bounds21.y);
-    assertEquals(0, bounds27.getBounds().y);
-    assertEquals(0, bounds14.y);
-    assertEquals(0, bounds2.y);
-    assertEquals(0, bounds2D3.getBounds().y);
-    assertEquals(0, bounds22.y);
-    assertEquals(0, bounds16.y);
-    assertEquals(0, bounds2D24.getBounds().y);
-    assertEquals(0, bounds2D30.getBounds().y);
-    assertEquals(0, bounds7.y);
-    assertEquals(0, bounds2D33.getBounds().y);
-    assertEquals(0, bounds2D36.getBounds().y);
-    assertEquals(0, bounds23.y);
-    assertEquals(0, bounds2D39.getBounds().y);
-    assertEquals(0, bounds2D40.getBounds().y);
-    assertEquals(0, bounds24.y);
-    assertEquals(0, bounds10.y);
-    assertEquals(0, frame7.getBounds().y);
-    assertEquals(0, bounds25.y);
-    assertEquals(0, bounds18.y);
-    assertEquals(0, frame8.getBounds().y);
-    assertEquals(0, frame9.getBounds().y);
-    assertEquals(0, bounds26.y);
-    assertEquals(0, frame10.getBounds().y);
-    assertEquals(0, frame11.getBounds().y);
-    assertEquals(0, bounds20.y);
-    assertEquals(0, frame12.getBounds().y);
-    assertEquals(0, frame13.getBounds().y);
-    assertEquals(0, bounds27.y);
-    assertEquals(0, bounds13.y);
-    assertEquals(0, bounds.y);
-    assertEquals(0, ((Rectangle) bounds2D).y);
-    assertEquals(0, ((Rectangle) bounds2D2).y);
-    assertEquals(0, ((Rectangle) bounds2D3).y);
-    assertEquals(0, ((Rectangle) bounds2D5).y);
-    assertEquals(0, ((Rectangle) bounds2D7).y);
-    assertEquals(0, ((Rectangle) bounds2D8).y);
-    assertEquals(0, ((Rectangle) bounds2D9).y);
-    assertEquals(0, ((Rectangle) bounds2D11).y);
-    assertEquals(0, ((Rectangle) bounds2D12).y);
-    assertEquals(0, ((Rectangle) bounds2D13).y);
-    assertEquals(0, ((Rectangle) bounds2D14).y);
-    assertEquals(0, ((Rectangle) bounds2D15).y);
-    assertEquals(0, ((Rectangle) bounds2D16).y);
-    assertEquals(0, ((Rectangle) bounds2D10).y);
-    assertEquals(0, ((Rectangle) bounds2D17).y);
-    assertEquals(0, ((Rectangle) bounds2D18).y);
-    assertEquals(0, ((Rectangle) bounds2D19).y);
-    assertEquals(0, ((Rectangle) bounds2D21).y);
-    assertEquals(0, ((Rectangle) bounds2D23).y);
-    assertEquals(0, ((Rectangle) bounds2D24).y);
-    assertEquals(0, ((Rectangle) bounds2D25).y);
-    assertEquals(0, ((Rectangle) bounds2D26).y);
-    assertEquals(0, ((Rectangle) bounds2D27).y);
-    assertEquals(0, ((Rectangle) bounds2D28).y);
-    assertEquals(0, ((Rectangle) bounds2D29).y);
-    assertEquals(0, ((Rectangle) bounds2D30).y);
-    assertEquals(0, ((Rectangle) bounds2D4).y);
-    assertEquals(0, ((Rectangle) bounds2D31).y);
-    assertEquals(0, ((Rectangle) bounds2D32).y);
-    assertEquals(0, ((Rectangle) bounds2D33).y);
-    assertEquals(0, ((Rectangle) bounds2D34).y);
-    assertEquals(0, ((Rectangle) bounds2D35).y);
-    assertEquals(0, ((Rectangle) bounds2D36).y);
-    assertEquals(0, ((Rectangle) bounds2D37).y);
-    assertEquals(0, ((Rectangle) bounds2D38).y);
-    assertEquals(0.0d, location4.getY());
-    assertEquals(0.0d, location7.getY());
-    assertEquals(0.0d, location3.getY());
-    assertEquals(0.0d, location9.getY());
-    assertEquals(0.0d, location6.getY());
-    assertEquals(0.0d, location11.getY());
-    assertEquals(0.0d, location13.getY());
-    assertEquals(0.0d, location2.getY());
-    assertEquals(0.0d, location15.getY());
-    assertEquals(0.0d, location17.getY());
-    assertEquals(0.0d, location18.getY());
-    assertEquals(0.0d, location8.getY());
-    assertEquals(0.0d, location5.getY());
-    assertEquals(0.0d, location19.getY());
-    assertEquals(0.0d, location20.getY());
-    assertEquals(0.0d, location21.getY());
-    assertEquals(0.0d, location22.getY());
-    assertEquals(0.0d, location10.getY());
-    assertEquals(0.0d, location23.getY());
-    assertEquals(0.0d, location24.getY());
-    assertEquals(0.0d, location12.getY());
-    assertEquals(0.0d, location.getY());
-    assertEquals(0.0d, location25.getY());
-    assertEquals(0.0d, location14.getY());
-    assertEquals(0.0d, location16.getY());
-    assertEquals(0.0d, bounds6.getY());
-    assertEquals(0.0d, bounds5.getY());
-    assertEquals(0.0d, bounds4.getY());
-    assertEquals(0.0d, bounds9.getY());
-    assertEquals(0.0d, bounds12.getY());
-    assertEquals(0.0d, bounds15.getY());
-    assertEquals(0.0d, bounds3.getY());
-    assertEquals(0.0d, bounds17.getY());
-    assertEquals(0.0d, bounds8.getY());
-    assertEquals(0.0d, bounds11.getY());
-    assertEquals(0.0d, bounds19.getY());
-    assertEquals(0.0d, bounds21.getY());
-    assertEquals(0.0d, bounds14.getY());
-    assertEquals(0.0d, bounds2.getY());
-    assertEquals(0.0d, bounds22.getY());
-    assertEquals(0.0d, bounds16.getY());
-    assertEquals(0.0d, bounds7.getY());
-    assertEquals(0.0d, bounds23.getY());
-    assertEquals(0.0d, bounds24.getY());
-    assertEquals(0.0d, bounds10.getY());
-    assertEquals(0.0d, bounds25.getY());
-    assertEquals(0.0d, bounds18.getY());
-    assertEquals(0.0d, bounds26.getY());
-    assertEquals(0.0d, bounds20.getY());
-    assertEquals(0.0d, bounds27.getY());
-    assertEquals(0.0d, bounds13.getY());
-    assertEquals(0.0d, bounds.getY());
-    assertEquals(0.0d, bounds6.getCenterY());
-    assertEquals(0.0d, bounds5.getCenterY());
-    assertEquals(0.0d, bounds4.getCenterY());
-    assertEquals(0.0d, bounds9.getCenterY());
-    assertEquals(0.0d, bounds12.getCenterY());
-    assertEquals(0.0d, bounds15.getCenterY());
-    assertEquals(0.0d, bounds3.getCenterY());
-    assertEquals(0.0d, bounds17.getCenterY());
-    assertEquals(0.0d, bounds8.getCenterY());
-    assertEquals(0.0d, bounds11.getCenterY());
-    assertEquals(0.0d, bounds19.getCenterY());
-    assertEquals(0.0d, bounds21.getCenterY());
-    assertEquals(0.0d, bounds14.getCenterY());
-    assertEquals(0.0d, bounds2.getCenterY());
-    assertEquals(0.0d, bounds2D3.getCenterY());
-    assertEquals(0.0d, bounds2D9.getCenterY());
-    assertEquals(0.0d, bounds2D10.getCenterY());
-    assertEquals(0.0d, bounds2D24.getCenterY());
-    assertEquals(0.0d, bounds2D30.getCenterY());
-    assertEquals(0.0d, bounds2D4.getCenterY());
-    assertEquals(0.0d, bounds2D33.getCenterY());
-    assertEquals(0.0d, bounds2D36.getCenterY());
-    assertEquals(0.0d, bounds2D20.getCenterY());
-    assertEquals(0.0d, bounds2D39.getCenterY());
-    assertEquals(0.0d, bounds2D40.getCenterY());
-    assertEquals(0.0d, bounds2D22.getCenterY());
-    assertEquals(0.0d, bounds2D6.getCenterY());
-    assertEquals(0.0d, bounds22.getCenterY());
-    assertEquals(0.0d, bounds16.getCenterY());
-    assertEquals(0.0d, bounds7.getCenterY());
-    assertEquals(0.0d, bounds23.getCenterY());
-    assertEquals(0.0d, bounds24.getCenterY());
-    assertEquals(0.0d, bounds10.getCenterY());
-    assertEquals(0.0d, bounds25.getCenterY());
-    assertEquals(0.0d, bounds18.getCenterY());
-    assertEquals(0.0d, bounds26.getCenterY());
-    assertEquals(0.0d, bounds20.getCenterY());
-    assertEquals(0.0d, bounds27.getCenterY());
-    assertEquals(0.0d, bounds13.getCenterY());
-    assertEquals(0.0d, bounds.getCenterY());
-    assertEquals(0.0d, frame7.getCenterY());
-    assertEquals(0.0d, frame4.getCenterY());
-    assertEquals(0.0d, frame2.getCenterY());
-    assertEquals(0.0d, frame8.getCenterY());
-    assertEquals(0.0d, frame9.getCenterY());
-    assertEquals(0.0d, frame5.getCenterY());
-    assertEquals(0.0d, frame10.getCenterY());
-    assertEquals(0.0d, frame11.getCenterY());
-    assertEquals(0.0d, frame3.getCenterY());
-    assertEquals(0.0d, frame12.getCenterY());
-    assertEquals(0.0d, frame13.getCenterY());
-    assertEquals(0.0d, frame6.getCenterY());
-    assertEquals(0.0d, frame.getCenterY());
-    assertEquals(0.0d, actualBounds.getCenterY());
-    assertEquals(0.0d, bounds6.getMaxY());
-    assertEquals(0.0d, bounds5.getMaxY());
-    assertEquals(0.0d, bounds4.getMaxY());
-    assertEquals(0.0d, bounds9.getMaxY());
-    assertEquals(0.0d, bounds12.getMaxY());
-    assertEquals(0.0d, bounds15.getMaxY());
-    assertEquals(0.0d, bounds3.getMaxY());
-    assertEquals(0.0d, bounds17.getMaxY());
-    assertEquals(0.0d, bounds8.getMaxY());
-    assertEquals(0.0d, bounds11.getMaxY());
-    assertEquals(0.0d, bounds19.getMaxY());
-    assertEquals(0.0d, bounds21.getMaxY());
-    assertEquals(0.0d, bounds14.getMaxY());
-    assertEquals(0.0d, bounds2.getMaxY());
-    assertEquals(0.0d, bounds2D3.getMaxY());
-    assertEquals(0.0d, bounds2D9.getMaxY());
-    assertEquals(0.0d, bounds2D10.getMaxY());
-    assertEquals(0.0d, bounds2D24.getMaxY());
-    assertEquals(0.0d, bounds2D30.getMaxY());
-    assertEquals(0.0d, bounds2D4.getMaxY());
-    assertEquals(0.0d, bounds2D33.getMaxY());
-    assertEquals(0.0d, bounds2D36.getMaxY());
-    assertEquals(0.0d, bounds2D20.getMaxY());
-    assertEquals(0.0d, bounds2D39.getMaxY());
-    assertEquals(0.0d, bounds2D40.getMaxY());
-    assertEquals(0.0d, bounds2D22.getMaxY());
-    assertEquals(0.0d, bounds2D6.getMaxY());
-    assertEquals(0.0d, bounds22.getMaxY());
-    assertEquals(0.0d, bounds16.getMaxY());
-    assertEquals(0.0d, bounds7.getMaxY());
-    assertEquals(0.0d, bounds23.getMaxY());
-    assertEquals(0.0d, bounds24.getMaxY());
-    assertEquals(0.0d, bounds10.getMaxY());
-    assertEquals(0.0d, bounds25.getMaxY());
-    assertEquals(0.0d, bounds18.getMaxY());
-    assertEquals(0.0d, bounds26.getMaxY());
-    assertEquals(0.0d, bounds20.getMaxY());
-    assertEquals(0.0d, bounds27.getMaxY());
-    assertEquals(0.0d, bounds13.getMaxY());
-    assertEquals(0.0d, bounds.getMaxY());
-    assertEquals(0.0d, frame7.getMaxY());
-    assertEquals(0.0d, frame4.getMaxY());
-    assertEquals(0.0d, frame2.getMaxY());
-    assertEquals(0.0d, frame8.getMaxY());
-    assertEquals(0.0d, frame9.getMaxY());
-    assertEquals(0.0d, frame5.getMaxY());
-    assertEquals(0.0d, frame10.getMaxY());
-    assertEquals(0.0d, frame11.getMaxY());
-    assertEquals(0.0d, frame3.getMaxY());
-    assertEquals(0.0d, frame12.getMaxY());
-    assertEquals(0.0d, frame13.getMaxY());
-    assertEquals(0.0d, frame6.getMaxY());
-    assertEquals(0.0d, frame.getMaxY());
-    assertEquals(0.0d, actualBounds.getMaxY());
-    assertEquals(0.0d, bounds6.getMinY());
-    assertEquals(0.0d, bounds5.getMinY());
-    assertEquals(0.0d, bounds4.getMinY());
-    assertEquals(0.0d, bounds9.getMinY());
-    assertEquals(0.0d, bounds12.getMinY());
-    assertEquals(0.0d, bounds15.getMinY());
-    assertEquals(0.0d, bounds3.getMinY());
-    assertEquals(0.0d, bounds17.getMinY());
-    assertEquals(0.0d, bounds8.getMinY());
-    assertEquals(0.0d, bounds11.getMinY());
-    assertEquals(0.0d, bounds19.getMinY());
-    assertEquals(0.0d, bounds21.getMinY());
-    assertEquals(0.0d, bounds14.getMinY());
-    assertEquals(0.0d, bounds2.getMinY());
-    assertEquals(0.0d, bounds2D3.getMinY());
-    assertEquals(0.0d, bounds2D9.getMinY());
-    assertEquals(0.0d, bounds2D10.getMinY());
-    assertEquals(0.0d, bounds2D24.getMinY());
-    assertEquals(0.0d, bounds2D30.getMinY());
-    assertEquals(0.0d, bounds2D4.getMinY());
-    assertEquals(0.0d, bounds2D33.getMinY());
-    assertEquals(0.0d, bounds2D36.getMinY());
-    assertEquals(0.0d, bounds2D20.getMinY());
-    assertEquals(0.0d, bounds2D39.getMinY());
-    assertEquals(0.0d, bounds2D40.getMinY());
-    assertEquals(0.0d, bounds2D22.getMinY());
-    assertEquals(0.0d, bounds2D6.getMinY());
-    assertEquals(0.0d, bounds22.getMinY());
-    assertEquals(0.0d, bounds16.getMinY());
-    assertEquals(0.0d, bounds7.getMinY());
-    assertEquals(0.0d, bounds23.getMinY());
-    assertEquals(0.0d, bounds24.getMinY());
-    assertEquals(0.0d, bounds10.getMinY());
-    assertEquals(0.0d, bounds25.getMinY());
-    assertEquals(0.0d, bounds18.getMinY());
-    assertEquals(0.0d, bounds26.getMinY());
-    assertEquals(0.0d, bounds20.getMinY());
-    assertEquals(0.0d, bounds27.getMinY());
-    assertEquals(0.0d, bounds13.getMinY());
-    assertEquals(0.0d, bounds.getMinY());
-    assertEquals(0.0d, frame7.getMinY());
-    assertEquals(0.0d, frame4.getMinY());
-    assertEquals(0.0d, frame2.getMinY());
-    assertEquals(0.0d, frame8.getMinY());
-    assertEquals(0.0d, frame9.getMinY());
-    assertEquals(0.0d, frame5.getMinY());
-    assertEquals(0.0d, frame10.getMinY());
-    assertEquals(0.0d, frame11.getMinY());
-    assertEquals(0.0d, frame3.getMinY());
-    assertEquals(0.0d, frame12.getMinY());
-    assertEquals(0.0d, frame13.getMinY());
-    assertEquals(0.0d, frame6.getMinY());
-    assertEquals(0.0d, frame.getMinY());
-    assertEquals(0.0d, actualBounds.getMinY());
-    assertEquals(0.0d, bounds2D3.getY());
-    assertEquals(0.0d, bounds2D9.getY());
-    assertEquals(0.0d, bounds2D10.getY());
-    assertEquals(0.0d, bounds2D24.getY());
-    assertEquals(0.0d, bounds2D30.getY());
-    assertEquals(0.0d, bounds2D4.getY());
-    assertEquals(0.0d, bounds2D33.getY());
-    assertEquals(0.0d, bounds2D36.getY());
-    assertEquals(0.0d, bounds2D20.getY());
-    assertEquals(0.0d, bounds2D39.getY());
-    assertEquals(0.0d, bounds2D40.getY());
-    assertEquals(0.0d, bounds2D22.getY());
-    assertEquals(0.0d, bounds2D6.getY());
-    assertEquals(0.0d, frame7.getY());
-    assertEquals(0.0d, frame4.getY());
-    assertEquals(0.0d, frame2.getY());
-    assertEquals(0.0d, frame8.getY());
-    assertEquals(0.0d, frame9.getY());
-    assertEquals(0.0d, frame5.getY());
-    assertEquals(0.0d, frame10.getY());
-    assertEquals(0.0d, frame11.getY());
-    assertEquals(0.0d, frame3.getY());
-    assertEquals(0.0d, frame12.getY());
-    assertEquals(0.0d, frame13.getY());
-    assertEquals(0.0d, frame6.getY());
-    assertEquals(0.0d, frame.getY());
-    assertEquals(0.0d, actualBounds.getY());
-    assertEquals(0.0f, ((Rectangle2D.Float) bounds2D41).y);
-    assertEquals(0.0f, ((Rectangle2D.Float) bounds2D20).y);
-    assertEquals(0.0f, ((Rectangle2D.Float) bounds2D6).y);
-    assertEquals(0.0f, ((Rectangle2D.Float) actualBounds).y);
+    assertTrue(frame instanceof Double);
+    Rectangle2D bounds2D = actualBounds.getBounds2D();
+    assertTrue(bounds2D instanceof Float);
+    assertTrue(actualBounds instanceof Float);
+    assertEquals(0.0d, bounds2D.getCenterX());
+    Rectangle bounds = actualBounds.getBounds();
+    assertEquals(0.0d, bounds.getCenterX());
+    assertEquals(0.0d, frame.getCenterX());
+    assertEquals(0.0d, actualBounds.getCenterX());
+    assertEquals(0.0d, bounds2D.getMaxX());
+    assertEquals(0.0d, bounds.getMaxX());
+    assertEquals(0.0d, frame.getMaxX());
+    assertEquals(0.0d, actualBounds.getMaxX());
   }
 
   /**
    * Test {@link Type1CharString#getBounds()}.
-   * <p>
-   * Method under test: {@link Type1CharString#getBounds()}
+   *
+   * <p>Method under test: {@link Type1CharString#getBounds()}
    */
   @Test
   @DisplayName("Test getBounds()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Rectangle2D Type1CharString.getBounds()"})
   void testGetBounds10() {
     // Arrange
-    Type1CharString type1CharString = new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
-    type1CharString.addCommand(new ArrayList<>(), CharStringCommand.CLOSEPATH);
-
-    // Act
-    Rectangle2D actualBounds = type1CharString.getBounds();
-
-    // Assert
-    Rectangle bounds = actualBounds.getBounds();
-    Rectangle bounds2 = bounds.getBounds();
-    Rectangle bounds3 = bounds2.getBounds();
-    Rectangle bounds4 = bounds3.getBounds();
-    Rectangle bounds5 = bounds4.getBounds();
-    Rectangle bounds6 = bounds5.getBounds();
-    Rectangle2D bounds2D = bounds6.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Rectangle2D bounds2D2 = bounds5.getBounds2D();
-    assertTrue(bounds2D2 instanceof Rectangle);
-    Rectangle2D bounds2D3 = bounds4.getBounds2D();
-    assertTrue(bounds2D3 instanceof Rectangle);
-    Rectangle2D bounds2D4 = bounds.getBounds2D();
-    Rectangle bounds7 = bounds2D4.getBounds();
-    Rectangle bounds8 = bounds7.getBounds();
-    Rectangle bounds9 = bounds8.getBounds();
-    Rectangle2D bounds2D5 = bounds9.getBounds2D();
-    assertTrue(bounds2D5 instanceof Rectangle);
-    Rectangle2D bounds2D6 = actualBounds.getBounds2D();
-    Rectangle bounds10 = bounds2D6.getBounds();
-    Rectangle bounds11 = bounds10.getBounds();
-    Rectangle bounds12 = bounds11.getBounds();
-    Rectangle2D bounds2D7 = bounds12.getBounds2D();
-    assertTrue(bounds2D7 instanceof Rectangle);
-    Rectangle2D frame = actualBounds.getFrame();
-    Rectangle bounds13 = frame.getBounds();
-    Rectangle bounds14 = bounds13.getBounds();
-    Rectangle bounds15 = bounds14.getBounds();
-    Rectangle2D bounds2D8 = bounds15.getBounds2D();
-    assertTrue(bounds2D8 instanceof Rectangle);
-    Rectangle2D bounds2D9 = bounds3.getBounds2D();
-    assertTrue(bounds2D9 instanceof Rectangle);
-    Rectangle2D bounds2D10 = bounds2.getBounds2D();
-    Rectangle bounds16 = bounds2D10.getBounds();
-    Rectangle bounds17 = bounds16.getBounds();
-    Rectangle2D bounds2D11 = bounds17.getBounds2D();
-    assertTrue(bounds2D11 instanceof Rectangle);
-    Rectangle2D bounds2D12 = bounds8.getBounds2D();
-    assertTrue(bounds2D12 instanceof Rectangle);
-    Rectangle2D bounds2D13 = bounds11.getBounds2D();
-    assertTrue(bounds2D13 instanceof Rectangle);
-    Rectangle2D frame2 = bounds2.getFrame();
-    Rectangle bounds18 = frame2.getBounds();
-    Rectangle bounds19 = bounds18.getBounds();
-    Rectangle2D bounds2D14 = bounds19.getBounds2D();
-    assertTrue(bounds2D14 instanceof Rectangle);
-    Rectangle2D frame3 = bounds.getFrame();
-    Rectangle bounds20 = frame3.getBounds();
-    Rectangle bounds21 = bounds20.getBounds();
-    Rectangle2D bounds2D15 = bounds21.getBounds2D();
-    assertTrue(bounds2D15 instanceof Rectangle);
-    Rectangle2D bounds2D16 = bounds14.getBounds2D();
-    assertTrue(bounds2D16 instanceof Rectangle);
-    assertTrue(bounds2D10 instanceof Rectangle);
-    Rectangle bounds22 = bounds2D9.getBounds();
-    Rectangle2D bounds2D17 = bounds22.getBounds2D();
-    assertTrue(bounds2D17 instanceof Rectangle);
-    Rectangle2D bounds2D18 = bounds16.getBounds2D();
-    assertTrue(bounds2D18 instanceof Rectangle);
-    Rectangle2D bounds2D19 = bounds7.getBounds2D();
-    assertTrue(bounds2D19 instanceof Rectangle);
-    Rectangle2D bounds2D20 = bounds2D6.getBounds2D();
-    Rectangle bounds23 = bounds2D20.getBounds();
-    Rectangle2D bounds2D21 = bounds23.getBounds2D();
-    assertTrue(bounds2D21 instanceof Rectangle);
-    Rectangle2D bounds2D22 = frame.getBounds2D();
-    Rectangle bounds24 = bounds2D22.getBounds();
-    Rectangle2D bounds2D23 = bounds24.getBounds2D();
-    assertTrue(bounds2D23 instanceof Rectangle);
-    Rectangle2D bounds2D24 = bounds10.getBounds2D();
-    assertTrue(bounds2D24 instanceof Rectangle);
-    Rectangle2D frame4 = bounds3.getFrame();
-    Rectangle bounds25 = frame4.getBounds();
-    Rectangle2D bounds2D25 = bounds25.getBounds2D();
-    assertTrue(bounds2D25 instanceof Rectangle);
-    Rectangle2D bounds2D26 = bounds18.getBounds2D();
-    assertTrue(bounds2D26 instanceof Rectangle);
-    Rectangle2D frame5 = bounds2D6.getFrame();
-    Rectangle bounds26 = frame5.getBounds();
-    Rectangle2D bounds2D27 = bounds26.getBounds2D();
-    assertTrue(bounds2D27 instanceof Rectangle);
-    Rectangle2D bounds2D28 = bounds20.getBounds2D();
-    assertTrue(bounds2D28 instanceof Rectangle);
-    Rectangle2D frame6 = frame.getFrame();
-    Rectangle bounds27 = frame6.getBounds();
-    Rectangle2D bounds2D29 = bounds27.getBounds2D();
-    assertTrue(bounds2D29 instanceof Rectangle);
-    Rectangle2D bounds2D30 = bounds13.getBounds2D();
-    assertTrue(bounds2D30 instanceof Rectangle);
-    assertTrue(bounds2D4 instanceof Rectangle);
-    Rectangle2D bounds2D31 = bounds2D3.getBounds2D();
-    assertTrue(bounds2D31 instanceof Rectangle);
-    Rectangle2D bounds2D32 = bounds2D9.getBounds2D();
-    assertTrue(bounds2D32 instanceof Rectangle);
-    Rectangle2D bounds2D33 = bounds2D10.getBounds2D();
-    assertTrue(bounds2D33 instanceof Rectangle);
-    Rectangle2D bounds2D34 = bounds2D24.getBounds2D();
-    assertTrue(bounds2D34 instanceof Rectangle);
-    Rectangle2D bounds2D35 = bounds2D30.getBounds2D();
-    assertTrue(bounds2D35 instanceof Rectangle);
-    Rectangle2D bounds2D36 = bounds2D4.getBounds2D();
-    assertTrue(bounds2D36 instanceof Rectangle);
-    Rectangle2D bounds2D37 = bounds2D33.getBounds2D();
-    assertTrue(bounds2D37 instanceof Rectangle);
-    Rectangle2D bounds2D38 = bounds2D36.getBounds2D();
-    assertTrue(bounds2D38 instanceof Rectangle);
-    Rectangle2D bounds2D39 = frame2.getBounds2D();
-    assertTrue(bounds2D39 instanceof Rectangle2D.Double);
-    Rectangle2D bounds2D40 = frame3.getBounds2D();
-    assertTrue(bounds2D40 instanceof Rectangle2D.Double);
-    assertTrue(bounds2D22 instanceof Rectangle2D.Double);
-    Rectangle2D frame7 = bounds4.getFrame();
-    assertTrue(frame7 instanceof Rectangle2D.Double);
-    assertTrue(frame4 instanceof Rectangle2D.Double);
-    assertTrue(frame2 instanceof Rectangle2D.Double);
-    Rectangle2D frame8 = bounds2D10.getFrame();
-    assertTrue(frame8 instanceof Rectangle2D.Double);
-    Rectangle2D frame9 = bounds2D4.getFrame();
-    assertTrue(frame9 instanceof Rectangle2D.Double);
-    assertTrue(frame5 instanceof Rectangle2D.Double);
-    Rectangle2D frame10 = bounds10.getFrame();
-    assertTrue(frame10 instanceof Rectangle2D.Double);
-    Rectangle2D frame11 = bounds13.getFrame();
-    assertTrue(frame11 instanceof Rectangle2D.Double);
-    assertTrue(frame3 instanceof Rectangle2D.Double);
-    Rectangle2D frame12 = frame2.getFrame();
-    assertTrue(frame12 instanceof Rectangle2D.Double);
-    Rectangle2D frame13 = frame3.getFrame();
-    assertTrue(frame13 instanceof Rectangle2D.Double);
-    assertTrue(frame6 instanceof Rectangle2D.Double);
-    assertTrue(frame instanceof Rectangle2D.Double);
-    Rectangle2D bounds2D41 = bounds2D20.getBounds2D();
-    assertTrue(bounds2D41 instanceof Rectangle2D.Float);
-    assertTrue(bounds2D20 instanceof Rectangle2D.Float);
-    assertTrue(bounds2D6 instanceof Rectangle2D.Float);
-    assertTrue(actualBounds instanceof Rectangle2D.Float);
-    Point location = bounds.getLocation();
-    Point location2 = location.getLocation();
-    Point location3 = location2.getLocation();
-    Point location4 = location3.getLocation();
-    assertEquals(0, location4.getLocation().y);
-    Point location5 = bounds3.getLocation();
-    Point location6 = location5.getLocation();
-    Point location7 = location6.getLocation();
-    assertEquals(0, location7.getLocation().y);
-    assertEquals(0, location4.y);
-    Point location8 = bounds4.getLocation();
-    Point location9 = location8.getLocation();
-    assertEquals(0, location9.getLocation().y);
-    assertEquals(0, location7.y);
-    Point location10 = bounds10.getLocation();
-    Point location11 = location10.getLocation();
-    assertEquals(0, location11.getLocation().y);
-    Point location12 = bounds13.getLocation();
-    Point location13 = location12.getLocation();
-    assertEquals(0, location13.getLocation().y);
-    assertEquals(0, location3.y);
-    Point location14 = ((Rectangle) bounds2D10).getLocation();
-    Point location15 = location14.getLocation();
-    assertEquals(0, location15.getLocation().y);
-    Point location16 = ((Rectangle) bounds2D4).getLocation();
-    Point location17 = location16.getLocation();
-    assertEquals(0, location17.getLocation().y);
-    Point location18 = bounds5.getLocation();
-    assertEquals(0, location18.getLocation().y);
-    assertEquals(0, location9.y);
-    assertEquals(0, location6.y);
-    Point location19 = bounds11.getLocation();
-    assertEquals(0, location19.getLocation().y);
-    Point location20 = bounds14.getLocation();
-    assertEquals(0, location20.getLocation().y);
-    Point location21 = bounds16.getLocation();
-    assertEquals(0, location21.getLocation().y);
-    Point location22 = bounds7.getLocation();
-    assertEquals(0, location22.getLocation().y);
-    assertEquals(0, location11.y);
-    Point location23 = bounds18.getLocation();
-    assertEquals(0, location23.getLocation().y);
-    Point location24 = bounds20.getLocation();
-    assertEquals(0, location24.getLocation().y);
-    assertEquals(0, location13.y);
-    assertEquals(0, location2.y);
-    Point location25 = ((Rectangle) bounds2D9).getLocation();
-    assertEquals(0, location25.getLocation().y);
-    assertEquals(0, location15.y);
-    assertEquals(0, location17.y);
-    assertEquals(0, bounds6.getLocation().y);
-    assertEquals(0, location18.y);
-    assertEquals(0, location8.y);
-    assertEquals(0, bounds9.getLocation().y);
-    assertEquals(0, bounds12.getLocation().y);
-    assertEquals(0, bounds15.getLocation().y);
-    assertEquals(0, location5.y);
-    assertEquals(0, bounds17.getLocation().y);
-    assertEquals(0, bounds8.getLocation().y);
-    assertEquals(0, location19.y);
-    assertEquals(0, bounds19.getLocation().y);
-    assertEquals(0, bounds21.getLocation().y);
-    assertEquals(0, location20.y);
-    assertEquals(0, bounds22.getLocation().y);
-    assertEquals(0, location21.y);
-    assertEquals(0, location22.y);
-    assertEquals(0, bounds23.getLocation().y);
-    assertEquals(0, bounds24.getLocation().y);
-    assertEquals(0, location10.y);
-    assertEquals(0, bounds25.getLocation().y);
-    assertEquals(0, location23.y);
-    assertEquals(0, bounds26.getLocation().y);
-    assertEquals(0, location24.y);
-    assertEquals(0, bounds27.getLocation().y);
-    assertEquals(0, location12.y);
-    assertEquals(0, location.y);
-    assertEquals(0, ((Rectangle) bounds2D3).getLocation().y);
-    assertEquals(0, location25.y);
-    assertEquals(0, location14.y);
-    assertEquals(0, ((Rectangle) bounds2D24).getLocation().y);
-    assertEquals(0, ((Rectangle) bounds2D30).getLocation().y);
-    assertEquals(0, location16.y);
-    assertEquals(0, ((Rectangle) bounds2D33).getLocation().y);
-    assertEquals(0, ((Rectangle) bounds2D36).getLocation().y);
-    assertEquals(0, bounds6.getBounds().y);
-    assertEquals(0, bounds6.y);
-    assertEquals(0, bounds5.y);
-    assertEquals(0, bounds9.getBounds().y);
-    assertEquals(0, bounds12.getBounds().y);
-    assertEquals(0, bounds15.getBounds().y);
-    assertEquals(0, bounds4.y);
-    assertEquals(0, bounds17.getBounds().y);
-    assertEquals(0, bounds9.y);
-    assertEquals(0, bounds12.y);
-    assertEquals(0, bounds19.getBounds().y);
-    assertEquals(0, bounds21.getBounds().y);
-    assertEquals(0, bounds15.y);
-    assertEquals(0, bounds3.y);
-    assertEquals(0, bounds22.getBounds().y);
-    assertEquals(0, bounds17.y);
-    assertEquals(0, bounds8.y);
-    assertEquals(0, bounds23.getBounds().y);
-    assertEquals(0, bounds24.getBounds().y);
-    assertEquals(0, bounds11.y);
-    assertEquals(0, bounds25.getBounds().y);
-    assertEquals(0, bounds19.y);
-    assertEquals(0, bounds26.getBounds().y);
-    assertEquals(0, bounds21.y);
-    assertEquals(0, bounds27.getBounds().y);
-    assertEquals(0, bounds14.y);
-    assertEquals(0, bounds2.y);
-    assertEquals(0, bounds2D3.getBounds().y);
-    assertEquals(0, bounds22.y);
-    assertEquals(0, bounds16.y);
-    assertEquals(0, bounds2D24.getBounds().y);
-    assertEquals(0, bounds2D30.getBounds().y);
-    assertEquals(0, bounds7.y);
-    assertEquals(0, bounds2D33.getBounds().y);
-    assertEquals(0, bounds2D36.getBounds().y);
-    assertEquals(0, bounds23.y);
-    assertEquals(0, bounds2D39.getBounds().y);
-    assertEquals(0, bounds2D40.getBounds().y);
-    assertEquals(0, bounds24.y);
-    assertEquals(0, bounds10.y);
-    assertEquals(0, frame7.getBounds().y);
-    assertEquals(0, bounds25.y);
-    assertEquals(0, bounds18.y);
-    assertEquals(0, frame8.getBounds().y);
-    assertEquals(0, frame9.getBounds().y);
-    assertEquals(0, bounds26.y);
-    assertEquals(0, frame10.getBounds().y);
-    assertEquals(0, frame11.getBounds().y);
-    assertEquals(0, bounds20.y);
-    assertEquals(0, frame12.getBounds().y);
-    assertEquals(0, frame13.getBounds().y);
-    assertEquals(0, bounds27.y);
-    assertEquals(0, bounds13.y);
-    assertEquals(0, bounds.y);
-    assertEquals(0, ((Rectangle) bounds2D).y);
-    assertEquals(0, ((Rectangle) bounds2D2).y);
-    assertEquals(0, ((Rectangle) bounds2D3).y);
-    assertEquals(0, ((Rectangle) bounds2D5).y);
-    assertEquals(0, ((Rectangle) bounds2D7).y);
-    assertEquals(0, ((Rectangle) bounds2D8).y);
-    assertEquals(0, ((Rectangle) bounds2D9).y);
-    assertEquals(0, ((Rectangle) bounds2D11).y);
-    assertEquals(0, ((Rectangle) bounds2D12).y);
-    assertEquals(0, ((Rectangle) bounds2D13).y);
-    assertEquals(0, ((Rectangle) bounds2D14).y);
-    assertEquals(0, ((Rectangle) bounds2D15).y);
-    assertEquals(0, ((Rectangle) bounds2D16).y);
-    assertEquals(0, ((Rectangle) bounds2D10).y);
-    assertEquals(0, ((Rectangle) bounds2D17).y);
-    assertEquals(0, ((Rectangle) bounds2D18).y);
-    assertEquals(0, ((Rectangle) bounds2D19).y);
-    assertEquals(0, ((Rectangle) bounds2D21).y);
-    assertEquals(0, ((Rectangle) bounds2D23).y);
-    assertEquals(0, ((Rectangle) bounds2D24).y);
-    assertEquals(0, ((Rectangle) bounds2D25).y);
-    assertEquals(0, ((Rectangle) bounds2D26).y);
-    assertEquals(0, ((Rectangle) bounds2D27).y);
-    assertEquals(0, ((Rectangle) bounds2D28).y);
-    assertEquals(0, ((Rectangle) bounds2D29).y);
-    assertEquals(0, ((Rectangle) bounds2D30).y);
-    assertEquals(0, ((Rectangle) bounds2D4).y);
-    assertEquals(0, ((Rectangle) bounds2D31).y);
-    assertEquals(0, ((Rectangle) bounds2D32).y);
-    assertEquals(0, ((Rectangle) bounds2D33).y);
-    assertEquals(0, ((Rectangle) bounds2D34).y);
-    assertEquals(0, ((Rectangle) bounds2D35).y);
-    assertEquals(0, ((Rectangle) bounds2D36).y);
-    assertEquals(0, ((Rectangle) bounds2D37).y);
-    assertEquals(0, ((Rectangle) bounds2D38).y);
-    assertEquals(0.0d, location4.getY());
-    assertEquals(0.0d, location7.getY());
-    assertEquals(0.0d, location3.getY());
-    assertEquals(0.0d, location9.getY());
-    assertEquals(0.0d, location6.getY());
-    assertEquals(0.0d, location11.getY());
-    assertEquals(0.0d, location13.getY());
-    assertEquals(0.0d, location2.getY());
-    assertEquals(0.0d, location15.getY());
-    assertEquals(0.0d, location17.getY());
-    assertEquals(0.0d, location18.getY());
-    assertEquals(0.0d, location8.getY());
-    assertEquals(0.0d, location5.getY());
-    assertEquals(0.0d, location19.getY());
-    assertEquals(0.0d, location20.getY());
-    assertEquals(0.0d, location21.getY());
-    assertEquals(0.0d, location22.getY());
-    assertEquals(0.0d, location10.getY());
-    assertEquals(0.0d, location23.getY());
-    assertEquals(0.0d, location24.getY());
-    assertEquals(0.0d, location12.getY());
-    assertEquals(0.0d, location.getY());
-    assertEquals(0.0d, location25.getY());
-    assertEquals(0.0d, location14.getY());
-    assertEquals(0.0d, location16.getY());
-    assertEquals(0.0d, bounds6.getY());
-    assertEquals(0.0d, bounds5.getY());
-    assertEquals(0.0d, bounds4.getY());
-    assertEquals(0.0d, bounds9.getY());
-    assertEquals(0.0d, bounds12.getY());
-    assertEquals(0.0d, bounds15.getY());
-    assertEquals(0.0d, bounds3.getY());
-    assertEquals(0.0d, bounds17.getY());
-    assertEquals(0.0d, bounds8.getY());
-    assertEquals(0.0d, bounds11.getY());
-    assertEquals(0.0d, bounds19.getY());
-    assertEquals(0.0d, bounds21.getY());
-    assertEquals(0.0d, bounds14.getY());
-    assertEquals(0.0d, bounds2.getY());
-    assertEquals(0.0d, bounds22.getY());
-    assertEquals(0.0d, bounds16.getY());
-    assertEquals(0.0d, bounds7.getY());
-    assertEquals(0.0d, bounds23.getY());
-    assertEquals(0.0d, bounds24.getY());
-    assertEquals(0.0d, bounds10.getY());
-    assertEquals(0.0d, bounds25.getY());
-    assertEquals(0.0d, bounds18.getY());
-    assertEquals(0.0d, bounds26.getY());
-    assertEquals(0.0d, bounds20.getY());
-    assertEquals(0.0d, bounds27.getY());
-    assertEquals(0.0d, bounds13.getY());
-    assertEquals(0.0d, bounds.getY());
-    assertEquals(0.0d, bounds6.getCenterY());
-    assertEquals(0.0d, bounds5.getCenterY());
-    assertEquals(0.0d, bounds4.getCenterY());
-    assertEquals(0.0d, bounds9.getCenterY());
-    assertEquals(0.0d, bounds12.getCenterY());
-    assertEquals(0.0d, bounds15.getCenterY());
-    assertEquals(0.0d, bounds3.getCenterY());
-    assertEquals(0.0d, bounds17.getCenterY());
-    assertEquals(0.0d, bounds8.getCenterY());
-    assertEquals(0.0d, bounds11.getCenterY());
-    assertEquals(0.0d, bounds19.getCenterY());
-    assertEquals(0.0d, bounds21.getCenterY());
-    assertEquals(0.0d, bounds14.getCenterY());
-    assertEquals(0.0d, bounds2.getCenterY());
-    assertEquals(0.0d, bounds2D3.getCenterY());
-    assertEquals(0.0d, bounds2D9.getCenterY());
-    assertEquals(0.0d, bounds2D10.getCenterY());
-    assertEquals(0.0d, bounds2D24.getCenterY());
-    assertEquals(0.0d, bounds2D30.getCenterY());
-    assertEquals(0.0d, bounds2D4.getCenterY());
-    assertEquals(0.0d, bounds2D33.getCenterY());
-    assertEquals(0.0d, bounds2D36.getCenterY());
-    assertEquals(0.0d, bounds2D20.getCenterY());
-    assertEquals(0.0d, bounds2D39.getCenterY());
-    assertEquals(0.0d, bounds2D40.getCenterY());
-    assertEquals(0.0d, bounds2D22.getCenterY());
-    assertEquals(0.0d, bounds2D6.getCenterY());
-    assertEquals(0.0d, bounds22.getCenterY());
-    assertEquals(0.0d, bounds16.getCenterY());
-    assertEquals(0.0d, bounds7.getCenterY());
-    assertEquals(0.0d, bounds23.getCenterY());
-    assertEquals(0.0d, bounds24.getCenterY());
-    assertEquals(0.0d, bounds10.getCenterY());
-    assertEquals(0.0d, bounds25.getCenterY());
-    assertEquals(0.0d, bounds18.getCenterY());
-    assertEquals(0.0d, bounds26.getCenterY());
-    assertEquals(0.0d, bounds20.getCenterY());
-    assertEquals(0.0d, bounds27.getCenterY());
-    assertEquals(0.0d, bounds13.getCenterY());
-    assertEquals(0.0d, bounds.getCenterY());
-    assertEquals(0.0d, frame7.getCenterY());
-    assertEquals(0.0d, frame4.getCenterY());
-    assertEquals(0.0d, frame2.getCenterY());
-    assertEquals(0.0d, frame8.getCenterY());
-    assertEquals(0.0d, frame9.getCenterY());
-    assertEquals(0.0d, frame5.getCenterY());
-    assertEquals(0.0d, frame10.getCenterY());
-    assertEquals(0.0d, frame11.getCenterY());
-    assertEquals(0.0d, frame3.getCenterY());
-    assertEquals(0.0d, frame12.getCenterY());
-    assertEquals(0.0d, frame13.getCenterY());
-    assertEquals(0.0d, frame6.getCenterY());
-    assertEquals(0.0d, frame.getCenterY());
-    assertEquals(0.0d, actualBounds.getCenterY());
-    assertEquals(0.0d, bounds6.getMaxY());
-    assertEquals(0.0d, bounds5.getMaxY());
-    assertEquals(0.0d, bounds4.getMaxY());
-    assertEquals(0.0d, bounds9.getMaxY());
-    assertEquals(0.0d, bounds12.getMaxY());
-    assertEquals(0.0d, bounds15.getMaxY());
-    assertEquals(0.0d, bounds3.getMaxY());
-    assertEquals(0.0d, bounds17.getMaxY());
-    assertEquals(0.0d, bounds8.getMaxY());
-    assertEquals(0.0d, bounds11.getMaxY());
-    assertEquals(0.0d, bounds19.getMaxY());
-    assertEquals(0.0d, bounds21.getMaxY());
-    assertEquals(0.0d, bounds14.getMaxY());
-    assertEquals(0.0d, bounds2.getMaxY());
-    assertEquals(0.0d, bounds2D3.getMaxY());
-    assertEquals(0.0d, bounds2D9.getMaxY());
-    assertEquals(0.0d, bounds2D10.getMaxY());
-    assertEquals(0.0d, bounds2D24.getMaxY());
-    assertEquals(0.0d, bounds2D30.getMaxY());
-    assertEquals(0.0d, bounds2D4.getMaxY());
-    assertEquals(0.0d, bounds2D33.getMaxY());
-    assertEquals(0.0d, bounds2D36.getMaxY());
-    assertEquals(0.0d, bounds2D20.getMaxY());
-    assertEquals(0.0d, bounds2D39.getMaxY());
-    assertEquals(0.0d, bounds2D40.getMaxY());
-    assertEquals(0.0d, bounds2D22.getMaxY());
-    assertEquals(0.0d, bounds2D6.getMaxY());
-    assertEquals(0.0d, bounds22.getMaxY());
-    assertEquals(0.0d, bounds16.getMaxY());
-    assertEquals(0.0d, bounds7.getMaxY());
-    assertEquals(0.0d, bounds23.getMaxY());
-    assertEquals(0.0d, bounds24.getMaxY());
-    assertEquals(0.0d, bounds10.getMaxY());
-    assertEquals(0.0d, bounds25.getMaxY());
-    assertEquals(0.0d, bounds18.getMaxY());
-    assertEquals(0.0d, bounds26.getMaxY());
-    assertEquals(0.0d, bounds20.getMaxY());
-    assertEquals(0.0d, bounds27.getMaxY());
-    assertEquals(0.0d, bounds13.getMaxY());
-    assertEquals(0.0d, bounds.getMaxY());
-    assertEquals(0.0d, frame7.getMaxY());
-    assertEquals(0.0d, frame4.getMaxY());
-    assertEquals(0.0d, frame2.getMaxY());
-    assertEquals(0.0d, frame8.getMaxY());
-    assertEquals(0.0d, frame9.getMaxY());
-    assertEquals(0.0d, frame5.getMaxY());
-    assertEquals(0.0d, frame10.getMaxY());
-    assertEquals(0.0d, frame11.getMaxY());
-    assertEquals(0.0d, frame3.getMaxY());
-    assertEquals(0.0d, frame12.getMaxY());
-    assertEquals(0.0d, frame13.getMaxY());
-    assertEquals(0.0d, frame6.getMaxY());
-    assertEquals(0.0d, frame.getMaxY());
-    assertEquals(0.0d, actualBounds.getMaxY());
-    assertEquals(0.0d, bounds6.getMinY());
-    assertEquals(0.0d, bounds5.getMinY());
-    assertEquals(0.0d, bounds4.getMinY());
-    assertEquals(0.0d, bounds9.getMinY());
-    assertEquals(0.0d, bounds12.getMinY());
-    assertEquals(0.0d, bounds15.getMinY());
-    assertEquals(0.0d, bounds3.getMinY());
-    assertEquals(0.0d, bounds17.getMinY());
-    assertEquals(0.0d, bounds8.getMinY());
-    assertEquals(0.0d, bounds11.getMinY());
-    assertEquals(0.0d, bounds19.getMinY());
-    assertEquals(0.0d, bounds21.getMinY());
-    assertEquals(0.0d, bounds14.getMinY());
-    assertEquals(0.0d, bounds2.getMinY());
-    assertEquals(0.0d, bounds2D3.getMinY());
-    assertEquals(0.0d, bounds2D9.getMinY());
-    assertEquals(0.0d, bounds2D10.getMinY());
-    assertEquals(0.0d, bounds2D24.getMinY());
-    assertEquals(0.0d, bounds2D30.getMinY());
-    assertEquals(0.0d, bounds2D4.getMinY());
-    assertEquals(0.0d, bounds2D33.getMinY());
-    assertEquals(0.0d, bounds2D36.getMinY());
-    assertEquals(0.0d, bounds2D20.getMinY());
-    assertEquals(0.0d, bounds2D39.getMinY());
-    assertEquals(0.0d, bounds2D40.getMinY());
-    assertEquals(0.0d, bounds2D22.getMinY());
-    assertEquals(0.0d, bounds2D6.getMinY());
-    assertEquals(0.0d, bounds22.getMinY());
-    assertEquals(0.0d, bounds16.getMinY());
-    assertEquals(0.0d, bounds7.getMinY());
-    assertEquals(0.0d, bounds23.getMinY());
-    assertEquals(0.0d, bounds24.getMinY());
-    assertEquals(0.0d, bounds10.getMinY());
-    assertEquals(0.0d, bounds25.getMinY());
-    assertEquals(0.0d, bounds18.getMinY());
-    assertEquals(0.0d, bounds26.getMinY());
-    assertEquals(0.0d, bounds20.getMinY());
-    assertEquals(0.0d, bounds27.getMinY());
-    assertEquals(0.0d, bounds13.getMinY());
-    assertEquals(0.0d, bounds.getMinY());
-    assertEquals(0.0d, frame7.getMinY());
-    assertEquals(0.0d, frame4.getMinY());
-    assertEquals(0.0d, frame2.getMinY());
-    assertEquals(0.0d, frame8.getMinY());
-    assertEquals(0.0d, frame9.getMinY());
-    assertEquals(0.0d, frame5.getMinY());
-    assertEquals(0.0d, frame10.getMinY());
-    assertEquals(0.0d, frame11.getMinY());
-    assertEquals(0.0d, frame3.getMinY());
-    assertEquals(0.0d, frame12.getMinY());
-    assertEquals(0.0d, frame13.getMinY());
-    assertEquals(0.0d, frame6.getMinY());
-    assertEquals(0.0d, frame.getMinY());
-    assertEquals(0.0d, actualBounds.getMinY());
-    assertEquals(0.0d, bounds2D3.getY());
-    assertEquals(0.0d, bounds2D9.getY());
-    assertEquals(0.0d, bounds2D10.getY());
-    assertEquals(0.0d, bounds2D24.getY());
-    assertEquals(0.0d, bounds2D30.getY());
-    assertEquals(0.0d, bounds2D4.getY());
-    assertEquals(0.0d, bounds2D33.getY());
-    assertEquals(0.0d, bounds2D36.getY());
-    assertEquals(0.0d, bounds2D20.getY());
-    assertEquals(0.0d, bounds2D39.getY());
-    assertEquals(0.0d, bounds2D40.getY());
-    assertEquals(0.0d, bounds2D22.getY());
-    assertEquals(0.0d, bounds2D6.getY());
-    assertEquals(0.0d, frame7.getY());
-    assertEquals(0.0d, frame4.getY());
-    assertEquals(0.0d, frame2.getY());
-    assertEquals(0.0d, frame8.getY());
-    assertEquals(0.0d, frame9.getY());
-    assertEquals(0.0d, frame5.getY());
-    assertEquals(0.0d, frame10.getY());
-    assertEquals(0.0d, frame11.getY());
-    assertEquals(0.0d, frame3.getY());
-    assertEquals(0.0d, frame12.getY());
-    assertEquals(0.0d, frame13.getY());
-    assertEquals(0.0d, frame6.getY());
-    assertEquals(0.0d, frame.getY());
-    assertEquals(0.0d, actualBounds.getY());
-    assertEquals(0.0f, ((Rectangle2D.Float) bounds2D41).y);
-    assertEquals(0.0f, ((Rectangle2D.Float) bounds2D20).y);
-    assertEquals(0.0f, ((Rectangle2D.Float) bounds2D6).y);
-    assertEquals(0.0f, ((Rectangle2D.Float) actualBounds).y);
-  }
-
-  /**
-   * Test {@link Type1CharString#getBounds()}.
-   * <ul>
-   *   <li>Then return Bounds {@link Rectangle#x} is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Type1CharString#getBounds()}
-   */
-  @Test
-  @DisplayName("Test getBounds(); then return Bounds x is one")
-  void testGetBounds_thenReturnBoundsXIsOne() {
-    // Arrange
     ArrayList<Number> numbers = new ArrayList<>();
-    Integer valueOfResult = Integer.valueOf(1);
-    numbers.add(valueOfResult);
+    numbers.add(Integer.valueOf(1));
 
-    Type1CharString type1CharString = new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    Type1CharString type1CharString =
+        new Type1CharString(
+            mock(Type1CharStringReader.class),
+            "rlineTo without initial moveTo in font {}, glyph {}",
+            "Glyph Name");
     type1CharString.addCommand(numbers, CharStringCommand.HLINETO);
 
     // Act
     Rectangle2D actualBounds = type1CharString.getBounds();
 
     // Assert
-    Rectangle bounds = actualBounds.getBounds();
-    Rectangle bounds2 = bounds.getBounds();
-    Rectangle bounds3 = bounds2.getBounds();
-    Rectangle bounds4 = bounds3.getBounds();
-    Rectangle bounds5 = bounds4.getBounds();
-    Rectangle bounds6 = bounds5.getBounds();
-    Rectangle2D bounds2D = bounds6.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Rectangle2D bounds2D2 = bounds5.getBounds2D();
-    assertTrue(bounds2D2 instanceof Rectangle);
-    Rectangle2D bounds2D3 = bounds4.getBounds2D();
-    assertTrue(bounds2D3 instanceof Rectangle);
-    Rectangle2D bounds2D4 = bounds.getBounds2D();
-    Rectangle bounds7 = bounds2D4.getBounds();
-    Rectangle bounds8 = bounds7.getBounds();
-    Rectangle bounds9 = bounds8.getBounds();
-    Rectangle2D bounds2D5 = bounds9.getBounds2D();
-    assertTrue(bounds2D5 instanceof Rectangle);
-    Rectangle2D bounds2D6 = actualBounds.getBounds2D();
-    Rectangle bounds10 = bounds2D6.getBounds();
-    Rectangle bounds11 = bounds10.getBounds();
-    Rectangle bounds12 = bounds11.getBounds();
-    Rectangle2D bounds2D7 = bounds12.getBounds2D();
-    assertTrue(bounds2D7 instanceof Rectangle);
     Rectangle2D frame = actualBounds.getFrame();
-    Rectangle bounds13 = frame.getBounds();
-    Rectangle bounds14 = bounds13.getBounds();
-    Rectangle bounds15 = bounds14.getBounds();
-    Rectangle2D bounds2D8 = bounds15.getBounds2D();
-    assertTrue(bounds2D8 instanceof Rectangle);
-    Rectangle2D bounds2D9 = bounds3.getBounds2D();
-    assertTrue(bounds2D9 instanceof Rectangle);
-    Rectangle2D bounds2D10 = bounds2.getBounds2D();
-    Rectangle bounds16 = bounds2D10.getBounds();
-    Rectangle bounds17 = bounds16.getBounds();
-    Rectangle2D bounds2D11 = bounds17.getBounds2D();
-    assertTrue(bounds2D11 instanceof Rectangle);
-    Rectangle2D bounds2D12 = bounds8.getBounds2D();
-    assertTrue(bounds2D12 instanceof Rectangle);
-    Rectangle2D bounds2D13 = bounds11.getBounds2D();
-    assertTrue(bounds2D13 instanceof Rectangle);
-    Rectangle2D frame2 = bounds2.getFrame();
-    Rectangle bounds18 = frame2.getBounds();
-    Rectangle bounds19 = bounds18.getBounds();
-    Rectangle2D bounds2D14 = bounds19.getBounds2D();
-    assertTrue(bounds2D14 instanceof Rectangle);
-    Rectangle2D frame3 = bounds.getFrame();
-    Rectangle bounds20 = frame3.getBounds();
-    Rectangle bounds21 = bounds20.getBounds();
-    Rectangle2D bounds2D15 = bounds21.getBounds2D();
-    assertTrue(bounds2D15 instanceof Rectangle);
-    Rectangle2D bounds2D16 = bounds14.getBounds2D();
-    assertTrue(bounds2D16 instanceof Rectangle);
-    assertTrue(bounds2D10 instanceof Rectangle);
-    Rectangle bounds22 = bounds2D9.getBounds();
-    Rectangle2D bounds2D17 = bounds22.getBounds2D();
-    assertTrue(bounds2D17 instanceof Rectangle);
-    Rectangle2D bounds2D18 = bounds16.getBounds2D();
-    assertTrue(bounds2D18 instanceof Rectangle);
-    Rectangle2D bounds2D19 = bounds7.getBounds2D();
-    assertTrue(bounds2D19 instanceof Rectangle);
-    Rectangle2D bounds2D20 = bounds2D6.getBounds2D();
-    Rectangle bounds23 = bounds2D20.getBounds();
-    Rectangle2D bounds2D21 = bounds23.getBounds2D();
-    assertTrue(bounds2D21 instanceof Rectangle);
-    Rectangle2D bounds2D22 = frame.getBounds2D();
-    Rectangle bounds24 = bounds2D22.getBounds();
-    Rectangle2D bounds2D23 = bounds24.getBounds2D();
-    assertTrue(bounds2D23 instanceof Rectangle);
-    Rectangle2D bounds2D24 = bounds10.getBounds2D();
-    assertTrue(bounds2D24 instanceof Rectangle);
-    Rectangle2D frame4 = bounds3.getFrame();
-    Rectangle bounds25 = frame4.getBounds();
-    Rectangle2D bounds2D25 = bounds25.getBounds2D();
-    assertTrue(bounds2D25 instanceof Rectangle);
-    Rectangle2D bounds2D26 = bounds18.getBounds2D();
-    assertTrue(bounds2D26 instanceof Rectangle);
-    Rectangle2D frame5 = bounds2D6.getFrame();
-    Rectangle bounds26 = frame5.getBounds();
-    Rectangle2D bounds2D27 = bounds26.getBounds2D();
-    assertTrue(bounds2D27 instanceof Rectangle);
-    Rectangle2D bounds2D28 = bounds20.getBounds2D();
-    assertTrue(bounds2D28 instanceof Rectangle);
-    Rectangle2D frame6 = frame.getFrame();
-    Rectangle bounds27 = frame6.getBounds();
-    Rectangle2D bounds2D29 = bounds27.getBounds2D();
-    assertTrue(bounds2D29 instanceof Rectangle);
-    Rectangle2D bounds2D30 = bounds13.getBounds2D();
-    assertTrue(bounds2D30 instanceof Rectangle);
-    assertTrue(bounds2D4 instanceof Rectangle);
-    Rectangle2D bounds2D31 = bounds2D3.getBounds2D();
-    assertTrue(bounds2D31 instanceof Rectangle);
-    Rectangle2D bounds2D32 = bounds2D9.getBounds2D();
-    assertTrue(bounds2D32 instanceof Rectangle);
-    Rectangle2D bounds2D33 = bounds2D10.getBounds2D();
-    assertTrue(bounds2D33 instanceof Rectangle);
-    Rectangle2D bounds2D34 = bounds2D24.getBounds2D();
-    assertTrue(bounds2D34 instanceof Rectangle);
-    Rectangle2D bounds2D35 = bounds2D30.getBounds2D();
-    assertTrue(bounds2D35 instanceof Rectangle);
-    Rectangle2D bounds2D36 = bounds2D4.getBounds2D();
-    assertTrue(bounds2D36 instanceof Rectangle);
-    Rectangle2D bounds2D37 = bounds2D33.getBounds2D();
-    assertTrue(bounds2D37 instanceof Rectangle);
-    Rectangle2D bounds2D38 = bounds2D36.getBounds2D();
-    assertTrue(bounds2D38 instanceof Rectangle);
-    Rectangle2D bounds2D39 = frame2.getBounds2D();
-    assertTrue(bounds2D39 instanceof Rectangle2D.Double);
-    Rectangle2D bounds2D40 = frame3.getBounds2D();
-    assertTrue(bounds2D40 instanceof Rectangle2D.Double);
-    assertTrue(bounds2D22 instanceof Rectangle2D.Double);
-    Rectangle2D frame7 = bounds4.getFrame();
-    assertTrue(frame7 instanceof Rectangle2D.Double);
-    assertTrue(frame4 instanceof Rectangle2D.Double);
-    assertTrue(frame2 instanceof Rectangle2D.Double);
-    Rectangle2D frame8 = bounds2D10.getFrame();
-    assertTrue(frame8 instanceof Rectangle2D.Double);
-    Rectangle2D frame9 = bounds2D4.getFrame();
-    assertTrue(frame9 instanceof Rectangle2D.Double);
-    assertTrue(frame5 instanceof Rectangle2D.Double);
-    Rectangle2D frame10 = bounds10.getFrame();
-    assertTrue(frame10 instanceof Rectangle2D.Double);
-    Rectangle2D frame11 = bounds13.getFrame();
-    assertTrue(frame11 instanceof Rectangle2D.Double);
-    assertTrue(frame3 instanceof Rectangle2D.Double);
-    Rectangle2D frame12 = frame2.getFrame();
-    assertTrue(frame12 instanceof Rectangle2D.Double);
-    Rectangle2D frame13 = frame3.getFrame();
-    assertTrue(frame13 instanceof Rectangle2D.Double);
-    assertTrue(frame6 instanceof Rectangle2D.Double);
-    assertTrue(frame instanceof Rectangle2D.Double);
-    Rectangle2D bounds2D41 = bounds2D20.getBounds2D();
-    assertTrue(bounds2D41 instanceof Rectangle2D.Float);
-    assertTrue(bounds2D20 instanceof Rectangle2D.Float);
-    assertTrue(bounds2D6 instanceof Rectangle2D.Float);
-    assertTrue(actualBounds instanceof Rectangle2D.Float);
-    assertEquals(1, bounds.x);
-    Point location = bounds.getLocation();
-    Point location2 = location.getLocation();
-    Point location3 = location2.getLocation();
-    Point location4 = location3.getLocation();
-    assertEquals(1.0d, location4.getX());
-    Point location5 = bounds3.getLocation();
-    Point location6 = location5.getLocation();
-    Point location7 = location6.getLocation();
-    assertEquals(1.0d, location7.getX());
-    assertEquals(1.0d, location3.getX());
-    Point location8 = bounds4.getLocation();
-    Point location9 = location8.getLocation();
-    assertEquals(1.0d, location9.getX());
-    assertEquals(1.0d, location6.getX());
-    Point location10 = bounds10.getLocation();
-    Point location11 = location10.getLocation();
-    assertEquals(1.0d, location11.getX());
-    Point location12 = bounds13.getLocation();
-    Point location13 = location12.getLocation();
-    assertEquals(1.0d, location13.getX());
-    assertEquals(1.0d, location2.getX());
-    Point location14 = ((Rectangle) bounds2D10).getLocation();
-    Point location15 = location14.getLocation();
-    assertEquals(1.0d, location15.getX());
-    Point location16 = ((Rectangle) bounds2D4).getLocation();
-    Point location17 = location16.getLocation();
-    assertEquals(1.0d, location17.getX());
-    Point location18 = bounds5.getLocation();
-    assertEquals(1.0d, location18.getX());
-    assertEquals(1.0d, location8.getX());
-    assertEquals(1.0d, location5.getX());
-    Point location19 = bounds11.getLocation();
-    assertEquals(1.0d, location19.getX());
-    Point location20 = bounds14.getLocation();
-    assertEquals(1.0d, location20.getX());
-    Point location21 = bounds16.getLocation();
-    assertEquals(1.0d, location21.getX());
-    Point location22 = bounds7.getLocation();
-    assertEquals(1.0d, location22.getX());
-    assertEquals(1.0d, location10.getX());
-    Point location23 = bounds18.getLocation();
-    assertEquals(1.0d, location23.getX());
-    Point location24 = bounds20.getLocation();
-    assertEquals(1.0d, location24.getX());
-    assertEquals(1.0d, location12.getX());
-    assertEquals(1.0d, location.getX());
-    Point location25 = ((Rectangle) bounds2D9).getLocation();
-    assertEquals(1.0d, location25.getX());
-    assertEquals(1.0d, location14.getX());
-    assertEquals(1.0d, location16.getX());
-    assertEquals(1.0d, bounds6.getX());
-    assertEquals(1.0d, bounds5.getX());
-    assertEquals(1.0d, bounds4.getX());
-    assertEquals(1.0d, bounds9.getX());
-    assertEquals(1.0d, bounds12.getX());
-    assertEquals(1.0d, bounds15.getX());
-    assertEquals(1.0d, bounds3.getX());
-    assertEquals(1.0d, bounds17.getX());
-    assertEquals(1.0d, bounds8.getX());
-    assertEquals(1.0d, bounds11.getX());
-    assertEquals(1.0d, bounds19.getX());
-    assertEquals(1.0d, bounds21.getX());
-    assertEquals(1.0d, bounds14.getX());
-    assertEquals(1.0d, bounds2.getX());
-    assertEquals(1.0d, bounds22.getX());
-    assertEquals(1.0d, bounds16.getX());
-    assertEquals(1.0d, bounds7.getX());
-    assertEquals(1.0d, bounds23.getX());
-    assertEquals(1.0d, bounds24.getX());
-    assertEquals(1.0d, bounds10.getX());
-    assertEquals(1.0d, bounds25.getX());
-    assertEquals(1.0d, bounds18.getX());
-    assertEquals(1.0d, bounds26.getX());
-    assertEquals(1.0d, bounds20.getX());
-    assertEquals(1.0d, bounds27.getX());
-    assertEquals(1.0d, bounds13.getX());
-    assertEquals(1.0d, bounds.getX());
-    assertEquals(1.0d, bounds6.getCenterX());
-    assertEquals(1.0d, bounds5.getCenterX());
-    assertEquals(1.0d, bounds4.getCenterX());
-    assertEquals(1.0d, bounds9.getCenterX());
-    assertEquals(1.0d, bounds12.getCenterX());
-    assertEquals(1.0d, bounds15.getCenterX());
-    assertEquals(1.0d, bounds3.getCenterX());
-    assertEquals(1.0d, bounds17.getCenterX());
-    assertEquals(1.0d, bounds8.getCenterX());
-    assertEquals(1.0d, bounds11.getCenterX());
-    assertEquals(1.0d, bounds19.getCenterX());
-    assertEquals(1.0d, bounds21.getCenterX());
-    assertEquals(1.0d, bounds14.getCenterX());
-    assertEquals(1.0d, bounds2.getCenterX());
-    assertEquals(1.0d, bounds2D3.getCenterX());
-    assertEquals(1.0d, bounds2D9.getCenterX());
-    assertEquals(1.0d, bounds2D10.getCenterX());
-    assertEquals(1.0d, bounds2D24.getCenterX());
-    assertEquals(1.0d, bounds2D30.getCenterX());
-    assertEquals(1.0d, bounds2D4.getCenterX());
-    assertEquals(1.0d, bounds2D33.getCenterX());
-    assertEquals(1.0d, bounds2D36.getCenterX());
-    assertEquals(1.0d, bounds2D20.getCenterX());
-    assertEquals(1.0d, bounds2D39.getCenterX());
-    assertEquals(1.0d, bounds2D40.getCenterX());
-    assertEquals(1.0d, bounds2D22.getCenterX());
-    assertEquals(1.0d, bounds2D6.getCenterX());
-    assertEquals(1.0d, bounds22.getCenterX());
-    assertEquals(1.0d, bounds16.getCenterX());
-    assertEquals(1.0d, bounds7.getCenterX());
-    assertEquals(1.0d, bounds23.getCenterX());
-    assertEquals(1.0d, bounds24.getCenterX());
-    assertEquals(1.0d, bounds10.getCenterX());
-    assertEquals(1.0d, bounds25.getCenterX());
-    assertEquals(1.0d, bounds18.getCenterX());
-    assertEquals(1.0d, bounds26.getCenterX());
-    assertEquals(1.0d, bounds20.getCenterX());
-    assertEquals(1.0d, bounds27.getCenterX());
-    assertEquals(1.0d, bounds13.getCenterX());
-    assertEquals(1.0d, bounds.getCenterX());
-    assertEquals(1.0d, frame7.getCenterX());
-    assertEquals(1.0d, frame4.getCenterX());
-    assertEquals(1.0d, frame2.getCenterX());
-    assertEquals(1.0d, frame8.getCenterX());
-    assertEquals(1.0d, frame9.getCenterX());
-    assertEquals(1.0d, frame5.getCenterX());
-    assertEquals(1.0d, frame10.getCenterX());
-    assertEquals(1.0d, frame11.getCenterX());
-    assertEquals(1.0d, frame3.getCenterX());
-    assertEquals(1.0d, frame12.getCenterX());
-    assertEquals(1.0d, frame13.getCenterX());
-    assertEquals(1.0d, frame6.getCenterX());
-    assertEquals(1.0d, frame.getCenterX());
-    assertEquals(1.0d, actualBounds.getCenterX());
-    assertEquals(1.0d, bounds6.getMaxX());
-    assertEquals(1.0d, bounds5.getMaxX());
-    assertEquals(1.0d, bounds4.getMaxX());
-    assertEquals(1.0d, bounds9.getMaxX());
-    assertEquals(1.0d, bounds12.getMaxX());
-    assertEquals(1.0d, bounds15.getMaxX());
-    assertEquals(1.0d, bounds3.getMaxX());
-    assertEquals(1.0d, bounds17.getMaxX());
-    assertEquals(1.0d, bounds8.getMaxX());
-    assertEquals(1.0d, bounds11.getMaxX());
-    assertEquals(1.0d, bounds19.getMaxX());
-    assertEquals(1.0d, bounds21.getMaxX());
-    assertEquals(1.0d, bounds14.getMaxX());
-    assertEquals(1.0d, bounds2.getMaxX());
-    assertEquals(1.0d, bounds2D3.getMaxX());
-    assertEquals(1.0d, bounds2D9.getMaxX());
-    assertEquals(1.0d, bounds2D10.getMaxX());
-    assertEquals(1.0d, bounds2D24.getMaxX());
-    assertEquals(1.0d, bounds2D30.getMaxX());
-    assertEquals(1.0d, bounds2D4.getMaxX());
-    assertEquals(1.0d, bounds2D33.getMaxX());
-    assertEquals(1.0d, bounds2D36.getMaxX());
-    assertEquals(1.0d, bounds2D20.getMaxX());
-    assertEquals(1.0d, bounds2D39.getMaxX());
-    assertEquals(1.0d, bounds2D40.getMaxX());
-    assertEquals(1.0d, bounds2D22.getMaxX());
-    assertEquals(1.0d, bounds2D6.getMaxX());
-    assertEquals(1.0d, bounds22.getMaxX());
-    assertEquals(1.0d, bounds16.getMaxX());
-    assertEquals(1.0d, bounds7.getMaxX());
-    assertEquals(1.0d, bounds23.getMaxX());
-    assertEquals(1.0d, bounds24.getMaxX());
-    assertEquals(1.0d, bounds10.getMaxX());
-    assertEquals(1.0d, bounds25.getMaxX());
-    assertEquals(1.0d, bounds18.getMaxX());
-    assertEquals(1.0d, bounds26.getMaxX());
-    assertEquals(1.0d, bounds20.getMaxX());
-    assertEquals(1.0d, bounds27.getMaxX());
-    assertEquals(1.0d, bounds13.getMaxX());
-    assertEquals(1.0d, bounds.getMaxX());
-    assertEquals(1.0d, frame7.getMaxX());
-    assertEquals(1.0d, frame4.getMaxX());
-    assertEquals(1.0d, frame2.getMaxX());
-    assertEquals(1.0d, frame8.getMaxX());
-    assertEquals(1.0d, frame9.getMaxX());
-    assertEquals(1.0d, frame5.getMaxX());
-    assertEquals(1.0d, frame10.getMaxX());
-    assertEquals(1.0d, frame11.getMaxX());
-    assertEquals(1.0d, frame3.getMaxX());
-    assertEquals(1.0d, frame12.getMaxX());
-    assertEquals(1.0d, frame13.getMaxX());
-    assertEquals(1.0d, frame6.getMaxX());
-    assertEquals(1.0d, frame.getMaxX());
-    assertEquals(1.0d, actualBounds.getMaxX());
-    assertEquals(1.0d, bounds6.getMinX());
-    assertEquals(1.0d, bounds5.getMinX());
-    assertEquals(1.0d, bounds4.getMinX());
-    assertEquals(1.0d, bounds9.getMinX());
-    assertEquals(1.0d, bounds12.getMinX());
-    assertEquals(1.0d, bounds15.getMinX());
-    assertEquals(1.0d, bounds3.getMinX());
-    assertEquals(1.0d, bounds17.getMinX());
-    assertEquals(1.0d, bounds8.getMinX());
-    assertEquals(1.0d, bounds11.getMinX());
-    assertEquals(1.0d, bounds19.getMinX());
-    assertEquals(1.0d, bounds21.getMinX());
-    assertEquals(1.0d, bounds14.getMinX());
-    assertEquals(1.0d, bounds2.getMinX());
-    assertEquals(1.0d, bounds2D3.getMinX());
-    assertEquals(1.0d, bounds2D9.getMinX());
-    assertEquals(1.0d, bounds2D10.getMinX());
-    assertEquals(1.0d, bounds2D24.getMinX());
-    assertEquals(1.0d, bounds2D30.getMinX());
-    assertEquals(1.0d, bounds2D4.getMinX());
-    assertEquals(1.0d, bounds2D33.getMinX());
-    assertEquals(1.0d, bounds2D36.getMinX());
-    assertEquals(1.0d, bounds2D20.getMinX());
-    assertEquals(1.0d, bounds2D39.getMinX());
-    assertEquals(1.0d, bounds2D40.getMinX());
-    assertEquals(1.0d, bounds2D22.getMinX());
-    assertEquals(1.0d, bounds2D6.getMinX());
-    assertEquals(1.0d, bounds22.getMinX());
-    assertEquals(1.0d, bounds16.getMinX());
-    assertEquals(1.0d, bounds7.getMinX());
-    assertEquals(1.0d, bounds23.getMinX());
-    assertEquals(1.0d, bounds24.getMinX());
-    assertEquals(1.0d, bounds10.getMinX());
-    assertEquals(1.0d, bounds25.getMinX());
-    assertEquals(1.0d, bounds18.getMinX());
-    assertEquals(1.0d, bounds26.getMinX());
-    assertEquals(1.0d, bounds20.getMinX());
-    assertEquals(1.0d, bounds27.getMinX());
-    assertEquals(1.0d, bounds13.getMinX());
-    assertEquals(1.0d, bounds.getMinX());
-    assertEquals(1.0d, frame7.getMinX());
-    assertEquals(1.0d, frame4.getMinX());
-    assertEquals(1.0d, frame2.getMinX());
-    assertEquals(1.0d, frame8.getMinX());
-    assertEquals(1.0d, frame9.getMinX());
-    assertEquals(1.0d, frame5.getMinX());
-    assertEquals(1.0d, frame10.getMinX());
-    assertEquals(1.0d, frame11.getMinX());
-    assertEquals(1.0d, frame3.getMinX());
-    assertEquals(1.0d, frame12.getMinX());
-    assertEquals(1.0d, frame13.getMinX());
-    assertEquals(1.0d, frame6.getMinX());
-    assertEquals(1.0d, frame.getMinX());
-    assertEquals(1.0d, actualBounds.getMinX());
-    assertEquals(1.0d, bounds2D3.getX());
-    assertEquals(1.0d, bounds2D9.getX());
-    assertEquals(1.0d, bounds2D10.getX());
-    assertEquals(1.0d, bounds2D24.getX());
-    assertEquals(1.0d, bounds2D30.getX());
-    assertEquals(1.0d, bounds2D4.getX());
-    assertEquals(1.0d, bounds2D33.getX());
-    assertEquals(1.0d, bounds2D36.getX());
-    assertEquals(1.0d, bounds2D20.getX());
-    assertEquals(1.0d, bounds2D39.getX());
-    assertEquals(1.0d, bounds2D40.getX());
-    assertEquals(1.0d, bounds2D22.getX());
-    assertEquals(1.0d, bounds2D6.getX());
-    assertEquals(1.0d, frame7.getX());
-    assertEquals(1.0d, frame4.getX());
-    assertEquals(1.0d, frame2.getX());
-    assertEquals(1.0d, frame8.getX());
-    assertEquals(1.0d, frame9.getX());
-    assertEquals(1.0d, frame5.getX());
-    assertEquals(1.0d, frame10.getX());
-    assertEquals(1.0d, frame11.getX());
-    assertEquals(1.0d, frame3.getX());
-    assertEquals(1.0d, frame12.getX());
-    assertEquals(1.0d, frame13.getX());
-    assertEquals(1.0d, frame6.getX());
-    assertEquals(1.0d, frame.getX());
-    assertEquals(1.0d, actualBounds.getX());
-    assertEquals(1.0f, ((Rectangle2D.Float) bounds2D41).x);
-    assertEquals(1.0f, ((Rectangle2D.Float) bounds2D20).x);
-    assertEquals(1.0f, ((Rectangle2D.Float) bounds2D6).x);
-    assertEquals(1.0f, ((Rectangle2D.Float) actualBounds).x);
-    assertSame(valueOfResult, location4.getLocation().x);
-    assertSame(valueOfResult, location7.getLocation().x);
-    assertSame(valueOfResult, location4.x);
-    assertSame(valueOfResult, location9.getLocation().x);
-    assertSame(valueOfResult, location7.x);
-    assertSame(valueOfResult, location11.getLocation().x);
-    assertSame(valueOfResult, location13.getLocation().x);
-    assertSame(valueOfResult, location3.x);
-    assertSame(valueOfResult, location15.getLocation().x);
-    assertSame(valueOfResult, location17.getLocation().x);
-    assertSame(valueOfResult, location18.getLocation().x);
-    assertSame(valueOfResult, location9.x);
-    assertSame(valueOfResult, location6.x);
-    assertSame(valueOfResult, location19.getLocation().x);
-    assertSame(valueOfResult, location20.getLocation().x);
-    assertSame(valueOfResult, location21.getLocation().x);
-    assertSame(valueOfResult, location22.getLocation().x);
-    assertSame(valueOfResult, location11.x);
-    assertSame(valueOfResult, location23.getLocation().x);
-    assertSame(valueOfResult, location24.getLocation().x);
-    assertSame(valueOfResult, location13.x);
-    assertSame(valueOfResult, location2.x);
-    assertSame(valueOfResult, location25.getLocation().x);
-    assertSame(valueOfResult, location15.x);
-    assertSame(valueOfResult, location17.x);
-    assertSame(valueOfResult, bounds6.getLocation().x);
-    assertSame(valueOfResult, location18.x);
-    assertSame(valueOfResult, location8.x);
-    assertSame(valueOfResult, bounds9.getLocation().x);
-    assertSame(valueOfResult, bounds12.getLocation().x);
-    assertSame(valueOfResult, bounds15.getLocation().x);
-    assertSame(valueOfResult, location5.x);
-    assertSame(valueOfResult, bounds17.getLocation().x);
-    assertSame(valueOfResult, bounds8.getLocation().x);
-    assertSame(valueOfResult, location19.x);
-    assertSame(valueOfResult, bounds19.getLocation().x);
-    assertSame(valueOfResult, bounds21.getLocation().x);
-    assertSame(valueOfResult, location20.x);
-    assertSame(valueOfResult, bounds22.getLocation().x);
-    assertSame(valueOfResult, location21.x);
-    assertSame(valueOfResult, location22.x);
-    assertSame(valueOfResult, bounds23.getLocation().x);
-    assertSame(valueOfResult, bounds24.getLocation().x);
-    assertSame(valueOfResult, location10.x);
-    assertSame(valueOfResult, bounds25.getLocation().x);
-    assertSame(valueOfResult, location23.x);
-    assertSame(valueOfResult, bounds26.getLocation().x);
-    assertSame(valueOfResult, location24.x);
-    assertSame(valueOfResult, bounds27.getLocation().x);
-    assertSame(valueOfResult, location12.x);
-    assertSame(valueOfResult, location.x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D3).getLocation().x);
-    assertSame(valueOfResult, location25.x);
-    assertSame(valueOfResult, location14.x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D24).getLocation().x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D30).getLocation().x);
-    assertSame(valueOfResult, location16.x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D33).getLocation().x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D36).getLocation().x);
-    assertSame(valueOfResult, bounds6.getBounds().x);
-    assertSame(valueOfResult, bounds6.x);
-    assertSame(valueOfResult, bounds5.x);
-    assertSame(valueOfResult, bounds9.getBounds().x);
-    assertSame(valueOfResult, bounds12.getBounds().x);
-    assertSame(valueOfResult, bounds15.getBounds().x);
-    assertSame(valueOfResult, bounds4.x);
-    assertSame(valueOfResult, bounds17.getBounds().x);
-    assertSame(valueOfResult, bounds9.x);
-    assertSame(valueOfResult, bounds12.x);
-    assertSame(valueOfResult, bounds19.getBounds().x);
-    assertSame(valueOfResult, bounds21.getBounds().x);
-    assertSame(valueOfResult, bounds15.x);
-    assertSame(valueOfResult, bounds3.x);
-    assertSame(valueOfResult, bounds22.getBounds().x);
-    assertSame(valueOfResult, bounds17.x);
-    assertSame(valueOfResult, bounds8.x);
-    assertSame(valueOfResult, bounds23.getBounds().x);
-    assertSame(valueOfResult, bounds24.getBounds().x);
-    assertSame(valueOfResult, bounds11.x);
-    assertSame(valueOfResult, bounds25.getBounds().x);
-    assertSame(valueOfResult, bounds19.x);
-    assertSame(valueOfResult, bounds26.getBounds().x);
-    assertSame(valueOfResult, bounds21.x);
-    assertSame(valueOfResult, bounds27.getBounds().x);
-    assertSame(valueOfResult, bounds14.x);
-    assertSame(valueOfResult, bounds2.x);
-    assertSame(valueOfResult, bounds2D3.getBounds().x);
-    assertSame(valueOfResult, bounds22.x);
-    assertSame(valueOfResult, bounds16.x);
-    assertSame(valueOfResult, bounds2D24.getBounds().x);
-    assertSame(valueOfResult, bounds2D30.getBounds().x);
-    assertSame(valueOfResult, bounds7.x);
-    assertSame(valueOfResult, bounds2D33.getBounds().x);
-    assertSame(valueOfResult, bounds2D36.getBounds().x);
-    assertSame(valueOfResult, bounds23.x);
-    assertSame(valueOfResult, bounds2D39.getBounds().x);
-    assertSame(valueOfResult, bounds2D40.getBounds().x);
-    assertSame(valueOfResult, bounds24.x);
-    assertSame(valueOfResult, bounds10.x);
-    assertSame(valueOfResult, frame7.getBounds().x);
-    assertSame(valueOfResult, bounds25.x);
-    assertSame(valueOfResult, bounds18.x);
-    assertSame(valueOfResult, frame8.getBounds().x);
-    assertSame(valueOfResult, frame9.getBounds().x);
-    assertSame(valueOfResult, bounds26.x);
-    assertSame(valueOfResult, frame10.getBounds().x);
-    assertSame(valueOfResult, frame11.getBounds().x);
-    assertSame(valueOfResult, bounds20.x);
-    assertSame(valueOfResult, frame12.getBounds().x);
-    assertSame(valueOfResult, frame13.getBounds().x);
-    assertSame(valueOfResult, bounds27.x);
-    assertSame(valueOfResult, bounds13.x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D2).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D3).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D5).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D7).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D8).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D9).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D11).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D12).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D13).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D14).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D15).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D16).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D10).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D17).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D18).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D19).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D21).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D23).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D24).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D25).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D26).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D27).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D28).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D29).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D30).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D4).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D31).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D32).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D33).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D34).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D35).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D36).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D37).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D38).x);
+    assertTrue(frame instanceof Double);
+    Rectangle2D bounds2D = actualBounds.getBounds2D();
+    assertTrue(bounds2D instanceof Float);
+    assertTrue(actualBounds instanceof Float);
+    Rectangle actualBounds2 = actualBounds.getBounds();
+    assertEquals(actualBounds, actualBounds2);
+    assertEquals(actualBounds, frame);
+    assertEquals(actualBounds, bounds2D);
   }
 
   /**
    * Test {@link Type1CharString#getBounds()}.
-   * <ul>
-   *   <li>Then return Bounds {@link Rectangle#y} is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Type1CharString#getBounds()}
+   *
+   * <p>Method under test: {@link Type1CharString#getBounds()}
    */
   @Test
-  @DisplayName("Test getBounds(); then return Bounds y is one")
-  void testGetBounds_thenReturnBoundsYIsOne() {
+  @DisplayName("Test getBounds()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Rectangle2D Type1CharString.getBounds()"})
+  void testGetBounds11() {
     // Arrange
-    ArrayList<Number> numbers = new ArrayList<>();
-    numbers.add(Integer.valueOf(1));
-
-    Type1CharString type1CharString = new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
-    type1CharString.addCommand(numbers, CharStringCommand.VMOVETO);
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    type1CharString.addCommand(new ArrayList<>(), CharStringCommand.CLOSEPATH);
 
     // Act
     Rectangle2D actualBounds = type1CharString.getBounds();
 
     // Assert
+    Rectangle2D frame = actualBounds.getFrame();
+    assertTrue(frame instanceof Double);
+    Rectangle2D bounds2D = actualBounds.getBounds2D();
+    assertTrue(bounds2D instanceof Float);
+    assertTrue(actualBounds instanceof Float);
+    assertEquals(0.0d, bounds2D.getCenterX());
     Rectangle bounds = actualBounds.getBounds();
-    Rectangle bounds2 = bounds.getBounds();
-    Rectangle bounds3 = bounds2.getBounds();
-    Rectangle2D bounds2D = bounds3.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Rectangle2D bounds2D2 = bounds2.getBounds2D();
-    assertTrue(bounds2D2 instanceof Rectangle);
-    Rectangle2D bounds2D3 = bounds.getBounds2D();
-    assertTrue(bounds2D3 instanceof Rectangle);
-    Rectangle2D frame = bounds2.getFrame();
-    assertTrue(frame instanceof Rectangle2D.Double);
-    Rectangle2D frame2 = bounds.getFrame();
-    assertTrue(frame2 instanceof Rectangle2D.Double);
-    Rectangle2D frame3 = actualBounds.getFrame();
-    assertTrue(frame3 instanceof Rectangle2D.Double);
-    Rectangle2D bounds2D4 = actualBounds.getBounds2D();
-    assertTrue(bounds2D4 instanceof Rectangle2D.Float);
-    assertTrue(actualBounds instanceof Rectangle2D.Float);
-    int resultInt = bounds.y;
-    assertEquals(1, resultInt);
-    Point location = bounds.getLocation().getLocation();
-    Point location2 = location.getLocation();
-    Point location3 = location2.getLocation();
-    assertSame(resultInt, location3.getLocation().y);
-    Point location4 = bounds3.getLocation().getLocation();
-    Point location5 = location4.getLocation();
-    assertSame(resultInt, location5.getLocation().y);
-    assertSame(resultInt, location3.y);
-    Rectangle bounds4 = bounds3.getBounds();
-    Point location6 = bounds4.getLocation().getLocation();
-    assertSame(resultInt, location6.getLocation().y);
-    assertSame(resultInt, location5.y);
-    Rectangle bounds5 = bounds2D4.getBounds();
-    Point location7 = bounds5.getLocation().getLocation();
-    assertSame(resultInt, location7.getLocation().y);
-    Rectangle bounds6 = frame3.getBounds();
-    Point location8 = bounds6.getLocation().getLocation();
-    assertSame(resultInt, location8.getLocation().y);
-    assertSame(resultInt, location2.y);
-    Point location9 = ((Rectangle) bounds2D2).getLocation().getLocation();
-    assertSame(resultInt, location9.getLocation().y);
-    Point location10 = ((Rectangle) bounds2D3).getLocation().getLocation();
-    assertSame(resultInt, location10.getLocation().y);
-    assertSame(resultInt, bounds4.getBounds().getLocation().getLocation().y);
-    assertSame(resultInt, location6.y);
-    assertSame(resultInt, location4.y);
-    assertSame(resultInt, bounds5.getBounds().getLocation().getLocation().y);
-    assertSame(resultInt, bounds6.getBounds().getLocation().getLocation().y);
-    assertSame(resultInt, bounds2D2.getBounds().getLocation().getLocation().y);
-    assertSame(resultInt, bounds2D3.getBounds().getLocation().getLocation().y);
-    assertSame(resultInt, location7.y);
-    assertSame(resultInt, frame.getBounds().getLocation().getLocation().y);
-    assertSame(resultInt, frame2.getBounds().getLocation().getLocation().y);
-    assertSame(resultInt, location8.y);
-    assertSame(resultInt, location.y);
-    assertSame(resultInt, ((Rectangle) bounds2D).getLocation().getLocation().y);
-    assertSame(resultInt, location9.y);
-    assertSame(resultInt, location10.y);
+    assertEquals(0.0d, bounds.getCenterX());
+    assertEquals(0.0d, frame.getCenterX());
+    assertEquals(0.0d, actualBounds.getCenterX());
+    assertEquals(0.0d, bounds2D.getMaxX());
+    assertEquals(0.0d, bounds.getMaxX());
+    assertEquals(0.0d, frame.getMaxX());
+    assertEquals(0.0d, actualBounds.getMaxX());
   }
 
   /**
    * Test {@link Type1CharString#getBounds()}.
+   *
    * <ul>
-   *   <li>Then return Bounds {@link Rectangle#y} is one.</li>
+   *   <li>Then Bounds Bounds Bounds Bounds2D return {@link Rectangle}.
    * </ul>
-   * <p>
-   * Method under test: {@link Type1CharString#getBounds()}
+   *
+   * <p>Method under test: {@link Type1CharString#getBounds()}
    */
   @Test
-  @DisplayName("Test getBounds(); then return Bounds y is one")
-  void testGetBounds_thenReturnBoundsYIsOne2() {
+  @DisplayName("Test getBounds(); then Bounds Bounds Bounds Bounds2D return Rectangle")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Rectangle2D Type1CharString.getBounds()"})
+  void testGetBounds_thenBoundsBoundsBoundsBounds2DReturnRectangle() {
     // Arrange
     ArrayList<Number> numbers = new ArrayList<>();
     numbers.add(Integer.valueOf(1));
 
-    Type1CharString type1CharString = new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
-    type1CharString.addCommand(numbers, CharStringCommand.VLINETO);
-
-    // Act
-    Rectangle2D actualBounds = type1CharString.getBounds();
-
-    // Assert
-    Rectangle bounds = actualBounds.getBounds();
-    Rectangle bounds2 = bounds.getBounds();
-    Rectangle bounds3 = bounds2.getBounds();
-    Rectangle2D bounds2D = bounds3.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Rectangle2D bounds2D2 = bounds2.getBounds2D();
-    assertTrue(bounds2D2 instanceof Rectangle);
-    Rectangle2D bounds2D3 = bounds.getBounds2D();
-    assertTrue(bounds2D3 instanceof Rectangle);
-    Rectangle2D frame = bounds2.getFrame();
-    assertTrue(frame instanceof Rectangle2D.Double);
-    Rectangle2D frame2 = bounds.getFrame();
-    assertTrue(frame2 instanceof Rectangle2D.Double);
-    Rectangle2D frame3 = actualBounds.getFrame();
-    assertTrue(frame3 instanceof Rectangle2D.Double);
-    Rectangle2D bounds2D4 = actualBounds.getBounds2D();
-    assertTrue(bounds2D4 instanceof Rectangle2D.Float);
-    assertTrue(actualBounds instanceof Rectangle2D.Float);
-    int resultInt = bounds.y;
-    assertEquals(1, resultInt);
-    Point location = bounds.getLocation().getLocation();
-    Point location2 = location.getLocation();
-    Point location3 = location2.getLocation();
-    assertSame(resultInt, location3.getLocation().y);
-    Point location4 = bounds3.getLocation().getLocation();
-    Point location5 = location4.getLocation();
-    assertSame(resultInt, location5.getLocation().y);
-    assertSame(resultInt, location3.y);
-    Rectangle bounds4 = bounds3.getBounds();
-    Point location6 = bounds4.getLocation().getLocation();
-    assertSame(resultInt, location6.getLocation().y);
-    assertSame(resultInt, location5.y);
-    Rectangle bounds5 = bounds2D4.getBounds();
-    Point location7 = bounds5.getLocation().getLocation();
-    assertSame(resultInt, location7.getLocation().y);
-    Rectangle bounds6 = frame3.getBounds();
-    Point location8 = bounds6.getLocation().getLocation();
-    assertSame(resultInt, location8.getLocation().y);
-    assertSame(resultInt, location2.y);
-    Point location9 = ((Rectangle) bounds2D2).getLocation().getLocation();
-    assertSame(resultInt, location9.getLocation().y);
-    Point location10 = ((Rectangle) bounds2D3).getLocation().getLocation();
-    assertSame(resultInt, location10.getLocation().y);
-    assertSame(resultInt, bounds4.getBounds().getLocation().getLocation().y);
-    assertSame(resultInt, location6.y);
-    assertSame(resultInt, location4.y);
-    assertSame(resultInt, bounds5.getBounds().getLocation().getLocation().y);
-    assertSame(resultInt, bounds6.getBounds().getLocation().getLocation().y);
-    assertSame(resultInt, bounds2D2.getBounds().getLocation().getLocation().y);
-    assertSame(resultInt, bounds2D3.getBounds().getLocation().getLocation().y);
-    assertSame(resultInt, location7.y);
-    assertSame(resultInt, frame.getBounds().getLocation().getLocation().y);
-    assertSame(resultInt, frame2.getBounds().getLocation().getLocation().y);
-    assertSame(resultInt, location8.y);
-    assertSame(resultInt, location.y);
-    assertSame(resultInt, ((Rectangle) bounds2D).getLocation().getLocation().y);
-    assertSame(resultInt, location9.y);
-    assertSame(resultInt, location10.y);
-  }
-
-  /**
-   * Test {@link Type1CharString#getBounds()}.
-   * <ul>
-   *   <li>Then return Bounds {@link Rectangle#y} is valueOf one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Type1CharString#getBounds()}
-   */
-  @Test
-  @DisplayName("Test getBounds(); then return Bounds y is valueOf one")
-  void testGetBounds_thenReturnBoundsYIsValueOfOne() {
-    // Arrange
-    ArrayList<Number> numbers = new ArrayList<>();
-    numbers.add(Integer.valueOf(1));
-    Integer valueOfResult = Integer.valueOf(1);
-    numbers.add(valueOfResult);
-
-    Type1CharString type1CharString = new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
-    type1CharString.addCommand(numbers, CharStringCommand.RLINETO);
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    type1CharString.addCommand(numbers, CharStringCommand.HLINETO);
 
     // Act
     Rectangle2D actualBounds = type1CharString.getBounds();
@@ -6584,36 +504,151 @@ class Type1CharStringDiffblueTest {
     assertTrue(bounds2.getBounds().getBounds2D() instanceof Rectangle);
     assertTrue(bounds2.getBounds2D() instanceof Rectangle);
     assertTrue(bounds.getBounds2D() instanceof Rectangle);
-    assertTrue(bounds2.getFrame() instanceof Rectangle2D.Double);
-    assertTrue(bounds.getFrame() instanceof Rectangle2D.Double);
-    assertTrue(actualBounds.getFrame() instanceof Rectangle2D.Double);
-    assertTrue(actualBounds.getBounds2D() instanceof Rectangle2D.Float);
-    assertTrue(actualBounds instanceof Rectangle2D.Float);
-    assertSame(valueOfResult, bounds.y);
+    assertTrue(bounds2.getFrame() instanceof Double);
+    assertTrue(actualBounds.getFrame() instanceof Double);
+    assertTrue(actualBounds.getBounds2D() instanceof Float);
+    assertTrue(actualBounds instanceof Float);
+  }
+
+  /**
+   * Test {@link Type1CharString#getBounds()}.
+   *
+   * <ul>
+   *   <li>Then return CenterX is {@code 0.5}.
+   * </ul>
+   *
+   * <p>Method under test: {@link Type1CharString#getBounds()}
+   */
+  @Test
+  @DisplayName("Test getBounds(); then return CenterX is '0.5'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Rectangle2D Type1CharString.getBounds()"})
+  void testGetBounds_thenReturnCenterXIs05() {
+    // Arrange
+    ArrayList<Number> numbers = new ArrayList<>();
+    numbers.add(Integer.valueOf(1));
+
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    type1CharString.addCommand(new ArrayList<>(), CharStringCommand.CLOSEPATH);
+    type1CharString.addCommand(numbers, CharStringCommand.HLINETO);
+
+    // Act
+    Rectangle2D actualBounds = type1CharString.getBounds();
+
+    // Assert
+    assertTrue(actualBounds.getFrame() instanceof Double);
+    assertTrue(actualBounds.getBounds2D() instanceof Float);
+    assertTrue(actualBounds instanceof Float);
+    assertEquals(0.5d, actualBounds.getCenterX());
+    assertEquals(1.0d, actualBounds.getWidth());
+    assertEquals(1.0f, ((Float) actualBounds).width);
+  }
+
+  /**
+   * Test {@link Type1CharString#getBounds()}.
+   *
+   * <ul>
+   *   <li>Then return CenterY is one.
+   * </ul>
+   *
+   * <p>Method under test: {@link Type1CharString#getBounds()}
+   */
+  @Test
+  @DisplayName("Test getBounds(); then return CenterY is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Rectangle2D Type1CharString.getBounds()"})
+  void testGetBounds_thenReturnCenterYIsOne() {
+    // Arrange
+    ArrayList<Number> numbers = new ArrayList<>();
+    numbers.add(Integer.valueOf(1));
+
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    type1CharString.addCommand(numbers, CharStringCommand.VMOVETO);
+
+    // Act
+    Rectangle2D actualBounds = type1CharString.getBounds();
+
+    // Assert
+    assertTrue(actualBounds instanceof Float);
+    assertEquals(1.0d, actualBounds.getCenterY());
+    assertEquals(1.0d, actualBounds.getMaxY());
+    assertEquals(1.0d, actualBounds.getMinY());
+    assertEquals(1.0d, actualBounds.getY());
+    assertEquals(1.0f, ((Float) actualBounds).y);
+  }
+
+  /**
+   * Test {@link Type1CharString#getBounds()}.
+   *
+   * <ul>
+   *   <li>Then return CenterY is one.
+   * </ul>
+   *
+   * <p>Method under test: {@link Type1CharString#getBounds()}
+   */
+  @Test
+  @DisplayName("Test getBounds(); then return CenterY is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Rectangle2D Type1CharString.getBounds()"})
+  void testGetBounds_thenReturnCenterYIsOne2() {
+    // Arrange
+    ArrayList<Number> numbers = new ArrayList<>();
+    numbers.add(Integer.valueOf(1));
+
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    type1CharString.addCommand(numbers, CharStringCommand.VLINETO);
+
+    // Act
+    Rectangle2D actualBounds = type1CharString.getBounds();
+
+    // Assert
+    assertTrue(actualBounds instanceof Float);
+    assertEquals(1.0d, actualBounds.getCenterY());
+    assertEquals(1.0d, actualBounds.getMaxY());
+    assertEquals(1.0d, actualBounds.getMinY());
+    assertEquals(1.0d, actualBounds.getY());
+    assertEquals(1.0f, ((Float) actualBounds).y);
   }
 
   /**
    * Test {@link Type1CharString#getWidth()}.
-   * <p>
-   * Method under test: {@link Type1CharString#getWidth()}
+   *
+   * <p>Method under test: {@link Type1CharString#getWidth()}
    */
   @Test
   @DisplayName("Test getWidth()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"int Type1CharString.getWidth()"})
   void testGetWidth() {
-    // Arrange, Act and Assert
-    assertEquals(0, (new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name")).getWidth());
+    // Arrange
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+
+    // Act and Assert
+    assertEquals(0, type1CharString.getWidth());
   }
 
   /**
    * Test {@link Type1CharString#getWidth()}.
-   * <p>
-   * Method under test: {@link Type1CharString#getWidth()}
+   *
+   * <p>Method under test: {@link Type1CharString#getWidth()}
    */
   @Test
   @DisplayName("Test getWidth()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"int Type1CharString.getWidth()"})
   void testGetWidth2() {
     // Arrange
-    Type1CharString type1CharString = new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
     type1CharString.addCommand(new ArrayList<>(), CharStringCommand.HSTEM);
 
     // Act and Assert
@@ -6622,14 +657,18 @@ class Type1CharStringDiffblueTest {
 
   /**
    * Test {@link Type1CharString#getWidth()}.
-   * <p>
-   * Method under test: {@link Type1CharString#getWidth()}
+   *
+   * <p>Method under test: {@link Type1CharString#getWidth()}
    */
   @Test
   @DisplayName("Test getWidth()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"int Type1CharString.getWidth()"})
   void testGetWidth3() {
     // Arrange
-    Type1CharString type1CharString = new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
     type1CharString.addCommand(new ArrayList<>(), CharStringCommand.VSTEM);
     type1CharString.addCommand(new ArrayList<>(), CharStringCommand.HSTEM);
 
@@ -6639,14 +678,18 @@ class Type1CharStringDiffblueTest {
 
   /**
    * Test {@link Type1CharString#getWidth()}.
-   * <p>
-   * Method under test: {@link Type1CharString#getWidth()}
+   *
+   * <p>Method under test: {@link Type1CharString#getWidth()}
    */
   @Test
   @DisplayName("Test getWidth()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"int Type1CharString.getWidth()"})
   void testGetWidth4() {
     // Arrange
-    Type1CharString type1CharString = new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
     type1CharString.addCommand(new ArrayList<>(), null);
 
     // Act and Assert
@@ -6655,14 +698,18 @@ class Type1CharStringDiffblueTest {
 
   /**
    * Test {@link Type1CharString#getWidth()}.
-   * <p>
-   * Method under test: {@link Type1CharString#getWidth()}
+   *
+   * <p>Method under test: {@link Type1CharString#getWidth()}
    */
   @Test
   @DisplayName("Test getWidth()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"int Type1CharString.getWidth()"})
   void testGetWidth5() {
     // Arrange
-    Type1CharString type1CharString = new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
     type1CharString.addCommand(new ArrayList<>(), CharStringCommand.VMOVETO);
 
     // Act and Assert
@@ -6671,14 +718,18 @@ class Type1CharStringDiffblueTest {
 
   /**
    * Test {@link Type1CharString#getWidth()}.
-   * <p>
-   * Method under test: {@link Type1CharString#getWidth()}
+   *
+   * <p>Method under test: {@link Type1CharString#getWidth()}
    */
   @Test
   @DisplayName("Test getWidth()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"int Type1CharString.getWidth()"})
   void testGetWidth6() {
     // Arrange
-    Type1CharString type1CharString = new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
     type1CharString.addCommand(new ArrayList<>(), CharStringCommand.RLINETO);
 
     // Act and Assert
@@ -6687,14 +738,18 @@ class Type1CharStringDiffblueTest {
 
   /**
    * Test {@link Type1CharString#getWidth()}.
-   * <p>
-   * Method under test: {@link Type1CharString#getWidth()}
+   *
+   * <p>Method under test: {@link Type1CharString#getWidth()}
    */
   @Test
   @DisplayName("Test getWidth()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"int Type1CharString.getWidth()"})
   void testGetWidth7() {
     // Arrange
-    Type1CharString type1CharString = new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
     type1CharString.addCommand(new ArrayList<>(), CharStringCommand.HLINETO);
 
     // Act and Assert
@@ -6703,14 +758,18 @@ class Type1CharStringDiffblueTest {
 
   /**
    * Test {@link Type1CharString#getWidth()}.
-   * <p>
-   * Method under test: {@link Type1CharString#getWidth()}
+   *
+   * <p>Method under test: {@link Type1CharString#getWidth()}
    */
   @Test
   @DisplayName("Test getWidth()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"int Type1CharString.getWidth()"})
   void testGetWidth8() {
     // Arrange
-    Type1CharString type1CharString = new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
     type1CharString.addCommand(new ArrayList<>(), CharStringCommand.VLINETO);
 
     // Act and Assert
@@ -6719,71 +778,18 @@ class Type1CharStringDiffblueTest {
 
   /**
    * Test {@link Type1CharString#getWidth()}.
-   * <p>
-   * Method under test: {@link Type1CharString#getWidth()}
+   *
+   * <p>Method under test: {@link Type1CharString#getWidth()}
    */
   @Test
   @DisplayName("Test getWidth()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"int Type1CharString.getWidth()"})
   void testGetWidth9() {
     // Arrange
-    ArrayList<Number> numbers = new ArrayList<>();
-    numbers.add(Integer.valueOf(1));
-
-    Type1CharString type1CharString = new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
-    type1CharString.addCommand(numbers, CharStringCommand.VMOVETO);
-
-    // Act and Assert
-    assertEquals(0, type1CharString.getWidth());
-  }
-
-  /**
-   * Test {@link Type1CharString#getWidth()}.
-   * <p>
-   * Method under test: {@link Type1CharString#getWidth()}
-   */
-  @Test
-  @DisplayName("Test getWidth()")
-  void testGetWidth10() {
-    // Arrange
-    ArrayList<Number> numbers = new ArrayList<>();
-    numbers.add(Integer.valueOf(1));
-
-    Type1CharString type1CharString = new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
-    type1CharString.addCommand(numbers, CharStringCommand.HLINETO);
-
-    // Act and Assert
-    assertEquals(0, type1CharString.getWidth());
-  }
-
-  /**
-   * Test {@link Type1CharString#getWidth()}.
-   * <p>
-   * Method under test: {@link Type1CharString#getWidth()}
-   */
-  @Test
-  @DisplayName("Test getWidth()")
-  void testGetWidth11() {
-    // Arrange
-    ArrayList<Number> numbers = new ArrayList<>();
-    numbers.add(Integer.valueOf(1));
-
-    Type1CharString type1CharString = new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
-    type1CharString.addCommand(numbers, CharStringCommand.VLINETO);
-
-    // Act and Assert
-    assertEquals(0, type1CharString.getWidth());
-  }
-
-  /**
-   * Test {@link Type1CharString#getWidth()}.
-   * <p>
-   * Method under test: {@link Type1CharString#getWidth()}
-   */
-  @Test
-  @DisplayName("Test getWidth()")
-  void testGetWidth12() {
-    // Arrange
-    Type1CharString type1CharString = new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
     type1CharString.addCommand(new ArrayList<>(), CharStringCommand.RRCURVETO);
 
     // Act and Assert
@@ -6792,14 +798,64 @@ class Type1CharStringDiffblueTest {
 
   /**
    * Test {@link Type1CharString#getWidth()}.
-   * <p>
-   * Method under test: {@link Type1CharString#getWidth()}
+   *
+   * <p>Method under test: {@link Type1CharString#getWidth()}
    */
   @Test
   @DisplayName("Test getWidth()")
-  void testGetWidth13() {
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"int Type1CharString.getWidth()"})
+  void testGetWidth10() {
     // Arrange
-    Type1CharString type1CharString = new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    ArrayList<Number> numbers = new ArrayList<>();
+    numbers.add(Integer.valueOf(1));
+
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    type1CharString.addCommand(numbers, CharStringCommand.VMOVETO);
+
+    // Act and Assert
+    assertEquals(0, type1CharString.getWidth());
+  }
+
+  /**
+   * Test {@link Type1CharString#getWidth()}.
+   *
+   * <p>Method under test: {@link Type1CharString#getWidth()}
+   */
+  @Test
+  @DisplayName("Test getWidth()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"int Type1CharString.getWidth()"})
+  void testGetWidth11() {
+    // Arrange
+    ArrayList<Number> numbers = new ArrayList<>();
+    numbers.add(Integer.valueOf(1));
+
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    type1CharString.addCommand(numbers, CharStringCommand.VLINETO);
+
+    // Act and Assert
+    assertEquals(0, type1CharString.getWidth());
+  }
+
+  /**
+   * Test {@link Type1CharString#getWidth()}.
+   *
+   * <p>Method under test: {@link Type1CharString#getWidth()}
+   */
+  @Test
+  @DisplayName("Test getWidth()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"int Type1CharString.getWidth()"})
+  void testGetWidth12() {
+    // Arrange
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
     type1CharString.addCommand(new ArrayList<>(), CharStringCommand.CLOSEPATH);
 
     // Act and Assert
@@ -6808,19 +864,92 @@ class Type1CharStringDiffblueTest {
 
   /**
    * Test {@link Type1CharString#getWidth()}.
-   * <p>
-   * Method under test: {@link Type1CharString#getWidth()}
+   *
+   * <p>Method under test: {@link Type1CharString#getWidth()}
    */
   @Test
   @DisplayName("Test getWidth()")
-  void testGetWidth14() {
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"int Type1CharString.getWidth()"})
+  void testGetWidth13() {
     // Arrange
     ArrayList<Number> numbers = new ArrayList<>();
     numbers.add(Integer.valueOf(1));
+
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    type1CharString.addCommand(new ArrayList<>(), CharStringCommand.CLOSEPATH);
+    type1CharString.addCommand(numbers, CharStringCommand.HLINETO);
+
+    // Act and Assert
+    assertEquals(0, type1CharString.getWidth());
+  }
+
+  /**
+   * Test {@link Type1CharString#getWidth()}.
+   *
+   * <p>Method under test: {@link Type1CharString#getWidth()}
+   */
+  @Test
+  @DisplayName("Test getWidth()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"int Type1CharString.getWidth()"})
+  void testGetWidth14() {
+    // Arrange
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    type1CharString.addCommand(new ArrayList<>(), CharStringCommand.CLOSEPATH);
+    type1CharString.addCommand(new ArrayList<>(), CharStringCommand.CLOSEPATH);
+
+    // Act and Assert
+    assertEquals(0, type1CharString.getWidth());
+  }
+
+  /**
+   * Test {@link Type1CharString#getWidth()}.
+   *
+   * <p>Method under test: {@link Type1CharString#getWidth()}
+   */
+  @Test
+  @DisplayName("Test getWidth()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"int Type1CharString.getWidth()"})
+  void testGetWidth15() {
+    // Arrange
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    type1CharString.addCommand(new ArrayList<>(), CharStringCommand.CALLSUBR);
+
+    // Act and Assert
+    assertEquals(0, type1CharString.getWidth());
+  }
+
+  /**
+   * Test {@link Type1CharString#getWidth()}.
+   *
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()} add valueOf one.
+   *   <li>Then return zero.
+   * </ul>
+   *
+   * <p>Method under test: {@link Type1CharString#getWidth()}
+   */
+  @Test
+  @DisplayName("Test getWidth(); given ArrayList() add valueOf one; then return zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"int Type1CharString.getWidth()"})
+  void testGetWidth_givenArrayListAddValueOfOne_thenReturnZero() {
+    // Arrange
+    ArrayList<Number> numbers = new ArrayList<>();
     numbers.add(Integer.valueOf(1));
 
-    Type1CharString type1CharString = new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
-    type1CharString.addCommand(numbers, CharStringCommand.RLINETO);
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    type1CharString.addCommand(numbers, CharStringCommand.HLINETO);
 
     // Act and Assert
     assertEquals(0, type1CharString.getWidth());
@@ -6828,147 +957,73 @@ class Type1CharStringDiffblueTest {
 
   /**
    * Test {@link Type1CharString#getPath()}.
-   * <p>
-   * Method under test: {@link Type1CharString#getPath()}
+   *
+   * <p>Method under test: {@link Type1CharString#getPath()}
    */
   @Test
   @DisplayName("Test getPath()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"GeneralPath Type1CharString.getPath()"})
   void testGetPath() {
-    // Arrange and Act
-    GeneralPath actualPath = (new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name"))
-        .getPath();
+    // Arrange
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+
+    // Act
+    GeneralPath actualPath = type1CharString.getPath();
 
     // Assert
-    Rectangle bounds = actualPath.getBounds();
-    Rectangle bounds2 = bounds.getBounds();
-    Rectangle bounds3 = bounds2.getBounds();
-    Rectangle2D bounds2D = bounds3.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Rectangle2D bounds2D2 = bounds2.getBounds2D();
-    assertTrue(bounds2D2 instanceof Rectangle);
-    Rectangle2D bounds2D3 = bounds.getBounds2D();
-    assertTrue(bounds2D3 instanceof Rectangle);
-    Rectangle2D bounds2D4 = bounds2D3.getBounds2D();
-    assertTrue(bounds2D4 instanceof Rectangle);
-    Rectangle2D frame = bounds2.getFrame();
-    assertTrue(frame instanceof Rectangle2D.Double);
-    Rectangle2D frame2 = bounds.getFrame();
-    assertTrue(frame2 instanceof Rectangle2D.Double);
-    Rectangle2D bounds2D5 = actualPath.getBounds2D();
-    assertTrue(bounds2D5 instanceof Rectangle2D.Float);
     assertNull(actualPath.getCurrentPoint());
-    Dimension size = bounds2.getSize();
+    Dimension size = actualPath.getBounds().getBounds().getSize();
     assertEquals(0, size.height);
     assertEquals(0, size.width);
-    Dimension size2 = bounds.getSize();
-    assertEquals(0.0d, size2.getSize().getSize().getSize().getSize().getHeight());
     assertEquals(0.0d, size.getHeight());
     assertEquals(0.0d, size.getWidth());
-    Point location = bounds.getLocation();
-    Rectangle bounds4 = bounds3.getBounds();
-    Point location2 = bounds4.getLocation().getLocation();
-    assertEquals(location, location2.getLocation());
-    Rectangle bounds5 = bounds2D3.getBounds();
-    assertEquals(location, bounds5.getLocation().getLocation().getLocation());
-    Rectangle bounds6 = bounds2D5.getBounds();
-    assertEquals(location, bounds6.getLocation().getLocation().getLocation());
-    Rectangle bounds7 = frame2.getBounds();
-    assertEquals(location, bounds7.getLocation().getLocation().getLocation());
-    assertEquals(location, ((Rectangle) bounds2D2).getLocation().getLocation().getLocation());
-    assertEquals(location, bounds4.getBounds().getLocation().getLocation());
-    assertEquals(location, location2);
-    assertEquals(location, bounds3.getLocation().getLocation());
-    assertEquals(location, bounds2.getLocation().getLocation());
-    assertEquals(location, bounds5.getBounds().getLocation().getLocation());
-    assertEquals(location, bounds6.getBounds().getLocation().getLocation());
-    assertEquals(location, bounds7.getBounds().getLocation().getLocation());
-    assertEquals(location, location.getLocation());
-    assertEquals(location, bounds2D2.getBounds().getLocation().getLocation());
-    assertEquals(location, frame.getBounds().getLocation().getLocation());
-    assertEquals(location, ((Rectangle) bounds2D).getLocation().getLocation());
-    assertEquals(location, ((Rectangle) bounds2D3).getLocation().getLocation());
-    assertEquals(location, ((Rectangle) bounds2D4).getLocation().getLocation());
-    assertEquals(size2, size.getSize());
   }
 
   /**
    * Test {@link Type1CharString#getPath()}.
-   * <p>
-   * Method under test: {@link Type1CharString#getPath()}
+   *
+   * <p>Method under test: {@link Type1CharString#getPath()}
    */
   @Test
   @DisplayName("Test getPath()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"GeneralPath Type1CharString.getPath()"})
   void testGetPath2() {
     // Arrange
-    Type1CharString type1CharString = new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
     type1CharString.addCommand(new ArrayList<>(), CharStringCommand.HSTEM);
 
     // Act
     GeneralPath actualPath = type1CharString.getPath();
 
     // Assert
-    Rectangle bounds = actualPath.getBounds();
-    Rectangle bounds2 = bounds.getBounds();
-    Rectangle bounds3 = bounds2.getBounds();
-    Rectangle2D bounds2D = bounds3.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Rectangle2D bounds2D2 = bounds2.getBounds2D();
-    assertTrue(bounds2D2 instanceof Rectangle);
-    Rectangle2D bounds2D3 = bounds.getBounds2D();
-    assertTrue(bounds2D3 instanceof Rectangle);
-    Rectangle2D bounds2D4 = bounds2D3.getBounds2D();
-    assertTrue(bounds2D4 instanceof Rectangle);
-    Rectangle2D frame = bounds2.getFrame();
-    assertTrue(frame instanceof Rectangle2D.Double);
-    Rectangle2D frame2 = bounds.getFrame();
-    assertTrue(frame2 instanceof Rectangle2D.Double);
-    Rectangle2D bounds2D5 = actualPath.getBounds2D();
-    assertTrue(bounds2D5 instanceof Rectangle2D.Float);
     assertNull(actualPath.getCurrentPoint());
-    Dimension size = bounds2.getSize();
+    Dimension size = actualPath.getBounds().getBounds().getSize();
     assertEquals(0, size.height);
     assertEquals(0, size.width);
-    Dimension size2 = bounds.getSize();
-    assertEquals(0.0d, size2.getSize().getSize().getSize().getSize().getHeight());
     assertEquals(0.0d, size.getHeight());
     assertEquals(0.0d, size.getWidth());
-    Point location = bounds.getLocation();
-    Rectangle bounds4 = bounds3.getBounds();
-    Point location2 = bounds4.getLocation().getLocation();
-    assertEquals(location, location2.getLocation());
-    Rectangle bounds5 = bounds2D3.getBounds();
-    assertEquals(location, bounds5.getLocation().getLocation().getLocation());
-    Rectangle bounds6 = bounds2D5.getBounds();
-    assertEquals(location, bounds6.getLocation().getLocation().getLocation());
-    Rectangle bounds7 = frame2.getBounds();
-    assertEquals(location, bounds7.getLocation().getLocation().getLocation());
-    assertEquals(location, ((Rectangle) bounds2D2).getLocation().getLocation().getLocation());
-    assertEquals(location, bounds4.getBounds().getLocation().getLocation());
-    assertEquals(location, location2);
-    assertEquals(location, bounds3.getLocation().getLocation());
-    assertEquals(location, bounds2.getLocation().getLocation());
-    assertEquals(location, bounds5.getBounds().getLocation().getLocation());
-    assertEquals(location, bounds6.getBounds().getLocation().getLocation());
-    assertEquals(location, bounds7.getBounds().getLocation().getLocation());
-    assertEquals(location, location.getLocation());
-    assertEquals(location, bounds2D2.getBounds().getLocation().getLocation());
-    assertEquals(location, frame.getBounds().getLocation().getLocation());
-    assertEquals(location, ((Rectangle) bounds2D).getLocation().getLocation());
-    assertEquals(location, ((Rectangle) bounds2D3).getLocation().getLocation());
-    assertEquals(location, ((Rectangle) bounds2D4).getLocation().getLocation());
-    assertEquals(size2, size.getSize());
   }
 
   /**
    * Test {@link Type1CharString#getPath()}.
-   * <p>
-   * Method under test: {@link Type1CharString#getPath()}
+   *
+   * <p>Method under test: {@link Type1CharString#getPath()}
    */
   @Test
   @DisplayName("Test getPath()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"GeneralPath Type1CharString.getPath()"})
   void testGetPath3() {
     // Arrange
-    Type1CharString type1CharString = new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
     type1CharString.addCommand(new ArrayList<>(), CharStringCommand.VSTEM);
     type1CharString.addCommand(new ArrayList<>(), CharStringCommand.HSTEM);
 
@@ -6976,2272 +1031,404 @@ class Type1CharStringDiffblueTest {
     GeneralPath actualPath = type1CharString.getPath();
 
     // Assert
-    Rectangle bounds = actualPath.getBounds();
-    Rectangle bounds2 = bounds.getBounds();
-    Rectangle bounds3 = bounds2.getBounds();
-    Rectangle2D bounds2D = bounds3.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Rectangle2D bounds2D2 = bounds2.getBounds2D();
-    assertTrue(bounds2D2 instanceof Rectangle);
-    Rectangle2D bounds2D3 = bounds.getBounds2D();
-    assertTrue(bounds2D3 instanceof Rectangle);
-    Rectangle2D bounds2D4 = bounds2D3.getBounds2D();
-    assertTrue(bounds2D4 instanceof Rectangle);
-    Rectangle2D frame = bounds2.getFrame();
-    assertTrue(frame instanceof Rectangle2D.Double);
-    Rectangle2D frame2 = bounds.getFrame();
-    assertTrue(frame2 instanceof Rectangle2D.Double);
-    Rectangle2D bounds2D5 = actualPath.getBounds2D();
-    assertTrue(bounds2D5 instanceof Rectangle2D.Float);
     assertNull(actualPath.getCurrentPoint());
-    Dimension size = bounds2.getSize();
+    Dimension size = actualPath.getBounds().getBounds().getSize();
     assertEquals(0, size.height);
     assertEquals(0, size.width);
-    Dimension size2 = bounds.getSize();
-    assertEquals(0.0d, size2.getSize().getSize().getSize().getSize().getHeight());
     assertEquals(0.0d, size.getHeight());
     assertEquals(0.0d, size.getWidth());
-    Point location = bounds.getLocation();
-    Rectangle bounds4 = bounds3.getBounds();
-    Point location2 = bounds4.getLocation().getLocation();
-    assertEquals(location, location2.getLocation());
-    Rectangle bounds5 = bounds2D3.getBounds();
-    assertEquals(location, bounds5.getLocation().getLocation().getLocation());
-    Rectangle bounds6 = bounds2D5.getBounds();
-    assertEquals(location, bounds6.getLocation().getLocation().getLocation());
-    Rectangle bounds7 = frame2.getBounds();
-    assertEquals(location, bounds7.getLocation().getLocation().getLocation());
-    assertEquals(location, ((Rectangle) bounds2D2).getLocation().getLocation().getLocation());
-    assertEquals(location, bounds4.getBounds().getLocation().getLocation());
-    assertEquals(location, location2);
-    assertEquals(location, bounds3.getLocation().getLocation());
-    assertEquals(location, bounds2.getLocation().getLocation());
-    assertEquals(location, bounds5.getBounds().getLocation().getLocation());
-    assertEquals(location, bounds6.getBounds().getLocation().getLocation());
-    assertEquals(location, bounds7.getBounds().getLocation().getLocation());
-    assertEquals(location, location.getLocation());
-    assertEquals(location, bounds2D2.getBounds().getLocation().getLocation());
-    assertEquals(location, frame.getBounds().getLocation().getLocation());
-    assertEquals(location, ((Rectangle) bounds2D).getLocation().getLocation());
-    assertEquals(location, ((Rectangle) bounds2D3).getLocation().getLocation());
-    assertEquals(location, ((Rectangle) bounds2D4).getLocation().getLocation());
-    assertEquals(size2, size.getSize());
   }
 
   /**
    * Test {@link Type1CharString#getPath()}.
-   * <p>
-   * Method under test: {@link Type1CharString#getPath()}
+   *
+   * <p>Method under test: {@link Type1CharString#getPath()}
    */
   @Test
   @DisplayName("Test getPath()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"GeneralPath Type1CharString.getPath()"})
   void testGetPath4() {
     // Arrange
-    Type1CharString type1CharString = new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
     type1CharString.addCommand(new ArrayList<>(), null);
 
     // Act
     GeneralPath actualPath = type1CharString.getPath();
 
     // Assert
-    Rectangle bounds = actualPath.getBounds();
-    Rectangle bounds2 = bounds.getBounds();
-    Rectangle bounds3 = bounds2.getBounds();
-    Rectangle2D bounds2D = bounds3.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Rectangle2D bounds2D2 = bounds2.getBounds2D();
-    assertTrue(bounds2D2 instanceof Rectangle);
-    Rectangle2D bounds2D3 = bounds.getBounds2D();
-    assertTrue(bounds2D3 instanceof Rectangle);
-    Rectangle2D bounds2D4 = bounds2D3.getBounds2D();
-    assertTrue(bounds2D4 instanceof Rectangle);
-    Rectangle2D frame = bounds2.getFrame();
-    assertTrue(frame instanceof Rectangle2D.Double);
-    Rectangle2D frame2 = bounds.getFrame();
-    assertTrue(frame2 instanceof Rectangle2D.Double);
-    Rectangle2D bounds2D5 = actualPath.getBounds2D();
-    assertTrue(bounds2D5 instanceof Rectangle2D.Float);
     assertNull(actualPath.getCurrentPoint());
-    Dimension size = bounds2.getSize();
+    Dimension size = actualPath.getBounds().getBounds().getSize();
     assertEquals(0, size.height);
     assertEquals(0, size.width);
-    Dimension size2 = bounds.getSize();
-    assertEquals(0.0d, size2.getSize().getSize().getSize().getSize().getHeight());
     assertEquals(0.0d, size.getHeight());
     assertEquals(0.0d, size.getWidth());
-    Point location = bounds.getLocation();
-    Rectangle bounds4 = bounds3.getBounds();
-    Point location2 = bounds4.getLocation().getLocation();
-    assertEquals(location, location2.getLocation());
-    Rectangle bounds5 = bounds2D3.getBounds();
-    assertEquals(location, bounds5.getLocation().getLocation().getLocation());
-    Rectangle bounds6 = bounds2D5.getBounds();
-    assertEquals(location, bounds6.getLocation().getLocation().getLocation());
-    Rectangle bounds7 = frame2.getBounds();
-    assertEquals(location, bounds7.getLocation().getLocation().getLocation());
-    assertEquals(location, ((Rectangle) bounds2D2).getLocation().getLocation().getLocation());
-    assertEquals(location, bounds4.getBounds().getLocation().getLocation());
-    assertEquals(location, location2);
-    assertEquals(location, bounds3.getLocation().getLocation());
-    assertEquals(location, bounds2.getLocation().getLocation());
-    assertEquals(location, bounds5.getBounds().getLocation().getLocation());
-    assertEquals(location, bounds6.getBounds().getLocation().getLocation());
-    assertEquals(location, bounds7.getBounds().getLocation().getLocation());
-    assertEquals(location, location.getLocation());
-    assertEquals(location, bounds2D2.getBounds().getLocation().getLocation());
-    assertEquals(location, frame.getBounds().getLocation().getLocation());
-    assertEquals(location, ((Rectangle) bounds2D).getLocation().getLocation());
-    assertEquals(location, ((Rectangle) bounds2D3).getLocation().getLocation());
-    assertEquals(location, ((Rectangle) bounds2D4).getLocation().getLocation());
-    assertEquals(size2, size.getSize());
   }
 
   /**
    * Test {@link Type1CharString#getPath()}.
-   * <p>
-   * Method under test: {@link Type1CharString#getPath()}
+   *
+   * <p>Method under test: {@link Type1CharString#getPath()}
    */
   @Test
   @DisplayName("Test getPath()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"GeneralPath Type1CharString.getPath()"})
   void testGetPath5() {
     // Arrange
-    Type1CharString type1CharString = new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
     type1CharString.addCommand(new ArrayList<>(), CharStringCommand.VMOVETO);
 
     // Act
     GeneralPath actualPath = type1CharString.getPath();
 
     // Assert
-    Rectangle bounds = actualPath.getBounds();
-    Rectangle bounds2 = bounds.getBounds();
-    Rectangle bounds3 = bounds2.getBounds();
-    Rectangle2D bounds2D = bounds3.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Rectangle2D bounds2D2 = bounds2.getBounds2D();
-    assertTrue(bounds2D2 instanceof Rectangle);
-    Rectangle2D bounds2D3 = bounds.getBounds2D();
-    assertTrue(bounds2D3 instanceof Rectangle);
-    Rectangle2D bounds2D4 = bounds2D3.getBounds2D();
-    assertTrue(bounds2D4 instanceof Rectangle);
-    Rectangle2D frame = bounds2.getFrame();
-    assertTrue(frame instanceof Rectangle2D.Double);
-    Rectangle2D frame2 = bounds.getFrame();
-    assertTrue(frame2 instanceof Rectangle2D.Double);
-    Rectangle2D bounds2D5 = actualPath.getBounds2D();
-    assertTrue(bounds2D5 instanceof Rectangle2D.Float);
     assertNull(actualPath.getCurrentPoint());
-    Dimension size = bounds2.getSize();
+    Dimension size = actualPath.getBounds().getBounds().getSize();
     assertEquals(0, size.height);
     assertEquals(0, size.width);
-    Dimension size2 = bounds.getSize();
-    assertEquals(0.0d, size2.getSize().getSize().getSize().getSize().getHeight());
     assertEquals(0.0d, size.getHeight());
     assertEquals(0.0d, size.getWidth());
-    Point location = bounds.getLocation();
-    Rectangle bounds4 = bounds3.getBounds();
-    Point location2 = bounds4.getLocation().getLocation();
-    assertEquals(location, location2.getLocation());
-    Rectangle bounds5 = bounds2D3.getBounds();
-    assertEquals(location, bounds5.getLocation().getLocation().getLocation());
-    Rectangle bounds6 = bounds2D5.getBounds();
-    assertEquals(location, bounds6.getLocation().getLocation().getLocation());
-    Rectangle bounds7 = frame2.getBounds();
-    assertEquals(location, bounds7.getLocation().getLocation().getLocation());
-    assertEquals(location, ((Rectangle) bounds2D2).getLocation().getLocation().getLocation());
-    assertEquals(location, bounds4.getBounds().getLocation().getLocation());
-    assertEquals(location, location2);
-    assertEquals(location, bounds3.getLocation().getLocation());
-    assertEquals(location, bounds2.getLocation().getLocation());
-    assertEquals(location, bounds5.getBounds().getLocation().getLocation());
-    assertEquals(location, bounds6.getBounds().getLocation().getLocation());
-    assertEquals(location, bounds7.getBounds().getLocation().getLocation());
-    assertEquals(location, location.getLocation());
-    assertEquals(location, bounds2D2.getBounds().getLocation().getLocation());
-    assertEquals(location, frame.getBounds().getLocation().getLocation());
-    assertEquals(location, ((Rectangle) bounds2D).getLocation().getLocation());
-    assertEquals(location, ((Rectangle) bounds2D3).getLocation().getLocation());
-    assertEquals(location, ((Rectangle) bounds2D4).getLocation().getLocation());
-    assertEquals(size2, size.getSize());
   }
 
   /**
    * Test {@link Type1CharString#getPath()}.
-   * <p>
-   * Method under test: {@link Type1CharString#getPath()}
+   *
+   * <p>Method under test: {@link Type1CharString#getPath()}
    */
   @Test
   @DisplayName("Test getPath()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"GeneralPath Type1CharString.getPath()"})
   void testGetPath6() {
     // Arrange
-    Type1CharString type1CharString = new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
     type1CharString.addCommand(new ArrayList<>(), CharStringCommand.RLINETO);
 
     // Act
     GeneralPath actualPath = type1CharString.getPath();
 
     // Assert
-    Rectangle bounds = actualPath.getBounds();
-    Rectangle bounds2 = bounds.getBounds();
-    Rectangle bounds3 = bounds2.getBounds();
-    Rectangle2D bounds2D = bounds3.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Rectangle2D bounds2D2 = bounds2.getBounds2D();
-    assertTrue(bounds2D2 instanceof Rectangle);
-    Rectangle2D bounds2D3 = bounds.getBounds2D();
-    assertTrue(bounds2D3 instanceof Rectangle);
-    Rectangle2D bounds2D4 = bounds2D3.getBounds2D();
-    assertTrue(bounds2D4 instanceof Rectangle);
-    Rectangle2D frame = bounds2.getFrame();
-    assertTrue(frame instanceof Rectangle2D.Double);
-    Rectangle2D frame2 = bounds.getFrame();
-    assertTrue(frame2 instanceof Rectangle2D.Double);
-    Rectangle2D bounds2D5 = actualPath.getBounds2D();
-    assertTrue(bounds2D5 instanceof Rectangle2D.Float);
     assertNull(actualPath.getCurrentPoint());
-    Dimension size = bounds2.getSize();
+    Dimension size = actualPath.getBounds().getBounds().getSize();
     assertEquals(0, size.height);
     assertEquals(0, size.width);
-    Dimension size2 = bounds.getSize();
-    assertEquals(0.0d, size2.getSize().getSize().getSize().getSize().getHeight());
     assertEquals(0.0d, size.getHeight());
     assertEquals(0.0d, size.getWidth());
-    Point location = bounds.getLocation();
-    Rectangle bounds4 = bounds3.getBounds();
-    Point location2 = bounds4.getLocation().getLocation();
-    assertEquals(location, location2.getLocation());
-    Rectangle bounds5 = bounds2D3.getBounds();
-    assertEquals(location, bounds5.getLocation().getLocation().getLocation());
-    Rectangle bounds6 = bounds2D5.getBounds();
-    assertEquals(location, bounds6.getLocation().getLocation().getLocation());
-    Rectangle bounds7 = frame2.getBounds();
-    assertEquals(location, bounds7.getLocation().getLocation().getLocation());
-    assertEquals(location, ((Rectangle) bounds2D2).getLocation().getLocation().getLocation());
-    assertEquals(location, bounds4.getBounds().getLocation().getLocation());
-    assertEquals(location, location2);
-    assertEquals(location, bounds3.getLocation().getLocation());
-    assertEquals(location, bounds2.getLocation().getLocation());
-    assertEquals(location, bounds5.getBounds().getLocation().getLocation());
-    assertEquals(location, bounds6.getBounds().getLocation().getLocation());
-    assertEquals(location, bounds7.getBounds().getLocation().getLocation());
-    assertEquals(location, location.getLocation());
-    assertEquals(location, bounds2D2.getBounds().getLocation().getLocation());
-    assertEquals(location, frame.getBounds().getLocation().getLocation());
-    assertEquals(location, ((Rectangle) bounds2D).getLocation().getLocation());
-    assertEquals(location, ((Rectangle) bounds2D3).getLocation().getLocation());
-    assertEquals(location, ((Rectangle) bounds2D4).getLocation().getLocation());
-    assertEquals(size2, size.getSize());
   }
 
   /**
    * Test {@link Type1CharString#getPath()}.
-   * <p>
-   * Method under test: {@link Type1CharString#getPath()}
+   *
+   * <p>Method under test: {@link Type1CharString#getPath()}
    */
   @Test
   @DisplayName("Test getPath()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"GeneralPath Type1CharString.getPath()"})
   void testGetPath7() {
     // Arrange
-    Type1CharString type1CharString = new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
     type1CharString.addCommand(new ArrayList<>(), CharStringCommand.HLINETO);
 
     // Act
     GeneralPath actualPath = type1CharString.getPath();
 
     // Assert
-    Rectangle bounds = actualPath.getBounds();
-    Rectangle bounds2 = bounds.getBounds();
-    Rectangle bounds3 = bounds2.getBounds();
-    Rectangle2D bounds2D = bounds3.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Rectangle2D bounds2D2 = bounds2.getBounds2D();
-    assertTrue(bounds2D2 instanceof Rectangle);
-    Rectangle2D bounds2D3 = bounds.getBounds2D();
-    assertTrue(bounds2D3 instanceof Rectangle);
-    Rectangle2D bounds2D4 = bounds2D3.getBounds2D();
-    assertTrue(bounds2D4 instanceof Rectangle);
-    Rectangle2D frame = bounds2.getFrame();
-    assertTrue(frame instanceof Rectangle2D.Double);
-    Rectangle2D frame2 = bounds.getFrame();
-    assertTrue(frame2 instanceof Rectangle2D.Double);
-    Rectangle2D bounds2D5 = actualPath.getBounds2D();
-    assertTrue(bounds2D5 instanceof Rectangle2D.Float);
     assertNull(actualPath.getCurrentPoint());
-    Dimension size = bounds2.getSize();
+    Dimension size = actualPath.getBounds().getBounds().getSize();
     assertEquals(0, size.height);
     assertEquals(0, size.width);
-    Dimension size2 = bounds.getSize();
-    assertEquals(0.0d, size2.getSize().getSize().getSize().getSize().getHeight());
     assertEquals(0.0d, size.getHeight());
     assertEquals(0.0d, size.getWidth());
-    Point location = bounds.getLocation();
-    Rectangle bounds4 = bounds3.getBounds();
-    Point location2 = bounds4.getLocation().getLocation();
-    assertEquals(location, location2.getLocation());
-    Rectangle bounds5 = bounds2D3.getBounds();
-    assertEquals(location, bounds5.getLocation().getLocation().getLocation());
-    Rectangle bounds6 = bounds2D5.getBounds();
-    assertEquals(location, bounds6.getLocation().getLocation().getLocation());
-    Rectangle bounds7 = frame2.getBounds();
-    assertEquals(location, bounds7.getLocation().getLocation().getLocation());
-    assertEquals(location, ((Rectangle) bounds2D2).getLocation().getLocation().getLocation());
-    assertEquals(location, bounds4.getBounds().getLocation().getLocation());
-    assertEquals(location, location2);
-    assertEquals(location, bounds3.getLocation().getLocation());
-    assertEquals(location, bounds2.getLocation().getLocation());
-    assertEquals(location, bounds5.getBounds().getLocation().getLocation());
-    assertEquals(location, bounds6.getBounds().getLocation().getLocation());
-    assertEquals(location, bounds7.getBounds().getLocation().getLocation());
-    assertEquals(location, location.getLocation());
-    assertEquals(location, bounds2D2.getBounds().getLocation().getLocation());
-    assertEquals(location, frame.getBounds().getLocation().getLocation());
-    assertEquals(location, ((Rectangle) bounds2D).getLocation().getLocation());
-    assertEquals(location, ((Rectangle) bounds2D3).getLocation().getLocation());
-    assertEquals(location, ((Rectangle) bounds2D4).getLocation().getLocation());
-    assertEquals(size2, size.getSize());
   }
 
   /**
    * Test {@link Type1CharString#getPath()}.
-   * <p>
-   * Method under test: {@link Type1CharString#getPath()}
+   *
+   * <p>Method under test: {@link Type1CharString#getPath()}
    */
   @Test
   @DisplayName("Test getPath()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"GeneralPath Type1CharString.getPath()"})
   void testGetPath8() {
     // Arrange
-    Type1CharString type1CharString = new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
     type1CharString.addCommand(new ArrayList<>(), CharStringCommand.VLINETO);
 
     // Act
     GeneralPath actualPath = type1CharString.getPath();
 
     // Assert
-    Rectangle bounds = actualPath.getBounds();
-    Rectangle bounds2 = bounds.getBounds();
-    Rectangle bounds3 = bounds2.getBounds();
-    Rectangle2D bounds2D = bounds3.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Rectangle2D bounds2D2 = bounds2.getBounds2D();
-    assertTrue(bounds2D2 instanceof Rectangle);
-    Rectangle2D bounds2D3 = bounds.getBounds2D();
-    assertTrue(bounds2D3 instanceof Rectangle);
-    Rectangle2D bounds2D4 = bounds2D3.getBounds2D();
-    assertTrue(bounds2D4 instanceof Rectangle);
-    Rectangle2D frame = bounds2.getFrame();
-    assertTrue(frame instanceof Rectangle2D.Double);
-    Rectangle2D frame2 = bounds.getFrame();
-    assertTrue(frame2 instanceof Rectangle2D.Double);
-    Rectangle2D bounds2D5 = actualPath.getBounds2D();
-    assertTrue(bounds2D5 instanceof Rectangle2D.Float);
     assertNull(actualPath.getCurrentPoint());
-    Dimension size = bounds2.getSize();
+    Dimension size = actualPath.getBounds().getBounds().getSize();
     assertEquals(0, size.height);
     assertEquals(0, size.width);
-    Dimension size2 = bounds.getSize();
-    assertEquals(0.0d, size2.getSize().getSize().getSize().getSize().getHeight());
     assertEquals(0.0d, size.getHeight());
     assertEquals(0.0d, size.getWidth());
-    Point location = bounds.getLocation();
-    Rectangle bounds4 = bounds3.getBounds();
-    Point location2 = bounds4.getLocation().getLocation();
-    assertEquals(location, location2.getLocation());
-    Rectangle bounds5 = bounds2D3.getBounds();
-    assertEquals(location, bounds5.getLocation().getLocation().getLocation());
-    Rectangle bounds6 = bounds2D5.getBounds();
-    assertEquals(location, bounds6.getLocation().getLocation().getLocation());
-    Rectangle bounds7 = frame2.getBounds();
-    assertEquals(location, bounds7.getLocation().getLocation().getLocation());
-    assertEquals(location, ((Rectangle) bounds2D2).getLocation().getLocation().getLocation());
-    assertEquals(location, bounds4.getBounds().getLocation().getLocation());
-    assertEquals(location, location2);
-    assertEquals(location, bounds3.getLocation().getLocation());
-    assertEquals(location, bounds2.getLocation().getLocation());
-    assertEquals(location, bounds5.getBounds().getLocation().getLocation());
-    assertEquals(location, bounds6.getBounds().getLocation().getLocation());
-    assertEquals(location, bounds7.getBounds().getLocation().getLocation());
-    assertEquals(location, location.getLocation());
-    assertEquals(location, bounds2D2.getBounds().getLocation().getLocation());
-    assertEquals(location, frame.getBounds().getLocation().getLocation());
-    assertEquals(location, ((Rectangle) bounds2D).getLocation().getLocation());
-    assertEquals(location, ((Rectangle) bounds2D3).getLocation().getLocation());
-    assertEquals(location, ((Rectangle) bounds2D4).getLocation().getLocation());
-    assertEquals(size2, size.getSize());
   }
 
   /**
    * Test {@link Type1CharString#getPath()}.
-   * <p>
-   * Method under test: {@link Type1CharString#getPath()}
+   *
+   * <p>Method under test: {@link Type1CharString#getPath()}
    */
   @Test
   @DisplayName("Test getPath()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"GeneralPath Type1CharString.getPath()"})
   void testGetPath9() {
     // Arrange
-    Type1CharString type1CharString = new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
     type1CharString.addCommand(new ArrayList<>(), CharStringCommand.RRCURVETO);
 
     // Act
     GeneralPath actualPath = type1CharString.getPath();
 
     // Assert
-    Rectangle bounds = actualPath.getBounds();
-    Rectangle bounds2 = bounds.getBounds();
-    Rectangle bounds3 = bounds2.getBounds();
-    Rectangle2D bounds2D = bounds3.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Rectangle2D bounds2D2 = bounds2.getBounds2D();
-    assertTrue(bounds2D2 instanceof Rectangle);
-    Rectangle2D bounds2D3 = bounds.getBounds2D();
-    assertTrue(bounds2D3 instanceof Rectangle);
-    Rectangle2D bounds2D4 = bounds2D3.getBounds2D();
-    assertTrue(bounds2D4 instanceof Rectangle);
-    Rectangle2D frame = bounds2.getFrame();
-    assertTrue(frame instanceof Rectangle2D.Double);
-    Rectangle2D frame2 = bounds.getFrame();
-    assertTrue(frame2 instanceof Rectangle2D.Double);
-    Rectangle2D bounds2D5 = actualPath.getBounds2D();
-    assertTrue(bounds2D5 instanceof Rectangle2D.Float);
     assertNull(actualPath.getCurrentPoint());
-    Dimension size = bounds2.getSize();
+    Dimension size = actualPath.getBounds().getBounds().getSize();
     assertEquals(0, size.height);
     assertEquals(0, size.width);
-    Dimension size2 = bounds.getSize();
-    assertEquals(0.0d, size2.getSize().getSize().getSize().getSize().getHeight());
     assertEquals(0.0d, size.getHeight());
     assertEquals(0.0d, size.getWidth());
-    Point location = bounds.getLocation();
-    Rectangle bounds4 = bounds3.getBounds();
-    Point location2 = bounds4.getLocation().getLocation();
-    assertEquals(location, location2.getLocation());
-    Rectangle bounds5 = bounds2D3.getBounds();
-    assertEquals(location, bounds5.getLocation().getLocation().getLocation());
-    Rectangle bounds6 = bounds2D5.getBounds();
-    assertEquals(location, bounds6.getLocation().getLocation().getLocation());
-    Rectangle bounds7 = frame2.getBounds();
-    assertEquals(location, bounds7.getLocation().getLocation().getLocation());
-    assertEquals(location, ((Rectangle) bounds2D2).getLocation().getLocation().getLocation());
-    assertEquals(location, bounds4.getBounds().getLocation().getLocation());
-    assertEquals(location, location2);
-    assertEquals(location, bounds3.getLocation().getLocation());
-    assertEquals(location, bounds2.getLocation().getLocation());
-    assertEquals(location, bounds5.getBounds().getLocation().getLocation());
-    assertEquals(location, bounds6.getBounds().getLocation().getLocation());
-    assertEquals(location, bounds7.getBounds().getLocation().getLocation());
-    assertEquals(location, location.getLocation());
-    assertEquals(location, bounds2D2.getBounds().getLocation().getLocation());
-    assertEquals(location, frame.getBounds().getLocation().getLocation());
-    assertEquals(location, ((Rectangle) bounds2D).getLocation().getLocation());
-    assertEquals(location, ((Rectangle) bounds2D3).getLocation().getLocation());
-    assertEquals(location, ((Rectangle) bounds2D4).getLocation().getLocation());
-    assertEquals(size2, size.getSize());
   }
 
   /**
    * Test {@link Type1CharString#getPath()}.
-   * <ul>
-   *   <li>Then return Bounds Bounds Location Location Location Location Y is
-   * one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Type1CharString#getPath()}
+   *
+   * <p>Method under test: {@link Type1CharString#getPath()}
    */
   @Test
-  @DisplayName("Test getPath(); then return Bounds Bounds Location Location Location Location Y is one")
-  void testGetPath_thenReturnBoundsBoundsLocationLocationLocationLocationYIsOne() {
+  @DisplayName("Test getPath()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"GeneralPath Type1CharString.getPath()"})
+  void testGetPath10() {
+    // Arrange
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    type1CharString.addCommand(new ArrayList<>(), CharStringCommand.CALLSUBR);
+
+    // Act
+    GeneralPath actualPath = type1CharString.getPath();
+
+    // Assert
+    assertNull(actualPath.getCurrentPoint());
+    Dimension size = actualPath.getBounds().getBounds().getSize();
+    assertEquals(0, size.height);
+    assertEquals(0, size.width);
+    assertEquals(0.0d, size.getHeight());
+    assertEquals(0.0d, size.getWidth());
+  }
+
+  /**
+   * Test {@link Type1CharString#getPath()}.
+   *
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()} add valueOf one.
+   *   <li>Then return Bounds X is one.
+   * </ul>
+   *
+   * <p>Method under test: {@link Type1CharString#getPath()}
+   */
+  @Test
+  @DisplayName("Test getPath(); given ArrayList() add valueOf one; then return Bounds X is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"GeneralPath Type1CharString.getPath()"})
+  void testGetPath_givenArrayListAddValueOfOne_thenReturnBoundsXIsOne() {
     // Arrange
     ArrayList<Number> numbers = new ArrayList<>();
     Integer valueOfResult = Integer.valueOf(1);
     numbers.add(valueOfResult);
 
-    Type1CharString type1CharString = new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    type1CharString.addCommand(numbers, CharStringCommand.HLINETO);
+
+    // Act
+    GeneralPath actualPath = type1CharString.getPath();
+
+    // Assert
+    Rectangle2D bounds2D = actualPath.getBounds2D();
+    assertTrue(bounds2D instanceof Float);
+    Rectangle bounds = actualPath.getBounds();
+    assertEquals(1.0d, bounds.getX());
+    assertEquals(1.0d, bounds.getCenterX());
+    assertEquals(1.0d, bounds2D.getCenterX());
+    assertEquals(1.0d, bounds.getMinX());
+    assertEquals(1.0d, bounds2D.getMinX());
+    assertEquals(1.0d, bounds2D.getX());
+    assertEquals(1.0f, ((Float) bounds2D).x);
+    assertSame(valueOfResult, bounds.x);
+  }
+
+  /**
+   * Test {@link Type1CharString#getPath()}.
+   *
+   * <ul>
+   *   <li>Then return Bounds CenterX is {@code 0.5}.
+   * </ul>
+   *
+   * <p>Method under test: {@link Type1CharString#getPath()}
+   */
+  @Test
+  @DisplayName("Test getPath(); then return Bounds CenterX is '0.5'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"GeneralPath Type1CharString.getPath()"})
+  void testGetPath_thenReturnBoundsCenterXIs05() {
+    // Arrange
+    ArrayList<Number> numbers = new ArrayList<>();
+    Integer valueOfResult = Integer.valueOf(1);
+    numbers.add(valueOfResult);
+
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    type1CharString.addCommand(new ArrayList<>(), CharStringCommand.CLOSEPATH);
+    type1CharString.addCommand(numbers, CharStringCommand.HLINETO);
+
+    // Act
+    GeneralPath actualPath = type1CharString.getPath();
+
+    // Assert
+    Rectangle2D bounds2D = actualPath.getBounds2D();
+    assertTrue(bounds2D instanceof Float);
+    Rectangle bounds = actualPath.getBounds();
+    assertEquals(0.5d, bounds.getCenterX());
+    assertEquals(0.5d, bounds2D.getCenterX());
+    assertEquals(1.0d, bounds.getWidth());
+    assertEquals(1.0d, bounds2D.getWidth());
+    assertEquals(1.0f, ((Float) bounds2D).width);
+    assertSame(valueOfResult, bounds.width);
+  }
+
+  /**
+   * Test {@link Type1CharString#getPath()}.
+   *
+   * <ul>
+   *   <li>Then return Bounds Y is one.
+   * </ul>
+   *
+   * <p>Method under test: {@link Type1CharString#getPath()}
+   */
+  @Test
+  @DisplayName("Test getPath(); then return Bounds Y is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"GeneralPath Type1CharString.getPath()"})
+  void testGetPath_thenReturnBoundsYIsOne() {
+    // Arrange
+    ArrayList<Number> numbers = new ArrayList<>();
+    Integer valueOfResult = Integer.valueOf(1);
+    numbers.add(valueOfResult);
+
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
     type1CharString.addCommand(numbers, CharStringCommand.VMOVETO);
 
     // Act
     GeneralPath actualPath = type1CharString.getPath();
 
     // Assert
-    Rectangle bounds = actualPath.getBounds();
-    Rectangle bounds2 = bounds.getBounds();
-    Rectangle bounds3 = bounds2.getBounds();
-    Rectangle bounds4 = bounds3.getBounds();
-    Rectangle bounds5 = bounds4.getBounds();
-    Rectangle bounds6 = bounds5.getBounds();
-    Rectangle2D bounds2D = bounds6.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Rectangle2D bounds2D2 = bounds5.getBounds2D();
-    assertTrue(bounds2D2 instanceof Rectangle);
-    Rectangle2D bounds2D3 = bounds4.getBounds2D();
-    assertTrue(bounds2D3 instanceof Rectangle);
-    Rectangle2D bounds2D4 = bounds3.getBounds2D();
-    assertTrue(bounds2D4 instanceof Rectangle);
-    Rectangle2D bounds2D5 = bounds.getBounds2D();
-    Rectangle bounds7 = bounds2D5.getBounds();
-    Rectangle bounds8 = bounds7.getBounds();
-    Rectangle bounds9 = bounds8.getBounds();
-    Rectangle2D bounds2D6 = bounds9.getBounds2D();
-    assertTrue(bounds2D6 instanceof Rectangle);
-    Rectangle2D bounds2D7 = actualPath.getBounds2D();
-    Rectangle bounds10 = bounds2D7.getBounds();
-    Rectangle bounds11 = bounds10.getBounds();
-    Rectangle bounds12 = bounds11.getBounds();
-    Rectangle2D bounds2D8 = bounds12.getBounds2D();
-    assertTrue(bounds2D8 instanceof Rectangle);
-    Rectangle2D frame = bounds.getFrame();
-    Rectangle bounds13 = frame.getBounds();
-    Rectangle bounds14 = bounds13.getBounds();
-    Rectangle bounds15 = bounds14.getBounds();
-    Rectangle2D bounds2D9 = bounds15.getBounds2D();
-    assertTrue(bounds2D9 instanceof Rectangle);
-    Rectangle2D bounds2D10 = bounds2.getBounds2D();
-    assertTrue(bounds2D10 instanceof Rectangle);
-    Rectangle bounds16 = bounds2D10.getBounds();
-    Rectangle bounds17 = bounds16.getBounds();
-    Rectangle2D bounds2D11 = bounds17.getBounds2D();
-    assertTrue(bounds2D11 instanceof Rectangle);
-    Rectangle2D bounds2D12 = bounds8.getBounds2D();
-    assertTrue(bounds2D12 instanceof Rectangle);
-    Rectangle2D bounds2D13 = bounds11.getBounds2D();
-    assertTrue(bounds2D13 instanceof Rectangle);
-    Rectangle2D frame2 = bounds2.getFrame();
-    Rectangle bounds18 = frame2.getBounds();
-    Rectangle bounds19 = bounds18.getBounds();
-    Rectangle2D bounds2D14 = bounds19.getBounds2D();
-    assertTrue(bounds2D14 instanceof Rectangle);
-    Rectangle2D bounds2D15 = bounds14.getBounds2D();
-    assertTrue(bounds2D15 instanceof Rectangle);
-    assertTrue(bounds2D5 instanceof Rectangle);
-    Rectangle bounds20 = bounds2D4.getBounds();
-    Rectangle2D bounds2D16 = bounds20.getBounds2D();
-    assertTrue(bounds2D16 instanceof Rectangle);
-    Rectangle2D bounds2D17 = bounds16.getBounds2D();
-    assertTrue(bounds2D17 instanceof Rectangle);
-    Rectangle2D bounds2D18 = bounds7.getBounds2D();
-    assertTrue(bounds2D18 instanceof Rectangle);
-    Rectangle2D bounds2D19 = bounds10.getBounds2D();
-    assertTrue(bounds2D19 instanceof Rectangle);
-    Rectangle2D bounds2D20 = bounds2D5.getBounds2D();
-    Rectangle bounds21 = bounds2D20.getBounds();
-    Rectangle2D bounds2D21 = bounds21.getBounds2D();
-    assertTrue(bounds2D21 instanceof Rectangle);
-    Rectangle2D bounds2D22 = bounds2D7.getBounds2D();
-    Rectangle bounds22 = bounds2D22.getBounds();
-    Rectangle2D bounds2D23 = bounds22.getBounds2D();
-    assertTrue(bounds2D23 instanceof Rectangle);
-    Rectangle2D bounds2D24 = frame.getBounds2D();
-    Rectangle bounds23 = bounds2D24.getBounds();
-    Rectangle2D bounds2D25 = bounds23.getBounds2D();
-    assertTrue(bounds2D25 instanceof Rectangle);
-    Rectangle2D frame3 = bounds3.getFrame();
-    Rectangle bounds24 = frame3.getBounds();
-    Rectangle2D bounds2D26 = bounds24.getBounds2D();
-    assertTrue(bounds2D26 instanceof Rectangle);
-    Rectangle2D bounds2D27 = bounds18.getBounds2D();
-    assertTrue(bounds2D27 instanceof Rectangle);
-    Rectangle2D frame4 = bounds2D5.getFrame();
-    Rectangle bounds25 = frame4.getBounds();
-    Rectangle2D bounds2D28 = bounds25.getBounds2D();
-    assertTrue(bounds2D28 instanceof Rectangle);
-    Rectangle2D bounds2D29 = bounds13.getBounds2D();
-    assertTrue(bounds2D29 instanceof Rectangle);
-    Rectangle2D frame5 = bounds2D7.getFrame();
-    Rectangle bounds26 = frame5.getBounds();
-    Rectangle2D bounds2D30 = bounds26.getBounds2D();
-    assertTrue(bounds2D30 instanceof Rectangle);
-    Rectangle2D frame6 = frame.getFrame();
-    Rectangle bounds27 = frame6.getBounds();
-    Rectangle2D bounds2D31 = bounds27.getBounds2D();
-    assertTrue(bounds2D31 instanceof Rectangle);
-    Rectangle2D bounds2D32 = bounds2D3.getBounds2D();
-    assertTrue(bounds2D32 instanceof Rectangle);
-    Rectangle2D bounds2D33 = bounds2D4.getBounds2D();
-    assertTrue(bounds2D33 instanceof Rectangle);
-    Rectangle2D bounds2D34 = bounds2D10.getBounds2D();
-    assertTrue(bounds2D34 instanceof Rectangle);
-    assertTrue(bounds2D20 instanceof Rectangle);
-    Rectangle2D bounds2D35 = bounds2D18.getBounds2D();
-    assertTrue(bounds2D35 instanceof Rectangle);
-    Rectangle2D bounds2D36 = bounds2D19.getBounds2D();
-    assertTrue(bounds2D36 instanceof Rectangle);
-    Rectangle2D bounds2D37 = bounds2D29.getBounds2D();
-    assertTrue(bounds2D37 instanceof Rectangle);
-    Rectangle2D bounds2D38 = bounds2D34.getBounds2D();
-    assertTrue(bounds2D38 instanceof Rectangle);
-    Rectangle2D bounds2D39 = bounds2D20.getBounds2D();
-    assertTrue(bounds2D39 instanceof Rectangle);
     Point2D currentPoint = actualPath.getCurrentPoint();
     assertTrue(currentPoint instanceof Point2D.Float);
-    Rectangle2D bounds2D40 = frame2.getBounds2D();
-    assertTrue(bounds2D40 instanceof Rectangle2D.Double);
-    assertTrue(bounds2D24 instanceof Rectangle2D.Double);
-    Rectangle2D frame7 = bounds4.getFrame();
-    assertTrue(frame7 instanceof Rectangle2D.Double);
-    assertTrue(frame3 instanceof Rectangle2D.Double);
-    assertTrue(frame2 instanceof Rectangle2D.Double);
-    Rectangle2D frame8 = bounds2D10.getFrame();
-    assertTrue(frame8 instanceof Rectangle2D.Double);
-    assertTrue(frame4 instanceof Rectangle2D.Double);
-    assertTrue(frame instanceof Rectangle2D.Double);
-    assertTrue(frame5 instanceof Rectangle2D.Double);
-    Rectangle2D frame9 = bounds7.getFrame();
-    assertTrue(frame9 instanceof Rectangle2D.Double);
-    Rectangle2D frame10 = bounds10.getFrame();
-    assertTrue(frame10 instanceof Rectangle2D.Double);
-    Rectangle2D frame11 = bounds13.getFrame();
-    assertTrue(frame11 instanceof Rectangle2D.Double);
-    Rectangle2D frame12 = frame2.getFrame();
-    assertTrue(frame12 instanceof Rectangle2D.Double);
-    assertTrue(frame6 instanceof Rectangle2D.Double);
-    assertTrue(bounds2D7 instanceof Rectangle2D.Float);
-    assertTrue(bounds2D22 instanceof Rectangle2D.Float);
-    Rectangle2D bounds2D41 = bounds2D22.getBounds2D();
-    assertTrue(bounds2D41 instanceof Rectangle2D.Float);
-    Point location = bounds2.getLocation();
-    Point location2 = location.getLocation();
-    Point location3 = location2.getLocation();
-    Point location4 = location3.getLocation();
-    assertEquals(1.0d, location4.getY());
-    Point location5 = bounds.getLocation();
-    Point location6 = location5.getLocation();
-    Point location7 = location6.getLocation();
-    Point location8 = location7.getLocation();
-    assertEquals(1.0d, location8.getY());
-    Point location9 = bounds3.getLocation();
-    Point location10 = location9.getLocation();
-    Point location11 = location10.getLocation();
-    assertEquals(1.0d, location11.getY());
-    assertEquals(1.0d, location3.getY());
-    assertEquals(1.0d, location7.getY());
-    Point location12 = ((Rectangle) bounds2D5).getLocation();
-    Point location13 = location12.getLocation();
-    Point location14 = location13.getLocation();
-    assertEquals(1.0d, location14.getY());
-    Point location15 = bounds4.getLocation();
-    Point location16 = location15.getLocation();
-    assertEquals(1.0d, location16.getY());
-    assertEquals(1.0d, location10.getY());
-    assertEquals(1.0d, location2.getY());
-    assertEquals(1.0d, location6.getY());
-    Point location17 = bounds7.getLocation();
-    Point location18 = location17.getLocation();
-    assertEquals(1.0d, location18.getY());
-    Point location19 = bounds10.getLocation();
-    Point location20 = location19.getLocation();
-    assertEquals(1.0d, location20.getY());
-    Point location21 = bounds13.getLocation();
-    Point location22 = location21.getLocation();
-    assertEquals(1.0d, location22.getY());
-    Point location23 = ((Rectangle) bounds2D10).getLocation();
-    Point location24 = location23.getLocation();
-    assertEquals(1.0d, location24.getY());
-    assertEquals(1.0d, location13.getY());
-    Point location25 = bounds5.getLocation();
-    assertEquals(1.0d, location25.getY());
-    assertEquals(1.0d, location15.getY());
-    assertEquals(1.0d, location9.getY());
-    assertEquals(1.0d, location.getY());
-    Point location26 = bounds8.getLocation();
-    assertEquals(1.0d, location26.getY());
-    Point location27 = bounds11.getLocation();
-    assertEquals(1.0d, location27.getY());
-    Point location28 = bounds14.getLocation();
-    assertEquals(1.0d, location28.getY());
-    assertEquals(1.0d, location5.getY());
-    Point location29 = bounds16.getLocation();
-    assertEquals(1.0d, location29.getY());
-    assertEquals(1.0d, location17.getY());
-    assertEquals(1.0d, location19.getY());
-    Point location30 = bounds18.getLocation();
-    assertEquals(1.0d, location30.getY());
-    assertEquals(1.0d, location21.getY());
-    Point location31 = ((Rectangle) bounds2D4).getLocation();
-    assertEquals(1.0d, location31.getY());
-    assertEquals(1.0d, location23.getY());
-    assertEquals(1.0d, location12.getY());
-    Point location32 = ((Rectangle) bounds2D20).getLocation();
-    assertEquals(1.0d, location32.getY());
-    assertEquals(1.0d, bounds6.getY());
-    assertEquals(1.0d, bounds5.getY());
-    assertEquals(1.0d, bounds4.getY());
-    assertEquals(1.0d, bounds3.getY());
-    assertEquals(1.0d, bounds9.getY());
-    assertEquals(1.0d, bounds12.getY());
-    assertEquals(1.0d, bounds15.getY());
-    assertEquals(1.0d, bounds2.getY());
-    assertEquals(1.0d, bounds17.getY());
-    assertEquals(1.0d, bounds8.getY());
-    assertEquals(1.0d, bounds11.getY());
-    assertEquals(1.0d, bounds19.getY());
-    assertEquals(1.0d, bounds14.getY());
+    Rectangle2D bounds2D = actualPath.getBounds2D();
+    assertTrue(bounds2D instanceof Float);
+    Rectangle bounds = actualPath.getBounds();
     assertEquals(1.0d, bounds.getY());
-    assertEquals(1.0d, bounds20.getY());
-    assertEquals(1.0d, bounds16.getY());
-    assertEquals(1.0d, bounds7.getY());
-    assertEquals(1.0d, bounds10.getY());
-    assertEquals(1.0d, bounds21.getY());
-    assertEquals(1.0d, bounds22.getY());
-    assertEquals(1.0d, bounds23.getY());
-    assertEquals(1.0d, bounds24.getY());
-    assertEquals(1.0d, bounds18.getY());
-    assertEquals(1.0d, bounds25.getY());
-    assertEquals(1.0d, bounds13.getY());
-    assertEquals(1.0d, bounds26.getY());
-    assertEquals(1.0d, bounds27.getY());
     assertEquals(1.0d, currentPoint.getY());
-    assertEquals(1.0d, bounds6.getCenterY());
-    assertEquals(1.0d, bounds5.getCenterY());
-    assertEquals(1.0d, bounds4.getCenterY());
-    assertEquals(1.0d, bounds3.getCenterY());
-    assertEquals(1.0d, bounds9.getCenterY());
-    assertEquals(1.0d, bounds12.getCenterY());
-    assertEquals(1.0d, bounds15.getCenterY());
-    assertEquals(1.0d, bounds2.getCenterY());
-    assertEquals(1.0d, bounds17.getCenterY());
-    assertEquals(1.0d, bounds8.getCenterY());
-    assertEquals(1.0d, bounds11.getCenterY());
-    assertEquals(1.0d, bounds19.getCenterY());
-    assertEquals(1.0d, bounds14.getCenterY());
-    assertEquals(1.0d, bounds2D3.getCenterY());
-    assertEquals(1.0d, bounds2D4.getCenterY());
-    assertEquals(1.0d, bounds2D10.getCenterY());
-    assertEquals(1.0d, bounds2D5.getCenterY());
-    assertEquals(1.0d, bounds2D18.getCenterY());
-    assertEquals(1.0d, bounds2D19.getCenterY());
-    assertEquals(1.0d, bounds2D29.getCenterY());
     assertEquals(1.0d, bounds.getCenterY());
-    assertEquals(1.0d, bounds2D7.getCenterY());
-    assertEquals(1.0d, bounds2D34.getCenterY());
-    assertEquals(1.0d, bounds2D20.getCenterY());
-    assertEquals(1.0d, bounds2D22.getCenterY());
-    assertEquals(1.0d, bounds2D40.getCenterY());
-    assertEquals(1.0d, bounds2D24.getCenterY());
-    assertEquals(1.0d, bounds20.getCenterY());
-    assertEquals(1.0d, bounds16.getCenterY());
-    assertEquals(1.0d, bounds7.getCenterY());
-    assertEquals(1.0d, bounds10.getCenterY());
-    assertEquals(1.0d, bounds21.getCenterY());
-    assertEquals(1.0d, bounds22.getCenterY());
-    assertEquals(1.0d, bounds23.getCenterY());
-    assertEquals(1.0d, bounds24.getCenterY());
-    assertEquals(1.0d, bounds18.getCenterY());
-    assertEquals(1.0d, bounds25.getCenterY());
-    assertEquals(1.0d, bounds13.getCenterY());
-    assertEquals(1.0d, bounds26.getCenterY());
-    assertEquals(1.0d, bounds27.getCenterY());
-    assertEquals(1.0d, frame7.getCenterY());
-    assertEquals(1.0d, frame3.getCenterY());
-    assertEquals(1.0d, frame2.getCenterY());
-    assertEquals(1.0d, frame8.getCenterY());
-    assertEquals(1.0d, frame4.getCenterY());
-    assertEquals(1.0d, frame.getCenterY());
-    assertEquals(1.0d, frame5.getCenterY());
-    assertEquals(1.0d, frame9.getCenterY());
-    assertEquals(1.0d, frame10.getCenterY());
-    assertEquals(1.0d, frame11.getCenterY());
-    assertEquals(1.0d, frame12.getCenterY());
-    assertEquals(1.0d, frame6.getCenterY());
-    assertEquals(1.0d, bounds6.getMaxY());
-    assertEquals(1.0d, bounds5.getMaxY());
-    assertEquals(1.0d, bounds4.getMaxY());
-    assertEquals(1.0d, bounds3.getMaxY());
-    assertEquals(1.0d, bounds9.getMaxY());
-    assertEquals(1.0d, bounds12.getMaxY());
-    assertEquals(1.0d, bounds15.getMaxY());
-    assertEquals(1.0d, bounds2.getMaxY());
-    assertEquals(1.0d, bounds17.getMaxY());
-    assertEquals(1.0d, bounds8.getMaxY());
-    assertEquals(1.0d, bounds11.getMaxY());
-    assertEquals(1.0d, bounds19.getMaxY());
-    assertEquals(1.0d, bounds14.getMaxY());
-    assertEquals(1.0d, bounds2D3.getMaxY());
-    assertEquals(1.0d, bounds2D4.getMaxY());
-    assertEquals(1.0d, bounds2D10.getMaxY());
-    assertEquals(1.0d, bounds2D5.getMaxY());
-    assertEquals(1.0d, bounds2D18.getMaxY());
-    assertEquals(1.0d, bounds2D19.getMaxY());
-    assertEquals(1.0d, bounds2D29.getMaxY());
+    assertEquals(1.0d, bounds2D.getCenterY());
     assertEquals(1.0d, bounds.getMaxY());
-    assertEquals(1.0d, bounds2D7.getMaxY());
-    assertEquals(1.0d, bounds2D34.getMaxY());
-    assertEquals(1.0d, bounds2D20.getMaxY());
-    assertEquals(1.0d, bounds2D22.getMaxY());
-    assertEquals(1.0d, bounds2D40.getMaxY());
-    assertEquals(1.0d, bounds2D24.getMaxY());
-    assertEquals(1.0d, bounds20.getMaxY());
-    assertEquals(1.0d, bounds16.getMaxY());
-    assertEquals(1.0d, bounds7.getMaxY());
-    assertEquals(1.0d, bounds10.getMaxY());
-    assertEquals(1.0d, bounds21.getMaxY());
-    assertEquals(1.0d, bounds22.getMaxY());
-    assertEquals(1.0d, bounds23.getMaxY());
-    assertEquals(1.0d, bounds24.getMaxY());
-    assertEquals(1.0d, bounds18.getMaxY());
-    assertEquals(1.0d, bounds25.getMaxY());
-    assertEquals(1.0d, bounds13.getMaxY());
-    assertEquals(1.0d, bounds26.getMaxY());
-    assertEquals(1.0d, bounds27.getMaxY());
-    assertEquals(1.0d, frame7.getMaxY());
-    assertEquals(1.0d, frame3.getMaxY());
-    assertEquals(1.0d, frame2.getMaxY());
-    assertEquals(1.0d, frame8.getMaxY());
-    assertEquals(1.0d, frame4.getMaxY());
-    assertEquals(1.0d, frame.getMaxY());
-    assertEquals(1.0d, frame5.getMaxY());
-    assertEquals(1.0d, frame9.getMaxY());
-    assertEquals(1.0d, frame10.getMaxY());
-    assertEquals(1.0d, frame11.getMaxY());
-    assertEquals(1.0d, frame12.getMaxY());
-    assertEquals(1.0d, frame6.getMaxY());
-    assertEquals(1.0d, bounds6.getMinY());
-    assertEquals(1.0d, bounds5.getMinY());
-    assertEquals(1.0d, bounds4.getMinY());
-    assertEquals(1.0d, bounds3.getMinY());
-    assertEquals(1.0d, bounds9.getMinY());
-    assertEquals(1.0d, bounds12.getMinY());
-    assertEquals(1.0d, bounds15.getMinY());
-    assertEquals(1.0d, bounds2.getMinY());
-    assertEquals(1.0d, bounds17.getMinY());
-    assertEquals(1.0d, bounds8.getMinY());
-    assertEquals(1.0d, bounds11.getMinY());
-    assertEquals(1.0d, bounds19.getMinY());
-    assertEquals(1.0d, bounds14.getMinY());
-    assertEquals(1.0d, bounds2D3.getMinY());
-    assertEquals(1.0d, bounds2D4.getMinY());
-    assertEquals(1.0d, bounds2D10.getMinY());
-    assertEquals(1.0d, bounds2D5.getMinY());
-    assertEquals(1.0d, bounds2D18.getMinY());
-    assertEquals(1.0d, bounds2D19.getMinY());
-    assertEquals(1.0d, bounds2D29.getMinY());
+    assertEquals(1.0d, bounds2D.getMaxY());
     assertEquals(1.0d, bounds.getMinY());
-    assertEquals(1.0d, bounds2D7.getMinY());
-    assertEquals(1.0d, bounds2D34.getMinY());
-    assertEquals(1.0d, bounds2D20.getMinY());
-    assertEquals(1.0d, bounds2D22.getMinY());
-    assertEquals(1.0d, bounds2D40.getMinY());
-    assertEquals(1.0d, bounds2D24.getMinY());
-    assertEquals(1.0d, bounds20.getMinY());
-    assertEquals(1.0d, bounds16.getMinY());
-    assertEquals(1.0d, bounds7.getMinY());
-    assertEquals(1.0d, bounds10.getMinY());
-    assertEquals(1.0d, bounds21.getMinY());
-    assertEquals(1.0d, bounds22.getMinY());
-    assertEquals(1.0d, bounds23.getMinY());
-    assertEquals(1.0d, bounds24.getMinY());
-    assertEquals(1.0d, bounds18.getMinY());
-    assertEquals(1.0d, bounds25.getMinY());
-    assertEquals(1.0d, bounds13.getMinY());
-    assertEquals(1.0d, bounds26.getMinY());
-    assertEquals(1.0d, bounds27.getMinY());
-    assertEquals(1.0d, frame7.getMinY());
-    assertEquals(1.0d, frame3.getMinY());
-    assertEquals(1.0d, frame2.getMinY());
-    assertEquals(1.0d, frame8.getMinY());
-    assertEquals(1.0d, frame4.getMinY());
-    assertEquals(1.0d, frame.getMinY());
-    assertEquals(1.0d, frame5.getMinY());
-    assertEquals(1.0d, frame9.getMinY());
-    assertEquals(1.0d, frame10.getMinY());
-    assertEquals(1.0d, frame11.getMinY());
-    assertEquals(1.0d, frame12.getMinY());
-    assertEquals(1.0d, frame6.getMinY());
-    assertEquals(1.0d, bounds2D3.getY());
-    assertEquals(1.0d, bounds2D4.getY());
-    assertEquals(1.0d, bounds2D10.getY());
-    assertEquals(1.0d, bounds2D5.getY());
-    assertEquals(1.0d, bounds2D18.getY());
-    assertEquals(1.0d, bounds2D19.getY());
-    assertEquals(1.0d, bounds2D29.getY());
-    assertEquals(1.0d, bounds2D7.getY());
-    assertEquals(1.0d, bounds2D34.getY());
-    assertEquals(1.0d, bounds2D20.getY());
-    assertEquals(1.0d, bounds2D22.getY());
-    assertEquals(1.0d, bounds2D40.getY());
-    assertEquals(1.0d, bounds2D24.getY());
-    assertEquals(1.0d, frame7.getY());
-    assertEquals(1.0d, frame3.getY());
-    assertEquals(1.0d, frame2.getY());
-    assertEquals(1.0d, frame8.getY());
-    assertEquals(1.0d, frame4.getY());
-    assertEquals(1.0d, frame.getY());
-    assertEquals(1.0d, frame5.getY());
-    assertEquals(1.0d, frame9.getY());
-    assertEquals(1.0d, frame10.getY());
-    assertEquals(1.0d, frame11.getY());
-    assertEquals(1.0d, frame12.getY());
-    assertEquals(1.0d, frame6.getY());
+    assertEquals(1.0d, bounds2D.getMinY());
+    assertEquals(1.0d, bounds2D.getY());
     assertEquals(1.0f, ((Point2D.Float) currentPoint).y);
-    assertEquals(1.0f, ((Rectangle2D.Float) bounds2D7).y);
-    assertEquals(1.0f, ((Rectangle2D.Float) bounds2D22).y);
-    assertEquals(1.0f, ((Rectangle2D.Float) bounds2D41).y);
-    Point location33 = location8.getLocation();
-    assertSame(valueOfResult, location33.getLocation().y);
-    assertSame(valueOfResult, location4.getLocation().y);
-    assertSame(valueOfResult, location33.y);
-    assertSame(valueOfResult, location11.getLocation().y);
-    assertSame(valueOfResult, location4.y);
-    assertSame(valueOfResult, location8.y);
-    assertSame(valueOfResult, location14.getLocation().y);
-    assertSame(valueOfResult, location16.getLocation().y);
-    assertSame(valueOfResult, location11.y);
-    assertSame(valueOfResult, location3.y);
-    assertSame(valueOfResult, location7.y);
-    assertSame(valueOfResult, location18.getLocation().y);
-    assertSame(valueOfResult, location20.getLocation().y);
-    assertSame(valueOfResult, location22.getLocation().y);
-    assertSame(valueOfResult, location24.getLocation().y);
-    assertSame(valueOfResult, location14.y);
-    assertSame(valueOfResult, location25.getLocation().y);
-    assertSame(valueOfResult, location16.y);
-    assertSame(valueOfResult, location10.y);
-    assertSame(valueOfResult, location2.y);
-    assertSame(valueOfResult, location26.getLocation().y);
-    assertSame(valueOfResult, location27.getLocation().y);
-    assertSame(valueOfResult, location28.getLocation().y);
-    assertSame(valueOfResult, location6.y);
-    assertSame(valueOfResult, location29.getLocation().y);
-    assertSame(valueOfResult, location18.y);
-    assertSame(valueOfResult, location20.y);
-    assertSame(valueOfResult, location30.getLocation().y);
-    assertSame(valueOfResult, location22.y);
-    assertSame(valueOfResult, location31.getLocation().y);
-    assertSame(valueOfResult, location24.y);
-    assertSame(valueOfResult, location13.y);
-    assertSame(valueOfResult, location32.getLocation().y);
-    assertSame(valueOfResult, bounds6.getLocation().y);
-    assertSame(valueOfResult, location25.y);
-    assertSame(valueOfResult, location15.y);
-    assertSame(valueOfResult, location9.y);
-    assertSame(valueOfResult, bounds9.getLocation().y);
-    assertSame(valueOfResult, bounds12.getLocation().y);
-    assertSame(valueOfResult, bounds15.getLocation().y);
-    assertSame(valueOfResult, location.y);
-    assertSame(valueOfResult, bounds17.getLocation().y);
-    assertSame(valueOfResult, location26.y);
-    assertSame(valueOfResult, location27.y);
-    assertSame(valueOfResult, bounds19.getLocation().y);
-    assertSame(valueOfResult, location28.y);
-    assertSame(valueOfResult, location5.y);
-    assertSame(valueOfResult, bounds20.getLocation().y);
-    assertSame(valueOfResult, location29.y);
-    assertSame(valueOfResult, location17.y);
-    assertSame(valueOfResult, location19.y);
-    assertSame(valueOfResult, bounds21.getLocation().y);
-    assertSame(valueOfResult, bounds22.getLocation().y);
-    assertSame(valueOfResult, bounds23.getLocation().y);
-    assertSame(valueOfResult, bounds24.getLocation().y);
-    assertSame(valueOfResult, location30.y);
-    assertSame(valueOfResult, bounds25.getLocation().y);
-    assertSame(valueOfResult, location21.y);
-    assertSame(valueOfResult, bounds26.getLocation().y);
-    assertSame(valueOfResult, bounds27.getLocation().y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D3).getLocation().y);
-    assertSame(valueOfResult, location31.y);
-    assertSame(valueOfResult, location23.y);
-    assertSame(valueOfResult, location12.y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D18).getLocation().y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D19).getLocation().y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D29).getLocation().y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D34).getLocation().y);
-    assertSame(valueOfResult, location32.y);
-    assertSame(valueOfResult, bounds6.getBounds().y);
-    assertSame(valueOfResult, bounds6.y);
-    assertSame(valueOfResult, bounds5.y);
-    assertSame(valueOfResult, bounds4.y);
-    assertSame(valueOfResult, bounds9.getBounds().y);
-    assertSame(valueOfResult, bounds12.getBounds().y);
-    assertSame(valueOfResult, bounds15.getBounds().y);
-    assertSame(valueOfResult, bounds3.y);
-    assertSame(valueOfResult, bounds17.getBounds().y);
-    assertSame(valueOfResult, bounds9.y);
-    assertSame(valueOfResult, bounds12.y);
-    assertSame(valueOfResult, bounds19.getBounds().y);
-    assertSame(valueOfResult, bounds15.y);
-    assertSame(valueOfResult, bounds2.y);
-    assertSame(valueOfResult, bounds20.getBounds().y);
-    assertSame(valueOfResult, bounds17.y);
-    assertSame(valueOfResult, bounds8.y);
-    assertSame(valueOfResult, bounds11.y);
-    assertSame(valueOfResult, bounds21.getBounds().y);
-    assertSame(valueOfResult, bounds22.getBounds().y);
-    assertSame(valueOfResult, bounds23.getBounds().y);
-    assertSame(valueOfResult, bounds24.getBounds().y);
-    assertSame(valueOfResult, bounds19.y);
-    assertSame(valueOfResult, bounds25.getBounds().y);
-    assertSame(valueOfResult, bounds14.y);
-    assertSame(valueOfResult, bounds26.getBounds().y);
-    assertSame(valueOfResult, bounds27.getBounds().y);
+    assertEquals(1.0f, ((Float) bounds2D).y);
     assertSame(valueOfResult, bounds.y);
-    assertSame(valueOfResult, bounds2D3.getBounds().y);
-    assertSame(valueOfResult, bounds20.y);
-    assertSame(valueOfResult, bounds16.y);
-    assertSame(valueOfResult, bounds7.y);
-    assertSame(valueOfResult, bounds2D18.getBounds().y);
-    assertSame(valueOfResult, bounds2D19.getBounds().y);
-    assertSame(valueOfResult, bounds2D29.getBounds().y);
-    assertSame(valueOfResult, bounds10.y);
-    assertSame(valueOfResult, bounds2D34.getBounds().y);
-    assertSame(valueOfResult, bounds21.y);
-    assertSame(valueOfResult, bounds22.y);
-    assertSame(valueOfResult, bounds2D40.getBounds().y);
-    assertSame(valueOfResult, bounds23.y);
-    assertSame(valueOfResult, frame7.getBounds().y);
-    assertSame(valueOfResult, bounds24.y);
-    assertSame(valueOfResult, bounds18.y);
-    assertSame(valueOfResult, frame8.getBounds().y);
-    assertSame(valueOfResult, bounds25.y);
-    assertSame(valueOfResult, bounds13.y);
-    assertSame(valueOfResult, bounds26.y);
-    assertSame(valueOfResult, frame9.getBounds().y);
-    assertSame(valueOfResult, frame10.getBounds().y);
-    assertSame(valueOfResult, frame11.getBounds().y);
-    assertSame(valueOfResult, frame12.getBounds().y);
-    assertSame(valueOfResult, bounds27.y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D2).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D3).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D4).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D6).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D8).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D9).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D10).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D11).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D12).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D13).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D14).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D15).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D5).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D16).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D17).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D18).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D19).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D21).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D23).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D25).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D26).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D27).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D28).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D29).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D30).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D31).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D32).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D33).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D34).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D20).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D35).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D36).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D37).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D38).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D39).y);
   }
 
   /**
    * Test {@link Type1CharString#getPath()}.
+   *
    * <ul>
-   *   <li>Then return Bounds Bounds Location Location Location Location Y is
-   * one.</li>
+   *   <li>Then return Bounds Y is one.
    * </ul>
-   * <p>
-   * Method under test: {@link Type1CharString#getPath()}
+   *
+   * <p>Method under test: {@link Type1CharString#getPath()}
    */
   @Test
-  @DisplayName("Test getPath(); then return Bounds Bounds Location Location Location Location Y is one")
-  void testGetPath_thenReturnBoundsBoundsLocationLocationLocationLocationYIsOne2() {
+  @DisplayName("Test getPath(); then return Bounds Y is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"GeneralPath Type1CharString.getPath()"})
+  void testGetPath_thenReturnBoundsYIsOne2() {
     // Arrange
     ArrayList<Number> numbers = new ArrayList<>();
     Integer valueOfResult = Integer.valueOf(1);
     numbers.add(valueOfResult);
 
-    Type1CharString type1CharString = new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
     type1CharString.addCommand(numbers, CharStringCommand.VLINETO);
 
     // Act
     GeneralPath actualPath = type1CharString.getPath();
 
     // Assert
-    Rectangle bounds = actualPath.getBounds();
-    Rectangle bounds2 = bounds.getBounds();
-    Rectangle bounds3 = bounds2.getBounds();
-    Rectangle bounds4 = bounds3.getBounds();
-    Rectangle bounds5 = bounds4.getBounds();
-    Rectangle bounds6 = bounds5.getBounds();
-    Rectangle2D bounds2D = bounds6.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Rectangle2D bounds2D2 = bounds5.getBounds2D();
-    assertTrue(bounds2D2 instanceof Rectangle);
-    Rectangle2D bounds2D3 = bounds4.getBounds2D();
-    assertTrue(bounds2D3 instanceof Rectangle);
-    Rectangle2D bounds2D4 = bounds3.getBounds2D();
-    assertTrue(bounds2D4 instanceof Rectangle);
-    Rectangle2D bounds2D5 = bounds.getBounds2D();
-    Rectangle bounds7 = bounds2D5.getBounds();
-    Rectangle bounds8 = bounds7.getBounds();
-    Rectangle bounds9 = bounds8.getBounds();
-    Rectangle2D bounds2D6 = bounds9.getBounds2D();
-    assertTrue(bounds2D6 instanceof Rectangle);
-    Rectangle2D bounds2D7 = actualPath.getBounds2D();
-    Rectangle bounds10 = bounds2D7.getBounds();
-    Rectangle bounds11 = bounds10.getBounds();
-    Rectangle bounds12 = bounds11.getBounds();
-    Rectangle2D bounds2D8 = bounds12.getBounds2D();
-    assertTrue(bounds2D8 instanceof Rectangle);
-    Rectangle2D frame = bounds.getFrame();
-    Rectangle bounds13 = frame.getBounds();
-    Rectangle bounds14 = bounds13.getBounds();
-    Rectangle bounds15 = bounds14.getBounds();
-    Rectangle2D bounds2D9 = bounds15.getBounds2D();
-    assertTrue(bounds2D9 instanceof Rectangle);
-    Rectangle2D bounds2D10 = bounds2.getBounds2D();
-    assertTrue(bounds2D10 instanceof Rectangle);
-    Rectangle bounds16 = bounds2D10.getBounds();
-    Rectangle bounds17 = bounds16.getBounds();
-    Rectangle2D bounds2D11 = bounds17.getBounds2D();
-    assertTrue(bounds2D11 instanceof Rectangle);
-    Rectangle2D bounds2D12 = bounds8.getBounds2D();
-    assertTrue(bounds2D12 instanceof Rectangle);
-    Rectangle2D bounds2D13 = bounds11.getBounds2D();
-    assertTrue(bounds2D13 instanceof Rectangle);
-    Rectangle2D frame2 = bounds2.getFrame();
-    Rectangle bounds18 = frame2.getBounds();
-    Rectangle bounds19 = bounds18.getBounds();
-    Rectangle2D bounds2D14 = bounds19.getBounds2D();
-    assertTrue(bounds2D14 instanceof Rectangle);
-    Rectangle2D bounds2D15 = bounds14.getBounds2D();
-    assertTrue(bounds2D15 instanceof Rectangle);
-    assertTrue(bounds2D5 instanceof Rectangle);
-    Rectangle bounds20 = bounds2D4.getBounds();
-    Rectangle2D bounds2D16 = bounds20.getBounds2D();
-    assertTrue(bounds2D16 instanceof Rectangle);
-    Rectangle2D bounds2D17 = bounds16.getBounds2D();
-    assertTrue(bounds2D17 instanceof Rectangle);
-    Rectangle2D bounds2D18 = bounds7.getBounds2D();
-    assertTrue(bounds2D18 instanceof Rectangle);
-    Rectangle2D bounds2D19 = bounds10.getBounds2D();
-    assertTrue(bounds2D19 instanceof Rectangle);
-    Rectangle2D bounds2D20 = bounds2D5.getBounds2D();
-    Rectangle bounds21 = bounds2D20.getBounds();
-    Rectangle2D bounds2D21 = bounds21.getBounds2D();
-    assertTrue(bounds2D21 instanceof Rectangle);
-    Rectangle2D bounds2D22 = bounds2D7.getBounds2D();
-    Rectangle bounds22 = bounds2D22.getBounds();
-    Rectangle2D bounds2D23 = bounds22.getBounds2D();
-    assertTrue(bounds2D23 instanceof Rectangle);
-    Rectangle2D bounds2D24 = frame.getBounds2D();
-    Rectangle bounds23 = bounds2D24.getBounds();
-    Rectangle2D bounds2D25 = bounds23.getBounds2D();
-    assertTrue(bounds2D25 instanceof Rectangle);
-    Rectangle2D frame3 = bounds3.getFrame();
-    Rectangle bounds24 = frame3.getBounds();
-    Rectangle2D bounds2D26 = bounds24.getBounds2D();
-    assertTrue(bounds2D26 instanceof Rectangle);
-    Rectangle2D bounds2D27 = bounds18.getBounds2D();
-    assertTrue(bounds2D27 instanceof Rectangle);
-    Rectangle2D frame4 = bounds2D5.getFrame();
-    Rectangle bounds25 = frame4.getBounds();
-    Rectangle2D bounds2D28 = bounds25.getBounds2D();
-    assertTrue(bounds2D28 instanceof Rectangle);
-    Rectangle2D bounds2D29 = bounds13.getBounds2D();
-    assertTrue(bounds2D29 instanceof Rectangle);
-    Rectangle2D frame5 = bounds2D7.getFrame();
-    Rectangle bounds26 = frame5.getBounds();
-    Rectangle2D bounds2D30 = bounds26.getBounds2D();
-    assertTrue(bounds2D30 instanceof Rectangle);
-    Rectangle2D frame6 = frame.getFrame();
-    Rectangle bounds27 = frame6.getBounds();
-    Rectangle2D bounds2D31 = bounds27.getBounds2D();
-    assertTrue(bounds2D31 instanceof Rectangle);
-    Rectangle2D bounds2D32 = bounds2D3.getBounds2D();
-    assertTrue(bounds2D32 instanceof Rectangle);
-    Rectangle2D bounds2D33 = bounds2D4.getBounds2D();
-    assertTrue(bounds2D33 instanceof Rectangle);
-    Rectangle2D bounds2D34 = bounds2D10.getBounds2D();
-    assertTrue(bounds2D34 instanceof Rectangle);
-    assertTrue(bounds2D20 instanceof Rectangle);
-    Rectangle2D bounds2D35 = bounds2D18.getBounds2D();
-    assertTrue(bounds2D35 instanceof Rectangle);
-    Rectangle2D bounds2D36 = bounds2D19.getBounds2D();
-    assertTrue(bounds2D36 instanceof Rectangle);
-    Rectangle2D bounds2D37 = bounds2D29.getBounds2D();
-    assertTrue(bounds2D37 instanceof Rectangle);
-    Rectangle2D bounds2D38 = bounds2D34.getBounds2D();
-    assertTrue(bounds2D38 instanceof Rectangle);
-    Rectangle2D bounds2D39 = bounds2D20.getBounds2D();
-    assertTrue(bounds2D39 instanceof Rectangle);
     Point2D currentPoint = actualPath.getCurrentPoint();
     assertTrue(currentPoint instanceof Point2D.Float);
-    Rectangle2D bounds2D40 = frame2.getBounds2D();
-    assertTrue(bounds2D40 instanceof Rectangle2D.Double);
-    assertTrue(bounds2D24 instanceof Rectangle2D.Double);
-    Rectangle2D frame7 = bounds4.getFrame();
-    assertTrue(frame7 instanceof Rectangle2D.Double);
-    assertTrue(frame3 instanceof Rectangle2D.Double);
-    assertTrue(frame2 instanceof Rectangle2D.Double);
-    Rectangle2D frame8 = bounds2D10.getFrame();
-    assertTrue(frame8 instanceof Rectangle2D.Double);
-    assertTrue(frame4 instanceof Rectangle2D.Double);
-    assertTrue(frame instanceof Rectangle2D.Double);
-    assertTrue(frame5 instanceof Rectangle2D.Double);
-    Rectangle2D frame9 = bounds7.getFrame();
-    assertTrue(frame9 instanceof Rectangle2D.Double);
-    Rectangle2D frame10 = bounds10.getFrame();
-    assertTrue(frame10 instanceof Rectangle2D.Double);
-    Rectangle2D frame11 = bounds13.getFrame();
-    assertTrue(frame11 instanceof Rectangle2D.Double);
-    Rectangle2D frame12 = frame2.getFrame();
-    assertTrue(frame12 instanceof Rectangle2D.Double);
-    assertTrue(frame6 instanceof Rectangle2D.Double);
-    assertTrue(bounds2D7 instanceof Rectangle2D.Float);
-    assertTrue(bounds2D22 instanceof Rectangle2D.Float);
-    Rectangle2D bounds2D41 = bounds2D22.getBounds2D();
-    assertTrue(bounds2D41 instanceof Rectangle2D.Float);
-    Point location = bounds2.getLocation();
-    Point location2 = location.getLocation();
-    Point location3 = location2.getLocation();
-    Point location4 = location3.getLocation();
-    assertEquals(1.0d, location4.getY());
-    Point location5 = bounds.getLocation();
-    Point location6 = location5.getLocation();
-    Point location7 = location6.getLocation();
-    Point location8 = location7.getLocation();
-    assertEquals(1.0d, location8.getY());
-    Point location9 = bounds3.getLocation();
-    Point location10 = location9.getLocation();
-    Point location11 = location10.getLocation();
-    assertEquals(1.0d, location11.getY());
-    assertEquals(1.0d, location3.getY());
-    assertEquals(1.0d, location7.getY());
-    Point location12 = ((Rectangle) bounds2D5).getLocation();
-    Point location13 = location12.getLocation();
-    Point location14 = location13.getLocation();
-    assertEquals(1.0d, location14.getY());
-    Point location15 = bounds4.getLocation();
-    Point location16 = location15.getLocation();
-    assertEquals(1.0d, location16.getY());
-    assertEquals(1.0d, location10.getY());
-    assertEquals(1.0d, location2.getY());
-    assertEquals(1.0d, location6.getY());
-    Point location17 = bounds7.getLocation();
-    Point location18 = location17.getLocation();
-    assertEquals(1.0d, location18.getY());
-    Point location19 = bounds10.getLocation();
-    Point location20 = location19.getLocation();
-    assertEquals(1.0d, location20.getY());
-    Point location21 = bounds13.getLocation();
-    Point location22 = location21.getLocation();
-    assertEquals(1.0d, location22.getY());
-    Point location23 = ((Rectangle) bounds2D10).getLocation();
-    Point location24 = location23.getLocation();
-    assertEquals(1.0d, location24.getY());
-    assertEquals(1.0d, location13.getY());
-    Point location25 = bounds5.getLocation();
-    assertEquals(1.0d, location25.getY());
-    assertEquals(1.0d, location15.getY());
-    assertEquals(1.0d, location9.getY());
-    assertEquals(1.0d, location.getY());
-    Point location26 = bounds8.getLocation();
-    assertEquals(1.0d, location26.getY());
-    Point location27 = bounds11.getLocation();
-    assertEquals(1.0d, location27.getY());
-    Point location28 = bounds14.getLocation();
-    assertEquals(1.0d, location28.getY());
-    assertEquals(1.0d, location5.getY());
-    Point location29 = bounds16.getLocation();
-    assertEquals(1.0d, location29.getY());
-    assertEquals(1.0d, location17.getY());
-    assertEquals(1.0d, location19.getY());
-    Point location30 = bounds18.getLocation();
-    assertEquals(1.0d, location30.getY());
-    assertEquals(1.0d, location21.getY());
-    Point location31 = ((Rectangle) bounds2D4).getLocation();
-    assertEquals(1.0d, location31.getY());
-    assertEquals(1.0d, location23.getY());
-    assertEquals(1.0d, location12.getY());
-    Point location32 = ((Rectangle) bounds2D20).getLocation();
-    assertEquals(1.0d, location32.getY());
-    assertEquals(1.0d, bounds6.getY());
-    assertEquals(1.0d, bounds5.getY());
-    assertEquals(1.0d, bounds4.getY());
-    assertEquals(1.0d, bounds3.getY());
-    assertEquals(1.0d, bounds9.getY());
-    assertEquals(1.0d, bounds12.getY());
-    assertEquals(1.0d, bounds15.getY());
-    assertEquals(1.0d, bounds2.getY());
-    assertEquals(1.0d, bounds17.getY());
-    assertEquals(1.0d, bounds8.getY());
-    assertEquals(1.0d, bounds11.getY());
-    assertEquals(1.0d, bounds19.getY());
-    assertEquals(1.0d, bounds14.getY());
+    Rectangle2D bounds2D = actualPath.getBounds2D();
+    assertTrue(bounds2D instanceof Float);
+    Rectangle bounds = actualPath.getBounds();
     assertEquals(1.0d, bounds.getY());
-    assertEquals(1.0d, bounds20.getY());
-    assertEquals(1.0d, bounds16.getY());
-    assertEquals(1.0d, bounds7.getY());
-    assertEquals(1.0d, bounds10.getY());
-    assertEquals(1.0d, bounds21.getY());
-    assertEquals(1.0d, bounds22.getY());
-    assertEquals(1.0d, bounds23.getY());
-    assertEquals(1.0d, bounds24.getY());
-    assertEquals(1.0d, bounds18.getY());
-    assertEquals(1.0d, bounds25.getY());
-    assertEquals(1.0d, bounds13.getY());
-    assertEquals(1.0d, bounds26.getY());
-    assertEquals(1.0d, bounds27.getY());
     assertEquals(1.0d, currentPoint.getY());
-    assertEquals(1.0d, bounds6.getCenterY());
-    assertEquals(1.0d, bounds5.getCenterY());
-    assertEquals(1.0d, bounds4.getCenterY());
-    assertEquals(1.0d, bounds3.getCenterY());
-    assertEquals(1.0d, bounds9.getCenterY());
-    assertEquals(1.0d, bounds12.getCenterY());
-    assertEquals(1.0d, bounds15.getCenterY());
-    assertEquals(1.0d, bounds2.getCenterY());
-    assertEquals(1.0d, bounds17.getCenterY());
-    assertEquals(1.0d, bounds8.getCenterY());
-    assertEquals(1.0d, bounds11.getCenterY());
-    assertEquals(1.0d, bounds19.getCenterY());
-    assertEquals(1.0d, bounds14.getCenterY());
-    assertEquals(1.0d, bounds2D3.getCenterY());
-    assertEquals(1.0d, bounds2D4.getCenterY());
-    assertEquals(1.0d, bounds2D10.getCenterY());
-    assertEquals(1.0d, bounds2D5.getCenterY());
-    assertEquals(1.0d, bounds2D18.getCenterY());
-    assertEquals(1.0d, bounds2D19.getCenterY());
-    assertEquals(1.0d, bounds2D29.getCenterY());
     assertEquals(1.0d, bounds.getCenterY());
-    assertEquals(1.0d, bounds2D7.getCenterY());
-    assertEquals(1.0d, bounds2D34.getCenterY());
-    assertEquals(1.0d, bounds2D20.getCenterY());
-    assertEquals(1.0d, bounds2D22.getCenterY());
-    assertEquals(1.0d, bounds2D40.getCenterY());
-    assertEquals(1.0d, bounds2D24.getCenterY());
-    assertEquals(1.0d, bounds20.getCenterY());
-    assertEquals(1.0d, bounds16.getCenterY());
-    assertEquals(1.0d, bounds7.getCenterY());
-    assertEquals(1.0d, bounds10.getCenterY());
-    assertEquals(1.0d, bounds21.getCenterY());
-    assertEquals(1.0d, bounds22.getCenterY());
-    assertEquals(1.0d, bounds23.getCenterY());
-    assertEquals(1.0d, bounds24.getCenterY());
-    assertEquals(1.0d, bounds18.getCenterY());
-    assertEquals(1.0d, bounds25.getCenterY());
-    assertEquals(1.0d, bounds13.getCenterY());
-    assertEquals(1.0d, bounds26.getCenterY());
-    assertEquals(1.0d, bounds27.getCenterY());
-    assertEquals(1.0d, frame7.getCenterY());
-    assertEquals(1.0d, frame3.getCenterY());
-    assertEquals(1.0d, frame2.getCenterY());
-    assertEquals(1.0d, frame8.getCenterY());
-    assertEquals(1.0d, frame4.getCenterY());
-    assertEquals(1.0d, frame.getCenterY());
-    assertEquals(1.0d, frame5.getCenterY());
-    assertEquals(1.0d, frame9.getCenterY());
-    assertEquals(1.0d, frame10.getCenterY());
-    assertEquals(1.0d, frame11.getCenterY());
-    assertEquals(1.0d, frame12.getCenterY());
-    assertEquals(1.0d, frame6.getCenterY());
-    assertEquals(1.0d, bounds6.getMaxY());
-    assertEquals(1.0d, bounds5.getMaxY());
-    assertEquals(1.0d, bounds4.getMaxY());
-    assertEquals(1.0d, bounds3.getMaxY());
-    assertEquals(1.0d, bounds9.getMaxY());
-    assertEquals(1.0d, bounds12.getMaxY());
-    assertEquals(1.0d, bounds15.getMaxY());
-    assertEquals(1.0d, bounds2.getMaxY());
-    assertEquals(1.0d, bounds17.getMaxY());
-    assertEquals(1.0d, bounds8.getMaxY());
-    assertEquals(1.0d, bounds11.getMaxY());
-    assertEquals(1.0d, bounds19.getMaxY());
-    assertEquals(1.0d, bounds14.getMaxY());
-    assertEquals(1.0d, bounds2D3.getMaxY());
-    assertEquals(1.0d, bounds2D4.getMaxY());
-    assertEquals(1.0d, bounds2D10.getMaxY());
-    assertEquals(1.0d, bounds2D5.getMaxY());
-    assertEquals(1.0d, bounds2D18.getMaxY());
-    assertEquals(1.0d, bounds2D19.getMaxY());
-    assertEquals(1.0d, bounds2D29.getMaxY());
+    assertEquals(1.0d, bounds2D.getCenterY());
     assertEquals(1.0d, bounds.getMaxY());
-    assertEquals(1.0d, bounds2D7.getMaxY());
-    assertEquals(1.0d, bounds2D34.getMaxY());
-    assertEquals(1.0d, bounds2D20.getMaxY());
-    assertEquals(1.0d, bounds2D22.getMaxY());
-    assertEquals(1.0d, bounds2D40.getMaxY());
-    assertEquals(1.0d, bounds2D24.getMaxY());
-    assertEquals(1.0d, bounds20.getMaxY());
-    assertEquals(1.0d, bounds16.getMaxY());
-    assertEquals(1.0d, bounds7.getMaxY());
-    assertEquals(1.0d, bounds10.getMaxY());
-    assertEquals(1.0d, bounds21.getMaxY());
-    assertEquals(1.0d, bounds22.getMaxY());
-    assertEquals(1.0d, bounds23.getMaxY());
-    assertEquals(1.0d, bounds24.getMaxY());
-    assertEquals(1.0d, bounds18.getMaxY());
-    assertEquals(1.0d, bounds25.getMaxY());
-    assertEquals(1.0d, bounds13.getMaxY());
-    assertEquals(1.0d, bounds26.getMaxY());
-    assertEquals(1.0d, bounds27.getMaxY());
-    assertEquals(1.0d, frame7.getMaxY());
-    assertEquals(1.0d, frame3.getMaxY());
-    assertEquals(1.0d, frame2.getMaxY());
-    assertEquals(1.0d, frame8.getMaxY());
-    assertEquals(1.0d, frame4.getMaxY());
-    assertEquals(1.0d, frame.getMaxY());
-    assertEquals(1.0d, frame5.getMaxY());
-    assertEquals(1.0d, frame9.getMaxY());
-    assertEquals(1.0d, frame10.getMaxY());
-    assertEquals(1.0d, frame11.getMaxY());
-    assertEquals(1.0d, frame12.getMaxY());
-    assertEquals(1.0d, frame6.getMaxY());
-    assertEquals(1.0d, bounds6.getMinY());
-    assertEquals(1.0d, bounds5.getMinY());
-    assertEquals(1.0d, bounds4.getMinY());
-    assertEquals(1.0d, bounds3.getMinY());
-    assertEquals(1.0d, bounds9.getMinY());
-    assertEquals(1.0d, bounds12.getMinY());
-    assertEquals(1.0d, bounds15.getMinY());
-    assertEquals(1.0d, bounds2.getMinY());
-    assertEquals(1.0d, bounds17.getMinY());
-    assertEquals(1.0d, bounds8.getMinY());
-    assertEquals(1.0d, bounds11.getMinY());
-    assertEquals(1.0d, bounds19.getMinY());
-    assertEquals(1.0d, bounds14.getMinY());
-    assertEquals(1.0d, bounds2D3.getMinY());
-    assertEquals(1.0d, bounds2D4.getMinY());
-    assertEquals(1.0d, bounds2D10.getMinY());
-    assertEquals(1.0d, bounds2D5.getMinY());
-    assertEquals(1.0d, bounds2D18.getMinY());
-    assertEquals(1.0d, bounds2D19.getMinY());
-    assertEquals(1.0d, bounds2D29.getMinY());
+    assertEquals(1.0d, bounds2D.getMaxY());
     assertEquals(1.0d, bounds.getMinY());
-    assertEquals(1.0d, bounds2D7.getMinY());
-    assertEquals(1.0d, bounds2D34.getMinY());
-    assertEquals(1.0d, bounds2D20.getMinY());
-    assertEquals(1.0d, bounds2D22.getMinY());
-    assertEquals(1.0d, bounds2D40.getMinY());
-    assertEquals(1.0d, bounds2D24.getMinY());
-    assertEquals(1.0d, bounds20.getMinY());
-    assertEquals(1.0d, bounds16.getMinY());
-    assertEquals(1.0d, bounds7.getMinY());
-    assertEquals(1.0d, bounds10.getMinY());
-    assertEquals(1.0d, bounds21.getMinY());
-    assertEquals(1.0d, bounds22.getMinY());
-    assertEquals(1.0d, bounds23.getMinY());
-    assertEquals(1.0d, bounds24.getMinY());
-    assertEquals(1.0d, bounds18.getMinY());
-    assertEquals(1.0d, bounds25.getMinY());
-    assertEquals(1.0d, bounds13.getMinY());
-    assertEquals(1.0d, bounds26.getMinY());
-    assertEquals(1.0d, bounds27.getMinY());
-    assertEquals(1.0d, frame7.getMinY());
-    assertEquals(1.0d, frame3.getMinY());
-    assertEquals(1.0d, frame2.getMinY());
-    assertEquals(1.0d, frame8.getMinY());
-    assertEquals(1.0d, frame4.getMinY());
-    assertEquals(1.0d, frame.getMinY());
-    assertEquals(1.0d, frame5.getMinY());
-    assertEquals(1.0d, frame9.getMinY());
-    assertEquals(1.0d, frame10.getMinY());
-    assertEquals(1.0d, frame11.getMinY());
-    assertEquals(1.0d, frame12.getMinY());
-    assertEquals(1.0d, frame6.getMinY());
-    assertEquals(1.0d, bounds2D3.getY());
-    assertEquals(1.0d, bounds2D4.getY());
-    assertEquals(1.0d, bounds2D10.getY());
-    assertEquals(1.0d, bounds2D5.getY());
-    assertEquals(1.0d, bounds2D18.getY());
-    assertEquals(1.0d, bounds2D19.getY());
-    assertEquals(1.0d, bounds2D29.getY());
-    assertEquals(1.0d, bounds2D7.getY());
-    assertEquals(1.0d, bounds2D34.getY());
-    assertEquals(1.0d, bounds2D20.getY());
-    assertEquals(1.0d, bounds2D22.getY());
-    assertEquals(1.0d, bounds2D40.getY());
-    assertEquals(1.0d, bounds2D24.getY());
-    assertEquals(1.0d, frame7.getY());
-    assertEquals(1.0d, frame3.getY());
-    assertEquals(1.0d, frame2.getY());
-    assertEquals(1.0d, frame8.getY());
-    assertEquals(1.0d, frame4.getY());
-    assertEquals(1.0d, frame.getY());
-    assertEquals(1.0d, frame5.getY());
-    assertEquals(1.0d, frame9.getY());
-    assertEquals(1.0d, frame10.getY());
-    assertEquals(1.0d, frame11.getY());
-    assertEquals(1.0d, frame12.getY());
-    assertEquals(1.0d, frame6.getY());
+    assertEquals(1.0d, bounds2D.getMinY());
+    assertEquals(1.0d, bounds2D.getY());
     assertEquals(1.0f, ((Point2D.Float) currentPoint).y);
-    assertEquals(1.0f, ((Rectangle2D.Float) bounds2D7).y);
-    assertEquals(1.0f, ((Rectangle2D.Float) bounds2D22).y);
-    assertEquals(1.0f, ((Rectangle2D.Float) bounds2D41).y);
-    Point location33 = location8.getLocation();
-    assertSame(valueOfResult, location33.getLocation().y);
-    assertSame(valueOfResult, location4.getLocation().y);
-    assertSame(valueOfResult, location33.y);
-    assertSame(valueOfResult, location11.getLocation().y);
-    assertSame(valueOfResult, location4.y);
-    assertSame(valueOfResult, location8.y);
-    assertSame(valueOfResult, location14.getLocation().y);
-    assertSame(valueOfResult, location16.getLocation().y);
-    assertSame(valueOfResult, location11.y);
-    assertSame(valueOfResult, location3.y);
-    assertSame(valueOfResult, location7.y);
-    assertSame(valueOfResult, location18.getLocation().y);
-    assertSame(valueOfResult, location20.getLocation().y);
-    assertSame(valueOfResult, location22.getLocation().y);
-    assertSame(valueOfResult, location24.getLocation().y);
-    assertSame(valueOfResult, location14.y);
-    assertSame(valueOfResult, location25.getLocation().y);
-    assertSame(valueOfResult, location16.y);
-    assertSame(valueOfResult, location10.y);
-    assertSame(valueOfResult, location2.y);
-    assertSame(valueOfResult, location26.getLocation().y);
-    assertSame(valueOfResult, location27.getLocation().y);
-    assertSame(valueOfResult, location28.getLocation().y);
-    assertSame(valueOfResult, location6.y);
-    assertSame(valueOfResult, location29.getLocation().y);
-    assertSame(valueOfResult, location18.y);
-    assertSame(valueOfResult, location20.y);
-    assertSame(valueOfResult, location30.getLocation().y);
-    assertSame(valueOfResult, location22.y);
-    assertSame(valueOfResult, location31.getLocation().y);
-    assertSame(valueOfResult, location24.y);
-    assertSame(valueOfResult, location13.y);
-    assertSame(valueOfResult, location32.getLocation().y);
-    assertSame(valueOfResult, bounds6.getLocation().y);
-    assertSame(valueOfResult, location25.y);
-    assertSame(valueOfResult, location15.y);
-    assertSame(valueOfResult, location9.y);
-    assertSame(valueOfResult, bounds9.getLocation().y);
-    assertSame(valueOfResult, bounds12.getLocation().y);
-    assertSame(valueOfResult, bounds15.getLocation().y);
-    assertSame(valueOfResult, location.y);
-    assertSame(valueOfResult, bounds17.getLocation().y);
-    assertSame(valueOfResult, location26.y);
-    assertSame(valueOfResult, location27.y);
-    assertSame(valueOfResult, bounds19.getLocation().y);
-    assertSame(valueOfResult, location28.y);
-    assertSame(valueOfResult, location5.y);
-    assertSame(valueOfResult, bounds20.getLocation().y);
-    assertSame(valueOfResult, location29.y);
-    assertSame(valueOfResult, location17.y);
-    assertSame(valueOfResult, location19.y);
-    assertSame(valueOfResult, bounds21.getLocation().y);
-    assertSame(valueOfResult, bounds22.getLocation().y);
-    assertSame(valueOfResult, bounds23.getLocation().y);
-    assertSame(valueOfResult, bounds24.getLocation().y);
-    assertSame(valueOfResult, location30.y);
-    assertSame(valueOfResult, bounds25.getLocation().y);
-    assertSame(valueOfResult, location21.y);
-    assertSame(valueOfResult, bounds26.getLocation().y);
-    assertSame(valueOfResult, bounds27.getLocation().y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D3).getLocation().y);
-    assertSame(valueOfResult, location31.y);
-    assertSame(valueOfResult, location23.y);
-    assertSame(valueOfResult, location12.y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D18).getLocation().y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D19).getLocation().y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D29).getLocation().y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D34).getLocation().y);
-    assertSame(valueOfResult, location32.y);
-    assertSame(valueOfResult, bounds6.getBounds().y);
-    assertSame(valueOfResult, bounds6.y);
-    assertSame(valueOfResult, bounds5.y);
-    assertSame(valueOfResult, bounds4.y);
-    assertSame(valueOfResult, bounds9.getBounds().y);
-    assertSame(valueOfResult, bounds12.getBounds().y);
-    assertSame(valueOfResult, bounds15.getBounds().y);
-    assertSame(valueOfResult, bounds3.y);
-    assertSame(valueOfResult, bounds17.getBounds().y);
-    assertSame(valueOfResult, bounds9.y);
-    assertSame(valueOfResult, bounds12.y);
-    assertSame(valueOfResult, bounds19.getBounds().y);
-    assertSame(valueOfResult, bounds15.y);
-    assertSame(valueOfResult, bounds2.y);
-    assertSame(valueOfResult, bounds20.getBounds().y);
-    assertSame(valueOfResult, bounds17.y);
-    assertSame(valueOfResult, bounds8.y);
-    assertSame(valueOfResult, bounds11.y);
-    assertSame(valueOfResult, bounds21.getBounds().y);
-    assertSame(valueOfResult, bounds22.getBounds().y);
-    assertSame(valueOfResult, bounds23.getBounds().y);
-    assertSame(valueOfResult, bounds24.getBounds().y);
-    assertSame(valueOfResult, bounds19.y);
-    assertSame(valueOfResult, bounds25.getBounds().y);
-    assertSame(valueOfResult, bounds14.y);
-    assertSame(valueOfResult, bounds26.getBounds().y);
-    assertSame(valueOfResult, bounds27.getBounds().y);
+    assertEquals(1.0f, ((Float) bounds2D).y);
     assertSame(valueOfResult, bounds.y);
-    assertSame(valueOfResult, bounds2D3.getBounds().y);
-    assertSame(valueOfResult, bounds20.y);
-    assertSame(valueOfResult, bounds16.y);
-    assertSame(valueOfResult, bounds7.y);
-    assertSame(valueOfResult, bounds2D18.getBounds().y);
-    assertSame(valueOfResult, bounds2D19.getBounds().y);
-    assertSame(valueOfResult, bounds2D29.getBounds().y);
-    assertSame(valueOfResult, bounds10.y);
-    assertSame(valueOfResult, bounds2D34.getBounds().y);
-    assertSame(valueOfResult, bounds21.y);
-    assertSame(valueOfResult, bounds22.y);
-    assertSame(valueOfResult, bounds2D40.getBounds().y);
-    assertSame(valueOfResult, bounds23.y);
-    assertSame(valueOfResult, frame7.getBounds().y);
-    assertSame(valueOfResult, bounds24.y);
-    assertSame(valueOfResult, bounds18.y);
-    assertSame(valueOfResult, frame8.getBounds().y);
-    assertSame(valueOfResult, bounds25.y);
-    assertSame(valueOfResult, bounds13.y);
-    assertSame(valueOfResult, bounds26.y);
-    assertSame(valueOfResult, frame9.getBounds().y);
-    assertSame(valueOfResult, frame10.getBounds().y);
-    assertSame(valueOfResult, frame11.getBounds().y);
-    assertSame(valueOfResult, frame12.getBounds().y);
-    assertSame(valueOfResult, bounds27.y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D2).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D3).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D4).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D6).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D8).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D9).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D10).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D11).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D12).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D13).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D14).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D15).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D5).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D16).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D17).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D18).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D19).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D21).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D23).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D25).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D26).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D27).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D28).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D29).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D30).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D31).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D32).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D33).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D34).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D20).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D35).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D36).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D37).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D38).y);
-    assertSame(valueOfResult, ((Rectangle) bounds2D39).y);
   }
 
   /**
    * Test {@link Type1CharString#getPath()}.
+   *
    * <ul>
-   *   <li>Then return Bounds Location Location Location Location Location X is
-   * one.</li>
+   *   <li>Then return CurrentPoint X is zero.
    * </ul>
-   * <p>
-   * Method under test: {@link Type1CharString#getPath()}
-   */
-  @Test
-  @DisplayName("Test getPath(); then return Bounds Location Location Location Location Location X is one")
-  void testGetPath_thenReturnBoundsLocationLocationLocationLocationLocationXIsOne() {
-    // Arrange
-    ArrayList<Number> numbers = new ArrayList<>();
-    numbers.add(Integer.valueOf(1));
-    Integer valueOfResult = Integer.valueOf(1);
-    numbers.add(valueOfResult);
-
-    Type1CharString type1CharString = new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
-    type1CharString.addCommand(numbers, CharStringCommand.RLINETO);
-
-    // Act
-    GeneralPath actualPath = type1CharString.getPath();
-
-    // Assert
-    Rectangle bounds = actualPath.getBounds();
-    Rectangle bounds2 = bounds.getBounds();
-    Rectangle bounds3 = bounds2.getBounds();
-    Rectangle bounds4 = bounds3.getBounds();
-    Rectangle bounds5 = bounds4.getBounds();
-    Rectangle bounds6 = bounds5.getBounds();
-    Rectangle2D bounds2D = bounds6.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Rectangle2D bounds2D2 = bounds5.getBounds2D();
-    assertTrue(bounds2D2 instanceof Rectangle);
-    Rectangle2D bounds2D3 = bounds4.getBounds2D();
-    assertTrue(bounds2D3 instanceof Rectangle);
-    Rectangle2D bounds2D4 = bounds3.getBounds2D();
-    assertTrue(bounds2D4 instanceof Rectangle);
-    Rectangle2D bounds2D5 = bounds.getBounds2D();
-    Rectangle bounds7 = bounds2D5.getBounds();
-    Rectangle bounds8 = bounds7.getBounds();
-    Rectangle bounds9 = bounds8.getBounds();
-    Rectangle2D bounds2D6 = bounds9.getBounds2D();
-    assertTrue(bounds2D6 instanceof Rectangle);
-    Rectangle2D bounds2D7 = actualPath.getBounds2D();
-    Rectangle bounds10 = bounds2D7.getBounds();
-    Rectangle bounds11 = bounds10.getBounds();
-    Rectangle bounds12 = bounds11.getBounds();
-    Rectangle2D bounds2D8 = bounds12.getBounds2D();
-    assertTrue(bounds2D8 instanceof Rectangle);
-    Rectangle2D frame = bounds.getFrame();
-    Rectangle bounds13 = frame.getBounds();
-    Rectangle bounds14 = bounds13.getBounds();
-    Rectangle bounds15 = bounds14.getBounds();
-    Rectangle2D bounds2D9 = bounds15.getBounds2D();
-    assertTrue(bounds2D9 instanceof Rectangle);
-    Rectangle2D bounds2D10 = bounds2.getBounds2D();
-    assertTrue(bounds2D10 instanceof Rectangle);
-    Rectangle bounds16 = bounds2D10.getBounds();
-    Rectangle bounds17 = bounds16.getBounds();
-    Rectangle2D bounds2D11 = bounds17.getBounds2D();
-    assertTrue(bounds2D11 instanceof Rectangle);
-    Rectangle2D bounds2D12 = bounds8.getBounds2D();
-    assertTrue(bounds2D12 instanceof Rectangle);
-    Rectangle2D bounds2D13 = bounds11.getBounds2D();
-    assertTrue(bounds2D13 instanceof Rectangle);
-    Rectangle2D frame2 = bounds2.getFrame();
-    Rectangle bounds18 = frame2.getBounds();
-    Rectangle bounds19 = bounds18.getBounds();
-    Rectangle2D bounds2D14 = bounds19.getBounds2D();
-    assertTrue(bounds2D14 instanceof Rectangle);
-    Rectangle2D bounds2D15 = bounds14.getBounds2D();
-    assertTrue(bounds2D15 instanceof Rectangle);
-    assertTrue(bounds2D5 instanceof Rectangle);
-    Rectangle bounds20 = bounds2D4.getBounds();
-    Rectangle2D bounds2D16 = bounds20.getBounds2D();
-    assertTrue(bounds2D16 instanceof Rectangle);
-    Rectangle2D bounds2D17 = bounds16.getBounds2D();
-    assertTrue(bounds2D17 instanceof Rectangle);
-    Rectangle2D bounds2D18 = bounds7.getBounds2D();
-    assertTrue(bounds2D18 instanceof Rectangle);
-    Rectangle2D bounds2D19 = bounds10.getBounds2D();
-    assertTrue(bounds2D19 instanceof Rectangle);
-    Rectangle2D bounds2D20 = bounds2D5.getBounds2D();
-    Rectangle bounds21 = bounds2D20.getBounds();
-    Rectangle2D bounds2D21 = bounds21.getBounds2D();
-    assertTrue(bounds2D21 instanceof Rectangle);
-    Rectangle2D bounds2D22 = bounds2D7.getBounds2D();
-    Rectangle bounds22 = bounds2D22.getBounds();
-    Rectangle2D bounds2D23 = bounds22.getBounds2D();
-    assertTrue(bounds2D23 instanceof Rectangle);
-    Rectangle2D bounds2D24 = frame.getBounds2D();
-    Rectangle bounds23 = bounds2D24.getBounds();
-    Rectangle2D bounds2D25 = bounds23.getBounds2D();
-    assertTrue(bounds2D25 instanceof Rectangle);
-    Rectangle2D frame3 = bounds3.getFrame();
-    Rectangle bounds24 = frame3.getBounds();
-    Rectangle2D bounds2D26 = bounds24.getBounds2D();
-    assertTrue(bounds2D26 instanceof Rectangle);
-    Rectangle2D bounds2D27 = bounds18.getBounds2D();
-    assertTrue(bounds2D27 instanceof Rectangle);
-    Rectangle2D frame4 = bounds2D5.getFrame();
-    Rectangle bounds25 = frame4.getBounds();
-    Rectangle2D bounds2D28 = bounds25.getBounds2D();
-    assertTrue(bounds2D28 instanceof Rectangle);
-    Rectangle2D bounds2D29 = bounds13.getBounds2D();
-    assertTrue(bounds2D29 instanceof Rectangle);
-    Rectangle2D frame5 = bounds2D7.getFrame();
-    Rectangle bounds26 = frame5.getBounds();
-    Rectangle2D bounds2D30 = bounds26.getBounds2D();
-    assertTrue(bounds2D30 instanceof Rectangle);
-    Rectangle2D frame6 = frame.getFrame();
-    Rectangle bounds27 = frame6.getBounds();
-    Rectangle2D bounds2D31 = bounds27.getBounds2D();
-    assertTrue(bounds2D31 instanceof Rectangle);
-    Rectangle2D bounds2D32 = bounds2D3.getBounds2D();
-    assertTrue(bounds2D32 instanceof Rectangle);
-    Rectangle2D bounds2D33 = bounds2D4.getBounds2D();
-    assertTrue(bounds2D33 instanceof Rectangle);
-    Rectangle2D bounds2D34 = bounds2D10.getBounds2D();
-    assertTrue(bounds2D34 instanceof Rectangle);
-    assertTrue(bounds2D20 instanceof Rectangle);
-    Rectangle2D bounds2D35 = bounds2D18.getBounds2D();
-    assertTrue(bounds2D35 instanceof Rectangle);
-    Rectangle2D bounds2D36 = bounds2D19.getBounds2D();
-    assertTrue(bounds2D36 instanceof Rectangle);
-    Rectangle2D bounds2D37 = bounds2D29.getBounds2D();
-    assertTrue(bounds2D37 instanceof Rectangle);
-    Rectangle2D bounds2D38 = bounds2D34.getBounds2D();
-    assertTrue(bounds2D38 instanceof Rectangle);
-    Rectangle2D bounds2D39 = bounds2D20.getBounds2D();
-    assertTrue(bounds2D39 instanceof Rectangle);
-    Point2D currentPoint = actualPath.getCurrentPoint();
-    assertTrue(currentPoint instanceof Point2D.Float);
-    Rectangle2D bounds2D40 = frame2.getBounds2D();
-    assertTrue(bounds2D40 instanceof Rectangle2D.Double);
-    assertTrue(bounds2D24 instanceof Rectangle2D.Double);
-    Rectangle2D frame7 = bounds4.getFrame();
-    assertTrue(frame7 instanceof Rectangle2D.Double);
-    assertTrue(frame3 instanceof Rectangle2D.Double);
-    assertTrue(frame2 instanceof Rectangle2D.Double);
-    Rectangle2D frame8 = bounds2D10.getFrame();
-    assertTrue(frame8 instanceof Rectangle2D.Double);
-    assertTrue(frame4 instanceof Rectangle2D.Double);
-    assertTrue(frame instanceof Rectangle2D.Double);
-    assertTrue(frame5 instanceof Rectangle2D.Double);
-    Rectangle2D frame9 = bounds7.getFrame();
-    assertTrue(frame9 instanceof Rectangle2D.Double);
-    Rectangle2D frame10 = bounds10.getFrame();
-    assertTrue(frame10 instanceof Rectangle2D.Double);
-    Rectangle2D frame11 = bounds13.getFrame();
-    assertTrue(frame11 instanceof Rectangle2D.Double);
-    Rectangle2D frame12 = frame2.getFrame();
-    assertTrue(frame12 instanceof Rectangle2D.Double);
-    assertTrue(frame6 instanceof Rectangle2D.Double);
-    assertTrue(bounds2D7 instanceof Rectangle2D.Float);
-    assertTrue(bounds2D22 instanceof Rectangle2D.Float);
-    Rectangle2D bounds2D41 = bounds2D22.getBounds2D();
-    assertTrue(bounds2D41 instanceof Rectangle2D.Float);
-    Point location = bounds.getLocation();
-    Point location2 = location.getLocation();
-    Point location3 = location2.getLocation();
-    Point location4 = location3.getLocation();
-    Point location5 = location4.getLocation();
-    assertEquals(1.0d, location5.getX());
-    Point location6 = bounds2.getLocation();
-    Point location7 = location6.getLocation();
-    Point location8 = location7.getLocation();
-    Point location9 = location8.getLocation();
-    assertEquals(1.0d, location9.getX());
-    assertEquals(1.0d, location4.getX());
-    Point location10 = bounds3.getLocation();
-    Point location11 = location10.getLocation();
-    Point location12 = location11.getLocation();
-    assertEquals(1.0d, location12.getX());
-    assertEquals(1.0d, location8.getX());
-    assertEquals(1.0d, location3.getX());
-    Point location13 = ((Rectangle) bounds2D5).getLocation();
-    Point location14 = location13.getLocation();
-    Point location15 = location14.getLocation();
-    assertEquals(1.0d, location15.getX());
-    Point location16 = bounds4.getLocation();
-    Point location17 = location16.getLocation();
-    assertEquals(1.0d, location17.getX());
-    assertEquals(1.0d, location11.getX());
-    assertEquals(1.0d, location7.getX());
-    assertEquals(1.0d, location2.getX());
-    Point location18 = bounds7.getLocation();
-    Point location19 = location18.getLocation();
-    assertEquals(1.0d, location19.getX());
-    Point location20 = bounds10.getLocation();
-    Point location21 = location20.getLocation();
-    assertEquals(1.0d, location21.getX());
-    Point location22 = bounds13.getLocation();
-    Point location23 = location22.getLocation();
-    assertEquals(1.0d, location23.getX());
-    Point location24 = ((Rectangle) bounds2D10).getLocation();
-    Point location25 = location24.getLocation();
-    assertEquals(1.0d, location25.getX());
-    assertEquals(1.0d, location14.getX());
-    Point location26 = bounds5.getLocation();
-    assertEquals(1.0d, location26.getX());
-    assertEquals(1.0d, location16.getX());
-    assertEquals(1.0d, location10.getX());
-    assertEquals(1.0d, location6.getX());
-    Point location27 = bounds8.getLocation();
-    assertEquals(1.0d, location27.getX());
-    Point location28 = bounds11.getLocation();
-    assertEquals(1.0d, location28.getX());
-    Point location29 = bounds14.getLocation();
-    assertEquals(1.0d, location29.getX());
-    assertEquals(1.0d, location.getX());
-    Point location30 = bounds16.getLocation();
-    assertEquals(1.0d, location30.getX());
-    assertEquals(1.0d, location18.getX());
-    assertEquals(1.0d, location20.getX());
-    Point location31 = bounds18.getLocation();
-    assertEquals(1.0d, location31.getX());
-    assertEquals(1.0d, location22.getX());
-    Point location32 = ((Rectangle) bounds2D4).getLocation();
-    assertEquals(1.0d, location32.getX());
-    assertEquals(1.0d, location24.getX());
-    assertEquals(1.0d, location13.getX());
-    Point location33 = ((Rectangle) bounds2D20).getLocation();
-    assertEquals(1.0d, location33.getX());
-    assertEquals(1.0d, bounds6.getX());
-    assertEquals(1.0d, bounds5.getX());
-    assertEquals(1.0d, bounds4.getX());
-    assertEquals(1.0d, bounds3.getX());
-    assertEquals(1.0d, bounds9.getX());
-    assertEquals(1.0d, bounds12.getX());
-    assertEquals(1.0d, bounds15.getX());
-    assertEquals(1.0d, bounds2.getX());
-    assertEquals(1.0d, bounds17.getX());
-    assertEquals(1.0d, bounds8.getX());
-    assertEquals(1.0d, bounds11.getX());
-    assertEquals(1.0d, bounds19.getX());
-    assertEquals(1.0d, bounds14.getX());
-    assertEquals(1.0d, bounds.getX());
-    assertEquals(1.0d, bounds20.getX());
-    assertEquals(1.0d, bounds16.getX());
-    assertEquals(1.0d, bounds7.getX());
-    assertEquals(1.0d, bounds10.getX());
-    assertEquals(1.0d, bounds21.getX());
-    assertEquals(1.0d, bounds22.getX());
-    assertEquals(1.0d, bounds23.getX());
-    assertEquals(1.0d, bounds24.getX());
-    assertEquals(1.0d, bounds18.getX());
-    assertEquals(1.0d, bounds25.getX());
-    assertEquals(1.0d, bounds13.getX());
-    assertEquals(1.0d, bounds26.getX());
-    assertEquals(1.0d, bounds27.getX());
-    assertEquals(1.0d, currentPoint.getX());
-    assertEquals(1.0d, bounds6.getCenterX());
-    assertEquals(1.0d, bounds5.getCenterX());
-    assertEquals(1.0d, bounds4.getCenterX());
-    assertEquals(1.0d, bounds3.getCenterX());
-    assertEquals(1.0d, bounds9.getCenterX());
-    assertEquals(1.0d, bounds12.getCenterX());
-    assertEquals(1.0d, bounds15.getCenterX());
-    assertEquals(1.0d, bounds2.getCenterX());
-    assertEquals(1.0d, bounds17.getCenterX());
-    assertEquals(1.0d, bounds8.getCenterX());
-    assertEquals(1.0d, bounds11.getCenterX());
-    assertEquals(1.0d, bounds19.getCenterX());
-    assertEquals(1.0d, bounds14.getCenterX());
-    assertEquals(1.0d, bounds2D3.getCenterX());
-    assertEquals(1.0d, bounds2D4.getCenterX());
-    assertEquals(1.0d, bounds2D10.getCenterX());
-    assertEquals(1.0d, bounds2D5.getCenterX());
-    assertEquals(1.0d, bounds2D18.getCenterX());
-    assertEquals(1.0d, bounds2D19.getCenterX());
-    assertEquals(1.0d, bounds2D29.getCenterX());
-    assertEquals(1.0d, bounds.getCenterX());
-    assertEquals(1.0d, bounds2D7.getCenterX());
-    assertEquals(1.0d, bounds2D34.getCenterX());
-    assertEquals(1.0d, bounds2D20.getCenterX());
-    assertEquals(1.0d, bounds2D22.getCenterX());
-    assertEquals(1.0d, bounds2D40.getCenterX());
-    assertEquals(1.0d, bounds2D24.getCenterX());
-    assertEquals(1.0d, bounds20.getCenterX());
-    assertEquals(1.0d, bounds16.getCenterX());
-    assertEquals(1.0d, bounds7.getCenterX());
-    assertEquals(1.0d, bounds10.getCenterX());
-    assertEquals(1.0d, bounds21.getCenterX());
-    assertEquals(1.0d, bounds22.getCenterX());
-    assertEquals(1.0d, bounds23.getCenterX());
-    assertEquals(1.0d, bounds24.getCenterX());
-    assertEquals(1.0d, bounds18.getCenterX());
-    assertEquals(1.0d, bounds25.getCenterX());
-    assertEquals(1.0d, bounds13.getCenterX());
-    assertEquals(1.0d, bounds26.getCenterX());
-    assertEquals(1.0d, bounds27.getCenterX());
-    assertEquals(1.0d, frame7.getCenterX());
-    assertEquals(1.0d, frame3.getCenterX());
-    assertEquals(1.0d, frame2.getCenterX());
-    assertEquals(1.0d, frame8.getCenterX());
-    assertEquals(1.0d, frame4.getCenterX());
-    assertEquals(1.0d, frame.getCenterX());
-    assertEquals(1.0d, frame5.getCenterX());
-    assertEquals(1.0d, frame9.getCenterX());
-    assertEquals(1.0d, frame10.getCenterX());
-    assertEquals(1.0d, frame11.getCenterX());
-    assertEquals(1.0d, frame12.getCenterX());
-    assertEquals(1.0d, frame6.getCenterX());
-    assertEquals(1.0d, bounds6.getMaxX());
-    assertEquals(1.0d, bounds5.getMaxX());
-    assertEquals(1.0d, bounds4.getMaxX());
-    assertEquals(1.0d, bounds3.getMaxX());
-    assertEquals(1.0d, bounds9.getMaxX());
-    assertEquals(1.0d, bounds12.getMaxX());
-    assertEquals(1.0d, bounds15.getMaxX());
-    assertEquals(1.0d, bounds2.getMaxX());
-    assertEquals(1.0d, bounds17.getMaxX());
-    assertEquals(1.0d, bounds8.getMaxX());
-    assertEquals(1.0d, bounds11.getMaxX());
-    assertEquals(1.0d, bounds19.getMaxX());
-    assertEquals(1.0d, bounds14.getMaxX());
-    assertEquals(1.0d, bounds2D3.getMaxX());
-    assertEquals(1.0d, bounds2D4.getMaxX());
-    assertEquals(1.0d, bounds2D10.getMaxX());
-    assertEquals(1.0d, bounds2D5.getMaxX());
-    assertEquals(1.0d, bounds2D18.getMaxX());
-    assertEquals(1.0d, bounds2D19.getMaxX());
-    assertEquals(1.0d, bounds2D29.getMaxX());
-    assertEquals(1.0d, bounds.getMaxX());
-    assertEquals(1.0d, bounds2D7.getMaxX());
-    assertEquals(1.0d, bounds2D34.getMaxX());
-    assertEquals(1.0d, bounds2D20.getMaxX());
-    assertEquals(1.0d, bounds2D22.getMaxX());
-    assertEquals(1.0d, bounds2D40.getMaxX());
-    assertEquals(1.0d, bounds2D24.getMaxX());
-    assertEquals(1.0d, bounds20.getMaxX());
-    assertEquals(1.0d, bounds16.getMaxX());
-    assertEquals(1.0d, bounds7.getMaxX());
-    assertEquals(1.0d, bounds10.getMaxX());
-    assertEquals(1.0d, bounds21.getMaxX());
-    assertEquals(1.0d, bounds22.getMaxX());
-    assertEquals(1.0d, bounds23.getMaxX());
-    assertEquals(1.0d, bounds24.getMaxX());
-    assertEquals(1.0d, bounds18.getMaxX());
-    assertEquals(1.0d, bounds25.getMaxX());
-    assertEquals(1.0d, bounds13.getMaxX());
-    assertEquals(1.0d, bounds26.getMaxX());
-    assertEquals(1.0d, bounds27.getMaxX());
-    assertEquals(1.0d, frame7.getMaxX());
-    assertEquals(1.0d, frame3.getMaxX());
-    assertEquals(1.0d, frame2.getMaxX());
-    assertEquals(1.0d, frame8.getMaxX());
-    assertEquals(1.0d, frame4.getMaxX());
-    assertEquals(1.0d, frame.getMaxX());
-    assertEquals(1.0d, frame5.getMaxX());
-    assertEquals(1.0d, frame9.getMaxX());
-    assertEquals(1.0d, frame10.getMaxX());
-    assertEquals(1.0d, frame11.getMaxX());
-    assertEquals(1.0d, frame12.getMaxX());
-    assertEquals(1.0d, frame6.getMaxX());
-    assertEquals(1.0d, bounds6.getMinX());
-    assertEquals(1.0d, bounds5.getMinX());
-    assertEquals(1.0d, bounds4.getMinX());
-    assertEquals(1.0d, bounds3.getMinX());
-    assertEquals(1.0d, bounds9.getMinX());
-    assertEquals(1.0d, bounds12.getMinX());
-    assertEquals(1.0d, bounds15.getMinX());
-    assertEquals(1.0d, bounds2.getMinX());
-    assertEquals(1.0d, bounds17.getMinX());
-    assertEquals(1.0d, bounds8.getMinX());
-    assertEquals(1.0d, bounds11.getMinX());
-    assertEquals(1.0d, bounds19.getMinX());
-    assertEquals(1.0d, bounds14.getMinX());
-    assertEquals(1.0d, bounds2D3.getMinX());
-    assertEquals(1.0d, bounds2D4.getMinX());
-    assertEquals(1.0d, bounds2D10.getMinX());
-    assertEquals(1.0d, bounds2D5.getMinX());
-    assertEquals(1.0d, bounds2D18.getMinX());
-    assertEquals(1.0d, bounds2D19.getMinX());
-    assertEquals(1.0d, bounds2D29.getMinX());
-    assertEquals(1.0d, bounds.getMinX());
-    assertEquals(1.0d, bounds2D7.getMinX());
-    assertEquals(1.0d, bounds2D34.getMinX());
-    assertEquals(1.0d, bounds2D20.getMinX());
-    assertEquals(1.0d, bounds2D22.getMinX());
-    assertEquals(1.0d, bounds2D40.getMinX());
-    assertEquals(1.0d, bounds2D24.getMinX());
-    assertEquals(1.0d, bounds20.getMinX());
-    assertEquals(1.0d, bounds16.getMinX());
-    assertEquals(1.0d, bounds7.getMinX());
-    assertEquals(1.0d, bounds10.getMinX());
-    assertEquals(1.0d, bounds21.getMinX());
-    assertEquals(1.0d, bounds22.getMinX());
-    assertEquals(1.0d, bounds23.getMinX());
-    assertEquals(1.0d, bounds24.getMinX());
-    assertEquals(1.0d, bounds18.getMinX());
-    assertEquals(1.0d, bounds25.getMinX());
-    assertEquals(1.0d, bounds13.getMinX());
-    assertEquals(1.0d, bounds26.getMinX());
-    assertEquals(1.0d, bounds27.getMinX());
-    assertEquals(1.0d, frame7.getMinX());
-    assertEquals(1.0d, frame3.getMinX());
-    assertEquals(1.0d, frame2.getMinX());
-    assertEquals(1.0d, frame8.getMinX());
-    assertEquals(1.0d, frame4.getMinX());
-    assertEquals(1.0d, frame.getMinX());
-    assertEquals(1.0d, frame5.getMinX());
-    assertEquals(1.0d, frame9.getMinX());
-    assertEquals(1.0d, frame10.getMinX());
-    assertEquals(1.0d, frame11.getMinX());
-    assertEquals(1.0d, frame12.getMinX());
-    assertEquals(1.0d, frame6.getMinX());
-    assertEquals(1.0d, bounds2D3.getX());
-    assertEquals(1.0d, bounds2D4.getX());
-    assertEquals(1.0d, bounds2D10.getX());
-    assertEquals(1.0d, bounds2D5.getX());
-    assertEquals(1.0d, bounds2D18.getX());
-    assertEquals(1.0d, bounds2D19.getX());
-    assertEquals(1.0d, bounds2D29.getX());
-    assertEquals(1.0d, bounds2D7.getX());
-    assertEquals(1.0d, bounds2D34.getX());
-    assertEquals(1.0d, bounds2D20.getX());
-    assertEquals(1.0d, bounds2D22.getX());
-    assertEquals(1.0d, bounds2D40.getX());
-    assertEquals(1.0d, bounds2D24.getX());
-    assertEquals(1.0d, frame7.getX());
-    assertEquals(1.0d, frame3.getX());
-    assertEquals(1.0d, frame2.getX());
-    assertEquals(1.0d, frame8.getX());
-    assertEquals(1.0d, frame4.getX());
-    assertEquals(1.0d, frame.getX());
-    assertEquals(1.0d, frame5.getX());
-    assertEquals(1.0d, frame9.getX());
-    assertEquals(1.0d, frame10.getX());
-    assertEquals(1.0d, frame11.getX());
-    assertEquals(1.0d, frame12.getX());
-    assertEquals(1.0d, frame6.getX());
-    assertEquals(1.0f, ((Point2D.Float) currentPoint).x);
-    assertEquals(1.0f, ((Rectangle2D.Float) bounds2D7).x);
-    assertEquals(1.0f, ((Rectangle2D.Float) bounds2D22).x);
-    assertEquals(1.0f, ((Rectangle2D.Float) bounds2D41).x);
-    assertSame(valueOfResult, location5.getLocation().x);
-    assertSame(valueOfResult, location9.getLocation().x);
-    assertSame(valueOfResult, location5.x);
-    assertSame(valueOfResult, location12.getLocation().x);
-    assertSame(valueOfResult, location9.x);
-    assertSame(valueOfResult, location4.x);
-    assertSame(valueOfResult, location15.getLocation().x);
-    assertSame(valueOfResult, location17.getLocation().x);
-    assertSame(valueOfResult, location12.x);
-    assertSame(valueOfResult, location8.x);
-    assertSame(valueOfResult, location3.x);
-    assertSame(valueOfResult, location19.getLocation().x);
-    assertSame(valueOfResult, location21.getLocation().x);
-    assertSame(valueOfResult, location23.getLocation().x);
-    assertSame(valueOfResult, location25.getLocation().x);
-    assertSame(valueOfResult, location15.x);
-    assertSame(valueOfResult, location26.getLocation().x);
-    assertSame(valueOfResult, location17.x);
-    assertSame(valueOfResult, location11.x);
-    assertSame(valueOfResult, location7.x);
-    assertSame(valueOfResult, location27.getLocation().x);
-    assertSame(valueOfResult, location28.getLocation().x);
-    assertSame(valueOfResult, location29.getLocation().x);
-    assertSame(valueOfResult, location2.x);
-    assertSame(valueOfResult, location30.getLocation().x);
-    assertSame(valueOfResult, location19.x);
-    assertSame(valueOfResult, location21.x);
-    assertSame(valueOfResult, location31.getLocation().x);
-    assertSame(valueOfResult, location23.x);
-    assertSame(valueOfResult, location32.getLocation().x);
-    assertSame(valueOfResult, location25.x);
-    assertSame(valueOfResult, location14.x);
-    assertSame(valueOfResult, location33.getLocation().x);
-    assertSame(valueOfResult, bounds6.getLocation().x);
-    assertSame(valueOfResult, location26.x);
-    assertSame(valueOfResult, location16.x);
-    assertSame(valueOfResult, location10.x);
-    assertSame(valueOfResult, bounds9.getLocation().x);
-    assertSame(valueOfResult, bounds12.getLocation().x);
-    assertSame(valueOfResult, bounds15.getLocation().x);
-    assertSame(valueOfResult, location6.x);
-    assertSame(valueOfResult, bounds17.getLocation().x);
-    assertSame(valueOfResult, location27.x);
-    assertSame(valueOfResult, location28.x);
-    assertSame(valueOfResult, bounds19.getLocation().x);
-    assertSame(valueOfResult, location29.x);
-    assertSame(valueOfResult, location.x);
-    assertSame(valueOfResult, bounds20.getLocation().x);
-    assertSame(valueOfResult, location30.x);
-    assertSame(valueOfResult, location18.x);
-    assertSame(valueOfResult, location20.x);
-    assertSame(valueOfResult, bounds21.getLocation().x);
-    assertSame(valueOfResult, bounds22.getLocation().x);
-    assertSame(valueOfResult, bounds23.getLocation().x);
-    assertSame(valueOfResult, bounds24.getLocation().x);
-    assertSame(valueOfResult, location31.x);
-    assertSame(valueOfResult, bounds25.getLocation().x);
-    assertSame(valueOfResult, location22.x);
-    assertSame(valueOfResult, bounds26.getLocation().x);
-    assertSame(valueOfResult, bounds27.getLocation().x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D3).getLocation().x);
-    assertSame(valueOfResult, location32.x);
-    assertSame(valueOfResult, location24.x);
-    assertSame(valueOfResult, location13.x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D18).getLocation().x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D19).getLocation().x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D29).getLocation().x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D34).getLocation().x);
-    assertSame(valueOfResult, location33.x);
-    assertSame(valueOfResult, bounds6.getBounds().x);
-    assertSame(valueOfResult, bounds6.x);
-    assertSame(valueOfResult, bounds5.x);
-    assertSame(valueOfResult, bounds4.x);
-    assertSame(valueOfResult, bounds9.getBounds().x);
-    assertSame(valueOfResult, bounds12.getBounds().x);
-    assertSame(valueOfResult, bounds15.getBounds().x);
-    assertSame(valueOfResult, bounds3.x);
-    assertSame(valueOfResult, bounds17.getBounds().x);
-    assertSame(valueOfResult, bounds9.x);
-    assertSame(valueOfResult, bounds12.x);
-    assertSame(valueOfResult, bounds19.getBounds().x);
-    assertSame(valueOfResult, bounds15.x);
-    assertSame(valueOfResult, bounds2.x);
-    assertSame(valueOfResult, bounds20.getBounds().x);
-    assertSame(valueOfResult, bounds17.x);
-    assertSame(valueOfResult, bounds8.x);
-    assertSame(valueOfResult, bounds11.x);
-    assertSame(valueOfResult, bounds21.getBounds().x);
-    assertSame(valueOfResult, bounds22.getBounds().x);
-    assertSame(valueOfResult, bounds23.getBounds().x);
-    assertSame(valueOfResult, bounds24.getBounds().x);
-    assertSame(valueOfResult, bounds19.x);
-    assertSame(valueOfResult, bounds25.getBounds().x);
-    assertSame(valueOfResult, bounds14.x);
-    assertSame(valueOfResult, bounds26.getBounds().x);
-    assertSame(valueOfResult, bounds27.getBounds().x);
-    assertSame(valueOfResult, bounds.x);
-    assertSame(valueOfResult, bounds2D3.getBounds().x);
-    assertSame(valueOfResult, bounds20.x);
-    assertSame(valueOfResult, bounds16.x);
-    assertSame(valueOfResult, bounds7.x);
-    assertSame(valueOfResult, bounds2D18.getBounds().x);
-    assertSame(valueOfResult, bounds2D19.getBounds().x);
-    assertSame(valueOfResult, bounds2D29.getBounds().x);
-    assertSame(valueOfResult, bounds10.x);
-    assertSame(valueOfResult, bounds2D34.getBounds().x);
-    assertSame(valueOfResult, bounds21.x);
-    assertSame(valueOfResult, bounds22.x);
-    assertSame(valueOfResult, bounds2D40.getBounds().x);
-    assertSame(valueOfResult, bounds23.x);
-    assertSame(valueOfResult, frame7.getBounds().x);
-    assertSame(valueOfResult, bounds24.x);
-    assertSame(valueOfResult, bounds18.x);
-    assertSame(valueOfResult, frame8.getBounds().x);
-    assertSame(valueOfResult, bounds25.x);
-    assertSame(valueOfResult, bounds13.x);
-    assertSame(valueOfResult, bounds26.x);
-    assertSame(valueOfResult, frame9.getBounds().x);
-    assertSame(valueOfResult, frame10.getBounds().x);
-    assertSame(valueOfResult, frame11.getBounds().x);
-    assertSame(valueOfResult, frame12.getBounds().x);
-    assertSame(valueOfResult, bounds27.x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D2).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D3).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D4).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D6).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D8).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D9).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D10).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D11).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D12).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D13).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D14).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D15).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D5).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D16).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D17).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D18).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D19).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D21).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D23).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D25).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D26).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D27).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D28).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D29).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D30).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D31).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D32).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D33).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D34).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D20).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D35).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D36).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D37).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D38).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D39).x);
-  }
-
-  /**
-   * Test {@link Type1CharString#getPath()}.
-   * <ul>
-   *   <li>Then return CurrentPoint X is zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Type1CharString#getPath()}
+   *
+   * <p>Method under test: {@link Type1CharString#getPath()}
    */
   @Test
   @DisplayName("Test getPath(); then return CurrentPoint X is zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"GeneralPath Type1CharString.getPath()"})
   void testGetPath_thenReturnCurrentPointXIsZero() {
     // Arrange
-    Type1CharString type1CharString = new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
     type1CharString.addCommand(new ArrayList<>(), CharStringCommand.CLOSEPATH);
 
     // Act and Assert
@@ -9255,618 +1442,54 @@ class Type1CharStringDiffblueTest {
 
   /**
    * Test {@link Type1CharString#getPath()}.
+   *
    * <ul>
-   *   <li>Then return CurrentPoint Y is zero.</li>
+   *   <li>Then return CurrentPoint X is zero.
    * </ul>
-   * <p>
-   * Method under test: {@link Type1CharString#getPath()}
+   *
+   * <p>Method under test: {@link Type1CharString#getPath()}
    */
   @Test
-  @DisplayName("Test getPath(); then return CurrentPoint Y is zero")
-  void testGetPath_thenReturnCurrentPointYIsZero() {
+  @DisplayName("Test getPath(); then return CurrentPoint X is zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"GeneralPath Type1CharString.getPath()"})
+  void testGetPath_thenReturnCurrentPointXIsZero2() {
     // Arrange
-    ArrayList<Number> numbers = new ArrayList<>();
-    Integer valueOfResult = Integer.valueOf(1);
-    numbers.add(valueOfResult);
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    type1CharString.addCommand(new ArrayList<>(), CharStringCommand.CLOSEPATH);
+    type1CharString.addCommand(new ArrayList<>(), CharStringCommand.CLOSEPATH);
 
-    Type1CharString type1CharString = new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
-    type1CharString.addCommand(numbers, CharStringCommand.HLINETO);
-
-    // Act
-    GeneralPath actualPath = type1CharString.getPath();
-
-    // Assert
-    Rectangle bounds = actualPath.getBounds();
-    Rectangle bounds2 = bounds.getBounds();
-    Rectangle bounds3 = bounds2.getBounds();
-    Rectangle bounds4 = bounds3.getBounds();
-    Rectangle bounds5 = bounds4.getBounds();
-    Rectangle bounds6 = bounds5.getBounds();
-    Rectangle2D bounds2D = bounds6.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Rectangle2D bounds2D2 = bounds5.getBounds2D();
-    assertTrue(bounds2D2 instanceof Rectangle);
-    Rectangle2D bounds2D3 = bounds4.getBounds2D();
-    assertTrue(bounds2D3 instanceof Rectangle);
-    Rectangle2D bounds2D4 = bounds3.getBounds2D();
-    assertTrue(bounds2D4 instanceof Rectangle);
-    Rectangle2D bounds2D5 = bounds.getBounds2D();
-    Rectangle bounds7 = bounds2D5.getBounds();
-    Rectangle bounds8 = bounds7.getBounds();
-    Rectangle bounds9 = bounds8.getBounds();
-    Rectangle2D bounds2D6 = bounds9.getBounds2D();
-    assertTrue(bounds2D6 instanceof Rectangle);
-    Rectangle2D bounds2D7 = actualPath.getBounds2D();
-    Rectangle bounds10 = bounds2D7.getBounds();
-    Rectangle bounds11 = bounds10.getBounds();
-    Rectangle bounds12 = bounds11.getBounds();
-    Rectangle2D bounds2D8 = bounds12.getBounds2D();
-    assertTrue(bounds2D8 instanceof Rectangle);
-    Rectangle2D frame = bounds.getFrame();
-    Rectangle bounds13 = frame.getBounds();
-    Rectangle bounds14 = bounds13.getBounds();
-    Rectangle bounds15 = bounds14.getBounds();
-    Rectangle2D bounds2D9 = bounds15.getBounds2D();
-    assertTrue(bounds2D9 instanceof Rectangle);
-    Rectangle2D bounds2D10 = bounds2.getBounds2D();
-    assertTrue(bounds2D10 instanceof Rectangle);
-    Rectangle bounds16 = bounds2D10.getBounds();
-    Rectangle bounds17 = bounds16.getBounds();
-    Rectangle2D bounds2D11 = bounds17.getBounds2D();
-    assertTrue(bounds2D11 instanceof Rectangle);
-    Rectangle2D bounds2D12 = bounds8.getBounds2D();
-    assertTrue(bounds2D12 instanceof Rectangle);
-    Rectangle2D bounds2D13 = bounds11.getBounds2D();
-    assertTrue(bounds2D13 instanceof Rectangle);
-    Rectangle2D frame2 = bounds2.getFrame();
-    Rectangle bounds18 = frame2.getBounds();
-    Rectangle bounds19 = bounds18.getBounds();
-    Rectangle2D bounds2D14 = bounds19.getBounds2D();
-    assertTrue(bounds2D14 instanceof Rectangle);
-    Rectangle2D bounds2D15 = bounds14.getBounds2D();
-    assertTrue(bounds2D15 instanceof Rectangle);
-    assertTrue(bounds2D5 instanceof Rectangle);
-    Rectangle bounds20 = bounds2D4.getBounds();
-    Rectangle2D bounds2D16 = bounds20.getBounds2D();
-    assertTrue(bounds2D16 instanceof Rectangle);
-    Rectangle2D bounds2D17 = bounds16.getBounds2D();
-    assertTrue(bounds2D17 instanceof Rectangle);
-    Rectangle2D bounds2D18 = bounds7.getBounds2D();
-    assertTrue(bounds2D18 instanceof Rectangle);
-    Rectangle2D bounds2D19 = bounds10.getBounds2D();
-    assertTrue(bounds2D19 instanceof Rectangle);
-    Rectangle2D bounds2D20 = bounds2D5.getBounds2D();
-    Rectangle bounds21 = bounds2D20.getBounds();
-    Rectangle2D bounds2D21 = bounds21.getBounds2D();
-    assertTrue(bounds2D21 instanceof Rectangle);
-    Rectangle2D bounds2D22 = bounds2D7.getBounds2D();
-    Rectangle bounds22 = bounds2D22.getBounds();
-    Rectangle2D bounds2D23 = bounds22.getBounds2D();
-    assertTrue(bounds2D23 instanceof Rectangle);
-    Rectangle2D bounds2D24 = frame.getBounds2D();
-    Rectangle bounds23 = bounds2D24.getBounds();
-    Rectangle2D bounds2D25 = bounds23.getBounds2D();
-    assertTrue(bounds2D25 instanceof Rectangle);
-    Rectangle2D frame3 = bounds3.getFrame();
-    Rectangle bounds24 = frame3.getBounds();
-    Rectangle2D bounds2D26 = bounds24.getBounds2D();
-    assertTrue(bounds2D26 instanceof Rectangle);
-    Rectangle2D bounds2D27 = bounds18.getBounds2D();
-    assertTrue(bounds2D27 instanceof Rectangle);
-    Rectangle2D frame4 = bounds2D5.getFrame();
-    Rectangle bounds25 = frame4.getBounds();
-    Rectangle2D bounds2D28 = bounds25.getBounds2D();
-    assertTrue(bounds2D28 instanceof Rectangle);
-    Rectangle2D bounds2D29 = bounds13.getBounds2D();
-    assertTrue(bounds2D29 instanceof Rectangle);
-    Rectangle2D frame5 = bounds2D7.getFrame();
-    Rectangle bounds26 = frame5.getBounds();
-    Rectangle2D bounds2D30 = bounds26.getBounds2D();
-    assertTrue(bounds2D30 instanceof Rectangle);
-    Rectangle2D frame6 = frame.getFrame();
-    Rectangle bounds27 = frame6.getBounds();
-    Rectangle2D bounds2D31 = bounds27.getBounds2D();
-    assertTrue(bounds2D31 instanceof Rectangle);
-    Rectangle2D bounds2D32 = bounds2D3.getBounds2D();
-    assertTrue(bounds2D32 instanceof Rectangle);
-    Rectangle2D bounds2D33 = bounds2D4.getBounds2D();
-    assertTrue(bounds2D33 instanceof Rectangle);
-    Rectangle2D bounds2D34 = bounds2D10.getBounds2D();
-    assertTrue(bounds2D34 instanceof Rectangle);
-    assertTrue(bounds2D20 instanceof Rectangle);
-    Rectangle2D bounds2D35 = bounds2D18.getBounds2D();
-    assertTrue(bounds2D35 instanceof Rectangle);
-    Rectangle2D bounds2D36 = bounds2D19.getBounds2D();
-    assertTrue(bounds2D36 instanceof Rectangle);
-    Rectangle2D bounds2D37 = bounds2D29.getBounds2D();
-    assertTrue(bounds2D37 instanceof Rectangle);
-    Rectangle2D bounds2D38 = bounds2D34.getBounds2D();
-    assertTrue(bounds2D38 instanceof Rectangle);
-    Rectangle2D bounds2D39 = bounds2D20.getBounds2D();
-    assertTrue(bounds2D39 instanceof Rectangle);
-    Point2D currentPoint = actualPath.getCurrentPoint();
+    // Act and Assert
+    Point2D currentPoint = type1CharString.getPath().getCurrentPoint();
     assertTrue(currentPoint instanceof Point2D.Float);
-    Rectangle2D bounds2D40 = frame2.getBounds2D();
-    assertTrue(bounds2D40 instanceof Rectangle2D.Double);
-    assertTrue(bounds2D24 instanceof Rectangle2D.Double);
-    Rectangle2D frame7 = bounds4.getFrame();
-    assertTrue(frame7 instanceof Rectangle2D.Double);
-    assertTrue(frame3 instanceof Rectangle2D.Double);
-    assertTrue(frame2 instanceof Rectangle2D.Double);
-    Rectangle2D frame8 = bounds2D10.getFrame();
-    assertTrue(frame8 instanceof Rectangle2D.Double);
-    assertTrue(frame4 instanceof Rectangle2D.Double);
-    assertTrue(frame instanceof Rectangle2D.Double);
-    assertTrue(frame5 instanceof Rectangle2D.Double);
-    Rectangle2D frame9 = bounds7.getFrame();
-    assertTrue(frame9 instanceof Rectangle2D.Double);
-    Rectangle2D frame10 = bounds10.getFrame();
-    assertTrue(frame10 instanceof Rectangle2D.Double);
-    Rectangle2D frame11 = bounds13.getFrame();
-    assertTrue(frame11 instanceof Rectangle2D.Double);
-    Rectangle2D frame12 = frame2.getFrame();
-    assertTrue(frame12 instanceof Rectangle2D.Double);
-    assertTrue(frame6 instanceof Rectangle2D.Double);
-    assertTrue(bounds2D7 instanceof Rectangle2D.Float);
-    assertTrue(bounds2D22 instanceof Rectangle2D.Float);
-    Rectangle2D bounds2D41 = bounds2D22.getBounds2D();
-    assertTrue(bounds2D41 instanceof Rectangle2D.Float);
+    assertEquals(0.0d, currentPoint.getX());
     assertEquals(0.0d, currentPoint.getY());
+    assertEquals(0.0f, ((Point2D.Float) currentPoint).x);
     assertEquals(0.0f, ((Point2D.Float) currentPoint).y);
-    Point location = bounds.getLocation();
-    Point location2 = location.getLocation();
-    Point location3 = location2.getLocation();
-    Point location4 = location3.getLocation();
-    Point location5 = location4.getLocation();
-    assertEquals(1.0d, location5.getX());
-    Point location6 = bounds2.getLocation();
-    Point location7 = location6.getLocation();
-    Point location8 = location7.getLocation();
-    Point location9 = location8.getLocation();
-    assertEquals(1.0d, location9.getX());
-    assertEquals(1.0d, location4.getX());
-    Point location10 = bounds3.getLocation();
-    Point location11 = location10.getLocation();
-    Point location12 = location11.getLocation();
-    assertEquals(1.0d, location12.getX());
-    assertEquals(1.0d, location8.getX());
-    assertEquals(1.0d, location3.getX());
-    Point location13 = ((Rectangle) bounds2D5).getLocation();
-    Point location14 = location13.getLocation();
-    Point location15 = location14.getLocation();
-    assertEquals(1.0d, location15.getX());
-    Point location16 = bounds4.getLocation();
-    Point location17 = location16.getLocation();
-    assertEquals(1.0d, location17.getX());
-    assertEquals(1.0d, location11.getX());
-    assertEquals(1.0d, location7.getX());
-    assertEquals(1.0d, location2.getX());
-    Point location18 = bounds7.getLocation();
-    Point location19 = location18.getLocation();
-    assertEquals(1.0d, location19.getX());
-    Point location20 = bounds10.getLocation();
-    Point location21 = location20.getLocation();
-    assertEquals(1.0d, location21.getX());
-    Point location22 = bounds13.getLocation();
-    Point location23 = location22.getLocation();
-    assertEquals(1.0d, location23.getX());
-    Point location24 = ((Rectangle) bounds2D10).getLocation();
-    Point location25 = location24.getLocation();
-    assertEquals(1.0d, location25.getX());
-    assertEquals(1.0d, location14.getX());
-    Point location26 = bounds5.getLocation();
-    assertEquals(1.0d, location26.getX());
-    assertEquals(1.0d, location16.getX());
-    assertEquals(1.0d, location10.getX());
-    assertEquals(1.0d, location6.getX());
-    Point location27 = bounds8.getLocation();
-    assertEquals(1.0d, location27.getX());
-    Point location28 = bounds11.getLocation();
-    assertEquals(1.0d, location28.getX());
-    Point location29 = bounds14.getLocation();
-    assertEquals(1.0d, location29.getX());
-    assertEquals(1.0d, location.getX());
-    Point location30 = bounds16.getLocation();
-    assertEquals(1.0d, location30.getX());
-    assertEquals(1.0d, location18.getX());
-    assertEquals(1.0d, location20.getX());
-    Point location31 = bounds18.getLocation();
-    assertEquals(1.0d, location31.getX());
-    assertEquals(1.0d, location22.getX());
-    Point location32 = ((Rectangle) bounds2D4).getLocation();
-    assertEquals(1.0d, location32.getX());
-    assertEquals(1.0d, location24.getX());
-    assertEquals(1.0d, location13.getX());
-    Point location33 = ((Rectangle) bounds2D20).getLocation();
-    assertEquals(1.0d, location33.getX());
-    assertEquals(1.0d, bounds6.getX());
-    assertEquals(1.0d, bounds5.getX());
-    assertEquals(1.0d, bounds4.getX());
-    assertEquals(1.0d, bounds3.getX());
-    assertEquals(1.0d, bounds9.getX());
-    assertEquals(1.0d, bounds12.getX());
-    assertEquals(1.0d, bounds15.getX());
-    assertEquals(1.0d, bounds2.getX());
-    assertEquals(1.0d, bounds17.getX());
-    assertEquals(1.0d, bounds8.getX());
-    assertEquals(1.0d, bounds11.getX());
-    assertEquals(1.0d, bounds19.getX());
-    assertEquals(1.0d, bounds14.getX());
-    assertEquals(1.0d, bounds.getX());
-    assertEquals(1.0d, bounds20.getX());
-    assertEquals(1.0d, bounds16.getX());
-    assertEquals(1.0d, bounds7.getX());
-    assertEquals(1.0d, bounds10.getX());
-    assertEquals(1.0d, bounds21.getX());
-    assertEquals(1.0d, bounds22.getX());
-    assertEquals(1.0d, bounds23.getX());
-    assertEquals(1.0d, bounds24.getX());
-    assertEquals(1.0d, bounds18.getX());
-    assertEquals(1.0d, bounds25.getX());
-    assertEquals(1.0d, bounds13.getX());
-    assertEquals(1.0d, bounds26.getX());
-    assertEquals(1.0d, bounds27.getX());
-    assertEquals(1.0d, currentPoint.getX());
-    assertEquals(1.0d, bounds6.getCenterX());
-    assertEquals(1.0d, bounds5.getCenterX());
-    assertEquals(1.0d, bounds4.getCenterX());
-    assertEquals(1.0d, bounds3.getCenterX());
-    assertEquals(1.0d, bounds9.getCenterX());
-    assertEquals(1.0d, bounds12.getCenterX());
-    assertEquals(1.0d, bounds15.getCenterX());
-    assertEquals(1.0d, bounds2.getCenterX());
-    assertEquals(1.0d, bounds17.getCenterX());
-    assertEquals(1.0d, bounds8.getCenterX());
-    assertEquals(1.0d, bounds11.getCenterX());
-    assertEquals(1.0d, bounds19.getCenterX());
-    assertEquals(1.0d, bounds14.getCenterX());
-    assertEquals(1.0d, bounds2D3.getCenterX());
-    assertEquals(1.0d, bounds2D4.getCenterX());
-    assertEquals(1.0d, bounds2D10.getCenterX());
-    assertEquals(1.0d, bounds2D5.getCenterX());
-    assertEquals(1.0d, bounds2D18.getCenterX());
-    assertEquals(1.0d, bounds2D19.getCenterX());
-    assertEquals(1.0d, bounds2D29.getCenterX());
-    assertEquals(1.0d, bounds.getCenterX());
-    assertEquals(1.0d, bounds2D7.getCenterX());
-    assertEquals(1.0d, bounds2D34.getCenterX());
-    assertEquals(1.0d, bounds2D20.getCenterX());
-    assertEquals(1.0d, bounds2D22.getCenterX());
-    assertEquals(1.0d, bounds2D40.getCenterX());
-    assertEquals(1.0d, bounds2D24.getCenterX());
-    assertEquals(1.0d, bounds20.getCenterX());
-    assertEquals(1.0d, bounds16.getCenterX());
-    assertEquals(1.0d, bounds7.getCenterX());
-    assertEquals(1.0d, bounds10.getCenterX());
-    assertEquals(1.0d, bounds21.getCenterX());
-    assertEquals(1.0d, bounds22.getCenterX());
-    assertEquals(1.0d, bounds23.getCenterX());
-    assertEquals(1.0d, bounds24.getCenterX());
-    assertEquals(1.0d, bounds18.getCenterX());
-    assertEquals(1.0d, bounds25.getCenterX());
-    assertEquals(1.0d, bounds13.getCenterX());
-    assertEquals(1.0d, bounds26.getCenterX());
-    assertEquals(1.0d, bounds27.getCenterX());
-    assertEquals(1.0d, frame7.getCenterX());
-    assertEquals(1.0d, frame3.getCenterX());
-    assertEquals(1.0d, frame2.getCenterX());
-    assertEquals(1.0d, frame8.getCenterX());
-    assertEquals(1.0d, frame4.getCenterX());
-    assertEquals(1.0d, frame.getCenterX());
-    assertEquals(1.0d, frame5.getCenterX());
-    assertEquals(1.0d, frame9.getCenterX());
-    assertEquals(1.0d, frame10.getCenterX());
-    assertEquals(1.0d, frame11.getCenterX());
-    assertEquals(1.0d, frame12.getCenterX());
-    assertEquals(1.0d, frame6.getCenterX());
-    assertEquals(1.0d, bounds6.getMaxX());
-    assertEquals(1.0d, bounds5.getMaxX());
-    assertEquals(1.0d, bounds4.getMaxX());
-    assertEquals(1.0d, bounds3.getMaxX());
-    assertEquals(1.0d, bounds9.getMaxX());
-    assertEquals(1.0d, bounds12.getMaxX());
-    assertEquals(1.0d, bounds15.getMaxX());
-    assertEquals(1.0d, bounds2.getMaxX());
-    assertEquals(1.0d, bounds17.getMaxX());
-    assertEquals(1.0d, bounds8.getMaxX());
-    assertEquals(1.0d, bounds11.getMaxX());
-    assertEquals(1.0d, bounds19.getMaxX());
-    assertEquals(1.0d, bounds14.getMaxX());
-    assertEquals(1.0d, bounds2D3.getMaxX());
-    assertEquals(1.0d, bounds2D4.getMaxX());
-    assertEquals(1.0d, bounds2D10.getMaxX());
-    assertEquals(1.0d, bounds2D5.getMaxX());
-    assertEquals(1.0d, bounds2D18.getMaxX());
-    assertEquals(1.0d, bounds2D19.getMaxX());
-    assertEquals(1.0d, bounds2D29.getMaxX());
-    assertEquals(1.0d, bounds.getMaxX());
-    assertEquals(1.0d, bounds2D7.getMaxX());
-    assertEquals(1.0d, bounds2D34.getMaxX());
-    assertEquals(1.0d, bounds2D20.getMaxX());
-    assertEquals(1.0d, bounds2D22.getMaxX());
-    assertEquals(1.0d, bounds2D40.getMaxX());
-    assertEquals(1.0d, bounds2D24.getMaxX());
-    assertEquals(1.0d, bounds20.getMaxX());
-    assertEquals(1.0d, bounds16.getMaxX());
-    assertEquals(1.0d, bounds7.getMaxX());
-    assertEquals(1.0d, bounds10.getMaxX());
-    assertEquals(1.0d, bounds21.getMaxX());
-    assertEquals(1.0d, bounds22.getMaxX());
-    assertEquals(1.0d, bounds23.getMaxX());
-    assertEquals(1.0d, bounds24.getMaxX());
-    assertEquals(1.0d, bounds18.getMaxX());
-    assertEquals(1.0d, bounds25.getMaxX());
-    assertEquals(1.0d, bounds13.getMaxX());
-    assertEquals(1.0d, bounds26.getMaxX());
-    assertEquals(1.0d, bounds27.getMaxX());
-    assertEquals(1.0d, frame7.getMaxX());
-    assertEquals(1.0d, frame3.getMaxX());
-    assertEquals(1.0d, frame2.getMaxX());
-    assertEquals(1.0d, frame8.getMaxX());
-    assertEquals(1.0d, frame4.getMaxX());
-    assertEquals(1.0d, frame.getMaxX());
-    assertEquals(1.0d, frame5.getMaxX());
-    assertEquals(1.0d, frame9.getMaxX());
-    assertEquals(1.0d, frame10.getMaxX());
-    assertEquals(1.0d, frame11.getMaxX());
-    assertEquals(1.0d, frame12.getMaxX());
-    assertEquals(1.0d, frame6.getMaxX());
-    assertEquals(1.0d, bounds6.getMinX());
-    assertEquals(1.0d, bounds5.getMinX());
-    assertEquals(1.0d, bounds4.getMinX());
-    assertEquals(1.0d, bounds3.getMinX());
-    assertEquals(1.0d, bounds9.getMinX());
-    assertEquals(1.0d, bounds12.getMinX());
-    assertEquals(1.0d, bounds15.getMinX());
-    assertEquals(1.0d, bounds2.getMinX());
-    assertEquals(1.0d, bounds17.getMinX());
-    assertEquals(1.0d, bounds8.getMinX());
-    assertEquals(1.0d, bounds11.getMinX());
-    assertEquals(1.0d, bounds19.getMinX());
-    assertEquals(1.0d, bounds14.getMinX());
-    assertEquals(1.0d, bounds2D3.getMinX());
-    assertEquals(1.0d, bounds2D4.getMinX());
-    assertEquals(1.0d, bounds2D10.getMinX());
-    assertEquals(1.0d, bounds2D5.getMinX());
-    assertEquals(1.0d, bounds2D18.getMinX());
-    assertEquals(1.0d, bounds2D19.getMinX());
-    assertEquals(1.0d, bounds2D29.getMinX());
-    assertEquals(1.0d, bounds.getMinX());
-    assertEquals(1.0d, bounds2D7.getMinX());
-    assertEquals(1.0d, bounds2D34.getMinX());
-    assertEquals(1.0d, bounds2D20.getMinX());
-    assertEquals(1.0d, bounds2D22.getMinX());
-    assertEquals(1.0d, bounds2D40.getMinX());
-    assertEquals(1.0d, bounds2D24.getMinX());
-    assertEquals(1.0d, bounds20.getMinX());
-    assertEquals(1.0d, bounds16.getMinX());
-    assertEquals(1.0d, bounds7.getMinX());
-    assertEquals(1.0d, bounds10.getMinX());
-    assertEquals(1.0d, bounds21.getMinX());
-    assertEquals(1.0d, bounds22.getMinX());
-    assertEquals(1.0d, bounds23.getMinX());
-    assertEquals(1.0d, bounds24.getMinX());
-    assertEquals(1.0d, bounds18.getMinX());
-    assertEquals(1.0d, bounds25.getMinX());
-    assertEquals(1.0d, bounds13.getMinX());
-    assertEquals(1.0d, bounds26.getMinX());
-    assertEquals(1.0d, bounds27.getMinX());
-    assertEquals(1.0d, frame7.getMinX());
-    assertEquals(1.0d, frame3.getMinX());
-    assertEquals(1.0d, frame2.getMinX());
-    assertEquals(1.0d, frame8.getMinX());
-    assertEquals(1.0d, frame4.getMinX());
-    assertEquals(1.0d, frame.getMinX());
-    assertEquals(1.0d, frame5.getMinX());
-    assertEquals(1.0d, frame9.getMinX());
-    assertEquals(1.0d, frame10.getMinX());
-    assertEquals(1.0d, frame11.getMinX());
-    assertEquals(1.0d, frame12.getMinX());
-    assertEquals(1.0d, frame6.getMinX());
-    assertEquals(1.0d, bounds2D3.getX());
-    assertEquals(1.0d, bounds2D4.getX());
-    assertEquals(1.0d, bounds2D10.getX());
-    assertEquals(1.0d, bounds2D5.getX());
-    assertEquals(1.0d, bounds2D18.getX());
-    assertEquals(1.0d, bounds2D19.getX());
-    assertEquals(1.0d, bounds2D29.getX());
-    assertEquals(1.0d, bounds2D7.getX());
-    assertEquals(1.0d, bounds2D34.getX());
-    assertEquals(1.0d, bounds2D20.getX());
-    assertEquals(1.0d, bounds2D22.getX());
-    assertEquals(1.0d, bounds2D40.getX());
-    assertEquals(1.0d, bounds2D24.getX());
-    assertEquals(1.0d, frame7.getX());
-    assertEquals(1.0d, frame3.getX());
-    assertEquals(1.0d, frame2.getX());
-    assertEquals(1.0d, frame8.getX());
-    assertEquals(1.0d, frame4.getX());
-    assertEquals(1.0d, frame.getX());
-    assertEquals(1.0d, frame5.getX());
-    assertEquals(1.0d, frame9.getX());
-    assertEquals(1.0d, frame10.getX());
-    assertEquals(1.0d, frame11.getX());
-    assertEquals(1.0d, frame12.getX());
-    assertEquals(1.0d, frame6.getX());
-    assertEquals(1.0f, ((Point2D.Float) currentPoint).x);
-    assertEquals(1.0f, ((Rectangle2D.Float) bounds2D7).x);
-    assertEquals(1.0f, ((Rectangle2D.Float) bounds2D22).x);
-    assertEquals(1.0f, ((Rectangle2D.Float) bounds2D41).x);
-    assertSame(valueOfResult, location5.getLocation().x);
-    assertSame(valueOfResult, location9.getLocation().x);
-    assertSame(valueOfResult, location5.x);
-    assertSame(valueOfResult, location12.getLocation().x);
-    assertSame(valueOfResult, location9.x);
-    assertSame(valueOfResult, location4.x);
-    assertSame(valueOfResult, location15.getLocation().x);
-    assertSame(valueOfResult, location17.getLocation().x);
-    assertSame(valueOfResult, location12.x);
-    assertSame(valueOfResult, location8.x);
-    assertSame(valueOfResult, location3.x);
-    assertSame(valueOfResult, location19.getLocation().x);
-    assertSame(valueOfResult, location21.getLocation().x);
-    assertSame(valueOfResult, location23.getLocation().x);
-    assertSame(valueOfResult, location25.getLocation().x);
-    assertSame(valueOfResult, location15.x);
-    assertSame(valueOfResult, location26.getLocation().x);
-    assertSame(valueOfResult, location17.x);
-    assertSame(valueOfResult, location11.x);
-    assertSame(valueOfResult, location7.x);
-    assertSame(valueOfResult, location27.getLocation().x);
-    assertSame(valueOfResult, location28.getLocation().x);
-    assertSame(valueOfResult, location29.getLocation().x);
-    assertSame(valueOfResult, location2.x);
-    assertSame(valueOfResult, location30.getLocation().x);
-    assertSame(valueOfResult, location19.x);
-    assertSame(valueOfResult, location21.x);
-    assertSame(valueOfResult, location31.getLocation().x);
-    assertSame(valueOfResult, location23.x);
-    assertSame(valueOfResult, location32.getLocation().x);
-    assertSame(valueOfResult, location25.x);
-    assertSame(valueOfResult, location14.x);
-    assertSame(valueOfResult, location33.getLocation().x);
-    assertSame(valueOfResult, bounds6.getLocation().x);
-    assertSame(valueOfResult, location26.x);
-    assertSame(valueOfResult, location16.x);
-    assertSame(valueOfResult, location10.x);
-    assertSame(valueOfResult, bounds9.getLocation().x);
-    assertSame(valueOfResult, bounds12.getLocation().x);
-    assertSame(valueOfResult, bounds15.getLocation().x);
-    assertSame(valueOfResult, location6.x);
-    assertSame(valueOfResult, bounds17.getLocation().x);
-    assertSame(valueOfResult, location27.x);
-    assertSame(valueOfResult, location28.x);
-    assertSame(valueOfResult, bounds19.getLocation().x);
-    assertSame(valueOfResult, location29.x);
-    assertSame(valueOfResult, location.x);
-    assertSame(valueOfResult, bounds20.getLocation().x);
-    assertSame(valueOfResult, location30.x);
-    assertSame(valueOfResult, location18.x);
-    assertSame(valueOfResult, location20.x);
-    assertSame(valueOfResult, bounds21.getLocation().x);
-    assertSame(valueOfResult, bounds22.getLocation().x);
-    assertSame(valueOfResult, bounds23.getLocation().x);
-    assertSame(valueOfResult, bounds24.getLocation().x);
-    assertSame(valueOfResult, location31.x);
-    assertSame(valueOfResult, bounds25.getLocation().x);
-    assertSame(valueOfResult, location22.x);
-    assertSame(valueOfResult, bounds26.getLocation().x);
-    assertSame(valueOfResult, bounds27.getLocation().x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D3).getLocation().x);
-    assertSame(valueOfResult, location32.x);
-    assertSame(valueOfResult, location24.x);
-    assertSame(valueOfResult, location13.x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D18).getLocation().x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D19).getLocation().x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D29).getLocation().x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D34).getLocation().x);
-    assertSame(valueOfResult, location33.x);
-    assertSame(valueOfResult, bounds6.getBounds().x);
-    assertSame(valueOfResult, bounds6.x);
-    assertSame(valueOfResult, bounds5.x);
-    assertSame(valueOfResult, bounds4.x);
-    assertSame(valueOfResult, bounds9.getBounds().x);
-    assertSame(valueOfResult, bounds12.getBounds().x);
-    assertSame(valueOfResult, bounds15.getBounds().x);
-    assertSame(valueOfResult, bounds3.x);
-    assertSame(valueOfResult, bounds17.getBounds().x);
-    assertSame(valueOfResult, bounds9.x);
-    assertSame(valueOfResult, bounds12.x);
-    assertSame(valueOfResult, bounds19.getBounds().x);
-    assertSame(valueOfResult, bounds15.x);
-    assertSame(valueOfResult, bounds2.x);
-    assertSame(valueOfResult, bounds20.getBounds().x);
-    assertSame(valueOfResult, bounds17.x);
-    assertSame(valueOfResult, bounds8.x);
-    assertSame(valueOfResult, bounds11.x);
-    assertSame(valueOfResult, bounds21.getBounds().x);
-    assertSame(valueOfResult, bounds22.getBounds().x);
-    assertSame(valueOfResult, bounds23.getBounds().x);
-    assertSame(valueOfResult, bounds24.getBounds().x);
-    assertSame(valueOfResult, bounds19.x);
-    assertSame(valueOfResult, bounds25.getBounds().x);
-    assertSame(valueOfResult, bounds14.x);
-    assertSame(valueOfResult, bounds26.getBounds().x);
-    assertSame(valueOfResult, bounds27.getBounds().x);
-    assertSame(valueOfResult, bounds.x);
-    assertSame(valueOfResult, bounds2D3.getBounds().x);
-    assertSame(valueOfResult, bounds20.x);
-    assertSame(valueOfResult, bounds16.x);
-    assertSame(valueOfResult, bounds7.x);
-    assertSame(valueOfResult, bounds2D18.getBounds().x);
-    assertSame(valueOfResult, bounds2D19.getBounds().x);
-    assertSame(valueOfResult, bounds2D29.getBounds().x);
-    assertSame(valueOfResult, bounds10.x);
-    assertSame(valueOfResult, bounds2D34.getBounds().x);
-    assertSame(valueOfResult, bounds21.x);
-    assertSame(valueOfResult, bounds22.x);
-    assertSame(valueOfResult, bounds2D40.getBounds().x);
-    assertSame(valueOfResult, bounds23.x);
-    assertSame(valueOfResult, frame7.getBounds().x);
-    assertSame(valueOfResult, bounds24.x);
-    assertSame(valueOfResult, bounds18.x);
-    assertSame(valueOfResult, frame8.getBounds().x);
-    assertSame(valueOfResult, bounds25.x);
-    assertSame(valueOfResult, bounds13.x);
-    assertSame(valueOfResult, bounds26.x);
-    assertSame(valueOfResult, frame9.getBounds().x);
-    assertSame(valueOfResult, frame10.getBounds().x);
-    assertSame(valueOfResult, frame11.getBounds().x);
-    assertSame(valueOfResult, frame12.getBounds().x);
-    assertSame(valueOfResult, bounds27.x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D2).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D3).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D4).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D6).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D8).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D9).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D10).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D11).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D12).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D13).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D14).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D15).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D5).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D16).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D17).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D18).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D19).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D21).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D23).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D25).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D26).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D27).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D28).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D29).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D30).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D31).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D32).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D33).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D34).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D20).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D35).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D36).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D37).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D38).x);
-    assertSame(valueOfResult, ((Rectangle) bounds2D39).x);
   }
 
   /**
    * Test {@link Type1CharString#addCommand(List, CharStringCommand)}.
+   *
    * <ul>
-   *   <li>Given valueOf one.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add valueOf one.</li>
+   *   <li>Given valueOf one.
+   *   <li>When {@link ArrayList#ArrayList()} add valueOf one.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link Type1CharString#addCommand(List, CharStringCommand)}
+   *
+   * <p>Method under test: {@link Type1CharString#addCommand(List, CharStringCommand)}
    */
   @Test
-  @DisplayName("Test addCommand(List, CharStringCommand); given valueOf one; when ArrayList() add valueOf one")
+  @DisplayName(
+      "Test addCommand(List, CharStringCommand); given valueOf one; when ArrayList() add valueOf one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void Type1CharString.addCommand(List, CharStringCommand)"})
   void testAddCommand_givenValueOfOne_whenArrayListAddValueOfOne() {
     // Arrange
-    Type1CharString type1CharString = new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
 
     ArrayList<Number> numbers = new ArrayList<>();
     numbers.add(Integer.valueOf(1));
@@ -9883,19 +1506,24 @@ class Type1CharStringDiffblueTest {
 
   /**
    * Test {@link Type1CharString#addCommand(List, CharStringCommand)}.
+   *
    * <ul>
-   *   <li>Given valueOf one.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add valueOf one.</li>
+   *   <li>Given valueOf one.
+   *   <li>When {@link ArrayList#ArrayList()} add valueOf one.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link Type1CharString#addCommand(List, CharStringCommand)}
+   *
+   * <p>Method under test: {@link Type1CharString#addCommand(List, CharStringCommand)}
    */
   @Test
-  @DisplayName("Test addCommand(List, CharStringCommand); given valueOf one; when ArrayList() add valueOf one")
+  @DisplayName(
+      "Test addCommand(List, CharStringCommand); given valueOf one; when ArrayList() add valueOf one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void Type1CharString.addCommand(List, CharStringCommand)"})
   void testAddCommand_givenValueOfOne_whenArrayListAddValueOfOne2() {
     // Arrange
-    Type1CharString type1CharString = new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
 
     ArrayList<Number> numbers = new ArrayList<>();
     numbers.add(Integer.valueOf(1));
@@ -9913,18 +1541,22 @@ class Type1CharStringDiffblueTest {
 
   /**
    * Test {@link Type1CharString#addCommand(List, CharStringCommand)}.
+   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>When {@link ArrayList#ArrayList()}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link Type1CharString#addCommand(List, CharStringCommand)}
+   *
+   * <p>Method under test: {@link Type1CharString#addCommand(List, CharStringCommand)}
    */
   @Test
   @DisplayName("Test addCommand(List, CharStringCommand); when ArrayList()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void Type1CharString.addCommand(List, CharStringCommand)"})
   void testAddCommand_whenArrayList() {
     // Arrange
-    Type1CharString type1CharString = new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
 
     // Act
     type1CharString.addCommand(new ArrayList<>(), CharStringCommand.HSTEM);
@@ -9938,17 +1570,22 @@ class Type1CharStringDiffblueTest {
 
   /**
    * Test {@link Type1CharString#isSequenceEmpty()}.
+   *
    * <ul>
-   *   <li>Then return {@code false}.</li>
+   *   <li>Then return {@code false}.
    * </ul>
-   * <p>
-   * Method under test: {@link Type1CharString#isSequenceEmpty()}
+   *
+   * <p>Method under test: {@link Type1CharString#isSequenceEmpty()}
    */
   @Test
   @DisplayName("Test isSequenceEmpty(); then return 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean Type1CharString.isSequenceEmpty()"})
   void testIsSequenceEmpty_thenReturnFalse() {
     // Arrange
-    Type1CharString type1CharString = new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
     type1CharString.addCommand(new ArrayList<>(), CharStringCommand.HSTEM);
 
     // Act and Assert
@@ -9957,32 +1594,45 @@ class Type1CharStringDiffblueTest {
 
   /**
    * Test {@link Type1CharString#isSequenceEmpty()}.
+   *
    * <ul>
-   *   <li>Then return {@code true}.</li>
+   *   <li>Then return {@code true}.
    * </ul>
-   * <p>
-   * Method under test: {@link Type1CharString#isSequenceEmpty()}
+   *
+   * <p>Method under test: {@link Type1CharString#isSequenceEmpty()}
    */
   @Test
   @DisplayName("Test isSequenceEmpty(); then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean Type1CharString.isSequenceEmpty()"})
   void testIsSequenceEmpty_thenReturnTrue() {
-    // Arrange, Act and Assert
-    assertTrue((new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name")).isSequenceEmpty());
+    // Arrange
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+
+    // Act and Assert
+    assertTrue(type1CharString.isSequenceEmpty());
   }
 
   /**
    * Test {@link Type1CharString#getLastSequenceEntry()}.
+   *
    * <ul>
-   *   <li>Then return {@link CharStringCommand}.</li>
+   *   <li>Then return {@link CharStringCommand}.
    * </ul>
-   * <p>
-   * Method under test: {@link Type1CharString#getLastSequenceEntry()}
+   *
+   * <p>Method under test: {@link Type1CharString#getLastSequenceEntry()}
    */
   @Test
   @DisplayName("Test getLastSequenceEntry(); then return CharStringCommand")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Object Type1CharString.getLastSequenceEntry()"})
   void testGetLastSequenceEntry_thenReturnCharStringCommand() {
     // Arrange
-    Type1CharString type1CharString = new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
     type1CharString.addCommand(new ArrayList<>(), CharStringCommand.HSTEM);
 
     // Act
@@ -9995,17 +1645,24 @@ class Type1CharStringDiffblueTest {
 
   /**
    * Test {@link Type1CharString#getLastSequenceEntry()}.
+   *
    * <ul>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link Type1CharString#getLastSequenceEntry()}
+   *
+   * <p>Method under test: {@link Type1CharString#getLastSequenceEntry()}
    */
   @Test
   @DisplayName("Test getLastSequenceEntry(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Object Type1CharString.getLastSequenceEntry()"})
   void testGetLastSequenceEntry_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(
-        (new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name")).getLastSequenceEntry());
+    // Arrange
+    Type1CharString type1CharString =
+        new Type1CharString(mock(Type1CharStringReader.class), "Font Name", "Glyph Name");
+
+    // Act and Assert
+    assertNull(type1CharString.getLastSequenceEntry());
   }
 }

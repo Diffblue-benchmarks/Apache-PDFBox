@@ -2,6 +2,8 @@ package org.apache.pdfbox.pdmodel.interactive.digitalsignature.visible;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,21 +25,22 @@ import org.apache.pdfbox.pdmodel.interactive.form.PDAcroForm;
 import org.apache.pdfbox.pdmodel.interactive.form.PDField;
 import org.apache.pdfbox.pdmodel.interactive.form.PDSignatureField;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDFTemplateStructureDiffblueTest {
   /**
    * Test getters and setters.
-   * <p>
-   * Methods under test:
+   *
+   * <p>Methods under test:
+   *
    * <ul>
    *   <li>default or parameterless constructor of {@link PDFTemplateStructure}
    *   <li>{@link PDFTemplateStructure#setAcroForm(PDAcroForm)}
    *   <li>{@link PDFTemplateStructure#setAcroFormDictionary(COSDictionary)}
    *   <li>{@link PDFTemplateStructure#setAcroFormFields(List)}
    *   <li>{@link PDFTemplateStructure#setAffineTransform(AffineTransform)}
-   *   <li>
-   * {@link PDFTemplateStructure#setAppearanceDictionary(PDAppearanceDictionary)}
+   *   <li>{@link PDFTemplateStructure#setAppearanceDictionary(PDAppearanceDictionary)}
    *   <li>{@link PDFTemplateStructure#setFormatterRectangle(PDRectangle)}
    *   <li>{@link PDFTemplateStructure#setHolderForm(PDFormXObject)}
    *   <li>{@link PDFTemplateStructure#setHolderFormResources(PDResources)}
@@ -91,6 +94,65 @@ class PDFTemplateStructureDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void PDFTemplateStructure.<init>()",
+    "PDAcroForm PDFTemplateStructure.getAcroForm()",
+    "COSDictionary PDFTemplateStructure.getAcroFormDictionary()",
+    "List PDFTemplateStructure.getAcroFormFields()",
+    "AffineTransform PDFTemplateStructure.getAffineTransform()",
+    "PDAppearanceDictionary PDFTemplateStructure.getAppearanceDictionary()",
+    "PDRectangle PDFTemplateStructure.getFormatterRectangle()",
+    "PDFormXObject PDFTemplateStructure.getHolderForm()",
+    "PDResources PDFTemplateStructure.getHolderFormResources()",
+    "PDStream PDFTemplateStructure.getHolderFormStream()",
+    "PDImageXObject PDFTemplateStructure.getImage()",
+    "PDFormXObject PDFTemplateStructure.getImageForm()",
+    "COSName PDFTemplateStructure.getImageFormName()",
+    "PDResources PDFTemplateStructure.getImageFormResources()",
+    "PDStream PDFTemplateStructure.getImageFormStream()",
+    "COSName PDFTemplateStructure.getImageName()",
+    "PDFormXObject PDFTemplateStructure.getInnerForm()",
+    "COSName PDFTemplateStructure.getInnerFormName()",
+    "PDResources PDFTemplateStructure.getInnerFormResources()",
+    "PDStream PDFTemplateStructure.getInnerFormStream()",
+    "PDPage PDFTemplateStructure.getPage()",
+    "PDSignature PDFTemplateStructure.getPdSignature()",
+    "COSArray PDFTemplateStructure.getProcSet()",
+    "PDSignatureField PDFTemplateStructure.getSignatureField()",
+    "PDRectangle PDFTemplateStructure.getSignatureRectangle()",
+    "PDDocument PDFTemplateStructure.getTemplate()",
+    "COSDocument PDFTemplateStructure.getVisualSignature()",
+    "COSDictionary PDFTemplateStructure.getWidgetDictionary()",
+    "void PDFTemplateStructure.setAcroForm(PDAcroForm)",
+    "void PDFTemplateStructure.setAcroFormDictionary(COSDictionary)",
+    "void PDFTemplateStructure.setAcroFormFields(List)",
+    "void PDFTemplateStructure.setAffineTransform(AffineTransform)",
+    "void PDFTemplateStructure.setAppearanceDictionary(PDAppearanceDictionary)",
+    "void PDFTemplateStructure.setFormatterRectangle(PDRectangle)",
+    "void PDFTemplateStructure.setHolderForm(PDFormXObject)",
+    "void PDFTemplateStructure.setHolderFormResources(PDResources)",
+    "void PDFTemplateStructure.setHolderFormStream(PDStream)",
+    "void PDFTemplateStructure.setImage(PDImageXObject)",
+    "void PDFTemplateStructure.setImageForm(PDFormXObject)",
+    "void PDFTemplateStructure.setImageFormName(COSName)",
+    "void PDFTemplateStructure.setImageFormResources(PDResources)",
+    "void PDFTemplateStructure.setImageFormStream(PDStream)",
+    "void PDFTemplateStructure.setImageName(COSName)",
+    "void PDFTemplateStructure.setInnerForm(PDFormXObject)",
+    "void PDFTemplateStructure.setInnerFormName(COSName)",
+    "void PDFTemplateStructure.setInnerFormResources(PDResources)",
+    "void PDFTemplateStructure.setInnterFormStream(PDStream)",
+    "void PDFTemplateStructure.setPage(PDPage)",
+    "void PDFTemplateStructure.setPdSignature(PDSignature)",
+    "void PDFTemplateStructure.setProcSet(COSArray)",
+    "void PDFTemplateStructure.setSignatureField(PDSignatureField)",
+    "void PDFTemplateStructure.setSignatureRectangle(PDRectangle)",
+    "void PDFTemplateStructure.setTemplate(PDDocument)",
+    "void PDFTemplateStructure.setVisualSignature(COSDocument)",
+    "void PDFTemplateStructure.setWidgetDictionary(COSDictionary)"
+  })
   void testGettersAndSetters() {
     // Arrange and Act
     PDFTemplateStructure actualPdfTemplateStructure = new PDFTemplateStructure();
@@ -147,7 +209,8 @@ class PDFTemplateStructureDiffblueTest {
     COSDictionary actualAcroFormDictionary = actualPdfTemplateStructure.getAcroFormDictionary();
     List<PDField> actualAcroFormFields = actualPdfTemplateStructure.getAcroFormFields();
     AffineTransform actualAffineTransform = actualPdfTemplateStructure.getAffineTransform();
-    PDAppearanceDictionary actualAppearanceDictionary = actualPdfTemplateStructure.getAppearanceDictionary();
+    PDAppearanceDictionary actualAppearanceDictionary =
+        actualPdfTemplateStructure.getAppearanceDictionary();
     PDRectangle actualFormatterRectangle = actualPdfTemplateStructure.getFormatterRectangle();
     PDFormXObject actualHolderForm = actualPdfTemplateStructure.getHolderForm();
     PDResources actualHolderFormResources = actualPdfTemplateStructure.getHolderFormResources();
@@ -171,7 +234,7 @@ class PDFTemplateStructureDiffblueTest {
     COSDocument actualVisualSignature = actualPdfTemplateStructure.getVisualSignature();
     COSDictionary actualWidgetDictionary = actualPdfTemplateStructure.getWidgetDictionary();
 
-    // Assert that nothing has changed
+    // Assert
     assertTrue(actualAcroFormFields.isEmpty());
     assertSame(affineTransform, actualAffineTransform);
     assertSame(acroFormFields, actualAcroFormFields);
@@ -195,11 +258,11 @@ class PDFTemplateStructureDiffblueTest {
     assertSame(pdSignature, actualPdSignature);
     assertSame(acroForm, actualAcroForm);
     assertSame(signatureField, actualSignatureField);
-    COSName cosName = actualInnerFormName.A;
+    COSName cosName = COSName.A;
     assertSame(cosName, actualImageFormName);
     assertSame(cosName, actualImageName);
     assertSame(cosName, actualInnerFormName);
-    PDRectangle pdRectangle = actualSignatureRectangle.A0;
+    PDRectangle pdRectangle = PDRectangle.A0;
     assertSame(pdRectangle, actualFormatterRectangle);
     assertSame(pdRectangle, actualSignatureRectangle);
   }

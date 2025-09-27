@@ -13,8 +13,9 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
-import java.util.List;
 import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSBoolean;
@@ -25,22 +26,28 @@ import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.cos.COSString;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class PDAttributeObjectDiffblueTest {
   /**
    * Test {@link PDAttributeObject#create(COSDictionary)}.
+   *
    * <ul>
-   *   <li>When {@link COSDictionary#COSDictionary()}.</li>
-   *   <li>Then return AttributeNames Empty.</li>
+   *   <li>When {@link COSDictionary#COSDictionary()}.
+   *   <li>Then return {@link PDDefaultAttributeObject}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDAttributeObject#create(COSDictionary)}
+   *
+   * <p>Method under test: {@link PDAttributeObject#create(COSDictionary)}
    */
   @Test
-  @DisplayName("Test create(COSDictionary); when COSDictionary(); then return AttributeNames Empty")
-  void testCreate_whenCOSDictionary_thenReturnAttributeNamesEmpty() {
+  @DisplayName(
+      "Test create(COSDictionary); when COSDictionary(); then return PDDefaultAttributeObject")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAttributeObject PDAttributeObject.create(COSDictionary)"})
+  void testCreate_whenCOSDictionary_thenReturnPDDefaultAttributeObject() {
     // Arrange
     COSDictionary dictionary = new COSDictionary();
 
@@ -49,79 +56,46 @@ class PDAttributeObjectDiffblueTest {
 
     // Assert
     assertTrue(actualCreateResult instanceof PDDefaultAttributeObject);
+    assertNull(actualCreateResult.getOwner());
+    assertFalse(actualCreateResult.isEmpty());
     assertTrue(((PDDefaultAttributeObject) actualCreateResult).getAttributeNames().isEmpty());
     assertSame(dictionary, actualCreateResult.getCOSObject());
   }
 
   /**
-   * Test {@link PDAttributeObject#create(COSDictionary)}.
-   * <ul>
-   *   <li>When {@link COSStream#COSStream()}.</li>
-   *   <li>Then return AttributeNames size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAttributeObject#create(COSDictionary)}
-   */
-  @Test
-  @DisplayName("Test create(COSDictionary); when COSStream(); then return AttributeNames size is one")
-  void testCreate_whenCOSStream_thenReturnAttributeNamesSizeIsOne() {
-    // Arrange
-    COSStream dictionary = new COSStream();
-
-    // Act
-    PDAttributeObject actualCreateResult = PDAttributeObject.create(dictionary);
-
-    // Assert
-    assertTrue(actualCreateResult instanceof PDDefaultAttributeObject);
-    List<String> attributeNames = ((PDDefaultAttributeObject) actualCreateResult).getAttributeNames();
-    assertEquals(1, attributeNames.size());
-    assertEquals("Length", attributeNames.get(0));
-    assertSame(dictionary, actualCreateResult.getCOSObject());
-  }
-
-  /**
    * Test {@link PDAttributeObject#getOwner()}.
+   *
    * <ul>
-   *   <li>Given
-   * {@link PDDefaultAttributeObject#PDDefaultAttributeObject(COSDictionary)} with
-   * dictionary is {@link COSStream#COSStream()}.</li>
+   *   <li>Given {@link PDDefaultAttributeObject#PDDefaultAttributeObject()}.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDAttributeObject#getOwner()}
-   */
-  @Test
-  @DisplayName("Test getOwner(); given PDDefaultAttributeObject(COSDictionary) with dictionary is COSStream()")
-  void testGetOwner_givenPDDefaultAttributeObjectWithDictionaryIsCOSStream() {
-    // Arrange, Act and Assert
-    assertNull((new PDDefaultAttributeObject(new COSStream())).getOwner());
-  }
-
-  /**
-   * Test {@link PDAttributeObject#getOwner()}.
-   * <ul>
-   *   <li>Given {@link PDDefaultAttributeObject#PDDefaultAttributeObject()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAttributeObject#getOwner()}
+   *
+   * <p>Method under test: {@link PDAttributeObject#getOwner()}
    */
   @Test
   @DisplayName("Test getOwner(); given PDDefaultAttributeObject(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PDAttributeObject.getOwner()"})
   void testGetOwner_givenPDDefaultAttributeObject_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new PDDefaultAttributeObject()).getOwner());
+    assertNull(new PDDefaultAttributeObject().getOwner());
   }
 
   /**
    * Test {@link PDAttributeObject#setOwner(String)}.
-   * <p>
-   * Method under test: {@link PDAttributeObject#setOwner(String)}
+   *
+   * <p>Method under test: {@link PDAttributeObject#setOwner(String)}
    */
   @Test
   @DisplayName("Test setOwner(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAttributeObject.setOwner(String)"})
   void testSetOwner() {
     // Arrange
-    PDDefaultAttributeObject pdDefaultAttributeObject = new PDDefaultAttributeObject(new COSDictionary());
+    PDDefaultAttributeObject pdDefaultAttributeObject =
+        new PDDefaultAttributeObject(new COSDictionary());
 
     // Act
     pdDefaultAttributeObject.setOwner("Owner");
@@ -136,15 +110,18 @@ class PDAttributeObjectDiffblueTest {
 
   /**
    * Test {@link PDAttributeObject#setOwner(String)}.
+   *
    * <ul>
-   *   <li>Then {@link PDDefaultAttributeObject#PDDefaultAttributeObject()} Owner is
-   * {@code Owner}.</li>
+   *   <li>Then {@link PDDefaultAttributeObject#PDDefaultAttributeObject()} Owner is {@code Owner}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDAttributeObject#setOwner(String)}
+   *
+   * <p>Method under test: {@link PDAttributeObject#setOwner(String)}
    */
   @Test
   @DisplayName("Test setOwner(String); then PDDefaultAttributeObject() Owner is 'Owner'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAttributeObject.setOwner(String)"})
   void testSetOwner_thenPDDefaultAttributeObjectOwnerIsOwner() {
     // Arrange
     PDDefaultAttributeObject pdDefaultAttributeObject = new PDDefaultAttributeObject();
@@ -161,248 +138,166 @@ class PDAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDAttributeObject#isEmpty()}.
+   * Test {@link PDAttributeObject#setOwner(String)}.
+   *
    * <ul>
-   *   <li>Given
-   * {@link PDDefaultAttributeObject#PDDefaultAttributeObject(COSDictionary)} with
-   * dictionary is {@link COSStream#COSStream()}.</li>
+   *   <li>When {@code null}.
+   *   <li>Then {@link PDDefaultAttributeObject#PDDefaultAttributeObject()} COSObject size is zero.
    * </ul>
-   * <p>
-   * Method under test: {@link PDAttributeObject#isEmpty()}
+   *
+   * <p>Method under test: {@link PDAttributeObject#setOwner(String)}
    */
   @Test
-  @DisplayName("Test isEmpty(); given PDDefaultAttributeObject(COSDictionary) with dictionary is COSStream()")
-  void testIsEmpty_givenPDDefaultAttributeObjectWithDictionaryIsCOSStream() {
-    // Arrange, Act and Assert
-    assertFalse((new PDDefaultAttributeObject(new COSStream())).isEmpty());
+  @DisplayName(
+      "Test setOwner(String); when 'null'; then PDDefaultAttributeObject() COSObject size is zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAttributeObject.setOwner(String)"})
+  void testSetOwner_whenNull_thenPDDefaultAttributeObjectCOSObjectSizeIsZero() {
+    // Arrange
+    PDDefaultAttributeObject pdDefaultAttributeObject = new PDDefaultAttributeObject();
+
+    // Act
+    pdDefaultAttributeObject.setOwner(null);
+
+    // Assert that nothing has changed
+    COSDictionary cOSObject = pdDefaultAttributeObject.getCOSObject();
+    assertEquals(0, cOSObject.size());
+    assertFalse(pdDefaultAttributeObject.isEmpty());
+    assertTrue(cOSObject.getValues().isEmpty());
   }
 
   /**
    * Test {@link PDAttributeObject#isEmpty()}.
+   *
    * <ul>
-   *   <li>Given {@link PDDefaultAttributeObject#PDDefaultAttributeObject()}.</li>
-   *   <li>Then return {@code false}.</li>
+   *   <li>Given {@link PDDefaultAttributeObject#PDDefaultAttributeObject(COSDictionary)} with
+   *       dictionary is {@link COSStream#COSStream()}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDAttributeObject#isEmpty()}
+   *
+   * <p>Method under test: {@link PDAttributeObject#isEmpty()}
+   */
+  @Test
+  @DisplayName(
+      "Test isEmpty(); given PDDefaultAttributeObject(COSDictionary) with dictionary is COSStream()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean PDAttributeObject.isEmpty()"})
+  void testIsEmpty_givenPDDefaultAttributeObjectWithDictionaryIsCOSStream() {
+    // Arrange, Act and Assert
+    assertFalse(new PDDefaultAttributeObject(new COSStream()).isEmpty());
+  }
+
+  /**
+   * Test {@link PDAttributeObject#isEmpty()}.
+   *
+   * <ul>
+   *   <li>Given {@link PDDefaultAttributeObject#PDDefaultAttributeObject()}.
+   *   <li>Then return {@code false}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAttributeObject#isEmpty()}
    */
   @Test
   @DisplayName("Test isEmpty(); given PDDefaultAttributeObject(); then return 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean PDAttributeObject.isEmpty()"})
   void testIsEmpty_givenPDDefaultAttributeObject_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse((new PDDefaultAttributeObject()).isEmpty());
+    assertFalse(new PDDefaultAttributeObject().isEmpty());
   }
 
   /**
    * Test {@link PDAttributeObject#potentiallyNotifyChanged(COSBase, COSBase)}.
+   *
    * <ul>
-   *   <li>Given {@link COSArray} {@link COSArray#getObject(int)} return
-   * {@link COSName#A}.</li>
-   *   <li>Then calls {@link COSArray#getObject(int)}.</li>
+   *   <li>Given {@code String}.
+   *   <li>Then calls {@link COSString#getString()}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link PDAttributeObject#potentiallyNotifyChanged(COSBase, COSBase)}
+   *
+   * <p>Method under test: {@link PDAttributeObject#potentiallyNotifyChanged(COSBase, COSBase)}
    */
   @Test
-  @DisplayName("Test potentiallyNotifyChanged(COSBase, COSBase); given COSArray getObject(int) return A; then calls getObject(int)")
-  void testPotentiallyNotifyChanged_givenCOSArrayGetObjectReturnA_thenCallsGetObject() {
+  @DisplayName(
+      "Test potentiallyNotifyChanged(COSBase, COSBase); given 'String'; then calls getString()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAttributeObject.potentiallyNotifyChanged(COSBase, COSBase)"})
+  void testPotentiallyNotifyChanged_givenString_thenCallsGetString() throws IOException {
     // Arrange
-    COSArray cosArray = mock(COSArray.class);
-    when(cosArray.getObject(anyInt())).thenReturn(COSName.A);
-    when(cosArray.size()).thenReturn(3);
-    COSDictionary dic = mock(COSDictionary.class);
-    when(dic.getDictionaryObject(Mockito.<COSName>any())).thenReturn(cosArray);
-    PDStructureElement structureElement = new PDStructureElement(dic);
+    PDStructureElement structureElement = mock(PDStructureElement.class);
+    doNothing().when(structureElement).attributeChanged(Mockito.<PDAttributeObject>any());
 
     PDDefaultAttributeObject pdDefaultAttributeObject = new PDDefaultAttributeObject();
     pdDefaultAttributeObject.setStructureElement(structureElement);
+    COSString oldBase = COSString.parseHex("0123456789ABCDEF");
+
+    COSString newBase = mock(COSString.class);
+    when(newBase.getString()).thenReturn("String");
 
     // Act
-    pdDefaultAttributeObject.potentiallyNotifyChanged(COSBoolean.TRUE, COSBoolean.FALSE);
-
-    // Assert that nothing has changed
-    verify(cosArray, atLeast(1)).getObject(anyInt());
-    verify(cosArray, atLeast(1)).size();
-    verify(dic).getDictionaryObject(isA(COSName.class));
-  }
-
-  /**
-   * Test {@link PDAttributeObject#potentiallyNotifyChanged(COSBase, COSBase)}.
-   * <ul>
-   *   <li>Given {@link COSArray} {@link COSArray#getObject(int)} return
-   * {@link COSBoolean#FALSE}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link PDAttributeObject#potentiallyNotifyChanged(COSBase, COSBase)}
-   */
-  @Test
-  @DisplayName("Test potentiallyNotifyChanged(COSBase, COSBase); given COSArray getObject(int) return FALSE")
-  void testPotentiallyNotifyChanged_givenCOSArrayGetObjectReturnFalse() {
-    // Arrange
-    COSArray cosArray = mock(COSArray.class);
-    when(cosArray.getObject(anyInt())).thenReturn(COSBoolean.FALSE);
-    when(cosArray.size()).thenReturn(3);
-    COSDictionary dic = mock(COSDictionary.class);
-    when(dic.getDictionaryObject(Mockito.<COSName>any())).thenReturn(cosArray);
-    PDStructureElement structureElement = new PDStructureElement(dic);
-
-    PDDefaultAttributeObject pdDefaultAttributeObject = new PDDefaultAttributeObject();
-    pdDefaultAttributeObject.setStructureElement(structureElement);
-
-    // Act
-    pdDefaultAttributeObject.potentiallyNotifyChanged(COSBoolean.TRUE, COSBoolean.FALSE);
-
-    // Assert that nothing has changed
-    verify(cosArray, atLeast(1)).getObject(anyInt());
-    verify(cosArray, atLeast(1)).size();
-    verify(dic).getDictionaryObject(isA(COSName.class));
-  }
-
-  /**
-   * Test {@link PDAttributeObject#potentiallyNotifyChanged(COSBase, COSBase)}.
-   * <ul>
-   *   <li>Given {@link COSArray} {@link COSArray#getObject(int)} return
-   * {@link COSFloat#ONE}.</li>
-   *   <li>Then calls {@link COSArray#getObject(int)}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link PDAttributeObject#potentiallyNotifyChanged(COSBase, COSBase)}
-   */
-  @Test
-  @DisplayName("Test potentiallyNotifyChanged(COSBase, COSBase); given COSArray getObject(int) return ONE; then calls getObject(int)")
-  void testPotentiallyNotifyChanged_givenCOSArrayGetObjectReturnOne_thenCallsGetObject() {
-    // Arrange
-    COSArray cosArray = mock(COSArray.class);
-    when(cosArray.getObject(anyInt())).thenReturn(COSFloat.ONE);
-    when(cosArray.size()).thenReturn(3);
-    COSDictionary dic = mock(COSDictionary.class);
-    when(dic.getDictionaryObject(Mockito.<COSName>any())).thenReturn(cosArray);
-    PDStructureElement structureElement = new PDStructureElement(dic);
-
-    PDDefaultAttributeObject pdDefaultAttributeObject = new PDDefaultAttributeObject();
-    pdDefaultAttributeObject.setStructureElement(structureElement);
-
-    // Act
-    pdDefaultAttributeObject.potentiallyNotifyChanged(COSBoolean.TRUE, COSBoolean.FALSE);
-
-    // Assert that nothing has changed
-    verify(cosArray, atLeast(1)).getObject(anyInt());
-    verify(cosArray, atLeast(1)).size();
-    verify(dic).getDictionaryObject(isA(COSName.class));
-  }
-
-  /**
-   * Test {@link PDAttributeObject#potentiallyNotifyChanged(COSBase, COSBase)}.
-   * <ul>
-   *   <li>Given {@link COSArray} {@link COSArray#getObject(int)} return
-   * {@link COSInteger#ONE}.</li>
-   *   <li>Then calls {@link COSArray#getObject(int)}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link PDAttributeObject#potentiallyNotifyChanged(COSBase, COSBase)}
-   */
-  @Test
-  @DisplayName("Test potentiallyNotifyChanged(COSBase, COSBase); given COSArray getObject(int) return ONE; then calls getObject(int)")
-  void testPotentiallyNotifyChanged_givenCOSArrayGetObjectReturnOne_thenCallsGetObject2() {
-    // Arrange
-    COSArray cosArray = mock(COSArray.class);
-    when(cosArray.getObject(anyInt())).thenReturn(COSInteger.ONE);
-    when(cosArray.size()).thenReturn(3);
-    COSDictionary dic = mock(COSDictionary.class);
-    when(dic.getDictionaryObject(Mockito.<COSName>any())).thenReturn(cosArray);
-    PDStructureElement structureElement = new PDStructureElement(dic);
-
-    PDDefaultAttributeObject pdDefaultAttributeObject = new PDDefaultAttributeObject();
-    pdDefaultAttributeObject.setStructureElement(structureElement);
-
-    // Act
-    pdDefaultAttributeObject.potentiallyNotifyChanged(COSBoolean.TRUE, COSBoolean.FALSE);
-
-    // Assert that nothing has changed
-    verify(cosArray, atLeast(1)).getObject(anyInt());
-    verify(cosArray, atLeast(1)).size();
-    verify(dic).getDictionaryObject(isA(COSName.class));
-  }
-
-  /**
-   * Test {@link PDAttributeObject#potentiallyNotifyChanged(COSBase, COSBase)}.
-   * <ul>
-   *   <li>Given {@link COSDictionary}
-   * {@link COSDictionary#getDictionaryObject(COSName)} return
-   * {@link COSArray#COSArray()}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link PDAttributeObject#potentiallyNotifyChanged(COSBase, COSBase)}
-   */
-  @Test
-  @DisplayName("Test potentiallyNotifyChanged(COSBase, COSBase); given COSDictionary getDictionaryObject(COSName) return COSArray()")
-  void testPotentiallyNotifyChanged_givenCOSDictionaryGetDictionaryObjectReturnCOSArray() {
-    // Arrange
-    COSDictionary dic = mock(COSDictionary.class);
-    when(dic.getDictionaryObject(Mockito.<COSName>any())).thenReturn(new COSArray());
-    PDStructureElement structureElement = new PDStructureElement(dic);
-
-    PDDefaultAttributeObject pdDefaultAttributeObject = new PDDefaultAttributeObject();
-    pdDefaultAttributeObject.setStructureElement(structureElement);
-
-    // Act
-    pdDefaultAttributeObject.potentiallyNotifyChanged(COSBoolean.TRUE, COSBoolean.FALSE);
-
-    // Assert that nothing has changed
-    verify(dic).getDictionaryObject(isA(COSName.class));
-  }
-
-  /**
-   * Test {@link PDAttributeObject#potentiallyNotifyChanged(COSBase, COSBase)}.
-   * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#getInt(COSName, int)}
-   * return {@link Integer#MIN_VALUE}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link PDAttributeObject#potentiallyNotifyChanged(COSBase, COSBase)}
-   */
-  @Test
-  @DisplayName("Test potentiallyNotifyChanged(COSBase, COSBase); given COSDictionary getInt(COSName, int) return MIN_VALUE")
-  void testPotentiallyNotifyChanged_givenCOSDictionaryGetIntReturnMin_value() {
-    // Arrange
-    COSDictionary dic = mock(COSDictionary.class);
-    when(dic.getInt(Mockito.<COSName>any(), anyInt())).thenReturn(Integer.MIN_VALUE);
-    when(dic.getDictionaryObject(Mockito.<COSName>any())).thenReturn(COSBoolean.FALSE);
-    doNothing().when(dic).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
-    PDStructureElement structureElement = new PDStructureElement(dic);
-
-    PDDefaultAttributeObject pdDefaultAttributeObject = new PDDefaultAttributeObject();
-    pdDefaultAttributeObject.setStructureElement(structureElement);
-
-    // Act
-    pdDefaultAttributeObject.potentiallyNotifyChanged(COSBoolean.TRUE, COSBoolean.FALSE);
+    pdDefaultAttributeObject.potentiallyNotifyChanged(oldBase, newBase);
 
     // Assert
-    verify(dic).getDictionaryObject(isA(COSName.class));
-    verify(dic).getInt(isA(COSName.class), eq(0));
-    verify(dic).setItem(isA(COSName.class), isA(COSBase.class));
+    verify(newBase).getString();
+    verify(structureElement).attributeChanged(isA(PDAttributeObject.class));
   }
 
   /**
    * Test {@link PDAttributeObject#potentiallyNotifyChanged(COSBase, COSBase)}.
+   *
    * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#getInt(COSName, int)}
-   * return one.</li>
-   *   <li>Then calls {@link COSDictionary#getInt(COSName, int)}.</li>
+   *   <li>Given {@code String}.
+   *   <li>When parseHex {@code 42}.
+   *   <li>Then calls {@link COSString#getString()}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link PDAttributeObject#potentiallyNotifyChanged(COSBase, COSBase)}
+   *
+   * <p>Method under test: {@link PDAttributeObject#potentiallyNotifyChanged(COSBase, COSBase)}
    */
   @Test
-  @DisplayName("Test potentiallyNotifyChanged(COSBase, COSBase); given COSDictionary getInt(COSName, int) return one; then calls getInt(COSName, int)")
-  void testPotentiallyNotifyChanged_givenCOSDictionaryGetIntReturnOne_thenCallsGetInt() {
+  @DisplayName(
+      "Test potentiallyNotifyChanged(COSBase, COSBase); given 'String'; when parseHex '42'; then calls getString()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAttributeObject.potentiallyNotifyChanged(COSBase, COSBase)"})
+  void testPotentiallyNotifyChanged_givenString_whenParseHex42_thenCallsGetString()
+      throws IOException {
+    // Arrange
+    PDStructureElement structureElement = mock(PDStructureElement.class);
+    doNothing().when(structureElement).attributeChanged(Mockito.<PDAttributeObject>any());
+
+    PDDefaultAttributeObject pdDefaultAttributeObject = new PDDefaultAttributeObject();
+    pdDefaultAttributeObject.setStructureElement(structureElement);
+    COSString oldBase = COSString.parseHex("42");
+
+    COSString newBase = mock(COSString.class);
+    when(newBase.getString()).thenReturn("String");
+
+    // Act
+    pdDefaultAttributeObject.potentiallyNotifyChanged(oldBase, newBase);
+
+    // Assert
+    verify(newBase).getString();
+    verify(structureElement).attributeChanged(isA(PDAttributeObject.class));
+  }
+
+  /**
+   * Test {@link PDAttributeObject#potentiallyNotifyChanged(COSBase, COSBase)}.
+   *
+   * <ul>
+   *   <li>Then calls {@link COSDictionary#getDictionaryObject(COSName)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAttributeObject#potentiallyNotifyChanged(COSBase, COSBase)}
+   */
+  @Test
+  @DisplayName(
+      "Test potentiallyNotifyChanged(COSBase, COSBase); then calls getDictionaryObject(COSName)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAttributeObject.potentiallyNotifyChanged(COSBase, COSBase)"})
+  void testPotentiallyNotifyChanged_thenCallsGetDictionaryObject() {
     // Arrange
     COSDictionary dic = mock(COSDictionary.class);
     when(dic.getInt(Mockito.<COSName>any(), anyInt())).thenReturn(1);
@@ -424,73 +319,22 @@ class PDAttributeObjectDiffblueTest {
 
   /**
    * Test {@link PDAttributeObject#potentiallyNotifyChanged(COSBase, COSBase)}.
+   *
    * <ul>
-   *   <li>Then calls
-   * {@link PDStructureElement#attributeChanged(PDAttributeObject)}.</li>
+   *   <li>When {@link COSString#COSString(String)} with {@code Text}.
+   *   <li>Then calls {@link PDStructureElement#attributeChanged(PDAttributeObject)}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link PDAttributeObject#potentiallyNotifyChanged(COSBase, COSBase)}
+   *
+   * <p>Method under test: {@link PDAttributeObject#potentiallyNotifyChanged(COSBase, COSBase)}
    */
   @Test
-  @DisplayName("Test potentiallyNotifyChanged(COSBase, COSBase); then calls attributeChanged(PDAttributeObject)")
-  void testPotentiallyNotifyChanged_thenCallsAttributeChanged() {
-    // Arrange
-    PDStructureElement structureElement = mock(PDStructureElement.class);
-    doNothing().when(structureElement).attributeChanged(Mockito.<PDAttributeObject>any());
-
-    PDDefaultAttributeObject pdDefaultAttributeObject = new PDDefaultAttributeObject();
-    pdDefaultAttributeObject.setStructureElement(structureElement);
-
-    // Act
-    pdDefaultAttributeObject.potentiallyNotifyChanged(COSBoolean.TRUE, COSBoolean.FALSE);
-
-    // Assert that nothing has changed
-    verify(structureElement).attributeChanged(isA(PDAttributeObject.class));
-  }
-
-  /**
-   * Test {@link PDAttributeObject#potentiallyNotifyChanged(COSBase, COSBase)}.
-   * <ul>
-   *   <li>When {@link COSString#COSString(String, boolean)} with {@code Text} and
-   * forceHex is {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link PDAttributeObject#potentiallyNotifyChanged(COSBase, COSBase)}
-   */
-  @Test
-  @DisplayName("Test potentiallyNotifyChanged(COSBase, COSBase); when COSString(String, boolean) with 'Text' and forceHex is 'true'")
-  void testPotentiallyNotifyChanged_whenCOSStringWithTextAndForceHexIsTrue() {
-    // Arrange
-    PDStructureElement structureElement = mock(PDStructureElement.class);
-    doNothing().when(structureElement).attributeChanged(Mockito.<PDAttributeObject>any());
-
-    PDDefaultAttributeObject pdDefaultAttributeObject = new PDDefaultAttributeObject();
-    pdDefaultAttributeObject.setStructureElement(structureElement);
-    COSString oldBase = new COSString("Text", true);
-
-    // Act
-    pdDefaultAttributeObject.potentiallyNotifyChanged(oldBase, new COSString("Text"));
-
-    // Assert
-    verify(structureElement).attributeChanged(isA(PDAttributeObject.class));
-  }
-
-  /**
-   * Test {@link PDAttributeObject#potentiallyNotifyChanged(COSBase, COSBase)}.
-   * <ul>
-   *   <li>When {@link COSString#COSString(String)} with {@code Text}.</li>
-   *   <li>Then calls
-   * {@link PDStructureElement#attributeChanged(PDAttributeObject)}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link PDAttributeObject#potentiallyNotifyChanged(COSBase, COSBase)}
-   */
-  @Test
-  @DisplayName("Test potentiallyNotifyChanged(COSBase, COSBase); when COSString(String) with 'Text'; then calls attributeChanged(PDAttributeObject)")
-  void testPotentiallyNotifyChanged_whenCOSStringWithText_thenCallsAttributeChanged() throws IOException {
+  @DisplayName(
+      "Test potentiallyNotifyChanged(COSBase, COSBase); when COSString(String) with 'Text'; then calls attributeChanged(PDAttributeObject)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAttributeObject.potentiallyNotifyChanged(COSBase, COSBase)"})
+  void testPotentiallyNotifyChanged_whenCOSStringWithText_thenCallsAttributeChanged()
+      throws IOException {
     // Arrange
     PDStructureElement structureElement = mock(PDStructureElement.class);
     doNothing().when(structureElement).attributeChanged(Mockito.<PDAttributeObject>any());
@@ -508,44 +352,18 @@ class PDAttributeObjectDiffblueTest {
 
   /**
    * Test {@link PDAttributeObject#potentiallyNotifyChanged(COSBase, COSBase)}.
+   *
    * <ul>
-   *   <li>When parseHex {@code 42}.</li>
-   *   <li>Then calls
-   * {@link PDStructureElement#attributeChanged(PDAttributeObject)}.</li>
+   *   <li>When parseHex {@code 0123456789ABCDEF}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link PDAttributeObject#potentiallyNotifyChanged(COSBase, COSBase)}
-   */
-  @Test
-  @DisplayName("Test potentiallyNotifyChanged(COSBase, COSBase); when parseHex '42'; then calls attributeChanged(PDAttributeObject)")
-  void testPotentiallyNotifyChanged_whenParseHex42_thenCallsAttributeChanged() throws IOException {
-    // Arrange
-    PDStructureElement structureElement = mock(PDStructureElement.class);
-    doNothing().when(structureElement).attributeChanged(Mockito.<PDAttributeObject>any());
-
-    PDDefaultAttributeObject pdDefaultAttributeObject = new PDDefaultAttributeObject();
-    pdDefaultAttributeObject.setStructureElement(structureElement);
-    COSString oldBase = COSString.parseHex("42");
-
-    // Act
-    pdDefaultAttributeObject.potentiallyNotifyChanged(oldBase, COSString.parseHex("0123456789ABCDEF"));
-
-    // Assert
-    verify(structureElement).attributeChanged(isA(PDAttributeObject.class));
-  }
-
-  /**
-   * Test {@link PDAttributeObject#potentiallyNotifyChanged(COSBase, COSBase)}.
-   * <ul>
-   *   <li>When parseHex {@code 0123456789ABCDEF}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link PDAttributeObject#potentiallyNotifyChanged(COSBase, COSBase)}
+   *
+   * <p>Method under test: {@link PDAttributeObject#potentiallyNotifyChanged(COSBase, COSBase)}
    */
   @Test
   @DisplayName("Test potentiallyNotifyChanged(COSBase, COSBase); when parseHex '0123456789ABCDEF'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAttributeObject.potentiallyNotifyChanged(COSBase, COSBase)"})
   void testPotentiallyNotifyChanged_whenParseHex0123456789abcdef() throws IOException {
     // Arrange
     PDStructureElement structureElement = mock(PDStructureElement.class);
@@ -555,29 +373,66 @@ class PDAttributeObjectDiffblueTest {
     pdDefaultAttributeObject.setStructureElement(structureElement);
 
     // Act
-    pdDefaultAttributeObject.potentiallyNotifyChanged(COSString.parseHex("0123456789ABCDEF"), COSBoolean.FALSE);
+    pdDefaultAttributeObject.potentiallyNotifyChanged(
+        COSString.parseHex("0123456789ABCDEF"), COSBoolean.FALSE);
 
-    // Assert that nothing has changed
+    // Assert
+    verify(structureElement).attributeChanged(isA(PDAttributeObject.class));
+  }
+
+  /**
+   * Test {@link PDAttributeObject#potentiallyNotifyChanged(COSBase, COSBase)}.
+   *
+   * <ul>
+   *   <li>When {@link COSBoolean#TRUE}.
+   *   <li>Then calls {@link PDStructureElement#attributeChanged(PDAttributeObject)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAttributeObject#potentiallyNotifyChanged(COSBase, COSBase)}
+   */
+  @Test
+  @DisplayName(
+      "Test potentiallyNotifyChanged(COSBase, COSBase); when TRUE; then calls attributeChanged(PDAttributeObject)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAttributeObject.potentiallyNotifyChanged(COSBase, COSBase)"})
+  void testPotentiallyNotifyChanged_whenTrue_thenCallsAttributeChanged() {
+    // Arrange
+    PDStructureElement structureElement = mock(PDStructureElement.class);
+    doNothing().when(structureElement).attributeChanged(Mockito.<PDAttributeObject>any());
+
+    PDDefaultAttributeObject pdDefaultAttributeObject = new PDDefaultAttributeObject();
+    pdDefaultAttributeObject.setStructureElement(structureElement);
+
+    // Act
+    pdDefaultAttributeObject.potentiallyNotifyChanged(COSBoolean.TRUE, COSBoolean.FALSE);
+
+    // Assert
     verify(structureElement).attributeChanged(isA(PDAttributeObject.class));
   }
 
   /**
    * Test {@link PDAttributeObject#notifyChanged()}.
+   *
    * <ul>
-   *   <li>Given {@link COSArray} {@link COSArray#getObject(int)} return
-   * {@link COSName#A}.</li>
-   *   <li>Then calls {@link COSArray#getObject(int)}.</li>
+   *   <li>Given {@link COSArray} {@link COSArray#getObject(int)} return {@link COSName#A}.
+   *   <li>Then calls {@link COSArray#getObject(int)}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDAttributeObject#notifyChanged()}
+   *
+   * <p>Method under test: {@link PDAttributeObject#notifyChanged()}
    */
   @Test
-  @DisplayName("Test notifyChanged(); given COSArray getObject(int) return A; then calls getObject(int)")
+  @DisplayName(
+      "Test notifyChanged(); given COSArray getObject(int) return A; then calls getObject(int)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAttributeObject.notifyChanged()"})
   void testNotifyChanged_givenCOSArrayGetObjectReturnA_thenCallsGetObject() {
     // Arrange
     COSArray cosArray = mock(COSArray.class);
     when(cosArray.getObject(anyInt())).thenReturn(COSName.A);
     when(cosArray.size()).thenReturn(3);
+
     COSDictionary dic = mock(COSDictionary.class);
     when(dic.getDictionaryObject(Mockito.<COSName>any())).thenReturn(cosArray);
     PDStructureElement structureElement = new PDStructureElement(dic);
@@ -588,7 +443,7 @@ class PDAttributeObjectDiffblueTest {
     // Act
     pdDefaultAttributeObject.notifyChanged();
 
-    // Assert that nothing has changed
+    // Assert
     verify(cosArray, atLeast(1)).getObject(anyInt());
     verify(cosArray, atLeast(1)).size();
     verify(dic).getDictionaryObject(isA(COSName.class));
@@ -596,21 +451,26 @@ class PDAttributeObjectDiffblueTest {
 
   /**
    * Test {@link PDAttributeObject#notifyChanged()}.
+   *
    * <ul>
-   *   <li>Given {@link COSArray} {@link COSArray#getObject(int)} return
-   * {@link COSBoolean#FALSE}.</li>
-   *   <li>Then calls {@link COSArray#getObject(int)}.</li>
+   *   <li>Given {@link COSArray} {@link COSArray#getObject(int)} return {@link COSBoolean#FALSE}.
+   *   <li>Then calls {@link COSArray#getObject(int)}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDAttributeObject#notifyChanged()}
+   *
+   * <p>Method under test: {@link PDAttributeObject#notifyChanged()}
    */
   @Test
-  @DisplayName("Test notifyChanged(); given COSArray getObject(int) return FALSE; then calls getObject(int)")
+  @DisplayName(
+      "Test notifyChanged(); given COSArray getObject(int) return FALSE; then calls getObject(int)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAttributeObject.notifyChanged()"})
   void testNotifyChanged_givenCOSArrayGetObjectReturnFalse_thenCallsGetObject() {
     // Arrange
     COSArray cosArray = mock(COSArray.class);
     when(cosArray.getObject(anyInt())).thenReturn(COSBoolean.FALSE);
     when(cosArray.size()).thenReturn(3);
+
     COSDictionary dic = mock(COSDictionary.class);
     when(dic.getDictionaryObject(Mockito.<COSName>any())).thenReturn(cosArray);
     PDStructureElement structureElement = new PDStructureElement(dic);
@@ -621,7 +481,7 @@ class PDAttributeObjectDiffblueTest {
     // Act
     pdDefaultAttributeObject.notifyChanged();
 
-    // Assert that nothing has changed
+    // Assert
     verify(cosArray, atLeast(1)).getObject(anyInt());
     verify(cosArray, atLeast(1)).size();
     verify(dic).getDictionaryObject(isA(COSName.class));
@@ -629,21 +489,26 @@ class PDAttributeObjectDiffblueTest {
 
   /**
    * Test {@link PDAttributeObject#notifyChanged()}.
+   *
    * <ul>
-   *   <li>Given {@link COSArray} {@link COSArray#getObject(int)} return
-   * {@link COSFloat#ONE}.</li>
-   *   <li>Then calls {@link COSArray#getObject(int)}.</li>
+   *   <li>Given {@link COSArray} {@link COSArray#getObject(int)} return {@link COSFloat#ONE}.
+   *   <li>Then calls {@link COSArray#getObject(int)}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDAttributeObject#notifyChanged()}
+   *
+   * <p>Method under test: {@link PDAttributeObject#notifyChanged()}
    */
   @Test
-  @DisplayName("Test notifyChanged(); given COSArray getObject(int) return ONE; then calls getObject(int)")
+  @DisplayName(
+      "Test notifyChanged(); given COSArray getObject(int) return ONE; then calls getObject(int)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAttributeObject.notifyChanged()"})
   void testNotifyChanged_givenCOSArrayGetObjectReturnOne_thenCallsGetObject() {
     // Arrange
     COSArray cosArray = mock(COSArray.class);
     when(cosArray.getObject(anyInt())).thenReturn(COSFloat.ONE);
     when(cosArray.size()).thenReturn(3);
+
     COSDictionary dic = mock(COSDictionary.class);
     when(dic.getDictionaryObject(Mockito.<COSName>any())).thenReturn(cosArray);
     PDStructureElement structureElement = new PDStructureElement(dic);
@@ -654,7 +519,7 @@ class PDAttributeObjectDiffblueTest {
     // Act
     pdDefaultAttributeObject.notifyChanged();
 
-    // Assert that nothing has changed
+    // Assert
     verify(cosArray, atLeast(1)).getObject(anyInt());
     verify(cosArray, atLeast(1)).size();
     verify(dic).getDictionaryObject(isA(COSName.class));
@@ -662,21 +527,26 @@ class PDAttributeObjectDiffblueTest {
 
   /**
    * Test {@link PDAttributeObject#notifyChanged()}.
+   *
    * <ul>
-   *   <li>Given {@link COSArray} {@link COSArray#getObject(int)} return
-   * {@link COSInteger#ONE}.</li>
-   *   <li>Then calls {@link COSArray#getObject(int)}.</li>
+   *   <li>Given {@link COSArray} {@link COSArray#getObject(int)} return {@link COSInteger#ONE}.
+   *   <li>Then calls {@link COSArray#getObject(int)}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDAttributeObject#notifyChanged()}
+   *
+   * <p>Method under test: {@link PDAttributeObject#notifyChanged()}
    */
   @Test
-  @DisplayName("Test notifyChanged(); given COSArray getObject(int) return ONE; then calls getObject(int)")
+  @DisplayName(
+      "Test notifyChanged(); given COSArray getObject(int) return ONE; then calls getObject(int)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAttributeObject.notifyChanged()"})
   void testNotifyChanged_givenCOSArrayGetObjectReturnOne_thenCallsGetObject2() {
     // Arrange
     COSArray cosArray = mock(COSArray.class);
     when(cosArray.getObject(anyInt())).thenReturn(COSInteger.ONE);
     when(cosArray.size()).thenReturn(3);
+
     COSDictionary dic = mock(COSDictionary.class);
     when(dic.getDictionaryObject(Mockito.<COSName>any())).thenReturn(cosArray);
     PDStructureElement structureElement = new PDStructureElement(dic);
@@ -687,7 +557,7 @@ class PDAttributeObjectDiffblueTest {
     // Act
     pdDefaultAttributeObject.notifyChanged();
 
-    // Assert that nothing has changed
+    // Assert
     verify(cosArray, atLeast(1)).getObject(anyInt());
     verify(cosArray, atLeast(1)).size();
     verify(dic).getDictionaryObject(isA(COSName.class));
@@ -695,16 +565,20 @@ class PDAttributeObjectDiffblueTest {
 
   /**
    * Test {@link PDAttributeObject#notifyChanged()}.
+   *
    * <ul>
-   *   <li>Given {@link COSDictionary}
-   * {@link COSDictionary#getDictionaryObject(COSName)} return
-   * {@link COSArray#COSArray()}.</li>
+   *   <li>Given {@link COSDictionary} {@link COSDictionary#getDictionaryObject(COSName)} return
+   *       {@link COSArray#COSArray()}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDAttributeObject#notifyChanged()}
+   *
+   * <p>Method under test: {@link PDAttributeObject#notifyChanged()}
    */
   @Test
-  @DisplayName("Test notifyChanged(); given COSDictionary getDictionaryObject(COSName) return COSArray()")
+  @DisplayName(
+      "Test notifyChanged(); given COSDictionary getDictionaryObject(COSName) return COSArray()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAttributeObject.notifyChanged()"})
   void testNotifyChanged_givenCOSDictionaryGetDictionaryObjectReturnCOSArray() {
     // Arrange
     COSDictionary dic = mock(COSDictionary.class);
@@ -717,22 +591,27 @@ class PDAttributeObjectDiffblueTest {
     // Act
     pdDefaultAttributeObject.notifyChanged();
 
-    // Assert that nothing has changed
+    // Assert
     verify(dic).getDictionaryObject(isA(COSName.class));
   }
 
   /**
    * Test {@link PDAttributeObject#notifyChanged()}.
+   *
    * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#getInt(COSName, int)}
-   * return {@link Integer#MIN_VALUE}.</li>
-   *   <li>Then calls {@link COSDictionary#getInt(COSName, int)}.</li>
+   *   <li>Given {@link COSDictionary} {@link COSDictionary#getInt(COSName, int)} return {@link
+   *       Integer#MIN_VALUE}.
+   *   <li>Then calls {@link COSDictionary#getInt(COSName, int)}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDAttributeObject#notifyChanged()}
+   *
+   * <p>Method under test: {@link PDAttributeObject#notifyChanged()}
    */
   @Test
-  @DisplayName("Test notifyChanged(); given COSDictionary getInt(COSName, int) return MIN_VALUE; then calls getInt(COSName, int)")
+  @DisplayName(
+      "Test notifyChanged(); given COSDictionary getInt(COSName, int) return MIN_VALUE; then calls getInt(COSName, int)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAttributeObject.notifyChanged()"})
   void testNotifyChanged_givenCOSDictionaryGetIntReturnMin_value_thenCallsGetInt() {
     // Arrange
     COSDictionary dic = mock(COSDictionary.class);
@@ -755,16 +634,21 @@ class PDAttributeObjectDiffblueTest {
 
   /**
    * Test {@link PDAttributeObject#notifyChanged()}.
+   *
    * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#getInt(COSName, int)}
-   * return minus one hundred.</li>
-   *   <li>Then calls {@link COSDictionary#getInt(COSName, int)}.</li>
+   *   <li>Given {@link COSDictionary} {@link COSDictionary#getInt(COSName, int)} return minus one
+   *       hundred.
+   *   <li>Then calls {@link COSDictionary#getInt(COSName, int)}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDAttributeObject#notifyChanged()}
+   *
+   * <p>Method under test: {@link PDAttributeObject#notifyChanged()}
    */
   @Test
-  @DisplayName("Test notifyChanged(); given COSDictionary getInt(COSName, int) return minus one hundred; then calls getInt(COSName, int)")
+  @DisplayName(
+      "Test notifyChanged(); given COSDictionary getInt(COSName, int) return minus one hundred; then calls getInt(COSName, int)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAttributeObject.notifyChanged()"})
   void testNotifyChanged_givenCOSDictionaryGetIntReturnMinusOneHundred_thenCallsGetInt() {
     // Arrange
     COSDictionary dic = mock(COSDictionary.class);
@@ -787,16 +671,20 @@ class PDAttributeObjectDiffblueTest {
 
   /**
    * Test {@link PDAttributeObject#notifyChanged()}.
+   *
    * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#getInt(COSName, int)}
-   * return one.</li>
-   *   <li>Then calls {@link COSDictionary#getInt(COSName, int)}.</li>
+   *   <li>Given {@link COSDictionary} {@link COSDictionary#getInt(COSName, int)} return one.
+   *   <li>Then calls {@link COSDictionary#getInt(COSName, int)}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDAttributeObject#notifyChanged()}
+   *
+   * <p>Method under test: {@link PDAttributeObject#notifyChanged()}
    */
   @Test
-  @DisplayName("Test notifyChanged(); given COSDictionary getInt(COSName, int) return one; then calls getInt(COSName, int)")
+  @DisplayName(
+      "Test notifyChanged(); given COSDictionary getInt(COSName, int) return one; then calls getInt(COSName, int)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAttributeObject.notifyChanged()"})
   void testNotifyChanged_givenCOSDictionaryGetIntReturnOne_thenCallsGetInt() {
     // Arrange
     COSDictionary dic = mock(COSDictionary.class);
@@ -819,15 +707,18 @@ class PDAttributeObjectDiffblueTest {
 
   /**
    * Test {@link PDAttributeObject#notifyChanged()}.
+   *
    * <ul>
-   *   <li>Then calls
-   * {@link PDStructureElement#attributeChanged(PDAttributeObject)}.</li>
+   *   <li>Then calls {@link PDStructureElement#attributeChanged(PDAttributeObject)}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDAttributeObject#notifyChanged()}
+   *
+   * <p>Method under test: {@link PDAttributeObject#notifyChanged()}
    */
   @Test
   @DisplayName("Test notifyChanged(); then calls attributeChanged(PDAttributeObject)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAttributeObject.notifyChanged()"})
   void testNotifyChanged_thenCallsAttributeChanged() {
     // Arrange
     PDStructureElement structureElement = mock(PDStructureElement.class);
@@ -839,62 +730,81 @@ class PDAttributeObjectDiffblueTest {
     // Act
     pdDefaultAttributeObject.notifyChanged();
 
-    // Assert that nothing has changed
+    // Assert
     verify(structureElement).attributeChanged(isA(PDAttributeObject.class));
   }
 
   /**
    * Test {@link PDAttributeObject#toString()}.
+   *
    * <ul>
-   *   <li>Given {@link PDDefaultAttributeObject#PDDefaultAttributeObject()}.</li>
-   *   <li>Then return {@code O=null, attributes={}}.</li>
+   *   <li>Given {@link PDDefaultAttributeObject#PDDefaultAttributeObject()}.
+   *   <li>Then return {@code O=null, attributes={}}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDAttributeObject#toString()}
+   *
+   * <p>Method under test: {@link PDAttributeObject#toString()}
    */
   @Test
-  @DisplayName("Test toString(); given PDDefaultAttributeObject(); then return 'O=null, attributes={}'")
+  @DisplayName(
+      "Test toString(); given PDDefaultAttributeObject(); then return 'O=null, attributes={}'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PDAttributeObject.toString()"})
   void testToString_givenPDDefaultAttributeObject_thenReturnONullAttributes() {
     // Arrange, Act and Assert
-    assertEquals("O=null, attributes={}", (new PDDefaultAttributeObject()).toString());
+    assertEquals("O=null, attributes={}", new PDDefaultAttributeObject().toString());
   }
 
   /**
    * Test {@link PDAttributeObject#toString()}.
+   *
    * <ul>
-   *   <li>Then return {@code O=null, attributes={Length=COSInt{0}}}.</li>
+   *   <li>Then return {@code O=null, attributes={Length=COSInt{0}}}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDAttributeObject#toString()}
+   *
+   * <p>Method under test: {@link PDAttributeObject#toString()}
    */
   @Test
   @DisplayName("Test toString(); then return 'O=null, attributes={Length=COSInt{0}}'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PDAttributeObject.toString()"})
   void testToString_thenReturnONullAttributesLengthCOSInt0() {
     // Arrange, Act and Assert
-    assertEquals("O=null, attributes={Length=COSInt{0}}", (new PDDefaultAttributeObject(new COSStream())).toString());
+    assertEquals(
+        "O=null, attributes={Length=COSInt{0}}",
+        new PDDefaultAttributeObject(new COSStream()).toString());
   }
 
   /**
    * Test {@link PDAttributeObject#arrayToString(float[])} with {@code float[]}.
-   * <p>
-   * Method under test: {@link PDAttributeObject#arrayToString(float[])}
+   *
+   * <p>Method under test: {@link PDAttributeObject#arrayToString(float[])}
    */
   @Test
   @DisplayName("Test arrayToString(float[]) with 'float[]'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PDAttributeObject.arrayToString(float[])"})
   void testArrayToStringWithFloat() {
     // Arrange, Act and Assert
-    assertEquals("[10.0, 0.5, 10.0, 0.5]", PDAttributeObject.arrayToString(new float[]{10.0f, 0.5f, 10.0f, 0.5f}));
+    assertEquals(
+        "[10.0, 0.5, 10.0, 0.5]",
+        PDAttributeObject.arrayToString(new float[] {10.0f, 0.5f, 10.0f, 0.5f}));
   }
 
   /**
    * Test {@link PDAttributeObject#arrayToString(Object[])} with {@code Object[]}.
-   * <p>
-   * Method under test: {@link PDAttributeObject#arrayToString(Object[])}
+   *
+   * <p>Method under test: {@link PDAttributeObject#arrayToString(Object[])}
    */
   @Test
   @DisplayName("Test arrayToString(Object[]) with 'Object[]'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PDAttributeObject.arrayToString(Object[])"})
   void testArrayToStringWithObject() {
     // Arrange, Act and Assert
-    assertEquals("[Array]", PDAttributeObject.arrayToString(new Object[]{"Array"}));
+    assertEquals("[Array]", PDAttributeObject.arrayToString(new Object[] {"Array"}));
   }
 }

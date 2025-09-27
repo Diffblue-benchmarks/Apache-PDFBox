@@ -1,58 +1,62 @@
 package org.apache.pdfbox.debugger.fontencodingpane;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSName;
-import org.apache.pdfbox.cos.COSStream;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class FontEncodingPaneControllerDiffblueTest {
   /**
-   * Test
-   * {@link FontEncodingPaneController#FontEncodingPaneController(COSName, COSDictionary)}.
+   * Test {@link FontEncodingPaneController#FontEncodingPaneController(COSName, COSDictionary)}.
+   *
    * <ul>
-   *   <li>When {@link COSDictionary#COSDictionary()}.</li>
-   *   <li>Then return Pane is {@code null}.</li>
+   *   <li>When {@link COSDictionary#COSDictionary()}.
+   *   <li>Then return Pane is {@code null}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link FontEncodingPaneController#FontEncodingPaneController(COSName, COSDictionary)}
+   *
+   * <p>Method under test: {@link FontEncodingPaneController#FontEncodingPaneController(COSName,
+   * COSDictionary)}
    */
   @Test
-  @DisplayName("Test new FontEncodingPaneController(COSName, COSDictionary); when COSDictionary(); then return Pane is 'null'")
+  @DisplayName(
+      "Test new FontEncodingPaneController(COSName, COSDictionary); when COSDictionary(); then return Pane is 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FontEncodingPaneController.<init>(COSName, COSDictionary)"})
   void testNewFontEncodingPaneController_whenCOSDictionary_thenReturnPaneIsNull() {
-    // Arrange, Act and Assert
-    assertNull((new FontEncodingPaneController(null, new COSDictionary())).getPane());
-  }
+    // Arrange
+    COSName fontName = mock(COSName.class);
 
-  /**
-   * Test
-   * {@link FontEncodingPaneController#FontEncodingPaneController(COSName, COSDictionary)}.
-   * <ul>
-   *   <li>When {@link COSStream#COSStream()}.</li>
-   *   <li>Then return Pane is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link FontEncodingPaneController#FontEncodingPaneController(COSName, COSDictionary)}
-   */
-  @Test
-  @DisplayName("Test new FontEncodingPaneController(COSName, COSDictionary); when COSStream(); then return Pane is 'null'")
-  void testNewFontEncodingPaneController_whenCOSStream_thenReturnPaneIsNull() {
-    // Arrange, Act and Assert
-    assertNull((new FontEncodingPaneController(null, new COSStream())).getPane());
+    // Act
+    FontEncodingPaneController actualFontEncodingPaneController =
+        new FontEncodingPaneController(fontName, new COSDictionary());
+
+    // Assert
+    assertNull(actualFontEncodingPaneController.getPane());
   }
 
   /**
    * Test {@link FontEncodingPaneController#getPane()}.
-   * <p>
-   * Method under test: {@link FontEncodingPaneController#getPane()}
+   *
+   * <p>Method under test: {@link FontEncodingPaneController#getPane()}
    */
   @Test
   @DisplayName("Test getPane()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"javax.swing.JPanel FontEncodingPaneController.getPane()"})
   void testGetPane() {
-    // Arrange, Act and Assert
-    assertNull((new FontEncodingPaneController(null, new COSDictionary())).getPane());
+    // Arrange
+    COSName fontName = mock(COSName.class);
+    FontEncodingPaneController fontEncodingPaneController =
+        new FontEncodingPaneController(fontName, new COSDictionary());
+
+    // Act and Assert
+    assertNull(fontEncodingPaneController.getPane());
   }
 }

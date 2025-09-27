@@ -1,14 +1,18 @@
 package org.apache.xmpbox.type;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class AttributeDiffblueTest {
   /**
    * Test getters and setters.
-   * <p>
-   * Methods under test:
+   *
+   * <p>Methods under test:
+   *
    * <ul>
    *   <li>{@link Attribute#Attribute(String, String, String)}
    *   <li>{@link Attribute#setName(String)}
@@ -22,6 +26,18 @@ class AttributeDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void Attribute.<init>(String, String, String)",
+    "String Attribute.getName()",
+    "String Attribute.getNamespace()",
+    "String Attribute.getValue()",
+    "void Attribute.setName(String)",
+    "void Attribute.setNsURI(String)",
+    "void Attribute.setValue(String)",
+    "String Attribute.toString()"
+  })
   void testGettersAndSetters() {
     // Arrange and Act
     Attribute actualAttribute = new Attribute("Ns URI", "Local Name", "42");
@@ -32,7 +48,7 @@ class AttributeDiffblueTest {
     String actualName = actualAttribute.getName();
     String actualNamespace = actualAttribute.getNamespace();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualAttribute.getValue());
     assertEquals("Lname", actualName);
     assertEquals("Ns URI", actualNamespace);

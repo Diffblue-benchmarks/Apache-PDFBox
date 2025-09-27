@@ -4,17 +4,23 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class COSBaseDiffblueTest {
   /**
    * Test {@link COSBase#getCOSObject()}.
-   * <p>
-   * Method under test: {@link COSBase#getCOSObject()}
+   *
+   * <p>Method under test: {@link COSBase#getCOSObject()}
    */
   @Test
   @DisplayName("Test getCOSObject()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"COSBase COSBase.getCOSObject()"})
   void testGetCOSObject() {
     // Arrange
     COSArray cosArray = new COSArray();
@@ -30,31 +36,39 @@ class COSBaseDiffblueTest {
 
   /**
    * Test {@link COSBase#isDirect()}.
+   *
    * <ul>
-   *   <li>Given {@link COSArray#COSArray()}.</li>
-   *   <li>Then return {@code true}.</li>
+   *   <li>Given {@link COSArray#COSArray()}.
+   *   <li>Then return {@code true}.
    * </ul>
-   * <p>
-   * Method under test: {@link COSBase#isDirect()}
+   *
+   * <p>Method under test: {@link COSBase#isDirect()}
    */
   @Test
   @DisplayName("Test isDirect(); given COSArray(); then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean COSBase.isDirect()"})
   void testIsDirect_givenCOSArray_thenReturnTrue() {
     // Arrange, Act and Assert
-    assertTrue((new COSArray()).isDirect());
+    assertTrue(new COSArray().isDirect());
   }
 
   /**
    * Test {@link COSBase#isDirect()}.
+   *
    * <ul>
-   *   <li>Given {@link COSBoolean#FALSE}.</li>
-   *   <li>Then return {@code false}.</li>
+   *   <li>Given {@link COSBoolean#FALSE}.
+   *   <li>Then return {@code false}.
    * </ul>
-   * <p>
-   * Method under test: {@link COSBase#isDirect()}
+   *
+   * <p>Method under test: {@link COSBase#isDirect()}
    */
   @Test
   @DisplayName("Test isDirect(); given FALSE; then return 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean COSBase.isDirect()"})
   void testIsDirect_givenFalse_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse(COSBoolean.FALSE.isDirect());
@@ -62,13 +76,16 @@ class COSBaseDiffblueTest {
 
   /**
    * Test {@link COSBase#getKey()}.
-   * <p>
-   * Method under test: {@link COSBase#getKey()}
+   *
+   * <p>Method under test: {@link COSBase#getKey()}
    */
   @Test
   @DisplayName("Test getKey()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"org.apache.pdfbox.cos.COSObjectKey COSBase.getKey()"})
   void testGetKey() {
     // Arrange, Act and Assert
-    assertNull((new COSArray()).getKey());
+    assertNull(new COSArray().getKey());
   }
 }

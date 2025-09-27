@@ -2,62 +2,63 @@ package org.apache.pdfbox.examples.rendering;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import java.awt.Dimension;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.geom.Area;
-import java.awt.geom.Path2D;
+import static org.mockito.Mockito.anyInt;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
+import java.awt.geom.Point2D.Float;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSDocument;
-import org.apache.pdfbox.cos.COSFloat;
-import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSStream;
-import org.apache.pdfbox.cos.COSUpdateState;
-import org.apache.pdfbox.io.RandomAccessRead;
-import org.apache.pdfbox.io.RandomAccessReadBuffer;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.common.PDStream;
-import org.apache.pdfbox.pdmodel.graphics.color.PDColor;
+import org.apache.pdfbox.pdmodel.font.PDFont;
+import org.apache.pdfbox.pdmodel.font.PDType3CharProc;
+import org.apache.pdfbox.pdmodel.font.PDType3Font;
+import org.apache.pdfbox.pdmodel.graphics.PDLineDashPattern;
 import org.apache.pdfbox.pdmodel.graphics.color.PDColorSpace;
 import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceGray;
 import org.apache.pdfbox.pdmodel.graphics.state.PDGraphicsState;
 import org.apache.pdfbox.pdmodel.interactive.annotation.PDAnnotation;
 import org.apache.pdfbox.pdmodel.interactive.annotation.PDAnnotationCaret;
-import org.apache.pdfbox.pdmodel.interactive.annotation.PDAnnotationUnknown;
-import org.apache.pdfbox.pdmodel.interactive.annotation.PDAppearanceDictionary;
-import org.apache.pdfbox.pdmodel.interactive.annotation.PDAppearanceEntry;
+import org.apache.pdfbox.util.Matrix;
+import org.apache.pdfbox.util.Vector;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class CustomGraphicsStreamEngineDiffblueTest {
   /**
    * Test {@link CustomGraphicsStreamEngine#CustomGraphicsStreamEngine(PDPage)}.
-   * <p>
-   * Method under test:
-   * {@link CustomGraphicsStreamEngine#CustomGraphicsStreamEngine(PDPage)}
+   *
+   * <p>Method under test: {@link CustomGraphicsStreamEngine#CustomGraphicsStreamEngine(PDPage)}
    */
   @Test
   @DisplayName("Test new CustomGraphicsStreamEngine(PDPage)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void CustomGraphicsStreamEngine.<init>(PDPage)"})
   void testNewCustomGraphicsStreamEngine() throws IOException {
     // Arrange and Act
-    CustomGraphicsStreamEngine actualCustomGraphicsStreamEngine = new CustomGraphicsStreamEngine(new PDPage());
+    CustomGraphicsStreamEngine actualCustomGraphicsStreamEngine =
+        new CustomGraphicsStreamEngine(new PDPage());
 
     // Assert
     Point2D currentPoint = actualCustomGraphicsStreamEngine.getCurrentPoint();
-    assertTrue(currentPoint instanceof Point2D.Float);
+    assertTrue(currentPoint instanceof Float);
     assertNull(actualCustomGraphicsStreamEngine.getCurrentPage());
     assertNull(actualCustomGraphicsStreamEngine.getResources());
     assertNull(actualCustomGraphicsStreamEngine.getGraphicsState());
@@ -66,17 +67,20 @@ class CustomGraphicsStreamEngineDiffblueTest {
     assertEquals(0, actualCustomGraphicsStreamEngine.getLevel());
     assertEquals(0.0d, currentPoint.getX());
     assertEquals(0.0d, currentPoint.getY());
-    assertEquals(0.0f, ((Point2D.Float) currentPoint).x);
-    assertEquals(0.0f, ((Point2D.Float) currentPoint).y);
+    assertEquals(0.0f, ((Float) currentPoint).x);
+    assertEquals(0.0f, ((Float) currentPoint).y);
   }
 
   /**
    * Test {@link CustomGraphicsStreamEngine#run()}.
-   * <p>
-   * Method under test: {@link CustomGraphicsStreamEngine#run()}
+   *
+   * <p>Method under test: {@link CustomGraphicsStreamEngine#run()}
    */
   @Test
   @DisplayName("Test run()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void CustomGraphicsStreamEngine.run()"})
   void testRun() throws IOException {
     // Arrange
     PDPage page = new PDPage(new COSDictionary());
@@ -87,887 +91,23 @@ class CustomGraphicsStreamEngineDiffblueTest {
 
     // Assert
     PDGraphicsState graphicsState = customGraphicsStreamEngine.getGraphicsState();
-    Area currentClippingPath = graphicsState.getCurrentClippingPath();
-    Rectangle bounds = currentClippingPath.getBounds();
-    Rectangle2D bounds2D = bounds.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    List<Path2D> currentClippingPaths = graphicsState.getCurrentClippingPaths();
-    assertEquals(1, currentClippingPaths.size());
-    Path2D getResult = currentClippingPaths.get(0);
-    assertTrue(getResult instanceof Path2D.Double);
-    assertTrue(getResult.getCurrentPoint() instanceof Point2D.Double);
-    Rectangle2D bounds2D2 = getResult.getBounds2D();
-    assertTrue(bounds2D2 instanceof Rectangle2D.Double);
-    Rectangle2D bounds2D3 = currentClippingPath.getBounds2D();
-    assertTrue(bounds2D3 instanceof Rectangle2D.Double);
-    Rectangle2D frame = bounds.getFrame();
-    assertTrue(frame instanceof Rectangle2D.Double);
-    COSBase cOSObject = graphicsState.getLineDashPattern().getCOSObject();
-    List<? extends COSBase> toListResult = ((COSArray) cOSObject).toList();
-    assertEquals(2, toListResult.size());
-    assertTrue(toListResult.get(0) instanceof COSArray);
-    assertTrue(cOSObject instanceof COSArray);
     PDColorSpace nonStrokingColorSpace = graphicsState.getNonStrokingColorSpace();
     assertTrue(nonStrokingColorSpace instanceof PDDeviceGray);
-    Dimension size = bounds.getSize();
-    assertEquals(size, size.getSize());
-    assertEquals(bounds, bounds.getBounds());
-    assertEquals(bounds, getResult.getBounds());
-    assertEquals(bounds, bounds2D);
-    assertEquals(bounds, bounds2D2);
-    assertEquals(bounds, bounds2D3);
-    assertEquals(bounds, frame);
     assertSame(page, customGraphicsStreamEngine.getCurrentPage());
-    PDColor nonStrokingColor = graphicsState.getNonStrokingColor();
-    assertSame(nonStrokingColor, nonStrokingColorSpace.getInitialColor());
-    assertSame(nonStrokingColor, graphicsState.getStrokingColor());
-    assertSame(nonStrokingColorSpace, nonStrokingColor.getColorSpace());
     assertSame(nonStrokingColorSpace, graphicsState.getStrokingColorSpace());
   }
 
   /**
    * Test {@link CustomGraphicsStreamEngine#run()}.
-   * <p>
-   * Method under test: {@link CustomGraphicsStreamEngine#run()}
+   *
+   * <p>Method under test: {@link CustomGraphicsStreamEngine#run()}
    */
   @Test
   @DisplayName("Test run()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void CustomGraphicsStreamEngine.run()"})
   void testRun2() throws IOException {
-    // Arrange
-    PDPage page = new PDPage();
-    page.setCropBox(new PDRectangle());
-    CustomGraphicsStreamEngine customGraphicsStreamEngine = new CustomGraphicsStreamEngine(page);
-
-    // Act
-    customGraphicsStreamEngine.run();
-
-    // Assert
-    PDGraphicsState graphicsState = customGraphicsStreamEngine.getGraphicsState();
-    Area currentClippingPath = graphicsState.getCurrentClippingPath();
-    Rectangle bounds = currentClippingPath.getBounds();
-    Rectangle bounds2 = bounds.getBounds();
-    Rectangle bounds3 = bounds2.getBounds();
-    Rectangle bounds4 = bounds3.getBounds();
-    Rectangle bounds5 = bounds4.getBounds();
-    Rectangle bounds6 = bounds5.getBounds();
-    Rectangle2D bounds2D = bounds6.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Rectangle2D bounds2D2 = bounds5.getBounds2D();
-    assertTrue(bounds2D2 instanceof Rectangle);
-    Rectangle2D bounds2D3 = bounds4.getBounds2D();
-    assertTrue(bounds2D3 instanceof Rectangle);
-    Rectangle2D bounds2D4 = bounds3.getBounds2D();
-    assertTrue(bounds2D4 instanceof Rectangle);
-    List<Path2D> currentClippingPaths = graphicsState.getCurrentClippingPaths();
-    assertEquals(1, currentClippingPaths.size());
-    Path2D getResult = currentClippingPaths.get(0);
-    Rectangle bounds7 = getResult.getBounds();
-    Rectangle bounds8 = bounds7.getBounds();
-    Rectangle bounds9 = bounds8.getBounds();
-    Rectangle2D bounds2D5 = bounds9.getBounds2D();
-    assertTrue(bounds2D5 instanceof Rectangle);
-    Rectangle2D bounds2D6 = currentClippingPath.getBounds2D();
-    Rectangle bounds10 = bounds2D6.getBounds();
-    Rectangle bounds11 = bounds10.getBounds();
-    Rectangle bounds12 = bounds11.getBounds();
-    Rectangle2D bounds2D7 = bounds12.getBounds2D();
-    assertTrue(bounds2D7 instanceof Rectangle);
-    Rectangle2D bounds2D8 = bounds2.getBounds2D();
-    assertTrue(bounds2D8 instanceof Rectangle);
-    Rectangle2D bounds2D9 = bounds8.getBounds2D();
-    assertTrue(bounds2D9 instanceof Rectangle);
-    Rectangle2D bounds2D10 = bounds.getBounds2D();
-    Rectangle bounds13 = bounds2D10.getBounds();
-    Rectangle bounds14 = bounds13.getBounds();
-    Rectangle2D bounds2D11 = bounds14.getBounds2D();
-    assertTrue(bounds2D11 instanceof Rectangle);
-    Rectangle2D bounds2D12 = bounds11.getBounds2D();
-    assertTrue(bounds2D12 instanceof Rectangle);
-    Rectangle2D frame = bounds.getFrame();
-    Rectangle bounds15 = frame.getBounds();
-    Rectangle bounds16 = bounds15.getBounds();
-    Rectangle2D bounds2D13 = bounds16.getBounds2D();
-    assertTrue(bounds2D13 instanceof Rectangle);
-    assertTrue(bounds2D10 instanceof Rectangle);
-    Rectangle2D bounds2D14 = bounds7.getBounds2D();
-    assertTrue(bounds2D14 instanceof Rectangle);
-    Rectangle bounds17 = bounds2D8.getBounds();
-    Rectangle2D bounds2D15 = bounds17.getBounds2D();
-    assertTrue(bounds2D15 instanceof Rectangle);
-    Rectangle2D bounds2D16 = bounds13.getBounds2D();
-    assertTrue(bounds2D16 instanceof Rectangle);
-    Rectangle2D bounds2D17 = getResult.getBounds2D();
-    Rectangle bounds18 = bounds2D17.getBounds();
-    Rectangle2D bounds2D18 = bounds18.getBounds2D();
-    assertTrue(bounds2D18 instanceof Rectangle);
-    Rectangle2D bounds2D19 = bounds10.getBounds2D();
-    assertTrue(bounds2D19 instanceof Rectangle);
-    Rectangle2D bounds2D20 = bounds2D6.getBounds2D();
-    Rectangle bounds19 = bounds2D20.getBounds();
-    Rectangle2D bounds2D21 = bounds19.getBounds2D();
-    assertTrue(bounds2D21 instanceof Rectangle);
-    Rectangle2D frame2 = bounds2.getFrame();
-    Rectangle bounds20 = frame2.getBounds();
-    Rectangle2D bounds2D22 = bounds20.getBounds2D();
-    assertTrue(bounds2D22 instanceof Rectangle);
-    Rectangle2D bounds2D23 = bounds15.getBounds2D();
-    assertTrue(bounds2D23 instanceof Rectangle);
-    Rectangle2D frame3 = bounds2D6.getFrame();
-    Rectangle bounds21 = frame3.getBounds();
-    Rectangle2D bounds2D24 = bounds21.getBounds2D();
-    assertTrue(bounds2D24 instanceof Rectangle);
-    Rectangle2D bounds2D25 = bounds2D3.getBounds2D();
-    assertTrue(bounds2D25 instanceof Rectangle);
-    Rectangle2D bounds2D26 = bounds2D4.getBounds2D();
-    assertTrue(bounds2D26 instanceof Rectangle);
-    Rectangle2D bounds2D27 = bounds2D8.getBounds2D();
-    assertTrue(bounds2D27 instanceof Rectangle);
-    Rectangle2D bounds2D28 = bounds2D10.getBounds2D();
-    assertTrue(bounds2D28 instanceof Rectangle);
-    Rectangle2D bounds2D29 = bounds2D14.getBounds2D();
-    assertTrue(bounds2D29 instanceof Rectangle);
-    Rectangle2D bounds2D30 = bounds2D19.getBounds2D();
-    assertTrue(bounds2D30 instanceof Rectangle);
-    Rectangle2D bounds2D31 = bounds2D28.getBounds2D();
-    assertTrue(bounds2D31 instanceof Rectangle);
-    assertTrue(getResult instanceof Path2D.Double);
-    assertTrue(bounds2D17 instanceof Rectangle2D.Double);
-    assertTrue(bounds2D6 instanceof Rectangle2D.Double);
-    assertTrue(bounds2D20 instanceof Rectangle2D.Double);
-    Rectangle2D bounds2D32 = frame.getBounds2D();
-    assertTrue(bounds2D32 instanceof Rectangle2D.Double);
-    Rectangle2D frame4 = bounds3.getFrame();
-    assertTrue(frame4 instanceof Rectangle2D.Double);
-    assertTrue(frame2 instanceof Rectangle2D.Double);
-    Rectangle2D frame5 = bounds2D10.getFrame();
-    assertTrue(frame5 instanceof Rectangle2D.Double);
-    assertTrue(frame instanceof Rectangle2D.Double);
-    assertTrue(frame3 instanceof Rectangle2D.Double);
-    Rectangle2D frame6 = bounds7.getFrame();
-    assertTrue(frame6 instanceof Rectangle2D.Double);
-    Rectangle2D frame7 = bounds10.getFrame();
-    assertTrue(frame7 instanceof Rectangle2D.Double);
-    Rectangle2D frame8 = frame.getFrame();
-    assertTrue(frame8 instanceof Rectangle2D.Double);
-    PDPage currentPage = customGraphicsStreamEngine.getCurrentPage();
-    PDRectangle artBox = currentPage.getArtBox();
-    List<? extends COSBase> toListResult = artBox.getCOSArray().toList();
-    assertEquals(4, toListResult.size());
-    COSBase getResult2 = toListResult.get(2);
-    assertTrue(getResult2 instanceof COSFloat);
-    COSBase getResult3 = toListResult.get(3);
-    assertTrue(getResult3 instanceof COSFloat);
-    List<? extends COSBase> toListResult2 = currentPage.getMediaBox().getCOSArray().toList();
-    assertEquals(4, toListResult2.size());
-    COSBase getResult4 = toListResult2.get(0);
-    assertTrue(getResult4 instanceof COSFloat);
-    COSBase getResult5 = toListResult2.get(1);
-    assertTrue(getResult5 instanceof COSFloat);
-    COSBase getResult6 = toListResult2.get(2);
-    assertTrue(getResult6 instanceof COSFloat);
-    COSBase getResult7 = toListResult2.get(3);
-    assertTrue(getResult7 instanceof COSFloat);
-    assertNull(getResult6.getKey());
-    assertNull(getResult7.getKey());
-    Dimension size = bounds.getSize();
-    Dimension size2 = size.getSize();
-    Dimension size3 = size2.getSize();
-    Dimension size4 = size3.getSize();
-    Dimension size5 = size4.getSize();
-    assertEquals(0, size5.height);
-    Dimension size6 = bounds2.getSize();
-    Dimension size7 = size6.getSize();
-    Dimension size8 = size7.getSize();
-    Dimension size9 = size8.getSize();
-    assertEquals(0, size9.height);
-    assertEquals(0, size4.height);
-    Dimension size10 = bounds3.getSize();
-    Dimension size11 = size10.getSize();
-    Dimension size12 = size11.getSize();
-    assertEquals(0, size12.height);
-    assertEquals(0, size8.height);
-    assertEquals(0, size3.height);
-    Dimension size13 = bounds7.getSize();
-    Dimension size14 = size13.getSize();
-    Dimension size15 = size14.getSize();
-    assertEquals(0, size15.height);
-    Dimension size16 = bounds10.getSize();
-    Dimension size17 = size16.getSize();
-    Dimension size18 = size17.getSize();
-    assertEquals(0, size18.height);
-    Dimension size19 = ((Rectangle) bounds2D10).getSize();
-    Dimension size20 = size19.getSize();
-    Dimension size21 = size20.getSize();
-    assertEquals(0, size21.height);
-    Dimension size22 = bounds5.getSize();
-    Dimension size23 = size22.getSize();
-    assertEquals(0, size23.height);
-    Dimension size24 = bounds4.getSize();
-    Dimension size25 = size24.getSize();
-    assertEquals(0, size25.height);
-    assertEquals(0, size11.height);
-    assertEquals(0, size7.height);
-    Dimension size26 = bounds8.getSize();
-    Dimension size27 = size26.getSize();
-    assertEquals(0, size27.height);
-    Dimension size28 = bounds11.getSize();
-    Dimension size29 = size28.getSize();
-    assertEquals(0, size29.height);
-    assertEquals(0, size2.height);
-    assertEquals(0, size14.height);
-    Dimension size30 = bounds13.getSize();
-    Dimension size31 = size30.getSize();
-    assertEquals(0, size31.height);
-    assertEquals(0, size17.height);
-    Dimension size32 = bounds15.getSize();
-    Dimension size33 = size32.getSize();
-    assertEquals(0, size33.height);
-    Dimension size34 = ((Rectangle) bounds2D8).getSize();
-    Dimension size35 = size34.getSize();
-    assertEquals(0, size35.height);
-    assertEquals(0, size20.height);
-    Dimension size36 = bounds6.getSize();
-    assertEquals(0, size36.height);
-    assertEquals(0, size22.height);
-    assertEquals(0, size24.height);
-    assertEquals(0, size10.height);
-    Dimension size37 = bounds9.getSize();
-    assertEquals(0, size37.height);
-    Dimension size38 = bounds12.getSize();
-    assertEquals(0, size38.height);
-    assertEquals(0, size6.height);
-    assertEquals(0, size26.height);
-    Dimension size39 = bounds14.getSize();
-    assertEquals(0, size39.height);
-    assertEquals(0, size28.height);
-    Dimension size40 = bounds16.getSize();
-    assertEquals(0, size40.height);
-    assertEquals(0, size.height);
-    assertEquals(0, size13.height);
-    Dimension size41 = bounds17.getSize();
-    assertEquals(0, size41.height);
-    assertEquals(0, size30.height);
-    Dimension size42 = bounds18.getSize();
-    assertEquals(0, size42.height);
-    assertEquals(0, size16.height);
-    Dimension size43 = bounds19.getSize();
-    assertEquals(0, size43.height);
-    Dimension size44 = bounds20.getSize();
-    assertEquals(0, size44.height);
-    assertEquals(0, size32.height);
-    Dimension size45 = bounds21.getSize();
-    assertEquals(0, size45.height);
-    Dimension size46 = ((Rectangle) bounds2D4).getSize();
-    assertEquals(0, size46.height);
-    assertEquals(0, size34.height);
-    assertEquals(0, size19.height);
-    Dimension size47 = ((Rectangle) bounds2D14).getSize();
-    assertEquals(0, size47.height);
-    Dimension size48 = ((Rectangle) bounds2D19).getSize();
-    assertEquals(0, size48.height);
-    Dimension size49 = ((Rectangle) bounds2D28).getSize();
-    assertEquals(0, size49.height);
-    assertEquals(0, size5.width);
-    assertEquals(0, size9.width);
-    assertEquals(0, size4.width);
-    assertEquals(0, size12.width);
-    assertEquals(0, size8.width);
-    assertEquals(0, size3.width);
-    assertEquals(0, size15.width);
-    assertEquals(0, size18.width);
-    assertEquals(0, size21.width);
-    assertEquals(0, size23.width);
-    assertEquals(0, size25.width);
-    assertEquals(0, size11.width);
-    assertEquals(0, size7.width);
-    assertEquals(0, size27.width);
-    assertEquals(0, size29.width);
-    assertEquals(0, size2.width);
-    assertEquals(0, size14.width);
-    assertEquals(0, size31.width);
-    assertEquals(0, size17.width);
-    assertEquals(0, size33.width);
-    assertEquals(0, size35.width);
-    assertEquals(0, size20.width);
-    assertEquals(0, size36.width);
-    assertEquals(0, size22.width);
-    assertEquals(0, size24.width);
-    assertEquals(0, size10.width);
-    assertEquals(0, size37.width);
-    assertEquals(0, size38.width);
-    assertEquals(0, size6.width);
-    assertEquals(0, size26.width);
-    assertEquals(0, size39.width);
-    assertEquals(0, size28.width);
-    assertEquals(0, size40.width);
-    assertEquals(0, size.width);
-    assertEquals(0, size13.width);
-    assertEquals(0, size41.width);
-    assertEquals(0, size30.width);
-    assertEquals(0, size42.width);
-    assertEquals(0, size16.width);
-    assertEquals(0, size43.width);
-    assertEquals(0, size44.width);
-    assertEquals(0, size32.width);
-    assertEquals(0, size45.width);
-    assertEquals(0, size46.width);
-    assertEquals(0, size34.width);
-    assertEquals(0, size19.width);
-    assertEquals(0, size47.width);
-    assertEquals(0, size48.width);
-    assertEquals(0, size49.width);
-    Rectangle bounds22 = bounds6.getBounds();
-    assertEquals(0, bounds22.height);
-    assertEquals(0, bounds6.height);
-    assertEquals(0, bounds5.height);
-    assertEquals(0, bounds4.height);
-    Rectangle bounds23 = bounds9.getBounds();
-    assertEquals(0, bounds23.height);
-    Rectangle bounds24 = bounds12.getBounds();
-    assertEquals(0, bounds24.height);
-    assertEquals(0, bounds3.height);
-    assertEquals(0, bounds9.height);
-    Rectangle bounds25 = bounds14.getBounds();
-    assertEquals(0, bounds25.height);
-    assertEquals(0, bounds12.height);
-    Rectangle bounds26 = bounds16.getBounds();
-    assertEquals(0, bounds26.height);
-    assertEquals(0, bounds2.height);
-    assertEquals(0, bounds8.height);
-    Rectangle bounds27 = bounds17.getBounds();
-    assertEquals(0, bounds27.height);
-    assertEquals(0, bounds14.height);
-    Rectangle bounds28 = bounds18.getBounds();
-    assertEquals(0, bounds28.height);
-    assertEquals(0, bounds11.height);
-    Rectangle bounds29 = bounds19.getBounds();
-    assertEquals(0, bounds29.height);
-    Rectangle bounds30 = bounds20.getBounds();
-    assertEquals(0, bounds30.height);
-    assertEquals(0, bounds16.height);
-    Rectangle bounds31 = bounds21.getBounds();
-    assertEquals(0, bounds31.height);
-    assertEquals(0, bounds.height);
-    assertEquals(0, bounds7.height);
-    Rectangle bounds32 = bounds2D3.getBounds();
-    assertEquals(0, bounds32.height);
-    Rectangle bounds33 = bounds2D4.getBounds();
-    assertEquals(0, bounds33.height);
-    assertEquals(0, bounds17.height);
-    assertEquals(0, bounds13.height);
-    Rectangle bounds34 = bounds2D14.getBounds();
-    assertEquals(0, bounds34.height);
-    Rectangle bounds35 = bounds2D19.getBounds();
-    assertEquals(0, bounds35.height);
-    assertEquals(0, bounds18.height);
-    assertEquals(0, bounds10.height);
-    Rectangle bounds36 = bounds2D28.getBounds();
-    assertEquals(0, bounds36.height);
-    assertEquals(0, bounds19.height);
-    Rectangle bounds37 = bounds2D32.getBounds();
-    assertEquals(0, bounds37.height);
-    Rectangle bounds38 = frame4.getBounds();
-    assertEquals(0, bounds38.height);
-    assertEquals(0, bounds20.height);
-    Rectangle bounds39 = frame5.getBounds();
-    assertEquals(0, bounds39.height);
-    assertEquals(0, bounds15.height);
-    assertEquals(0, bounds21.height);
-    Rectangle bounds40 = frame6.getBounds();
-    assertEquals(0, bounds40.height);
-    Rectangle bounds41 = frame7.getBounds();
-    assertEquals(0, bounds41.height);
-    Rectangle bounds42 = frame8.getBounds();
-    assertEquals(0, bounds42.height);
-    assertEquals(0, ((Rectangle) bounds2D).height);
-    assertEquals(0, ((Rectangle) bounds2D2).height);
-    assertEquals(0, ((Rectangle) bounds2D3).height);
-    assertEquals(0, ((Rectangle) bounds2D4).height);
-    assertEquals(0, ((Rectangle) bounds2D5).height);
-    assertEquals(0, ((Rectangle) bounds2D7).height);
-    assertEquals(0, ((Rectangle) bounds2D8).height);
-    assertEquals(0, ((Rectangle) bounds2D9).height);
-    assertEquals(0, ((Rectangle) bounds2D11).height);
-    assertEquals(0, ((Rectangle) bounds2D12).height);
-    assertEquals(0, ((Rectangle) bounds2D13).height);
-    assertEquals(0, ((Rectangle) bounds2D10).height);
-    assertEquals(0, ((Rectangle) bounds2D14).height);
-    assertEquals(0, ((Rectangle) bounds2D15).height);
-    assertEquals(0, ((Rectangle) bounds2D16).height);
-    assertEquals(0, ((Rectangle) bounds2D18).height);
-    assertEquals(0, ((Rectangle) bounds2D19).height);
-    assertEquals(0, ((Rectangle) bounds2D21).height);
-    assertEquals(0, ((Rectangle) bounds2D22).height);
-    assertEquals(0, ((Rectangle) bounds2D23).height);
-    assertEquals(0, ((Rectangle) bounds2D24).height);
-    assertEquals(0, ((Rectangle) bounds2D25).height);
-    assertEquals(0, ((Rectangle) bounds2D26).height);
-    assertEquals(0, ((Rectangle) bounds2D27).height);
-    assertEquals(0, ((Rectangle) bounds2D28).height);
-    assertEquals(0, ((Rectangle) bounds2D29).height);
-    assertEquals(0, ((Rectangle) bounds2D30).height);
-    assertEquals(0, ((Rectangle) bounds2D31).height);
-    assertEquals(0, bounds22.width);
-    assertEquals(0, bounds6.width);
-    assertEquals(0, bounds5.width);
-    assertEquals(0, bounds4.width);
-    assertEquals(0, bounds23.width);
-    assertEquals(0, bounds24.width);
-    assertEquals(0, bounds3.width);
-    assertEquals(0, bounds9.width);
-    assertEquals(0, bounds25.width);
-    assertEquals(0, bounds12.width);
-    assertEquals(0, bounds26.width);
-    assertEquals(0, bounds2.width);
-    assertEquals(0, bounds8.width);
-    assertEquals(0, bounds27.width);
-    assertEquals(0, bounds14.width);
-    assertEquals(0, bounds28.width);
-    assertEquals(0, bounds11.width);
-    assertEquals(0, bounds29.width);
-    assertEquals(0, bounds30.width);
-    assertEquals(0, bounds16.width);
-    assertEquals(0, bounds31.width);
-    assertEquals(0, bounds.width);
-    assertEquals(0, bounds7.width);
-    assertEquals(0, bounds32.width);
-    assertEquals(0, bounds33.width);
-    assertEquals(0, bounds17.width);
-    assertEquals(0, bounds13.width);
-    assertEquals(0, bounds34.width);
-    assertEquals(0, bounds35.width);
-    assertEquals(0, bounds18.width);
-    assertEquals(0, bounds10.width);
-    assertEquals(0, bounds36.width);
-    assertEquals(0, bounds19.width);
-    assertEquals(0, bounds37.width);
-    assertEquals(0, bounds38.width);
-    assertEquals(0, bounds20.width);
-    assertEquals(0, bounds39.width);
-    assertEquals(0, bounds15.width);
-    assertEquals(0, bounds21.width);
-    assertEquals(0, bounds40.width);
-    assertEquals(0, bounds41.width);
-    assertEquals(0, bounds42.width);
-    assertEquals(0, ((Rectangle) bounds2D).width);
-    assertEquals(0, ((Rectangle) bounds2D2).width);
-    assertEquals(0, ((Rectangle) bounds2D3).width);
-    assertEquals(0, ((Rectangle) bounds2D4).width);
-    assertEquals(0, ((Rectangle) bounds2D5).width);
-    assertEquals(0, ((Rectangle) bounds2D7).width);
-    assertEquals(0, ((Rectangle) bounds2D8).width);
-    assertEquals(0, ((Rectangle) bounds2D9).width);
-    assertEquals(0, ((Rectangle) bounds2D11).width);
-    assertEquals(0, ((Rectangle) bounds2D12).width);
-    assertEquals(0, ((Rectangle) bounds2D13).width);
-    assertEquals(0, ((Rectangle) bounds2D10).width);
-    assertEquals(0, ((Rectangle) bounds2D14).width);
-    assertEquals(0, ((Rectangle) bounds2D15).width);
-    assertEquals(0, ((Rectangle) bounds2D16).width);
-    assertEquals(0, ((Rectangle) bounds2D18).width);
-    assertEquals(0, ((Rectangle) bounds2D19).width);
-    assertEquals(0, ((Rectangle) bounds2D21).width);
-    assertEquals(0, ((Rectangle) bounds2D22).width);
-    assertEquals(0, ((Rectangle) bounds2D23).width);
-    assertEquals(0, ((Rectangle) bounds2D24).width);
-    assertEquals(0, ((Rectangle) bounds2D25).width);
-    assertEquals(0, ((Rectangle) bounds2D26).width);
-    assertEquals(0, ((Rectangle) bounds2D27).width);
-    assertEquals(0, ((Rectangle) bounds2D28).width);
-    assertEquals(0, ((Rectangle) bounds2D29).width);
-    assertEquals(0, ((Rectangle) bounds2D30).width);
-    assertEquals(0, ((Rectangle) bounds2D31).width);
-    assertEquals(0.0d, size4.getHeight());
-    assertEquals(0.0d, size8.getHeight());
-    assertEquals(0.0d, size3.getHeight());
-    assertEquals(0.0d, size11.getHeight());
-    assertEquals(0.0d, size7.getHeight());
-    assertEquals(0.0d, size2.getHeight());
-    assertEquals(0.0d, size14.getHeight());
-    assertEquals(0.0d, size17.getHeight());
-    assertEquals(0.0d, size20.getHeight());
-    assertEquals(0.0d, size22.getHeight());
-    assertEquals(0.0d, size24.getHeight());
-    assertEquals(0.0d, size10.getHeight());
-    assertEquals(0.0d, size6.getHeight());
-    assertEquals(0.0d, size26.getHeight());
-    assertEquals(0.0d, size28.getHeight());
-    assertEquals(0.0d, size.getHeight());
-    assertEquals(0.0d, size13.getHeight());
-    assertEquals(0.0d, size30.getHeight());
-    assertEquals(0.0d, size16.getHeight());
-    assertEquals(0.0d, size32.getHeight());
-    assertEquals(0.0d, size34.getHeight());
-    assertEquals(0.0d, size19.getHeight());
-    assertEquals(0.0d, size4.getWidth());
-    assertEquals(0.0d, size8.getWidth());
-    assertEquals(0.0d, size3.getWidth());
-    assertEquals(0.0d, size11.getWidth());
-    assertEquals(0.0d, size7.getWidth());
-    assertEquals(0.0d, size2.getWidth());
-    assertEquals(0.0d, size14.getWidth());
-    assertEquals(0.0d, size17.getWidth());
-    assertEquals(0.0d, size20.getWidth());
-    assertEquals(0.0d, size22.getWidth());
-    assertEquals(0.0d, size24.getWidth());
-    assertEquals(0.0d, size10.getWidth());
-    assertEquals(0.0d, size6.getWidth());
-    assertEquals(0.0d, size26.getWidth());
-    assertEquals(0.0d, size28.getWidth());
-    assertEquals(0.0d, size.getWidth());
-    assertEquals(0.0d, size13.getWidth());
-    assertEquals(0.0d, size30.getWidth());
-    assertEquals(0.0d, size16.getWidth());
-    assertEquals(0.0d, size32.getWidth());
-    assertEquals(0.0d, size34.getWidth());
-    assertEquals(0.0d, size19.getWidth());
-    assertEquals(0.0d, bounds6.getHeight());
-    assertEquals(0.0d, bounds5.getHeight());
-    assertEquals(0.0d, bounds4.getHeight());
-    assertEquals(0.0d, bounds3.getHeight());
-    assertEquals(0.0d, bounds9.getHeight());
-    assertEquals(0.0d, bounds12.getHeight());
-    assertEquals(0.0d, bounds2.getHeight());
-    assertEquals(0.0d, bounds8.getHeight());
-    assertEquals(0.0d, bounds14.getHeight());
-    assertEquals(0.0d, bounds11.getHeight());
-    assertEquals(0.0d, bounds16.getHeight());
-    assertEquals(0.0d, bounds.getHeight());
-    assertEquals(0.0d, bounds7.getHeight());
-    assertEquals(0.0d, bounds17.getHeight());
-    assertEquals(0.0d, bounds13.getHeight());
-    assertEquals(0.0d, bounds18.getHeight());
-    assertEquals(0.0d, bounds10.getHeight());
-    assertEquals(0.0d, bounds19.getHeight());
-    assertEquals(0.0d, bounds20.getHeight());
-    assertEquals(0.0d, bounds15.getHeight());
-    assertEquals(0.0d, bounds21.getHeight());
-    assertEquals(0.0d, bounds6.getWidth());
-    assertEquals(0.0d, bounds5.getWidth());
-    assertEquals(0.0d, bounds4.getWidth());
-    assertEquals(0.0d, bounds3.getWidth());
-    assertEquals(0.0d, bounds9.getWidth());
-    assertEquals(0.0d, bounds12.getWidth());
-    assertEquals(0.0d, bounds2.getWidth());
-    assertEquals(0.0d, bounds8.getWidth());
-    assertEquals(0.0d, bounds14.getWidth());
-    assertEquals(0.0d, bounds11.getWidth());
-    assertEquals(0.0d, bounds16.getWidth());
-    assertEquals(0.0d, bounds.getWidth());
-    assertEquals(0.0d, bounds7.getWidth());
-    assertEquals(0.0d, bounds17.getWidth());
-    assertEquals(0.0d, bounds13.getWidth());
-    assertEquals(0.0d, bounds18.getWidth());
-    assertEquals(0.0d, bounds10.getWidth());
-    assertEquals(0.0d, bounds19.getWidth());
-    assertEquals(0.0d, bounds20.getWidth());
-    assertEquals(0.0d, bounds15.getWidth());
-    assertEquals(0.0d, bounds21.getWidth());
-    assertEquals(0.0d, bounds6.getCenterX());
-    assertEquals(0.0d, bounds5.getCenterX());
-    assertEquals(0.0d, bounds4.getCenterX());
-    assertEquals(0.0d, bounds3.getCenterX());
-    assertEquals(0.0d, bounds9.getCenterX());
-    assertEquals(0.0d, bounds12.getCenterX());
-    assertEquals(0.0d, bounds2.getCenterX());
-    assertEquals(0.0d, bounds8.getCenterX());
-    assertEquals(0.0d, bounds14.getCenterX());
-    assertEquals(0.0d, bounds11.getCenterX());
-    assertEquals(0.0d, bounds16.getCenterX());
-    assertEquals(0.0d, bounds2D3.getCenterX());
-    assertEquals(0.0d, bounds2D4.getCenterX());
-    assertEquals(0.0d, bounds2D8.getCenterX());
-    assertEquals(0.0d, bounds2D10.getCenterX());
-    assertEquals(0.0d, bounds2D14.getCenterX());
-    assertEquals(0.0d, bounds2D19.getCenterX());
-    assertEquals(0.0d, bounds2D17.getCenterX());
-    assertEquals(0.0d, bounds.getCenterX());
-    assertEquals(0.0d, bounds2D6.getCenterX());
-    assertEquals(0.0d, bounds7.getCenterX());
-    assertEquals(0.0d, bounds2D28.getCenterX());
-    assertEquals(0.0d, bounds2D20.getCenterX());
-    assertEquals(0.0d, bounds2D32.getCenterX());
-    assertEquals(0.0d, bounds17.getCenterX());
-    assertEquals(0.0d, bounds13.getCenterX());
-    assertEquals(0.0d, bounds18.getCenterX());
-    assertEquals(0.0d, bounds10.getCenterX());
-    assertEquals(0.0d, bounds19.getCenterX());
-    assertEquals(0.0d, bounds20.getCenterX());
-    assertEquals(0.0d, bounds15.getCenterX());
-    assertEquals(0.0d, bounds21.getCenterX());
-    assertEquals(0.0d, frame4.getCenterX());
-    assertEquals(0.0d, frame2.getCenterX());
-    assertEquals(0.0d, frame5.getCenterX());
-    assertEquals(0.0d, frame.getCenterX());
-    assertEquals(0.0d, frame3.getCenterX());
-    assertEquals(0.0d, frame6.getCenterX());
-    assertEquals(0.0d, frame7.getCenterX());
-    assertEquals(0.0d, frame8.getCenterX());
-    assertEquals(0.0d, bounds6.getCenterY());
-    assertEquals(0.0d, bounds5.getCenterY());
-    assertEquals(0.0d, bounds4.getCenterY());
-    assertEquals(0.0d, bounds3.getCenterY());
-    assertEquals(0.0d, bounds9.getCenterY());
-    assertEquals(0.0d, bounds12.getCenterY());
-    assertEquals(0.0d, bounds2.getCenterY());
-    assertEquals(0.0d, bounds8.getCenterY());
-    assertEquals(0.0d, bounds14.getCenterY());
-    assertEquals(0.0d, bounds11.getCenterY());
-    assertEquals(0.0d, bounds16.getCenterY());
-    assertEquals(0.0d, bounds2D3.getCenterY());
-    assertEquals(0.0d, bounds2D4.getCenterY());
-    assertEquals(0.0d, bounds2D8.getCenterY());
-    assertEquals(0.0d, bounds2D10.getCenterY());
-    assertEquals(0.0d, bounds2D14.getCenterY());
-    assertEquals(0.0d, bounds2D19.getCenterY());
-    assertEquals(0.0d, bounds2D17.getCenterY());
-    assertEquals(0.0d, bounds.getCenterY());
-    assertEquals(0.0d, bounds2D6.getCenterY());
-    assertEquals(0.0d, bounds7.getCenterY());
-    assertEquals(0.0d, bounds2D28.getCenterY());
-    assertEquals(0.0d, bounds2D20.getCenterY());
-    assertEquals(0.0d, bounds2D32.getCenterY());
-    assertEquals(0.0d, bounds17.getCenterY());
-    assertEquals(0.0d, bounds13.getCenterY());
-    assertEquals(0.0d, bounds18.getCenterY());
-    assertEquals(0.0d, bounds10.getCenterY());
-    assertEquals(0.0d, bounds19.getCenterY());
-    assertEquals(0.0d, bounds20.getCenterY());
-    assertEquals(0.0d, bounds15.getCenterY());
-    assertEquals(0.0d, bounds21.getCenterY());
-    assertEquals(0.0d, frame4.getCenterY());
-    assertEquals(0.0d, frame2.getCenterY());
-    assertEquals(0.0d, frame5.getCenterY());
-    assertEquals(0.0d, frame.getCenterY());
-    assertEquals(0.0d, frame3.getCenterY());
-    assertEquals(0.0d, frame6.getCenterY());
-    assertEquals(0.0d, frame7.getCenterY());
-    assertEquals(0.0d, frame8.getCenterY());
-    assertEquals(0.0d, bounds2D4.getHeight());
-    assertEquals(0.0d, bounds2D8.getHeight());
-    assertEquals(0.0d, bounds2D10.getHeight());
-    assertEquals(0.0d, bounds2D14.getHeight());
-    assertEquals(0.0d, bounds2D19.getHeight());
-    assertEquals(0.0d, bounds2D17.getHeight());
-    assertEquals(0.0d, bounds2D6.getHeight());
-    assertEquals(0.0d, bounds2D28.getHeight());
-    assertEquals(0.0d, bounds2D20.getHeight());
-    assertEquals(0.0d, bounds2D32.getHeight());
-    assertEquals(0.0d, frame4.getHeight());
-    assertEquals(0.0d, frame2.getHeight());
-    assertEquals(0.0d, frame5.getHeight());
-    assertEquals(0.0d, frame.getHeight());
-    assertEquals(0.0d, frame3.getHeight());
-    assertEquals(0.0d, frame6.getHeight());
-    assertEquals(0.0d, frame7.getHeight());
-    assertEquals(0.0d, frame8.getHeight());
-    assertEquals(0.0d, bounds6.getMaxX());
-    assertEquals(0.0d, bounds5.getMaxX());
-    assertEquals(0.0d, bounds4.getMaxX());
-    assertEquals(0.0d, bounds3.getMaxX());
-    assertEquals(0.0d, bounds9.getMaxX());
-    assertEquals(0.0d, bounds12.getMaxX());
-    assertEquals(0.0d, bounds2.getMaxX());
-    assertEquals(0.0d, bounds8.getMaxX());
-    assertEquals(0.0d, bounds14.getMaxX());
-    assertEquals(0.0d, bounds11.getMaxX());
-    assertEquals(0.0d, bounds16.getMaxX());
-    assertEquals(0.0d, bounds2D4.getMaxX());
-    assertEquals(0.0d, bounds2D8.getMaxX());
-    assertEquals(0.0d, bounds2D10.getMaxX());
-    assertEquals(0.0d, bounds2D14.getMaxX());
-    assertEquals(0.0d, bounds2D19.getMaxX());
-    assertEquals(0.0d, bounds2D17.getMaxX());
-    assertEquals(0.0d, bounds.getMaxX());
-    assertEquals(0.0d, bounds2D6.getMaxX());
-    assertEquals(0.0d, bounds7.getMaxX());
-    assertEquals(0.0d, bounds2D28.getMaxX());
-    assertEquals(0.0d, bounds2D20.getMaxX());
-    assertEquals(0.0d, bounds2D32.getMaxX());
-    assertEquals(0.0d, bounds17.getMaxX());
-    assertEquals(0.0d, bounds13.getMaxX());
-    assertEquals(0.0d, bounds18.getMaxX());
-    assertEquals(0.0d, bounds10.getMaxX());
-    assertEquals(0.0d, bounds19.getMaxX());
-    assertEquals(0.0d, bounds20.getMaxX());
-    assertEquals(0.0d, bounds15.getMaxX());
-    assertEquals(0.0d, bounds21.getMaxX());
-    assertEquals(0.0d, frame4.getMaxX());
-    assertEquals(0.0d, frame2.getMaxX());
-    assertEquals(0.0d, frame5.getMaxX());
-    assertEquals(0.0d, frame.getMaxX());
-    assertEquals(0.0d, frame3.getMaxX());
-    assertEquals(0.0d, frame6.getMaxX());
-    assertEquals(0.0d, frame7.getMaxX());
-    assertEquals(0.0d, frame8.getMaxX());
-    assertEquals(0.0d, bounds6.getMaxY());
-    assertEquals(0.0d, bounds5.getMaxY());
-    assertEquals(0.0d, bounds4.getMaxY());
-    assertEquals(0.0d, bounds3.getMaxY());
-    assertEquals(0.0d, bounds9.getMaxY());
-    assertEquals(0.0d, bounds12.getMaxY());
-    assertEquals(0.0d, bounds2.getMaxY());
-    assertEquals(0.0d, bounds8.getMaxY());
-    assertEquals(0.0d, bounds14.getMaxY());
-    assertEquals(0.0d, bounds11.getMaxY());
-    assertEquals(0.0d, bounds16.getMaxY());
-    assertEquals(0.0d, bounds2D4.getMaxY());
-    assertEquals(0.0d, bounds2D8.getMaxY());
-    assertEquals(0.0d, bounds2D10.getMaxY());
-    assertEquals(0.0d, bounds2D14.getMaxY());
-    assertEquals(0.0d, bounds2D19.getMaxY());
-    assertEquals(0.0d, bounds2D17.getMaxY());
-    assertEquals(0.0d, bounds.getMaxY());
-    assertEquals(0.0d, bounds2D6.getMaxY());
-    assertEquals(0.0d, bounds7.getMaxY());
-    assertEquals(0.0d, bounds2D28.getMaxY());
-    assertEquals(0.0d, bounds2D20.getMaxY());
-    assertEquals(0.0d, bounds2D32.getMaxY());
-    assertEquals(0.0d, bounds17.getMaxY());
-    assertEquals(0.0d, bounds13.getMaxY());
-    assertEquals(0.0d, bounds18.getMaxY());
-    assertEquals(0.0d, bounds10.getMaxY());
-    assertEquals(0.0d, bounds19.getMaxY());
-    assertEquals(0.0d, bounds20.getMaxY());
-    assertEquals(0.0d, bounds15.getMaxY());
-    assertEquals(0.0d, bounds21.getMaxY());
-    assertEquals(0.0d, frame4.getMaxY());
-    assertEquals(0.0d, frame2.getMaxY());
-    assertEquals(0.0d, frame5.getMaxY());
-    assertEquals(0.0d, frame.getMaxY());
-    assertEquals(0.0d, frame3.getMaxY());
-    assertEquals(0.0d, frame6.getMaxY());
-    assertEquals(0.0d, frame7.getMaxY());
-    assertEquals(0.0d, frame8.getMaxY());
-    assertEquals(0.0d, bounds2D4.getWidth());
-    assertEquals(0.0d, bounds2D8.getWidth());
-    assertEquals(0.0d, bounds2D10.getWidth());
-    assertEquals(0.0d, bounds2D14.getWidth());
-    assertEquals(0.0d, bounds2D19.getWidth());
-    assertEquals(0.0d, bounds2D17.getWidth());
-    assertEquals(0.0d, bounds2D6.getWidth());
-    assertEquals(0.0d, bounds2D28.getWidth());
-    assertEquals(0.0d, bounds2D20.getWidth());
-    assertEquals(0.0d, bounds2D32.getWidth());
-    assertEquals(0.0d, frame4.getWidth());
-    assertEquals(0.0d, frame2.getWidth());
-    assertEquals(0.0d, frame5.getWidth());
-    assertEquals(0.0d, frame.getWidth());
-    assertEquals(0.0d, frame3.getWidth());
-    assertEquals(0.0d, frame6.getWidth());
-    assertEquals(0.0d, frame7.getWidth());
-    assertEquals(0.0d, frame8.getWidth());
-    assertEquals(0.0f, artBox.getHeight());
-    PDRectangle bBox = currentPage.getBBox();
-    assertEquals(0.0f, bBox.getHeight());
-    PDRectangle bleedBox = currentPage.getBleedBox();
-    assertEquals(0.0f, bleedBox.getHeight());
-    PDRectangle cropBox = currentPage.getCropBox();
-    assertEquals(0.0f, cropBox.getHeight());
-    assertEquals(0.0f, bBox.getLowerLeftX());
-    assertEquals(0.0f, bleedBox.getLowerLeftX());
-    assertEquals(0.0f, cropBox.getLowerLeftX());
-    assertEquals(0.0f, bBox.getLowerLeftY());
-    assertEquals(0.0f, bleedBox.getLowerLeftY());
-    assertEquals(0.0f, cropBox.getLowerLeftY());
-    assertEquals(0.0f, artBox.getUpperRightX());
-    assertEquals(0.0f, bBox.getUpperRightX());
-    assertEquals(0.0f, bleedBox.getUpperRightX());
-    assertEquals(0.0f, cropBox.getUpperRightX());
-    assertEquals(0.0f, artBox.getUpperRightY());
-    assertEquals(0.0f, bBox.getUpperRightY());
-    assertEquals(0.0f, bleedBox.getUpperRightY());
-    assertEquals(0.0f, cropBox.getUpperRightY());
-    assertEquals(0.0f, artBox.getWidth());
-    assertEquals(0.0f, bBox.getWidth());
-    assertEquals(0.0f, bleedBox.getWidth());
-    assertEquals(0.0f, cropBox.getWidth());
-    assertFalse(getResult6.isDirect());
-    assertFalse(getResult7.isDirect());
-    assertTrue(bounds6.isEmpty());
-    assertTrue(bounds5.isEmpty());
-    assertTrue(bounds4.isEmpty());
-    assertTrue(bounds3.isEmpty());
-    assertTrue(bounds9.isEmpty());
-    assertTrue(bounds12.isEmpty());
-    assertTrue(bounds2.isEmpty());
-    assertTrue(bounds8.isEmpty());
-    assertTrue(bounds14.isEmpty());
-    assertTrue(bounds11.isEmpty());
-    assertTrue(bounds16.isEmpty());
-    assertTrue(bounds.isEmpty());
-    assertTrue(bounds7.isEmpty());
-    assertTrue(bounds17.isEmpty());
-    assertTrue(bounds13.isEmpty());
-    assertTrue(bounds18.isEmpty());
-    assertTrue(bounds10.isEmpty());
-    assertTrue(bounds19.isEmpty());
-    assertTrue(bounds20.isEmpty());
-    assertTrue(bounds15.isEmpty());
-    assertTrue(bounds21.isEmpty());
-    assertTrue(currentClippingPath.isEmpty());
-    assertTrue(bounds2D4.isEmpty());
-    assertTrue(bounds2D8.isEmpty());
-    assertTrue(bounds2D10.isEmpty());
-    assertTrue(bounds2D14.isEmpty());
-    assertTrue(bounds2D19.isEmpty());
-    assertTrue(bounds2D17.isEmpty());
-    assertTrue(bounds2D6.isEmpty());
-    assertTrue(bounds2D28.isEmpty());
-    assertTrue(bounds2D20.isEmpty());
-    assertTrue(bounds2D32.isEmpty());
-    assertTrue(frame4.isEmpty());
-    assertTrue(frame2.isEmpty());
-    assertTrue(frame5.isEmpty());
-    assertTrue(frame.isEmpty());
-    assertTrue(frame3.isEmpty());
-    assertTrue(frame6.isEmpty());
-    assertTrue(frame7.isEmpty());
-    assertTrue(frame8.isEmpty());
-    COSBase getResult8 = toListResult.get(0);
-    assertEquals(getResult8, getResult2);
-    assertEquals(getResult8, getResult3);
-    assertEquals(getResult8, getResult4);
-    assertEquals(getResult8, getResult5);
-  }
-
-  /**
-   * Test {@link CustomGraphicsStreamEngine#run()}.
-   * <p>
-   * Method under test: {@link CustomGraphicsStreamEngine#run()}
-   */
-  @Test
-  @DisplayName("Test run()")
-  void testRun3() throws IOException {
-    // Arrange
-    PDPage page = new PDPage();
-    page.setContents(new PDStream(new COSDocument()));
-    CustomGraphicsStreamEngine customGraphicsStreamEngine = new CustomGraphicsStreamEngine(page);
-
-    // Act
-    customGraphicsStreamEngine.run();
-
-    // Assert
-    PDPage currentPage = customGraphicsStreamEngine.getCurrentPage();
-    RandomAccessRead contentsForRandomAccess = currentPage.getContentsForRandomAccess();
-    assertTrue(contentsForRandomAccess instanceof RandomAccessReadBuffer);
-    RandomAccessRead contentsForStreamParsing = currentPage.getContentsForStreamParsing();
-    assertTrue(contentsForStreamParsing instanceof RandomAccessReadBuffer);
-    byte[] byteArray = new byte[1];
-    assertEquals(1, currentPage.getContents().read(byteArray));
-    assertEquals(1, contentsForRandomAccess.available());
-    assertEquals(1, contentsForStreamParsing.available());
-    assertArrayEquals(new byte[]{'\n'}, byteArray);
-  }
-
-  /**
-   * Test {@link CustomGraphicsStreamEngine#run()}.
-   * <p>
-   * Method under test: {@link CustomGraphicsStreamEngine#run()}
-   */
-  @Test
-  @DisplayName("Test run()")
-  void testRun4() throws IOException {
     // Arrange
     PDPage page = new PDPage();
     ArrayList<PDStream> contents = new ArrayList<>();
@@ -979,36 +119,35 @@ class CustomGraphicsStreamEngineDiffblueTest {
 
     // Assert
     PDGraphicsState graphicsState = customGraphicsStreamEngine.getGraphicsState();
-    Rectangle2D frame = graphicsState.getCurrentClippingPath().getBounds().getBounds().getBounds().getFrame();
-    assertTrue(frame instanceof Rectangle2D.Double);
-    COSBase cOSObject = graphicsState.getLineDashPattern().getCOSObject();
+    PDLineDashPattern lineDashPattern = graphicsState.getLineDashPattern();
+    COSBase cOSObject = lineDashPattern.getCOSObject();
     List<? extends COSBase> toListResult = ((COSArray) cOSObject).toList();
     assertEquals(2, toListResult.size());
     COSBase getResult = toListResult.get(0);
     assertTrue(getResult instanceof COSArray);
     assertTrue(cOSObject instanceof COSArray);
-    Rectangle bounds = frame.getBounds();
-    assertEquals(0.0d, bounds.getX());
-    assertEquals(0.0d, bounds.getY());
-    assertEquals(0.0d, bounds.getMinX());
-    assertEquals(0.0d, bounds.getMinY());
-    Dimension size = bounds.getSize();
-    assertEquals(612, size.width);
-    assertEquals(612.0d, bounds.getWidth());
-    assertEquals(612.0d, bounds.getMaxX());
-    assertEquals(792, size.height);
-    assertEquals(792.0d, bounds.getMaxY());
+    float[][] values = customGraphicsStreamEngine.getInitialMatrix().getValues();
+    assertEquals(3, values.length);
     assertEquals(contents, ((COSArray) getResult).toList());
+    assertArrayEquals(new float[] {}, lineDashPattern.getDashArray(), 0.0f);
+    assertArrayEquals(
+        new float[] {0.0f}, graphicsState.getNonStrokingColor().getComponents(), 0.0f);
+    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
   }
 
   /**
    * Test {@link CustomGraphicsStreamEngine#run()}.
-   * <p>
-   * Method under test: {@link CustomGraphicsStreamEngine#run()}
+   *
+   * <p>Method under test: {@link CustomGraphicsStreamEngine#run()}
    */
   @Test
   @DisplayName("Test run()")
-  void testRun5() throws IOException {
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void CustomGraphicsStreamEngine.run()"})
+  void testRun3() throws IOException {
     // Arrange
     PDPage page = new PDPage();
     ArrayList<PDAnnotation> annotations = new ArrayList<>();
@@ -1020,1208 +159,109 @@ class CustomGraphicsStreamEngineDiffblueTest {
 
     // Assert
     PDGraphicsState graphicsState = customGraphicsStreamEngine.getGraphicsState();
-    Rectangle2D frame = graphicsState.getCurrentClippingPath().getBounds().getBounds().getBounds().getFrame();
-    assertTrue(frame instanceof Rectangle2D.Double);
-    COSBase cOSObject = graphicsState.getLineDashPattern().getCOSObject();
+    PDLineDashPattern lineDashPattern = graphicsState.getLineDashPattern();
+    COSBase cOSObject = lineDashPattern.getCOSObject();
     List<? extends COSBase> toListResult = ((COSArray) cOSObject).toList();
     assertEquals(2, toListResult.size());
     COSBase getResult = toListResult.get(0);
     assertTrue(getResult instanceof COSArray);
     assertTrue(cOSObject instanceof COSArray);
-    Rectangle bounds = frame.getBounds();
-    assertEquals(0.0d, bounds.getX());
-    assertEquals(0.0d, bounds.getY());
-    assertEquals(0.0d, bounds.getMinX());
-    assertEquals(0.0d, bounds.getMinY());
-    Dimension size = bounds.getSize();
-    assertEquals(612, size.width);
-    assertEquals(612.0d, bounds.getWidth());
-    assertEquals(612.0d, bounds.getMaxX());
-    assertEquals(792, size.height);
-    assertEquals(792.0d, bounds.getMaxY());
+    float[][] values = customGraphicsStreamEngine.getInitialMatrix().getValues();
+    assertEquals(3, values.length);
     assertEquals(annotations, ((COSArray) getResult).toList());
+    assertArrayEquals(new float[] {}, lineDashPattern.getDashArray(), 0.0f);
+    assertArrayEquals(
+        new float[] {0.0f}, graphicsState.getNonStrokingColor().getComponents(), 0.0f);
+    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
   }
 
   /**
    * Test {@link CustomGraphicsStreamEngine#run()}.
-   * <p>
-   * Method under test: {@link CustomGraphicsStreamEngine#run()}
+   *
+   * <p>Method under test: {@link CustomGraphicsStreamEngine#run()}
    */
   @Test
   @DisplayName("Test run()")
-  void testRun6() throws IOException {
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void CustomGraphicsStreamEngine.run()"})
+  void testRun4() throws IOException {
     // Arrange
     PDPage page = new PDPage();
-    page.setCropBox(new PDRectangle(2.14748365E9f, 2.14748365E9f, 2.14748365E9f, 2.14748365E9f));
+    PDRectangle cropBox =
+        new PDRectangle(2.14748365E9f, 2.14748365E9f, 2.14748365E9f, 2.14748365E9f);
+    page.setCropBox(cropBox);
     CustomGraphicsStreamEngine customGraphicsStreamEngine = new CustomGraphicsStreamEngine(page);
 
     // Act
     customGraphicsStreamEngine.run();
 
     // Assert
-    PDGraphicsState graphicsState = customGraphicsStreamEngine.getGraphicsState();
-    Area currentClippingPath = graphicsState.getCurrentClippingPath();
-    Rectangle bounds = currentClippingPath.getBounds();
-    Rectangle bounds2 = bounds.getBounds();
-    Rectangle bounds3 = bounds2.getBounds();
-    Rectangle bounds4 = bounds3.getBounds();
-    Rectangle bounds5 = bounds4.getBounds();
-    Rectangle bounds6 = bounds5.getBounds();
-    Rectangle2D bounds2D = bounds6.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Rectangle2D bounds2D2 = bounds5.getBounds2D();
-    assertTrue(bounds2D2 instanceof Rectangle);
-    Rectangle2D bounds2D3 = bounds4.getBounds2D();
-    assertTrue(bounds2D3 instanceof Rectangle);
-    Rectangle2D bounds2D4 = bounds3.getBounds2D();
-    assertTrue(bounds2D4 instanceof Rectangle);
-    List<Path2D> currentClippingPaths = graphicsState.getCurrentClippingPaths();
-    assertEquals(1, currentClippingPaths.size());
-    Path2D getResult = currentClippingPaths.get(0);
-    Rectangle bounds7 = getResult.getBounds();
-    Rectangle bounds8 = bounds7.getBounds();
-    Rectangle bounds9 = bounds8.getBounds();
-    Rectangle2D bounds2D5 = bounds9.getBounds2D();
-    assertTrue(bounds2D5 instanceof Rectangle);
-    Rectangle2D bounds2D6 = currentClippingPath.getBounds2D();
-    Rectangle bounds10 = bounds2D6.getBounds();
-    Rectangle bounds11 = bounds10.getBounds();
-    Rectangle bounds12 = bounds11.getBounds();
-    Rectangle2D bounds2D7 = bounds12.getBounds2D();
-    assertTrue(bounds2D7 instanceof Rectangle);
-    Rectangle2D bounds2D8 = bounds2.getBounds2D();
-    assertTrue(bounds2D8 instanceof Rectangle);
-    Rectangle2D bounds2D9 = bounds8.getBounds2D();
-    assertTrue(bounds2D9 instanceof Rectangle);
-    Rectangle2D bounds2D10 = bounds.getBounds2D();
-    Rectangle bounds13 = bounds2D10.getBounds();
-    Rectangle bounds14 = bounds13.getBounds();
-    Rectangle2D bounds2D11 = bounds14.getBounds2D();
-    assertTrue(bounds2D11 instanceof Rectangle);
-    Rectangle2D bounds2D12 = bounds11.getBounds2D();
-    assertTrue(bounds2D12 instanceof Rectangle);
-    Rectangle2D frame = bounds.getFrame();
-    Rectangle bounds15 = frame.getBounds();
-    Rectangle bounds16 = bounds15.getBounds();
-    Rectangle2D bounds2D13 = bounds16.getBounds2D();
-    assertTrue(bounds2D13 instanceof Rectangle);
-    assertTrue(bounds2D10 instanceof Rectangle);
-    Rectangle2D bounds2D14 = bounds7.getBounds2D();
-    assertTrue(bounds2D14 instanceof Rectangle);
-    Rectangle bounds17 = bounds2D8.getBounds();
-    Rectangle2D bounds2D15 = bounds17.getBounds2D();
-    assertTrue(bounds2D15 instanceof Rectangle);
-    Rectangle2D bounds2D16 = bounds13.getBounds2D();
-    assertTrue(bounds2D16 instanceof Rectangle);
-    Rectangle2D bounds2D17 = getResult.getBounds2D();
-    Rectangle bounds18 = bounds2D17.getBounds();
-    Rectangle2D bounds2D18 = bounds18.getBounds2D();
-    assertTrue(bounds2D18 instanceof Rectangle);
-    Rectangle2D bounds2D19 = bounds10.getBounds2D();
-    assertTrue(bounds2D19 instanceof Rectangle);
-    Rectangle2D bounds2D20 = bounds2D6.getBounds2D();
-    Rectangle bounds19 = bounds2D20.getBounds();
-    Rectangle2D bounds2D21 = bounds19.getBounds2D();
-    assertTrue(bounds2D21 instanceof Rectangle);
-    Rectangle2D frame2 = bounds2.getFrame();
-    Rectangle bounds20 = frame2.getBounds();
-    Rectangle2D bounds2D22 = bounds20.getBounds2D();
-    assertTrue(bounds2D22 instanceof Rectangle);
-    Rectangle2D bounds2D23 = bounds15.getBounds2D();
-    assertTrue(bounds2D23 instanceof Rectangle);
-    Rectangle2D frame3 = bounds2D6.getFrame();
-    Rectangle bounds21 = frame3.getBounds();
-    Rectangle2D bounds2D24 = bounds21.getBounds2D();
-    assertTrue(bounds2D24 instanceof Rectangle);
-    Rectangle2D bounds2D25 = bounds2D3.getBounds2D();
-    assertTrue(bounds2D25 instanceof Rectangle);
-    Rectangle2D bounds2D26 = bounds2D4.getBounds2D();
-    assertTrue(bounds2D26 instanceof Rectangle);
-    Rectangle2D bounds2D27 = bounds2D8.getBounds2D();
-    assertTrue(bounds2D27 instanceof Rectangle);
-    Rectangle2D bounds2D28 = bounds2D10.getBounds2D();
-    assertTrue(bounds2D28 instanceof Rectangle);
-    Rectangle2D bounds2D29 = bounds2D14.getBounds2D();
-    assertTrue(bounds2D29 instanceof Rectangle);
-    Rectangle2D bounds2D30 = bounds2D19.getBounds2D();
-    assertTrue(bounds2D30 instanceof Rectangle);
-    Rectangle2D bounds2D31 = bounds2D28.getBounds2D();
-    assertTrue(bounds2D31 instanceof Rectangle);
-    assertTrue(getResult instanceof Path2D.Double);
-    Point2D currentPoint = getResult.getCurrentPoint();
-    assertTrue(currentPoint instanceof Point2D.Double);
-    assertTrue(bounds2D17 instanceof Rectangle2D.Double);
-    assertTrue(bounds2D6 instanceof Rectangle2D.Double);
-    assertTrue(bounds2D20 instanceof Rectangle2D.Double);
-    Rectangle2D bounds2D32 = frame.getBounds2D();
-    assertTrue(bounds2D32 instanceof Rectangle2D.Double);
-    Rectangle2D frame4 = bounds3.getFrame();
-    assertTrue(frame4 instanceof Rectangle2D.Double);
-    assertTrue(frame2 instanceof Rectangle2D.Double);
-    Rectangle2D frame5 = bounds2D10.getFrame();
-    assertTrue(frame5 instanceof Rectangle2D.Double);
-    assertTrue(frame instanceof Rectangle2D.Double);
-    assertTrue(frame3 instanceof Rectangle2D.Double);
-    Rectangle2D frame6 = bounds7.getFrame();
-    assertTrue(frame6 instanceof Rectangle2D.Double);
-    Rectangle2D frame7 = bounds10.getFrame();
-    assertTrue(frame7 instanceof Rectangle2D.Double);
-    Rectangle2D frame8 = frame.getFrame();
-    assertTrue(frame8 instanceof Rectangle2D.Double);
-    PDPage currentPage = customGraphicsStreamEngine.getCurrentPage();
-    List<? extends COSBase> toListResult = currentPage.getMediaBox().getCOSArray().toList();
-    assertEquals(4, toListResult.size());
-    COSBase getResult2 = toListResult.get(0);
-    assertTrue(getResult2 instanceof COSFloat);
-    COSBase getResult3 = toListResult.get(1);
-    assertTrue(getResult3 instanceof COSFloat);
-    assertTrue(toListResult.get(2) instanceof COSFloat);
-    assertTrue(toListResult.get(3) instanceof COSFloat);
-    assertNull(getResult2.getKey());
-    PDRectangle artBox = currentPage.getArtBox();
-    assertEquals(-2.14748288E9f, artBox.getHeight());
-    PDRectangle bBox = currentPage.getBBox();
-    assertEquals(-2.14748288E9f, bBox.getHeight());
-    PDRectangle bleedBox = currentPage.getBleedBox();
-    assertEquals(-2.14748288E9f, bleedBox.getHeight());
-    PDRectangle cropBox = currentPage.getCropBox();
-    assertEquals(-2.14748288E9f, cropBox.getHeight());
-    assertEquals(-2.14748301E9f, artBox.getWidth());
-    assertEquals(-2.14748301E9f, bBox.getWidth());
-    assertEquals(-2.14748301E9f, bleedBox.getWidth());
-    assertEquals(-2.14748301E9f, cropBox.getWidth());
-    assertEquals(1.07374213E9d, bounds6.getCenterX());
-    assertEquals(1.07374213E9d, bounds5.getCenterX());
-    assertEquals(1.07374213E9d, bounds4.getCenterX());
-    assertEquals(1.07374213E9d, bounds3.getCenterX());
-    assertEquals(1.07374213E9d, bounds9.getCenterX());
-    assertEquals(1.07374213E9d, bounds12.getCenterX());
-    assertEquals(1.07374213E9d, bounds2.getCenterX());
-    assertEquals(1.07374213E9d, bounds8.getCenterX());
-    assertEquals(1.07374213E9d, bounds14.getCenterX());
-    assertEquals(1.07374213E9d, bounds11.getCenterX());
-    assertEquals(1.07374213E9d, bounds16.getCenterX());
-    assertEquals(1.07374213E9d, bounds2D3.getCenterX());
-    assertEquals(1.07374213E9d, bounds2D4.getCenterX());
-    assertEquals(1.07374213E9d, bounds2D8.getCenterX());
-    assertEquals(1.07374213E9d, bounds2D10.getCenterX());
-    assertEquals(1.07374213E9d, bounds2D14.getCenterX());
-    assertEquals(1.07374213E9d, bounds2D19.getCenterX());
-    assertEquals(1.07374213E9d, bounds2D17.getCenterX());
-    assertEquals(1.07374213E9d, bounds.getCenterX());
-    assertEquals(1.07374213E9d, bounds2D6.getCenterX());
-    assertEquals(1.07374213E9d, bounds7.getCenterX());
-    assertEquals(1.07374213E9d, bounds2D28.getCenterX());
-    assertEquals(1.07374213E9d, bounds2D20.getCenterX());
-    assertEquals(1.07374213E9d, bounds2D32.getCenterX());
-    assertEquals(1.07374213E9d, bounds17.getCenterX());
-    assertEquals(1.07374213E9d, bounds13.getCenterX());
-    assertEquals(1.07374213E9d, bounds18.getCenterX());
-    assertEquals(1.07374213E9d, bounds10.getCenterX());
-    assertEquals(1.07374213E9d, bounds19.getCenterX());
-    assertEquals(1.07374213E9d, bounds20.getCenterX());
-    assertEquals(1.07374213E9d, bounds15.getCenterX());
-    assertEquals(1.07374213E9d, bounds21.getCenterX());
-    assertEquals(1.07374213E9d, frame4.getCenterX());
-    assertEquals(1.07374213E9d, frame2.getCenterX());
-    assertEquals(1.07374213E9d, frame5.getCenterX());
-    assertEquals(1.07374213E9d, frame.getCenterX());
-    assertEquals(1.07374213E9d, frame3.getCenterX());
-    assertEquals(1.07374213E9d, frame6.getCenterX());
-    assertEquals(1.07374213E9d, frame7.getCenterX());
-    assertEquals(1.07374213E9d, frame8.getCenterX());
-    assertEquals(1.07374222E9d, bounds6.getCenterY());
-    assertEquals(1.07374222E9d, bounds5.getCenterY());
-    assertEquals(1.07374222E9d, bounds4.getCenterY());
-    assertEquals(1.07374222E9d, bounds3.getCenterY());
-    assertEquals(1.07374222E9d, bounds9.getCenterY());
-    assertEquals(1.07374222E9d, bounds12.getCenterY());
-    assertEquals(1.07374222E9d, bounds2.getCenterY());
-    assertEquals(1.07374222E9d, bounds8.getCenterY());
-    assertEquals(1.07374222E9d, bounds14.getCenterY());
-    assertEquals(1.07374222E9d, bounds11.getCenterY());
-    assertEquals(1.07374222E9d, bounds16.getCenterY());
-    assertEquals(1.07374222E9d, bounds2D3.getCenterY());
-    assertEquals(1.07374222E9d, bounds2D4.getCenterY());
-    assertEquals(1.07374222E9d, bounds2D8.getCenterY());
-    assertEquals(1.07374222E9d, bounds2D10.getCenterY());
-    assertEquals(1.07374222E9d, bounds2D14.getCenterY());
-    assertEquals(1.07374222E9d, bounds2D19.getCenterY());
-    assertEquals(1.07374222E9d, bounds2D17.getCenterY());
-    assertEquals(1.07374222E9d, bounds.getCenterY());
-    assertEquals(1.07374222E9d, bounds2D6.getCenterY());
-    assertEquals(1.07374222E9d, bounds7.getCenterY());
-    assertEquals(1.07374222E9d, bounds2D28.getCenterY());
-    assertEquals(1.07374222E9d, bounds2D20.getCenterY());
-    assertEquals(1.07374222E9d, bounds2D32.getCenterY());
-    assertEquals(1.07374222E9d, bounds17.getCenterY());
-    assertEquals(1.07374222E9d, bounds13.getCenterY());
-    assertEquals(1.07374222E9d, bounds18.getCenterY());
-    assertEquals(1.07374222E9d, bounds10.getCenterY());
-    assertEquals(1.07374222E9d, bounds19.getCenterY());
-    assertEquals(1.07374222E9d, bounds20.getCenterY());
-    assertEquals(1.07374222E9d, bounds15.getCenterY());
-    assertEquals(1.07374222E9d, bounds21.getCenterY());
-    assertEquals(1.07374222E9d, frame4.getCenterY());
-    assertEquals(1.07374222E9d, frame2.getCenterY());
-    assertEquals(1.07374222E9d, frame5.getCenterY());
-    assertEquals(1.07374222E9d, frame.getCenterY());
-    assertEquals(1.07374222E9d, frame3.getCenterY());
-    assertEquals(1.07374222E9d, frame6.getCenterY());
-    assertEquals(1.07374222E9d, frame7.getCenterY());
-    assertEquals(1.07374222E9d, frame8.getCenterY());
-    Dimension size = bounds.getSize();
-    Dimension size2 = size.getSize();
-    Dimension size3 = size2.getSize();
-    Dimension size4 = size3.getSize();
-    assertEquals(2.147482856E9d, size4.getHeight());
-    Dimension size5 = bounds2.getSize();
-    Dimension size6 = size5.getSize();
-    Dimension size7 = size6.getSize();
-    assertEquals(2.147482856E9d, size7.getHeight());
-    assertEquals(2.147482856E9d, size3.getHeight());
-    Dimension size8 = bounds3.getSize();
-    Dimension size9 = size8.getSize();
-    assertEquals(2.147482856E9d, size9.getHeight());
-    assertEquals(2.147482856E9d, size6.getHeight());
-    assertEquals(2.147482856E9d, size2.getHeight());
-    Dimension size10 = bounds7.getSize();
-    Dimension size11 = size10.getSize();
-    assertEquals(2.147482856E9d, size11.getHeight());
-    Dimension size12 = bounds10.getSize();
-    Dimension size13 = size12.getSize();
-    assertEquals(2.147482856E9d, size13.getHeight());
-    Dimension size14 = ((Rectangle) bounds2D10).getSize();
-    Dimension size15 = size14.getSize();
-    assertEquals(2.147482856E9d, size15.getHeight());
-    Dimension size16 = bounds5.getSize();
-    assertEquals(2.147482856E9d, size16.getHeight());
-    Dimension size17 = bounds4.getSize();
-    assertEquals(2.147482856E9d, size17.getHeight());
-    assertEquals(2.147482856E9d, size8.getHeight());
-    assertEquals(2.147482856E9d, size5.getHeight());
-    Dimension size18 = bounds8.getSize();
-    assertEquals(2.147482856E9d, size18.getHeight());
-    Dimension size19 = bounds11.getSize();
-    assertEquals(2.147482856E9d, size19.getHeight());
-    assertEquals(2.147482856E9d, size.getHeight());
-    assertEquals(2.147482856E9d, size10.getHeight());
-    Dimension size20 = bounds13.getSize();
-    assertEquals(2.147482856E9d, size20.getHeight());
-    assertEquals(2.147482856E9d, size12.getHeight());
-    Dimension size21 = bounds15.getSize();
-    assertEquals(2.147482856E9d, size21.getHeight());
-    Dimension size22 = ((Rectangle) bounds2D8).getSize();
-    assertEquals(2.147482856E9d, size22.getHeight());
-    assertEquals(2.147482856E9d, size14.getHeight());
-    assertEquals(2.147482856E9d, bounds6.getHeight());
-    assertEquals(2.147482856E9d, bounds5.getHeight());
-    assertEquals(2.147482856E9d, bounds4.getHeight());
-    assertEquals(2.147482856E9d, bounds3.getHeight());
-    assertEquals(2.147482856E9d, bounds9.getHeight());
-    assertEquals(2.147482856E9d, bounds12.getHeight());
-    assertEquals(2.147482856E9d, bounds2.getHeight());
-    assertEquals(2.147482856E9d, bounds8.getHeight());
-    assertEquals(2.147482856E9d, bounds14.getHeight());
-    assertEquals(2.147482856E9d, bounds11.getHeight());
-    assertEquals(2.147482856E9d, bounds16.getHeight());
-    assertEquals(2.147482856E9d, bounds.getHeight());
-    assertEquals(2.147482856E9d, bounds7.getHeight());
-    assertEquals(2.147482856E9d, bounds17.getHeight());
-    assertEquals(2.147482856E9d, bounds13.getHeight());
-    assertEquals(2.147482856E9d, bounds18.getHeight());
-    assertEquals(2.147482856E9d, bounds10.getHeight());
-    assertEquals(2.147482856E9d, bounds19.getHeight());
-    assertEquals(2.147482856E9d, bounds20.getHeight());
-    assertEquals(2.147482856E9d, bounds15.getHeight());
-    assertEquals(2.147482856E9d, bounds21.getHeight());
-    assertEquals(2.147482856E9d, bounds2D4.getHeight());
-    assertEquals(2.147482856E9d, bounds2D8.getHeight());
-    assertEquals(2.147482856E9d, bounds2D10.getHeight());
-    assertEquals(2.147482856E9d, bounds2D14.getHeight());
-    assertEquals(2.147482856E9d, bounds2D19.getHeight());
-    assertEquals(2.147482856E9d, bounds2D17.getHeight());
-    assertEquals(2.147482856E9d, bounds2D6.getHeight());
-    assertEquals(2.147482856E9d, bounds2D28.getHeight());
-    assertEquals(2.147482856E9d, bounds2D20.getHeight());
-    assertEquals(2.147482856E9d, bounds2D32.getHeight());
-    assertEquals(2.147482856E9d, frame4.getHeight());
-    assertEquals(2.147482856E9d, frame2.getHeight());
-    assertEquals(2.147482856E9d, frame5.getHeight());
-    assertEquals(2.147482856E9d, frame.getHeight());
-    assertEquals(2.147482856E9d, frame3.getHeight());
-    assertEquals(2.147482856E9d, frame6.getHeight());
-    assertEquals(2.147482856E9d, frame7.getHeight());
-    assertEquals(2.147482856E9d, frame8.getHeight());
-    assertEquals(2.147483036E9d, size4.getWidth());
-    assertEquals(2.147483036E9d, size7.getWidth());
-    assertEquals(2.147483036E9d, size3.getWidth());
-    assertEquals(2.147483036E9d, size9.getWidth());
-    assertEquals(2.147483036E9d, size6.getWidth());
-    assertEquals(2.147483036E9d, size2.getWidth());
-    assertEquals(2.147483036E9d, size11.getWidth());
-    assertEquals(2.147483036E9d, size13.getWidth());
-    assertEquals(2.147483036E9d, size15.getWidth());
-    assertEquals(2.147483036E9d, size16.getWidth());
-    assertEquals(2.147483036E9d, size17.getWidth());
-    assertEquals(2.147483036E9d, size8.getWidth());
-    assertEquals(2.147483036E9d, size5.getWidth());
-    assertEquals(2.147483036E9d, size18.getWidth());
-    assertEquals(2.147483036E9d, size19.getWidth());
-    assertEquals(2.147483036E9d, size.getWidth());
-    assertEquals(2.147483036E9d, size10.getWidth());
-    assertEquals(2.147483036E9d, size20.getWidth());
-    assertEquals(2.147483036E9d, size12.getWidth());
-    assertEquals(2.147483036E9d, size21.getWidth());
-    assertEquals(2.147483036E9d, size22.getWidth());
-    assertEquals(2.147483036E9d, size14.getWidth());
-    assertEquals(2.147483036E9d, bounds6.getWidth());
-    assertEquals(2.147483036E9d, bounds5.getWidth());
-    assertEquals(2.147483036E9d, bounds4.getWidth());
-    assertEquals(2.147483036E9d, bounds3.getWidth());
-    assertEquals(2.147483036E9d, bounds9.getWidth());
-    assertEquals(2.147483036E9d, bounds12.getWidth());
-    assertEquals(2.147483036E9d, bounds2.getWidth());
-    assertEquals(2.147483036E9d, bounds8.getWidth());
-    assertEquals(2.147483036E9d, bounds14.getWidth());
-    assertEquals(2.147483036E9d, bounds11.getWidth());
-    assertEquals(2.147483036E9d, bounds16.getWidth());
-    assertEquals(2.147483036E9d, bounds.getWidth());
-    assertEquals(2.147483036E9d, bounds7.getWidth());
-    assertEquals(2.147483036E9d, bounds17.getWidth());
-    assertEquals(2.147483036E9d, bounds13.getWidth());
-    assertEquals(2.147483036E9d, bounds18.getWidth());
-    assertEquals(2.147483036E9d, bounds10.getWidth());
-    assertEquals(2.147483036E9d, bounds19.getWidth());
-    assertEquals(2.147483036E9d, bounds20.getWidth());
-    assertEquals(2.147483036E9d, bounds15.getWidth());
-    assertEquals(2.147483036E9d, bounds21.getWidth());
-    assertEquals(2.147483036E9d, bounds2D4.getWidth());
-    assertEquals(2.147483036E9d, bounds2D8.getWidth());
-    assertEquals(2.147483036E9d, bounds2D10.getWidth());
-    assertEquals(2.147483036E9d, bounds2D14.getWidth());
-    assertEquals(2.147483036E9d, bounds2D19.getWidth());
-    assertEquals(2.147483036E9d, bounds2D17.getWidth());
-    assertEquals(2.147483036E9d, bounds2D6.getWidth());
-    assertEquals(2.147483036E9d, bounds2D28.getWidth());
-    assertEquals(2.147483036E9d, bounds2D20.getWidth());
-    assertEquals(2.147483036E9d, bounds2D32.getWidth());
-    assertEquals(2.147483036E9d, frame4.getWidth());
-    assertEquals(2.147483036E9d, frame2.getWidth());
-    assertEquals(2.147483036E9d, frame5.getWidth());
-    assertEquals(2.147483036E9d, frame.getWidth());
-    assertEquals(2.147483036E9d, frame3.getWidth());
-    assertEquals(2.147483036E9d, frame6.getWidth());
-    assertEquals(2.147483036E9d, frame7.getWidth());
-    assertEquals(2.147483036E9d, frame8.getWidth());
-    assertEquals(2.147483648E9d, currentPoint.getX());
-    assertEquals(2.147483648E9d, currentPoint.getY());
-    assertEquals(2.147483648E9d, bounds6.getMaxX());
-    assertEquals(2.147483648E9d, bounds5.getMaxX());
-    assertEquals(2.147483648E9d, bounds4.getMaxX());
-    assertEquals(2.147483648E9d, bounds3.getMaxX());
-    assertEquals(2.147483648E9d, bounds9.getMaxX());
-    assertEquals(2.147483648E9d, bounds12.getMaxX());
-    assertEquals(2.147483648E9d, bounds2.getMaxX());
-    assertEquals(2.147483648E9d, bounds8.getMaxX());
-    assertEquals(2.147483648E9d, bounds14.getMaxX());
-    assertEquals(2.147483648E9d, bounds11.getMaxX());
-    assertEquals(2.147483648E9d, bounds16.getMaxX());
-    assertEquals(2.147483648E9d, bounds2D4.getMaxX());
-    assertEquals(2.147483648E9d, bounds2D8.getMaxX());
-    assertEquals(2.147483648E9d, bounds2D10.getMaxX());
-    assertEquals(2.147483648E9d, bounds2D14.getMaxX());
-    assertEquals(2.147483648E9d, bounds2D19.getMaxX());
-    assertEquals(2.147483648E9d, bounds2D17.getMaxX());
-    assertEquals(2.147483648E9d, bounds.getMaxX());
-    assertEquals(2.147483648E9d, bounds2D6.getMaxX());
-    assertEquals(2.147483648E9d, bounds7.getMaxX());
-    assertEquals(2.147483648E9d, bounds2D28.getMaxX());
-    assertEquals(2.147483648E9d, bounds2D20.getMaxX());
-    assertEquals(2.147483648E9d, bounds2D32.getMaxX());
-    assertEquals(2.147483648E9d, bounds17.getMaxX());
-    assertEquals(2.147483648E9d, bounds13.getMaxX());
-    assertEquals(2.147483648E9d, bounds18.getMaxX());
-    assertEquals(2.147483648E9d, bounds10.getMaxX());
-    assertEquals(2.147483648E9d, bounds19.getMaxX());
-    assertEquals(2.147483648E9d, bounds20.getMaxX());
-    assertEquals(2.147483648E9d, bounds15.getMaxX());
-    assertEquals(2.147483648E9d, bounds21.getMaxX());
-    assertEquals(2.147483648E9d, frame4.getMaxX());
-    assertEquals(2.147483648E9d, frame2.getMaxX());
-    assertEquals(2.147483648E9d, frame5.getMaxX());
-    assertEquals(2.147483648E9d, frame.getMaxX());
-    assertEquals(2.147483648E9d, frame3.getMaxX());
-    assertEquals(2.147483648E9d, frame6.getMaxX());
-    assertEquals(2.147483648E9d, frame7.getMaxX());
-    assertEquals(2.147483648E9d, frame8.getMaxX());
-    assertEquals(2.147483648E9d, bounds6.getMaxY());
-    assertEquals(2.147483648E9d, bounds5.getMaxY());
-    assertEquals(2.147483648E9d, bounds4.getMaxY());
-    assertEquals(2.147483648E9d, bounds3.getMaxY());
-    assertEquals(2.147483648E9d, bounds9.getMaxY());
-    assertEquals(2.147483648E9d, bounds12.getMaxY());
-    assertEquals(2.147483648E9d, bounds2.getMaxY());
-    assertEquals(2.147483648E9d, bounds8.getMaxY());
-    assertEquals(2.147483648E9d, bounds14.getMaxY());
-    assertEquals(2.147483648E9d, bounds11.getMaxY());
-    assertEquals(2.147483648E9d, bounds16.getMaxY());
-    assertEquals(2.147483648E9d, bounds2D4.getMaxY());
-    assertEquals(2.147483648E9d, bounds2D8.getMaxY());
-    assertEquals(2.147483648E9d, bounds2D10.getMaxY());
-    assertEquals(2.147483648E9d, bounds2D14.getMaxY());
-    assertEquals(2.147483648E9d, bounds2D19.getMaxY());
-    assertEquals(2.147483648E9d, bounds2D17.getMaxY());
-    assertEquals(2.147483648E9d, bounds.getMaxY());
-    assertEquals(2.147483648E9d, bounds2D6.getMaxY());
-    assertEquals(2.147483648E9d, bounds7.getMaxY());
-    assertEquals(2.147483648E9d, bounds2D28.getMaxY());
-    assertEquals(2.147483648E9d, bounds2D20.getMaxY());
-    assertEquals(2.147483648E9d, bounds2D32.getMaxY());
-    assertEquals(2.147483648E9d, bounds17.getMaxY());
-    assertEquals(2.147483648E9d, bounds13.getMaxY());
-    assertEquals(2.147483648E9d, bounds18.getMaxY());
-    assertEquals(2.147483648E9d, bounds10.getMaxY());
-    assertEquals(2.147483648E9d, bounds19.getMaxY());
-    assertEquals(2.147483648E9d, bounds20.getMaxY());
-    assertEquals(2.147483648E9d, bounds15.getMaxY());
-    assertEquals(2.147483648E9d, bounds21.getMaxY());
-    assertEquals(2.147483648E9d, frame4.getMaxY());
-    assertEquals(2.147483648E9d, frame2.getMaxY());
-    assertEquals(2.147483648E9d, frame5.getMaxY());
-    assertEquals(2.147483648E9d, frame.getMaxY());
-    assertEquals(2.147483648E9d, frame3.getMaxY());
-    assertEquals(2.147483648E9d, frame6.getMaxY());
-    assertEquals(2.147483648E9d, frame7.getMaxY());
-    assertEquals(2.147483648E9d, frame8.getMaxY());
-    assertEquals(2.14748365E9f, artBox.getLowerLeftX());
-    assertEquals(2.14748365E9f, bBox.getLowerLeftX());
-    assertEquals(2.14748365E9f, bleedBox.getLowerLeftX());
-    assertEquals(2.14748365E9f, cropBox.getLowerLeftX());
-    assertEquals(2.14748365E9f, artBox.getLowerLeftY());
-    assertEquals(2.14748365E9f, bBox.getLowerLeftY());
-    assertEquals(2.14748365E9f, bleedBox.getLowerLeftY());
-    assertEquals(2.14748365E9f, cropBox.getLowerLeftY());
-    Dimension size23 = size4.getSize();
-    assertEquals(2147482856, size23.height);
-    Dimension size24 = size7.getSize();
-    assertEquals(2147482856, size24.height);
-    assertEquals(2147482856, size4.height);
-    Dimension size25 = size9.getSize();
-    assertEquals(2147482856, size25.height);
-    assertEquals(2147482856, size7.height);
-    assertEquals(2147482856, size3.height);
-    Dimension size26 = size11.getSize();
-    assertEquals(2147482856, size26.height);
-    Dimension size27 = size13.getSize();
-    assertEquals(2147482856, size27.height);
-    Dimension size28 = size15.getSize();
-    assertEquals(2147482856, size28.height);
-    Dimension size29 = size16.getSize();
-    assertEquals(2147482856, size29.height);
-    Dimension size30 = size17.getSize();
-    assertEquals(2147482856, size30.height);
-    assertEquals(2147482856, size9.height);
-    assertEquals(2147482856, size6.height);
-    Dimension size31 = size18.getSize();
-    assertEquals(2147482856, size31.height);
-    Dimension size32 = size19.getSize();
-    assertEquals(2147482856, size32.height);
-    assertEquals(2147482856, size2.height);
-    assertEquals(2147482856, size11.height);
-    Dimension size33 = size20.getSize();
-    assertEquals(2147482856, size33.height);
-    assertEquals(2147482856, size13.height);
-    Dimension size34 = size21.getSize();
-    assertEquals(2147482856, size34.height);
-    Dimension size35 = size22.getSize();
-    assertEquals(2147482856, size35.height);
-    assertEquals(2147482856, size15.height);
-    Dimension size36 = bounds6.getSize();
-    assertEquals(2147482856, size36.height);
-    assertEquals(2147482856, size16.height);
-    assertEquals(2147482856, size17.height);
-    assertEquals(2147482856, size8.height);
-    Dimension size37 = bounds9.getSize();
-    assertEquals(2147482856, size37.height);
-    Dimension size38 = bounds12.getSize();
-    assertEquals(2147482856, size38.height);
-    assertEquals(2147482856, size5.height);
-    assertEquals(2147482856, size18.height);
-    Dimension size39 = bounds14.getSize();
-    assertEquals(2147482856, size39.height);
-    assertEquals(2147482856, size19.height);
-    Dimension size40 = bounds16.getSize();
-    assertEquals(2147482856, size40.height);
-    assertEquals(2147482856, size.height);
-    assertEquals(2147482856, size10.height);
-    Dimension size41 = bounds17.getSize();
-    assertEquals(2147482856, size41.height);
-    assertEquals(2147482856, size20.height);
-    Dimension size42 = bounds18.getSize();
-    assertEquals(2147482856, size42.height);
-    assertEquals(2147482856, size12.height);
-    Dimension size43 = bounds19.getSize();
-    assertEquals(2147482856, size43.height);
-    Dimension size44 = bounds20.getSize();
-    assertEquals(2147482856, size44.height);
-    assertEquals(2147482856, size21.height);
-    Dimension size45 = bounds21.getSize();
-    assertEquals(2147482856, size45.height);
-    Dimension size46 = ((Rectangle) bounds2D4).getSize();
-    assertEquals(2147482856, size46.height);
-    assertEquals(2147482856, size22.height);
-    assertEquals(2147482856, size14.height);
-    Dimension size47 = ((Rectangle) bounds2D14).getSize();
-    assertEquals(2147482856, size47.height);
-    Dimension size48 = ((Rectangle) bounds2D19).getSize();
-    assertEquals(2147482856, size48.height);
-    Dimension size49 = ((Rectangle) bounds2D28).getSize();
-    assertEquals(2147482856, size49.height);
-    Rectangle bounds22 = bounds6.getBounds();
-    assertEquals(2147482856, bounds22.height);
-    assertEquals(2147482856, bounds6.height);
-    assertEquals(2147482856, bounds5.height);
-    assertEquals(2147482856, bounds4.height);
-    Rectangle bounds23 = bounds9.getBounds();
-    assertEquals(2147482856, bounds23.height);
-    Rectangle bounds24 = bounds12.getBounds();
-    assertEquals(2147482856, bounds24.height);
-    assertEquals(2147482856, bounds3.height);
-    assertEquals(2147482856, bounds9.height);
-    Rectangle bounds25 = bounds14.getBounds();
-    assertEquals(2147482856, bounds25.height);
-    assertEquals(2147482856, bounds12.height);
-    Rectangle bounds26 = bounds16.getBounds();
-    assertEquals(2147482856, bounds26.height);
-    assertEquals(2147482856, bounds2.height);
-    assertEquals(2147482856, bounds8.height);
-    Rectangle bounds27 = bounds17.getBounds();
-    assertEquals(2147482856, bounds27.height);
-    assertEquals(2147482856, bounds14.height);
-    Rectangle bounds28 = bounds18.getBounds();
-    assertEquals(2147482856, bounds28.height);
-    assertEquals(2147482856, bounds11.height);
-    Rectangle bounds29 = bounds19.getBounds();
-    assertEquals(2147482856, bounds29.height);
-    Rectangle bounds30 = bounds20.getBounds();
-    assertEquals(2147482856, bounds30.height);
-    assertEquals(2147482856, bounds16.height);
-    Rectangle bounds31 = bounds21.getBounds();
-    assertEquals(2147482856, bounds31.height);
-    assertEquals(2147482856, bounds.height);
-    assertEquals(2147482856, bounds7.height);
-    Rectangle bounds32 = bounds2D3.getBounds();
-    assertEquals(2147482856, bounds32.height);
-    Rectangle bounds33 = bounds2D4.getBounds();
-    assertEquals(2147482856, bounds33.height);
-    assertEquals(2147482856, bounds17.height);
-    assertEquals(2147482856, bounds13.height);
-    Rectangle bounds34 = bounds2D14.getBounds();
-    assertEquals(2147482856, bounds34.height);
-    Rectangle bounds35 = bounds2D19.getBounds();
-    assertEquals(2147482856, bounds35.height);
-    assertEquals(2147482856, bounds18.height);
-    assertEquals(2147482856, bounds10.height);
-    Rectangle bounds36 = bounds2D28.getBounds();
-    assertEquals(2147482856, bounds36.height);
-    assertEquals(2147482856, bounds19.height);
-    Rectangle bounds37 = bounds2D32.getBounds();
-    assertEquals(2147482856, bounds37.height);
-    Rectangle bounds38 = frame4.getBounds();
-    assertEquals(2147482856, bounds38.height);
-    assertEquals(2147482856, bounds20.height);
-    Rectangle bounds39 = frame5.getBounds();
-    assertEquals(2147482856, bounds39.height);
-    assertEquals(2147482856, bounds15.height);
-    assertEquals(2147482856, bounds21.height);
-    Rectangle bounds40 = frame6.getBounds();
-    assertEquals(2147482856, bounds40.height);
-    Rectangle bounds41 = frame7.getBounds();
-    assertEquals(2147482856, bounds41.height);
-    Rectangle bounds42 = frame8.getBounds();
-    assertEquals(2147482856, bounds42.height);
-    assertEquals(2147482856, ((Rectangle) bounds2D).height);
-    assertEquals(2147482856, ((Rectangle) bounds2D2).height);
-    assertEquals(2147482856, ((Rectangle) bounds2D3).height);
-    assertEquals(2147482856, ((Rectangle) bounds2D4).height);
-    assertEquals(2147482856, ((Rectangle) bounds2D5).height);
-    assertEquals(2147482856, ((Rectangle) bounds2D7).height);
-    assertEquals(2147482856, ((Rectangle) bounds2D8).height);
-    assertEquals(2147482856, ((Rectangle) bounds2D9).height);
-    assertEquals(2147482856, ((Rectangle) bounds2D11).height);
-    assertEquals(2147482856, ((Rectangle) bounds2D12).height);
-    assertEquals(2147482856, ((Rectangle) bounds2D13).height);
-    assertEquals(2147482856, ((Rectangle) bounds2D10).height);
-    assertEquals(2147482856, ((Rectangle) bounds2D14).height);
-    assertEquals(2147482856, ((Rectangle) bounds2D15).height);
-    assertEquals(2147482856, ((Rectangle) bounds2D16).height);
-    assertEquals(2147482856, ((Rectangle) bounds2D18).height);
-    assertEquals(2147482856, ((Rectangle) bounds2D19).height);
-    assertEquals(2147482856, ((Rectangle) bounds2D21).height);
-    assertEquals(2147482856, ((Rectangle) bounds2D22).height);
-    assertEquals(2147482856, ((Rectangle) bounds2D23).height);
-    assertEquals(2147482856, ((Rectangle) bounds2D24).height);
-    assertEquals(2147482856, ((Rectangle) bounds2D25).height);
-    assertEquals(2147482856, ((Rectangle) bounds2D26).height);
-    assertEquals(2147482856, ((Rectangle) bounds2D27).height);
-    assertEquals(2147482856, ((Rectangle) bounds2D28).height);
-    assertEquals(2147482856, ((Rectangle) bounds2D29).height);
-    assertEquals(2147482856, ((Rectangle) bounds2D30).height);
-    assertEquals(2147482856, ((Rectangle) bounds2D31).height);
-    assertEquals(2147483036, size23.width);
-    assertEquals(2147483036, size24.width);
-    assertEquals(2147483036, size4.width);
-    assertEquals(2147483036, size25.width);
-    assertEquals(2147483036, size7.width);
-    assertEquals(2147483036, size3.width);
-    assertEquals(2147483036, size26.width);
-    assertEquals(2147483036, size27.width);
-    assertEquals(2147483036, size28.width);
-    assertEquals(2147483036, size29.width);
-    assertEquals(2147483036, size30.width);
-    assertEquals(2147483036, size9.width);
-    assertEquals(2147483036, size6.width);
-    assertEquals(2147483036, size31.width);
-    assertEquals(2147483036, size32.width);
-    assertEquals(2147483036, size2.width);
-    assertEquals(2147483036, size11.width);
-    assertEquals(2147483036, size33.width);
-    assertEquals(2147483036, size13.width);
-    assertEquals(2147483036, size34.width);
-    assertEquals(2147483036, size35.width);
-    assertEquals(2147483036, size15.width);
-    assertEquals(2147483036, size36.width);
-    assertEquals(2147483036, size16.width);
-    assertEquals(2147483036, size17.width);
-    assertEquals(2147483036, size8.width);
-    assertEquals(2147483036, size37.width);
-    assertEquals(2147483036, size38.width);
-    assertEquals(2147483036, size5.width);
-    assertEquals(2147483036, size18.width);
-    assertEquals(2147483036, size39.width);
-    assertEquals(2147483036, size19.width);
-    assertEquals(2147483036, size40.width);
-    assertEquals(2147483036, size.width);
-    assertEquals(2147483036, size10.width);
-    assertEquals(2147483036, size41.width);
-    assertEquals(2147483036, size20.width);
-    assertEquals(2147483036, size42.width);
-    assertEquals(2147483036, size12.width);
-    assertEquals(2147483036, size43.width);
-    assertEquals(2147483036, size44.width);
-    assertEquals(2147483036, size21.width);
-    assertEquals(2147483036, size45.width);
-    assertEquals(2147483036, size46.width);
-    assertEquals(2147483036, size22.width);
-    assertEquals(2147483036, size14.width);
-    assertEquals(2147483036, size47.width);
-    assertEquals(2147483036, size48.width);
-    assertEquals(2147483036, size49.width);
-    assertEquals(2147483036, bounds22.width);
-    assertEquals(2147483036, bounds6.width);
-    assertEquals(2147483036, bounds5.width);
-    assertEquals(2147483036, bounds4.width);
-    assertEquals(2147483036, bounds23.width);
-    assertEquals(2147483036, bounds24.width);
-    assertEquals(2147483036, bounds3.width);
-    assertEquals(2147483036, bounds9.width);
-    assertEquals(2147483036, bounds25.width);
-    assertEquals(2147483036, bounds12.width);
-    assertEquals(2147483036, bounds26.width);
-    assertEquals(2147483036, bounds2.width);
-    assertEquals(2147483036, bounds8.width);
-    assertEquals(2147483036, bounds27.width);
-    assertEquals(2147483036, bounds14.width);
-    assertEquals(2147483036, bounds28.width);
-    assertEquals(2147483036, bounds11.width);
-    assertEquals(2147483036, bounds29.width);
-    assertEquals(2147483036, bounds30.width);
-    assertEquals(2147483036, bounds16.width);
-    assertEquals(2147483036, bounds31.width);
-    assertEquals(2147483036, bounds.width);
-    assertEquals(2147483036, bounds7.width);
-    assertEquals(2147483036, bounds32.width);
-    assertEquals(2147483036, bounds33.width);
-    assertEquals(2147483036, bounds17.width);
-    assertEquals(2147483036, bounds13.width);
-    assertEquals(2147483036, bounds34.width);
-    assertEquals(2147483036, bounds35.width);
-    assertEquals(2147483036, bounds18.width);
-    assertEquals(2147483036, bounds10.width);
-    assertEquals(2147483036, bounds36.width);
-    assertEquals(2147483036, bounds19.width);
-    assertEquals(2147483036, bounds37.width);
-    assertEquals(2147483036, bounds38.width);
-    assertEquals(2147483036, bounds20.width);
-    assertEquals(2147483036, bounds39.width);
-    assertEquals(2147483036, bounds15.width);
-    assertEquals(2147483036, bounds21.width);
-    assertEquals(2147483036, bounds40.width);
-    assertEquals(2147483036, bounds41.width);
-    assertEquals(2147483036, bounds42.width);
-    assertEquals(2147483036, ((Rectangle) bounds2D).width);
-    assertEquals(2147483036, ((Rectangle) bounds2D2).width);
-    assertEquals(2147483036, ((Rectangle) bounds2D3).width);
-    assertEquals(2147483036, ((Rectangle) bounds2D4).width);
-    assertEquals(2147483036, ((Rectangle) bounds2D5).width);
-    assertEquals(2147483036, ((Rectangle) bounds2D7).width);
-    assertEquals(2147483036, ((Rectangle) bounds2D8).width);
-    assertEquals(2147483036, ((Rectangle) bounds2D9).width);
-    assertEquals(2147483036, ((Rectangle) bounds2D11).width);
-    assertEquals(2147483036, ((Rectangle) bounds2D12).width);
-    assertEquals(2147483036, ((Rectangle) bounds2D13).width);
-    assertEquals(2147483036, ((Rectangle) bounds2D10).width);
-    assertEquals(2147483036, ((Rectangle) bounds2D14).width);
-    assertEquals(2147483036, ((Rectangle) bounds2D15).width);
-    assertEquals(2147483036, ((Rectangle) bounds2D16).width);
-    assertEquals(2147483036, ((Rectangle) bounds2D18).width);
-    assertEquals(2147483036, ((Rectangle) bounds2D19).width);
-    assertEquals(2147483036, ((Rectangle) bounds2D21).width);
-    assertEquals(2147483036, ((Rectangle) bounds2D22).width);
-    assertEquals(2147483036, ((Rectangle) bounds2D23).width);
-    assertEquals(2147483036, ((Rectangle) bounds2D24).width);
-    assertEquals(2147483036, ((Rectangle) bounds2D25).width);
-    assertEquals(2147483036, ((Rectangle) bounds2D26).width);
-    assertEquals(2147483036, ((Rectangle) bounds2D27).width);
-    assertEquals(2147483036, ((Rectangle) bounds2D28).width);
-    assertEquals(2147483036, ((Rectangle) bounds2D29).width);
-    assertEquals(2147483036, ((Rectangle) bounds2D30).width);
-    assertEquals(2147483036, ((Rectangle) bounds2D31).width);
-    Point location = bounds6.getLocation();
-    assertEquals(612, location.x);
-    Point location2 = bounds5.getLocation();
-    assertEquals(612, location2.x);
-    Point location3 = bounds4.getLocation();
-    assertEquals(612, location3.x);
-    Point location4 = bounds3.getLocation();
-    assertEquals(612, location4.x);
-    Point location5 = bounds9.getLocation();
-    assertEquals(612, location5.x);
-    Point location6 = bounds12.getLocation();
-    assertEquals(612, location6.x);
-    Point location7 = bounds2.getLocation();
-    assertEquals(612, location7.x);
-    Point location8 = bounds8.getLocation();
-    assertEquals(612, location8.x);
-    Point location9 = bounds14.getLocation();
-    assertEquals(612, location9.x);
-    Point location10 = bounds11.getLocation();
-    assertEquals(612, location10.x);
-    Point location11 = bounds16.getLocation();
-    assertEquals(612, location11.x);
-    Point location12 = bounds.getLocation();
-    assertEquals(612, location12.x);
-    Point location13 = bounds7.getLocation();
-    assertEquals(612, location13.x);
-    Point location14 = bounds17.getLocation();
-    assertEquals(612, location14.x);
-    Point location15 = bounds13.getLocation();
-    assertEquals(612, location15.x);
-    Point location16 = bounds18.getLocation();
-    assertEquals(612, location16.x);
-    Point location17 = bounds10.getLocation();
-    assertEquals(612, location17.x);
-    Point location18 = bounds19.getLocation();
-    assertEquals(612, location18.x);
-    Point location19 = bounds20.getLocation();
-    assertEquals(612, location19.x);
-    Point location20 = bounds15.getLocation();
-    assertEquals(612, location20.x);
-    Point location21 = bounds21.getLocation();
-    assertEquals(612, location21.x);
-    Point location22 = ((Rectangle) bounds2D4).getLocation();
-    assertEquals(612, location22.x);
-    Point location23 = ((Rectangle) bounds2D8).getLocation();
-    assertEquals(612, location23.x);
-    Point location24 = ((Rectangle) bounds2D10).getLocation();
-    assertEquals(612, location24.x);
-    Point location25 = ((Rectangle) bounds2D14).getLocation();
-    assertEquals(612, location25.x);
-    Point location26 = ((Rectangle) bounds2D19).getLocation();
-    assertEquals(612, location26.x);
-    Point location27 = ((Rectangle) bounds2D28).getLocation();
-    assertEquals(612, location27.x);
-    assertEquals(612, bounds22.x);
-    assertEquals(612, bounds6.x);
-    assertEquals(612, bounds5.x);
-    assertEquals(612, bounds4.x);
-    assertEquals(612, bounds23.x);
-    assertEquals(612, bounds24.x);
-    assertEquals(612, bounds3.x);
-    assertEquals(612, bounds9.x);
-    assertEquals(612, bounds25.x);
-    assertEquals(612, bounds12.x);
-    assertEquals(612, bounds26.x);
-    assertEquals(612, bounds2.x);
-    assertEquals(612, bounds8.x);
-    assertEquals(612, bounds27.x);
-    assertEquals(612, bounds14.x);
-    assertEquals(612, bounds28.x);
-    assertEquals(612, bounds11.x);
-    assertEquals(612, bounds29.x);
-    assertEquals(612, bounds30.x);
-    assertEquals(612, bounds16.x);
-    assertEquals(612, bounds31.x);
-    assertEquals(612, bounds.x);
-    assertEquals(612, bounds7.x);
-    assertEquals(612, bounds32.x);
-    assertEquals(612, bounds33.x);
-    assertEquals(612, bounds17.x);
-    assertEquals(612, bounds13.x);
-    assertEquals(612, bounds34.x);
-    assertEquals(612, bounds35.x);
-    assertEquals(612, bounds18.x);
-    assertEquals(612, bounds10.x);
-    assertEquals(612, bounds36.x);
-    assertEquals(612, bounds19.x);
-    assertEquals(612, bounds37.x);
-    assertEquals(612, bounds38.x);
-    assertEquals(612, bounds20.x);
-    assertEquals(612, bounds39.x);
-    assertEquals(612, bounds15.x);
-    assertEquals(612, bounds21.x);
-    assertEquals(612, bounds40.x);
-    assertEquals(612, bounds41.x);
-    assertEquals(612, bounds42.x);
-    assertEquals(612, ((Rectangle) bounds2D).x);
-    assertEquals(612, ((Rectangle) bounds2D2).x);
-    assertEquals(612, ((Rectangle) bounds2D3).x);
-    assertEquals(612, ((Rectangle) bounds2D4).x);
-    assertEquals(612, ((Rectangle) bounds2D5).x);
-    assertEquals(612, ((Rectangle) bounds2D7).x);
-    assertEquals(612, ((Rectangle) bounds2D8).x);
-    assertEquals(612, ((Rectangle) bounds2D9).x);
-    assertEquals(612, ((Rectangle) bounds2D11).x);
-    assertEquals(612, ((Rectangle) bounds2D12).x);
-    assertEquals(612, ((Rectangle) bounds2D13).x);
-    assertEquals(612, ((Rectangle) bounds2D10).x);
-    assertEquals(612, ((Rectangle) bounds2D14).x);
-    assertEquals(612, ((Rectangle) bounds2D15).x);
-    assertEquals(612, ((Rectangle) bounds2D16).x);
-    assertEquals(612, ((Rectangle) bounds2D18).x);
-    assertEquals(612, ((Rectangle) bounds2D19).x);
-    assertEquals(612, ((Rectangle) bounds2D21).x);
-    assertEquals(612, ((Rectangle) bounds2D22).x);
-    assertEquals(612, ((Rectangle) bounds2D23).x);
-    assertEquals(612, ((Rectangle) bounds2D24).x);
-    assertEquals(612, ((Rectangle) bounds2D25).x);
-    assertEquals(612, ((Rectangle) bounds2D26).x);
-    assertEquals(612, ((Rectangle) bounds2D27).x);
-    assertEquals(612, ((Rectangle) bounds2D28).x);
-    assertEquals(612, ((Rectangle) bounds2D29).x);
-    assertEquals(612, ((Rectangle) bounds2D30).x);
-    assertEquals(612, ((Rectangle) bounds2D31).x);
-    assertEquals(612.0d, location2.getX());
-    assertEquals(612.0d, location3.getX());
-    assertEquals(612.0d, location4.getX());
-    assertEquals(612.0d, location7.getX());
-    assertEquals(612.0d, location8.getX());
-    assertEquals(612.0d, location10.getX());
-    assertEquals(612.0d, location12.getX());
-    assertEquals(612.0d, location13.getX());
-    assertEquals(612.0d, location15.getX());
-    assertEquals(612.0d, location17.getX());
-    assertEquals(612.0d, location20.getX());
-    assertEquals(612.0d, location23.getX());
-    assertEquals(612.0d, location24.getX());
-    assertEquals(612.0d, bounds6.getX());
-    assertEquals(612.0d, bounds5.getX());
-    assertEquals(612.0d, bounds4.getX());
-    assertEquals(612.0d, bounds3.getX());
-    assertEquals(612.0d, bounds9.getX());
-    assertEquals(612.0d, bounds12.getX());
-    assertEquals(612.0d, bounds2.getX());
-    assertEquals(612.0d, bounds8.getX());
-    assertEquals(612.0d, bounds14.getX());
-    assertEquals(612.0d, bounds11.getX());
-    assertEquals(612.0d, bounds16.getX());
-    assertEquals(612.0d, bounds.getX());
-    assertEquals(612.0d, bounds7.getX());
-    assertEquals(612.0d, bounds17.getX());
-    assertEquals(612.0d, bounds13.getX());
-    assertEquals(612.0d, bounds18.getX());
-    assertEquals(612.0d, bounds10.getX());
-    assertEquals(612.0d, bounds19.getX());
-    assertEquals(612.0d, bounds20.getX());
-    assertEquals(612.0d, bounds15.getX());
-    assertEquals(612.0d, bounds21.getX());
-    assertEquals(612.0d, bounds6.getMinX());
-    assertEquals(612.0d, bounds5.getMinX());
-    assertEquals(612.0d, bounds4.getMinX());
-    assertEquals(612.0d, bounds3.getMinX());
-    assertEquals(612.0d, bounds9.getMinX());
-    assertEquals(612.0d, bounds12.getMinX());
-    assertEquals(612.0d, bounds2.getMinX());
-    assertEquals(612.0d, bounds8.getMinX());
-    assertEquals(612.0d, bounds14.getMinX());
-    assertEquals(612.0d, bounds11.getMinX());
-    assertEquals(612.0d, bounds16.getMinX());
-    assertEquals(612.0d, bounds2D4.getMinX());
-    assertEquals(612.0d, bounds2D8.getMinX());
-    assertEquals(612.0d, bounds2D10.getMinX());
-    assertEquals(612.0d, bounds2D14.getMinX());
-    assertEquals(612.0d, bounds2D19.getMinX());
-    assertEquals(612.0d, bounds2D17.getMinX());
-    assertEquals(612.0d, bounds.getMinX());
-    assertEquals(612.0d, bounds2D6.getMinX());
-    assertEquals(612.0d, bounds7.getMinX());
-    assertEquals(612.0d, bounds2D28.getMinX());
-    assertEquals(612.0d, bounds2D20.getMinX());
-    assertEquals(612.0d, bounds2D32.getMinX());
-    assertEquals(612.0d, bounds17.getMinX());
-    assertEquals(612.0d, bounds13.getMinX());
-    assertEquals(612.0d, bounds18.getMinX());
-    assertEquals(612.0d, bounds10.getMinX());
-    assertEquals(612.0d, bounds19.getMinX());
-    assertEquals(612.0d, bounds20.getMinX());
-    assertEquals(612.0d, bounds15.getMinX());
-    assertEquals(612.0d, bounds21.getMinX());
-    assertEquals(612.0d, frame4.getMinX());
-    assertEquals(612.0d, frame2.getMinX());
-    assertEquals(612.0d, frame5.getMinX());
-    assertEquals(612.0d, frame.getMinX());
-    assertEquals(612.0d, frame3.getMinX());
-    assertEquals(612.0d, frame6.getMinX());
-    assertEquals(612.0d, frame7.getMinX());
-    assertEquals(612.0d, frame8.getMinX());
-    assertEquals(612.0d, bounds2D4.getX());
-    assertEquals(612.0d, bounds2D8.getX());
-    assertEquals(612.0d, bounds2D10.getX());
-    assertEquals(612.0d, bounds2D14.getX());
-    assertEquals(612.0d, bounds2D19.getX());
-    assertEquals(612.0d, bounds2D17.getX());
-    assertEquals(612.0d, bounds2D6.getX());
-    assertEquals(612.0d, bounds2D28.getX());
-    assertEquals(612.0d, bounds2D20.getX());
-    assertEquals(612.0d, bounds2D32.getX());
-    assertEquals(612.0d, frame4.getX());
-    assertEquals(612.0d, frame2.getX());
-    assertEquals(612.0d, frame5.getX());
-    assertEquals(612.0d, frame.getX());
-    assertEquals(612.0d, frame3.getX());
-    assertEquals(612.0d, frame6.getX());
-    assertEquals(612.0d, frame7.getX());
-    assertEquals(612.0d, frame8.getX());
-    assertEquals(612.0f, bBox.getUpperRightX());
-    assertEquals(612.0f, bleedBox.getUpperRightX());
-    assertEquals(612.0f, cropBox.getUpperRightX());
-    assertEquals(792, location.y);
-    assertEquals(792, location2.y);
-    assertEquals(792, location3.y);
-    assertEquals(792, location4.y);
-    assertEquals(792, location5.y);
-    assertEquals(792, location6.y);
-    assertEquals(792, location7.y);
-    assertEquals(792, location8.y);
-    assertEquals(792, location9.y);
-    assertEquals(792, location10.y);
-    assertEquals(792, location11.y);
-    assertEquals(792, location12.y);
-    assertEquals(792, location13.y);
-    assertEquals(792, location14.y);
-    assertEquals(792, location15.y);
-    assertEquals(792, location16.y);
-    assertEquals(792, location17.y);
-    assertEquals(792, location18.y);
-    assertEquals(792, location19.y);
-    assertEquals(792, location20.y);
-    assertEquals(792, location21.y);
-    assertEquals(792, location22.y);
-    assertEquals(792, location23.y);
-    assertEquals(792, location24.y);
-    assertEquals(792, location25.y);
-    assertEquals(792, location26.y);
-    assertEquals(792, location27.y);
-    assertEquals(792, bounds22.y);
-    assertEquals(792, bounds6.y);
-    assertEquals(792, bounds5.y);
-    assertEquals(792, bounds4.y);
-    assertEquals(792, bounds23.y);
-    assertEquals(792, bounds24.y);
-    assertEquals(792, bounds3.y);
-    assertEquals(792, bounds9.y);
-    assertEquals(792, bounds25.y);
-    assertEquals(792, bounds12.y);
-    assertEquals(792, bounds26.y);
-    assertEquals(792, bounds2.y);
-    assertEquals(792, bounds8.y);
-    assertEquals(792, bounds27.y);
-    assertEquals(792, bounds14.y);
-    assertEquals(792, bounds28.y);
-    assertEquals(792, bounds11.y);
-    assertEquals(792, bounds29.y);
-    assertEquals(792, bounds30.y);
-    assertEquals(792, bounds16.y);
-    assertEquals(792, bounds31.y);
-    assertEquals(792, bounds.y);
-    assertEquals(792, bounds7.y);
-    assertEquals(792, bounds32.y);
-    assertEquals(792, bounds33.y);
-    assertEquals(792, bounds17.y);
-    assertEquals(792, bounds13.y);
-    assertEquals(792, bounds34.y);
-    assertEquals(792, bounds35.y);
-    assertEquals(792, bounds18.y);
-    assertEquals(792, bounds10.y);
-    assertEquals(792, bounds36.y);
-    assertEquals(792, bounds19.y);
-    assertEquals(792, bounds37.y);
-    assertEquals(792, bounds38.y);
-    assertEquals(792, bounds20.y);
-    assertEquals(792, bounds39.y);
-    assertEquals(792, bounds15.y);
-    assertEquals(792, bounds21.y);
-    assertEquals(792, bounds40.y);
-    assertEquals(792, bounds41.y);
-    assertEquals(792, bounds42.y);
-    assertEquals(792, ((Rectangle) bounds2D).y);
-    assertEquals(792, ((Rectangle) bounds2D2).y);
-    assertEquals(792, ((Rectangle) bounds2D3).y);
-    assertEquals(792, ((Rectangle) bounds2D4).y);
-    assertEquals(792, ((Rectangle) bounds2D5).y);
-    assertEquals(792, ((Rectangle) bounds2D7).y);
-    assertEquals(792, ((Rectangle) bounds2D8).y);
-    assertEquals(792, ((Rectangle) bounds2D9).y);
-    assertEquals(792, ((Rectangle) bounds2D11).y);
-    assertEquals(792, ((Rectangle) bounds2D12).y);
-    assertEquals(792, ((Rectangle) bounds2D13).y);
-    assertEquals(792, ((Rectangle) bounds2D10).y);
-    assertEquals(792, ((Rectangle) bounds2D14).y);
-    assertEquals(792, ((Rectangle) bounds2D15).y);
-    assertEquals(792, ((Rectangle) bounds2D16).y);
-    assertEquals(792, ((Rectangle) bounds2D18).y);
-    assertEquals(792, ((Rectangle) bounds2D19).y);
-    assertEquals(792, ((Rectangle) bounds2D21).y);
-    assertEquals(792, ((Rectangle) bounds2D22).y);
-    assertEquals(792, ((Rectangle) bounds2D23).y);
-    assertEquals(792, ((Rectangle) bounds2D24).y);
-    assertEquals(792, ((Rectangle) bounds2D25).y);
-    assertEquals(792, ((Rectangle) bounds2D26).y);
-    assertEquals(792, ((Rectangle) bounds2D27).y);
-    assertEquals(792, ((Rectangle) bounds2D28).y);
-    assertEquals(792, ((Rectangle) bounds2D29).y);
-    assertEquals(792, ((Rectangle) bounds2D30).y);
-    assertEquals(792, ((Rectangle) bounds2D31).y);
-    assertEquals(792.0d, location2.getY());
-    assertEquals(792.0d, location3.getY());
-    assertEquals(792.0d, location4.getY());
-    assertEquals(792.0d, location7.getY());
-    assertEquals(792.0d, location8.getY());
-    assertEquals(792.0d, location10.getY());
-    assertEquals(792.0d, location12.getY());
-    assertEquals(792.0d, location13.getY());
-    assertEquals(792.0d, location15.getY());
-    assertEquals(792.0d, location17.getY());
-    assertEquals(792.0d, location20.getY());
-    assertEquals(792.0d, location23.getY());
-    assertEquals(792.0d, location24.getY());
-    assertEquals(792.0d, bounds6.getY());
-    assertEquals(792.0d, bounds5.getY());
-    assertEquals(792.0d, bounds4.getY());
-    assertEquals(792.0d, bounds3.getY());
-    assertEquals(792.0d, bounds9.getY());
-    assertEquals(792.0d, bounds12.getY());
-    assertEquals(792.0d, bounds2.getY());
-    assertEquals(792.0d, bounds8.getY());
-    assertEquals(792.0d, bounds14.getY());
-    assertEquals(792.0d, bounds11.getY());
-    assertEquals(792.0d, bounds16.getY());
-    assertEquals(792.0d, bounds.getY());
-    assertEquals(792.0d, bounds7.getY());
-    assertEquals(792.0d, bounds17.getY());
-    assertEquals(792.0d, bounds13.getY());
-    assertEquals(792.0d, bounds18.getY());
-    assertEquals(792.0d, bounds10.getY());
-    assertEquals(792.0d, bounds19.getY());
-    assertEquals(792.0d, bounds20.getY());
-    assertEquals(792.0d, bounds15.getY());
-    assertEquals(792.0d, bounds21.getY());
-    assertEquals(792.0d, bounds6.getMinY());
-    assertEquals(792.0d, bounds5.getMinY());
-    assertEquals(792.0d, bounds4.getMinY());
-    assertEquals(792.0d, bounds3.getMinY());
-    assertEquals(792.0d, bounds9.getMinY());
-    assertEquals(792.0d, bounds12.getMinY());
-    assertEquals(792.0d, bounds2.getMinY());
-    assertEquals(792.0d, bounds8.getMinY());
-    assertEquals(792.0d, bounds14.getMinY());
-    assertEquals(792.0d, bounds11.getMinY());
-    assertEquals(792.0d, bounds16.getMinY());
-    assertEquals(792.0d, bounds2D4.getMinY());
-    assertEquals(792.0d, bounds2D8.getMinY());
-    assertEquals(792.0d, bounds2D10.getMinY());
-    assertEquals(792.0d, bounds2D14.getMinY());
-    assertEquals(792.0d, bounds2D19.getMinY());
-    assertEquals(792.0d, bounds2D17.getMinY());
-    assertEquals(792.0d, bounds.getMinY());
-    assertEquals(792.0d, bounds2D6.getMinY());
-    assertEquals(792.0d, bounds7.getMinY());
-    assertEquals(792.0d, bounds2D28.getMinY());
-    assertEquals(792.0d, bounds2D20.getMinY());
-    assertEquals(792.0d, bounds2D32.getMinY());
-    assertEquals(792.0d, bounds17.getMinY());
-    assertEquals(792.0d, bounds13.getMinY());
-    assertEquals(792.0d, bounds18.getMinY());
-    assertEquals(792.0d, bounds10.getMinY());
-    assertEquals(792.0d, bounds19.getMinY());
-    assertEquals(792.0d, bounds20.getMinY());
-    assertEquals(792.0d, bounds15.getMinY());
-    assertEquals(792.0d, bounds21.getMinY());
-    assertEquals(792.0d, frame4.getMinY());
-    assertEquals(792.0d, frame2.getMinY());
-    assertEquals(792.0d, frame5.getMinY());
-    assertEquals(792.0d, frame.getMinY());
-    assertEquals(792.0d, frame3.getMinY());
-    assertEquals(792.0d, frame6.getMinY());
-    assertEquals(792.0d, frame7.getMinY());
-    assertEquals(792.0d, frame8.getMinY());
-    assertEquals(792.0d, bounds2D4.getY());
-    assertEquals(792.0d, bounds2D8.getY());
-    assertEquals(792.0d, bounds2D10.getY());
-    assertEquals(792.0d, bounds2D14.getY());
-    assertEquals(792.0d, bounds2D19.getY());
-    assertEquals(792.0d, bounds2D17.getY());
-    assertEquals(792.0d, bounds2D6.getY());
-    assertEquals(792.0d, bounds2D28.getY());
-    assertEquals(792.0d, bounds2D20.getY());
-    assertEquals(792.0d, bounds2D32.getY());
-    assertEquals(792.0d, frame4.getY());
-    assertEquals(792.0d, frame2.getY());
-    assertEquals(792.0d, frame5.getY());
-    assertEquals(792.0d, frame.getY());
-    assertEquals(792.0d, frame3.getY());
-    assertEquals(792.0d, frame6.getY());
-    assertEquals(792.0d, frame7.getY());
-    assertEquals(792.0d, frame8.getY());
-    assertEquals(792.0f, bBox.getUpperRightY());
-    assertEquals(792.0f, bleedBox.getUpperRightY());
-    assertEquals(792.0f, cropBox.getUpperRightY());
-    assertFalse(getResult2.isDirect());
-    assertEquals(location12, location2.getLocation());
-    assertEquals(location12, location3.getLocation());
-    assertEquals(location12, location4.getLocation());
-    assertEquals(location12, location7.getLocation());
-    assertEquals(location12, location8.getLocation());
-    assertEquals(location12, location10.getLocation());
-    assertEquals(location12, location12.getLocation());
-    assertEquals(location12, location13.getLocation());
-    assertEquals(location12, location15.getLocation());
-    assertEquals(location12, location17.getLocation());
-    assertEquals(location12, location20.getLocation());
-    assertEquals(location12, location23.getLocation());
-    assertEquals(location12, location24.getLocation());
-    assertEquals(getResult2, getResult3);
+    assertEquals(1, customGraphicsStreamEngine.getGraphicsState().getCurrentClippingPaths().size());
+    assertEquals(3, customGraphicsStreamEngine.getInitialMatrix().getValues().length);
   }
 
   /**
    * Test {@link CustomGraphicsStreamEngine#run()}.
-   * <p>
-   * Method under test: {@link CustomGraphicsStreamEngine#run()}
+   *
+   * <p>Method under test: {@link CustomGraphicsStreamEngine#run()}
    */
   @Test
   @DisplayName("Test run()")
-  void testRun7() throws IOException {
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void CustomGraphicsStreamEngine.run()"})
+  void testRun5() throws IOException {
+    // Arrange
+    ArrayList<PDAnnotation> annotations = new ArrayList<>();
+    annotations.add(new PDAnnotationCaret());
+
+    PDPage page = new PDPage();
+    page.setAnnotations(annotations);
+    CustomGraphicsStreamEngine customGraphicsStreamEngine = new CustomGraphicsStreamEngine(page);
+
+    // Act
+    customGraphicsStreamEngine.run();
+
+    // Assert
+    List<PDAnnotation> annotations2 = customGraphicsStreamEngine.getCurrentPage().getAnnotations();
+    assertEquals(1, annotations2.size());
+    PDAnnotation getResult = annotations2.get(0);
+    assertTrue(getResult instanceof PDAnnotationCaret);
+    COSDictionary cOSObject = getResult.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    float[][] values = customGraphicsStreamEngine.getInitialMatrix().getValues();
+    assertEquals(3, values.length);
+    PDGraphicsState graphicsState = customGraphicsStreamEngine.getGraphicsState();
+    assertArrayEquals(new float[] {}, graphicsState.getLineDashPattern().getDashArray(), 0.0f);
+    assertArrayEquals(new float[] {}, ((PDAnnotationCaret) getResult).getRectDifferences(), 0.0f);
+    assertArrayEquals(
+        new float[] {0.0f}, graphicsState.getNonStrokingColor().getComponents(), 0.0f);
+    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
+  }
+
+  /**
+   * Test {@link CustomGraphicsStreamEngine#run()}.
+   *
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDStream#PDStream(COSDocument)} with
+   *       document is {@link COSDocument#COSDocument()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link CustomGraphicsStreamEngine#run()}
+   */
+  @Test
+  @DisplayName(
+      "Test run(); given ArrayList() add PDStream(COSDocument) with document is COSDocument()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void CustomGraphicsStreamEngine.run()"})
+  void testRun_givenArrayListAddPDStreamWithDocumentIsCOSDocument() throws IOException {
     // Arrange
     ArrayList<PDStream> contents = new ArrayList<>();
     contents.add(new PDStream(new COSDocument()));
@@ -2234,214 +274,190 @@ class CustomGraphicsStreamEngineDiffblueTest {
     customGraphicsStreamEngine.run();
 
     // Assert
-    Iterator<PDStream> contentStreams = customGraphicsStreamEngine.getCurrentPage().getContentStreams();
-    PDStream nextResult = contentStreams.next();
-    assertNull(nextResult.getDecodeParms());
-    assertNull(nextResult.getFileDecodeParams());
-    COSStream cOSObject = nextResult.getCOSObject();
-    assertNull(cOSObject.getFilters());
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
-    assertNull(cOSObject.getKey());
-    assertNull(nextResult.getMetadata());
-    assertNull(nextResult.getFile());
-    assertEquals(-1, nextResult.getDecodedStreamLength());
-    assertEquals(0, nextResult.getLength());
-    assertEquals(0L, cOSObject.getLength());
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
-    assertFalse(contentStreams.hasNext());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.hasData());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    List<String> fileFilters = nextResult.getFileFilters();
-    assertTrue(fileFilters.isEmpty());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
-    assertSame(fileFilters, nextResult.getFilters());
+    float[][] values = customGraphicsStreamEngine.getInitialMatrix().getValues();
+    assertEquals(3, values.length);
+    PDGraphicsState graphicsState = customGraphicsStreamEngine.getGraphicsState();
+    assertArrayEquals(new float[] {}, graphicsState.getLineDashPattern().getDashArray(), 0.0f);
+    assertArrayEquals(
+        new float[] {0.0f}, graphicsState.getNonStrokingColor().getComponents(), 0.0f);
+    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
   }
 
   /**
    * Test {@link CustomGraphicsStreamEngine#run()}.
-   * <p>
-   * Method under test: {@link CustomGraphicsStreamEngine#run()}
+   *
+   * <ul>
+   *   <li>Given {@link PDPage#PDPage()} Contents is {@link PDStream#PDStream(COSDocument)} with
+   *       document is {@link COSDocument#COSDocument()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link CustomGraphicsStreamEngine#run()}
    */
   @Test
-  @DisplayName("Test run()")
-  void testRun8() throws IOException {
+  @DisplayName(
+      "Test run(); given PDPage() Contents is PDStream(COSDocument) with document is COSDocument()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void CustomGraphicsStreamEngine.run()"})
+  void testRun_givenPDPageContentsIsPDStreamWithDocumentIsCOSDocument() throws IOException {
     // Arrange
-    ArrayList<PDAnnotation> annotations = new ArrayList<>();
-    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
-    annotations.add(pdAnnotationCaret);
-
     PDPage page = new PDPage();
-    page.setAnnotations(annotations);
+    page.setContents(new PDStream(new COSDocument()));
     CustomGraphicsStreamEngine customGraphicsStreamEngine = new CustomGraphicsStreamEngine(page);
 
     // Act
     customGraphicsStreamEngine.run();
 
     // Assert
-    List<PDAnnotation> annotations2 = customGraphicsStreamEngine.getCurrentPage().getAnnotations();
-    assertEquals(1, annotations2.size());
-    PDAnnotation getResult = annotations2.get(0);
-    assertTrue(getResult instanceof PDAnnotationCaret);
-    assertEquals(pdAnnotationCaret, getResult);
+    float[][] values = customGraphicsStreamEngine.getInitialMatrix().getValues();
+    assertEquals(3, values.length);
+    PDGraphicsState graphicsState = customGraphicsStreamEngine.getGraphicsState();
+    assertArrayEquals(new float[] {}, graphicsState.getLineDashPattern().getDashArray(), 0.0f);
+    assertArrayEquals(
+        new float[] {0.0f}, graphicsState.getNonStrokingColor().getComponents(), 0.0f);
+    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
   }
 
   /**
    * Test {@link CustomGraphicsStreamEngine#run()}.
-   * <p>
-   * Method under test: {@link CustomGraphicsStreamEngine#run()}
+   *
+   * <ul>
+   *   <li>Given {@link PDPage#PDPage()} Contents is {@link PDStream#PDStream(COSStream)} with str
+   *       is {@link COSStream#COSStream()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link CustomGraphicsStreamEngine#run()}
    */
   @Test
-  @DisplayName("Test run()")
-  void testRun9() throws IOException {
+  @DisplayName("Test run(); given PDPage() Contents is PDStream(COSStream) with str is COSStream()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void CustomGraphicsStreamEngine.run()"})
+  void testRun_givenPDPageContentsIsPDStreamWithStrIsCOSStream() throws IOException {
     // Arrange
-    ArrayList<PDStream> contents = new ArrayList<>();
-    contents.add(null);
-
     PDPage page = new PDPage();
-    page.setContents(contents);
+    page.setContents(new PDStream(new COSStream()));
     CustomGraphicsStreamEngine customGraphicsStreamEngine = new CustomGraphicsStreamEngine(page);
 
     // Act
     customGraphicsStreamEngine.run();
 
     // Assert
-    Rectangle bounds = customGraphicsStreamEngine.getGraphicsState().getCurrentClippingPath().getBounds();
-    Rectangle bounds2 = bounds.getBounds().getBounds();
-    assertTrue(bounds2.getBounds2D() instanceof Rectangle);
-    Rectangle2D frame = bounds2.getFrame();
-    Rectangle bounds3 = frame.getBounds();
-    Rectangle2D bounds2D = bounds3.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    assertTrue(frame instanceof Rectangle2D.Double);
-    Rectangle2D frame2 = bounds3.getFrame();
-    assertTrue(frame2 instanceof Rectangle2D.Double);
-    PDPage currentPage = customGraphicsStreamEngine.getCurrentPage();
-    Iterator<PDStream> contentStreams = currentPage.getContentStreams();
-    assertNull(contentStreams.next().getCOSObject());
-    assertFalse(contentStreams.hasNext());
-    assertTrue(currentPage.hasContents());
-    assertEquals(bounds, bounds3.getBounds());
-    assertEquals(bounds, bounds2D);
-    assertEquals(bounds, frame2);
+    float[][] values = customGraphicsStreamEngine.getInitialMatrix().getValues();
+    assertEquals(3, values.length);
+    PDGraphicsState graphicsState = customGraphicsStreamEngine.getGraphicsState();
+    assertArrayEquals(new float[] {}, graphicsState.getLineDashPattern().getDashArray(), 0.0f);
+    assertArrayEquals(
+        new float[] {0.0f}, graphicsState.getNonStrokingColor().getComponents(), 0.0f);
+    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
   }
 
   /**
    * Test {@link CustomGraphicsStreamEngine#run()}.
-   * <p>
-   * Method under test: {@link CustomGraphicsStreamEngine#run()}
+   *
+   * <ul>
+   *   <li>Given {@link PDPage#PDPage()} CropBox is {@link PDRectangle#PDRectangle()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link CustomGraphicsStreamEngine#run()}
    */
   @Test
-  @DisplayName("Test run()")
-  void testRun10() throws IOException {
+  @DisplayName("Test run(); given PDPage() CropBox is PDRectangle()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void CustomGraphicsStreamEngine.run()"})
+  void testRun_givenPDPageCropBoxIsPDRectangle() throws IOException {
     // Arrange
-    ArrayList<PDAnnotation> annotations = new ArrayList<>();
-    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret(new COSDictionary());
-    annotations.add(pdAnnotationCaret);
-
     PDPage page = new PDPage();
-    page.setAnnotations(annotations);
+    page.setCropBox(new PDRectangle());
     CustomGraphicsStreamEngine customGraphicsStreamEngine = new CustomGraphicsStreamEngine(page);
 
     // Act
     customGraphicsStreamEngine.run();
 
     // Assert
-    List<PDAnnotation> annotations2 = customGraphicsStreamEngine.getCurrentPage().getAnnotations();
-    assertEquals(1, annotations2.size());
-    PDAnnotation getResult = annotations2.get(0);
-    assertTrue(getResult instanceof PDAnnotationUnknown);
-    assertEquals(pdAnnotationCaret, getResult);
+    assertEquals(1, customGraphicsStreamEngine.getGraphicsState().getCurrentClippingPaths().size());
+    assertEquals(3, customGraphicsStreamEngine.getInitialMatrix().getValues().length);
   }
 
   /**
    * Test {@link CustomGraphicsStreamEngine#run()}.
-   * <p>
-   * Method under test: {@link CustomGraphicsStreamEngine#run()}
+   *
+   * <ul>
+   *   <li>Then throw {@link IllegalArgumentException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link CustomGraphicsStreamEngine#run()}
    */
   @Test
-  @DisplayName("Test run()")
-  void testRun11() throws IOException {
-    // Arrange
-    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
-    pdAnnotationCaret.setAppearance(new PDAppearanceDictionary());
-
-    ArrayList<PDAnnotation> annotations = new ArrayList<>();
-    annotations.add(pdAnnotationCaret);
-
-    PDPage page = new PDPage();
-    page.setAnnotations(annotations);
-    CustomGraphicsStreamEngine customGraphicsStreamEngine = new CustomGraphicsStreamEngine(page);
-
-    // Act
-    customGraphicsStreamEngine.run();
-
-    // Assert
-    List<PDAnnotation> annotations2 = customGraphicsStreamEngine.getCurrentPage().getAnnotations();
-    assertEquals(1, annotations2.size());
-    PDAnnotation getResult = annotations2.get(0);
-    assertTrue(getResult instanceof PDAnnotationCaret);
-    PDAppearanceDictionary appearance = getResult.getAppearance();
-    COSDictionary cOSObject = appearance.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
-    PDAppearanceEntry downAppearance = appearance.getDownAppearance();
-    COSDictionary cOSObject2 = downAppearance.getCOSObject();
-    COSUpdateState updateState2 = cOSObject2.getUpdateState();
-    assertNull(updateState2.getOriginDocumentState());
-    assertNull(cOSObject.getKey());
-    assertNull(cOSObject2.getKey());
-    assertEquals(0, cOSObject2.size());
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    COSDictionary cOSObject3 = getResult.getCOSObject();
-    assertEquals(3, cOSObject3.getValues().size());
-    assertEquals(3, cOSObject3.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject2.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(cOSObject2.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertFalse(updateState2.isUpdated());
-    assertFalse(downAppearance.isStream());
-    PDAppearanceEntry normalAppearance = appearance.getNormalAppearance();
-    assertFalse(normalAppearance.isStream());
-    PDAppearanceEntry rolloverAppearance = appearance.getRolloverAppearance();
-    assertFalse(rolloverAppearance.isStream());
-    assertTrue(downAppearance.getSubDictionary().isEmpty());
-    assertTrue(normalAppearance.getSubDictionary().isEmpty());
-    assertTrue(rolloverAppearance.getSubDictionary().isEmpty());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
-    assertTrue(downAppearance.isSubDictionary());
-    assertTrue(normalAppearance.isSubDictionary());
-    assertTrue(rolloverAppearance.isSubDictionary());
-    assertSame(cOSObject2, normalAppearance.getCOSObject());
-    assertSame(cOSObject2, rolloverAppearance.getCOSObject());
+  @DisplayName("Test run(); then throw IllegalArgumentException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void CustomGraphicsStreamEngine.run()"})
+  void testRun_thenThrowIllegalArgumentException() throws IOException {
+    // Arrange, Act and Assert
+    assertThrows(IllegalArgumentException.class, () -> new CustomGraphicsStreamEngine(null).run());
   }
 
   /**
    * Test {@link CustomGraphicsStreamEngine#getCurrentPoint()}.
-   * <p>
-   * Method under test: {@link CustomGraphicsStreamEngine#getCurrentPoint()}
+   *
+   * <p>Method under test: {@link CustomGraphicsStreamEngine#getCurrentPoint()}
    */
   @Test
   @DisplayName("Test getCurrentPoint()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Point2D CustomGraphicsStreamEngine.getCurrentPoint()"})
   void testGetCurrentPoint() throws IOException {
     // Arrange and Act
-    Point2D actualCurrentPoint = (new CustomGraphicsStreamEngine(new PDPage())).getCurrentPoint();
+    Point2D actualCurrentPoint = new CustomGraphicsStreamEngine(new PDPage()).getCurrentPoint();
 
     // Assert
-    assertTrue(actualCurrentPoint instanceof Point2D.Float);
+    assertTrue(actualCurrentPoint instanceof Float);
     assertEquals(0.0d, actualCurrentPoint.getX());
     assertEquals(0.0d, actualCurrentPoint.getY());
-    assertEquals(0.0f, ((Point2D.Float) actualCurrentPoint).x);
-    assertEquals(0.0f, ((Point2D.Float) actualCurrentPoint).y);
+    assertEquals(0.0f, ((Float) actualCurrentPoint).x);
+    assertEquals(0.0f, ((Float) actualCurrentPoint).y);
+  }
+
+  /**
+   * Test {@link CustomGraphicsStreamEngine#showGlyph(Matrix, PDFont, int, Vector)}.
+   *
+   * <ul>
+   *   <li>Then throw {@link IllegalStateException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link CustomGraphicsStreamEngine#showGlyph(Matrix, PDFont, int, Vector)}
+   */
+  @Test
+  @DisplayName("Test showGlyph(Matrix, PDFont, int, Vector); then throw IllegalStateException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void CustomGraphicsStreamEngine.showGlyph(Matrix, PDFont, int, Vector)"})
+  void testShowGlyph_thenThrowIllegalStateException() throws IOException {
+    // Arrange
+    CustomGraphicsStreamEngine customGraphicsStreamEngine =
+        new CustomGraphicsStreamEngine(new PDPage());
+    Matrix textRenderingMatrix = new Matrix();
+
+    PDType3Font font = mock(PDType3Font.class);
+    PDType3Font font2 = new PDType3Font(new COSDictionary());
+    PDType3CharProc pdType3CharProc = new PDType3CharProc(font2, new COSStream());
+    when(font.getCharProc(anyInt())).thenReturn(pdType3CharProc);
+
+    // Act and Assert
+    assertThrows(
+        IllegalStateException.class,
+        () ->
+            customGraphicsStreamEngine.showGlyph(
+                textRenderingMatrix, font, 1, new Vector(10.0f, 10.0f)));
+    verify(font).getCharProc(1);
   }
 }

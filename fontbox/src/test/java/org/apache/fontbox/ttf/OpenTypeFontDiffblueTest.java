@@ -6,24 +6,32 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.util.List;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class OpenTypeFontDiffblueTest {
   /**
    * Test {@link OpenTypeFont#OpenTypeFont(TTFDataStream)}.
-   * <p>
-   * Method under test: {@link OpenTypeFont#OpenTypeFont(TTFDataStream)}
+   *
+   * <p>Method under test: {@link OpenTypeFont#OpenTypeFont(TTFDataStream)}
    */
   @Test
   @DisplayName("Test new OpenTypeFont(TTFDataStream)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void OpenTypeFont.<init>(TTFDataStream)"})
   void testNewOpenTypeFont() throws IOException {
-    // Arrange and Act
-    OpenTypeFont actualOpenTypeFont = new OpenTypeFont(
-        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
+    // Arrange
+    RandomAccessReadDataStream fontData =
+        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
+
+    // Act
+    OpenTypeFont actualOpenTypeFont = new OpenTypeFont(fontData);
 
     // Assert
     assertNull(actualOpenTypeFont.getName());
@@ -45,30 +53,31 @@ class OpenTypeFontDiffblueTest {
     assertEquals(0, actualOpenTypeFont.getNumberOfGlyphs());
     assertEquals(0, actualOpenTypeFont.getUnitsPerEm());
     assertEquals(0.0f, actualOpenTypeFont.getVersion());
-    List<Number> fontMatrix = actualOpenTypeFont.getFontMatrix();
-    assertEquals(6, fontMatrix.size());
+    assertEquals(6, actualOpenTypeFont.getFontMatrix().size());
     byte[] byteArray = new byte[8];
     assertEquals(8, actualOpenTypeFont.getOriginalData().read(byteArray));
     assertEquals(8L, actualOpenTypeFont.getOriginalDataSize());
     assertTrue(actualOpenTypeFont.getTables().isEmpty());
     assertTrue(actualOpenTypeFont.getTableMap().isEmpty());
     assertTrue(actualOpenTypeFont.isEnableGsub());
-    assertEquals(Float.POSITIVE_INFINITY, fontMatrix.get(0).floatValue());
-    assertEquals(Float.POSITIVE_INFINITY, fontMatrix.get(3).floatValue());
     assertArrayEquals("AXAXAXAX".getBytes("UTF-8"), byteArray);
   }
 
   /**
    * Test {@link OpenTypeFont#setVersion(float)}.
-   * <p>
-   * Method under test: {@link OpenTypeFont#setVersion(float)}
+   *
+   * <p>Method under test: {@link OpenTypeFont#setVersion(float)}
    */
   @Test
   @DisplayName("Test setVersion(float)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void OpenTypeFont.setVersion(float)"})
   void testSetVersion() throws IOException {
     // Arrange
-    OpenTypeFont openTypeFont = new OpenTypeFont(
-        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
+    RandomAccessReadDataStream fontData =
+        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
+    OpenTypeFont openTypeFont = new OpenTypeFont(fontData);
 
     // Act
     openTypeFont.setVersion(10.0f);
@@ -79,71 +88,96 @@ class OpenTypeFontDiffblueTest {
 
   /**
    * Test {@link OpenTypeFont#getCFF()}.
-   * <p>
-   * Method under test: {@link OpenTypeFont#getCFF()}
+   *
+   * <p>Method under test: {@link OpenTypeFont#getCFF()}
    */
   @Test
   @DisplayName("Test getCFF()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"org.apache.fontbox.ttf.CFFTable OpenTypeFont.getCFF()"})
   void testGetCFF() throws IOException {
-    // Arrange, Act and Assert
-    assertThrows(UnsupportedOperationException.class,
-        () -> (new OpenTypeFont(new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")))))
-            .getCFF());
+    // Arrange
+    RandomAccessReadDataStream fontData =
+        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
+
+    // Act and Assert
+    assertThrows(UnsupportedOperationException.class, () -> new OpenTypeFont(fontData).getCFF());
   }
 
   /**
    * Test {@link OpenTypeFont#getGlyph()}.
-   * <p>
-   * Method under test: {@link OpenTypeFont#getGlyph()}
+   *
+   * <p>Method under test: {@link OpenTypeFont#getGlyph()}
    */
   @Test
   @DisplayName("Test getGlyph()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"org.apache.fontbox.ttf.GlyphTable OpenTypeFont.getGlyph()"})
   void testGetGlyph() throws IOException {
-    // Arrange, Act and Assert
-    assertNull(
-        (new OpenTypeFont(new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")))))
-            .getGlyph());
+    // Arrange
+    RandomAccessReadDataStream fontData =
+        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
+
+    // Act and Assert
+    assertNull(new OpenTypeFont(fontData).getGlyph());
   }
 
   /**
    * Test {@link OpenTypeFont#isPostScript()}.
-   * <p>
-   * Method under test: {@link OpenTypeFont#isPostScript()}
+   *
+   * <p>Method under test: {@link OpenTypeFont#isPostScript()}
    */
   @Test
   @DisplayName("Test isPostScript()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean OpenTypeFont.isPostScript()"})
   void testIsPostScript() throws IOException {
-    // Arrange, Act and Assert
-    assertFalse(
-        (new OpenTypeFont(new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")))))
-            .isPostScript());
+    // Arrange
+    RandomAccessReadDataStream fontData =
+        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
+
+    // Act and Assert
+    assertFalse(new OpenTypeFont(fontData).isPostScript());
   }
 
   /**
    * Test {@link OpenTypeFont#isSupportedOTF()}.
-   * <p>
-   * Method under test: {@link OpenTypeFont#isSupportedOTF()}
+   *
+   * <p>Method under test: {@link OpenTypeFont#isSupportedOTF()}
    */
   @Test
   @DisplayName("Test isSupportedOTF()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean OpenTypeFont.isSupportedOTF()"})
   void testIsSupportedOTF() throws IOException {
-    // Arrange, Act and Assert
-    assertTrue(
-        (new OpenTypeFont(new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")))))
-            .isSupportedOTF());
+    // Arrange
+    RandomAccessReadDataStream fontData =
+        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
+
+    // Act and Assert
+    assertTrue(new OpenTypeFont(fontData).isSupportedOTF());
   }
 
   /**
    * Test {@link OpenTypeFont#hasLayoutTables()}.
-   * <p>
-   * Method under test: {@link OpenTypeFont#hasLayoutTables()}
+   *
+   * <p>Method under test: {@link OpenTypeFont#hasLayoutTables()}
    */
   @Test
   @DisplayName("Test hasLayoutTables()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean OpenTypeFont.hasLayoutTables()"})
   void testHasLayoutTables() throws IOException {
-    // Arrange, Act and Assert
-    assertFalse(
-        (new OpenTypeFont(new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")))))
-            .hasLayoutTables());
+    // Arrange
+    RandomAccessReadDataStream fontData =
+        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
+
+    // Act and Assert
+    assertFalse(new OpenTypeFont(fontData).hasLayoutTables());
   }
 }

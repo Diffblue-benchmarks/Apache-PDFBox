@@ -1,26 +1,43 @@
 package org.apache.pdfbox.debugger.ui;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mockStatic;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.util.prefs.Preferences;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
 
 class WindowPrefsDiffblueTest {
   /**
-   * Test {@link WindowPrefs#setExtendedState(int)}.
-   * <p>
-   * Method under test: {@link WindowPrefs#setExtendedState(int)}
+   * Test {@link WindowPrefs#WindowPrefs(Class)}.
+   *
+   * <ul>
+   *   <li>Then calls {@link Preferences#userNodeForPackage(Class)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WindowPrefs#WindowPrefs(Class)}
    */
   @Test
-  @DisplayName("Test setExtendedState(int)")
-  void testSetExtendedState() {
+  @DisplayName("Test new WindowPrefs(Class); then calls userNodeForPackage(Class)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void WindowPrefs.<init>(Class)"})
+  void testNewWindowPrefs_thenCallsUserNodeForPackage() {
     // Arrange
-    Class<Object> className = Object.class;
-    WindowPrefs windowPrefs = new WindowPrefs(className);
+    try (MockedStatic<Preferences> mockPreferences = mockStatic(Preferences.class)) {
+      mockPreferences
+          .when(() -> Preferences.userNodeForPackage(Mockito.<Class<?>>any()))
+          .thenReturn(null);
+      Class<Object> className = Object.class;
 
-    // Act
-    windowPrefs.setExtendedState(3);
+      // Act
+      new WindowPrefs(className);
 
-    // Assert that nothing has changed
-    assertEquals(3, windowPrefs.getExtendedState());
+      // Assert
+      mockPreferences.verify(() -> Preferences.userNodeForPackage(Mockito.<Class<?>>any()));
+    }
   }
 }

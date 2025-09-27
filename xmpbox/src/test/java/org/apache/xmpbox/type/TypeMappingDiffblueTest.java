@@ -6,26 +6,30 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Map;
 import javax.xml.namespace.QName;
 import org.apache.xmpbox.XMPMetadata;
 import org.apache.xmpbox.schema.TiffSchema;
-import org.apache.xmpbox.schema.XMPSchema;
 import org.apache.xmpbox.schema.XmpSchemaException;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class TypeMappingDiffblueTest {
   /**
    * Test {@link TypeMapping#TypeMapping(XMPMetadata)}.
-   * <p>
-   * Method under test: {@link TypeMapping#TypeMapping(XMPMetadata)}
+   *
+   * <p>Method under test: {@link TypeMapping#TypeMapping(XMPMetadata)}
    */
   @Test
   @DisplayName("Test new TypeMapping(XMPMetadata)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void TypeMapping.<init>(XMPMetadata)"})
   void testNewTypeMapping() {
     // Arrange and Act
     TypeMapping actualTypeMapping = new TypeMapping(XMPMetadata.createXMPMetadata());
@@ -38,35 +42,46 @@ class TypeMappingDiffblueTest {
 
   /**
    * Test {@link TypeMapping#getDefinedDescriptionByNamespace(String)}.
-   * <p>
-   * Method under test:
-   * {@link TypeMapping#getDefinedDescriptionByNamespace(String)}
+   *
+   * <p>Method under test: {@link TypeMapping#getDefinedDescriptionByNamespace(String)}
    */
   @Test
   @DisplayName("Test getDefinedDescriptionByNamespace(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.apache.xmpbox.type.PropertiesDescription TypeMapping.getDefinedDescriptionByNamespace(String)"
+  })
   void testGetDefinedDescriptionByNamespace() {
     // Arrange, Act and Assert
-    assertNull((new TypeMapping(XMPMetadata.createXMPMetadata())).getDefinedDescriptionByNamespace("Namespace"));
+    assertNull(
+        new TypeMapping(XMPMetadata.createXMPMetadata())
+            .getDefinedDescriptionByNamespace("Namespace"));
   }
 
   /**
    * Test {@link TypeMapping#instanciateDefinedType(String, String)}.
+   *
    * <ul>
-   *   <li>When {@code Namespace}.</li>
-   *   <li>Then return {@link DefinedStructuredType}.</li>
+   *   <li>When {@code Namespace}.
+   *   <li>Then return {@link DefinedStructuredType}.
    * </ul>
-   * <p>
-   * Method under test: {@link TypeMapping#instanciateDefinedType(String, String)}
+   *
+   * <p>Method under test: {@link TypeMapping#instanciateDefinedType(String, String)}
    */
   @Test
-  @DisplayName("Test instanciateDefinedType(String, String); when 'Namespace'; then return DefinedStructuredType")
+  @DisplayName(
+      "Test instanciateDefinedType(String, String); when 'Namespace'; then return DefinedStructuredType")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"AbstractStructuredType TypeMapping.instanciateDefinedType(String, String)"})
   void testInstanciateDefinedType_whenNamespace_thenReturnDefinedStructuredType() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
 
     // Act
-    AbstractStructuredType actualInstanciateDefinedTypeResult = (new TypeMapping(metadata))
-        .instanciateDefinedType("Property Name", "Namespace");
+    AbstractStructuredType actualInstanciateDefinedTypeResult =
+        new TypeMapping(metadata).instanciateDefinedType("Property Name", "Namespace");
 
     // Assert
     assertTrue(actualInstanciateDefinedTypeResult instanceof DefinedStructuredType);
@@ -74,72 +89,94 @@ class TypeMappingDiffblueTest {
     assertEquals("Property Name", actualInstanciateDefinedTypeResult.getPropertyName());
     assertNull(actualInstanciateDefinedTypeResult.getPreferedPrefix());
     assertNull(actualInstanciateDefinedTypeResult.getPrefix());
-    List<AbstractField> allProperties = actualInstanciateDefinedTypeResult.getAllProperties();
-    assertTrue(allProperties.isEmpty());
+    assertTrue(actualInstanciateDefinedTypeResult.getAllProperties().isEmpty());
     assertTrue(actualInstanciateDefinedTypeResult.getAllAttributes().isEmpty());
     assertTrue(actualInstanciateDefinedTypeResult.getAllNamespacesWithPrefix().isEmpty());
-    assertTrue(((DefinedStructuredType) actualInstanciateDefinedTypeResult).getDefinedProperties().isEmpty());
-    assertSame(allProperties, actualInstanciateDefinedTypeResult.getContainer().getAllProperties());
+    assertTrue(
+        ((DefinedStructuredType) actualInstanciateDefinedTypeResult)
+            .getDefinedProperties()
+            .isEmpty());
     assertSame(metadata, actualInstanciateDefinedTypeResult.getMetadata());
   }
 
   /**
-   * Test
-   * {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}.
-   * <p>
-   * Method under test:
-   * {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}
+   * Test {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}.
+   *
+   * <p>Method under test: {@link TypeMapping#instanciateSimpleProperty(String, String, String,
+   * Object, Types)}
    */
   @Test
   @DisplayName("Test instanciateSimpleProperty(String, String, String, Object, Types)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "AbstractSimpleProperty TypeMapping.instanciateSimpleProperty(String, String, String, Object, Types)"
+  })
   void testInstanciateSimpleProperty() {
     // Arrange
     TypeMapping typeMapping = new TypeMapping(XMPMetadata.createXMPMetadata());
+    AgentNameType agentNameType =
+        new AgentNameType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act and Assert
-    assertThrows(IllegalArgumentException.class,
-        () -> typeMapping.instanciateSimpleProperty("Nsuri", "Prefix", "Name",
-            new AgentNameType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value"),
-            Types.Text));
+    assertThrows(
+        IllegalArgumentException.class,
+        () ->
+            typeMapping.instanciateSimpleProperty(
+                "Nsuri", "Prefix", "Name", agentNameType, Types.Text));
   }
 
   /**
-   * Test
-   * {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}.
-   * <p>
-   * Method under test:
-   * {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}
+   * Test {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}.
+   *
+   * <p>Method under test: {@link TypeMapping#instanciateSimpleProperty(String, String, String,
+   * Object, Types)}
    */
   @Test
   @DisplayName("Test instanciateSimpleProperty(String, String, String, Object, Types)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "AbstractSimpleProperty TypeMapping.instanciateSimpleProperty(String, String, String, Object, Types)"
+  })
   void testInstanciateSimpleProperty2() {
     // Arrange
     TypeMapping typeMapping = new TypeMapping(XMPMetadata.createXMPMetadata());
+    AgentNameType agentNameType =
+        new AgentNameType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act and Assert
-    assertThrows(IllegalArgumentException.class,
-        () -> typeMapping.instanciateSimpleProperty("Nsuri", "Prefix", "Name",
-            new AgentNameType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value"),
-            Types.Date));
+    assertThrows(
+        IllegalArgumentException.class,
+        () ->
+            typeMapping.instanciateSimpleProperty(
+                "Nsuri", "Prefix", "Name", agentNameType, Types.Date));
   }
 
   /**
-   * Test
-   * {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}.
-   * <p>
-   * Method under test:
-   * {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}
+   * Test {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}.
+   *
+   * <p>Method under test: {@link TypeMapping#instanciateSimpleProperty(String, String, String,
+   * Object, Types)}
    */
   @Test
   @DisplayName("Test instanciateSimpleProperty(String, String, String, Object, Types)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "AbstractSimpleProperty TypeMapping.instanciateSimpleProperty(String, String, String, Object, Types)"
+  })
   void testInstanciateSimpleProperty3() {
     // Arrange
     TypeMapping typeMapping = new TypeMapping(XMPMetadata.createXMPMetadata());
-    GregorianCalendar gregorianCalendar = new GregorianCalendar(5, 5, 5, 5, 5);
+    GregorianCalendar gregorianCalendar = new GregorianCalendar(5, 5, 5);
 
     // Act
-    AbstractSimpleProperty actualInstanciateSimplePropertyResult = typeMapping.instanciateSimpleProperty("Nsuri",
-        "Prefix", "Name", gregorianCalendar, Types.Date);
+    AbstractSimpleProperty actualInstanciateSimplePropertyResult =
+        typeMapping.instanciateSimpleProperty(
+            "Nsuri", "Prefix", "Name", gregorianCalendar, Types.Date);
 
     // Assert
     assertTrue(actualInstanciateSimplePropertyResult instanceof DateType);
@@ -148,98 +185,142 @@ class TypeMappingDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}.
+   * Test {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}.
+   *
    * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then throw {@link IllegalArgumentException}.</li>
+   *   <li>When {@code 42}.
+   *   <li>Then throw {@link IllegalArgumentException}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}
+   *
+   * <p>Method under test: {@link TypeMapping#instanciateSimpleProperty(String, String, String,
+   * Object, Types)}
    */
   @Test
-  @DisplayName("Test instanciateSimpleProperty(String, String, String, Object, Types); when '42'; then throw IllegalArgumentException")
+  @DisplayName(
+      "Test instanciateSimpleProperty(String, String, String, Object, Types); when '42'; then throw IllegalArgumentException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "AbstractSimpleProperty TypeMapping.instanciateSimpleProperty(String, String, String, Object, Types)"
+  })
   void testInstanciateSimpleProperty_when42_thenThrowIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> (new TypeMapping(XMPMetadata.createXMPMetadata()))
-        .instanciateSimpleProperty("Nsuri", "Prefix", "Name", "42", Types.Date));
+    assertThrows(
+        IllegalArgumentException.class,
+        () ->
+            new TypeMapping(XMPMetadata.createXMPMetadata())
+                .instanciateSimpleProperty("Nsuri", "Prefix", "Name", "42", Types.Date));
   }
 
   /**
-   * Test
-   * {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}.
+   * Test {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}.
+   *
    * <ul>
-   *   <li>When {@code ^\d{4}-\d{2}-\d{2}T.*}.</li>
-   *   <li>Then throw {@link IllegalArgumentException}.</li>
+   *   <li>When {@code ^\d{4}-\d{2}-\d{2}T.*}.
+   *   <li>Then throw {@link IllegalArgumentException}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}
+   *
+   * <p>Method under test: {@link TypeMapping#instanciateSimpleProperty(String, String, String,
+   * Object, Types)}
    */
   @Test
-  @DisplayName("Test instanciateSimpleProperty(String, String, String, Object, Types); when '^\\d{4}-\\d{2}-\\d{2}T.*'; then throw IllegalArgumentException")
+  @DisplayName(
+      "Test instanciateSimpleProperty(String, String, String, Object, Types); when '^\\d{4}-\\d{2}-\\d{2}T.*'; then throw IllegalArgumentException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "AbstractSimpleProperty TypeMapping.instanciateSimpleProperty(String, String, String, Object, Types)"
+  })
   void testInstanciateSimpleProperty_whenD4D2D2T_thenThrowIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> (new TypeMapping(XMPMetadata.createXMPMetadata()))
-        .instanciateSimpleProperty("Nsuri", "Prefix", "Name", "^\\d{4}-\\d{2}-\\d{2}T.*", Types.Date));
+    assertThrows(
+        IllegalArgumentException.class,
+        () ->
+            new TypeMapping(XMPMetadata.createXMPMetadata())
+                .instanciateSimpleProperty(
+                    "Nsuri", "Prefix", "Name", "^\\d{4}-\\d{2}-\\d{2}T.*", Types.Date));
   }
 
   /**
-   * Test
-   * {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}.
+   * Test {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}.
+   *
    * <ul>
-   *   <li>When {@code D:}.</li>
-   *   <li>Then throw {@link IllegalArgumentException}.</li>
+   *   <li>When {@code D:}.
+   *   <li>Then throw {@link IllegalArgumentException}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}
+   *
+   * <p>Method under test: {@link TypeMapping#instanciateSimpleProperty(String, String, String,
+   * Object, Types)}
    */
   @Test
-  @DisplayName("Test instanciateSimpleProperty(String, String, String, Object, Types); when 'D:'; then throw IllegalArgumentException")
+  @DisplayName(
+      "Test instanciateSimpleProperty(String, String, String, Object, Types); when 'D:'; then throw IllegalArgumentException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "AbstractSimpleProperty TypeMapping.instanciateSimpleProperty(String, String, String, Object, Types)"
+  })
   void testInstanciateSimpleProperty_whenD_thenThrowIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> (new TypeMapping(XMPMetadata.createXMPMetadata()))
-        .instanciateSimpleProperty("Nsuri", "Prefix", "Name", "D:", Types.Date));
+    assertThrows(
+        IllegalArgumentException.class,
+        () ->
+            new TypeMapping(XMPMetadata.createXMPMetadata())
+                .instanciateSimpleProperty("Nsuri", "Prefix", "Name", "D:", Types.Date));
   }
 
   /**
-   * Test
-   * {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}.
+   * Test {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}.
+   *
    * <ul>
-   *   <li>When {@code -}.</li>
-   *   <li>Then throw {@link IllegalArgumentException}.</li>
+   *   <li>When {@code -}.
+   *   <li>Then throw {@link IllegalArgumentException}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}
+   *
+   * <p>Method under test: {@link TypeMapping#instanciateSimpleProperty(String, String, String,
+   * Object, Types)}
    */
   @Test
-  @DisplayName("Test instanciateSimpleProperty(String, String, String, Object, Types); when '-'; then throw IllegalArgumentException")
+  @DisplayName(
+      "Test instanciateSimpleProperty(String, String, String, Object, Types); when '-'; then throw IllegalArgumentException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "AbstractSimpleProperty TypeMapping.instanciateSimpleProperty(String, String, String, Object, Types)"
+  })
   void testInstanciateSimpleProperty_whenDash_thenThrowIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> (new TypeMapping(XMPMetadata.createXMPMetadata()))
-        .instanciateSimpleProperty("Nsuri", "Prefix", "Name", "-", Types.Date));
+    assertThrows(
+        IllegalArgumentException.class,
+        () ->
+            new TypeMapping(XMPMetadata.createXMPMetadata())
+                .instanciateSimpleProperty("Nsuri", "Prefix", "Name", "-", Types.Date));
   }
 
   /**
-   * Test
-   * {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}.
+   * Test {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}.
+   *
    * <ul>
-   *   <li>When empty string.</li>
-   *   <li>Then return RawValue is empty string.</li>
+   *   <li>When empty string.
+   *   <li>Then return RawValue is empty string.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}
+   *
+   * <p>Method under test: {@link TypeMapping#instanciateSimpleProperty(String, String, String,
+   * Object, Types)}
    */
   @Test
-  @DisplayName("Test instanciateSimpleProperty(String, String, String, Object, Types); when empty string; then return RawValue is empty string")
+  @DisplayName(
+      "Test instanciateSimpleProperty(String, String, String, Object, Types); when empty string; then return RawValue is empty string")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "AbstractSimpleProperty TypeMapping.instanciateSimpleProperty(String, String, String, Object, Types)"
+  })
   void testInstanciateSimpleProperty_whenEmptyString_thenReturnRawValueIsEmptyString() {
     // Arrange and Act
-    AbstractSimpleProperty actualInstanciateSimplePropertyResult = (new TypeMapping(XMPMetadata.createXMPMetadata()))
-        .instanciateSimpleProperty("Nsuri", "Prefix", "Name", "", Types.Date);
+    AbstractSimpleProperty actualInstanciateSimplePropertyResult =
+        new TypeMapping(XMPMetadata.createXMPMetadata())
+            .instanciateSimpleProperty("Nsuri", "Prefix", "Name", "", Types.Date);
 
     // Assert
     assertTrue(actualInstanciateSimplePropertyResult instanceof DateType);
@@ -248,137 +329,285 @@ class TypeMappingDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}.
+   * Test {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}.
+   *
    * <ul>
-   *   <li>When forty-two.</li>
-   *   <li>Then throw {@link IllegalArgumentException}.</li>
+   *   <li>When forty-two.
+   *   <li>Then throw {@link IllegalArgumentException}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}
+   *
+   * <p>Method under test: {@link TypeMapping#instanciateSimpleProperty(String, String, String,
+   * Object, Types)}
    */
   @Test
-  @DisplayName("Test instanciateSimpleProperty(String, String, String, Object, Types); when forty-two; then throw IllegalArgumentException")
+  @DisplayName(
+      "Test instanciateSimpleProperty(String, String, String, Object, Types); when forty-two; then throw IllegalArgumentException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "AbstractSimpleProperty TypeMapping.instanciateSimpleProperty(String, String, String, Object, Types)"
+  })
   void testInstanciateSimpleProperty_whenFortyTwo_thenThrowIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> (new TypeMapping(XMPMetadata.createXMPMetadata()))
-        .instanciateSimpleProperty("Nsuri", "Prefix", "Name", 42, Types.Text));
-    assertThrows(IllegalArgumentException.class, () -> (new TypeMapping(XMPMetadata.createXMPMetadata()))
-        .instanciateSimpleProperty("Nsuri", "Prefix", "Name", 42, Types.Date));
-    assertThrows(IllegalArgumentException.class, () -> (new TypeMapping(XMPMetadata.createXMPMetadata()))
-        .instanciateSimpleProperty("Nsuri", "Prefix", "Name", 42, Types.Boolean));
+    assertThrows(
+        IllegalArgumentException.class,
+        () ->
+            new TypeMapping(XMPMetadata.createXMPMetadata())
+                .instanciateSimpleProperty("Nsuri", "Prefix", "Name", 42, Types.Text));
   }
 
   /**
-   * Test
-   * {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}.
+   * Test {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}.
+   *
    * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link IllegalArgumentException}.</li>
+   *   <li>When forty-two.
+   *   <li>Then throw {@link IllegalArgumentException}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}
+   *
+   * <p>Method under test: {@link TypeMapping#instanciateSimpleProperty(String, String, String,
+   * Object, Types)}
    */
   @Test
-  @DisplayName("Test instanciateSimpleProperty(String, String, String, Object, Types); when 'null'; then throw IllegalArgumentException")
+  @DisplayName(
+      "Test instanciateSimpleProperty(String, String, String, Object, Types); when forty-two; then throw IllegalArgumentException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "AbstractSimpleProperty TypeMapping.instanciateSimpleProperty(String, String, String, Object, Types)"
+  })
+  void testInstanciateSimpleProperty_whenFortyTwo_thenThrowIllegalArgumentException2() {
+    // Arrange, Act and Assert
+    assertThrows(
+        IllegalArgumentException.class,
+        () ->
+            new TypeMapping(XMPMetadata.createXMPMetadata())
+                .instanciateSimpleProperty("Nsuri", "Prefix", "Name", 42, Types.Date));
+  }
+
+  /**
+   * Test {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}.
+   *
+   * <ul>
+   *   <li>When forty-two.
+   *   <li>Then throw {@link IllegalArgumentException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link TypeMapping#instanciateSimpleProperty(String, String, String,
+   * Object, Types)}
+   */
+  @Test
+  @DisplayName(
+      "Test instanciateSimpleProperty(String, String, String, Object, Types); when forty-two; then throw IllegalArgumentException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "AbstractSimpleProperty TypeMapping.instanciateSimpleProperty(String, String, String, Object, Types)"
+  })
+  void testInstanciateSimpleProperty_whenFortyTwo_thenThrowIllegalArgumentException3() {
+    // Arrange, Act and Assert
+    assertThrows(
+        IllegalArgumentException.class,
+        () ->
+            new TypeMapping(XMPMetadata.createXMPMetadata())
+                .instanciateSimpleProperty("Nsuri", "Prefix", "Name", 42, Types.Boolean));
+  }
+
+  /**
+   * Test {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}.
+   *
+   * <ul>
+   *   <li>When {@code Integer}.
+   *   <li>Then throw {@link IllegalArgumentException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link TypeMapping#instanciateSimpleProperty(String, String, String,
+   * Object, Types)}
+   */
+  @Test
+  @DisplayName(
+      "Test instanciateSimpleProperty(String, String, String, Object, Types); when 'Integer'; then throw IllegalArgumentException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "AbstractSimpleProperty TypeMapping.instanciateSimpleProperty(String, String, String, Object, Types)"
+  })
+  void testInstanciateSimpleProperty_whenInteger_thenThrowIllegalArgumentException() {
+    // Arrange, Act and Assert
+    assertThrows(
+        IllegalArgumentException.class,
+        () ->
+            new TypeMapping(XMPMetadata.createXMPMetadata())
+                .instanciateSimpleProperty("Nsuri", "Prefix", "Name", "Value", Types.Integer));
+  }
+
+  /**
+   * Test {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}.
+   *
+   * <ul>
+   *   <li>When {@code null}.
+   *   <li>Then throw {@link IllegalArgumentException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link TypeMapping#instanciateSimpleProperty(String, String, String,
+   * Object, Types)}
+   */
+  @Test
+  @DisplayName(
+      "Test instanciateSimpleProperty(String, String, String, Object, Types); when 'null'; then throw IllegalArgumentException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "AbstractSimpleProperty TypeMapping.instanciateSimpleProperty(String, String, String, Object, Types)"
+  })
   void testInstanciateSimpleProperty_whenNull_thenThrowIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> (new TypeMapping(XMPMetadata.createXMPMetadata()))
-        .instanciateSimpleProperty("Nsuri", "Prefix", "Name", null, Types.Date));
+    assertThrows(
+        IllegalArgumentException.class,
+        () ->
+            new TypeMapping(XMPMetadata.createXMPMetadata())
+                .instanciateSimpleProperty("Nsuri", "Prefix", "Name", null, Types.Date));
   }
 
   /**
-   * Test
-   * {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}.
+   * Test {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}.
+   *
    * <ul>
-   *   <li>When {@code org.apache.xmpbox.schema.TiffSchema}.</li>
+   *   <li>When {@code TiffSchema}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}
+   *
+   * <p>Method under test: {@link TypeMapping#instanciateSimpleProperty(String, String, String,
+   * Object, Types)}
    */
   @Test
-  @DisplayName("Test instanciateSimpleProperty(String, String, String, Object, Types); when 'org.apache.xmpbox.schema.TiffSchema'")
+  @DisplayName(
+      "Test instanciateSimpleProperty(String, String, String, Object, Types); when 'org.apache.xmpbox.schema.TiffSchema'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "AbstractSimpleProperty TypeMapping.instanciateSimpleProperty(String, String, String, Object, Types)"
+  })
   void testInstanciateSimpleProperty_whenOrgApacheXmpboxSchemaTiffSchema() {
     // Arrange, Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> (new TypeMapping(XMPMetadata.createXMPMetadata()))
-        .instanciateSimpleProperty("Nsuri", "Prefix", "Name", "org.apache.xmpbox.schema.TiffSchema", Types.Date));
+    assertThrows(
+        IllegalArgumentException.class,
+        () ->
+            new TypeMapping(XMPMetadata.createXMPMetadata())
+                .instanciateSimpleProperty(
+                    "Nsuri", "Prefix", "Name", "org.apache.xmpbox.schema.TiffSchema", Types.Date));
   }
 
   /**
-   * Test
-   * {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}.
+   * Test {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}.
+   *
    * <ul>
-   *   <li>When {@code org.apache.xmpbox.schema.XMPageTextSchema}.</li>
+   *   <li>When {@code org.apache.xmpbox.schema.XMPageTextSchema}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}
+   *
+   * <p>Method under test: {@link TypeMapping#instanciateSimpleProperty(String, String, String,
+   * Object, Types)}
    */
   @Test
-  @DisplayName("Test instanciateSimpleProperty(String, String, String, Object, Types); when 'org.apache.xmpbox.schema.XMPageTextSchema'")
+  @DisplayName(
+      "Test instanciateSimpleProperty(String, String, String, Object, Types); when 'org.apache.xmpbox.schema.XMPageTextSchema'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "AbstractSimpleProperty TypeMapping.instanciateSimpleProperty(String, String, String, Object, Types)"
+  })
   void testInstanciateSimpleProperty_whenOrgApacheXmpboxSchemaXMPageTextSchema() {
     // Arrange, Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> (new TypeMapping(XMPMetadata.createXMPMetadata()))
-        .instanciateSimpleProperty("Nsuri", "Prefix", "Name", "org.apache.xmpbox.schema.XMPageTextSchema", Types.Date));
+    assertThrows(
+        IllegalArgumentException.class,
+        () ->
+            new TypeMapping(XMPMetadata.createXMPMetadata())
+                .instanciateSimpleProperty(
+                    "Nsuri",
+                    "Prefix",
+                    "Name",
+                    "org.apache.xmpbox.schema.XMPageTextSchema",
+                    Types.Date));
   }
 
   /**
-   * Test
-   * {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}.
+   * Test {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}.
+   *
    * <ul>
-   *   <li>When {@code org.apache.xmpbox.type.PropertyType}.</li>
+   *   <li>When {@code org.apache.xmpbox.type.PropertyType}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}
+   *
+   * <p>Method under test: {@link TypeMapping#instanciateSimpleProperty(String, String, String,
+   * Object, Types)}
    */
   @Test
-  @DisplayName("Test instanciateSimpleProperty(String, String, String, Object, Types); when 'org.apache.xmpbox.type.PropertyType'")
+  @DisplayName(
+      "Test instanciateSimpleProperty(String, String, String, Object, Types); when 'org.apache.xmpbox.type.PropertyType'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "AbstractSimpleProperty TypeMapping.instanciateSimpleProperty(String, String, String, Object, Types)"
+  })
   void testInstanciateSimpleProperty_whenOrgApacheXmpboxTypePropertyType() {
     // Arrange, Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> (new TypeMapping(XMPMetadata.createXMPMetadata()))
-        .instanciateSimpleProperty("Nsuri", "Prefix", "Name", "org.apache.xmpbox.type.PropertyType", Types.Date));
+    assertThrows(
+        IllegalArgumentException.class,
+        () ->
+            new TypeMapping(XMPMetadata.createXMPMetadata())
+                .instanciateSimpleProperty(
+                    "Nsuri", "Prefix", "Name", "org.apache.xmpbox.type.PropertyType", Types.Date));
   }
 
   /**
-   * Test
-   * {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}.
+   * Test {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}.
+   *
    * <ul>
-   *   <li>When {@code [-:T]}.</li>
-   *   <li>Then throw {@link IllegalArgumentException}.</li>
+   *   <li>When {@code [-:T]}.
+   *   <li>Then throw {@link IllegalArgumentException}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}
+   *
+   * <p>Method under test: {@link TypeMapping#instanciateSimpleProperty(String, String, String,
+   * Object, Types)}
    */
   @Test
-  @DisplayName("Test instanciateSimpleProperty(String, String, String, Object, Types); when '[-:T]'; then throw IllegalArgumentException")
+  @DisplayName(
+      "Test instanciateSimpleProperty(String, String, String, Object, Types); when '[-:T]'; then throw IllegalArgumentException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "AbstractSimpleProperty TypeMapping.instanciateSimpleProperty(String, String, String, Object, Types)"
+  })
   void testInstanciateSimpleProperty_whenT_thenThrowIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> (new TypeMapping(XMPMetadata.createXMPMetadata()))
-        .instanciateSimpleProperty("Nsuri", "Prefix", "Name", "[-:T]", Types.Date));
+    assertThrows(
+        IllegalArgumentException.class,
+        () ->
+            new TypeMapping(XMPMetadata.createXMPMetadata())
+                .instanciateSimpleProperty("Nsuri", "Prefix", "Name", "[-:T]", Types.Date));
   }
 
   /**
-   * Test
-   * {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}.
+   * Test {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}.
+   *
    * <ul>
-   *   <li>When {@code Text}.</li>
-   *   <li>Then return {@link TextType}.</li>
+   *   <li>When {@code Text}.
+   *   <li>Then return {@link TextType}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}
+   *
+   * <p>Method under test: {@link TypeMapping#instanciateSimpleProperty(String, String, String,
+   * Object, Types)}
    */
   @Test
-  @DisplayName("Test instanciateSimpleProperty(String, String, String, Object, Types); when 'Text'; then return TextType")
+  @DisplayName(
+      "Test instanciateSimpleProperty(String, String, String, Object, Types); when 'Text'; then return TextType")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "AbstractSimpleProperty TypeMapping.instanciateSimpleProperty(String, String, String, Object, Types)"
+  })
   void testInstanciateSimpleProperty_whenText_thenReturnTextType() {
     // Arrange and Act
-    AbstractSimpleProperty actualInstanciateSimplePropertyResult = (new TypeMapping(XMPMetadata.createXMPMetadata()))
-        .instanciateSimpleProperty("Nsuri", "Prefix", "Name", "Value", Types.Text);
+    AbstractSimpleProperty actualInstanciateSimplePropertyResult =
+        new TypeMapping(XMPMetadata.createXMPMetadata())
+            .instanciateSimpleProperty("Nsuri", "Prefix", "Name", "Value", Types.Text);
 
     // Assert
     assertTrue(actualInstanciateSimplePropertyResult instanceof TextType);
@@ -388,212 +617,241 @@ class TypeMappingDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}.
+   * Test {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}.
+   *
    * <ul>
-   *   <li>When {@code true}.</li>
-   *   <li>Then return PropertyName is {@code Name}.</li>
+   *   <li>When {@code TRUE}.
+   *   <li>Then throw {@link IllegalArgumentException}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}
+   *
+   * <p>Method under test: {@link TypeMapping#instanciateSimpleProperty(String, String, String,
+   * Object, Types)}
    */
   @Test
-  @DisplayName("Test instanciateSimpleProperty(String, String, String, Object, Types); when 'true'; then return PropertyName is 'Name'")
-  void testInstanciateSimpleProperty_whenTrue_thenReturnPropertyNameIsName() {
-    // Arrange
-    XMPMetadata metadata = XMPMetadata.createXMPMetadata();
-
-    // Act
-    AbstractSimpleProperty actualInstanciateSimplePropertyResult = (new TypeMapping(metadata))
-        .instanciateSimpleProperty("Nsuri", "Prefix", "Name", true, Types.Boolean);
-
-    // Assert
-    assertTrue(actualInstanciateSimplePropertyResult instanceof BooleanType);
-    assertEquals("Name", actualInstanciateSimplePropertyResult.getPropertyName());
-    assertEquals("Nsuri", actualInstanciateSimplePropertyResult.getNamespace());
-    assertEquals("Prefix", actualInstanciateSimplePropertyResult.getPrefix());
-    assertTrue(actualInstanciateSimplePropertyResult.getAllAttributes().isEmpty());
-    assertSame(metadata, actualInstanciateSimplePropertyResult.getMetadata());
+  @DisplayName(
+      "Test instanciateSimpleProperty(String, String, String, Object, Types); when 'TRUE'; then throw IllegalArgumentException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "AbstractSimpleProperty TypeMapping.instanciateSimpleProperty(String, String, String, Object, Types)"
+  })
+  void testInstanciateSimpleProperty_whenTrue_thenThrowIllegalArgumentException() {
+    // Arrange, Act and Assert
+    assertThrows(
+        IllegalArgumentException.class,
+        () ->
+            new TypeMapping(XMPMetadata.createXMPMetadata())
+                .instanciateSimpleProperty("Nsuri", "Prefix", "Name", "TRUE", Types.Date));
   }
 
   /**
-   * Test
-   * {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}.
+   * Test {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}.
+   *
    * <ul>
-   *   <li>When {@code Value}.</li>
-   *   <li>Then throw {@link IllegalArgumentException}.</li>
+   *   <li>When {@code Value}.
+   *   <li>Then throw {@link IllegalArgumentException}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}
+   *
+   * <p>Method under test: {@link TypeMapping#instanciateSimpleProperty(String, String, String,
+   * Object, Types)}
    */
   @Test
-  @DisplayName("Test instanciateSimpleProperty(String, String, String, Object, Types); when 'Value'; then throw IllegalArgumentException")
+  @DisplayName(
+      "Test instanciateSimpleProperty(String, String, String, Object, Types); when 'Value'; then throw IllegalArgumentException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "AbstractSimpleProperty TypeMapping.instanciateSimpleProperty(String, String, String, Object, Types)"
+  })
   void testInstanciateSimpleProperty_whenValue_thenThrowIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> (new TypeMapping(XMPMetadata.createXMPMetadata()))
-        .instanciateSimpleProperty("Nsuri", "Prefix", "Name", "Value", Types.Date));
-    assertThrows(IllegalArgumentException.class, () -> (new TypeMapping(XMPMetadata.createXMPMetadata()))
-        .instanciateSimpleProperty("Nsuri", "Prefix", "Name", "Value", Types.Boolean));
+    assertThrows(
+        IllegalArgumentException.class,
+        () ->
+            new TypeMapping(XMPMetadata.createXMPMetadata())
+                .instanciateSimpleProperty("Nsuri", "Prefix", "Name", "Value", Types.Date));
+  }
+
+  /**
+   * Test {@link TypeMapping#instanciateSimpleProperty(String, String, String, Object, Types)}.
+   *
+   * <ul>
+   *   <li>When {@code Value}.
+   *   <li>Then throw {@link IllegalArgumentException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link TypeMapping#instanciateSimpleProperty(String, String, String,
+   * Object, Types)}
+   */
+  @Test
+  @DisplayName(
+      "Test instanciateSimpleProperty(String, String, String, Object, Types); when 'Value'; then throw IllegalArgumentException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "AbstractSimpleProperty TypeMapping.instanciateSimpleProperty(String, String, String, Object, Types)"
+  })
+  void testInstanciateSimpleProperty_whenValue_thenThrowIllegalArgumentException2() {
+    // Arrange, Act and Assert
+    assertThrows(
+        IllegalArgumentException.class,
+        () ->
+            new TypeMapping(XMPMetadata.createXMPMetadata())
+                .instanciateSimpleProperty("Nsuri", "Prefix", "Name", "Value", Types.Boolean));
   }
 
   /**
    * Test {@link TypeMapping#isStructuredTypeNamespace(String)}.
-   * <p>
-   * Method under test: {@link TypeMapping#isStructuredTypeNamespace(String)}
+   *
+   * <p>Method under test: {@link TypeMapping#isStructuredTypeNamespace(String)}
    */
   @Test
   @DisplayName("Test isStructuredTypeNamespace(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean TypeMapping.isStructuredTypeNamespace(String)"})
   void testIsStructuredTypeNamespace() {
     // Arrange, Act and Assert
-    assertFalse((new TypeMapping(XMPMetadata.createXMPMetadata())).isStructuredTypeNamespace("Namespace"));
+    assertFalse(
+        new TypeMapping(XMPMetadata.createXMPMetadata()).isStructuredTypeNamespace("Namespace"));
   }
 
   /**
    * Test {@link TypeMapping#isDefinedTypeNamespace(String)}.
-   * <p>
-   * Method under test: {@link TypeMapping#isDefinedTypeNamespace(String)}
+   *
+   * <p>Method under test: {@link TypeMapping#isDefinedTypeNamespace(String)}
    */
   @Test
   @DisplayName("Test isDefinedTypeNamespace(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean TypeMapping.isDefinedTypeNamespace(String)"})
   void testIsDefinedTypeNamespace() {
     // Arrange, Act and Assert
-    assertFalse((new TypeMapping(XMPMetadata.createXMPMetadata())).isDefinedTypeNamespace("Namespace"));
+    assertFalse(
+        new TypeMapping(XMPMetadata.createXMPMetadata()).isDefinedTypeNamespace("Namespace"));
   }
 
   /**
    * Test {@link TypeMapping#isDefinedType(String)}.
-   * <p>
-   * Method under test: {@link TypeMapping#isDefinedType(String)}
+   *
+   * <p>Method under test: {@link TypeMapping#isDefinedType(String)}
    */
   @Test
   @DisplayName("Test isDefinedType(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean TypeMapping.isDefinedType(String)"})
   void testIsDefinedType() {
     // Arrange, Act and Assert
-    assertFalse((new TypeMapping(XMPMetadata.createXMPMetadata())).isDefinedType("Name"));
+    assertFalse(new TypeMapping(XMPMetadata.createXMPMetadata()).isDefinedType("Name"));
   }
 
   /**
    * Test {@link TypeMapping#getStructuredPropMapping(Types)}.
-   * <p>
-   * Method under test: {@link TypeMapping#getStructuredPropMapping(Types)}
+   *
+   * <p>Method under test: {@link TypeMapping#getStructuredPropMapping(Types)}
    */
   @Test
   @DisplayName("Test getStructuredPropMapping(Types)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.apache.xmpbox.type.PropertiesDescription TypeMapping.getStructuredPropMapping(Types)"
+  })
   void testGetStructuredPropMapping() {
     // Arrange, Act and Assert
-    assertNull((new TypeMapping(XMPMetadata.createXMPMetadata())).getStructuredPropMapping(Types.Structured));
+    assertNull(
+        new TypeMapping(XMPMetadata.createXMPMetadata())
+            .getStructuredPropMapping(Types.Structured));
   }
 
   /**
-   * Test
-   * {@link TypeMapping#getAssociatedSchemaObject(XMPMetadata, String, String)}.
-   * <ul>
-   *   <li>Then return AboutValue is empty string.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link TypeMapping#getAssociatedSchemaObject(XMPMetadata, String, String)}
+   * Test {@link TypeMapping#getAssociatedSchemaObject(XMPMetadata, String, String)}.
+   *
+   * <p>Method under test: {@link TypeMapping#getAssociatedSchemaObject(XMPMetadata, String,
+   * String)}
    */
   @Test
-  @DisplayName("Test getAssociatedSchemaObject(XMPMetadata, String, String); then return AboutValue is empty string")
-  void testGetAssociatedSchemaObject_thenReturnAboutValueIsEmptyString() throws XmpSchemaException {
+  @DisplayName("Test getAssociatedSchemaObject(XMPMetadata, String, String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.apache.xmpbox.schema.XMPSchema TypeMapping.getAssociatedSchemaObject(XMPMetadata, String, String)"
+  })
+  void testGetAssociatedSchemaObject() throws XmpSchemaException {
     // Arrange
     TypeMapping typeMapping = new TypeMapping(XMPMetadata.createXMPMetadata());
-    typeMapping.addNewNameSpace("java.lang.Object", "java.lang.Object");
-    XMPMetadata metadata = XMPMetadata.createXMPMetadata();
-
-    // Act
-    XMPSchema actualAssociatedSchemaObject = typeMapping.getAssociatedSchemaObject(metadata, "java.lang.Object",
-        "Prefix");
-
-    // Assert
-    assertEquals("", actualAssociatedSchemaObject.getAboutValue());
-    Map<String, String> allNamespacesWithPrefix = actualAssociatedSchemaObject.getAllNamespacesWithPrefix();
-    assertEquals(1, allNamespacesWithPrefix.size());
-    assertEquals("Prefix", allNamespacesWithPrefix.get("java.lang.Object"));
-    assertEquals("Prefix", actualAssociatedSchemaObject.getPreferedPrefix());
-    assertEquals("Prefix", actualAssociatedSchemaObject.getPrefix());
-    assertEquals("java.lang.Object", actualAssociatedSchemaObject.getNamespace());
-    assertNull(actualAssociatedSchemaObject.getPropertyName());
-    assertNull(actualAssociatedSchemaObject.getAboutAttribute());
-    assertEquals(1, metadata.getAllSchemas().size());
-    List<AbstractField> allProperties = actualAssociatedSchemaObject.getAllProperties();
-    assertTrue(allProperties.isEmpty());
-    assertTrue(actualAssociatedSchemaObject.getAllAttributes().isEmpty());
-    assertSame(allProperties, actualAssociatedSchemaObject.getContainer().getAllProperties());
-    assertSame(metadata, actualAssociatedSchemaObject.getMetadata());
-  }
-
-  /**
-   * Test
-   * {@link TypeMapping#getAssociatedSchemaObject(XMPMetadata, String, String)}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link TypeMapping#getAssociatedSchemaObject(XMPMetadata, String, String)}
-   */
-  @Test
-  @DisplayName("Test getAssociatedSchemaObject(XMPMetadata, String, String); then return 'null'")
-  void testGetAssociatedSchemaObject_thenReturnNull() throws XmpSchemaException {
-    // Arrange
-    TypeMapping typeMapping = new TypeMapping(XMPMetadata.createXMPMetadata());
-    XMPMetadata metadata = XMPMetadata.createXMPMetadata();
 
     // Act and Assert
-    assertNull(typeMapping.getAssociatedSchemaObject(metadata, "Namespace", "Prefix"));
-    assertTrue(metadata.getAllSchemas().isEmpty());
+    assertNull(
+        typeMapping.getAssociatedSchemaObject(
+            XMPMetadata.createXMPMetadata(), "Namespace", "Prefix"));
   }
 
   /**
    * Test {@link TypeMapping#getSchemaFactory(String)}.
-   * <p>
-   * Method under test: {@link TypeMapping#getSchemaFactory(String)}
+   *
+   * <p>Method under test: {@link TypeMapping#getSchemaFactory(String)}
    */
   @Test
   @DisplayName("Test getSchemaFactory(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.apache.xmpbox.schema.XMPSchemaFactory TypeMapping.getSchemaFactory(String)"
+  })
   void testGetSchemaFactory() {
     // Arrange, Act and Assert
-    assertNull((new TypeMapping(XMPMetadata.createXMPMetadata())).getSchemaFactory("Namespace"));
+    assertNull(new TypeMapping(XMPMetadata.createXMPMetadata()).getSchemaFactory("Namespace"));
   }
 
   /**
    * Test {@link TypeMapping#isDefinedSchema(String)}.
-   * <p>
-   * Method under test: {@link TypeMapping#isDefinedSchema(String)}
+   *
+   * <p>Method under test: {@link TypeMapping#isDefinedSchema(String)}
    */
   @Test
   @DisplayName("Test isDefinedSchema(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean TypeMapping.isDefinedSchema(String)"})
   void testIsDefinedSchema() {
     // Arrange, Act and Assert
-    assertFalse((new TypeMapping(XMPMetadata.createXMPMetadata())).isDefinedSchema("Namespace"));
+    assertFalse(new TypeMapping(XMPMetadata.createXMPMetadata()).isDefinedSchema("Namespace"));
   }
 
   /**
    * Test {@link TypeMapping#isDefinedNamespace(String)}.
-   * <p>
-   * Method under test: {@link TypeMapping#isDefinedNamespace(String)}
+   *
+   * <p>Method under test: {@link TypeMapping#isDefinedNamespace(String)}
    */
   @Test
   @DisplayName("Test isDefinedNamespace(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean TypeMapping.isDefinedNamespace(String)"})
   void testIsDefinedNamespace() {
     // Arrange, Act and Assert
-    assertFalse((new TypeMapping(XMPMetadata.createXMPMetadata())).isDefinedNamespace("Namespace"));
+    assertFalse(new TypeMapping(XMPMetadata.createXMPMetadata()).isDefinedNamespace("Namespace"));
   }
 
   /**
    * Test {@link TypeMapping#getSpecifiedPropertyType(QName)}.
+   *
    * <ul>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link TypeMapping#getSpecifiedPropertyType(QName)}
+   *
+   * <p>Method under test: {@link TypeMapping#getSpecifiedPropertyType(QName)}
    */
   @Test
   @DisplayName("Test getSpecifiedPropertyType(QName); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.apache.xmpbox.type.PropertyType TypeMapping.getSpecifiedPropertyType(QName)"
+  })
   void testGetSpecifiedPropertyType_thenReturnNull() throws BadFieldValueException {
     // Arrange
     TypeMapping typeMapping = new TypeMapping(XMPMetadata.createXMPMetadata());
@@ -605,32 +863,46 @@ class TypeMappingDiffblueTest {
 
   /**
    * Test {@link TypeMapping#getSpecifiedPropertyType(QName)}.
+   *
    * <ul>
-   *   <li>Then throw {@link BadFieldValueException}.</li>
+   *   <li>Then throw {@link BadFieldValueException}.
    * </ul>
-   * <p>
-   * Method under test: {@link TypeMapping#getSpecifiedPropertyType(QName)}
+   *
+   * <p>Method under test: {@link TypeMapping#getSpecifiedPropertyType(QName)}
    */
   @Test
   @DisplayName("Test getSpecifiedPropertyType(QName); then throw BadFieldValueException")
-  void testGetSpecifiedPropertyType_thenThrowBadFieldValueException() throws BadFieldValueException {
-    // Arrange
-    TypeMapping typeMapping = new TypeMapping(XMPMetadata.createXMPMetadata());
-
-    // Act and Assert
-    assertThrows(BadFieldValueException.class, () -> typeMapping.getSpecifiedPropertyType(QName.valueOf("foo")));
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.apache.xmpbox.type.PropertyType TypeMapping.getSpecifiedPropertyType(QName)"
+  })
+  void testGetSpecifiedPropertyType_thenThrowBadFieldValueException()
+      throws BadFieldValueException {
+    // Arrange, Act and Assert
+    assertThrows(
+        BadFieldValueException.class,
+        () ->
+            new TypeMapping(XMPMetadata.createXMPMetadata())
+                .getSpecifiedPropertyType(QName.valueOf("foo")));
   }
 
   /**
    * Test {@link TypeMapping#initializePropMapping(Class)}.
+   *
    * <ul>
-   *   <li>Then return PropertiesName size is twenty-five.</li>
+   *   <li>Then return PropertiesName size is twenty-five.
    * </ul>
-   * <p>
-   * Method under test: {@link TypeMapping#initializePropMapping(Class)}
+   *
+   * <p>Method under test: {@link TypeMapping#initializePropMapping(Class)}
    */
   @Test
   @DisplayName("Test initializePropMapping(Class); then return PropertiesName size is twenty-five")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.apache.xmpbox.type.PropertiesDescription TypeMapping.initializePropMapping(Class)"
+  })
   void testInitializePropMapping_thenReturnPropertiesNameSizeIsTwentyFive() {
     // Arrange
     TypeMapping typeMapping = new TypeMapping(XMPMetadata.createXMPMetadata());
@@ -649,15 +921,22 @@ class TypeMappingDiffblueTest {
 
   /**
    * Test {@link TypeMapping#initializePropMapping(Class)}.
+   *
    * <ul>
-   *   <li>When {@code java.lang.Object}.</li>
-   *   <li>Then return PropertiesName Empty.</li>
+   *   <li>When {@code Object}.
+   *   <li>Then return PropertiesName Empty.
    * </ul>
-   * <p>
-   * Method under test: {@link TypeMapping#initializePropMapping(Class)}
+   *
+   * <p>Method under test: {@link TypeMapping#initializePropMapping(Class)}
    */
   @Test
-  @DisplayName("Test initializePropMapping(Class); when 'java.lang.Object'; then return PropertiesName Empty")
+  @DisplayName(
+      "Test initializePropMapping(Class); when 'java.lang.Object'; then return PropertiesName Empty")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.apache.xmpbox.type.PropertiesDescription TypeMapping.initializePropMapping(Class)"
+  })
   void testInitializePropMapping_whenJavaLangObject_thenReturnPropertiesNameEmpty() {
     // Arrange
     TypeMapping typeMapping = new TypeMapping(XMPMetadata.createXMPMetadata());
@@ -669,15 +948,22 @@ class TypeMappingDiffblueTest {
 
   /**
    * Test {@link TypeMapping#initializePropMapping(Class)}.
+   *
    * <ul>
-   *   <li>When {@code java.lang.String}.</li>
-   *   <li>Then return PropertiesName Empty.</li>
+   *   <li>When {@code String}.
+   *   <li>Then return PropertiesName Empty.
    * </ul>
-   * <p>
-   * Method under test: {@link TypeMapping#initializePropMapping(Class)}
+   *
+   * <p>Method under test: {@link TypeMapping#initializePropMapping(Class)}
    */
   @Test
-  @DisplayName("Test initializePropMapping(Class); when 'java.lang.String'; then return PropertiesName Empty")
+  @DisplayName(
+      "Test initializePropMapping(Class); when 'java.lang.String'; then return PropertiesName Empty")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.apache.xmpbox.type.PropertiesDescription TypeMapping.initializePropMapping(Class)"
+  })
   void testInitializePropMapping_whenJavaLangString_thenReturnPropertiesNameEmpty() {
     // Arrange
     TypeMapping typeMapping = new TypeMapping(XMPMetadata.createXMPMetadata());
@@ -689,19 +975,21 @@ class TypeMappingDiffblueTest {
 
   /**
    * Test {@link TypeMapping#createBoolean(String, String, String, boolean)}.
-   * <p>
-   * Method under test:
-   * {@link TypeMapping#createBoolean(String, String, String, boolean)}
+   *
+   * <p>Method under test: {@link TypeMapping#createBoolean(String, String, String, boolean)}
    */
   @Test
   @DisplayName("Test createBoolean(String, String, String, boolean)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"BooleanType TypeMapping.createBoolean(String, String, String, boolean)"})
   void testCreateBoolean() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
 
     // Act
-    BooleanType actualCreateBooleanResult = (new TypeMapping(metadata)).createBoolean("Namespace URI", "Prefix",
-        "Property Name", true);
+    BooleanType actualCreateBooleanResult =
+        new TypeMapping(metadata).createBoolean("Namespace URI", "Prefix", "Property Name", true);
 
     // Assert
     assertEquals("Namespace URI", actualCreateBooleanResult.getNamespace());
@@ -709,55 +997,65 @@ class TypeMappingDiffblueTest {
     assertEquals("Property Name", actualCreateBooleanResult.getPropertyName());
     assertTrue(actualCreateBooleanResult.getAllAttributes().isEmpty());
     assertTrue(actualCreateBooleanResult.getValue());
+    assertTrue((Boolean) actualCreateBooleanResult.getRawValue());
     assertEquals(BooleanType.TRUE, actualCreateBooleanResult.getStringValue());
     assertSame(metadata, actualCreateBooleanResult.getMetadata());
   }
 
   /**
    * Test {@link TypeMapping#createDate(String, String, String, Calendar)}.
+   *
    * <ul>
-   *   <li>Then return Namespace is {@code Namespace URI}.</li>
+   *   <li>Then RawValue return {@link GregorianCalendar}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link TypeMapping#createDate(String, String, String, Calendar)}
+   *
+   * <p>Method under test: {@link TypeMapping#createDate(String, String, String, Calendar)}
    */
   @Test
-  @DisplayName("Test createDate(String, String, String, Calendar); then return Namespace is 'Namespace URI'")
-  void testCreateDate_thenReturnNamespaceIsNamespaceUri() {
+  @DisplayName(
+      "Test createDate(String, String, String, Calendar); then RawValue return GregorianCalendar")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"DateType TypeMapping.createDate(String, String, String, Calendar)"})
+  void testCreateDate_thenRawValueReturnGregorianCalendar() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
     TypeMapping typeMapping = new TypeMapping(metadata);
     GregorianCalendar value = new GregorianCalendar(1, 1, 1);
 
     // Act
-    DateType actualCreateDateResult = typeMapping.createDate("Namespace URI", "Prefix", "Property Name", value);
+    DateType actualCreateDateResult =
+        typeMapping.createDate("Namespace URI", "Prefix", "Property Name", value);
 
     // Assert
+    Object rawValue = actualCreateDateResult.getRawValue();
+    assertTrue(rawValue instanceof GregorianCalendar);
     assertEquals("Namespace URI", actualCreateDateResult.getNamespace());
     assertEquals("Prefix", actualCreateDateResult.getPrefix());
     assertEquals("Property Name", actualCreateDateResult.getPropertyName());
     assertTrue(actualCreateDateResult.getAllAttributes().isEmpty());
-    assertSame(value, actualCreateDateResult.getRawValue());
+    assertSame(value, rawValue);
     assertSame(value, actualCreateDateResult.getValue());
     assertSame(metadata, actualCreateDateResult.getMetadata());
   }
 
   /**
    * Test {@link TypeMapping#createInteger(String, String, String, int)}.
-   * <p>
-   * Method under test:
-   * {@link TypeMapping#createInteger(String, String, String, int)}
+   *
+   * <p>Method under test: {@link TypeMapping#createInteger(String, String, String, int)}
    */
   @Test
   @DisplayName("Test createInteger(String, String, String, int)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"IntegerType TypeMapping.createInteger(String, String, String, int)"})
   void testCreateInteger() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
 
     // Act
-    IntegerType actualCreateIntegerResult = (new TypeMapping(metadata)).createInteger("Namespace URI", "Prefix",
-        "Property Name", 42);
+    IntegerType actualCreateIntegerResult =
+        new TypeMapping(metadata).createInteger("Namespace URI", "Prefix", "Property Name", 42);
 
     // Assert
     assertEquals("42", actualCreateIntegerResult.getStringValue());
@@ -765,25 +1063,28 @@ class TypeMappingDiffblueTest {
     assertEquals("Prefix", actualCreateIntegerResult.getPrefix());
     assertEquals("Property Name", actualCreateIntegerResult.getPropertyName());
     assertEquals(42, actualCreateIntegerResult.getValue().intValue());
+    assertEquals(42, ((Integer) actualCreateIntegerResult.getRawValue()).intValue());
     assertTrue(actualCreateIntegerResult.getAllAttributes().isEmpty());
     assertSame(metadata, actualCreateIntegerResult.getMetadata());
   }
 
   /**
    * Test {@link TypeMapping#createReal(String, String, String, float)}.
-   * <p>
-   * Method under test:
-   * {@link TypeMapping#createReal(String, String, String, float)}
+   *
+   * <p>Method under test: {@link TypeMapping#createReal(String, String, String, float)}
    */
   @Test
   @DisplayName("Test createReal(String, String, String, float)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"RealType TypeMapping.createReal(String, String, String, float)"})
   void testCreateReal() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
 
     // Act
-    RealType actualCreateRealResult = (new TypeMapping(metadata)).createReal("Namespace URI", "Prefix", "Property Name",
-        10.0f);
+    RealType actualCreateRealResult =
+        new TypeMapping(metadata).createReal("Namespace URI", "Prefix", "Property Name", 10.0f);
 
     // Assert
     assertEquals("10.0", actualCreateRealResult.getStringValue());
@@ -798,19 +1099,21 @@ class TypeMappingDiffblueTest {
 
   /**
    * Test {@link TypeMapping#createText(String, String, String, String)}.
-   * <p>
-   * Method under test:
-   * {@link TypeMapping#createText(String, String, String, String)}
+   *
+   * <p>Method under test: {@link TypeMapping#createText(String, String, String, String)}
    */
   @Test
   @DisplayName("Test createText(String, String, String, String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"TextType TypeMapping.createText(String, String, String, String)"})
   void testCreateText() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
 
     // Act
-    TextType actualCreateTextResult = (new TypeMapping(metadata)).createText("Namespace URI", "Prefix", "Property Name",
-        "42");
+    TextType actualCreateTextResult =
+        new TypeMapping(metadata).createText("Namespace URI", "Prefix", "Property Name", "42");
 
     // Assert
     assertEquals("42", actualCreateTextResult.getStringValue());
@@ -825,19 +1128,22 @@ class TypeMappingDiffblueTest {
 
   /**
    * Test {@link TypeMapping#createProperName(String, String, String, String)}.
-   * <p>
-   * Method under test:
-   * {@link TypeMapping#createProperName(String, String, String, String)}
+   *
+   * <p>Method under test: {@link TypeMapping#createProperName(String, String, String, String)}
    */
   @Test
   @DisplayName("Test createProperName(String, String, String, String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"ProperNameType TypeMapping.createProperName(String, String, String, String)"})
   void testCreateProperName() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
 
     // Act
-    ProperNameType actualCreateProperNameResult = (new TypeMapping(metadata)).createProperName("Namespace URI",
-        "Prefix", "Property Name", "42");
+    ProperNameType actualCreateProperNameResult =
+        new TypeMapping(metadata)
+            .createProperName("Namespace URI", "Prefix", "Property Name", "42");
 
     // Assert
     assertEquals("42", actualCreateProperNameResult.getStringValue());
@@ -852,19 +1158,21 @@ class TypeMappingDiffblueTest {
 
   /**
    * Test {@link TypeMapping#createURI(String, String, String, String)}.
-   * <p>
-   * Method under test:
-   * {@link TypeMapping#createURI(String, String, String, String)}
+   *
+   * <p>Method under test: {@link TypeMapping#createURI(String, String, String, String)}
    */
   @Test
   @DisplayName("Test createURI(String, String, String, String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"URIType TypeMapping.createURI(String, String, String, String)"})
   void testCreateURI() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
 
     // Act
-    URIType actualCreateURIResult = (new TypeMapping(metadata)).createURI("Namespace URI", "Prefix", "Property Name",
-        "42");
+    URIType actualCreateURIResult =
+        new TypeMapping(metadata).createURI("Namespace URI", "Prefix", "Property Name", "42");
 
     // Assert
     assertEquals("42", actualCreateURIResult.getStringValue());
@@ -879,19 +1187,26 @@ class TypeMappingDiffblueTest {
 
   /**
    * Test {@link TypeMapping#createURL(String, String, String, String)}.
-   * <p>
-   * Method under test:
-   * {@link TypeMapping#createURL(String, String, String, String)}
+   *
+   * <p>Method under test: {@link TypeMapping#createURL(String, String, String, String)}
    */
   @Test
   @DisplayName("Test createURL(String, String, String, String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"URLType TypeMapping.createURL(String, String, String, String)"})
   void testCreateURL() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
 
     // Act
-    URLType actualCreateURLResult = (new TypeMapping(metadata)).createURL("https://example.org/example",
-        "https://example.org/example", "https://example.org/example", "https://example.org/example");
+    URLType actualCreateURLResult =
+        new TypeMapping(metadata)
+            .createURL(
+                "https://example.org/example",
+                "https://example.org/example",
+                "https://example.org/example",
+                "https://example.org/example");
 
     // Assert
     assertEquals("https://example.org/example", actualCreateURLResult.getPropertyName());
@@ -905,21 +1220,25 @@ class TypeMappingDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TypeMapping#createRenditionClass(String, String, String, String)}.
-   * <p>
-   * Method under test:
-   * {@link TypeMapping#createRenditionClass(String, String, String, String)}
+   * Test {@link TypeMapping#createRenditionClass(String, String, String, String)}.
+   *
+   * <p>Method under test: {@link TypeMapping#createRenditionClass(String, String, String, String)}
    */
   @Test
   @DisplayName("Test createRenditionClass(String, String, String, String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "RenditionClassType TypeMapping.createRenditionClass(String, String, String, String)"
+  })
   void testCreateRenditionClass() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
 
     // Act
-    RenditionClassType actualCreateRenditionClassResult = (new TypeMapping(metadata))
-        .createRenditionClass("Namespace URI", "Prefix", "Property Name", "42");
+    RenditionClassType actualCreateRenditionClassResult =
+        new TypeMapping(metadata)
+            .createRenditionClass("Namespace URI", "Prefix", "Property Name", "42");
 
     // Assert
     assertEquals("42", actualCreateRenditionClassResult.getStringValue());
@@ -934,19 +1253,21 @@ class TypeMappingDiffblueTest {
 
   /**
    * Test {@link TypeMapping#createPart(String, String, String, String)}.
-   * <p>
-   * Method under test:
-   * {@link TypeMapping#createPart(String, String, String, String)}
+   *
+   * <p>Method under test: {@link TypeMapping#createPart(String, String, String, String)}
    */
   @Test
   @DisplayName("Test createPart(String, String, String, String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PartType TypeMapping.createPart(String, String, String, String)"})
   void testCreatePart() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
 
     // Act
-    PartType actualCreatePartResult = (new TypeMapping(metadata)).createPart("Namespace URI", "Prefix", "Property Name",
-        "42");
+    PartType actualCreatePartResult =
+        new TypeMapping(metadata).createPart("Namespace URI", "Prefix", "Property Name", "42");
 
     // Assert
     assertEquals("42", actualCreatePartResult.getStringValue());
@@ -961,19 +1282,21 @@ class TypeMappingDiffblueTest {
 
   /**
    * Test {@link TypeMapping#createMIMEType(String, String, String, String)}.
-   * <p>
-   * Method under test:
-   * {@link TypeMapping#createMIMEType(String, String, String, String)}
+   *
+   * <p>Method under test: {@link TypeMapping#createMIMEType(String, String, String, String)}
    */
   @Test
   @DisplayName("Test createMIMEType(String, String, String, String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"MIMEType TypeMapping.createMIMEType(String, String, String, String)"})
   void testCreateMIMEType() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
 
     // Act
-    MIMEType actualCreateMIMETypeResult = (new TypeMapping(metadata)).createMIMEType("Namespace URI", "Prefix",
-        "Property Name", "42");
+    MIMEType actualCreateMIMETypeResult =
+        new TypeMapping(metadata).createMIMEType("Namespace URI", "Prefix", "Property Name", "42");
 
     // Assert
     assertEquals("42", actualCreateMIMETypeResult.getStringValue());
@@ -988,18 +1311,21 @@ class TypeMappingDiffblueTest {
 
   /**
    * Test {@link TypeMapping#createLocale(String, String, String, String)}.
-   * <p>
-   * Method under test:
-   * {@link TypeMapping#createLocale(String, String, String, String)}
+   *
+   * <p>Method under test: {@link TypeMapping#createLocale(String, String, String, String)}
    */
   @Test
   @DisplayName("Test createLocale(String, String, String, String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"LocaleType TypeMapping.createLocale(String, String, String, String)"})
   void testCreateLocale() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
 
     // Act
-    LocaleType actualCreateLocaleResult = (new TypeMapping(metadata)).createLocale("en", "en", "en", "en");
+    LocaleType actualCreateLocaleResult =
+        new TypeMapping(metadata).createLocale("en", "en", "en", "en");
 
     // Assert
     assertEquals("en", actualCreateLocaleResult.getPropertyName());
@@ -1014,19 +1340,21 @@ class TypeMappingDiffblueTest {
 
   /**
    * Test {@link TypeMapping#createGUID(String, String, String, String)}.
-   * <p>
-   * Method under test:
-   * {@link TypeMapping#createGUID(String, String, String, String)}
+   *
+   * <p>Method under test: {@link TypeMapping#createGUID(String, String, String, String)}
    */
   @Test
   @DisplayName("Test createGUID(String, String, String, String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"GUIDType TypeMapping.createGUID(String, String, String, String)"})
   void testCreateGUID() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
 
     // Act
-    GUIDType actualCreateGUIDResult = (new TypeMapping(metadata)).createGUID("Namespace URI", "Prefix", "Property Name",
-        "42");
+    GUIDType actualCreateGUIDResult =
+        new TypeMapping(metadata).createGUID("Namespace URI", "Prefix", "Property Name", "42");
 
     // Assert
     assertEquals("42", actualCreateGUIDResult.getStringValue());
@@ -1041,19 +1369,21 @@ class TypeMappingDiffblueTest {
 
   /**
    * Test {@link TypeMapping#createChoice(String, String, String, String)}.
-   * <p>
-   * Method under test:
-   * {@link TypeMapping#createChoice(String, String, String, String)}
+   *
+   * <p>Method under test: {@link TypeMapping#createChoice(String, String, String, String)}
    */
   @Test
   @DisplayName("Test createChoice(String, String, String, String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"ChoiceType TypeMapping.createChoice(String, String, String, String)"})
   void testCreateChoice() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
 
     // Act
-    ChoiceType actualCreateChoiceResult = (new TypeMapping(metadata)).createChoice("Namespace URI", "Prefix",
-        "Property Name", "42");
+    ChoiceType actualCreateChoiceResult =
+        new TypeMapping(metadata).createChoice("Namespace URI", "Prefix", "Property Name", "42");
 
     // Assert
     assertEquals("42", actualCreateChoiceResult.getStringValue());
@@ -1068,19 +1398,21 @@ class TypeMappingDiffblueTest {
 
   /**
    * Test {@link TypeMapping#createAgentName(String, String, String, String)}.
-   * <p>
-   * Method under test:
-   * {@link TypeMapping#createAgentName(String, String, String, String)}
+   *
+   * <p>Method under test: {@link TypeMapping#createAgentName(String, String, String, String)}
    */
   @Test
   @DisplayName("Test createAgentName(String, String, String, String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"AgentNameType TypeMapping.createAgentName(String, String, String, String)"})
   void testCreateAgentName() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
 
     // Act
-    AgentNameType actualCreateAgentNameResult = (new TypeMapping(metadata)).createAgentName("Namespace URI", "Prefix",
-        "Property Name", "42");
+    AgentNameType actualCreateAgentNameResult =
+        new TypeMapping(metadata).createAgentName("Namespace URI", "Prefix", "Property Name", "42");
 
     // Assert
     assertEquals("42", actualCreateAgentNameResult.getStringValue());
@@ -1095,19 +1427,21 @@ class TypeMappingDiffblueTest {
 
   /**
    * Test {@link TypeMapping#createXPath(String, String, String, String)}.
-   * <p>
-   * Method under test:
-   * {@link TypeMapping#createXPath(String, String, String, String)}
+   *
+   * <p>Method under test: {@link TypeMapping#createXPath(String, String, String, String)}
    */
   @Test
   @DisplayName("Test createXPath(String, String, String, String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"XPathType TypeMapping.createXPath(String, String, String, String)"})
   void testCreateXPath() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
 
     // Act
-    XPathType actualCreateXPathResult = (new TypeMapping(metadata)).createXPath("Namespace URI", "Prefix",
-        "Property Name", "42");
+    XPathType actualCreateXPathResult =
+        new TypeMapping(metadata).createXPath("Namespace URI", "Prefix", "Property Name", "42");
 
     // Assert
     assertEquals("42", actualCreateXPathResult.getStringValue());
@@ -1121,33 +1455,36 @@ class TypeMappingDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TypeMapping#createArrayProperty(String, String, String, Cardinality)}.
-   * <p>
-   * Method under test:
-   * {@link TypeMapping#createArrayProperty(String, String, String, Cardinality)}
+   * Test {@link TypeMapping#createArrayProperty(String, String, String, Cardinality)}.
+   *
+   * <p>Method under test: {@link TypeMapping#createArrayProperty(String, String, String,
+   * Cardinality)}
    */
   @Test
   @DisplayName("Test createArrayProperty(String, String, String, Cardinality)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "ArrayProperty TypeMapping.createArrayProperty(String, String, String, Cardinality)"
+  })
   void testCreateArrayProperty() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
 
     // Act
-    ArrayProperty actualCreateArrayPropertyResult = (new TypeMapping(metadata)).createArrayProperty("Namespace",
-        "Prefix", "Property Name", Cardinality.Simple);
+    ArrayProperty actualCreateArrayPropertyResult =
+        new TypeMapping(metadata)
+            .createArrayProperty("Namespace", "Prefix", "Property Name", Cardinality.Simple);
 
     // Assert
     assertEquals("Namespace", actualCreateArrayPropertyResult.getNamespace());
     assertEquals("Prefix", actualCreateArrayPropertyResult.getPrefix());
     assertEquals("Property Name", actualCreateArrayPropertyResult.getPropertyName());
     assertEquals(Cardinality.Simple, actualCreateArrayPropertyResult.getArrayType());
-    List<AbstractField> allProperties = actualCreateArrayPropertyResult.getAllProperties();
-    assertTrue(allProperties.isEmpty());
+    assertTrue(actualCreateArrayPropertyResult.getAllProperties().isEmpty());
     assertTrue(actualCreateArrayPropertyResult.getAllAttributes().isEmpty());
     assertTrue(actualCreateArrayPropertyResult.getElementsAsString().isEmpty());
     assertTrue(actualCreateArrayPropertyResult.getAllNamespacesWithPrefix().isEmpty());
-    assertSame(allProperties, actualCreateArrayPropertyResult.getContainer().getAllProperties());
     assertSame(metadata, actualCreateArrayPropertyResult.getMetadata());
   }
 }

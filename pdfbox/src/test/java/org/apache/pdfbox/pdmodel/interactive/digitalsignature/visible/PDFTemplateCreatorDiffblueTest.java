@@ -1,21 +1,27 @@
 package org.apache.pdfbox.pdmodel.interactive.digitalsignature.visible;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDFTemplateCreatorDiffblueTest {
   /**
    * Test {@link PDFTemplateCreator#PDFTemplateCreator(PDFTemplateBuilder)}.
-   * <p>
-   * Method under test:
-   * {@link PDFTemplateCreator#PDFTemplateCreator(PDFTemplateBuilder)}
+   *
+   * <p>Method under test: {@link PDFTemplateCreator#PDFTemplateCreator(PDFTemplateBuilder)}
    */
   @Test
   @DisplayName("Test new PDFTemplateCreator(PDFTemplateBuilder)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDFTemplateCreator.<init>(PDFTemplateBuilder)"})
   void testNewPDFTemplateCreator() {
     // Arrange, Act and Assert
-    PDFTemplateStructure pdfStructure = (new PDFTemplateCreator(new PDVisibleSigBuilder())).getPdfStructure();
+    PDFTemplateStructure pdfStructure =
+        new PDFTemplateCreator(new PDVisibleSigBuilder()).getPdfStructure();
     assertNull(pdfStructure.getAffineTransform());
     assertNull(pdfStructure.getAcroFormFields());
     assertNull(pdfStructure.getProcSet());
@@ -47,17 +53,22 @@ class PDFTemplateCreatorDiffblueTest {
 
   /**
    * Test {@link PDFTemplateCreator#getPdfStructure()}.
+   *
    * <ul>
-   *   <li>Then return AffineTransform is {@code null}.</li>
+   *   <li>Then return AffineTransform is {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDFTemplateCreator#getPdfStructure()}
+   *
+   * <p>Method under test: {@link PDFTemplateCreator#getPdfStructure()}
    */
   @Test
   @DisplayName("Test getPdfStructure(); then return AffineTransform is 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDFTemplateStructure PDFTemplateCreator.getPdfStructure()"})
   void testGetPdfStructure_thenReturnAffineTransformIsNull() {
     // Arrange and Act
-    PDFTemplateStructure actualPdfStructure = (new PDFTemplateCreator(new PDVisibleSigBuilder())).getPdfStructure();
+    PDFTemplateStructure actualPdfStructure =
+        new PDFTemplateCreator(new PDVisibleSigBuilder()).getPdfStructure();
 
     // Assert
     assertNull(actualPdfStructure.getAffineTransform());

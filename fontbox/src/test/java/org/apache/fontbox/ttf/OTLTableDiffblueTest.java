@@ -3,17 +3,23 @@ package org.apache.fontbox.ttf;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class OTLTableDiffblueTest {
   /**
    * Test {@link OTLTable#OTLTable()}.
-   * <p>
-   * Method under test: default or parameterless constructor of {@link OTLTable}
+   *
+   * <p>Method under test: default or parameterless constructor of {@link OTLTable}
    */
   @Test
   @DisplayName("Test new OTLTable()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void OTLTable.<init>()"})
   void testNewOTLTable() {
     // Arrange and Act
     OTLTable actualOtlTable = new OTLTable();

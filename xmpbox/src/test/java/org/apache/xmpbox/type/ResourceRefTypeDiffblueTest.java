@@ -4,22 +4,28 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 import org.apache.xmpbox.XMPMetadata;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ResourceRefTypeDiffblueTest {
   /**
    * Test {@link ResourceRefType#ResourceRefType(XMPMetadata)}.
-   * <p>
-   * Method under test: {@link ResourceRefType#ResourceRefType(XMPMetadata)}
+   *
+   * <p>Method under test: {@link ResourceRefType#ResourceRefType(XMPMetadata)}
    */
   @Test
   @DisplayName("Test new ResourceRefType(XMPMetadata)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void ResourceRefType.<init>(XMPMetadata)"})
   void testNewResourceRefType() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -28,10 +34,8 @@ class ResourceRefTypeDiffblueTest {
     ResourceRefType actualResourceRefType = new ResourceRefType(metadata);
 
     // Assert
-    assertEquals("http://ns.adobe.com/xap/1.0/sType/ResourceRef#", actualResourceRefType.getNamespace());
-    Map<String, String> allNamespacesWithPrefix = actualResourceRefType.getAllNamespacesWithPrefix();
-    assertEquals(1, allNamespacesWithPrefix.size());
-    assertEquals("stRef", allNamespacesWithPrefix.get("http://ns.adobe.com/xap/1.0/sType/ResourceRef#"));
+    assertEquals(
+        "http://ns.adobe.com/xap/1.0/sType/ResourceRef#", actualResourceRefType.getNamespace());
     assertEquals("stRef", actualResourceRefType.getPreferedPrefix());
     assertEquals("stRef", actualResourceRefType.getPrefix());
     assertNull(actualResourceRefType.getPropertyName());
@@ -52,38 +56,49 @@ class ResourceRefTypeDiffblueTest {
     assertNull(actualResourceRefType.getLastModifyDate());
     assertNull(actualResourceRefType.getAlternatePaths());
     assertNull(actualResourceRefType.getAlternatePathsProperty());
-    List<AbstractField> allProperties = actualResourceRefType.getAllProperties();
-    assertTrue(allProperties.isEmpty());
+    Map<String, String> allNamespacesWithPrefix =
+        actualResourceRefType.getAllNamespacesWithPrefix();
+    assertEquals(1, allNamespacesWithPrefix.size());
+    assertTrue(actualResourceRefType.getAllProperties().isEmpty());
     assertTrue(actualResourceRefType.getAllAttributes().isEmpty());
-    assertSame(allProperties, actualResourceRefType.getContainer().getAllProperties());
+    assertTrue(
+        allNamespacesWithPrefix.containsKey("http://ns.adobe.com/xap/1.0/sType/ResourceRef#"));
     assertSame(metadata, actualResourceRefType.getMetadata());
   }
 
   /**
    * Test {@link ResourceRefType#getDocumentID()}.
+   *
    * <ul>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link ResourceRefType#getDocumentID()}
+   *
+   * <p>Method under test: {@link ResourceRefType#getDocumentID()}
    */
   @Test
   @DisplayName("Test getDocumentID(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ResourceRefType.getDocumentID()"})
   void testGetDocumentID_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new ResourceRefType(XMPMetadata.createXMPMetadata())).getDocumentID());
+    assertNull(new ResourceRefType(XMPMetadata.createXMPMetadata()).getDocumentID());
   }
 
   /**
    * Test {@link ResourceRefType#getDocumentID()}.
+   *
    * <ul>
-   *   <li>Then return {@code Value}.</li>
+   *   <li>Then return {@code Value}.
    * </ul>
-   * <p>
-   * Method under test: {@link ResourceRefType#getDocumentID()}
+   *
+   * <p>Method under test: {@link ResourceRefType#getDocumentID()}
    */
   @Test
   @DisplayName("Test getDocumentID(); then return 'Value'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ResourceRefType.getDocumentID()"})
   void testGetDocumentID_thenReturnValue() {
     // Arrange
     ResourceRefType resourceRefType = new ResourceRefType(XMPMetadata.createXMPMetadata());
@@ -95,11 +110,14 @@ class ResourceRefTypeDiffblueTest {
 
   /**
    * Test {@link ResourceRefType#setDocumentID(String)}.
-   * <p>
-   * Method under test: {@link ResourceRefType#setDocumentID(String)}
+   *
+   * <p>Method under test: {@link ResourceRefType#setDocumentID(String)}
    */
   @Test
   @DisplayName("Test setDocumentID(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void ResourceRefType.setDocumentID(String)"})
   void testSetDocumentID() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -126,29 +144,37 @@ class ResourceRefTypeDiffblueTest {
 
   /**
    * Test {@link ResourceRefType#getFilePath()}.
+   *
    * <ul>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link ResourceRefType#getFilePath()}
+   *
+   * <p>Method under test: {@link ResourceRefType#getFilePath()}
    */
   @Test
   @DisplayName("Test getFilePath(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ResourceRefType.getFilePath()"})
   void testGetFilePath_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new ResourceRefType(XMPMetadata.createXMPMetadata())).getFilePath());
+    assertNull(new ResourceRefType(XMPMetadata.createXMPMetadata()).getFilePath());
   }
 
   /**
    * Test {@link ResourceRefType#getFilePath()}.
+   *
    * <ul>
-   *   <li>Then return {@code Value}.</li>
+   *   <li>Then return {@code Value}.
    * </ul>
-   * <p>
-   * Method under test: {@link ResourceRefType#getFilePath()}
+   *
+   * <p>Method under test: {@link ResourceRefType#getFilePath()}
    */
   @Test
   @DisplayName("Test getFilePath(); then return 'Value'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ResourceRefType.getFilePath()"})
   void testGetFilePath_thenReturnValue() {
     // Arrange
     ResourceRefType resourceRefType = new ResourceRefType(XMPMetadata.createXMPMetadata());
@@ -160,11 +186,14 @@ class ResourceRefTypeDiffblueTest {
 
   /**
    * Test {@link ResourceRefType#setFilePath(String)}.
-   * <p>
-   * Method under test: {@link ResourceRefType#setFilePath(String)}
+   *
+   * <p>Method under test: {@link ResourceRefType#setFilePath(String)}
    */
   @Test
   @DisplayName("Test setFilePath(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void ResourceRefType.setFilePath(String)"})
   void testSetFilePath() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -191,29 +220,37 @@ class ResourceRefTypeDiffblueTest {
 
   /**
    * Test {@link ResourceRefType#getInstanceID()}.
+   *
    * <ul>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link ResourceRefType#getInstanceID()}
+   *
+   * <p>Method under test: {@link ResourceRefType#getInstanceID()}
    */
   @Test
   @DisplayName("Test getInstanceID(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ResourceRefType.getInstanceID()"})
   void testGetInstanceID_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new ResourceRefType(XMPMetadata.createXMPMetadata())).getInstanceID());
+    assertNull(new ResourceRefType(XMPMetadata.createXMPMetadata()).getInstanceID());
   }
 
   /**
    * Test {@link ResourceRefType#getInstanceID()}.
+   *
    * <ul>
-   *   <li>Then return {@code Value}.</li>
+   *   <li>Then return {@code Value}.
    * </ul>
-   * <p>
-   * Method under test: {@link ResourceRefType#getInstanceID()}
+   *
+   * <p>Method under test: {@link ResourceRefType#getInstanceID()}
    */
   @Test
   @DisplayName("Test getInstanceID(); then return 'Value'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ResourceRefType.getInstanceID()"})
   void testGetInstanceID_thenReturnValue() {
     // Arrange
     ResourceRefType resourceRefType = new ResourceRefType(XMPMetadata.createXMPMetadata());
@@ -225,11 +262,14 @@ class ResourceRefTypeDiffblueTest {
 
   /**
    * Test {@link ResourceRefType#setInstanceID(String)}.
-   * <p>
-   * Method under test: {@link ResourceRefType#setInstanceID(String)}
+   *
+   * <p>Method under test: {@link ResourceRefType#setInstanceID(String)}
    */
   @Test
   @DisplayName("Test setInstanceID(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void ResourceRefType.setInstanceID(String)"})
   void testSetInstanceID() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -256,11 +296,14 @@ class ResourceRefTypeDiffblueTest {
 
   /**
    * Test {@link ResourceRefType#getLastModifyDate()}.
-   * <p>
-   * Method under test: {@link ResourceRefType#getLastModifyDate()}
+   *
+   * <p>Method under test: {@link ResourceRefType#getLastModifyDate()}
    */
   @Test
   @DisplayName("Test getLastModifyDate()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Calendar ResourceRefType.getLastModifyDate()"})
   void testGetLastModifyDate() {
     // Arrange
     ResourceRefType resourceRefType = new ResourceRefType(XMPMetadata.createXMPMetadata());
@@ -272,27 +315,35 @@ class ResourceRefTypeDiffblueTest {
 
   /**
    * Test {@link ResourceRefType#getLastModifyDate()}.
+   *
    * <ul>
-   *   <li>Given {@link ResourceRefType#ResourceRefType(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
+   *   <li>Given {@link ResourceRefType#ResourceRefType(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link ResourceRefType#getLastModifyDate()}
+   *
+   * <p>Method under test: {@link ResourceRefType#getLastModifyDate()}
    */
   @Test
-  @DisplayName("Test getLastModifyDate(); given ResourceRefType(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test getLastModifyDate(); given ResourceRefType(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Calendar ResourceRefType.getLastModifyDate()"})
   void testGetLastModifyDate_givenResourceRefTypeWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull((new ResourceRefType(XMPMetadata.createXMPMetadata())).getLastModifyDate());
+    assertNull(new ResourceRefType(XMPMetadata.createXMPMetadata()).getLastModifyDate());
   }
 
   /**
    * Test {@link ResourceRefType#setLastModifyDate(Calendar)}.
-   * <p>
-   * Method under test: {@link ResourceRefType#setLastModifyDate(Calendar)}
+   *
+   * <p>Method under test: {@link ResourceRefType#setLastModifyDate(Calendar)}
    */
   @Test
   @DisplayName("Test setLastModifyDate(Calendar)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void ResourceRefType.setLastModifyDate(Calendar)"})
   void testSetLastModifyDate() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -319,29 +370,37 @@ class ResourceRefTypeDiffblueTest {
 
   /**
    * Test {@link ResourceRefType#getManageUI()}.
+   *
    * <ul>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link ResourceRefType#getManageUI()}
+   *
+   * <p>Method under test: {@link ResourceRefType#getManageUI()}
    */
   @Test
   @DisplayName("Test getManageUI(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ResourceRefType.getManageUI()"})
   void testGetManageUI_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new ResourceRefType(XMPMetadata.createXMPMetadata())).getManageUI());
+    assertNull(new ResourceRefType(XMPMetadata.createXMPMetadata()).getManageUI());
   }
 
   /**
    * Test {@link ResourceRefType#getManageUI()}.
+   *
    * <ul>
-   *   <li>Then return {@code Value}.</li>
+   *   <li>Then return {@code Value}.
    * </ul>
-   * <p>
-   * Method under test: {@link ResourceRefType#getManageUI()}
+   *
+   * <p>Method under test: {@link ResourceRefType#getManageUI()}
    */
   @Test
   @DisplayName("Test getManageUI(); then return 'Value'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ResourceRefType.getManageUI()"})
   void testGetManageUI_thenReturnValue() {
     // Arrange
     ResourceRefType resourceRefType = new ResourceRefType(XMPMetadata.createXMPMetadata());
@@ -353,11 +412,14 @@ class ResourceRefTypeDiffblueTest {
 
   /**
    * Test {@link ResourceRefType#setManageUI(String)}.
-   * <p>
-   * Method under test: {@link ResourceRefType#setManageUI(String)}
+   *
+   * <p>Method under test: {@link ResourceRefType#setManageUI(String)}
    */
   @Test
   @DisplayName("Test setManageUI(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void ResourceRefType.setManageUI(String)"})
   void testSetManageUI() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -384,29 +446,37 @@ class ResourceRefTypeDiffblueTest {
 
   /**
    * Test {@link ResourceRefType#getManageTo()}.
+   *
    * <ul>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link ResourceRefType#getManageTo()}
+   *
+   * <p>Method under test: {@link ResourceRefType#getManageTo()}
    */
   @Test
   @DisplayName("Test getManageTo(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ResourceRefType.getManageTo()"})
   void testGetManageTo_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new ResourceRefType(XMPMetadata.createXMPMetadata())).getManageTo());
+    assertNull(new ResourceRefType(XMPMetadata.createXMPMetadata()).getManageTo());
   }
 
   /**
    * Test {@link ResourceRefType#getManageTo()}.
+   *
    * <ul>
-   *   <li>Then return {@code Value}.</li>
+   *   <li>Then return {@code Value}.
    * </ul>
-   * <p>
-   * Method under test: {@link ResourceRefType#getManageTo()}
+   *
+   * <p>Method under test: {@link ResourceRefType#getManageTo()}
    */
   @Test
   @DisplayName("Test getManageTo(); then return 'Value'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ResourceRefType.getManageTo()"})
   void testGetManageTo_thenReturnValue() {
     // Arrange
     ResourceRefType resourceRefType = new ResourceRefType(XMPMetadata.createXMPMetadata());
@@ -418,11 +488,14 @@ class ResourceRefTypeDiffblueTest {
 
   /**
    * Test {@link ResourceRefType#setManageTo(String)}.
-   * <p>
-   * Method under test: {@link ResourceRefType#setManageTo(String)}
+   *
+   * <p>Method under test: {@link ResourceRefType#setManageTo(String)}
    */
   @Test
   @DisplayName("Test setManageTo(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void ResourceRefType.setManageTo(String)"})
   void testSetManageTo() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -449,29 +522,37 @@ class ResourceRefTypeDiffblueTest {
 
   /**
    * Test {@link ResourceRefType#getManager()}.
+   *
    * <ul>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link ResourceRefType#getManager()}
+   *
+   * <p>Method under test: {@link ResourceRefType#getManager()}
    */
   @Test
   @DisplayName("Test getManager(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ResourceRefType.getManager()"})
   void testGetManager_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new ResourceRefType(XMPMetadata.createXMPMetadata())).getManager());
+    assertNull(new ResourceRefType(XMPMetadata.createXMPMetadata()).getManager());
   }
 
   /**
    * Test {@link ResourceRefType#getManager()}.
+   *
    * <ul>
-   *   <li>Then return {@code Value}.</li>
+   *   <li>Then return {@code Value}.
    * </ul>
-   * <p>
-   * Method under test: {@link ResourceRefType#getManager()}
+   *
+   * <p>Method under test: {@link ResourceRefType#getManager()}
    */
   @Test
   @DisplayName("Test getManager(); then return 'Value'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ResourceRefType.getManager()"})
   void testGetManager_thenReturnValue() {
     // Arrange
     ResourceRefType resourceRefType = new ResourceRefType(XMPMetadata.createXMPMetadata());
@@ -483,11 +564,14 @@ class ResourceRefTypeDiffblueTest {
 
   /**
    * Test {@link ResourceRefType#setManager(String)}.
-   * <p>
-   * Method under test: {@link ResourceRefType#setManager(String)}
+   *
+   * <p>Method under test: {@link ResourceRefType#setManager(String)}
    */
   @Test
   @DisplayName("Test setManager(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void ResourceRefType.setManager(String)"})
   void testSetManager() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -514,29 +598,37 @@ class ResourceRefTypeDiffblueTest {
 
   /**
    * Test {@link ResourceRefType#getManagerVariant()}.
+   *
    * <ul>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link ResourceRefType#getManagerVariant()}
+   *
+   * <p>Method under test: {@link ResourceRefType#getManagerVariant()}
    */
   @Test
   @DisplayName("Test getManagerVariant(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ResourceRefType.getManagerVariant()"})
   void testGetManagerVariant_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new ResourceRefType(XMPMetadata.createXMPMetadata())).getManagerVariant());
+    assertNull(new ResourceRefType(XMPMetadata.createXMPMetadata()).getManagerVariant());
   }
 
   /**
    * Test {@link ResourceRefType#getManagerVariant()}.
+   *
    * <ul>
-   *   <li>Then return {@code Value}.</li>
+   *   <li>Then return {@code Value}.
    * </ul>
-   * <p>
-   * Method under test: {@link ResourceRefType#getManagerVariant()}
+   *
+   * <p>Method under test: {@link ResourceRefType#getManagerVariant()}
    */
   @Test
   @DisplayName("Test getManagerVariant(); then return 'Value'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ResourceRefType.getManagerVariant()"})
   void testGetManagerVariant_thenReturnValue() {
     // Arrange
     ResourceRefType resourceRefType = new ResourceRefType(XMPMetadata.createXMPMetadata());
@@ -548,11 +640,14 @@ class ResourceRefTypeDiffblueTest {
 
   /**
    * Test {@link ResourceRefType#setManagerVariant(String)}.
-   * <p>
-   * Method under test: {@link ResourceRefType#setManagerVariant(String)}
+   *
+   * <p>Method under test: {@link ResourceRefType#setManagerVariant(String)}
    */
   @Test
   @DisplayName("Test setManagerVariant(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void ResourceRefType.setManagerVariant(String)"})
   void testSetManagerVariant() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -579,29 +674,37 @@ class ResourceRefTypeDiffblueTest {
 
   /**
    * Test {@link ResourceRefType#getPartMapping()}.
+   *
    * <ul>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link ResourceRefType#getPartMapping()}
+   *
+   * <p>Method under test: {@link ResourceRefType#getPartMapping()}
    */
   @Test
   @DisplayName("Test getPartMapping(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ResourceRefType.getPartMapping()"})
   void testGetPartMapping_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new ResourceRefType(XMPMetadata.createXMPMetadata())).getPartMapping());
+    assertNull(new ResourceRefType(XMPMetadata.createXMPMetadata()).getPartMapping());
   }
 
   /**
    * Test {@link ResourceRefType#getPartMapping()}.
+   *
    * <ul>
-   *   <li>Then return {@code Value}.</li>
+   *   <li>Then return {@code Value}.
    * </ul>
-   * <p>
-   * Method under test: {@link ResourceRefType#getPartMapping()}
+   *
+   * <p>Method under test: {@link ResourceRefType#getPartMapping()}
    */
   @Test
   @DisplayName("Test getPartMapping(); then return 'Value'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ResourceRefType.getPartMapping()"})
   void testGetPartMapping_thenReturnValue() {
     // Arrange
     ResourceRefType resourceRefType = new ResourceRefType(XMPMetadata.createXMPMetadata());
@@ -613,11 +716,14 @@ class ResourceRefTypeDiffblueTest {
 
   /**
    * Test {@link ResourceRefType#setPartMapping(String)}.
-   * <p>
-   * Method under test: {@link ResourceRefType#setPartMapping(String)}
+   *
+   * <p>Method under test: {@link ResourceRefType#setPartMapping(String)}
    */
   @Test
   @DisplayName("Test setPartMapping(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void ResourceRefType.setPartMapping(String)"})
   void testSetPartMapping() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -644,29 +750,37 @@ class ResourceRefTypeDiffblueTest {
 
   /**
    * Test {@link ResourceRefType#getRenditionParams()}.
+   *
    * <ul>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link ResourceRefType#getRenditionParams()}
+   *
+   * <p>Method under test: {@link ResourceRefType#getRenditionParams()}
    */
   @Test
   @DisplayName("Test getRenditionParams(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ResourceRefType.getRenditionParams()"})
   void testGetRenditionParams_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new ResourceRefType(XMPMetadata.createXMPMetadata())).getRenditionParams());
+    assertNull(new ResourceRefType(XMPMetadata.createXMPMetadata()).getRenditionParams());
   }
 
   /**
    * Test {@link ResourceRefType#getRenditionParams()}.
+   *
    * <ul>
-   *   <li>Then return {@code Value}.</li>
+   *   <li>Then return {@code Value}.
    * </ul>
-   * <p>
-   * Method under test: {@link ResourceRefType#getRenditionParams()}
+   *
+   * <p>Method under test: {@link ResourceRefType#getRenditionParams()}
    */
   @Test
   @DisplayName("Test getRenditionParams(); then return 'Value'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ResourceRefType.getRenditionParams()"})
   void testGetRenditionParams_thenReturnValue() {
     // Arrange
     ResourceRefType resourceRefType = new ResourceRefType(XMPMetadata.createXMPMetadata());
@@ -678,11 +792,14 @@ class ResourceRefTypeDiffblueTest {
 
   /**
    * Test {@link ResourceRefType#setRenditionParams(String)}.
-   * <p>
-   * Method under test: {@link ResourceRefType#setRenditionParams(String)}
+   *
+   * <p>Method under test: {@link ResourceRefType#setRenditionParams(String)}
    */
   @Test
   @DisplayName("Test setRenditionParams(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void ResourceRefType.setRenditionParams(String)"})
   void testSetRenditionParams() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -709,29 +826,37 @@ class ResourceRefTypeDiffblueTest {
 
   /**
    * Test {@link ResourceRefType#getVersionID()}.
+   *
    * <ul>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link ResourceRefType#getVersionID()}
+   *
+   * <p>Method under test: {@link ResourceRefType#getVersionID()}
    */
   @Test
   @DisplayName("Test getVersionID(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ResourceRefType.getVersionID()"})
   void testGetVersionID_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new ResourceRefType(XMPMetadata.createXMPMetadata())).getVersionID());
+    assertNull(new ResourceRefType(XMPMetadata.createXMPMetadata()).getVersionID());
   }
 
   /**
    * Test {@link ResourceRefType#getVersionID()}.
+   *
    * <ul>
-   *   <li>Then return {@code Value}.</li>
+   *   <li>Then return {@code Value}.
    * </ul>
-   * <p>
-   * Method under test: {@link ResourceRefType#getVersionID()}
+   *
+   * <p>Method under test: {@link ResourceRefType#getVersionID()}
    */
   @Test
   @DisplayName("Test getVersionID(); then return 'Value'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ResourceRefType.getVersionID()"})
   void testGetVersionID_thenReturnValue() {
     // Arrange
     ResourceRefType resourceRefType = new ResourceRefType(XMPMetadata.createXMPMetadata());
@@ -743,11 +868,14 @@ class ResourceRefTypeDiffblueTest {
 
   /**
    * Test {@link ResourceRefType#setVersionID(String)}.
-   * <p>
-   * Method under test: {@link ResourceRefType#setVersionID(String)}
+   *
+   * <p>Method under test: {@link ResourceRefType#setVersionID(String)}
    */
   @Test
   @DisplayName("Test setVersionID(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void ResourceRefType.setVersionID(String)"})
   void testSetVersionID() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -774,29 +902,37 @@ class ResourceRefTypeDiffblueTest {
 
   /**
    * Test {@link ResourceRefType#getMaskMarkers()}.
+   *
    * <ul>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link ResourceRefType#getMaskMarkers()}
+   *
+   * <p>Method under test: {@link ResourceRefType#getMaskMarkers()}
    */
   @Test
   @DisplayName("Test getMaskMarkers(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ResourceRefType.getMaskMarkers()"})
   void testGetMaskMarkers_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new ResourceRefType(XMPMetadata.createXMPMetadata())).getMaskMarkers());
+    assertNull(new ResourceRefType(XMPMetadata.createXMPMetadata()).getMaskMarkers());
   }
 
   /**
    * Test {@link ResourceRefType#getMaskMarkers()}.
+   *
    * <ul>
-   *   <li>Then return {@code Value}.</li>
+   *   <li>Then return {@code Value}.
    * </ul>
-   * <p>
-   * Method under test: {@link ResourceRefType#getMaskMarkers()}
+   *
+   * <p>Method under test: {@link ResourceRefType#getMaskMarkers()}
    */
   @Test
   @DisplayName("Test getMaskMarkers(); then return 'Value'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ResourceRefType.getMaskMarkers()"})
   void testGetMaskMarkers_thenReturnValue() {
     // Arrange
     ResourceRefType resourceRefType = new ResourceRefType(XMPMetadata.createXMPMetadata());
@@ -808,11 +944,14 @@ class ResourceRefTypeDiffblueTest {
 
   /**
    * Test {@link ResourceRefType#setMaskMarkers(String)}.
-   * <p>
-   * Method under test: {@link ResourceRefType#setMaskMarkers(String)}
+   *
+   * <p>Method under test: {@link ResourceRefType#setMaskMarkers(String)}
    */
   @Test
   @DisplayName("Test setMaskMarkers(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void ResourceRefType.setMaskMarkers(String)"})
   void testSetMaskMarkers() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -839,29 +978,37 @@ class ResourceRefTypeDiffblueTest {
 
   /**
    * Test {@link ResourceRefType#getRenditionClass()}.
+   *
    * <ul>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link ResourceRefType#getRenditionClass()}
+   *
+   * <p>Method under test: {@link ResourceRefType#getRenditionClass()}
    */
   @Test
   @DisplayName("Test getRenditionClass(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ResourceRefType.getRenditionClass()"})
   void testGetRenditionClass_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new ResourceRefType(XMPMetadata.createXMPMetadata())).getRenditionClass());
+    assertNull(new ResourceRefType(XMPMetadata.createXMPMetadata()).getRenditionClass());
   }
 
   /**
    * Test {@link ResourceRefType#getRenditionClass()}.
+   *
    * <ul>
-   *   <li>Then return {@code Value}.</li>
+   *   <li>Then return {@code Value}.
    * </ul>
-   * <p>
-   * Method under test: {@link ResourceRefType#getRenditionClass()}
+   *
+   * <p>Method under test: {@link ResourceRefType#getRenditionClass()}
    */
   @Test
   @DisplayName("Test getRenditionClass(); then return 'Value'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ResourceRefType.getRenditionClass()"})
   void testGetRenditionClass_thenReturnValue() {
     // Arrange
     ResourceRefType resourceRefType = new ResourceRefType(XMPMetadata.createXMPMetadata());
@@ -873,11 +1020,14 @@ class ResourceRefTypeDiffblueTest {
 
   /**
    * Test {@link ResourceRefType#setRenditionClass(String)}.
-   * <p>
-   * Method under test: {@link ResourceRefType#setRenditionClass(String)}
+   *
+   * <p>Method under test: {@link ResourceRefType#setRenditionClass(String)}
    */
   @Test
   @DisplayName("Test setRenditionClass(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void ResourceRefType.setRenditionClass(String)"})
   void testSetRenditionClass() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -904,29 +1054,37 @@ class ResourceRefTypeDiffblueTest {
 
   /**
    * Test {@link ResourceRefType#getFromPart()}.
+   *
    * <ul>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link ResourceRefType#getFromPart()}
+   *
+   * <p>Method under test: {@link ResourceRefType#getFromPart()}
    */
   @Test
   @DisplayName("Test getFromPart(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ResourceRefType.getFromPart()"})
   void testGetFromPart_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new ResourceRefType(XMPMetadata.createXMPMetadata())).getFromPart());
+    assertNull(new ResourceRefType(XMPMetadata.createXMPMetadata()).getFromPart());
   }
 
   /**
    * Test {@link ResourceRefType#getFromPart()}.
+   *
    * <ul>
-   *   <li>Then return {@code Value}.</li>
+   *   <li>Then return {@code Value}.
    * </ul>
-   * <p>
-   * Method under test: {@link ResourceRefType#getFromPart()}
+   *
+   * <p>Method under test: {@link ResourceRefType#getFromPart()}
    */
   @Test
   @DisplayName("Test getFromPart(); then return 'Value'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ResourceRefType.getFromPart()"})
   void testGetFromPart_thenReturnValue() {
     // Arrange
     ResourceRefType resourceRefType = new ResourceRefType(XMPMetadata.createXMPMetadata());
@@ -938,11 +1096,14 @@ class ResourceRefTypeDiffblueTest {
 
   /**
    * Test {@link ResourceRefType#setFromPart(String)}.
-   * <p>
-   * Method under test: {@link ResourceRefType#setFromPart(String)}
+   *
+   * <p>Method under test: {@link ResourceRefType#setFromPart(String)}
    */
   @Test
   @DisplayName("Test setFromPart(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void ResourceRefType.setFromPart(String)"})
   void testSetFromPart() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -969,31 +1130,40 @@ class ResourceRefTypeDiffblueTest {
 
   /**
    * Test {@link ResourceRefType#getToPart()}.
+   *
    * <ul>
-   *   <li>Given {@link ResourceRefType#ResourceRefType(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Given {@link ResourceRefType#ResourceRefType(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link ResourceRefType#getToPart()}
+   *
+   * <p>Method under test: {@link ResourceRefType#getToPart()}
    */
   @Test
-  @DisplayName("Test getToPart(); given ResourceRefType(XMPMetadata) with metadata is createXMPMetadata; then return 'null'")
+  @DisplayName(
+      "Test getToPart(); given ResourceRefType(XMPMetadata) with metadata is createXMPMetadata; then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ResourceRefType.getToPart()"})
   void testGetToPart_givenResourceRefTypeWithMetadataIsCreateXMPMetadata_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new ResourceRefType(XMPMetadata.createXMPMetadata())).getToPart());
+    assertNull(new ResourceRefType(XMPMetadata.createXMPMetadata()).getToPart());
   }
 
   /**
    * Test {@link ResourceRefType#getToPart()}.
+   *
    * <ul>
-   *   <li>Then return {@code Value}.</li>
+   *   <li>Then return {@code Value}.
    * </ul>
-   * <p>
-   * Method under test: {@link ResourceRefType#getToPart()}
+   *
+   * <p>Method under test: {@link ResourceRefType#getToPart()}
    */
   @Test
   @DisplayName("Test getToPart(); then return 'Value'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ResourceRefType.getToPart()"})
   void testGetToPart_thenReturnValue() {
     // Arrange
     ResourceRefType resourceRefType = new ResourceRefType(XMPMetadata.createXMPMetadata());
@@ -1005,11 +1175,14 @@ class ResourceRefTypeDiffblueTest {
 
   /**
    * Test {@link ResourceRefType#setToPart(String)}.
-   * <p>
-   * Method under test: {@link ResourceRefType#setToPart(String)}
+   *
+   * <p>Method under test: {@link ResourceRefType#setToPart(String)}
    */
   @Test
   @DisplayName("Test setToPart(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void ResourceRefType.setToPart(String)"})
   void testSetToPart() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -1036,11 +1209,14 @@ class ResourceRefTypeDiffblueTest {
 
   /**
    * Test {@link ResourceRefType#addAlternatePath(String)}.
-   * <p>
-   * Method under test: {@link ResourceRefType#addAlternatePath(String)}
+   *
+   * <p>Method under test: {@link ResourceRefType#addAlternatePath(String)}
    */
   @Test
   @DisplayName("Test addAlternatePath(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void ResourceRefType.addAlternatePath(String)"})
   void testAddAlternatePath() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -1050,43 +1226,34 @@ class ResourceRefTypeDiffblueTest {
     resourceRefType.addAlternatePath("42");
 
     // Assert
-    ArrayProperty alternatePathsProperty = resourceRefType.getAlternatePathsProperty();
-    List<AbstractField> allProperties = alternatePathsProperty.getAllProperties();
-    assertEquals(1, allProperties.size());
-    AbstractField getResult = allProperties.get(0);
-    assertTrue(getResult instanceof TextType);
     List<String> alternatePaths = resourceRefType.getAlternatePaths();
     assertEquals(1, alternatePaths.size());
     assertEquals("42", alternatePaths.get(0));
-    assertEquals("42", ((TextType) getResult).getStringValue());
-    assertEquals("42", ((TextType) getResult).getRawValue());
-    assertEquals("42", ((TextType) getResult).getValue());
-    assertEquals("li", getResult.getPropertyName());
-    assertEquals("rdf", getResult.getPrefix());
+    ArrayProperty alternatePathsProperty = resourceRefType.getAlternatePathsProperty();
     assertEquals("stRef", alternatePathsProperty.getPrefix());
-    assertNull(getResult.getNamespace());
     assertNull(alternatePathsProperty.getNamespace());
-    List<AbstractField> allProperties2 = resourceRefType.getAllProperties();
-    assertEquals(1, allProperties2.size());
+    List<AbstractField> allProperties = resourceRefType.getAllProperties();
+    assertEquals(1, allProperties.size());
+    assertEquals(1, alternatePathsProperty.getAllProperties().size());
     assertEquals(Cardinality.Seq, alternatePathsProperty.getArrayType());
-    assertTrue(getResult.getAllAttributes().isEmpty());
     assertTrue(alternatePathsProperty.getAllAttributes().isEmpty());
     assertTrue(alternatePathsProperty.getAllNamespacesWithPrefix().isEmpty());
     assertEquals(alternatePaths, alternatePathsProperty.getElementsAsString());
     assertEquals(ResourceRefType.ALTERNATE_PATHS, alternatePathsProperty.getPropertyName());
-    assertSame(allProperties, alternatePathsProperty.getContainer().getAllProperties());
-    assertSame(alternatePathsProperty, allProperties2.get(0));
-    assertSame(metadata, getResult.getMetadata());
+    assertSame(alternatePathsProperty, allProperties.get(0));
     assertSame(metadata, alternatePathsProperty.getMetadata());
   }
 
   /**
    * Test {@link ResourceRefType#addAlternatePath(String)}.
-   * <p>
-   * Method under test: {@link ResourceRefType#addAlternatePath(String)}
+   *
+   * <p>Method under test: {@link ResourceRefType#addAlternatePath(String)}
    */
   @Test
   @DisplayName("Test addAlternatePath(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void ResourceRefType.addAlternatePath(String)"})
   void testAddAlternatePath2() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -1098,77 +1265,69 @@ class ResourceRefTypeDiffblueTest {
     resourceRefType.addAlternatePath("42");
 
     // Assert
-    ArrayProperty alternatePathsProperty = resourceRefType.getAlternatePathsProperty();
-    List<AbstractField> allProperties = alternatePathsProperty.getAllProperties();
-    assertEquals(2, allProperties.size());
-    AbstractField getResult = allProperties.get(0);
-    assertTrue(getResult instanceof TextType);
-    AbstractField getResult2 = allProperties.get(1);
-    assertTrue(getResult2 instanceof TextType);
     List<String> alternatePaths = resourceRefType.getAlternatePaths();
     assertEquals(2, alternatePaths.size());
     assertEquals("42", alternatePaths.get(0));
     assertEquals("42", alternatePaths.get(1));
-    assertEquals("42", ((TextType) getResult).getStringValue());
-    assertEquals("42", ((TextType) getResult2).getStringValue());
-    assertEquals("42", ((TextType) getResult).getRawValue());
-    assertEquals("42", ((TextType) getResult2).getRawValue());
-    assertEquals("42", ((TextType) getResult).getValue());
-    assertEquals("42", ((TextType) getResult2).getValue());
-    assertEquals("li", getResult.getPropertyName());
-    assertEquals("li", getResult2.getPropertyName());
-    assertEquals("rdf", getResult.getPrefix());
-    assertEquals("rdf", getResult2.getPrefix());
+    ArrayProperty alternatePathsProperty = resourceRefType.getAlternatePathsProperty();
     assertEquals("stRef", alternatePathsProperty.getPrefix());
-    assertNull(getResult.getNamespace());
-    assertNull(getResult2.getNamespace());
     assertNull(alternatePathsProperty.getNamespace());
-    List<AbstractField> allProperties2 = resourceRefType.getAllProperties();
-    assertEquals(1, allProperties2.size());
+    List<AbstractField> allProperties = resourceRefType.getAllProperties();
+    assertEquals(1, allProperties.size());
+    assertEquals(2, alternatePathsProperty.getAllProperties().size());
     assertEquals(Cardinality.Seq, alternatePathsProperty.getArrayType());
-    assertTrue(getResult.getAllAttributes().isEmpty());
-    assertTrue(getResult2.getAllAttributes().isEmpty());
     assertTrue(alternatePathsProperty.getAllAttributes().isEmpty());
     assertTrue(alternatePathsProperty.getAllNamespacesWithPrefix().isEmpty());
     assertEquals(alternatePaths, alternatePathsProperty.getElementsAsString());
     assertEquals(ResourceRefType.ALTERNATE_PATHS, alternatePathsProperty.getPropertyName());
-    assertSame(allProperties, alternatePathsProperty.getContainer().getAllProperties());
-    assertSame(alternatePathsProperty, allProperties2.get(0));
-    assertSame(metadata, getResult.getMetadata());
-    assertSame(metadata, getResult2.getMetadata());
+    assertSame(alternatePathsProperty, allProperties.get(0));
     assertSame(metadata, alternatePathsProperty.getMetadata());
   }
 
   /**
    * Test {@link ResourceRefType#getAlternatePathsProperty()}.
+   *
    * <ul>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link ResourceRefType#getAlternatePathsProperty()}
+   *
+   * <p>Method under test: {@link ResourceRefType#getAlternatePathsProperty()}
    */
   @Test
   @DisplayName("Test getAlternatePathsProperty(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"ArrayProperty ResourceRefType.getAlternatePathsProperty()"})
   void testGetAlternatePathsProperty_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new ResourceRefType(XMPMetadata.createXMPMetadata())).getAlternatePathsProperty());
+    assertNull(new ResourceRefType(XMPMetadata.createXMPMetadata()).getAlternatePathsProperty());
   }
 
   /**
    * Test {@link ResourceRefType#getAlternatePaths()}.
+   *
    * <ul>
-   *   <li>Then return Empty.</li>
+   *   <li>Then return Empty.
    * </ul>
-   * <p>
-   * Method under test: {@link ResourceRefType#getAlternatePaths()}
+   *
+   * <p>Method under test: {@link ResourceRefType#getAlternatePaths()}
    */
   @Test
   @DisplayName("Test getAlternatePaths(); then return Empty")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List ResourceRefType.getAlternatePaths()"})
   void testGetAlternatePaths_thenReturnEmpty() {
     // Arrange
     ResourceRefType resourceRefType = new ResourceRefType(XMPMetadata.createXMPMetadata());
-    resourceRefType.addProperty(new ArrayProperty(XMPMetadata.createXMPMetadata(), ResourceRefType.ALTERNATE_PATHS,
-        ResourceRefType.ALTERNATE_PATHS, ResourceRefType.ALTERNATE_PATHS, Cardinality.Simple));
+    ArrayProperty obj =
+        new ArrayProperty(
+            XMPMetadata.createXMPMetadata(),
+            ResourceRefType.ALTERNATE_PATHS,
+            ResourceRefType.ALTERNATE_PATHS,
+            ResourceRefType.ALTERNATE_PATHS,
+            Cardinality.Simple);
+    resourceRefType.addProperty(obj);
 
     // Act and Assert
     assertTrue(resourceRefType.getAlternatePaths().isEmpty());
@@ -1176,29 +1335,37 @@ class ResourceRefTypeDiffblueTest {
 
   /**
    * Test {@link ResourceRefType#getAlternatePaths()}.
+   *
    * <ul>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link ResourceRefType#getAlternatePaths()}
+   *
+   * <p>Method under test: {@link ResourceRefType#getAlternatePaths()}
    */
   @Test
   @DisplayName("Test getAlternatePaths(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List ResourceRefType.getAlternatePaths()"})
   void testGetAlternatePaths_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new ResourceRefType(XMPMetadata.createXMPMetadata())).getAlternatePaths());
+    assertNull(new ResourceRefType(XMPMetadata.createXMPMetadata()).getAlternatePaths());
   }
 
   /**
    * Test {@link ResourceRefType#getAlternatePaths()}.
+   *
    * <ul>
-   *   <li>Then return size is one.</li>
+   *   <li>Then return size is one.
    * </ul>
-   * <p>
-   * Method under test: {@link ResourceRefType#getAlternatePaths()}
+   *
+   * <p>Method under test: {@link ResourceRefType#getAlternatePaths()}
    */
   @Test
   @DisplayName("Test getAlternatePaths(); then return size is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List ResourceRefType.getAlternatePaths()"})
   void testGetAlternatePaths_thenReturnSizeIsOne() {
     // Arrange
     ResourceRefType resourceRefType = new ResourceRefType(XMPMetadata.createXMPMetadata());
@@ -1214,14 +1381,18 @@ class ResourceRefTypeDiffblueTest {
 
   /**
    * Test {@link ResourceRefType#getAlternatePaths()}.
+   *
    * <ul>
-   *   <li>Then return size is two.</li>
+   *   <li>Then return size is two.
    * </ul>
-   * <p>
-   * Method under test: {@link ResourceRefType#getAlternatePaths()}
+   *
+   * <p>Method under test: {@link ResourceRefType#getAlternatePaths()}
    */
   @Test
   @DisplayName("Test getAlternatePaths(); then return size is two")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List ResourceRefType.getAlternatePaths()"})
   void testGetAlternatePaths_thenReturnSizeIsTwo() {
     // Arrange
     ResourceRefType resourceRefType = new ResourceRefType(XMPMetadata.createXMPMetadata());

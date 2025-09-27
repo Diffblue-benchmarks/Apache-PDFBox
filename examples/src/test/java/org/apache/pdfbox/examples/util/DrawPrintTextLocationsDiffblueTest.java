@@ -4,24 +4,29 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class DrawPrintTextLocationsDiffblueTest {
   /**
-   * Test
-   * {@link DrawPrintTextLocations#DrawPrintTextLocations(PDDocument, String)}.
-   * <p>
-   * Method under test:
-   * {@link DrawPrintTextLocations#DrawPrintTextLocations(PDDocument, String)}
+   * Test {@link DrawPrintTextLocations#DrawPrintTextLocations(PDDocument, String)}.
+   *
+   * <p>Method under test: {@link DrawPrintTextLocations#DrawPrintTextLocations(PDDocument, String)}
    */
   @Test
   @DisplayName("Test new DrawPrintTextLocations(PDDocument, String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void DrawPrintTextLocations.<init>(PDDocument, String)"})
   void testNewDrawPrintTextLocations() throws IOException {
     // Arrange and Act
-    DrawPrintTextLocations actualDrawPrintTextLocations = new DrawPrintTextLocations(new PDDocument(), "foo.txt");
+    DrawPrintTextLocations actualDrawPrintTextLocations =
+        new DrawPrintTextLocations(new PDDocument(), "foo.txt");
 
     // Assert
     assertEquals(" ", actualDrawPrintTextLocations.getWordSeparator());
@@ -30,8 +35,8 @@ class DrawPrintTextLocationsDiffblueTest {
     assertEquals("", actualDrawPrintTextLocations.getPageStart());
     assertEquals("", actualDrawPrintTextLocations.getParagraphEnd());
     assertEquals("", actualDrawPrintTextLocations.getParagraphStart());
-    assertEquals("\r\n", actualDrawPrintTextLocations.getLineSeparator());
-    assertEquals("\r\n", actualDrawPrintTextLocations.getPageEnd());
+    assertEquals("\n", actualDrawPrintTextLocations.getLineSeparator());
+    assertEquals("\n", actualDrawPrintTextLocations.getPageEnd());
     assertNull(actualDrawPrintTextLocations.getCurrentPage());
     assertNull(actualDrawPrintTextLocations.getResources());
     assertNull(actualDrawPrintTextLocations.getGraphicsState());

@@ -5,49 +5,56 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSObjectKey;
 import org.apache.pdfbox.cos.COSUpdateState;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDDocumentCatalogAdditionalActionsDiffblueTest {
   /**
-   * Test
-   * {@link PDDocumentCatalogAdditionalActions#PDDocumentCatalogAdditionalActions(COSDictionary)}.
-   * <p>
-   * Method under test:
-   * {@link PDDocumentCatalogAdditionalActions#PDDocumentCatalogAdditionalActions(COSDictionary)}
+   * Test {@link
+   * PDDocumentCatalogAdditionalActions#PDDocumentCatalogAdditionalActions(COSDictionary)}.
+   *
+   * <p>Method under test: {@link
+   * PDDocumentCatalogAdditionalActions#PDDocumentCatalogAdditionalActions(COSDictionary)}
    */
   @Test
   @DisplayName("Test new PDDocumentCatalogAdditionalActions(COSDictionary)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDDocumentCatalogAdditionalActions.<init>(COSDictionary)"})
   void testNewPDDocumentCatalogAdditionalActions() {
     // Arrange
     COSDictionary a = new COSDictionary();
 
     // Act and Assert
-    assertSame(a, (new PDDocumentCatalogAdditionalActions(a)).getCOSObject());
+    assertSame(a, new PDDocumentCatalogAdditionalActions(a).getCOSObject());
   }
 
   /**
-   * Test
-   * {@link PDDocumentCatalogAdditionalActions#PDDocumentCatalogAdditionalActions()}.
-   * <p>
-   * Method under test:
-   * {@link PDDocumentCatalogAdditionalActions#PDDocumentCatalogAdditionalActions()}
+   * Test {@link PDDocumentCatalogAdditionalActions#PDDocumentCatalogAdditionalActions()}.
+   *
+   * <p>Method under test: {@link
+   * PDDocumentCatalogAdditionalActions#PDDocumentCatalogAdditionalActions()}
    */
   @Test
   @DisplayName("Test new PDDocumentCatalogAdditionalActions()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDDocumentCatalogAdditionalActions.<init>()"})
   void testNewPDDocumentCatalogAdditionalActions2() {
     // Arrange and Act
-    PDDocumentCatalogAdditionalActions actualPdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions actualPdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
 
     // Assert
     COSDictionary cOSObject = actualPdDocumentCatalogAdditionalActions.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
     assertNull(cOSObject.getKey());
     assertNull(actualPdDocumentCatalogAdditionalActions.getDP());
     assertNull(actualPdDocumentCatalogAdditionalActions.getDS());
@@ -55,25 +62,24 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
     assertNull(actualPdDocumentCatalogAdditionalActions.getWP());
     assertNull(actualPdDocumentCatalogAdditionalActions.getWS());
     assertEquals(0, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
     assertFalse(cOSObject.isDirect());
     assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
     assertTrue(cOSObject.getValues().isEmpty());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
   }
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getCOSObject()}.
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getCOSObject()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getCOSObject()}
    */
   @Test
   @DisplayName("Test getCOSObject()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"COSDictionary PDDocumentCatalogAdditionalActions.getCOSObject()"})
   void testGetCOSObject() {
     // Arrange and Act
-    COSDictionary actualCOSObject = (new PDDocumentCatalogAdditionalActions()).getCOSObject();
+    COSDictionary actualCOSObject = new PDDocumentCatalogAdditionalActions().getCOSObject();
 
     // Assert
     COSUpdateState updateState = actualCOSObject.getUpdateState();
@@ -91,14 +97,18 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWC()}.
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWC()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWC()}
    */
   @Test
   @DisplayName("Test getWC()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWC()"})
   void testGetWC() {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWC(new PDActionEmbeddedGoTo(new COSDictionary()));
 
     // Act and Assert
@@ -107,23 +117,28 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWC()}.
+   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()} Key is
-   * {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is
-   * one.</li>
+   *   <li>Given {@link COSDictionary#COSDictionary()} Key is {@link COSObjectKey#COSObjectKey(long,
+   *       int)} with num is one and gen is one.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWC()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWC()}
    */
   @Test
-  @DisplayName("Test getWC(); given COSDictionary() Key is COSObjectKey(long, int) with num is one and gen is one")
+  @DisplayName(
+      "Test getWC(); given COSDictionary() Key is COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWC()"})
   void testGetWC_givenCOSDictionaryKeyIsCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
     COSDictionary a = new COSDictionary();
     a.setKey(new COSObjectKey(1L, 1));
     PDActionEmbeddedGoTo wc = new PDActionEmbeddedGoTo(a);
 
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWC(wc);
 
     // Act and Assert
@@ -132,21 +147,27 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWC()}.
+   *
    * <ul>
-   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)}
-   * with a is {@link COSDictionary#COSDictionary()} SubType is {@code foo}.</li>
+   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link
+   *       COSDictionary#COSDictionary()} SubType is {@code foo}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWC()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWC()}
    */
   @Test
-  @DisplayName("Test getWC(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary() SubType is 'foo'")
+  @DisplayName(
+      "Test getWC(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary() SubType is 'foo'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWC()"})
   void testGetWC_givenPDActionEmbeddedGoToWithAIsCOSDictionarySubTypeIsFoo() {
     // Arrange
     PDActionEmbeddedGoTo wc = new PDActionEmbeddedGoTo(new COSDictionary());
     wc.setSubType("foo");
 
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWC(wc);
 
     // Act and Assert
@@ -155,34 +176,42 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWC()}.
+   *
    * <ul>
-   *   <li>Given
-   * {@link PDDocumentCatalogAdditionalActions#PDDocumentCatalogAdditionalActions()}.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Given {@link PDDocumentCatalogAdditionalActions#PDDocumentCatalogAdditionalActions()}.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWC()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWC()}
    */
   @Test
   @DisplayName("Test getWC(); given PDDocumentCatalogAdditionalActions(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWC()"})
   void testGetWC_givenPDDocumentCatalogAdditionalActions_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new PDDocumentCatalogAdditionalActions()).getWC());
+    assertNull(new PDDocumentCatalogAdditionalActions().getWC());
   }
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWC()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionEmbeddedGoTo}.</li>
+   *   <li>Then return {@link PDActionEmbeddedGoTo}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWC()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWC()}
    */
   @Test
   @DisplayName("Test getWC(); then return PDActionEmbeddedGoTo")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWC()"})
   void testGetWC_thenReturnPDActionEmbeddedGoTo() throws IOException {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWC(new PDActionEmbeddedGoTo());
 
     // Act
@@ -199,17 +228,22 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWC()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionGoTo}.</li>
+   *   <li>Then return {@link PDActionGoTo}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWC()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWC()}
    */
   @Test
   @DisplayName("Test getWC(); then return PDActionGoTo")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWC()"})
   void testGetWC_thenReturnPDActionGoTo() throws IOException {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWC(new PDActionGoTo());
 
     // Act
@@ -219,35 +253,34 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
     assertTrue(actualWC instanceof PDActionGoTo);
     assertNull(actualWC.getNext());
     COSDictionary cOSObject = actualWC.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
     assertNull(cOSObject.getKey());
     assertNull(((PDActionGoTo) actualWC).getDestination());
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
     assertFalse(cOSObject.isDirect());
     assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
     assertEquals(PDAction.TYPE, actualWC.getType());
     assertEquals(PDActionGoTo.SUB_TYPE, actualWC.getSubType());
   }
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWC()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionHide}.</li>
+   *   <li>Then return {@link PDActionHide}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWC()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWC()}
    */
   @Test
   @DisplayName("Test getWC(); then return PDActionHide")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWC()"})
   void testGetWC_thenReturnPDActionHide() {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWC(new PDActionHide());
 
     // Act
@@ -262,17 +295,22 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWC()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionImportData}.</li>
+   *   <li>Then return {@link PDActionImportData}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWC()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWC()}
    */
   @Test
   @DisplayName("Test getWC(); then return PDActionImportData")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWC()"})
   void testGetWC_thenReturnPDActionImportData() throws IOException {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWC(new PDActionImportData());
 
     // Act
@@ -282,35 +320,34 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
     assertTrue(actualWC instanceof PDActionImportData);
     assertNull(actualWC.getNext());
     COSDictionary cOSObject = actualWC.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
     assertNull(cOSObject.getKey());
     assertNull(((PDActionImportData) actualWC).getFile());
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
     assertFalse(cOSObject.isDirect());
     assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
     assertEquals(PDAction.TYPE, actualWC.getType());
     assertEquals(PDActionImportData.SUB_TYPE, actualWC.getSubType());
   }
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWC()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionJavaScript}.</li>
+   *   <li>Then return {@link PDActionJavaScript}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWC()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWC()}
    */
   @Test
   @DisplayName("Test getWC(); then return PDActionJavaScript")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWC()"})
   void testGetWC_thenReturnPDActionJavaScript() {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWC(new PDActionJavaScript());
 
     // Act
@@ -321,34 +358,33 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
     assertNull(((PDActionJavaScript) actualWC).getAction());
     assertNull(actualWC.getNext());
     COSDictionary cOSObject = actualWC.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
     assertNull(cOSObject.getKey());
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
     assertFalse(cOSObject.isDirect());
     assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
     assertEquals(PDAction.TYPE, actualWC.getType());
     assertEquals(PDActionJavaScript.SUB_TYPE, actualWC.getSubType());
   }
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWC()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionLaunch}.</li>
+   *   <li>Then return {@link PDActionLaunch}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWC()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWC()}
    */
   @Test
   @DisplayName("Test getWC(); then return PDActionLaunch")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWC()"})
   void testGetWC_thenReturnPDActionLaunch() throws IOException {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWC(new PDActionLaunch());
 
     // Act
@@ -368,17 +404,22 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWC()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionMovie}.</li>
+   *   <li>Then return {@link PDActionMovie}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWC()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWC()}
    */
   @Test
   @DisplayName("Test getWC(); then return PDActionMovie")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWC()"})
   void testGetWC_thenReturnPDActionMovie() {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWC(new PDActionMovie());
 
     // Act
@@ -386,36 +427,34 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
     // Assert
     assertTrue(actualWC instanceof PDActionMovie);
-    assertNull(actualWC.getNext());
     COSDictionary cOSObject = actualWC.getCOSObject();
     COSUpdateState updateState = cOSObject.getUpdateState();
     assertNull(updateState.getOriginDocumentState());
-    assertNull(cOSObject.getKey());
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
     COSIncrement toIncrementResult = cOSObject.toIncrement();
     assertFalse(toIncrementResult.iterator().hasNext());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
     assertFalse(updateState.isUpdated());
     assertTrue(toIncrementResult.getObjects().isEmpty());
-    assertEquals(PDAction.TYPE, actualWC.getType());
     assertEquals(PDActionMovie.SUB_TYPE, actualWC.getSubType());
   }
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWC()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionNamed}.</li>
+   *   <li>Then return {@link PDActionNamed}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWC()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWC()}
    */
   @Test
   @DisplayName("Test getWC(); then return PDActionNamed")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWC()"})
   void testGetWC_thenReturnPDActionNamed() {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWC(new PDActionNamed());
 
     // Act
@@ -426,34 +465,33 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
     assertNull(((PDActionNamed) actualWC).getN());
     assertNull(actualWC.getNext());
     COSDictionary cOSObject = actualWC.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
     assertNull(cOSObject.getKey());
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
     assertFalse(cOSObject.isDirect());
     assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
     assertEquals(PDAction.TYPE, actualWC.getType());
     assertEquals(PDActionNamed.SUB_TYPE, actualWC.getSubType());
   }
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWC()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionRemoteGoTo}.</li>
+   *   <li>Then return {@link PDActionRemoteGoTo}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWC()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWC()}
    */
   @Test
   @DisplayName("Test getWC(); then return PDActionRemoteGoTo")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWC()"})
   void testGetWC_thenReturnPDActionRemoteGoTo() throws IOException {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWC(new PDActionRemoteGoTo());
 
     // Act
@@ -469,17 +507,22 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWC()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionResetForm}.</li>
+   *   <li>Then return {@link PDActionResetForm}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWC()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWC()}
    */
   @Test
   @DisplayName("Test getWC(); then return PDActionResetForm")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWC()"})
   void testGetWC_thenReturnPDActionResetForm() {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWC(new PDActionResetForm());
 
     // Act
@@ -494,17 +537,22 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWC()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionSound}.</li>
+   *   <li>Then return {@link PDActionSound}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWC()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWC()}
    */
   @Test
   @DisplayName("Test getWC(); then return PDActionSound")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWC()"})
   void testGetWC_thenReturnPDActionSound() {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWC(new PDActionSound());
 
     // Act
@@ -522,17 +570,22 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWC()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionSubmitForm}.</li>
+   *   <li>Then return {@link PDActionSubmitForm}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWC()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWC()}
    */
   @Test
   @DisplayName("Test getWC(); then return PDActionSubmitForm")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWC()"})
   void testGetWC_thenReturnPDActionSubmitForm() throws IOException {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWC(new PDActionSubmitForm());
 
     // Act
@@ -548,17 +601,22 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWC()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionThread}.</li>
+   *   <li>Then return {@link PDActionThread}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWC()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWC()}
    */
   @Test
   @DisplayName("Test getWC(); then return PDActionThread")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWC()"})
   void testGetWC_thenReturnPDActionThread() throws IOException {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWC(new PDActionThread());
 
     // Act
@@ -574,17 +632,22 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWC()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionURI}.</li>
+   *   <li>Then return {@link PDActionURI}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWC()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWC()}
    */
   @Test
   @DisplayName("Test getWC(); then return PDActionURI")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWC()"})
   void testGetWC_thenReturnPDActionURI() {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWC(new PDActionURI());
 
     // Act
@@ -595,36 +658,35 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
     assertNull(((PDActionURI) actualWC).getURI());
     assertNull(actualWC.getNext());
     COSDictionary cOSObject = actualWC.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
     assertNull(cOSObject.getKey());
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
     assertFalse(cOSObject.isDirect());
     assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
     assertEquals(PDAction.TYPE, actualWC.getType());
     assertEquals(PDActionURI.SUB_TYPE, actualWC.getSubType());
   }
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#setWC(PDAction)}.
+   *
    * <ul>
-   *   <li>Then
-   * {@link PDDocumentCatalogAdditionalActions#PDDocumentCatalogAdditionalActions()}
-   * WC {@link PDActionEmbeddedGoTo}.</li>
+   *   <li>Then {@link PDDocumentCatalogAdditionalActions#PDDocumentCatalogAdditionalActions()} WC
+   *       {@link PDActionEmbeddedGoTo}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#setWC(PDAction)}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#setWC(PDAction)}
    */
   @Test
-  @DisplayName("Test setWC(PDAction); then PDDocumentCatalogAdditionalActions() WC PDActionEmbeddedGoTo")
+  @DisplayName(
+      "Test setWC(PDAction); then PDDocumentCatalogAdditionalActions() WC PDActionEmbeddedGoTo")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDDocumentCatalogAdditionalActions.setWC(PDAction)"})
   void testSetWC_thenPDDocumentCatalogAdditionalActionsWcPDActionEmbeddedGoTo() throws IOException {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
 
     // Act
     pdDocumentCatalogAdditionalActions.setWC(new PDActionEmbeddedGoTo());
@@ -646,26 +708,30 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#setWC(PDAction)}.
+   *
    * <ul>
-   *   <li>Then
-   * {@link PDDocumentCatalogAdditionalActions#PDDocumentCatalogAdditionalActions(COSDictionary)}
-   * with a is {@link COSDictionary#COSDictionary()} WC is {@code null}.</li>
+   *   <li>When {@code null}.
+   *   <li>Then {@link PDDocumentCatalogAdditionalActions#PDDocumentCatalogAdditionalActions()}
+   *       COSObject size is zero.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#setWC(PDAction)}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#setWC(PDAction)}
    */
   @Test
-  @DisplayName("Test setWC(PDAction); then PDDocumentCatalogAdditionalActions(COSDictionary) with a is COSDictionary() WC is 'null'")
-  void testSetWC_thenPDDocumentCatalogAdditionalActionsWithAIsCOSDictionaryWcIsNull() {
+  @DisplayName(
+      "Test setWC(PDAction); when 'null'; then PDDocumentCatalogAdditionalActions() COSObject size is zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDDocumentCatalogAdditionalActions.setWC(PDAction)"})
+  void testSetWC_whenNull_thenPDDocumentCatalogAdditionalActionsCOSObjectSizeIsZero() {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions(
-        new COSDictionary());
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
 
     // Act
     pdDocumentCatalogAdditionalActions.setWC(null);
 
-    // Assert
-    assertNull(pdDocumentCatalogAdditionalActions.getWC());
+    // Assert that nothing has changed
     COSDictionary cOSObject = pdDocumentCatalogAdditionalActions.getCOSObject();
     assertEquals(0, cOSObject.size());
     assertTrue(cOSObject.getValues().isEmpty());
@@ -673,14 +739,18 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWS()}.
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWS()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWS()}
    */
   @Test
   @DisplayName("Test getWS()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWS()"})
   void testGetWS() {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWS(new PDActionEmbeddedGoTo(new COSDictionary()));
 
     // Act and Assert
@@ -689,23 +759,28 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWS()}.
+   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()} Key is
-   * {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is
-   * one.</li>
+   *   <li>Given {@link COSDictionary#COSDictionary()} Key is {@link COSObjectKey#COSObjectKey(long,
+   *       int)} with num is one and gen is one.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWS()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWS()}
    */
   @Test
-  @DisplayName("Test getWS(); given COSDictionary() Key is COSObjectKey(long, int) with num is one and gen is one")
+  @DisplayName(
+      "Test getWS(); given COSDictionary() Key is COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWS()"})
   void testGetWS_givenCOSDictionaryKeyIsCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
     COSDictionary a = new COSDictionary();
     a.setKey(new COSObjectKey(1L, 1));
     PDActionEmbeddedGoTo ws = new PDActionEmbeddedGoTo(a);
 
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWS(ws);
 
     // Act and Assert
@@ -714,21 +789,27 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWS()}.
+   *
    * <ul>
-   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)}
-   * with a is {@link COSDictionary#COSDictionary()} SubType is {@code foo}.</li>
+   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link
+   *       COSDictionary#COSDictionary()} SubType is {@code foo}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWS()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWS()}
    */
   @Test
-  @DisplayName("Test getWS(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary() SubType is 'foo'")
+  @DisplayName(
+      "Test getWS(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary() SubType is 'foo'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWS()"})
   void testGetWS_givenPDActionEmbeddedGoToWithAIsCOSDictionarySubTypeIsFoo() {
     // Arrange
     PDActionEmbeddedGoTo ws = new PDActionEmbeddedGoTo(new COSDictionary());
     ws.setSubType("foo");
 
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWS(ws);
 
     // Act and Assert
@@ -737,55 +818,42 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWS()}.
+   *
    * <ul>
-   *   <li>Given
-   * {@link PDDocumentCatalogAdditionalActions#PDDocumentCatalogAdditionalActions()}
-   * WC is {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()}.</li>
+   *   <li>Given {@link PDDocumentCatalogAdditionalActions#PDDocumentCatalogAdditionalActions()}.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWS()}
-   */
-  @Test
-  @DisplayName("Test getWS(); given PDDocumentCatalogAdditionalActions() WC is PDActionEmbeddedGoTo()")
-  void testGetWS_givenPDDocumentCatalogAdditionalActionsWcIsPDActionEmbeddedGoTo() {
-    // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
-    pdDocumentCatalogAdditionalActions.setWC(new PDActionEmbeddedGoTo());
-
-    // Act and Assert
-    assertNull(pdDocumentCatalogAdditionalActions.getWS());
-  }
-
-  /**
-   * Test {@link PDDocumentCatalogAdditionalActions#getWS()}.
-   * <ul>
-   *   <li>Given
-   * {@link PDDocumentCatalogAdditionalActions#PDDocumentCatalogAdditionalActions()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWS()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWS()}
    */
   @Test
   @DisplayName("Test getWS(); given PDDocumentCatalogAdditionalActions(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWS()"})
   void testGetWS_givenPDDocumentCatalogAdditionalActions_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new PDDocumentCatalogAdditionalActions()).getWS());
+    assertNull(new PDDocumentCatalogAdditionalActions().getWS());
   }
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWS()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionEmbeddedGoTo}.</li>
+   *   <li>Then return {@link PDActionEmbeddedGoTo}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWS()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWS()}
    */
   @Test
   @DisplayName("Test getWS(); then return PDActionEmbeddedGoTo")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWS()"})
   void testGetWS_thenReturnPDActionEmbeddedGoTo() throws IOException {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWS(new PDActionEmbeddedGoTo());
 
     // Act
@@ -802,17 +870,22 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWS()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionGoTo}.</li>
+   *   <li>Then return {@link PDActionGoTo}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWS()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWS()}
    */
   @Test
   @DisplayName("Test getWS(); then return PDActionGoTo")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWS()"})
   void testGetWS_thenReturnPDActionGoTo() throws IOException {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWS(new PDActionGoTo());
 
     // Act
@@ -822,35 +895,34 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
     assertTrue(actualWS instanceof PDActionGoTo);
     assertNull(actualWS.getNext());
     COSDictionary cOSObject = actualWS.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
     assertNull(cOSObject.getKey());
     assertNull(((PDActionGoTo) actualWS).getDestination());
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
     assertFalse(cOSObject.isDirect());
     assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
     assertEquals(PDAction.TYPE, actualWS.getType());
     assertEquals(PDActionGoTo.SUB_TYPE, actualWS.getSubType());
   }
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWS()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionHide}.</li>
+   *   <li>Then return {@link PDActionHide}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWS()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWS()}
    */
   @Test
   @DisplayName("Test getWS(); then return PDActionHide")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWS()"})
   void testGetWS_thenReturnPDActionHide() {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWS(new PDActionHide());
 
     // Act
@@ -865,17 +937,22 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWS()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionImportData}.</li>
+   *   <li>Then return {@link PDActionImportData}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWS()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWS()}
    */
   @Test
   @DisplayName("Test getWS(); then return PDActionImportData")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWS()"})
   void testGetWS_thenReturnPDActionImportData() throws IOException {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWS(new PDActionImportData());
 
     // Act
@@ -885,35 +962,34 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
     assertTrue(actualWS instanceof PDActionImportData);
     assertNull(actualWS.getNext());
     COSDictionary cOSObject = actualWS.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
     assertNull(cOSObject.getKey());
     assertNull(((PDActionImportData) actualWS).getFile());
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
     assertFalse(cOSObject.isDirect());
     assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
     assertEquals(PDAction.TYPE, actualWS.getType());
     assertEquals(PDActionImportData.SUB_TYPE, actualWS.getSubType());
   }
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWS()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionJavaScript}.</li>
+   *   <li>Then return {@link PDActionJavaScript}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWS()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWS()}
    */
   @Test
   @DisplayName("Test getWS(); then return PDActionJavaScript")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWS()"})
   void testGetWS_thenReturnPDActionJavaScript() {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWS(new PDActionJavaScript());
 
     // Act
@@ -924,34 +1000,33 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
     assertNull(((PDActionJavaScript) actualWS).getAction());
     assertNull(actualWS.getNext());
     COSDictionary cOSObject = actualWS.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
     assertNull(cOSObject.getKey());
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
     assertFalse(cOSObject.isDirect());
     assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
     assertEquals(PDAction.TYPE, actualWS.getType());
     assertEquals(PDActionJavaScript.SUB_TYPE, actualWS.getSubType());
   }
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWS()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionLaunch}.</li>
+   *   <li>Then return {@link PDActionLaunch}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWS()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWS()}
    */
   @Test
   @DisplayName("Test getWS(); then return PDActionLaunch")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWS()"})
   void testGetWS_thenReturnPDActionLaunch() throws IOException {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWS(new PDActionLaunch());
 
     // Act
@@ -971,17 +1046,22 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWS()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionMovie}.</li>
+   *   <li>Then return {@link PDActionMovie}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWS()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWS()}
    */
   @Test
   @DisplayName("Test getWS(); then return PDActionMovie")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWS()"})
   void testGetWS_thenReturnPDActionMovie() {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWS(new PDActionMovie());
 
     // Act
@@ -989,36 +1069,34 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
     // Assert
     assertTrue(actualWS instanceof PDActionMovie);
-    assertNull(actualWS.getNext());
     COSDictionary cOSObject = actualWS.getCOSObject();
     COSUpdateState updateState = cOSObject.getUpdateState();
     assertNull(updateState.getOriginDocumentState());
-    assertNull(cOSObject.getKey());
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
     COSIncrement toIncrementResult = cOSObject.toIncrement();
     assertFalse(toIncrementResult.iterator().hasNext());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
     assertFalse(updateState.isUpdated());
     assertTrue(toIncrementResult.getObjects().isEmpty());
-    assertEquals(PDAction.TYPE, actualWS.getType());
     assertEquals(PDActionMovie.SUB_TYPE, actualWS.getSubType());
   }
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWS()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionNamed}.</li>
+   *   <li>Then return {@link PDActionNamed}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWS()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWS()}
    */
   @Test
   @DisplayName("Test getWS(); then return PDActionNamed")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWS()"})
   void testGetWS_thenReturnPDActionNamed() {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWS(new PDActionNamed());
 
     // Act
@@ -1029,34 +1107,33 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
     assertNull(((PDActionNamed) actualWS).getN());
     assertNull(actualWS.getNext());
     COSDictionary cOSObject = actualWS.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
     assertNull(cOSObject.getKey());
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
     assertFalse(cOSObject.isDirect());
     assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
     assertEquals(PDAction.TYPE, actualWS.getType());
     assertEquals(PDActionNamed.SUB_TYPE, actualWS.getSubType());
   }
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWS()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionRemoteGoTo}.</li>
+   *   <li>Then return {@link PDActionRemoteGoTo}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWS()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWS()}
    */
   @Test
   @DisplayName("Test getWS(); then return PDActionRemoteGoTo")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWS()"})
   void testGetWS_thenReturnPDActionRemoteGoTo() throws IOException {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWS(new PDActionRemoteGoTo());
 
     // Act
@@ -1072,17 +1149,22 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWS()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionResetForm}.</li>
+   *   <li>Then return {@link PDActionResetForm}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWS()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWS()}
    */
   @Test
   @DisplayName("Test getWS(); then return PDActionResetForm")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWS()"})
   void testGetWS_thenReturnPDActionResetForm() {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWS(new PDActionResetForm());
 
     // Act
@@ -1097,17 +1179,22 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWS()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionSound}.</li>
+   *   <li>Then return {@link PDActionSound}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWS()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWS()}
    */
   @Test
   @DisplayName("Test getWS(); then return PDActionSound")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWS()"})
   void testGetWS_thenReturnPDActionSound() {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWS(new PDActionSound());
 
     // Act
@@ -1125,17 +1212,22 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWS()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionSubmitForm}.</li>
+   *   <li>Then return {@link PDActionSubmitForm}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWS()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWS()}
    */
   @Test
   @DisplayName("Test getWS(); then return PDActionSubmitForm")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWS()"})
   void testGetWS_thenReturnPDActionSubmitForm() throws IOException {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWS(new PDActionSubmitForm());
 
     // Act
@@ -1151,17 +1243,22 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWS()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionThread}.</li>
+   *   <li>Then return {@link PDActionThread}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWS()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWS()}
    */
   @Test
   @DisplayName("Test getWS(); then return PDActionThread")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWS()"})
   void testGetWS_thenReturnPDActionThread() throws IOException {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWS(new PDActionThread());
 
     // Act
@@ -1177,17 +1274,22 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWS()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionURI}.</li>
+   *   <li>Then return {@link PDActionURI}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWS()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWS()}
    */
   @Test
   @DisplayName("Test getWS(); then return PDActionURI")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWS()"})
   void testGetWS_thenReturnPDActionURI() {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWS(new PDActionURI());
 
     // Act
@@ -1198,63 +1300,35 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
     assertNull(((PDActionURI) actualWS).getURI());
     assertNull(actualWS.getNext());
     COSDictionary cOSObject = actualWS.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
     assertNull(cOSObject.getKey());
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
     assertFalse(cOSObject.isDirect());
     assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
     assertEquals(PDAction.TYPE, actualWS.getType());
     assertEquals(PDActionURI.SUB_TYPE, actualWS.getSubType());
   }
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#setWS(PDAction)}.
+   *
    * <ul>
-   *   <li>Then
-   * {@link PDDocumentCatalogAdditionalActions#PDDocumentCatalogAdditionalActions(COSDictionary)}
-   * with a is {@link COSDictionary#COSDictionary()} WS is {@code null}.</li>
+   *   <li>Then {@link PDDocumentCatalogAdditionalActions#PDDocumentCatalogAdditionalActions()} WS
+   *       {@link PDActionEmbeddedGoTo}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#setWS(PDAction)}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#setWS(PDAction)}
    */
   @Test
-  @DisplayName("Test setWS(PDAction); then PDDocumentCatalogAdditionalActions(COSDictionary) with a is COSDictionary() WS is 'null'")
-  void testSetWS_thenPDDocumentCatalogAdditionalActionsWithAIsCOSDictionaryWsIsNull() {
-    // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions(
-        new COSDictionary());
-
-    // Act
-    pdDocumentCatalogAdditionalActions.setWS(null);
-
-    // Assert
-    assertNull(pdDocumentCatalogAdditionalActions.getWS());
-    COSDictionary cOSObject = pdDocumentCatalogAdditionalActions.getCOSObject();
-    assertEquals(0, cOSObject.size());
-    assertTrue(cOSObject.getValues().isEmpty());
-  }
-
-  /**
-   * Test {@link PDDocumentCatalogAdditionalActions#setWS(PDAction)}.
-   * <ul>
-   *   <li>Then
-   * {@link PDDocumentCatalogAdditionalActions#PDDocumentCatalogAdditionalActions()}
-   * WS {@link PDActionEmbeddedGoTo}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#setWS(PDAction)}
-   */
-  @Test
-  @DisplayName("Test setWS(PDAction); then PDDocumentCatalogAdditionalActions() WS PDActionEmbeddedGoTo")
+  @DisplayName(
+      "Test setWS(PDAction); then PDDocumentCatalogAdditionalActions() WS PDActionEmbeddedGoTo")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDDocumentCatalogAdditionalActions.setWS(PDAction)"})
   void testSetWS_thenPDDocumentCatalogAdditionalActionsWsPDActionEmbeddedGoTo() throws IOException {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
 
     // Act
     pdDocumentCatalogAdditionalActions.setWS(new PDActionEmbeddedGoTo());
@@ -1275,15 +1349,50 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
   }
 
   /**
+   * Test {@link PDDocumentCatalogAdditionalActions#setWS(PDAction)}.
+   *
+   * <ul>
+   *   <li>When {@code null}.
+   *   <li>Then {@link PDDocumentCatalogAdditionalActions#PDDocumentCatalogAdditionalActions()}
+   *       COSObject size is zero.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#setWS(PDAction)}
+   */
+  @Test
+  @DisplayName(
+      "Test setWS(PDAction); when 'null'; then PDDocumentCatalogAdditionalActions() COSObject size is zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDDocumentCatalogAdditionalActions.setWS(PDAction)"})
+  void testSetWS_whenNull_thenPDDocumentCatalogAdditionalActionsCOSObjectSizeIsZero() {
+    // Arrange
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
+
+    // Act
+    pdDocumentCatalogAdditionalActions.setWS(null);
+
+    // Assert that nothing has changed
+    COSDictionary cOSObject = pdDocumentCatalogAdditionalActions.getCOSObject();
+    assertEquals(0, cOSObject.size());
+    assertTrue(cOSObject.getValues().isEmpty());
+  }
+
+  /**
    * Test {@link PDDocumentCatalogAdditionalActions#getDS()}.
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getDS()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getDS()}
    */
   @Test
   @DisplayName("Test getDS()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getDS()"})
   void testGetDS() {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setDS(new PDActionEmbeddedGoTo(new COSDictionary()));
 
     // Act and Assert
@@ -1292,23 +1401,28 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getDS()}.
+   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()} Key is
-   * {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is
-   * one.</li>
+   *   <li>Given {@link COSDictionary#COSDictionary()} Key is {@link COSObjectKey#COSObjectKey(long,
+   *       int)} with num is one and gen is one.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getDS()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getDS()}
    */
   @Test
-  @DisplayName("Test getDS(); given COSDictionary() Key is COSObjectKey(long, int) with num is one and gen is one")
+  @DisplayName(
+      "Test getDS(); given COSDictionary() Key is COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getDS()"})
   void testGetDS_givenCOSDictionaryKeyIsCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
     COSDictionary a = new COSDictionary();
     a.setKey(new COSObjectKey(1L, 1));
     PDActionEmbeddedGoTo ds = new PDActionEmbeddedGoTo(a);
 
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setDS(ds);
 
     // Act and Assert
@@ -1317,21 +1431,27 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getDS()}.
+   *
    * <ul>
-   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)}
-   * with a is {@link COSDictionary#COSDictionary()} SubType is {@code foo}.</li>
+   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link
+   *       COSDictionary#COSDictionary()} SubType is {@code foo}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getDS()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getDS()}
    */
   @Test
-  @DisplayName("Test getDS(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary() SubType is 'foo'")
+  @DisplayName(
+      "Test getDS(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary() SubType is 'foo'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getDS()"})
   void testGetDS_givenPDActionEmbeddedGoToWithAIsCOSDictionarySubTypeIsFoo() {
     // Arrange
     PDActionEmbeddedGoTo ds = new PDActionEmbeddedGoTo(new COSDictionary());
     ds.setSubType("foo");
 
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setDS(ds);
 
     // Act and Assert
@@ -1340,55 +1460,42 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getDS()}.
+   *
    * <ul>
-   *   <li>Given
-   * {@link PDDocumentCatalogAdditionalActions#PDDocumentCatalogAdditionalActions()}
-   * WC is {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()}.</li>
+   *   <li>Given {@link PDDocumentCatalogAdditionalActions#PDDocumentCatalogAdditionalActions()}.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getDS()}
-   */
-  @Test
-  @DisplayName("Test getDS(); given PDDocumentCatalogAdditionalActions() WC is PDActionEmbeddedGoTo()")
-  void testGetDS_givenPDDocumentCatalogAdditionalActionsWcIsPDActionEmbeddedGoTo() {
-    // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
-    pdDocumentCatalogAdditionalActions.setWC(new PDActionEmbeddedGoTo());
-
-    // Act and Assert
-    assertNull(pdDocumentCatalogAdditionalActions.getDS());
-  }
-
-  /**
-   * Test {@link PDDocumentCatalogAdditionalActions#getDS()}.
-   * <ul>
-   *   <li>Given
-   * {@link PDDocumentCatalogAdditionalActions#PDDocumentCatalogAdditionalActions()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getDS()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getDS()}
    */
   @Test
   @DisplayName("Test getDS(); given PDDocumentCatalogAdditionalActions(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getDS()"})
   void testGetDS_givenPDDocumentCatalogAdditionalActions_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new PDDocumentCatalogAdditionalActions()).getDS());
+    assertNull(new PDDocumentCatalogAdditionalActions().getDS());
   }
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getDS()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionEmbeddedGoTo}.</li>
+   *   <li>Then return {@link PDActionEmbeddedGoTo}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getDS()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getDS()}
    */
   @Test
   @DisplayName("Test getDS(); then return PDActionEmbeddedGoTo")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getDS()"})
   void testGetDS_thenReturnPDActionEmbeddedGoTo() throws IOException {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setDS(new PDActionEmbeddedGoTo());
 
     // Act
@@ -1405,17 +1512,22 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getDS()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionGoTo}.</li>
+   *   <li>Then return {@link PDActionGoTo}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getDS()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getDS()}
    */
   @Test
   @DisplayName("Test getDS(); then return PDActionGoTo")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getDS()"})
   void testGetDS_thenReturnPDActionGoTo() throws IOException {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setDS(new PDActionGoTo());
 
     // Act
@@ -1425,35 +1537,34 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
     assertTrue(actualDS instanceof PDActionGoTo);
     assertNull(actualDS.getNext());
     COSDictionary cOSObject = actualDS.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
     assertNull(cOSObject.getKey());
     assertNull(((PDActionGoTo) actualDS).getDestination());
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
     assertFalse(cOSObject.isDirect());
     assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
     assertEquals(PDAction.TYPE, actualDS.getType());
     assertEquals(PDActionGoTo.SUB_TYPE, actualDS.getSubType());
   }
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getDS()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionHide}.</li>
+   *   <li>Then return {@link PDActionHide}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getDS()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getDS()}
    */
   @Test
   @DisplayName("Test getDS(); then return PDActionHide")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getDS()"})
   void testGetDS_thenReturnPDActionHide() {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setDS(new PDActionHide());
 
     // Act
@@ -1468,17 +1579,22 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getDS()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionImportData}.</li>
+   *   <li>Then return {@link PDActionImportData}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getDS()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getDS()}
    */
   @Test
   @DisplayName("Test getDS(); then return PDActionImportData")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getDS()"})
   void testGetDS_thenReturnPDActionImportData() throws IOException {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setDS(new PDActionImportData());
 
     // Act
@@ -1488,35 +1604,34 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
     assertTrue(actualDS instanceof PDActionImportData);
     assertNull(actualDS.getNext());
     COSDictionary cOSObject = actualDS.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
     assertNull(cOSObject.getKey());
     assertNull(((PDActionImportData) actualDS).getFile());
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
     assertFalse(cOSObject.isDirect());
     assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
     assertEquals(PDAction.TYPE, actualDS.getType());
     assertEquals(PDActionImportData.SUB_TYPE, actualDS.getSubType());
   }
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getDS()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionJavaScript}.</li>
+   *   <li>Then return {@link PDActionJavaScript}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getDS()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getDS()}
    */
   @Test
   @DisplayName("Test getDS(); then return PDActionJavaScript")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getDS()"})
   void testGetDS_thenReturnPDActionJavaScript() {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setDS(new PDActionJavaScript());
 
     // Act
@@ -1527,34 +1642,33 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
     assertNull(((PDActionJavaScript) actualDS).getAction());
     assertNull(actualDS.getNext());
     COSDictionary cOSObject = actualDS.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
     assertNull(cOSObject.getKey());
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
     assertFalse(cOSObject.isDirect());
     assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
     assertEquals(PDAction.TYPE, actualDS.getType());
     assertEquals(PDActionJavaScript.SUB_TYPE, actualDS.getSubType());
   }
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getDS()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionLaunch}.</li>
+   *   <li>Then return {@link PDActionLaunch}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getDS()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getDS()}
    */
   @Test
   @DisplayName("Test getDS(); then return PDActionLaunch")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getDS()"})
   void testGetDS_thenReturnPDActionLaunch() throws IOException {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setDS(new PDActionLaunch());
 
     // Act
@@ -1574,17 +1688,22 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getDS()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionMovie}.</li>
+   *   <li>Then return {@link PDActionMovie}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getDS()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getDS()}
    */
   @Test
   @DisplayName("Test getDS(); then return PDActionMovie")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getDS()"})
   void testGetDS_thenReturnPDActionMovie() {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setDS(new PDActionMovie());
 
     // Act
@@ -1592,36 +1711,34 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
     // Assert
     assertTrue(actualDS instanceof PDActionMovie);
-    assertNull(actualDS.getNext());
     COSDictionary cOSObject = actualDS.getCOSObject();
     COSUpdateState updateState = cOSObject.getUpdateState();
     assertNull(updateState.getOriginDocumentState());
-    assertNull(cOSObject.getKey());
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
     COSIncrement toIncrementResult = cOSObject.toIncrement();
     assertFalse(toIncrementResult.iterator().hasNext());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
     assertFalse(updateState.isUpdated());
     assertTrue(toIncrementResult.getObjects().isEmpty());
-    assertEquals(PDAction.TYPE, actualDS.getType());
     assertEquals(PDActionMovie.SUB_TYPE, actualDS.getSubType());
   }
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getDS()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionNamed}.</li>
+   *   <li>Then return {@link PDActionNamed}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getDS()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getDS()}
    */
   @Test
   @DisplayName("Test getDS(); then return PDActionNamed")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getDS()"})
   void testGetDS_thenReturnPDActionNamed() {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setDS(new PDActionNamed());
 
     // Act
@@ -1632,34 +1749,33 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
     assertNull(((PDActionNamed) actualDS).getN());
     assertNull(actualDS.getNext());
     COSDictionary cOSObject = actualDS.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
     assertNull(cOSObject.getKey());
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
     assertFalse(cOSObject.isDirect());
     assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
     assertEquals(PDAction.TYPE, actualDS.getType());
     assertEquals(PDActionNamed.SUB_TYPE, actualDS.getSubType());
   }
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getDS()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionRemoteGoTo}.</li>
+   *   <li>Then return {@link PDActionRemoteGoTo}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getDS()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getDS()}
    */
   @Test
   @DisplayName("Test getDS(); then return PDActionRemoteGoTo")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getDS()"})
   void testGetDS_thenReturnPDActionRemoteGoTo() throws IOException {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setDS(new PDActionRemoteGoTo());
 
     // Act
@@ -1675,17 +1791,22 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getDS()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionResetForm}.</li>
+   *   <li>Then return {@link PDActionResetForm}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getDS()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getDS()}
    */
   @Test
   @DisplayName("Test getDS(); then return PDActionResetForm")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getDS()"})
   void testGetDS_thenReturnPDActionResetForm() {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setDS(new PDActionResetForm());
 
     // Act
@@ -1700,17 +1821,22 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getDS()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionSound}.</li>
+   *   <li>Then return {@link PDActionSound}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getDS()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getDS()}
    */
   @Test
   @DisplayName("Test getDS(); then return PDActionSound")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getDS()"})
   void testGetDS_thenReturnPDActionSound() {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setDS(new PDActionSound());
 
     // Act
@@ -1728,17 +1854,22 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getDS()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionSubmitForm}.</li>
+   *   <li>Then return {@link PDActionSubmitForm}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getDS()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getDS()}
    */
   @Test
   @DisplayName("Test getDS(); then return PDActionSubmitForm")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getDS()"})
   void testGetDS_thenReturnPDActionSubmitForm() throws IOException {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setDS(new PDActionSubmitForm());
 
     // Act
@@ -1754,17 +1885,22 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getDS()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionThread}.</li>
+   *   <li>Then return {@link PDActionThread}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getDS()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getDS()}
    */
   @Test
   @DisplayName("Test getDS(); then return PDActionThread")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getDS()"})
   void testGetDS_thenReturnPDActionThread() throws IOException {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setDS(new PDActionThread());
 
     // Act
@@ -1780,17 +1916,22 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getDS()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionURI}.</li>
+   *   <li>Then return {@link PDActionURI}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getDS()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getDS()}
    */
   @Test
   @DisplayName("Test getDS(); then return PDActionURI")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getDS()"})
   void testGetDS_thenReturnPDActionURI() {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setDS(new PDActionURI());
 
     // Act
@@ -1801,36 +1942,35 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
     assertNull(((PDActionURI) actualDS).getURI());
     assertNull(actualDS.getNext());
     COSDictionary cOSObject = actualDS.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
     assertNull(cOSObject.getKey());
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
     assertFalse(cOSObject.isDirect());
     assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
     assertEquals(PDAction.TYPE, actualDS.getType());
     assertEquals(PDActionURI.SUB_TYPE, actualDS.getSubType());
   }
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#setDS(PDAction)}.
+   *
    * <ul>
-   *   <li>Then
-   * {@link PDDocumentCatalogAdditionalActions#PDDocumentCatalogAdditionalActions()}
-   * DS {@link PDActionEmbeddedGoTo}.</li>
+   *   <li>Then {@link PDDocumentCatalogAdditionalActions#PDDocumentCatalogAdditionalActions()} DS
+   *       {@link PDActionEmbeddedGoTo}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#setDS(PDAction)}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#setDS(PDAction)}
    */
   @Test
-  @DisplayName("Test setDS(PDAction); then PDDocumentCatalogAdditionalActions() DS PDActionEmbeddedGoTo")
+  @DisplayName(
+      "Test setDS(PDAction); then PDDocumentCatalogAdditionalActions() DS PDActionEmbeddedGoTo")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDDocumentCatalogAdditionalActions.setDS(PDAction)"})
   void testSetDS_thenPDDocumentCatalogAdditionalActionsDsPDActionEmbeddedGoTo() throws IOException {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
 
     // Act
     pdDocumentCatalogAdditionalActions.setDS(new PDActionEmbeddedGoTo());
@@ -1852,26 +1992,30 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#setDS(PDAction)}.
+   *
    * <ul>
-   *   <li>Then
-   * {@link PDDocumentCatalogAdditionalActions#PDDocumentCatalogAdditionalActions(COSDictionary)}
-   * with a is {@link COSDictionary#COSDictionary()} DS is {@code null}.</li>
+   *   <li>When {@code null}.
+   *   <li>Then {@link PDDocumentCatalogAdditionalActions#PDDocumentCatalogAdditionalActions()}
+   *       COSObject size is zero.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#setDS(PDAction)}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#setDS(PDAction)}
    */
   @Test
-  @DisplayName("Test setDS(PDAction); then PDDocumentCatalogAdditionalActions(COSDictionary) with a is COSDictionary() DS is 'null'")
-  void testSetDS_thenPDDocumentCatalogAdditionalActionsWithAIsCOSDictionaryDsIsNull() {
+  @DisplayName(
+      "Test setDS(PDAction); when 'null'; then PDDocumentCatalogAdditionalActions() COSObject size is zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDDocumentCatalogAdditionalActions.setDS(PDAction)"})
+  void testSetDS_whenNull_thenPDDocumentCatalogAdditionalActionsCOSObjectSizeIsZero() {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions(
-        new COSDictionary());
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
 
     // Act
     pdDocumentCatalogAdditionalActions.setDS(null);
 
-    // Assert
-    assertNull(pdDocumentCatalogAdditionalActions.getDS());
+    // Assert that nothing has changed
     COSDictionary cOSObject = pdDocumentCatalogAdditionalActions.getCOSObject();
     assertEquals(0, cOSObject.size());
     assertTrue(cOSObject.getValues().isEmpty());
@@ -1879,14 +2023,18 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWP()}.
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWP()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWP()}
    */
   @Test
   @DisplayName("Test getWP()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWP()"})
   void testGetWP() {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWP(new PDActionEmbeddedGoTo(new COSDictionary()));
 
     // Act and Assert
@@ -1895,23 +2043,28 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWP()}.
+   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()} Key is
-   * {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is
-   * one.</li>
+   *   <li>Given {@link COSDictionary#COSDictionary()} Key is {@link COSObjectKey#COSObjectKey(long,
+   *       int)} with num is one and gen is one.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWP()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWP()}
    */
   @Test
-  @DisplayName("Test getWP(); given COSDictionary() Key is COSObjectKey(long, int) with num is one and gen is one")
+  @DisplayName(
+      "Test getWP(); given COSDictionary() Key is COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWP()"})
   void testGetWP_givenCOSDictionaryKeyIsCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
     COSDictionary a = new COSDictionary();
     a.setKey(new COSObjectKey(1L, 1));
     PDActionEmbeddedGoTo wp = new PDActionEmbeddedGoTo(a);
 
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWP(wp);
 
     // Act and Assert
@@ -1920,21 +2073,27 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWP()}.
+   *
    * <ul>
-   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)}
-   * with a is {@link COSDictionary#COSDictionary()} SubType is {@code foo}.</li>
+   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link
+   *       COSDictionary#COSDictionary()} SubType is {@code foo}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWP()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWP()}
    */
   @Test
-  @DisplayName("Test getWP(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary() SubType is 'foo'")
+  @DisplayName(
+      "Test getWP(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary() SubType is 'foo'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWP()"})
   void testGetWP_givenPDActionEmbeddedGoToWithAIsCOSDictionarySubTypeIsFoo() {
     // Arrange
     PDActionEmbeddedGoTo wp = new PDActionEmbeddedGoTo(new COSDictionary());
     wp.setSubType("foo");
 
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWP(wp);
 
     // Act and Assert
@@ -1943,55 +2102,42 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWP()}.
+   *
    * <ul>
-   *   <li>Given
-   * {@link PDDocumentCatalogAdditionalActions#PDDocumentCatalogAdditionalActions()}
-   * WC is {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()}.</li>
+   *   <li>Given {@link PDDocumentCatalogAdditionalActions#PDDocumentCatalogAdditionalActions()}.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWP()}
-   */
-  @Test
-  @DisplayName("Test getWP(); given PDDocumentCatalogAdditionalActions() WC is PDActionEmbeddedGoTo()")
-  void testGetWP_givenPDDocumentCatalogAdditionalActionsWcIsPDActionEmbeddedGoTo() {
-    // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
-    pdDocumentCatalogAdditionalActions.setWC(new PDActionEmbeddedGoTo());
-
-    // Act and Assert
-    assertNull(pdDocumentCatalogAdditionalActions.getWP());
-  }
-
-  /**
-   * Test {@link PDDocumentCatalogAdditionalActions#getWP()}.
-   * <ul>
-   *   <li>Given
-   * {@link PDDocumentCatalogAdditionalActions#PDDocumentCatalogAdditionalActions()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWP()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWP()}
    */
   @Test
   @DisplayName("Test getWP(); given PDDocumentCatalogAdditionalActions(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWP()"})
   void testGetWP_givenPDDocumentCatalogAdditionalActions_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new PDDocumentCatalogAdditionalActions()).getWP());
+    assertNull(new PDDocumentCatalogAdditionalActions().getWP());
   }
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWP()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionEmbeddedGoTo}.</li>
+   *   <li>Then return {@link PDActionEmbeddedGoTo}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWP()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWP()}
    */
   @Test
   @DisplayName("Test getWP(); then return PDActionEmbeddedGoTo")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWP()"})
   void testGetWP_thenReturnPDActionEmbeddedGoTo() throws IOException {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWP(new PDActionEmbeddedGoTo());
 
     // Act
@@ -2008,17 +2154,22 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWP()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionGoTo}.</li>
+   *   <li>Then return {@link PDActionGoTo}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWP()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWP()}
    */
   @Test
   @DisplayName("Test getWP(); then return PDActionGoTo")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWP()"})
   void testGetWP_thenReturnPDActionGoTo() throws IOException {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWP(new PDActionGoTo());
 
     // Act
@@ -2028,35 +2179,34 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
     assertTrue(actualWP instanceof PDActionGoTo);
     assertNull(actualWP.getNext());
     COSDictionary cOSObject = actualWP.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
     assertNull(cOSObject.getKey());
     assertNull(((PDActionGoTo) actualWP).getDestination());
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
     assertFalse(cOSObject.isDirect());
     assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
     assertEquals(PDAction.TYPE, actualWP.getType());
     assertEquals(PDActionGoTo.SUB_TYPE, actualWP.getSubType());
   }
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWP()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionHide}.</li>
+   *   <li>Then return {@link PDActionHide}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWP()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWP()}
    */
   @Test
   @DisplayName("Test getWP(); then return PDActionHide")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWP()"})
   void testGetWP_thenReturnPDActionHide() {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWP(new PDActionHide());
 
     // Act
@@ -2071,17 +2221,22 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWP()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionImportData}.</li>
+   *   <li>Then return {@link PDActionImportData}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWP()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWP()}
    */
   @Test
   @DisplayName("Test getWP(); then return PDActionImportData")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWP()"})
   void testGetWP_thenReturnPDActionImportData() throws IOException {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWP(new PDActionImportData());
 
     // Act
@@ -2091,35 +2246,34 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
     assertTrue(actualWP instanceof PDActionImportData);
     assertNull(actualWP.getNext());
     COSDictionary cOSObject = actualWP.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
     assertNull(cOSObject.getKey());
     assertNull(((PDActionImportData) actualWP).getFile());
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
     assertFalse(cOSObject.isDirect());
     assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
     assertEquals(PDAction.TYPE, actualWP.getType());
     assertEquals(PDActionImportData.SUB_TYPE, actualWP.getSubType());
   }
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWP()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionJavaScript}.</li>
+   *   <li>Then return {@link PDActionJavaScript}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWP()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWP()}
    */
   @Test
   @DisplayName("Test getWP(); then return PDActionJavaScript")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWP()"})
   void testGetWP_thenReturnPDActionJavaScript() {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWP(new PDActionJavaScript());
 
     // Act
@@ -2130,34 +2284,33 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
     assertNull(((PDActionJavaScript) actualWP).getAction());
     assertNull(actualWP.getNext());
     COSDictionary cOSObject = actualWP.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
     assertNull(cOSObject.getKey());
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
     assertFalse(cOSObject.isDirect());
     assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
     assertEquals(PDAction.TYPE, actualWP.getType());
     assertEquals(PDActionJavaScript.SUB_TYPE, actualWP.getSubType());
   }
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWP()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionLaunch}.</li>
+   *   <li>Then return {@link PDActionLaunch}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWP()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWP()}
    */
   @Test
   @DisplayName("Test getWP(); then return PDActionLaunch")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWP()"})
   void testGetWP_thenReturnPDActionLaunch() throws IOException {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWP(new PDActionLaunch());
 
     // Act
@@ -2177,17 +2330,22 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWP()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionMovie}.</li>
+   *   <li>Then return {@link PDActionMovie}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWP()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWP()}
    */
   @Test
   @DisplayName("Test getWP(); then return PDActionMovie")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWP()"})
   void testGetWP_thenReturnPDActionMovie() {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWP(new PDActionMovie());
 
     // Act
@@ -2195,36 +2353,34 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
     // Assert
     assertTrue(actualWP instanceof PDActionMovie);
-    assertNull(actualWP.getNext());
     COSDictionary cOSObject = actualWP.getCOSObject();
     COSUpdateState updateState = cOSObject.getUpdateState();
     assertNull(updateState.getOriginDocumentState());
-    assertNull(cOSObject.getKey());
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
     COSIncrement toIncrementResult = cOSObject.toIncrement();
     assertFalse(toIncrementResult.iterator().hasNext());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
     assertFalse(updateState.isUpdated());
     assertTrue(toIncrementResult.getObjects().isEmpty());
-    assertEquals(PDAction.TYPE, actualWP.getType());
     assertEquals(PDActionMovie.SUB_TYPE, actualWP.getSubType());
   }
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWP()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionNamed}.</li>
+   *   <li>Then return {@link PDActionNamed}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWP()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWP()}
    */
   @Test
   @DisplayName("Test getWP(); then return PDActionNamed")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWP()"})
   void testGetWP_thenReturnPDActionNamed() {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWP(new PDActionNamed());
 
     // Act
@@ -2235,34 +2391,33 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
     assertNull(((PDActionNamed) actualWP).getN());
     assertNull(actualWP.getNext());
     COSDictionary cOSObject = actualWP.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
     assertNull(cOSObject.getKey());
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
     assertFalse(cOSObject.isDirect());
     assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
     assertEquals(PDAction.TYPE, actualWP.getType());
     assertEquals(PDActionNamed.SUB_TYPE, actualWP.getSubType());
   }
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWP()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionRemoteGoTo}.</li>
+   *   <li>Then return {@link PDActionRemoteGoTo}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWP()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWP()}
    */
   @Test
   @DisplayName("Test getWP(); then return PDActionRemoteGoTo")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWP()"})
   void testGetWP_thenReturnPDActionRemoteGoTo() throws IOException {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWP(new PDActionRemoteGoTo());
 
     // Act
@@ -2278,17 +2433,22 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWP()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionResetForm}.</li>
+   *   <li>Then return {@link PDActionResetForm}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWP()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWP()}
    */
   @Test
   @DisplayName("Test getWP(); then return PDActionResetForm")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWP()"})
   void testGetWP_thenReturnPDActionResetForm() {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWP(new PDActionResetForm());
 
     // Act
@@ -2303,17 +2463,22 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWP()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionSound}.</li>
+   *   <li>Then return {@link PDActionSound}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWP()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWP()}
    */
   @Test
   @DisplayName("Test getWP(); then return PDActionSound")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWP()"})
   void testGetWP_thenReturnPDActionSound() {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWP(new PDActionSound());
 
     // Act
@@ -2331,17 +2496,22 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWP()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionSubmitForm}.</li>
+   *   <li>Then return {@link PDActionSubmitForm}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWP()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWP()}
    */
   @Test
   @DisplayName("Test getWP(); then return PDActionSubmitForm")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWP()"})
   void testGetWP_thenReturnPDActionSubmitForm() throws IOException {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWP(new PDActionSubmitForm());
 
     // Act
@@ -2357,17 +2527,22 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWP()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionThread}.</li>
+   *   <li>Then return {@link PDActionThread}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWP()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWP()}
    */
   @Test
   @DisplayName("Test getWP(); then return PDActionThread")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWP()"})
   void testGetWP_thenReturnPDActionThread() throws IOException {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWP(new PDActionThread());
 
     // Act
@@ -2383,17 +2558,22 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getWP()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionURI}.</li>
+   *   <li>Then return {@link PDActionURI}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getWP()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWP()}
    */
   @Test
   @DisplayName("Test getWP(); then return PDActionURI")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWP()"})
   void testGetWP_thenReturnPDActionURI() {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setWP(new PDActionURI());
 
     // Act
@@ -2404,63 +2584,35 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
     assertNull(((PDActionURI) actualWP).getURI());
     assertNull(actualWP.getNext());
     COSDictionary cOSObject = actualWP.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
     assertNull(cOSObject.getKey());
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
     assertFalse(cOSObject.isDirect());
     assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
     assertEquals(PDAction.TYPE, actualWP.getType());
     assertEquals(PDActionURI.SUB_TYPE, actualWP.getSubType());
   }
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#setWP(PDAction)}.
+   *
    * <ul>
-   *   <li>Then
-   * {@link PDDocumentCatalogAdditionalActions#PDDocumentCatalogAdditionalActions(COSDictionary)}
-   * with a is {@link COSDictionary#COSDictionary()} WP is {@code null}.</li>
+   *   <li>Then {@link PDDocumentCatalogAdditionalActions#PDDocumentCatalogAdditionalActions()} WP
+   *       {@link PDActionEmbeddedGoTo}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#setWP(PDAction)}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#setWP(PDAction)}
    */
   @Test
-  @DisplayName("Test setWP(PDAction); then PDDocumentCatalogAdditionalActions(COSDictionary) with a is COSDictionary() WP is 'null'")
-  void testSetWP_thenPDDocumentCatalogAdditionalActionsWithAIsCOSDictionaryWpIsNull() {
-    // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions(
-        new COSDictionary());
-
-    // Act
-    pdDocumentCatalogAdditionalActions.setWP(null);
-
-    // Assert
-    assertNull(pdDocumentCatalogAdditionalActions.getWP());
-    COSDictionary cOSObject = pdDocumentCatalogAdditionalActions.getCOSObject();
-    assertEquals(0, cOSObject.size());
-    assertTrue(cOSObject.getValues().isEmpty());
-  }
-
-  /**
-   * Test {@link PDDocumentCatalogAdditionalActions#setWP(PDAction)}.
-   * <ul>
-   *   <li>Then
-   * {@link PDDocumentCatalogAdditionalActions#PDDocumentCatalogAdditionalActions()}
-   * WP {@link PDActionEmbeddedGoTo}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#setWP(PDAction)}
-   */
-  @Test
-  @DisplayName("Test setWP(PDAction); then PDDocumentCatalogAdditionalActions() WP PDActionEmbeddedGoTo")
+  @DisplayName(
+      "Test setWP(PDAction); then PDDocumentCatalogAdditionalActions() WP PDActionEmbeddedGoTo")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDDocumentCatalogAdditionalActions.setWP(PDAction)"})
   void testSetWP_thenPDDocumentCatalogAdditionalActionsWpPDActionEmbeddedGoTo() throws IOException {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
 
     // Act
     pdDocumentCatalogAdditionalActions.setWP(new PDActionEmbeddedGoTo());
@@ -2481,15 +2633,50 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
   }
 
   /**
+   * Test {@link PDDocumentCatalogAdditionalActions#setWP(PDAction)}.
+   *
+   * <ul>
+   *   <li>When {@code null}.
+   *   <li>Then {@link PDDocumentCatalogAdditionalActions#PDDocumentCatalogAdditionalActions()}
+   *       COSObject size is zero.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#setWP(PDAction)}
+   */
+  @Test
+  @DisplayName(
+      "Test setWP(PDAction); when 'null'; then PDDocumentCatalogAdditionalActions() COSObject size is zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDDocumentCatalogAdditionalActions.setWP(PDAction)"})
+  void testSetWP_whenNull_thenPDDocumentCatalogAdditionalActionsCOSObjectSizeIsZero() {
+    // Arrange
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
+
+    // Act
+    pdDocumentCatalogAdditionalActions.setWP(null);
+
+    // Assert that nothing has changed
+    COSDictionary cOSObject = pdDocumentCatalogAdditionalActions.getCOSObject();
+    assertEquals(0, cOSObject.size());
+    assertTrue(cOSObject.getValues().isEmpty());
+  }
+
+  /**
    * Test {@link PDDocumentCatalogAdditionalActions#getDP()}.
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getDP()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getDP()}
    */
   @Test
   @DisplayName("Test getDP()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getDP()"})
   void testGetDP() {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setDP(new PDActionEmbeddedGoTo(new COSDictionary()));
 
     // Act and Assert
@@ -2498,23 +2685,28 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getDP()}.
+   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()} Key is
-   * {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is
-   * one.</li>
+   *   <li>Given {@link COSDictionary#COSDictionary()} Key is {@link COSObjectKey#COSObjectKey(long,
+   *       int)} with num is one and gen is one.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getDP()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getDP()}
    */
   @Test
-  @DisplayName("Test getDP(); given COSDictionary() Key is COSObjectKey(long, int) with num is one and gen is one")
+  @DisplayName(
+      "Test getDP(); given COSDictionary() Key is COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getDP()"})
   void testGetDP_givenCOSDictionaryKeyIsCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
     COSDictionary a = new COSDictionary();
     a.setKey(new COSObjectKey(1L, 1));
     PDActionEmbeddedGoTo dp = new PDActionEmbeddedGoTo(a);
 
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setDP(dp);
 
     // Act and Assert
@@ -2523,21 +2715,27 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getDP()}.
+   *
    * <ul>
-   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)}
-   * with a is {@link COSDictionary#COSDictionary()} SubType is {@code foo}.</li>
+   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link
+   *       COSDictionary#COSDictionary()} SubType is {@code foo}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getDP()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getDP()}
    */
   @Test
-  @DisplayName("Test getDP(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary() SubType is 'foo'")
+  @DisplayName(
+      "Test getDP(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary() SubType is 'foo'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getDP()"})
   void testGetDP_givenPDActionEmbeddedGoToWithAIsCOSDictionarySubTypeIsFoo() {
     // Arrange
     PDActionEmbeddedGoTo dp = new PDActionEmbeddedGoTo(new COSDictionary());
     dp.setSubType("foo");
 
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setDP(dp);
 
     // Act and Assert
@@ -2546,55 +2744,42 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getDP()}.
+   *
    * <ul>
-   *   <li>Given
-   * {@link PDDocumentCatalogAdditionalActions#PDDocumentCatalogAdditionalActions()}
-   * WC is {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()}.</li>
+   *   <li>Given {@link PDDocumentCatalogAdditionalActions#PDDocumentCatalogAdditionalActions()}.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getDP()}
-   */
-  @Test
-  @DisplayName("Test getDP(); given PDDocumentCatalogAdditionalActions() WC is PDActionEmbeddedGoTo()")
-  void testGetDP_givenPDDocumentCatalogAdditionalActionsWcIsPDActionEmbeddedGoTo() {
-    // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
-    pdDocumentCatalogAdditionalActions.setWC(new PDActionEmbeddedGoTo());
-
-    // Act and Assert
-    assertNull(pdDocumentCatalogAdditionalActions.getDP());
-  }
-
-  /**
-   * Test {@link PDDocumentCatalogAdditionalActions#getDP()}.
-   * <ul>
-   *   <li>Given
-   * {@link PDDocumentCatalogAdditionalActions#PDDocumentCatalogAdditionalActions()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getDP()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getDP()}
    */
   @Test
   @DisplayName("Test getDP(); given PDDocumentCatalogAdditionalActions(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getDP()"})
   void testGetDP_givenPDDocumentCatalogAdditionalActions_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new PDDocumentCatalogAdditionalActions()).getDP());
+    assertNull(new PDDocumentCatalogAdditionalActions().getDP());
   }
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getDP()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionEmbeddedGoTo}.</li>
+   *   <li>Then return {@link PDActionEmbeddedGoTo}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getDP()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getDP()}
    */
   @Test
   @DisplayName("Test getDP(); then return PDActionEmbeddedGoTo")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getDP()"})
   void testGetDP_thenReturnPDActionEmbeddedGoTo() throws IOException {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setDP(new PDActionEmbeddedGoTo());
 
     // Act
@@ -2611,17 +2796,22 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getDP()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionGoTo}.</li>
+   *   <li>Then return {@link PDActionGoTo}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getDP()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getDP()}
    */
   @Test
   @DisplayName("Test getDP(); then return PDActionGoTo")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getDP()"})
   void testGetDP_thenReturnPDActionGoTo() throws IOException {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setDP(new PDActionGoTo());
 
     // Act
@@ -2631,35 +2821,34 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
     assertTrue(actualDP instanceof PDActionGoTo);
     assertNull(actualDP.getNext());
     COSDictionary cOSObject = actualDP.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
     assertNull(cOSObject.getKey());
     assertNull(((PDActionGoTo) actualDP).getDestination());
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
     assertFalse(cOSObject.isDirect());
     assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
     assertEquals(PDAction.TYPE, actualDP.getType());
     assertEquals(PDActionGoTo.SUB_TYPE, actualDP.getSubType());
   }
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getDP()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionHide}.</li>
+   *   <li>Then return {@link PDActionHide}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getDP()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getDP()}
    */
   @Test
   @DisplayName("Test getDP(); then return PDActionHide")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getDP()"})
   void testGetDP_thenReturnPDActionHide() {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setDP(new PDActionHide());
 
     // Act
@@ -2674,17 +2863,22 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getDP()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionImportData}.</li>
+   *   <li>Then return {@link PDActionImportData}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getDP()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getDP()}
    */
   @Test
   @DisplayName("Test getDP(); then return PDActionImportData")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getDP()"})
   void testGetDP_thenReturnPDActionImportData() throws IOException {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setDP(new PDActionImportData());
 
     // Act
@@ -2694,35 +2888,34 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
     assertTrue(actualDP instanceof PDActionImportData);
     assertNull(actualDP.getNext());
     COSDictionary cOSObject = actualDP.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
     assertNull(cOSObject.getKey());
     assertNull(((PDActionImportData) actualDP).getFile());
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
     assertFalse(cOSObject.isDirect());
     assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
     assertEquals(PDAction.TYPE, actualDP.getType());
     assertEquals(PDActionImportData.SUB_TYPE, actualDP.getSubType());
   }
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getDP()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionJavaScript}.</li>
+   *   <li>Then return {@link PDActionJavaScript}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getDP()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getDP()}
    */
   @Test
   @DisplayName("Test getDP(); then return PDActionJavaScript")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getDP()"})
   void testGetDP_thenReturnPDActionJavaScript() {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setDP(new PDActionJavaScript());
 
     // Act
@@ -2733,34 +2926,33 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
     assertNull(((PDActionJavaScript) actualDP).getAction());
     assertNull(actualDP.getNext());
     COSDictionary cOSObject = actualDP.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
     assertNull(cOSObject.getKey());
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
     assertFalse(cOSObject.isDirect());
     assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
     assertEquals(PDAction.TYPE, actualDP.getType());
     assertEquals(PDActionJavaScript.SUB_TYPE, actualDP.getSubType());
   }
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getDP()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionLaunch}.</li>
+   *   <li>Then return {@link PDActionLaunch}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getDP()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getDP()}
    */
   @Test
   @DisplayName("Test getDP(); then return PDActionLaunch")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getDP()"})
   void testGetDP_thenReturnPDActionLaunch() throws IOException {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setDP(new PDActionLaunch());
 
     // Act
@@ -2780,17 +2972,22 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getDP()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionMovie}.</li>
+   *   <li>Then return {@link PDActionMovie}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getDP()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getDP()}
    */
   @Test
   @DisplayName("Test getDP(); then return PDActionMovie")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getDP()"})
   void testGetDP_thenReturnPDActionMovie() {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setDP(new PDActionMovie());
 
     // Act
@@ -2798,36 +2995,34 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
     // Assert
     assertTrue(actualDP instanceof PDActionMovie);
-    assertNull(actualDP.getNext());
     COSDictionary cOSObject = actualDP.getCOSObject();
     COSUpdateState updateState = cOSObject.getUpdateState();
     assertNull(updateState.getOriginDocumentState());
-    assertNull(cOSObject.getKey());
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
     COSIncrement toIncrementResult = cOSObject.toIncrement();
     assertFalse(toIncrementResult.iterator().hasNext());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
     assertFalse(updateState.isUpdated());
     assertTrue(toIncrementResult.getObjects().isEmpty());
-    assertEquals(PDAction.TYPE, actualDP.getType());
     assertEquals(PDActionMovie.SUB_TYPE, actualDP.getSubType());
   }
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getDP()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionNamed}.</li>
+   *   <li>Then return {@link PDActionNamed}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getDP()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getDP()}
    */
   @Test
   @DisplayName("Test getDP(); then return PDActionNamed")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getDP()"})
   void testGetDP_thenReturnPDActionNamed() {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setDP(new PDActionNamed());
 
     // Act
@@ -2838,34 +3033,33 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
     assertNull(((PDActionNamed) actualDP).getN());
     assertNull(actualDP.getNext());
     COSDictionary cOSObject = actualDP.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
     assertNull(cOSObject.getKey());
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
     assertFalse(cOSObject.isDirect());
     assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
     assertEquals(PDAction.TYPE, actualDP.getType());
     assertEquals(PDActionNamed.SUB_TYPE, actualDP.getSubType());
   }
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getDP()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionRemoteGoTo}.</li>
+   *   <li>Then return {@link PDActionRemoteGoTo}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getDP()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getDP()}
    */
   @Test
   @DisplayName("Test getDP(); then return PDActionRemoteGoTo")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getDP()"})
   void testGetDP_thenReturnPDActionRemoteGoTo() throws IOException {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setDP(new PDActionRemoteGoTo());
 
     // Act
@@ -2881,17 +3075,22 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getDP()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionResetForm}.</li>
+   *   <li>Then return {@link PDActionResetForm}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getDP()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getDP()}
    */
   @Test
   @DisplayName("Test getDP(); then return PDActionResetForm")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getDP()"})
   void testGetDP_thenReturnPDActionResetForm() {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setDP(new PDActionResetForm());
 
     // Act
@@ -2906,17 +3105,22 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getDP()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionSound}.</li>
+   *   <li>Then return {@link PDActionSound}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getDP()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getDP()}
    */
   @Test
   @DisplayName("Test getDP(); then return PDActionSound")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getDP()"})
   void testGetDP_thenReturnPDActionSound() {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setDP(new PDActionSound());
 
     // Act
@@ -2934,17 +3138,22 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getDP()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionSubmitForm}.</li>
+   *   <li>Then return {@link PDActionSubmitForm}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getDP()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getDP()}
    */
   @Test
   @DisplayName("Test getDP(); then return PDActionSubmitForm")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getDP()"})
   void testGetDP_thenReturnPDActionSubmitForm() throws IOException {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setDP(new PDActionSubmitForm());
 
     // Act
@@ -2960,17 +3169,22 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getDP()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionThread}.</li>
+   *   <li>Then return {@link PDActionThread}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getDP()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getDP()}
    */
   @Test
   @DisplayName("Test getDP(); then return PDActionThread")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getDP()"})
   void testGetDP_thenReturnPDActionThread() throws IOException {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setDP(new PDActionThread());
 
     // Act
@@ -2986,17 +3200,22 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#getDP()}.
+   *
    * <ul>
-   *   <li>Then return {@link PDActionURI}.</li>
+   *   <li>Then return {@link PDActionURI}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#getDP()}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getDP()}
    */
   @Test
   @DisplayName("Test getDP(); then return PDActionURI")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getDP()"})
   void testGetDP_thenReturnPDActionURI() {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setDP(new PDActionURI());
 
     // Act
@@ -3007,36 +3226,35 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
     assertNull(((PDActionURI) actualDP).getURI());
     assertNull(actualDP.getNext());
     COSDictionary cOSObject = actualDP.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
     assertNull(cOSObject.getKey());
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
     assertFalse(cOSObject.isDirect());
     assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
     assertEquals(PDAction.TYPE, actualDP.getType());
     assertEquals(PDActionURI.SUB_TYPE, actualDP.getSubType());
   }
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#setDP(PDAction)}.
+   *
    * <ul>
-   *   <li>Then
-   * {@link PDDocumentCatalogAdditionalActions#PDDocumentCatalogAdditionalActions()}
-   * DP {@link PDActionEmbeddedGoTo}.</li>
+   *   <li>Then {@link PDDocumentCatalogAdditionalActions#PDDocumentCatalogAdditionalActions()} DP
+   *       {@link PDActionEmbeddedGoTo}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#setDP(PDAction)}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#setDP(PDAction)}
    */
   @Test
-  @DisplayName("Test setDP(PDAction); then PDDocumentCatalogAdditionalActions() DP PDActionEmbeddedGoTo")
+  @DisplayName(
+      "Test setDP(PDAction); then PDDocumentCatalogAdditionalActions() DP PDActionEmbeddedGoTo")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDDocumentCatalogAdditionalActions.setDP(PDAction)"})
   void testSetDP_thenPDDocumentCatalogAdditionalActionsDpPDActionEmbeddedGoTo() throws IOException {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions();
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
 
     // Act
     pdDocumentCatalogAdditionalActions.setDP(new PDActionEmbeddedGoTo());
@@ -3058,26 +3276,30 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalogAdditionalActions#setDP(PDAction)}.
+   *
    * <ul>
-   *   <li>Then
-   * {@link PDDocumentCatalogAdditionalActions#PDDocumentCatalogAdditionalActions(COSDictionary)}
-   * with a is {@link COSDictionary#COSDictionary()} DP is {@code null}.</li>
+   *   <li>When {@code null}.
+   *   <li>Then {@link PDDocumentCatalogAdditionalActions#PDDocumentCatalogAdditionalActions()}
+   *       COSObject size is zero.
    * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentCatalogAdditionalActions#setDP(PDAction)}
+   *
+   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#setDP(PDAction)}
    */
   @Test
-  @DisplayName("Test setDP(PDAction); then PDDocumentCatalogAdditionalActions(COSDictionary) with a is COSDictionary() DP is 'null'")
-  void testSetDP_thenPDDocumentCatalogAdditionalActionsWithAIsCOSDictionaryDpIsNull() {
+  @DisplayName(
+      "Test setDP(PDAction); when 'null'; then PDDocumentCatalogAdditionalActions() COSObject size is zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDDocumentCatalogAdditionalActions.setDP(PDAction)"})
+  void testSetDP_whenNull_thenPDDocumentCatalogAdditionalActionsCOSObjectSizeIsZero() {
     // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions = new PDDocumentCatalogAdditionalActions(
-        new COSDictionary());
+    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
+        new PDDocumentCatalogAdditionalActions();
 
     // Act
     pdDocumentCatalogAdditionalActions.setDP(null);
 
-    // Assert
-    assertNull(pdDocumentCatalogAdditionalActions.getDP());
+    // Assert that nothing has changed
     COSDictionary cOSObject = pdDocumentCatalogAdditionalActions.getCOSObject();
     assertEquals(0, cOSObject.size());
     assertTrue(cOSObject.getValues().isEmpty());

@@ -5,6 +5,8 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,14 +16,16 @@ import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSBoolean;
 import org.apache.pdfbox.text.PDFMarkedContentExtractor;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class ShowTextLineDiffblueTest {
   /**
    * Test getters and setters.
-   * <p>
-   * Methods under test:
+   *
+   * <p>Methods under test:
+   *
    * <ul>
    *   <li>{@link ShowTextLine#ShowTextLine(PDFStreamEngine)}
    *   <li>{@link ShowTextLine#getName()}
@@ -29,23 +33,31 @@ class ShowTextLineDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void ShowTextLine.<init>(PDFStreamEngine)", "String ShowTextLine.getName()"})
   void testGettersAndSetters() {
     // Arrange, Act and Assert
-    assertEquals("'", (new ShowTextLine(new PDFMarkedContentExtractor())).getName());
+    assertEquals("'", new ShowTextLine(new PDFMarkedContentExtractor()).getName());
   }
 
   /**
    * Test {@link ShowTextLine#process(Operator, List)}.
+   *
    * <ul>
-   *   <li>Given {@link COSBoolean#FALSE}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@link COSBoolean#FALSE}.</li>
-   *   <li>Then calls {@link PDFStreamEngine#processOperator(String, List)}.</li>
+   *   <li>Given {@link COSBoolean#FALSE}.
+   *   <li>When {@link ArrayList#ArrayList()} add {@link COSBoolean#FALSE}.
+   *   <li>Then calls {@link PDFStreamEngine#processOperator(String, List)}.
    * </ul>
-   * <p>
-   * Method under test: {@link ShowTextLine#process(Operator, List)}
+   *
+   * <p>Method under test: {@link ShowTextLine#process(Operator, List)}
    */
   @Test
-  @DisplayName("Test process(Operator, List); given FALSE; when ArrayList() add FALSE; then calls processOperator(String, List)")
+  @DisplayName(
+      "Test process(Operator, List); given FALSE; when ArrayList() add FALSE; then calls processOperator(String, List)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void ShowTextLine.process(Operator, List)"})
   void testProcess_givenFalse_whenArrayListAddFalse_thenCallsProcessOperator() throws IOException {
     // Arrange
     PDFStreamEngine context = mock(PDFStreamEngine.class);
@@ -59,22 +71,28 @@ class ShowTextLineDiffblueTest {
     // Act
     showTextLine.process(operator, arguments);
 
-    // Assert that nothing has changed
-    verify(context, atLeast(1)).processOperator(Mockito.<String>any(), Mockito.<List<COSBase>>any());
+    // Assert
+    verify(context, atLeast(1))
+        .processOperator(Mockito.<String>any(), Mockito.<List<COSBase>>any());
   }
 
   /**
    * Test {@link ShowTextLine#process(Operator, List)}.
+   *
    * <ul>
-   *   <li>Given {@link COSBoolean#FALSE}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@link COSBoolean#FALSE}.</li>
-   *   <li>Then calls {@link PDFStreamEngine#processOperator(String, List)}.</li>
+   *   <li>Given {@link COSBoolean#FALSE}.
+   *   <li>When {@link ArrayList#ArrayList()} add {@link COSBoolean#FALSE}.
+   *   <li>Then calls {@link PDFStreamEngine#processOperator(String, List)}.
    * </ul>
-   * <p>
-   * Method under test: {@link ShowTextLine#process(Operator, List)}
+   *
+   * <p>Method under test: {@link ShowTextLine#process(Operator, List)}
    */
   @Test
-  @DisplayName("Test process(Operator, List); given FALSE; when ArrayList() add FALSE; then calls processOperator(String, List)")
+  @DisplayName(
+      "Test process(Operator, List); given FALSE; when ArrayList() add FALSE; then calls processOperator(String, List)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void ShowTextLine.process(Operator, List)"})
   void testProcess_givenFalse_whenArrayListAddFalse_thenCallsProcessOperator2() throws IOException {
     // Arrange
     PDFStreamEngine context = mock(PDFStreamEngine.class);
@@ -89,21 +107,27 @@ class ShowTextLineDiffblueTest {
     // Act
     showTextLine.process(operator, arguments);
 
-    // Assert that nothing has changed
-    verify(context, atLeast(1)).processOperator(Mockito.<String>any(), Mockito.<List<COSBase>>any());
+    // Assert
+    verify(context, atLeast(1))
+        .processOperator(Mockito.<String>any(), Mockito.<List<COSBase>>any());
   }
 
   /**
    * Test {@link ShowTextLine#process(Operator, List)}.
+   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then calls {@link PDFStreamEngine#processOperator(String, List)}.</li>
+   *   <li>When {@link ArrayList#ArrayList()}.
+   *   <li>Then calls {@link PDFStreamEngine#processOperator(String, List)}.
    * </ul>
-   * <p>
-   * Method under test: {@link ShowTextLine#process(Operator, List)}
+   *
+   * <p>Method under test: {@link ShowTextLine#process(Operator, List)}
    */
   @Test
-  @DisplayName("Test process(Operator, List); when ArrayList(); then calls processOperator(String, List)")
+  @DisplayName(
+      "Test process(Operator, List); when ArrayList(); then calls processOperator(String, List)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void ShowTextLine.process(Operator, List)"})
   void testProcess_whenArrayList_thenCallsProcessOperator() throws IOException {
     // Arrange
     PDFStreamEngine context = mock(PDFStreamEngine.class);
@@ -114,7 +138,8 @@ class ShowTextLineDiffblueTest {
     // Act
     showTextLine.process(operator, new ArrayList<>());
 
-    // Assert that nothing has changed
-    verify(context, atLeast(1)).processOperator(Mockito.<String>any(), Mockito.<List<COSBase>>any());
+    // Assert
+    verify(context, atLeast(1))
+        .processOperator(Mockito.<String>any(), Mockito.<List<COSBase>>any());
   }
 }

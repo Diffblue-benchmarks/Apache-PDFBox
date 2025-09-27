@@ -1,15 +1,20 @@
 package org.apache.fontbox.ttf.table.common;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class LangSysTableDiffblueTest {
   /**
    * Test getters and setters.
-   * <p>
-   * Methods under test:
+   *
+   * <p>Methods under test:
+   *
    * <ul>
    *   <li>{@link LangSysTable#LangSysTable(int, int, int, int[])}
    *   <li>{@link LangSysTable#toString()}
@@ -21,9 +26,19 @@ class LangSysTableDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void LangSysTable.<init>(int, int, int, int[])",
+    "int LangSysTable.getFeatureIndexCount()",
+    "int[] LangSysTable.getFeatureIndices()",
+    "int LangSysTable.getLookupOrder()",
+    "int LangSysTable.getRequiredFeatureIndex()",
+    "String LangSysTable.toString()"
+  })
   void testGettersAndSetters() {
     // Arrange
-    int[] featureIndices = new int[]{1, -1, 1, -1};
+    int[] featureIndices = new int[] {1, -1, 1, -1};
 
     // Act
     LangSysTable actualLangSysTable = new LangSysTable(1, 1, 3, featureIndices);
@@ -38,5 +53,6 @@ class LangSysTableDiffblueTest {
     assertEquals(1, actualLangSysTable.getRequiredFeatureIndex());
     assertEquals(3, actualFeatureIndexCount);
     assertSame(featureIndices, actualFeatureIndices);
+    assertArrayEquals(new int[] {1, -1, 1, -1}, actualFeatureIndices);
   }
 }

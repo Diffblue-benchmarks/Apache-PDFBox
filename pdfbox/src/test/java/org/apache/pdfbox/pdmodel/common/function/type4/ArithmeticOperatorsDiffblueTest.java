@@ -5,6 +5,8 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Stack;
 import org.apache.pdfbox.pdmodel.common.function.type4.ArithmeticOperators.Abs;
 import org.apache.pdfbox.pdmodel.common.function.type4.ArithmeticOperators.Add;
@@ -28,25 +30,31 @@ import org.apache.pdfbox.pdmodel.common.function.type4.ArithmeticOperators.Sqrt;
 import org.apache.pdfbox.pdmodel.common.function.type4.ArithmeticOperators.Sub;
 import org.apache.pdfbox.pdmodel.common.function.type4.ArithmeticOperators.Truncate;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ArithmeticOperatorsDiffblueTest {
   /**
    * Test Abs {@link Abs#execute(ExecutionContext)}.
+   *
    * <ul>
-   *   <li>Given {@code A}.</li>
-   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popNumber()} return
-   * {@code A}.</li>
-   *   <li>Then calls {@link ExecutionContext#getStack()}.</li>
+   *   <li>Given {@code A}.
+   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popNumber()} return {@code A}.
+   *   <li>Then calls {@link ExecutionContext#getStack()}.
    * </ul>
-   * <p>
-   * Method under test: {@link ArithmeticOperators.Abs#execute(ExecutionContext)}
+   *
+   * <p>Method under test: {@link Abs#execute(ExecutionContext)}
    */
   @Test
-  @DisplayName("Test Abs execute(ExecutionContext); given 'A'; when ExecutionContext popNumber() return 'A'; then calls getStack()")
+  @DisplayName(
+      "Test Abs execute(ExecutionContext); given 'A'; when ExecutionContext popNumber() return 'A'; then calls getStack()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void Abs.execute(ExecutionContext)"})
   void testAbsExecute_givenA_whenExecutionContextPopNumberReturnA_thenCallsGetStack() {
     // Arrange
-    ArithmeticOperators.Abs abs = new ArithmeticOperators.Abs();
+    Abs abs = new Abs();
+
     ExecutionContext context = mock(ExecutionContext.class);
     when(context.popNumber()).thenReturn((byte) 'A');
     when(context.getStack()).thenReturn(new Stack<>());
@@ -61,21 +69,27 @@ class ArithmeticOperatorsDiffblueTest {
 
   /**
    * Test Abs {@link Abs#execute(ExecutionContext)}.
+   *
    * <ul>
-   *   <li>Given valueOf one.</li>
-   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popNumber()} return
-   * valueOf one.</li>
+   *   <li>Given ten.
+   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popNumber()} return ten.
+   *   <li>Then calls {@link ExecutionContext#getStack()}.
    * </ul>
-   * <p>
-   * Method under test: {@link ArithmeticOperators.Abs#execute(ExecutionContext)}
+   *
+   * <p>Method under test: {@link Abs#execute(ExecutionContext)}
    */
   @Test
-  @DisplayName("Test Abs execute(ExecutionContext); given valueOf one; when ExecutionContext popNumber() return valueOf one")
-  void testAbsExecute_givenValueOfOne_whenExecutionContextPopNumberReturnValueOfOne() {
+  @DisplayName(
+      "Test Abs execute(ExecutionContext); given ten; when ExecutionContext popNumber() return ten; then calls getStack()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void Abs.execute(ExecutionContext)"})
+  void testAbsExecute_givenTen_whenExecutionContextPopNumberReturnTen_thenCallsGetStack() {
     // Arrange
-    ArithmeticOperators.Abs abs = new ArithmeticOperators.Abs();
+    Abs abs = new Abs();
+
     ExecutionContext context = mock(ExecutionContext.class);
-    when(context.popNumber()).thenReturn(Integer.valueOf(1));
+    when(context.popNumber()).thenReturn(10);
     when(context.getStack()).thenReturn(new Stack<>());
 
     // Act
@@ -88,24 +102,27 @@ class ArithmeticOperatorsDiffblueTest {
 
   /**
    * Test Add {@link Add#execute(ExecutionContext)}.
+   *
    * <ul>
-   *   <li>Given {@link Stack} (default constructor) add {@code 42}.</li>
-   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popNumber()} return
-   * {@code A}.</li>
+   *   <li>Given {@code A}.
+   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popNumber()} return {@code A}.
+   *   <li>Then calls {@link ExecutionContext#getStack()}.
    * </ul>
-   * <p>
-   * Method under test: {@link ArithmeticOperators.Add#execute(ExecutionContext)}
+   *
+   * <p>Method under test: {@link Add#execute(ExecutionContext)}
    */
   @Test
-  @DisplayName("Test Add execute(ExecutionContext); given Stack (default constructor) add '42'; when ExecutionContext popNumber() return 'A'")
-  void testAddExecute_givenStackAdd42_whenExecutionContextPopNumberReturnA() {
+  @DisplayName(
+      "Test Add execute(ExecutionContext); given 'A'; when ExecutionContext popNumber() return 'A'; then calls getStack()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void Add.execute(ExecutionContext)"})
+  void testAddExecute_givenA_whenExecutionContextPopNumberReturnA_thenCallsGetStack() {
     // Arrange
-    ArithmeticOperators.Add add = new ArithmeticOperators.Add();
+    Add add = new Add();
 
-    Stack<Object> objectList = new Stack<>();
-    objectList.add("42");
     ExecutionContext context = mock(ExecutionContext.class);
-    when(context.getStack()).thenReturn(objectList);
+    when(context.getStack()).thenReturn(new Stack<>());
     when(context.popNumber()).thenReturn((byte) 'A');
 
     // Act
@@ -118,20 +135,28 @@ class ArithmeticOperatorsDiffblueTest {
 
   /**
    * Test Add {@link Add#execute(ExecutionContext)}.
+   *
    * <ul>
-   *   <li>Given valueOf {@link Integer#MAX_VALUE}.</li>
+   *   <li>Given {@link Integer#MAX_VALUE}.
+   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popNumber()} return {@link
+   *       Integer#MAX_VALUE}.
    * </ul>
-   * <p>
-   * Method under test: {@link ArithmeticOperators.Add#execute(ExecutionContext)}
+   *
+   * <p>Method under test: {@link Add#execute(ExecutionContext)}
    */
   @Test
-  @DisplayName("Test Add execute(ExecutionContext); given valueOf MAX_VALUE")
-  void testAddExecute_givenValueOfMax_value() {
+  @DisplayName(
+      "Test Add execute(ExecutionContext); given MAX_VALUE; when ExecutionContext popNumber() return MAX_VALUE")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void Add.execute(ExecutionContext)"})
+  void testAddExecute_givenMax_value_whenExecutionContextPopNumberReturnMax_value() {
     // Arrange
-    ArithmeticOperators.Add add = new ArithmeticOperators.Add();
+    Add add = new Add();
+
     ExecutionContext context = mock(ExecutionContext.class);
     when(context.getStack()).thenReturn(new Stack<>());
-    when(context.popNumber()).thenReturn(Integer.valueOf(Integer.MAX_VALUE));
+    when(context.popNumber()).thenReturn(Integer.MAX_VALUE);
 
     // Act
     add.execute(context);
@@ -143,20 +168,28 @@ class ArithmeticOperatorsDiffblueTest {
 
   /**
    * Test Add {@link Add#execute(ExecutionContext)}.
+   *
    * <ul>
-   *   <li>Given valueOf {@link Integer#MIN_VALUE}.</li>
+   *   <li>Given {@link Integer#MIN_VALUE}.
+   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popNumber()} return {@link
+   *       Integer#MIN_VALUE}.
    * </ul>
-   * <p>
-   * Method under test: {@link ArithmeticOperators.Add#execute(ExecutionContext)}
+   *
+   * <p>Method under test: {@link Add#execute(ExecutionContext)}
    */
   @Test
-  @DisplayName("Test Add execute(ExecutionContext); given valueOf MIN_VALUE")
-  void testAddExecute_givenValueOfMin_value() {
+  @DisplayName(
+      "Test Add execute(ExecutionContext); given MIN_VALUE; when ExecutionContext popNumber() return MIN_VALUE")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void Add.execute(ExecutionContext)"})
+  void testAddExecute_givenMin_value_whenExecutionContextPopNumberReturnMin_value() {
     // Arrange
-    ArithmeticOperators.Add add = new ArithmeticOperators.Add();
+    Add add = new Add();
+
     ExecutionContext context = mock(ExecutionContext.class);
     when(context.getStack()).thenReturn(new Stack<>());
-    when(context.popNumber()).thenReturn(Integer.valueOf(Integer.MIN_VALUE));
+    when(context.popNumber()).thenReturn(Integer.MIN_VALUE);
 
     // Act
     add.execute(context);
@@ -168,22 +201,28 @@ class ArithmeticOperatorsDiffblueTest {
 
   /**
    * Test Add {@link Add#execute(ExecutionContext)}.
+   *
    * <ul>
-   *   <li>Given valueOf one.</li>
-   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popNumber()} return
-   * valueOf one.</li>
+   *   <li>Given ten.
+   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popNumber()} return ten.
+   *   <li>Then calls {@link ExecutionContext#getStack()}.
    * </ul>
-   * <p>
-   * Method under test: {@link ArithmeticOperators.Add#execute(ExecutionContext)}
+   *
+   * <p>Method under test: {@link Add#execute(ExecutionContext)}
    */
   @Test
-  @DisplayName("Test Add execute(ExecutionContext); given valueOf one; when ExecutionContext popNumber() return valueOf one")
-  void testAddExecute_givenValueOfOne_whenExecutionContextPopNumberReturnValueOfOne() {
+  @DisplayName(
+      "Test Add execute(ExecutionContext); given ten; when ExecutionContext popNumber() return ten; then calls getStack()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void Add.execute(ExecutionContext)"})
+  void testAddExecute_givenTen_whenExecutionContextPopNumberReturnTen_thenCallsGetStack() {
     // Arrange
-    ArithmeticOperators.Add add = new ArithmeticOperators.Add();
+    Add add = new Add();
+
     ExecutionContext context = mock(ExecutionContext.class);
     when(context.getStack()).thenReturn(new Stack<>());
-    when(context.popNumber()).thenReturn(Integer.valueOf(1));
+    when(context.popNumber()).thenReturn(10);
 
     // Act
     add.execute(context);
@@ -195,20 +234,25 @@ class ArithmeticOperatorsDiffblueTest {
 
   /**
    * Test Atan {@link Atan#execute(ExecutionContext)}.
+   *
    * <ul>
-   *   <li>Given {@code -0.5}.</li>
-   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popReal()} return
-   * {@code -0.5}.</li>
-   *   <li>Then calls {@link ExecutionContext#getStack()}.</li>
+   *   <li>Given {@code -0.5}.
+   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popReal()} return {@code -0.5}.
+   *   <li>Then calls {@link ExecutionContext#getStack()}.
    * </ul>
-   * <p>
-   * Method under test: {@link ArithmeticOperators.Atan#execute(ExecutionContext)}
+   *
+   * <p>Method under test: {@link Atan#execute(ExecutionContext)}
    */
   @Test
-  @DisplayName("Test Atan execute(ExecutionContext); given '-0.5'; when ExecutionContext popReal() return '-0.5'; then calls getStack()")
+  @DisplayName(
+      "Test Atan execute(ExecutionContext); given '-0.5'; when ExecutionContext popReal() return '-0.5'; then calls getStack()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void Atan.execute(ExecutionContext)"})
   void testAtanExecute_given05_whenExecutionContextPopRealReturn05_thenCallsGetStack() {
     // Arrange
-    ArithmeticOperators.Atan atan = new ArithmeticOperators.Atan();
+    Atan atan = new Atan();
+
     ExecutionContext context = mock(ExecutionContext.class);
     when(context.popReal()).thenReturn(-0.5f);
     when(context.getStack()).thenReturn(new Stack<>());
@@ -223,20 +267,25 @@ class ArithmeticOperatorsDiffblueTest {
 
   /**
    * Test Atan {@link Atan#execute(ExecutionContext)}.
+   *
    * <ul>
-   *   <li>Given ten.</li>
-   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popReal()} return
-   * ten.</li>
-   *   <li>Then calls {@link ExecutionContext#getStack()}.</li>
+   *   <li>Given ten.
+   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popReal()} return ten.
+   *   <li>Then calls {@link ExecutionContext#getStack()}.
    * </ul>
-   * <p>
-   * Method under test: {@link ArithmeticOperators.Atan#execute(ExecutionContext)}
+   *
+   * <p>Method under test: {@link Atan#execute(ExecutionContext)}
    */
   @Test
-  @DisplayName("Test Atan execute(ExecutionContext); given ten; when ExecutionContext popReal() return ten; then calls getStack()")
+  @DisplayName(
+      "Test Atan execute(ExecutionContext); given ten; when ExecutionContext popReal() return ten; then calls getStack()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void Atan.execute(ExecutionContext)"})
   void testAtanExecute_givenTen_whenExecutionContextPopRealReturnTen_thenCallsGetStack() {
     // Arrange
-    ArithmeticOperators.Atan atan = new ArithmeticOperators.Atan();
+    Atan atan = new Atan();
+
     ExecutionContext context = mock(ExecutionContext.class);
     when(context.popReal()).thenReturn(10.0f);
     when(context.getStack()).thenReturn(new Stack<>());
@@ -251,21 +300,25 @@ class ArithmeticOperatorsDiffblueTest {
 
   /**
    * Test Ceiling {@link Ceiling#execute(ExecutionContext)}.
+   *
    * <ul>
-   *   <li>Given {@code A}.</li>
-   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popNumber()} return
-   * {@code A}.</li>
-   *   <li>Then calls {@link ExecutionContext#getStack()}.</li>
+   *   <li>Given {@code A}.
+   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popNumber()} return {@code A}.
+   *   <li>Then calls {@link ExecutionContext#getStack()}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link ArithmeticOperators.Ceiling#execute(ExecutionContext)}
+   *
+   * <p>Method under test: {@link Ceiling#execute(ExecutionContext)}
    */
   @Test
-  @DisplayName("Test Ceiling execute(ExecutionContext); given 'A'; when ExecutionContext popNumber() return 'A'; then calls getStack()")
+  @DisplayName(
+      "Test Ceiling execute(ExecutionContext); given 'A'; when ExecutionContext popNumber() return 'A'; then calls getStack()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void Ceiling.execute(ExecutionContext)"})
   void testCeilingExecute_givenA_whenExecutionContextPopNumberReturnA_thenCallsGetStack() {
     // Arrange
-    ArithmeticOperators.Ceiling ceiling = new ArithmeticOperators.Ceiling();
+    Ceiling ceiling = new Ceiling();
+
     ExecutionContext context = mock(ExecutionContext.class);
     when(context.popNumber()).thenReturn((byte) 'A');
     when(context.getStack()).thenReturn(new Stack<>());
@@ -280,22 +333,26 @@ class ArithmeticOperatorsDiffblueTest {
 
   /**
    * Test Ceiling {@link Ceiling#execute(ExecutionContext)}.
+   *
    * <ul>
-   *   <li>Given valueOf one.</li>
-   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popNumber()} return
-   * valueOf one.</li>
+   *   <li>Given ten.
+   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popNumber()} return ten.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link ArithmeticOperators.Ceiling#execute(ExecutionContext)}
+   *
+   * <p>Method under test: {@link Ceiling#execute(ExecutionContext)}
    */
   @Test
-  @DisplayName("Test Ceiling execute(ExecutionContext); given valueOf one; when ExecutionContext popNumber() return valueOf one")
-  void testCeilingExecute_givenValueOfOne_whenExecutionContextPopNumberReturnValueOfOne() {
+  @DisplayName(
+      "Test Ceiling execute(ExecutionContext); given ten; when ExecutionContext popNumber() return ten")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void Ceiling.execute(ExecutionContext)"})
+  void testCeilingExecute_givenTen_whenExecutionContextPopNumberReturnTen() {
     // Arrange
-    ArithmeticOperators.Ceiling ceiling = new ArithmeticOperators.Ceiling();
+    Ceiling ceiling = new Ceiling();
+
     ExecutionContext context = mock(ExecutionContext.class);
-    when(context.popNumber()).thenReturn(Integer.valueOf(1));
+    when(context.popNumber()).thenReturn(10);
     when(context.getStack()).thenReturn(new Stack<>());
 
     // Act
@@ -308,20 +365,25 @@ class ArithmeticOperatorsDiffblueTest {
 
   /**
    * Test Cos {@link Cos#execute(ExecutionContext)}.
+   *
    * <ul>
-   *   <li>Given ten.</li>
-   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popReal()} return
-   * ten.</li>
-   *   <li>Then calls {@link ExecutionContext#getStack()}.</li>
+   *   <li>Given ten.
+   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popReal()} return ten.
+   *   <li>Then calls {@link ExecutionContext#getStack()}.
    * </ul>
-   * <p>
-   * Method under test: {@link ArithmeticOperators.Cos#execute(ExecutionContext)}
+   *
+   * <p>Method under test: {@link Cos#execute(ExecutionContext)}
    */
   @Test
-  @DisplayName("Test Cos execute(ExecutionContext); given ten; when ExecutionContext popReal() return ten; then calls getStack()")
+  @DisplayName(
+      "Test Cos execute(ExecutionContext); given ten; when ExecutionContext popReal() return ten; then calls getStack()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void Cos.execute(ExecutionContext)"})
   void testCosExecute_givenTen_whenExecutionContextPopRealReturnTen_thenCallsGetStack() {
     // Arrange
-    ArithmeticOperators.Cos cos = new ArithmeticOperators.Cos();
+    Cos cos = new Cos();
+
     ExecutionContext context = mock(ExecutionContext.class);
     when(context.popReal()).thenReturn(10.0f);
     when(context.getStack()).thenReturn(new Stack<>());
@@ -336,18 +398,23 @@ class ArithmeticOperatorsDiffblueTest {
 
   /**
    * Test Cvi {@link Cvi#execute(ExecutionContext)}.
+   *
    * <ul>
-   *   <li>Given valueOf one.</li>
-   *   <li>Then calls {@link ExecutionContext#getStack()}.</li>
+   *   <li>Given valueOf one.
+   *   <li>Then calls {@link ExecutionContext#getStack()}.
    * </ul>
-   * <p>
-   * Method under test: {@link ArithmeticOperators.Cvi#execute(ExecutionContext)}
+   *
+   * <p>Method under test: {@link Cvi#execute(ExecutionContext)}
    */
   @Test
   @DisplayName("Test Cvi execute(ExecutionContext); given valueOf one; then calls getStack()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void Cvi.execute(ExecutionContext)"})
   void testCviExecute_givenValueOfOne_thenCallsGetStack() {
     // Arrange
-    ArithmeticOperators.Cvi cvi = new ArithmeticOperators.Cvi();
+    Cvi cvi = new Cvi();
+
     ExecutionContext context = mock(ExecutionContext.class);
     when(context.popNumber()).thenReturn(Integer.valueOf(1));
     when(context.getStack()).thenReturn(new Stack<>());
@@ -362,18 +429,23 @@ class ArithmeticOperatorsDiffblueTest {
 
   /**
    * Test Cvr {@link Cvr#execute(ExecutionContext)}.
+   *
    * <ul>
-   *   <li>Given valueOf one.</li>
-   *   <li>Then calls {@link ExecutionContext#getStack()}.</li>
+   *   <li>Given valueOf one.
+   *   <li>Then calls {@link ExecutionContext#getStack()}.
    * </ul>
-   * <p>
-   * Method under test: {@link ArithmeticOperators.Cvr#execute(ExecutionContext)}
+   *
+   * <p>Method under test: {@link Cvr#execute(ExecutionContext)}
    */
   @Test
   @DisplayName("Test Cvr execute(ExecutionContext); given valueOf one; then calls getStack()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void Cvr.execute(ExecutionContext)"})
   void testCvrExecute_givenValueOfOne_thenCallsGetStack() {
     // Arrange
-    ArithmeticOperators.Cvr cvr = new ArithmeticOperators.Cvr();
+    Cvr cvr = new Cvr();
+
     ExecutionContext context = mock(ExecutionContext.class);
     when(context.popNumber()).thenReturn(Integer.valueOf(1));
     when(context.getStack()).thenReturn(new Stack<>());
@@ -388,18 +460,23 @@ class ArithmeticOperatorsDiffblueTest {
 
   /**
    * Test Div {@link Div#execute(ExecutionContext)}.
+   *
    * <ul>
-   *   <li>Given valueOf one.</li>
-   *   <li>Then calls {@link ExecutionContext#getStack()}.</li>
+   *   <li>Given valueOf one.
+   *   <li>Then calls {@link ExecutionContext#getStack()}.
    * </ul>
-   * <p>
-   * Method under test: {@link ArithmeticOperators.Div#execute(ExecutionContext)}
+   *
+   * <p>Method under test: {@link Div#execute(ExecutionContext)}
    */
   @Test
   @DisplayName("Test Div execute(ExecutionContext); given valueOf one; then calls getStack()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void Div.execute(ExecutionContext)"})
   void testDivExecute_givenValueOfOne_thenCallsGetStack() {
     // Arrange
-    ArithmeticOperators.Div div = new ArithmeticOperators.Div();
+    Div div = new Div();
+
     ExecutionContext context = mock(ExecutionContext.class);
     when(context.popNumber()).thenReturn(Integer.valueOf(1));
     when(context.getStack()).thenReturn(new Stack<>());
@@ -414,18 +491,23 @@ class ArithmeticOperatorsDiffblueTest {
 
   /**
    * Test Exp {@link Exp#execute(ExecutionContext)}.
+   *
    * <ul>
-   *   <li>Given valueOf one.</li>
-   *   <li>Then calls {@link ExecutionContext#getStack()}.</li>
+   *   <li>Given valueOf one.
+   *   <li>Then calls {@link ExecutionContext#getStack()}.
    * </ul>
-   * <p>
-   * Method under test: {@link ArithmeticOperators.Exp#execute(ExecutionContext)}
+   *
+   * <p>Method under test: {@link Exp#execute(ExecutionContext)}
    */
   @Test
   @DisplayName("Test Exp execute(ExecutionContext); given valueOf one; then calls getStack()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void Exp.execute(ExecutionContext)"})
   void testExpExecute_givenValueOfOne_thenCallsGetStack() {
     // Arrange
-    ArithmeticOperators.Exp exp = new ArithmeticOperators.Exp();
+    Exp exp = new Exp();
+
     ExecutionContext context = mock(ExecutionContext.class);
     when(context.getStack()).thenReturn(new Stack<>());
     when(context.popNumber()).thenReturn(Integer.valueOf(1));
@@ -440,21 +522,25 @@ class ArithmeticOperatorsDiffblueTest {
 
   /**
    * Test Floor {@link Floor#execute(ExecutionContext)}.
+   *
    * <ul>
-   *   <li>Given {@code A}.</li>
-   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popNumber()} return
-   * {@code A}.</li>
-   *   <li>Then calls {@link ExecutionContext#getStack()}.</li>
+   *   <li>Given {@code A}.
+   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popNumber()} return {@code A}.
+   *   <li>Then calls {@link ExecutionContext#getStack()}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link ArithmeticOperators.Floor#execute(ExecutionContext)}
+   *
+   * <p>Method under test: {@link Floor#execute(ExecutionContext)}
    */
   @Test
-  @DisplayName("Test Floor execute(ExecutionContext); given 'A'; when ExecutionContext popNumber() return 'A'; then calls getStack()")
+  @DisplayName(
+      "Test Floor execute(ExecutionContext); given 'A'; when ExecutionContext popNumber() return 'A'; then calls getStack()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void Floor.execute(ExecutionContext)"})
   void testFloorExecute_givenA_whenExecutionContextPopNumberReturnA_thenCallsGetStack() {
     // Arrange
-    ArithmeticOperators.Floor floor = new ArithmeticOperators.Floor();
+    Floor floor = new Floor();
+
     ExecutionContext context = mock(ExecutionContext.class);
     when(context.popNumber()).thenReturn((byte) 'A');
     when(context.getStack()).thenReturn(new Stack<>());
@@ -469,22 +555,26 @@ class ArithmeticOperatorsDiffblueTest {
 
   /**
    * Test Floor {@link Floor#execute(ExecutionContext)}.
+   *
    * <ul>
-   *   <li>Given valueOf one.</li>
-   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popNumber()} return
-   * valueOf one.</li>
+   *   <li>Given ten.
+   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popNumber()} return ten.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link ArithmeticOperators.Floor#execute(ExecutionContext)}
+   *
+   * <p>Method under test: {@link Floor#execute(ExecutionContext)}
    */
   @Test
-  @DisplayName("Test Floor execute(ExecutionContext); given valueOf one; when ExecutionContext popNumber() return valueOf one")
-  void testFloorExecute_givenValueOfOne_whenExecutionContextPopNumberReturnValueOfOne() {
+  @DisplayName(
+      "Test Floor execute(ExecutionContext); given ten; when ExecutionContext popNumber() return ten")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void Floor.execute(ExecutionContext)"})
+  void testFloorExecute_givenTen_whenExecutionContextPopNumberReturnTen() {
     // Arrange
-    ArithmeticOperators.Floor floor = new ArithmeticOperators.Floor();
+    Floor floor = new Floor();
+
     ExecutionContext context = mock(ExecutionContext.class);
-    when(context.popNumber()).thenReturn(Integer.valueOf(1));
+    when(context.popNumber()).thenReturn(10);
     when(context.getStack()).thenReturn(new Stack<>());
 
     // Act
@@ -497,20 +587,25 @@ class ArithmeticOperatorsDiffblueTest {
 
   /**
    * Test IDiv {@link IDiv#execute(ExecutionContext)}.
+   *
    * <ul>
-   *   <li>Given one.</li>
-   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popInt()} return
-   * one.</li>
-   *   <li>Then calls {@link ExecutionContext#getStack()}.</li>
+   *   <li>Given one.
+   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popInt()} return one.
+   *   <li>Then calls {@link ExecutionContext#getStack()}.
    * </ul>
-   * <p>
-   * Method under test: {@link ArithmeticOperators.IDiv#execute(ExecutionContext)}
+   *
+   * <p>Method under test: {@link IDiv#execute(ExecutionContext)}
    */
   @Test
-  @DisplayName("Test IDiv execute(ExecutionContext); given one; when ExecutionContext popInt() return one; then calls getStack()")
+  @DisplayName(
+      "Test IDiv execute(ExecutionContext); given one; when ExecutionContext popInt() return one; then calls getStack()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void IDiv.execute(ExecutionContext)"})
   void testIDivExecute_givenOne_whenExecutionContextPopIntReturnOne_thenCallsGetStack() {
     // Arrange
-    ArithmeticOperators.IDiv iDiv = new ArithmeticOperators.IDiv();
+    IDiv iDiv = new IDiv();
+
     ExecutionContext context = mock(ExecutionContext.class);
     when(context.popInt()).thenReturn(1);
     when(context.getStack()).thenReturn(new Stack<>());
@@ -525,18 +620,23 @@ class ArithmeticOperatorsDiffblueTest {
 
   /**
    * Test Ln {@link Ln#execute(ExecutionContext)}.
+   *
    * <ul>
-   *   <li>Given valueOf one.</li>
-   *   <li>Then calls {@link ExecutionContext#getStack()}.</li>
+   *   <li>Given valueOf one.
+   *   <li>Then calls {@link ExecutionContext#getStack()}.
    * </ul>
-   * <p>
-   * Method under test: {@link ArithmeticOperators.Ln#execute(ExecutionContext)}
+   *
+   * <p>Method under test: {@link Ln#execute(ExecutionContext)}
    */
   @Test
   @DisplayName("Test Ln execute(ExecutionContext); given valueOf one; then calls getStack()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void Ln.execute(ExecutionContext)"})
   void testLnExecute_givenValueOfOne_thenCallsGetStack() {
     // Arrange
-    ArithmeticOperators.Ln ln = new ArithmeticOperators.Ln();
+    Ln ln = new Ln();
+
     ExecutionContext context = mock(ExecutionContext.class);
     when(context.popNumber()).thenReturn(Integer.valueOf(1));
     when(context.getStack()).thenReturn(new Stack<>());
@@ -551,18 +651,23 @@ class ArithmeticOperatorsDiffblueTest {
 
   /**
    * Test Log {@link Log#execute(ExecutionContext)}.
+   *
    * <ul>
-   *   <li>Given valueOf one.</li>
-   *   <li>Then calls {@link ExecutionContext#getStack()}.</li>
+   *   <li>Given valueOf one.
+   *   <li>Then calls {@link ExecutionContext#getStack()}.
    * </ul>
-   * <p>
-   * Method under test: {@link ArithmeticOperators.Log#execute(ExecutionContext)}
+   *
+   * <p>Method under test: {@link Log#execute(ExecutionContext)}
    */
   @Test
   @DisplayName("Test Log execute(ExecutionContext); given valueOf one; then calls getStack()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void Log.execute(ExecutionContext)"})
   void testLogExecute_givenValueOfOne_thenCallsGetStack() {
     // Arrange
-    ArithmeticOperators.Log log = new ArithmeticOperators.Log();
+    Log log = new Log();
+
     ExecutionContext context = mock(ExecutionContext.class);
     when(context.popNumber()).thenReturn(Integer.valueOf(1));
     when(context.getStack()).thenReturn(new Stack<>());
@@ -577,20 +682,25 @@ class ArithmeticOperatorsDiffblueTest {
 
   /**
    * Test Mod {@link Mod#execute(ExecutionContext)}.
+   *
    * <ul>
-   *   <li>Given one.</li>
-   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popInt()} return
-   * one.</li>
-   *   <li>Then calls {@link ExecutionContext#getStack()}.</li>
+   *   <li>Given one.
+   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popInt()} return one.
+   *   <li>Then calls {@link ExecutionContext#getStack()}.
    * </ul>
-   * <p>
-   * Method under test: {@link ArithmeticOperators.Mod#execute(ExecutionContext)}
+   *
+   * <p>Method under test: {@link Mod#execute(ExecutionContext)}
    */
   @Test
-  @DisplayName("Test Mod execute(ExecutionContext); given one; when ExecutionContext popInt() return one; then calls getStack()")
+  @DisplayName(
+      "Test Mod execute(ExecutionContext); given one; when ExecutionContext popInt() return one; then calls getStack()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void Mod.execute(ExecutionContext)"})
   void testModExecute_givenOne_whenExecutionContextPopIntReturnOne_thenCallsGetStack() {
     // Arrange
-    ArithmeticOperators.Mod mod = new ArithmeticOperators.Mod();
+    Mod mod = new Mod();
+
     ExecutionContext context = mock(ExecutionContext.class);
     when(context.popInt()).thenReturn(1);
     when(context.getStack()).thenReturn(new Stack<>());
@@ -605,24 +715,27 @@ class ArithmeticOperatorsDiffblueTest {
 
   /**
    * Test Mul {@link Mul#execute(ExecutionContext)}.
+   *
    * <ul>
-   *   <li>Given {@link Stack} (default constructor) add {@code 42}.</li>
-   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popNumber()} return
-   * {@code A}.</li>
+   *   <li>Given {@code A}.
+   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popNumber()} return {@code A}.
+   *   <li>Then calls {@link ExecutionContext#getStack()}.
    * </ul>
-   * <p>
-   * Method under test: {@link ArithmeticOperators.Mul#execute(ExecutionContext)}
+   *
+   * <p>Method under test: {@link Mul#execute(ExecutionContext)}
    */
   @Test
-  @DisplayName("Test Mul execute(ExecutionContext); given Stack (default constructor) add '42'; when ExecutionContext popNumber() return 'A'")
-  void testMulExecute_givenStackAdd42_whenExecutionContextPopNumberReturnA() {
+  @DisplayName(
+      "Test Mul execute(ExecutionContext); given 'A'; when ExecutionContext popNumber() return 'A'; then calls getStack()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void Mul.execute(ExecutionContext)"})
+  void testMulExecute_givenA_whenExecutionContextPopNumberReturnA_thenCallsGetStack() {
     // Arrange
-    ArithmeticOperators.Mul mul = new ArithmeticOperators.Mul();
+    Mul mul = new Mul();
 
-    Stack<Object> objectList = new Stack<>();
-    objectList.add("42");
     ExecutionContext context = mock(ExecutionContext.class);
-    when(context.getStack()).thenReturn(objectList);
+    when(context.getStack()).thenReturn(new Stack<>());
     when(context.popNumber()).thenReturn((byte) 'A');
 
     // Act
@@ -635,20 +748,28 @@ class ArithmeticOperatorsDiffblueTest {
 
   /**
    * Test Mul {@link Mul#execute(ExecutionContext)}.
+   *
    * <ul>
-   *   <li>Given valueOf {@link Integer#MIN_VALUE}.</li>
+   *   <li>Given {@link Integer#MIN_VALUE}.
+   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popNumber()} return {@link
+   *       Integer#MIN_VALUE}.
    * </ul>
-   * <p>
-   * Method under test: {@link ArithmeticOperators.Mul#execute(ExecutionContext)}
+   *
+   * <p>Method under test: {@link Mul#execute(ExecutionContext)}
    */
   @Test
-  @DisplayName("Test Mul execute(ExecutionContext); given valueOf MIN_VALUE")
-  void testMulExecute_givenValueOfMin_value() {
+  @DisplayName(
+      "Test Mul execute(ExecutionContext); given MIN_VALUE; when ExecutionContext popNumber() return MIN_VALUE")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void Mul.execute(ExecutionContext)"})
+  void testMulExecute_givenMin_value_whenExecutionContextPopNumberReturnMin_value() {
     // Arrange
-    ArithmeticOperators.Mul mul = new ArithmeticOperators.Mul();
+    Mul mul = new Mul();
+
     ExecutionContext context = mock(ExecutionContext.class);
     when(context.getStack()).thenReturn(new Stack<>());
-    when(context.popNumber()).thenReturn(Integer.valueOf(Integer.MIN_VALUE));
+    when(context.popNumber()).thenReturn(Integer.MIN_VALUE);
 
     // Act
     mul.execute(context);
@@ -660,22 +781,28 @@ class ArithmeticOperatorsDiffblueTest {
 
   /**
    * Test Mul {@link Mul#execute(ExecutionContext)}.
+   *
    * <ul>
-   *   <li>Given valueOf one.</li>
-   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popNumber()} return
-   * valueOf one.</li>
+   *   <li>Given ten.
+   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popNumber()} return ten.
+   *   <li>Then calls {@link ExecutionContext#getStack()}.
    * </ul>
-   * <p>
-   * Method under test: {@link ArithmeticOperators.Mul#execute(ExecutionContext)}
+   *
+   * <p>Method under test: {@link Mul#execute(ExecutionContext)}
    */
   @Test
-  @DisplayName("Test Mul execute(ExecutionContext); given valueOf one; when ExecutionContext popNumber() return valueOf one")
-  void testMulExecute_givenValueOfOne_whenExecutionContextPopNumberReturnValueOfOne() {
+  @DisplayName(
+      "Test Mul execute(ExecutionContext); given ten; when ExecutionContext popNumber() return ten; then calls getStack()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void Mul.execute(ExecutionContext)"})
+  void testMulExecute_givenTen_whenExecutionContextPopNumberReturnTen_thenCallsGetStack() {
     // Arrange
-    ArithmeticOperators.Mul mul = new ArithmeticOperators.Mul();
+    Mul mul = new Mul();
+
     ExecutionContext context = mock(ExecutionContext.class);
     when(context.getStack()).thenReturn(new Stack<>());
-    when(context.popNumber()).thenReturn(Integer.valueOf(1));
+    when(context.popNumber()).thenReturn(10);
 
     // Act
     mul.execute(context);
@@ -687,20 +814,25 @@ class ArithmeticOperatorsDiffblueTest {
 
   /**
    * Test Neg {@link Neg#execute(ExecutionContext)}.
+   *
    * <ul>
-   *   <li>Given {@code A}.</li>
-   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popNumber()} return
-   * {@code A}.</li>
-   *   <li>Then calls {@link ExecutionContext#getStack()}.</li>
+   *   <li>Given {@code A}.
+   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popNumber()} return {@code A}.
+   *   <li>Then calls {@link ExecutionContext#getStack()}.
    * </ul>
-   * <p>
-   * Method under test: {@link ArithmeticOperators.Neg#execute(ExecutionContext)}
+   *
+   * <p>Method under test: {@link Neg#execute(ExecutionContext)}
    */
   @Test
-  @DisplayName("Test Neg execute(ExecutionContext); given 'A'; when ExecutionContext popNumber() return 'A'; then calls getStack()")
+  @DisplayName(
+      "Test Neg execute(ExecutionContext); given 'A'; when ExecutionContext popNumber() return 'A'; then calls getStack()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void Neg.execute(ExecutionContext)"})
   void testNegExecute_givenA_whenExecutionContextPopNumberReturnA_thenCallsGetStack() {
     // Arrange
-    ArithmeticOperators.Neg neg = new ArithmeticOperators.Neg();
+    Neg neg = new Neg();
+
     ExecutionContext context = mock(ExecutionContext.class);
     when(context.popNumber()).thenReturn((byte) 'A');
     when(context.getStack()).thenReturn(new Stack<>());
@@ -715,19 +847,27 @@ class ArithmeticOperatorsDiffblueTest {
 
   /**
    * Test Neg {@link Neg#execute(ExecutionContext)}.
+   *
    * <ul>
-   *   <li>Given valueOf {@link Integer#MIN_VALUE}.</li>
+   *   <li>Given {@link Integer#MIN_VALUE}.
+   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popNumber()} return {@link
+   *       Integer#MIN_VALUE}.
    * </ul>
-   * <p>
-   * Method under test: {@link ArithmeticOperators.Neg#execute(ExecutionContext)}
+   *
+   * <p>Method under test: {@link Neg#execute(ExecutionContext)}
    */
   @Test
-  @DisplayName("Test Neg execute(ExecutionContext); given valueOf MIN_VALUE")
-  void testNegExecute_givenValueOfMin_value() {
+  @DisplayName(
+      "Test Neg execute(ExecutionContext); given MIN_VALUE; when ExecutionContext popNumber() return MIN_VALUE")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void Neg.execute(ExecutionContext)"})
+  void testNegExecute_givenMin_value_whenExecutionContextPopNumberReturnMin_value() {
     // Arrange
-    ArithmeticOperators.Neg neg = new ArithmeticOperators.Neg();
+    Neg neg = new Neg();
+
     ExecutionContext context = mock(ExecutionContext.class);
-    when(context.popNumber()).thenReturn(Integer.valueOf(Integer.MIN_VALUE));
+    when(context.popNumber()).thenReturn(Integer.MIN_VALUE);
     when(context.getStack()).thenReturn(new Stack<>());
 
     // Act
@@ -740,21 +880,27 @@ class ArithmeticOperatorsDiffblueTest {
 
   /**
    * Test Neg {@link Neg#execute(ExecutionContext)}.
+   *
    * <ul>
-   *   <li>Given valueOf one.</li>
-   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popNumber()} return
-   * valueOf one.</li>
+   *   <li>Given ten.
+   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popNumber()} return ten.
+   *   <li>Then calls {@link ExecutionContext#getStack()}.
    * </ul>
-   * <p>
-   * Method under test: {@link ArithmeticOperators.Neg#execute(ExecutionContext)}
+   *
+   * <p>Method under test: {@link Neg#execute(ExecutionContext)}
    */
   @Test
-  @DisplayName("Test Neg execute(ExecutionContext); given valueOf one; when ExecutionContext popNumber() return valueOf one")
-  void testNegExecute_givenValueOfOne_whenExecutionContextPopNumberReturnValueOfOne() {
+  @DisplayName(
+      "Test Neg execute(ExecutionContext); given ten; when ExecutionContext popNumber() return ten; then calls getStack()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void Neg.execute(ExecutionContext)"})
+  void testNegExecute_givenTen_whenExecutionContextPopNumberReturnTen_thenCallsGetStack() {
     // Arrange
-    ArithmeticOperators.Neg neg = new ArithmeticOperators.Neg();
+    Neg neg = new Neg();
+
     ExecutionContext context = mock(ExecutionContext.class);
-    when(context.popNumber()).thenReturn(Integer.valueOf(1));
+    when(context.popNumber()).thenReturn(10);
     when(context.getStack()).thenReturn(new Stack<>());
 
     // Act
@@ -767,21 +913,25 @@ class ArithmeticOperatorsDiffblueTest {
 
   /**
    * Test Round {@link Round#execute(ExecutionContext)}.
+   *
    * <ul>
-   *   <li>Given {@code A}.</li>
-   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popNumber()} return
-   * {@code A}.</li>
-   *   <li>Then calls {@link ExecutionContext#getStack()}.</li>
+   *   <li>Given {@code A}.
+   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popNumber()} return {@code A}.
+   *   <li>Then calls {@link ExecutionContext#getStack()}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link ArithmeticOperators.Round#execute(ExecutionContext)}
+   *
+   * <p>Method under test: {@link Round#execute(ExecutionContext)}
    */
   @Test
-  @DisplayName("Test Round execute(ExecutionContext); given 'A'; when ExecutionContext popNumber() return 'A'; then calls getStack()")
+  @DisplayName(
+      "Test Round execute(ExecutionContext); given 'A'; when ExecutionContext popNumber() return 'A'; then calls getStack()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void Round.execute(ExecutionContext)"})
   void testRoundExecute_givenA_whenExecutionContextPopNumberReturnA_thenCallsGetStack() {
     // Arrange
-    ArithmeticOperators.Round round = new ArithmeticOperators.Round();
+    Round round = new Round();
+
     ExecutionContext context = mock(ExecutionContext.class);
     when(context.popNumber()).thenReturn((byte) 'A');
     when(context.getStack()).thenReturn(new Stack<>());
@@ -796,22 +946,26 @@ class ArithmeticOperatorsDiffblueTest {
 
   /**
    * Test Round {@link Round#execute(ExecutionContext)}.
+   *
    * <ul>
-   *   <li>Given valueOf one.</li>
-   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popNumber()} return
-   * valueOf one.</li>
+   *   <li>Given ten.
+   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popNumber()} return ten.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link ArithmeticOperators.Round#execute(ExecutionContext)}
+   *
+   * <p>Method under test: {@link Round#execute(ExecutionContext)}
    */
   @Test
-  @DisplayName("Test Round execute(ExecutionContext); given valueOf one; when ExecutionContext popNumber() return valueOf one")
-  void testRoundExecute_givenValueOfOne_whenExecutionContextPopNumberReturnValueOfOne() {
+  @DisplayName(
+      "Test Round execute(ExecutionContext); given ten; when ExecutionContext popNumber() return ten")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void Round.execute(ExecutionContext)"})
+  void testRoundExecute_givenTen_whenExecutionContextPopNumberReturnTen() {
     // Arrange
-    ArithmeticOperators.Round round = new ArithmeticOperators.Round();
+    Round round = new Round();
+
     ExecutionContext context = mock(ExecutionContext.class);
-    when(context.popNumber()).thenReturn(Integer.valueOf(1));
+    when(context.popNumber()).thenReturn(10);
     when(context.getStack()).thenReturn(new Stack<>());
 
     // Act
@@ -824,20 +978,25 @@ class ArithmeticOperatorsDiffblueTest {
 
   /**
    * Test Sin {@link Sin#execute(ExecutionContext)}.
+   *
    * <ul>
-   *   <li>Given ten.</li>
-   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popReal()} return
-   * ten.</li>
-   *   <li>Then calls {@link ExecutionContext#getStack()}.</li>
+   *   <li>Given ten.
+   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popReal()} return ten.
+   *   <li>Then calls {@link ExecutionContext#getStack()}.
    * </ul>
-   * <p>
-   * Method under test: {@link ArithmeticOperators.Sin#execute(ExecutionContext)}
+   *
+   * <p>Method under test: {@link Sin#execute(ExecutionContext)}
    */
   @Test
-  @DisplayName("Test Sin execute(ExecutionContext); given ten; when ExecutionContext popReal() return ten; then calls getStack()")
+  @DisplayName(
+      "Test Sin execute(ExecutionContext); given ten; when ExecutionContext popReal() return ten; then calls getStack()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void Sin.execute(ExecutionContext)"})
   void testSinExecute_givenTen_whenExecutionContextPopRealReturnTen_thenCallsGetStack() {
     // Arrange
-    ArithmeticOperators.Sin sin = new ArithmeticOperators.Sin();
+    Sin sin = new Sin();
+
     ExecutionContext context = mock(ExecutionContext.class);
     when(context.popReal()).thenReturn(10.0f);
     when(context.getStack()).thenReturn(new Stack<>());
@@ -852,20 +1011,26 @@ class ArithmeticOperatorsDiffblueTest {
 
   /**
    * Test Sqrt {@link Sqrt#execute(ExecutionContext)}.
+   *
    * <ul>
-   *   <li>Given {@code -0.5}.</li>
-   *   <li>Then throw {@link IllegalArgumentException}.</li>
+   *   <li>Given {@code -1.0E-5}.
+   *   <li>Then throw {@link IllegalArgumentException}.
    * </ul>
-   * <p>
-   * Method under test: {@link ArithmeticOperators.Sqrt#execute(ExecutionContext)}
+   *
+   * <p>Method under test: {@link Sqrt#execute(ExecutionContext)}
    */
   @Test
-  @DisplayName("Test Sqrt execute(ExecutionContext); given '-0.5'; then throw IllegalArgumentException")
-  void testSqrtExecute_given05_thenThrowIllegalArgumentException() {
+  @DisplayName(
+      "Test Sqrt execute(ExecutionContext); given '-1.0E-5'; then throw IllegalArgumentException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void Sqrt.execute(ExecutionContext)"})
+  void testSqrtExecute_given10e5_thenThrowIllegalArgumentException() {
     // Arrange
-    ArithmeticOperators.Sqrt sqrt = new ArithmeticOperators.Sqrt();
+    Sqrt sqrt = new Sqrt();
+
     ExecutionContext context = mock(ExecutionContext.class);
-    when(context.popReal()).thenReturn(-0.5f);
+    when(context.popReal()).thenReturn(-1.0E-5f);
 
     // Act and Assert
     assertThrows(IllegalArgumentException.class, () -> sqrt.execute(context));
@@ -874,22 +1039,25 @@ class ArithmeticOperatorsDiffblueTest {
 
   /**
    * Test Sqrt {@link Sqrt#execute(ExecutionContext)}.
+   *
    * <ul>
-   *   <li>Given ten.</li>
-   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popReal()} return
-   * ten.</li>
-   *   <li>Then calls {@link ExecutionContext#getStack()}.</li>
+   *   <li>Given zero.
+   *   <li>Then calls {@link ExecutionContext#getStack()}.
    * </ul>
-   * <p>
-   * Method under test: {@link ArithmeticOperators.Sqrt#execute(ExecutionContext)}
+   *
+   * <p>Method under test: {@link Sqrt#execute(ExecutionContext)}
    */
   @Test
-  @DisplayName("Test Sqrt execute(ExecutionContext); given ten; when ExecutionContext popReal() return ten; then calls getStack()")
-  void testSqrtExecute_givenTen_whenExecutionContextPopRealReturnTen_thenCallsGetStack() {
+  @DisplayName("Test Sqrt execute(ExecutionContext); given zero; then calls getStack()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void Sqrt.execute(ExecutionContext)"})
+  void testSqrtExecute_givenZero_thenCallsGetStack() {
     // Arrange
-    ArithmeticOperators.Sqrt sqrt = new ArithmeticOperators.Sqrt();
+    Sqrt sqrt = new Sqrt();
+
     ExecutionContext context = mock(ExecutionContext.class);
-    when(context.popReal()).thenReturn(10.0f);
+    when(context.popReal()).thenReturn(0.0f);
     when(context.getStack()).thenReturn(new Stack<>());
 
     // Act
@@ -902,20 +1070,25 @@ class ArithmeticOperatorsDiffblueTest {
 
   /**
    * Test Sub {@link Sub#execute(ExecutionContext)}.
+   *
    * <ul>
-   *   <li>Given {@code A}.</li>
-   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popNumber()} return
-   * {@code A}.</li>
-   *   <li>Then calls {@link ExecutionContext#getStack()}.</li>
+   *   <li>Given {@code A}.
+   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popNumber()} return {@code A}.
+   *   <li>Then calls {@link ExecutionContext#getStack()}.
    * </ul>
-   * <p>
-   * Method under test: {@link ArithmeticOperators.Sub#execute(ExecutionContext)}
+   *
+   * <p>Method under test: {@link Sub#execute(ExecutionContext)}
    */
   @Test
-  @DisplayName("Test Sub execute(ExecutionContext); given 'A'; when ExecutionContext popNumber() return 'A'; then calls getStack()")
+  @DisplayName(
+      "Test Sub execute(ExecutionContext); given 'A'; when ExecutionContext popNumber() return 'A'; then calls getStack()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void Sub.execute(ExecutionContext)"})
   void testSubExecute_givenA_whenExecutionContextPopNumberReturnA_thenCallsGetStack() {
     // Arrange
-    ArithmeticOperators.Sub sub = new ArithmeticOperators.Sub();
+    Sub sub = new Sub();
+
     ExecutionContext context = mock(ExecutionContext.class);
     when(context.popNumber()).thenReturn((byte) 'A');
     when(context.getStack()).thenReturn(new Stack<>());
@@ -930,21 +1103,27 @@ class ArithmeticOperatorsDiffblueTest {
 
   /**
    * Test Sub {@link Sub#execute(ExecutionContext)}.
+   *
    * <ul>
-   *   <li>Given valueOf one.</li>
-   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popNumber()} return
-   * valueOf one.</li>
+   *   <li>Given ten.
+   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popNumber()} return ten.
+   *   <li>Then calls {@link ExecutionContext#getStack()}.
    * </ul>
-   * <p>
-   * Method under test: {@link ArithmeticOperators.Sub#execute(ExecutionContext)}
+   *
+   * <p>Method under test: {@link Sub#execute(ExecutionContext)}
    */
   @Test
-  @DisplayName("Test Sub execute(ExecutionContext); given valueOf one; when ExecutionContext popNumber() return valueOf one")
-  void testSubExecute_givenValueOfOne_whenExecutionContextPopNumberReturnValueOfOne() {
+  @DisplayName(
+      "Test Sub execute(ExecutionContext); given ten; when ExecutionContext popNumber() return ten; then calls getStack()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void Sub.execute(ExecutionContext)"})
+  void testSubExecute_givenTen_whenExecutionContextPopNumberReturnTen_thenCallsGetStack() {
     // Arrange
-    ArithmeticOperators.Sub sub = new ArithmeticOperators.Sub();
+    Sub sub = new Sub();
+
     ExecutionContext context = mock(ExecutionContext.class);
-    when(context.popNumber()).thenReturn(Integer.valueOf(1));
+    when(context.popNumber()).thenReturn(10);
     when(context.getStack()).thenReturn(new Stack<>());
 
     // Act
@@ -957,20 +1136,24 @@ class ArithmeticOperatorsDiffblueTest {
 
   /**
    * Test Truncate {@link Truncate#execute(ExecutionContext)}.
+   *
    * <ul>
-   *   <li>Given {@code A}.</li>
-   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popNumber()} return
-   * {@code A}.</li>
+   *   <li>Given {@code A}.
+   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popNumber()} return {@code A}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link ArithmeticOperators.Truncate#execute(ExecutionContext)}
+   *
+   * <p>Method under test: {@link Truncate#execute(ExecutionContext)}
    */
   @Test
-  @DisplayName("Test Truncate execute(ExecutionContext); given 'A'; when ExecutionContext popNumber() return 'A'")
+  @DisplayName(
+      "Test Truncate execute(ExecutionContext); given 'A'; when ExecutionContext popNumber() return 'A'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void Truncate.execute(ExecutionContext)"})
   void testTruncateExecute_givenA_whenExecutionContextPopNumberReturnA() {
     // Arrange
-    ArithmeticOperators.Truncate truncate = new ArithmeticOperators.Truncate();
+    Truncate truncate = new Truncate();
+
     ExecutionContext context = mock(ExecutionContext.class);
     when(context.popNumber()).thenReturn((byte) 'A');
     when(context.getStack()).thenReturn(new Stack<>());
@@ -985,20 +1168,26 @@ class ArithmeticOperatorsDiffblueTest {
 
   /**
    * Test Truncate {@link Truncate#execute(ExecutionContext)}.
+   *
    * <ul>
-   *   <li>Given valueOf one.</li>
+   *   <li>Given ten.
+   *   <li>When {@link ExecutionContext} {@link ExecutionContext#popNumber()} return ten.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link ArithmeticOperators.Truncate#execute(ExecutionContext)}
+   *
+   * <p>Method under test: {@link Truncate#execute(ExecutionContext)}
    */
   @Test
-  @DisplayName("Test Truncate execute(ExecutionContext); given valueOf one")
-  void testTruncateExecute_givenValueOfOne() {
+  @DisplayName(
+      "Test Truncate execute(ExecutionContext); given ten; when ExecutionContext popNumber() return ten")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void Truncate.execute(ExecutionContext)"})
+  void testTruncateExecute_givenTen_whenExecutionContextPopNumberReturnTen() {
     // Arrange
-    ArithmeticOperators.Truncate truncate = new ArithmeticOperators.Truncate();
+    Truncate truncate = new Truncate();
+
     ExecutionContext context = mock(ExecutionContext.class);
-    when(context.popNumber()).thenReturn(Integer.valueOf(1));
+    when(context.popNumber()).thenReturn(10);
     when(context.getStack()).thenReturn(new Stack<>());
 
     // Act

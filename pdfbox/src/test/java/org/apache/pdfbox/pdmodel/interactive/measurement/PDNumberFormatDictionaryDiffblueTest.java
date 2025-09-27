@@ -6,17 +6,21 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSUpdateState;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDNumberFormatDictionaryDiffblueTest {
   /**
    * Test getters and setters.
-   * <p>
-   * Methods under test:
+   *
+   * <p>Methods under test:
+   *
    * <ul>
    *   <li>{@link PDNumberFormatDictionary#PDNumberFormatDictionary(COSDictionary)}
    *   <li>{@link PDNumberFormatDictionary#getType()}
@@ -24,12 +28,19 @@ class PDNumberFormatDictionaryDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void PDNumberFormatDictionary.<init>(COSDictionary)",
+    "String PDNumberFormatDictionary.getType()"
+  })
   void testGettersAndSetters() {
     // Arrange
     COSDictionary dictionary = new COSDictionary();
 
     // Act
-    PDNumberFormatDictionary actualPdNumberFormatDictionary = new PDNumberFormatDictionary(dictionary);
+    PDNumberFormatDictionary actualPdNumberFormatDictionary =
+        new PDNumberFormatDictionary(dictionary);
 
     // Assert
     assertEquals(PDNumberFormatDictionary.TYPE, actualPdNumberFormatDictionary.getType());
@@ -38,12 +49,14 @@ class PDNumberFormatDictionaryDiffblueTest {
 
   /**
    * Test {@link PDNumberFormatDictionary#PDNumberFormatDictionary()}.
-   * <p>
-   * Method under test:
-   * {@link PDNumberFormatDictionary#PDNumberFormatDictionary()}
+   *
+   * <p>Method under test: {@link PDNumberFormatDictionary#PDNumberFormatDictionary()}
    */
   @Test
   @DisplayName("Test new PDNumberFormatDictionary()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDNumberFormatDictionary.<init>()"})
   void testNewPDNumberFormatDictionary() {
     // Arrange and Act
     PDNumberFormatDictionary actualPdNumberFormatDictionary = new PDNumberFormatDictionary();
@@ -54,38 +67,31 @@ class PDNumberFormatDictionaryDiffblueTest {
     assertEquals(",", actualPdNumberFormatDictionary.getThousandsSeparator());
     assertEquals(".", actualPdNumberFormatDictionary.getDecimalSeparator());
     assertNull(actualPdNumberFormatDictionary.getUnits());
-    COSDictionary cOSObject = actualPdNumberFormatDictionary.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
-    assertNull(cOSObject.getKey());
     assertEquals(-1, actualPdNumberFormatDictionary.getDenominator());
     assertEquals(-1.0f, actualPdNumberFormatDictionary.getConversionFactor());
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
     assertFalse(actualPdNumberFormatDictionary.isFD());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
-    assertEquals(PDNumberFormatDictionary.FRACTIONAL_DISPLAY_DECIMAL,
+    assertEquals(
+        PDNumberFormatDictionary.FRACTIONAL_DISPLAY_DECIMAL,
         actualPdNumberFormatDictionary.getFractionalDisplay());
-    assertEquals(PDNumberFormatDictionary.LABEL_SUFFIX_TO_VALUE,
+    assertEquals(
+        PDNumberFormatDictionary.LABEL_SUFFIX_TO_VALUE,
         actualPdNumberFormatDictionary.getLabelPositionToValue());
     assertEquals(PDNumberFormatDictionary.TYPE, actualPdNumberFormatDictionary.getType());
   }
 
   /**
    * Test {@link PDNumberFormatDictionary#getCOSObject()}.
-   * <p>
-   * Method under test: {@link PDNumberFormatDictionary#getCOSObject()}
+   *
+   * <p>Method under test: {@link PDNumberFormatDictionary#getCOSObject()}
    */
   @Test
   @DisplayName("Test getCOSObject()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"COSDictionary PDNumberFormatDictionary.getCOSObject()"})
   void testGetCOSObject() {
     // Arrange and Act
-    COSDictionary actualCOSObject = (new PDNumberFormatDictionary()).getCOSObject();
+    COSDictionary actualCOSObject = new PDNumberFormatDictionary().getCOSObject();
 
     // Assert
     COSUpdateState updateState = actualCOSObject.getUpdateState();
@@ -103,48 +109,38 @@ class PDNumberFormatDictionaryDiffblueTest {
 
   /**
    * Test {@link PDNumberFormatDictionary#getUnits()}.
+   *
    * <ul>
-   *   <li>Given
-   * {@link PDNumberFormatDictionary#PDNumberFormatDictionary(COSDictionary)} with
-   * dictionary is {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Given {@link PDNumberFormatDictionary#PDNumberFormatDictionary()}.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDNumberFormatDictionary#getUnits()}
-   */
-  @Test
-  @DisplayName("Test getUnits(); given PDNumberFormatDictionary(COSDictionary) with dictionary is COSDictionary()")
-  void testGetUnits_givenPDNumberFormatDictionaryWithDictionaryIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertNull((new PDNumberFormatDictionary(new COSDictionary())).getUnits());
-  }
-
-  /**
-   * Test {@link PDNumberFormatDictionary#getUnits()}.
-   * <ul>
-   *   <li>Given {@link PDNumberFormatDictionary#PDNumberFormatDictionary()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDNumberFormatDictionary#getUnits()}
+   *
+   * <p>Method under test: {@link PDNumberFormatDictionary#getUnits()}
    */
   @Test
   @DisplayName("Test getUnits(); given PDNumberFormatDictionary(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PDNumberFormatDictionary.getUnits()"})
   void testGetUnits_givenPDNumberFormatDictionary_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new PDNumberFormatDictionary()).getUnits());
+    assertNull(new PDNumberFormatDictionary().getUnits());
   }
 
   /**
    * Test {@link PDNumberFormatDictionary#setUnits(String)}.
+   *
    * <ul>
-   *   <li>Then {@link PDNumberFormatDictionary#PDNumberFormatDictionary()} Units is
-   * {@code Units}.</li>
+   *   <li>Then {@link PDNumberFormatDictionary#PDNumberFormatDictionary()} Units is {@code Units}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDNumberFormatDictionary#setUnits(String)}
+   *
+   * <p>Method under test: {@link PDNumberFormatDictionary#setUnits(String)}
    */
   @Test
   @DisplayName("Test setUnits(String); then PDNumberFormatDictionary() Units is 'Units'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDNumberFormatDictionary.setUnits(String)"})
   void testSetUnits_thenPDNumberFormatDictionaryUnitsIsUnits() {
     // Arrange
     PDNumberFormatDictionary pdNumberFormatDictionary = new PDNumberFormatDictionary();
@@ -160,45 +156,71 @@ class PDNumberFormatDictionaryDiffblueTest {
   }
 
   /**
-   * Test {@link PDNumberFormatDictionary#getConversionFactor()}.
-   * <p>
-   * Method under test: {@link PDNumberFormatDictionary#getConversionFactor()}
+   * Test {@link PDNumberFormatDictionary#setUnits(String)}.
+   *
+   * <ul>
+   *   <li>When {@code null}.
+   *   <li>Then {@link PDNumberFormatDictionary#PDNumberFormatDictionary()} COSObject Values size is
+   *       one.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDNumberFormatDictionary#setUnits(String)}
    */
   @Test
-  @DisplayName("Test getConversionFactor()")
-  void testGetConversionFactor() {
-    // Arrange, Act and Assert
-    assertEquals(-1.0f, (new PDNumberFormatDictionary(new COSDictionary())).getConversionFactor());
+  @DisplayName(
+      "Test setUnits(String); when 'null'; then PDNumberFormatDictionary() COSObject Values size is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDNumberFormatDictionary.setUnits(String)"})
+  void testSetUnits_whenNull_thenPDNumberFormatDictionaryCOSObjectValuesSizeIsOne() {
+    // Arrange
+    PDNumberFormatDictionary pdNumberFormatDictionary = new PDNumberFormatDictionary();
+
+    // Act
+    pdNumberFormatDictionary.setUnits(null);
+
+    // Assert that nothing has changed
+    COSDictionary cOSObject = pdNumberFormatDictionary.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
   }
 
   /**
    * Test {@link PDNumberFormatDictionary#getConversionFactor()}.
+   *
    * <ul>
-   *   <li>Given {@link PDNumberFormatDictionary#PDNumberFormatDictionary()}.</li>
-   *   <li>Then return minus one.</li>
+   *   <li>Given {@link PDNumberFormatDictionary#PDNumberFormatDictionary()}.
+   *   <li>Then return minus one.
    * </ul>
-   * <p>
-   * Method under test: {@link PDNumberFormatDictionary#getConversionFactor()}
+   *
+   * <p>Method under test: {@link PDNumberFormatDictionary#getConversionFactor()}
    */
   @Test
-  @DisplayName("Test getConversionFactor(); given PDNumberFormatDictionary(); then return minus one")
+  @DisplayName(
+      "Test getConversionFactor(); given PDNumberFormatDictionary(); then return minus one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"float PDNumberFormatDictionary.getConversionFactor()"})
   void testGetConversionFactor_givenPDNumberFormatDictionary_thenReturnMinusOne() {
     // Arrange, Act and Assert
-    assertEquals(-1.0f, (new PDNumberFormatDictionary()).getConversionFactor());
+    assertEquals(-1.0f, new PDNumberFormatDictionary().getConversionFactor());
   }
 
   /**
    * Test {@link PDNumberFormatDictionary#setConversionFactor(float)}.
+   *
    * <ul>
-   *   <li>Then {@link PDNumberFormatDictionary#PDNumberFormatDictionary()}
-   * ConversionFactor is ten.</li>
+   *   <li>Then {@link PDNumberFormatDictionary#PDNumberFormatDictionary()} ConversionFactor is ten.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link PDNumberFormatDictionary#setConversionFactor(float)}
+   *
+   * <p>Method under test: {@link PDNumberFormatDictionary#setConversionFactor(float)}
    */
   @Test
-  @DisplayName("Test setConversionFactor(float); then PDNumberFormatDictionary() ConversionFactor is ten")
+  @DisplayName(
+      "Test setConversionFactor(float); then PDNumberFormatDictionary() ConversionFactor is ten")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDNumberFormatDictionary.setConversionFactor(float)"})
   void testSetConversionFactor_thenPDNumberFormatDictionaryConversionFactorIsTen() {
     // Arrange
     PDNumberFormatDictionary pdNumberFormatDictionary = new PDNumberFormatDictionary();
@@ -215,133 +237,122 @@ class PDNumberFormatDictionaryDiffblueTest {
 
   /**
    * Test {@link PDNumberFormatDictionary#getFractionalDisplay()}.
-   * <p>
-   * Method under test: {@link PDNumberFormatDictionary#getFractionalDisplay()}
-   */
-  @Test
-  @DisplayName("Test getFractionalDisplay()")
-  void testGetFractionalDisplay() {
-    // Arrange, Act and Assert
-    assertEquals(PDNumberFormatDictionary.FRACTIONAL_DISPLAY_DECIMAL,
-        (new PDNumberFormatDictionary(new COSDictionary())).getFractionalDisplay());
-  }
-
-  /**
-   * Test {@link PDNumberFormatDictionary#getFractionalDisplay()}.
+   *
    * <ul>
-   *   <li>Given {@link PDNumberFormatDictionary#PDNumberFormatDictionary()}.</li>
+   *   <li>Then return {@link PDNumberFormatDictionary#FRACTIONAL_DISPLAY_DECIMAL}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDNumberFormatDictionary#getFractionalDisplay()}
+   *
+   * <p>Method under test: {@link PDNumberFormatDictionary#getFractionalDisplay()}
    */
   @Test
-  @DisplayName("Test getFractionalDisplay(); given PDNumberFormatDictionary()")
-  void testGetFractionalDisplay_givenPDNumberFormatDictionary() {
+  @DisplayName("Test getFractionalDisplay(); then return FRACTIONAL_DISPLAY_DECIMAL")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PDNumberFormatDictionary.getFractionalDisplay()"})
+  void testGetFractionalDisplay_thenReturnFractional_display_decimal() {
     // Arrange, Act and Assert
-    assertEquals(PDNumberFormatDictionary.FRACTIONAL_DISPLAY_DECIMAL,
-        (new PDNumberFormatDictionary()).getFractionalDisplay());
+    assertEquals(
+        PDNumberFormatDictionary.FRACTIONAL_DISPLAY_DECIMAL,
+        new PDNumberFormatDictionary().getFractionalDisplay());
   }
 
   /**
    * Test {@link PDNumberFormatDictionary#setFractionalDisplay(String)}.
-   * <p>
-   * Method under test:
-   * {@link PDNumberFormatDictionary#setFractionalDisplay(String)}
+   *
+   * <p>Method under test: {@link PDNumberFormatDictionary#setFractionalDisplay(String)}
    */
   @Test
   @DisplayName("Test setFractionalDisplay(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDNumberFormatDictionary.setFractionalDisplay(String)"})
   void testSetFractionalDisplay() {
     // Arrange
     PDNumberFormatDictionary pdNumberFormatDictionary = new PDNumberFormatDictionary();
 
     // Act
-    pdNumberFormatDictionary.setFractionalDisplay(PDNumberFormatDictionary.FRACTIONAL_DISPLAY_DECIMAL);
+    pdNumberFormatDictionary.setFractionalDisplay(
+        PDNumberFormatDictionary.FRACTIONAL_DISPLAY_FRACTION);
 
     // Assert
     COSDictionary cOSObject = pdNumberFormatDictionary.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    assertEquals(PDNumberFormatDictionary.FRACTIONAL_DISPLAY_DECIMAL, pdNumberFormatDictionary.getFractionalDisplay());
+    assertEquals(
+        PDNumberFormatDictionary.FRACTIONAL_DISPLAY_FRACTION,
+        pdNumberFormatDictionary.getFractionalDisplay());
   }
 
   /**
    * Test {@link PDNumberFormatDictionary#setFractionalDisplay(String)}.
-   * <p>
-   * Method under test:
-   * {@link PDNumberFormatDictionary#setFractionalDisplay(String)}
+   *
+   * <p>Method under test: {@link PDNumberFormatDictionary#setFractionalDisplay(String)}
    */
   @Test
   @DisplayName("Test setFractionalDisplay(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDNumberFormatDictionary.setFractionalDisplay(String)"})
   void testSetFractionalDisplay2() {
     // Arrange
     PDNumberFormatDictionary pdNumberFormatDictionary = new PDNumberFormatDictionary();
 
     // Act
-    pdNumberFormatDictionary.setFractionalDisplay(PDNumberFormatDictionary.FRACTIONAL_DISPLAY_FRACTION);
+    pdNumberFormatDictionary.setFractionalDisplay(
+        PDNumberFormatDictionary.FRACTIONAL_DISPLAY_ROUND);
 
     // Assert
     COSDictionary cOSObject = pdNumberFormatDictionary.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    assertEquals(PDNumberFormatDictionary.FRACTIONAL_DISPLAY_FRACTION, pdNumberFormatDictionary.getFractionalDisplay());
+    assertEquals(
+        PDNumberFormatDictionary.FRACTIONAL_DISPLAY_ROUND,
+        pdNumberFormatDictionary.getFractionalDisplay());
   }
 
   /**
    * Test {@link PDNumberFormatDictionary#setFractionalDisplay(String)}.
-   * <p>
-   * Method under test:
-   * {@link PDNumberFormatDictionary#setFractionalDisplay(String)}
+   *
+   * <p>Method under test: {@link PDNumberFormatDictionary#setFractionalDisplay(String)}
    */
   @Test
   @DisplayName("Test setFractionalDisplay(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDNumberFormatDictionary.setFractionalDisplay(String)"})
   void testSetFractionalDisplay3() {
     // Arrange
     PDNumberFormatDictionary pdNumberFormatDictionary = new PDNumberFormatDictionary();
 
     // Act
-    pdNumberFormatDictionary.setFractionalDisplay(PDNumberFormatDictionary.FRACTIONAL_DISPLAY_ROUND);
+    pdNumberFormatDictionary.setFractionalDisplay(
+        PDNumberFormatDictionary.FRACTIONAL_DISPLAY_TRUNCATE);
 
     // Assert
     COSDictionary cOSObject = pdNumberFormatDictionary.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    assertEquals(PDNumberFormatDictionary.FRACTIONAL_DISPLAY_ROUND, pdNumberFormatDictionary.getFractionalDisplay());
+    assertEquals(
+        PDNumberFormatDictionary.FRACTIONAL_DISPLAY_TRUNCATE,
+        pdNumberFormatDictionary.getFractionalDisplay());
   }
 
   /**
    * Test {@link PDNumberFormatDictionary#setFractionalDisplay(String)}.
-   * <p>
-   * Method under test:
-   * {@link PDNumberFormatDictionary#setFractionalDisplay(String)}
-   */
-  @Test
-  @DisplayName("Test setFractionalDisplay(String)")
-  void testSetFractionalDisplay4() {
-    // Arrange
-    PDNumberFormatDictionary pdNumberFormatDictionary = new PDNumberFormatDictionary();
-
-    // Act
-    pdNumberFormatDictionary.setFractionalDisplay(PDNumberFormatDictionary.FRACTIONAL_DISPLAY_TRUNCATE);
-
-    // Assert
-    COSDictionary cOSObject = pdNumberFormatDictionary.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertEquals(PDNumberFormatDictionary.FRACTIONAL_DISPLAY_TRUNCATE, pdNumberFormatDictionary.getFractionalDisplay());
-  }
-
-  /**
-   * Test {@link PDNumberFormatDictionary#setFractionalDisplay(String)}.
+   *
    * <ul>
-   *   <li>Then {@link PDNumberFormatDictionary#PDNumberFormatDictionary()}
-   * COSObject Values size is one.</li>
+   *   <li>Then {@link PDNumberFormatDictionary#PDNumberFormatDictionary()} COSObject Values size is
+   *       one.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link PDNumberFormatDictionary#setFractionalDisplay(String)}
+   *
+   * <p>Method under test: {@link PDNumberFormatDictionary#setFractionalDisplay(String)}
    */
   @Test
-  @DisplayName("Test setFractionalDisplay(String); then PDNumberFormatDictionary() COSObject Values size is one")
+  @DisplayName(
+      "Test setFractionalDisplay(String); then PDNumberFormatDictionary() COSObject Values size is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDNumberFormatDictionary.setFractionalDisplay(String)"})
   void testSetFractionalDisplay_thenPDNumberFormatDictionaryCOSObjectValuesSizeIsOne() {
     // Arrange
     PDNumberFormatDictionary pdNumberFormatDictionary = new PDNumberFormatDictionary();
@@ -349,75 +360,104 @@ class PDNumberFormatDictionaryDiffblueTest {
     // Act
     pdNumberFormatDictionary.setFractionalDisplay(null);
 
-    // Assert
+    // Assert that nothing has changed
     COSDictionary cOSObject = pdNumberFormatDictionary.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
-    assertEquals(PDNumberFormatDictionary.FRACTIONAL_DISPLAY_DECIMAL, pdNumberFormatDictionary.getFractionalDisplay());
+    assertEquals(
+        PDNumberFormatDictionary.FRACTIONAL_DISPLAY_DECIMAL,
+        pdNumberFormatDictionary.getFractionalDisplay());
   }
 
   /**
    * Test {@link PDNumberFormatDictionary#setFractionalDisplay(String)}.
+   *
    * <ul>
-   *   <li>When {@code Fractional Display}.</li>
-   *   <li>Then throw {@link IllegalArgumentException}.</li>
+   *   <li>When {@code Fractional Display}.
+   *   <li>Then throw {@link IllegalArgumentException}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link PDNumberFormatDictionary#setFractionalDisplay(String)}
+   *
+   * <p>Method under test: {@link PDNumberFormatDictionary#setFractionalDisplay(String)}
    */
   @Test
-  @DisplayName("Test setFractionalDisplay(String); when 'Fractional Display'; then throw IllegalArgumentException")
+  @DisplayName(
+      "Test setFractionalDisplay(String); when 'Fractional Display'; then throw IllegalArgumentException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDNumberFormatDictionary.setFractionalDisplay(String)"})
   void testSetFractionalDisplay_whenFractionalDisplay_thenThrowIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(IllegalArgumentException.class,
-        () -> (new PDNumberFormatDictionary()).setFractionalDisplay("Fractional Display"));
+    assertThrows(
+        IllegalArgumentException.class,
+        () -> new PDNumberFormatDictionary().setFractionalDisplay("Fractional Display"));
   }
 
   /**
-   * Test {@link PDNumberFormatDictionary#getDenominator()}.
+   * Test {@link PDNumberFormatDictionary#setFractionalDisplay(String)}.
+   *
    * <ul>
-   *   <li>Given
-   * {@link PDNumberFormatDictionary#PDNumberFormatDictionary(COSDictionary)} with
-   * dictionary is {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>When {@link PDNumberFormatDictionary#FRACTIONAL_DISPLAY_DECIMAL}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDNumberFormatDictionary#getDenominator()}
+   *
+   * <p>Method under test: {@link PDNumberFormatDictionary#setFractionalDisplay(String)}
    */
   @Test
-  @DisplayName("Test getDenominator(); given PDNumberFormatDictionary(COSDictionary) with dictionary is COSDictionary()")
-  void testGetDenominator_givenPDNumberFormatDictionaryWithDictionaryIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertEquals(-1, (new PDNumberFormatDictionary(new COSDictionary())).getDenominator());
+  @DisplayName("Test setFractionalDisplay(String); when FRACTIONAL_DISPLAY_DECIMAL")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDNumberFormatDictionary.setFractionalDisplay(String)"})
+  void testSetFractionalDisplay_whenFractional_display_decimal() {
+    // Arrange
+    PDNumberFormatDictionary pdNumberFormatDictionary = new PDNumberFormatDictionary();
+
+    // Act
+    pdNumberFormatDictionary.setFractionalDisplay(
+        PDNumberFormatDictionary.FRACTIONAL_DISPLAY_DECIMAL);
+
+    // Assert
+    COSDictionary cOSObject = pdNumberFormatDictionary.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertEquals(
+        PDNumberFormatDictionary.FRACTIONAL_DISPLAY_DECIMAL,
+        pdNumberFormatDictionary.getFractionalDisplay());
   }
 
   /**
    * Test {@link PDNumberFormatDictionary#getDenominator()}.
+   *
    * <ul>
-   *   <li>Given {@link PDNumberFormatDictionary#PDNumberFormatDictionary()}.</li>
-   *   <li>Then return minus one.</li>
+   *   <li>Given {@link PDNumberFormatDictionary#PDNumberFormatDictionary()}.
+   *   <li>Then return minus one.
    * </ul>
-   * <p>
-   * Method under test: {@link PDNumberFormatDictionary#getDenominator()}
+   *
+   * <p>Method under test: {@link PDNumberFormatDictionary#getDenominator()}
    */
   @Test
   @DisplayName("Test getDenominator(); given PDNumberFormatDictionary(); then return minus one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"int PDNumberFormatDictionary.getDenominator()"})
   void testGetDenominator_givenPDNumberFormatDictionary_thenReturnMinusOne() {
     // Arrange, Act and Assert
-    assertEquals(-1, (new PDNumberFormatDictionary()).getDenominator());
+    assertEquals(-1, new PDNumberFormatDictionary().getDenominator());
   }
 
   /**
    * Test {@link PDNumberFormatDictionary#setDenominator(int)}.
+   *
    * <ul>
-   *   <li>Then {@link PDNumberFormatDictionary#PDNumberFormatDictionary()}
-   * Denominator is {@link Integer#MIN_VALUE}.</li>
+   *   <li>Then {@link PDNumberFormatDictionary#PDNumberFormatDictionary()} Denominator is {@link
+   *       Integer#MIN_VALUE}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDNumberFormatDictionary#setDenominator(int)}
+   *
+   * <p>Method under test: {@link PDNumberFormatDictionary#setDenominator(int)}
    */
   @Test
   @DisplayName("Test setDenominator(int); then PDNumberFormatDictionary() Denominator is MIN_VALUE")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDNumberFormatDictionary.setDenominator(int)"})
   void testSetDenominator_thenPDNumberFormatDictionaryDenominatorIsMin_value() {
     // Arrange
     PDNumberFormatDictionary pdNumberFormatDictionary = new PDNumberFormatDictionary();
@@ -434,15 +474,18 @@ class PDNumberFormatDictionaryDiffblueTest {
 
   /**
    * Test {@link PDNumberFormatDictionary#setDenominator(int)}.
+   *
    * <ul>
-   *   <li>Then {@link PDNumberFormatDictionary#PDNumberFormatDictionary()}
-   * Denominator is one.</li>
+   *   <li>Then {@link PDNumberFormatDictionary#PDNumberFormatDictionary()} Denominator is one.
    * </ul>
-   * <p>
-   * Method under test: {@link PDNumberFormatDictionary#setDenominator(int)}
+   *
+   * <p>Method under test: {@link PDNumberFormatDictionary#setDenominator(int)}
    */
   @Test
   @DisplayName("Test setDenominator(int); then PDNumberFormatDictionary() Denominator is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDNumberFormatDictionary.setDenominator(int)"})
   void testSetDenominator_thenPDNumberFormatDictionaryDenominatorIsOne() {
     // Arrange
     PDNumberFormatDictionary pdNumberFormatDictionary = new PDNumberFormatDictionary();
@@ -459,49 +502,62 @@ class PDNumberFormatDictionaryDiffblueTest {
 
   /**
    * Test {@link PDNumberFormatDictionary#isFD()}.
+   *
    * <ul>
-   *   <li>Given
-   * {@link PDNumberFormatDictionary#PDNumberFormatDictionary(COSDictionary)} with
-   * dictionary is {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Given {@link PDNumberFormatDictionary#PDNumberFormatDictionary(COSDictionary)} with
+   *       dictionary is {@link COSDictionary#COSDictionary()}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDNumberFormatDictionary#isFD()}
+   *
+   * <p>Method under test: {@link PDNumberFormatDictionary#isFD()}
    */
   @Test
-  @DisplayName("Test isFD(); given PDNumberFormatDictionary(COSDictionary) with dictionary is COSDictionary()")
+  @DisplayName(
+      "Test isFD(); given PDNumberFormatDictionary(COSDictionary) with dictionary is COSDictionary()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean PDNumberFormatDictionary.isFD()"})
   void testIsFD_givenPDNumberFormatDictionaryWithDictionaryIsCOSDictionary() {
     // Arrange, Act and Assert
-    assertFalse((new PDNumberFormatDictionary(new COSDictionary())).isFD());
+    assertFalse(new PDNumberFormatDictionary(new COSDictionary()).isFD());
   }
 
   /**
    * Test {@link PDNumberFormatDictionary#isFD()}.
+   *
    * <ul>
-   *   <li>Given {@link PDNumberFormatDictionary#PDNumberFormatDictionary()}.</li>
-   *   <li>Then return {@code false}.</li>
+   *   <li>Given {@link PDNumberFormatDictionary#PDNumberFormatDictionary()}.
+   *   <li>Then return {@code false}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDNumberFormatDictionary#isFD()}
+   *
+   * <p>Method under test: {@link PDNumberFormatDictionary#isFD()}
    */
   @Test
   @DisplayName("Test isFD(); given PDNumberFormatDictionary(); then return 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean PDNumberFormatDictionary.isFD()"})
   void testIsFD_givenPDNumberFormatDictionary_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse((new PDNumberFormatDictionary()).isFD());
+    assertFalse(new PDNumberFormatDictionary().isFD());
   }
 
   /**
    * Test {@link PDNumberFormatDictionary#setFD(boolean)}.
+   *
    * <ul>
-   *   <li>Given {@link PDNumberFormatDictionary#PDNumberFormatDictionary()}.</li>
-   *   <li>When {@code true}.</li>
-   *   <li>Then {@link PDNumberFormatDictionary#PDNumberFormatDictionary()} FD.</li>
+   *   <li>Given {@link PDNumberFormatDictionary#PDNumberFormatDictionary()}.
+   *   <li>When {@code true}.
+   *   <li>Then {@link PDNumberFormatDictionary#PDNumberFormatDictionary()} FD.
    * </ul>
-   * <p>
-   * Method under test: {@link PDNumberFormatDictionary#setFD(boolean)}
+   *
+   * <p>Method under test: {@link PDNumberFormatDictionary#setFD(boolean)}
    */
   @Test
-  @DisplayName("Test setFD(boolean); given PDNumberFormatDictionary(); when 'true'; then PDNumberFormatDictionary() FD")
+  @DisplayName(
+      "Test setFD(boolean); given PDNumberFormatDictionary(); when 'true'; then PDNumberFormatDictionary() FD")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDNumberFormatDictionary.setFD(boolean)"})
   void testSetFD_givenPDNumberFormatDictionary_whenTrue_thenPDNumberFormatDictionaryFd() {
     // Arrange
     PDNumberFormatDictionary pdNumberFormatDictionary = new PDNumberFormatDictionary();
@@ -518,16 +574,19 @@ class PDNumberFormatDictionaryDiffblueTest {
 
   /**
    * Test {@link PDNumberFormatDictionary#setFD(boolean)}.
+   *
    * <ul>
-   *   <li>When {@code false}.</li>
-   *   <li>Then not {@link PDNumberFormatDictionary#PDNumberFormatDictionary()}
-   * FD.</li>
+   *   <li>When {@code false}.
+   *   <li>Then not {@link PDNumberFormatDictionary#PDNumberFormatDictionary()} FD.
    * </ul>
-   * <p>
-   * Method under test: {@link PDNumberFormatDictionary#setFD(boolean)}
+   *
+   * <p>Method under test: {@link PDNumberFormatDictionary#setFD(boolean)}
    */
   @Test
   @DisplayName("Test setFD(boolean); when 'false'; then not PDNumberFormatDictionary() FD")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDNumberFormatDictionary.setFD(boolean)"})
   void testSetFD_whenFalse_thenNotPDNumberFormatDictionaryFd() {
     // Arrange
     PDNumberFormatDictionary pdNumberFormatDictionary = new PDNumberFormatDictionary();
@@ -544,40 +603,34 @@ class PDNumberFormatDictionaryDiffblueTest {
 
   /**
    * Test {@link PDNumberFormatDictionary#getThousandsSeparator()}.
-   * <p>
-   * Method under test: {@link PDNumberFormatDictionary#getThousandsSeparator()}
-   */
-  @Test
-  @DisplayName("Test getThousandsSeparator()")
-  void testGetThousandsSeparator() {
-    // Arrange, Act and Assert
-    assertEquals(",", (new PDNumberFormatDictionary(new COSDictionary())).getThousandsSeparator());
-  }
-
-  /**
-   * Test {@link PDNumberFormatDictionary#getThousandsSeparator()}.
+   *
    * <ul>
-   *   <li>Given {@link PDNumberFormatDictionary#PDNumberFormatDictionary()}.</li>
-   *   <li>Then return {@code ,}.</li>
+   *   <li>Given {@link PDNumberFormatDictionary#PDNumberFormatDictionary()}.
+   *   <li>Then return {@code ,}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDNumberFormatDictionary#getThousandsSeparator()}
+   *
+   * <p>Method under test: {@link PDNumberFormatDictionary#getThousandsSeparator()}
    */
   @Test
   @DisplayName("Test getThousandsSeparator(); given PDNumberFormatDictionary(); then return ','")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PDNumberFormatDictionary.getThousandsSeparator()"})
   void testGetThousandsSeparator_givenPDNumberFormatDictionary_thenReturnComma() {
     // Arrange, Act and Assert
-    assertEquals(",", (new PDNumberFormatDictionary()).getThousandsSeparator());
+    assertEquals(",", new PDNumberFormatDictionary().getThousandsSeparator());
   }
 
   /**
    * Test {@link PDNumberFormatDictionary#setThousandsSeparator(String)}.
-   * <p>
-   * Method under test:
-   * {@link PDNumberFormatDictionary#setThousandsSeparator(String)}
+   *
+   * <p>Method under test: {@link PDNumberFormatDictionary#setThousandsSeparator(String)}
    */
   @Test
   @DisplayName("Test setThousandsSeparator(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDNumberFormatDictionary.setThousandsSeparator(String)"})
   void testSetThousandsSeparator() {
     // Arrange
     PDNumberFormatDictionary pdNumberFormatDictionary = new PDNumberFormatDictionary();
@@ -593,41 +646,65 @@ class PDNumberFormatDictionaryDiffblueTest {
   }
 
   /**
-   * Test {@link PDNumberFormatDictionary#getDecimalSeparator()}.
-   * <p>
-   * Method under test: {@link PDNumberFormatDictionary#getDecimalSeparator()}
+   * Test {@link PDNumberFormatDictionary#setThousandsSeparator(String)}.
+   *
+   * <ul>
+   *   <li>Then {@link PDNumberFormatDictionary#PDNumberFormatDictionary()} ThousandsSeparator is
+   *       {@code ,}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDNumberFormatDictionary#setThousandsSeparator(String)}
    */
   @Test
-  @DisplayName("Test getDecimalSeparator()")
-  void testGetDecimalSeparator() {
-    // Arrange, Act and Assert
-    assertEquals(".", (new PDNumberFormatDictionary(new COSDictionary())).getDecimalSeparator());
+  @DisplayName(
+      "Test setThousandsSeparator(String); then PDNumberFormatDictionary() ThousandsSeparator is ','")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDNumberFormatDictionary.setThousandsSeparator(String)"})
+  void testSetThousandsSeparator_thenPDNumberFormatDictionaryThousandsSeparatorIsComma() {
+    // Arrange
+    PDNumberFormatDictionary pdNumberFormatDictionary = new PDNumberFormatDictionary();
+
+    // Act
+    pdNumberFormatDictionary.setThousandsSeparator(null);
+
+    // Assert that nothing has changed
+    assertEquals(",", pdNumberFormatDictionary.getThousandsSeparator());
+    COSDictionary cOSObject = pdNumberFormatDictionary.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
   }
 
   /**
    * Test {@link PDNumberFormatDictionary#getDecimalSeparator()}.
+   *
    * <ul>
-   *   <li>Given {@link PDNumberFormatDictionary#PDNumberFormatDictionary()}.</li>
-   *   <li>Then return {@code .}.</li>
+   *   <li>Given {@link PDNumberFormatDictionary#PDNumberFormatDictionary()}.
+   *   <li>Then return {@code .}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDNumberFormatDictionary#getDecimalSeparator()}
+   *
+   * <p>Method under test: {@link PDNumberFormatDictionary#getDecimalSeparator()}
    */
   @Test
   @DisplayName("Test getDecimalSeparator(); given PDNumberFormatDictionary(); then return '.'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PDNumberFormatDictionary.getDecimalSeparator()"})
   void testGetDecimalSeparator_givenPDNumberFormatDictionary_thenReturnDot() {
     // Arrange, Act and Assert
-    assertEquals(".", (new PDNumberFormatDictionary()).getDecimalSeparator());
+    assertEquals(".", new PDNumberFormatDictionary().getDecimalSeparator());
   }
 
   /**
    * Test {@link PDNumberFormatDictionary#setDecimalSeparator(String)}.
-   * <p>
-   * Method under test:
-   * {@link PDNumberFormatDictionary#setDecimalSeparator(String)}
+   *
+   * <p>Method under test: {@link PDNumberFormatDictionary#setDecimalSeparator(String)}
    */
   @Test
   @DisplayName("Test setDecimalSeparator(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDNumberFormatDictionary.setDecimalSeparator(String)"})
   void testSetDecimalSeparator() {
     // Arrange
     PDNumberFormatDictionary pdNumberFormatDictionary = new PDNumberFormatDictionary();
@@ -643,41 +720,65 @@ class PDNumberFormatDictionaryDiffblueTest {
   }
 
   /**
-   * Test {@link PDNumberFormatDictionary#getLabelPrefixString()}.
-   * <p>
-   * Method under test: {@link PDNumberFormatDictionary#getLabelPrefixString()}
+   * Test {@link PDNumberFormatDictionary#setDecimalSeparator(String)}.
+   *
+   * <ul>
+   *   <li>Then {@link PDNumberFormatDictionary#PDNumberFormatDictionary()} DecimalSeparator is
+   *       {@code .}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDNumberFormatDictionary#setDecimalSeparator(String)}
    */
   @Test
-  @DisplayName("Test getLabelPrefixString()")
-  void testGetLabelPrefixString() {
-    // Arrange, Act and Assert
-    assertEquals(" ", (new PDNumberFormatDictionary(new COSDictionary())).getLabelPrefixString());
+  @DisplayName(
+      "Test setDecimalSeparator(String); then PDNumberFormatDictionary() DecimalSeparator is '.'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDNumberFormatDictionary.setDecimalSeparator(String)"})
+  void testSetDecimalSeparator_thenPDNumberFormatDictionaryDecimalSeparatorIsDot() {
+    // Arrange
+    PDNumberFormatDictionary pdNumberFormatDictionary = new PDNumberFormatDictionary();
+
+    // Act
+    pdNumberFormatDictionary.setDecimalSeparator(null);
+
+    // Assert that nothing has changed
+    assertEquals(".", pdNumberFormatDictionary.getDecimalSeparator());
+    COSDictionary cOSObject = pdNumberFormatDictionary.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
   }
 
   /**
    * Test {@link PDNumberFormatDictionary#getLabelPrefixString()}.
+   *
    * <ul>
-   *   <li>Given {@link PDNumberFormatDictionary#PDNumberFormatDictionary()}.</li>
-   *   <li>Then return space.</li>
+   *   <li>Given {@link PDNumberFormatDictionary#PDNumberFormatDictionary()}.
+   *   <li>Then return space.
    * </ul>
-   * <p>
-   * Method under test: {@link PDNumberFormatDictionary#getLabelPrefixString()}
+   *
+   * <p>Method under test: {@link PDNumberFormatDictionary#getLabelPrefixString()}
    */
   @Test
   @DisplayName("Test getLabelPrefixString(); given PDNumberFormatDictionary(); then return space")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PDNumberFormatDictionary.getLabelPrefixString()"})
   void testGetLabelPrefixString_givenPDNumberFormatDictionary_thenReturnSpace() {
     // Arrange, Act and Assert
-    assertEquals(" ", (new PDNumberFormatDictionary()).getLabelPrefixString());
+    assertEquals(" ", new PDNumberFormatDictionary().getLabelPrefixString());
   }
 
   /**
    * Test {@link PDNumberFormatDictionary#setLabelPrefixString(String)}.
-   * <p>
-   * Method under test:
-   * {@link PDNumberFormatDictionary#setLabelPrefixString(String)}
+   *
+   * <p>Method under test: {@link PDNumberFormatDictionary#setLabelPrefixString(String)}
    */
   @Test
   @DisplayName("Test setLabelPrefixString(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDNumberFormatDictionary.setLabelPrefixString(String)"})
   void testSetLabelPrefixString() {
     // Arrange
     PDNumberFormatDictionary pdNumberFormatDictionary = new PDNumberFormatDictionary();
@@ -693,41 +794,65 @@ class PDNumberFormatDictionaryDiffblueTest {
   }
 
   /**
-   * Test {@link PDNumberFormatDictionary#getLabelSuffixString()}.
-   * <p>
-   * Method under test: {@link PDNumberFormatDictionary#getLabelSuffixString()}
+   * Test {@link PDNumberFormatDictionary#setLabelPrefixString(String)}.
+   *
+   * <ul>
+   *   <li>Then {@link PDNumberFormatDictionary#PDNumberFormatDictionary()} LabelPrefixString is
+   *       space.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDNumberFormatDictionary#setLabelPrefixString(String)}
    */
   @Test
-  @DisplayName("Test getLabelSuffixString()")
-  void testGetLabelSuffixString() {
-    // Arrange, Act and Assert
-    assertEquals(" ", (new PDNumberFormatDictionary(new COSDictionary())).getLabelSuffixString());
+  @DisplayName(
+      "Test setLabelPrefixString(String); then PDNumberFormatDictionary() LabelPrefixString is space")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDNumberFormatDictionary.setLabelPrefixString(String)"})
+  void testSetLabelPrefixString_thenPDNumberFormatDictionaryLabelPrefixStringIsSpace() {
+    // Arrange
+    PDNumberFormatDictionary pdNumberFormatDictionary = new PDNumberFormatDictionary();
+
+    // Act
+    pdNumberFormatDictionary.setLabelPrefixString(null);
+
+    // Assert that nothing has changed
+    assertEquals(" ", pdNumberFormatDictionary.getLabelPrefixString());
+    COSDictionary cOSObject = pdNumberFormatDictionary.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
   }
 
   /**
    * Test {@link PDNumberFormatDictionary#getLabelSuffixString()}.
+   *
    * <ul>
-   *   <li>Given {@link PDNumberFormatDictionary#PDNumberFormatDictionary()}.</li>
-   *   <li>Then return space.</li>
+   *   <li>Given {@link PDNumberFormatDictionary#PDNumberFormatDictionary()}.
+   *   <li>Then return space.
    * </ul>
-   * <p>
-   * Method under test: {@link PDNumberFormatDictionary#getLabelSuffixString()}
+   *
+   * <p>Method under test: {@link PDNumberFormatDictionary#getLabelSuffixString()}
    */
   @Test
   @DisplayName("Test getLabelSuffixString(); given PDNumberFormatDictionary(); then return space")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PDNumberFormatDictionary.getLabelSuffixString()"})
   void testGetLabelSuffixString_givenPDNumberFormatDictionary_thenReturnSpace() {
     // Arrange, Act and Assert
-    assertEquals(" ", (new PDNumberFormatDictionary()).getLabelSuffixString());
+    assertEquals(" ", new PDNumberFormatDictionary().getLabelSuffixString());
   }
 
   /**
    * Test {@link PDNumberFormatDictionary#setLabelSuffixString(String)}.
-   * <p>
-   * Method under test:
-   * {@link PDNumberFormatDictionary#setLabelSuffixString(String)}
+   *
+   * <p>Method under test: {@link PDNumberFormatDictionary#setLabelSuffixString(String)}
    */
   @Test
   @DisplayName("Test setLabelSuffixString(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDNumberFormatDictionary.setLabelSuffixString(String)"})
   void testSetLabelSuffixString() {
     // Arrange
     PDNumberFormatDictionary pdNumberFormatDictionary = new PDNumberFormatDictionary();
@@ -743,68 +868,99 @@ class PDNumberFormatDictionaryDiffblueTest {
   }
 
   /**
-   * Test {@link PDNumberFormatDictionary#getLabelPositionToValue()}.
-   * <p>
-   * Method under test: {@link PDNumberFormatDictionary#getLabelPositionToValue()}
+   * Test {@link PDNumberFormatDictionary#setLabelSuffixString(String)}.
+   *
+   * <ul>
+   *   <li>Then {@link PDNumberFormatDictionary#PDNumberFormatDictionary()} LabelSuffixString is
+   *       space.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDNumberFormatDictionary#setLabelSuffixString(String)}
    */
   @Test
-  @DisplayName("Test getLabelPositionToValue()")
-  void testGetLabelPositionToValue() {
-    // Arrange, Act and Assert
-    assertEquals(PDNumberFormatDictionary.LABEL_SUFFIX_TO_VALUE,
-        (new PDNumberFormatDictionary(new COSDictionary())).getLabelPositionToValue());
+  @DisplayName(
+      "Test setLabelSuffixString(String); then PDNumberFormatDictionary() LabelSuffixString is space")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDNumberFormatDictionary.setLabelSuffixString(String)"})
+  void testSetLabelSuffixString_thenPDNumberFormatDictionaryLabelSuffixStringIsSpace() {
+    // Arrange
+    PDNumberFormatDictionary pdNumberFormatDictionary = new PDNumberFormatDictionary();
+
+    // Act
+    pdNumberFormatDictionary.setLabelSuffixString(null);
+
+    // Assert that nothing has changed
+    assertEquals(" ", pdNumberFormatDictionary.getLabelSuffixString());
+    COSDictionary cOSObject = pdNumberFormatDictionary.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
   }
 
   /**
    * Test {@link PDNumberFormatDictionary#getLabelPositionToValue()}.
+   *
    * <ul>
-   *   <li>Given {@link PDNumberFormatDictionary#PDNumberFormatDictionary()}.</li>
+   *   <li>Then return {@link PDNumberFormatDictionary#LABEL_SUFFIX_TO_VALUE}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDNumberFormatDictionary#getLabelPositionToValue()}
+   *
+   * <p>Method under test: {@link PDNumberFormatDictionary#getLabelPositionToValue()}
    */
   @Test
-  @DisplayName("Test getLabelPositionToValue(); given PDNumberFormatDictionary()")
-  void testGetLabelPositionToValue_givenPDNumberFormatDictionary() {
+  @DisplayName("Test getLabelPositionToValue(); then return LABEL_SUFFIX_TO_VALUE")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PDNumberFormatDictionary.getLabelPositionToValue()"})
+  void testGetLabelPositionToValue_thenReturnLabel_suffix_to_value() {
     // Arrange, Act and Assert
-    assertEquals(PDNumberFormatDictionary.LABEL_SUFFIX_TO_VALUE,
-        (new PDNumberFormatDictionary()).getLabelPositionToValue());
+    assertEquals(
+        PDNumberFormatDictionary.LABEL_SUFFIX_TO_VALUE,
+        new PDNumberFormatDictionary().getLabelPositionToValue());
   }
 
   /**
    * Test {@link PDNumberFormatDictionary#setLabelPositionToValue(String)}.
-   * <p>
-   * Method under test:
-   * {@link PDNumberFormatDictionary#setLabelPositionToValue(String)}
+   *
+   * <p>Method under test: {@link PDNumberFormatDictionary#setLabelPositionToValue(String)}
    */
   @Test
   @DisplayName("Test setLabelPositionToValue(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDNumberFormatDictionary.setLabelPositionToValue(String)"})
   void testSetLabelPositionToValue() {
     // Arrange
     PDNumberFormatDictionary pdNumberFormatDictionary = new PDNumberFormatDictionary();
 
     // Act
-    pdNumberFormatDictionary.setLabelPositionToValue(PDNumberFormatDictionary.LABEL_PREFIX_TO_VALUE);
+    pdNumberFormatDictionary.setLabelPositionToValue(
+        PDNumberFormatDictionary.LABEL_PREFIX_TO_VALUE);
 
     // Assert
     COSDictionary cOSObject = pdNumberFormatDictionary.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    assertEquals(PDNumberFormatDictionary.LABEL_PREFIX_TO_VALUE, pdNumberFormatDictionary.getLabelPositionToValue());
+    assertEquals(
+        PDNumberFormatDictionary.LABEL_PREFIX_TO_VALUE,
+        pdNumberFormatDictionary.getLabelPositionToValue());
   }
 
   /**
    * Test {@link PDNumberFormatDictionary#setLabelPositionToValue(String)}.
+   *
    * <ul>
-   *   <li>Then {@link PDNumberFormatDictionary#PDNumberFormatDictionary()}
-   * COSObject Values size is one.</li>
+   *   <li>Then {@link PDNumberFormatDictionary#PDNumberFormatDictionary()} COSObject Values size is
+   *       one.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link PDNumberFormatDictionary#setLabelPositionToValue(String)}
+   *
+   * <p>Method under test: {@link PDNumberFormatDictionary#setLabelPositionToValue(String)}
    */
   @Test
-  @DisplayName("Test setLabelPositionToValue(String); then PDNumberFormatDictionary() COSObject Values size is one")
+  @DisplayName(
+      "Test setLabelPositionToValue(String); then PDNumberFormatDictionary() COSObject Values size is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDNumberFormatDictionary.setLabelPositionToValue(String)"})
   void testSetLabelPositionToValue_thenPDNumberFormatDictionaryCOSObjectValuesSizeIsOne() {
     // Arrange
     PDNumberFormatDictionary pdNumberFormatDictionary = new PDNumberFormatDictionary();
@@ -812,52 +968,66 @@ class PDNumberFormatDictionaryDiffblueTest {
     // Act
     pdNumberFormatDictionary.setLabelPositionToValue(null);
 
-    // Assert
+    // Assert that nothing has changed
     COSDictionary cOSObject = pdNumberFormatDictionary.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
-    assertEquals(PDNumberFormatDictionary.LABEL_SUFFIX_TO_VALUE, pdNumberFormatDictionary.getLabelPositionToValue());
+    assertEquals(
+        PDNumberFormatDictionary.LABEL_SUFFIX_TO_VALUE,
+        pdNumberFormatDictionary.getLabelPositionToValue());
   }
 
   /**
    * Test {@link PDNumberFormatDictionary#setLabelPositionToValue(String)}.
+   *
    * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then throw {@link IllegalArgumentException}.</li>
+   *   <li>When {@code 42}.
+   *   <li>Then throw {@link IllegalArgumentException}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link PDNumberFormatDictionary#setLabelPositionToValue(String)}
+   *
+   * <p>Method under test: {@link PDNumberFormatDictionary#setLabelPositionToValue(String)}
    */
   @Test
-  @DisplayName("Test setLabelPositionToValue(String); when '42'; then throw IllegalArgumentException")
+  @DisplayName(
+      "Test setLabelPositionToValue(String); when '42'; then throw IllegalArgumentException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDNumberFormatDictionary.setLabelPositionToValue(String)"})
   void testSetLabelPositionToValue_when42_thenThrowIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> (new PDNumberFormatDictionary()).setLabelPositionToValue("42"));
+    assertThrows(
+        IllegalArgumentException.class,
+        () -> new PDNumberFormatDictionary().setLabelPositionToValue("42"));
   }
 
   /**
    * Test {@link PDNumberFormatDictionary#setLabelPositionToValue(String)}.
+   *
    * <ul>
-   *   <li>When {@link PDNumberFormatDictionary#LABEL_SUFFIX_TO_VALUE}.</li>
+   *   <li>When {@link PDNumberFormatDictionary#LABEL_SUFFIX_TO_VALUE}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link PDNumberFormatDictionary#setLabelPositionToValue(String)}
+   *
+   * <p>Method under test: {@link PDNumberFormatDictionary#setLabelPositionToValue(String)}
    */
   @Test
   @DisplayName("Test setLabelPositionToValue(String); when LABEL_SUFFIX_TO_VALUE")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDNumberFormatDictionary.setLabelPositionToValue(String)"})
   void testSetLabelPositionToValue_whenLabel_suffix_to_value() {
     // Arrange
     PDNumberFormatDictionary pdNumberFormatDictionary = new PDNumberFormatDictionary();
 
     // Act
-    pdNumberFormatDictionary.setLabelPositionToValue(PDNumberFormatDictionary.LABEL_SUFFIX_TO_VALUE);
+    pdNumberFormatDictionary.setLabelPositionToValue(
+        PDNumberFormatDictionary.LABEL_SUFFIX_TO_VALUE);
 
     // Assert
     COSDictionary cOSObject = pdNumberFormatDictionary.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    assertEquals(PDNumberFormatDictionary.LABEL_SUFFIX_TO_VALUE, pdNumberFormatDictionary.getLabelPositionToValue());
+    assertEquals(
+        PDNumberFormatDictionary.LABEL_SUFFIX_TO_VALUE,
+        pdNumberFormatDictionary.getLabelPositionToValue());
   }
 }

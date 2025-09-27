@@ -1,25 +1,134 @@
 package org.apache.pdfbox.debugger.treestatus;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Component.BaselineResizeBehavior;
 import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
+import java.awt.geom.Rectangle2D.Double;
+import java.awt.image.DirectColorModel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JTree;
 import javax.swing.border.BevelBorder;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class TreeStatusPaneDiffblueTest {
   /**
+   * Test {@link TreeStatusPane#TreeStatusPane(JTree)}.
+   *
+   * <ul>
+   *   <li>When {@link JTree#JTree()}.
+   *   <li>Then Panel Layout return {@link BorderLayout}.
+   * </ul>
+   *
+   * <p>Method under test: {@link TreeStatusPane#TreeStatusPane(JTree)}
+   */
+  @Test
+  @DisplayName(
+      "Test new TreeStatusPane(JTree); when JTree(); then Panel Layout return BorderLayout")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void TreeStatusPane.<init>(JTree)"})
+  void testNewTreeStatusPane_whenJTree_thenPanelLayoutReturnBorderLayout() {
+    // Arrange, Act and Assert
+    JPanel panel = new TreeStatusPane(new JTree()).getPanel();
+    assertTrue(panel.getLayout() instanceof BorderLayout);
+    assertTrue(panel.getColorModel() instanceof DirectColorModel);
+    assertEquals("PanelUI", panel.getUIClassID());
+    assertNull(panel.getNextFocusableComponent());
+    assertNull(panel.getFocusCycleRootAncestor());
+    assertNull(panel.getParent());
+    assertNull(panel.getTopLevelAncestor());
+    assertNull(panel.getFocusTraversalPolicy());
+    assertNull(panel.getGraphics());
+    assertNull(panel.getGraphicsConfiguration());
+    assertNull(panel.getDropTarget());
+    assertNull(panel.getInputContext());
+    assertNull(panel.getInputMethodRequests());
+    assertNull(panel.getName());
+    assertNull(panel.getToolTipText());
+    assertNull(panel.getInputVerifier());
+    assertNull(panel.getComponentPopupMenu());
+    assertNull(panel.getRootPane());
+    assertNull(panel.getTransferHandler());
+    assertNull(panel.getBorder());
+    assertEquals(0, panel.getDebugGraphicsOptions());
+    assertEquals(0, panel.getHeight());
+    assertEquals(0, panel.getWidth());
+    assertEquals(0, panel.getX());
+    assertEquals(0, panel.getY());
+    assertEquals(0, panel.getComponentListeners().length);
+    assertEquals(0, panel.getFocusListeners().length);
+    assertEquals(0, panel.getHierarchyBoundsListeners().length);
+    assertEquals(0, panel.getHierarchyListeners().length);
+    assertEquals(0, panel.getInputMethodListeners().length);
+    assertEquals(0, panel.getKeyListeners().length);
+    assertEquals(0, panel.getMouseListeners().length);
+    assertEquals(0, panel.getMouseMotionListeners().length);
+    assertEquals(0, panel.getMouseWheelListeners().length);
+    assertEquals(0, panel.getPropertyChangeListeners().length);
+    assertEquals(0, panel.getContainerListeners().length);
+    assertEquals(0, panel.getAncestorListeners().length);
+    assertEquals(0, panel.getRegisteredKeyStrokes().length);
+    assertEquals(0, panel.getVetoableChangeListeners().length);
+    assertEquals(0.5f, panel.getAlignmentX());
+    assertEquals(0.5f, panel.getAlignmentY());
+    assertEquals(1, panel.getComponentCount());
+    assertEquals(1, panel.getComponents().length);
+    assertEquals(BaselineResizeBehavior.OTHER, panel.getBaselineResizeBehavior());
+    assertFalse(panel.getIgnoreRepaint());
+    assertFalse(panel.hasFocus());
+    assertFalse(panel.isCursorSet());
+    assertFalse(panel.isDisplayable());
+    assertFalse(panel.isFocusOwner());
+    assertFalse(panel.isLightweight());
+    assertFalse(panel.isMaximumSizeSet());
+    assertFalse(panel.isMinimumSizeSet());
+    assertFalse(panel.isPreferredSizeSet());
+    assertFalse(panel.isShowing());
+    assertFalse(panel.isValid());
+    assertFalse(panel.isFocusCycleRoot());
+    assertFalse(panel.isFocusTraversalPolicyProvider());
+    assertFalse(panel.isFocusTraversalPolicySet());
+    assertFalse(panel.getAutoscrolls());
+    assertFalse(panel.getInheritsPopupMenu());
+    assertFalse(panel.isManagingFocus());
+    assertFalse(panel.isPaintingForPrint());
+    assertFalse(panel.isPaintingTile());
+    assertFalse(panel.isValidateRoot());
+    assertTrue(panel.getFocusTraversalKeysEnabled());
+    assertTrue(panel.isBackgroundSet());
+    assertTrue(panel.isEnabled());
+    assertTrue(panel.isFocusable());
+    assertTrue(panel.isFontSet());
+    assertTrue(panel.isForegroundSet());
+    assertTrue(panel.isVisible());
+    assertTrue(panel.getVerifyInputWhenFocusTarget());
+    assertTrue(panel.isDoubleBuffered());
+    assertTrue(panel.isOpaque());
+    assertTrue(panel.isOptimizedDrawingEnabled());
+    assertTrue(panel.isRequestFocusEnabled());
+  }
+
+  /**
    * Test {@link TreeStatusPane#updateTreeStatus(TreeStatus)}.
-   * <p>
-   * Method under test: {@link TreeStatusPane#updateTreeStatus(TreeStatus)}
+   *
+   * <p>Method under test: {@link TreeStatusPane#updateTreeStatus(TreeStatus)}
    */
   @Test
   @DisplayName("Test updateTreeStatus(TreeStatus)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void TreeStatusPane.updateTreeStatus(TreeStatus)"})
   void testUpdateTreeStatus() {
     // Arrange
     TreeStatusPane treeStatusPane = new TreeStatusPane(new JTree());
@@ -29,41 +138,15 @@ class TreeStatusPaneDiffblueTest {
 
     // Assert
     JPanel panel = treeStatusPane.getPanel();
-    Rectangle boundsResult = panel.bounds();
-    Rectangle2D bounds2D = boundsResult.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Rectangle bounds = panel.getBounds();
-    Rectangle2D bounds2D2 = bounds.getBounds2D();
-    assertTrue(bounds2D2 instanceof Rectangle);
-    Rectangle bounds2 = boundsResult.getBounds();
-    assertTrue(bounds2.getBounds2D() instanceof Rectangle);
-    Rectangle bounds3 = bounds.getBounds();
-    assertTrue(bounds3.getBounds2D() instanceof Rectangle);
-    Rectangle bounds4 = bounds2.getBounds();
-    assertTrue(bounds4.getBounds2D() instanceof Rectangle);
-    Rectangle bounds5 = bounds3.getBounds();
-    assertTrue(bounds5.getBounds2D() instanceof Rectangle);
     Rectangle visibleRect = panel.getVisibleRect();
-    Rectangle bounds6 = visibleRect.getBounds();
-    assertTrue(bounds6.getBounds2D() instanceof Rectangle);
-    assertTrue(visibleRect.getBounds2D() instanceof Rectangle);
+    Rectangle2D bounds2D = visibleRect.getBounds2D();
+    assertTrue(bounds2D instanceof Rectangle);
     assertTrue(bounds2D.getBounds2D() instanceof Rectangle);
-    assertTrue(bounds2D2.getBounds2D() instanceof Rectangle);
-    Rectangle2D frame = boundsResult.getFrame();
-    assertTrue(frame.getBounds2D() instanceof Rectangle2D.Double);
-    Rectangle2D frame2 = bounds.getFrame();
-    assertTrue(frame2.getBounds2D() instanceof Rectangle2D.Double);
-    assertTrue(frame instanceof Rectangle2D.Double);
-    assertTrue(frame2 instanceof Rectangle2D.Double);
-    assertTrue(bounds2.getFrame() instanceof Rectangle2D.Double);
-    assertTrue(bounds4.getFrame() instanceof Rectangle2D.Double);
-    assertTrue(bounds5.getFrame() instanceof Rectangle2D.Double);
-    assertTrue(bounds6.getFrame() instanceof Rectangle2D.Double);
-    assertTrue(bounds2D.getFrame() instanceof Rectangle2D.Double);
-    assertTrue(bounds2D2.getFrame() instanceof Rectangle2D.Double);
-    assertTrue(frame.getFrame() instanceof Rectangle2D.Double);
-    assertTrue(frame2.getFrame() instanceof Rectangle2D.Double);
-    assertTrue(visibleRect.getFrame() instanceof Rectangle2D.Double);
+    Rectangle2D frame = visibleRect.getFrame();
+    assertTrue(frame.getBounds2D() instanceof Double);
+    assertTrue(bounds2D.getFrame() instanceof Double);
+    assertTrue(frame.getFrame() instanceof Double);
+    assertTrue(frame instanceof Double);
     Component[] components = panel.getComponents();
     Component component = components[0];
     assertTrue(component instanceof JTextField);

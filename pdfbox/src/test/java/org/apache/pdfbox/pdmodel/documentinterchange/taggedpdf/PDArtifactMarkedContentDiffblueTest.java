@@ -5,20 +5,24 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.pdfbox.cos.COSDictionary;
-import org.apache.pdfbox.cos.COSStream;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDArtifactMarkedContentDiffblueTest {
   /**
    * Test {@link PDArtifactMarkedContent#PDArtifactMarkedContent(COSDictionary)}.
-   * <p>
-   * Method under test:
-   * {@link PDArtifactMarkedContent#PDArtifactMarkedContent(COSDictionary)}
+   *
+   * <p>Method under test: {@link PDArtifactMarkedContent#PDArtifactMarkedContent(COSDictionary)}
    */
   @Test
   @DisplayName("Test new PDArtifactMarkedContent(COSDictionary)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDArtifactMarkedContent.<init>(COSDictionary)"})
   void testNewPDArtifactMarkedContent() {
     // Arrange
     COSDictionary properties = new COSDictionary();
@@ -46,241 +50,136 @@ class PDArtifactMarkedContentDiffblueTest {
 
   /**
    * Test {@link PDArtifactMarkedContent#getType()}.
+   *
    * <ul>
-   *   <li>Given
-   * {@link PDArtifactMarkedContent#PDArtifactMarkedContent(COSDictionary)} with
-   * properties is {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDArtifactMarkedContent#getType()}
+   *
+   * <p>Method under test: {@link PDArtifactMarkedContent#getType()}
    */
   @Test
-  @DisplayName("Test getType(); given PDArtifactMarkedContent(COSDictionary) with properties is COSDictionary()")
-  void testGetType_givenPDArtifactMarkedContentWithPropertiesIsCOSDictionary() {
+  @DisplayName("Test getType(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.lang.String PDArtifactMarkedContent.getType()"})
+  void testGetType_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new PDArtifactMarkedContent(new COSDictionary())).getType());
-  }
-
-  /**
-   * Test {@link PDArtifactMarkedContent#getType()}.
-   * <ul>
-   *   <li>Given
-   * {@link PDArtifactMarkedContent#PDArtifactMarkedContent(COSDictionary)} with
-   * properties is {@link COSStream#COSStream()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDArtifactMarkedContent#getType()}
-   */
-  @Test
-  @DisplayName("Test getType(); given PDArtifactMarkedContent(COSDictionary) with properties is COSStream(); then return 'null'")
-  void testGetType_givenPDArtifactMarkedContentWithPropertiesIsCOSStream_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new PDArtifactMarkedContent(new COSStream())).getType());
+    assertNull(new PDArtifactMarkedContent(new COSDictionary()).getType());
   }
 
   /**
    * Test {@link PDArtifactMarkedContent#getBBox()}.
+   *
    * <ul>
-   *   <li>Given
-   * {@link PDArtifactMarkedContent#PDArtifactMarkedContent(COSDictionary)} with
-   * properties is {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDArtifactMarkedContent#getBBox()}
+   *
+   * <p>Method under test: {@link PDArtifactMarkedContent#getBBox()}
    */
   @Test
-  @DisplayName("Test getBBox(); given PDArtifactMarkedContent(COSDictionary) with properties is COSDictionary()")
-  void testGetBBox_givenPDArtifactMarkedContentWithPropertiesIsCOSDictionary() {
+  @DisplayName("Test getBBox(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.apache.pdfbox.pdmodel.common.PDRectangle PDArtifactMarkedContent.getBBox()"
+  })
+  void testGetBBox_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new PDArtifactMarkedContent(new COSDictionary())).getBBox());
-  }
-
-  /**
-   * Test {@link PDArtifactMarkedContent#getBBox()}.
-   * <ul>
-   *   <li>Given
-   * {@link PDArtifactMarkedContent#PDArtifactMarkedContent(COSDictionary)} with
-   * properties is {@link COSStream#COSStream()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDArtifactMarkedContent#getBBox()}
-   */
-  @Test
-  @DisplayName("Test getBBox(); given PDArtifactMarkedContent(COSDictionary) with properties is COSStream(); then return 'null'")
-  void testGetBBox_givenPDArtifactMarkedContentWithPropertiesIsCOSStream_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new PDArtifactMarkedContent(new COSStream())).getBBox());
+    assertNull(new PDArtifactMarkedContent(new COSDictionary()).getBBox());
   }
 
   /**
    * Test {@link PDArtifactMarkedContent#isTopAttached()}.
+   *
    * <ul>
-   *   <li>Given
-   * {@link PDArtifactMarkedContent#PDArtifactMarkedContent(COSDictionary)} with
-   * properties is {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then return {@code false}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDArtifactMarkedContent#isTopAttached()}
+   *
+   * <p>Method under test: {@link PDArtifactMarkedContent#isTopAttached()}
    */
   @Test
-  @DisplayName("Test isTopAttached(); given PDArtifactMarkedContent(COSDictionary) with properties is COSDictionary()")
-  void testIsTopAttached_givenPDArtifactMarkedContentWithPropertiesIsCOSDictionary() {
+  @DisplayName("Test isTopAttached(); then return 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean PDArtifactMarkedContent.isTopAttached()"})
+  void testIsTopAttached_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse((new PDArtifactMarkedContent(new COSDictionary())).isTopAttached());
-  }
-
-  /**
-   * Test {@link PDArtifactMarkedContent#isTopAttached()}.
-   * <ul>
-   *   <li>Given
-   * {@link PDArtifactMarkedContent#PDArtifactMarkedContent(COSDictionary)} with
-   * properties is {@link COSStream#COSStream()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDArtifactMarkedContent#isTopAttached()}
-   */
-  @Test
-  @DisplayName("Test isTopAttached(); given PDArtifactMarkedContent(COSDictionary) with properties is COSStream()")
-  void testIsTopAttached_givenPDArtifactMarkedContentWithPropertiesIsCOSStream() {
-    // Arrange, Act and Assert
-    assertFalse((new PDArtifactMarkedContent(new COSStream())).isTopAttached());
+    assertFalse(new PDArtifactMarkedContent(new COSDictionary()).isTopAttached());
   }
 
   /**
    * Test {@link PDArtifactMarkedContent#isBottomAttached()}.
+   *
    * <ul>
-   *   <li>Given
-   * {@link PDArtifactMarkedContent#PDArtifactMarkedContent(COSDictionary)} with
-   * properties is {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then return {@code false}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDArtifactMarkedContent#isBottomAttached()}
+   *
+   * <p>Method under test: {@link PDArtifactMarkedContent#isBottomAttached()}
    */
   @Test
-  @DisplayName("Test isBottomAttached(); given PDArtifactMarkedContent(COSDictionary) with properties is COSDictionary()")
-  void testIsBottomAttached_givenPDArtifactMarkedContentWithPropertiesIsCOSDictionary() {
+  @DisplayName("Test isBottomAttached(); then return 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean PDArtifactMarkedContent.isBottomAttached()"})
+  void testIsBottomAttached_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse((new PDArtifactMarkedContent(new COSDictionary())).isBottomAttached());
-  }
-
-  /**
-   * Test {@link PDArtifactMarkedContent#isBottomAttached()}.
-   * <ul>
-   *   <li>Given
-   * {@link PDArtifactMarkedContent#PDArtifactMarkedContent(COSDictionary)} with
-   * properties is {@link COSStream#COSStream()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDArtifactMarkedContent#isBottomAttached()}
-   */
-  @Test
-  @DisplayName("Test isBottomAttached(); given PDArtifactMarkedContent(COSDictionary) with properties is COSStream()")
-  void testIsBottomAttached_givenPDArtifactMarkedContentWithPropertiesIsCOSStream() {
-    // Arrange, Act and Assert
-    assertFalse((new PDArtifactMarkedContent(new COSStream())).isBottomAttached());
+    assertFalse(new PDArtifactMarkedContent(new COSDictionary()).isBottomAttached());
   }
 
   /**
    * Test {@link PDArtifactMarkedContent#isLeftAttached()}.
+   *
    * <ul>
-   *   <li>Given
-   * {@link PDArtifactMarkedContent#PDArtifactMarkedContent(COSDictionary)} with
-   * properties is {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then return {@code false}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDArtifactMarkedContent#isLeftAttached()}
+   *
+   * <p>Method under test: {@link PDArtifactMarkedContent#isLeftAttached()}
    */
   @Test
-  @DisplayName("Test isLeftAttached(); given PDArtifactMarkedContent(COSDictionary) with properties is COSDictionary()")
-  void testIsLeftAttached_givenPDArtifactMarkedContentWithPropertiesIsCOSDictionary() {
+  @DisplayName("Test isLeftAttached(); then return 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean PDArtifactMarkedContent.isLeftAttached()"})
+  void testIsLeftAttached_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse((new PDArtifactMarkedContent(new COSDictionary())).isLeftAttached());
-  }
-
-  /**
-   * Test {@link PDArtifactMarkedContent#isLeftAttached()}.
-   * <ul>
-   *   <li>Given
-   * {@link PDArtifactMarkedContent#PDArtifactMarkedContent(COSDictionary)} with
-   * properties is {@link COSStream#COSStream()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDArtifactMarkedContent#isLeftAttached()}
-   */
-  @Test
-  @DisplayName("Test isLeftAttached(); given PDArtifactMarkedContent(COSDictionary) with properties is COSStream()")
-  void testIsLeftAttached_givenPDArtifactMarkedContentWithPropertiesIsCOSStream() {
-    // Arrange, Act and Assert
-    assertFalse((new PDArtifactMarkedContent(new COSStream())).isLeftAttached());
+    assertFalse(new PDArtifactMarkedContent(new COSDictionary()).isLeftAttached());
   }
 
   /**
    * Test {@link PDArtifactMarkedContent#isRightAttached()}.
+   *
    * <ul>
-   *   <li>Given
-   * {@link PDArtifactMarkedContent#PDArtifactMarkedContent(COSDictionary)} with
-   * properties is {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then return {@code false}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDArtifactMarkedContent#isRightAttached()}
+   *
+   * <p>Method under test: {@link PDArtifactMarkedContent#isRightAttached()}
    */
   @Test
-  @DisplayName("Test isRightAttached(); given PDArtifactMarkedContent(COSDictionary) with properties is COSDictionary()")
-  void testIsRightAttached_givenPDArtifactMarkedContentWithPropertiesIsCOSDictionary() {
+  @DisplayName("Test isRightAttached(); then return 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean PDArtifactMarkedContent.isRightAttached()"})
+  void testIsRightAttached_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse((new PDArtifactMarkedContent(new COSDictionary())).isRightAttached());
-  }
-
-  /**
-   * Test {@link PDArtifactMarkedContent#isRightAttached()}.
-   * <ul>
-   *   <li>Given
-   * {@link PDArtifactMarkedContent#PDArtifactMarkedContent(COSDictionary)} with
-   * properties is {@link COSStream#COSStream()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDArtifactMarkedContent#isRightAttached()}
-   */
-  @Test
-  @DisplayName("Test isRightAttached(); given PDArtifactMarkedContent(COSDictionary) with properties is COSStream()")
-  void testIsRightAttached_givenPDArtifactMarkedContentWithPropertiesIsCOSStream() {
-    // Arrange, Act and Assert
-    assertFalse((new PDArtifactMarkedContent(new COSStream())).isRightAttached());
+    assertFalse(new PDArtifactMarkedContent(new COSDictionary()).isRightAttached());
   }
 
   /**
    * Test {@link PDArtifactMarkedContent#getSubtype()}.
+   *
    * <ul>
-   *   <li>Given
-   * {@link PDArtifactMarkedContent#PDArtifactMarkedContent(COSDictionary)} with
-   * properties is {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDArtifactMarkedContent#getSubtype()}
+   *
+   * <p>Method under test: {@link PDArtifactMarkedContent#getSubtype()}
    */
   @Test
-  @DisplayName("Test getSubtype(); given PDArtifactMarkedContent(COSDictionary) with properties is COSDictionary()")
-  void testGetSubtype_givenPDArtifactMarkedContentWithPropertiesIsCOSDictionary() {
+  @DisplayName("Test getSubtype(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.lang.String PDArtifactMarkedContent.getSubtype()"})
+  void testGetSubtype_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new PDArtifactMarkedContent(new COSDictionary())).getSubtype());
-  }
-
-  /**
-   * Test {@link PDArtifactMarkedContent#getSubtype()}.
-   * <ul>
-   *   <li>Given
-   * {@link PDArtifactMarkedContent#PDArtifactMarkedContent(COSDictionary)} with
-   * properties is {@link COSStream#COSStream()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDArtifactMarkedContent#getSubtype()}
-   */
-  @Test
-  @DisplayName("Test getSubtype(); given PDArtifactMarkedContent(COSDictionary) with properties is COSStream()")
-  void testGetSubtype_givenPDArtifactMarkedContentWithPropertiesIsCOSStream() {
-    // Arrange, Act and Assert
-    assertNull((new PDArtifactMarkedContent(new COSStream())).getSubtype());
+    assertNull(new PDArtifactMarkedContent(new COSDictionary()).getSubtype());
   }
 }

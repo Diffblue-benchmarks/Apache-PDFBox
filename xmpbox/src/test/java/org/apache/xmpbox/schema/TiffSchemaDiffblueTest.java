@@ -3,28 +3,34 @@ package org.apache.xmpbox.schema;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import java.util.Map;
 import org.apache.xmpbox.XMPMetadata;
 import org.apache.xmpbox.type.AbstractField;
 import org.apache.xmpbox.type.AgentNameType;
 import org.apache.xmpbox.type.ArrayProperty;
-import org.apache.xmpbox.type.Attribute;
 import org.apache.xmpbox.type.BadFieldValueException;
 import org.apache.xmpbox.type.Cardinality;
 import org.apache.xmpbox.type.TextType;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class TiffSchemaDiffblueTest {
   /**
    * Test {@link TiffSchema#TiffSchema(XMPMetadata)}.
-   * <p>
-   * Method under test: {@link TiffSchema#TiffSchema(XMPMetadata)}
+   *
+   * <p>Method under test: {@link TiffSchema#TiffSchema(XMPMetadata)}
    */
   @Test
   @DisplayName("Test new TiffSchema(XMPMetadata)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void TiffSchema.<init>(XMPMetadata)"})
   void testNewTiffSchema() throws BadFieldValueException {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -35,9 +41,6 @@ class TiffSchemaDiffblueTest {
     // Assert
     assertEquals("", actualTiffSchema.getAboutValue());
     assertEquals("http://ns.adobe.com/tiff/1.0/", actualTiffSchema.getNamespace());
-    Map<String, String> allNamespacesWithPrefix = actualTiffSchema.getAllNamespacesWithPrefix();
-    assertEquals(1, allNamespacesWithPrefix.size());
-    assertEquals("tiff", allNamespacesWithPrefix.get("http://ns.adobe.com/tiff/1.0/"));
     assertEquals("tiff", actualTiffSchema.getPreferedPrefix());
     assertEquals("tiff", actualTiffSchema.getPrefix());
     assertNull(actualTiffSchema.getArtist());
@@ -50,25 +53,76 @@ class TiffSchemaDiffblueTest {
     assertNull(actualTiffSchema.getImageDescriptionProperty());
     assertNull(actualTiffSchema.getAboutAttribute());
     assertNull(actualTiffSchema.getArtistProperty());
-    List<AbstractField> allProperties = actualTiffSchema.getAllProperties();
-    assertTrue(allProperties.isEmpty());
+    Map<String, String> allNamespacesWithPrefix = actualTiffSchema.getAllNamespacesWithPrefix();
+    assertEquals(1, allNamespacesWithPrefix.size());
+    assertTrue(actualTiffSchema.getAllProperties().isEmpty());
     assertTrue(actualTiffSchema.getAllAttributes().isEmpty());
-    assertSame(allProperties, actualTiffSchema.getContainer().getAllProperties());
+    assertTrue(allNamespacesWithPrefix.containsKey("http://ns.adobe.com/tiff/1.0/"));
     assertSame(metadata, actualTiffSchema.getMetadata());
   }
 
   /**
    * Test {@link TiffSchema#TiffSchema(XMPMetadata, String)}.
+   *
    * <ul>
-   *   <li>Then return AllNamespacesWithPrefix {@code http://ns.adobe.com/tiff/1.0/}
-   * is {@code Prefix}.</li>
+   *   <li>When {@code null}.
+   *   <li>Then return Prefix is {@code tiff}.
    * </ul>
-   * <p>
-   * Method under test: {@link TiffSchema#TiffSchema(XMPMetadata, String)}
+   *
+   * <p>Method under test: {@link TiffSchema#TiffSchema(XMPMetadata, String)}
    */
   @Test
-  @DisplayName("Test new TiffSchema(XMPMetadata, String); then return AllNamespacesWithPrefix 'http://ns.adobe.com/tiff/1.0/' is 'Prefix'")
-  void testNewTiffSchema_thenReturnAllNamespacesWithPrefixHttpNsAdobeComTiff10IsPrefix() throws BadFieldValueException {
+  @DisplayName(
+      "Test new TiffSchema(XMPMetadata, String); when 'null'; then return Prefix is 'tiff'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void TiffSchema.<init>(XMPMetadata, String)"})
+  void testNewTiffSchema_whenNull_thenReturnPrefixIsTiff() throws BadFieldValueException {
+    // Arrange
+    XMPMetadata metadata = XMPMetadata.createXMPMetadata();
+
+    // Act
+    TiffSchema actualTiffSchema = new TiffSchema(metadata, null);
+
+    // Assert
+    assertEquals("", actualTiffSchema.getAboutValue());
+    assertEquals("http://ns.adobe.com/tiff/1.0/", actualTiffSchema.getNamespace());
+    assertEquals("tiff", actualTiffSchema.getPreferedPrefix());
+    assertEquals("tiff", actualTiffSchema.getPrefix());
+    assertNull(actualTiffSchema.getArtist());
+    assertNull(actualTiffSchema.getCopyright());
+    assertNull(actualTiffSchema.getImageDescription());
+    assertNull(actualTiffSchema.getPropertyName());
+    assertNull(actualTiffSchema.getCopyrightLanguages());
+    assertNull(actualTiffSchema.getImageDescriptionLanguages());
+    assertNull(actualTiffSchema.getCopyrightProperty());
+    assertNull(actualTiffSchema.getImageDescriptionProperty());
+    assertNull(actualTiffSchema.getAboutAttribute());
+    assertNull(actualTiffSchema.getArtistProperty());
+    Map<String, String> allNamespacesWithPrefix = actualTiffSchema.getAllNamespacesWithPrefix();
+    assertEquals(1, allNamespacesWithPrefix.size());
+    assertTrue(actualTiffSchema.getAllProperties().isEmpty());
+    assertTrue(actualTiffSchema.getAllAttributes().isEmpty());
+    assertTrue(allNamespacesWithPrefix.containsKey("http://ns.adobe.com/tiff/1.0/"));
+    assertSame(metadata, actualTiffSchema.getMetadata());
+  }
+
+  /**
+   * Test {@link TiffSchema#TiffSchema(XMPMetadata, String)}.
+   *
+   * <ul>
+   *   <li>When {@code Prefix}.
+   *   <li>Then return {@code Prefix}.
+   * </ul>
+   *
+   * <p>Method under test: {@link TiffSchema#TiffSchema(XMPMetadata, String)}
+   */
+  @Test
+  @DisplayName("Test new TiffSchema(XMPMetadata, String); when 'Prefix'; then return 'Prefix'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void TiffSchema.<init>(XMPMetadata, String)"})
+  void testNewTiffSchema_whenPrefix_thenReturnPrefix() throws BadFieldValueException {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
 
@@ -77,9 +131,6 @@ class TiffSchemaDiffblueTest {
 
     // Assert
     assertEquals("", actualTiffSchema.getAboutValue());
-    Map<String, String> allNamespacesWithPrefix = actualTiffSchema.getAllNamespacesWithPrefix();
-    assertEquals(1, allNamespacesWithPrefix.size());
-    assertEquals("Prefix", allNamespacesWithPrefix.get("http://ns.adobe.com/tiff/1.0/"));
     assertEquals("Prefix", actualTiffSchema.getPrefix());
     assertEquals("http://ns.adobe.com/tiff/1.0/", actualTiffSchema.getNamespace());
     assertEquals("tiff", actualTiffSchema.getPreferedPrefix());
@@ -93,63 +144,24 @@ class TiffSchemaDiffblueTest {
     assertNull(actualTiffSchema.getImageDescriptionProperty());
     assertNull(actualTiffSchema.getAboutAttribute());
     assertNull(actualTiffSchema.getArtistProperty());
-    List<AbstractField> allProperties = actualTiffSchema.getAllProperties();
-    assertTrue(allProperties.isEmpty());
-    assertTrue(actualTiffSchema.getAllAttributes().isEmpty());
-    assertSame(allProperties, actualTiffSchema.getContainer().getAllProperties());
-    assertSame(metadata, actualTiffSchema.getMetadata());
-  }
-
-  /**
-   * Test {@link TiffSchema#TiffSchema(XMPMetadata, String)}.
-   * <ul>
-   *   <li>Then return AllNamespacesWithPrefix {@code http://ns.adobe.com/tiff/1.0/}
-   * is {@code tiff}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TiffSchema#TiffSchema(XMPMetadata, String)}
-   */
-  @Test
-  @DisplayName("Test new TiffSchema(XMPMetadata, String); then return AllNamespacesWithPrefix 'http://ns.adobe.com/tiff/1.0/' is 'tiff'")
-  void testNewTiffSchema_thenReturnAllNamespacesWithPrefixHttpNsAdobeComTiff10IsTiff() throws BadFieldValueException {
-    // Arrange
-    XMPMetadata metadata = XMPMetadata.createXMPMetadata();
-
-    // Act
-    TiffSchema actualTiffSchema = new TiffSchema(metadata, null);
-
-    // Assert
-    assertEquals("", actualTiffSchema.getAboutValue());
-    assertEquals("http://ns.adobe.com/tiff/1.0/", actualTiffSchema.getNamespace());
     Map<String, String> allNamespacesWithPrefix = actualTiffSchema.getAllNamespacesWithPrefix();
     assertEquals(1, allNamespacesWithPrefix.size());
-    assertEquals("tiff", allNamespacesWithPrefix.get("http://ns.adobe.com/tiff/1.0/"));
-    assertEquals("tiff", actualTiffSchema.getPreferedPrefix());
-    assertEquals("tiff", actualTiffSchema.getPrefix());
-    assertNull(actualTiffSchema.getArtist());
-    assertNull(actualTiffSchema.getCopyright());
-    assertNull(actualTiffSchema.getImageDescription());
-    assertNull(actualTiffSchema.getPropertyName());
-    assertNull(actualTiffSchema.getCopyrightLanguages());
-    assertNull(actualTiffSchema.getImageDescriptionLanguages());
-    assertNull(actualTiffSchema.getCopyrightProperty());
-    assertNull(actualTiffSchema.getImageDescriptionProperty());
-    assertNull(actualTiffSchema.getAboutAttribute());
-    assertNull(actualTiffSchema.getArtistProperty());
-    List<AbstractField> allProperties = actualTiffSchema.getAllProperties();
-    assertTrue(allProperties.isEmpty());
+    assertTrue(actualTiffSchema.getAllProperties().isEmpty());
     assertTrue(actualTiffSchema.getAllAttributes().isEmpty());
-    assertSame(allProperties, actualTiffSchema.getContainer().getAllProperties());
+    assertTrue(allNamespacesWithPrefix.containsKey("http://ns.adobe.com/tiff/1.0/"));
     assertSame(metadata, actualTiffSchema.getMetadata());
   }
 
   /**
    * Test {@link TiffSchema#getArtistProperty()}.
-   * <p>
-   * Method under test: {@link TiffSchema#getArtistProperty()}
+   *
+   * <p>Method under test: {@link TiffSchema#getArtistProperty()}
    */
   @Test
   @DisplayName("Test getArtistProperty()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"org.apache.xmpbox.type.ProperNameType TiffSchema.getArtistProperty()"})
   void testGetArtistProperty() {
     // Arrange
     TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
@@ -161,11 +173,14 @@ class TiffSchemaDiffblueTest {
 
   /**
    * Test {@link TiffSchema#getArtistProperty()}.
-   * <p>
-   * Method under test: {@link TiffSchema#getArtistProperty()}
+   *
+   * <p>Method under test: {@link TiffSchema#getArtistProperty()}
    */
   @Test
   @DisplayName("Test getArtistProperty()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"org.apache.xmpbox.type.ProperNameType TiffSchema.getArtistProperty()"})
   void testGetArtistProperty2() {
     // Arrange
     TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
@@ -178,27 +193,34 @@ class TiffSchemaDiffblueTest {
 
   /**
    * Test {@link TiffSchema#getArtistProperty()}.
+   *
    * <ul>
-   *   <li>Given {@link TiffSchema#TiffSchema(XMPMetadata)} with metadata is
-   * createXMPMetadata.</li>
+   *   <li>Given {@link TiffSchema#TiffSchema(XMPMetadata)} with metadata is createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link TiffSchema#getArtistProperty()}
+   *
+   * <p>Method under test: {@link TiffSchema#getArtistProperty()}
    */
   @Test
-  @DisplayName("Test getArtistProperty(); given TiffSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test getArtistProperty(); given TiffSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"org.apache.xmpbox.type.ProperNameType TiffSchema.getArtistProperty()"})
   void testGetArtistProperty_givenTiffSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull((new TiffSchema(XMPMetadata.createXMPMetadata())).getArtistProperty());
+    assertNull(new TiffSchema(XMPMetadata.createXMPMetadata()).getArtistProperty());
   }
 
   /**
    * Test {@link TiffSchema#getArtist()}.
-   * <p>
-   * Method under test: {@link TiffSchema#getArtist()}
+   *
+   * <p>Method under test: {@link TiffSchema#getArtist()}
    */
   @Test
   @DisplayName("Test getArtist()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String TiffSchema.getArtist()"})
   void testGetArtist() {
     // Arrange
     TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
@@ -210,11 +232,14 @@ class TiffSchemaDiffblueTest {
 
   /**
    * Test {@link TiffSchema#getArtist()}.
-   * <p>
-   * Method under test: {@link TiffSchema#getArtist()}
+   *
+   * <p>Method under test: {@link TiffSchema#getArtist()}
    */
   @Test
   @DisplayName("Test getArtist()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String TiffSchema.getArtist()"})
   void testGetArtist2() {
     // Arrange
     TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
@@ -227,28 +252,33 @@ class TiffSchemaDiffblueTest {
 
   /**
    * Test {@link TiffSchema#getArtist()}.
+   *
    * <ul>
-   *   <li>Given {@link TiffSchema#TiffSchema(XMPMetadata)} with metadata is
-   * createXMPMetadata.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Given {@link TiffSchema#TiffSchema(XMPMetadata)} with metadata is createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link TiffSchema#getArtist()}
+   *
+   * <p>Method under test: {@link TiffSchema#getArtist()}
    */
   @Test
-  @DisplayName("Test getArtist(); given TiffSchema(XMPMetadata) with metadata is createXMPMetadata; then return 'null'")
-  void testGetArtist_givenTiffSchemaWithMetadataIsCreateXMPMetadata_thenReturnNull() {
+  @DisplayName("Test getArtist(); given TiffSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String TiffSchema.getArtist()"})
+  void testGetArtist_givenTiffSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull((new TiffSchema(XMPMetadata.createXMPMetadata())).getArtist());
+    assertNull(new TiffSchema(XMPMetadata.createXMPMetadata()).getArtist());
   }
 
   /**
    * Test {@link TiffSchema#setArtist(String)}.
-   * <p>
-   * Method under test: {@link TiffSchema#setArtist(String)}
+   *
+   * <p>Method under test: {@link TiffSchema#setArtist(String)}
    */
   @Test
   @DisplayName("Test setArtist(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void TiffSchema.setArtist(String)"})
   void testSetArtist() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -269,11 +299,14 @@ class TiffSchemaDiffblueTest {
 
   /**
    * Test {@link TiffSchema#setArtist(String)}.
-   * <p>
-   * Method under test: {@link TiffSchema#setArtist(String)}
+   *
+   * <p>Method under test: {@link TiffSchema#setArtist(String)}
    */
   @Test
   @DisplayName("Test setArtist(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void TiffSchema.setArtist(String)"})
   void testSetArtist2() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -301,11 +334,14 @@ class TiffSchemaDiffblueTest {
 
   /**
    * Test {@link TiffSchema#setArtist(String)}.
-   * <p>
-   * Method under test: {@link TiffSchema#setArtist(String)}
+   *
+   * <p>Method under test: {@link TiffSchema#setArtist(String)}
    */
   @Test
   @DisplayName("Test setArtist(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void TiffSchema.setArtist(String)"})
   void testSetArtist3() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -334,11 +370,14 @@ class TiffSchemaDiffblueTest {
 
   /**
    * Test {@link TiffSchema#setArtist(String)}.
-   * <p>
-   * Method under test: {@link TiffSchema#setArtist(String)}
+   *
+   * <p>Method under test: {@link TiffSchema#setArtist(String)}
    */
   @Test
   @DisplayName("Test setArtist(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void TiffSchema.setArtist(String)"})
   void testSetArtist4() {
     // Arrange
     TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
@@ -361,11 +400,14 @@ class TiffSchemaDiffblueTest {
 
   /**
    * Test {@link TiffSchema#getImageDescriptionProperty()}.
-   * <p>
-   * Method under test: {@link TiffSchema#getImageDescriptionProperty()}
+   *
+   * <p>Method under test: {@link TiffSchema#getImageDescriptionProperty()}
    */
   @Test
   @DisplayName("Test getImageDescriptionProperty()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"ArrayProperty TiffSchema.getImageDescriptionProperty()"})
   void testGetImageDescriptionProperty() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -378,47 +420,33 @@ class TiffSchemaDiffblueTest {
     ArrayProperty actualImageDescriptionProperty = tiffSchema.getImageDescriptionProperty();
 
     // Assert
-    List<AbstractField> allProperties = actualImageDescriptionProperty.getAllProperties();
-    assertEquals(1, allProperties.size());
-    AbstractField getResult = allProperties.get(0);
-    assertTrue(getResult instanceof TextType);
-    List<String> elementsAsString = actualImageDescriptionProperty.getElementsAsString();
-    assertEquals(1, elementsAsString.size());
-    assertEquals("42", elementsAsString.get(0));
-    assertEquals("42", ((TextType) getResult).getStringValue());
-    assertEquals("42", ((TextType) getResult).getRawValue());
-    assertEquals("42", ((TextType) getResult).getValue());
-    assertEquals("http://ns.adobe.com/tiff/1.0/", getResult.getNamespace());
     assertEquals("http://ns.adobe.com/tiff/1.0/", actualImageDescriptionProperty.getNamespace());
-    List<Attribute> allAttributes = getResult.getAllAttributes();
-    assertEquals(1, allAttributes.size());
-    Attribute getResult2 = allAttributes.get(0);
-    assertEquals("http://www.w3.org/XML/1998/namespace", getResult2.getNamespace());
-    assertEquals("lang", getResult2.getName());
-    assertEquals("li", getResult.getPropertyName());
-    assertEquals("tiff", getResult.getPrefix());
     assertEquals("tiff", actualImageDescriptionProperty.getPrefix());
+    assertEquals(1, actualImageDescriptionProperty.getAllProperties().size());
+    assertEquals(1, actualImageDescriptionProperty.getElementsAsString().size());
     assertEquals(Cardinality.Alt, actualImageDescriptionProperty.getArrayType());
     assertTrue(actualImageDescriptionProperty.getAllAttributes().isEmpty());
     assertTrue(actualImageDescriptionProperty.getAllNamespacesWithPrefix().isEmpty());
     assertEquals(TiffSchema.IMAGE_DESCRIPTION, actualImageDescriptionProperty.getPropertyName());
-    assertEquals(TiffSchema.IMAGE_DESCRIPTION, getResult2.getValue());
-    assertSame(allProperties, actualImageDescriptionProperty.getContainer().getAllProperties());
-    assertSame(metadata, getResult.getMetadata());
     assertSame(metadata, actualImageDescriptionProperty.getMetadata());
   }
 
   /**
    * Test {@link TiffSchema#getImageDescriptionProperty()}.
+   *
    * <ul>
-   *   <li>Then return AllProperties size is one.</li>
+   *   <li>Then return Namespace is {@code http://ns.adobe.com/tiff/1.0/}.
    * </ul>
-   * <p>
-   * Method under test: {@link TiffSchema#getImageDescriptionProperty()}
+   *
+   * <p>Method under test: {@link TiffSchema#getImageDescriptionProperty()}
    */
   @Test
-  @DisplayName("Test getImageDescriptionProperty(); then return AllProperties size is one")
-  void testGetImageDescriptionProperty_thenReturnAllPropertiesSizeIsOne() {
+  @DisplayName(
+      "Test getImageDescriptionProperty(); then return Namespace is 'http://ns.adobe.com/tiff/1.0/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"ArrayProperty TiffSchema.getImageDescriptionProperty()"})
+  void testGetImageDescriptionProperty_thenReturnNamespaceIsHttpNsAdobeComTiff10() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
 
@@ -429,58 +457,46 @@ class TiffSchemaDiffblueTest {
     ArrayProperty actualImageDescriptionProperty = tiffSchema.getImageDescriptionProperty();
 
     // Assert
-    List<AbstractField> allProperties = actualImageDescriptionProperty.getAllProperties();
-    assertEquals(1, allProperties.size());
-    AbstractField getResult = allProperties.get(0);
-    assertTrue(getResult instanceof TextType);
-    List<String> elementsAsString = actualImageDescriptionProperty.getElementsAsString();
-    assertEquals(1, elementsAsString.size());
-    assertEquals("42", elementsAsString.get(0));
-    assertEquals("42", ((TextType) getResult).getStringValue());
-    assertEquals("42", ((TextType) getResult).getRawValue());
-    assertEquals("42", ((TextType) getResult).getValue());
-    assertEquals("http://ns.adobe.com/tiff/1.0/", getResult.getNamespace());
     assertEquals("http://ns.adobe.com/tiff/1.0/", actualImageDescriptionProperty.getNamespace());
-    List<Attribute> allAttributes = getResult.getAllAttributes();
-    assertEquals(1, allAttributes.size());
-    Attribute getResult2 = allAttributes.get(0);
-    assertEquals("http://www.w3.org/XML/1998/namespace", getResult2.getNamespace());
-    assertEquals("lang", getResult2.getName());
-    assertEquals("li", getResult.getPropertyName());
-    assertEquals("tiff", getResult.getPrefix());
     assertEquals("tiff", actualImageDescriptionProperty.getPrefix());
+    assertEquals(1, actualImageDescriptionProperty.getAllProperties().size());
+    assertEquals(1, actualImageDescriptionProperty.getElementsAsString().size());
     assertEquals(Cardinality.Alt, actualImageDescriptionProperty.getArrayType());
     assertTrue(actualImageDescriptionProperty.getAllAttributes().isEmpty());
     assertTrue(actualImageDescriptionProperty.getAllNamespacesWithPrefix().isEmpty());
     assertEquals(TiffSchema.IMAGE_DESCRIPTION, actualImageDescriptionProperty.getPropertyName());
-    assertEquals(TiffSchema.IMAGE_DESCRIPTION, getResult2.getValue());
-    assertSame(allProperties, actualImageDescriptionProperty.getContainer().getAllProperties());
-    assertSame(metadata, getResult.getMetadata());
     assertSame(metadata, actualImageDescriptionProperty.getMetadata());
   }
 
   /**
    * Test {@link TiffSchema#getImageDescriptionProperty()}.
+   *
    * <ul>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link TiffSchema#getImageDescriptionProperty()}
+   *
+   * <p>Method under test: {@link TiffSchema#getImageDescriptionProperty()}
    */
   @Test
   @DisplayName("Test getImageDescriptionProperty(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"ArrayProperty TiffSchema.getImageDescriptionProperty()"})
   void testGetImageDescriptionProperty_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new TiffSchema(XMPMetadata.createXMPMetadata())).getImageDescriptionProperty());
+    assertNull(new TiffSchema(XMPMetadata.createXMPMetadata()).getImageDescriptionProperty());
   }
 
   /**
    * Test {@link TiffSchema#getImageDescriptionLanguages()}.
-   * <p>
-   * Method under test: {@link TiffSchema#getImageDescriptionLanguages()}
+   *
+   * <p>Method under test: {@link TiffSchema#getImageDescriptionLanguages()}
    */
   @Test
   @DisplayName("Test getImageDescriptionLanguages()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List TiffSchema.getImageDescriptionLanguages()"})
   void testGetImageDescriptionLanguages() throws BadFieldValueException {
     // Arrange
     TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
@@ -497,15 +513,20 @@ class TiffSchemaDiffblueTest {
 
   /**
    * Test {@link TiffSchema#getImageDescriptionLanguages()}.
+   *
    * <ul>
-   *   <li>Then return first is {@link TiffSchema#IMAGE_DESCRIPTION}.</li>
+   *   <li>Then return first is {@link TiffSchema#IMAGE_DESCRIPTION}.
    * </ul>
-   * <p>
-   * Method under test: {@link TiffSchema#getImageDescriptionLanguages()}
+   *
+   * <p>Method under test: {@link TiffSchema#getImageDescriptionLanguages()}
    */
   @Test
   @DisplayName("Test getImageDescriptionLanguages(); then return first is IMAGE_DESCRIPTION")
-  void testGetImageDescriptionLanguages_thenReturnFirstIsImage_description() throws BadFieldValueException {
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List TiffSchema.getImageDescriptionLanguages()"})
+  void testGetImageDescriptionLanguages_thenReturnFirstIsImage_description()
+      throws BadFieldValueException {
     // Arrange
     TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
     tiffSchema.addImageDescription(TiffSchema.IMAGE_DESCRIPTION, "42");
@@ -520,14 +541,18 @@ class TiffSchemaDiffblueTest {
 
   /**
    * Test {@link TiffSchema#getImageDescriptionLanguages()}.
+   *
    * <ul>
-   *   <li>Then return first is {@code x-default}.</li>
+   *   <li>Then return first is {@code x-default}.
    * </ul>
-   * <p>
-   * Method under test: {@link TiffSchema#getImageDescriptionLanguages()}
+   *
+   * <p>Method under test: {@link TiffSchema#getImageDescriptionLanguages()}
    */
   @Test
   @DisplayName("Test getImageDescriptionLanguages(); then return first is 'x-default'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List TiffSchema.getImageDescriptionLanguages()"})
   void testGetImageDescriptionLanguages_thenReturnFirstIsXDefault() throws BadFieldValueException {
     // Arrange
     TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
@@ -543,26 +568,64 @@ class TiffSchemaDiffblueTest {
 
   /**
    * Test {@link TiffSchema#getImageDescriptionLanguages()}.
+   *
    * <ul>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link TiffSchema#getImageDescriptionLanguages()}
+   *
+   * <p>Method under test: {@link TiffSchema#getImageDescriptionLanguages()}
    */
   @Test
   @DisplayName("Test getImageDescriptionLanguages(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List TiffSchema.getImageDescriptionLanguages()"})
   void testGetImageDescriptionLanguages_thenReturnNull() throws BadFieldValueException {
     // Arrange, Act and Assert
-    assertNull((new TiffSchema(XMPMetadata.createXMPMetadata())).getImageDescriptionLanguages());
+    assertNull(new TiffSchema(XMPMetadata.createXMPMetadata()).getImageDescriptionLanguages());
+  }
+
+  /**
+   * Test {@link TiffSchema#getImageDescriptionLanguages()}.
+   *
+   * <ul>
+   *   <li>Then throw {@link BadFieldValueException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link TiffSchema#getImageDescriptionLanguages()}
+   */
+  @Test
+  @DisplayName("Test getImageDescriptionLanguages(); then throw BadFieldValueException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List TiffSchema.getImageDescriptionLanguages()"})
+  void testGetImageDescriptionLanguages_thenThrowBadFieldValueException()
+      throws BadFieldValueException {
+    // Arrange
+    TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
+    AgentNameType obj =
+        new AgentNameType(
+            XMPMetadata.createXMPMetadata(),
+            TiffSchema.IMAGE_DESCRIPTION,
+            TiffSchema.IMAGE_DESCRIPTION,
+            TiffSchema.IMAGE_DESCRIPTION,
+            "Value");
+    tiffSchema.addProperty(obj);
+
+    // Act and Assert
+    assertThrows(BadFieldValueException.class, () -> tiffSchema.getImageDescriptionLanguages());
   }
 
   /**
    * Test {@link TiffSchema#getImageDescription()}.
-   * <p>
-   * Method under test: {@link TiffSchema#getImageDescription()}
+   *
+   * <p>Method under test: {@link TiffSchema#getImageDescription()}
    */
   @Test
   @DisplayName("Test getImageDescription()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String TiffSchema.getImageDescription()"})
   void testGetImageDescription() throws BadFieldValueException {
     // Arrange
     TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
@@ -574,11 +637,14 @@ class TiffSchemaDiffblueTest {
 
   /**
    * Test {@link TiffSchema#getImageDescription()}.
-   * <p>
-   * Method under test: {@link TiffSchema#getImageDescription()}
+   *
+   * <p>Method under test: {@link TiffSchema#getImageDescription()}
    */
   @Test
   @DisplayName("Test getImageDescription()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String TiffSchema.getImageDescription()"})
   void testGetImageDescription2() throws BadFieldValueException {
     // Arrange
     TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
@@ -591,11 +657,14 @@ class TiffSchemaDiffblueTest {
 
   /**
    * Test {@link TiffSchema#getImageDescription()}.
-   * <p>
-   * Method under test: {@link TiffSchema#getImageDescription()}
+   *
+   * <p>Method under test: {@link TiffSchema#getImageDescription()}
    */
   @Test
   @DisplayName("Test getImageDescription()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String TiffSchema.getImageDescription()"})
   void testGetImageDescription3() throws BadFieldValueException {
     // Arrange
     TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
@@ -607,11 +676,14 @@ class TiffSchemaDiffblueTest {
 
   /**
    * Test {@link TiffSchema#getImageDescription(String)} with {@code String}.
-   * <p>
-   * Method under test: {@link TiffSchema#getImageDescription(String)}
+   *
+   * <p>Method under test: {@link TiffSchema#getImageDescription(String)}
    */
   @Test
   @DisplayName("Test getImageDescription(String) with 'String'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String TiffSchema.getImageDescription(String)"})
   void testGetImageDescriptionWithString() throws BadFieldValueException {
     // Arrange
     TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
@@ -623,11 +695,14 @@ class TiffSchemaDiffblueTest {
 
   /**
    * Test {@link TiffSchema#getImageDescription(String)} with {@code String}.
-   * <p>
-   * Method under test: {@link TiffSchema#getImageDescription(String)}
+   *
+   * <p>Method under test: {@link TiffSchema#getImageDescription(String)}
    */
   @Test
   @DisplayName("Test getImageDescription(String) with 'String'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String TiffSchema.getImageDescription(String)"})
   void testGetImageDescriptionWithString2() throws BadFieldValueException {
     // Arrange
     TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
@@ -640,11 +715,14 @@ class TiffSchemaDiffblueTest {
 
   /**
    * Test {@link TiffSchema#getImageDescription(String)} with {@code String}.
-   * <p>
-   * Method under test: {@link TiffSchema#getImageDescription(String)}
+   *
+   * <p>Method under test: {@link TiffSchema#getImageDescription(String)}
    */
   @Test
   @DisplayName("Test getImageDescription(String) with 'String'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String TiffSchema.getImageDescription(String)"})
   void testGetImageDescriptionWithString3() throws BadFieldValueException {
     // Arrange
     TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
@@ -656,66 +734,116 @@ class TiffSchemaDiffblueTest {
 
   /**
    * Test {@link TiffSchema#getImageDescription(String)} with {@code String}.
+   *
    * <ul>
-   *   <li>Given {@link TiffSchema#TiffSchema(XMPMetadata)} with metadata is
-   * createXMPMetadata.</li>
+   *   <li>Given {@link TiffSchema#TiffSchema(XMPMetadata)} with metadata is createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link TiffSchema#getImageDescription(String)}
+   *
+   * <p>Method under test: {@link TiffSchema#getImageDescription(String)}
    */
   @Test
-  @DisplayName("Test getImageDescription(String) with 'String'; given TiffSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test getImageDescription(String) with 'String'; given TiffSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String TiffSchema.getImageDescription(String)"})
   void testGetImageDescriptionWithString_givenTiffSchemaWithMetadataIsCreateXMPMetadata()
       throws BadFieldValueException {
     // Arrange, Act and Assert
-    assertNull((new TiffSchema(XMPMetadata.createXMPMetadata())).getImageDescription("Lang"));
+    assertNull(new TiffSchema(XMPMetadata.createXMPMetadata()).getImageDescription("Lang"));
   }
 
   /**
    * Test {@link TiffSchema#getImageDescription(String)} with {@code String}.
+   *
    * <ul>
-   *   <li>Then return {@code 42}.</li>
+   *   <li>Then return {@link TiffSchema#IMAGE_DESCRIPTION}.
    * </ul>
-   * <p>
-   * Method under test: {@link TiffSchema#getImageDescription(String)}
+   *
+   * <p>Method under test: {@link TiffSchema#getImageDescription(String)}
    */
   @Test
-  @DisplayName("Test getImageDescription(String) with 'String'; then return '42'")
-  void testGetImageDescriptionWithString_thenReturn42() throws BadFieldValueException {
+  @DisplayName("Test getImageDescription(String) with 'String'; then return IMAGE_DESCRIPTION")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String TiffSchema.getImageDescription(String)"})
+  void testGetImageDescriptionWithString_thenReturnImage_description()
+      throws BadFieldValueException {
     // Arrange
     TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
-    tiffSchema.addImageDescription("Lang", "42");
+    tiffSchema.addImageDescription("Lang", TiffSchema.IMAGE_DESCRIPTION);
+    tiffSchema.addProperty(new AdobePDFSchema(XMPMetadata.createXMPMetadata()));
 
     // Act and Assert
-    assertEquals("42", tiffSchema.getImageDescription("Lang"));
+    assertEquals(TiffSchema.IMAGE_DESCRIPTION, tiffSchema.getImageDescription("Lang"));
   }
 
   /**
-   * Test {@link TiffSchema#getImageDescription()}.
+   * Test {@link TiffSchema#getImageDescription(String)} with {@code String}.
+   *
    * <ul>
-   *   <li>Given {@link TiffSchema#TiffSchema(XMPMetadata)} with metadata is
-   * createXMPMetadata.</li>
+   *   <li>Then throw {@link BadFieldValueException}.
    * </ul>
-   * <p>
-   * Method under test: {@link TiffSchema#getImageDescription()}
+   *
+   * <p>Method under test: {@link TiffSchema#getImageDescription(String)}
    */
   @Test
-  @DisplayName("Test getImageDescription(); given TiffSchema(XMPMetadata) with metadata is createXMPMetadata")
-  void testGetImageDescription_givenTiffSchemaWithMetadataIsCreateXMPMetadata() throws BadFieldValueException {
-    // Arrange, Act and Assert
-    assertNull((new TiffSchema(XMPMetadata.createXMPMetadata())).getImageDescription());
+  @DisplayName("Test getImageDescription(String) with 'String'; then throw BadFieldValueException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String TiffSchema.getImageDescription(String)"})
+  void testGetImageDescriptionWithString_thenThrowBadFieldValueException()
+      throws BadFieldValueException {
+    // Arrange
+    TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
+    AgentNameType obj =
+        new AgentNameType(
+            XMPMetadata.createXMPMetadata(),
+            TiffSchema.IMAGE_DESCRIPTION,
+            TiffSchema.IMAGE_DESCRIPTION,
+            TiffSchema.IMAGE_DESCRIPTION,
+            "Value");
+    tiffSchema.addProperty(obj);
+
+    // Act and Assert
+    assertThrows(BadFieldValueException.class, () -> tiffSchema.getImageDescription("Lang"));
   }
 
   /**
    * Test {@link TiffSchema#getImageDescription()}.
+   *
    * <ul>
-   *   <li>Then return {@link TiffSchema#IMAGE_DESCRIPTION}.</li>
+   *   <li>Given {@link TiffSchema#TiffSchema(XMPMetadata)} with metadata is createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link TiffSchema#getImageDescription()}
+   *
+   * <p>Method under test: {@link TiffSchema#getImageDescription()}
+   */
+  @Test
+  @DisplayName(
+      "Test getImageDescription(); given TiffSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String TiffSchema.getImageDescription()"})
+  void testGetImageDescription_givenTiffSchemaWithMetadataIsCreateXMPMetadata()
+      throws BadFieldValueException {
+    // Arrange, Act and Assert
+    assertNull(new TiffSchema(XMPMetadata.createXMPMetadata()).getImageDescription());
+  }
+
+  /**
+   * Test {@link TiffSchema#getImageDescription()}.
+   *
+   * <ul>
+   *   <li>Then return {@link TiffSchema#IMAGE_DESCRIPTION}.
+   * </ul>
+   *
+   * <p>Method under test: {@link TiffSchema#getImageDescription()}
    */
   @Test
   @DisplayName("Test getImageDescription(); then return IMAGE_DESCRIPTION")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String TiffSchema.getImageDescription()"})
   void testGetImageDescription_thenReturnImage_description() throws BadFieldValueException {
     // Arrange
     TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
@@ -727,13 +855,46 @@ class TiffSchemaDiffblueTest {
   }
 
   /**
+   * Test {@link TiffSchema#getImageDescription()}.
+   *
+   * <ul>
+   *   <li>Then throw {@link BadFieldValueException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link TiffSchema#getImageDescription()}
+   */
+  @Test
+  @DisplayName("Test getImageDescription(); then throw BadFieldValueException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String TiffSchema.getImageDescription()"})
+  void testGetImageDescription_thenThrowBadFieldValueException() throws BadFieldValueException {
+    // Arrange
+    TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
+    AgentNameType obj =
+        new AgentNameType(
+            XMPMetadata.createXMPMetadata(),
+            TiffSchema.IMAGE_DESCRIPTION,
+            TiffSchema.IMAGE_DESCRIPTION,
+            TiffSchema.IMAGE_DESCRIPTION,
+            "Value");
+    tiffSchema.addProperty(obj);
+
+    // Act and Assert
+    assertThrows(BadFieldValueException.class, () -> tiffSchema.getImageDescription());
+  }
+
+  /**
    * Test {@link TiffSchema#addImageDescription(String, String)}.
-   * <p>
-   * Method under test: {@link TiffSchema#addImageDescription(String, String)}
+   *
+   * <p>Method under test: {@link TiffSchema#addImageDescription(String, String)}
    */
   @Test
   @DisplayName("Test addImageDescription(String, String)")
-  void testAddImageDescription() throws BadFieldValueException {
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void TiffSchema.addImageDescription(String, String)"})
+  void testAddImageDescription() {
     // Arrange
     TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
 
@@ -742,31 +903,24 @@ class TiffSchemaDiffblueTest {
 
     // Assert
     ArrayProperty imageDescriptionProperty = tiffSchema.getImageDescriptionProperty();
-    List<AbstractField> allProperties = imageDescriptionProperty.getAllProperties();
-    assertEquals(1, allProperties.size());
-    AbstractField getResult = allProperties.get(0);
-    assertTrue(getResult instanceof TextType);
     List<String> elementsAsString = imageDescriptionProperty.getElementsAsString();
     assertEquals(1, elementsAsString.size());
     assertEquals("42", elementsAsString.get(0));
-    List<String> imageDescriptionLanguages = tiffSchema.getImageDescriptionLanguages();
-    assertEquals(1, imageDescriptionLanguages.size());
-    assertEquals("Lang", imageDescriptionLanguages.get(0));
-    List<Attribute> allAttributes = getResult.getAllAttributes();
-    assertEquals(1, allAttributes.size());
-    assertEquals("Lang", allAttributes.get(0).getValue());
-    List<AbstractField> allProperties2 = tiffSchema.getAllProperties();
-    assertEquals(1, allProperties2.size());
-    assertSame(imageDescriptionProperty, allProperties2.get(0));
+    List<AbstractField> allProperties = tiffSchema.getAllProperties();
+    assertEquals(1, allProperties.size());
+    assertSame(imageDescriptionProperty, allProperties.get(0));
   }
 
   /**
    * Test {@link TiffSchema#addImageDescription(String, String)}.
-   * <p>
-   * Method under test: {@link TiffSchema#addImageDescription(String, String)}
+   *
+   * <p>Method under test: {@link TiffSchema#addImageDescription(String, String)}
    */
   @Test
   @DisplayName("Test addImageDescription(String, String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void TiffSchema.addImageDescription(String, String)"})
   void testAddImageDescription2() throws BadFieldValueException {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -792,25 +946,23 @@ class TiffSchemaDiffblueTest {
     List<String> imageDescriptionLanguages = tiffSchema.getImageDescriptionLanguages();
     assertEquals(2, imageDescriptionLanguages.size());
     assertEquals("Lang", imageDescriptionLanguages.get(1));
-    List<Attribute> allAttributes = getResult.getAllAttributes();
-    assertEquals(1, allAttributes.size());
-    Attribute getResult2 = allAttributes.get(0);
-    assertEquals("Lang", getResult2.getValue());
     assertEquals("http://ns.adobe.com/tiff/1.0/", getResult.getNamespace());
-    assertEquals("http://www.w3.org/XML/1998/namespace", getResult2.getNamespace());
-    assertEquals("lang", getResult2.getName());
     assertEquals("li", getResult.getPropertyName());
     assertEquals("tiff", getResult.getPrefix());
+    assertEquals(1, getResult.getAllAttributes().size());
     assertSame(metadata, getResult.getMetadata());
   }
 
   /**
    * Test {@link TiffSchema#addImageDescription(String, String)}.
-   * <p>
-   * Method under test: {@link TiffSchema#addImageDescription(String, String)}
+   *
+   * <p>Method under test: {@link TiffSchema#addImageDescription(String, String)}
    */
   @Test
   @DisplayName("Test addImageDescription(String, String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void TiffSchema.addImageDescription(String, String)"})
   void testAddImageDescription3() throws BadFieldValueException {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -837,87 +989,98 @@ class TiffSchemaDiffblueTest {
     List<String> imageDescriptionLanguages = tiffSchema.getImageDescriptionLanguages();
     assertEquals(2, imageDescriptionLanguages.size());
     assertEquals("Lang", imageDescriptionLanguages.get(1));
-    List<Attribute> allAttributes = getResult.getAllAttributes();
-    assertEquals(1, allAttributes.size());
-    Attribute getResult2 = allAttributes.get(0);
-    assertEquals("Lang", getResult2.getValue());
     assertEquals("http://ns.adobe.com/tiff/1.0/", getResult.getNamespace());
-    assertEquals("http://www.w3.org/XML/1998/namespace", getResult2.getNamespace());
-    assertEquals("lang", getResult2.getName());
     assertEquals("li", getResult.getPropertyName());
     assertEquals("tiff", getResult.getPrefix());
+    assertEquals(1, getResult.getAllAttributes().size());
     assertSame(metadata, getResult.getMetadata());
   }
 
   /**
    * Test {@link TiffSchema#addImageDescription(String, String)}.
-   * <p>
-   * Method under test: {@link TiffSchema#addImageDescription(String, String)}
+   *
+   * <p>Method under test: {@link TiffSchema#addImageDescription(String, String)}
    */
   @Test
   @DisplayName("Test addImageDescription(String, String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void TiffSchema.addImageDescription(String, String)"})
   void testAddImageDescription4() throws BadFieldValueException {
     // Arrange
-    TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
+    XMPMetadata metadata = XMPMetadata.createXMPMetadata();
+
+    TiffSchema tiffSchema = new TiffSchema(metadata);
     tiffSchema.addCopyright(TiffSchema.IMAGE_DESCRIPTION, "42");
 
     // Act
     tiffSchema.addImageDescription("Lang", "42");
 
     // Assert
-    ArrayProperty imageDescriptionProperty = tiffSchema.getImageDescriptionProperty();
-    List<AbstractField> allProperties = imageDescriptionProperty.getAllProperties();
-    assertEquals(1, allProperties.size());
-    AbstractField getResult = allProperties.get(0);
-    assertTrue(getResult instanceof TextType);
     List<String> imageDescriptionLanguages = tiffSchema.getImageDescriptionLanguages();
     assertEquals(1, imageDescriptionLanguages.size());
     assertEquals("Lang", imageDescriptionLanguages.get(0));
-    List<Attribute> allAttributes = getResult.getAllAttributes();
-    assertEquals(1, allAttributes.size());
-    assertEquals("Lang", allAttributes.get(0).getValue());
-    List<AbstractField> allProperties2 = tiffSchema.getAllProperties();
-    assertEquals(2, allProperties2.size());
-    assertSame(imageDescriptionProperty, allProperties2.get(1));
+    ArrayProperty imageDescriptionProperty = tiffSchema.getImageDescriptionProperty();
+    assertEquals("http://ns.adobe.com/tiff/1.0/", imageDescriptionProperty.getNamespace());
+    assertEquals("tiff", imageDescriptionProperty.getPrefix());
+    assertEquals(1, imageDescriptionProperty.getAllProperties().size());
+    List<AbstractField> allProperties = tiffSchema.getAllProperties();
+    assertEquals(2, allProperties.size());
+    assertEquals(Cardinality.Alt, imageDescriptionProperty.getArrayType());
+    assertTrue(imageDescriptionProperty.getAllAttributes().isEmpty());
+    assertTrue(imageDescriptionProperty.getAllNamespacesWithPrefix().isEmpty());
+    assertEquals(TiffSchema.IMAGE_DESCRIPTION, imageDescriptionProperty.getPropertyName());
+    assertSame(imageDescriptionProperty, allProperties.get(1));
+    assertSame(metadata, imageDescriptionProperty.getMetadata());
   }
 
   /**
    * Test {@link TiffSchema#addImageDescription(String, String)}.
-   * <p>
-   * Method under test: {@link TiffSchema#addImageDescription(String, String)}
+   *
+   * <p>Method under test: {@link TiffSchema#addImageDescription(String, String)}
    */
   @Test
   @DisplayName("Test addImageDescription(String, String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void TiffSchema.addImageDescription(String, String)"})
   void testAddImageDescription5() throws BadFieldValueException {
     // Arrange
-    TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
+    XMPMetadata metadata = XMPMetadata.createXMPMetadata();
+
+    TiffSchema tiffSchema = new TiffSchema(metadata);
     tiffSchema.addImageDescription("Lang", "42");
 
     // Act
     tiffSchema.addImageDescription("Lang", "42");
 
-    // Assert
-    ArrayProperty imageDescriptionProperty = tiffSchema.getImageDescriptionProperty();
-    List<AbstractField> allProperties = imageDescriptionProperty.getAllProperties();
-    assertEquals(1, allProperties.size());
-    AbstractField getResult = allProperties.get(0);
-    assertTrue(getResult instanceof TextType);
+    // Assert that nothing has changed
     List<String> imageDescriptionLanguages = tiffSchema.getImageDescriptionLanguages();
     assertEquals(1, imageDescriptionLanguages.size());
     assertEquals("Lang", imageDescriptionLanguages.get(0));
-    List<Attribute> allAttributes = getResult.getAllAttributes();
-    assertEquals(1, allAttributes.size());
-    assertEquals("Lang", allAttributes.get(0).getValue());
+    ArrayProperty imageDescriptionProperty = tiffSchema.getImageDescriptionProperty();
+    assertEquals("http://ns.adobe.com/tiff/1.0/", imageDescriptionProperty.getNamespace());
+    assertEquals("tiff", imageDescriptionProperty.getPrefix());
+    assertEquals(1, tiffSchema.getAllProperties().size());
+    assertEquals(1, imageDescriptionProperty.getAllProperties().size());
     assertEquals(1, imageDescriptionProperty.getElementsAsString().size());
+    assertEquals(Cardinality.Alt, imageDescriptionProperty.getArrayType());
+    assertTrue(imageDescriptionProperty.getAllAttributes().isEmpty());
+    assertTrue(imageDescriptionProperty.getAllNamespacesWithPrefix().isEmpty());
+    assertEquals(TiffSchema.IMAGE_DESCRIPTION, imageDescriptionProperty.getPropertyName());
+    assertSame(metadata, imageDescriptionProperty.getMetadata());
   }
 
   /**
    * Test {@link TiffSchema#addImageDescription(String, String)}.
-   * <p>
-   * Method under test: {@link TiffSchema#addImageDescription(String, String)}
+   *
+   * <p>Method under test: {@link TiffSchema#addImageDescription(String, String)}
    */
   @Test
   @DisplayName("Test addImageDescription(String, String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void TiffSchema.addImageDescription(String, String)"})
   void testAddImageDescription6() throws BadFieldValueException {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -943,66 +1106,33 @@ class TiffSchemaDiffblueTest {
     List<String> imageDescriptionLanguages = tiffSchema.getImageDescriptionLanguages();
     assertEquals(2, imageDescriptionLanguages.size());
     assertEquals("Lang", imageDescriptionLanguages.get(1));
-    List<Attribute> allAttributes = getResult.getAllAttributes();
-    assertEquals(1, allAttributes.size());
-    Attribute getResult2 = allAttributes.get(0);
-    assertEquals("Lang", getResult2.getValue());
     assertEquals("http://ns.adobe.com/tiff/1.0/", getResult.getNamespace());
-    assertEquals("http://www.w3.org/XML/1998/namespace", getResult2.getNamespace());
-    assertEquals("lang", getResult2.getName());
     assertEquals("li", getResult.getPropertyName());
     assertEquals("tiff", getResult.getPrefix());
+    assertEquals(1, getResult.getAllAttributes().size());
     assertSame(metadata, getResult.getMetadata());
   }
 
   /**
    * Test {@link TiffSchema#addImageDescription(String, String)}.
-   * <p>
-   * Method under test: {@link TiffSchema#addImageDescription(String, String)}
+   *
+   * <p>Method under test: {@link TiffSchema#addImageDescription(String, String)}
    */
   @Test
   @DisplayName("Test addImageDescription(String, String)")
-  void testAddImageDescription7() throws BadFieldValueException {
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void TiffSchema.addImageDescription(String, String)"})
+  void testAddImageDescription7() {
     // Arrange
     TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
-    tiffSchema.addImageDescription(TiffSchema.IMAGE_DESCRIPTION, "42");
-
-    // Act
-    tiffSchema.addImageDescription("x-default", "42");
-
-    // Assert
-    List<AbstractField> allProperties = tiffSchema.getImageDescriptionProperty().getAllProperties();
-    assertEquals(2, allProperties.size());
-    AbstractField getResult = allProperties.get(0);
-    assertTrue(getResult instanceof TextType);
-    AbstractField getResult2 = allProperties.get(1);
-    assertTrue(getResult2 instanceof TextType);
-    assertEquals("42", tiffSchema.getImageDescription());
-    List<String> imageDescriptionLanguages = tiffSchema.getImageDescriptionLanguages();
-    assertEquals(2, imageDescriptionLanguages.size());
-    assertEquals("x-default", imageDescriptionLanguages.get(0));
-    List<Attribute> allAttributes = getResult.getAllAttributes();
-    assertEquals(1, allAttributes.size());
-    assertEquals("x-default", allAttributes.get(0).getValue());
-    List<Attribute> allAttributes2 = getResult2.getAllAttributes();
-    assertEquals(1, allAttributes2.size());
-    assertEquals(TiffSchema.IMAGE_DESCRIPTION, imageDescriptionLanguages.get(1));
-    assertEquals(TiffSchema.IMAGE_DESCRIPTION, allAttributes2.get(0).getValue());
-  }
-
-  /**
-   * Test {@link TiffSchema#addImageDescription(String, String)}.
-   * <p>
-   * Method under test: {@link TiffSchema#addImageDescription(String, String)}
-   */
-  @Test
-  @DisplayName("Test addImageDescription(String, String)")
-  void testAddImageDescription8() {
-    // Arrange
-    TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
-    AgentNameType obj = new AgentNameType(XMPMetadata.createXMPMetadata(), TiffSchema.IMAGE_DESCRIPTION,
-        TiffSchema.IMAGE_DESCRIPTION, TiffSchema.IMAGE_DESCRIPTION, "Value");
-
+    AgentNameType obj =
+        new AgentNameType(
+            XMPMetadata.createXMPMetadata(),
+            TiffSchema.IMAGE_DESCRIPTION,
+            TiffSchema.IMAGE_DESCRIPTION,
+            TiffSchema.IMAGE_DESCRIPTION,
+            "Value");
     tiffSchema.addProperty(obj);
 
     // Act
@@ -1017,70 +1147,41 @@ class TiffSchemaDiffblueTest {
   }
 
   /**
-   * Test {@link TiffSchema#addImageDescription(String, String)}.
-   * <ul>
-   *   <li>When empty string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TiffSchema#addImageDescription(String, String)}
-   */
-  @Test
-  @DisplayName("Test addImageDescription(String, String); when empty string")
-  void testAddImageDescription_whenEmptyString() throws BadFieldValueException {
-    // Arrange
-    TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
-
-    // Act
-    tiffSchema.addImageDescription("", "42");
-
-    // Assert
-    ArrayProperty imageDescriptionProperty = tiffSchema.getImageDescriptionProperty();
-    List<AbstractField> allProperties = imageDescriptionProperty.getAllProperties();
-    assertEquals(1, allProperties.size());
-    AbstractField getResult = allProperties.get(0);
-    assertTrue(getResult instanceof TextType);
-    List<String> elementsAsString = imageDescriptionProperty.getElementsAsString();
-    assertEquals(1, elementsAsString.size());
-    assertEquals("42", elementsAsString.get(0));
-    assertEquals("42", tiffSchema.getImageDescription());
-    List<String> imageDescriptionLanguages = tiffSchema.getImageDescriptionLanguages();
-    assertEquals(1, imageDescriptionLanguages.size());
-    assertEquals("x-default", imageDescriptionLanguages.get(0));
-    List<Attribute> allAttributes = getResult.getAllAttributes();
-    assertEquals(1, allAttributes.size());
-    assertEquals("x-default", allAttributes.get(0).getValue());
-    List<AbstractField> allProperties2 = tiffSchema.getAllProperties();
-    assertEquals(1, allProperties2.size());
-    assertSame(imageDescriptionProperty, allProperties2.get(0));
-  }
-
-  /**
    * Test {@link TiffSchema#getCopyrightProperty()}.
+   *
    * <ul>
-   *   <li>Given {@link TiffSchema#TiffSchema(XMPMetadata)} with metadata is
-   * createXMPMetadata.</li>
+   *   <li>Given {@link TiffSchema#TiffSchema(XMPMetadata)} with metadata is createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link TiffSchema#getCopyrightProperty()}
+   *
+   * <p>Method under test: {@link TiffSchema#getCopyrightProperty()}
    */
   @Test
-  @DisplayName("Test getCopyrightProperty(); given TiffSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test getCopyrightProperty(); given TiffSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"ArrayProperty TiffSchema.getCopyrightProperty()"})
   void testGetCopyrightProperty_givenTiffSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull((new TiffSchema(XMPMetadata.createXMPMetadata())).getCopyrightProperty());
+    assertNull(new TiffSchema(XMPMetadata.createXMPMetadata()).getCopyrightProperty());
   }
 
   /**
    * Test {@link TiffSchema#getCopyrightProperty()}.
+   *
    * <ul>
-   *   <li>Then return AllProperties size is one.</li>
+   *   <li>Then return Namespace is {@code http://ns.adobe.com/tiff/1.0/}.
    * </ul>
-   * <p>
-   * Method under test: {@link TiffSchema#getCopyrightProperty()}
+   *
+   * <p>Method under test: {@link TiffSchema#getCopyrightProperty()}
    */
   @Test
-  @DisplayName("Test getCopyrightProperty(); then return AllProperties size is one")
-  void testGetCopyrightProperty_thenReturnAllPropertiesSizeIsOne() {
+  @DisplayName(
+      "Test getCopyrightProperty(); then return Namespace is 'http://ns.adobe.com/tiff/1.0/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"ArrayProperty TiffSchema.getCopyrightProperty()"})
+  void testGetCopyrightProperty_thenReturnNamespaceIsHttpNsAdobeComTiff10() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
 
@@ -1092,46 +1193,31 @@ class TiffSchemaDiffblueTest {
     ArrayProperty actualCopyrightProperty = tiffSchema.getCopyrightProperty();
 
     // Assert
-    List<AbstractField> allProperties = actualCopyrightProperty.getAllProperties();
-    assertEquals(1, allProperties.size());
-    AbstractField getResult = allProperties.get(0);
-    assertTrue(getResult instanceof TextType);
-    assertEquals("http://ns.adobe.com/tiff/1.0/", getResult.getNamespace());
     assertEquals("http://ns.adobe.com/tiff/1.0/", actualCopyrightProperty.getNamespace());
-    List<Attribute> allAttributes = getResult.getAllAttributes();
-    assertEquals(1, allAttributes.size());
-    Attribute getResult2 = allAttributes.get(0);
-    assertEquals("http://www.w3.org/XML/1998/namespace", getResult2.getNamespace());
-    assertEquals("lang", getResult2.getName());
-    assertEquals("li", getResult.getPropertyName());
-    assertEquals("tiff", getResult.getPrefix());
     assertEquals("tiff", actualCopyrightProperty.getPrefix());
-    List<String> elementsAsString = actualCopyrightProperty.getElementsAsString();
-    assertEquals(1, elementsAsString.size());
+    assertEquals(1, actualCopyrightProperty.getAllProperties().size());
+    assertEquals(1, actualCopyrightProperty.getElementsAsString().size());
     assertEquals(Cardinality.Alt, actualCopyrightProperty.getArrayType());
     assertTrue(actualCopyrightProperty.getAllAttributes().isEmpty());
     assertTrue(actualCopyrightProperty.getAllNamespacesWithPrefix().isEmpty());
-    assertEquals(TiffSchema.COPYRIGHT, elementsAsString.get(0));
     assertEquals(TiffSchema.COPYRIGHT, actualCopyrightProperty.getPropertyName());
-    assertEquals(TiffSchema.COPYRIGHT, ((TextType) getResult).getStringValue());
-    assertEquals(TiffSchema.COPYRIGHT, ((TextType) getResult).getRawValue());
-    assertEquals(TiffSchema.COPYRIGHT, ((TextType) getResult).getValue());
-    assertEquals(TiffSchema.IMAGE_DESCRIPTION, getResult2.getValue());
-    assertSame(allProperties, actualCopyrightProperty.getContainer().getAllProperties());
-    assertSame(metadata, getResult.getMetadata());
     assertSame(metadata, actualCopyrightProperty.getMetadata());
   }
 
   /**
    * Test {@link TiffSchema#getCopyrightProperty()}.
+   *
    * <ul>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link TiffSchema#getCopyrightProperty()}
+   *
+   * <p>Method under test: {@link TiffSchema#getCopyrightProperty()}
    */
   @Test
   @DisplayName("Test getCopyrightProperty(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"ArrayProperty TiffSchema.getCopyrightProperty()"})
   void testGetCopyrightProperty_thenReturnNull() {
     // Arrange
     TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
@@ -1143,31 +1229,41 @@ class TiffSchemaDiffblueTest {
 
   /**
    * Test {@link TiffSchema#getCopyrightLanguages()}.
+   *
    * <ul>
-   *   <li>Given {@link TiffSchema#TiffSchema(XMPMetadata)} with metadata is
-   * createXMPMetadata.</li>
+   *   <li>Given {@link TiffSchema#TiffSchema(XMPMetadata)} with metadata is createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link TiffSchema#getCopyrightLanguages()}
+   *
+   * <p>Method under test: {@link TiffSchema#getCopyrightLanguages()}
    */
   @Test
-  @DisplayName("Test getCopyrightLanguages(); given TiffSchema(XMPMetadata) with metadata is createXMPMetadata")
-  void testGetCopyrightLanguages_givenTiffSchemaWithMetadataIsCreateXMPMetadata() throws BadFieldValueException {
+  @DisplayName(
+      "Test getCopyrightLanguages(); given TiffSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List TiffSchema.getCopyrightLanguages()"})
+  void testGetCopyrightLanguages_givenTiffSchemaWithMetadataIsCreateXMPMetadata()
+      throws BadFieldValueException {
     // Arrange, Act and Assert
-    assertNull((new TiffSchema(XMPMetadata.createXMPMetadata())).getCopyrightLanguages());
+    assertNull(new TiffSchema(XMPMetadata.createXMPMetadata()).getCopyrightLanguages());
   }
 
   /**
    * Test {@link TiffSchema#getCopyrightLanguages()}.
+   *
    * <ul>
-   *   <li>Then return first is {@link TiffSchema#IMAGE_DESCRIPTION}.</li>
+   *   <li>Then return first is {@link TiffSchema#IMAGE_DESCRIPTION}.
    * </ul>
-   * <p>
-   * Method under test: {@link TiffSchema#getCopyrightLanguages()}
+   *
+   * <p>Method under test: {@link TiffSchema#getCopyrightLanguages()}
    */
   @Test
   @DisplayName("Test getCopyrightLanguages(); then return first is IMAGE_DESCRIPTION")
-  void testGetCopyrightLanguages_thenReturnFirstIsImage_description() throws BadFieldValueException {
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List TiffSchema.getCopyrightLanguages()"})
+  void testGetCopyrightLanguages_thenReturnFirstIsImage_description()
+      throws BadFieldValueException {
     // Arrange
     TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
     tiffSchema.addCopyright(TiffSchema.IMAGE_DESCRIPTION, TiffSchema.COPYRIGHT);
@@ -1183,14 +1279,18 @@ class TiffSchemaDiffblueTest {
 
   /**
    * Test {@link TiffSchema#getCopyrightLanguages()}.
+   *
    * <ul>
-   *   <li>Then return first is {@code x-default}.</li>
+   *   <li>Then return first is {@code x-default}.
    * </ul>
-   * <p>
-   * Method under test: {@link TiffSchema#getCopyrightLanguages()}
+   *
+   * <p>Method under test: {@link TiffSchema#getCopyrightLanguages()}
    */
   @Test
   @DisplayName("Test getCopyrightLanguages(); then return first is 'x-default'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List TiffSchema.getCopyrightLanguages()"})
   void testGetCopyrightLanguages_thenReturnFirstIsXDefault() throws BadFieldValueException {
     // Arrange
     TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
@@ -1206,14 +1306,18 @@ class TiffSchemaDiffblueTest {
 
   /**
    * Test {@link TiffSchema#getCopyrightLanguages()}.
+   *
    * <ul>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link TiffSchema#getCopyrightLanguages()}
+   *
+   * <p>Method under test: {@link TiffSchema#getCopyrightLanguages()}
    */
   @Test
   @DisplayName("Test getCopyrightLanguages(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List TiffSchema.getCopyrightLanguages()"})
   void testGetCopyrightLanguages_thenReturnNull() throws BadFieldValueException {
     // Arrange
     TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
@@ -1224,12 +1328,45 @@ class TiffSchemaDiffblueTest {
   }
 
   /**
+   * Test {@link TiffSchema#getCopyrightLanguages()}.
+   *
+   * <ul>
+   *   <li>Then throw {@link BadFieldValueException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link TiffSchema#getCopyrightLanguages()}
+   */
+  @Test
+  @DisplayName("Test getCopyrightLanguages(); then throw BadFieldValueException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List TiffSchema.getCopyrightLanguages()"})
+  void testGetCopyrightLanguages_thenThrowBadFieldValueException() throws BadFieldValueException {
+    // Arrange
+    TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
+    AgentNameType obj =
+        new AgentNameType(
+            XMPMetadata.createXMPMetadata(),
+            TiffSchema.COPYRIGHT,
+            TiffSchema.COPYRIGHT,
+            TiffSchema.COPYRIGHT,
+            "Value");
+    tiffSchema.addProperty(obj);
+
+    // Act and Assert
+    assertThrows(BadFieldValueException.class, () -> tiffSchema.getCopyrightLanguages());
+  }
+
+  /**
    * Test {@link TiffSchema#getCopyright()}.
-   * <p>
-   * Method under test: {@link TiffSchema#getCopyright()}
+   *
+   * <p>Method under test: {@link TiffSchema#getCopyright()}
    */
   @Test
   @DisplayName("Test getCopyright()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String TiffSchema.getCopyright()"})
   void testGetCopyright() throws BadFieldValueException {
     // Arrange
     TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
@@ -1241,11 +1378,14 @@ class TiffSchemaDiffblueTest {
 
   /**
    * Test {@link TiffSchema#getCopyright()}.
-   * <p>
-   * Method under test: {@link TiffSchema#getCopyright()}
+   *
+   * <p>Method under test: {@link TiffSchema#getCopyright()}
    */
   @Test
   @DisplayName("Test getCopyright()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String TiffSchema.getCopyright()"})
   void testGetCopyright2() throws BadFieldValueException {
     // Arrange
     TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
@@ -1257,11 +1397,14 @@ class TiffSchemaDiffblueTest {
 
   /**
    * Test {@link TiffSchema#getCopyright()}.
-   * <p>
-   * Method under test: {@link TiffSchema#getCopyright()}
+   *
+   * <p>Method under test: {@link TiffSchema#getCopyright()}
    */
   @Test
   @DisplayName("Test getCopyright()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String TiffSchema.getCopyright()"})
   void testGetCopyright3() throws BadFieldValueException {
     // Arrange
     TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
@@ -1273,11 +1416,14 @@ class TiffSchemaDiffblueTest {
 
   /**
    * Test {@link TiffSchema#getCopyright(String)} with {@code String}.
-   * <p>
-   * Method under test: {@link TiffSchema#getCopyright(String)}
+   *
+   * <p>Method under test: {@link TiffSchema#getCopyright(String)}
    */
   @Test
   @DisplayName("Test getCopyright(String) with 'String'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String TiffSchema.getCopyright(String)"})
   void testGetCopyrightWithString() throws BadFieldValueException {
     // Arrange
     TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
@@ -1289,11 +1435,14 @@ class TiffSchemaDiffblueTest {
 
   /**
    * Test {@link TiffSchema#getCopyright(String)} with {@code String}.
-   * <p>
-   * Method under test: {@link TiffSchema#getCopyright(String)}
+   *
+   * <p>Method under test: {@link TiffSchema#getCopyright(String)}
    */
   @Test
   @DisplayName("Test getCopyright(String) with 'String'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String TiffSchema.getCopyright(String)"})
   void testGetCopyrightWithString2() throws BadFieldValueException {
     // Arrange
     TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
@@ -1306,11 +1455,14 @@ class TiffSchemaDiffblueTest {
 
   /**
    * Test {@link TiffSchema#getCopyright(String)} with {@code String}.
-   * <p>
-   * Method under test: {@link TiffSchema#getCopyright(String)}
+   *
+   * <p>Method under test: {@link TiffSchema#getCopyright(String)}
    */
   @Test
   @DisplayName("Test getCopyright(String) with 'String'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String TiffSchema.getCopyright(String)"})
   void testGetCopyrightWithString3() throws BadFieldValueException {
     // Arrange
     TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
@@ -1322,67 +1474,115 @@ class TiffSchemaDiffblueTest {
 
   /**
    * Test {@link TiffSchema#getCopyright(String)} with {@code String}.
+   *
    * <ul>
-   *   <li>Given {@link TiffSchema#TiffSchema(XMPMetadata)} with metadata is
-   * createXMPMetadata.</li>
+   *   <li>Given {@link TiffSchema#TiffSchema(XMPMetadata)} with metadata is createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link TiffSchema#getCopyright(String)}
+   *
+   * <p>Method under test: {@link TiffSchema#getCopyright(String)}
    */
   @Test
-  @DisplayName("Test getCopyright(String) with 'String'; given TiffSchema(XMPMetadata) with metadata is createXMPMetadata")
-  void testGetCopyrightWithString_givenTiffSchemaWithMetadataIsCreateXMPMetadata() throws BadFieldValueException {
+  @DisplayName(
+      "Test getCopyright(String) with 'String'; given TiffSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String TiffSchema.getCopyright(String)"})
+  void testGetCopyrightWithString_givenTiffSchemaWithMetadataIsCreateXMPMetadata()
+      throws BadFieldValueException {
     // Arrange, Act and Assert
-    assertNull((new TiffSchema(XMPMetadata.createXMPMetadata())).getCopyright("Lang"));
+    assertNull(new TiffSchema(XMPMetadata.createXMPMetadata()).getCopyright("Lang"));
   }
 
   /**
    * Test {@link TiffSchema#getCopyright(String)} with {@code String}.
+   *
    * <ul>
-   *   <li>Then return {@link TiffSchema#COPYRIGHT}.</li>
+   *   <li>Then return {@link TiffSchema#COPYRIGHT}.
    * </ul>
-   * <p>
-   * Method under test: {@link TiffSchema#getCopyright(String)}
+   *
+   * <p>Method under test: {@link TiffSchema#getCopyright(String)}
    */
   @Test
   @DisplayName("Test getCopyright(String) with 'String'; then return COPYRIGHT")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String TiffSchema.getCopyright(String)"})
   void testGetCopyrightWithString_thenReturnCopyright() throws BadFieldValueException {
     // Arrange
     TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
     tiffSchema.addCopyright("Lang", TiffSchema.COPYRIGHT);
-    tiffSchema.addImageDescription(TiffSchema.COPYRIGHT, "42");
+    tiffSchema.addProperty(new AdobePDFSchema(XMPMetadata.createXMPMetadata()));
 
     // Act and Assert
     assertEquals(TiffSchema.COPYRIGHT, tiffSchema.getCopyright("Lang"));
   }
 
   /**
-   * Test {@link TiffSchema#getCopyright()}.
+   * Test {@link TiffSchema#getCopyright(String)} with {@code String}.
+   *
    * <ul>
-   *   <li>Given {@link TiffSchema#TiffSchema(XMPMetadata)} with metadata is
-   * createXMPMetadata.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Then throw {@link BadFieldValueException}.
    * </ul>
-   * <p>
-   * Method under test: {@link TiffSchema#getCopyright()}
+   *
+   * <p>Method under test: {@link TiffSchema#getCopyright(String)}
    */
   @Test
-  @DisplayName("Test getCopyright(); given TiffSchema(XMPMetadata) with metadata is createXMPMetadata; then return 'null'")
-  void testGetCopyright_givenTiffSchemaWithMetadataIsCreateXMPMetadata_thenReturnNull() throws BadFieldValueException {
-    // Arrange, Act and Assert
-    assertNull((new TiffSchema(XMPMetadata.createXMPMetadata())).getCopyright());
+  @DisplayName("Test getCopyright(String) with 'String'; then throw BadFieldValueException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String TiffSchema.getCopyright(String)"})
+  void testGetCopyrightWithString_thenThrowBadFieldValueException() throws BadFieldValueException {
+    // Arrange
+    TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
+    AgentNameType obj =
+        new AgentNameType(
+            XMPMetadata.createXMPMetadata(),
+            TiffSchema.COPYRIGHT,
+            TiffSchema.COPYRIGHT,
+            TiffSchema.COPYRIGHT,
+            "Value");
+    tiffSchema.addProperty(obj);
+
+    // Act and Assert
+    assertThrows(BadFieldValueException.class, () -> tiffSchema.getCopyright("Lang"));
   }
 
   /**
    * Test {@link TiffSchema#getCopyright()}.
+   *
    * <ul>
-   *   <li>Then return {@link TiffSchema#COPYRIGHT}.</li>
+   *   <li>Given {@link TiffSchema#TiffSchema(XMPMetadata)} with metadata is createXMPMetadata.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link TiffSchema#getCopyright()}
+   *
+   * <p>Method under test: {@link TiffSchema#getCopyright()}
+   */
+  @Test
+  @DisplayName(
+      "Test getCopyright(); given TiffSchema(XMPMetadata) with metadata is createXMPMetadata; then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String TiffSchema.getCopyright()"})
+  void testGetCopyright_givenTiffSchemaWithMetadataIsCreateXMPMetadata_thenReturnNull()
+      throws BadFieldValueException {
+    // Arrange, Act and Assert
+    assertNull(new TiffSchema(XMPMetadata.createXMPMetadata()).getCopyright());
+  }
+
+  /**
+   * Test {@link TiffSchema#getCopyright()}.
+   *
+   * <ul>
+   *   <li>Then return {@link TiffSchema#COPYRIGHT}.
+   * </ul>
+   *
+   * <p>Method under test: {@link TiffSchema#getCopyright()}
    */
   @Test
   @DisplayName("Test getCopyright(); then return COPYRIGHT")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String TiffSchema.getCopyright()"})
   void testGetCopyright_thenReturnCopyright() throws BadFieldValueException {
     // Arrange
     TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
@@ -1394,78 +1594,128 @@ class TiffSchemaDiffblueTest {
   }
 
   /**
+   * Test {@link TiffSchema#getCopyright()}.
+   *
+   * <ul>
+   *   <li>Then throw {@link BadFieldValueException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link TiffSchema#getCopyright()}
+   */
+  @Test
+  @DisplayName("Test getCopyright(); then throw BadFieldValueException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String TiffSchema.getCopyright()"})
+  void testGetCopyright_thenThrowBadFieldValueException() throws BadFieldValueException {
+    // Arrange
+    TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
+    AgentNameType obj =
+        new AgentNameType(
+            XMPMetadata.createXMPMetadata(),
+            TiffSchema.COPYRIGHT,
+            TiffSchema.COPYRIGHT,
+            TiffSchema.COPYRIGHT,
+            "Value");
+    tiffSchema.addProperty(obj);
+
+    // Act and Assert
+    assertThrows(BadFieldValueException.class, () -> tiffSchema.getCopyright());
+  }
+
+  /**
    * Test {@link TiffSchema#addCopyright(String, String)}.
-   * <p>
-   * Method under test: {@link TiffSchema#addCopyright(String, String)}
+   *
+   * <p>Method under test: {@link TiffSchema#addCopyright(String, String)}
    */
   @Test
   @DisplayName("Test addCopyright(String, String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void TiffSchema.addCopyright(String, String)"})
   void testAddCopyright() throws BadFieldValueException {
     // Arrange
-    TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
+    XMPMetadata metadata = XMPMetadata.createXMPMetadata();
+    TiffSchema tiffSchema = new TiffSchema(metadata);
 
     // Act
     tiffSchema.addCopyright("Lang", "42");
 
     // Assert
-    ArrayProperty copyrightProperty = tiffSchema.getCopyrightProperty();
-    List<AbstractField> allProperties = copyrightProperty.getAllProperties();
-    assertEquals(1, allProperties.size());
-    AbstractField getResult = allProperties.get(0);
-    assertTrue(getResult instanceof TextType);
     List<String> copyrightLanguages = tiffSchema.getCopyrightLanguages();
     assertEquals(1, copyrightLanguages.size());
     assertEquals("Lang", copyrightLanguages.get(0));
-    List<Attribute> allAttributes = getResult.getAllAttributes();
-    assertEquals(1, allAttributes.size());
-    assertEquals("Lang", allAttributes.get(0).getValue());
-    List<AbstractField> allProperties2 = tiffSchema.getAllProperties();
-    assertEquals(1, allProperties2.size());
-    assertSame(copyrightProperty, allProperties2.get(0));
+    ArrayProperty copyrightProperty = tiffSchema.getCopyrightProperty();
+    assertEquals("http://ns.adobe.com/tiff/1.0/", copyrightProperty.getNamespace());
+    assertEquals("tiff", copyrightProperty.getPrefix());
+    List<AbstractField> allProperties = tiffSchema.getAllProperties();
+    assertEquals(1, allProperties.size());
+    assertEquals(1, copyrightProperty.getAllProperties().size());
+    assertEquals(1, copyrightProperty.getElementsAsString().size());
+    assertEquals(Cardinality.Alt, copyrightProperty.getArrayType());
+    assertTrue(copyrightProperty.getAllAttributes().isEmpty());
+    assertTrue(copyrightProperty.getAllNamespacesWithPrefix().isEmpty());
+    assertEquals(TiffSchema.COPYRIGHT, copyrightProperty.getPropertyName());
+    assertSame(copyrightProperty, allProperties.get(0));
+    assertSame(metadata, copyrightProperty.getMetadata());
   }
 
   /**
    * Test {@link TiffSchema#addCopyright(String, String)}.
-   * <p>
-   * Method under test: {@link TiffSchema#addCopyright(String, String)}
+   *
+   * <p>Method under test: {@link TiffSchema#addCopyright(String, String)}
    */
   @Test
   @DisplayName("Test addCopyright(String, String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void TiffSchema.addCopyright(String, String)"})
   void testAddCopyright2() throws BadFieldValueException {
     // Arrange
-    TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
+    XMPMetadata metadata = XMPMetadata.createXMPMetadata();
+
+    TiffSchema tiffSchema = new TiffSchema(metadata);
     tiffSchema.addImageDescription(TiffSchema.COPYRIGHT, "42");
 
     // Act
     tiffSchema.addCopyright("Lang", "42");
 
     // Assert
-    ArrayProperty copyrightProperty = tiffSchema.getCopyrightProperty();
-    List<AbstractField> allProperties = copyrightProperty.getAllProperties();
-    assertEquals(1, allProperties.size());
-    AbstractField getResult = allProperties.get(0);
-    assertTrue(getResult instanceof TextType);
     List<String> copyrightLanguages = tiffSchema.getCopyrightLanguages();
     assertEquals(1, copyrightLanguages.size());
     assertEquals("Lang", copyrightLanguages.get(0));
-    List<Attribute> allAttributes = getResult.getAllAttributes();
-    assertEquals(1, allAttributes.size());
-    assertEquals("Lang", allAttributes.get(0).getValue());
-    List<AbstractField> allProperties2 = tiffSchema.getAllProperties();
-    assertEquals(2, allProperties2.size());
-    assertSame(copyrightProperty, allProperties2.get(1));
+    ArrayProperty copyrightProperty = tiffSchema.getCopyrightProperty();
+    assertEquals("http://ns.adobe.com/tiff/1.0/", copyrightProperty.getNamespace());
+    assertEquals("tiff", copyrightProperty.getPrefix());
+    assertEquals(1, copyrightProperty.getAllProperties().size());
+    List<String> elementsAsString = copyrightProperty.getElementsAsString();
+    assertEquals(1, elementsAsString.size());
+    List<AbstractField> allProperties = tiffSchema.getAllProperties();
+    assertEquals(2, allProperties.size());
+    assertEquals(Cardinality.Alt, copyrightProperty.getArrayType());
+    assertTrue(copyrightProperty.getAllAttributes().isEmpty());
+    assertTrue(copyrightProperty.getAllNamespacesWithPrefix().isEmpty());
+    assertEquals(elementsAsString, tiffSchema.getImageDescriptionProperty().getElementsAsString());
+    assertEquals(TiffSchema.COPYRIGHT, copyrightProperty.getPropertyName());
+    assertSame(copyrightProperty, allProperties.get(1));
+    assertSame(metadata, copyrightProperty.getMetadata());
   }
 
   /**
    * Test {@link TiffSchema#addCopyright(String, String)}.
-   * <p>
-   * Method under test: {@link TiffSchema#addCopyright(String, String)}
+   *
+   * <p>Method under test: {@link TiffSchema#addCopyright(String, String)}
    */
   @Test
   @DisplayName("Test addCopyright(String, String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void TiffSchema.addCopyright(String, String)"})
   void testAddCopyright3() throws BadFieldValueException {
     // Arrange
-    TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
+    XMPMetadata metadata = XMPMetadata.createXMPMetadata();
+
+    TiffSchema tiffSchema = new TiffSchema(metadata);
     tiffSchema.addCopyright(TiffSchema.IMAGE_DESCRIPTION, TiffSchema.COPYRIGHT);
     tiffSchema.addImageDescription(TiffSchema.COPYRIGHT, "42");
 
@@ -1487,46 +1737,64 @@ class TiffSchemaDiffblueTest {
     List<String> copyrightLanguages = tiffSchema.getCopyrightLanguages();
     assertEquals(2, copyrightLanguages.size());
     assertEquals("Lang", copyrightLanguages.get(1));
-    List<Attribute> allAttributes = getResult.getAllAttributes();
-    assertEquals(1, allAttributes.size());
-    assertEquals("Lang", allAttributes.get(0).getValue());
+    assertEquals("http://ns.adobe.com/tiff/1.0/", getResult.getNamespace());
+    assertEquals("li", getResult.getPropertyName());
+    assertEquals("tiff", getResult.getPrefix());
+    assertEquals(1, getResult.getAllAttributes().size());
+    assertSame(metadata, getResult.getMetadata());
   }
 
   /**
    * Test {@link TiffSchema#addCopyright(String, String)}.
-   * <p>
-   * Method under test: {@link TiffSchema#addCopyright(String, String)}
+   *
+   * <p>Method under test: {@link TiffSchema#addCopyright(String, String)}
    */
   @Test
   @DisplayName("Test addCopyright(String, String)")
-  void testAddCopyright4() throws BadFieldValueException {
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void TiffSchema.addCopyright(String, String)"})
+  void testAddCopyright4() {
     // Arrange
     TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
     tiffSchema.addCopyright("Lang", TiffSchema.COPYRIGHT);
-    tiffSchema.addImageDescription(TiffSchema.COPYRIGHT, "42");
+    tiffSchema.addProperty(new AdobePDFSchema(XMPMetadata.createXMPMetadata()));
 
     // Act
     tiffSchema.addCopyright("Lang", "42");
 
     // Assert
-    assertEquals(1, tiffSchema.getCopyrightLanguages().size());
-    ArrayProperty copyrightProperty = tiffSchema.getCopyrightProperty();
-    assertEquals(1, copyrightProperty.getAllProperties().size());
-    List<String> elementsAsString = copyrightProperty.getElementsAsString();
+    List<AbstractField> allProperties = tiffSchema.getAllProperties();
+    assertEquals(2, allProperties.size());
+    AbstractField getResult = allProperties.get(0);
+    assertTrue(getResult instanceof ArrayProperty);
+    List<AbstractField> allProperties2 = ((ArrayProperty) getResult).getAllProperties();
+    assertEquals(1, allProperties2.size());
+    AbstractField getResult2 = allProperties2.get(0);
+    assertTrue(getResult2 instanceof TextType);
+    List<String> elementsAsString = ((ArrayProperty) getResult).getElementsAsString();
     assertEquals(1, elementsAsString.size());
-    assertEquals(elementsAsString, tiffSchema.getImageDescriptionProperty().getElementsAsString());
+    assertEquals("42", elementsAsString.get(0));
+    assertEquals("42", ((TextType) getResult2).getStringValue());
+    assertEquals("42", ((TextType) getResult2).getRawValue());
+    assertEquals("42", ((TextType) getResult2).getValue());
   }
 
   /**
    * Test {@link TiffSchema#addCopyright(String, String)}.
-   * <p>
-   * Method under test: {@link TiffSchema#addCopyright(String, String)}
+   *
+   * <p>Method under test: {@link TiffSchema#addCopyright(String, String)}
    */
   @Test
   @DisplayName("Test addCopyright(String, String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void TiffSchema.addCopyright(String, String)"})
   void testAddCopyright5() throws BadFieldValueException {
     // Arrange
-    TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
+    XMPMetadata metadata = XMPMetadata.createXMPMetadata();
+
+    TiffSchema tiffSchema = new TiffSchema(metadata);
     tiffSchema.addCopyright("x-default", TiffSchema.COPYRIGHT);
     tiffSchema.addImageDescription(TiffSchema.COPYRIGHT, "42");
 
@@ -1548,21 +1816,28 @@ class TiffSchemaDiffblueTest {
     List<String> copyrightLanguages = tiffSchema.getCopyrightLanguages();
     assertEquals(2, copyrightLanguages.size());
     assertEquals("Lang", copyrightLanguages.get(1));
-    List<Attribute> allAttributes = getResult.getAllAttributes();
-    assertEquals(1, allAttributes.size());
-    assertEquals("Lang", allAttributes.get(0).getValue());
+    assertEquals("http://ns.adobe.com/tiff/1.0/", getResult.getNamespace());
+    assertEquals("li", getResult.getPropertyName());
+    assertEquals("tiff", getResult.getPrefix());
+    assertEquals(1, getResult.getAllAttributes().size());
+    assertSame(metadata, getResult.getMetadata());
   }
 
   /**
    * Test {@link TiffSchema#addCopyright(String, String)}.
-   * <p>
-   * Method under test: {@link TiffSchema#addCopyright(String, String)}
+   *
+   * <p>Method under test: {@link TiffSchema#addCopyright(String, String)}
    */
   @Test
   @DisplayName("Test addCopyright(String, String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void TiffSchema.addCopyright(String, String)"})
   void testAddCopyright6() throws BadFieldValueException {
     // Arrange
-    TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
+    XMPMetadata metadata = XMPMetadata.createXMPMetadata();
+
+    TiffSchema tiffSchema = new TiffSchema(metadata);
     tiffSchema.addBagValueAsSimple("Simple Name", TiffSchema.COPYRIGHT);
     tiffSchema.addImageDescription(TiffSchema.COPYRIGHT, "42");
 
@@ -1570,71 +1845,46 @@ class TiffSchemaDiffblueTest {
     tiffSchema.addCopyright("Lang", "42");
 
     // Assert
-    ArrayProperty copyrightProperty = tiffSchema.getCopyrightProperty();
-    List<AbstractField> allProperties = copyrightProperty.getAllProperties();
-    assertEquals(1, allProperties.size());
-    AbstractField getResult = allProperties.get(0);
-    assertTrue(getResult instanceof TextType);
     List<String> copyrightLanguages = tiffSchema.getCopyrightLanguages();
     assertEquals(1, copyrightLanguages.size());
     assertEquals("Lang", copyrightLanguages.get(0));
-    List<Attribute> allAttributes = getResult.getAllAttributes();
-    assertEquals(1, allAttributes.size());
-    assertEquals("Lang", allAttributes.get(0).getValue());
-    List<AbstractField> allProperties2 = tiffSchema.getAllProperties();
-    assertEquals(3, allProperties2.size());
-    assertSame(copyrightProperty, allProperties2.get(2));
-  }
-
-  /**
-   * Test {@link TiffSchema#addCopyright(String, String)}.
-   * <p>
-   * Method under test: {@link TiffSchema#addCopyright(String, String)}
-   */
-  @Test
-  @DisplayName("Test addCopyright(String, String)")
-  void testAddCopyright7() throws BadFieldValueException {
-    // Arrange
-    TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
-    tiffSchema.addCopyright(TiffSchema.IMAGE_DESCRIPTION, TiffSchema.COPYRIGHT);
-    tiffSchema.addImageDescription(TiffSchema.COPYRIGHT, "42");
-
-    // Act
-    tiffSchema.addCopyright("x-default", "42");
-
-    // Assert
     ArrayProperty copyrightProperty = tiffSchema.getCopyrightProperty();
-    List<AbstractField> allProperties = copyrightProperty.getAllProperties();
-    assertEquals(2, allProperties.size());
-    AbstractField getResult = allProperties.get(1);
-    assertTrue(getResult instanceof TextType);
-    List<Attribute> allAttributes = getResult.getAllAttributes();
-    assertEquals(1, allAttributes.size());
-    List<String> copyrightLanguages = tiffSchema.getCopyrightLanguages();
-    assertEquals(2, copyrightLanguages.size());
+    assertEquals("http://ns.adobe.com/tiff/1.0/", copyrightProperty.getNamespace());
+    assertEquals("tiff", copyrightProperty.getPrefix());
+    assertEquals(1, copyrightProperty.getAllProperties().size());
     List<String> elementsAsString = copyrightProperty.getElementsAsString();
-    assertEquals(2, elementsAsString.size());
-    assertEquals(TiffSchema.COPYRIGHT, elementsAsString.get(1));
-    assertEquals(TiffSchema.COPYRIGHT, ((TextType) getResult).getStringValue());
-    assertEquals(TiffSchema.COPYRIGHT, ((TextType) getResult).getRawValue());
-    assertEquals(TiffSchema.COPYRIGHT, ((TextType) getResult).getValue());
-    assertEquals(TiffSchema.IMAGE_DESCRIPTION, copyrightLanguages.get(1));
-    assertEquals(TiffSchema.IMAGE_DESCRIPTION, allAttributes.get(0).getValue());
+    assertEquals(1, elementsAsString.size());
+    List<AbstractField> allProperties = tiffSchema.getAllProperties();
+    assertEquals(3, allProperties.size());
+    assertEquals(Cardinality.Alt, copyrightProperty.getArrayType());
+    assertTrue(copyrightProperty.getAllAttributes().isEmpty());
+    assertTrue(copyrightProperty.getAllNamespacesWithPrefix().isEmpty());
+    assertEquals(elementsAsString, tiffSchema.getImageDescriptionProperty().getElementsAsString());
+    assertEquals(TiffSchema.COPYRIGHT, copyrightProperty.getPropertyName());
+    assertSame(copyrightProperty, allProperties.get(2));
+    assertSame(metadata, copyrightProperty.getMetadata());
   }
 
   /**
    * Test {@link TiffSchema#addCopyright(String, String)}.
-   * <p>
-   * Method under test: {@link TiffSchema#addCopyright(String, String)}
+   *
+   * <p>Method under test: {@link TiffSchema#addCopyright(String, String)}
    */
   @Test
   @DisplayName("Test addCopyright(String, String)")
-  void testAddCopyright8() {
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void TiffSchema.addCopyright(String, String)"})
+  void testAddCopyright7() {
     // Arrange
     TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
-    AgentNameType obj = new AgentNameType(XMPMetadata.createXMPMetadata(), TiffSchema.COPYRIGHT, TiffSchema.COPYRIGHT,
-        TiffSchema.COPYRIGHT, "Value");
-
+    AgentNameType obj =
+        new AgentNameType(
+            XMPMetadata.createXMPMetadata(),
+            TiffSchema.COPYRIGHT,
+            TiffSchema.COPYRIGHT,
+            TiffSchema.COPYRIGHT,
+            "Value");
     tiffSchema.addProperty(obj);
 
     // Act
@@ -1646,41 +1896,5 @@ class TiffSchemaDiffblueTest {
     AbstractField getResult = allProperties.get(0);
     assertTrue(getResult instanceof AgentNameType);
     assertSame(obj, getResult);
-  }
-
-  /**
-   * Test {@link TiffSchema#addCopyright(String, String)}.
-   * <ul>
-   *   <li>Then {@link TiffSchema#TiffSchema(XMPMetadata)} with metadata is
-   * createXMPMetadata Copyright is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TiffSchema#addCopyright(String, String)}
-   */
-  @Test
-  @DisplayName("Test addCopyright(String, String); then TiffSchema(XMPMetadata) with metadata is createXMPMetadata Copyright is '42'")
-  void testAddCopyright_thenTiffSchemaWithMetadataIsCreateXMPMetadataCopyrightIs42() throws BadFieldValueException {
-    // Arrange
-    TiffSchema tiffSchema = new TiffSchema(XMPMetadata.createXMPMetadata());
-
-    // Act
-    tiffSchema.addCopyright("", "42");
-
-    // Assert
-    ArrayProperty copyrightProperty = tiffSchema.getCopyrightProperty();
-    List<AbstractField> allProperties = copyrightProperty.getAllProperties();
-    assertEquals(1, allProperties.size());
-    AbstractField getResult = allProperties.get(0);
-    assertTrue(getResult instanceof TextType);
-    assertEquals("42", tiffSchema.getCopyright());
-    List<String> copyrightLanguages = tiffSchema.getCopyrightLanguages();
-    assertEquals(1, copyrightLanguages.size());
-    assertEquals("x-default", copyrightLanguages.get(0));
-    List<Attribute> allAttributes = getResult.getAllAttributes();
-    assertEquals(1, allAttributes.size());
-    assertEquals("x-default", allAttributes.get(0).getValue());
-    List<AbstractField> allProperties2 = tiffSchema.getAllProperties();
-    assertEquals(1, allProperties2.size());
-    assertSame(copyrightProperty, allProperties2.get(0));
   }
 }

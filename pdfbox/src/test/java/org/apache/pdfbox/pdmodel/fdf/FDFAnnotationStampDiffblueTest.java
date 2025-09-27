@@ -3,40 +3,28 @@ package org.apache.pdfbox.pdmodel.fdf;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
-import org.apache.pdfbox.cos.COSDictionary;
-import org.apache.pdfbox.cos.COSIncrement;
-import org.apache.pdfbox.cos.COSUpdateState;
+import javax.imageio.metadata.IIOMetadataNode;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.w3c.dom.Element;
 
 class FDFAnnotationStampDiffblueTest {
   /**
-   * Test {@link FDFAnnotationStamp#FDFAnnotationStamp(COSDictionary)}.
-   * <p>
-   * Method under test:
-   * {@link FDFAnnotationStamp#FDFAnnotationStamp(COSDictionary)}
-   */
-  @Test
-  @DisplayName("Test new FDFAnnotationStamp(COSDictionary)")
-  void testNewFDFAnnotationStamp() {
-    // Arrange
-    COSDictionary a = new COSDictionary();
-
-    // Act and Assert
-    assertSame(a, (new FDFAnnotationStamp(a)).getCOSObject());
-  }
-
-  /**
    * Test {@link FDFAnnotationStamp#FDFAnnotationStamp()}.
-   * <p>
-   * Method under test: {@link FDFAnnotationStamp#FDFAnnotationStamp()}
+   *
+   * <p>Method under test: {@link FDFAnnotationStamp#FDFAnnotationStamp()}
    */
   @Test
   @DisplayName("Test new FDFAnnotationStamp()")
-  void testNewFDFAnnotationStamp2() throws IOException {
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFAnnotationStamp.<init>()"})
+  void testNewFDFAnnotationStamp() throws IOException {
     // Arrange and Act
     FDFAnnotationStamp actualFdfAnnotationStamp = new FDFAnnotationStamp();
 
@@ -51,21 +39,10 @@ class FDFAnnotationStampDiffblueTest {
     assertNull(actualFdfAnnotationStamp.getSubject());
     assertNull(actualFdfAnnotationStamp.getTitle());
     assertNull(actualFdfAnnotationStamp.getCreationDate());
-    COSDictionary cOSObject = actualFdfAnnotationStamp.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
-    assertNull(cOSObject.getKey());
     assertNull(actualFdfAnnotationStamp.getRectangle());
     assertNull(actualFdfAnnotationStamp.getBorderEffect());
     assertNull(actualFdfAnnotationStamp.getBorderStyle());
     assertEquals(1.0f, actualFdfAnnotationStamp.getOpacity());
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
     assertFalse(actualFdfAnnotationStamp.isHidden());
     assertFalse(actualFdfAnnotationStamp.isInvisible());
     assertFalse(actualFdfAnnotationStamp.isLocked());
@@ -76,6 +53,26 @@ class FDFAnnotationStampDiffblueTest {
     assertFalse(actualFdfAnnotationStamp.isPrinted());
     assertFalse(actualFdfAnnotationStamp.isReadOnly());
     assertFalse(actualFdfAnnotationStamp.isToggleNoView());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
+  }
+
+  /**
+   * Test {@link FDFAnnotationStamp#FDFAnnotationStamp(Element)}.
+   *
+   * <ul>
+   *   <li>When {@link IIOMetadataNode#IIOMetadataNode()}.
+   *   <li>Then throw {@link IOException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link FDFAnnotationStamp#FDFAnnotationStamp(Element)}
+   */
+  @Test
+  @DisplayName(
+      "Test new FDFAnnotationStamp(Element); when IIOMetadataNode(); then throw IOException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFAnnotationStamp.<init>(Element)"})
+  void testNewFDFAnnotationStamp_whenIIOMetadataNode_thenThrowIOException() throws IOException {
+    // Arrange, Act and Assert
+    assertThrows(IOException.class, () -> new FDFAnnotationStamp(new IIOMetadataNode()));
   }
 }

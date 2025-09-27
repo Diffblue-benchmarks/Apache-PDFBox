@@ -6,7 +6,10 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
+import java.util.ArrayList;
 import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSIncrement;
@@ -16,31 +19,38 @@ import org.apache.pdfbox.pdmodel.interactive.documentnavigation.destination.PDDe
 import org.apache.pdfbox.pdmodel.interactive.documentnavigation.destination.PDNamedDestination;
 import org.apache.pdfbox.pdmodel.interactive.documentnavigation.destination.PDPageFitDestination;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDActionGoToDiffblueTest {
   /**
    * Test {@link PDActionGoTo#PDActionGoTo(COSDictionary)}.
-   * <p>
-   * Method under test: {@link PDActionGoTo#PDActionGoTo(COSDictionary)}
+   *
+   * <p>Method under test: {@link PDActionGoTo#PDActionGoTo(COSDictionary)}
    */
   @Test
   @DisplayName("Test new PDActionGoTo(COSDictionary)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDActionGoTo.<init>(COSDictionary)"})
   void testNewPDActionGoTo() {
     // Arrange
     COSDictionary a = new COSDictionary();
 
     // Act and Assert
-    assertSame(a, (new PDActionGoTo(a)).getCOSObject());
+    assertSame(a, new PDActionGoTo(a).getCOSObject());
   }
 
   /**
    * Test {@link PDActionGoTo#PDActionGoTo()}.
-   * <p>
-   * Method under test: {@link PDActionGoTo#PDActionGoTo()}
+   *
+   * <p>Method under test: {@link PDActionGoTo#PDActionGoTo()}
    */
   @Test
   @DisplayName("Test new PDActionGoTo()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDActionGoTo.<init>()"})
   void testNewPDActionGoTo2() throws IOException {
     // Arrange and Act
     PDActionGoTo actualPdActionGoTo = new PDActionGoTo();
@@ -65,45 +75,43 @@ class PDActionGoToDiffblueTest {
   }
 
   /**
-   * Test {@link PDActionGoTo#setDestination(PDDestination)}.
+   * Test {@link PDActionGoTo#getDestination()}.
+   *
    * <ul>
-   *   <li>Given {@link PDActionGoTo#PDActionGoTo()}.</li>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link PDActionGoTo#PDActionGoTo()} Destination is
-   * {@code null}.</li>
+   *   <li>Given {@link PDActionGoTo#PDActionGoTo()}.
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDActionGoTo#setDestination(PDDestination)}
+   *
+   * <p>Method under test: {@link PDActionGoTo#getDestination()}
    */
   @Test
-  @DisplayName("Test setDestination(PDDestination); given PDActionGoTo(); when 'null'; then PDActionGoTo() Destination is 'null'")
-  void testSetDestination_givenPDActionGoTo_whenNull_thenPDActionGoToDestinationIsNull() throws IOException {
-    // Arrange
-    PDActionGoTo pdActionGoTo = new PDActionGoTo();
-
-    // Act
-    pdActionGoTo.setDestination(null);
-
-    // Assert
-    assertNull(pdActionGoTo.getDestination());
-    COSDictionary cOSObject = pdActionGoTo.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
+  @DisplayName("Test getDestination(); given PDActionGoTo(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDDestination PDActionGoTo.getDestination()"})
+  void testGetDestination_givenPDActionGoTo_thenReturnNull() throws IOException {
+    // Arrange, Act and Assert
+    assertNull(new PDActionGoTo().getDestination());
   }
 
   /**
    * Test {@link PDActionGoTo#setDestination(PDDestination)}.
+   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()}.</li>
-   *   <li>Then {@link PDActionGoTo#PDActionGoTo()} Destination
-   * {@link PDPageFitDestination}.</li>
+   *   <li>Given {@link PDPage#PDPage()}.
+   *   <li>Then {@link PDActionGoTo#PDActionGoTo()} Destination {@link PDPageFitDestination}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDActionGoTo#setDestination(PDDestination)}
+   *
+   * <p>Method under test: {@link PDActionGoTo#setDestination(PDDestination)}
    */
   @Test
-  @DisplayName("Test setDestination(PDDestination); given PDPage(); then PDActionGoTo() Destination PDPageFitDestination")
-  void testSetDestination_givenPDPage_thenPDActionGoToDestinationPDPageFitDestination() throws IOException {
+  @DisplayName(
+      "Test setDestination(PDDestination); given PDPage(); then PDActionGoTo() Destination PDPageFitDestination")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDActionGoTo.setDestination(PDDestination)"})
+  void testSetDestination_givenPDPage_thenPDActionGoToDestinationPDPageFitDestination()
+      throws IOException {
     // Arrange
     PDActionGoTo pdActionGoTo = new PDActionGoTo();
 
@@ -123,15 +131,19 @@ class PDActionGoToDiffblueTest {
 
   /**
    * Test {@link PDActionGoTo#setDestination(PDDestination)}.
+   *
    * <ul>
-   *   <li>Then {@link PDActionGoTo#PDActionGoTo()} Destination
-   * {@link PDNamedDestination}.</li>
+   *   <li>Then {@link PDActionGoTo#PDActionGoTo()} Destination {@link PDNamedDestination}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDActionGoTo#setDestination(PDDestination)}
+   *
+   * <p>Method under test: {@link PDActionGoTo#setDestination(PDDestination)}
    */
   @Test
-  @DisplayName("Test setDestination(PDDestination); then PDActionGoTo() Destination PDNamedDestination")
+  @DisplayName(
+      "Test setDestination(PDDestination); then PDActionGoTo() Destination PDNamedDestination")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDActionGoTo.setDestination(PDDestination)"})
   void testSetDestination_thenPDActionGoToDestinationPDNamedDestination() throws IOException {
     // Arrange
     PDActionGoTo pdActionGoTo = new PDActionGoTo();
@@ -150,21 +162,26 @@ class PDActionGoToDiffblueTest {
 
   /**
    * Test {@link PDActionGoTo#setDestination(PDDestination)}.
+   *
    * <ul>
-   *   <li>When {@link PDPageFitDestination#PDPageFitDestination(COSArray)} with arr
-   * is {@link COSArray#COSArray()}.</li>
+   *   <li>When {@link COSArray#COSArray(List)} with cosObjectables is {@link
+   *       ArrayList#ArrayList()}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDActionGoTo#setDestination(PDDestination)}
+   *
+   * <p>Method under test: {@link PDActionGoTo#setDestination(PDDestination)}
    */
   @Test
-  @DisplayName("Test setDestination(PDDestination); when PDPageFitDestination(COSArray) with arr is COSArray()")
-  void testSetDestination_whenPDPageFitDestinationWithArrIsCOSArray() {
+  @DisplayName(
+      "Test setDestination(PDDestination); when COSArray(List) with cosObjectables is ArrayList()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDActionGoTo.setDestination(PDDestination)"})
+  void testSetDestination_whenCOSArrayWithCosObjectablesIsArrayList() {
     // Arrange
     PDActionGoTo pdActionGoTo = new PDActionGoTo();
 
     // Act
-    pdActionGoTo.setDestination(new PDPageFitDestination(new COSArray()));
+    pdActionGoTo.setDestination(new PDPageFitDestination(new COSArray(new ArrayList<>())));
 
     // Assert
     COSDictionary cOSObject = pdActionGoTo.getCOSObject();
@@ -174,20 +191,56 @@ class PDActionGoToDiffblueTest {
 
   /**
    * Test {@link PDActionGoTo#setDestination(PDDestination)}.
+   *
    * <ul>
-   *   <li>When {@link PDPageFitDestination#PDPageFitDestination()}.</li>
-   *   <li>Then throw {@link IllegalArgumentException}.</li>
+   *   <li>When {@code null}.
+   *   <li>Then {@link PDActionGoTo#PDActionGoTo()} COSObject Values size is two.
    * </ul>
-   * <p>
-   * Method under test: {@link PDActionGoTo#setDestination(PDDestination)}
+   *
+   * <p>Method under test: {@link PDActionGoTo#setDestination(PDDestination)}
    */
   @Test
-  @DisplayName("Test setDestination(PDDestination); when PDPageFitDestination(); then throw IllegalArgumentException")
+  @DisplayName(
+      "Test setDestination(PDDestination); when 'null'; then PDActionGoTo() COSObject Values size is two")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDActionGoTo.setDestination(PDDestination)"})
+  void testSetDestination_whenNull_thenPDActionGoToCOSObjectValuesSizeIsTwo() {
+    // Arrange
+    PDActionGoTo pdActionGoTo = new PDActionGoTo();
+
+    // Act
+    pdActionGoTo.setDestination(null);
+
+    // Assert that nothing has changed
+    COSDictionary cOSObject = pdActionGoTo.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDActionGoTo#setDestination(PDDestination)}.
+   *
+   * <ul>
+   *   <li>When {@link PDPageFitDestination#PDPageFitDestination()}.
+   *   <li>Then throw {@link IllegalArgumentException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDActionGoTo#setDestination(PDDestination)}
+   */
+  @Test
+  @DisplayName(
+      "Test setDestination(PDDestination); when PDPageFitDestination(); then throw IllegalArgumentException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDActionGoTo.setDestination(PDDestination)"})
   void testSetDestination_whenPDPageFitDestination_thenThrowIllegalArgumentException() {
     // Arrange
     PDActionGoTo pdActionGoTo = new PDActionGoTo();
 
     // Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> pdActionGoTo.setDestination(new PDPageFitDestination()));
+    assertThrows(
+        IllegalArgumentException.class,
+        () -> pdActionGoTo.setDestination(new PDPageFitDestination()));
   }
 }

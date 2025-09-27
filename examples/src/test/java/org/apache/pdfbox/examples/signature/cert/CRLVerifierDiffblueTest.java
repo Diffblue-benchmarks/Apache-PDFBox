@@ -2,12 +2,13 @@ package org.apache.pdfbox.examples.signature.cert;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.cert.X509CRL;
@@ -23,605 +24,818 @@ import org.bouncycastle.jce.provider.X509CRLEntryObject;
 import org.bouncycastle.jce.provider.X509CRLObject;
 import org.bouncycastle.jce.provider.X509CertificateObject;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class CRLVerifierDiffblueTest {
   /**
    * Test {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}.
+   *
    * <ul>
-   *   <li>Given array of {@code byte} with {@code A} and
-   * {@link Byte#MIN_VALUE}.</li>
+   *   <li>Given array of {@code byte} with {@code A} and {@link Byte#MIN_VALUE}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}
+   *
+   * <p>Method under test: {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}
    */
   @Test
-  @DisplayName("Test verifyCertificateCRLs(X509Certificate, Date, Set); given array of byte with 'A' and MIN_VALUE")
+  @DisplayName(
+      "Test verifyCertificateCRLs(X509Certificate, Date, Set); given array of byte with 'A' and MIN_VALUE")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void CRLVerifier.verifyCertificateCRLs(X509Certificate, Date, Set)"})
   void testVerifyCertificateCRLs_givenArrayOfByteWithAAndMin_value()
       throws CertificateVerificationException, RevokedCertificateException {
     // Arrange
     X509CertificateObject cert = mock(X509CertificateObject.class);
     when(cert.getSubjectX500Principal()).thenReturn(new X500Principal(""));
     when(cert.getExtensionValue(Mockito.<String>any()))
-        .thenReturn(new byte[]{'A', Byte.MIN_VALUE, 'A', 'X', 'A', 'X', 'A', 'X'});
-    Date signDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+        .thenReturn(new byte[] {'A', Byte.MIN_VALUE, 'A', 'X', 'A', 'X', 'A', 'X'});
+    Date signDate =
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
     // Act and Assert
-    assertThrows(CertificateVerificationException.class,
+    assertThrows(
+        CertificateVerificationException.class,
         () -> CRLVerifier.verifyCertificateCRLs(cert, signDate, new HashSet<>()));
-    verify(cert).getExtensionValue(eq("2.5.29.31"));
+    verify(cert).getExtensionValue("2.5.29.31");
     verify(cert).getSubjectX500Principal();
   }
 
   /**
    * Test {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}.
+   *
    * <ul>
-   *   <li>Given array of {@code byte} with {@code A} and minus one.</li>
+   *   <li>Given array of {@code byte} with {@code A} and minus one.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}
+   *
+   * <p>Method under test: {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}
    */
   @Test
-  @DisplayName("Test verifyCertificateCRLs(X509Certificate, Date, Set); given array of byte with 'A' and minus one")
+  @DisplayName(
+      "Test verifyCertificateCRLs(X509Certificate, Date, Set); given array of byte with 'A' and minus one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void CRLVerifier.verifyCertificateCRLs(X509Certificate, Date, Set)"})
   void testVerifyCertificateCRLs_givenArrayOfByteWithAAndMinusOne()
       throws CertificateVerificationException, RevokedCertificateException {
     // Arrange
     X509CertificateObject cert = mock(X509CertificateObject.class);
     when(cert.getSubjectX500Principal()).thenReturn(new X500Principal(""));
-    when(cert.getExtensionValue(Mockito.<String>any())).thenReturn(new byte[]{'A', -1, 'A', 'X', 'A', 'X', 'A', 'X'});
-    Date signDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    when(cert.getExtensionValue(Mockito.<String>any()))
+        .thenReturn(new byte[] {'A', -1, 'A', 'X', 'A', 'X', 'A', 'X'});
+    Date signDate =
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
     // Act and Assert
-    assertThrows(CertificateVerificationException.class,
+    assertThrows(
+        CertificateVerificationException.class,
         () -> CRLVerifier.verifyCertificateCRLs(cert, signDate, new HashSet<>()));
-    verify(cert).getExtensionValue(eq("2.5.29.31"));
+    verify(cert).getExtensionValue("2.5.29.31");
     verify(cert).getSubjectX500Principal();
   }
 
   /**
    * Test {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}.
+   *
    * <ul>
-   *   <li>Given array of {@code byte} with {@code A} and minus one hundred
-   * twelve.</li>
+   *   <li>Given array of {@code byte} with {@code A} and minus one hundred twelve.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}
+   *
+   * <p>Method under test: {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}
    */
   @Test
-  @DisplayName("Test verifyCertificateCRLs(X509Certificate, Date, Set); given array of byte with 'A' and minus one hundred twelve")
+  @DisplayName(
+      "Test verifyCertificateCRLs(X509Certificate, Date, Set); given array of byte with 'A' and minus one hundred twelve")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void CRLVerifier.verifyCertificateCRLs(X509Certificate, Date, Set)"})
   void testVerifyCertificateCRLs_givenArrayOfByteWithAAndMinusOneHundredTwelve()
       throws CertificateVerificationException, RevokedCertificateException {
     // Arrange
     X509CertificateObject cert = mock(X509CertificateObject.class);
     when(cert.getSubjectX500Principal()).thenReturn(new X500Principal(""));
-    when(cert.getExtensionValue(Mockito.<String>any())).thenReturn(new byte[]{'A', -112, 'A', 'X', 'A', 'X', 'A', 'X'});
-    Date signDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    when(cert.getExtensionValue(Mockito.<String>any()))
+        .thenReturn(new byte[] {'A', -112, 'A', 'X', 'A', 'X', 'A', 'X'});
+    Date signDate =
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
     // Act and Assert
-    assertThrows(CertificateVerificationException.class,
+    assertThrows(
+        CertificateVerificationException.class,
         () -> CRLVerifier.verifyCertificateCRLs(cert, signDate, new HashSet<>()));
-    verify(cert).getExtensionValue(eq("2.5.29.31"));
+    verify(cert).getExtensionValue("2.5.29.31");
     verify(cert).getSubjectX500Principal();
   }
 
   /**
    * Test {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}.
+   *
    * <ul>
-   *   <li>Given array of {@code byte} with {@code A} and one.</li>
+   *   <li>Given array of {@code byte} with {@code A} and one.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}
+   *
+   * <p>Method under test: {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}
    */
   @Test
-  @DisplayName("Test verifyCertificateCRLs(X509Certificate, Date, Set); given array of byte with 'A' and one")
+  @DisplayName(
+      "Test verifyCertificateCRLs(X509Certificate, Date, Set); given array of byte with 'A' and one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void CRLVerifier.verifyCertificateCRLs(X509Certificate, Date, Set)"})
   void testVerifyCertificateCRLs_givenArrayOfByteWithAAndOne()
       throws CertificateVerificationException, RevokedCertificateException {
     // Arrange
     X509CertificateObject cert = mock(X509CertificateObject.class);
     when(cert.getSubjectX500Principal()).thenReturn(new X500Principal(""));
-    when(cert.getExtensionValue(Mockito.<String>any())).thenReturn(new byte[]{'A', 1, 'A', 'X', 'A', 'X', 'A', 'X'});
-    Date signDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    when(cert.getExtensionValue(Mockito.<String>any()))
+        .thenReturn(new byte[] {'A', 1, 'A', 'X', 'A', 'X', 'A', 'X'});
+    Date signDate =
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
     // Act
     CRLVerifier.verifyCertificateCRLs(cert, signDate, new HashSet<>());
 
     // Assert
-    verify(cert).getExtensionValue(eq("2.5.29.31"));
+    verify(cert).getExtensionValue("2.5.29.31");
     verify(cert).getSubjectX500Principal();
   }
 
   /**
    * Test {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}.
+   *
    * <ul>
-   *   <li>Given array of {@code byte} with {@code A} and zero.</li>
+   *   <li>Given array of {@code byte} with {@code A} and zero.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}
+   *
+   * <p>Method under test: {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}
    */
   @Test
-  @DisplayName("Test verifyCertificateCRLs(X509Certificate, Date, Set); given array of byte with 'A' and zero")
+  @DisplayName(
+      "Test verifyCertificateCRLs(X509Certificate, Date, Set); given array of byte with 'A' and zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void CRLVerifier.verifyCertificateCRLs(X509Certificate, Date, Set)"})
   void testVerifyCertificateCRLs_givenArrayOfByteWithAAndZero()
       throws CertificateVerificationException, RevokedCertificateException {
     // Arrange
     X509CertificateObject cert = mock(X509CertificateObject.class);
     when(cert.getSubjectX500Principal()).thenReturn(new X500Principal(""));
-    when(cert.getExtensionValue(Mockito.<String>any())).thenReturn(new byte[]{'A', 0, 'A', 'X', 'A', 'X', 'A', 'X'});
-    Date signDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    when(cert.getExtensionValue(Mockito.<String>any()))
+        .thenReturn(new byte[] {'A', 0, 'A', 'X', 'A', 'X', 'A', 'X'});
+    Date signDate =
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
     // Act
     CRLVerifier.verifyCertificateCRLs(cert, signDate, new HashSet<>());
 
     // Assert
-    verify(cert).getExtensionValue(eq("2.5.29.31"));
+    verify(cert).getExtensionValue("2.5.29.31");
     verify(cert).getSubjectX500Principal();
   }
 
   /**
    * Test {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}.
+   *
    * <ul>
-   *   <li>Given array of {@code byte} with {@code ,} and zero.</li>
+   *   <li>Given array of {@code byte} with {@code ,} and zero.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}
+   *
+   * <p>Method under test: {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}
    */
   @Test
-  @DisplayName("Test verifyCertificateCRLs(X509Certificate, Date, Set); given array of byte with ',' and zero")
+  @DisplayName(
+      "Test verifyCertificateCRLs(X509Certificate, Date, Set); given array of byte with ',' and zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void CRLVerifier.verifyCertificateCRLs(X509Certificate, Date, Set)"})
   void testVerifyCertificateCRLs_givenArrayOfByteWithCommaAndZero()
       throws CertificateVerificationException, RevokedCertificateException {
     // Arrange
     X509CertificateObject cert = mock(X509CertificateObject.class);
     when(cert.getSubjectX500Principal()).thenReturn(new X500Principal(""));
-    when(cert.getExtensionValue(Mockito.<String>any())).thenReturn(new byte[]{',', 0, 'A', 'X', 'A', 'X', 'A', 'X'});
-    Date signDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    when(cert.getExtensionValue(Mockito.<String>any()))
+        .thenReturn(new byte[] {',', 0, 'A', 'X', 'A', 'X', 'A', 'X'});
+    Date signDate =
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
     // Act and Assert
-    assertThrows(CertificateVerificationException.class,
+    assertThrows(
+        CertificateVerificationException.class,
         () -> CRLVerifier.verifyCertificateCRLs(cert, signDate, new HashSet<>()));
-    verify(cert).getExtensionValue(eq("2.5.29.31"));
+    verify(cert).getExtensionValue("2.5.29.31");
     verify(cert).getSubjectX500Principal();
   }
 
   /**
    * Test {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}.
+   *
    * <ul>
-   *   <li>Given array of {@code byte} with minus one and
-   * {@link Byte#MIN_VALUE}.</li>
+   *   <li>Given array of {@code byte} with minus one and {@link Byte#MIN_VALUE}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}
+   *
+   * <p>Method under test: {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}
    */
   @Test
-  @DisplayName("Test verifyCertificateCRLs(X509Certificate, Date, Set); given array of byte with minus one and MIN_VALUE")
+  @DisplayName(
+      "Test verifyCertificateCRLs(X509Certificate, Date, Set); given array of byte with minus one and MIN_VALUE")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void CRLVerifier.verifyCertificateCRLs(X509Certificate, Date, Set)"})
   void testVerifyCertificateCRLs_givenArrayOfByteWithMinusOneAndMin_value()
       throws CertificateVerificationException, RevokedCertificateException {
     // Arrange
     X509CertificateObject cert = mock(X509CertificateObject.class);
     when(cert.getSubjectX500Principal()).thenReturn(new X500Principal(""));
     when(cert.getExtensionValue(Mockito.<String>any()))
-        .thenReturn(new byte[]{-1, Byte.MIN_VALUE, 'A', 'X', 'A', 'X', 'A', 'X'});
-    Date signDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+        .thenReturn(new byte[] {-1, Byte.MIN_VALUE, 'A', 'X', 'A', 'X', 'A', 'X'});
+    Date signDate =
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
     // Act and Assert
-    assertThrows(CertificateVerificationException.class,
+    assertThrows(
+        CertificateVerificationException.class,
         () -> CRLVerifier.verifyCertificateCRLs(cert, signDate, new HashSet<>()));
-    verify(cert).getExtensionValue(eq("2.5.29.31"));
+    verify(cert).getExtensionValue("2.5.29.31");
     verify(cert).getSubjectX500Principal();
   }
 
   /**
    * Test {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}.
+   *
    * <ul>
-   *   <li>Given array of {@code byte} with minus one and minus one.</li>
+   *   <li>Given array of {@code byte} with minus one and minus one.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}
+   *
+   * <p>Method under test: {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}
    */
   @Test
-  @DisplayName("Test verifyCertificateCRLs(X509Certificate, Date, Set); given array of byte with minus one and minus one")
+  @DisplayName(
+      "Test verifyCertificateCRLs(X509Certificate, Date, Set); given array of byte with minus one and minus one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void CRLVerifier.verifyCertificateCRLs(X509Certificate, Date, Set)"})
   void testVerifyCertificateCRLs_givenArrayOfByteWithMinusOneAndMinusOne()
       throws CertificateVerificationException, RevokedCertificateException {
     // Arrange
     X509CertificateObject cert = mock(X509CertificateObject.class);
     when(cert.getSubjectX500Principal()).thenReturn(new X500Principal(""));
-    when(cert.getExtensionValue(Mockito.<String>any())).thenReturn(new byte[]{-1, -1, 'A', 'X', 'A', 'X', 'A', 'X'});
-    Date signDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    when(cert.getExtensionValue(Mockito.<String>any()))
+        .thenReturn(new byte[] {-1, -1, 'A', 'X', 'A', 'X', 'A', 'X'});
+    Date signDate =
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
     // Act and Assert
-    assertThrows(CertificateVerificationException.class,
+    assertThrows(
+        CertificateVerificationException.class,
         () -> CRLVerifier.verifyCertificateCRLs(cert, signDate, new HashSet<>()));
-    verify(cert).getExtensionValue(eq("2.5.29.31"));
+    verify(cert).getExtensionValue("2.5.29.31");
     verify(cert).getSubjectX500Principal();
   }
 
   /**
    * Test {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}.
+   *
    * <ul>
-   *   <li>Given array of {@code byte} with minus one and {@code X}.</li>
+   *   <li>Given array of {@code byte} with minus one and {@code X}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}
+   *
+   * <p>Method under test: {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}
    */
   @Test
-  @DisplayName("Test verifyCertificateCRLs(X509Certificate, Date, Set); given array of byte with minus one and 'X'")
+  @DisplayName(
+      "Test verifyCertificateCRLs(X509Certificate, Date, Set); given array of byte with minus one and 'X'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void CRLVerifier.verifyCertificateCRLs(X509Certificate, Date, Set)"})
   void testVerifyCertificateCRLs_givenArrayOfByteWithMinusOneAndX()
       throws CertificateVerificationException, RevokedCertificateException {
     // Arrange
     X509CertificateObject cert = mock(X509CertificateObject.class);
     when(cert.getSubjectX500Principal()).thenReturn(new X500Principal(""));
-    when(cert.getExtensionValue(Mockito.<String>any())).thenReturn(new byte[]{-1, 'X', 'A', 'X', 'A', 'X', 'A', 'X'});
-    Date signDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    when(cert.getExtensionValue(Mockito.<String>any()))
+        .thenReturn(new byte[] {-1, 'X', 'A', 'X', 'A', 'X', 'A', 'X'});
+    Date signDate =
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
     // Act and Assert
-    assertThrows(CertificateVerificationException.class,
+    assertThrows(
+        CertificateVerificationException.class,
         () -> CRLVerifier.verifyCertificateCRLs(cert, signDate, new HashSet<>()));
-    verify(cert).getExtensionValue(eq("2.5.29.31"));
+    verify(cert).getExtensionValue("2.5.29.31");
     verify(cert).getSubjectX500Principal();
   }
 
   /**
    * Test {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}.
+   *
    * <ul>
-   *   <li>Given array of {@code byte} with minus one and {@code X}.</li>
+   *   <li>Given array of {@code byte} with minus one and {@code X}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}
+   *
+   * <p>Method under test: {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}
    */
   @Test
-  @DisplayName("Test verifyCertificateCRLs(X509Certificate, Date, Set); given array of byte with minus one and 'X'")
+  @DisplayName(
+      "Test verifyCertificateCRLs(X509Certificate, Date, Set); given array of byte with minus one and 'X'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void CRLVerifier.verifyCertificateCRLs(X509Certificate, Date, Set)"})
   void testVerifyCertificateCRLs_givenArrayOfByteWithMinusOneAndX2()
       throws CertificateVerificationException, RevokedCertificateException {
     // Arrange
     X509CertificateObject cert = mock(X509CertificateObject.class);
     when(cert.getSubjectX500Principal()).thenReturn(new X500Principal(""));
-    when(cert.getExtensionValue(Mockito.<String>any())).thenReturn(new byte[]{-1, 'X', 'X', 'X', 'A', 'X', 'A', 'X'});
-    Date signDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    when(cert.getExtensionValue(Mockito.<String>any()))
+        .thenReturn(new byte[] {-1, 'X', 'X', 'X', 'A', 'X', 'A', 'X'});
+    Date signDate =
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
     // Act and Assert
-    assertThrows(CertificateVerificationException.class,
+    assertThrows(
+        CertificateVerificationException.class,
         () -> CRLVerifier.verifyCertificateCRLs(cert, signDate, new HashSet<>()));
-    verify(cert).getExtensionValue(eq("2.5.29.31"));
+    verify(cert).getExtensionValue("2.5.29.31");
     verify(cert).getSubjectX500Principal();
   }
 
   /**
    * Test {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}.
+   *
    * <ul>
-   *   <li>Given array of {@code byte} with minus one and {@code X}.</li>
+   *   <li>Given array of {@code byte} with minus one and {@code X}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}
+   *
+   * <p>Method under test: {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}
    */
   @Test
-  @DisplayName("Test verifyCertificateCRLs(X509Certificate, Date, Set); given array of byte with minus one and 'X'")
+  @DisplayName(
+      "Test verifyCertificateCRLs(X509Certificate, Date, Set); given array of byte with minus one and 'X'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void CRLVerifier.verifyCertificateCRLs(X509Certificate, Date, Set)"})
   void testVerifyCertificateCRLs_givenArrayOfByteWithMinusOneAndX3()
       throws CertificateVerificationException, RevokedCertificateException {
     // Arrange
     X509CertificateObject cert = mock(X509CertificateObject.class);
     when(cert.getSubjectX500Principal()).thenReturn(new X500Principal(""));
-    when(cert.getExtensionValue(Mockito.<String>any())).thenReturn(new byte[]{-1, 'X', 0, 'X', 'A', 'X', 'A', 'X'});
-    Date signDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    when(cert.getExtensionValue(Mockito.<String>any()))
+        .thenReturn(new byte[] {-1, 'X', 0, 'X', 'A', 'X', 'A', 'X'});
+    Date signDate =
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
     // Act
     CRLVerifier.verifyCertificateCRLs(cert, signDate, new HashSet<>());
 
     // Assert
-    verify(cert).getExtensionValue(eq("2.5.29.31"));
+    verify(cert).getExtensionValue("2.5.29.31");
     verify(cert).getSubjectX500Principal();
   }
 
   /**
    * Test {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}.
+   *
    * <ul>
-   *   <li>Given array of {@code byte} with minus one and {@code X}.</li>
+   *   <li>Given array of {@code byte} with minus one and {@code X}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}
+   *
+   * <p>Method under test: {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}
    */
   @Test
-  @DisplayName("Test verifyCertificateCRLs(X509Certificate, Date, Set); given array of byte with minus one and 'X'")
+  @DisplayName(
+      "Test verifyCertificateCRLs(X509Certificate, Date, Set); given array of byte with minus one and 'X'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void CRLVerifier.verifyCertificateCRLs(X509Certificate, Date, Set)"})
   void testVerifyCertificateCRLs_givenArrayOfByteWithMinusOneAndX4()
       throws CertificateVerificationException, RevokedCertificateException {
     // Arrange
     X509CertificateObject cert = mock(X509CertificateObject.class);
     when(cert.getSubjectX500Principal()).thenReturn(new X500Principal(""));
     when(cert.getExtensionValue(Mockito.<String>any()))
-        .thenReturn(new byte[]{-1, 'X', Byte.MIN_VALUE, 'X', 'A', 'X', 'A', 'X'});
-    Date signDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+        .thenReturn(new byte[] {-1, 'X', 'A', 'X', 0, 'X', 'A', 'X'});
+    Date signDate =
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
     // Act and Assert
-    assertThrows(CertificateVerificationException.class,
+    assertThrows(
+        CertificateVerificationException.class,
         () -> CRLVerifier.verifyCertificateCRLs(cert, signDate, new HashSet<>()));
-    verify(cert).getExtensionValue(eq("2.5.29.31"));
+    verify(cert).getExtensionValue("2.5.29.31");
     verify(cert).getSubjectX500Principal();
   }
 
   /**
    * Test {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}.
+   *
    * <ul>
-   *   <li>Given array of {@code byte} with minus one and {@code X}.</li>
+   *   <li>Given array of {@code byte} with minus one and {@code X}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}
+   *
+   * <p>Method under test: {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}
    */
   @Test
-  @DisplayName("Test verifyCertificateCRLs(X509Certificate, Date, Set); given array of byte with minus one and 'X'")
+  @DisplayName(
+      "Test verifyCertificateCRLs(X509Certificate, Date, Set); given array of byte with minus one and 'X'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void CRLVerifier.verifyCertificateCRLs(X509Certificate, Date, Set)"})
   void testVerifyCertificateCRLs_givenArrayOfByteWithMinusOneAndX5()
       throws CertificateVerificationException, RevokedCertificateException {
     // Arrange
     X509CertificateObject cert = mock(X509CertificateObject.class);
     when(cert.getSubjectX500Principal()).thenReturn(new X500Principal(""));
-    when(cert.getExtensionValue(Mockito.<String>any())).thenReturn(new byte[]{-1, 'X', 'A', 'X', 0, 'X', 'A', 'X'});
-    Date signDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    when(cert.getExtensionValue(Mockito.<String>any()))
+        .thenReturn(new byte[] {-1, 'X', Byte.MIN_VALUE, 'X', 'A', 'X', 'A', 'X'});
+    Date signDate =
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
     // Act and Assert
-    assertThrows(CertificateVerificationException.class,
+    assertThrows(
+        CertificateVerificationException.class,
         () -> CRLVerifier.verifyCertificateCRLs(cert, signDate, new HashSet<>()));
-    verify(cert).getExtensionValue(eq("2.5.29.31"));
+    verify(cert).getExtensionValue("2.5.29.31");
     verify(cert).getSubjectX500Principal();
   }
 
   /**
    * Test {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}.
+   *
    * <ul>
-   *   <li>Given array of {@code byte} with minus one and zero.</li>
+   *   <li>Given array of {@code byte} with minus one and zero.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}
+   *
+   * <p>Method under test: {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}
    */
   @Test
-  @DisplayName("Test verifyCertificateCRLs(X509Certificate, Date, Set); given array of byte with minus one and zero")
+  @DisplayName(
+      "Test verifyCertificateCRLs(X509Certificate, Date, Set); given array of byte with minus one and zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void CRLVerifier.verifyCertificateCRLs(X509Certificate, Date, Set)"})
   void testVerifyCertificateCRLs_givenArrayOfByteWithMinusOneAndZero()
       throws CertificateVerificationException, RevokedCertificateException {
     // Arrange
     X509CertificateObject cert = mock(X509CertificateObject.class);
     when(cert.getSubjectX500Principal()).thenReturn(new X500Principal(""));
-    when(cert.getExtensionValue(Mockito.<String>any())).thenReturn(new byte[]{-1, 0, 'A', 'X', 'A', 'X', 'A', 'X'});
-    Date signDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    when(cert.getExtensionValue(Mockito.<String>any()))
+        .thenReturn(new byte[] {-1, 0, 'A', 'X', 'A', 'X', 'A', 'X'});
+    Date signDate =
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
     // Act and Assert
-    assertThrows(CertificateVerificationException.class,
+    assertThrows(
+        CertificateVerificationException.class,
         () -> CRLVerifier.verifyCertificateCRLs(cert, signDate, new HashSet<>()));
-    verify(cert).getExtensionValue(eq("2.5.29.31"));
+    verify(cert).getExtensionValue("2.5.29.31");
     verify(cert).getSubjectX500Principal();
   }
 
   /**
    * Test {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}.
+   *
    * <ul>
-   *   <li>Given array of {@code byte} with one and zero.</li>
+   *   <li>Given array of {@code byte} with one and {@code X}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}
+   *
+   * <p>Method under test: {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}
    */
   @Test
-  @DisplayName("Test verifyCertificateCRLs(X509Certificate, Date, Set); given array of byte with one and zero")
+  @DisplayName(
+      "Test verifyCertificateCRLs(X509Certificate, Date, Set); given array of byte with one and 'X'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void CRLVerifier.verifyCertificateCRLs(X509Certificate, Date, Set)"})
+  void testVerifyCertificateCRLs_givenArrayOfByteWithOneAndX()
+      throws CertificateVerificationException, RevokedCertificateException {
+    // Arrange
+    X509CertificateObject cert = mock(X509CertificateObject.class);
+    when(cert.getSubjectX500Principal()).thenReturn(new X500Principal(""));
+    when(cert.getExtensionValue(Mockito.<String>any()))
+        .thenReturn(new byte[] {1, 'X', 0, 'X', 'A', 'X', 'A', 'X'});
+    Date signDate =
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+
+    // Act and Assert
+    assertThrows(
+        CertificateVerificationException.class,
+        () -> CRLVerifier.verifyCertificateCRLs(cert, signDate, new HashSet<>()));
+    verify(cert).getExtensionValue("2.5.29.31");
+    verify(cert).getSubjectX500Principal();
+  }
+
+  /**
+   * Test {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}.
+   *
+   * <ul>
+   *   <li>Given array of {@code byte} with one and zero.
+   * </ul>
+   *
+   * <p>Method under test: {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}
+   */
+  @Test
+  @DisplayName(
+      "Test verifyCertificateCRLs(X509Certificate, Date, Set); given array of byte with one and zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void CRLVerifier.verifyCertificateCRLs(X509Certificate, Date, Set)"})
   void testVerifyCertificateCRLs_givenArrayOfByteWithOneAndZero()
       throws CertificateVerificationException, RevokedCertificateException {
     // Arrange
     X509CertificateObject cert = mock(X509CertificateObject.class);
     when(cert.getSubjectX500Principal()).thenReturn(new X500Principal(""));
-    when(cert.getExtensionValue(Mockito.<String>any())).thenReturn(new byte[]{1, 0, 'A', 'X', 'A', 'X', 'A', 'X'});
-    Date signDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    when(cert.getExtensionValue(Mockito.<String>any()))
+        .thenReturn(new byte[] {1, 0, 'A', 'X', 'A', 'X', 'A', 'X'});
+    Date signDate =
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
     // Act and Assert
-    assertThrows(CertificateVerificationException.class,
+    assertThrows(
+        CertificateVerificationException.class,
         () -> CRLVerifier.verifyCertificateCRLs(cert, signDate, new HashSet<>()));
-    verify(cert).getExtensionValue(eq("2.5.29.31"));
+    verify(cert).getExtensionValue("2.5.29.31");
     verify(cert).getSubjectX500Principal();
   }
 
   /**
    * Test {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}.
+   *
    * <ul>
-   *   <li>Given array of {@code byte} with tab and zero.</li>
+   *   <li>Given array of {@code byte} with tab and zero.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}
+   *
+   * <p>Method under test: {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}
    */
   @Test
-  @DisplayName("Test verifyCertificateCRLs(X509Certificate, Date, Set); given array of byte with tab and zero")
+  @DisplayName(
+      "Test verifyCertificateCRLs(X509Certificate, Date, Set); given array of byte with tab and zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void CRLVerifier.verifyCertificateCRLs(X509Certificate, Date, Set)"})
   void testVerifyCertificateCRLs_givenArrayOfByteWithTabAndZero()
       throws CertificateVerificationException, RevokedCertificateException {
     // Arrange
     X509CertificateObject cert = mock(X509CertificateObject.class);
     when(cert.getSubjectX500Principal()).thenReturn(new X500Principal(""));
-    when(cert.getExtensionValue(Mockito.<String>any())).thenReturn(new byte[]{'\t', 0, 'A', 'X', 'A', 'X', 'A', 'X'});
-    Date signDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    when(cert.getExtensionValue(Mockito.<String>any()))
+        .thenReturn(new byte[] {'\t', 0, 'A', 'X', 'A', 'X', 'A', 'X'});
+    Date signDate =
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
     // Act and Assert
-    assertThrows(CertificateVerificationException.class,
+    assertThrows(
+        CertificateVerificationException.class,
         () -> CRLVerifier.verifyCertificateCRLs(cert, signDate, new HashSet<>()));
-    verify(cert).getExtensionValue(eq("2.5.29.31"));
+    verify(cert).getExtensionValue("2.5.29.31");
     verify(cert).getSubjectX500Principal();
   }
 
   /**
    * Test {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}.
+   *
    * <ul>
-   *   <li>Given array of {@code byte} with two and zero.</li>
+   *   <li>Given array of {@code byte} with two and {@code X}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}
+   *
+   * <p>Method under test: {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}
    */
   @Test
-  @DisplayName("Test verifyCertificateCRLs(X509Certificate, Date, Set); given array of byte with two and zero")
+  @DisplayName(
+      "Test verifyCertificateCRLs(X509Certificate, Date, Set); given array of byte with two and 'X'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void CRLVerifier.verifyCertificateCRLs(X509Certificate, Date, Set)"})
+  void testVerifyCertificateCRLs_givenArrayOfByteWithTwoAndX()
+      throws CertificateVerificationException, RevokedCertificateException {
+    // Arrange
+    X509CertificateObject cert = mock(X509CertificateObject.class);
+    when(cert.getSubjectX500Principal()).thenReturn(new X500Principal(""));
+    when(cert.getExtensionValue(Mockito.<String>any()))
+        .thenReturn(new byte[] {2, 'X', 0, 'X', 'A', 'X', 'A', 'X'});
+    Date signDate =
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+
+    // Act and Assert
+    assertThrows(
+        CertificateVerificationException.class,
+        () -> CRLVerifier.verifyCertificateCRLs(cert, signDate, new HashSet<>()));
+    verify(cert).getExtensionValue("2.5.29.31");
+    verify(cert).getSubjectX500Principal();
+  }
+
+  /**
+   * Test {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}.
+   *
+   * <ul>
+   *   <li>Given array of {@code byte} with two and zero.
+   * </ul>
+   *
+   * <p>Method under test: {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}
+   */
+  @Test
+  @DisplayName(
+      "Test verifyCertificateCRLs(X509Certificate, Date, Set); given array of byte with two and zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void CRLVerifier.verifyCertificateCRLs(X509Certificate, Date, Set)"})
   void testVerifyCertificateCRLs_givenArrayOfByteWithTwoAndZero()
       throws CertificateVerificationException, RevokedCertificateException {
     // Arrange
     X509CertificateObject cert = mock(X509CertificateObject.class);
     when(cert.getSubjectX500Principal()).thenReturn(new X500Principal(""));
-    when(cert.getExtensionValue(Mockito.<String>any())).thenReturn(new byte[]{2, 0, 'A', 'X', 'A', 'X', 'A', 'X'});
-    Date signDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    when(cert.getExtensionValue(Mockito.<String>any()))
+        .thenReturn(new byte[] {2, 0, 'A', 'X', 'A', 'X', 'A', 'X'});
+    Date signDate =
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
     // Act and Assert
-    assertThrows(CertificateVerificationException.class,
+    assertThrows(
+        CertificateVerificationException.class,
         () -> CRLVerifier.verifyCertificateCRLs(cert, signDate, new HashSet<>()));
-    verify(cert).getExtensionValue(eq("2.5.29.31"));
+    verify(cert).getExtensionValue("2.5.29.31");
     verify(cert).getSubjectX500Principal();
   }
 
   /**
    * Test {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}.
+   *
    * <ul>
-   *   <li>Given array of {@code byte} with zero and {@code X}.</li>
+   *   <li>Given array of {@code byte} with zero and {@code X}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}
+   *
+   * <p>Method under test: {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}
    */
   @Test
-  @DisplayName("Test verifyCertificateCRLs(X509Certificate, Date, Set); given array of byte with zero and 'X'")
+  @DisplayName(
+      "Test verifyCertificateCRLs(X509Certificate, Date, Set); given array of byte with zero and 'X'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void CRLVerifier.verifyCertificateCRLs(X509Certificate, Date, Set)"})
   void testVerifyCertificateCRLs_givenArrayOfByteWithZeroAndX()
       throws CertificateVerificationException, RevokedCertificateException {
     // Arrange
     X509CertificateObject cert = mock(X509CertificateObject.class);
     when(cert.getSubjectX500Principal()).thenReturn(new X500Principal(""));
-    when(cert.getExtensionValue(Mockito.<String>any())).thenReturn(new byte[]{0, 'X', 'A', 'X', 'A', 'X', 'A', 'X'});
-    Date signDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    when(cert.getExtensionValue(Mockito.<String>any()))
+        .thenReturn(new byte[] {0, 'X', 'A', 'X', 'A', 'X', 'A', 'X'});
+    Date signDate =
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
     // Act and Assert
-    assertThrows(CertificateVerificationException.class,
+    assertThrows(
+        CertificateVerificationException.class,
         () -> CRLVerifier.verifyCertificateCRLs(cert, signDate, new HashSet<>()));
-    verify(cert).getExtensionValue(eq("2.5.29.31"));
+    verify(cert).getExtensionValue("2.5.29.31");
     verify(cert).getSubjectX500Principal();
   }
 
   /**
    * Test {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}.
+   *
    * <ul>
-   *   <li>Given {@code AXAXAXAX} Bytes is {@code UTF-8}.</li>
+   *   <li>Given {@code AXAXAXAX} Bytes is {@code UTF-8}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}
+   *
+   * <p>Method under test: {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}
    */
   @Test
-  @DisplayName("Test verifyCertificateCRLs(X509Certificate, Date, Set); given 'AXAXAXAX' Bytes is 'UTF-8'")
+  @DisplayName(
+      "Test verifyCertificateCRLs(X509Certificate, Date, Set); given 'AXAXAXAX' Bytes is 'UTF-8'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void CRLVerifier.verifyCertificateCRLs(X509Certificate, Date, Set)"})
   void testVerifyCertificateCRLs_givenAxaxaxaxBytesIsUtf8()
-      throws UnsupportedEncodingException, CertificateVerificationException, RevokedCertificateException {
+      throws UnsupportedEncodingException,
+          CertificateVerificationException,
+          RevokedCertificateException {
     // Arrange
     X509CertificateObject cert = mock(X509CertificateObject.class);
     when(cert.getSubjectX500Principal()).thenReturn(new X500Principal(""));
     when(cert.getExtensionValue(Mockito.<String>any())).thenReturn("AXAXAXAX".getBytes("UTF-8"));
-    Date signDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date signDate =
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
     // Act and Assert
-    assertThrows(CertificateVerificationException.class,
+    assertThrows(
+        CertificateVerificationException.class,
         () -> CRLVerifier.verifyCertificateCRLs(cert, signDate, new HashSet<>()));
-    verify(cert).getExtensionValue(eq("2.5.29.31"));
+    verify(cert).getExtensionValue("2.5.29.31");
     verify(cert).getSubjectX500Principal();
   }
 
   /**
    * Test {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}.
+   *
    * <ul>
-   *   <li>Given empty array of {@code byte}.</li>
+   *   <li>Given empty array of {@code byte}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}
+   *
+   * <p>Method under test: {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}
    */
   @Test
   @DisplayName("Test verifyCertificateCRLs(X509Certificate, Date, Set); given empty array of byte")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void CRLVerifier.verifyCertificateCRLs(X509Certificate, Date, Set)"})
   void testVerifyCertificateCRLs_givenEmptyArrayOfByte()
       throws CertificateVerificationException, RevokedCertificateException {
     // Arrange
     X509CertificateObject cert = mock(X509CertificateObject.class);
     when(cert.getSubjectX500Principal()).thenReturn(new X500Principal(""));
-    when(cert.getExtensionValue(Mockito.<String>any())).thenReturn(new byte[]{});
-    Date signDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    when(cert.getExtensionValue(Mockito.<String>any())).thenReturn(new byte[] {});
+    Date signDate =
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
     // Act
     CRLVerifier.verifyCertificateCRLs(cert, signDate, new HashSet<>());
 
     // Assert
-    verify(cert).getExtensionValue(eq("2.5.29.31"));
+    verify(cert).getExtensionValue("2.5.29.31");
     verify(cert).getSubjectX500Principal();
   }
 
   /**
    * Test {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}.
+   *
    * <ul>
-   *   <li>Given {@code null}.</li>
+   *   <li>Given {@code null}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}
+   *
+   * <p>Method under test: {@link CRLVerifier#verifyCertificateCRLs(X509Certificate, Date, Set)}
    */
   @Test
   @DisplayName("Test verifyCertificateCRLs(X509Certificate, Date, Set); given 'null'")
-  void testVerifyCertificateCRLs_givenNull() throws CertificateVerificationException, RevokedCertificateException {
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void CRLVerifier.verifyCertificateCRLs(X509Certificate, Date, Set)"})
+  void testVerifyCertificateCRLs_givenNull()
+      throws CertificateVerificationException, RevokedCertificateException {
     // Arrange
     X509CertificateObject cert = mock(X509CertificateObject.class);
     when(cert.getExtensionValue(Mockito.<String>any())).thenReturn(null);
-    Date signDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date signDate =
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
     // Act
     CRLVerifier.verifyCertificateCRLs(cert, signDate, new HashSet<>());
 
-    // Assert that nothing has changed
-    verify(cert).getExtensionValue(eq("2.5.29.31"));
+    // Assert
+    verify(cert).getExtensionValue("2.5.29.31");
   }
 
   /**
-   * Test
-   * {@link CRLVerifier#checkRevocation(X509CRL, X509Certificate, Date, String)}.
-   * <p>
-   * Method under test:
-   * {@link CRLVerifier#checkRevocation(X509CRL, X509Certificate, Date, String)}
+   * Test {@link CRLVerifier#checkRevocation(X509CRL, X509Certificate, Date, String)}.
+   *
+   * <p>Method under test: {@link CRLVerifier#checkRevocation(X509CRL, X509Certificate, Date,
+   * String)}
    */
   @Test
   @DisplayName("Test checkRevocation(X509CRL, X509Certificate, Date, String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void CRLVerifier.checkRevocation(X509CRL, X509Certificate, Date, String)"})
   void testCheckRevocation() throws RevokedCertificateException {
     // Arrange
     X509CRLEntryObject x509crlEntryObject = mock(X509CRLEntryObject.class);
     when(x509crlEntryObject.getRevocationDate())
-        .thenReturn(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+        .thenReturn(
+            Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+
     X509CRLObject crl = mock(X509CRLObject.class);
     when(crl.getRevokedCertificate(Mockito.<X509Certificate>any())).thenReturn(x509crlEntryObject);
 
     // Act and Assert
-    assertThrows(RevokedCertificateException.class,
-        () -> CRLVerifier.checkRevocation(crl, null,
-            Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()),
-            "https://example.org/example"));
+    assertThrows(
+        RevokedCertificateException.class,
+        () ->
+            CRLVerifier.checkRevocation(
+                crl,
+                null,
+                Date.from(
+                    LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()),
+                "https://example.org/example"));
     verify(crl).getRevokedCertificate((X509Certificate) isNull());
     verify(x509crlEntryObject, atLeast(1)).getRevocationDate();
   }
 
   /**
-   * Test
-   * {@link CRLVerifier#checkRevocation(X509CRL, X509Certificate, Date, String)}.
+   * Test {@link CRLVerifier#checkRevocation(X509CRL, X509Certificate, Date, String)}.
+   *
    * <ul>
-   *   <li>Given {@code null}.</li>
-   *   <li>When {@link X509CRLObject}
-   * {@link X509CRL#getRevokedCertificate(X509Certificate)} return
-   * {@code null}.</li>
+   *   <li>Given {@code null}.
+   *   <li>When {@link X509CRLObject} {@link X509CRLObject#getRevokedCertificate(X509Certificate)}
+   *       return {@code null}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link CRLVerifier#checkRevocation(X509CRL, X509Certificate, Date, String)}
+   *
+   * <p>Method under test: {@link CRLVerifier#checkRevocation(X509CRL, X509Certificate, Date,
+   * String)}
    */
   @Test
-  @DisplayName("Test checkRevocation(X509CRL, X509Certificate, Date, String); given 'null'; when X509CRLObject getRevokedCertificate(X509Certificate) return 'null'")
+  @DisplayName(
+      "Test checkRevocation(X509CRL, X509Certificate, Date, String); given 'null'; when X509CRLObject getRevokedCertificate(X509Certificate) return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void CRLVerifier.checkRevocation(X509CRL, X509Certificate, Date, String)"})
   void testCheckRevocation_givenNull_whenX509CRLObjectGetRevokedCertificateReturnNull()
       throws RevokedCertificateException {
     // Arrange
@@ -629,7 +843,9 @@ class CRLVerifierDiffblueTest {
     when(crl.getRevokedCertificate(Mockito.<X509Certificate>any())).thenReturn(null);
 
     // Act
-    CRLVerifier.checkRevocation(crl, null,
+    CRLVerifier.checkRevocation(
+        crl,
+        null,
         Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()),
         "https://example.org/example");
 
@@ -639,145 +855,202 @@ class CRLVerifierDiffblueTest {
 
   /**
    * Test {@link CRLVerifier#getCrlDistributionPoints(X509Certificate)}.
+   *
    * <ul>
-   *   <li>Given array of {@code byte} with {@code A} and one.</li>
+   *   <li>Given array of {@code byte} with {@code A} and one.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link CRLVerifier#getCrlDistributionPoints(X509Certificate)}
+   *
+   * <p>Method under test: {@link CRLVerifier#getCrlDistributionPoints(X509Certificate)}
    */
   @Test
-  @DisplayName("Test getCrlDistributionPoints(X509Certificate); given array of byte with 'A' and one")
+  @DisplayName(
+      "Test getCrlDistributionPoints(X509Certificate); given array of byte with 'A' and one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List CRLVerifier.getCrlDistributionPoints(X509Certificate)"})
   void testGetCrlDistributionPoints_givenArrayOfByteWithAAndOne() throws IOException {
     // Arrange
     X509CertificateObject cert = mock(X509CertificateObject.class);
     when(cert.getSubjectX500Principal()).thenReturn(new X500Principal(""));
-    when(cert.getExtensionValue(Mockito.<String>any())).thenReturn(new byte[]{'A', 1, 'A', 'X', 'A', 'X', 'A', 'X'});
+    when(cert.getExtensionValue(Mockito.<String>any()))
+        .thenReturn(new byte[] {'A', 1, 'A', 'X', 'A', 'X', 'A', 'X'});
 
     // Act
     List<String> actualCrlDistributionPoints = CRLVerifier.getCrlDistributionPoints(cert);
 
     // Assert
-    verify(cert).getExtensionValue(eq("2.5.29.31"));
+    verify(cert).getExtensionValue("2.5.29.31");
     verify(cert).getSubjectX500Principal();
     assertTrue(actualCrlDistributionPoints.isEmpty());
   }
 
   /**
    * Test {@link CRLVerifier#getCrlDistributionPoints(X509Certificate)}.
+   *
    * <ul>
-   *   <li>Given array of {@code byte} with {@code A} and zero.</li>
+   *   <li>Given array of {@code byte} with {@code A} and zero.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link CRLVerifier#getCrlDistributionPoints(X509Certificate)}
+   *
+   * <p>Method under test: {@link CRLVerifier#getCrlDistributionPoints(X509Certificate)}
    */
   @Test
-  @DisplayName("Test getCrlDistributionPoints(X509Certificate); given array of byte with 'A' and zero")
+  @DisplayName(
+      "Test getCrlDistributionPoints(X509Certificate); given array of byte with 'A' and zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List CRLVerifier.getCrlDistributionPoints(X509Certificate)"})
   void testGetCrlDistributionPoints_givenArrayOfByteWithAAndZero() throws IOException {
     // Arrange
     X509CertificateObject cert = mock(X509CertificateObject.class);
     when(cert.getSubjectX500Principal()).thenReturn(new X500Principal(""));
-    when(cert.getExtensionValue(Mockito.<String>any())).thenReturn(new byte[]{'A', 0, 'A', 'X', 'A', 'X', 'A', 'X'});
+    when(cert.getExtensionValue(Mockito.<String>any()))
+        .thenReturn(new byte[] {'A', 0, 'A', 'X', 'A', 'X', 'A', 'X'});
 
     // Act
     List<String> actualCrlDistributionPoints = CRLVerifier.getCrlDistributionPoints(cert);
 
     // Assert
-    verify(cert).getExtensionValue(eq("2.5.29.31"));
+    verify(cert).getExtensionValue("2.5.29.31");
     verify(cert).getSubjectX500Principal();
     assertTrue(actualCrlDistributionPoints.isEmpty());
   }
 
   /**
    * Test {@link CRLVerifier#getCrlDistributionPoints(X509Certificate)}.
+   *
    * <ul>
-   *   <li>Given array of {@code byte} with one and one.</li>
+   *   <li>Given array of {@code byte} with minus one and minus one.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link CRLVerifier#getCrlDistributionPoints(X509Certificate)}
+   *
+   * <p>Method under test: {@link CRLVerifier#getCrlDistributionPoints(X509Certificate)}
    */
   @Test
-  @DisplayName("Test getCrlDistributionPoints(X509Certificate); given array of byte with one and one")
+  @DisplayName(
+      "Test getCrlDistributionPoints(X509Certificate); given array of byte with minus one and minus one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List CRLVerifier.getCrlDistributionPoints(X509Certificate)"})
+  void testGetCrlDistributionPoints_givenArrayOfByteWithMinusOneAndMinusOne() throws IOException {
+    // Arrange
+    X509CertificateObject cert = mock(X509CertificateObject.class);
+    when(cert.getSubjectX500Principal()).thenReturn(new X500Principal(""));
+    when(cert.getExtensionValue(Mockito.<String>any()))
+        .thenReturn(new byte[] {-1, -1, 'A', 0, 'A', 'X', 'A', 'X'});
+
+    // Act
+    List<String> actualCrlDistributionPoints = CRLVerifier.getCrlDistributionPoints(cert);
+
+    // Assert
+    verify(cert).getExtensionValue("2.5.29.31");
+    verify(cert).getSubjectX500Principal();
+    assertTrue(actualCrlDistributionPoints.isEmpty());
+  }
+
+  /**
+   * Test {@link CRLVerifier#getCrlDistributionPoints(X509Certificate)}.
+   *
+   * <ul>
+   *   <li>Given array of {@code byte} with one and one.
+   * </ul>
+   *
+   * <p>Method under test: {@link CRLVerifier#getCrlDistributionPoints(X509Certificate)}
+   */
+  @Test
+  @DisplayName(
+      "Test getCrlDistributionPoints(X509Certificate); given array of byte with one and one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List CRLVerifier.getCrlDistributionPoints(X509Certificate)"})
   void testGetCrlDistributionPoints_givenArrayOfByteWithOneAndOne() throws IOException {
     // Arrange
     X509CertificateObject cert = mock(X509CertificateObject.class);
     when(cert.getSubjectX500Principal()).thenReturn(new X500Principal(""));
-    when(cert.getExtensionValue(Mockito.<String>any())).thenReturn(new byte[]{1, 1, 'A', 'X', 'A', 'X', 'A', 'X'});
+    when(cert.getExtensionValue(Mockito.<String>any()))
+        .thenReturn(new byte[] {1, 1, 'A', 'X', 'A', 'X', 'A', 'X'});
 
     // Act
     List<String> actualCrlDistributionPoints = CRLVerifier.getCrlDistributionPoints(cert);
 
     // Assert
-    verify(cert).getExtensionValue(eq("2.5.29.31"));
+    verify(cert).getExtensionValue("2.5.29.31");
     verify(cert).getSubjectX500Principal();
     assertTrue(actualCrlDistributionPoints.isEmpty());
   }
 
   /**
    * Test {@link CRLVerifier#getCrlDistributionPoints(X509Certificate)}.
+   *
    * <ul>
-   *   <li>Given array of {@code byte} with two and one.</li>
+   *   <li>Given array of {@code byte} with two and one.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link CRLVerifier#getCrlDistributionPoints(X509Certificate)}
+   *
+   * <p>Method under test: {@link CRLVerifier#getCrlDistributionPoints(X509Certificate)}
    */
   @Test
-  @DisplayName("Test getCrlDistributionPoints(X509Certificate); given array of byte with two and one")
+  @DisplayName(
+      "Test getCrlDistributionPoints(X509Certificate); given array of byte with two and one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List CRLVerifier.getCrlDistributionPoints(X509Certificate)"})
   void testGetCrlDistributionPoints_givenArrayOfByteWithTwoAndOne() throws IOException {
     // Arrange
     X509CertificateObject cert = mock(X509CertificateObject.class);
     when(cert.getSubjectX500Principal()).thenReturn(new X500Principal(""));
-    when(cert.getExtensionValue(Mockito.<String>any())).thenReturn(new byte[]{2, 1, 'A', 'X', 'A', 'X', 'A', 'X'});
+    when(cert.getExtensionValue(Mockito.<String>any()))
+        .thenReturn(new byte[] {2, 1, 'A', 'X', 'A', 'X', 'A', 'X'});
 
     // Act
     List<String> actualCrlDistributionPoints = CRLVerifier.getCrlDistributionPoints(cert);
 
     // Assert
-    verify(cert).getExtensionValue(eq("2.5.29.31"));
+    verify(cert).getExtensionValue("2.5.29.31");
     verify(cert).getSubjectX500Principal();
     assertTrue(actualCrlDistributionPoints.isEmpty());
   }
 
   /**
    * Test {@link CRLVerifier#getCrlDistributionPoints(X509Certificate)}.
+   *
    * <ul>
-   *   <li>Given empty array of {@code byte}.</li>
+   *   <li>Given empty array of {@code byte}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link CRLVerifier#getCrlDistributionPoints(X509Certificate)}
+   *
+   * <p>Method under test: {@link CRLVerifier#getCrlDistributionPoints(X509Certificate)}
    */
   @Test
   @DisplayName("Test getCrlDistributionPoints(X509Certificate); given empty array of byte")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List CRLVerifier.getCrlDistributionPoints(X509Certificate)"})
   void testGetCrlDistributionPoints_givenEmptyArrayOfByte() throws IOException {
     // Arrange
     X509CertificateObject cert = mock(X509CertificateObject.class);
     when(cert.getSubjectX500Principal()).thenReturn(new X500Principal(""));
-    when(cert.getExtensionValue(Mockito.<String>any())).thenReturn(new byte[]{});
+    when(cert.getExtensionValue(Mockito.<String>any())).thenReturn(new byte[] {});
 
     // Act
     List<String> actualCrlDistributionPoints = CRLVerifier.getCrlDistributionPoints(cert);
 
     // Assert
-    verify(cert).getExtensionValue(eq("2.5.29.31"));
+    verify(cert).getExtensionValue("2.5.29.31");
     verify(cert).getSubjectX500Principal();
     assertTrue(actualCrlDistributionPoints.isEmpty());
   }
 
   /**
    * Test {@link CRLVerifier#getCrlDistributionPoints(X509Certificate)}.
+   *
    * <ul>
-   *   <li>Given {@code null}.</li>
+   *   <li>Given {@code null}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link CRLVerifier#getCrlDistributionPoints(X509Certificate)}
+   *
+   * <p>Method under test: {@link CRLVerifier#getCrlDistributionPoints(X509Certificate)}
    */
   @Test
   @DisplayName("Test getCrlDistributionPoints(X509Certificate); given 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List CRLVerifier.getCrlDistributionPoints(X509Certificate)"})
   void testGetCrlDistributionPoints_givenNull() throws IOException {
     // Arrange
     X509CertificateObject cert = mock(X509CertificateObject.class);
@@ -787,7 +1060,7 @@ class CRLVerifierDiffblueTest {
     List<String> actualCrlDistributionPoints = CRLVerifier.getCrlDistributionPoints(cert);
 
     // Assert
-    verify(cert).getExtensionValue(eq("2.5.29.31"));
+    verify(cert).getExtensionValue("2.5.29.31");
     assertTrue(actualCrlDistributionPoints.isEmpty());
   }
 }

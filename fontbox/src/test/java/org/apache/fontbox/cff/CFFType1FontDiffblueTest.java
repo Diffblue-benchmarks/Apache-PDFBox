@@ -4,27 +4,35 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class CFFType1FontDiffblueTest {
   /**
    * Test {@link CFFType1Font#hasGlyph(String)}.
+   *
    * <ul>
-   *   <li>Given {@link CFFCharsetType1#addSID(int, int, String)} with gid is two
-   * and sid is zero and name is {@code 42}.</li>
-   *   <li>Then return {@code true}.</li>
+   *   <li>Given {@link CFFCharsetType1#addSID(int, int, String)} with gid is two and sid is two and
+   *       {@code Name}.
+   *   <li>Then return {@code true}.
    * </ul>
-   * <p>
-   * Method under test: {@link CFFType1Font#hasGlyph(String)}
+   *
+   * <p>Method under test: {@link CFFType1Font#hasGlyph(String)}
    */
   @Test
-  @DisplayName("Test hasGlyph(String); given addSID(int, int, String) with gid is two and sid is zero and name is '42'; then return 'true'")
-  void testHasGlyph_givenAddSIDWithGidIsTwoAndSidIsZeroAndNameIs42_thenReturnTrue() {
+  @DisplayName(
+      "Test hasGlyph(String); given addSID(int, int, String) with gid is two and sid is two and 'Name'; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean CFFType1Font.hasGlyph(String)"})
+  void testHasGlyph_givenAddSIDWithGidIsTwoAndSidIsTwoAndName_thenReturnTrue() {
     // Arrange
     CFFCharsetType1 charset = new CFFCharsetType1();
-    charset.addSID(2, 0, "42");
+    charset.addSID(2, 2, "Name");
 
     CFFType1Font cffType1Font = new CFFType1Font();
     cffType1Font.setCharset(charset);
@@ -35,16 +43,21 @@ class CFFType1FontDiffblueTest {
 
   /**
    * Test {@link CFFType1Font#hasGlyph(String)}.
+   *
    * <ul>
-   *   <li>Given {@link CFFType1Font} (default constructor) Charset is
-   * {@link CFFCharsetType1} (default constructor).</li>
-   *   <li>Then return {@code false}.</li>
+   *   <li>Given {@link CFFType1Font} (default constructor) Charset is {@link CFFCharsetType1}
+   *       (default constructor).
+   *   <li>Then return {@code false}.
    * </ul>
-   * <p>
-   * Method under test: {@link CFFType1Font#hasGlyph(String)}
+   *
+   * <p>Method under test: {@link CFFType1Font#hasGlyph(String)}
    */
   @Test
-  @DisplayName("Test hasGlyph(String); given CFFType1Font (default constructor) Charset is CFFCharsetType1 (default constructor); then return 'false'")
+  @DisplayName(
+      "Test hasGlyph(String); given CFFType1Font (default constructor) Charset is CFFCharsetType1 (default constructor); then return 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean CFFType1Font.hasGlyph(String)"})
   void testHasGlyph_givenCFFType1FontCharsetIsCFFCharsetType1_thenReturnFalse() {
     // Arrange
     CFFType1Font cffType1Font = new CFFType1Font();
@@ -56,16 +69,21 @@ class CFFType1FontDiffblueTest {
 
   /**
    * Test {@link CFFType1Font#nameToGID(String)}.
+   *
    * <ul>
-   *   <li>Given {@link CFFType1Font} (default constructor) Charset is
-   * {@link CFFCharsetType1} (default constructor).</li>
-   *   <li>Then return zero.</li>
+   *   <li>Given {@link CFFType1Font} (default constructor) Charset is {@link CFFCharsetType1}
+   *       (default constructor).
+   *   <li>Then return zero.
    * </ul>
-   * <p>
-   * Method under test: {@link CFFType1Font#nameToGID(String)}
+   *
+   * <p>Method under test: {@link CFFType1Font#nameToGID(String)}
    */
   @Test
-  @DisplayName("Test nameToGID(String); given CFFType1Font (default constructor) Charset is CFFCharsetType1 (default constructor); then return zero")
+  @DisplayName(
+      "Test nameToGID(String); given CFFType1Font (default constructor) Charset is CFFCharsetType1 (default constructor); then return zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"int CFFType1Font.nameToGID(String)"})
   void testNameToGID_givenCFFType1FontCharsetIsCFFCharsetType1_thenReturnZero() {
     // Arrange
     CFFType1Font cffType1Font = new CFFType1Font();
@@ -77,8 +95,9 @@ class CFFType1FontDiffblueTest {
 
   /**
    * Test getters and setters.
-   * <p>
-   * Methods under test:
+   *
+   * <p>Methods under test:
+   *
    * <ul>
    *   <li>{@link CFFType1Font#setEncoding(CFFEncoding)}
    *   <li>{@link CFFType1Font#getPrivateDict()}
@@ -86,6 +105,12 @@ class CFFType1FontDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "Map CFFType1Font.getPrivateDict()",
+    "void CFFType1Font.setEncoding(CFFEncoding)"
+  })
   void testGettersAndSetters() {
     // Arrange
     CFFType1Font cffType1Font = new CFFType1Font();
@@ -93,21 +118,26 @@ class CFFType1FontDiffblueTest {
     // Act
     cffType1Font.setEncoding(CFFExpertEncoding.getInstance());
 
-    // Assert that nothing has changed
+    // Assert
     assertTrue(cffType1Font.getPrivateDict().isEmpty());
   }
 
   /**
    * Test {@link CFFType1Font#addToPrivateDict(String, Object)}.
+   *
    * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link CFFType1Font} (default constructor) PrivateDict Empty.</li>
+   *   <li>When {@code null}.
+   *   <li>Then {@link CFFType1Font} (default constructor) PrivateDict Empty.
    * </ul>
-   * <p>
-   * Method under test: {@link CFFType1Font#addToPrivateDict(String, Object)}
+   *
+   * <p>Method under test: {@link CFFType1Font#addToPrivateDict(String, Object)}
    */
   @Test
-  @DisplayName("Test addToPrivateDict(String, Object); when 'null'; then CFFType1Font (default constructor) PrivateDict Empty")
+  @DisplayName(
+      "Test addToPrivateDict(String, Object); when 'null'; then CFFType1Font (default constructor) PrivateDict Empty")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void CFFType1Font.addToPrivateDict(String, Object)"})
   void testAddToPrivateDict_whenNull_thenCFFType1FontPrivateDictEmpty() {
     // Arrange
     CFFType1Font cffType1Font = new CFFType1Font();
@@ -121,16 +151,20 @@ class CFFType1FontDiffblueTest {
 
   /**
    * Test {@link CFFType1Font#addToPrivateDict(String, Object)}.
+   *
    * <ul>
-   *   <li>When {@code Value}.</li>
-   *   <li>Then {@link CFFType1Font} (default constructor) PrivateDict size is
-   * one.</li>
+   *   <li>When {@code Value}.
+   *   <li>Then {@link CFFType1Font} (default constructor) PrivateDict size is one.
    * </ul>
-   * <p>
-   * Method under test: {@link CFFType1Font#addToPrivateDict(String, Object)}
+   *
+   * <p>Method under test: {@link CFFType1Font#addToPrivateDict(String, Object)}
    */
   @Test
-  @DisplayName("Test addToPrivateDict(String, Object); when 'Value'; then CFFType1Font (default constructor) PrivateDict size is one")
+  @DisplayName(
+      "Test addToPrivateDict(String, Object); when 'Value'; then CFFType1Font (default constructor) PrivateDict size is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void CFFType1Font.addToPrivateDict(String, Object)"})
   void testAddToPrivateDict_whenValue_thenCFFType1FontPrivateDictSizeIsOne() {
     // Arrange
     CFFType1Font cffType1Font = new CFFType1Font();
@@ -146,24 +180,29 @@ class CFFType1FontDiffblueTest {
 
   /**
    * Test {@link CFFType1Font#getEncoding()}.
-   * <p>
-   * Method under test: {@link CFFType1Font#getEncoding()}
+   *
+   * <p>Method under test: {@link CFFType1Font#getEncoding()}
    */
   @Test
   @DisplayName("Test getEncoding()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"CFFEncoding CFFType1Font.getEncoding()"})
   void testGetEncoding() {
     // Arrange, Act and Assert
-    assertNull((new CFFType1Font()).getEncoding());
+    assertNull(new CFFType1Font().getEncoding());
   }
 
   /**
    * Test new {@link CFFType1Font} (default constructor).
-   * <p>
-   * Method under test: default or parameterless constructor of
-   * {@link CFFType1Font}
+   *
+   * <p>Method under test: default or parameterless constructor of {@link CFFType1Font}
    */
   @Test
   @DisplayName("Test new CFFType1Font (default constructor)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void CFFType1Font.<init>()"})
   void testNewCFFType1Font() {
     // Arrange and Act
     CFFType1Font actualCffType1Font = new CFFType1Font();

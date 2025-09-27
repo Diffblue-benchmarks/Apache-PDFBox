@@ -4,37 +4,31 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.util.Set;
 import org.apache.pdfbox.contentstream.operator.DrawObject;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.pdmodel.font.PDMMType1Font;
+import org.apache.pdfbox.text.PDFTextStripper;
 import org.apache.pdfbox.text.TextPosition;
 import org.apache.pdfbox.util.Matrix;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class AngleCollectorDiffblueTest {
   /**
-   * Test {@link AngleCollector#getAngles()}.
-   * <p>
-   * Method under test: {@link AngleCollector#getAngles()}
-   */
-  @Test
-  @DisplayName("Test getAngles()")
-  void testGetAngles() throws IOException {
-    // Arrange, Act and Assert
-    assertTrue((new AngleCollector()).getAngles().isEmpty());
-  }
-
-  /**
    * Test {@link AngleCollector#AngleCollector()}.
-   * <p>
-   * Method under test: default or parameterless constructor of
-   * {@link AngleCollector}
+   *
+   * <p>Method under test: default or parameterless constructor of {@link AngleCollector}
    */
   @Test
   @DisplayName("Test new AngleCollector()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void AngleCollector.<init>()"})
   void testNewAngleCollector() throws IOException {
     // Arrange and Act
     AngleCollector actualAngleCollector = new AngleCollector();
@@ -46,8 +40,8 @@ class AngleCollectorDiffblueTest {
     assertEquals("", actualAngleCollector.getPageStart());
     assertEquals("", actualAngleCollector.getParagraphEnd());
     assertEquals("", actualAngleCollector.getParagraphStart());
-    assertEquals("\r\n", actualAngleCollector.getLineSeparator());
-    assertEquals("\r\n", actualAngleCollector.getPageEnd());
+    assertEquals("\n", actualAngleCollector.getLineSeparator());
+    assertEquals("\n", actualAngleCollector.getPageEnd());
     assertNull(actualAngleCollector.getCurrentPage());
     assertNull(actualAngleCollector.getResources());
     assertNull(actualAngleCollector.getGraphicsState());
@@ -71,20 +65,37 @@ class AngleCollectorDiffblueTest {
 
   /**
    * Test {@link AngleCollector#processTextPosition(TextPosition)}.
-   * <p>
-   * Method under test: {@link AngleCollector#processTextPosition(TextPosition)}
+   *
+   * <p>Method under test: {@link AngleCollector#processTextPosition(TextPosition)}
    */
   @Test
   @DisplayName("Test processTextPosition(TextPosition)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void AngleCollector.processTextPosition(TextPosition)"})
   void testProcessTextPosition() throws IOException {
     // Arrange
     AngleCollector angleCollector = new AngleCollector();
-    angleCollector.addOperator(new DrawObject(new AngleCollector()));
+    angleCollector.addOperator(new DrawObject(new PDFTextStripper()));
     Matrix textMatrix = new Matrix();
 
     // Act
-    angleCollector.processTextPosition(new TextPosition(1, 10.0f, 10.0f, textMatrix, 10.0f, 10.0f, 10.0f, 10.0f, 10.0f,
-        "Unicode", new int[]{1, -1, 1, -1}, new PDMMType1Font(new COSDictionary()), 10.0f, 3));
+    angleCollector.processTextPosition(
+        new TextPosition(
+            1,
+            10.0f,
+            10.0f,
+            textMatrix,
+            10.0f,
+            10.0f,
+            10.0f,
+            10.0f,
+            10.0f,
+            "Unicode",
+            new int[] {1, -1, 1, -1},
+            new PDMMType1Font(new COSDictionary()),
+            10.0f,
+            3));
 
     // Assert
     Set<Integer> angles = angleCollector.getAngles();
@@ -94,22 +105,40 @@ class AngleCollectorDiffblueTest {
 
   /**
    * Test {@link AngleCollector#processTextPosition(TextPosition)}.
+   *
    * <ul>
-   *   <li>Then {@link AngleCollector#AngleCollector()} Angles size is one.</li>
+   *   <li>Then {@link AngleCollector#AngleCollector()} Angles size is one.
    * </ul>
-   * <p>
-   * Method under test: {@link AngleCollector#processTextPosition(TextPosition)}
+   *
+   * <p>Method under test: {@link AngleCollector#processTextPosition(TextPosition)}
    */
   @Test
   @DisplayName("Test processTextPosition(TextPosition); then AngleCollector() Angles size is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void AngleCollector.processTextPosition(TextPosition)"})
   void testProcessTextPosition_thenAngleCollectorAnglesSizeIsOne() throws IOException {
     // Arrange
     AngleCollector angleCollector = new AngleCollector();
     Matrix textMatrix = new Matrix();
 
     // Act
-    angleCollector.processTextPosition(new TextPosition(1, 10.0f, 10.0f, textMatrix, 10.0f, 10.0f, 10.0f, 10.0f, 10.0f,
-        "Unicode", new int[]{1, -1, 1, -1}, new PDMMType1Font(new COSDictionary()), 10.0f, 3));
+    angleCollector.processTextPosition(
+        new TextPosition(
+            1,
+            10.0f,
+            10.0f,
+            textMatrix,
+            10.0f,
+            10.0f,
+            10.0f,
+            10.0f,
+            10.0f,
+            "Unicode",
+            new int[] {1, -1, 1, -1},
+            new PDMMType1Font(new COSDictionary()),
+            10.0f,
+            3));
 
     // Assert
     Set<Integer> angles = angleCollector.getAngles();

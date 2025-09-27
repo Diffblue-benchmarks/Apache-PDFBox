@@ -5,39 +5,44 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSIncrement;
-import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.cos.COSUpdateState;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDBorderEffectDictionaryDiffblueTest {
   /**
-   * Test
-   * {@link PDBorderEffectDictionary#PDBorderEffectDictionary(COSDictionary)}.
-   * <p>
-   * Method under test:
-   * {@link PDBorderEffectDictionary#PDBorderEffectDictionary(COSDictionary)}
+   * Test {@link PDBorderEffectDictionary#PDBorderEffectDictionary(COSDictionary)}.
+   *
+   * <p>Method under test: {@link PDBorderEffectDictionary#PDBorderEffectDictionary(COSDictionary)}
    */
   @Test
   @DisplayName("Test new PDBorderEffectDictionary(COSDictionary)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDBorderEffectDictionary.<init>(COSDictionary)"})
   void testNewPDBorderEffectDictionary() {
     // Arrange
     COSDictionary dict = new COSDictionary();
 
     // Act and Assert
-    assertSame(dict, (new PDBorderEffectDictionary(dict)).getCOSObject());
+    assertSame(dict, new PDBorderEffectDictionary(dict).getCOSObject());
   }
 
   /**
    * Test {@link PDBorderEffectDictionary#PDBorderEffectDictionary()}.
-   * <p>
-   * Method under test:
-   * {@link PDBorderEffectDictionary#PDBorderEffectDictionary()}
+   *
+   * <p>Method under test: {@link PDBorderEffectDictionary#PDBorderEffectDictionary()}
    */
   @Test
   @DisplayName("Test new PDBorderEffectDictionary()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDBorderEffectDictionary.<init>()"})
   void testNewPDBorderEffectDictionary2() {
     // Arrange and Act
     PDBorderEffectDictionary actualPdBorderEffectDictionary = new PDBorderEffectDictionary();
@@ -61,14 +66,17 @@ class PDBorderEffectDictionaryDiffblueTest {
 
   /**
    * Test {@link PDBorderEffectDictionary#getCOSObject()}.
-   * <p>
-   * Method under test: {@link PDBorderEffectDictionary#getCOSObject()}
+   *
+   * <p>Method under test: {@link PDBorderEffectDictionary#getCOSObject()}
    */
   @Test
   @DisplayName("Test getCOSObject()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"COSDictionary PDBorderEffectDictionary.getCOSObject()"})
   void testGetCOSObject() {
     // Arrange and Act
-    COSDictionary actualCOSObject = (new PDBorderEffectDictionary()).getCOSObject();
+    COSDictionary actualCOSObject = new PDBorderEffectDictionary().getCOSObject();
 
     // Assert
     COSUpdateState updateState = actualCOSObject.getUpdateState();
@@ -86,15 +94,20 @@ class PDBorderEffectDictionaryDiffblueTest {
 
   /**
    * Test {@link PDBorderEffectDictionary#setIntensity(float)}.
+   *
    * <ul>
-   *   <li>Then {@link PDBorderEffectDictionary#PDBorderEffectDictionary()}
-   * COSObject Values size is one.</li>
+   *   <li>Then {@link PDBorderEffectDictionary#PDBorderEffectDictionary()} COSObject Values size is
+   *       one.
    * </ul>
-   * <p>
-   * Method under test: {@link PDBorderEffectDictionary#setIntensity(float)}
+   *
+   * <p>Method under test: {@link PDBorderEffectDictionary#setIntensity(float)}
    */
   @Test
-  @DisplayName("Test setIntensity(float); then PDBorderEffectDictionary() COSObject Values size is one")
+  @DisplayName(
+      "Test setIntensity(float); then PDBorderEffectDictionary() COSObject Values size is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDBorderEffectDictionary.setIntensity(float)"})
   void testSetIntensity_thenPDBorderEffectDictionaryCOSObjectValuesSizeIsOne() {
     // Arrange
     PDBorderEffectDictionary pdBorderEffectDictionary = new PDBorderEffectDictionary();
@@ -111,49 +124,38 @@ class PDBorderEffectDictionaryDiffblueTest {
 
   /**
    * Test {@link PDBorderEffectDictionary#getIntensity()}.
+   *
    * <ul>
-   *   <li>Given
-   * {@link PDBorderEffectDictionary#PDBorderEffectDictionary(COSDictionary)} with
-   * dict is {@link COSStream#COSStream()}.</li>
-   *   <li>Then return zero.</li>
+   *   <li>Given {@link PDBorderEffectDictionary#PDBorderEffectDictionary()}.
+   *   <li>Then return zero.
    * </ul>
-   * <p>
-   * Method under test: {@link PDBorderEffectDictionary#getIntensity()}
-   */
-  @Test
-  @DisplayName("Test getIntensity(); given PDBorderEffectDictionary(COSDictionary) with dict is COSStream(); then return zero")
-  void testGetIntensity_givenPDBorderEffectDictionaryWithDictIsCOSStream_thenReturnZero() {
-    // Arrange, Act and Assert
-    assertEquals(0.0f, (new PDBorderEffectDictionary(new COSStream())).getIntensity());
-  }
-
-  /**
-   * Test {@link PDBorderEffectDictionary#getIntensity()}.
-   * <ul>
-   *   <li>Given {@link PDBorderEffectDictionary#PDBorderEffectDictionary()}.</li>
-   *   <li>Then return zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDBorderEffectDictionary#getIntensity()}
+   *
+   * <p>Method under test: {@link PDBorderEffectDictionary#getIntensity()}
    */
   @Test
   @DisplayName("Test getIntensity(); given PDBorderEffectDictionary(); then return zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"float PDBorderEffectDictionary.getIntensity()"})
   void testGetIntensity_givenPDBorderEffectDictionary_thenReturnZero() {
     // Arrange, Act and Assert
-    assertEquals(0.0f, (new PDBorderEffectDictionary()).getIntensity());
+    assertEquals(0.0f, new PDBorderEffectDictionary().getIntensity());
   }
 
   /**
    * Test {@link PDBorderEffectDictionary#setStyle(String)}.
+   *
    * <ul>
-   *   <li>Then {@link PDBorderEffectDictionary#PDBorderEffectDictionary()} Style is
-   * {@code foo}.</li>
+   *   <li>Then {@link PDBorderEffectDictionary#PDBorderEffectDictionary()} Style is {@code foo}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDBorderEffectDictionary#setStyle(String)}
+   *
+   * <p>Method under test: {@link PDBorderEffectDictionary#setStyle(String)}
    */
   @Test
   @DisplayName("Test setStyle(String); then PDBorderEffectDictionary() Style is 'foo'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDBorderEffectDictionary.setStyle(String)"})
   void testSetStyle_thenPDBorderEffectDictionaryStyleIsFoo() {
     // Arrange
     PDBorderEffectDictionary pdBorderEffectDictionary = new PDBorderEffectDictionary();
@@ -169,35 +171,52 @@ class PDBorderEffectDictionaryDiffblueTest {
   }
 
   /**
-   * Test {@link PDBorderEffectDictionary#getStyle()}.
+   * Test {@link PDBorderEffectDictionary#setStyle(String)}.
+   *
    * <ul>
-   *   <li>Given
-   * {@link PDBorderEffectDictionary#PDBorderEffectDictionary(COSDictionary)} with
-   * dict is {@link COSStream#COSStream()}.</li>
+   *   <li>When {@code null}.
+   *   <li>Then {@link PDBorderEffectDictionary#PDBorderEffectDictionary()} COSObject size is zero.
    * </ul>
-   * <p>
-   * Method under test: {@link PDBorderEffectDictionary#getStyle()}
+   *
+   * <p>Method under test: {@link PDBorderEffectDictionary#setStyle(String)}
    */
   @Test
-  @DisplayName("Test getStyle(); given PDBorderEffectDictionary(COSDictionary) with dict is COSStream()")
-  void testGetStyle_givenPDBorderEffectDictionaryWithDictIsCOSStream() {
-    // Arrange, Act and Assert
-    assertEquals(PDBorderEffectDictionary.STYLE_SOLID, (new PDBorderEffectDictionary(new COSStream())).getStyle());
+  @DisplayName(
+      "Test setStyle(String); when 'null'; then PDBorderEffectDictionary() COSObject size is zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDBorderEffectDictionary.setStyle(String)"})
+  void testSetStyle_whenNull_thenPDBorderEffectDictionaryCOSObjectSizeIsZero() {
+    // Arrange
+    PDBorderEffectDictionary pdBorderEffectDictionary = new PDBorderEffectDictionary();
+
+    // Act
+    pdBorderEffectDictionary.setStyle(null);
+
+    // Assert that nothing has changed
+    COSDictionary cOSObject = pdBorderEffectDictionary.getCOSObject();
+    assertEquals(0, cOSObject.size());
+    assertTrue(cOSObject.getValues().isEmpty());
+    assertEquals(PDBorderEffectDictionary.STYLE_SOLID, pdBorderEffectDictionary.getStyle());
   }
 
   /**
    * Test {@link PDBorderEffectDictionary#getStyle()}.
+   *
    * <ul>
-   *   <li>Given {@link PDBorderEffectDictionary#PDBorderEffectDictionary()}.</li>
-   *   <li>Then return {@link PDBorderEffectDictionary#STYLE_SOLID}.</li>
+   *   <li>Given {@link PDBorderEffectDictionary#PDBorderEffectDictionary()}.
+   *   <li>Then return {@link PDBorderEffectDictionary#STYLE_SOLID}.
    * </ul>
-   * <p>
-   * Method under test: {@link PDBorderEffectDictionary#getStyle()}
+   *
+   * <p>Method under test: {@link PDBorderEffectDictionary#getStyle()}
    */
   @Test
   @DisplayName("Test getStyle(); given PDBorderEffectDictionary(); then return STYLE_SOLID")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PDBorderEffectDictionary.getStyle()"})
   void testGetStyle_givenPDBorderEffectDictionary_thenReturnStyle_solid() {
     // Arrange, Act and Assert
-    assertEquals(PDBorderEffectDictionary.STYLE_SOLID, (new PDBorderEffectDictionary()).getStyle());
+    assertEquals(PDBorderEffectDictionary.STYLE_SOLID, new PDBorderEffectDictionary().getStyle());
   }
 }

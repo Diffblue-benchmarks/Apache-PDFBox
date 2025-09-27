@@ -5,12 +5,14 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import java.util.Map;
 import org.apache.xmpbox.XMPMetadata;
 import org.apache.xmpbox.type.AbstractField;
+import org.apache.xmpbox.type.AgentNameType;
 import org.apache.xmpbox.type.ArrayProperty;
-import org.apache.xmpbox.type.Attribute;
 import org.apache.xmpbox.type.BadFieldValueException;
 import org.apache.xmpbox.type.Cardinality;
 import org.apache.xmpbox.type.DateType;
@@ -20,16 +22,20 @@ import org.apache.xmpbox.type.ProperNameType;
 import org.apache.xmpbox.type.TextType;
 import org.apache.xmpbox.type.URIType;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PhotoshopSchemaDiffblueTest {
   /**
    * Test {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)}
    */
   @Test
   @DisplayName("Test new PhotoshopSchema(XMPMetadata)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.<init>(XMPMetadata)"})
   void testNewPhotoshopSchema() throws BadFieldValueException {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -40,9 +46,6 @@ class PhotoshopSchemaDiffblueTest {
     // Assert
     assertEquals("", actualPhotoshopSchema.getAboutValue());
     assertEquals("http://ns.adobe.com/photoshop/1.0/", actualPhotoshopSchema.getNamespace());
-    Map<String, String> allNamespacesWithPrefix = actualPhotoshopSchema.getAllNamespacesWithPrefix();
-    assertEquals(1, allNamespacesWithPrefix.size());
-    assertEquals("photoshop", allNamespacesWithPrefix.get("http://ns.adobe.com/photoshop/1.0/"));
     assertEquals("photoshop", actualPhotoshopSchema.getPreferedPrefix());
     assertEquals("photoshop", actualPhotoshopSchema.getPrefix());
     assertNull(actualPhotoshopSchema.getColorMode());
@@ -86,22 +89,111 @@ class PhotoshopSchemaDiffblueTest {
     assertNull(actualPhotoshopSchema.getSupplementalCategoriesProperty());
     assertNull(actualPhotoshopSchema.getTransmissionReferenceProperty());
     assertNull(actualPhotoshopSchema.getAncestorIDProperty());
-    List<AbstractField> allProperties = actualPhotoshopSchema.getAllProperties();
-    assertTrue(allProperties.isEmpty());
+    Map<String, String> allNamespacesWithPrefix =
+        actualPhotoshopSchema.getAllNamespacesWithPrefix();
+    assertEquals(1, allNamespacesWithPrefix.size());
+    assertTrue(actualPhotoshopSchema.getAllProperties().isEmpty());
     assertTrue(actualPhotoshopSchema.getAllAttributes().isEmpty());
-    assertSame(allProperties, actualPhotoshopSchema.getContainer().getAllProperties());
+    assertTrue(allNamespacesWithPrefix.containsKey("http://ns.adobe.com/photoshop/1.0/"));
     assertSame(metadata, actualPhotoshopSchema.getMetadata());
   }
 
   /**
    * Test {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata, String)}.
-   * <p>
-   * Method under test:
-   * {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata, String)}
+   *
+   * <ul>
+   *   <li>When {@code null}.
+   *   <li>Then return Prefix is {@code photoshop}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata, String)}
    */
   @Test
-  @DisplayName("Test new PhotoshopSchema(XMPMetadata, String)")
-  void testNewPhotoshopSchema2() throws BadFieldValueException {
+  @DisplayName(
+      "Test new PhotoshopSchema(XMPMetadata, String); when 'null'; then return Prefix is 'photoshop'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.<init>(XMPMetadata, String)"})
+  void testNewPhotoshopSchema_whenNull_thenReturnPrefixIsPhotoshop() throws BadFieldValueException {
+    // Arrange
+    XMPMetadata metadata = XMPMetadata.createXMPMetadata();
+
+    // Act
+    PhotoshopSchema actualPhotoshopSchema = new PhotoshopSchema(metadata, null);
+
+    // Assert
+    assertEquals("", actualPhotoshopSchema.getAboutValue());
+    assertEquals("http://ns.adobe.com/photoshop/1.0/", actualPhotoshopSchema.getNamespace());
+    assertEquals("photoshop", actualPhotoshopSchema.getPreferedPrefix());
+    assertEquals("photoshop", actualPhotoshopSchema.getPrefix());
+    assertNull(actualPhotoshopSchema.getColorMode());
+    assertNull(actualPhotoshopSchema.getUrgency());
+    assertNull(actualPhotoshopSchema.getAncestorID());
+    assertNull(actualPhotoshopSchema.getAuthorsPosition());
+    assertNull(actualPhotoshopSchema.getCaptionWriter());
+    assertNull(actualPhotoshopSchema.getCategory());
+    assertNull(actualPhotoshopSchema.getCity());
+    assertNull(actualPhotoshopSchema.getCountry());
+    assertNull(actualPhotoshopSchema.getCredit());
+    assertNull(actualPhotoshopSchema.getDateCreated());
+    assertNull(actualPhotoshopSchema.getHeadline());
+    assertNull(actualPhotoshopSchema.getHistory());
+    assertNull(actualPhotoshopSchema.getICCProfile());
+    assertNull(actualPhotoshopSchema.getInstructions());
+    assertNull(actualPhotoshopSchema.getSource());
+    assertNull(actualPhotoshopSchema.getState());
+    assertNull(actualPhotoshopSchema.getSupplementalCategories());
+    assertNull(actualPhotoshopSchema.getTransmissionReference());
+    assertNull(actualPhotoshopSchema.getPropertyName());
+    assertNull(actualPhotoshopSchema.getDocumentAncestors());
+    assertNull(actualPhotoshopSchema.getTextLayers());
+    assertNull(actualPhotoshopSchema.getDocumentAncestorsProperty());
+    assertNull(actualPhotoshopSchema.getAboutAttribute());
+    assertNull(actualPhotoshopSchema.getDateCreatedProperty());
+    assertNull(actualPhotoshopSchema.getColorModeProperty());
+    assertNull(actualPhotoshopSchema.getUrgencyProperty());
+    assertNull(actualPhotoshopSchema.getAuthorsPositionProperty());
+    assertNull(actualPhotoshopSchema.getCaptionWriterProperty());
+    assertNull(actualPhotoshopSchema.getCategoryProperty());
+    assertNull(actualPhotoshopSchema.getCityProperty());
+    assertNull(actualPhotoshopSchema.getCountryProperty());
+    assertNull(actualPhotoshopSchema.getCreditProperty());
+    assertNull(actualPhotoshopSchema.getHeadlineProperty());
+    assertNull(actualPhotoshopSchema.getHistoryProperty());
+    assertNull(actualPhotoshopSchema.getICCProfileProperty());
+    assertNull(actualPhotoshopSchema.getInstructionsProperty());
+    assertNull(actualPhotoshopSchema.getSourceProperty());
+    assertNull(actualPhotoshopSchema.getStateProperty());
+    assertNull(actualPhotoshopSchema.getSupplementalCategoriesProperty());
+    assertNull(actualPhotoshopSchema.getTransmissionReferenceProperty());
+    assertNull(actualPhotoshopSchema.getAncestorIDProperty());
+    Map<String, String> allNamespacesWithPrefix =
+        actualPhotoshopSchema.getAllNamespacesWithPrefix();
+    assertEquals(1, allNamespacesWithPrefix.size());
+    assertTrue(actualPhotoshopSchema.getAllProperties().isEmpty());
+    assertTrue(actualPhotoshopSchema.getAllAttributes().isEmpty());
+    assertTrue(allNamespacesWithPrefix.containsKey("http://ns.adobe.com/photoshop/1.0/"));
+    assertSame(metadata, actualPhotoshopSchema.getMetadata());
+  }
+
+  /**
+   * Test {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata, String)}.
+   *
+   * <ul>
+   *   <li>When {@code Own Prefix}.
+   *   <li>Then return Prefix is {@code Own Prefix}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata, String)}
+   */
+  @Test
+  @DisplayName(
+      "Test new PhotoshopSchema(XMPMetadata, String); when 'Own Prefix'; then return Prefix is 'Own Prefix'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.<init>(XMPMetadata, String)"})
+  void testNewPhotoshopSchema_whenOwnPrefix_thenReturnPrefixIsOwnPrefix()
+      throws BadFieldValueException {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
 
@@ -110,9 +202,6 @@ class PhotoshopSchemaDiffblueTest {
 
     // Assert
     assertEquals("", actualPhotoshopSchema.getAboutValue());
-    Map<String, String> allNamespacesWithPrefix = actualPhotoshopSchema.getAllNamespacesWithPrefix();
-    assertEquals(1, allNamespacesWithPrefix.size());
-    assertEquals("Own Prefix", allNamespacesWithPrefix.get("http://ns.adobe.com/photoshop/1.0/"));
     assertEquals("Own Prefix", actualPhotoshopSchema.getPrefix());
     assertEquals("http://ns.adobe.com/photoshop/1.0/", actualPhotoshopSchema.getNamespace());
     assertEquals("photoshop", actualPhotoshopSchema.getPreferedPrefix());
@@ -157,91 +246,25 @@ class PhotoshopSchemaDiffblueTest {
     assertNull(actualPhotoshopSchema.getSupplementalCategoriesProperty());
     assertNull(actualPhotoshopSchema.getTransmissionReferenceProperty());
     assertNull(actualPhotoshopSchema.getAncestorIDProperty());
-    List<AbstractField> allProperties = actualPhotoshopSchema.getAllProperties();
-    assertTrue(allProperties.isEmpty());
-    assertTrue(actualPhotoshopSchema.getAllAttributes().isEmpty());
-    assertSame(allProperties, actualPhotoshopSchema.getContainer().getAllProperties());
-    assertSame(metadata, actualPhotoshopSchema.getMetadata());
-  }
-
-  /**
-   * Test {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata, String)}.
-   * <p>
-   * Method under test:
-   * {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata, String)}
-   */
-  @Test
-  @DisplayName("Test new PhotoshopSchema(XMPMetadata, String)")
-  void testNewPhotoshopSchema3() throws BadFieldValueException {
-    // Arrange
-    XMPMetadata metadata = XMPMetadata.createXMPMetadata();
-
-    // Act
-    PhotoshopSchema actualPhotoshopSchema = new PhotoshopSchema(metadata, null);
-
-    // Assert
-    assertEquals("", actualPhotoshopSchema.getAboutValue());
-    assertEquals("http://ns.adobe.com/photoshop/1.0/", actualPhotoshopSchema.getNamespace());
-    Map<String, String> allNamespacesWithPrefix = actualPhotoshopSchema.getAllNamespacesWithPrefix();
+    Map<String, String> allNamespacesWithPrefix =
+        actualPhotoshopSchema.getAllNamespacesWithPrefix();
     assertEquals(1, allNamespacesWithPrefix.size());
-    assertEquals("photoshop", allNamespacesWithPrefix.get("http://ns.adobe.com/photoshop/1.0/"));
-    assertEquals("photoshop", actualPhotoshopSchema.getPreferedPrefix());
-    assertEquals("photoshop", actualPhotoshopSchema.getPrefix());
-    assertNull(actualPhotoshopSchema.getColorMode());
-    assertNull(actualPhotoshopSchema.getUrgency());
-    assertNull(actualPhotoshopSchema.getAncestorID());
-    assertNull(actualPhotoshopSchema.getAuthorsPosition());
-    assertNull(actualPhotoshopSchema.getCaptionWriter());
-    assertNull(actualPhotoshopSchema.getCategory());
-    assertNull(actualPhotoshopSchema.getCity());
-    assertNull(actualPhotoshopSchema.getCountry());
-    assertNull(actualPhotoshopSchema.getCredit());
-    assertNull(actualPhotoshopSchema.getDateCreated());
-    assertNull(actualPhotoshopSchema.getHeadline());
-    assertNull(actualPhotoshopSchema.getHistory());
-    assertNull(actualPhotoshopSchema.getICCProfile());
-    assertNull(actualPhotoshopSchema.getInstructions());
-    assertNull(actualPhotoshopSchema.getSource());
-    assertNull(actualPhotoshopSchema.getState());
-    assertNull(actualPhotoshopSchema.getSupplementalCategories());
-    assertNull(actualPhotoshopSchema.getTransmissionReference());
-    assertNull(actualPhotoshopSchema.getPropertyName());
-    assertNull(actualPhotoshopSchema.getDocumentAncestors());
-    assertNull(actualPhotoshopSchema.getTextLayers());
-    assertNull(actualPhotoshopSchema.getDocumentAncestorsProperty());
-    assertNull(actualPhotoshopSchema.getAboutAttribute());
-    assertNull(actualPhotoshopSchema.getDateCreatedProperty());
-    assertNull(actualPhotoshopSchema.getColorModeProperty());
-    assertNull(actualPhotoshopSchema.getUrgencyProperty());
-    assertNull(actualPhotoshopSchema.getAuthorsPositionProperty());
-    assertNull(actualPhotoshopSchema.getCaptionWriterProperty());
-    assertNull(actualPhotoshopSchema.getCategoryProperty());
-    assertNull(actualPhotoshopSchema.getCityProperty());
-    assertNull(actualPhotoshopSchema.getCountryProperty());
-    assertNull(actualPhotoshopSchema.getCreditProperty());
-    assertNull(actualPhotoshopSchema.getHeadlineProperty());
-    assertNull(actualPhotoshopSchema.getHistoryProperty());
-    assertNull(actualPhotoshopSchema.getICCProfileProperty());
-    assertNull(actualPhotoshopSchema.getInstructionsProperty());
-    assertNull(actualPhotoshopSchema.getSourceProperty());
-    assertNull(actualPhotoshopSchema.getStateProperty());
-    assertNull(actualPhotoshopSchema.getSupplementalCategoriesProperty());
-    assertNull(actualPhotoshopSchema.getTransmissionReferenceProperty());
-    assertNull(actualPhotoshopSchema.getAncestorIDProperty());
-    List<AbstractField> allProperties = actualPhotoshopSchema.getAllProperties();
-    assertTrue(allProperties.isEmpty());
+    assertTrue(actualPhotoshopSchema.getAllProperties().isEmpty());
     assertTrue(actualPhotoshopSchema.getAllAttributes().isEmpty());
-    assertSame(allProperties, actualPhotoshopSchema.getContainer().getAllProperties());
+    assertTrue(allNamespacesWithPrefix.containsKey("http://ns.adobe.com/photoshop/1.0/"));
     assertSame(metadata, actualPhotoshopSchema.getMetadata());
   }
 
   /**
    * Test {@link PhotoshopSchema#getAncestorIDProperty()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getAncestorIDProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getAncestorIDProperty()}
    */
   @Test
   @DisplayName("Test getAncestorIDProperty()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"URIType PhotoshopSchema.getAncestorIDProperty()"})
   void testGetAncestorIDProperty() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
@@ -253,15 +276,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getAncestorIDProperty()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getAncestorIDProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getAncestorIDProperty()}
    */
   @Test
   @DisplayName("Test getAncestorIDProperty()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"URIType PhotoshopSchema.getAncestorIDProperty()"})
   void testGetAncestorIDProperty2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.ANCESTORID);
 
     // Act and Assert
@@ -270,27 +297,35 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getAncestorIDProperty()}.
+   *
    * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
+   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getAncestorIDProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getAncestorIDProperty()}
    */
   @Test
-  @DisplayName("Test getAncestorIDProperty(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test getAncestorIDProperty(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"URIType PhotoshopSchema.getAncestorIDProperty()"})
   void testGetAncestorIDProperty_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull((new PhotoshopSchema(XMPMetadata.createXMPMetadata())).getAncestorIDProperty());
+    assertNull(new PhotoshopSchema(XMPMetadata.createXMPMetadata()).getAncestorIDProperty());
   }
 
   /**
    * Test {@link PhotoshopSchema#getAncestorID()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getAncestorID()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getAncestorID()}
    */
   @Test
   @DisplayName("Test getAncestorID()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PhotoshopSchema.getAncestorID()"})
   void testGetAncestorID() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
@@ -302,15 +337,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getAncestorID()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getAncestorID()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getAncestorID()}
    */
   @Test
   @DisplayName("Test getAncestorID()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PhotoshopSchema.getAncestorID()"})
   void testGetAncestorID2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.ANCESTORID);
 
     // Act and Assert
@@ -319,27 +358,35 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getAncestorID()}.
+   *
    * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
+   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getAncestorID()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getAncestorID()}
    */
   @Test
-  @DisplayName("Test getAncestorID(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test getAncestorID(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PhotoshopSchema.getAncestorID()"})
   void testGetAncestorID_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull((new PhotoshopSchema(XMPMetadata.createXMPMetadata())).getAncestorID());
+    assertNull(new PhotoshopSchema(XMPMetadata.createXMPMetadata()).getAncestorID());
   }
 
   /**
    * Test {@link PhotoshopSchema#setAncestorID(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setAncestorID(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setAncestorID(String)}
    */
   @Test
   @DisplayName("Test setAncestorID(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setAncestorID(String)"})
   void testSetAncestorID() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -368,15 +415,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setAncestorID(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setAncestorID(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setAncestorID(String)}
    */
   @Test
   @DisplayName("Test setAncestorID(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setAncestorID(String)"})
   void testSetAncestorID2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.ANCESTORID);
 
     // Act
@@ -390,11 +441,14 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setAncestorID(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setAncestorID(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setAncestorID(String)}
    */
   @Test
   @DisplayName("Test setAncestorID(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setAncestorID(String)"})
   void testSetAncestorID3() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -423,15 +477,20 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setAncestorID(String)}.
+   *
    * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
+   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setAncestorID(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setAncestorID(String)}
    */
   @Test
-  @DisplayName("Test setAncestorID(String); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test setAncestorID(String); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setAncestorID(String)"})
   void testSetAncestorID_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -458,15 +517,20 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setAncestorIDProperty(URIType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setAncestorIDProperty(URIType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setAncestorIDProperty(URIType)}
    */
   @Test
   @DisplayName("Test setAncestorIDProperty(URIType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setAncestorIDProperty(URIType)"})
   void testSetAncestorIDProperty() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    URIType text = new URIType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    URIType text =
+        new URIType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setAncestorIDProperty(text);
@@ -479,16 +543,21 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setAncestorIDProperty(URIType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setAncestorIDProperty(URIType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setAncestorIDProperty(URIType)}
    */
   @Test
   @DisplayName("Test setAncestorIDProperty(URIType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setAncestorIDProperty(URIType)"})
   void testSetAncestorIDProperty2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addDocumentAncestors("Text");
-    URIType text = new URIType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    URIType text =
+        new URIType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setAncestorIDProperty(text);
@@ -501,17 +570,22 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setAncestorIDProperty(URIType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setAncestorIDProperty(URIType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setAncestorIDProperty(URIType)}
    */
   @Test
   @DisplayName("Test setAncestorIDProperty(URIType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setAncestorIDProperty(URIType)"})
   void testSetAncestorIDProperty3() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addTextLayers("Property Name", "Property Name");
     photoshopSchema.addDocumentAncestors("Text");
-    URIType text = new URIType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    URIType text =
+        new URIType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setAncestorIDProperty(text);
@@ -525,17 +599,22 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setAncestorIDProperty(URIType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setAncestorIDProperty(URIType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setAncestorIDProperty(URIType)}
    */
   @Test
   @DisplayName("Test setAncestorIDProperty(URIType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setAncestorIDProperty(URIType)"})
   void testSetAncestorIDProperty4() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addBagValueAsSimple("Property Name", PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors("Text");
-    URIType text = new URIType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    URIType text =
+        new URIType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setAncestorIDProperty(text);
@@ -548,23 +627,29 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getAuthorsPositionProperty()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getAuthorsPositionProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getAuthorsPositionProperty()}
    */
   @Test
   @DisplayName("Test getAuthorsPositionProperty()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"TextType PhotoshopSchema.getAuthorsPositionProperty()"})
   void testGetAuthorsPositionProperty() {
     // Arrange, Act and Assert
-    assertNull((new PhotoshopSchema(XMPMetadata.createXMPMetadata())).getAuthorsPositionProperty());
+    assertNull(new PhotoshopSchema(XMPMetadata.createXMPMetadata()).getAuthorsPositionProperty());
   }
 
   /**
    * Test {@link PhotoshopSchema#getAuthorsPositionProperty()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getAuthorsPositionProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getAuthorsPositionProperty()}
    */
   @Test
   @DisplayName("Test getAuthorsPositionProperty()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"TextType PhotoshopSchema.getAuthorsPositionProperty()"})
   void testGetAuthorsPositionProperty2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
@@ -576,15 +661,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getAuthorsPositionProperty()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getAuthorsPositionProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getAuthorsPositionProperty()}
    */
   @Test
   @DisplayName("Test getAuthorsPositionProperty()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"TextType PhotoshopSchema.getAuthorsPositionProperty()"})
   void testGetAuthorsPositionProperty3() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.AUTHORS_POSITION);
 
     // Act and Assert
@@ -593,11 +682,14 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getAuthorsPosition()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getAuthorsPosition()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getAuthorsPosition()}
    */
   @Test
   @DisplayName("Test getAuthorsPosition()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PhotoshopSchema.getAuthorsPosition()"})
   void testGetAuthorsPosition() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
@@ -609,15 +701,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getAuthorsPosition()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getAuthorsPosition()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getAuthorsPosition()}
    */
   @Test
   @DisplayName("Test getAuthorsPosition()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PhotoshopSchema.getAuthorsPosition()"})
   void testGetAuthorsPosition2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.AUTHORS_POSITION);
 
     // Act and Assert
@@ -626,27 +722,35 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getAuthorsPosition()}.
+   *
    * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
+   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getAuthorsPosition()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getAuthorsPosition()}
    */
   @Test
-  @DisplayName("Test getAuthorsPosition(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test getAuthorsPosition(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PhotoshopSchema.getAuthorsPosition()"})
   void testGetAuthorsPosition_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull((new PhotoshopSchema(XMPMetadata.createXMPMetadata())).getAuthorsPosition());
+    assertNull(new PhotoshopSchema(XMPMetadata.createXMPMetadata()).getAuthorsPosition());
   }
 
   /**
    * Test {@link PhotoshopSchema#setAuthorsPosition(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setAuthorsPosition(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setAuthorsPosition(String)}
    */
   @Test
   @DisplayName("Test setAuthorsPosition(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setAuthorsPosition(String)"})
   void testSetAuthorsPosition() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -675,15 +779,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setAuthorsPosition(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setAuthorsPosition(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setAuthorsPosition(String)}
    */
   @Test
   @DisplayName("Test setAuthorsPosition(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setAuthorsPosition(String)"})
   void testSetAuthorsPosition2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.AUTHORS_POSITION);
 
     // Act
@@ -697,11 +805,14 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setAuthorsPosition(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setAuthorsPosition(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setAuthorsPosition(String)}
    */
   @Test
   @DisplayName("Test setAuthorsPosition(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setAuthorsPosition(String)"})
   void testSetAuthorsPosition3() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -730,15 +841,20 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setAuthorsPosition(String)}.
+   *
    * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
+   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setAuthorsPosition(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setAuthorsPosition(String)}
    */
   @Test
-  @DisplayName("Test setAuthorsPosition(String); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test setAuthorsPosition(String); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setAuthorsPosition(String)"})
   void testSetAuthorsPosition_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -765,16 +881,20 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setAuthorsPositionProperty(TextType)}.
-   * <p>
-   * Method under test:
-   * {@link PhotoshopSchema#setAuthorsPositionProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setAuthorsPositionProperty(TextType)}
    */
   @Test
   @DisplayName("Test setAuthorsPositionProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setAuthorsPositionProperty(TextType)"})
   void testSetAuthorsPositionProperty() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setAuthorsPositionProperty(text);
@@ -787,17 +907,21 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setAuthorsPositionProperty(TextType)}.
-   * <p>
-   * Method under test:
-   * {@link PhotoshopSchema#setAuthorsPositionProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setAuthorsPositionProperty(TextType)}
    */
   @Test
   @DisplayName("Test setAuthorsPositionProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setAuthorsPositionProperty(TextType)"})
   void testSetAuthorsPositionProperty2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addDocumentAncestors("Text");
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setAuthorsPositionProperty(text);
@@ -810,18 +934,22 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setAuthorsPositionProperty(TextType)}.
-   * <p>
-   * Method under test:
-   * {@link PhotoshopSchema#setAuthorsPositionProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setAuthorsPositionProperty(TextType)}
    */
   @Test
   @DisplayName("Test setAuthorsPositionProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setAuthorsPositionProperty(TextType)"})
   void testSetAuthorsPositionProperty3() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addTextLayers("Property Name", "Property Name");
     photoshopSchema.addDocumentAncestors("Text");
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setAuthorsPositionProperty(text);
@@ -835,18 +963,22 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setAuthorsPositionProperty(TextType)}.
-   * <p>
-   * Method under test:
-   * {@link PhotoshopSchema#setAuthorsPositionProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setAuthorsPositionProperty(TextType)}
    */
   @Test
   @DisplayName("Test setAuthorsPositionProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setAuthorsPositionProperty(TextType)"})
   void testSetAuthorsPositionProperty4() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addBagValueAsSimple("Property Name", PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors("Text");
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setAuthorsPositionProperty(text);
@@ -859,11 +991,14 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getCaptionWriterProperty()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getCaptionWriterProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getCaptionWriterProperty()}
    */
   @Test
   @DisplayName("Test getCaptionWriterProperty()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"TextType PhotoshopSchema.getCaptionWriterProperty()"})
   void testGetCaptionWriterProperty() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
@@ -875,15 +1010,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getCaptionWriterProperty()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getCaptionWriterProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getCaptionWriterProperty()}
    */
   @Test
   @DisplayName("Test getCaptionWriterProperty()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"TextType PhotoshopSchema.getCaptionWriterProperty()"})
   void testGetCaptionWriterProperty2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.CAPTION_WRITER);
 
     // Act and Assert
@@ -892,27 +1031,35 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getCaptionWriterProperty()}.
+   *
    * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
+   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getCaptionWriterProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getCaptionWriterProperty()}
    */
   @Test
-  @DisplayName("Test getCaptionWriterProperty(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test getCaptionWriterProperty(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"TextType PhotoshopSchema.getCaptionWriterProperty()"})
   void testGetCaptionWriterProperty_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull((new PhotoshopSchema(XMPMetadata.createXMPMetadata())).getCaptionWriterProperty());
+    assertNull(new PhotoshopSchema(XMPMetadata.createXMPMetadata()).getCaptionWriterProperty());
   }
 
   /**
    * Test {@link PhotoshopSchema#getCaptionWriter()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getCaptionWriter()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getCaptionWriter()}
    */
   @Test
   @DisplayName("Test getCaptionWriter()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PhotoshopSchema.getCaptionWriter()"})
   void testGetCaptionWriter() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
@@ -924,15 +1071,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getCaptionWriter()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getCaptionWriter()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getCaptionWriter()}
    */
   @Test
   @DisplayName("Test getCaptionWriter()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PhotoshopSchema.getCaptionWriter()"})
   void testGetCaptionWriter2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.CAPTION_WRITER);
 
     // Act and Assert
@@ -941,27 +1092,35 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getCaptionWriter()}.
+   *
    * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
+   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getCaptionWriter()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getCaptionWriter()}
    */
   @Test
-  @DisplayName("Test getCaptionWriter(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test getCaptionWriter(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PhotoshopSchema.getCaptionWriter()"})
   void testGetCaptionWriter_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull((new PhotoshopSchema(XMPMetadata.createXMPMetadata())).getCaptionWriter());
+    assertNull(new PhotoshopSchema(XMPMetadata.createXMPMetadata()).getCaptionWriter());
   }
 
   /**
    * Test {@link PhotoshopSchema#setCaptionWriter(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setCaptionWriter(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setCaptionWriter(String)}
    */
   @Test
   @DisplayName("Test setCaptionWriter(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setCaptionWriter(String)"})
   void testSetCaptionWriter() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -991,15 +1150,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setCaptionWriter(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setCaptionWriter(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setCaptionWriter(String)}
    */
   @Test
   @DisplayName("Test setCaptionWriter(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setCaptionWriter(String)"})
   void testSetCaptionWriter2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.CAPTION_WRITER);
 
     // Act
@@ -1013,11 +1176,14 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setCaptionWriter(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setCaptionWriter(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setCaptionWriter(String)}
    */
   @Test
   @DisplayName("Test setCaptionWriter(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setCaptionWriter(String)"})
   void testSetCaptionWriter3() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -1047,15 +1213,20 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setCaptionWriter(String)}.
+   *
    * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
+   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setCaptionWriter(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setCaptionWriter(String)}
    */
   @Test
-  @DisplayName("Test setCaptionWriter(String); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test setCaptionWriter(String); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setCaptionWriter(String)"})
   void testSetCaptionWriter_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -1083,17 +1254,20 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setCaptionWriterProperty(ProperNameType)}.
-   * <p>
-   * Method under test:
-   * {@link PhotoshopSchema#setCaptionWriterProperty(ProperNameType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setCaptionWriterProperty(ProperNameType)}
    */
   @Test
   @DisplayName("Test setCaptionWriterProperty(ProperNameType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setCaptionWriterProperty(ProperNameType)"})
   void testSetCaptionWriterProperty() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    ProperNameType text = new ProperNameType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix",
-        "Property Name", "Value");
+    ProperNameType text =
+        new ProperNameType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setCaptionWriterProperty(text);
@@ -1106,18 +1280,21 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setCaptionWriterProperty(ProperNameType)}.
-   * <p>
-   * Method under test:
-   * {@link PhotoshopSchema#setCaptionWriterProperty(ProperNameType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setCaptionWriterProperty(ProperNameType)}
    */
   @Test
   @DisplayName("Test setCaptionWriterProperty(ProperNameType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setCaptionWriterProperty(ProperNameType)"})
   void testSetCaptionWriterProperty2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addDocumentAncestors("Text");
-    ProperNameType text = new ProperNameType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix",
-        "Property Name", "Value");
+    ProperNameType text =
+        new ProperNameType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setCaptionWriterProperty(text);
@@ -1130,19 +1307,22 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setCaptionWriterProperty(ProperNameType)}.
-   * <p>
-   * Method under test:
-   * {@link PhotoshopSchema#setCaptionWriterProperty(ProperNameType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setCaptionWriterProperty(ProperNameType)}
    */
   @Test
   @DisplayName("Test setCaptionWriterProperty(ProperNameType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setCaptionWriterProperty(ProperNameType)"})
   void testSetCaptionWriterProperty3() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addTextLayers("Property Name", "Property Name");
     photoshopSchema.addDocumentAncestors("Text");
-    ProperNameType text = new ProperNameType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix",
-        "Property Name", "Value");
+    ProperNameType text =
+        new ProperNameType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setCaptionWriterProperty(text);
@@ -1156,19 +1336,22 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setCaptionWriterProperty(ProperNameType)}.
-   * <p>
-   * Method under test:
-   * {@link PhotoshopSchema#setCaptionWriterProperty(ProperNameType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setCaptionWriterProperty(ProperNameType)}
    */
   @Test
   @DisplayName("Test setCaptionWriterProperty(ProperNameType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setCaptionWriterProperty(ProperNameType)"})
   void testSetCaptionWriterProperty4() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addBagValueAsSimple("Property Name", PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors("Text");
-    ProperNameType text = new ProperNameType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix",
-        "Property Name", "Value");
+    ProperNameType text =
+        new ProperNameType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setCaptionWriterProperty(text);
@@ -1181,11 +1364,14 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getCategoryProperty()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getCategoryProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getCategoryProperty()}
    */
   @Test
   @DisplayName("Test getCategoryProperty()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"TextType PhotoshopSchema.getCategoryProperty()"})
   void testGetCategoryProperty() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
@@ -1197,15 +1383,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getCategoryProperty()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getCategoryProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getCategoryProperty()}
    */
   @Test
   @DisplayName("Test getCategoryProperty()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"TextType PhotoshopSchema.getCategoryProperty()"})
   void testGetCategoryProperty2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.CATEGORY);
 
     // Act and Assert
@@ -1214,27 +1404,35 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getCategoryProperty()}.
+   *
    * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
+   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getCategoryProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getCategoryProperty()}
    */
   @Test
-  @DisplayName("Test getCategoryProperty(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test getCategoryProperty(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"TextType PhotoshopSchema.getCategoryProperty()"})
   void testGetCategoryProperty_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull((new PhotoshopSchema(XMPMetadata.createXMPMetadata())).getCategoryProperty());
+    assertNull(new PhotoshopSchema(XMPMetadata.createXMPMetadata()).getCategoryProperty());
   }
 
   /**
    * Test {@link PhotoshopSchema#getCategory()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getCategory()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getCategory()}
    */
   @Test
   @DisplayName("Test getCategory()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PhotoshopSchema.getCategory()"})
   void testGetCategory() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
@@ -1246,15 +1444,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getCategory()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getCategory()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getCategory()}
    */
   @Test
   @DisplayName("Test getCategory()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PhotoshopSchema.getCategory()"})
   void testGetCategory2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.CATEGORY);
 
     // Act and Assert
@@ -1263,27 +1465,35 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getCategory()}.
+   *
    * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
+   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getCategory()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getCategory()}
    */
   @Test
-  @DisplayName("Test getCategory(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test getCategory(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PhotoshopSchema.getCategory()"})
   void testGetCategory_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull((new PhotoshopSchema(XMPMetadata.createXMPMetadata())).getCategory());
+    assertNull(new PhotoshopSchema(XMPMetadata.createXMPMetadata()).getCategory());
   }
 
   /**
    * Test {@link PhotoshopSchema#setCategory(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setCategory(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setCategory(String)}
    */
   @Test
   @DisplayName("Test setCategory(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setCategory(String)"})
   void testSetCategory() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -1312,15 +1522,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setCategory(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setCategory(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setCategory(String)}
    */
   @Test
   @DisplayName("Test setCategory(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setCategory(String)"})
   void testSetCategory2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.CATEGORY);
 
     // Act
@@ -1334,11 +1548,14 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setCategory(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setCategory(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setCategory(String)}
    */
   @Test
   @DisplayName("Test setCategory(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setCategory(String)"})
   void testSetCategory3() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -1367,15 +1584,20 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setCategory(String)}.
+   *
    * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
+   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setCategory(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setCategory(String)}
    */
   @Test
-  @DisplayName("Test setCategory(String); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test setCategory(String); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setCategory(String)"})
   void testSetCategory_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -1402,15 +1624,20 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setCategoryProperty(TextType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setCategoryProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setCategoryProperty(TextType)}
    */
   @Test
   @DisplayName("Test setCategoryProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setCategoryProperty(TextType)"})
   void testSetCategoryProperty() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setCategoryProperty(text);
@@ -1423,16 +1650,21 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setCategoryProperty(TextType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setCategoryProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setCategoryProperty(TextType)}
    */
   @Test
   @DisplayName("Test setCategoryProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setCategoryProperty(TextType)"})
   void testSetCategoryProperty2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addDocumentAncestors("Text");
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setCategoryProperty(text);
@@ -1445,17 +1677,22 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setCategoryProperty(TextType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setCategoryProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setCategoryProperty(TextType)}
    */
   @Test
   @DisplayName("Test setCategoryProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setCategoryProperty(TextType)"})
   void testSetCategoryProperty3() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addTextLayers("Property Name", "Property Name");
     photoshopSchema.addDocumentAncestors("Text");
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setCategoryProperty(text);
@@ -1469,17 +1706,22 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setCategoryProperty(TextType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setCategoryProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setCategoryProperty(TextType)}
    */
   @Test
   @DisplayName("Test setCategoryProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setCategoryProperty(TextType)"})
   void testSetCategoryProperty4() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addBagValueAsSimple("Property Name", PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors("Text");
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setCategoryProperty(text);
@@ -1492,11 +1734,14 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getCityProperty()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getCityProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getCityProperty()}
    */
   @Test
   @DisplayName("Test getCityProperty()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"TextType PhotoshopSchema.getCityProperty()"})
   void testGetCityProperty() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
@@ -1508,15 +1753,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getCityProperty()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getCityProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getCityProperty()}
    */
   @Test
   @DisplayName("Test getCityProperty()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"TextType PhotoshopSchema.getCityProperty()"})
   void testGetCityProperty2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.CITY);
 
     // Act and Assert
@@ -1525,27 +1774,35 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getCityProperty()}.
+   *
    * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
+   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getCityProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getCityProperty()}
    */
   @Test
-  @DisplayName("Test getCityProperty(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test getCityProperty(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"TextType PhotoshopSchema.getCityProperty()"})
   void testGetCityProperty_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull((new PhotoshopSchema(XMPMetadata.createXMPMetadata())).getCityProperty());
+    assertNull(new PhotoshopSchema(XMPMetadata.createXMPMetadata()).getCityProperty());
   }
 
   /**
    * Test {@link PhotoshopSchema#getCity()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getCity()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getCity()}
    */
   @Test
   @DisplayName("Test getCity()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PhotoshopSchema.getCity()"})
   void testGetCity() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
@@ -1557,15 +1814,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getCity()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getCity()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getCity()}
    */
   @Test
   @DisplayName("Test getCity()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PhotoshopSchema.getCity()"})
   void testGetCity2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.CITY);
 
     // Act and Assert
@@ -1574,27 +1835,35 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getCity()}.
+   *
    * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
+   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getCity()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getCity()}
    */
   @Test
-  @DisplayName("Test getCity(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test getCity(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PhotoshopSchema.getCity()"})
   void testGetCity_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull((new PhotoshopSchema(XMPMetadata.createXMPMetadata())).getCity());
+    assertNull(new PhotoshopSchema(XMPMetadata.createXMPMetadata()).getCity());
   }
 
   /**
    * Test {@link PhotoshopSchema#setCity(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setCity(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setCity(String)}
    */
   @Test
   @DisplayName("Test setCity(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setCity(String)"})
   void testSetCity() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -1623,15 +1892,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setCity(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setCity(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setCity(String)}
    */
   @Test
   @DisplayName("Test setCity(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setCity(String)"})
   void testSetCity2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.CITY);
 
     // Act
@@ -1645,11 +1918,14 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setCity(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setCity(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setCity(String)}
    */
   @Test
   @DisplayName("Test setCity(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setCity(String)"})
   void testSetCity3() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -1678,15 +1954,20 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setCity(String)}.
+   *
    * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
+   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setCity(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setCity(String)}
    */
   @Test
-  @DisplayName("Test setCity(String); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test setCity(String); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setCity(String)"})
   void testSetCity_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -1713,15 +1994,20 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setCityProperty(TextType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setCityProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setCityProperty(TextType)}
    */
   @Test
   @DisplayName("Test setCityProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setCityProperty(TextType)"})
   void testSetCityProperty() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setCityProperty(text);
@@ -1734,16 +2020,21 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setCityProperty(TextType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setCityProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setCityProperty(TextType)}
    */
   @Test
   @DisplayName("Test setCityProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setCityProperty(TextType)"})
   void testSetCityProperty2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addDocumentAncestors("Text");
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setCityProperty(text);
@@ -1756,17 +2047,22 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setCityProperty(TextType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setCityProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setCityProperty(TextType)}
    */
   @Test
   @DisplayName("Test setCityProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setCityProperty(TextType)"})
   void testSetCityProperty3() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addTextLayers("Property Name", "Property Name");
     photoshopSchema.addDocumentAncestors("Text");
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setCityProperty(text);
@@ -1780,17 +2076,22 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setCityProperty(TextType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setCityProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setCityProperty(TextType)}
    */
   @Test
   @DisplayName("Test setCityProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setCityProperty(TextType)"})
   void testSetCityProperty4() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addBagValueAsSimple("Property Name", PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors("Text");
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setCityProperty(text);
@@ -1803,11 +2104,14 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getColorModeProperty()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getColorModeProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getColorModeProperty()}
    */
   @Test
   @DisplayName("Test getColorModeProperty()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"IntegerType PhotoshopSchema.getColorModeProperty()"})
   void testGetColorModeProperty() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
@@ -1819,15 +2123,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getColorModeProperty()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getColorModeProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getColorModeProperty()}
    */
   @Test
   @DisplayName("Test getColorModeProperty()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"IntegerType PhotoshopSchema.getColorModeProperty()"})
   void testGetColorModeProperty2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.COLOR_MODE);
 
     // Act and Assert
@@ -1836,27 +2144,35 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getColorModeProperty()}.
+   *
    * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
+   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getColorModeProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getColorModeProperty()}
    */
   @Test
-  @DisplayName("Test getColorModeProperty(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test getColorModeProperty(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"IntegerType PhotoshopSchema.getColorModeProperty()"})
   void testGetColorModeProperty_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull((new PhotoshopSchema(XMPMetadata.createXMPMetadata())).getColorModeProperty());
+    assertNull(new PhotoshopSchema(XMPMetadata.createXMPMetadata()).getColorModeProperty());
   }
 
   /**
    * Test {@link PhotoshopSchema#getColorMode()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getColorMode()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getColorMode()}
    */
   @Test
   @DisplayName("Test getColorMode()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Integer PhotoshopSchema.getColorMode()"})
   void testGetColorMode() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
@@ -1868,15 +2184,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getColorMode()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getColorMode()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getColorMode()}
    */
   @Test
   @DisplayName("Test getColorMode()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Integer PhotoshopSchema.getColorMode()"})
   void testGetColorMode2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.COLOR_MODE);
 
     // Act and Assert
@@ -1885,27 +2205,35 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getColorMode()}.
+   *
    * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
+   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getColorMode()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getColorMode()}
    */
   @Test
-  @DisplayName("Test getColorMode(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test getColorMode(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Integer PhotoshopSchema.getColorMode()"})
   void testGetColorMode_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull((new PhotoshopSchema(XMPMetadata.createXMPMetadata())).getColorMode());
+    assertNull(new PhotoshopSchema(XMPMetadata.createXMPMetadata()).getColorMode());
   }
 
   /**
    * Test {@link PhotoshopSchema#setColorMode(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setColorMode(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setColorMode(String)}
    */
   @Test
   @DisplayName("Test setColorMode(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setColorMode(String)"})
   void testSetColorMode() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -1932,11 +2260,14 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setColorMode(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setColorMode(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setColorMode(String)}
    */
   @Test
   @DisplayName("Test setColorMode(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setColorMode(String)"})
   void testSetColorMode2() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -1965,11 +2296,14 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setColorMode(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setColorMode(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setColorMode(String)}
    */
   @Test
   @DisplayName("Test setColorMode(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setColorMode(String)"})
   void testSetColorMode3() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
@@ -1987,11 +2321,14 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setColorMode(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setColorMode(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setColorMode(String)}
    */
   @Test
   @DisplayName("Test setColorMode(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setColorMode(String)"})
   void testSetColorMode4() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -2021,15 +2358,20 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setColorModeProperty(IntegerType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setColorModeProperty(IntegerType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setColorModeProperty(IntegerType)}
    */
   @Test
   @DisplayName("Test setColorModeProperty(IntegerType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setColorModeProperty(IntegerType)"})
   void testSetColorModeProperty() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    IntegerType text = new IntegerType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", 42);
+    IntegerType text =
+        new IntegerType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", 42);
 
     // Act
     photoshopSchema.setColorModeProperty(text);
@@ -2042,16 +2384,21 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setColorModeProperty(IntegerType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setColorModeProperty(IntegerType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setColorModeProperty(IntegerType)}
    */
   @Test
   @DisplayName("Test setColorModeProperty(IntegerType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setColorModeProperty(IntegerType)"})
   void testSetColorModeProperty2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.DOCUMENT_ANCESTORS);
-    IntegerType text = new IntegerType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", 42);
+    IntegerType text =
+        new IntegerType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", 42);
 
     // Act
     photoshopSchema.setColorModeProperty(text);
@@ -2064,17 +2411,22 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setColorModeProperty(IntegerType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setColorModeProperty(IntegerType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setColorModeProperty(IntegerType)}
    */
   @Test
   @DisplayName("Test setColorModeProperty(IntegerType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setColorModeProperty(IntegerType)"})
   void testSetColorModeProperty3() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addTextLayers("Layer Name", "Layer Text");
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.DOCUMENT_ANCESTORS);
-    IntegerType text = new IntegerType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", 42);
+    IntegerType text =
+        new IntegerType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", 42);
 
     // Act
     photoshopSchema.setColorModeProperty(text);
@@ -2092,21 +2444,26 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setColorModeProperty(IntegerType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setColorModeProperty(IntegerType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setColorModeProperty(IntegerType)}
    */
   @Test
   @DisplayName("Test setColorModeProperty(IntegerType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setColorModeProperty(IntegerType)"})
   void testSetColorModeProperty4() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addBagValueAsSimple("Property Name", PhotoshopSchema.TEXT_LAYERS);
     photoshopSchema.addTextLayers("Layer Name", "Layer Text");
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.DOCUMENT_ANCESTORS);
+    IntegerType text =
+        new IntegerType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", 42);
 
     // Act
-    photoshopSchema.setColorModeProperty(
-        new IntegerType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", 42));
+    photoshopSchema.setColorModeProperty(text);
 
     // Assert
     List<AbstractField> allProperties = photoshopSchema.getAllProperties();
@@ -2120,11 +2477,14 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getCountryProperty()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getCountryProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getCountryProperty()}
    */
   @Test
   @DisplayName("Test getCountryProperty()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"TextType PhotoshopSchema.getCountryProperty()"})
   void testGetCountryProperty() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
@@ -2136,15 +2496,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getCountryProperty()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getCountryProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getCountryProperty()}
    */
   @Test
   @DisplayName("Test getCountryProperty()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"TextType PhotoshopSchema.getCountryProperty()"})
   void testGetCountryProperty2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.COUNTRY);
 
     // Act and Assert
@@ -2153,27 +2517,35 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getCountryProperty()}.
+   *
    * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
+   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getCountryProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getCountryProperty()}
    */
   @Test
-  @DisplayName("Test getCountryProperty(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test getCountryProperty(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"TextType PhotoshopSchema.getCountryProperty()"})
   void testGetCountryProperty_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull((new PhotoshopSchema(XMPMetadata.createXMPMetadata())).getCountryProperty());
+    assertNull(new PhotoshopSchema(XMPMetadata.createXMPMetadata()).getCountryProperty());
   }
 
   /**
    * Test {@link PhotoshopSchema#getCountry()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getCountry()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getCountry()}
    */
   @Test
   @DisplayName("Test getCountry()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PhotoshopSchema.getCountry()"})
   void testGetCountry() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
@@ -2185,15 +2557,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getCountry()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getCountry()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getCountry()}
    */
   @Test
   @DisplayName("Test getCountry()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PhotoshopSchema.getCountry()"})
   void testGetCountry2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.COUNTRY);
 
     // Act and Assert
@@ -2202,27 +2578,35 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getCountry()}.
+   *
    * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
+   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getCountry()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getCountry()}
    */
   @Test
-  @DisplayName("Test getCountry(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test getCountry(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PhotoshopSchema.getCountry()"})
   void testGetCountry_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull((new PhotoshopSchema(XMPMetadata.createXMPMetadata())).getCountry());
+    assertNull(new PhotoshopSchema(XMPMetadata.createXMPMetadata()).getCountry());
   }
 
   /**
    * Test {@link PhotoshopSchema#setCountry(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setCountry(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setCountry(String)}
    */
   @Test
   @DisplayName("Test setCountry(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setCountry(String)"})
   void testSetCountry() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -2251,15 +2635,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setCountry(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setCountry(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setCountry(String)}
    */
   @Test
   @DisplayName("Test setCountry(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setCountry(String)"})
   void testSetCountry2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.COUNTRY);
 
     // Act
@@ -2273,11 +2661,14 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setCountry(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setCountry(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setCountry(String)}
    */
   @Test
   @DisplayName("Test setCountry(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setCountry(String)"})
   void testSetCountry3() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -2306,15 +2697,20 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setCountry(String)}.
+   *
    * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
+   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setCountry(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setCountry(String)}
    */
   @Test
-  @DisplayName("Test setCountry(String); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test setCountry(String); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setCountry(String)"})
   void testSetCountry_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -2341,15 +2737,20 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setCountryProperty(TextType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setCountryProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setCountryProperty(TextType)}
    */
   @Test
   @DisplayName("Test setCountryProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setCountryProperty(TextType)"})
   void testSetCountryProperty() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setCountryProperty(text);
@@ -2362,16 +2763,21 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setCountryProperty(TextType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setCountryProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setCountryProperty(TextType)}
    */
   @Test
   @DisplayName("Test setCountryProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setCountryProperty(TextType)"})
   void testSetCountryProperty2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addDocumentAncestors("Text");
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setCountryProperty(text);
@@ -2384,17 +2790,22 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setCountryProperty(TextType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setCountryProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setCountryProperty(TextType)}
    */
   @Test
   @DisplayName("Test setCountryProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setCountryProperty(TextType)"})
   void testSetCountryProperty3() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addTextLayers("Property Name", "Property Name");
     photoshopSchema.addDocumentAncestors("Text");
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setCountryProperty(text);
@@ -2408,17 +2819,22 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setCountryProperty(TextType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setCountryProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setCountryProperty(TextType)}
    */
   @Test
   @DisplayName("Test setCountryProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setCountryProperty(TextType)"})
   void testSetCountryProperty4() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addBagValueAsSimple("Property Name", PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors("Text");
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setCountryProperty(text);
@@ -2431,11 +2847,14 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getCreditProperty()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getCreditProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getCreditProperty()}
    */
   @Test
   @DisplayName("Test getCreditProperty()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"TextType PhotoshopSchema.getCreditProperty()"})
   void testGetCreditProperty() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
@@ -2447,15 +2866,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getCreditProperty()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getCreditProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getCreditProperty()}
    */
   @Test
   @DisplayName("Test getCreditProperty()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"TextType PhotoshopSchema.getCreditProperty()"})
   void testGetCreditProperty2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.CREDIT);
 
     // Act and Assert
@@ -2464,27 +2887,35 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getCreditProperty()}.
+   *
    * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
+   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getCreditProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getCreditProperty()}
    */
   @Test
-  @DisplayName("Test getCreditProperty(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test getCreditProperty(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"TextType PhotoshopSchema.getCreditProperty()"})
   void testGetCreditProperty_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull((new PhotoshopSchema(XMPMetadata.createXMPMetadata())).getCreditProperty());
+    assertNull(new PhotoshopSchema(XMPMetadata.createXMPMetadata()).getCreditProperty());
   }
 
   /**
    * Test {@link PhotoshopSchema#getCredit()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getCredit()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getCredit()}
    */
   @Test
   @DisplayName("Test getCredit()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PhotoshopSchema.getCredit()"})
   void testGetCredit() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
@@ -2496,15 +2927,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getCredit()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getCredit()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getCredit()}
    */
   @Test
   @DisplayName("Test getCredit()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PhotoshopSchema.getCredit()"})
   void testGetCredit2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.CREDIT);
 
     // Act and Assert
@@ -2513,27 +2948,35 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getCredit()}.
+   *
    * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
+   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getCredit()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getCredit()}
    */
   @Test
-  @DisplayName("Test getCredit(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test getCredit(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PhotoshopSchema.getCredit()"})
   void testGetCredit_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull((new PhotoshopSchema(XMPMetadata.createXMPMetadata())).getCredit());
+    assertNull(new PhotoshopSchema(XMPMetadata.createXMPMetadata()).getCredit());
   }
 
   /**
    * Test {@link PhotoshopSchema#setCredit(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setCredit(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setCredit(String)}
    */
   @Test
   @DisplayName("Test setCredit(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setCredit(String)"})
   void testSetCredit() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -2562,15 +3005,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setCredit(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setCredit(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setCredit(String)}
    */
   @Test
   @DisplayName("Test setCredit(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setCredit(String)"})
   void testSetCredit2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.CREDIT);
 
     // Act
@@ -2584,11 +3031,14 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setCredit(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setCredit(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setCredit(String)}
    */
   @Test
   @DisplayName("Test setCredit(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setCredit(String)"})
   void testSetCredit3() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -2617,15 +3067,20 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setCredit(String)}.
+   *
    * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
+   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setCredit(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setCredit(String)}
    */
   @Test
-  @DisplayName("Test setCredit(String); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test setCredit(String); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setCredit(String)"})
   void testSetCredit_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -2652,15 +3107,20 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setCreditProperty(TextType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setCreditProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setCreditProperty(TextType)}
    */
   @Test
   @DisplayName("Test setCreditProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setCreditProperty(TextType)"})
   void testSetCreditProperty() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setCreditProperty(text);
@@ -2673,16 +3133,21 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setCreditProperty(TextType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setCreditProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setCreditProperty(TextType)}
    */
   @Test
   @DisplayName("Test setCreditProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setCreditProperty(TextType)"})
   void testSetCreditProperty2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addDocumentAncestors("Text");
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setCreditProperty(text);
@@ -2695,17 +3160,22 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setCreditProperty(TextType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setCreditProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setCreditProperty(TextType)}
    */
   @Test
   @DisplayName("Test setCreditProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setCreditProperty(TextType)"})
   void testSetCreditProperty3() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addTextLayers("Property Name", "Property Name");
     photoshopSchema.addDocumentAncestors("Text");
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setCreditProperty(text);
@@ -2719,17 +3189,22 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setCreditProperty(TextType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setCreditProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setCreditProperty(TextType)}
    */
   @Test
   @DisplayName("Test setCreditProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setCreditProperty(TextType)"})
   void testSetCreditProperty4() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addBagValueAsSimple("Property Name", PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors("Text");
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setCreditProperty(text);
@@ -2742,11 +3217,14 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getDateCreatedProperty()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getDateCreatedProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getDateCreatedProperty()}
    */
   @Test
   @DisplayName("Test getDateCreatedProperty()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"DateType PhotoshopSchema.getDateCreatedProperty()"})
   void testGetDateCreatedProperty() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
@@ -2758,15 +3236,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getDateCreatedProperty()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getDateCreatedProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getDateCreatedProperty()}
    */
   @Test
   @DisplayName("Test getDateCreatedProperty()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"DateType PhotoshopSchema.getDateCreatedProperty()"})
   void testGetDateCreatedProperty2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.DATE_CREATED);
 
     // Act and Assert
@@ -2775,27 +3257,35 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getDateCreatedProperty()}.
+   *
    * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
+   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getDateCreatedProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getDateCreatedProperty()}
    */
   @Test
-  @DisplayName("Test getDateCreatedProperty(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test getDateCreatedProperty(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"DateType PhotoshopSchema.getDateCreatedProperty()"})
   void testGetDateCreatedProperty_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull((new PhotoshopSchema(XMPMetadata.createXMPMetadata())).getDateCreatedProperty());
+    assertNull(new PhotoshopSchema(XMPMetadata.createXMPMetadata()).getDateCreatedProperty());
   }
 
   /**
    * Test {@link PhotoshopSchema#getDateCreated()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getDateCreated()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getDateCreated()}
    */
   @Test
   @DisplayName("Test getDateCreated()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PhotoshopSchema.getDateCreated()"})
   void testGetDateCreated() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
@@ -2807,15 +3297,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getDateCreated()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getDateCreated()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getDateCreated()}
    */
   @Test
   @DisplayName("Test getDateCreated()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PhotoshopSchema.getDateCreated()"})
   void testGetDateCreated2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.DATE_CREATED);
 
     // Act and Assert
@@ -2824,27 +3318,35 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getDateCreated()}.
+   *
    * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
+   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getDateCreated()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getDateCreated()}
    */
   @Test
-  @DisplayName("Test getDateCreated(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test getDateCreated(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PhotoshopSchema.getDateCreated()"})
   void testGetDateCreated_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull((new PhotoshopSchema(XMPMetadata.createXMPMetadata())).getDateCreated());
+    assertNull(new PhotoshopSchema(XMPMetadata.createXMPMetadata()).getDateCreated());
   }
 
   /**
    * Test {@link PhotoshopSchema#setDateCreated(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setDateCreated(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setDateCreated(String)}
    */
   @Test
   @DisplayName("Test setDateCreated(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setDateCreated(String)"})
   void testSetDateCreated() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -2868,21 +3370,121 @@ class PhotoshopSchemaDiffblueTest {
   }
 
   /**
+   * Test {@link PhotoshopSchema#setDateCreated(String)}.
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setDateCreated(String)}
+   */
+  @Test
+  @DisplayName("Test setDateCreated(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setDateCreated(String)"})
+  void testSetDateCreated2() {
+    // Arrange
+    XMPMetadata metadata = XMPMetadata.createXMPMetadata();
+
+    PhotoshopSchema photoshopSchema = new PhotoshopSchema(metadata);
+    photoshopSchema.addDocumentAncestors(PhotoshopSchema.DATE_CREATED);
+
+    // Act
+    photoshopSchema.setDateCreated("");
+
+    // Assert
+    DateType dateCreatedProperty = photoshopSchema.getDateCreatedProperty();
+    assertEquals("", dateCreatedProperty.getRawValue());
+    assertEquals("photoshop", dateCreatedProperty.getPrefix());
+    assertNull(dateCreatedProperty.getNamespace());
+    assertNull(dateCreatedProperty.getValue());
+    List<AbstractField> allProperties = photoshopSchema.getAllProperties();
+    assertEquals(2, allProperties.size());
+    assertTrue(dateCreatedProperty.getAllAttributes().isEmpty());
+    assertEquals(PhotoshopSchema.DATE_CREATED, dateCreatedProperty.getPropertyName());
+    assertSame(dateCreatedProperty, allProperties.get(1));
+    assertSame(metadata, dateCreatedProperty.getMetadata());
+  }
+
+  /**
+   * Test {@link PhotoshopSchema#setDateCreated(String)}.
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setDateCreated(String)}
+   */
+  @Test
+  @DisplayName("Test setDateCreated(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setDateCreated(String)"})
+  void testSetDateCreated3() {
+    // Arrange
+    XMPMetadata metadata = XMPMetadata.createXMPMetadata();
+
+    PhotoshopSchema photoshopSchema = new PhotoshopSchema(metadata);
+    photoshopSchema.addBagValueAsSimple(PhotoshopSchema.DATE_CREATED, "42");
+
+    // Act
+    photoshopSchema.setDateCreated("");
+
+    // Assert
+    DateType dateCreatedProperty = photoshopSchema.getDateCreatedProperty();
+    assertEquals("", dateCreatedProperty.getRawValue());
+    assertEquals("photoshop", dateCreatedProperty.getPrefix());
+    assertNull(dateCreatedProperty.getNamespace());
+    assertNull(dateCreatedProperty.getValue());
+    List<AbstractField> allProperties = photoshopSchema.getAllProperties();
+    assertEquals(1, allProperties.size());
+    assertTrue(dateCreatedProperty.getAllAttributes().isEmpty());
+    assertEquals(PhotoshopSchema.DATE_CREATED, dateCreatedProperty.getPropertyName());
+    assertSame(dateCreatedProperty, allProperties.get(0));
+    assertSame(metadata, dateCreatedProperty.getMetadata());
+  }
+
+  /**
+   * Test {@link PhotoshopSchema#setDateCreated(String)}.
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setDateCreated(String)}
+   */
+  @Test
+  @DisplayName("Test setDateCreated(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setDateCreated(String)"})
+  void testSetDateCreated4() {
+    // Arrange
+    PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addDocumentAncestors(PhotoshopSchema.DATE_CREATED);
+
+    // Act
+    photoshopSchema.setDateCreated("");
+
+    // Assert
+    List<AbstractField> allProperties = photoshopSchema.getAllProperties();
+    assertEquals(3, allProperties.size());
+    assertTrue(allProperties.get(0) instanceof ArrayProperty);
+  }
+
+  /**
    * Test {@link PhotoshopSchema#setDateCreatedProperty(DateType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setDateCreatedProperty(DateType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setDateCreatedProperty(DateType)}
    */
   @Test
   @DisplayName("Test setDateCreatedProperty(DateType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setDateCreatedProperty(DateType)"})
   void testSetDateCreatedProperty() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    DateType text = new DateType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "");
+    DateType text =
+        new DateType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "");
 
     // Act
     photoshopSchema.setDateCreatedProperty(text);
 
     // Assert
+    assertNull(photoshopSchema.getDocumentAncestors());
     List<AbstractField> allProperties = photoshopSchema.getAllProperties();
     assertEquals(1, allProperties.size());
     assertSame(text, allProperties.get(0));
@@ -2890,21 +3492,27 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setDateCreatedProperty(DateType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setDateCreatedProperty(DateType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setDateCreatedProperty(DateType)}
    */
   @Test
   @DisplayName("Test setDateCreatedProperty(DateType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setDateCreatedProperty(DateType)"})
   void testSetDateCreatedProperty2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addDocumentAncestors(PhotoshopSchema.DOCUMENT_ANCESTORS);
-    DateType text = new DateType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "");
+    photoshopSchema.addDocumentAncestors("42");
+    DateType text =
+        new DateType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "");
 
     // Act
     photoshopSchema.setDateCreatedProperty(text);
 
     // Assert
+    assertEquals(1, photoshopSchema.getDocumentAncestors().size());
     List<AbstractField> allProperties = photoshopSchema.getAllProperties();
     assertEquals(2, allProperties.size());
     assertSame(text, allProperties.get(1));
@@ -2912,17 +3520,23 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setDateCreatedProperty(DateType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setDateCreatedProperty(DateType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setDateCreatedProperty(DateType)}
    */
   @Test
   @DisplayName("Test setDateCreatedProperty(DateType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setDateCreatedProperty(DateType)"})
   void testSetDateCreatedProperty3() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers("Layer Name", "Layer Text");
-    photoshopSchema.addDocumentAncestors(PhotoshopSchema.DOCUMENT_ANCESTORS);
-    DateType text = new DateType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "");
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addDocumentAncestors("42");
+    DateType text =
+        new DateType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "");
 
     // Act
     photoshopSchema.setDateCreatedProperty(text);
@@ -2930,49 +3544,53 @@ class PhotoshopSchemaDiffblueTest {
     // Assert
     List<AbstractField> allProperties = photoshopSchema.getAllProperties();
     assertEquals(3, allProperties.size());
-    AbstractField getResult = allProperties.get(0);
-    assertTrue(getResult instanceof ArrayProperty);
-    assertEquals(1, ((ArrayProperty) getResult).getAllProperties().size());
-    assertEquals(Cardinality.Seq, ((ArrayProperty) getResult).getArrayType());
-    assertEquals(PhotoshopSchema.TEXT_LAYERS, getResult.getPropertyName());
+    assertTrue(allProperties.get(0) instanceof ArrayProperty);
+    assertEquals(1, photoshopSchema.getDocumentAncestors().size());
     assertSame(text, allProperties.get(2));
   }
 
   /**
    * Test {@link PhotoshopSchema#setDateCreatedProperty(DateType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setDateCreatedProperty(DateType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setDateCreatedProperty(DateType)}
    */
   @Test
   @DisplayName("Test setDateCreatedProperty(DateType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setDateCreatedProperty(DateType)"})
   void testSetDateCreatedProperty4() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addBagValueAsSimple("Property Name", PhotoshopSchema.TEXT_LAYERS);
-    photoshopSchema.addTextLayers("Layer Name", "Layer Text");
-    photoshopSchema.addDocumentAncestors(PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addDocumentAncestors("42");
+    DateType text =
+        new DateType(
+            XMPMetadata.createXMPMetadata(),
+            "Namespace URI",
+            "Prefix",
+            PhotoshopSchema.DOCUMENT_ANCESTORS,
+            "");
 
     // Act
-    photoshopSchema.setDateCreatedProperty(
-        new DateType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", ""));
+    photoshopSchema.setDateCreatedProperty(text);
 
     // Assert
+    assertNull(photoshopSchema.getDocumentAncestors());
     List<AbstractField> allProperties = photoshopSchema.getAllProperties();
-    assertEquals(3, allProperties.size());
-    AbstractField getResult = allProperties.get(0);
-    assertTrue(getResult instanceof ArrayProperty);
-    assertEquals(1, ((ArrayProperty) getResult).getAllProperties().size());
-    assertEquals(Cardinality.Seq, ((ArrayProperty) getResult).getArrayType());
-    assertEquals(PhotoshopSchema.TEXT_LAYERS, getResult.getPropertyName());
+    assertEquals(1, allProperties.size());
+    assertSame(text, allProperties.get(0));
   }
 
   /**
    * Test {@link PhotoshopSchema#addDocumentAncestors(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#addDocumentAncestors(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#addDocumentAncestors(String)}
    */
   @Test
   @DisplayName("Test addDocumentAncestors(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.addDocumentAncestors(String)"})
   void testAddDocumentAncestors() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -2982,43 +3600,34 @@ class PhotoshopSchemaDiffblueTest {
     photoshopSchema.addDocumentAncestors("Text");
 
     // Assert
-    ArrayProperty documentAncestorsProperty = photoshopSchema.getDocumentAncestorsProperty();
-    List<AbstractField> allProperties = documentAncestorsProperty.getAllProperties();
-    assertEquals(1, allProperties.size());
-    AbstractField getResult = allProperties.get(0);
-    assertTrue(getResult instanceof TextType);
     List<String> documentAncestors = photoshopSchema.getDocumentAncestors();
     assertEquals(1, documentAncestors.size());
     assertEquals("Text", documentAncestors.get(0));
-    assertEquals("Text", ((TextType) getResult).getStringValue());
-    assertEquals("Text", ((TextType) getResult).getRawValue());
-    assertEquals("Text", ((TextType) getResult).getValue());
-    assertEquals("http://ns.adobe.com/photoshop/1.0/", getResult.getNamespace());
+    ArrayProperty documentAncestorsProperty = photoshopSchema.getDocumentAncestorsProperty();
     assertEquals("http://ns.adobe.com/photoshop/1.0/", documentAncestorsProperty.getNamespace());
-    assertEquals("li", getResult.getPropertyName());
-    assertEquals("photoshop", getResult.getPrefix());
     assertEquals("photoshop", documentAncestorsProperty.getPrefix());
-    List<AbstractField> allProperties2 = photoshopSchema.getAllProperties();
-    assertEquals(1, allProperties2.size());
+    List<AbstractField> allProperties = photoshopSchema.getAllProperties();
+    assertEquals(1, allProperties.size());
+    assertEquals(1, documentAncestorsProperty.getAllProperties().size());
     assertEquals(Cardinality.Bag, documentAncestorsProperty.getArrayType());
-    assertTrue(getResult.getAllAttributes().isEmpty());
     assertTrue(documentAncestorsProperty.getAllAttributes().isEmpty());
     assertTrue(documentAncestorsProperty.getAllNamespacesWithPrefix().isEmpty());
     assertEquals(documentAncestors, documentAncestorsProperty.getElementsAsString());
     assertEquals(PhotoshopSchema.DOCUMENT_ANCESTORS, documentAncestorsProperty.getPropertyName());
-    assertSame(documentAncestorsProperty, allProperties2.get(0));
-    assertSame(allProperties, documentAncestorsProperty.getContainer().getAllProperties());
-    assertSame(metadata, getResult.getMetadata());
+    assertSame(documentAncestorsProperty, allProperties.get(0));
     assertSame(metadata, documentAncestorsProperty.getMetadata());
   }
 
   /**
    * Test {@link PhotoshopSchema#addDocumentAncestors(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#addDocumentAncestors(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#addDocumentAncestors(String)}
    */
   @Test
   @DisplayName("Test addDocumentAncestors(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.addDocumentAncestors(String)"})
   void testAddDocumentAncestors2() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -3030,52 +3639,33 @@ class PhotoshopSchemaDiffblueTest {
     photoshopSchema.addDocumentAncestors("Text");
 
     // Assert
-    ArrayProperty documentAncestorsProperty = photoshopSchema.getDocumentAncestorsProperty();
-    List<AbstractField> allProperties = documentAncestorsProperty.getAllProperties();
-    assertEquals(2, allProperties.size());
-    AbstractField getResult = allProperties.get(0);
-    assertTrue(getResult instanceof TextType);
-    AbstractField getResult2 = allProperties.get(1);
-    assertTrue(getResult2 instanceof TextType);
     List<String> documentAncestors = photoshopSchema.getDocumentAncestors();
     assertEquals(2, documentAncestors.size());
     assertEquals("Text", documentAncestors.get(1));
-    assertEquals("Text", ((TextType) getResult2).getStringValue());
-    assertEquals("Text", ((TextType) getResult2).getRawValue());
-    assertEquals("Text", ((TextType) getResult2).getValue());
-    assertEquals("http://ns.adobe.com/photoshop/1.0/", getResult.getNamespace());
-    assertEquals("http://ns.adobe.com/photoshop/1.0/", getResult2.getNamespace());
+    ArrayProperty documentAncestorsProperty = photoshopSchema.getDocumentAncestorsProperty();
     assertEquals("http://ns.adobe.com/photoshop/1.0/", documentAncestorsProperty.getNamespace());
-    assertEquals("li", getResult.getPropertyName());
-    assertEquals("li", getResult2.getPropertyName());
-    assertEquals("photoshop", getResult.getPrefix());
-    assertEquals("photoshop", getResult2.getPrefix());
     assertEquals("photoshop", documentAncestorsProperty.getPrefix());
     assertEquals(1, photoshopSchema.getAllProperties().size());
+    assertEquals(2, documentAncestorsProperty.getAllProperties().size());
     assertEquals(Cardinality.Bag, documentAncestorsProperty.getArrayType());
-    assertTrue(getResult.getAllAttributes().isEmpty());
-    assertTrue(getResult2.getAllAttributes().isEmpty());
     assertTrue(documentAncestorsProperty.getAllAttributes().isEmpty());
     assertTrue(documentAncestorsProperty.getAllNamespacesWithPrefix().isEmpty());
     assertEquals(documentAncestors, documentAncestorsProperty.getElementsAsString());
     assertEquals(PhotoshopSchema.DOCUMENT_ANCESTORS, documentAncestors.get(0));
     assertEquals(PhotoshopSchema.DOCUMENT_ANCESTORS, documentAncestorsProperty.getPropertyName());
-    assertEquals(PhotoshopSchema.DOCUMENT_ANCESTORS, ((TextType) getResult).getStringValue());
-    assertEquals(PhotoshopSchema.DOCUMENT_ANCESTORS, ((TextType) getResult).getRawValue());
-    assertEquals(PhotoshopSchema.DOCUMENT_ANCESTORS, ((TextType) getResult).getValue());
-    assertSame(allProperties, documentAncestorsProperty.getContainer().getAllProperties());
-    assertSame(metadata, getResult.getMetadata());
-    assertSame(metadata, getResult2.getMetadata());
     assertSame(metadata, documentAncestorsProperty.getMetadata());
   }
 
   /**
    * Test {@link PhotoshopSchema#addDocumentAncestors(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#addDocumentAncestors(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#addDocumentAncestors(String)}
    */
   @Test
   @DisplayName("Test addDocumentAncestors(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.addDocumentAncestors(String)"})
   void testAddDocumentAncestors3() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -3088,149 +3678,114 @@ class PhotoshopSchemaDiffblueTest {
     photoshopSchema.addDocumentAncestors("Text");
 
     // Assert
-    ArrayProperty documentAncestorsProperty = photoshopSchema.getDocumentAncestorsProperty();
-    List<AbstractField> allProperties = documentAncestorsProperty.getAllProperties();
-    assertEquals(2, allProperties.size());
-    AbstractField getResult = allProperties.get(0);
-    assertTrue(getResult instanceof TextType);
-    AbstractField getResult2 = allProperties.get(1);
-    assertTrue(getResult2 instanceof TextType);
     List<String> documentAncestors = photoshopSchema.getDocumentAncestors();
     assertEquals(2, documentAncestors.size());
     assertEquals("Text", documentAncestors.get(1));
-    assertEquals("Text", ((TextType) getResult2).getStringValue());
-    assertEquals("Text", ((TextType) getResult2).getRawValue());
-    assertEquals("Text", ((TextType) getResult2).getValue());
-    assertEquals("http://ns.adobe.com/photoshop/1.0/", getResult.getNamespace());
-    assertEquals("http://ns.adobe.com/photoshop/1.0/", getResult2.getNamespace());
+    ArrayProperty documentAncestorsProperty = photoshopSchema.getDocumentAncestorsProperty();
     assertEquals("http://ns.adobe.com/photoshop/1.0/", documentAncestorsProperty.getNamespace());
-    assertEquals("li", getResult.getPropertyName());
-    assertEquals("li", getResult2.getPropertyName());
-    assertEquals("photoshop", getResult.getPrefix());
-    assertEquals("photoshop", getResult2.getPrefix());
     assertEquals("photoshop", documentAncestorsProperty.getPrefix());
     assertEquals(2, photoshopSchema.getAllProperties().size());
+    assertEquals(2, documentAncestorsProperty.getAllProperties().size());
     assertEquals(Cardinality.Bag, documentAncestorsProperty.getArrayType());
-    assertTrue(getResult.getAllAttributes().isEmpty());
-    assertTrue(getResult2.getAllAttributes().isEmpty());
     assertTrue(documentAncestorsProperty.getAllAttributes().isEmpty());
     assertTrue(documentAncestorsProperty.getAllNamespacesWithPrefix().isEmpty());
     assertEquals(documentAncestors, documentAncestorsProperty.getElementsAsString());
     assertEquals(PhotoshopSchema.DOCUMENT_ANCESTORS, documentAncestors.get(0));
     assertEquals(PhotoshopSchema.DOCUMENT_ANCESTORS, documentAncestorsProperty.getPropertyName());
-    assertEquals(PhotoshopSchema.DOCUMENT_ANCESTORS, ((TextType) getResult).getStringValue());
-    assertEquals(PhotoshopSchema.DOCUMENT_ANCESTORS, ((TextType) getResult).getRawValue());
-    assertEquals(PhotoshopSchema.DOCUMENT_ANCESTORS, ((TextType) getResult).getValue());
-    assertSame(allProperties, documentAncestorsProperty.getContainer().getAllProperties());
-    assertSame(metadata, getResult.getMetadata());
-    assertSame(metadata, getResult2.getMetadata());
     assertSame(metadata, documentAncestorsProperty.getMetadata());
   }
 
   /**
    * Test {@link PhotoshopSchema#addDocumentAncestors(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#addDocumentAncestors(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#addDocumentAncestors(String)}
    */
   @Test
   @DisplayName("Test addDocumentAncestors(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.addDocumentAncestors(String)"})
   void testAddDocumentAncestors4() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
 
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(metadata);
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
 
     // Act
     photoshopSchema.addDocumentAncestors("Text");
 
     // Assert
-    ArrayProperty documentAncestorsProperty = photoshopSchema.getDocumentAncestorsProperty();
-    List<AbstractField> allProperties = documentAncestorsProperty.getAllProperties();
-    assertEquals(1, allProperties.size());
-    AbstractField getResult = allProperties.get(0);
-    assertTrue(getResult instanceof TextType);
     List<String> documentAncestors = photoshopSchema.getDocumentAncestors();
     assertEquals(1, documentAncestors.size());
     assertEquals("Text", documentAncestors.get(0));
-    assertEquals("Text", ((TextType) getResult).getStringValue());
-    assertEquals("Text", ((TextType) getResult).getRawValue());
-    assertEquals("Text", ((TextType) getResult).getValue());
-    assertEquals("http://ns.adobe.com/photoshop/1.0/", getResult.getNamespace());
+    ArrayProperty documentAncestorsProperty = photoshopSchema.getDocumentAncestorsProperty();
     assertEquals("http://ns.adobe.com/photoshop/1.0/", documentAncestorsProperty.getNamespace());
-    assertEquals("li", getResult.getPropertyName());
-    assertEquals("photoshop", getResult.getPrefix());
     assertEquals("photoshop", documentAncestorsProperty.getPrefix());
-    List<AbstractField> allProperties2 = photoshopSchema.getAllProperties();
-    assertEquals(2, allProperties2.size());
+    assertEquals(1, documentAncestorsProperty.getAllProperties().size());
+    List<AbstractField> allProperties = photoshopSchema.getAllProperties();
+    assertEquals(2, allProperties.size());
     assertEquals(Cardinality.Bag, documentAncestorsProperty.getArrayType());
-    assertTrue(getResult.getAllAttributes().isEmpty());
     assertTrue(documentAncestorsProperty.getAllAttributes().isEmpty());
     assertTrue(documentAncestorsProperty.getAllNamespacesWithPrefix().isEmpty());
     assertEquals(documentAncestors, documentAncestorsProperty.getElementsAsString());
     assertEquals(PhotoshopSchema.DOCUMENT_ANCESTORS, documentAncestorsProperty.getPropertyName());
-    assertSame(documentAncestorsProperty, allProperties2.get(1));
-    assertSame(allProperties, documentAncestorsProperty.getContainer().getAllProperties());
-    assertSame(metadata, getResult.getMetadata());
+    assertSame(documentAncestorsProperty, allProperties.get(1));
     assertSame(metadata, documentAncestorsProperty.getMetadata());
   }
 
   /**
    * Test {@link PhotoshopSchema#addDocumentAncestors(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#addDocumentAncestors(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#addDocumentAncestors(String)}
    */
   @Test
   @DisplayName("Test addDocumentAncestors(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.addDocumentAncestors(String)"})
   void testAddDocumentAncestors5() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
 
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(metadata);
     photoshopSchema.addBagValueAsSimple("Simple Name", "42");
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
 
     // Act
     photoshopSchema.addDocumentAncestors("Text");
 
     // Assert
-    ArrayProperty documentAncestorsProperty = photoshopSchema.getDocumentAncestorsProperty();
-    List<AbstractField> allProperties = documentAncestorsProperty.getAllProperties();
-    assertEquals(1, allProperties.size());
-    AbstractField getResult = allProperties.get(0);
-    assertTrue(getResult instanceof TextType);
     List<String> documentAncestors = photoshopSchema.getDocumentAncestors();
     assertEquals(1, documentAncestors.size());
     assertEquals("Text", documentAncestors.get(0));
-    assertEquals("Text", ((TextType) getResult).getStringValue());
-    assertEquals("Text", ((TextType) getResult).getRawValue());
-    assertEquals("Text", ((TextType) getResult).getValue());
-    assertEquals("http://ns.adobe.com/photoshop/1.0/", getResult.getNamespace());
+    ArrayProperty documentAncestorsProperty = photoshopSchema.getDocumentAncestorsProperty();
     assertEquals("http://ns.adobe.com/photoshop/1.0/", documentAncestorsProperty.getNamespace());
-    assertEquals("li", getResult.getPropertyName());
-    assertEquals("photoshop", getResult.getPrefix());
     assertEquals("photoshop", documentAncestorsProperty.getPrefix());
-    List<AbstractField> allProperties2 = photoshopSchema.getAllProperties();
-    assertEquals(3, allProperties2.size());
+    assertEquals(1, documentAncestorsProperty.getAllProperties().size());
+    List<AbstractField> allProperties = photoshopSchema.getAllProperties();
+    assertEquals(3, allProperties.size());
     assertEquals(Cardinality.Bag, documentAncestorsProperty.getArrayType());
-    assertTrue(getResult.getAllAttributes().isEmpty());
     assertTrue(documentAncestorsProperty.getAllAttributes().isEmpty());
     assertTrue(documentAncestorsProperty.getAllNamespacesWithPrefix().isEmpty());
     assertEquals(documentAncestors, documentAncestorsProperty.getElementsAsString());
     assertEquals(PhotoshopSchema.DOCUMENT_ANCESTORS, documentAncestorsProperty.getPropertyName());
-    assertSame(documentAncestorsProperty, allProperties2.get(2));
-    assertSame(allProperties, documentAncestorsProperty.getContainer().getAllProperties());
-    assertSame(metadata, getResult.getMetadata());
+    assertSame(documentAncestorsProperty, allProperties.get(2));
     assertSame(metadata, documentAncestorsProperty.getMetadata());
   }
 
   /**
    * Test {@link PhotoshopSchema#getDocumentAncestorsProperty()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getDocumentAncestorsProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getDocumentAncestorsProperty()}
    */
   @Test
   @DisplayName("Test getDocumentAncestorsProperty()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"ArrayProperty PhotoshopSchema.getDocumentAncestorsProperty()"})
   void testGetDocumentAncestorsProperty() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -3243,42 +3798,35 @@ class PhotoshopSchemaDiffblueTest {
     ArrayProperty actualDocumentAncestorsProperty = photoshopSchema.getDocumentAncestorsProperty();
 
     // Assert
-    List<AbstractField> allProperties = actualDocumentAncestorsProperty.getAllProperties();
-    assertEquals(1, allProperties.size());
-    AbstractField getResult = allProperties.get(0);
-    assertTrue(getResult instanceof TextType);
-    assertEquals("http://ns.adobe.com/photoshop/1.0/", getResult.getNamespace());
-    assertEquals("http://ns.adobe.com/photoshop/1.0/", actualDocumentAncestorsProperty.getNamespace());
-    assertEquals("li", getResult.getPropertyName());
-    assertEquals("photoshop", getResult.getPrefix());
+    assertEquals(
+        "http://ns.adobe.com/photoshop/1.0/", actualDocumentAncestorsProperty.getNamespace());
     assertEquals("photoshop", actualDocumentAncestorsProperty.getPrefix());
-    List<String> elementsAsString = actualDocumentAncestorsProperty.getElementsAsString();
-    assertEquals(1, elementsAsString.size());
+    assertEquals(1, actualDocumentAncestorsProperty.getAllProperties().size());
+    assertEquals(1, actualDocumentAncestorsProperty.getElementsAsString().size());
     assertEquals(Cardinality.Bag, actualDocumentAncestorsProperty.getArrayType());
-    assertTrue(getResult.getAllAttributes().isEmpty());
     assertTrue(actualDocumentAncestorsProperty.getAllAttributes().isEmpty());
     assertTrue(actualDocumentAncestorsProperty.getAllNamespacesWithPrefix().isEmpty());
-    assertEquals(PhotoshopSchema.DOCUMENT_ANCESTORS, elementsAsString.get(0));
-    assertEquals(PhotoshopSchema.DOCUMENT_ANCESTORS, actualDocumentAncestorsProperty.getPropertyName());
-    assertEquals(PhotoshopSchema.DOCUMENT_ANCESTORS, ((TextType) getResult).getStringValue());
-    assertEquals(PhotoshopSchema.DOCUMENT_ANCESTORS, ((TextType) getResult).getRawValue());
-    assertEquals(PhotoshopSchema.DOCUMENT_ANCESTORS, ((TextType) getResult).getValue());
-    assertSame(allProperties, actualDocumentAncestorsProperty.getContainer().getAllProperties());
-    assertSame(metadata, getResult.getMetadata());
+    assertEquals(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, actualDocumentAncestorsProperty.getPropertyName());
     assertSame(metadata, actualDocumentAncestorsProperty.getMetadata());
   }
 
   /**
    * Test {@link PhotoshopSchema#getDocumentAncestorsProperty()}.
+   *
    * <ul>
-   *   <li>Then return AllProperties size is one.</li>
+   *   <li>Then return Namespace is {@code http://ns.adobe.com/photoshop/1.0/}.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getDocumentAncestorsProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getDocumentAncestorsProperty()}
    */
   @Test
-  @DisplayName("Test getDocumentAncestorsProperty(); then return AllProperties size is one")
-  void testGetDocumentAncestorsProperty_thenReturnAllPropertiesSizeIsOne() {
+  @DisplayName(
+      "Test getDocumentAncestorsProperty(); then return Namespace is 'http://ns.adobe.com/photoshop/1.0/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"ArrayProperty PhotoshopSchema.getDocumentAncestorsProperty()"})
+  void testGetDocumentAncestorsProperty_thenReturnNamespaceIsHttpNsAdobeComPhotoshop10() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
 
@@ -3289,53 +3837,48 @@ class PhotoshopSchemaDiffblueTest {
     ArrayProperty actualDocumentAncestorsProperty = photoshopSchema.getDocumentAncestorsProperty();
 
     // Assert
-    List<AbstractField> allProperties = actualDocumentAncestorsProperty.getAllProperties();
-    assertEquals(1, allProperties.size());
-    AbstractField getResult = allProperties.get(0);
-    assertTrue(getResult instanceof TextType);
-    assertEquals("http://ns.adobe.com/photoshop/1.0/", getResult.getNamespace());
-    assertEquals("http://ns.adobe.com/photoshop/1.0/", actualDocumentAncestorsProperty.getNamespace());
-    assertEquals("li", getResult.getPropertyName());
-    assertEquals("photoshop", getResult.getPrefix());
+    assertEquals(
+        "http://ns.adobe.com/photoshop/1.0/", actualDocumentAncestorsProperty.getNamespace());
     assertEquals("photoshop", actualDocumentAncestorsProperty.getPrefix());
-    List<String> elementsAsString = actualDocumentAncestorsProperty.getElementsAsString();
-    assertEquals(1, elementsAsString.size());
+    assertEquals(1, actualDocumentAncestorsProperty.getAllProperties().size());
+    assertEquals(1, actualDocumentAncestorsProperty.getElementsAsString().size());
     assertEquals(Cardinality.Bag, actualDocumentAncestorsProperty.getArrayType());
-    assertTrue(getResult.getAllAttributes().isEmpty());
     assertTrue(actualDocumentAncestorsProperty.getAllAttributes().isEmpty());
     assertTrue(actualDocumentAncestorsProperty.getAllNamespacesWithPrefix().isEmpty());
-    assertEquals(PhotoshopSchema.DOCUMENT_ANCESTORS, elementsAsString.get(0));
-    assertEquals(PhotoshopSchema.DOCUMENT_ANCESTORS, actualDocumentAncestorsProperty.getPropertyName());
-    assertEquals(PhotoshopSchema.DOCUMENT_ANCESTORS, ((TextType) getResult).getStringValue());
-    assertEquals(PhotoshopSchema.DOCUMENT_ANCESTORS, ((TextType) getResult).getRawValue());
-    assertEquals(PhotoshopSchema.DOCUMENT_ANCESTORS, ((TextType) getResult).getValue());
-    assertSame(allProperties, actualDocumentAncestorsProperty.getContainer().getAllProperties());
-    assertSame(metadata, getResult.getMetadata());
+    assertEquals(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, actualDocumentAncestorsProperty.getPropertyName());
     assertSame(metadata, actualDocumentAncestorsProperty.getMetadata());
   }
 
   /**
    * Test {@link PhotoshopSchema#getDocumentAncestorsProperty()}.
+   *
    * <ul>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getDocumentAncestorsProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getDocumentAncestorsProperty()}
    */
   @Test
   @DisplayName("Test getDocumentAncestorsProperty(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"ArrayProperty PhotoshopSchema.getDocumentAncestorsProperty()"})
   void testGetDocumentAncestorsProperty_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new PhotoshopSchema(XMPMetadata.createXMPMetadata())).getDocumentAncestorsProperty());
+    assertNull(new PhotoshopSchema(XMPMetadata.createXMPMetadata()).getDocumentAncestorsProperty());
   }
 
   /**
    * Test {@link PhotoshopSchema#getDocumentAncestors()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getDocumentAncestors()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getDocumentAncestors()}
    */
   @Test
   @DisplayName("Test getDocumentAncestors()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List PhotoshopSchema.getDocumentAncestors()"})
   void testGetDocumentAncestors() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
@@ -3352,29 +3895,37 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getDocumentAncestors()}.
+   *
    * <ul>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Then return {@code null}.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getDocumentAncestors()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getDocumentAncestors()}
    */
   @Test
   @DisplayName("Test getDocumentAncestors(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List PhotoshopSchema.getDocumentAncestors()"})
   void testGetDocumentAncestors_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new PhotoshopSchema(XMPMetadata.createXMPMetadata())).getDocumentAncestors());
+    assertNull(new PhotoshopSchema(XMPMetadata.createXMPMetadata()).getDocumentAncestors());
   }
 
   /**
    * Test {@link PhotoshopSchema#getDocumentAncestors()}.
+   *
    * <ul>
-   *   <li>Then return size is one.</li>
+   *   <li>Then return size is one.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getDocumentAncestors()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getDocumentAncestors()}
    */
   @Test
   @DisplayName("Test getDocumentAncestors(); then return size is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List PhotoshopSchema.getDocumentAncestors()"})
   void testGetDocumentAncestors_thenReturnSizeIsOne() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
@@ -3390,11 +3941,14 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getHeadlineProperty()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getHeadlineProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getHeadlineProperty()}
    */
   @Test
   @DisplayName("Test getHeadlineProperty()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"TextType PhotoshopSchema.getHeadlineProperty()"})
   void testGetHeadlineProperty() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
@@ -3406,15 +3960,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getHeadlineProperty()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getHeadlineProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getHeadlineProperty()}
    */
   @Test
   @DisplayName("Test getHeadlineProperty()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"TextType PhotoshopSchema.getHeadlineProperty()"})
   void testGetHeadlineProperty2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.HEADLINE);
 
     // Act and Assert
@@ -3423,27 +3981,35 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getHeadlineProperty()}.
+   *
    * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
+   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getHeadlineProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getHeadlineProperty()}
    */
   @Test
-  @DisplayName("Test getHeadlineProperty(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test getHeadlineProperty(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"TextType PhotoshopSchema.getHeadlineProperty()"})
   void testGetHeadlineProperty_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull((new PhotoshopSchema(XMPMetadata.createXMPMetadata())).getHeadlineProperty());
+    assertNull(new PhotoshopSchema(XMPMetadata.createXMPMetadata()).getHeadlineProperty());
   }
 
   /**
    * Test {@link PhotoshopSchema#getHeadline()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getHeadline()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getHeadline()}
    */
   @Test
   @DisplayName("Test getHeadline()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PhotoshopSchema.getHeadline()"})
   void testGetHeadline() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
@@ -3455,15 +4021,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getHeadline()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getHeadline()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getHeadline()}
    */
   @Test
   @DisplayName("Test getHeadline()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PhotoshopSchema.getHeadline()"})
   void testGetHeadline2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.HEADLINE);
 
     // Act and Assert
@@ -3472,27 +4042,35 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getHeadline()}.
+   *
    * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
+   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getHeadline()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getHeadline()}
    */
   @Test
-  @DisplayName("Test getHeadline(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test getHeadline(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PhotoshopSchema.getHeadline()"})
   void testGetHeadline_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull((new PhotoshopSchema(XMPMetadata.createXMPMetadata())).getHeadline());
+    assertNull(new PhotoshopSchema(XMPMetadata.createXMPMetadata()).getHeadline());
   }
 
   /**
    * Test {@link PhotoshopSchema#setHeadline(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setHeadline(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setHeadline(String)}
    */
   @Test
   @DisplayName("Test setHeadline(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setHeadline(String)"})
   void testSetHeadline() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -3521,15 +4099,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setHeadline(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setHeadline(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setHeadline(String)}
    */
   @Test
   @DisplayName("Test setHeadline(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setHeadline(String)"})
   void testSetHeadline2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.HEADLINE);
 
     // Act
@@ -3543,11 +4125,14 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setHeadline(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setHeadline(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setHeadline(String)}
    */
   @Test
   @DisplayName("Test setHeadline(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setHeadline(String)"})
   void testSetHeadline3() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -3576,15 +4161,20 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setHeadline(String)}.
+   *
    * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
+   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setHeadline(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setHeadline(String)}
    */
   @Test
-  @DisplayName("Test setHeadline(String); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test setHeadline(String); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setHeadline(String)"})
   void testSetHeadline_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -3611,15 +4201,20 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setHeadlineProperty(TextType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setHeadlineProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setHeadlineProperty(TextType)}
    */
   @Test
   @DisplayName("Test setHeadlineProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setHeadlineProperty(TextType)"})
   void testSetHeadlineProperty() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setHeadlineProperty(text);
@@ -3632,16 +4227,21 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setHeadlineProperty(TextType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setHeadlineProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setHeadlineProperty(TextType)}
    */
   @Test
   @DisplayName("Test setHeadlineProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setHeadlineProperty(TextType)"})
   void testSetHeadlineProperty2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addDocumentAncestors("Text");
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setHeadlineProperty(text);
@@ -3654,17 +4254,22 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setHeadlineProperty(TextType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setHeadlineProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setHeadlineProperty(TextType)}
    */
   @Test
   @DisplayName("Test setHeadlineProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setHeadlineProperty(TextType)"})
   void testSetHeadlineProperty3() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addTextLayers("Property Name", "Property Name");
     photoshopSchema.addDocumentAncestors("Text");
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setHeadlineProperty(text);
@@ -3678,17 +4283,22 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setHeadlineProperty(TextType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setHeadlineProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setHeadlineProperty(TextType)}
    */
   @Test
   @DisplayName("Test setHeadlineProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setHeadlineProperty(TextType)"})
   void testSetHeadlineProperty4() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addBagValueAsSimple("Property Name", PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors("Text");
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setHeadlineProperty(text);
@@ -3701,11 +4311,14 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getHistoryProperty()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getHistoryProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getHistoryProperty()}
    */
   @Test
   @DisplayName("Test getHistoryProperty()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"TextType PhotoshopSchema.getHistoryProperty()"})
   void testGetHistoryProperty() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
@@ -3717,15 +4330,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getHistoryProperty()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getHistoryProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getHistoryProperty()}
    */
   @Test
   @DisplayName("Test getHistoryProperty()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"TextType PhotoshopSchema.getHistoryProperty()"})
   void testGetHistoryProperty2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.HISTORY);
 
     // Act and Assert
@@ -3734,27 +4351,35 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getHistoryProperty()}.
+   *
    * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
+   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getHistoryProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getHistoryProperty()}
    */
   @Test
-  @DisplayName("Test getHistoryProperty(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test getHistoryProperty(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"TextType PhotoshopSchema.getHistoryProperty()"})
   void testGetHistoryProperty_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull((new PhotoshopSchema(XMPMetadata.createXMPMetadata())).getHistoryProperty());
+    assertNull(new PhotoshopSchema(XMPMetadata.createXMPMetadata()).getHistoryProperty());
   }
 
   /**
    * Test {@link PhotoshopSchema#getHistory()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getHistory()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getHistory()}
    */
   @Test
   @DisplayName("Test getHistory()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PhotoshopSchema.getHistory()"})
   void testGetHistory() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
@@ -3766,15 +4391,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getHistory()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getHistory()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getHistory()}
    */
   @Test
   @DisplayName("Test getHistory()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PhotoshopSchema.getHistory()"})
   void testGetHistory2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.HISTORY);
 
     // Act and Assert
@@ -3783,27 +4412,35 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getHistory()}.
+   *
    * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
+   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getHistory()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getHistory()}
    */
   @Test
-  @DisplayName("Test getHistory(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test getHistory(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PhotoshopSchema.getHistory()"})
   void testGetHistory_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull((new PhotoshopSchema(XMPMetadata.createXMPMetadata())).getHistory());
+    assertNull(new PhotoshopSchema(XMPMetadata.createXMPMetadata()).getHistory());
   }
 
   /**
    * Test {@link PhotoshopSchema#setHistory(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setHistory(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setHistory(String)}
    */
   @Test
   @DisplayName("Test setHistory(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setHistory(String)"})
   void testSetHistory() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -3832,15 +4469,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setHistory(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setHistory(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setHistory(String)}
    */
   @Test
   @DisplayName("Test setHistory(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setHistory(String)"})
   void testSetHistory2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.HISTORY);
 
     // Act
@@ -3854,11 +4495,14 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setHistory(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setHistory(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setHistory(String)}
    */
   @Test
   @DisplayName("Test setHistory(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setHistory(String)"})
   void testSetHistory3() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -3887,15 +4531,20 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setHistory(String)}.
+   *
    * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
+   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setHistory(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setHistory(String)}
    */
   @Test
-  @DisplayName("Test setHistory(String); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test setHistory(String); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setHistory(String)"})
   void testSetHistory_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -3922,15 +4571,20 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setHistoryProperty(TextType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setHistoryProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setHistoryProperty(TextType)}
    */
   @Test
   @DisplayName("Test setHistoryProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setHistoryProperty(TextType)"})
   void testSetHistoryProperty() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setHistoryProperty(text);
@@ -3943,16 +4597,21 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setHistoryProperty(TextType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setHistoryProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setHistoryProperty(TextType)}
    */
   @Test
   @DisplayName("Test setHistoryProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setHistoryProperty(TextType)"})
   void testSetHistoryProperty2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addDocumentAncestors("Text");
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setHistoryProperty(text);
@@ -3965,17 +4624,22 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setHistoryProperty(TextType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setHistoryProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setHistoryProperty(TextType)}
    */
   @Test
   @DisplayName("Test setHistoryProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setHistoryProperty(TextType)"})
   void testSetHistoryProperty3() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addTextLayers("Property Name", "Property Name");
     photoshopSchema.addDocumentAncestors("Text");
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setHistoryProperty(text);
@@ -3989,17 +4653,22 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setHistoryProperty(TextType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setHistoryProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setHistoryProperty(TextType)}
    */
   @Test
   @DisplayName("Test setHistoryProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setHistoryProperty(TextType)"})
   void testSetHistoryProperty4() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addBagValueAsSimple("Property Name", PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors("Text");
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setHistoryProperty(text);
@@ -4012,11 +4681,14 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getICCProfileProperty()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getICCProfileProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getICCProfileProperty()}
    */
   @Test
   @DisplayName("Test getICCProfileProperty()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"TextType PhotoshopSchema.getICCProfileProperty()"})
   void testGetICCProfileProperty() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
@@ -4028,15 +4700,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getICCProfileProperty()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getICCProfileProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getICCProfileProperty()}
    */
   @Test
   @DisplayName("Test getICCProfileProperty()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"TextType PhotoshopSchema.getICCProfileProperty()"})
   void testGetICCProfileProperty2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.ICC_PROFILE);
 
     // Act and Assert
@@ -4045,27 +4721,35 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getICCProfileProperty()}.
+   *
    * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
+   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getICCProfileProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getICCProfileProperty()}
    */
   @Test
-  @DisplayName("Test getICCProfileProperty(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test getICCProfileProperty(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"TextType PhotoshopSchema.getICCProfileProperty()"})
   void testGetICCProfileProperty_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull((new PhotoshopSchema(XMPMetadata.createXMPMetadata())).getICCProfileProperty());
+    assertNull(new PhotoshopSchema(XMPMetadata.createXMPMetadata()).getICCProfileProperty());
   }
 
   /**
    * Test {@link PhotoshopSchema#getICCProfile()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getICCProfile()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getICCProfile()}
    */
   @Test
   @DisplayName("Test getICCProfile()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PhotoshopSchema.getICCProfile()"})
   void testGetICCProfile() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
@@ -4077,15 +4761,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getICCProfile()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getICCProfile()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getICCProfile()}
    */
   @Test
   @DisplayName("Test getICCProfile()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PhotoshopSchema.getICCProfile()"})
   void testGetICCProfile2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.ICC_PROFILE);
 
     // Act and Assert
@@ -4094,27 +4782,35 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getICCProfile()}.
+   *
    * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
+   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getICCProfile()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getICCProfile()}
    */
   @Test
-  @DisplayName("Test getICCProfile(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test getICCProfile(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PhotoshopSchema.getICCProfile()"})
   void testGetICCProfile_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull((new PhotoshopSchema(XMPMetadata.createXMPMetadata())).getICCProfile());
+    assertNull(new PhotoshopSchema(XMPMetadata.createXMPMetadata()).getICCProfile());
   }
 
   /**
    * Test {@link PhotoshopSchema#setICCProfile(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setICCProfile(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setICCProfile(String)}
    */
   @Test
   @DisplayName("Test setICCProfile(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setICCProfile(String)"})
   void testSetICCProfile() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -4143,15 +4839,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setICCProfile(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setICCProfile(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setICCProfile(String)}
    */
   @Test
   @DisplayName("Test setICCProfile(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setICCProfile(String)"})
   void testSetICCProfile2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.ICC_PROFILE);
 
     // Act
@@ -4165,11 +4865,14 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setICCProfile(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setICCProfile(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setICCProfile(String)}
    */
   @Test
   @DisplayName("Test setICCProfile(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setICCProfile(String)"})
   void testSetICCProfile3() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -4198,15 +4901,20 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setICCProfile(String)}.
+   *
    * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
+   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setICCProfile(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setICCProfile(String)}
    */
   @Test
-  @DisplayName("Test setICCProfile(String); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test setICCProfile(String); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setICCProfile(String)"})
   void testSetICCProfile_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -4233,15 +4941,20 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setICCProfileProperty(TextType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setICCProfileProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setICCProfileProperty(TextType)}
    */
   @Test
   @DisplayName("Test setICCProfileProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setICCProfileProperty(TextType)"})
   void testSetICCProfileProperty() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setICCProfileProperty(text);
@@ -4254,16 +4967,21 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setICCProfileProperty(TextType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setICCProfileProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setICCProfileProperty(TextType)}
    */
   @Test
   @DisplayName("Test setICCProfileProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setICCProfileProperty(TextType)"})
   void testSetICCProfileProperty2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addDocumentAncestors("Text");
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setICCProfileProperty(text);
@@ -4276,17 +4994,22 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setICCProfileProperty(TextType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setICCProfileProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setICCProfileProperty(TextType)}
    */
   @Test
   @DisplayName("Test setICCProfileProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setICCProfileProperty(TextType)"})
   void testSetICCProfileProperty3() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addTextLayers("Property Name", "Property Name");
     photoshopSchema.addDocumentAncestors("Text");
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setICCProfileProperty(text);
@@ -4300,17 +5023,22 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setICCProfileProperty(TextType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setICCProfileProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setICCProfileProperty(TextType)}
    */
   @Test
   @DisplayName("Test setICCProfileProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setICCProfileProperty(TextType)"})
   void testSetICCProfileProperty4() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addBagValueAsSimple("Property Name", PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors("Text");
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setICCProfileProperty(text);
@@ -4323,11 +5051,14 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getInstructionsProperty()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getInstructionsProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getInstructionsProperty()}
    */
   @Test
   @DisplayName("Test getInstructionsProperty()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"TextType PhotoshopSchema.getInstructionsProperty()"})
   void testGetInstructionsProperty() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
@@ -4339,15 +5070,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getInstructionsProperty()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getInstructionsProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getInstructionsProperty()}
    */
   @Test
   @DisplayName("Test getInstructionsProperty()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"TextType PhotoshopSchema.getInstructionsProperty()"})
   void testGetInstructionsProperty2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.INSTRUCTIONS);
 
     // Act and Assert
@@ -4356,27 +5091,35 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getInstructionsProperty()}.
+   *
    * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
+   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getInstructionsProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getInstructionsProperty()}
    */
   @Test
-  @DisplayName("Test getInstructionsProperty(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test getInstructionsProperty(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"TextType PhotoshopSchema.getInstructionsProperty()"})
   void testGetInstructionsProperty_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull((new PhotoshopSchema(XMPMetadata.createXMPMetadata())).getInstructionsProperty());
+    assertNull(new PhotoshopSchema(XMPMetadata.createXMPMetadata()).getInstructionsProperty());
   }
 
   /**
    * Test {@link PhotoshopSchema#getInstructions()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getInstructions()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getInstructions()}
    */
   @Test
   @DisplayName("Test getInstructions()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PhotoshopSchema.getInstructions()"})
   void testGetInstructions() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
@@ -4388,15 +5131,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getInstructions()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getInstructions()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getInstructions()}
    */
   @Test
   @DisplayName("Test getInstructions()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PhotoshopSchema.getInstructions()"})
   void testGetInstructions2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.INSTRUCTIONS);
 
     // Act and Assert
@@ -4405,27 +5152,35 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getInstructions()}.
+   *
    * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
+   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getInstructions()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getInstructions()}
    */
   @Test
-  @DisplayName("Test getInstructions(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test getInstructions(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PhotoshopSchema.getInstructions()"})
   void testGetInstructions_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull((new PhotoshopSchema(XMPMetadata.createXMPMetadata())).getInstructions());
+    assertNull(new PhotoshopSchema(XMPMetadata.createXMPMetadata()).getInstructions());
   }
 
   /**
    * Test {@link PhotoshopSchema#setInstructions(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setInstructions(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setInstructions(String)}
    */
   @Test
   @DisplayName("Test setInstructions(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setInstructions(String)"})
   void testSetInstructions() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -4454,15 +5209,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setInstructions(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setInstructions(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setInstructions(String)}
    */
   @Test
   @DisplayName("Test setInstructions(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setInstructions(String)"})
   void testSetInstructions2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.INSTRUCTIONS);
 
     // Act
@@ -4476,11 +5235,14 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setInstructions(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setInstructions(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setInstructions(String)}
    */
   @Test
   @DisplayName("Test setInstructions(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setInstructions(String)"})
   void testSetInstructions3() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -4509,15 +5271,20 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setInstructions(String)}.
+   *
    * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
+   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setInstructions(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setInstructions(String)}
    */
   @Test
-  @DisplayName("Test setInstructions(String); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test setInstructions(String); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setInstructions(String)"})
   void testSetInstructions_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -4544,15 +5311,20 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setInstructionsProperty(TextType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setInstructionsProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setInstructionsProperty(TextType)}
    */
   @Test
   @DisplayName("Test setInstructionsProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setInstructionsProperty(TextType)"})
   void testSetInstructionsProperty() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setInstructionsProperty(text);
@@ -4565,16 +5337,21 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setInstructionsProperty(TextType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setInstructionsProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setInstructionsProperty(TextType)}
    */
   @Test
   @DisplayName("Test setInstructionsProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setInstructionsProperty(TextType)"})
   void testSetInstructionsProperty2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addDocumentAncestors("Text");
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setInstructionsProperty(text);
@@ -4587,17 +5364,22 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setInstructionsProperty(TextType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setInstructionsProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setInstructionsProperty(TextType)}
    */
   @Test
   @DisplayName("Test setInstructionsProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setInstructionsProperty(TextType)"})
   void testSetInstructionsProperty3() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addTextLayers("Property Name", "Property Name");
     photoshopSchema.addDocumentAncestors("Text");
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setInstructionsProperty(text);
@@ -4611,17 +5393,22 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setInstructionsProperty(TextType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setInstructionsProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setInstructionsProperty(TextType)}
    */
   @Test
   @DisplayName("Test setInstructionsProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setInstructionsProperty(TextType)"})
   void testSetInstructionsProperty4() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addBagValueAsSimple("Property Name", PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors("Text");
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setInstructionsProperty(text);
@@ -4634,11 +5421,14 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getSourceProperty()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getSourceProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getSourceProperty()}
    */
   @Test
   @DisplayName("Test getSourceProperty()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"TextType PhotoshopSchema.getSourceProperty()"})
   void testGetSourceProperty() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
@@ -4650,15 +5440,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getSourceProperty()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getSourceProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getSourceProperty()}
    */
   @Test
   @DisplayName("Test getSourceProperty()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"TextType PhotoshopSchema.getSourceProperty()"})
   void testGetSourceProperty2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.SOURCE);
 
     // Act and Assert
@@ -4667,27 +5461,35 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getSourceProperty()}.
+   *
    * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
+   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getSourceProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getSourceProperty()}
    */
   @Test
-  @DisplayName("Test getSourceProperty(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test getSourceProperty(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"TextType PhotoshopSchema.getSourceProperty()"})
   void testGetSourceProperty_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull((new PhotoshopSchema(XMPMetadata.createXMPMetadata())).getSourceProperty());
+    assertNull(new PhotoshopSchema(XMPMetadata.createXMPMetadata()).getSourceProperty());
   }
 
   /**
    * Test {@link PhotoshopSchema#getSource()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getSource()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getSource()}
    */
   @Test
   @DisplayName("Test getSource()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PhotoshopSchema.getSource()"})
   void testGetSource() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
@@ -4699,15 +5501,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getSource()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getSource()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getSource()}
    */
   @Test
   @DisplayName("Test getSource()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PhotoshopSchema.getSource()"})
   void testGetSource2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.SOURCE);
 
     // Act and Assert
@@ -4716,27 +5522,35 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getSource()}.
+   *
    * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
+   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getSource()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getSource()}
    */
   @Test
-  @DisplayName("Test getSource(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test getSource(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PhotoshopSchema.getSource()"})
   void testGetSource_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull((new PhotoshopSchema(XMPMetadata.createXMPMetadata())).getSource());
+    assertNull(new PhotoshopSchema(XMPMetadata.createXMPMetadata()).getSource());
   }
 
   /**
    * Test {@link PhotoshopSchema#setSource(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setSource(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setSource(String)}
    */
   @Test
   @DisplayName("Test setSource(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setSource(String)"})
   void testSetSource() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -4765,15 +5579,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setSource(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setSource(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setSource(String)}
    */
   @Test
   @DisplayName("Test setSource(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setSource(String)"})
   void testSetSource2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.SOURCE);
 
     // Act
@@ -4787,11 +5605,14 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setSource(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setSource(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setSource(String)}
    */
   @Test
   @DisplayName("Test setSource(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setSource(String)"})
   void testSetSource3() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -4820,15 +5641,20 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setSource(String)}.
+   *
    * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
+   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setSource(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setSource(String)}
    */
   @Test
-  @DisplayName("Test setSource(String); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test setSource(String); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setSource(String)"})
   void testSetSource_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -4855,15 +5681,20 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setSourceProperty(TextType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setSourceProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setSourceProperty(TextType)}
    */
   @Test
   @DisplayName("Test setSourceProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setSourceProperty(TextType)"})
   void testSetSourceProperty() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setSourceProperty(text);
@@ -4876,16 +5707,21 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setSourceProperty(TextType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setSourceProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setSourceProperty(TextType)}
    */
   @Test
   @DisplayName("Test setSourceProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setSourceProperty(TextType)"})
   void testSetSourceProperty2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addDocumentAncestors("Text");
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setSourceProperty(text);
@@ -4898,17 +5734,22 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setSourceProperty(TextType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setSourceProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setSourceProperty(TextType)}
    */
   @Test
   @DisplayName("Test setSourceProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setSourceProperty(TextType)"})
   void testSetSourceProperty3() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addTextLayers("Property Name", "Property Name");
     photoshopSchema.addDocumentAncestors("Text");
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setSourceProperty(text);
@@ -4922,17 +5763,22 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setSourceProperty(TextType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setSourceProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setSourceProperty(TextType)}
    */
   @Test
   @DisplayName("Test setSourceProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setSourceProperty(TextType)"})
   void testSetSourceProperty4() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addBagValueAsSimple("Property Name", PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors("Text");
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setSourceProperty(text);
@@ -4945,11 +5791,14 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getStateProperty()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getStateProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getStateProperty()}
    */
   @Test
   @DisplayName("Test getStateProperty()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"TextType PhotoshopSchema.getStateProperty()"})
   void testGetStateProperty() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
@@ -4961,15 +5810,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getStateProperty()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getStateProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getStateProperty()}
    */
   @Test
   @DisplayName("Test getStateProperty()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"TextType PhotoshopSchema.getStateProperty()"})
   void testGetStateProperty2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.STATE);
 
     // Act and Assert
@@ -4978,27 +5831,35 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getStateProperty()}.
+   *
    * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
+   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getStateProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getStateProperty()}
    */
   @Test
-  @DisplayName("Test getStateProperty(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test getStateProperty(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"TextType PhotoshopSchema.getStateProperty()"})
   void testGetStateProperty_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull((new PhotoshopSchema(XMPMetadata.createXMPMetadata())).getStateProperty());
+    assertNull(new PhotoshopSchema(XMPMetadata.createXMPMetadata()).getStateProperty());
   }
 
   /**
    * Test {@link PhotoshopSchema#getState()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getState()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getState()}
    */
   @Test
   @DisplayName("Test getState()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PhotoshopSchema.getState()"})
   void testGetState() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
@@ -5010,15 +5871,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getState()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getState()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getState()}
    */
   @Test
   @DisplayName("Test getState()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PhotoshopSchema.getState()"})
   void testGetState2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.STATE);
 
     // Act and Assert
@@ -5027,27 +5892,35 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getState()}.
+   *
    * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
+   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getState()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getState()}
    */
   @Test
-  @DisplayName("Test getState(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test getState(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PhotoshopSchema.getState()"})
   void testGetState_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull((new PhotoshopSchema(XMPMetadata.createXMPMetadata())).getState());
+    assertNull(new PhotoshopSchema(XMPMetadata.createXMPMetadata()).getState());
   }
 
   /**
    * Test {@link PhotoshopSchema#setState(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setState(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setState(String)}
    */
   @Test
   @DisplayName("Test setState(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setState(String)"})
   void testSetState() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -5076,15 +5949,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setState(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setState(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setState(String)}
    */
   @Test
   @DisplayName("Test setState(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setState(String)"})
   void testSetState2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.STATE);
 
     // Act
@@ -5098,11 +5975,14 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setState(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setState(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setState(String)}
    */
   @Test
   @DisplayName("Test setState(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setState(String)"})
   void testSetState3() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -5131,15 +6011,20 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setState(String)}.
+   *
    * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
+   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setState(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setState(String)}
    */
   @Test
-  @DisplayName("Test setState(String); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test setState(String); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setState(String)"})
   void testSetState_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -5166,15 +6051,20 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setStateProperty(TextType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setStateProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setStateProperty(TextType)}
    */
   @Test
   @DisplayName("Test setStateProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setStateProperty(TextType)"})
   void testSetStateProperty() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setStateProperty(text);
@@ -5187,16 +6077,21 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setStateProperty(TextType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setStateProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setStateProperty(TextType)}
    */
   @Test
   @DisplayName("Test setStateProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setStateProperty(TextType)"})
   void testSetStateProperty2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addDocumentAncestors("Text");
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setStateProperty(text);
@@ -5209,17 +6104,22 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setStateProperty(TextType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setStateProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setStateProperty(TextType)}
    */
   @Test
   @DisplayName("Test setStateProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setStateProperty(TextType)"})
   void testSetStateProperty3() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addTextLayers("Property Name", "Property Name");
     photoshopSchema.addDocumentAncestors("Text");
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setStateProperty(text);
@@ -5233,17 +6133,22 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setStateProperty(TextType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setStateProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setStateProperty(TextType)}
    */
   @Test
   @DisplayName("Test setStateProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setStateProperty(TextType)"})
   void testSetStateProperty4() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addBagValueAsSimple("Property Name", PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors("Text");
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setStateProperty(text);
@@ -5256,25 +6161,30 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getSupplementalCategoriesProperty()}.
-   * <p>
-   * Method under test:
-   * {@link PhotoshopSchema#getSupplementalCategoriesProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getSupplementalCategoriesProperty()}
    */
   @Test
   @DisplayName("Test getSupplementalCategoriesProperty()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"TextType PhotoshopSchema.getSupplementalCategoriesProperty()"})
   void testGetSupplementalCategoriesProperty() {
     // Arrange, Act and Assert
-    assertNull((new PhotoshopSchema(XMPMetadata.createXMPMetadata())).getSupplementalCategoriesProperty());
+    assertNull(
+        new PhotoshopSchema(XMPMetadata.createXMPMetadata()).getSupplementalCategoriesProperty());
   }
 
   /**
    * Test {@link PhotoshopSchema#getSupplementalCategoriesProperty()}.
-   * <p>
-   * Method under test:
-   * {@link PhotoshopSchema#getSupplementalCategoriesProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getSupplementalCategoriesProperty()}
    */
   @Test
   @DisplayName("Test getSupplementalCategoriesProperty()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"TextType PhotoshopSchema.getSupplementalCategoriesProperty()"})
   void testGetSupplementalCategoriesProperty2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
@@ -5286,16 +6196,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getSupplementalCategoriesProperty()}.
-   * <p>
-   * Method under test:
-   * {@link PhotoshopSchema#getSupplementalCategoriesProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getSupplementalCategoriesProperty()}
    */
   @Test
   @DisplayName("Test getSupplementalCategoriesProperty()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"TextType PhotoshopSchema.getSupplementalCategoriesProperty()"})
   void testGetSupplementalCategoriesProperty3() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.SUPPLEMENTAL_CATEGORIES);
 
     // Act and Assert
@@ -5304,23 +6217,29 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getSupplementalCategories()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getSupplementalCategories()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getSupplementalCategories()}
    */
   @Test
   @DisplayName("Test getSupplementalCategories()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PhotoshopSchema.getSupplementalCategories()"})
   void testGetSupplementalCategories() {
     // Arrange, Act and Assert
-    assertNull((new PhotoshopSchema(XMPMetadata.createXMPMetadata())).getSupplementalCategories());
+    assertNull(new PhotoshopSchema(XMPMetadata.createXMPMetadata()).getSupplementalCategories());
   }
 
   /**
    * Test {@link PhotoshopSchema#getSupplementalCategories()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getSupplementalCategories()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getSupplementalCategories()}
    */
   @Test
   @DisplayName("Test getSupplementalCategories()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PhotoshopSchema.getSupplementalCategories()"})
   void testGetSupplementalCategories2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
@@ -5332,15 +6251,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getSupplementalCategories()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getSupplementalCategories()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getSupplementalCategories()}
    */
   @Test
   @DisplayName("Test getSupplementalCategories()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PhotoshopSchema.getSupplementalCategories()"})
   void testGetSupplementalCategories3() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.SUPPLEMENTAL_CATEGORIES);
 
     // Act and Assert
@@ -5349,11 +6272,14 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setSupplementalCategories(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setSupplementalCategories(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setSupplementalCategories(String)}
    */
   @Test
   @DisplayName("Test setSupplementalCategories(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setSupplementalCategories(String)"})
   void testSetSupplementalCategories() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -5373,18 +6299,22 @@ class PhotoshopSchemaDiffblueTest {
     List<AbstractField> allProperties = photoshopSchema.getAllProperties();
     assertEquals(1, allProperties.size());
     assertTrue(supplementalCategoriesProperty.getAllAttributes().isEmpty());
-    assertEquals(PhotoshopSchema.SUPPLEMENTAL_CATEGORIES, supplementalCategoriesProperty.getPropertyName());
+    assertEquals(
+        PhotoshopSchema.SUPPLEMENTAL_CATEGORIES, supplementalCategoriesProperty.getPropertyName());
     assertSame(supplementalCategoriesProperty, allProperties.get(0));
     assertSame(metadata, supplementalCategoriesProperty.getMetadata());
   }
 
   /**
    * Test {@link PhotoshopSchema#setSupplementalCategories(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setSupplementalCategories(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setSupplementalCategories(String)}
    */
   @Test
   @DisplayName("Test setSupplementalCategories(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setSupplementalCategories(String)"})
   void testSetSupplementalCategories2() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -5406,22 +6336,27 @@ class PhotoshopSchemaDiffblueTest {
     List<AbstractField> allProperties = photoshopSchema.getAllProperties();
     assertEquals(2, allProperties.size());
     assertTrue(supplementalCategoriesProperty.getAllAttributes().isEmpty());
-    assertEquals(PhotoshopSchema.SUPPLEMENTAL_CATEGORIES, supplementalCategoriesProperty.getPropertyName());
+    assertEquals(
+        PhotoshopSchema.SUPPLEMENTAL_CATEGORIES, supplementalCategoriesProperty.getPropertyName());
     assertSame(supplementalCategoriesProperty, allProperties.get(1));
     assertSame(metadata, supplementalCategoriesProperty.getMetadata());
   }
 
   /**
    * Test {@link PhotoshopSchema#setSupplementalCategories(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setSupplementalCategories(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setSupplementalCategories(String)}
    */
   @Test
   @DisplayName("Test setSupplementalCategories(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setSupplementalCategories(String)"})
   void testSetSupplementalCategories3() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.SUPPLEMENTAL_CATEGORIES);
 
     // Act
@@ -5435,11 +6370,14 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setSupplementalCategories(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setSupplementalCategories(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setSupplementalCategories(String)}
    */
   @Test
   @DisplayName("Test setSupplementalCategories(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setSupplementalCategories(String)"})
   void testSetSupplementalCategories4() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -5461,23 +6399,28 @@ class PhotoshopSchemaDiffblueTest {
     List<AbstractField> allProperties = photoshopSchema.getAllProperties();
     assertEquals(1, allProperties.size());
     assertTrue(supplementalCategoriesProperty.getAllAttributes().isEmpty());
-    assertEquals(PhotoshopSchema.SUPPLEMENTAL_CATEGORIES, supplementalCategoriesProperty.getPropertyName());
+    assertEquals(
+        PhotoshopSchema.SUPPLEMENTAL_CATEGORIES, supplementalCategoriesProperty.getPropertyName());
     assertSame(supplementalCategoriesProperty, allProperties.get(0));
     assertSame(metadata, supplementalCategoriesProperty.getMetadata());
   }
 
   /**
    * Test {@link PhotoshopSchema#setSupplementalCategoriesProperty(TextType)}.
-   * <p>
-   * Method under test:
-   * {@link PhotoshopSchema#setSupplementalCategoriesProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setSupplementalCategoriesProperty(TextType)}
    */
   @Test
   @DisplayName("Test setSupplementalCategoriesProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setSupplementalCategoriesProperty(TextType)"})
   void testSetSupplementalCategoriesProperty() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setSupplementalCategoriesProperty(text);
@@ -5490,17 +6433,21 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setSupplementalCategoriesProperty(TextType)}.
-   * <p>
-   * Method under test:
-   * {@link PhotoshopSchema#setSupplementalCategoriesProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setSupplementalCategoriesProperty(TextType)}
    */
   @Test
   @DisplayName("Test setSupplementalCategoriesProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setSupplementalCategoriesProperty(TextType)"})
   void testSetSupplementalCategoriesProperty2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addDocumentAncestors("Text");
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setSupplementalCategoriesProperty(text);
@@ -5513,18 +6460,22 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setSupplementalCategoriesProperty(TextType)}.
-   * <p>
-   * Method under test:
-   * {@link PhotoshopSchema#setSupplementalCategoriesProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setSupplementalCategoriesProperty(TextType)}
    */
   @Test
   @DisplayName("Test setSupplementalCategoriesProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setSupplementalCategoriesProperty(TextType)"})
   void testSetSupplementalCategoriesProperty3() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addTextLayers("Property Name", "Property Name");
     photoshopSchema.addDocumentAncestors("Text");
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setSupplementalCategoriesProperty(text);
@@ -5538,18 +6489,22 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setSupplementalCategoriesProperty(TextType)}.
-   * <p>
-   * Method under test:
-   * {@link PhotoshopSchema#setSupplementalCategoriesProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setSupplementalCategoriesProperty(TextType)}
    */
   @Test
   @DisplayName("Test setSupplementalCategoriesProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setSupplementalCategoriesProperty(TextType)"})
   void testSetSupplementalCategoriesProperty4() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addBagValueAsSimple("Property Name", PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors("Text");
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setSupplementalCategoriesProperty(text);
@@ -5562,16 +6517,48 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#addTextLayers(String, String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#addTextLayers(String, String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#addTextLayers(String, String)}
    */
   @Test
   @DisplayName("Test addTextLayers(String, String)")
-  void testAddTextLayers() throws BadFieldValueException {
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.addTextLayers(String, String)"})
+  void testAddTextLayers() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
-
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(metadata);
+
+    // Act
+    photoshopSchema.addTextLayers("Layer Name", "Layer Text");
+
+    // Assert
+    List<AbstractField> allProperties = photoshopSchema.getAllProperties();
+    assertEquals(1, allProperties.size());
+    AbstractField getResult = allProperties.get(0);
+    assertTrue(getResult instanceof ArrayProperty);
+    assertEquals("http://ns.adobe.com/photoshop/1.0/", getResult.getNamespace());
+    assertEquals("photoshop", getResult.getPrefix());
+    assertTrue(getResult.getAllAttributes().isEmpty());
+    assertTrue(((ArrayProperty) getResult).getAllNamespacesWithPrefix().isEmpty());
+    assertEquals(PhotoshopSchema.TEXT_LAYERS, getResult.getPropertyName());
+    assertSame(metadata, getResult.getMetadata());
+  }
+
+  /**
+   * Test {@link PhotoshopSchema#addTextLayers(String, String)}.
+   *
+   * <p>Method under test: {@link PhotoshopSchema#addTextLayers(String, String)}
+   */
+  @Test
+  @DisplayName("Test addTextLayers(String, String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.addTextLayers(String, String)"})
+  void testAddTextLayers2() throws BadFieldValueException {
+    // Arrange
+    PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addTextLayers(PhotoshopSchema.TEXT_LAYERS, PhotoshopSchema.TEXT_LAYERS);
 
     // Act
@@ -5580,62 +6567,23 @@ class PhotoshopSchemaDiffblueTest {
     // Assert
     List<AbstractField> allProperties = photoshopSchema.getAllProperties();
     assertEquals(1, allProperties.size());
-    AbstractField getResult = allProperties.get(0);
-    assertTrue(getResult instanceof ArrayProperty);
-    List<LayerType> textLayers = photoshopSchema.getTextLayers();
-    assertEquals(2, textLayers.size());
-    LayerType getResult2 = textLayers.get(1);
-    List<AbstractField> allProperties2 = getResult2.getAllProperties();
-    assertEquals(2, allProperties2.size());
-    AbstractField getResult3 = allProperties2.get(0);
-    assertTrue(getResult3 instanceof TextType);
-    AbstractField getResult4 = allProperties2.get(1);
-    assertTrue(getResult4 instanceof TextType);
-    assertEquals("Layer Name", getResult2.getLayerName());
-    assertEquals("Layer Name", ((TextType) getResult3).getStringValue());
-    assertEquals("Layer Name", ((TextType) getResult3).getRawValue());
-    assertEquals("Layer Name", ((TextType) getResult3).getValue());
-    assertEquals("Layer Text", getResult2.getLayerText());
-    assertEquals("Layer Text", ((TextType) getResult4).getStringValue());
-    assertEquals("Layer Text", ((TextType) getResult4).getRawValue());
-    assertEquals("Layer Text", ((TextType) getResult4).getValue());
-    assertEquals("LayerName", getResult3.getPropertyName());
-    assertEquals("LayerText", getResult4.getPropertyName());
-    List<Attribute> allAttributes = getResult2.getAllAttributes();
-    assertEquals(1, allAttributes.size());
-    Attribute getResult5 = allAttributes.get(0);
-    assertEquals("Resource", getResult5.getValue());
-    assertEquals("http://ns.adobe.com/photoshop/1.0/", getResult3.getNamespace());
-    assertEquals("http://ns.adobe.com/photoshop/1.0/", getResult4.getNamespace());
-    assertEquals("http://ns.adobe.com/photoshop/1.0/", getResult2.getNamespace());
-    assertEquals("http://www.w3.org/1999/02/22-rdf-syntax-ns#", getResult5.getNamespace());
-    assertEquals("parseType", getResult5.getName());
-    assertEquals("photoshop", getResult3.getPrefix());
-    assertEquals("photoshop", getResult4.getPrefix());
-    assertEquals("photoshop", getResult2.getPreferedPrefix());
-    assertEquals("photoshop", getResult2.getPrefix());
-    assertNull(getResult2.getPropertyName());
-    assertEquals(2, ((ArrayProperty) getResult).getAllProperties().size());
-    assertTrue(getResult3.getAllAttributes().isEmpty());
-    assertTrue(getResult4.getAllAttributes().isEmpty());
-    assertTrue(getResult2.getAllNamespacesWithPrefix().isEmpty());
-    assertSame(metadata, getResult3.getMetadata());
-    assertSame(metadata, getResult4.getMetadata());
-    assertSame(metadata, getResult2.getMetadata());
+    assertTrue(allProperties.get(0) instanceof ArrayProperty);
+    assertEquals(2, photoshopSchema.getTextLayers().size());
   }
 
   /**
    * Test {@link PhotoshopSchema#addTextLayers(String, String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#addTextLayers(String, String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#addTextLayers(String, String)}
    */
   @Test
   @DisplayName("Test addTextLayers(String, String)")
-  void testAddTextLayers2() throws BadFieldValueException {
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.addTextLayers(String, String)"})
+  void testAddTextLayers3() throws BadFieldValueException {
     // Arrange
-    XMPMetadata metadata = XMPMetadata.createXMPMetadata();
-
-    PhotoshopSchema photoshopSchema = new PhotoshopSchema(metadata);
+    PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addBagValueAsSimple(PhotoshopSchema.TEXT_LAYERS, "42");
 
     // Act
@@ -5644,65 +6592,21 @@ class PhotoshopSchemaDiffblueTest {
     // Assert
     List<AbstractField> allProperties = photoshopSchema.getAllProperties();
     assertEquals(1, allProperties.size());
-    AbstractField getResult = allProperties.get(0);
-    assertTrue(getResult instanceof ArrayProperty);
-    List<LayerType> textLayers = photoshopSchema.getTextLayers();
-    assertEquals(1, textLayers.size());
-    LayerType getResult2 = textLayers.get(0);
-    List<AbstractField> allProperties2 = getResult2.getAllProperties();
-    assertEquals(2, allProperties2.size());
-    AbstractField getResult3 = allProperties2.get(0);
-    assertTrue(getResult3 instanceof TextType);
-    AbstractField getResult4 = allProperties2.get(1);
-    assertTrue(getResult4 instanceof TextType);
-    assertEquals("Layer Name", getResult2.getLayerName());
-    assertEquals("Layer Name", ((TextType) getResult3).getStringValue());
-    assertEquals("Layer Name", ((TextType) getResult3).getRawValue());
-    assertEquals("Layer Name", ((TextType) getResult3).getValue());
-    assertEquals("Layer Text", getResult2.getLayerText());
-    assertEquals("Layer Text", ((TextType) getResult4).getStringValue());
-    assertEquals("Layer Text", ((TextType) getResult4).getRawValue());
-    assertEquals("Layer Text", ((TextType) getResult4).getValue());
-    assertEquals("LayerName", getResult3.getPropertyName());
-    assertEquals("LayerText", getResult4.getPropertyName());
-    List<Attribute> allAttributes = getResult2.getAllAttributes();
-    assertEquals(1, allAttributes.size());
-    Attribute getResult5 = allAttributes.get(0);
-    assertEquals("Resource", getResult5.getValue());
-    assertEquals("http://ns.adobe.com/photoshop/1.0/", getResult.getNamespace());
-    assertEquals("http://ns.adobe.com/photoshop/1.0/", getResult3.getNamespace());
-    assertEquals("http://ns.adobe.com/photoshop/1.0/", getResult4.getNamespace());
-    assertEquals("http://ns.adobe.com/photoshop/1.0/", getResult2.getNamespace());
-    assertEquals("http://www.w3.org/1999/02/22-rdf-syntax-ns#", getResult5.getNamespace());
-    assertEquals("parseType", getResult5.getName());
-    assertEquals("photoshop", getResult.getPrefix());
-    assertEquals("photoshop", getResult3.getPrefix());
-    assertEquals("photoshop", getResult4.getPrefix());
-    assertEquals("photoshop", getResult2.getPreferedPrefix());
-    assertEquals("photoshop", getResult2.getPrefix());
-    assertNull(getResult2.getPropertyName());
-    assertEquals(1, ((ArrayProperty) getResult).getAllProperties().size());
-    assertEquals(Cardinality.Seq, ((ArrayProperty) getResult).getArrayType());
-    assertTrue(getResult.getAllAttributes().isEmpty());
-    assertTrue(getResult3.getAllAttributes().isEmpty());
-    assertTrue(getResult4.getAllAttributes().isEmpty());
-    assertTrue(getResult2.getAllNamespacesWithPrefix().isEmpty());
-    assertTrue(((ArrayProperty) getResult).getAllNamespacesWithPrefix().isEmpty());
-    assertEquals(PhotoshopSchema.TEXT_LAYERS, getResult.getPropertyName());
-    assertSame(metadata, getResult.getMetadata());
-    assertSame(metadata, getResult3.getMetadata());
-    assertSame(metadata, getResult4.getMetadata());
-    assertSame(metadata, getResult2.getMetadata());
+    assertTrue(allProperties.get(0) instanceof ArrayProperty);
+    assertEquals(1, photoshopSchema.getTextLayers().size());
   }
 
   /**
    * Test {@link PhotoshopSchema#addTextLayers(String, String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#addTextLayers(String, String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#addTextLayers(String, String)}
    */
   @Test
   @DisplayName("Test addTextLayers(String, String)")
-  void testAddTextLayers3() throws BadFieldValueException {
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.addTextLayers(String, String)"})
+  void testAddTextLayers4() throws BadFieldValueException {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
 
@@ -5721,104 +6625,101 @@ class PhotoshopSchemaDiffblueTest {
     List<LayerType> textLayers = photoshopSchema.getTextLayers();
     assertEquals(1, textLayers.size());
     LayerType getResult2 = textLayers.get(0);
-    List<AbstractField> allProperties2 = getResult2.getAllProperties();
-    assertEquals(2, allProperties2.size());
-    AbstractField getResult3 = allProperties2.get(0);
-    assertTrue(getResult3 instanceof TextType);
-    AbstractField getResult4 = allProperties2.get(1);
-    assertTrue(getResult4 instanceof TextType);
     assertEquals("Layer Name", getResult2.getLayerName());
-    assertEquals("Layer Name", ((TextType) getResult3).getStringValue());
-    assertEquals("Layer Name", ((TextType) getResult3).getRawValue());
-    assertEquals("Layer Name", ((TextType) getResult3).getValue());
     assertEquals("Layer Text", getResult2.getLayerText());
-    assertEquals("Layer Text", ((TextType) getResult4).getStringValue());
-    assertEquals("Layer Text", ((TextType) getResult4).getRawValue());
-    assertEquals("Layer Text", ((TextType) getResult4).getValue());
-    assertEquals("LayerName", getResult3.getPropertyName());
-    assertEquals("LayerText", getResult4.getPropertyName());
-    List<Attribute> allAttributes = getResult2.getAllAttributes();
-    assertEquals(1, allAttributes.size());
-    Attribute getResult5 = allAttributes.get(0);
-    assertEquals("Resource", getResult5.getValue());
-    assertEquals("http://ns.adobe.com/photoshop/1.0/", getResult3.getNamespace());
-    assertEquals("http://ns.adobe.com/photoshop/1.0/", getResult4.getNamespace());
     assertEquals("http://ns.adobe.com/photoshop/1.0/", getResult2.getNamespace());
-    assertEquals("http://www.w3.org/1999/02/22-rdf-syntax-ns#", getResult5.getNamespace());
-    assertEquals("parseType", getResult5.getName());
-    assertEquals("photoshop", getResult3.getPrefix());
-    assertEquals("photoshop", getResult4.getPrefix());
     assertEquals("photoshop", getResult2.getPreferedPrefix());
     assertEquals("photoshop", getResult2.getPrefix());
     assertNull(getResult2.getPropertyName());
     assertEquals(1, ((ArrayProperty) getResult).getAllProperties().size());
+    assertEquals(1, getResult2.getAllAttributes().size());
+    assertEquals(2, getResult2.getAllProperties().size());
     assertEquals(Cardinality.Seq, ((ArrayProperty) getResult).getArrayType());
-    assertTrue(getResult3.getAllAttributes().isEmpty());
-    assertTrue(getResult4.getAllAttributes().isEmpty());
     assertTrue(getResult2.getAllNamespacesWithPrefix().isEmpty());
-    assertSame(metadata, getResult3.getMetadata());
-    assertSame(metadata, getResult4.getMetadata());
     assertSame(metadata, getResult2.getMetadata());
   }
 
   /**
-   * Test {@link PhotoshopSchema#addTextLayers(String, String)}.
-   * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#addTextLayers(String, String)}
+   * Test {@link PhotoshopSchema#getTextLayers()}.
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getTextLayers()}
    */
   @Test
-  @DisplayName("Test addTextLayers(String, String); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
-  void testAddTextLayers_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
+  @DisplayName("Test getTextLayers()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List PhotoshopSchema.getTextLayers()"})
+  void testGetTextLayers() throws BadFieldValueException {
     // Arrange
-    XMPMetadata metadata = XMPMetadata.createXMPMetadata();
-    PhotoshopSchema photoshopSchema = new PhotoshopSchema(metadata);
+    PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
+    photoshopSchema.addBagValueAsSimple(PhotoshopSchema.TEXT_LAYERS, "42");
 
-    // Act
-    photoshopSchema.addTextLayers("Layer Name", "Layer Text");
-
-    // Assert
-    List<AbstractField> allProperties = photoshopSchema.getAllProperties();
-    assertEquals(1, allProperties.size());
-    AbstractField getResult = allProperties.get(0);
-    assertTrue(getResult instanceof ArrayProperty);
-    assertEquals("http://ns.adobe.com/photoshop/1.0/", getResult.getNamespace());
-    assertEquals("photoshop", getResult.getPrefix());
-    assertTrue(getResult.getAllAttributes().isEmpty());
-    assertTrue(((ArrayProperty) getResult).getAllNamespacesWithPrefix().isEmpty());
-    assertEquals(PhotoshopSchema.TEXT_LAYERS, getResult.getPropertyName());
-    assertSame(metadata, getResult.getMetadata());
+    // Act and Assert
+    assertThrows(BadFieldValueException.class, () -> photoshopSchema.getTextLayers());
   }
 
   /**
    * Test {@link PhotoshopSchema#getTextLayers()}.
-   * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getTextLayers()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getTextLayers()}
    */
   @Test
-  @DisplayName("Test getTextLayers(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
-  void testGetTextLayers_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() throws BadFieldValueException {
-    // Arrange, Act and Assert
-    assertNull((new PhotoshopSchema(XMPMetadata.createXMPMetadata())).getTextLayers());
+  @DisplayName("Test getTextLayers()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List PhotoshopSchema.getTextLayers()"})
+  void testGetTextLayers2() throws BadFieldValueException {
+    // Arrange
+    PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
+    AgentNameType obj =
+        new AgentNameType(
+            XMPMetadata.createXMPMetadata(),
+            PhotoshopSchema.TEXT_LAYERS,
+            PhotoshopSchema.TEXT_LAYERS,
+            PhotoshopSchema.TEXT_LAYERS,
+            "Value");
+    photoshopSchema.addProperty(obj);
+
+    // Act and Assert
+    assertThrows(BadFieldValueException.class, () -> photoshopSchema.getTextLayers());
   }
 
   /**
    * Test {@link PhotoshopSchema#getTextLayers()}.
+   *
    * <ul>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getTextLayers()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getTextLayers()}
+   */
+  @Test
+  @DisplayName(
+      "Test getTextLayers(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List PhotoshopSchema.getTextLayers()"})
+  void testGetTextLayers_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata()
+      throws BadFieldValueException {
+    // Arrange, Act and Assert
+    assertNull(new PhotoshopSchema(XMPMetadata.createXMPMetadata()).getTextLayers());
+  }
+
+  /**
+   * Test {@link PhotoshopSchema#getTextLayers()}.
+   *
+   * <ul>
+   *   <li>Then return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getTextLayers()}
    */
   @Test
   @DisplayName("Test getTextLayers(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List PhotoshopSchema.getTextLayers()"})
   void testGetTextLayers_thenReturnNull() throws BadFieldValueException {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
@@ -5830,20 +6731,25 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getTextLayers()}.
+   *
    * <ul>
-   *   <li>Then return size is one.</li>
+   *   <li>Then return size is one.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getTextLayers()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getTextLayers()}
    */
   @Test
   @DisplayName("Test getTextLayers(); then return size is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List PhotoshopSchema.getTextLayers()"})
   void testGetTextLayers_thenReturnSizeIsOne() throws BadFieldValueException {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
 
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(metadata);
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.TEXT_LAYERS);
 
     // Act
@@ -5852,82 +6758,44 @@ class PhotoshopSchemaDiffblueTest {
     // Assert
     assertEquals(1, actualTextLayers.size());
     LayerType getResult = actualTextLayers.get(0);
-    List<AbstractField> allProperties = getResult.getAllProperties();
-    assertEquals(2, allProperties.size());
-    AbstractField getResult2 = allProperties.get(0);
-    assertTrue(getResult2 instanceof TextType);
-    AbstractField getResult3 = allProperties.get(1);
-    assertTrue(getResult3 instanceof TextType);
-    assertEquals("LayerName", getResult2.getPropertyName());
-    assertEquals("LayerText", getResult3.getPropertyName());
-    List<Attribute> allAttributes = getResult.getAllAttributes();
-    assertEquals(1, allAttributes.size());
-    Attribute getResult4 = allAttributes.get(0);
-    assertEquals("Resource", getResult4.getValue());
-    assertEquals("http://ns.adobe.com/photoshop/1.0/", getResult2.getNamespace());
-    assertEquals("http://ns.adobe.com/photoshop/1.0/", getResult3.getNamespace());
     assertEquals("http://ns.adobe.com/photoshop/1.0/", getResult.getNamespace());
-    assertEquals("http://www.w3.org/1999/02/22-rdf-syntax-ns#", getResult4.getNamespace());
-    assertEquals("parseType", getResult4.getName());
-    assertEquals("photoshop", getResult2.getPrefix());
-    assertEquals("photoshop", getResult3.getPrefix());
     assertEquals("photoshop", getResult.getPreferedPrefix());
     assertEquals("photoshop", getResult.getPrefix());
     assertNull(getResult.getPropertyName());
-    assertTrue(getResult2.getAllAttributes().isEmpty());
-    assertTrue(getResult3.getAllAttributes().isEmpty());
+    assertEquals(1, getResult.getAllAttributes().size());
+    assertEquals(2, getResult.getAllProperties().size());
     assertTrue(getResult.getAllNamespacesWithPrefix().isEmpty());
     assertEquals(PhotoshopSchema.DOCUMENT_ANCESTORS, getResult.getLayerName());
     assertEquals(PhotoshopSchema.DOCUMENT_ANCESTORS, getResult.getLayerText());
-    assertEquals(PhotoshopSchema.DOCUMENT_ANCESTORS, ((TextType) getResult2).getStringValue());
-    assertEquals(PhotoshopSchema.DOCUMENT_ANCESTORS, ((TextType) getResult3).getStringValue());
-    assertEquals(PhotoshopSchema.DOCUMENT_ANCESTORS, ((TextType) getResult2).getRawValue());
-    assertEquals(PhotoshopSchema.DOCUMENT_ANCESTORS, ((TextType) getResult3).getRawValue());
-    assertEquals(PhotoshopSchema.DOCUMENT_ANCESTORS, ((TextType) getResult2).getValue());
-    assertEquals(PhotoshopSchema.DOCUMENT_ANCESTORS, ((TextType) getResult3).getValue());
-    assertSame(metadata, getResult2.getMetadata());
-    assertSame(metadata, getResult3.getMetadata());
     assertSame(metadata, getResult.getMetadata());
   }
 
   /**
-   * Test {@link PhotoshopSchema#getTextLayers()}.
-   * <ul>
-   *   <li>Then throw {@link BadFieldValueException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getTextLayers()}
-   */
-  @Test
-  @DisplayName("Test getTextLayers(); then throw BadFieldValueException")
-  void testGetTextLayers_thenThrowBadFieldValueException() throws BadFieldValueException {
-    // Arrange
-    PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addBagValueAsSimple(PhotoshopSchema.TEXT_LAYERS, "42");
-
-    // Act and Assert
-    assertThrows(BadFieldValueException.class, () -> photoshopSchema.getTextLayers());
-  }
-
-  /**
    * Test {@link PhotoshopSchema#getTransmissionReferenceProperty()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getTransmissionReferenceProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getTransmissionReferenceProperty()}
    */
   @Test
   @DisplayName("Test getTransmissionReferenceProperty()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"TextType PhotoshopSchema.getTransmissionReferenceProperty()"})
   void testGetTransmissionReferenceProperty() {
     // Arrange, Act and Assert
-    assertNull((new PhotoshopSchema(XMPMetadata.createXMPMetadata())).getTransmissionReferenceProperty());
+    assertNull(
+        new PhotoshopSchema(XMPMetadata.createXMPMetadata()).getTransmissionReferenceProperty());
   }
 
   /**
    * Test {@link PhotoshopSchema#getTransmissionReferenceProperty()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getTransmissionReferenceProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getTransmissionReferenceProperty()}
    */
   @Test
   @DisplayName("Test getTransmissionReferenceProperty()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"TextType PhotoshopSchema.getTransmissionReferenceProperty()"})
   void testGetTransmissionReferenceProperty2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
@@ -5939,15 +6807,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getTransmissionReferenceProperty()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getTransmissionReferenceProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getTransmissionReferenceProperty()}
    */
   @Test
   @DisplayName("Test getTransmissionReferenceProperty()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"TextType PhotoshopSchema.getTransmissionReferenceProperty()"})
   void testGetTransmissionReferenceProperty3() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.TRANSMISSION_REFERENCE);
 
     // Act and Assert
@@ -5956,11 +6828,14 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getTransmissionReference()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getTransmissionReference()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getTransmissionReference()}
    */
   @Test
   @DisplayName("Test getTransmissionReference()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PhotoshopSchema.getTransmissionReference()"})
   void testGetTransmissionReference() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
@@ -5972,15 +6847,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getTransmissionReference()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getTransmissionReference()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getTransmissionReference()}
    */
   @Test
   @DisplayName("Test getTransmissionReference()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PhotoshopSchema.getTransmissionReference()"})
   void testGetTransmissionReference2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.TRANSMISSION_REFERENCE);
 
     // Act and Assert
@@ -5989,27 +6868,35 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getTransmissionReference()}.
+   *
    * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
+   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getTransmissionReference()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getTransmissionReference()}
    */
   @Test
-  @DisplayName("Test getTransmissionReference(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test getTransmissionReference(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PhotoshopSchema.getTransmissionReference()"})
   void testGetTransmissionReference_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull((new PhotoshopSchema(XMPMetadata.createXMPMetadata())).getTransmissionReference());
+    assertNull(new PhotoshopSchema(XMPMetadata.createXMPMetadata()).getTransmissionReference());
   }
 
   /**
    * Test {@link PhotoshopSchema#setTransmissionReference(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setTransmissionReference(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setTransmissionReference(String)}
    */
   @Test
   @DisplayName("Test setTransmissionReference(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setTransmissionReference(String)"})
   void testSetTransmissionReference() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -6031,22 +6918,27 @@ class PhotoshopSchemaDiffblueTest {
     List<AbstractField> allProperties = photoshopSchema.getAllProperties();
     assertEquals(2, allProperties.size());
     assertTrue(transmissionReferenceProperty.getAllAttributes().isEmpty());
-    assertEquals(PhotoshopSchema.TRANSMISSION_REFERENCE, transmissionReferenceProperty.getPropertyName());
+    assertEquals(
+        PhotoshopSchema.TRANSMISSION_REFERENCE, transmissionReferenceProperty.getPropertyName());
     assertSame(transmissionReferenceProperty, allProperties.get(1));
     assertSame(metadata, transmissionReferenceProperty.getMetadata());
   }
 
   /**
    * Test {@link PhotoshopSchema#setTransmissionReference(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setTransmissionReference(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setTransmissionReference(String)}
    */
   @Test
   @DisplayName("Test setTransmissionReference(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setTransmissionReference(String)"})
   void testSetTransmissionReference2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.TRANSMISSION_REFERENCE);
 
     // Act
@@ -6060,11 +6952,14 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setTransmissionReference(String)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setTransmissionReference(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setTransmissionReference(String)}
    */
   @Test
   @DisplayName("Test setTransmissionReference(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setTransmissionReference(String)"})
   void testSetTransmissionReference3() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -6086,22 +6981,28 @@ class PhotoshopSchemaDiffblueTest {
     List<AbstractField> allProperties = photoshopSchema.getAllProperties();
     assertEquals(1, allProperties.size());
     assertTrue(transmissionReferenceProperty.getAllAttributes().isEmpty());
-    assertEquals(PhotoshopSchema.TRANSMISSION_REFERENCE, transmissionReferenceProperty.getPropertyName());
+    assertEquals(
+        PhotoshopSchema.TRANSMISSION_REFERENCE, transmissionReferenceProperty.getPropertyName());
     assertSame(transmissionReferenceProperty, allProperties.get(0));
     assertSame(metadata, transmissionReferenceProperty.getMetadata());
   }
 
   /**
    * Test {@link PhotoshopSchema#setTransmissionReference(String)}.
+   *
    * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
+   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setTransmissionReference(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setTransmissionReference(String)}
    */
   @Test
-  @DisplayName("Test setTransmissionReference(String); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test setTransmissionReference(String); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setTransmissionReference(String)"})
   void testSetTransmissionReference_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -6121,23 +7022,28 @@ class PhotoshopSchemaDiffblueTest {
     List<AbstractField> allProperties = photoshopSchema.getAllProperties();
     assertEquals(1, allProperties.size());
     assertTrue(transmissionReferenceProperty.getAllAttributes().isEmpty());
-    assertEquals(PhotoshopSchema.TRANSMISSION_REFERENCE, transmissionReferenceProperty.getPropertyName());
+    assertEquals(
+        PhotoshopSchema.TRANSMISSION_REFERENCE, transmissionReferenceProperty.getPropertyName());
     assertSame(transmissionReferenceProperty, allProperties.get(0));
     assertSame(metadata, transmissionReferenceProperty.getMetadata());
   }
 
   /**
    * Test {@link PhotoshopSchema#setTransmissionReferenceProperty(TextType)}.
-   * <p>
-   * Method under test:
-   * {@link PhotoshopSchema#setTransmissionReferenceProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setTransmissionReferenceProperty(TextType)}
    */
   @Test
   @DisplayName("Test setTransmissionReferenceProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setTransmissionReferenceProperty(TextType)"})
   void testSetTransmissionReferenceProperty() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setTransmissionReferenceProperty(text);
@@ -6150,17 +7056,21 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setTransmissionReferenceProperty(TextType)}.
-   * <p>
-   * Method under test:
-   * {@link PhotoshopSchema#setTransmissionReferenceProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setTransmissionReferenceProperty(TextType)}
    */
   @Test
   @DisplayName("Test setTransmissionReferenceProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setTransmissionReferenceProperty(TextType)"})
   void testSetTransmissionReferenceProperty2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addDocumentAncestors("Text");
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setTransmissionReferenceProperty(text);
@@ -6173,18 +7083,22 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setTransmissionReferenceProperty(TextType)}.
-   * <p>
-   * Method under test:
-   * {@link PhotoshopSchema#setTransmissionReferenceProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setTransmissionReferenceProperty(TextType)}
    */
   @Test
   @DisplayName("Test setTransmissionReferenceProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setTransmissionReferenceProperty(TextType)"})
   void testSetTransmissionReferenceProperty3() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addTextLayers("Property Name", "Property Name");
     photoshopSchema.addDocumentAncestors("Text");
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setTransmissionReferenceProperty(text);
@@ -6198,18 +7112,22 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setTransmissionReferenceProperty(TextType)}.
-   * <p>
-   * Method under test:
-   * {@link PhotoshopSchema#setTransmissionReferenceProperty(TextType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setTransmissionReferenceProperty(TextType)}
    */
   @Test
   @DisplayName("Test setTransmissionReferenceProperty(TextType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setTransmissionReferenceProperty(TextType)"})
   void testSetTransmissionReferenceProperty4() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addBagValueAsSimple("Property Name", PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors("Text");
-    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text =
+        new TextType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     photoshopSchema.setTransmissionReferenceProperty(text);
@@ -6222,11 +7140,14 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getUrgencyProperty()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getUrgencyProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getUrgencyProperty()}
    */
   @Test
   @DisplayName("Test getUrgencyProperty()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"IntegerType PhotoshopSchema.getUrgencyProperty()"})
   void testGetUrgencyProperty() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
@@ -6238,15 +7159,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getUrgencyProperty()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getUrgencyProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getUrgencyProperty()}
    */
   @Test
   @DisplayName("Test getUrgencyProperty()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"IntegerType PhotoshopSchema.getUrgencyProperty()"})
   void testGetUrgencyProperty2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.URGENCY);
 
     // Act and Assert
@@ -6255,27 +7180,35 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getUrgencyProperty()}.
+   *
    * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
+   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getUrgencyProperty()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getUrgencyProperty()}
    */
   @Test
-  @DisplayName("Test getUrgencyProperty(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test getUrgencyProperty(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"IntegerType PhotoshopSchema.getUrgencyProperty()"})
   void testGetUrgencyProperty_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull((new PhotoshopSchema(XMPMetadata.createXMPMetadata())).getUrgencyProperty());
+    assertNull(new PhotoshopSchema(XMPMetadata.createXMPMetadata()).getUrgencyProperty());
   }
 
   /**
    * Test {@link PhotoshopSchema#getUrgency()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getUrgency()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getUrgency()}
    */
   @Test
   @DisplayName("Test getUrgency()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Integer PhotoshopSchema.getUrgency()"})
   void testGetUrgency() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
@@ -6287,15 +7220,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getUrgency()}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getUrgency()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getUrgency()}
    */
   @Test
   @DisplayName("Test getUrgency()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Integer PhotoshopSchema.getUrgency()"})
   void testGetUrgency2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.URGENCY);
 
     // Act and Assert
@@ -6304,27 +7241,35 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#getUrgency()}.
+   *
    * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
+   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#getUrgency()}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#getUrgency()}
    */
   @Test
-  @DisplayName("Test getUrgency(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test getUrgency(); given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Integer PhotoshopSchema.getUrgency()"})
   void testGetUrgency_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull((new PhotoshopSchema(XMPMetadata.createXMPMetadata())).getUrgency());
+    assertNull(new PhotoshopSchema(XMPMetadata.createXMPMetadata()).getUrgency());
   }
 
   /**
    * Test {@link PhotoshopSchema#setUrgency(Integer)} with {@code Integer}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setUrgency(Integer)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setUrgency(Integer)}
    */
   @Test
   @DisplayName("Test setUrgency(Integer) with 'Integer'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setUrgency(Integer)"})
   void testSetUrgencyWithInteger() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -6342,6 +7287,7 @@ class PhotoshopSchemaDiffblueTest {
     assertNull(urgencyProperty.getNamespace());
     assertEquals(1, photoshopSchema.getUrgency().intValue());
     assertEquals(1, urgencyProperty.getValue().intValue());
+    assertEquals(1, ((Integer) urgencyProperty.getRawValue()).intValue());
     List<AbstractField> allProperties = photoshopSchema.getAllProperties();
     assertEquals(2, allProperties.size());
     assertTrue(urgencyProperty.getAllAttributes().isEmpty());
@@ -6352,15 +7298,19 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setUrgency(Integer)} with {@code Integer}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setUrgency(Integer)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setUrgency(Integer)}
    */
   @Test
   @DisplayName("Test setUrgency(Integer) with 'Integer'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setUrgency(Integer)"})
   void testSetUrgencyWithInteger2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
+    photoshopSchema.addTextLayers(
+        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.URGENCY);
 
     // Act
@@ -6374,11 +7324,14 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setUrgency(Integer)} with {@code Integer}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setUrgency(Integer)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setUrgency(Integer)}
    */
   @Test
   @DisplayName("Test setUrgency(Integer) with 'Integer'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setUrgency(Integer)"})
   void testSetUrgencyWithInteger3() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -6396,6 +7349,7 @@ class PhotoshopSchemaDiffblueTest {
     assertNull(urgencyProperty.getNamespace());
     assertEquals(1, photoshopSchema.getUrgency().intValue());
     assertEquals(1, urgencyProperty.getValue().intValue());
+    assertEquals(1, ((Integer) urgencyProperty.getRawValue()).intValue());
     List<AbstractField> allProperties = photoshopSchema.getAllProperties();
     assertEquals(1, allProperties.size());
     assertTrue(urgencyProperty.getAllAttributes().isEmpty());
@@ -6406,15 +7360,20 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setUrgency(Integer)} with {@code Integer}.
+   *
    * <ul>
-   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata
-   * is createXMPMetadata.</li>
+   *   <li>Given {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
+   *       createXMPMetadata.
    * </ul>
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setUrgency(Integer)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setUrgency(Integer)}
    */
   @Test
-  @DisplayName("Test setUrgency(Integer) with 'Integer'; given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @DisplayName(
+      "Test setUrgency(Integer) with 'Integer'; given PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setUrgency(Integer)"})
   void testSetUrgencyWithInteger_givenPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -6430,6 +7389,7 @@ class PhotoshopSchemaDiffblueTest {
     assertNull(urgencyProperty.getNamespace());
     assertEquals(1, photoshopSchema.getUrgency().intValue());
     assertEquals(1, urgencyProperty.getValue().intValue());
+    assertEquals(1, ((Integer) urgencyProperty.getRawValue()).intValue());
     List<AbstractField> allProperties = photoshopSchema.getAllProperties();
     assertEquals(1, allProperties.size());
     assertTrue(urgencyProperty.getAllAttributes().isEmpty());
@@ -6440,11 +7400,14 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setUrgency(String)} with {@code String}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setUrgency(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setUrgency(String)}
    */
   @Test
   @DisplayName("Test setUrgency(String) with 'String'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setUrgency(String)"})
   void testSetUrgencyWithString() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -6471,11 +7434,14 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setUrgency(String)} with {@code String}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setUrgency(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setUrgency(String)}
    */
   @Test
   @DisplayName("Test setUrgency(String) with 'String'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setUrgency(String)"})
   void testSetUrgencyWithString2() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -6504,11 +7470,14 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setUrgency(String)} with {@code String}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setUrgency(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setUrgency(String)}
    */
   @Test
   @DisplayName("Test setUrgency(String) with 'String'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setUrgency(String)"})
   void testSetUrgencyWithString3() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
@@ -6526,11 +7495,14 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setUrgency(String)} with {@code String}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setUrgency(String)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setUrgency(String)}
    */
   @Test
   @DisplayName("Test setUrgency(String) with 'String'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setUrgency(String)"})
   void testSetUrgencyWithString4() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -6560,15 +7532,20 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setUrgencyProperty(IntegerType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setUrgencyProperty(IntegerType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setUrgencyProperty(IntegerType)}
    */
   @Test
   @DisplayName("Test setUrgencyProperty(IntegerType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setUrgencyProperty(IntegerType)"})
   void testSetUrgencyProperty() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    IntegerType text = new IntegerType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", 42);
+    IntegerType text =
+        new IntegerType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", 42);
 
     // Act
     photoshopSchema.setUrgencyProperty(text);
@@ -6581,16 +7558,21 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setUrgencyProperty(IntegerType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setUrgencyProperty(IntegerType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setUrgencyProperty(IntegerType)}
    */
   @Test
   @DisplayName("Test setUrgencyProperty(IntegerType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setUrgencyProperty(IntegerType)"})
   void testSetUrgencyProperty2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.DOCUMENT_ANCESTORS);
-    IntegerType text = new IntegerType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", 42);
+    IntegerType text =
+        new IntegerType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", 42);
 
     // Act
     photoshopSchema.setUrgencyProperty(text);
@@ -6603,17 +7585,22 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setUrgencyProperty(IntegerType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setUrgencyProperty(IntegerType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setUrgencyProperty(IntegerType)}
    */
   @Test
   @DisplayName("Test setUrgencyProperty(IntegerType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setUrgencyProperty(IntegerType)"})
   void testSetUrgencyProperty3() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addTextLayers("Layer Name", "Layer Text");
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.DOCUMENT_ANCESTORS);
-    IntegerType text = new IntegerType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", 42);
+    IntegerType text =
+        new IntegerType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", 42);
 
     // Act
     photoshopSchema.setUrgencyProperty(text);
@@ -6631,21 +7618,26 @@ class PhotoshopSchemaDiffblueTest {
 
   /**
    * Test {@link PhotoshopSchema#setUrgencyProperty(IntegerType)}.
-   * <p>
-   * Method under test: {@link PhotoshopSchema#setUrgencyProperty(IntegerType)}
+   *
+   * <p>Method under test: {@link PhotoshopSchema#setUrgencyProperty(IntegerType)}
    */
   @Test
   @DisplayName("Test setUrgencyProperty(IntegerType)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PhotoshopSchema.setUrgencyProperty(IntegerType)"})
   void testSetUrgencyProperty4() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
     photoshopSchema.addBagValueAsSimple("Property Name", PhotoshopSchema.TEXT_LAYERS);
     photoshopSchema.addTextLayers("Layer Name", "Layer Text");
     photoshopSchema.addDocumentAncestors(PhotoshopSchema.DOCUMENT_ANCESTORS);
+    IntegerType text =
+        new IntegerType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", 42);
 
     // Act
-    photoshopSchema.setUrgencyProperty(
-        new IntegerType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", 42));
+    photoshopSchema.setUrgencyProperty(text);
 
     // Assert
     List<AbstractField> allProperties = photoshopSchema.getAllProperties();

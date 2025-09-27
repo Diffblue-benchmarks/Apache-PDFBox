@@ -7,33 +7,28 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.ArgumentMatchers.isA;
-import static org.mockito.Mockito.anyInt;
-import static org.mockito.Mockito.atLeast;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import org.apache.pdfbox.cos.COSArray;
-import org.apache.pdfbox.cos.COSDictionary;
-import org.apache.pdfbox.cos.COSDocument;
-import org.apache.pdfbox.cos.COSString;
+import org.apache.pdfbox.pdfwriter.compress.CompressParameters;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 class StandardSecurityHandlerDiffblueTest {
   /**
    * Test {@link StandardSecurityHandler#StandardSecurityHandler()}.
-   * <p>
-   * Method under test: {@link StandardSecurityHandler#StandardSecurityHandler()}
+   *
+   * <p>Method under test: {@link StandardSecurityHandler#StandardSecurityHandler()}
    */
   @Test
   @DisplayName("Test new StandardSecurityHandler()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void StandardSecurityHandler.<init>()"})
   void testNewStandardSecurityHandler() {
     // Arrange and Act
     StandardSecurityHandler actualStandardSecurityHandler = new StandardSecurityHandler();
@@ -49,24 +44,30 @@ class StandardSecurityHandlerDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link StandardSecurityHandler#StandardSecurityHandler(StandardProtectionPolicy)}.
+   * Test {@link StandardSecurityHandler#StandardSecurityHandler(StandardProtectionPolicy)}.
+   *
    * <ul>
-   *   <li>Then return EncryptionKey is {@code null}.</li>
+   *   <li>Then return EncryptionKey is {@code null}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link StandardSecurityHandler#StandardSecurityHandler(StandardProtectionPolicy)}
+   *
+   * <p>Method under test: {@link
+   * StandardSecurityHandler#StandardSecurityHandler(StandardProtectionPolicy)}
    */
   @Test
-  @DisplayName("Test new StandardSecurityHandler(StandardProtectionPolicy); then return EncryptionKey is 'null'")
+  @DisplayName(
+      "Test new StandardSecurityHandler(StandardProtectionPolicy); then return EncryptionKey is 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void StandardSecurityHandler.<init>(StandardProtectionPolicy)"})
   void testNewStandardSecurityHandler_thenReturnEncryptionKeyIsNull() {
     // Arrange
-    StandardProtectionPolicy standardProtectionPolicy = new StandardProtectionPolicy("iloveyou", "iloveyou",
-        AccessPermission.getOwnerAccessPermission());
+    StandardProtectionPolicy standardProtectionPolicy =
+        new StandardProtectionPolicy(
+            "iloveyou", "iloveyou", AccessPermission.getOwnerAccessPermission());
 
     // Act
-    StandardSecurityHandler actualStandardSecurityHandler = new StandardSecurityHandler(standardProtectionPolicy);
+    StandardSecurityHandler actualStandardSecurityHandler =
+        new StandardSecurityHandler(standardProtectionPolicy);
 
     // Assert
     assertNull(actualStandardSecurityHandler.getEncryptionKey());
@@ -79,18 +80,58 @@ class StandardSecurityHandlerDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link StandardSecurityHandler#prepareForDecryption(PDEncryption, COSArray, DecryptionMaterial)}.
+   * Test {@link StandardSecurityHandler#prepareForDecryption(PDEncryption, COSArray,
+   * DecryptionMaterial)}.
+   *
    * <ul>
-   *   <li>When {@link PDEncryption#PDEncryption()}.</li>
-   *   <li>Then throw {@link IOException}.</li>
+   *   <li>When {@code null}.
+   *   <li>Then throw {@link IOException}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link StandardSecurityHandler#prepareForDecryption(PDEncryption, COSArray, DecryptionMaterial)}
+   *
+   * <p>Method under test: {@link StandardSecurityHandler#prepareForDecryption(PDEncryption,
+   * COSArray, DecryptionMaterial)}
    */
   @Test
-  @DisplayName("Test prepareForDecryption(PDEncryption, COSArray, DecryptionMaterial); when PDEncryption(); then throw IOException")
+  @DisplayName(
+      "Test prepareForDecryption(PDEncryption, COSArray, DecryptionMaterial); when 'null'; then throw IOException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void StandardSecurityHandler.prepareForDecryption(PDEncryption, COSArray, DecryptionMaterial)"
+  })
+  void testPrepareForDecryption_whenNull_thenThrowIOException() throws IOException {
+    // Arrange
+    StandardSecurityHandler standardSecurityHandler = new StandardSecurityHandler();
+    PDEncryption encryption = new PDEncryption();
+
+    // Act and Assert
+    assertThrows(
+        IOException.class,
+        () ->
+            standardSecurityHandler.prepareForDecryption(
+                encryption, null, new StandardDecryptionMaterial("Pwd")));
+  }
+
+  /**
+   * Test {@link StandardSecurityHandler#prepareForDecryption(PDEncryption, COSArray,
+   * DecryptionMaterial)}.
+   *
+   * <ul>
+   *   <li>When {@link PDEncryption#PDEncryption()}.
+   *   <li>Then throw {@link IOException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StandardSecurityHandler#prepareForDecryption(PDEncryption,
+   * COSArray, DecryptionMaterial)}
+   */
+  @Test
+  @DisplayName(
+      "Test prepareForDecryption(PDEncryption, COSArray, DecryptionMaterial); when PDEncryption(); then throw IOException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void StandardSecurityHandler.prepareForDecryption(PDEncryption, COSArray, DecryptionMaterial)"
+  })
   void testPrepareForDecryption_whenPDEncryption_thenThrowIOException() throws IOException {
     // Arrange
     StandardSecurityHandler standardSecurityHandler = new StandardSecurityHandler();
@@ -98,798 +139,1309 @@ class StandardSecurityHandlerDiffblueTest {
     COSArray documentIDArray = new COSArray();
 
     // Act and Assert
-    assertThrows(IOException.class, () -> standardSecurityHandler.prepareForDecryption(encryption, documentIDArray,
-        new StandardDecryptionMaterial("Pwd")));
+    assertThrows(
+        IOException.class,
+        () ->
+            standardSecurityHandler.prepareForDecryption(
+                encryption, documentIDArray, new StandardDecryptionMaterial("Pwd")));
   }
 
   /**
-   * Test
-   * {@link StandardSecurityHandler#prepareForDecryption(PDEncryption, COSArray, DecryptionMaterial)}.
+   * Test {@link StandardSecurityHandler#prepareForDecryption(PDEncryption, COSArray,
+   * DecryptionMaterial)}.
+   *
    * <ul>
-   *   <li>When {@link PDEncryption#PDEncryption()}.</li>
-   *   <li>Then throw {@link IOException}.</li>
+   *   <li>When {@link StandardDecryptionMaterial#StandardDecryptionMaterial(String)} with pwd is
+   *       {@code null}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link StandardSecurityHandler#prepareForDecryption(PDEncryption, COSArray, DecryptionMaterial)}
+   *
+   * <p>Method under test: {@link StandardSecurityHandler#prepareForDecryption(PDEncryption,
+   * COSArray, DecryptionMaterial)}
    */
   @Test
-  @DisplayName("Test prepareForDecryption(PDEncryption, COSArray, DecryptionMaterial); when PDEncryption(); then throw IOException")
-  void testPrepareForDecryption_whenPDEncryption_thenThrowIOException2() throws IOException {
+  @DisplayName(
+      "Test prepareForDecryption(PDEncryption, COSArray, DecryptionMaterial); when StandardDecryptionMaterial(String) with pwd is 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void StandardSecurityHandler.prepareForDecryption(PDEncryption, COSArray, DecryptionMaterial)"
+  })
+  void testPrepareForDecryption_whenStandardDecryptionMaterialWithPwdIsNull() throws IOException {
     // Arrange
     StandardSecurityHandler standardSecurityHandler = new StandardSecurityHandler();
     PDEncryption encryption = new PDEncryption();
+    COSArray documentIDArray = new COSArray();
 
     // Act and Assert
-    assertThrows(IOException.class,
-        () -> standardSecurityHandler.prepareForDecryption(encryption, null, new StandardDecryptionMaterial("Pwd")));
+    assertThrows(
+        IOException.class,
+        () ->
+            standardSecurityHandler.prepareForDecryption(
+                encryption, documentIDArray, new StandardDecryptionMaterial(null)));
   }
 
   /**
-   * Test
-   * {@link StandardSecurityHandler#prepareDocumentForEncryption(PDDocument)}.
-   * <p>
-   * Method under test:
-   * {@link StandardSecurityHandler#prepareDocumentForEncryption(PDDocument)}
+   * Test {@link StandardSecurityHandler#prepareDocumentForEncryption(PDDocument)}.
+   *
+   * <p>Method under test: {@link StandardSecurityHandler#prepareDocumentForEncryption(PDDocument)}
    */
   @Test
   @DisplayName("Test prepareDocumentForEncryption(PDDocument)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void StandardSecurityHandler.prepareDocumentForEncryption(PDDocument)"})
   void testPrepareDocumentForEncryption() throws IOException {
     // Arrange
-    AccessPermission permissions = mock(AccessPermission.class);
-    when(permissions.hasAnyRevision3PermissionSet()).thenReturn(false);
-    when(permissions.getPermissionBytes()).thenReturn(Integer.MIN_VALUE);
-    StandardProtectionPolicy standardProtectionPolicy = new StandardProtectionPolicy("iloveyou", "iloveyou",
-        permissions);
-
     StandardSecurityHandler standardSecurityHandler = new StandardSecurityHandler();
+    StandardProtectionPolicy standardProtectionPolicy =
+        new StandardProtectionPolicy(null, "iloveyou", new AccessPermission(4));
     standardSecurityHandler.setProtectionPolicy(standardProtectionPolicy);
-    COSDocument cosDocument = mock(COSDocument.class);
-    doNothing().when(cosDocument).setEncryptionDictionary(Mockito.<COSDictionary>any());
-    when(cosDocument.getDocumentID()).thenReturn(new COSArray());
-    doNothing().when(cosDocument).setDocumentID(Mockito.<COSArray>any());
-    PDDocument document = mock(PDDocument.class);
-    doNothing().when(document).setEncryptionDictionary(Mockito.<PDEncryption>any());
-    when(document.getDocument()).thenReturn(cosDocument);
-    when(document.getEncryption()).thenReturn(new PDEncryption());
+    PDDocument document = new PDDocument();
 
     // Act
     standardSecurityHandler.prepareDocumentForEncryption(document);
 
     // Assert
-    verify(cosDocument).getDocumentID();
-    verify(cosDocument).setDocumentID(isA(COSArray.class));
-    verify(cosDocument).setEncryptionDictionary(isA(COSDictionary.class));
-    verify(document, atLeast(1)).getDocument();
-    verify(document).getEncryption();
-    verify(document).setEncryptionDictionary(isA(PDEncryption.class));
-    verify(permissions).getPermissionBytes();
-    verify(permissions).hasAnyRevision3PermissionSet();
-    assertEquals(5, standardSecurityHandler.getEncryptionKey().length);
+    PDEncryption encryption = document.getEncryption();
+    assertNull(encryption.getOwnerEncryptionKey());
+    assertNull(encryption.getPerms());
+    assertNull(encryption.getUserEncryptionKey());
+    assertNull(encryption.getSubFilter());
+    assertNull(encryption.getDefaultCryptFilterDictionary());
+    assertNull(encryption.getStdCryptFilterDictionary());
+    assertEquals(4, encryption.getPermissions());
+    assertTrue(encryption.hasSecurityHandler());
+    assertTrue(encryption.isEncryptMetaData());
+    assertEquals(PDEncryption.DEFAULT_LENGTH, encryption.getLength());
+    assertArrayEquals(
+        new byte[] {
+          -69,
+          -48,
+          -51,
+          '\'',
+          'm',
+          -106,
+          -107,
+          'm',
+          18,
+          -22,
+          -64,
+          -26,
+          31,
+          '9',
+          14,
+          -60,
+          -115,
+          -96,
+          -111,
+          Byte.MIN_VALUE,
+          -35,
+          -58,
+          '8',
+          -107,
+          'S',
+          -30,
+          -55,
+          'T',
+          '.',
+          'W',
+          'P',
+          '1'
+        },
+        encryption.getOwnerKey());
   }
 
   /**
-   * Test
-   * {@link StandardSecurityHandler#prepareDocumentForEncryption(PDDocument)}.
-   * <p>
-   * Method under test:
-   * {@link StandardSecurityHandler#prepareDocumentForEncryption(PDDocument)}
+   * Test {@link StandardSecurityHandler#prepareDocumentForEncryption(PDDocument)}.
+   *
+   * <p>Method under test: {@link StandardSecurityHandler#prepareDocumentForEncryption(PDDocument)}
    */
   @Test
   @DisplayName("Test prepareDocumentForEncryption(PDDocument)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void StandardSecurityHandler.prepareDocumentForEncryption(PDDocument)"})
   void testPrepareDocumentForEncryption2() throws IOException {
     // Arrange
-    AccessPermission permissions = mock(AccessPermission.class);
-    when(permissions.hasAnyRevision3PermissionSet()).thenReturn(false);
-    when(permissions.getPermissionBytes()).thenReturn(1);
-    StandardProtectionPolicy standardProtectionPolicy = new StandardProtectionPolicy("iloveyou", "iloveyou",
-        permissions);
-
     StandardSecurityHandler standardSecurityHandler = new StandardSecurityHandler();
+    StandardProtectionPolicy standardProtectionPolicy =
+        new StandardProtectionPolicy("iloveyou", null, new AccessPermission(4));
     standardSecurityHandler.setProtectionPolicy(standardProtectionPolicy);
-    COSArray cosArray = mock(COSArray.class);
-    when(cosArray.getObject(anyInt())).thenReturn(COSString.parseHex("0123456789ABCDEF"));
-    when(cosArray.size()).thenReturn(3);
-    COSDocument cosDocument = mock(COSDocument.class);
-    doNothing().when(cosDocument).setEncryptionDictionary(Mockito.<COSDictionary>any());
-    when(cosDocument.getDocumentID()).thenReturn(cosArray);
-    PDDocument document = mock(PDDocument.class);
-    doNothing().when(document).setEncryptionDictionary(Mockito.<PDEncryption>any());
-    when(document.getDocument()).thenReturn(cosDocument);
-    when(document.getEncryption()).thenReturn(new PDEncryption());
+    PDDocument document = new PDDocument();
 
     // Act
     standardSecurityHandler.prepareDocumentForEncryption(document);
 
     // Assert
-    verify(cosArray).getObject(eq(0));
-    verify(cosArray).size();
-    verify(cosDocument).getDocumentID();
-    verify(cosDocument).setEncryptionDictionary(isA(COSDictionary.class));
-    verify(document, atLeast(1)).getDocument();
-    verify(document).getEncryption();
-    verify(document).setEncryptionDictionary(isA(PDEncryption.class));
-    verify(permissions).getPermissionBytes();
-    verify(permissions).hasAnyRevision3PermissionSet();
-    assertArrayEquals(new byte[]{-33, '9', -33, -50, '3'}, standardSecurityHandler.getEncryptionKey());
+    PDEncryption encryption = document.getEncryption();
+    assertNull(encryption.getOwnerEncryptionKey());
+    assertNull(encryption.getPerms());
+    assertNull(encryption.getUserEncryptionKey());
+    assertNull(encryption.getSubFilter());
+    assertNull(encryption.getDefaultCryptFilterDictionary());
+    assertNull(encryption.getStdCryptFilterDictionary());
+    assertEquals(4, encryption.getPermissions());
+    assertTrue(encryption.hasSecurityHandler());
+    assertTrue(encryption.isEncryptMetaData());
+    assertEquals(PDEncryption.DEFAULT_LENGTH, encryption.getLength());
+    assertArrayEquals(
+        new byte[] {
+          -6, 3, -20, 15, 'F', -102, 'p', 'Y', '^', 'U', -64, -18, -82, -74, -123, -115, -57, -114,
+          -33, '`', -14, 'T', 7, 29, 'R', -64, '`', 28, -102, 'l', 7, -53
+        },
+        encryption.getOwnerKey());
   }
 
   /**
-   * Test
-   * {@link StandardSecurityHandler#prepareDocumentForEncryption(PDDocument)}.
+   * Test {@link StandardSecurityHandler#prepareDocumentForEncryption(PDDocument)}.
+   *
    * <ul>
-   *   <li>Then array length is five.</li>
+   *   <li>Given {@link ByteArrayOutputStream#ByteArrayOutputStream()}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link StandardSecurityHandler#prepareDocumentForEncryption(PDDocument)}
+   *
+   * <p>Method under test: {@link StandardSecurityHandler#prepareDocumentForEncryption(PDDocument)}
    */
   @Test
-  @DisplayName("Test prepareDocumentForEncryption(PDDocument); then array length is five")
-  void testPrepareDocumentForEncryption_thenArrayLengthIsFive() throws IOException {
+  @DisplayName("Test prepareDocumentForEncryption(PDDocument); given ByteArrayOutputStream()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void StandardSecurityHandler.prepareDocumentForEncryption(PDDocument)"})
+  void testPrepareDocumentForEncryption_givenByteArrayOutputStream() throws IOException {
     // Arrange
-    AccessPermission permissions = mock(AccessPermission.class);
-    when(permissions.hasAnyRevision3PermissionSet()).thenReturn(false);
-    when(permissions.getPermissionBytes()).thenReturn(1);
-    StandardProtectionPolicy standardProtectionPolicy = new StandardProtectionPolicy("iloveyou", "iloveyou",
-        permissions);
-
     StandardSecurityHandler standardSecurityHandler = new StandardSecurityHandler();
+    StandardProtectionPolicy standardProtectionPolicy =
+        new StandardProtectionPolicy("iloveyou", "iloveyou", new AccessPermission(4));
     standardSecurityHandler.setProtectionPolicy(standardProtectionPolicy);
-    COSDocument cosDocument = mock(COSDocument.class);
-    doNothing().when(cosDocument).setEncryptionDictionary(Mockito.<COSDictionary>any());
-    when(cosDocument.getDocumentID()).thenReturn(new COSArray());
-    doNothing().when(cosDocument).setDocumentID(Mockito.<COSArray>any());
-    PDDocument document = mock(PDDocument.class);
-    doNothing().when(document).setEncryptionDictionary(Mockito.<PDEncryption>any());
-    when(document.getDocument()).thenReturn(cosDocument);
-    when(document.getEncryption()).thenReturn(new PDEncryption());
+
+    PDDocument document = new PDDocument();
+    document.save(new ByteArrayOutputStream(), CompressParameters.DEFAULT_COMPRESSION);
 
     // Act
     standardSecurityHandler.prepareDocumentForEncryption(document);
 
     // Assert
-    verify(cosDocument).getDocumentID();
-    verify(cosDocument).setDocumentID(isA(COSArray.class));
-    verify(cosDocument).setEncryptionDictionary(isA(COSDictionary.class));
-    verify(document, atLeast(1)).getDocument();
-    verify(document).getEncryption();
-    verify(document).setEncryptionDictionary(isA(PDEncryption.class));
-    verify(permissions).getPermissionBytes();
-    verify(permissions).hasAnyRevision3PermissionSet();
-    assertEquals(5, standardSecurityHandler.getEncryptionKey().length);
+    assertArrayEquals(
+        new byte[] {
+          -69,
+          -48,
+          -51,
+          '\'',
+          'm',
+          -106,
+          -107,
+          'm',
+          18,
+          -22,
+          -64,
+          -26,
+          31,
+          '9',
+          14,
+          -60,
+          -115,
+          -96,
+          -111,
+          Byte.MIN_VALUE,
+          -35,
+          -58,
+          '8',
+          -107,
+          'S',
+          -30,
+          -55,
+          'T',
+          '.',
+          'W',
+          'P',
+          '1'
+        },
+        document.getEncryption().getOwnerKey());
   }
 
   /**
-   * Test
-   * {@link StandardSecurityHandler#prepareDocumentForEncryption(PDDocument)}.
+   * Test {@link StandardSecurityHandler#prepareDocumentForEncryption(PDDocument)}.
+   *
    * <ul>
-   *   <li>Then calls {@link PDEncryption#getCOSObject()}.</li>
+   *   <li>Given {@link PDEncryption#PDEncryption()}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link StandardSecurityHandler#prepareDocumentForEncryption(PDDocument)}
+   *
+   * <p>Method under test: {@link StandardSecurityHandler#prepareDocumentForEncryption(PDDocument)}
    */
   @Test
-  @DisplayName("Test prepareDocumentForEncryption(PDDocument); then calls getCOSObject()")
-  void testPrepareDocumentForEncryption_thenCallsGetCOSObject() throws IOException {
+  @DisplayName("Test prepareDocumentForEncryption(PDDocument); given PDEncryption()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void StandardSecurityHandler.prepareDocumentForEncryption(PDDocument)"})
+  void testPrepareDocumentForEncryption_givenPDEncryption() throws IOException {
     // Arrange
-    AccessPermission permissions = mock(AccessPermission.class);
-    when(permissions.hasAnyRevision3PermissionSet()).thenReturn(false);
-    when(permissions.getPermissionBytes()).thenReturn(1);
-    StandardProtectionPolicy standardProtectionPolicy = new StandardProtectionPolicy("iloveyou", "iloveyou",
-        permissions);
-
     StandardSecurityHandler standardSecurityHandler = new StandardSecurityHandler();
+    StandardProtectionPolicy standardProtectionPolicy =
+        new StandardProtectionPolicy("iloveyou", "iloveyou", new AccessPermission(4));
     standardSecurityHandler.setProtectionPolicy(standardProtectionPolicy);
-    PDEncryption pdEncryption = mock(PDEncryption.class);
-    when(pdEncryption.getCOSObject()).thenReturn(new COSDictionary());
-    doNothing().when(pdEncryption).setOwnerKey(Mockito.<byte[]>any());
-    doNothing().when(pdEncryption).setUserKey(Mockito.<byte[]>any());
-    doNothing().when(pdEncryption).removeV45filters();
-    doNothing().when(pdEncryption).setFilter(Mockito.<String>any());
-    doNothing().when(pdEncryption).setLength(anyInt());
-    doNothing().when(pdEncryption).setPermissions(anyInt());
-    doNothing().when(pdEncryption).setRevision(anyInt());
-    doNothing().when(pdEncryption).setVersion(anyInt());
-    COSArray cosArray = mock(COSArray.class);
-    when(cosArray.getObject(anyInt())).thenReturn(COSString.parseHex("0123456789ABCDEF"));
-    when(cosArray.size()).thenReturn(3);
-    COSDocument cosDocument = mock(COSDocument.class);
-    doNothing().when(cosDocument).setEncryptionDictionary(Mockito.<COSDictionary>any());
-    when(cosDocument.getDocumentID()).thenReturn(cosArray);
-    PDDocument document = mock(PDDocument.class);
-    doNothing().when(document).setEncryptionDictionary(Mockito.<PDEncryption>any());
-    when(document.getDocument()).thenReturn(cosDocument);
-    when(document.getEncryption()).thenReturn(pdEncryption);
+
+    PDDocument document = new PDDocument();
+    document.setEncryptionDictionary(new PDEncryption());
 
     // Act
     standardSecurityHandler.prepareDocumentForEncryption(document);
 
     // Assert
-    verify(cosArray).getObject(eq(0));
-    verify(cosArray).size();
-    verify(cosDocument).getDocumentID();
-    verify(cosDocument).setEncryptionDictionary(isA(COSDictionary.class));
-    verify(document, atLeast(1)).getDocument();
-    verify(document).getEncryption();
-    verify(document).setEncryptionDictionary(isA(PDEncryption.class));
-    verify(permissions).getPermissionBytes();
-    verify(permissions).hasAnyRevision3PermissionSet();
-    verify(pdEncryption).getCOSObject();
-    verify(pdEncryption).removeV45filters();
-    verify(pdEncryption).setFilter(eq("Standard"));
-    verify(pdEncryption).setLength(eq(40));
-    verify(pdEncryption).setOwnerKey(isA(byte[].class));
-    verify(pdEncryption).setPermissions(eq(1));
-    verify(pdEncryption).setRevision(eq(2));
-    verify(pdEncryption).setUserKey(isA(byte[].class));
-    verify(pdEncryption).setVersion(eq(1));
-    assertArrayEquals(new byte[]{-33, '9', -33, -50, '3'}, standardSecurityHandler.getEncryptionKey());
+    PDEncryption encryption = document.getEncryption();
+    assertNull(encryption.getOwnerEncryptionKey());
+    assertNull(encryption.getPerms());
+    assertNull(encryption.getUserEncryptionKey());
+    assertNull(encryption.getSubFilter());
+    assertNull(encryption.getDefaultCryptFilterDictionary());
+    assertNull(encryption.getStdCryptFilterDictionary());
+    assertTrue(encryption.hasSecurityHandler());
+    assertTrue(encryption.isEncryptMetaData());
+    assertEquals(PDEncryption.DEFAULT_LENGTH, encryption.getLength());
+    assertArrayEquals(
+        new byte[] {
+          -69,
+          -48,
+          -51,
+          '\'',
+          'm',
+          -106,
+          -107,
+          'm',
+          18,
+          -22,
+          -64,
+          -26,
+          31,
+          '9',
+          14,
+          -60,
+          -115,
+          -96,
+          -111,
+          Byte.MIN_VALUE,
+          -35,
+          -58,
+          '8',
+          -107,
+          'S',
+          -30,
+          -55,
+          'T',
+          '.',
+          'W',
+          'P',
+          '1'
+        },
+        encryption.getOwnerKey());
   }
 
   /**
-   * Test
-   * {@link StandardSecurityHandler#prepareDocumentForEncryption(PDDocument)}.
+   * Test {@link StandardSecurityHandler#prepareDocumentForEncryption(PDDocument)}.
+   *
    * <ul>
-   *   <li>Then throw {@link InvalidPasswordException}.</li>
+   *   <li>Then {@link PDDocument#PDDocument()} Encryption Permissions is eleven.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link StandardSecurityHandler#prepareDocumentForEncryption(PDDocument)}
+   *
+   * <p>Method under test: {@link StandardSecurityHandler#prepareDocumentForEncryption(PDDocument)}
    */
   @Test
-  @DisplayName("Test prepareDocumentForEncryption(PDDocument); then throw InvalidPasswordException")
-  void testPrepareDocumentForEncryption_thenThrowInvalidPasswordException() throws IOException {
+  @DisplayName(
+      "Test prepareDocumentForEncryption(PDDocument); then PDDocument() Encryption Permissions is eleven")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void StandardSecurityHandler.prepareDocumentForEncryption(PDDocument)"})
+  void testPrepareDocumentForEncryption_thenPDDocumentEncryptionPermissionsIsEleven()
+      throws IOException {
     // Arrange
-    AccessPermission permissions = mock(AccessPermission.class);
-    when(permissions.hasAnyRevision3PermissionSet()).thenReturn(false);
-    when(permissions.getPermissionBytes()).thenReturn(1);
-    StandardProtectionPolicy standardProtectionPolicy = new StandardProtectionPolicy("iloveyou", "iloveyou",
-        permissions);
-
     StandardSecurityHandler standardSecurityHandler = new StandardSecurityHandler();
+    StandardProtectionPolicy standardProtectionPolicy =
+        new StandardProtectionPolicy("iloveyou", "iloveyou", new AccessPermission(11));
     standardSecurityHandler.setProtectionPolicy(standardProtectionPolicy);
-    PDEncryption pdEncryption = mock(PDEncryption.class);
-    doThrow(new InvalidPasswordException("An error occurred")).when(pdEncryption).setOwnerKey(Mockito.<byte[]>any());
-    doNothing().when(pdEncryption).removeV45filters();
-    doNothing().when(pdEncryption).setFilter(Mockito.<String>any());
-    doNothing().when(pdEncryption).setLength(anyInt());
-    doNothing().when(pdEncryption).setPermissions(anyInt());
-    doNothing().when(pdEncryption).setRevision(anyInt());
-    doNothing().when(pdEncryption).setVersion(anyInt());
-    COSArray cosArray = mock(COSArray.class);
-    when(cosArray.getObject(anyInt())).thenReturn(COSString.parseHex("0123456789ABCDEF"));
-    when(cosArray.size()).thenReturn(3);
-    COSDocument cosDocument = mock(COSDocument.class);
-    when(cosDocument.getDocumentID()).thenReturn(cosArray);
-    PDDocument document = mock(PDDocument.class);
-    when(document.getDocument()).thenReturn(cosDocument);
-    when(document.getEncryption()).thenReturn(pdEncryption);
+    PDDocument document = new PDDocument();
 
-    // Act and Assert
-    assertThrows(InvalidPasswordException.class, () -> standardSecurityHandler.prepareDocumentForEncryption(document));
-    verify(cosArray).getObject(eq(0));
-    verify(cosArray).size();
-    verify(cosDocument).getDocumentID();
-    verify(document).getDocument();
-    verify(document).getEncryption();
-    verify(permissions).getPermissionBytes();
-    verify(permissions).hasAnyRevision3PermissionSet();
-    verify(pdEncryption).removeV45filters();
-    verify(pdEncryption).setFilter(eq("Standard"));
-    verify(pdEncryption).setLength(eq(40));
-    verify(pdEncryption).setOwnerKey(isA(byte[].class));
-    verify(pdEncryption).setPermissions(eq(1));
-    verify(pdEncryption).setRevision(eq(2));
-    verify(pdEncryption).setVersion(eq(1));
+    // Act
+    standardSecurityHandler.prepareDocumentForEncryption(document);
+
+    // Assert
+    PDEncryption encryption = document.getEncryption();
+    assertNull(encryption.getOwnerEncryptionKey());
+    assertNull(encryption.getPerms());
+    assertNull(encryption.getUserEncryptionKey());
+    assertNull(encryption.getSubFilter());
+    assertNull(encryption.getDefaultCryptFilterDictionary());
+    assertNull(encryption.getStdCryptFilterDictionary());
+    assertEquals(11, encryption.getPermissions());
+    assertTrue(encryption.hasSecurityHandler());
+    assertTrue(encryption.isEncryptMetaData());
+    assertEquals(PDEncryption.DEFAULT_LENGTH, encryption.getLength());
+    assertArrayEquals(
+        new byte[] {
+          -69,
+          -48,
+          -51,
+          '\'',
+          'm',
+          -106,
+          -107,
+          'm',
+          18,
+          -22,
+          -64,
+          -26,
+          31,
+          '9',
+          14,
+          -60,
+          -115,
+          -96,
+          -111,
+          Byte.MIN_VALUE,
+          -35,
+          -58,
+          '8',
+          -107,
+          'S',
+          -30,
+          -55,
+          'T',
+          '.',
+          'W',
+          'P',
+          '1'
+        },
+        encryption.getOwnerKey());
   }
 
   /**
-   * Test
-   * {@link StandardSecurityHandler#isOwnerPassword(byte[], byte[], byte[], int, byte[], int, int, boolean)}
-   * with {@code ownerPassword}, {@code user}, {@code owner}, {@code permissions},
-   * {@code id}, {@code encRevision}, {@code keyLengthInBytes},
-   * {@code encryptMetadata}.
-   * <p>
-   * Method under test:
-   * {@link StandardSecurityHandler#isOwnerPassword(byte[], byte[], byte[], int, byte[], int, int, boolean)}
+   * Test {@link StandardSecurityHandler#prepareDocumentForEncryption(PDDocument)}.
+   *
+   * <ul>
+   *   <li>Then {@link PDDocument#PDDocument()} Encryption Permissions is four.
+   * </ul>
+   *
+   * <p>Method under test: {@link StandardSecurityHandler#prepareDocumentForEncryption(PDDocument)}
    */
   @Test
-  @DisplayName("Test isOwnerPassword(byte[], byte[], byte[], int, byte[], int, int, boolean) with 'ownerPassword', 'user', 'owner', 'permissions', 'id', 'encRevision', 'keyLengthInBytes', 'encryptMetadata'")
-  void testIsOwnerPasswordWithOwnerPasswordUserOwnerPermissionsIdEncRevisionKeyLengthInBytesEncryptMetadata()
+  @DisplayName(
+      "Test prepareDocumentForEncryption(PDDocument); then PDDocument() Encryption Permissions is four")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void StandardSecurityHandler.prepareDocumentForEncryption(PDDocument)"})
+  void testPrepareDocumentForEncryption_thenPDDocumentEncryptionPermissionsIsFour()
       throws IOException {
     // Arrange
     StandardSecurityHandler standardSecurityHandler = new StandardSecurityHandler();
-    byte[] ownerPassword = "AXAXAXAX".getBytes("UTF-8");
-    byte[] user = "AXAXAXAX".getBytes("UTF-8");
-    byte[] owner = "AXAXAXAX".getBytes("UTF-8");
+    StandardProtectionPolicy standardProtectionPolicy =
+        new StandardProtectionPolicy("iloveyou", "iloveyou", new AccessPermission(4));
+    standardSecurityHandler.setProtectionPolicy(standardProtectionPolicy);
+    PDDocument document = new PDDocument();
 
-    // Act and Assert
-    assertThrows(IOException.class, () -> standardSecurityHandler.isOwnerPassword(ownerPassword, user, owner, 1,
-        "AXAXAXAX".getBytes("UTF-8"), 1, 3, true));
+    // Act
+    standardSecurityHandler.prepareDocumentForEncryption(document);
+
+    // Assert
+    PDEncryption encryption = document.getEncryption();
+    assertNull(encryption.getOwnerEncryptionKey());
+    assertNull(encryption.getPerms());
+    assertNull(encryption.getUserEncryptionKey());
+    assertNull(encryption.getSubFilter());
+    assertNull(encryption.getDefaultCryptFilterDictionary());
+    assertNull(encryption.getStdCryptFilterDictionary());
+    assertEquals(4, encryption.getPermissions());
+    assertTrue(encryption.hasSecurityHandler());
+    assertTrue(encryption.isEncryptMetaData());
+    assertEquals(PDEncryption.DEFAULT_LENGTH, encryption.getLength());
+    assertArrayEquals(
+        new byte[] {
+          -69,
+          -48,
+          -51,
+          '\'',
+          'm',
+          -106,
+          -107,
+          'm',
+          18,
+          -22,
+          -64,
+          -26,
+          31,
+          '9',
+          14,
+          -60,
+          -115,
+          -96,
+          -111,
+          Byte.MIN_VALUE,
+          -35,
+          -58,
+          '8',
+          -107,
+          'S',
+          -30,
+          -55,
+          'T',
+          '.',
+          'W',
+          'P',
+          '1'
+        },
+        encryption.getOwnerKey());
   }
 
   /**
-   * Test
-   * {@link StandardSecurityHandler#isOwnerPassword(byte[], byte[], byte[], int, byte[], int, int, boolean)}
-   * with {@code ownerPassword}, {@code user}, {@code owner}, {@code permissions},
-   * {@code id}, {@code encRevision}, {@code keyLengthInBytes},
-   * {@code encryptMetadata}.
-   * <p>
-   * Method under test:
-   * {@link StandardSecurityHandler#isOwnerPassword(byte[], byte[], byte[], int, byte[], int, int, boolean)}
+   * Test {@link StandardSecurityHandler#prepareDocumentForEncryption(PDDocument)}.
+   *
+   * <ul>
+   *   <li>Then {@link PDDocument#PDDocument()} Encryption Permissions is {@link Integer#MIN_VALUE}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StandardSecurityHandler#prepareDocumentForEncryption(PDDocument)}
    */
   @Test
-  @DisplayName("Test isOwnerPassword(byte[], byte[], byte[], int, byte[], int, int, boolean) with 'ownerPassword', 'user', 'owner', 'permissions', 'id', 'encRevision', 'keyLengthInBytes', 'encryptMetadata'")
-  void testIsOwnerPasswordWithOwnerPasswordUserOwnerPermissionsIdEncRevisionKeyLengthInBytesEncryptMetadata2()
+  @DisplayName(
+      "Test prepareDocumentForEncryption(PDDocument); then PDDocument() Encryption Permissions is MIN_VALUE")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void StandardSecurityHandler.prepareDocumentForEncryption(PDDocument)"})
+  void testPrepareDocumentForEncryption_thenPDDocumentEncryptionPermissionsIsMin_value()
       throws IOException {
     // Arrange
     StandardSecurityHandler standardSecurityHandler = new StandardSecurityHandler();
-    byte[] ownerPassword = "AXAXAXAX".getBytes("UTF-8");
-    byte[] user = "AXAXAXAX".getBytes("UTF-8");
-    byte[] owner = "AXAXAXAX".getBytes("UTF-8");
+    StandardProtectionPolicy standardProtectionPolicy =
+        new StandardProtectionPolicy(
+            "iloveyou", "iloveyou", new AccessPermission(Integer.MIN_VALUE));
+    standardSecurityHandler.setProtectionPolicy(standardProtectionPolicy);
+    PDDocument document = new PDDocument();
 
-    // Act and Assert
-    assertFalse(standardSecurityHandler.isOwnerPassword(ownerPassword, user, owner, 1, "AXAXAXAX".getBytes("UTF-8"), 2,
-        3, true));
+    // Act
+    standardSecurityHandler.prepareDocumentForEncryption(document);
+
+    // Assert
+    PDEncryption encryption = document.getEncryption();
+    assertNull(encryption.getOwnerEncryptionKey());
+    assertNull(encryption.getPerms());
+    assertNull(encryption.getUserEncryptionKey());
+    assertNull(encryption.getSubFilter());
+    assertNull(encryption.getDefaultCryptFilterDictionary());
+    assertNull(encryption.getStdCryptFilterDictionary());
+    assertTrue(encryption.hasSecurityHandler());
+    assertTrue(encryption.isEncryptMetaData());
+    assertEquals(Integer.MIN_VALUE, encryption.getPermissions());
+    assertEquals(PDEncryption.DEFAULT_LENGTH, encryption.getLength());
+    assertArrayEquals(
+        new byte[] {
+          -69,
+          -48,
+          -51,
+          '\'',
+          'm',
+          -106,
+          -107,
+          'm',
+          18,
+          -22,
+          -64,
+          -26,
+          31,
+          '9',
+          14,
+          -60,
+          -115,
+          -96,
+          -111,
+          Byte.MIN_VALUE,
+          -35,
+          -58,
+          '8',
+          -107,
+          'S',
+          -30,
+          -55,
+          'T',
+          '.',
+          'W',
+          'P',
+          '1'
+        },
+        encryption.getOwnerKey());
   }
 
   /**
-   * Test
-   * {@link StandardSecurityHandler#isOwnerPassword(byte[], byte[], byte[], int, byte[], int, int, boolean)}
-   * with {@code ownerPassword}, {@code user}, {@code owner}, {@code permissions},
-   * {@code id}, {@code encRevision}, {@code keyLengthInBytes},
-   * {@code encryptMetadata}.
-   * <p>
-   * Method under test:
-   * {@link StandardSecurityHandler#isOwnerPassword(byte[], byte[], byte[], int, byte[], int, int, boolean)}
+   * Test {@link StandardSecurityHandler#isOwnerPassword(byte[], byte[], byte[], int, byte[], int,
+   * int, boolean)} with {@code ownerPassword}, {@code user}, {@code owner}, {@code permissions},
+   * {@code id}, {@code encRevision}, {@code keyLengthInBytes}, {@code encryptMetadata}.
+   *
+   * <p>Method under test: {@link StandardSecurityHandler#isOwnerPassword(byte[], byte[], byte[],
+   * int, byte[], int, int, boolean)}
    */
   @Test
-  @DisplayName("Test isOwnerPassword(byte[], byte[], byte[], int, byte[], int, int, boolean) with 'ownerPassword', 'user', 'owner', 'permissions', 'id', 'encRevision', 'keyLengthInBytes', 'encryptMetadata'")
-  void testIsOwnerPasswordWithOwnerPasswordUserOwnerPermissionsIdEncRevisionKeyLengthInBytesEncryptMetadata3()
-      throws IOException {
-    // Arrange
-    StandardSecurityHandler standardSecurityHandler = new StandardSecurityHandler();
-    byte[] ownerPassword = "AXAXAXAX".getBytes("UTF-8");
-    byte[] user = "AXAXAXAX".getBytes("UTF-8");
-    byte[] owner = "AXAXAXAX".getBytes("UTF-8");
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> standardSecurityHandler.isOwnerPassword(ownerPassword, user, owner, 1,
-        "AXAXAXAX".getBytes("UTF-8"), 5, 3, true));
+  @DisplayName(
+      "Test isOwnerPassword(byte[], byte[], byte[], int, byte[], int, int, boolean) with 'ownerPassword', 'user', 'owner', 'permissions', 'id', 'encRevision', 'keyLengthInBytes', 'encryptMetadata'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "boolean StandardSecurityHandler.isOwnerPassword(byte[], byte[], byte[], int, byte[], int, int, boolean)"
+  })
+  void
+      testIsOwnerPasswordWithOwnerPasswordUserOwnerPermissionsIdEncRevisionKeyLengthInBytesEncryptMetadata()
+          throws IOException {
+    // Arrange, Act and Assert
+    assertThrows(
+        IOException.class,
+        () ->
+            new StandardSecurityHandler()
+                .isOwnerPassword(
+                    "AXAXAXAX".getBytes("UTF-8"),
+                    "AXAXAXAX".getBytes("UTF-8"),
+                    "AXAXAXAX".getBytes("UTF-8"),
+                    1,
+                    "AXAXAXAX".getBytes("UTF-8"),
+                    1,
+                    3,
+                    true));
   }
 
   /**
-   * Test
-   * {@link StandardSecurityHandler#isOwnerPassword(String, byte[], byte[], int, byte[], int, int, boolean)}
-   * with {@code password}, {@code user}, {@code owner}, {@code permissions},
-   * {@code id}, {@code encRevision}, {@code keyLengthInBytes},
-   * {@code encryptMetadata}.
-   * <p>
-   * Method under test:
-   * {@link StandardSecurityHandler#isOwnerPassword(String, byte[], byte[], int, byte[], int, int, boolean)}
+   * Test {@link StandardSecurityHandler#isOwnerPassword(byte[], byte[], byte[], int, byte[], int,
+   * int, boolean)} with {@code ownerPassword}, {@code user}, {@code owner}, {@code permissions},
+   * {@code id}, {@code encRevision}, {@code keyLengthInBytes}, {@code encryptMetadata}.
+   *
+   * <p>Method under test: {@link StandardSecurityHandler#isOwnerPassword(byte[], byte[], byte[],
+   * int, byte[], int, int, boolean)}
    */
   @Test
-  @DisplayName("Test isOwnerPassword(String, byte[], byte[], int, byte[], int, int, boolean) with 'password', 'user', 'owner', 'permissions', 'id', 'encRevision', 'keyLengthInBytes', 'encryptMetadata'")
-  void testIsOwnerPasswordWithPasswordUserOwnerPermissionsIdEncRevisionKeyLengthInBytesEncryptMetadata()
-      throws IOException {
-    // Arrange
-    StandardSecurityHandler standardSecurityHandler = new StandardSecurityHandler();
-    byte[] user = "AXAXAXAX".getBytes("UTF-8");
-    byte[] owner = "AXAXAXAX".getBytes("UTF-8");
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> standardSecurityHandler.isOwnerPassword("iloveyou", user, owner, 1,
-        "AXAXAXAX".getBytes("UTF-8"), 1, 3, true));
-  }
-
-  /**
-   * Test
-   * {@link StandardSecurityHandler#isOwnerPassword(String, byte[], byte[], int, byte[], int, int, boolean)}
-   * with {@code password}, {@code user}, {@code owner}, {@code permissions},
-   * {@code id}, {@code encRevision}, {@code keyLengthInBytes},
-   * {@code encryptMetadata}.
-   * <p>
-   * Method under test:
-   * {@link StandardSecurityHandler#isOwnerPassword(String, byte[], byte[], int, byte[], int, int, boolean)}
-   */
-  @Test
-  @DisplayName("Test isOwnerPassword(String, byte[], byte[], int, byte[], int, int, boolean) with 'password', 'user', 'owner', 'permissions', 'id', 'encRevision', 'keyLengthInBytes', 'encryptMetadata'")
-  void testIsOwnerPasswordWithPasswordUserOwnerPermissionsIdEncRevisionKeyLengthInBytesEncryptMetadata2()
-      throws IOException {
-    // Arrange
-    StandardSecurityHandler standardSecurityHandler = new StandardSecurityHandler();
-    byte[] user = "AXAXAXAX".getBytes("UTF-8");
-    byte[] owner = "AXAXAXAX".getBytes("UTF-8");
-
-    // Act and Assert
+  @DisplayName(
+      "Test isOwnerPassword(byte[], byte[], byte[], int, byte[], int, int, boolean) with 'ownerPassword', 'user', 'owner', 'permissions', 'id', 'encRevision', 'keyLengthInBytes', 'encryptMetadata'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "boolean StandardSecurityHandler.isOwnerPassword(byte[], byte[], byte[], int, byte[], int, int, boolean)"
+  })
+  void
+      testIsOwnerPasswordWithOwnerPasswordUserOwnerPermissionsIdEncRevisionKeyLengthInBytesEncryptMetadata2()
+          throws IOException {
+    // Arrange, Act and Assert
     assertFalse(
-        standardSecurityHandler.isOwnerPassword("iloveyou", user, owner, 1, "AXAXAXAX".getBytes("UTF-8"), 2, 3, true));
+        new StandardSecurityHandler()
+            .isOwnerPassword(
+                new byte[] {'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'},
+                null,
+                new byte[] {'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'},
+                1,
+                new byte[] {'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'},
+                2,
+                3,
+                false));
   }
 
   /**
-   * Test
-   * {@link StandardSecurityHandler#isOwnerPassword(String, byte[], byte[], int, byte[], int, int, boolean)}
-   * with {@code password}, {@code user}, {@code owner}, {@code permissions},
-   * {@code id}, {@code encRevision}, {@code keyLengthInBytes},
-   * {@code encryptMetadata}.
-   * <p>
-   * Method under test:
-   * {@link StandardSecurityHandler#isOwnerPassword(String, byte[], byte[], int, byte[], int, int, boolean)}
+   * Test {@link StandardSecurityHandler#isOwnerPassword(byte[], byte[], byte[], int, byte[], int,
+   * int, boolean)} with {@code ownerPassword}, {@code user}, {@code owner}, {@code permissions},
+   * {@code id}, {@code encRevision}, {@code keyLengthInBytes}, {@code encryptMetadata}.
+   *
+   * <p>Method under test: {@link StandardSecurityHandler#isOwnerPassword(byte[], byte[], byte[],
+   * int, byte[], int, int, boolean)}
    */
   @Test
-  @DisplayName("Test isOwnerPassword(String, byte[], byte[], int, byte[], int, int, boolean) with 'password', 'user', 'owner', 'permissions', 'id', 'encRevision', 'keyLengthInBytes', 'encryptMetadata'")
-  void testIsOwnerPasswordWithPasswordUserOwnerPermissionsIdEncRevisionKeyLengthInBytesEncryptMetadata3()
+  @DisplayName(
+      "Test isOwnerPassword(byte[], byte[], byte[], int, byte[], int, int, boolean) with 'ownerPassword', 'user', 'owner', 'permissions', 'id', 'encRevision', 'keyLengthInBytes', 'encryptMetadata'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "boolean StandardSecurityHandler.isOwnerPassword(byte[], byte[], byte[], int, byte[], int, int, boolean)"
+  })
+  void
+      testIsOwnerPasswordWithOwnerPasswordUserOwnerPermissionsIdEncRevisionKeyLengthInBytesEncryptMetadata3()
+          throws IOException {
+    // Arrange, Act and Assert
+    assertThrows(
+        IOException.class,
+        () ->
+            new StandardSecurityHandler()
+                .isOwnerPassword(
+                    new byte[] {'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'},
+                    null,
+                    new byte[] {'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'},
+                    1,
+                    new byte[] {'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'},
+                    5,
+                    3,
+                    false));
+  }
+
+  /**
+   * Test {@link StandardSecurityHandler#isOwnerPassword(String, byte[], byte[], int, byte[], int,
+   * int, boolean)} with {@code password}, {@code user}, {@code owner}, {@code permissions}, {@code
+   * id}, {@code encRevision}, {@code keyLengthInBytes}, {@code encryptMetadata}.
+   *
+   * <p>Method under test: {@link StandardSecurityHandler#isOwnerPassword(String, byte[], byte[],
+   * int, byte[], int, int, boolean)}
+   */
+  @Test
+  @DisplayName(
+      "Test isOwnerPassword(String, byte[], byte[], int, byte[], int, int, boolean) with 'password', 'user', 'owner', 'permissions', 'id', 'encRevision', 'keyLengthInBytes', 'encryptMetadata'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "boolean StandardSecurityHandler.isOwnerPassword(String, byte[], byte[], int, byte[], int, int, boolean)"
+  })
+  void
+      testIsOwnerPasswordWithPasswordUserOwnerPermissionsIdEncRevisionKeyLengthInBytesEncryptMetadata()
+          throws IOException {
+    // Arrange, Act and Assert
+    assertThrows(
+        IOException.class,
+        () ->
+            new StandardSecurityHandler()
+                .isOwnerPassword(
+                    "iloveyou",
+                    "AXAXAXAX".getBytes("UTF-8"),
+                    "AXAXAXAX".getBytes("UTF-8"),
+                    1,
+                    "AXAXAXAX".getBytes("UTF-8"),
+                    1,
+                    3,
+                    true));
+  }
+
+  /**
+   * Test {@link StandardSecurityHandler#isOwnerPassword(String, byte[], byte[], int, byte[], int,
+   * int, boolean)} with {@code password}, {@code user}, {@code owner}, {@code permissions}, {@code
+   * id}, {@code encRevision}, {@code keyLengthInBytes}, {@code encryptMetadata}.
+   *
+   * <p>Method under test: {@link StandardSecurityHandler#isOwnerPassword(String, byte[], byte[],
+   * int, byte[], int, int, boolean)}
+   */
+  @Test
+  @DisplayName(
+      "Test isOwnerPassword(String, byte[], byte[], int, byte[], int, int, boolean) with 'password', 'user', 'owner', 'permissions', 'id', 'encRevision', 'keyLengthInBytes', 'encryptMetadata'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "boolean StandardSecurityHandler.isOwnerPassword(String, byte[], byte[], int, byte[], int, int, boolean)"
+  })
+  void
+      testIsOwnerPasswordWithPasswordUserOwnerPermissionsIdEncRevisionKeyLengthInBytesEncryptMetadata2()
+          throws IOException {
+    // Arrange, Act and Assert
+    assertFalse(
+        new StandardSecurityHandler()
+            .isOwnerPassword(
+                "iloveyou",
+                null,
+                new byte[] {'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'},
+                1,
+                new byte[] {'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'},
+                2,
+                3,
+                false));
+  }
+
+  /**
+   * Test {@link StandardSecurityHandler#isOwnerPassword(String, byte[], byte[], int, byte[], int,
+   * int, boolean)} with {@code password}, {@code user}, {@code owner}, {@code permissions}, {@code
+   * id}, {@code encRevision}, {@code keyLengthInBytes}, {@code encryptMetadata}.
+   *
+   * <p>Method under test: {@link StandardSecurityHandler#isOwnerPassword(String, byte[], byte[],
+   * int, byte[], int, int, boolean)}
+   */
+  @Test
+  @DisplayName(
+      "Test isOwnerPassword(String, byte[], byte[], int, byte[], int, int, boolean) with 'password', 'user', 'owner', 'permissions', 'id', 'encRevision', 'keyLengthInBytes', 'encryptMetadata'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "boolean StandardSecurityHandler.isOwnerPassword(String, byte[], byte[], int, byte[], int, int, boolean)"
+  })
+  void
+      testIsOwnerPasswordWithPasswordUserOwnerPermissionsIdEncRevisionKeyLengthInBytesEncryptMetadata3()
+          throws IOException {
+    // Arrange, Act and Assert
+    assertThrows(
+        IOException.class,
+        () ->
+            new StandardSecurityHandler()
+                .isOwnerPassword(
+                    "iloveyou",
+                    null,
+                    new byte[] {'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'},
+                    1,
+                    new byte[] {'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'},
+                    5,
+                    3,
+                    false));
+  }
+
+  /**
+   * Test {@link StandardSecurityHandler#getUserPassword(byte[], byte[], int, int)}.
+   *
+   * <ul>
+   *   <li>Then return array of {@code byte} with minus sixteen and minus sixty-two.
+   * </ul>
+   *
+   * <p>Method under test: {@link StandardSecurityHandler#getUserPassword(byte[], byte[], int, int)}
+   */
+  @Test
+  @DisplayName(
+      "Test getUserPassword(byte[], byte[], int, int); then return array of byte with minus sixteen and minus sixty-two")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"byte[] StandardSecurityHandler.getUserPassword(byte[], byte[], int, int)"})
+  void testGetUserPassword_thenReturnArrayOfByteWithMinusSixteenAndMinusSixtyTwo()
       throws IOException {
-    // Arrange
-    StandardSecurityHandler standardSecurityHandler = new StandardSecurityHandler();
-    byte[] user = "AXAXAXAX".getBytes("UTF-8");
-    byte[] owner = "AXAXAXAX".getBytes("UTF-8");
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> standardSecurityHandler.isOwnerPassword("iloveyou", user, owner, 1,
-        "AXAXAXAX".getBytes("UTF-8"), 5, 3, true));
-  }
-
-  /**
-   * Test
-   * {@link StandardSecurityHandler#getUserPassword(byte[], byte[], int, int)}.
-   * <ul>
-   *   <li>Then return array of {@code byte} with minus sixteen and minus
-   * sixty-two.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link StandardSecurityHandler#getUserPassword(byte[], byte[], int, int)}
-   */
-  @Test
-  @DisplayName("Test getUserPassword(byte[], byte[], int, int); then return array of byte with minus sixteen and minus sixty-two")
-  void testGetUserPassword_thenReturnArrayOfByteWithMinusSixteenAndMinusSixtyTwo() throws IOException {
-    // Arrange, Act and Assert
-    assertArrayEquals(new byte[]{-16, -62, 'a', 'H', 'T', -37, '/', -98},
-        (new StandardSecurityHandler()).getUserPassword(new byte[]{'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'},
-            new byte[]{'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'}, 2, 3));
-  }
-
-  /**
-   * Test
-   * {@link StandardSecurityHandler#getUserPassword(byte[], byte[], int, int)}.
-   * <ul>
-   *   <li>When {@code AXAXAXAX} Bytes is {@code UTF-8}.</li>
-   *   <li>Then return array length is zero.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link StandardSecurityHandler#getUserPassword(byte[], byte[], int, int)}
-   */
-  @Test
-  @DisplayName("Test getUserPassword(byte[], byte[], int, int); when 'AXAXAXAX' Bytes is 'UTF-8'; then return array length is zero")
-  void testGetUserPassword_whenAxaxaxaxBytesIsUtf8_thenReturnArrayLengthIsZero() throws IOException {
-    // Arrange
-    StandardSecurityHandler standardSecurityHandler = new StandardSecurityHandler();
-    byte[] ownerPassword = "AXAXAXAX".getBytes("UTF-8");
-
-    // Act and Assert
-    assertEquals(0, standardSecurityHandler.getUserPassword(ownerPassword, "AXAXAXAX".getBytes("UTF-8"), 1, 3).length);
-  }
-
-  /**
-   * Test
-   * {@link StandardSecurityHandler#getUserPassword(byte[], byte[], int, int)}.
-   * <ul>
-   *   <li>When five.</li>
-   *   <li>Then return array length is zero.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link StandardSecurityHandler#getUserPassword(byte[], byte[], int, int)}
-   */
-  @Test
-  @DisplayName("Test getUserPassword(byte[], byte[], int, int); when five; then return array length is zero")
-  void testGetUserPassword_whenFive_thenReturnArrayLengthIsZero() throws IOException {
-    // Arrange, Act and Assert
-    assertEquals(0, (new StandardSecurityHandler()).getUserPassword(new byte[]{'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'},
-        new byte[]{'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'}, 5, 3).length);
-  }
-
-  /**
-   * Test
-   * {@link StandardSecurityHandler#getUserPassword(byte[], byte[], int, int)}.
-   * <ul>
-   *   <li>When six.</li>
-   *   <li>Then return array length is zero.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link StandardSecurityHandler#getUserPassword(byte[], byte[], int, int)}
-   */
-  @Test
-  @DisplayName("Test getUserPassword(byte[], byte[], int, int); when six; then return array length is zero")
-  void testGetUserPassword_whenSix_thenReturnArrayLengthIsZero() throws IOException {
-    // Arrange, Act and Assert
-    assertEquals(0, (new StandardSecurityHandler()).getUserPassword(new byte[]{'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'},
-        new byte[]{'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'}, 6, 3).length);
-  }
-
-  /**
-   * Test
-   * {@link StandardSecurityHandler#computeEncryptedKey(byte[], byte[], byte[], byte[], byte[], int, byte[], int, int, boolean, boolean)}.
-   * <p>
-   * Method under test:
-   * {@link StandardSecurityHandler#computeEncryptedKey(byte[], byte[], byte[], byte[], byte[], int, byte[], int, int, boolean, boolean)}
-   */
-  @Test
-  @DisplayName("Test computeEncryptedKey(byte[], byte[], byte[], byte[], byte[], int, byte[], int, int, boolean, boolean)")
-  void testComputeEncryptedKey() throws IOException {
-    // Arrange
-    StandardSecurityHandler standardSecurityHandler = new StandardSecurityHandler();
-    byte[] password = "AXAXAXAX".getBytes("UTF-8");
-    byte[] o = "AXAXAXAX".getBytes("UTF-8");
-    byte[] u = "AXAXAXAX".getBytes("UTF-8");
-    byte[] oe = "AXAXAXAX".getBytes("UTF-8");
-    byte[] ue = "AXAXAXAX".getBytes("UTF-8");
-
-    // Act
-    byte[] actualComputeEncryptedKeyResult = standardSecurityHandler.computeEncryptedKey(password, o, u, oe, ue, 1,
-        "AXAXAXAX".getBytes("UTF-8"), 1, 3, true, true);
+    // Arrange and Act
+    byte[] actualUserPassword =
+        new StandardSecurityHandler()
+            .getUserPassword(
+                new byte[] {'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'},
+                new byte[] {'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'},
+                2,
+                3);
 
     // Assert
-    assertArrayEquals("-w\n".getBytes("UTF-8"), actualComputeEncryptedKeyResult);
+    assertArrayEquals(new byte[] {-16, -62, 'a', 'H', 'T', -37, '/', -98}, actualUserPassword);
   }
 
   /**
-   * Test
-   * {@link StandardSecurityHandler#computeUserPassword(byte[], byte[], int, byte[], int, int, boolean)}.
-   * <p>
-   * Method under test:
-   * {@link StandardSecurityHandler#computeUserPassword(byte[], byte[], int, byte[], int, int, boolean)}
+   * Test {@link StandardSecurityHandler#getUserPassword(byte[], byte[], int, int)}.
+   *
+   * <ul>
+   *   <li>When {@code AXAXAXAX} Bytes is {@code UTF-8}.
+   *   <li>Then return empty array of {@code byte}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StandardSecurityHandler#getUserPassword(byte[], byte[], int, int)}
+   */
+  @Test
+  @DisplayName(
+      "Test getUserPassword(byte[], byte[], int, int); when 'AXAXAXAX' Bytes is 'UTF-8'; then return empty array of byte")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"byte[] StandardSecurityHandler.getUserPassword(byte[], byte[], int, int)"})
+  void testGetUserPassword_whenAxaxaxaxBytesIsUtf8_thenReturnEmptyArrayOfByte() throws IOException {
+    // Arrange, Act and Assert
+    assertArrayEquals(
+        new byte[] {},
+        new StandardSecurityHandler()
+            .getUserPassword("AXAXAXAX".getBytes("UTF-8"), "AXAXAXAX".getBytes("UTF-8"), 1, 3));
+  }
+
+  /**
+   * Test {@link StandardSecurityHandler#getUserPassword(byte[], byte[], int, int)}.
+   *
+   * <ul>
+   *   <li>When five.
+   *   <li>Then return empty array of {@code byte}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StandardSecurityHandler#getUserPassword(byte[], byte[], int, int)}
+   */
+  @Test
+  @DisplayName(
+      "Test getUserPassword(byte[], byte[], int, int); when five; then return empty array of byte")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"byte[] StandardSecurityHandler.getUserPassword(byte[], byte[], int, int)"})
+  void testGetUserPassword_whenFive_thenReturnEmptyArrayOfByte() throws IOException {
+    // Arrange and Act
+    byte[] actualUserPassword =
+        new StandardSecurityHandler()
+            .getUserPassword(
+                new byte[] {'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'},
+                new byte[] {'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'},
+                5,
+                3);
+
+    // Assert
+    assertArrayEquals(new byte[] {}, actualUserPassword);
+  }
+
+  /**
+   * Test {@link StandardSecurityHandler#getUserPassword(byte[], byte[], int, int)}.
+   *
+   * <ul>
+   *   <li>When six.
+   *   <li>Then return empty array of {@code byte}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StandardSecurityHandler#getUserPassword(byte[], byte[], int, int)}
+   */
+  @Test
+  @DisplayName(
+      "Test getUserPassword(byte[], byte[], int, int); when six; then return empty array of byte")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"byte[] StandardSecurityHandler.getUserPassword(byte[], byte[], int, int)"})
+  void testGetUserPassword_whenSix_thenReturnEmptyArrayOfByte() throws IOException {
+    // Arrange and Act
+    byte[] actualUserPassword =
+        new StandardSecurityHandler()
+            .getUserPassword(
+                new byte[] {'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'},
+                new byte[] {'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'},
+                6,
+                3);
+
+    // Assert
+    assertArrayEquals(new byte[] {}, actualUserPassword);
+  }
+
+  /**
+   * Test {@link StandardSecurityHandler#computeEncryptedKey(byte[], byte[], byte[], byte[], byte[],
+   * int, byte[], int, int, boolean, boolean)}.
+   *
+   * <p>Method under test: {@link StandardSecurityHandler#computeEncryptedKey(byte[], byte[],
+   * byte[], byte[], byte[], int, byte[], int, int, boolean, boolean)}
+   */
+  @Test
+  @DisplayName(
+      "Test computeEncryptedKey(byte[], byte[], byte[], byte[], byte[], int, byte[], int, int, boolean, boolean)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "byte[] StandardSecurityHandler.computeEncryptedKey(byte[], byte[], byte[], byte[], byte[], int, byte[], int, int, boolean, boolean)"
+  })
+  void testComputeEncryptedKey() throws IOException {
+    // Arrange, Act and Assert
+    assertArrayEquals(
+        "-w\n".getBytes("UTF-8"),
+        new StandardSecurityHandler()
+            .computeEncryptedKey(
+                "AXAXAXAX".getBytes("UTF-8"),
+                "AXAXAXAX".getBytes("UTF-8"),
+                "AXAXAXAX".getBytes("UTF-8"),
+                "AXAXAXAX".getBytes("UTF-8"),
+                "AXAXAXAX".getBytes("UTF-8"),
+                1,
+                "AXAXAXAX".getBytes("UTF-8"),
+                1,
+                3,
+                true,
+                true));
+  }
+
+  /**
+   * Test {@link StandardSecurityHandler#computeUserPassword(byte[], byte[], int, byte[], int, int,
+   * boolean)}.
+   *
+   * <p>Method under test: {@link StandardSecurityHandler#computeUserPassword(byte[], byte[], int,
+   * byte[], int, int, boolean)}
    */
   @Test
   @DisplayName("Test computeUserPassword(byte[], byte[], int, byte[], int, int, boolean)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "byte[] StandardSecurityHandler.computeUserPassword(byte[], byte[], int, byte[], int, int, boolean)"
+  })
   void testComputeUserPassword() throws IOException {
+    // Arrange and Act
+    byte[] actualComputeUserPasswordResult =
+        new StandardSecurityHandler()
+            .computeUserPassword(
+                new byte[] {'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'},
+                new byte[] {'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'},
+                1,
+                new byte[] {'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'},
+                2,
+                3,
+                false);
+
+    // Assert
+    assertArrayEquals(
+        new byte[] {
+          -123, '}', 18, -45, '2', -119, -26, -24, -72, -41, '\t', -48, -7, -32, -81, 'n', -120,
+          -113, '[', 22, 'D', -61, 'J', -127, 'F', -42, -108, -56, 'h', ')', -13, -94
+        },
+        actualComputeUserPasswordResult);
+  }
+
+  /**
+   * Test {@link StandardSecurityHandler#computeUserPassword(byte[], byte[], int, byte[], int, int,
+   * boolean)}.
+   *
+   * <ul>
+   *   <li>When {@code AXAXAXAX} Bytes is {@code UTF-8}.
+   *   <li>Then return empty array of {@code byte}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StandardSecurityHandler#computeUserPassword(byte[], byte[], int,
+   * byte[], int, int, boolean)}
+   */
+  @Test
+  @DisplayName(
+      "Test computeUserPassword(byte[], byte[], int, byte[], int, int, boolean); when 'AXAXAXAX' Bytes is 'UTF-8'; then return empty array of byte")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "byte[] StandardSecurityHandler.computeUserPassword(byte[], byte[], int, byte[], int, int, boolean)"
+  })
+  void testComputeUserPassword_whenAxaxaxaxBytesIsUtf8_thenReturnEmptyArrayOfByte()
+      throws IOException {
     // Arrange, Act and Assert
     assertArrayEquals(
-        new byte[]{-123, '}', 18, -45, '2', -119, -26, -24, -72, -41, '\t', -48, -7, -32, -81, 'n', -120, -113, '[', 22,
-            'D', -61, 'J', -127, 'F', -42, -108, -56, 'h', ')', -13, -94},
-        (new StandardSecurityHandler()).computeUserPassword(new byte[]{'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'},
-            new byte[]{'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'}, 1, new byte[]{'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'},
-            2, 3, false));
+        new byte[] {},
+        new StandardSecurityHandler()
+            .computeUserPassword(
+                "AXAXAXAX".getBytes("UTF-8"),
+                "AXAXAXAX".getBytes("UTF-8"),
+                1,
+                "AXAXAXAX".getBytes("UTF-8"),
+                1,
+                3,
+                true));
   }
 
   /**
-   * Test
-   * {@link StandardSecurityHandler#computeUserPassword(byte[], byte[], int, byte[], int, int, boolean)}.
+   * Test {@link StandardSecurityHandler#computeUserPassword(byte[], byte[], int, byte[], int, int,
+   * boolean)}.
+   *
    * <ul>
-   *   <li>When {@code AXAXAXAX} Bytes is {@code UTF-8}.</li>
-   *   <li>Then return array length is zero.</li>
+   *   <li>When five.
+   *   <li>Then return empty array of {@code byte}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link StandardSecurityHandler#computeUserPassword(byte[], byte[], int, byte[], int, int, boolean)}
+   *
+   * <p>Method under test: {@link StandardSecurityHandler#computeUserPassword(byte[], byte[], int,
+   * byte[], int, int, boolean)}
    */
   @Test
-  @DisplayName("Test computeUserPassword(byte[], byte[], int, byte[], int, int, boolean); when 'AXAXAXAX' Bytes is 'UTF-8'; then return array length is zero")
-  void testComputeUserPassword_whenAxaxaxaxBytesIsUtf8_thenReturnArrayLengthIsZero() throws IOException {
-    // Arrange
-    StandardSecurityHandler standardSecurityHandler = new StandardSecurityHandler();
-    byte[] password = "AXAXAXAX".getBytes("UTF-8");
-    byte[] owner = "AXAXAXAX".getBytes("UTF-8");
+  @DisplayName(
+      "Test computeUserPassword(byte[], byte[], int, byte[], int, int, boolean); when five; then return empty array of byte")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "byte[] StandardSecurityHandler.computeUserPassword(byte[], byte[], int, byte[], int, int, boolean)"
+  })
+  void testComputeUserPassword_whenFive_thenReturnEmptyArrayOfByte() throws IOException {
+    // Arrange and Act
+    byte[] actualComputeUserPasswordResult =
+        new StandardSecurityHandler()
+            .computeUserPassword(
+                new byte[] {'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'},
+                new byte[] {'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'},
+                1,
+                new byte[] {'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'},
+                5,
+                3,
+                false);
 
-    // Act and Assert
-    assertEquals(0, standardSecurityHandler.computeUserPassword(password, owner, 1, "AXAXAXAX".getBytes("UTF-8"), 1, 3,
-        true).length);
+    // Assert
+    assertArrayEquals(new byte[] {}, actualComputeUserPasswordResult);
   }
 
   /**
-   * Test
-   * {@link StandardSecurityHandler#computeUserPassword(byte[], byte[], int, byte[], int, int, boolean)}.
+   * Test {@link StandardSecurityHandler#computeUserPassword(byte[], byte[], int, byte[], int, int,
+   * boolean)}.
+   *
    * <ul>
-   *   <li>When five.</li>
-   *   <li>Then return array length is zero.</li>
+   *   <li>When six.
+   *   <li>Then return empty array of {@code byte}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link StandardSecurityHandler#computeUserPassword(byte[], byte[], int, byte[], int, int, boolean)}
+   *
+   * <p>Method under test: {@link StandardSecurityHandler#computeUserPassword(byte[], byte[], int,
+   * byte[], int, int, boolean)}
    */
   @Test
-  @DisplayName("Test computeUserPassword(byte[], byte[], int, byte[], int, int, boolean); when five; then return array length is zero")
-  void testComputeUserPassword_whenFive_thenReturnArrayLengthIsZero() throws IOException {
-    // Arrange, Act and Assert
-    assertEquals(0,
-        (new StandardSecurityHandler()).computeUserPassword(new byte[]{'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'},
-            new byte[]{'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'}, 1, new byte[]{'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'},
-            5, 3, false).length);
+  @DisplayName(
+      "Test computeUserPassword(byte[], byte[], int, byte[], int, int, boolean); when six; then return empty array of byte")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "byte[] StandardSecurityHandler.computeUserPassword(byte[], byte[], int, byte[], int, int, boolean)"
+  })
+  void testComputeUserPassword_whenSix_thenReturnEmptyArrayOfByte() throws IOException {
+    // Arrange and Act
+    byte[] actualComputeUserPasswordResult =
+        new StandardSecurityHandler()
+            .computeUserPassword(
+                new byte[] {'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'},
+                new byte[] {'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'},
+                1,
+                new byte[] {'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'},
+                6,
+                3,
+                false);
+
+    // Assert
+    assertArrayEquals(new byte[] {}, actualComputeUserPasswordResult);
   }
 
   /**
-   * Test
-   * {@link StandardSecurityHandler#computeUserPassword(byte[], byte[], int, byte[], int, int, boolean)}.
-   * <ul>
-   *   <li>When six.</li>
-   *   <li>Then return array length is zero.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link StandardSecurityHandler#computeUserPassword(byte[], byte[], int, byte[], int, int, boolean)}
-   */
-  @Test
-  @DisplayName("Test computeUserPassword(byte[], byte[], int, byte[], int, int, boolean); when six; then return array length is zero")
-  void testComputeUserPassword_whenSix_thenReturnArrayLengthIsZero() throws IOException {
-    // Arrange, Act and Assert
-    assertEquals(0,
-        (new StandardSecurityHandler()).computeUserPassword(new byte[]{'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'},
-            new byte[]{'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'}, 1, new byte[]{'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'},
-            6, 3, false).length);
-  }
-
-  /**
-   * Test
-   * {@link StandardSecurityHandler#computeOwnerPassword(byte[], byte[], int, int)}.
-   * <p>
-   * Method under test:
-   * {@link StandardSecurityHandler#computeOwnerPassword(byte[], byte[], int, int)}
+   * Test {@link StandardSecurityHandler#computeOwnerPassword(byte[], byte[], int, int)}.
+   *
+   * <p>Method under test: {@link StandardSecurityHandler#computeOwnerPassword(byte[], byte[], int,
+   * int)}
    */
   @Test
   @DisplayName("Test computeOwnerPassword(byte[], byte[], int, int)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "byte[] StandardSecurityHandler.computeOwnerPassword(byte[], byte[], int, int)"
+  })
   void testComputeOwnerPassword() throws IOException {
+    // Arrange and Act
+    byte[] actualComputeOwnerPasswordResult =
+        new StandardSecurityHandler()
+            .computeOwnerPassword(
+                new byte[] {'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'},
+                new byte[] {'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'},
+                2,
+                5);
+
+    // Assert
+    assertArrayEquals(
+        new byte[] {
+          -125, -101, -26, 29, '\f', -43, 11, 'u', 'X', '-', 25, 'C', 'S', 30, 31, 'N', 23, 'k',
+          -77, -87, ';', 18, 17, -53, -21, -125, -106, 16, 'H', -120, 'T', -18
+        },
+        actualComputeOwnerPasswordResult);
+  }
+
+  /**
+   * Test {@link StandardSecurityHandler#computeOwnerPassword(byte[], byte[], int, int)}.
+   *
+   * <ul>
+   *   <li>Then return array of {@code byte} with minus sixteen and minus sixty-two.
+   * </ul>
+   *
+   * <p>Method under test: {@link StandardSecurityHandler#computeOwnerPassword(byte[], byte[], int,
+   * int)}
+   */
+  @Test
+  @DisplayName(
+      "Test computeOwnerPassword(byte[], byte[], int, int); then return array of byte with minus sixteen and minus sixty-two")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "byte[] StandardSecurityHandler.computeOwnerPassword(byte[], byte[], int, int)"
+  })
+  void testComputeOwnerPassword_thenReturnArrayOfByteWithMinusSixteenAndMinusSixtyTwo()
+      throws IOException {
     // Arrange, Act and Assert
     assertArrayEquals(
-        new byte[]{-125, -101, -26, 29, '\f', -43, 11, 'u', 'X', '-', 25, 'C', 'S', 30, 31, 'N', 23, 'k', -77, -87, ';',
-            18, 17, -53, -21, -125, -106, 16, 'H', -120, 'T', -18},
-        (new StandardSecurityHandler()).computeOwnerPassword(new byte[]{'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'},
-            new byte[]{'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'}, 2, 5));
+        new byte[] {
+          -16, -62, 'a', 'H', 'T', -37, '/', -98, '?', 'e', -58, 28, -116, -34, 'U', 't', -20, '~',
+          'P', '\b', -84, -69, ']', '\n', -43, -86, 11, 'L', '7', -14, -77, -73
+        },
+        new StandardSecurityHandler()
+            .computeOwnerPassword(
+                "AXAXAXAX".getBytes("UTF-8"), "AXAXAXAX".getBytes("UTF-8"), 1, 3));
   }
 
   /**
-   * Test
-   * {@link StandardSecurityHandler#computeOwnerPassword(byte[], byte[], int, int)}.
+   * Test {@link StandardSecurityHandler#computeOwnerPassword(byte[], byte[], int, int)}.
+   *
    * <ul>
-   *   <li>Then return array of {@code byte} with minus sixteen and minus
-   * sixty-two.</li>
+   *   <li>When two.
+   *   <li>Then throw {@link IOException}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link StandardSecurityHandler#computeOwnerPassword(byte[], byte[], int, int)}
+   *
+   * <p>Method under test: {@link StandardSecurityHandler#computeOwnerPassword(byte[], byte[], int,
+   * int)}
    */
   @Test
-  @DisplayName("Test computeOwnerPassword(byte[], byte[], int, int); then return array of byte with minus sixteen and minus sixty-two")
-  void testComputeOwnerPassword_thenReturnArrayOfByteWithMinusSixteenAndMinusSixtyTwo() throws IOException {
-    // Arrange
-    StandardSecurityHandler standardSecurityHandler = new StandardSecurityHandler();
-    byte[] ownerPassword = "AXAXAXAX".getBytes("UTF-8");
-
-    // Act and Assert
-    assertArrayEquals(
-        new byte[]{-16, -62, 'a', 'H', 'T', -37, '/', -98, '?', 'e', -58, 28, -116, -34, 'U', 't', -20, '~', 'P', '\b',
-            -84, -69, ']', '\n', -43, -86, 11, 'L', '7', -14, -77, -73},
-        standardSecurityHandler.computeOwnerPassword(ownerPassword, "AXAXAXAX".getBytes("UTF-8"), 1, 3));
-  }
-
-  /**
-   * Test
-   * {@link StandardSecurityHandler#computeOwnerPassword(byte[], byte[], int, int)}.
-   * <ul>
-   *   <li>When two.</li>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link StandardSecurityHandler#computeOwnerPassword(byte[], byte[], int, int)}
-   */
-  @Test
-  @DisplayName("Test computeOwnerPassword(byte[], byte[], int, int); when two; then throw IOException")
+  @DisplayName(
+      "Test computeOwnerPassword(byte[], byte[], int, int); when two; then throw IOException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "byte[] StandardSecurityHandler.computeOwnerPassword(byte[], byte[], int, int)"
+  })
   void testComputeOwnerPassword_whenTwo_thenThrowIOException() throws IOException {
-    // Arrange
-    StandardSecurityHandler standardSecurityHandler = new StandardSecurityHandler();
-    byte[] ownerPassword = "AXAXAXAX".getBytes("UTF-8");
-
-    // Act and Assert
-    assertThrows(IOException.class,
-        () -> standardSecurityHandler.computeOwnerPassword(ownerPassword, "AXAXAXAX".getBytes("UTF-8"), 2, 3));
+    // Arrange, Act and Assert
+    assertThrows(
+        IOException.class,
+        () ->
+            new StandardSecurityHandler()
+                .computeOwnerPassword(
+                    "AXAXAXAX".getBytes("UTF-8"), "AXAXAXAX".getBytes("UTF-8"), 2, 3));
   }
 
   /**
-   * Test
-   * {@link StandardSecurityHandler#isUserPassword(byte[], byte[], byte[], int, byte[], int, int, boolean)}
-   * with {@code byte[]}, {@code byte[]}, {@code byte[]}, {@code int},
-   * {@code byte[]}, {@code int}, {@code int}, {@code boolean}.
-   * <ul>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link StandardSecurityHandler#isUserPassword(byte[], byte[], byte[], int, byte[], int, int, boolean)}
+   * Test {@link StandardSecurityHandler#isUserPassword(byte[], byte[], byte[], int, byte[], int,
+   * int, boolean)} with {@code byte[]}, {@code byte[]}, {@code byte[]}, {@code int}, {@code
+   * byte[]}, {@code int}, {@code int}, {@code boolean}.
+   *
+   * <p>Method under test: {@link StandardSecurityHandler#isUserPassword(byte[], byte[], byte[],
+   * int, byte[], int, int, boolean)}
    */
   @Test
-  @DisplayName("Test isUserPassword(byte[], byte[], byte[], int, byte[], int, int, boolean) with 'byte[]', 'byte[]', 'byte[]', 'int', 'byte[]', 'int', 'int', 'boolean'; then throw IOException")
-  void testIsUserPasswordWithByteByteByteIntByteIntIntBoolean_thenThrowIOException() throws IOException {
-    // Arrange
-    StandardSecurityHandler standardSecurityHandler = new StandardSecurityHandler();
-    byte[] password = "AXAXAXAX".getBytes("UTF-8");
-    byte[] user = "AXAXAXAX".getBytes("UTF-8");
-    byte[] owner = "AXAXAXAX".getBytes("UTF-8");
+  @DisplayName(
+      "Test isUserPassword(byte[], byte[], byte[], int, byte[], int, int, boolean) with 'byte[]', 'byte[]', 'byte[]', 'int', 'byte[]', 'int', 'int', 'boolean'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "boolean StandardSecurityHandler.isUserPassword(byte[], byte[], byte[], int, byte[], int, int, boolean)"
+  })
+  void testIsUserPasswordWithByteByteByteIntByteIntIntBoolean() throws IOException {
+    // Arrange and Act
+    boolean actualIsUserPasswordResult =
+        new StandardSecurityHandler()
+            .isUserPassword(
+                new byte[] {2, 'X', 'A', 'X', 'A', 'X', 'A', 'X'},
+                new byte[] {'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'},
+                new byte[] {'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'},
+                1,
+                new byte[] {'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'},
+                2,
+                3,
+                false);
 
-    // Act and Assert
-    assertThrows(IOException.class, () -> standardSecurityHandler.isUserPassword(password, user, owner, 1,
-        "AXAXAXAX".getBytes("UTF-8"), 1, 3, true));
+    // Assert
+    assertFalse(actualIsUserPasswordResult);
   }
 
   /**
-   * Test
-   * {@link StandardSecurityHandler#isUserPassword(byte[], byte[], byte[], int, byte[], int, int, boolean)}
-   * with {@code byte[]}, {@code byte[]}, {@code byte[]}, {@code int},
-   * {@code byte[]}, {@code int}, {@code int}, {@code boolean}.
+   * Test {@link StandardSecurityHandler#isUserPassword(byte[], byte[], byte[], int, byte[], int,
+   * int, boolean)} with {@code byte[]}, {@code byte[]}, {@code byte[]}, {@code int}, {@code
+   * byte[]}, {@code int}, {@code int}, {@code boolean}.
+   *
    * <ul>
-   *   <li>When two.</li>
-   *   <li>Then return {@code false}.</li>
+   *   <li>Then throw {@link IOException}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link StandardSecurityHandler#isUserPassword(byte[], byte[], byte[], int, byte[], int, int, boolean)}
+   *
+   * <p>Method under test: {@link StandardSecurityHandler#isUserPassword(byte[], byte[], byte[],
+   * int, byte[], int, int, boolean)}
    */
   @Test
-  @DisplayName("Test isUserPassword(byte[], byte[], byte[], int, byte[], int, int, boolean) with 'byte[]', 'byte[]', 'byte[]', 'int', 'byte[]', 'int', 'int', 'boolean'; when two; then return 'false'")
-  void testIsUserPasswordWithByteByteByteIntByteIntIntBoolean_whenTwo_thenReturnFalse() throws IOException {
-    // Arrange
-    StandardSecurityHandler standardSecurityHandler = new StandardSecurityHandler();
-    byte[] password = "AXAXAXAX".getBytes("UTF-8");
-    byte[] user = "AXAXAXAX".getBytes("UTF-8");
-    byte[] owner = "AXAXAXAX".getBytes("UTF-8");
+  @DisplayName(
+      "Test isUserPassword(byte[], byte[], byte[], int, byte[], int, int, boolean) with 'byte[]', 'byte[]', 'byte[]', 'int', 'byte[]', 'int', 'int', 'boolean'; then throw IOException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "boolean StandardSecurityHandler.isUserPassword(byte[], byte[], byte[], int, byte[], int, int, boolean)"
+  })
+  void testIsUserPasswordWithByteByteByteIntByteIntIntBoolean_thenThrowIOException()
+      throws IOException {
+    // Arrange, Act and Assert
+    assertThrows(
+        IOException.class,
+        () ->
+            new StandardSecurityHandler()
+                .isUserPassword(
+                    "AXAXAXAX".getBytes("UTF-8"),
+                    "AXAXAXAX".getBytes("UTF-8"),
+                    "AXAXAXAX".getBytes("UTF-8"),
+                    1,
+                    "AXAXAXAX".getBytes("UTF-8"),
+                    1,
+                    3,
+                    true));
+  }
 
-    // Act and Assert
+  /**
+   * Test {@link StandardSecurityHandler#isUserPassword(byte[], byte[], byte[], int, byte[], int,
+   * int, boolean)} with {@code byte[]}, {@code byte[]}, {@code byte[]}, {@code int}, {@code
+   * byte[]}, {@code int}, {@code int}, {@code boolean}.
+   *
+   * <ul>
+   *   <li>When two.
+   *   <li>Then return {@code false}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StandardSecurityHandler#isUserPassword(byte[], byte[], byte[],
+   * int, byte[], int, int, boolean)}
+   */
+  @Test
+  @DisplayName(
+      "Test isUserPassword(byte[], byte[], byte[], int, byte[], int, int, boolean) with 'byte[]', 'byte[]', 'byte[]', 'int', 'byte[]', 'int', 'int', 'boolean'; when two; then return 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "boolean StandardSecurityHandler.isUserPassword(byte[], byte[], byte[], int, byte[], int, int, boolean)"
+  })
+  void testIsUserPasswordWithByteByteByteIntByteIntIntBoolean_whenTwo_thenReturnFalse()
+      throws IOException {
+    // Arrange and Act
+    boolean actualIsUserPasswordResult =
+        new StandardSecurityHandler()
+            .isUserPassword(
+                new byte[] {'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'},
+                new byte[] {'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'},
+                new byte[] {'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'},
+                1,
+                new byte[] {'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'},
+                2,
+                3,
+                false);
+
+    // Assert
+    assertFalse(actualIsUserPasswordResult);
+  }
+
+  /**
+   * Test {@link StandardSecurityHandler#isUserPassword(String, byte[], byte[], int, byte[], int,
+   * int, boolean)} with {@code String}, {@code byte[]}, {@code byte[]}, {@code int}, {@code
+   * byte[]}, {@code int}, {@code int}, {@code boolean}.
+   *
+   * <ul>
+   *   <li>Then throw {@link IOException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StandardSecurityHandler#isUserPassword(String, byte[], byte[],
+   * int, byte[], int, int, boolean)}
+   */
+  @Test
+  @DisplayName(
+      "Test isUserPassword(String, byte[], byte[], int, byte[], int, int, boolean) with 'String', 'byte[]', 'byte[]', 'int', 'byte[]', 'int', 'int', 'boolean'; then throw IOException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "boolean StandardSecurityHandler.isUserPassword(String, byte[], byte[], int, byte[], int, int, boolean)"
+  })
+  void testIsUserPasswordWithStringByteByteIntByteIntIntBoolean_thenThrowIOException()
+      throws IOException {
+    // Arrange, Act and Assert
+    assertThrows(
+        IOException.class,
+        () ->
+            new StandardSecurityHandler()
+                .isUserPassword(
+                    "iloveyou",
+                    "AXAXAXAX".getBytes("UTF-8"),
+                    "AXAXAXAX".getBytes("UTF-8"),
+                    1,
+                    "AXAXAXAX".getBytes("UTF-8"),
+                    1,
+                    3,
+                    true));
+  }
+
+  /**
+   * Test {@link StandardSecurityHandler#isUserPassword(String, byte[], byte[], int, byte[], int,
+   * int, boolean)} with {@code String}, {@code byte[]}, {@code byte[]}, {@code int}, {@code
+   * byte[]}, {@code int}, {@code int}, {@code boolean}.
+   *
+   * <ul>
+   *   <li>When two.
+   *   <li>Then return {@code false}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StandardSecurityHandler#isUserPassword(String, byte[], byte[],
+   * int, byte[], int, int, boolean)}
+   */
+  @Test
+  @DisplayName(
+      "Test isUserPassword(String, byte[], byte[], int, byte[], int, int, boolean) with 'String', 'byte[]', 'byte[]', 'int', 'byte[]', 'int', 'int', 'boolean'; when two; then return 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "boolean StandardSecurityHandler.isUserPassword(String, byte[], byte[], int, byte[], int, int, boolean)"
+  })
+  void testIsUserPasswordWithStringByteByteIntByteIntIntBoolean_whenTwo_thenReturnFalse()
+      throws IOException {
+    // Arrange, Act and Assert
     assertFalse(
-        standardSecurityHandler.isUserPassword(password, user, owner, 1, "AXAXAXAX".getBytes("UTF-8"), 2, 3, true));
-  }
-
-  /**
-   * Test
-   * {@link StandardSecurityHandler#isUserPassword(String, byte[], byte[], int, byte[], int, int, boolean)}
-   * with {@code String}, {@code byte[]}, {@code byte[]}, {@code int},
-   * {@code byte[]}, {@code int}, {@code int}, {@code boolean}.
-   * <ul>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link StandardSecurityHandler#isUserPassword(String, byte[], byte[], int, byte[], int, int, boolean)}
-   */
-  @Test
-  @DisplayName("Test isUserPassword(String, byte[], byte[], int, byte[], int, int, boolean) with 'String', 'byte[]', 'byte[]', 'int', 'byte[]', 'int', 'int', 'boolean'; then throw IOException")
-  void testIsUserPasswordWithStringByteByteIntByteIntIntBoolean_thenThrowIOException() throws IOException {
-    // Arrange
-    StandardSecurityHandler standardSecurityHandler = new StandardSecurityHandler();
-    byte[] user = "AXAXAXAX".getBytes("UTF-8");
-    byte[] owner = "AXAXAXAX".getBytes("UTF-8");
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> standardSecurityHandler.isUserPassword("iloveyou", user, owner, 1,
-        "AXAXAXAX".getBytes("UTF-8"), 1, 3, true));
-  }
-
-  /**
-   * Test
-   * {@link StandardSecurityHandler#isUserPassword(String, byte[], byte[], int, byte[], int, int, boolean)}
-   * with {@code String}, {@code byte[]}, {@code byte[]}, {@code int},
-   * {@code byte[]}, {@code int}, {@code int}, {@code boolean}.
-   * <ul>
-   *   <li>When two.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link StandardSecurityHandler#isUserPassword(String, byte[], byte[], int, byte[], int, int, boolean)}
-   */
-  @Test
-  @DisplayName("Test isUserPassword(String, byte[], byte[], int, byte[], int, int, boolean) with 'String', 'byte[]', 'byte[]', 'int', 'byte[]', 'int', 'int', 'boolean'; when two; then return 'false'")
-  void testIsUserPasswordWithStringByteByteIntByteIntIntBoolean_whenTwo_thenReturnFalse() throws IOException {
-    // Arrange
-    StandardSecurityHandler standardSecurityHandler = new StandardSecurityHandler();
-    byte[] user = "AXAXAXAX".getBytes("UTF-8");
-    byte[] owner = "AXAXAXAX".getBytes("UTF-8");
-
-    // Act and Assert
-    assertFalse(
-        standardSecurityHandler.isUserPassword("iloveyou", user, owner, 1, "AXAXAXAX".getBytes("UTF-8"), 2, 3, true));
+        new StandardSecurityHandler()
+            .isUserPassword(
+                "iloveyou",
+                new byte[] {'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'},
+                new byte[] {'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'},
+                1,
+                new byte[] {'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'},
+                2,
+                3,
+                false));
   }
 }

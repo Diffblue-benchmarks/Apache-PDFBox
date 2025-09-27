@@ -3,21 +3,28 @@ package org.apache.pdfbox.pdmodel.encryption;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class SaslPrepDiffblueTest {
   /**
    * Test {@link SaslPrep#saslPrepQuery(String)}.
+   *
    * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then return {@code 42}.</li>
+   *   <li>When {@code 42}.
+   *   <li>Then return {@code 42}.
    * </ul>
-   * <p>
-   * Method under test: {@link SaslPrep#saslPrepQuery(String)}
+   *
+   * <p>Method under test: {@link SaslPrep#saslPrepQuery(String)}
    */
   @Test
   @DisplayName("Test saslPrepQuery(String); when '42'; then return '42'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String SaslPrep.saslPrepQuery(String)"})
   void testSaslPrepQuery_when42_thenReturn42() {
     // Arrange, Act and Assert
     assertEquals("42", SaslPrep.saslPrepQuery("42"));
@@ -25,15 +32,19 @@ class SaslPrepDiffblueTest {
 
   /**
    * Test {@link SaslPrep#saslPrepQuery(String)}.
+   *
    * <ul>
-   *   <li>When {@code Str}.</li>
-   *   <li>Then return {@code Str}.</li>
+   *   <li>When {@code Str}.
+   *   <li>Then return {@code Str}.
    * </ul>
-   * <p>
-   * Method under test: {@link SaslPrep#saslPrepQuery(String)}
+   *
+   * <p>Method under test: {@link SaslPrep#saslPrepQuery(String)}
    */
   @Test
   @DisplayName("Test saslPrepQuery(String); when 'Str'; then return 'Str'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String SaslPrep.saslPrepQuery(String)"})
   void testSaslPrepQuery_whenStr_thenReturnStr() {
     // Arrange, Act and Assert
     assertEquals("Str", SaslPrep.saslPrepQuery("Str"));
@@ -41,15 +52,19 @@ class SaslPrepDiffblueTest {
 
   /**
    * Test {@link SaslPrep#saslPrepStored(String)}.
+   *
    * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then return {@code 42}.</li>
+   *   <li>When {@code 42}.
+   *   <li>Then return {@code 42}.
    * </ul>
-   * <p>
-   * Method under test: {@link SaslPrep#saslPrepStored(String)}
+   *
+   * <p>Method under test: {@link SaslPrep#saslPrepStored(String)}
    */
   @Test
   @DisplayName("Test saslPrepStored(String); when '42'; then return '42'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String SaslPrep.saslPrepStored(String)"})
   void testSaslPrepStored_when42_thenReturn42() {
     // Arrange, Act and Assert
     assertEquals("42", SaslPrep.saslPrepStored("42"));
@@ -57,15 +72,19 @@ class SaslPrepDiffblueTest {
 
   /**
    * Test {@link SaslPrep#saslPrepStored(String)}.
+   *
    * <ul>
-   *   <li>When {@code Str}.</li>
-   *   <li>Then return {@code Str}.</li>
+   *   <li>When {@code Str}.
+   *   <li>Then return {@code Str}.
    * </ul>
-   * <p>
-   * Method under test: {@link SaslPrep#saslPrepStored(String)}
+   *
+   * <p>Method under test: {@link SaslPrep#saslPrepStored(String)}
    */
   @Test
   @DisplayName("Test saslPrepStored(String); when 'Str'; then return 'Str'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String SaslPrep.saslPrepStored(String)"})
   void testSaslPrepStored_whenStr_thenReturnStr() {
     // Arrange, Act and Assert
     assertEquals("Str", SaslPrep.saslPrepStored("Str"));
@@ -73,15 +92,19 @@ class SaslPrepDiffblueTest {
 
   /**
    * Test {@link SaslPrep#prohibited(int)}.
+   *
    * <ul>
-   *   <li>When {@code 1757}.</li>
-   *   <li>Then return {@code true}.</li>
+   *   <li>When {@code 1757}.
+   *   <li>Then return {@code true}.
    * </ul>
-   * <p>
-   * Method under test: {@link SaslPrep#prohibited(int)}
+   *
+   * <p>Method under test: {@link SaslPrep#prohibited(int)}
    */
   @Test
   @DisplayName("Test prohibited(int); when '1757'; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean SaslPrep.prohibited(int)"})
   void testProhibited_when1757_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue(SaslPrep.prohibited(1757));
@@ -89,15 +112,19 @@ class SaslPrepDiffblueTest {
 
   /**
    * Test {@link SaslPrep#prohibited(int)}.
+   *
    * <ul>
-   *   <li>When {@code 1807}.</li>
-   *   <li>Then return {@code true}.</li>
+   *   <li>When {@code 1807}.
+   *   <li>Then return {@code true}.
    * </ul>
-   * <p>
-   * Method under test: {@link SaslPrep#prohibited(int)}
+   *
+   * <p>Method under test: {@link SaslPrep#prohibited(int)}
    */
   @Test
   @DisplayName("Test prohibited(int); when '1807'; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean SaslPrep.prohibited(int)"})
   void testProhibited_when1807_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue(SaslPrep.prohibited(1807));
@@ -105,15 +132,19 @@ class SaslPrepDiffblueTest {
 
   /**
    * Test {@link SaslPrep#prohibited(int)}.
+   *
    * <ul>
-   *   <li>When {@code 5760}.</li>
-   *   <li>Then return {@code true}.</li>
+   *   <li>When {@code 5760}.
+   *   <li>Then return {@code true}.
    * </ul>
-   * <p>
-   * Method under test: {@link SaslPrep#prohibited(int)}
+   *
+   * <p>Method under test: {@link SaslPrep#prohibited(int)}
    */
   @Test
   @DisplayName("Test prohibited(int); when '5760'; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean SaslPrep.prohibited(int)"})
   void testProhibited_when5760_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue(SaslPrep.prohibited(5760));
@@ -121,15 +152,19 @@ class SaslPrepDiffblueTest {
 
   /**
    * Test {@link SaslPrep#prohibited(int)}.
+   *
    * <ul>
-   *   <li>When {@code 6158}.</li>
-   *   <li>Then return {@code true}.</li>
+   *   <li>When {@code 6158}.
+   *   <li>Then return {@code true}.
    * </ul>
-   * <p>
-   * Method under test: {@link SaslPrep#prohibited(int)}
+   *
+   * <p>Method under test: {@link SaslPrep#prohibited(int)}
    */
   @Test
   @DisplayName("Test prohibited(int); when '6158'; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean SaslPrep.prohibited(int)"})
   void testProhibited_when6158_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue(SaslPrep.prohibited(6158));
@@ -137,15 +172,19 @@ class SaslPrepDiffblueTest {
 
   /**
    * Test {@link SaslPrep#prohibited(int)}.
+   *
    * <ul>
-   *   <li>When {@code 8192}.</li>
-   *   <li>Then return {@code true}.</li>
+   *   <li>When {@code 8192}.
+   *   <li>Then return {@code true}.
    * </ul>
-   * <p>
-   * Method under test: {@link SaslPrep#prohibited(int)}
+   *
+   * <p>Method under test: {@link SaslPrep#prohibited(int)}
    */
   @Test
   @DisplayName("Test prohibited(int); when '8192'; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean SaslPrep.prohibited(int)"})
   void testProhibited_when8192_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue(SaslPrep.prohibited(8192));
@@ -153,15 +192,19 @@ class SaslPrepDiffblueTest {
 
   /**
    * Test {@link SaslPrep#prohibited(int)}.
+   *
    * <ul>
-   *   <li>When {@code 8204}.</li>
-   *   <li>Then return {@code true}.</li>
+   *   <li>When {@code 8204}.
+   *   <li>Then return {@code true}.
    * </ul>
-   * <p>
-   * Method under test: {@link SaslPrep#prohibited(int)}
+   *
+   * <p>Method under test: {@link SaslPrep#prohibited(int)}
    */
   @Test
   @DisplayName("Test prohibited(int); when '8204'; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean SaslPrep.prohibited(int)"})
   void testProhibited_when8204_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue(SaslPrep.prohibited(8204));
@@ -169,15 +212,19 @@ class SaslPrepDiffblueTest {
 
   /**
    * Test {@link SaslPrep#prohibited(int)}.
+   *
    * <ul>
-   *   <li>When {@code 8205}.</li>
-   *   <li>Then return {@code true}.</li>
+   *   <li>When {@code 8205}.
+   *   <li>Then return {@code true}.
    * </ul>
-   * <p>
-   * Method under test: {@link SaslPrep#prohibited(int)}
+   *
+   * <p>Method under test: {@link SaslPrep#prohibited(int)}
    */
   @Test
   @DisplayName("Test prohibited(int); when '8205'; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean SaslPrep.prohibited(int)"})
   void testProhibited_when8205_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue(SaslPrep.prohibited(8205));
@@ -185,15 +232,19 @@ class SaslPrepDiffblueTest {
 
   /**
    * Test {@link SaslPrep#prohibited(int)}.
+   *
    * <ul>
-   *   <li>When {@code 8232}.</li>
-   *   <li>Then return {@code true}.</li>
+   *   <li>When {@code 8232}.
+   *   <li>Then return {@code true}.
    * </ul>
-   * <p>
-   * Method under test: {@link SaslPrep#prohibited(int)}
+   *
+   * <p>Method under test: {@link SaslPrep#prohibited(int)}
    */
   @Test
   @DisplayName("Test prohibited(int); when '8232'; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean SaslPrep.prohibited(int)"})
   void testProhibited_when8232_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue(SaslPrep.prohibited(8232));
@@ -201,15 +252,19 @@ class SaslPrepDiffblueTest {
 
   /**
    * Test {@link SaslPrep#prohibited(int)}.
+   *
    * <ul>
-   *   <li>When {@code 8233}.</li>
-   *   <li>Then return {@code true}.</li>
+   *   <li>When {@code 8233}.
+   *   <li>Then return {@code true}.
    * </ul>
-   * <p>
-   * Method under test: {@link SaslPrep#prohibited(int)}
+   *
+   * <p>Method under test: {@link SaslPrep#prohibited(int)}
    */
   @Test
   @DisplayName("Test prohibited(int); when '8233'; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean SaslPrep.prohibited(int)"})
   void testProhibited_when8233_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue(SaslPrep.prohibited(8233));
@@ -217,15 +272,19 @@ class SaslPrepDiffblueTest {
 
   /**
    * Test {@link SaslPrep#prohibited(int)}.
+   *
    * <ul>
-   *   <li>When {@code 8239}.</li>
-   *   <li>Then return {@code true}.</li>
+   *   <li>When {@code 8239}.
+   *   <li>Then return {@code true}.
    * </ul>
-   * <p>
-   * Method under test: {@link SaslPrep#prohibited(int)}
+   *
+   * <p>Method under test: {@link SaslPrep#prohibited(int)}
    */
   @Test
   @DisplayName("Test prohibited(int); when '8239'; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean SaslPrep.prohibited(int)"})
   void testProhibited_when8239_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue(SaslPrep.prohibited(8239));
@@ -233,15 +292,19 @@ class SaslPrepDiffblueTest {
 
   /**
    * Test {@link SaslPrep#prohibited(int)}.
+   *
    * <ul>
-   *   <li>When {@code 8287}.</li>
-   *   <li>Then return {@code true}.</li>
+   *   <li>When {@code 8287}.
+   *   <li>Then return {@code true}.
    * </ul>
-   * <p>
-   * Method under test: {@link SaslPrep#prohibited(int)}
+   *
+   * <p>Method under test: {@link SaslPrep#prohibited(int)}
    */
   @Test
   @DisplayName("Test prohibited(int); when '8287'; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean SaslPrep.prohibited(int)"})
   void testProhibited_when8287_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue(SaslPrep.prohibited(8287));
@@ -249,15 +312,19 @@ class SaslPrepDiffblueTest {
 
   /**
    * Test {@link SaslPrep#prohibited(int)}.
+   *
    * <ul>
-   *   <li>When {@code 8288}.</li>
-   *   <li>Then return {@code true}.</li>
+   *   <li>When {@code 8288}.
+   *   <li>Then return {@code true}.
    * </ul>
-   * <p>
-   * Method under test: {@link SaslPrep#prohibited(int)}
+   *
+   * <p>Method under test: {@link SaslPrep#prohibited(int)}
    */
   @Test
   @DisplayName("Test prohibited(int); when '8288'; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean SaslPrep.prohibited(int)"})
   void testProhibited_when8288_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue(SaslPrep.prohibited(8288));
@@ -265,15 +332,19 @@ class SaslPrepDiffblueTest {
 
   /**
    * Test {@link SaslPrep#prohibited(int)}.
+   *
    * <ul>
-   *   <li>When {@code 8289}.</li>
-   *   <li>Then return {@code true}.</li>
+   *   <li>When {@code 8289}.
+   *   <li>Then return {@code true}.
    * </ul>
-   * <p>
-   * Method under test: {@link SaslPrep#prohibited(int)}
+   *
+   * <p>Method under test: {@link SaslPrep#prohibited(int)}
    */
   @Test
   @DisplayName("Test prohibited(int); when '8289'; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean SaslPrep.prohibited(int)"})
   void testProhibited_when8289_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue(SaslPrep.prohibited(8289));
@@ -281,15 +352,19 @@ class SaslPrepDiffblueTest {
 
   /**
    * Test {@link SaslPrep#prohibited(int)}.
+   *
    * <ul>
-   *   <li>When {@code 8290}.</li>
-   *   <li>Then return {@code true}.</li>
+   *   <li>When {@code 8290}.
+   *   <li>Then return {@code true}.
    * </ul>
-   * <p>
-   * Method under test: {@link SaslPrep#prohibited(int)}
+   *
+   * <p>Method under test: {@link SaslPrep#prohibited(int)}
    */
   @Test
   @DisplayName("Test prohibited(int); when '8290'; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean SaslPrep.prohibited(int)"})
   void testProhibited_when8290_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue(SaslPrep.prohibited(8290));
@@ -297,15 +372,19 @@ class SaslPrepDiffblueTest {
 
   /**
    * Test {@link SaslPrep#prohibited(int)}.
+   *
    * <ul>
-   *   <li>When {@code 8291}.</li>
-   *   <li>Then return {@code true}.</li>
+   *   <li>When {@code 8291}.
+   *   <li>Then return {@code true}.
    * </ul>
-   * <p>
-   * Method under test: {@link SaslPrep#prohibited(int)}
+   *
+   * <p>Method under test: {@link SaslPrep#prohibited(int)}
    */
   @Test
   @DisplayName("Test prohibited(int); when '8291'; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean SaslPrep.prohibited(int)"})
   void testProhibited_when8291_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue(SaslPrep.prohibited(8291));
@@ -313,15 +392,19 @@ class SaslPrepDiffblueTest {
 
   /**
    * Test {@link SaslPrep#prohibited(int)}.
+   *
    * <ul>
-   *   <li>When {@code 8297}.</li>
-   *   <li>Then return {@code false}.</li>
+   *   <li>When {@code 8297}.
+   *   <li>Then return {@code false}.
    * </ul>
-   * <p>
-   * Method under test: {@link SaslPrep#prohibited(int)}
+   *
+   * <p>Method under test: {@link SaslPrep#prohibited(int)}
    */
   @Test
   @DisplayName("Test prohibited(int); when '8297'; then return 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean SaslPrep.prohibited(int)"})
   void testProhibited_when8297_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse(SaslPrep.prohibited(8297));
@@ -329,15 +412,19 @@ class SaslPrepDiffblueTest {
 
   /**
    * Test {@link SaslPrep#prohibited(int)}.
+   *
    * <ul>
-   *   <li>When {@code 8298}.</li>
-   *   <li>Then return {@code true}.</li>
+   *   <li>When {@code 8298}.
+   *   <li>Then return {@code true}.
    * </ul>
-   * <p>
-   * Method under test: {@link SaslPrep#prohibited(int)}
+   *
+   * <p>Method under test: {@link SaslPrep#prohibited(int)}
    */
   @Test
   @DisplayName("Test prohibited(int); when '8298'; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean SaslPrep.prohibited(int)"})
   void testProhibited_when8298_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue(SaslPrep.prohibited(8298));
@@ -345,15 +432,19 @@ class SaslPrepDiffblueTest {
 
   /**
    * Test {@link SaslPrep#prohibited(int)}.
+   *
    * <ul>
-   *   <li>When {@code 8304}.</li>
-   *   <li>Then return {@code false}.</li>
+   *   <li>When {@code 8304}.
+   *   <li>Then return {@code false}.
    * </ul>
-   * <p>
-   * Method under test: {@link SaslPrep#prohibited(int)}
+   *
+   * <p>Method under test: {@link SaslPrep#prohibited(int)}
    */
   @Test
   @DisplayName("Test prohibited(int); when '8304'; then return 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean SaslPrep.prohibited(int)"})
   void testProhibited_when8304_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse(SaslPrep.prohibited(8304));
@@ -361,15 +452,19 @@ class SaslPrepDiffblueTest {
 
   /**
    * Test {@link SaslPrep#prohibited(int)}.
+   *
    * <ul>
-   *   <li>When {@code 12288}.</li>
-   *   <li>Then return {@code true}.</li>
+   *   <li>When {@code 12288}.
+   *   <li>Then return {@code true}.
    * </ul>
-   * <p>
-   * Method under test: {@link SaslPrep#prohibited(int)}
+   *
+   * <p>Method under test: {@link SaslPrep#prohibited(int)}
    */
   @Test
   @DisplayName("Test prohibited(int); when '12288'; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean SaslPrep.prohibited(int)"})
   void testProhibited_when12288_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue(SaslPrep.prohibited(12288));
@@ -377,15 +472,19 @@ class SaslPrepDiffblueTest {
 
   /**
    * Test {@link SaslPrep#prohibited(int)}.
+   *
    * <ul>
-   *   <li>When {@code 57343}.</li>
-   *   <li>Then return {@code true}.</li>
+   *   <li>When {@code 57343}.
+   *   <li>Then return {@code true}.
    * </ul>
-   * <p>
-   * Method under test: {@link SaslPrep#prohibited(int)}
+   *
+   * <p>Method under test: {@link SaslPrep#prohibited(int)}
    */
   @Test
   @DisplayName("Test prohibited(int); when '57343'; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean SaslPrep.prohibited(int)"})
   void testProhibited_when57343_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue(SaslPrep.prohibited(57343));
@@ -393,15 +492,19 @@ class SaslPrepDiffblueTest {
 
   /**
    * Test {@link SaslPrep#prohibited(int)}.
+   *
    * <ul>
-   *   <li>When {@code 57344}.</li>
-   *   <li>Then return {@code true}.</li>
+   *   <li>When {@code 57344}.
+   *   <li>Then return {@code true}.
    * </ul>
-   * <p>
-   * Method under test: {@link SaslPrep#prohibited(int)}
+   *
+   * <p>Method under test: {@link SaslPrep#prohibited(int)}
    */
   @Test
   @DisplayName("Test prohibited(int); when '57344'; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean SaslPrep.prohibited(int)"})
   void testProhibited_when57344_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue(SaslPrep.prohibited(57344));
@@ -409,15 +512,19 @@ class SaslPrepDiffblueTest {
 
   /**
    * Test {@link SaslPrep#prohibited(int)}.
+   *
    * <ul>
-   *   <li>When {@code 64976}.</li>
-   *   <li>Then return {@code true}.</li>
+   *   <li>When {@code 64976}.
+   *   <li>Then return {@code true}.
    * </ul>
-   * <p>
-   * Method under test: {@link SaslPrep#prohibited(int)}
+   *
+   * <p>Method under test: {@link SaslPrep#prohibited(int)}
    */
   @Test
   @DisplayName("Test prohibited(int); when '64976'; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean SaslPrep.prohibited(int)"})
   void testProhibited_when64976_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue(SaslPrep.prohibited(64976));
@@ -425,15 +532,19 @@ class SaslPrepDiffblueTest {
 
   /**
    * Test {@link SaslPrep#prohibited(int)}.
+   *
    * <ul>
-   *   <li>When {@code 65279}.</li>
-   *   <li>Then return {@code true}.</li>
+   *   <li>When {@code 65279}.
+   *   <li>Then return {@code true}.
    * </ul>
-   * <p>
-   * Method under test: {@link SaslPrep#prohibited(int)}
+   *
+   * <p>Method under test: {@link SaslPrep#prohibited(int)}
    */
   @Test
   @DisplayName("Test prohibited(int); when '65279'; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean SaslPrep.prohibited(int)"})
   void testProhibited_when65279_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue(SaslPrep.prohibited(65279));
@@ -441,15 +552,19 @@ class SaslPrepDiffblueTest {
 
   /**
    * Test {@link SaslPrep#prohibited(int)}.
+   *
    * <ul>
-   *   <li>When {@code 65528}.</li>
-   *   <li>Then return {@code false}.</li>
+   *   <li>When {@code 65528}.
+   *   <li>Then return {@code false}.
    * </ul>
-   * <p>
-   * Method under test: {@link SaslPrep#prohibited(int)}
+   *
+   * <p>Method under test: {@link SaslPrep#prohibited(int)}
    */
   @Test
   @DisplayName("Test prohibited(int); when '65528'; then return 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean SaslPrep.prohibited(int)"})
   void testProhibited_when65528_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse(SaslPrep.prohibited(65528));
@@ -457,15 +572,19 @@ class SaslPrepDiffblueTest {
 
   /**
    * Test {@link SaslPrep#prohibited(int)}.
+   *
    * <ul>
-   *   <li>When {@code 65529}.</li>
-   *   <li>Then return {@code true}.</li>
+   *   <li>When {@code 65529}.
+   *   <li>Then return {@code true}.
    * </ul>
-   * <p>
-   * Method under test: {@link SaslPrep#prohibited(int)}
+   *
+   * <p>Method under test: {@link SaslPrep#prohibited(int)}
    */
   @Test
   @DisplayName("Test prohibited(int); when '65529'; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean SaslPrep.prohibited(int)"})
   void testProhibited_when65529_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue(SaslPrep.prohibited(65529));
@@ -473,15 +592,19 @@ class SaslPrepDiffblueTest {
 
   /**
    * Test {@link SaslPrep#prohibited(int)}.
+   *
    * <ul>
-   *   <li>When {@code 65533}.</li>
-   *   <li>Then return {@code true}.</li>
+   *   <li>When {@code 65533}.
+   *   <li>Then return {@code true}.
    * </ul>
-   * <p>
-   * Method under test: {@link SaslPrep#prohibited(int)}
+   *
+   * <p>Method under test: {@link SaslPrep#prohibited(int)}
    */
   @Test
   @DisplayName("Test prohibited(int); when '65533'; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean SaslPrep.prohibited(int)"})
   void testProhibited_when65533_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue(SaslPrep.prohibited(65533));
@@ -489,15 +612,19 @@ class SaslPrepDiffblueTest {
 
   /**
    * Test {@link SaslPrep#prohibited(int)}.
+   *
    * <ul>
-   *   <li>When {@code 65534}.</li>
-   *   <li>Then return {@code true}.</li>
+   *   <li>When {@code 65534}.
+   *   <li>Then return {@code true}.
    * </ul>
-   * <p>
-   * Method under test: {@link SaslPrep#prohibited(int)}
+   *
+   * <p>Method under test: {@link SaslPrep#prohibited(int)}
    */
   @Test
   @DisplayName("Test prohibited(int); when '65534'; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean SaslPrep.prohibited(int)"})
   void testProhibited_when65534_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue(SaslPrep.prohibited(65534));
@@ -505,15 +632,19 @@ class SaslPrepDiffblueTest {
 
   /**
    * Test {@link SaslPrep#prohibited(int)}.
+   *
    * <ul>
-   *   <li>When {@code 119154}.</li>
-   *   <li>Then return {@code false}.</li>
+   *   <li>When {@code 119154}.
+   *   <li>Then return {@code false}.
    * </ul>
-   * <p>
-   * Method under test: {@link SaslPrep#prohibited(int)}
+   *
+   * <p>Method under test: {@link SaslPrep#prohibited(int)}
    */
   @Test
   @DisplayName("Test prohibited(int); when '119154'; then return 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean SaslPrep.prohibited(int)"})
   void testProhibited_when119154_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse(SaslPrep.prohibited(119154));
@@ -521,15 +652,19 @@ class SaslPrepDiffblueTest {
 
   /**
    * Test {@link SaslPrep#prohibited(int)}.
+   *
    * <ul>
-   *   <li>When {@code 119155}.</li>
-   *   <li>Then return {@code true}.</li>
+   *   <li>When {@code 119155}.
+   *   <li>Then return {@code true}.
    * </ul>
-   * <p>
-   * Method under test: {@link SaslPrep#prohibited(int)}
+   *
+   * <p>Method under test: {@link SaslPrep#prohibited(int)}
    */
   @Test
   @DisplayName("Test prohibited(int); when '119155'; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean SaslPrep.prohibited(int)"})
   void testProhibited_when119155_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue(SaslPrep.prohibited(119155));
@@ -537,15 +672,19 @@ class SaslPrepDiffblueTest {
 
   /**
    * Test {@link SaslPrep#prohibited(int)}.
+   *
    * <ul>
-   *   <li>When {@code 119163}.</li>
-   *   <li>Then return {@code false}.</li>
+   *   <li>When {@code 119163}.
+   *   <li>Then return {@code false}.
    * </ul>
-   * <p>
-   * Method under test: {@link SaslPrep#prohibited(int)}
+   *
+   * <p>Method under test: {@link SaslPrep#prohibited(int)}
    */
   @Test
   @DisplayName("Test prohibited(int); when '119163'; then return 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean SaslPrep.prohibited(int)"})
   void testProhibited_when119163_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse(SaslPrep.prohibited(119163));
@@ -553,15 +692,19 @@ class SaslPrepDiffblueTest {
 
   /**
    * Test {@link SaslPrep#prohibited(int)}.
+   *
    * <ul>
-   *   <li>When {@code 131070}.</li>
-   *   <li>Then return {@code true}.</li>
+   *   <li>When {@code 131070}.
+   *   <li>Then return {@code true}.
    * </ul>
-   * <p>
-   * Method under test: {@link SaslPrep#prohibited(int)}
+   *
+   * <p>Method under test: {@link SaslPrep#prohibited(int)}
    */
   @Test
   @DisplayName("Test prohibited(int); when '131070'; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean SaslPrep.prohibited(int)"})
   void testProhibited_when131070_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue(SaslPrep.prohibited(131070));
@@ -569,15 +712,19 @@ class SaslPrepDiffblueTest {
 
   /**
    * Test {@link SaslPrep#prohibited(int)}.
+   *
    * <ul>
-   *   <li>When {@code 983039}.</li>
-   *   <li>Then return {@code true}.</li>
+   *   <li>When {@code 983039}.
+   *   <li>Then return {@code true}.
    * </ul>
-   * <p>
-   * Method under test: {@link SaslPrep#prohibited(int)}
+   *
+   * <p>Method under test: {@link SaslPrep#prohibited(int)}
    */
   @Test
   @DisplayName("Test prohibited(int); when '983039'; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean SaslPrep.prohibited(int)"})
   void testProhibited_when983039_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue(SaslPrep.prohibited(983039));
@@ -585,15 +732,19 @@ class SaslPrepDiffblueTest {
 
   /**
    * Test {@link SaslPrep#prohibited(int)}.
+   *
    * <ul>
-   *   <li>When {@code 1048573}.</li>
-   *   <li>Then return {@code true}.</li>
+   *   <li>When {@code 1048573}.
+   *   <li>Then return {@code true}.
    * </ul>
-   * <p>
-   * Method under test: {@link SaslPrep#prohibited(int)}
+   *
+   * <p>Method under test: {@link SaslPrep#prohibited(int)}
    */
   @Test
   @DisplayName("Test prohibited(int); when '1048573'; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean SaslPrep.prohibited(int)"})
   void testProhibited_when1048573_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue(SaslPrep.prohibited(1048573));
@@ -601,15 +752,19 @@ class SaslPrepDiffblueTest {
 
   /**
    * Test {@link SaslPrep#prohibited(int)}.
+   *
    * <ul>
-   *   <li>When {@code 1048574}.</li>
-   *   <li>Then return {@code true}.</li>
+   *   <li>When {@code 1048574}.
+   *   <li>Then return {@code true}.
    * </ul>
-   * <p>
-   * Method under test: {@link SaslPrep#prohibited(int)}
+   *
+   * <p>Method under test: {@link SaslPrep#prohibited(int)}
    */
   @Test
   @DisplayName("Test prohibited(int); when '1048574'; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean SaslPrep.prohibited(int)"})
   void testProhibited_when1048574_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue(SaslPrep.prohibited(1048574));
@@ -617,15 +772,19 @@ class SaslPrepDiffblueTest {
 
   /**
    * Test {@link SaslPrep#prohibited(int)}.
+   *
    * <ul>
-   *   <li>When {@code 1114109}.</li>
-   *   <li>Then return {@code true}.</li>
+   *   <li>When {@code 1114109}.
+   *   <li>Then return {@code true}.
    * </ul>
-   * <p>
-   * Method under test: {@link SaslPrep#prohibited(int)}
+   *
+   * <p>Method under test: {@link SaslPrep#prohibited(int)}
    */
   @Test
   @DisplayName("Test prohibited(int); when '1114109'; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean SaslPrep.prohibited(int)"})
   void testProhibited_when1114109_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue(SaslPrep.prohibited(1114109));
@@ -633,15 +792,19 @@ class SaslPrepDiffblueTest {
 
   /**
    * Test {@link SaslPrep#prohibited(int)}.
+   *
    * <ul>
-   *   <li>When {@code 1114110}.</li>
-   *   <li>Then return {@code true}.</li>
+   *   <li>When {@code 1114110}.
+   *   <li>Then return {@code true}.
    * </ul>
-   * <p>
-   * Method under test: {@link SaslPrep#prohibited(int)}
+   *
+   * <p>Method under test: {@link SaslPrep#prohibited(int)}
    */
   @Test
   @DisplayName("Test prohibited(int); when '1114110'; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean SaslPrep.prohibited(int)"})
   void testProhibited_when1114110_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue(SaslPrep.prohibited(1114110));
@@ -649,15 +812,59 @@ class SaslPrepDiffblueTest {
 
   /**
    * Test {@link SaslPrep#prohibited(int)}.
+   *
    * <ul>
-   *   <li>When {@link Float#MAX_EXPONENT}.</li>
-   *   <li>Then return {@code true}.</li>
+   *   <li>When eight hundred thirty-three.
+   *   <li>Then return {@code true}.
    * </ul>
-   * <p>
-   * Method under test: {@link SaslPrep#prohibited(int)}
+   *
+   * <p>Method under test: {@link SaslPrep#prohibited(int)}
+   */
+  @Test
+  @DisplayName("Test prohibited(int); when eight hundred thirty-three; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean SaslPrep.prohibited(int)"})
+  void testProhibited_whenEightHundredThirtyThree_thenReturnTrue() {
+    // Arrange, Act and Assert
+    assertTrue(SaslPrep.prohibited(833));
+  }
+
+  /**
+   * Test {@link SaslPrep#prohibited(int)}.
+   *
+   * <ul>
+   *   <li>When eight hundred thirty-two.
+   *   <li>Then return {@code true}.
+   * </ul>
+   *
+   * <p>Method under test: {@link SaslPrep#prohibited(int)}
+   */
+  @Test
+  @DisplayName("Test prohibited(int); when eight hundred thirty-two; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean SaslPrep.prohibited(int)"})
+  void testProhibited_whenEightHundredThirtyTwo_thenReturnTrue() {
+    // Arrange, Act and Assert
+    assertTrue(SaslPrep.prohibited(832));
+  }
+
+  /**
+   * Test {@link SaslPrep#prohibited(int)}.
+   *
+   * <ul>
+   *   <li>When {@link Float#MAX_EXPONENT}.
+   *   <li>Then return {@code true}.
+   * </ul>
+   *
+   * <p>Method under test: {@link SaslPrep#prohibited(int)}
    */
   @Test
   @DisplayName("Test prohibited(int); when MAX_EXPONENT; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean SaslPrep.prohibited(int)"})
   void testProhibited_whenMax_exponent_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue(SaslPrep.prohibited(Float.MAX_EXPONENT));
@@ -665,15 +872,19 @@ class SaslPrepDiffblueTest {
 
   /**
    * Test {@link SaslPrep#prohibited(int)}.
+   *
    * <ul>
-   *   <li>When minus one.</li>
-   *   <li>Then return {@code false}.</li>
+   *   <li>When minus one.
+   *   <li>Then return {@code false}.
    * </ul>
-   * <p>
-   * Method under test: {@link SaslPrep#prohibited(int)}
+   *
+   * <p>Method under test: {@link SaslPrep#prohibited(int)}
    */
   @Test
   @DisplayName("Test prohibited(int); when minus one; then return 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean SaslPrep.prohibited(int)"})
   void testProhibited_whenMinusOne_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse(SaslPrep.prohibited(-1));
@@ -681,15 +892,19 @@ class SaslPrepDiffblueTest {
 
   /**
    * Test {@link SaslPrep#prohibited(int)}.
+   *
    * <ul>
-   *   <li>When one hundred sixty.</li>
-   *   <li>Then return {@code true}.</li>
+   *   <li>When one hundred sixty.
+   *   <li>Then return {@code true}.
    * </ul>
-   * <p>
-   * Method under test: {@link SaslPrep#prohibited(int)}
+   *
+   * <p>Method under test: {@link SaslPrep#prohibited(int)}
    */
   @Test
   @DisplayName("Test prohibited(int); when one hundred sixty; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean SaslPrep.prohibited(int)"})
   void testProhibited_whenOneHundredSixty_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue(SaslPrep.prohibited(160));
@@ -697,15 +912,19 @@ class SaslPrepDiffblueTest {
 
   /**
    * Test {@link SaslPrep#prohibited(int)}.
+   *
    * <ul>
-   *   <li>When one hundred twenty-eight.</li>
-   *   <li>Then return {@code true}.</li>
+   *   <li>When one hundred twenty-eight.
+   *   <li>Then return {@code true}.
    * </ul>
-   * <p>
-   * Method under test: {@link SaslPrep#prohibited(int)}
+   *
+   * <p>Method under test: {@link SaslPrep#prohibited(int)}
    */
   @Test
   @DisplayName("Test prohibited(int); when one hundred twenty-eight; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean SaslPrep.prohibited(int)"})
   void testProhibited_whenOneHundredTwentyEight_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue(SaslPrep.prohibited(128));
@@ -713,15 +932,19 @@ class SaslPrepDiffblueTest {
 
   /**
    * Test {@link SaslPrep#prohibited(int)}.
+   *
    * <ul>
-   *   <li>When one.</li>
-   *   <li>Then return {@code true}.</li>
+   *   <li>When one.
+   *   <li>Then return {@code true}.
    * </ul>
-   * <p>
-   * Method under test: {@link SaslPrep#prohibited(int)}
+   *
+   * <p>Method under test: {@link SaslPrep#prohibited(int)}
    */
   @Test
   @DisplayName("Test prohibited(int); when one; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean SaslPrep.prohibited(int)"})
   void testProhibited_whenOne_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue(SaslPrep.prohibited(1));

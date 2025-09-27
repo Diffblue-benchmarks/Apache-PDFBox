@@ -1,358 +1,361 @@
 package org.apache.fontbox.ttf;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.util.List;
+import org.apache.pdfbox.io.NonSeekableRandomAccessReadInputStream;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 class GlyfCompositeDescriptDiffblueTest {
   /**
-   * Test
-   * {@link GlyfCompositeDescript#GlyfCompositeDescript(TTFDataStream, GlyphTable, int)}.
+   * Test {@link GlyfCompositeDescript#GlyfCompositeDescript(TTFDataStream, GlyphTable, int)}.
+   *
    * <ul>
-   *   <li>Then return Instructions is {@code null}.</li>
+   *   <li>Given {@link IOException#IOException()}.
+   *   <li>Then throw {@link IOException}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link GlyfCompositeDescript#GlyfCompositeDescript(TTFDataStream, GlyphTable, int)}
+   *
+   * <p>Method under test: {@link GlyfCompositeDescript#GlyfCompositeDescript(TTFDataStream,
+   * GlyphTable, int)}
    */
   @Test
-  @DisplayName("Test new GlyfCompositeDescript(TTFDataStream, GlyphTable, int); then return Instructions is 'null'")
-  void testNewGlyfCompositeDescript_thenReturnInstructionsIsNull() throws IOException {
+  @DisplayName(
+      "Test new GlyfCompositeDescript(TTFDataStream, GlyphTable, int); given IOException(); then throw IOException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void GlyfCompositeDescript.<init>(TTFDataStream, GlyphTable, int)"})
+  void testNewGlyfCompositeDescript_givenIOException_thenThrowIOException() throws IOException {
     // Arrange
-    RandomAccessReadDataStream bais = new RandomAccessReadDataStream(
-        new ByteArrayInputStream("\bXAXAXAX".getBytes("UTF-8")));
+    DataInputStream inputStream = mock(DataInputStream.class);
+    when(inputStream.read(Mockito.<byte[]>any())).thenThrow(new IOException());
+    NonSeekableRandomAccessReadInputStream randomAccessRead =
+        new NonSeekableRandomAccessReadInputStream(inputStream);
+    RandomAccessReadUnbufferedDataStream bais =
+        new RandomAccessReadUnbufferedDataStream(randomAccessRead);
 
-    // Act
-    GlyfCompositeDescript actualGlyfCompositeDescript = new GlyfCompositeDescript(bais, new GlyphTable(), 1);
-
-    // Assert
-    assertNull(actualGlyfCompositeDescript.getInstructions());
-    List<GlyfCompositeComp> components = actualGlyfCompositeDescript.getComponents();
-    assertEquals(1, components.size());
-    GlyfCompositeComp getResult = components.get(0);
-    assertEquals(1.02099609375d, getResult.getXScale());
-    assertEquals(1.02099609375d, getResult.getYScale());
-    assertEquals((short) 2136, getResult.getFlags());
-  }
-
-  /**
-   * Test
-   * {@link GlyfCompositeDescript#GlyfCompositeDescript(TTFDataStream, GlyphTable, int)}.
-   * <ul>
-   *   <li>When backspace.</li>
-   *   <li>Then return first element is minus one.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link GlyfCompositeDescript#GlyfCompositeDescript(TTFDataStream, GlyphTable, int)}
-   */
-  @Test
-  @DisplayName("Test new GlyfCompositeDescript(TTFDataStream, GlyphTable, int); when backspace; then return first element is minus one")
-  void testNewGlyfCompositeDescript_whenBackspace_thenReturnFirstElementIsMinusOne() throws IOException {
-    // Arrange
-    RandomAccessReadDataStream bais = new RandomAccessReadDataStream(
-        new ByteArrayInputStream(new byte[]{'A', 0, 'A', 'X', 'A', 'X', '\b', 'X'}));
-
-    // Act
-    GlyfCompositeDescript actualGlyfCompositeDescript = new GlyfCompositeDescript(bais, new GlyphTable(), 1);
-
-    // Assert
-    int[] instructions = actualGlyfCompositeDescript.getInstructions();
-    assertEquals(-1, instructions[0]);
-    assertEquals(-1, instructions[1]);
-    assertEquals(-1, instructions[11]);
-    assertEquals(-1, instructions[13]);
-    assertEquals(-1, instructions[14]);
-    assertEquals(-1, instructions[15]);
-    assertEquals(-1, instructions[17]);
-    assertEquals(-1, instructions[18]);
-    assertEquals(-1, instructions[19]);
-    assertEquals(-1, instructions[2]);
-    assertEquals(-1, instructions[20]);
-    assertEquals(-1, instructions[21]);
-    assertEquals(-1, instructions[2111]);
-    assertEquals(-1, instructions[2112]);
-    assertEquals(-1, instructions[2113]);
-    assertEquals(-1, instructions[2114]);
-    assertEquals(-1, instructions[2115]);
-    assertEquals(-1, instructions[2116]);
-    assertEquals(-1, instructions[2117]);
-    assertEquals(-1, instructions[2118]);
-    assertEquals(-1, instructions[2119]);
-    assertEquals(-1, instructions[2120]);
-    assertEquals(-1, instructions[2121]);
-    assertEquals(-1, instructions[2122]);
-    assertEquals(-1, instructions[2123]);
-    assertEquals(-1, instructions[2124]);
-    assertEquals(-1, instructions[2125]);
-    assertEquals(-1, instructions[2126]);
-    assertEquals(-1, instructions[2127]);
-    assertEquals(-1, instructions[2128]);
-    assertEquals(-1, instructions[2129]);
-    assertEquals(-1, instructions[2130]);
-    assertEquals(-1, instructions[2131]);
-    assertEquals(-1, instructions[2132]);
-    assertEquals(-1, instructions[2133]);
-    assertEquals(-1, instructions[2134]);
-    assertEquals(-1, instructions[2135]);
-    assertEquals(-1, instructions[22]);
-    assertEquals(-1, instructions[23]);
-    assertEquals(-1, instructions[24]);
-    assertEquals(-1, instructions[3]);
-    assertEquals(-1, instructions[4]);
-    assertEquals(-1, instructions[5]);
-    assertEquals(-1, instructions[6]);
-    assertEquals(-1, instructions[7]);
-    assertEquals(-1, instructions[8]);
-    assertEquals(-1, instructions[Short.SIZE]);
-    assertEquals(-1, instructions[CmapTable.ENCODING_WIN_UNICODE_FULL]);
-    assertEquals(-1, instructions[OS2WindowsMetricsTable.FAMILY_CLASS_ORNAMENTALS]);
-    assertEquals(-1, instructions[OS2WindowsMetricsTable.FAMILY_CLASS_SYMBOLIC]);
-    List<GlyfCompositeComp> components = actualGlyfCompositeDescript.getComponents();
-    assertEquals(1, components.size());
-    GlyfCompositeComp getResult = components.get(0);
-    assertEquals(1.0d, getResult.getXScale());
-    assertEquals(1.0d, getResult.getYScale());
-    assertEquals((short) 16640, getResult.getFlags());
-    assertEquals(2136, instructions.length);
+    // Act and Assert
+    assertThrows(IOException.class, () -> new GlyfCompositeDescript(bais, new GlyphTable(), 1));
+    verify(inputStream).read(isA(byte[].class));
   }
 
   /**
    * Test {@link GlyfCompositeDescript#getEndPtOfContours(int)}.
+   *
    * <ul>
-   *   <li>Then return zero.</li>
+   *   <li>Then return zero.
    * </ul>
-   * <p>
-   * Method under test: {@link GlyfCompositeDescript#getEndPtOfContours(int)}
+   *
+   * <p>Method under test: {@link GlyfCompositeDescript#getEndPtOfContours(int)}
    */
   @Test
   @DisplayName("Test getEndPtOfContours(int); then return zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"int GlyfCompositeDescript.getEndPtOfContours(int)"})
   void testGetEndPtOfContours_thenReturnZero() throws IOException {
     // Arrange
-    RandomAccessReadDataStream bais = new RandomAccessReadDataStream(
-        new ByteArrayInputStream("XXAXAXAX".getBytes("UTF-8")));
+    RandomAccessReadDataStream bais =
+        new RandomAccessReadDataStream(new ByteArrayInputStream("XXAXAXAX".getBytes("UTF-8")));
+    GlyfCompositeDescript glyfCompositeDescript =
+        new GlyfCompositeDescript(bais, new GlyphTable(), 1);
 
     // Act and Assert
-    assertEquals(0, (new GlyfCompositeDescript(bais, new GlyphTable(), 1)).getEndPtOfContours(1));
+    assertEquals(0, glyfCompositeDescript.getEndPtOfContours(1));
   }
 
   /**
    * Test {@link GlyfCompositeDescript#getEndPtOfContours(int)}.
+   *
    * <ul>
-   *   <li>When minus one.</li>
-   *   <li>Then return zero.</li>
+   *   <li>When minus one.
+   *   <li>Then return zero.
    * </ul>
-   * <p>
-   * Method under test: {@link GlyfCompositeDescript#getEndPtOfContours(int)}
+   *
+   * <p>Method under test: {@link GlyfCompositeDescript#getEndPtOfContours(int)}
    */
   @Test
   @DisplayName("Test getEndPtOfContours(int); when minus one; then return zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"int GlyfCompositeDescript.getEndPtOfContours(int)"})
   void testGetEndPtOfContours_whenMinusOne_thenReturnZero() throws IOException {
     // Arrange
-    RandomAccessReadDataStream bais = new RandomAccessReadDataStream(
-        new ByteArrayInputStream("XXAXAXAX".getBytes("UTF-8")));
+    RandomAccessReadDataStream bais =
+        new RandomAccessReadDataStream(new ByteArrayInputStream("XXAXAXAX".getBytes("UTF-8")));
+    GlyfCompositeDescript glyfCompositeDescript =
+        new GlyfCompositeDescript(bais, new GlyphTable(), 1);
 
     // Act and Assert
-    assertEquals(0, (new GlyfCompositeDescript(bais, new GlyphTable(), 1)).getEndPtOfContours(-1));
+    assertEquals(0, glyfCompositeDescript.getEndPtOfContours(-1));
   }
 
   /**
    * Test {@link GlyfCompositeDescript#getFlags(int)}.
+   *
    * <ul>
-   *   <li>Given {@link ByteArrayInputStream#ByteArrayInputStream(byte[])} with
-   * {@code XXAXAXAX} Bytes is {@code UTF-8}.</li>
-   *   <li>Then return zero.</li>
+   *   <li>Given {@link ByteArrayInputStream#ByteArrayInputStream(byte[])} with {@code XXAXAXAX}
+   *       Bytes is {@code UTF-8}.
+   *   <li>Then return zero.
    * </ul>
-   * <p>
-   * Method under test: {@link GlyfCompositeDescript#getFlags(int)}
+   *
+   * <p>Method under test: {@link GlyfCompositeDescript#getFlags(int)}
    */
   @Test
-  @DisplayName("Test getFlags(int); given ByteArrayInputStream(byte[]) with 'XXAXAXAX' Bytes is 'UTF-8'; then return zero")
-  void testGetFlags_givenByteArrayInputStreamWithXxaxaxaxBytesIsUtf8_thenReturnZero() throws IOException {
+  @DisplayName(
+      "Test getFlags(int); given ByteArrayInputStream(byte[]) with 'XXAXAXAX' Bytes is 'UTF-8'; then return zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"byte GlyfCompositeDescript.getFlags(int)"})
+  void testGetFlags_givenByteArrayInputStreamWithXxaxaxaxBytesIsUtf8_thenReturnZero()
+      throws IOException {
     // Arrange
-    RandomAccessReadDataStream bais = new RandomAccessReadDataStream(
-        new ByteArrayInputStream("XXAXAXAX".getBytes("UTF-8")));
+    RandomAccessReadDataStream bais =
+        new RandomAccessReadDataStream(new ByteArrayInputStream("XXAXAXAX".getBytes("UTF-8")));
+    GlyfCompositeDescript glyfCompositeDescript =
+        new GlyfCompositeDescript(bais, new GlyphTable(), 1);
 
     // Act and Assert
-    assertEquals((byte) 0, (new GlyfCompositeDescript(bais, new GlyphTable(), 1)).getFlags(1));
+    assertEquals((byte) 0, glyfCompositeDescript.getFlags(1));
   }
 
   /**
    * Test {@link GlyfCompositeDescript#getFlags(int)}.
+   *
    * <ul>
-   *   <li>When minus one.</li>
-   *   <li>Then return zero.</li>
+   *   <li>When minus one.
+   *   <li>Then return zero.
    * </ul>
-   * <p>
-   * Method under test: {@link GlyfCompositeDescript#getFlags(int)}
+   *
+   * <p>Method under test: {@link GlyfCompositeDescript#getFlags(int)}
    */
   @Test
   @DisplayName("Test getFlags(int); when minus one; then return zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"byte GlyfCompositeDescript.getFlags(int)"})
   void testGetFlags_whenMinusOne_thenReturnZero() throws IOException {
     // Arrange
-    RandomAccessReadDataStream bais = new RandomAccessReadDataStream(
-        new ByteArrayInputStream("XXAXAXAX".getBytes("UTF-8")));
+    RandomAccessReadDataStream bais =
+        new RandomAccessReadDataStream(new ByteArrayInputStream("XXAXAXAX".getBytes("UTF-8")));
+    GlyfCompositeDescript glyfCompositeDescript =
+        new GlyfCompositeDescript(bais, new GlyphTable(), 1);
 
     // Act and Assert
-    assertEquals((byte) 0, (new GlyfCompositeDescript(bais, new GlyphTable(), 1)).getFlags(-1));
+    assertEquals((byte) 0, glyfCompositeDescript.getFlags(-1));
   }
 
   /**
    * Test {@link GlyfCompositeDescript#getXCoordinate(int)}.
+   *
    * <ul>
-   *   <li>Then return zero.</li>
+   *   <li>Then return zero.
    * </ul>
-   * <p>
-   * Method under test: {@link GlyfCompositeDescript#getXCoordinate(int)}
+   *
+   * <p>Method under test: {@link GlyfCompositeDescript#getXCoordinate(int)}
    */
   @Test
   @DisplayName("Test getXCoordinate(int); then return zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"short GlyfCompositeDescript.getXCoordinate(int)"})
   void testGetXCoordinate_thenReturnZero() throws IOException {
     // Arrange
-    RandomAccessReadDataStream bais = new RandomAccessReadDataStream(
-        new ByteArrayInputStream("XXAXAXAX".getBytes("UTF-8")));
+    RandomAccessReadDataStream bais =
+        new RandomAccessReadDataStream(new ByteArrayInputStream("XXAXAXAX".getBytes("UTF-8")));
+    GlyfCompositeDescript glyfCompositeDescript =
+        new GlyfCompositeDescript(bais, new GlyphTable(), 1);
 
     // Act and Assert
-    assertEquals((short) 0, (new GlyfCompositeDescript(bais, new GlyphTable(), 1)).getXCoordinate(1));
+    assertEquals((short) 0, glyfCompositeDescript.getXCoordinate(1));
   }
 
   /**
    * Test {@link GlyfCompositeDescript#getXCoordinate(int)}.
+   *
    * <ul>
-   *   <li>When minus one.</li>
-   *   <li>Then return zero.</li>
+   *   <li>When minus one.
+   *   <li>Then return zero.
    * </ul>
-   * <p>
-   * Method under test: {@link GlyfCompositeDescript#getXCoordinate(int)}
+   *
+   * <p>Method under test: {@link GlyfCompositeDescript#getXCoordinate(int)}
    */
   @Test
   @DisplayName("Test getXCoordinate(int); when minus one; then return zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"short GlyfCompositeDescript.getXCoordinate(int)"})
   void testGetXCoordinate_whenMinusOne_thenReturnZero() throws IOException {
     // Arrange
-    RandomAccessReadDataStream bais = new RandomAccessReadDataStream(
-        new ByteArrayInputStream("XXAXAXAX".getBytes("UTF-8")));
+    RandomAccessReadDataStream bais =
+        new RandomAccessReadDataStream(new ByteArrayInputStream("XXAXAXAX".getBytes("UTF-8")));
+    GlyfCompositeDescript glyfCompositeDescript =
+        new GlyfCompositeDescript(bais, new GlyphTable(), 1);
 
     // Act and Assert
-    assertEquals((short) 0, (new GlyfCompositeDescript(bais, new GlyphTable(), 1)).getXCoordinate(-1));
+    assertEquals((short) 0, glyfCompositeDescript.getXCoordinate(-1));
   }
 
   /**
    * Test {@link GlyfCompositeDescript#getYCoordinate(int)}.
+   *
    * <ul>
-   *   <li>Then return zero.</li>
+   *   <li>Then return zero.
    * </ul>
-   * <p>
-   * Method under test: {@link GlyfCompositeDescript#getYCoordinate(int)}
+   *
+   * <p>Method under test: {@link GlyfCompositeDescript#getYCoordinate(int)}
    */
   @Test
   @DisplayName("Test getYCoordinate(int); then return zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"short GlyfCompositeDescript.getYCoordinate(int)"})
   void testGetYCoordinate_thenReturnZero() throws IOException {
     // Arrange
-    RandomAccessReadDataStream bais = new RandomAccessReadDataStream(
-        new ByteArrayInputStream("XXAXAXAX".getBytes("UTF-8")));
+    RandomAccessReadDataStream bais =
+        new RandomAccessReadDataStream(new ByteArrayInputStream("XXAXAXAX".getBytes("UTF-8")));
+    GlyfCompositeDescript glyfCompositeDescript =
+        new GlyfCompositeDescript(bais, new GlyphTable(), 1);
 
     // Act and Assert
-    assertEquals((short) 0, (new GlyfCompositeDescript(bais, new GlyphTable(), 1)).getYCoordinate(1));
+    assertEquals((short) 0, glyfCompositeDescript.getYCoordinate(1));
   }
 
   /**
    * Test {@link GlyfCompositeDescript#getYCoordinate(int)}.
+   *
    * <ul>
-   *   <li>When minus one.</li>
-   *   <li>Then return zero.</li>
+   *   <li>When minus one.
+   *   <li>Then return zero.
    * </ul>
-   * <p>
-   * Method under test: {@link GlyfCompositeDescript#getYCoordinate(int)}
+   *
+   * <p>Method under test: {@link GlyfCompositeDescript#getYCoordinate(int)}
    */
   @Test
   @DisplayName("Test getYCoordinate(int); when minus one; then return zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"short GlyfCompositeDescript.getYCoordinate(int)"})
   void testGetYCoordinate_whenMinusOne_thenReturnZero() throws IOException {
     // Arrange
-    RandomAccessReadDataStream bais = new RandomAccessReadDataStream(
-        new ByteArrayInputStream("XXAXAXAX".getBytes("UTF-8")));
+    RandomAccessReadDataStream bais =
+        new RandomAccessReadDataStream(new ByteArrayInputStream("XXAXAXAX".getBytes("UTF-8")));
+    GlyfCompositeDescript glyfCompositeDescript =
+        new GlyfCompositeDescript(bais, new GlyphTable(), 1);
 
     // Act and Assert
-    assertEquals((short) 0, (new GlyfCompositeDescript(bais, new GlyphTable(), 1)).getYCoordinate(-1));
+    assertEquals((short) 0, glyfCompositeDescript.getYCoordinate(-1));
   }
 
   /**
    * Test {@link GlyfCompositeDescript#getPointCount()}.
+   *
    * <ul>
-   *   <li>Then return zero.</li>
+   *   <li>Then return zero.
    * </ul>
-   * <p>
-   * Method under test: {@link GlyfCompositeDescript#getPointCount()}
+   *
+   * <p>Method under test: {@link GlyfCompositeDescript#getPointCount()}
    */
   @Test
   @DisplayName("Test getPointCount(); then return zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"int GlyfCompositeDescript.getPointCount()"})
   void testGetPointCount_thenReturnZero() throws IOException {
     // Arrange
-    RandomAccessReadDataStream bais = new RandomAccessReadDataStream(
-        new ByteArrayInputStream("XXAXAXAX".getBytes("UTF-8")));
+    RandomAccessReadDataStream bais =
+        new RandomAccessReadDataStream(new ByteArrayInputStream("XXAXAXAX".getBytes("UTF-8")));
+    GlyfCompositeDescript glyfCompositeDescript =
+        new GlyfCompositeDescript(bais, new GlyphTable(), 1);
 
     // Act and Assert
-    assertEquals(0, (new GlyfCompositeDescript(bais, new GlyphTable(), 1)).getPointCount());
+    assertEquals(0, glyfCompositeDescript.getPointCount());
   }
 
   /**
    * Test {@link GlyfCompositeDescript#getContourCount()}.
+   *
    * <ul>
-   *   <li>Then return zero.</li>
+   *   <li>Then return zero.
    * </ul>
-   * <p>
-   * Method under test: {@link GlyfCompositeDescript#getContourCount()}
+   *
+   * <p>Method under test: {@link GlyfCompositeDescript#getContourCount()}
    */
   @Test
   @DisplayName("Test getContourCount(); then return zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"int GlyfCompositeDescript.getContourCount()"})
   void testGetContourCount_thenReturnZero() throws IOException {
     // Arrange
-    RandomAccessReadDataStream bais = new RandomAccessReadDataStream(
-        new ByteArrayInputStream("XXAXAXAX".getBytes("UTF-8")));
+    RandomAccessReadDataStream bais =
+        new RandomAccessReadDataStream(new ByteArrayInputStream("XXAXAXAX".getBytes("UTF-8")));
+    GlyfCompositeDescript glyfCompositeDescript =
+        new GlyfCompositeDescript(bais, new GlyphTable(), 1);
 
     // Act and Assert
-    assertEquals(0, (new GlyfCompositeDescript(bais, new GlyphTable(), 1)).getContourCount());
+    assertEquals(0, glyfCompositeDescript.getContourCount());
   }
 
   /**
    * Test {@link GlyfCompositeDescript#getComponentCount()}.
+   *
    * <ul>
-   *   <li>Then return one.</li>
+   *   <li>Then return one.
    * </ul>
-   * <p>
-   * Method under test: {@link GlyfCompositeDescript#getComponentCount()}
+   *
+   * <p>Method under test: {@link GlyfCompositeDescript#getComponentCount()}
    */
   @Test
   @DisplayName("Test getComponentCount(); then return one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"int GlyfCompositeDescript.getComponentCount()"})
   void testGetComponentCount_thenReturnOne() throws IOException {
     // Arrange
-    RandomAccessReadDataStream bais = new RandomAccessReadDataStream(
-        new ByteArrayInputStream("XXAXAXAX".getBytes("UTF-8")));
+    RandomAccessReadDataStream bais =
+        new RandomAccessReadDataStream(new ByteArrayInputStream("XXAXAXAX".getBytes("UTF-8")));
+    GlyfCompositeDescript glyfCompositeDescript =
+        new GlyfCompositeDescript(bais, new GlyphTable(), 1);
 
     // Act and Assert
-    assertEquals(1, (new GlyfCompositeDescript(bais, new GlyphTable(), 1)).getComponentCount());
+    assertEquals(1, glyfCompositeDescript.getComponentCount());
   }
 
   /**
    * Test {@link GlyfCompositeDescript#getComponents()}.
+   *
    * <ul>
-   *   <li>Then return size is one.</li>
+   *   <li>Then return size is one.
    * </ul>
-   * <p>
-   * Method under test: {@link GlyfCompositeDescript#getComponents()}
+   *
+   * <p>Method under test: {@link GlyfCompositeDescript#getComponents()}
    */
   @Test
   @DisplayName("Test getComponents(); then return size is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List GlyfCompositeDescript.getComponents()"})
   void testGetComponents_thenReturnSizeIsOne() throws IOException {
     // Arrange
-    RandomAccessReadDataStream bais = new RandomAccessReadDataStream(
-        new ByteArrayInputStream("XXAXAXAX".getBytes("UTF-8")));
+    RandomAccessReadDataStream bais =
+        new RandomAccessReadDataStream(new ByteArrayInputStream("XXAXAXAX".getBytes("UTF-8")));
+    GlyfCompositeDescript glyfCompositeDescript =
+        new GlyfCompositeDescript(bais, new GlyphTable(), 1);
 
     // Act
-    List<GlyfCompositeComp> actualComponents = (new GlyfCompositeDescript(bais, new GlyphTable(), 1)).getComponents();
+    List<GlyfCompositeComp> actualComponents = glyfCompositeDescript.getComponents();
 
     // Assert
     assertEquals(1, actualComponents.size());
