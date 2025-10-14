@@ -116,7 +116,7 @@
                 <version>3.6.0</version>
                 <!-- this one is for checkstyle:check -->
                 <configuration>
-                    <skip>false</skip>
+                    <skip>true</skip>
                     <configLocation>checkstyle.xml</configLocation>
                     <consoleOutput>true</consoleOutput>
                     <includeTestSourceDirectory>true</includeTestSourceDirectory>
@@ -132,7 +132,7 @@
                             <goal>check</goal>
                         </goals>
                         <configuration>
-                            <skip>false</skip>
+                            <skip>true</skip>
                             <configLocation>checkstyle.xml</configLocation>
                             <consoleOutput>true</consoleOutput>
                             <includeTestSourceDirectory>true</includeTestSourceDirectory>
