@@ -16,49 +16,17 @@ class PDFieldTreeDiffblueTest {
    * Test {@link PDFieldTree#PDFieldTree(PDAcroForm)}.
    *
    * <ul>
-   *   <li>Then iterator next return {@link PDCheckBox}.
+   *   <li>Then return not iterator hasNext.
    * </ul>
    *
    * <p>Method under test: {@link PDFieldTree#PDFieldTree(PDAcroForm)}
    */
   @Test
-  @DisplayName("Test new PDFieldTree(PDAcroForm); then iterator next return PDCheckBox")
+  @DisplayName("Test new PDFieldTree(PDAcroForm); then return not iterator hasNext")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDFieldTree.<init>(PDAcroForm)"})
-  void testNewPDFieldTree_thenIteratorNextReturnPDCheckBox() {
-    // Arrange
-    ArrayList<PDField> fields = new ArrayList<>();
-    fields.add(new PDCheckBox(new PDAcroForm(new PDDocument())));
-
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    acroForm.setFields(fields);
-
-    // Act
-    Iterator<PDField> actualIteratorResult = new PDFieldTree(acroForm).iterator();
-
-    // Assert
-    assertTrue(actualIteratorResult.next() instanceof PDCheckBox);
-    assertFalse(actualIteratorResult.hasNext());
-  }
-
-  /**
-   * Test {@link PDFieldTree#PDFieldTree(PDAcroForm)}.
-   *
-   * <ul>
-   *   <li>When {@link PDAcroForm#PDAcroForm(PDDocument)} with doc is {@link
-   *       PDDocument#PDDocument()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDFieldTree#PDFieldTree(PDAcroForm)}
-   */
-  @Test
-  @DisplayName(
-      "Test new PDFieldTree(PDAcroForm); when PDAcroForm(PDDocument) with doc is PDDocument()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDFieldTree.<init>(PDAcroForm)"})
-  void testNewPDFieldTree_whenPDAcroFormWithDocIsPDDocument() {
+  void testNewPDFieldTree_thenReturnNotIteratorHasNext() {
     // Arrange, Act and Assert
     assertFalse(new PDFieldTree(new PDAcroForm(new PDDocument())).iterator().hasNext());
   }

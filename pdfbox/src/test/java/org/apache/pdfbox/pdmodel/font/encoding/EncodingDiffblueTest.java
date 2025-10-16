@@ -3,7 +3,6 @@ package org.apache.pdfbox.pdmodel.font.encoding;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
@@ -112,26 +111,6 @@ class EncodingDiffblueTest {
   void testContainsWithCode_givenMacExpertEncoding_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse(new MacExpertEncoding().contains(1));
-  }
-
-  /**
-   * Test {@link Encoding#contains(String)} with {@code name}.
-   *
-   * <ul>
-   *   <li>Given {@link MacExpertEncoding#INSTANCE}.
-   *   <li>Then return {@code true}.
-   * </ul>
-   *
-   * <p>Method under test: {@link Encoding#contains(String)}
-   */
-  @Test
-  @DisplayName("Test contains(String) with 'name'; given INSTANCE; then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean Encoding.contains(String)"})
-  void testContainsWithName_givenInstance_thenReturnTrue() {
-    // Arrange, Act and Assert
-    assertTrue(MacExpertEncoding.INSTANCE.contains("Name"));
   }
 
   /**

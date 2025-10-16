@@ -3800,50 +3800,6 @@ class FDFAnnotationDiffblueTest {
    * Test {@link FDFAnnotation#getStringOrStream(COSBase)}.
    *
    * <ul>
-   *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret()}.
-   *   <li>When {@link COSBoolean#FALSE}.
-   *   <li>Then return empty string.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotation#getStringOrStream(COSBase)}
-   */
-  @Test
-  @DisplayName(
-      "Test getStringOrStream(COSBase); given FDFAnnotationCaret(); when FALSE; then return empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String FDFAnnotation.getStringOrStream(COSBase)"})
-  void testGetStringOrStream_givenFDFAnnotationCaret_whenFalse_thenReturnEmptyString() {
-    // Arrange, Act and Assert
-    assertEquals("", new FDFAnnotationCaret().getStringOrStream(COSBoolean.FALSE));
-  }
-
-  /**
-   * Test {@link FDFAnnotation#getStringOrStream(COSBase)}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret()}.
-   *   <li>When {@code null}.
-   *   <li>Then return empty string.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotation#getStringOrStream(COSBase)}
-   */
-  @Test
-  @DisplayName(
-      "Test getStringOrStream(COSBase); given FDFAnnotationCaret(); when 'null'; then return empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String FDFAnnotation.getStringOrStream(COSBase)"})
-  void testGetStringOrStream_givenFDFAnnotationCaret_whenNull_thenReturnEmptyString() {
-    // Arrange, Act and Assert
-    assertEquals("", new FDFAnnotationCaret().getStringOrStream(null));
-  }
-
-  /**
-   * Test {@link FDFAnnotation#getStringOrStream(COSBase)}.
-   *
-   * <ul>
    *   <li>When {@link COSStream#COSStream()}.
    *   <li>Then return empty string.
    * </ul>
@@ -3861,6 +3817,46 @@ class FDFAnnotationDiffblueTest {
 
     // Act and Assert
     assertEquals("", fdfAnnotationCaret.getStringOrStream(new COSStream()));
+  }
+
+  /**
+   * Test {@link FDFAnnotation#getStringOrStream(COSBase)}.
+   *
+   * <ul>
+   *   <li>When {@link COSBoolean#FALSE}.
+   *   <li>Then return empty string.
+   * </ul>
+   *
+   * <p>Method under test: {@link FDFAnnotation#getStringOrStream(COSBase)}
+   */
+  @Test
+  @DisplayName("Test getStringOrStream(COSBase); when FALSE; then return empty string")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String FDFAnnotation.getStringOrStream(COSBase)"})
+  void testGetStringOrStream_whenFalse_thenReturnEmptyString() {
+    // Arrange, Act and Assert
+    assertEquals("", new FDFAnnotationCaret().getStringOrStream(COSBoolean.FALSE));
+  }
+
+  /**
+   * Test {@link FDFAnnotation#getStringOrStream(COSBase)}.
+   *
+   * <ul>
+   *   <li>When {@code null}.
+   *   <li>Then return empty string.
+   * </ul>
+   *
+   * <p>Method under test: {@link FDFAnnotation#getStringOrStream(COSBase)}
+   */
+  @Test
+  @DisplayName("Test getStringOrStream(COSBase); when 'null'; then return empty string")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String FDFAnnotation.getStringOrStream(COSBase)"})
+  void testGetStringOrStream_whenNull_thenReturnEmptyString() {
+    // Arrange, Act and Assert
+    assertEquals("", new FDFAnnotationCaret().getStringOrStream(null));
   }
 
   /**

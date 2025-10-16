@@ -1972,17 +1972,24 @@ class PageDrawerDiffblueTest {
   /**
    * Test {@link PageDrawer#showTransparencyGroupOnGraphics(PDTransparencyGroup, Graphics2D)}.
    *
+   * <ul>
+   *   <li>Given {@link PDFRenderer} {@link PDFRenderer#isGroupEnabled(PDOptionalContentGroup)}
+   *       return {@code false}.
+   * </ul>
+   *
    * <p>Method under test: {@link PageDrawer#showTransparencyGroupOnGraphics(PDTransparencyGroup,
    * Graphics2D)}
    */
   @Test
-  @DisplayName("Test showTransparencyGroupOnGraphics(PDTransparencyGroup, Graphics2D)")
+  @DisplayName(
+      "Test showTransparencyGroupOnGraphics(PDTransparencyGroup, Graphics2D); given PDFRenderer isGroupEnabled(PDOptionalContentGroup) return 'false'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({
     "void PageDrawer.showTransparencyGroupOnGraphics(PDTransparencyGroup, Graphics2D)"
   })
-  void testShowTransparencyGroupOnGraphics4() throws IOException {
+  void testShowTransparencyGroupOnGraphics_givenPDFRendererIsGroupEnabledReturnFalse()
+      throws IOException {
     // Arrange
     PDFRenderer renderer = mock(PDFRenderer.class);
     when(renderer.isGroupEnabled(Mockito.<PDOptionalContentGroup>any())).thenReturn(false);
@@ -1991,14 +1998,10 @@ class PageDrawerDiffblueTest {
             renderer, new PDPage(), true, RenderDestination.EXPORT, null, 10.0f);
 
     PageDrawer pageDrawer = new PageDrawer(parameters);
-    pageDrawer.clip(1);
     pageDrawer.processPage(new PDPage());
 
-    PDOptionalContentGroup pdOptionalContentGroup = mock(PDOptionalContentGroup.class);
-    when(pdOptionalContentGroup.getRenderState(Mockito.<RenderDestination>any())).thenReturn(null);
-
     PDTransparencyGroup form = mock(PDTransparencyGroup.class);
-    when(form.getOptionalContent()).thenReturn(pdOptionalContentGroup);
+    when(form.getOptionalContent()).thenReturn(new PDOptionalContentGroup("Name"));
 
     PDResources pdResources = mock(PDResources.class);
     when(pdResources.add(Mockito.<PDXObject>any(), Mockito.<String>any())).thenReturn(COSName.A);
@@ -2011,7 +2014,6 @@ class PageDrawerDiffblueTest {
     // Assert
     verify(pdResources).add(isA(PDXObject.class), eq("Prefix"));
     verify(form).getOptionalContent();
-    verify(pdOptionalContentGroup).getRenderState(RenderDestination.EXPORT);
     verify(renderer).isGroupEnabled(isA(PDOptionalContentGroup.class));
   }
 
@@ -2074,53 +2076,6 @@ class PageDrawerDiffblueTest {
     verify(form).getOptionalContent();
     verify(renderer).isGroupEnabled(isA(PDOptionalContentGroup.class));
     verify(matrix).multiply(isA(Matrix.class));
-  }
-
-  /**
-   * Test {@link PageDrawer#showTransparencyGroupOnGraphics(PDTransparencyGroup, Graphics2D)}.
-   *
-   * <ul>
-   *   <li>Given {@link PDOptionalContentGroup#PDOptionalContentGroup(String)} with {@code Name}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PageDrawer#showTransparencyGroupOnGraphics(PDTransparencyGroup,
-   * Graphics2D)}
-   */
-  @Test
-  @DisplayName(
-      "Test showTransparencyGroupOnGraphics(PDTransparencyGroup, Graphics2D); given PDOptionalContentGroup(String) with 'Name'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PageDrawer.showTransparencyGroupOnGraphics(PDTransparencyGroup, Graphics2D)"
-  })
-  void testShowTransparencyGroupOnGraphics_givenPDOptionalContentGroupWithName()
-      throws IOException {
-    // Arrange
-    PDFRenderer renderer = mock(PDFRenderer.class);
-    when(renderer.isGroupEnabled(Mockito.<PDOptionalContentGroup>any())).thenReturn(false);
-    PageDrawerParameters parameters =
-        new PageDrawerParameters(
-            renderer, new PDPage(), true, RenderDestination.EXPORT, null, 10.0f);
-
-    PageDrawer pageDrawer = new PageDrawer(parameters);
-    pageDrawer.processPage(new PDPage());
-
-    PDTransparencyGroup form = mock(PDTransparencyGroup.class);
-    when(form.getOptionalContent()).thenReturn(new PDOptionalContentGroup("Name"));
-
-    PDResources pdResources = mock(PDResources.class);
-    when(pdResources.add(Mockito.<PDXObject>any(), Mockito.<String>any())).thenReturn(COSName.A);
-    pdResources.add(mock(PDXObject.class), "Prefix");
-    GroupGraphics graphics = new GroupGraphics(new BufferedImage(1, 1, 1), null);
-
-    // Act
-    pageDrawer.showTransparencyGroupOnGraphics(form, graphics);
-
-    // Assert
-    verify(pdResources).add(isA(PDXObject.class), eq("Prefix"));
-    verify(form).getOptionalContent();
-    verify(renderer).isGroupEnabled(isA(PDOptionalContentGroup.class));
   }
 
   /**

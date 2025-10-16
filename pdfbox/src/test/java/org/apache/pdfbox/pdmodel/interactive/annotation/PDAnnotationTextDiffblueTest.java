@@ -220,24 +220,21 @@ class PDAnnotationTextDiffblueTest {
    * Test {@link PDAnnotationText#getOpen()}.
    *
    * <ul>
-   *   <li>Given {@link PDAnnotationText#PDAnnotationText()} CustomAppearanceHandler is {@code
-   *       null}.
+   *   <li>Given {@link PDAnnotationText#PDAnnotationText(COSDictionary)} with field is {@link
+   *       COSDictionary#COSDictionary()}.
    * </ul>
    *
    * <p>Method under test: {@link PDAnnotationText#getOpen()}
    */
   @Test
-  @DisplayName("Test getOpen(); given PDAnnotationText() CustomAppearanceHandler is 'null'")
+  @DisplayName(
+      "Test getOpen(); given PDAnnotationText(COSDictionary) with field is COSDictionary()")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"boolean PDAnnotationText.getOpen()"})
-  void testGetOpen_givenPDAnnotationTextCustomAppearanceHandlerIsNull() {
-    // Arrange
-    PDAnnotationText pdAnnotationText = new PDAnnotationText();
-    pdAnnotationText.setCustomAppearanceHandler(null);
-
-    // Act and Assert
-    assertFalse(pdAnnotationText.getOpen());
+  void testGetOpen_givenPDAnnotationTextWithFieldIsCOSDictionary() {
+    // Arrange, Act and Assert
+    assertFalse(new PDAnnotationText(new COSDictionary()).getOpen());
   }
 
   /**

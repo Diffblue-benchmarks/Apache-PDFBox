@@ -26,6 +26,37 @@ class ASCIIHexFilterDiffblueTest {
    * Test {@link ASCIIHexFilter#decode(InputStream, OutputStream, COSDictionary, int)} with {@code
    * encoded}, {@code decoded}, {@code parameters}, {@code index}.
    *
+   * <p>Method under test: {@link ASCIIHexFilter#decode(InputStream, OutputStream, COSDictionary,
+   * int)}
+   */
+  @Test
+  @DisplayName(
+      "Test decode(InputStream, OutputStream, COSDictionary, int) with 'encoded', 'decoded', 'parameters', 'index'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "DecodeResult ASCIIHexFilter.decode(InputStream, OutputStream, COSDictionary, int)"
+  })
+  void testDecodeWithEncodedDecodedParametersIndex() throws IOException {
+    // Arrange
+    ASCIIHexFilter asciiHexFilter = new ASCIIHexFilter();
+    ByteArrayInputStream encoded = new ByteArrayInputStream(new byte[] {});
+    ByteArrayOutputStream decoded = new ByteArrayOutputStream();
+    COSDictionary parameters = new COSDictionary();
+
+    // Act
+    DecodeResult actualDecodeResult = asciiHexFilter.decode(encoded, decoded, parameters, 1);
+
+    // Assert
+    assertNull(actualDecodeResult.getJPXSMask());
+    assertNull(actualDecodeResult.getJPXColorSpace());
+    assertSame(parameters, actualDecodeResult.getParameters());
+  }
+
+  /**
+   * Test {@link ASCIIHexFilter#decode(InputStream, OutputStream, COSDictionary, int)} with {@code
+   * encoded}, {@code decoded}, {@code parameters}, {@code index}.
+   *
    * <ul>
    *   <li>Then return JPXSMask is {@code null}.
    * </ul>

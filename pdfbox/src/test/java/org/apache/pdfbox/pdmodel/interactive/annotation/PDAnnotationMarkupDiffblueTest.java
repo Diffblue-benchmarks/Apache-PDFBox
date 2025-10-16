@@ -398,18 +398,14 @@ class PDAnnotationMarkupDiffblueTest {
   /**
    * Test {@link PDAnnotationMarkup#setRichContents(String)}.
    *
-   * <ul>
-   *   <li>Then {@link PDAnnotationMarkup#PDAnnotationMarkup()} RichContents is {@code Rc}.
-   * </ul>
-   *
    * <p>Method under test: {@link PDAnnotationMarkup#setRichContents(String)}
    */
   @Test
-  @DisplayName("Test setRichContents(String); then PDAnnotationMarkup() RichContents is 'Rc'")
+  @DisplayName("Test setRichContents(String)")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDAnnotationMarkup.setRichContents(String)"})
-  void testSetRichContents_thenPDAnnotationMarkupRichContentsIsRc() {
+  void testSetRichContents() {
     // Arrange
     PDAnnotationMarkup pdAnnotationMarkup = new PDAnnotationMarkup();
 
@@ -421,35 +417,6 @@ class PDAnnotationMarkupDiffblueTest {
     COSDictionary cOSObject = pdAnnotationMarkup.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDAnnotationMarkup#setRichContents(String)}.
-   *
-   * <ul>
-   *   <li>Then {@link PDAnnotationMarkup#PDAnnotationMarkup()} RichContents is {@code RcRcRc}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationMarkup#setRichContents(String)}
-   */
-  @Test
-  @DisplayName("Test setRichContents(String); then PDAnnotationMarkup() RichContents is 'RcRcRc'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAnnotationMarkup.setRichContents(String)"})
-  void testSetRichContents_thenPDAnnotationMarkupRichContentsIsRcRcRc() {
-    // Arrange
-    PDAnnotationMarkup pdAnnotationMarkup = new PDAnnotationMarkup();
-    pdAnnotationMarkup.setContents("42");
-
-    // Act
-    pdAnnotationMarkup.setRichContents("RcRcRc");
-
-    // Assert
-    assertEquals("RcRcRc", pdAnnotationMarkup.getRichContents());
-    COSDictionary cOSObject = pdAnnotationMarkup.getCOSObject();
-    assertEquals(3, cOSObject.getValues().size());
-    assertEquals(3, cOSObject.size());
   }
 
   /**

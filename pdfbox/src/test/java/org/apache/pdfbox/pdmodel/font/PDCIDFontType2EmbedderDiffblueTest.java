@@ -203,6 +203,129 @@ class PDCIDFontType2EmbedderDiffblueTest {
     COSDictionary dict = new COSDictionary();
 
     OS2WindowsMetricsTable os2WindowsMetricsTable = mock(OS2WindowsMetricsTable.class);
+    when(os2WindowsMetricsTable.getFamilyClass()).thenReturn(1);
+    when(os2WindowsMetricsTable.getFsSelection()).thenReturn(1);
+    when(os2WindowsMetricsTable.getVersion()).thenReturn(1);
+    when(os2WindowsMetricsTable.getWeightClass()).thenReturn(3);
+    when(os2WindowsMetricsTable.getFsType()).thenReturn((short) 1);
+
+    PostScriptTable postScriptTable = mock(PostScriptTable.class);
+    when(postScriptTable.getItalicAngle()).thenReturn(10.0f);
+    when(postScriptTable.getIsFixedPitch()).thenReturn(1L);
+
+    HorizontalHeaderTable horizontalHeaderTable = mock(HorizontalHeaderTable.class);
+    when(horizontalHeaderTable.getAscender()).thenReturn((short) 1);
+    when(horizontalHeaderTable.getDescender()).thenReturn((short) 1);
+
+    HeaderTable headerTable = mock(HeaderTable.class);
+    when(headerTable.getUnitsPerEm()).thenReturn(1);
+    when(headerTable.getXMax()).thenReturn((short) 1);
+    when(headerTable.getXMin()).thenReturn((short) 1);
+    when(headerTable.getYMax()).thenReturn((short) 1);
+    when(headerTable.getYMin()).thenReturn((short) 1);
+
+    HorizontalMetricsTable horizontalMetricsTable = mock(HorizontalMetricsTable.class);
+    when(horizontalMetricsTable.getAdvanceWidth(anyInt())).thenReturn(1);
+
+    VerticalHeaderTable verticalHeaderTable = mock(VerticalHeaderTable.class);
+    when(verticalHeaderTable.getAdvanceHeightMax()).thenReturn(0);
+    when(verticalHeaderTable.getAscender()).thenReturn((short) 1);
+
+    GlyphTable glyphTable = mock(GlyphTable.class);
+    when(glyphTable.getGlyph(anyInt())).thenReturn(new GlyphData());
+
+    VerticalMetricsTable verticalMetricsTable = mock(VerticalMetricsTable.class);
+    when(verticalMetricsTable.getAdvanceHeight(anyInt())).thenReturn(1);
+    when(verticalMetricsTable.getTopSideBearing(anyInt())).thenReturn(1);
+
+    TrueTypeFont ttf = mock(TrueTypeFont.class);
+    when(ttf.getGlyph()).thenReturn(glyphTable);
+    when(ttf.getVerticalMetrics()).thenReturn(verticalMetricsTable);
+    when(ttf.getVerticalHeader()).thenReturn(verticalHeaderTable);
+    when(ttf.getNumberOfGlyphs()).thenReturn(PDPanoseClassification.LENGTH);
+    when(ttf.getPath(Mockito.<String>any()))
+        .thenReturn(Standard14Fonts.getGlyphPath(FontName.TIMES_ROMAN, "Glyph Name"));
+    when(ttf.getUnicodeCmapLookup()).thenReturn(new CmapSubtable());
+    when(ttf.getHorizontalMetrics()).thenReturn(horizontalMetricsTable);
+    when(ttf.getHeader()).thenReturn(headerTable);
+    when(ttf.getHorizontalHeader()).thenReturn(horizontalHeaderTable);
+    when(ttf.getPostScript()).thenReturn(postScriptTable);
+    when(ttf.getName()).thenReturn(null);
+    when(ttf.getOS2Windows()).thenReturn(os2WindowsMetricsTable);
+
+    // Act
+    PDCIDFontType2Embedder actualPdcidFontType2Embedder =
+        new PDCIDFontType2Embedder(document, dict, ttf, true, null, true);
+
+    // Assert
+    verify(glyphTable, atLeast(1)).getGlyph(anyInt());
+    verify(headerTable, atLeast(1)).getUnitsPerEm();
+    verify(headerTable).getXMax();
+    verify(headerTable).getXMin();
+    verify(headerTable).getYMax();
+    verify(headerTable).getYMin();
+    verify(horizontalHeaderTable).getAscender();
+    verify(horizontalHeaderTable).getDescender();
+    verify(horizontalMetricsTable, atLeast(1)).getAdvanceWidth(anyInt());
+    verify(os2WindowsMetricsTable).getFamilyClass();
+    verify(os2WindowsMetricsTable).getFsSelection();
+    verify(os2WindowsMetricsTable).getFsType();
+    verify(os2WindowsMetricsTable).getVersion();
+    verify(os2WindowsMetricsTable).getWeightClass();
+    verify(postScriptTable).getIsFixedPitch();
+    verify(postScriptTable).getItalicAngle();
+    verify(ttf).getGlyph();
+    verify(ttf, atLeast(1)).getHeader();
+    verify(ttf).getHorizontalHeader();
+    verify(ttf, atLeast(1)).getHorizontalMetrics();
+    verify(ttf, atLeast(1)).getName();
+    verify(ttf, atLeast(1)).getNumberOfGlyphs();
+    verify(ttf, atLeast(1)).getOS2Windows();
+    verify(ttf, atLeast(1)).getPath(Mockito.<String>any());
+    verify(ttf).getPostScript();
+    verify(ttf).getUnicodeCmapLookup();
+    verify(ttf).getVerticalHeader();
+    verify(ttf).getVerticalMetrics();
+    verify(verticalHeaderTable).getAdvanceHeightMax();
+    verify(verticalHeaderTable).getAscender();
+    verify(verticalMetricsTable, atLeast(1)).getAdvanceHeight(anyInt());
+    verify(verticalMetricsTable, atLeast(1)).getTopSideBearing(anyInt());
+    PDCIDFont cIDFont = actualPdcidFontType2Embedder.getCIDFont();
+    assertTrue(cIDFont instanceof PDCIDFontType2);
+    PDFontDescriptor fontDescriptor = cIDFont.getFontDescriptor();
+    assertEquals(0.0f, fontDescriptor.getCapHeight());
+    PDFontDescriptor fontDescriptor2 = actualPdcidFontType2Embedder.getFontDescriptor();
+    assertEquals(0.0f, fontDescriptor2.getCapHeight());
+    assertEquals(0.0f, fontDescriptor.getXHeight());
+    assertEquals(0.0f, fontDescriptor2.getXHeight());
+    float[][] values = cIDFont.getFontMatrix().getValues();
+    assertEquals(3, values.length);
+    assertArrayEquals(new float[] {0.001f, 0.0f, 0.0f}, values[0], 0.0f);
+    assertArrayEquals(new float[] {0.0f, 0.001f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+  }
+
+  /**
+   * Test {@link PDCIDFontType2Embedder#PDCIDFontType2Embedder(PDDocument, COSDictionary,
+   * TrueTypeFont, boolean, PDType0Font, boolean)}.
+   *
+   * <p>Method under test: {@link PDCIDFontType2Embedder#PDCIDFontType2Embedder(PDDocument,
+   * COSDictionary, TrueTypeFont, boolean, PDType0Font, boolean)}
+   */
+  @Test
+  @DisplayName(
+      "Test new PDCIDFontType2Embedder(PDDocument, COSDictionary, TrueTypeFont, boolean, PDType0Font, boolean)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void PDCIDFontType2Embedder.<init>(PDDocument, COSDictionary, TrueTypeFont, boolean, PDType0Font, boolean)"
+  })
+  void testNewPDCIDFontType2Embedder6() throws IOException {
+    // Arrange
+    PDDocument document = new PDDocument();
+    COSDictionary dict = new COSDictionary();
+
+    OS2WindowsMetricsTable os2WindowsMetricsTable = mock(OS2WindowsMetricsTable.class);
     when(os2WindowsMetricsTable.getTypoAscender()).thenThrow(new IllegalArgumentException());
     when(os2WindowsMetricsTable.getFamilyClass()).thenReturn(1);
     when(os2WindowsMetricsTable.getFsSelection()).thenReturn(1);
@@ -273,7 +396,7 @@ class PDCIDFontType2EmbedderDiffblueTest {
   @MethodsUnderTest({
     "void PDCIDFontType2Embedder.<init>(PDDocument, COSDictionary, TrueTypeFont, boolean, PDType0Font, boolean)"
   })
-  void testNewPDCIDFontType2Embedder6() throws IOException {
+  void testNewPDCIDFontType2Embedder7() throws IOException {
     // Arrange
     PDDocument document = new PDDocument();
     COSDictionary dict = new COSDictionary();

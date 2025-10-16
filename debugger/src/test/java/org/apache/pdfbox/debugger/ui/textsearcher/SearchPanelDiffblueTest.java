@@ -21,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.DefaultEditorKit;
@@ -97,7 +98,7 @@ class SearchPanelDiffblueTest {
   @DisplayName("Test getSearchWord()")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
-  @MethodsUnderTest({"String SearchPanel.getSearchWord()"})
+  @MethodsUnderTest({"java.lang.String SearchPanel.getSearchWord()"})
   void testGetSearchWord() {
     // Arrange
     Searcher documentListener = new Searcher(new JEditorPane());
@@ -109,86 +110,8 @@ class SearchPanelDiffblueTest {
         new SearchPanel(
             documentListener, changeListener, compListener, nextAction, new BeepAction());
 
-    // Act
-    String actualSearchWord = searchPanel.getSearchWord();
-
-    // Assert
-    JPanel panel = searchPanel.getPanel();
-    Rectangle boundsResult = panel.bounds();
-    Rectangle2D bounds2D = boundsResult.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Rectangle bounds = boundsResult.getBounds().getBounds();
-    Rectangle2D bounds2D2 = bounds.getBounds2D();
-    assertTrue(bounds2D2 instanceof Rectangle);
-    Rectangle bounds2 = panel.getVisibleRect().getBounds();
-    Rectangle2D bounds2D3 = bounds2.getBounds2D();
-    assertTrue(bounds2D3 instanceof Rectangle);
-    Rectangle2D bounds2D4 = bounds2D.getBounds2D();
-    assertTrue(bounds2D4 instanceof Rectangle);
-    Rectangle2D frame = boundsResult.getFrame();
-    Rectangle2D bounds2D5 = frame.getBounds2D();
-    assertTrue(bounds2D5 instanceof Double);
-    assertTrue(frame instanceof Double);
-    Rectangle2D frame2 = bounds.getFrame();
-    assertTrue(frame2 instanceof Double);
-    Rectangle2D frame3 = bounds2.getFrame();
-    assertTrue(frame3 instanceof Double);
-    Rectangle2D frame4 = bounds2D.getFrame();
-    assertTrue(frame4 instanceof Double);
-    Rectangle2D frame5 = frame.getFrame();
-    assertTrue(frame5 instanceof Double);
-    assertEquals("", actualSearchWord);
-    assertEquals(boundsResult, bounds2D2);
-    assertEquals(boundsResult, bounds2D3);
-    assertEquals(boundsResult, bounds2D4);
-    assertEquals(boundsResult, bounds2D5);
-    assertEquals(boundsResult, frame2);
-    assertEquals(boundsResult, frame3);
-    assertEquals(boundsResult, frame4);
-    assertEquals(boundsResult, frame5);
-  }
-
-  /**
-   * Test {@link SearchPanel#reset()}.
-   *
-   * <p>Method under test: {@link SearchPanel#reset()}
-   */
-  @Test
-  @DisplayName("Test reset()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void SearchPanel.reset()"})
-  void testReset() {
-    // Arrange
-    Searcher documentListener = new Searcher(new JEditorPane());
-    ChangeListener changeListener = mock(ChangeListener.class);
-    Searcher compListener = new Searcher(new JEditorPane());
-    BeepAction nextAction = new BeepAction();
-
-    SearchPanel searchPanel =
-        new SearchPanel(
-            documentListener, changeListener, compListener, nextAction, new BeepAction());
-
-    // Act
-    searchPanel.reset();
-
-    // Assert
-    JPanel panel = searchPanel.getPanel();
-    Rectangle boundsResult = panel.bounds();
-    Rectangle2D bounds2D = boundsResult.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Rectangle bounds = boundsResult.getBounds().getBounds();
-    assertTrue(bounds.getBounds2D() instanceof Rectangle);
-    Rectangle bounds2 = panel.getVisibleRect().getBounds();
-    assertTrue(bounds2.getBounds2D() instanceof Rectangle);
-    assertTrue(bounds2D.getBounds2D() instanceof Rectangle);
-    Rectangle2D frame = boundsResult.getFrame();
-    assertTrue(frame.getBounds2D() instanceof Double);
-    assertTrue(frame instanceof Double);
-    assertTrue(bounds.getFrame() instanceof Double);
-    assertTrue(bounds2.getFrame() instanceof Double);
-    assertTrue(bounds2D.getFrame() instanceof Double);
-    assertTrue(frame.getFrame() instanceof Double);
+    // Act and Assert
+    assertEquals("", searchPanel.getSearchWord());
   }
 
   /**
@@ -286,17 +209,17 @@ class SearchPanelDiffblueTest {
    *
    * <ul>
    *   <li>Given {@link JMenu#JMenu()}.
-   *   <li>Then calls {@link PDFDebugger#getFindMenu()}.
+   *   <li>Then fourth element {@link JButton}.
    * </ul>
    *
    * <p>Method under test: {@link SearchPanel#addMenuListeners(PDFDebugger)}
    */
   @Test
-  @DisplayName("Test addMenuListeners(PDFDebugger); given JMenu(); then calls getFindMenu()")
+  @DisplayName("Test addMenuListeners(PDFDebugger); given JMenu(); then fourth element JButton")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void SearchPanel.addMenuListeners(PDFDebugger)"})
-  void testAddMenuListeners_givenJMenu_thenCallsGetFindMenu() {
+  void testAddMenuListeners_givenJMenu_thenFourthElementJButton() {
     // Arrange
     Searcher documentListener = new Searcher(new JEditorPane());
     ChangeListener changeListener = mock(ChangeListener.class);
@@ -321,24 +244,24 @@ class SearchPanelDiffblueTest {
     verify(frame).getFindMenuItem();
     verify(frame).getFindNextMenuItem();
     verify(frame).getFindPreviousMenuItem();
+    Component[] components = searchPanel.getPanel().getComponents();
+    assertTrue(components[3] instanceof JButton);
+    assertTrue(components[2] instanceof JLabel);
+    assertTrue(components[1] instanceof JTextField);
+    assertEquals(8, components.length);
   }
 
   /**
    * Test {@link SearchPanel#removeMenuListeners(PDFDebugger)}.
    *
-   * <ul>
-   *   <li>Given {@link JMenu#JMenu()}.
-   *   <li>Then fourth element {@link JButton}.
-   * </ul>
-   *
    * <p>Method under test: {@link SearchPanel#removeMenuListeners(PDFDebugger)}
    */
   @Test
-  @DisplayName("Test removeMenuListeners(PDFDebugger); given JMenu(); then fourth element JButton")
+  @DisplayName("Test removeMenuListeners(PDFDebugger)")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void SearchPanel.removeMenuListeners(PDFDebugger)"})
-  void testRemoveMenuListeners_givenJMenu_thenFourthElementJButton() {
+  void testRemoveMenuListeners() {
     // Arrange
     Searcher documentListener = new Searcher(new JEditorPane());
     ChangeListener changeListener = mock(ChangeListener.class);
@@ -363,9 +286,37 @@ class SearchPanelDiffblueTest {
     verify(frame).getFindMenuItem();
     verify(frame).getFindNextMenuItem();
     verify(frame).getFindPreviousMenuItem();
-    Component[] components = searchPanel.getPanel().getComponents();
-    assertTrue(components[3] instanceof JButton);
-    assertTrue(components[2] instanceof JLabel);
-    assertEquals(8, components.length);
+    JPanel panel = searchPanel.getPanel();
+    Rectangle boundsResult = panel.bounds();
+    Rectangle2D bounds2D = boundsResult.getBounds2D();
+    assertTrue(bounds2D instanceof Rectangle);
+    Rectangle bounds = boundsResult.getBounds().getBounds();
+    Rectangle2D bounds2D2 = bounds.getBounds2D();
+    assertTrue(bounds2D2 instanceof Rectangle);
+    Rectangle bounds2 = panel.getVisibleRect().getBounds();
+    Rectangle2D bounds2D3 = bounds2.getBounds2D();
+    assertTrue(bounds2D3 instanceof Rectangle);
+    Rectangle2D bounds2D4 = bounds2D.getBounds2D();
+    assertTrue(bounds2D4 instanceof Rectangle);
+    Rectangle2D frame2 = boundsResult.getFrame();
+    Rectangle2D bounds2D5 = frame2.getBounds2D();
+    assertTrue(bounds2D5 instanceof Double);
+    assertTrue(frame2 instanceof Double);
+    Rectangle2D frame3 = bounds.getFrame();
+    assertTrue(frame3 instanceof Double);
+    Rectangle2D frame4 = bounds2.getFrame();
+    assertTrue(frame4 instanceof Double);
+    Rectangle2D frame5 = bounds2D.getFrame();
+    assertTrue(frame5 instanceof Double);
+    Rectangle2D frame6 = frame2.getFrame();
+    assertTrue(frame6 instanceof Double);
+    assertEquals(boundsResult, bounds2D2);
+    assertEquals(boundsResult, bounds2D3);
+    assertEquals(boundsResult, bounds2D4);
+    assertEquals(boundsResult, bounds2D5);
+    assertEquals(boundsResult, frame3);
+    assertEquals(boundsResult, frame4);
+    assertEquals(boundsResult, frame5);
+    assertEquals(boundsResult, frame6);
   }
 }

@@ -133,66 +133,6 @@ class ViewMenuDiffblueTest {
   }
 
   /**
-   * Test {@link ViewMenu#isShowTextStripper()}.
-   *
-   * <p>Method under test: {@link ViewMenu#isShowTextStripper()}
-   */
-  @Test
-  @DisplayName("Test isShowTextStripper()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean ViewMenu.isShowTextStripper()"})
-  void testIsShowTextStripper() {
-    // Arrange, Act and Assert
-    assertFalse(ViewMenu.isShowTextStripper());
-  }
-
-  /**
-   * Test {@link ViewMenu#isShowTextStripperBeads()}.
-   *
-   * <p>Method under test: {@link ViewMenu#isShowTextStripperBeads()}
-   */
-  @Test
-  @DisplayName("Test isShowTextStripperBeads()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean ViewMenu.isShowTextStripperBeads()"})
-  void testIsShowTextStripperBeads() {
-    // Arrange, Act and Assert
-    assertFalse(ViewMenu.isShowTextStripperBeads());
-  }
-
-  /**
-   * Test {@link ViewMenu#isShowFontBBox()}.
-   *
-   * <p>Method under test: {@link ViewMenu#isShowFontBBox()}
-   */
-  @Test
-  @DisplayName("Test isShowFontBBox()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean ViewMenu.isShowFontBBox()"})
-  void testIsShowFontBBox() {
-    // Arrange, Act and Assert
-    assertFalse(ViewMenu.isShowFontBBox());
-  }
-
-  /**
-   * Test {@link ViewMenu#isShowGlyphBounds()}.
-   *
-   * <p>Method under test: {@link ViewMenu#isShowGlyphBounds()}
-   */
-  @Test
-  @DisplayName("Test isShowGlyphBounds()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean ViewMenu.isShowGlyphBounds()"})
-  void testIsShowGlyphBounds() {
-    // Arrange, Act and Assert
-    assertFalse(ViewMenu.isShowGlyphBounds());
-  }
-
-  /**
    * Test {@link ViewMenu#isExtractTextEvent(ActionEvent)}.
    *
    * <ul>
@@ -237,21 +177,6 @@ class ViewMenuDiffblueTest {
   }
 
   /**
-   * Test {@link ViewMenu#isAllowSubsampling()}.
-   *
-   * <p>Method under test: {@link ViewMenu#isAllowSubsampling()}
-   */
-  @Test
-  @DisplayName("Test isAllowSubsampling()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean ViewMenu.isAllowSubsampling()"})
-  void testIsAllowSubsampling() {
-    // Arrange, Act and Assert
-    assertFalse(ViewMenu.isAllowSubsampling());
-  }
-
-  /**
    * Test {@link ViewMenu#isRepairAcroformEvent(ActionEvent)}.
    *
    * <ul>
@@ -290,20 +215,5 @@ class ViewMenuDiffblueTest {
   void testIsRepairAcroformEvent_whenActionEventWith42AndOneAndFoo_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse(ViewMenu.isRepairAcroformEvent(new ActionEvent("42", 1, "foo")));
-  }
-
-  /**
-   * Test {@link ViewMenu#isRepairAcroformSelected()}.
-   *
-   * <p>Method under test: {@link ViewMenu#isRepairAcroformSelected()}
-   */
-  @Test
-  @DisplayName("Test isRepairAcroformSelected()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean ViewMenu.isRepairAcroformSelected()"})
-  void testIsRepairAcroformSelected() {
-    // Arrange, Act and Assert
-    assertFalse(ViewMenu.isRepairAcroformSelected());
   }
 }

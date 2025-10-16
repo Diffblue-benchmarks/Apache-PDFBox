@@ -10,6 +10,9 @@ import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.RenderingHints;
 import java.awt.print.PageFormat;
 import java.awt.print.Paper;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import org.apache.pdfbox.pdfwriter.compress.CompressParameters;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.junit.jupiter.api.DisplayName;
@@ -17,6 +20,34 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDFPageableDiffblueTest {
+  /**
+   * Test {@link PDFPageable#PDFPageable(PDDocument)}.
+   *
+   * <ul>
+   *   <li>Given {@link ByteArrayOutputStream#ByteArrayOutputStream()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDFPageable#PDFPageable(PDDocument)}
+   */
+  @Test
+  @DisplayName("Test new PDFPageable(PDDocument); given ByteArrayOutputStream()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDFPageable.<init>(PDDocument)"})
+  void testNewPDFPageable_givenByteArrayOutputStream() throws IOException {
+    // Arrange
+    PDDocument document = new PDDocument();
+    document.save(new ByteArrayOutputStream(), CompressParameters.DEFAULT_COMPRESSION);
+
+    // Act
+    PDFPageable actualPdfPageable = new PDFPageable(document);
+
+    // Assert
+    assertNull(actualPdfPageable.getRenderingHints());
+    assertEquals(0, actualPdfPageable.getNumberOfPages());
+    assertFalse(actualPdfPageable.isSubsamplingAllowed());
+  }
+
   /**
    * Test {@link PDFPageable#PDFPageable(PDDocument)}.
    *

@@ -231,62 +231,6 @@ class FDFNamedPageReferenceDiffblueTest {
   /**
    * Test {@link FDFNamedPageReference#getFileSpecification()}.
    *
-   * <p>Method under test: {@link FDFNamedPageReference#getFileSpecification()}
-   */
-  @Test
-  @DisplayName("Test getFileSpecification()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDFileSpecification FDFNamedPageReference.getFileSpecification()"})
-  void testGetFileSpecification() throws IOException {
-    // Arrange
-    COSDictionary dict = new COSDictionary();
-    COSObjectKey key = new COSObjectKey(1L, 1);
-    dict.setKey(key);
-    PDComplexFileSpecification fs = new PDComplexFileSpecification(dict);
-
-    FDFNamedPageReference fdfNamedPageReference = new FDFNamedPageReference();
-    fdfNamedPageReference.setFileSpecification(fs);
-
-    // Act
-    PDFileSpecification actualFileSpecification = fdfNamedPageReference.getFileSpecification();
-
-    // Assert
-    assertTrue(actualFileSpecification instanceof PDComplexFileSpecification);
-    assertSame(key, actualFileSpecification.getCOSObject().getKey());
-  }
-
-  /**
-   * Test {@link FDFNamedPageReference#getFileSpecification()}.
-   *
-   * <p>Method under test: {@link FDFNamedPageReference#getFileSpecification()}
-   */
-  @Test
-  @DisplayName("Test getFileSpecification()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDFileSpecification FDFNamedPageReference.getFileSpecification()"})
-  void testGetFileSpecification2() throws IOException {
-    // Arrange
-    COSDictionary dict = new COSDictionary();
-    COSObjectKey key = new COSObjectKey(0L, 1, 1);
-    dict.setKey(key);
-    PDComplexFileSpecification fs = new PDComplexFileSpecification(dict);
-
-    FDFNamedPageReference fdfNamedPageReference = new FDFNamedPageReference();
-    fdfNamedPageReference.setFileSpecification(fs);
-
-    // Act
-    PDFileSpecification actualFileSpecification = fdfNamedPageReference.getFileSpecification();
-
-    // Assert
-    assertTrue(actualFileSpecification instanceof PDComplexFileSpecification);
-    assertSame(key, actualFileSpecification.getCOSObject().getKey());
-  }
-
-  /**
-   * Test {@link FDFNamedPageReference#getFileSpecification()}.
-   *
    * <ul>
    *   <li>Given {@link FDFNamedPageReference#FDFNamedPageReference()}.
    *   <li>Then return {@code null}.
@@ -338,6 +282,37 @@ class FDFNamedPageReferenceDiffblueTest {
     assertFalse(cOSObject.isDirect());
     assertFalse(((COSString) cOSObject).getForceHexForm());
     assertArrayEquals(new byte[] {}, ((COSString) cOSObject).getBytes());
+  }
+
+  /**
+   * Test {@link FDFNamedPageReference#getFileSpecification()}.
+   *
+   * <ul>
+   *   <li>Then return COSObject is {@link COSDictionary#COSDictionary()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link FDFNamedPageReference#getFileSpecification()}
+   */
+  @Test
+  @DisplayName("Test getFileSpecification(); then return COSObject is COSDictionary()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDFileSpecification FDFNamedPageReference.getFileSpecification()"})
+  void testGetFileSpecification_thenReturnCOSObjectIsCOSDictionary() throws IOException {
+    // Arrange
+    COSDictionary dict = new COSDictionary();
+    dict.setKey(new COSObjectKey(1L, 1));
+    PDComplexFileSpecification fs = new PDComplexFileSpecification(dict);
+
+    FDFNamedPageReference fdfNamedPageReference = new FDFNamedPageReference();
+    fdfNamedPageReference.setFileSpecification(fs);
+
+    // Act
+    PDFileSpecification actualFileSpecification = fdfNamedPageReference.getFileSpecification();
+
+    // Assert
+    assertTrue(actualFileSpecification instanceof PDComplexFileSpecification);
+    assertSame(dict, actualFileSpecification.getCOSObject());
   }
 
   /**

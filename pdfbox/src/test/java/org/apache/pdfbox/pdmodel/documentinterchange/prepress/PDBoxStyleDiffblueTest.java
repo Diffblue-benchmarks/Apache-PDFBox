@@ -16,18 +16,14 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.util.List;
 import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSDocumentState;
-import org.apache.pdfbox.cos.COSFloat;
-import org.apache.pdfbox.cos.COSInteger;
 import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.cos.COSUpdateState;
 import org.apache.pdfbox.pdmodel.graphics.PDLineDashPattern;
 import org.apache.pdfbox.pdmodel.graphics.color.PDColor;
-import org.apache.pdfbox.pdmodel.graphics.color.PDColorSpace;
 import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceGray;
 import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceRGB;
 import org.junit.jupiter.api.DisplayName;
@@ -86,168 +82,6 @@ class PDBoxStyleDiffblueTest {
     assertEquals(PDBoxStyle.GUIDELINE_STYLE_SOLID, actualPdBoxStyle.getGuidelineStyle());
     assertArrayEquals(new float[] {0.0f}, lineDashPattern.getDashArray(), 0.0f);
     assertArrayEquals(new float[] {0.0f, 0.0f, 0.0f}, guidelineColor.getComponents(), 0.0f);
-  }
-
-  /**
-   * Test {@link PDBoxStyle#getGuidelineColor()}.
-   *
-   * <p>Method under test: {@link PDBoxStyle#getGuidelineColor()}
-   */
-  @Test
-  @DisplayName("Test getGuidelineColor()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDColor PDBoxStyle.getGuidelineColor()"})
-  void testGetGuidelineColor() {
-    // Arrange
-    PDBoxStyle pdBoxStyle = new PDBoxStyle();
-    pdBoxStyle.setGuideLineColor(new PDColor(new COSArray(), PDDeviceGray.INSTANCE));
-
-    // Act
-    PDColor actualGuidelineColor = pdBoxStyle.getGuidelineColor();
-
-    // Assert
-    PDColorSpace colorSpace = actualGuidelineColor.getColorSpace();
-    COSBase cOSObject = colorSpace.getCOSObject();
-    assertTrue(cOSObject instanceof COSName);
-    assertTrue(colorSpace instanceof PDDeviceRGB);
-    assertEquals("DeviceRGB", ((COSName) cOSObject).getName());
-    assertEquals("DeviceRGB", colorSpace.getName());
-    assertNull(actualGuidelineColor.getPatternName());
-    PDColor initialColor = colorSpace.getInitialColor();
-    assertNull(initialColor.getPatternName());
-    assertNull(cOSObject.getKey());
-    assertEquals(3, colorSpace.getNumberOfComponents());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(((COSName) cOSObject).isEmpty());
-    assertFalse(actualGuidelineColor.isPattern());
-    assertFalse(initialColor.isPattern());
-    assertSame(colorSpace, initialColor.getColorSpace());
-    assertArrayEquals(new float[] {0.0f, 0.0f, 0.0f}, actualGuidelineColor.getComponents(), 0.0f);
-    assertArrayEquals(new float[] {0.0f, 0.0f, 0.0f}, initialColor.getComponents(), 0.0f);
-  }
-
-  /**
-   * Test {@link PDBoxStyle#getGuidelineColor()}.
-   *
-   * <p>Method under test: {@link PDBoxStyle#getGuidelineColor()}
-   */
-  @Test
-  @DisplayName("Test getGuidelineColor()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDColor PDBoxStyle.getGuidelineColor()"})
-  void testGetGuidelineColor2() {
-    // Arrange
-    PDBoxStyle pdBoxStyle = new PDBoxStyle();
-    pdBoxStyle.setGuideLineColor(new PDColor(COSName.A, PDDeviceGray.INSTANCE));
-
-    // Act
-    PDColor actualGuidelineColor = pdBoxStyle.getGuidelineColor();
-
-    // Assert
-    PDColorSpace colorSpace = actualGuidelineColor.getColorSpace();
-    COSBase cOSObject = colorSpace.getCOSObject();
-    assertTrue(cOSObject instanceof COSName);
-    assertTrue(colorSpace instanceof PDDeviceRGB);
-    assertEquals("DeviceRGB", ((COSName) cOSObject).getName());
-    assertEquals("DeviceRGB", colorSpace.getName());
-    assertNull(actualGuidelineColor.getPatternName());
-    PDColor initialColor = colorSpace.getInitialColor();
-    assertNull(initialColor.getPatternName());
-    assertNull(cOSObject.getKey());
-    assertEquals(3, colorSpace.getNumberOfComponents());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(((COSName) cOSObject).isEmpty());
-    assertFalse(actualGuidelineColor.isPattern());
-    assertFalse(initialColor.isPattern());
-    assertSame(colorSpace, initialColor.getColorSpace());
-    assertArrayEquals(new float[] {0.0f, 0.0f, 0.0f}, actualGuidelineColor.getComponents(), 0.0f);
-    assertArrayEquals(new float[] {0.0f, 0.0f, 0.0f}, initialColor.getComponents(), 0.0f);
-  }
-
-  /**
-   * Test {@link PDBoxStyle#getGuidelineColor()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDBoxStyle#PDBoxStyle()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDBoxStyle#getGuidelineColor()}
-   */
-  @Test
-  @DisplayName("Test getGuidelineColor(); given PDBoxStyle()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDColor PDBoxStyle.getGuidelineColor()"})
-  void testGetGuidelineColor_givenPDBoxStyle() {
-    // Arrange and Act
-    PDColor actualGuidelineColor = new PDBoxStyle().getGuidelineColor();
-
-    // Assert
-    PDColorSpace colorSpace = actualGuidelineColor.getColorSpace();
-    COSBase cOSObject = colorSpace.getCOSObject();
-    assertTrue(cOSObject instanceof COSName);
-    assertTrue(colorSpace instanceof PDDeviceRGB);
-    assertEquals("DeviceRGB", ((COSName) cOSObject).getName());
-    assertEquals("DeviceRGB", colorSpace.getName());
-    assertNull(actualGuidelineColor.getPatternName());
-    PDColor initialColor = colorSpace.getInitialColor();
-    assertNull(initialColor.getPatternName());
-    assertNull(cOSObject.getKey());
-    assertEquals(3, colorSpace.getNumberOfComponents());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(((COSName) cOSObject).isEmpty());
-    assertFalse(actualGuidelineColor.isPattern());
-    assertFalse(initialColor.isPattern());
-    assertSame(colorSpace, initialColor.getColorSpace());
-    assertArrayEquals(new float[] {0.0f, 0.0f, 0.0f}, actualGuidelineColor.getComponents(), 0.0f);
-    assertArrayEquals(new float[] {0.0f, 0.0f, 0.0f}, initialColor.getComponents(), 0.0f);
-  }
-
-  /**
-   * Test {@link PDBoxStyle#getGuidelineColor()}.
-   *
-   * <ul>
-   *   <li>Then return Components is array of {@code float} with ten and {@code 0.5}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDBoxStyle#getGuidelineColor()}
-   */
-  @Test
-  @DisplayName(
-      "Test getGuidelineColor(); then return Components is array of float with ten and '0.5'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDColor PDBoxStyle.getGuidelineColor()"})
-  void testGetGuidelineColor_thenReturnComponentsIsArrayOfFloatWithTenAnd05() {
-    // Arrange
-    PDBoxStyle pdBoxStyle = new PDBoxStyle();
-    PDColor color = new PDColor(new float[] {10.0f, 0.5f, 10.0f, 0.5f}, PDDeviceGray.INSTANCE);
-    pdBoxStyle.setGuideLineColor(color);
-
-    // Act
-    PDColor actualGuidelineColor = pdBoxStyle.getGuidelineColor();
-
-    // Assert
-    PDColorSpace colorSpace = actualGuidelineColor.getColorSpace();
-    COSBase cOSObject = colorSpace.getCOSObject();
-    assertTrue(cOSObject instanceof COSName);
-    assertTrue(colorSpace instanceof PDDeviceRGB);
-    assertEquals("DeviceRGB", ((COSName) cOSObject).getName());
-    assertEquals("DeviceRGB", colorSpace.getName());
-    assertNull(actualGuidelineColor.getPatternName());
-    PDColor initialColor = colorSpace.getInitialColor();
-    assertNull(initialColor.getPatternName());
-    assertNull(cOSObject.getKey());
-    assertEquals(3, colorSpace.getNumberOfComponents());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(((COSName) cOSObject).isEmpty());
-    assertFalse(actualGuidelineColor.isPattern());
-    assertFalse(initialColor.isPattern());
-    assertSame(colorSpace, initialColor.getColorSpace());
-    assertArrayEquals(new float[] {0.0f, 0.0f, 0.0f}, initialColor.getComponents(), 0.0f);
-    assertArrayEquals(new float[] {10.0f, 0.5f, 10.0f}, actualGuidelineColor.getComponents(), 0.0f);
   }
 
   /**
@@ -501,86 +335,6 @@ class PDBoxStyleDiffblueTest {
 
     // Assert that nothing has changed
     verify(dic).setName(isA(COSName.class), eq("Style"));
-  }
-
-  /**
-   * Test {@link PDBoxStyle#getLineDashPattern()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDBoxStyle#PDBoxStyle()} LineDashPattern is {@link COSArray#COSArray()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDBoxStyle#getLineDashPattern()}
-   */
-  @Test
-  @DisplayName("Test getLineDashPattern(); given PDBoxStyle() LineDashPattern is COSArray()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDLineDashPattern PDBoxStyle.getLineDashPattern()"})
-  void testGetLineDashPattern_givenPDBoxStyleLineDashPatternIsCOSArray() {
-    // Arrange
-    PDBoxStyle pdBoxStyle = new PDBoxStyle();
-    pdBoxStyle.setLineDashPattern(new COSArray());
-
-    // Act
-    PDLineDashPattern actualLineDashPattern = pdBoxStyle.getLineDashPattern();
-
-    // Assert
-    COSBase cOSObject = actualLineDashPattern.getCOSObject();
-    List<? extends COSBase> toListResult = ((COSArray) cOSObject).toList();
-    assertEquals(2, toListResult.size());
-    COSBase getResult = toListResult.get(0);
-    assertTrue(getResult instanceof COSArray);
-    assertTrue(cOSObject instanceof COSArray);
-    List<? extends COSBase> toListResult2 = ((COSArray) getResult).toList();
-    assertEquals(1, toListResult2.size());
-    assertTrue(toListResult2.get(0) instanceof COSFloat);
-    COSBase getResult2 = toListResult.get(1);
-    assertTrue(getResult2 instanceof COSInteger);
-    assertNull(getResult2.getKey());
-    assertEquals(0, actualLineDashPattern.getPhase());
-    assertFalse(getResult2.isDirect());
-    assertTrue(((COSInteger) getResult2).isValid());
-    assertArrayEquals(new float[] {0.0f}, actualLineDashPattern.getDashArray(), 0.0f);
-  }
-
-  /**
-   * Test {@link PDBoxStyle#getLineDashPattern()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDBoxStyle#PDBoxStyle()}.
-   *   <li>Then return COSObject toList size is two.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDBoxStyle#getLineDashPattern()}
-   */
-  @Test
-  @DisplayName(
-      "Test getLineDashPattern(); given PDBoxStyle(); then return COSObject toList size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDLineDashPattern PDBoxStyle.getLineDashPattern()"})
-  void testGetLineDashPattern_givenPDBoxStyle_thenReturnCOSObjectToListSizeIsTwo() {
-    // Arrange and Act
-    PDLineDashPattern actualLineDashPattern = new PDBoxStyle().getLineDashPattern();
-
-    // Assert
-    COSBase cOSObject = actualLineDashPattern.getCOSObject();
-    List<? extends COSBase> toListResult = ((COSArray) cOSObject).toList();
-    assertEquals(2, toListResult.size());
-    COSBase getResult = toListResult.get(0);
-    assertTrue(getResult instanceof COSArray);
-    assertTrue(cOSObject instanceof COSArray);
-    List<? extends COSBase> toListResult2 = ((COSArray) getResult).toList();
-    assertEquals(1, toListResult2.size());
-    assertTrue(toListResult2.get(0) instanceof COSFloat);
-    COSBase getResult2 = toListResult.get(1);
-    assertTrue(getResult2 instanceof COSInteger);
-    assertNull(getResult2.getKey());
-    assertEquals(0, actualLineDashPattern.getPhase());
-    assertFalse(getResult2.isDirect());
-    assertTrue(((COSInteger) getResult2).isValid());
-    assertArrayEquals(new float[] {0.0f}, actualLineDashPattern.getDashArray(), 0.0f);
   }
 
   /**

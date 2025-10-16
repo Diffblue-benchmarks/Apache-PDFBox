@@ -21,10 +21,12 @@ import java.util.List;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSName;
-import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDResources;
 import org.apache.pdfbox.pdmodel.fdf.FDFField;
+import org.apache.pdfbox.pdmodel.interactive.digitalsignature.PDSignature;
+import org.apache.pdfbox.pdmodel.interactive.digitalsignature.SignatureOptions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -542,6 +544,42 @@ class PDChoiceDiffblueTest {
   }
 
   /**
+   * Test {@link PDChoice#setDoNotSpellCheck(boolean)}.
+   *
+   * <ul>
+   *   <li>Given {@link PDDocument#PDDocument()} addPage {@link PDPage#PDPage()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDChoice#setDoNotSpellCheck(boolean)}
+   */
+  @Test
+  @DisplayName("Test setDoNotSpellCheck(boolean); given PDDocument() addPage PDPage()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDChoice.setDoNotSpellCheck(boolean)"})
+  void testSetDoNotSpellCheck_givenPDDocumentAddPagePDPage() throws IOException {
+    // Arrange
+    COSDictionary field = mock(COSDictionary.class);
+    doNothing().when(field).setFlag(Mockito.<COSName>any(), anyInt(), anyBoolean());
+
+    PDDocument doc = new PDDocument();
+    doc.addPage(new PDPage());
+    PDSignature sigObject = new PDSignature();
+    doc.addSignature(sigObject, new SignatureOptions());
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(doc));
+
+    PDComboBox pdComboBox = new PDComboBox(new PDAcroForm(new PDDocument()), field, parent);
+
+    // Act
+    pdComboBox.setDoNotSpellCheck(true);
+
+    // Assert that nothing has changed
+    verify(field).setFlag(isA(COSName.class), eq(4194304), eq(true));
+    assertEquals(0, pdComboBox.getFieldFlags());
+    assertFalse(pdComboBox.isDoNotSpellCheck());
+  }
+
+  /**
    * Test {@link PDChoice#isCommitOnSelChange()}.
    *
    * <p>Method under test: {@link PDChoice#isCommitOnSelChange()}
@@ -841,29 +879,19 @@ class PDChoiceDiffblueTest {
   /**
    * Test {@link PDChoice#setValue(String)} with {@code value}.
    *
-   * <ul>
-   *   <li>Given {@link FDFField#FDFField()} RichText is {@link COSStream#COSStream()}.
-   * </ul>
-   *
    * <p>Method under test: {@link PDChoice#setValue(String)}
    */
   @Test
-  @DisplayName("Test setValue(String) with 'value'; given FDFField() RichText is COSStream()")
+  @DisplayName("Test setValue(String) with 'value'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDChoice.setValue(String)"})
-  void testSetValueWithValue_givenFDFFieldRichTextIsCOSStream() throws IOException {
+  void testSetValueWithValue5() throws IOException {
     // Arrange
     PDAcroForm acroForm = new PDAcroForm(new PDDocument());
     acroForm.setDefaultAppearance("42");
     acroForm.setDefaultResources(new PDResources());
-
-    FDFField fdfField = new FDFField();
-    fdfField.setRichText(new COSStream());
-
     PDComboBox pdComboBox = new PDComboBox(acroForm);
-    pdComboBox.setPartialName("Annot");
-    pdComboBox.importFDF(fdfField);
 
     // Act
     pdComboBox.setValue("42");
@@ -874,35 +902,37 @@ class PDChoiceDiffblueTest {
     assertEquals("42", value.get(0));
     assertEquals("[42]", pdComboBox.getValueAsString());
     COSDictionary cOSObject = pdComboBox.getCOSObject();
-    assertEquals(6, cOSObject.getValues().size());
-    assertEquals(6, cOSObject.size());
+    assertEquals(5, cOSObject.getValues().size());
+    assertEquals(5, cOSObject.size());
   }
 
   /**
    * Test {@link PDChoice#setValue(String)} with {@code value}.
    *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()} WidgetFieldFlags is one.
+   *   <li>Given {@link PDAcroForm#PDAcroForm(PDDocument)} with doc is {@link
+   *       PDDocument#PDDocument()} CacheFields is {@code true}.
    * </ul>
    *
    * <p>Method under test: {@link PDChoice#setValue(String)}
    */
   @Test
-  @DisplayName("Test setValue(String) with 'value'; given FDFField() WidgetFieldFlags is one")
+  @DisplayName(
+      "Test setValue(String) with 'value'; given PDAcroForm(PDDocument) with doc is PDDocument() CacheFields is 'true'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDChoice.setValue(String)"})
-  void testSetValueWithValue_givenFDFFieldWidgetFieldFlagsIsOne() throws IOException {
+  void testSetValueWithValue_givenPDAcroFormWithDocIsPDDocumentCacheFieldsIsTrue()
+      throws IOException {
     // Arrange
     PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    acroForm.setCacheFields(true);
     acroForm.setDefaultAppearance("42");
     acroForm.setDefaultResources(new PDResources());
 
-    FDFField fdfField = new FDFField();
-    fdfField.setWidgetFieldFlags((Integer) 1);
-
     PDComboBox pdComboBox = new PDComboBox(acroForm);
-    pdComboBox.importFDF(fdfField);
+    pdComboBox.setPartialName("");
+    pdComboBox.importFDF(new FDFField());
 
     // Act
     pdComboBox.setValue("42");
@@ -955,53 +985,6 @@ class PDChoiceDiffblueTest {
     COSDictionary cOSObject = pdComboBox.getCOSObject();
     assertEquals(6, cOSObject.getValues().size());
     assertEquals(6, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDChoice#setValue(List)} with {@code values}.
-   *
-   * <p>Method under test: {@link PDChoice#setValue(List)}
-   */
-  @Test
-  @DisplayName("Test setValue(List) with 'values'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDChoice.setValue(List)"})
-  void testSetValueWithValues() throws IOException {
-    // Arrange
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    COSDictionary field = new COSDictionary();
-    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
-
-    PDComboBox pdComboBox = new PDComboBox(acroForm, field, parent);
-
-    ArrayList<String> values = new ArrayList<>();
-    values.add("42");
-
-    // Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> pdComboBox.setValue(values));
-  }
-
-  /**
-   * Test {@link PDChoice#setValue(List)} with {@code values}.
-   *
-   * <p>Method under test: {@link PDChoice#setValue(List)}
-   */
-  @Test
-  @DisplayName("Test setValue(List) with 'values'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDChoice.setValue(List)"})
-  void testSetValueWithValues2() throws IOException {
-    // Arrange
-    PDComboBox pdComboBox = new PDComboBox(new PDAcroForm(new PDDocument()));
-    pdComboBox.setFieldFlags(2097152);
-
-    ArrayList<String> values = new ArrayList<>();
-    values.add("42");
-
-    // Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> pdComboBox.setValue(values));
   }
 
   /**

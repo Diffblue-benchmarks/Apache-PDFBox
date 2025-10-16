@@ -115,6 +115,37 @@ class PDActionNamedDiffblueTest {
    *
    * <ul>
    *   <li>Given {@link PDActionNamed#PDActionNamed()}.
+   *   <li>When {@code 42N}.
+   *   <li>Then {@link PDActionNamed#PDActionNamed()} N is {@code 42N}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDActionNamed#setN(String)}
+   */
+  @Test
+  @DisplayName(
+      "Test setN(String); given PDActionNamed(); when '42N'; then PDActionNamed() N is '42N'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDActionNamed.setN(String)"})
+  void testSetN_givenPDActionNamed_when42n_thenPDActionNamedNIs42n() {
+    // Arrange
+    PDActionNamed pdActionNamed = new PDActionNamed();
+
+    // Act
+    pdActionNamed.setN("42N");
+
+    // Assert
+    assertEquals("42N", pdActionNamed.getN());
+    COSDictionary cOSObject = pdActionNamed.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDActionNamed#setN(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link PDActionNamed#PDActionNamed()}.
    *   <li>When {@code Name}.
    *   <li>Then {@link PDActionNamed#PDActionNamed()} N is {@code Name}.
    * </ul>
@@ -169,35 +200,5 @@ class PDActionNamedDiffblueTest {
     COSDictionary cOSObject = pdActionNamed.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDActionNamed#setN(String)}.
-   *
-   * <ul>
-   *   <li>Then {@link PDActionNamed#PDActionNamed(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary(COSDictionary)} N is {@code 42}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionNamed#setN(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test setN(String); then PDActionNamed(COSDictionary) with a is COSDictionary(COSDictionary) N is '42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDActionNamed.setN(String)"})
-  void testSetN_thenPDActionNamedWithAIsCOSDictionaryNIs42() {
-    // Arrange
-    PDActionNamed pdActionNamed = new PDActionNamed(new COSDictionary(new COSDictionary()));
-
-    // Act
-    pdActionNamed.setN("42");
-
-    // Assert
-    assertEquals("42", pdActionNamed.getN());
-    COSDictionary cOSObject = pdActionNamed.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
   }
 }

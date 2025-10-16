@@ -471,7 +471,8 @@ class PDRectlinearMeasureDictionaryDiffblueTest {
    * Test {@link PDRectlinearMeasureDictionary#setChangeYs(PDNumberFormatDictionary[])}.
    *
    * <ul>
-   *   <li>Then first element LabelPrefixString is space.
+   *   <li>When array of {@link PDNumberFormatDictionary} with {@link
+   *       PDNumberFormatDictionary#PDNumberFormatDictionary()}.
    * </ul>
    *
    * <p>Method under test: {@link
@@ -479,11 +480,11 @@ class PDRectlinearMeasureDictionaryDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test setChangeYs(PDNumberFormatDictionary[]); then first element LabelPrefixString is space")
+      "Test setChangeYs(PDNumberFormatDictionary[]); when array of PDNumberFormatDictionary with PDNumberFormatDictionary()")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDRectlinearMeasureDictionary.setChangeYs(PDNumberFormatDictionary[])"})
-  void testSetChangeYs_thenFirstElementLabelPrefixStringIsSpace() {
+  void testSetChangeYs_whenArrayOfPDNumberFormatDictionaryWithPDNumberFormatDictionary() {
     // Arrange
     PDRectlinearMeasureDictionary pdRectlinearMeasureDictionary =
         new PDRectlinearMeasureDictionary();

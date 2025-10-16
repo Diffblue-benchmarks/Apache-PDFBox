@@ -878,27 +878,27 @@ class FDFAnnotationFreeTextDiffblueTest {
    * Test {@link FDFAnnotationFreeText#setLineEndingStyle(String)}.
    *
    * <ul>
-   *   <li>When {@code ,}.
-   *   <li>Then {@link FDFAnnotationFreeText#FDFAnnotationFreeText()} LineEndingStyle is {@code ,}.
+   *   <li>Then {@link FDFAnnotationFreeText#FDFAnnotationFreeText()} LineEndingStyle is {@code
+   *       Stylefringe}.
    * </ul>
    *
    * <p>Method under test: {@link FDFAnnotationFreeText#setLineEndingStyle(String)}
    */
   @Test
   @DisplayName(
-      "Test setLineEndingStyle(String); when ','; then FDFAnnotationFreeText() LineEndingStyle is ','")
+      "Test setLineEndingStyle(String); then FDFAnnotationFreeText() LineEndingStyle is 'Stylefringe'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void FDFAnnotationFreeText.setLineEndingStyle(String)"})
-  void testSetLineEndingStyle_whenComma_thenFDFAnnotationFreeTextLineEndingStyleIsComma() {
+  void testSetLineEndingStyle_thenFDFAnnotationFreeTextLineEndingStyleIsStylefringe() {
     // Arrange
     FDFAnnotationFreeText fdfAnnotationFreeText = new FDFAnnotationFreeText();
 
     // Act
-    fdfAnnotationFreeText.setLineEndingStyle(",");
+    fdfAnnotationFreeText.setLineEndingStyle("Stylefringe");
 
     // Assert
-    assertEquals(",", fdfAnnotationFreeText.getLineEndingStyle());
+    assertEquals("Stylefringe", fdfAnnotationFreeText.getLineEndingStyle());
     COSDictionary cOSObject = fdfAnnotationFreeText.getCOSObject();
     assertEquals(3, cOSObject.getValues().size());
     assertEquals(3, cOSObject.size());

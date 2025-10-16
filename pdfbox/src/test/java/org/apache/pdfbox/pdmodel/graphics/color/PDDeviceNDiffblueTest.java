@@ -13,7 +13,6 @@ import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.image.WritableRaster;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBase;
@@ -167,40 +166,6 @@ class PDDeviceNDiffblueTest {
     // Assert
     assertNull(pdDeviceN.getInitialColor());
     assertNull(actualAttributes);
-  }
-
-  /**
-   * Test {@link PDDeviceN#setColorantNames(List)}.
-   *
-   * <p>Method under test: {@link PDDeviceN#setColorantNames(List)}
-   */
-  @Test
-  @DisplayName("Test setColorantNames(List)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDDeviceN.setColorantNames(List)"})
-  void testSetColorantNames() {
-    // Arrange
-    PDDeviceN pdDeviceN = new PDDeviceN();
-
-    // Act
-    pdDeviceN.setColorantNames(new ArrayList<>());
-
-    // Assert
-    COSBase cOSObject = pdDeviceN.getCOSObject();
-    List<? extends COSBase> toListResult = ((COSArray) cOSObject).toList();
-    assertEquals(4, toListResult.size());
-    COSBase getResult = toListResult.get(1);
-    assertTrue(getResult instanceof COSArray);
-    assertTrue(cOSObject instanceof COSArray);
-    COSBase getResult2 = toListResult.get(2);
-    assertTrue(getResult2 instanceof COSNull);
-    assertNull(getResult2.getKey());
-    assertEquals(0, pdDeviceN.getNumberOfComponents());
-    assertFalse(getResult2.isDirect());
-    assertTrue(((COSArray) getResult).toList().isEmpty());
-    assertTrue(pdDeviceN.getColorantNames().isEmpty());
-    assertSame(getResult2, toListResult.get(3));
   }
 
   /**

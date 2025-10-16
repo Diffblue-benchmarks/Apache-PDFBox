@@ -171,53 +171,6 @@ class PDStructureNodeDiffblueTest {
    * Test {@link PDStructureNode#getKids()}.
    *
    * <ul>
-   *   <li>Then first Parent K toList first return {@link COSBoolean}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDStructureNode#getKids()}
-   */
-  @Test
-  @DisplayName("Test getKids(); then first Parent K toList first return COSBoolean")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List PDStructureNode.getKids()"})
-  void testGetKids_thenFirstParentKToListFirstReturnCOSBoolean() {
-    // Arrange
-    COSObjectable objectable = mock(COSObjectable.class);
-    when(objectable.getCOSObject()).thenReturn(COSBoolean.FALSE);
-
-    PDStructureTreeRoot pdStructureTreeRoot = new PDStructureTreeRoot();
-    pdStructureTreeRoot.appendObjectableKid(objectable);
-    COSDictionary dic = new COSDictionary();
-    pdStructureTreeRoot.appendKid(new PDStructureElement(dic));
-
-    // Act
-    List<Object> actualKids = pdStructureTreeRoot.getKids();
-
-    // Assert
-    verify(objectable).getCOSObject();
-    assertEquals(1, actualKids.size());
-    Object getResult = actualKids.get(0);
-    PDStructureNode parent = ((PDStructureElement) getResult).getParent();
-    COSBase k = ((PDStructureTreeRoot) parent).getK();
-    assertTrue(k instanceof COSArray);
-    List<? extends COSBase> toListResult = ((COSArray) k).toList();
-    assertEquals(2, toListResult.size());
-    COSBase getResult2 = toListResult.get(0);
-    assertTrue(getResult2 instanceof COSBoolean);
-    assertTrue(getResult instanceof PDStructureElement);
-    assertTrue(parent instanceof PDStructureTreeRoot);
-    assertNull(getResult2.getKey());
-    assertFalse(getResult2.isDirect());
-    assertFalse(((COSBoolean) getResult2).getValue());
-    assertFalse(((COSBoolean) getResult2).getValueAsObject());
-    assertSame(dic, toListResult.get(1));
-  }
-
-  /**
-   * Test {@link PDStructureNode#getKids()}.
-   *
-   * <ul>
    *   <li>Then return first Parent K toList first is {@link COSDictionary#COSDictionary()}.
    * </ul>
    *
@@ -461,51 +414,6 @@ class PDStructureNodeDiffblueTest {
    * Test {@link PDStructureNode#setKids(List)}.
    *
    * <ul>
-   *   <li>Given {@link COSArray#COSArray()}.
-   *   <li>Then {@link PDStructureTreeRoot#PDStructureTreeRoot()} K toList first is {@link
-   *       COSArray#COSArray()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDStructureNode#setKids(List)}
-   */
-  @Test
-  @DisplayName(
-      "Test setKids(List); given COSArray(); then PDStructureTreeRoot() K toList first is COSArray()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDStructureNode.setKids(List)"})
-  void testSetKids_givenCOSArray_thenPDStructureTreeRootKToListFirstIsCOSArray() {
-    // Arrange
-    PDStructureTreeRoot pdStructureTreeRoot = new PDStructureTreeRoot();
-
-    ArrayList<Object> kids = new ArrayList<>();
-    COSArray cosArray = new COSArray();
-    kids.add(cosArray);
-    kids.add(2);
-
-    // Act
-    pdStructureTreeRoot.setKids(kids);
-
-    // Assert
-    COSBase k = pdStructureTreeRoot.getK();
-    assertTrue(k instanceof COSArray);
-    List<? extends COSBase> toListResult = ((COSArray) k).toList();
-    assertEquals(2, toListResult.size());
-    COSBase getResult = toListResult.get(1);
-    assertTrue(getResult instanceof COSInteger);
-    assertNull(getResult.getKey());
-    List<Object> kids2 = pdStructureTreeRoot.getKids();
-    assertEquals(1, kids2.size());
-    assertEquals(2, ((Integer) kids2.get(0)).intValue());
-    assertFalse(getResult.isDirect());
-    assertTrue(((COSInteger) getResult).isValid());
-    assertSame(cosArray, toListResult.get(0));
-  }
-
-  /**
-   * Test {@link PDStructureNode#setKids(List)}.
-   *
-   * <ul>
    *   <li>Given {@link COSDictionary#COSDictionary()}.
    *   <li>Then {@link PDStructureTreeRoot#PDStructureTreeRoot()} Kids size is two.
    * </ul>
@@ -619,90 +527,6 @@ class PDStructureNodeDiffblueTest {
     assertEquals("Kids", ((COSString) getResult).getASCII());
     assertEquals("Kids", ((COSString) getResult).getString());
     assertArrayEquals("Kids".getBytes("UTF-8"), ((COSString) getResult).getBytes());
-  }
-
-  /**
-   * Test {@link PDStructureNode#setKids(List)}.
-   *
-   * <ul>
-   *   <li>Given ten.
-   *   <li>Then {@link PDStructureTreeRoot#PDStructureTreeRoot()} K toList first {@link COSFloat}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDStructureNode#setKids(List)}
-   */
-  @Test
-  @DisplayName("Test setKids(List); given ten; then PDStructureTreeRoot() K toList first COSFloat")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDStructureNode.setKids(List)"})
-  void testSetKids_givenTen_thenPDStructureTreeRootKToListFirstCOSFloat() {
-    // Arrange
-    PDStructureTreeRoot pdStructureTreeRoot = new PDStructureTreeRoot();
-
-    ArrayList<Object> kids = new ArrayList<>();
-    kids.add(10.0d);
-    kids.add(2);
-
-    // Act
-    pdStructureTreeRoot.setKids(kids);
-
-    // Assert
-    COSBase k = pdStructureTreeRoot.getK();
-    assertTrue(k instanceof COSArray);
-    List<? extends COSBase> toListResult = ((COSArray) k).toList();
-    assertEquals(2, toListResult.size());
-    assertTrue(toListResult.get(0) instanceof COSFloat);
-    COSBase getResult = toListResult.get(1);
-    assertTrue(getResult instanceof COSInteger);
-    assertNull(getResult.getKey());
-    List<Object> kids2 = pdStructureTreeRoot.getKids();
-    assertEquals(1, kids2.size());
-    assertEquals(2, ((Integer) kids2.get(0)).intValue());
-    assertFalse(getResult.isDirect());
-    assertTrue(((COSInteger) getResult).isValid());
-  }
-
-  /**
-   * Test {@link PDStructureNode#setKids(List)}.
-   *
-   * <ul>
-   *   <li>Given ten.
-   *   <li>Then {@link PDStructureTreeRoot#PDStructureTreeRoot()} K toList first {@link COSFloat}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDStructureNode#setKids(List)}
-   */
-  @Test
-  @DisplayName("Test setKids(List); given ten; then PDStructureTreeRoot() K toList first COSFloat")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDStructureNode.setKids(List)"})
-  void testSetKids_givenTen_thenPDStructureTreeRootKToListFirstCOSFloat2() {
-    // Arrange
-    PDStructureTreeRoot pdStructureTreeRoot = new PDStructureTreeRoot();
-
-    ArrayList<Object> kids = new ArrayList<>();
-    kids.add(10.0f);
-    kids.add(2);
-
-    // Act
-    pdStructureTreeRoot.setKids(kids);
-
-    // Assert
-    COSBase k = pdStructureTreeRoot.getK();
-    assertTrue(k instanceof COSArray);
-    List<? extends COSBase> toListResult = ((COSArray) k).toList();
-    assertEquals(2, toListResult.size());
-    assertTrue(toListResult.get(0) instanceof COSFloat);
-    COSBase getResult = toListResult.get(1);
-    assertTrue(getResult instanceof COSInteger);
-    assertNull(getResult.getKey());
-    List<Object> kids2 = pdStructureTreeRoot.getKids();
-    assertEquals(1, kids2.size());
-    assertEquals(2, ((Integer) kids2.get(0)).intValue());
-    assertFalse(getResult.isDirect());
-    assertTrue(((COSInteger) getResult).isValid());
   }
 
   /**

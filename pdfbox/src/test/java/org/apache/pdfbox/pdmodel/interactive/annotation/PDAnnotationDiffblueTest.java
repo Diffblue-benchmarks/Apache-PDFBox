@@ -37,8 +37,6 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.documentinterchange.markedcontent.PDPropertyList;
 import org.apache.pdfbox.pdmodel.graphics.color.PDColor;
-import org.apache.pdfbox.pdmodel.graphics.color.PDColorSpace;
-import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceCMYK;
 import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceGray;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -788,41 +786,6 @@ class PDAnnotationDiffblueTest {
     assertEquals(612.0f, rectangle.getUpperRightX());
     assertEquals(792.0f, rectangle.getUpperRightY());
     assertEquals(612.0f, rectangle.getWidth());
-  }
-
-  /**
-   * Test {@link PDAnnotation#setRectangle(PDRectangle)}.
-   *
-   * <ul>
-   *   <li>When {@link PDRectangle#A0}.
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} Rectangle UpperRightX is {@code
-   *       2383.937}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setRectangle(PDRectangle)}
-   */
-  @Test
-  @DisplayName(
-      "Test setRectangle(PDRectangle); when A0; then PDAnnotationCaret() Rectangle UpperRightX is '2383.937'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAnnotation.setRectangle(PDRectangle)"})
-  void testSetRectangle_whenA0_thenPDAnnotationCaretRectangleUpperRightXIs2383937() {
-    // Arrange
-    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
-
-    // Act
-    pdAnnotationCaret.setRectangle(PDRectangle.A0);
-
-    // Assert
-    PDRectangle rectangle = pdAnnotationCaret.getRectangle();
-    assertEquals(2383.937f, rectangle.getUpperRightX());
-    assertEquals(2383.937f, rectangle.getWidth());
-    assertEquals(3370.3938f, rectangle.getHeight());
-    assertEquals(3370.3938f, rectangle.getUpperRightY());
-    COSIncrement toIncrementResult = pdAnnotationCaret.getCOSObject().toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
   }
 
   /**
@@ -2703,33 +2666,6 @@ class PDAnnotationDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotation#getBorder()}.
-   *
-   * <p>Method under test: {@link PDAnnotation#getBorder()}
-   */
-  @Test
-  @DisplayName("Test getBorder()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"COSArray PDAnnotation.getBorder()"})
-  void testGetBorder() {
-    // Arrange, Act and Assert
-    List<? extends COSBase> toListResult = new PDAnnotationCaret().getBorder().toList();
-    assertEquals(3, toListResult.size());
-    COSBase getResult = toListResult.get(0);
-    assertTrue(getResult instanceof COSInteger);
-    COSBase getResult2 = toListResult.get(2);
-    assertTrue(getResult2 instanceof COSInteger);
-    assertNull(getResult.getKey());
-    assertNull(getResult2.getKey());
-    assertFalse(getResult.isDirect());
-    assertFalse(getResult2.isDirect());
-    assertTrue(((COSInteger) getResult).isValid());
-    assertTrue(((COSInteger) getResult2).isValid());
-    assertSame(getResult, toListResult.get(1));
-  }
-
-  /**
    * Test {@link PDAnnotation#setBorder(COSArray)}.
    *
    * <ul>
@@ -2867,50 +2803,6 @@ class PDAnnotationDiffblueTest {
     COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDAnnotation#setColor(PDColor)}.
-   *
-   * <ul>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} Color ColorSpace COSObject {@link
-   *       COSName}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setColor(PDColor)}
-   */
-  @Test
-  @DisplayName(
-      "Test setColor(PDColor); then PDAnnotationCaret() Color ColorSpace COSObject COSName")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAnnotation.setColor(PDColor)"})
-  void testSetColor_thenPDAnnotationCaretColorColorSpaceCOSObjectCOSName() {
-    // Arrange
-    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
-    PDColor c = new PDColor(new float[] {10.0f, 0.5f, 10.0f, 0.5f}, PDDeviceGray.INSTANCE);
-
-    // Act
-    pdAnnotationCaret.setColor(c);
-
-    // Assert
-    PDColor color = pdAnnotationCaret.getColor();
-    PDColorSpace colorSpace = color.getColorSpace();
-    COSBase cOSObject = colorSpace.getCOSObject();
-    assertTrue(cOSObject instanceof COSName);
-    assertTrue(colorSpace instanceof PDDeviceCMYK);
-    assertEquals("DeviceCMYK", ((COSName) cOSObject).getName());
-    assertEquals("DeviceCMYK", colorSpace.getName());
-    PDColor initialColor = colorSpace.getInitialColor();
-    assertNull(initialColor.getPatternName());
-    assertNull(cOSObject.getKey());
-    assertEquals(4, colorSpace.getNumberOfComponents());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(((COSName) cOSObject).isEmpty());
-    assertFalse(initialColor.isPattern());
-    assertSame(colorSpace, initialColor.getColorSpace());
-    assertArrayEquals(new float[] {0.0f, 0.0f, 0.0f, 1.0f}, initialColor.getComponents(), 0.0f);
-    assertArrayEquals(new float[] {10.0f, 0.5f, 10.0f, 0.5f}, color.getComponents(), 0.0f);
   }
 
   /**

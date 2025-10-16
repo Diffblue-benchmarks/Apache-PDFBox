@@ -22,15 +22,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.pdfbox.cos.COSArray;
-import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSBoolean;
 import org.apache.pdfbox.cos.COSDictionary;
-import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.cos.COSObjectKey;
 import org.apache.pdfbox.filter.DecodeOptions;
 import org.apache.pdfbox.pdmodel.PDResources;
 import org.apache.pdfbox.pdmodel.graphics.color.PDCalGray;
-import org.apache.pdfbox.pdmodel.graphics.color.PDColor;
 import org.apache.pdfbox.pdmodel.graphics.color.PDColorSpace;
 import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceGray;
 import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceRGB;
@@ -1321,46 +1318,6 @@ class PDInlineImageDiffblueTest {
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDInlineImage.setStencil(boolean)"})
   void testSetStencil() throws IOException {
-    // Arrange
-    COSDictionary parameters = new COSDictionary();
-    byte[] data = "AXAXAXAX".getBytes("UTF-8");
-
-    PDInlineImage pdInlineImage = new PDInlineImage(parameters, data, new PDResources());
-
-    // Act
-    pdInlineImage.setStencil(true);
-
-    // Assert
-    PDColorSpace colorSpace = pdInlineImage.getColorSpace();
-    COSBase cOSObject = colorSpace.getCOSObject();
-    assertTrue(cOSObject instanceof COSName);
-    assertTrue(colorSpace instanceof PDDeviceGray);
-    assertEquals("DeviceGray", ((COSName) cOSObject).getName());
-    assertEquals("DeviceGray", colorSpace.getName());
-    PDColor initialColor = colorSpace.getInitialColor();
-    assertNull(initialColor.getPatternName());
-    assertNull(cOSObject.getKey());
-    assertEquals(1, colorSpace.getNumberOfComponents());
-    assertEquals(1, pdInlineImage.getBitsPerComponent());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(((COSName) cOSObject).isEmpty());
-    assertFalse(initialColor.isPattern());
-    assertTrue(pdInlineImage.isStencil());
-    assertSame(colorSpace, initialColor.getColorSpace());
-    assertArrayEquals(new float[] {0.0f}, initialColor.getComponents(), 0.0f);
-  }
-
-  /**
-   * Test {@link PDInlineImage#setStencil(boolean)}.
-   *
-   * <p>Method under test: {@link PDInlineImage#setStencil(boolean)}
-   */
-  @Test
-  @DisplayName("Test setStencil(boolean)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDInlineImage.setStencil(boolean)"})
-  void testSetStencil2() throws IOException {
     // Arrange
     COSDictionary parameters = new COSDictionary();
     byte[] data = "AXAXAXAX".getBytes("UTF-8");

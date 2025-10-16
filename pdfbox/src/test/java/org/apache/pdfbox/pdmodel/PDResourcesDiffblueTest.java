@@ -48,7 +48,6 @@ import org.apache.pdfbox.pdmodel.graphics.color.PDPattern;
 import org.apache.pdfbox.pdmodel.graphics.form.PDFormXObject;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.apache.pdfbox.pdmodel.graphics.optionalcontent.PDOptionalContentGroup;
-import org.apache.pdfbox.pdmodel.graphics.optionalcontent.PDOptionalContentMembershipDictionary;
 import org.apache.pdfbox.pdmodel.graphics.pattern.PDAbstractPattern;
 import org.apache.pdfbox.pdmodel.graphics.pattern.PDShadingPattern;
 import org.apache.pdfbox.pdmodel.graphics.pattern.PDTilingPattern;
@@ -2119,281 +2118,6 @@ class PDResourcesDiffblueTest {
   /**
    * Test {@link PDResources#getProperties(COSName)}.
    *
-   * <p>Method under test: {@link PDResources#getProperties(COSName)}
-   */
-  @Test
-  @DisplayName("Test getProperties(COSName)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDPropertyList PDResources.getProperties(COSName)"})
-  void testGetProperties() {
-    // Arrange
-    COSDictionary resourceDictionary = new COSDictionary();
-    DefaultResourceCache resourceCache = new DefaultResourceCache();
-
-    PDResources pdResources = new PDResources(resourceDictionary, resourceCache);
-    COSName name = COSName.A;
-
-    // Act
-    PDPropertyList actualProperties = pdResources.getProperties(name);
-
-    // Assert
-    Iterable<COSName> colorSpaceNames = pdResources.getColorSpaceNames();
-    assertTrue(colorSpaceNames instanceof Set);
-    ResourceCache resourceCache2 = pdResources.getResourceCache();
-    assertTrue(resourceCache2 instanceof DefaultResourceCache);
-    assertEquals("A", name.getName());
-    assertNull(name.getKey());
-    assertNull(actualProperties);
-    assertFalse(name.isDirect());
-    assertFalse(name.isEmpty());
-    assertTrue(((Set<COSName>) colorSpaceNames).isEmpty());
-    assertSame(resourceDictionary, pdResources.getCOSObject());
-    assertSame(resourceCache, resourceCache2);
-    assertSame(colorSpaceNames, pdResources.getExtGStateNames());
-    assertSame(colorSpaceNames, pdResources.getFontNames());
-    assertSame(colorSpaceNames, pdResources.getPatternNames());
-    assertSame(colorSpaceNames, pdResources.getPropertiesNames());
-    assertSame(colorSpaceNames, pdResources.getShadingNames());
-    assertSame(colorSpaceNames, pdResources.getXObjectNames());
-  }
-
-  /**
-   * Test {@link PDResources#getProperties(COSName)}.
-   *
-   * <p>Method under test: {@link PDResources#getProperties(COSName)}
-   */
-  @Test
-  @DisplayName("Test getProperties(COSName)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDPropertyList PDResources.getProperties(COSName)"})
-  void testGetProperties2() {
-    // Arrange
-    COSDictionary dict = new COSDictionary();
-    dict.setKey(new COSObjectKey(1L, 1));
-    PDPropertyList properties = PDPropertyList.create(dict);
-    COSDictionary resourceDictionary = new COSDictionary();
-    DefaultResourceCache resourceCache = new DefaultResourceCache();
-
-    PDResources pdResources = new PDResources(resourceDictionary, resourceCache);
-    pdResources.put(COSName.A, properties);
-    COSName name = COSName.A;
-
-    // Act
-    PDPropertyList actualProperties = pdResources.getProperties(name);
-
-    // Assert
-    Iterable<COSName> colorSpaceNames = pdResources.getColorSpaceNames();
-    assertTrue(colorSpaceNames instanceof Set);
-    Iterable<COSName> propertiesNames = pdResources.getPropertiesNames();
-    assertTrue(propertiesNames instanceof Set);
-    ResourceCache resourceCache2 = pdResources.getResourceCache();
-    assertTrue(resourceCache2 instanceof DefaultResourceCache);
-    assertEquals("A", name.getName());
-    assertNull(name.getKey());
-    assertEquals(1, ((Set<COSName>) propertiesNames).size());
-    assertFalse(name.isDirect());
-    assertFalse(name.isEmpty());
-    assertTrue(((Set<COSName>) colorSpaceNames).isEmpty());
-    assertSame(resourceDictionary, pdResources.getCOSObject());
-    assertSame(dict, actualProperties.getCOSObject());
-    assertSame(resourceCache, resourceCache2);
-    assertSame(colorSpaceNames, pdResources.getExtGStateNames());
-    assertSame(colorSpaceNames, pdResources.getFontNames());
-    assertSame(colorSpaceNames, pdResources.getPatternNames());
-    assertSame(colorSpaceNames, pdResources.getShadingNames());
-    assertSame(colorSpaceNames, pdResources.getXObjectNames());
-  }
-
-  /**
-   * Test {@link PDResources#getProperties(COSName)}.
-   *
-   * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()} Key is {@link COSObjectKey#COSObjectKey(long,
-   *       int)} with num is one and gen is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDResources#getProperties(COSName)}
-   */
-  @Test
-  @DisplayName(
-      "Test getProperties(COSName); given COSDictionary() Key is COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDPropertyList PDResources.getProperties(COSName)"})
-  void testGetProperties_givenCOSDictionaryKeyIsCOSObjectKeyWithNumIsOneAndGenIsOne() {
-    // Arrange
-    COSDictionary dict = new COSDictionary();
-    dict.setKey(new COSObjectKey(1L, 1));
-    PDPropertyList properties = PDPropertyList.create(dict);
-
-    PDResources pdResources = new PDResources();
-    pdResources.put(COSName.A, properties);
-    COSName name = COSName.A;
-
-    // Act
-    PDPropertyList actualProperties = pdResources.getProperties(name);
-
-    // Assert
-    Iterable<COSName> colorSpaceNames = pdResources.getColorSpaceNames();
-    assertTrue(colorSpaceNames instanceof Set);
-    Iterable<COSName> propertiesNames = pdResources.getPropertiesNames();
-    assertTrue(propertiesNames instanceof Set);
-    assertEquals("A", name.getName());
-    assertNull(name.getKey());
-    assertNull(pdResources.getResourceCache());
-    assertEquals(1, ((Set<COSName>) propertiesNames).size());
-    assertFalse(name.isDirect());
-    assertFalse(name.isEmpty());
-    assertTrue(((Set<COSName>) colorSpaceNames).isEmpty());
-    assertSame(dict, actualProperties.getCOSObject());
-    assertSame(colorSpaceNames, pdResources.getExtGStateNames());
-    assertSame(colorSpaceNames, pdResources.getFontNames());
-    assertSame(colorSpaceNames, pdResources.getPatternNames());
-    assertSame(colorSpaceNames, pdResources.getShadingNames());
-    assertSame(colorSpaceNames, pdResources.getXObjectNames());
-  }
-
-  /**
-   * Test {@link PDResources#getProperties(COSName)}.
-   *
-   * <ul>
-   *   <li>Given {@link PDResources#PDResources()} {@link COSName#A} is create {@link
-   *       COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDResources#getProperties(COSName)}
-   */
-  @Test
-  @DisplayName("Test getProperties(COSName); given PDResources() A is create COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDPropertyList PDResources.getProperties(COSName)"})
-  void testGetProperties_givenPDResourcesAIsCreateCOSDictionary() {
-    // Arrange
-    PDResources pdResources = new PDResources();
-    COSDictionary dict = new COSDictionary();
-    pdResources.put(COSName.A, PDPropertyList.create(dict));
-    COSName name = COSName.A;
-
-    // Act
-    PDPropertyList actualProperties = pdResources.getProperties(name);
-
-    // Assert
-    Iterable<COSName> colorSpaceNames = pdResources.getColorSpaceNames();
-    assertTrue(colorSpaceNames instanceof Set);
-    Iterable<COSName> propertiesNames = pdResources.getPropertiesNames();
-    assertTrue(propertiesNames instanceof Set);
-    assertEquals("A", name.getName());
-    assertNull(name.getKey());
-    assertNull(pdResources.getResourceCache());
-    assertEquals(1, ((Set<COSName>) propertiesNames).size());
-    assertFalse(name.isDirect());
-    assertFalse(name.isEmpty());
-    assertTrue(((Set<COSName>) colorSpaceNames).isEmpty());
-    assertSame(dict, actualProperties.getCOSObject());
-    assertSame(colorSpaceNames, pdResources.getExtGStateNames());
-    assertSame(colorSpaceNames, pdResources.getFontNames());
-    assertSame(colorSpaceNames, pdResources.getPatternNames());
-    assertSame(colorSpaceNames, pdResources.getShadingNames());
-    assertSame(colorSpaceNames, pdResources.getXObjectNames());
-  }
-
-  /**
-   * Test {@link PDResources#getProperties(COSName)}.
-   *
-   * <ul>
-   *   <li>Given {@link PDResources#PDResources()} {@link COSName#A} is create {@link
-   *       COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDResources#getProperties(COSName)}
-   */
-  @Test
-  @DisplayName("Test getProperties(COSName); given PDResources() A is create COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDPropertyList PDResources.getProperties(COSName)"})
-  void testGetProperties_givenPDResourcesAIsCreateCOSDictionary2() {
-    // Arrange
-    PDResources pdResources = new PDResources();
-    COSDictionary dict = new COSDictionary();
-    pdResources.put(COSName.A, PDPropertyList.create(dict));
-    COSName name = COSName.A;
-
-    // Act
-    COSDictionary actualCOSObject = pdResources.getProperties(name).getCOSObject();
-
-    // Assert
-    Iterable<COSName> colorSpaceNames = pdResources.getColorSpaceNames();
-    assertTrue(colorSpaceNames instanceof Set);
-    Iterable<COSName> propertiesNames = pdResources.getPropertiesNames();
-    assertTrue(propertiesNames instanceof Set);
-    assertEquals("A", name.getName());
-    assertNull(name.getKey());
-    assertNull(pdResources.getResourceCache());
-    assertEquals(1, ((Set<COSName>) propertiesNames).size());
-    assertFalse(name.isDirect());
-    assertFalse(name.isEmpty());
-    assertTrue(((Set<COSName>) colorSpaceNames).isEmpty());
-    assertSame(dict, actualCOSObject);
-    assertSame(colorSpaceNames, pdResources.getExtGStateNames());
-    assertSame(colorSpaceNames, pdResources.getFontNames());
-    assertSame(colorSpaceNames, pdResources.getPatternNames());
-    assertSame(colorSpaceNames, pdResources.getShadingNames());
-    assertSame(colorSpaceNames, pdResources.getXObjectNames());
-  }
-
-  /**
-   * Test {@link PDResources#getProperties(COSName)}.
-   *
-   * <ul>
-   *   <li>Given {@link PDResources#PDResources()} add create {@link COSDictionary#COSDictionary()}.
-   *   <li>When {@link COSName#A}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDResources#getProperties(COSName)}
-   */
-  @Test
-  @DisplayName(
-      "Test getProperties(COSName); given PDResources() add create COSDictionary(); when A; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDPropertyList PDResources.getProperties(COSName)"})
-  void testGetProperties_givenPDResourcesAddCreateCOSDictionary_whenA_thenReturnNull() {
-    // Arrange
-    PDResources pdResources = new PDResources();
-    pdResources.add(PDPropertyList.create(new COSDictionary()));
-    COSName name = COSName.A;
-
-    // Act
-    PDPropertyList actualProperties = pdResources.getProperties(name);
-
-    // Assert
-    Iterable<COSName> colorSpaceNames = pdResources.getColorSpaceNames();
-    assertTrue(colorSpaceNames instanceof Set);
-    Iterable<COSName> propertiesNames = pdResources.getPropertiesNames();
-    assertTrue(propertiesNames instanceof Set);
-    assertEquals("A", name.getName());
-    assertNull(name.getKey());
-    assertNull(pdResources.getResourceCache());
-    assertNull(actualProperties);
-    assertEquals(1, ((Set<COSName>) propertiesNames).size());
-    assertFalse(name.isDirect());
-    assertFalse(name.isEmpty());
-    assertTrue(((Set<COSName>) colorSpaceNames).isEmpty());
-    assertSame(colorSpaceNames, pdResources.getExtGStateNames());
-    assertSame(colorSpaceNames, pdResources.getFontNames());
-    assertSame(colorSpaceNames, pdResources.getPatternNames());
-    assertSame(colorSpaceNames, pdResources.getShadingNames());
-    assertSame(colorSpaceNames, pdResources.getXObjectNames());
-  }
-
-  /**
-   * Test {@link PDResources#getProperties(COSName)}.
-   *
    * <ul>
    *   <li>Given {@link PDResources#PDResources()} add create {@link COSDictionary#COSDictionary()}.
    *   <li>When {@code null}.
@@ -2426,151 +2150,6 @@ class PDResourcesDiffblueTest {
     assertNull(actualProperties);
     assertEquals(1, ((Set<COSName>) propertiesNames).size());
     assertTrue(((Set<COSName>) colorSpaceNames).isEmpty());
-    assertSame(colorSpaceNames, pdResources.getExtGStateNames());
-    assertSame(colorSpaceNames, pdResources.getFontNames());
-    assertSame(colorSpaceNames, pdResources.getPatternNames());
-    assertSame(colorSpaceNames, pdResources.getShadingNames());
-    assertSame(colorSpaceNames, pdResources.getXObjectNames());
-  }
-
-  /**
-   * Test {@link PDResources#getProperties(COSName)}.
-   *
-   * <ul>
-   *   <li>Then {@link PDResources#PDResources()} PropertiesNames is {@link
-   *       PDResources#PDResources()} ColorSpaceNames.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDResources#getProperties(COSName)}
-   */
-  @Test
-  @DisplayName(
-      "Test getProperties(COSName); then PDResources() PropertiesNames is PDResources() ColorSpaceNames")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDPropertyList PDResources.getProperties(COSName)"})
-  void testGetProperties_thenPDResourcesPropertiesNamesIsPDResourcesColorSpaceNames() {
-    // Arrange
-    PDResources pdResources = new PDResources();
-    COSName name = COSName.A;
-
-    // Act
-    PDPropertyList actualProperties = pdResources.getProperties(name);
-
-    // Assert
-    Iterable<COSName> colorSpaceNames = pdResources.getColorSpaceNames();
-    assertTrue(colorSpaceNames instanceof Set);
-    assertEquals("A", name.getName());
-    assertNull(name.getKey());
-    assertNull(pdResources.getResourceCache());
-    assertNull(actualProperties);
-    assertFalse(name.isDirect());
-    assertFalse(name.isEmpty());
-    assertTrue(((Set<COSName>) colorSpaceNames).isEmpty());
-    assertSame(colorSpaceNames, pdResources.getExtGStateNames());
-    assertSame(colorSpaceNames, pdResources.getFontNames());
-    assertSame(colorSpaceNames, pdResources.getPatternNames());
-    assertSame(colorSpaceNames, pdResources.getPropertiesNames());
-    assertSame(colorSpaceNames, pdResources.getShadingNames());
-    assertSame(colorSpaceNames, pdResources.getXObjectNames());
-  }
-
-  /**
-   * Test {@link PDResources#getProperties(COSName)}.
-   *
-   * <ul>
-   *   <li>Then return {@link PDOptionalContentGroup}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDResources#getProperties(COSName)}
-   */
-  @Test
-  @DisplayName("Test getProperties(COSName); then return PDOptionalContentGroup")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDPropertyList PDResources.getProperties(COSName)"})
-  void testGetProperties_thenReturnPDOptionalContentGroup() {
-    // Arrange
-    PDResources pdResources = new PDResources();
-    pdResources.put(COSName.A, new PDOptionalContentGroup("Name"));
-    COSName name = COSName.A;
-
-    // Act
-    PDPropertyList actualProperties = pdResources.getProperties(name);
-    COSDictionary actualCOSObject = actualProperties.getCOSObject();
-
-    // Assert
-    Iterable<COSName> colorSpaceNames = pdResources.getColorSpaceNames();
-    assertTrue(colorSpaceNames instanceof Set);
-    Iterable<COSName> propertiesNames = pdResources.getPropertiesNames();
-    assertTrue(propertiesNames instanceof Set);
-    assertTrue(actualProperties instanceof PDOptionalContentGroup);
-    assertEquals("A", name.getName());
-    assertEquals("Name", ((PDOptionalContentGroup) actualProperties).getName());
-    assertNull(actualCOSObject.getKey());
-    assertNull(name.getKey());
-    assertNull(pdResources.getResourceCache());
-    assertEquals(1, ((Set<COSName>) propertiesNames).size());
-    assertEquals(2, actualCOSObject.getValues().size());
-    assertEquals(2, actualCOSObject.size());
-    assertFalse(actualCOSObject.isDirect());
-    assertFalse(name.isDirect());
-    assertFalse(name.isEmpty());
-    assertFalse(actualCOSObject.isNeedToBeUpdated());
-    assertTrue(((Set<COSName>) colorSpaceNames).isEmpty());
-    assertSame(colorSpaceNames, pdResources.getExtGStateNames());
-    assertSame(colorSpaceNames, pdResources.getFontNames());
-    assertSame(colorSpaceNames, pdResources.getPatternNames());
-    assertSame(colorSpaceNames, pdResources.getShadingNames());
-    assertSame(colorSpaceNames, pdResources.getXObjectNames());
-  }
-
-  /**
-   * Test {@link PDResources#getProperties(COSName)}.
-   *
-   * <ul>
-   *   <li>Then return {@link PDOptionalContentMembershipDictionary}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDResources#getProperties(COSName)}
-   */
-  @Test
-  @DisplayName("Test getProperties(COSName); then return PDOptionalContentMembershipDictionary")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDPropertyList PDResources.getProperties(COSName)"})
-  void testGetProperties_thenReturnPDOptionalContentMembershipDictionary() {
-    // Arrange
-    PDResources pdResources = new PDResources();
-    pdResources.put(COSName.A, new PDOptionalContentMembershipDictionary());
-    COSName name = COSName.A;
-
-    // Act
-    PDPropertyList actualProperties = pdResources.getProperties(name);
-    COSDictionary actualCOSObject = actualProperties.getCOSObject();
-
-    // Assert
-    Iterable<COSName> colorSpaceNames = pdResources.getColorSpaceNames();
-    assertTrue(colorSpaceNames instanceof Set);
-    Iterable<COSName> propertiesNames = pdResources.getPropertiesNames();
-    assertTrue(propertiesNames instanceof Set);
-    assertTrue(actualProperties instanceof PDOptionalContentMembershipDictionary);
-    assertEquals("A", name.getName());
-    assertNull(actualCOSObject.getKey());
-    assertNull(name.getKey());
-    assertNull(pdResources.getResourceCache());
-    assertEquals(1, actualCOSObject.getValues().size());
-    assertEquals(1, ((Set<COSName>) propertiesNames).size());
-    assertEquals(1, actualCOSObject.size());
-    assertFalse(actualCOSObject.isDirect());
-    assertFalse(name.isDirect());
-    assertFalse(name.isEmpty());
-    assertFalse(actualCOSObject.isNeedToBeUpdated());
-    assertTrue(((PDOptionalContentMembershipDictionary) actualProperties).getOCGs().isEmpty());
-    assertTrue(((Set<COSName>) colorSpaceNames).isEmpty());
-    assertSame(
-        COSName.ANY_ON,
-        ((PDOptionalContentMembershipDictionary) actualProperties).getVisibilityPolicy());
     assertSame(colorSpaceNames, pdResources.getExtGStateNames());
     assertSame(colorSpaceNames, pdResources.getFontNames());
     assertSame(colorSpaceNames, pdResources.getPatternNames());
@@ -2885,40 +2464,6 @@ class PDResourcesDiffblueTest {
     assertTrue(actualFontNames instanceof Set);
     assertFalse(actualIteratorResult.hasNext());
     assertTrue(((Set<COSName>) actualFontNames).isEmpty());
-  }
-
-  /**
-   * Test {@link PDResources#getFontNames()}.
-   *
-   * <ul>
-   *   <li>Then return iterator next Name is {@code F1}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDResources#getFontNames()}
-   */
-  @Test
-  @DisplayName("Test getFontNames(); then return iterator next Name is 'F1'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Iterable PDResources.getFontNames()"})
-  void testGetFontNames_thenReturnIteratorNextNameIsF1() throws IOException {
-    // Arrange
-    PDResources pdResources = new PDResources();
-    pdResources.add(new PDMMType1Font(new COSDictionary()));
-
-    // Act
-    Iterable<COSName> actualFontNames = pdResources.getFontNames();
-    Iterator<COSName> actualIteratorResult = actualFontNames.iterator();
-
-    // Assert
-    assertTrue(actualFontNames instanceof Set);
-    COSName nextResult = actualIteratorResult.next();
-    assertEquals("F1", nextResult.getName());
-    assertNull(nextResult.getKey());
-    assertEquals(1, ((Set<COSName>) actualFontNames).size());
-    assertFalse(actualIteratorResult.hasNext());
-    assertFalse(nextResult.isDirect());
-    assertFalse(nextResult.isEmpty());
   }
 
   /**
@@ -3438,35 +2983,6 @@ class PDResourcesDiffblueTest {
   /**
    * Test {@link PDResources#add(PDExtendedGraphicsState)} with {@code extGState}.
    *
-   * <p>Method under test: {@link PDResources#add(PDExtendedGraphicsState)}
-   */
-  @Test
-  @DisplayName("Test add(PDExtendedGraphicsState) with 'extGState'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"COSName PDResources.add(PDExtendedGraphicsState)"})
-  void testAddWithExtGState() {
-    // Arrange
-    PDResources pdResources = new PDResources(new COSDictionary());
-    PDExtendedGraphicsState extGState = new PDExtendedGraphicsState();
-
-    // Act
-    COSName actualAddResult = pdResources.add(extGState);
-
-    // Assert
-    Iterable<COSName> extGStateNames = pdResources.getExtGStateNames();
-    assertTrue(extGStateNames instanceof Set);
-    assertEquals("gs1", actualAddResult.getName());
-    COSDictionary cOSObject = pdResources.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, ((Set<COSName>) extGStateNames).size());
-    assertEquals(1, cOSObject.size());
-    assertSame(COSName.NORMAL, extGState.getBlendMode().getCOSName());
-  }
-
-  /**
-   * Test {@link PDResources#add(PDExtendedGraphicsState)} with {@code extGState}.
-   *
    * <ul>
    *   <li>Given {@link PDResources#PDResources()}.
    *   <li>Then {@link PDResources#PDResources()} ExtGStateNames size is one.
@@ -3483,10 +2999,9 @@ class PDResourcesDiffblueTest {
   void testAddWithExtGState_givenPDResources_thenPDResourcesExtGStateNamesSizeIsOne() {
     // Arrange
     PDResources pdResources = new PDResources();
-    PDExtendedGraphicsState extGState = new PDExtendedGraphicsState();
 
     // Act
-    COSName actualAddResult = pdResources.add(extGState);
+    COSName actualAddResult = pdResources.add(new PDExtendedGraphicsState());
 
     // Assert
     Iterable<COSName> extGStateNames = pdResources.getExtGStateNames();
@@ -3496,7 +3011,6 @@ class PDResourcesDiffblueTest {
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, ((Set<COSName>) extGStateNames).size());
     assertEquals(1, cOSObject.size());
-    assertSame(COSName.NORMAL, extGState.getBlendMode().getCOSName());
   }
 
   /**
@@ -3557,6 +3071,39 @@ class PDResourcesDiffblueTest {
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
     assertEquals(2, ((Set<COSName>) extGStateNames).size());
+  }
+
+  /**
+   * Test {@link PDResources#add(PDExtendedGraphicsState)} with {@code extGState}.
+   *
+   * <ul>
+   *   <li>Then return Name is {@code gs3}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDResources#add(PDExtendedGraphicsState)}
+   */
+  @Test
+  @DisplayName("Test add(PDExtendedGraphicsState) with 'extGState'; then return Name is 'gs3'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"COSName PDResources.add(PDExtendedGraphicsState)"})
+  void testAddWithExtGState_thenReturnNameIsGs3() {
+    // Arrange
+    PDResources pdResources = new PDResources();
+    pdResources.add(new PDExtendedGraphicsState());
+    pdResources.add(new PDExtendedGraphicsState());
+
+    // Act
+    COSName actualAddResult = pdResources.add(new PDExtendedGraphicsState());
+
+    // Assert
+    Iterable<COSName> extGStateNames = pdResources.getExtGStateNames();
+    assertTrue(extGStateNames instanceof Set);
+    assertEquals("gs3", actualAddResult.getName());
+    COSDictionary cOSObject = pdResources.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    assertEquals(3, ((Set<COSName>) extGStateNames).size());
   }
 
   /**
@@ -3733,40 +3280,6 @@ class PDResourcesDiffblueTest {
    * Test {@link PDResources#add(PDFont)} with {@code font}.
    *
    * <ul>
-   *   <li>Then {@link PDResources#PDResources(COSDictionary)} with resourceDictionary is {@link
-   *       COSDictionary#COSDictionary()} FontNames {@link Set}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDResources#add(PDFont)}
-   */
-  @Test
-  @DisplayName(
-      "Test add(PDFont) with 'font'; then PDResources(COSDictionary) with resourceDictionary is COSDictionary() FontNames Set")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"COSName PDResources.add(PDFont)"})
-  void testAddWithFont_thenPDResourcesWithResourceDictionaryIsCOSDictionaryFontNamesSet()
-      throws IOException {
-    // Arrange
-    PDResources pdResources = new PDResources(new COSDictionary());
-
-    // Act
-    COSName actualAddResult = pdResources.add(new PDMMType1Font(new COSDictionary()));
-
-    // Assert
-    Iterable<COSName> fontNames = pdResources.getFontNames();
-    assertTrue(fontNames instanceof Set);
-    assertEquals("F1", actualAddResult.getName());
-    COSDictionary cOSObject = pdResources.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, ((Set<COSName>) fontNames).size());
-    assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDResources#add(PDFont)} with {@code font}.
-   *
-   * <ul>
    *   <li>Then return Name is {@code F2}.
    * </ul>
    *
@@ -3793,33 +3306,6 @@ class PDResourcesDiffblueTest {
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
     assertEquals(2, ((Set<COSName>) fontNames).size());
-  }
-
-  /**
-   * Test {@link PDResources#add(PDFormXObject)} with {@code form}.
-   *
-   * <p>Method under test: {@link PDResources#add(PDFormXObject)}
-   */
-  @Test
-  @DisplayName("Test add(PDFormXObject) with 'form'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"COSName PDResources.add(PDFormXObject)"})
-  void testAddWithForm() {
-    // Arrange
-    PDResources pdResources = new PDResources(new COSDictionary());
-
-    // Act
-    COSName actualAddResult = pdResources.add(new PDFormXObject(new COSStream()));
-
-    // Assert
-    Iterable<COSName> xObjectNames = pdResources.getXObjectNames();
-    assertTrue(xObjectNames instanceof Set);
-    assertEquals("Form1", actualAddResult.getName());
-    COSDictionary cOSObject = pdResources.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, ((Set<COSName>) xObjectNames).size());
-    assertEquals(1, cOSObject.size());
   }
 
   /**
@@ -3987,6 +3473,39 @@ class PDResourcesDiffblueTest {
   }
 
   /**
+   * Test {@link PDResources#add(PDFormXObject)} with {@code form}.
+   *
+   * <ul>
+   *   <li>Then return Name is {@code Form3}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDResources#add(PDFormXObject)}
+   */
+  @Test
+  @DisplayName("Test add(PDFormXObject) with 'form'; then return Name is 'Form3'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"COSName PDResources.add(PDFormXObject)"})
+  void testAddWithForm_thenReturnNameIsForm3() {
+    // Arrange
+    PDResources pdResources = new PDResources();
+    pdResources.add(PDImageXObject.createThumbnail(new COSStream()));
+    pdResources.add(PDImageXObject.createThumbnail(new COSStream()));
+
+    // Act
+    COSName actualAddResult = pdResources.add(new PDFormXObject(new COSStream()));
+
+    // Assert
+    Iterable<COSName> xObjectNames = pdResources.getXObjectNames();
+    assertTrue(xObjectNames instanceof Set);
+    assertEquals("Form3", actualAddResult.getName());
+    COSDictionary cOSObject = pdResources.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    assertEquals(3, ((Set<COSName>) xObjectNames).size());
+  }
+
+  /**
    * Test {@link PDResources#add(PDImageXObject)} with {@code image}.
    *
    * <ul>
@@ -4054,6 +3573,43 @@ class PDResourcesDiffblueTest {
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
     assertEquals(2, ((Set<COSName>) xObjectNames).size());
+  }
+
+  /**
+   * Test {@link PDResources#add(PDImageXObject)} with {@code image}.
+   *
+   * <ul>
+   *   <li>Given {@link PDResources#PDResources()} add createThumbnail {@link
+   *       COSStream#COSStream()}.
+   *   <li>Then return Name is {@code Im4}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDResources#add(PDImageXObject)}
+   */
+  @Test
+  @DisplayName(
+      "Test add(PDImageXObject) with 'image'; given PDResources() add createThumbnail COSStream(); then return Name is 'Im4'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"COSName PDResources.add(PDImageXObject)"})
+  void testAddWithImage_givenPDResourcesAddCreateThumbnailCOSStream_thenReturnNameIsIm4() {
+    // Arrange
+    PDResources pdResources = new PDResources();
+    pdResources.add(PDImageXObject.createThumbnail(new COSStream()));
+    pdResources.add(PDImageXObject.createThumbnail(new COSStream()));
+    pdResources.add(PDImageXObject.createThumbnail(new COSStream()));
+
+    // Act
+    COSName actualAddResult = pdResources.add(PDImageXObject.createThumbnail(new COSStream()));
+
+    // Assert
+    Iterable<COSName> xObjectNames = pdResources.getXObjectNames();
+    assertTrue(xObjectNames instanceof Set);
+    assertEquals("Im4", actualAddResult.getName());
+    COSDictionary cOSObject = pdResources.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    assertEquals(4, ((Set<COSName>) xObjectNames).size());
   }
 
   /**
@@ -4473,33 +4029,6 @@ class PDResourcesDiffblueTest {
   /**
    * Test {@link PDResources#add(PDShading)} with {@code shading}.
    *
-   * <p>Method under test: {@link PDResources#add(PDShading)}
-   */
-  @Test
-  @DisplayName("Test add(PDShading) with 'shading'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"COSName PDResources.add(PDShading)"})
-  void testAddWithShading() {
-    // Arrange
-    PDResources pdResources = new PDResources(new COSDictionary());
-
-    // Act
-    COSName actualAddResult = pdResources.add(new PDShadingType1(new COSDictionary()));
-
-    // Assert
-    Iterable<COSName> shadingNames = pdResources.getShadingNames();
-    assertTrue(shadingNames instanceof Set);
-    assertEquals("sh1", actualAddResult.getName());
-    COSDictionary cOSObject = pdResources.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, ((Set<COSName>) shadingNames).size());
-    assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDResources#add(PDShading)} with {@code shading}.
-   *
    * <ul>
    *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
    * </ul>
@@ -4521,39 +4050,6 @@ class PDResourcesDiffblueTest {
 
     // Act
     COSName actualAddResult = pdResources.add(new PDShadingType1(shadingDictionary));
-
-    // Assert
-    Iterable<COSName> shadingNames = pdResources.getShadingNames();
-    assertTrue(shadingNames instanceof Set);
-    assertEquals("sh1", actualAddResult.getName());
-    COSDictionary cOSObject = pdResources.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, ((Set<COSName>) shadingNames).size());
-    assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDResources#add(PDShading)} with {@code shading}.
-   *
-   * <ul>
-   *   <li>Given {@link PDResources#PDResources()}.
-   *   <li>Then {@link PDResources#PDResources()} ShadingNames size is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDResources#add(PDShading)}
-   */
-  @Test
-  @DisplayName(
-      "Test add(PDShading) with 'shading'; given PDResources(); then PDResources() ShadingNames size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"COSName PDResources.add(PDShading)"})
-  void testAddWithShading_givenPDResources_thenPDResourcesShadingNamesSizeIsOne() {
-    // Arrange
-    PDResources pdResources = new PDResources();
-
-    // Act
-    COSName actualAddResult = pdResources.add(new PDShadingType1(new COSDictionary()));
 
     // Assert
     Iterable<COSName> shadingNames = pdResources.getShadingNames();
@@ -4618,6 +4114,37 @@ class PDResourcesDiffblueTest {
 
     // Act
     COSName actualAddResult = pdResources.add(new PDShadingType1(shadingDictionary));
+
+    // Assert
+    Iterable<COSName> shadingNames = pdResources.getShadingNames();
+    assertTrue(shadingNames instanceof Set);
+    assertEquals("sh1", actualAddResult.getName());
+    COSDictionary cOSObject = pdResources.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, ((Set<COSName>) shadingNames).size());
+    assertEquals(1, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDResources#add(PDShading)} with {@code shading}.
+   *
+   * <ul>
+   *   <li>Then {@link PDResources#PDResources()} ShadingNames size is one.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDResources#add(PDShading)}
+   */
+  @Test
+  @DisplayName("Test add(PDShading) with 'shading'; then PDResources() ShadingNames size is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"COSName PDResources.add(PDShading)"})
+  void testAddWithShading_thenPDResourcesShadingNamesSizeIsOne() {
+    // Arrange
+    PDResources pdResources = new PDResources();
+
+    // Act
+    COSName actualAddResult = pdResources.add(new PDShadingType1(new COSDictionary()));
 
     // Assert
     Iterable<COSName> shadingNames = pdResources.getShadingNames();

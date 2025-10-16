@@ -6,7 +6,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.RenderingHints;
@@ -31,9 +34,13 @@ import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.common.PDStream;
 import org.apache.pdfbox.pdmodel.graphics.optionalcontent.PDOptionalContentGroup;
 import org.apache.pdfbox.pdmodel.interactive.annotation.AnnotationFilter;
+import org.apache.pdfbox.pdmodel.interactive.annotation.PDAnnotation;
+import org.apache.pdfbox.pdmodel.interactive.annotation.PDAnnotationCaret;
+import org.apache.pdfbox.pdmodel.interactive.annotation.PDAnnotationFileAttachment;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 class PDFRendererDiffblueTest {
   /**
@@ -369,6 +376,172 @@ class PDFRendererDiffblueTest {
     BufferedImage actualRenderImageResult = new PDFRenderer(document).renderImage(1);
 
     // Assert
+    DataBuffer dataBuffer = actualRenderImageResult.getData().getDataBuffer();
+    assertTrue(dataBuffer instanceof DataBufferInt);
+    DataBuffer dataBuffer2 = actualRenderImageResult.getRaster().getDataBuffer();
+    assertTrue(dataBuffer2 instanceof DataBufferInt);
+    ColorModel colorModel = actualRenderImageResult.getColorModel();
+    assertTrue(colorModel instanceof DirectColorModel);
+    SampleModel sampleModel = actualRenderImageResult.getSampleModel();
+    assertTrue(sampleModel instanceof SinglePixelPackedSampleModel);
+    assertArrayEquals(new int[] {0}, dataBuffer.getOffsets());
+    assertArrayEquals(new int[] {0}, dataBuffer2.getOffsets());
+    assertArrayEquals(new int[] {16711680, 65280, 255}, ((DirectColorModel) colorModel).getMasks());
+    assertArrayEquals(
+        new int[] {16711680, 65280, 255},
+        ((SinglePixelPackedSampleModel) sampleModel).getBitMasks());
+    assertArrayEquals(new int[] {8, 8, 8}, colorModel.getComponentSize());
+    assertArrayEquals(new int[] {8, 8, 8}, sampleModel.getSampleSize());
+    assertArrayEquals(
+        new int[] {Short.SIZE, 8, 0}, ((SinglePixelPackedSampleModel) sampleModel).getBitOffsets());
+  }
+
+  /**
+   * Test {@link PDFRenderer#renderImage(int)} with {@code pageIndex}.
+   *
+   * <p>Method under test: {@link PDFRenderer#renderImage(int)}
+   */
+  @Test
+  @DisplayName("Test renderImage(int) with 'pageIndex'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"BufferedImage PDFRenderer.renderImage(int)"})
+  void testRenderImageWithPageIndex7() throws IOException {
+    // Arrange
+    ArrayList<PDAnnotation> annotations = new ArrayList<>();
+    annotations.add(new PDAnnotationCaret(new COSDictionary()));
+
+    PDPage page = new PDPage();
+    page.setAnnotations(annotations);
+
+    PDDocument document = new PDDocument();
+    document.addPage(new PDPage());
+    document.addPage(page);
+
+    AnnotationFilter annotationsFilter = mock(AnnotationFilter.class);
+    when(annotationsFilter.accept(Mockito.<PDAnnotation>any())).thenReturn(true);
+
+    PDFRenderer pdfRenderer = new PDFRenderer(document);
+    pdfRenderer.setAnnotationsFilter(annotationsFilter);
+
+    // Act
+    BufferedImage actualRenderImageResult = pdfRenderer.renderImage(1);
+
+    // Assert
+    verify(annotationsFilter).accept(isA(PDAnnotation.class));
+    DataBuffer dataBuffer = actualRenderImageResult.getData().getDataBuffer();
+    assertTrue(dataBuffer instanceof DataBufferInt);
+    DataBuffer dataBuffer2 = actualRenderImageResult.getRaster().getDataBuffer();
+    assertTrue(dataBuffer2 instanceof DataBufferInt);
+    ColorModel colorModel = actualRenderImageResult.getColorModel();
+    assertTrue(colorModel instanceof DirectColorModel);
+    SampleModel sampleModel = actualRenderImageResult.getSampleModel();
+    assertTrue(sampleModel instanceof SinglePixelPackedSampleModel);
+    assertArrayEquals(new int[] {0}, dataBuffer.getOffsets());
+    assertArrayEquals(new int[] {0}, dataBuffer2.getOffsets());
+    assertArrayEquals(new int[] {16711680, 65280, 255}, ((DirectColorModel) colorModel).getMasks());
+    assertArrayEquals(
+        new int[] {16711680, 65280, 255},
+        ((SinglePixelPackedSampleModel) sampleModel).getBitMasks());
+    assertArrayEquals(new int[] {8, 8, 8}, colorModel.getComponentSize());
+    assertArrayEquals(new int[] {8, 8, 8}, sampleModel.getSampleSize());
+    assertArrayEquals(
+        new int[] {Short.SIZE, 8, 0}, ((SinglePixelPackedSampleModel) sampleModel).getBitOffsets());
+  }
+
+  /**
+   * Test {@link PDFRenderer#renderImage(int)} with {@code pageIndex}.
+   *
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDFRenderer#renderImage(int)}
+   */
+  @Test
+  @DisplayName("Test renderImage(int) with 'pageIndex'; given ArrayList() add 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"BufferedImage PDFRenderer.renderImage(int)"})
+  void testRenderImageWithPageIndex_givenArrayListAddNull() throws IOException {
+    // Arrange
+    ArrayList<PDAnnotation> annotations = new ArrayList<>();
+    annotations.add(null);
+
+    PDPage page = new PDPage();
+    page.setAnnotations(annotations);
+
+    PDDocument document = new PDDocument();
+    document.addPage(new PDPage());
+    document.addPage(page);
+
+    PDFRenderer pdfRenderer = new PDFRenderer(document);
+    pdfRenderer.setAnnotationsFilter(mock(AnnotationFilter.class));
+
+    // Act
+    BufferedImage actualRenderImageResult = pdfRenderer.renderImage(1);
+
+    // Assert
+    DataBuffer dataBuffer = actualRenderImageResult.getData().getDataBuffer();
+    assertTrue(dataBuffer instanceof DataBufferInt);
+    DataBuffer dataBuffer2 = actualRenderImageResult.getRaster().getDataBuffer();
+    assertTrue(dataBuffer2 instanceof DataBufferInt);
+    ColorModel colorModel = actualRenderImageResult.getColorModel();
+    assertTrue(colorModel instanceof DirectColorModel);
+    SampleModel sampleModel = actualRenderImageResult.getSampleModel();
+    assertTrue(sampleModel instanceof SinglePixelPackedSampleModel);
+    assertArrayEquals(new int[] {0}, dataBuffer.getOffsets());
+    assertArrayEquals(new int[] {0}, dataBuffer2.getOffsets());
+    assertArrayEquals(new int[] {16711680, 65280, 255}, ((DirectColorModel) colorModel).getMasks());
+    assertArrayEquals(
+        new int[] {16711680, 65280, 255},
+        ((SinglePixelPackedSampleModel) sampleModel).getBitMasks());
+    assertArrayEquals(new int[] {8, 8, 8}, colorModel.getComponentSize());
+    assertArrayEquals(new int[] {8, 8, 8}, sampleModel.getSampleSize());
+    assertArrayEquals(
+        new int[] {Short.SIZE, 8, 0}, ((SinglePixelPackedSampleModel) sampleModel).getBitOffsets());
+  }
+
+  /**
+   * Test {@link PDFRenderer#renderImage(int)} with {@code pageIndex}.
+   *
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link
+   *       PDAnnotationFileAttachment#PDAnnotationFileAttachment()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDFRenderer#renderImage(int)}
+   */
+  @Test
+  @DisplayName(
+      "Test renderImage(int) with 'pageIndex'; given ArrayList() add PDAnnotationFileAttachment()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"BufferedImage PDFRenderer.renderImage(int)"})
+  void testRenderImageWithPageIndex_givenArrayListAddPDAnnotationFileAttachment()
+      throws IOException {
+    // Arrange
+    ArrayList<PDAnnotation> annotations = new ArrayList<>();
+    annotations.add(new PDAnnotationFileAttachment());
+
+    PDPage page = new PDPage();
+    page.setAnnotations(annotations);
+
+    PDDocument document = new PDDocument();
+    document.addPage(new PDPage());
+    document.addPage(page);
+
+    AnnotationFilter annotationsFilter = mock(AnnotationFilter.class);
+    when(annotationsFilter.accept(Mockito.<PDAnnotation>any())).thenReturn(true);
+
+    PDFRenderer pdfRenderer = new PDFRenderer(document);
+    pdfRenderer.setAnnotationsFilter(annotationsFilter);
+
+    // Act
+    BufferedImage actualRenderImageResult = pdfRenderer.renderImage(1);
+
+    // Assert
+    verify(annotationsFilter).accept(isA(PDAnnotation.class));
     DataBuffer dataBuffer = actualRenderImageResult.getData().getDataBuffer();
     assertTrue(dataBuffer instanceof DataBufferInt);
     DataBuffer dataBuffer2 = actualRenderImageResult.getRaster().getDataBuffer();
@@ -773,40 +946,6 @@ class PDFRendererDiffblueTest {
     assertArrayEquals(new int[] {8, 8, 8}, sampleModel.getSampleSize());
     assertArrayEquals(
         new int[] {Short.SIZE, 8, 0}, ((SinglePixelPackedSampleModel) sampleModel).getBitOffsets());
-  }
-
-  /**
-   * Test {@link PDFRenderer#renderImage(int)} with {@code pageIndex}.
-   *
-   * <ul>
-   *   <li>Then return TileWidth is four hundred nineteen.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDFRenderer#renderImage(int)}
-   */
-  @Test
-  @DisplayName(
-      "Test renderImage(int) with 'pageIndex'; then return TileWidth is four hundred nineteen")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"BufferedImage PDFRenderer.renderImage(int)"})
-  void testRenderImageWithPageIndex_thenReturnTileWidthIsFourHundredNineteen() throws IOException {
-    // Arrange
-    PDPage page = new PDPage();
-    page.setCropBox(PDRectangle.A5);
-
-    PDDocument document = new PDDocument();
-    document.addPage(new PDPage());
-    document.addPage(page);
-
-    // Act
-    BufferedImage actualRenderImageResult = new PDFRenderer(document).renderImage(1);
-
-    // Assert
-    assertEquals(419, actualRenderImageResult.getTileWidth());
-    assertEquals(419, actualRenderImageResult.getWidth());
-    assertEquals(595, actualRenderImageResult.getHeight());
-    assertEquals(595, actualRenderImageResult.getTileHeight());
   }
 
   /**

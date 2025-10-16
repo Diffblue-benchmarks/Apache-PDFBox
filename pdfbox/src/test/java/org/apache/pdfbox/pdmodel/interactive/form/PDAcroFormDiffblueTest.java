@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import javax.imageio.metadata.IIOMetadataNode;
 import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSBoolean;
@@ -32,6 +34,7 @@ import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.cos.COSObject;
 import org.apache.pdfbox.cos.COSObjectKey;
 import org.apache.pdfbox.cos.COSStream;
+import org.apache.pdfbox.cos.COSString;
 import org.apache.pdfbox.cos.COSUpdateState;
 import org.apache.pdfbox.pdmodel.DefaultResourceCache;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -40,7 +43,10 @@ import org.apache.pdfbox.pdmodel.PDPageTree;
 import org.apache.pdfbox.pdmodel.PDResources;
 import org.apache.pdfbox.pdmodel.ResourceCache;
 import org.apache.pdfbox.pdmodel.fdf.FDFCatalog;
+import org.apache.pdfbox.pdmodel.fdf.FDFDictionary;
 import org.apache.pdfbox.pdmodel.fdf.FDFDocument;
+import org.apache.pdfbox.pdmodel.fdf.FDFField;
+import org.apache.pdfbox.pdmodel.interactive.annotation.PDAnnotationWidget;
 import org.apache.pdfbox.pdmodel.interactive.digitalsignature.PDSignature;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -150,6 +156,1619 @@ class PDAcroFormDiffblueTest {
   }
 
   /**
+   * Test {@link PDAcroForm#importFDF(FDFDocument)}.
+   *
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link FDFField#FDFField(Element)} with fieldXML
+   *       is {@link IIOMetadataNode#IIOMetadataNode()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#importFDF(FDFDocument)}
+   */
+  @Test
+  @DisplayName(
+      "Test importFDF(FDFDocument); given ArrayList() add FDFField(Element) with fieldXML is IIOMetadataNode()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.importFDF(FDFDocument)"})
+  void testImportFDF_givenArrayListAddFDFFieldWithFieldXMLIsIIOMetadataNode() throws IOException {
+    // Arrange
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+
+    ArrayList<FDFField> fdfFieldList = new ArrayList<>();
+    fdfFieldList.add(new FDFField(new IIOMetadataNode()));
+
+    FDFDictionary fdfDictionary = mock(FDFDictionary.class);
+    when(fdfDictionary.getFields()).thenReturn(fdfFieldList);
+
+    FDFCatalog fdfCatalog = mock(FDFCatalog.class);
+    when(fdfCatalog.getFDF()).thenReturn(fdfDictionary);
+
+    FDFDocument fdf = mock(FDFDocument.class);
+    when(fdf.getCatalog()).thenReturn(fdfCatalog);
+
+    // Act
+    pdAcroForm.importFDF(fdf);
+
+    // Assert
+    verify(fdfCatalog).getFDF();
+    verify(fdfDictionary).getFields();
+    verify(fdf).getCatalog();
+  }
+
+  /**
+   * Test {@link PDAcroForm#importFDF(FDFDocument)}.
+   *
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link FDFField#FDFField()}.
+   *   <li>Then calls {@link FDFDictionary#getFields()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#importFDF(FDFDocument)}
+   */
+  @Test
+  @DisplayName(
+      "Test importFDF(FDFDocument); given ArrayList() add FDFField(); then calls getFields()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.importFDF(FDFDocument)"})
+  void testImportFDF_givenArrayListAddFDFField_thenCallsGetFields() throws IOException {
+    // Arrange
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+
+    ArrayList<FDFField> fdfFieldList = new ArrayList<>();
+    fdfFieldList.add(new FDFField());
+
+    FDFDictionary fdfDictionary = mock(FDFDictionary.class);
+    when(fdfDictionary.getFields()).thenReturn(fdfFieldList);
+
+    FDFCatalog fdfCatalog = mock(FDFCatalog.class);
+    when(fdfCatalog.getFDF()).thenReturn(fdfDictionary);
+
+    FDFDocument fdf = mock(FDFDocument.class);
+    when(fdf.getCatalog()).thenReturn(fdfCatalog);
+
+    // Act
+    pdAcroForm.importFDF(fdf);
+
+    // Assert
+    verify(fdfCatalog).getFDF();
+    verify(fdfDictionary).getFields();
+    verify(fdf).getCatalog();
+  }
+
+  /**
+   * Test {@link PDAcroForm#importFDF(FDFDocument)}.
+   *
+   * <ul>
+   *   <li>Given {@link COSArray#COSArray()} add {@link COSBoolean#FALSE}.
+   *   <li>Then calls {@link COSDictionary#containsKey(COSName)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#importFDF(FDFDocument)}
+   */
+  @Test
+  @DisplayName(
+      "Test importFDF(FDFDocument); given COSArray() add FALSE; then calls containsKey(COSName)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.importFDF(FDFDocument)"})
+  void testImportFDF_givenCOSArrayAddFalse_thenCallsContainsKey() throws IOException {
+    // Arrange
+    COSArray cosArray = new COSArray();
+    cosArray.add(COSBoolean.FALSE);
+
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    when(cosDictionary.containsKey(Mockito.<COSName>any())).thenReturn(true);
+    when(cosDictionary.getNameAsString(Mockito.<COSName>any())).thenReturn("Name As String");
+
+    COSArray cosArray2 = mock(COSArray.class);
+    when(cosArray2.getObject(anyInt())).thenReturn(cosDictionary);
+    when(cosArray2.size()).thenReturn(3);
+    doNothing().when(cosArray2).add(Mockito.<COSBase>any());
+    cosArray2.add(COSBoolean.FALSE);
+
+    COSDictionary form = mock(COSDictionary.class);
+    when(form.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray2);
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument(), form);
+
+    FDFField fdfField = mock(FDFField.class);
+    when(fdfField.getPartialFieldName()).thenReturn("Partial Field Name");
+
+    ArrayList<FDFField> fdfFieldList = new ArrayList<>();
+    fdfFieldList.add(fdfField);
+
+    FDFDictionary fdfDictionary = mock(FDFDictionary.class);
+    when(fdfDictionary.getFields()).thenReturn(fdfFieldList);
+
+    FDFCatalog fdfCatalog = mock(FDFCatalog.class);
+    when(fdfCatalog.getFDF()).thenReturn(fdfDictionary);
+
+    FDFDocument fdf = mock(FDFDocument.class);
+    when(fdf.getCatalog()).thenReturn(fdfCatalog);
+
+    // Act
+    pdAcroForm.importFDF(fdf);
+
+    // Assert
+    verify(cosArray2).add(isA(COSBase.class));
+    verify(cosArray2, atLeast(1)).getObject(anyInt());
+    verify(cosArray2, atLeast(1)).size();
+    verify(cosDictionary, atLeast(1)).containsKey(isA(COSName.class));
+    verify(form).getCOSArray(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getCOSArray(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getNameAsString(isA(COSName.class));
+    verify(fdfCatalog).getFDF();
+    verify(fdfDictionary).getFields();
+    verify(fdf).getCatalog();
+    verify(fdfField).getPartialFieldName();
+  }
+
+  /**
+   * Test {@link PDAcroForm#importFDF(FDFDocument)}.
+   *
+   * <ul>
+   *   <li>Given {@link COSArray#COSArray()} add {@link COSBoolean#FALSE}.
+   *   <li>Then calls {@link COSDictionary#getCOSArray(COSName)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#importFDF(FDFDocument)}
+   */
+  @Test
+  @DisplayName(
+      "Test importFDF(FDFDocument); given COSArray() add FALSE; then calls getCOSArray(COSName)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.importFDF(FDFDocument)"})
+  void testImportFDF_givenCOSArrayAddFalse_thenCallsGetCOSArray() throws IOException {
+    // Arrange
+    COSArray cosArray = new COSArray();
+    cosArray.add(COSBoolean.FALSE);
+
+    COSDictionary form = mock(COSDictionary.class);
+    when(form.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument(), form);
+
+    FDFField fdfField = mock(FDFField.class);
+    when(fdfField.getPartialFieldName()).thenReturn("Partial Field Name");
+
+    ArrayList<FDFField> fdfFieldList = new ArrayList<>();
+    fdfFieldList.add(fdfField);
+
+    FDFDictionary fdfDictionary = mock(FDFDictionary.class);
+    when(fdfDictionary.getFields()).thenReturn(fdfFieldList);
+
+    FDFCatalog fdfCatalog = mock(FDFCatalog.class);
+    when(fdfCatalog.getFDF()).thenReturn(fdfDictionary);
+
+    FDFDocument fdf = mock(FDFDocument.class);
+    when(fdf.getCatalog()).thenReturn(fdfCatalog);
+
+    // Act
+    pdAcroForm.importFDF(fdf);
+
+    // Assert
+    verify(form).getCOSArray(isA(COSName.class));
+    verify(fdfCatalog).getFDF();
+    verify(fdfDictionary).getFields();
+    verify(fdf).getCatalog();
+    verify(fdfField).getPartialFieldName();
+  }
+
+  /**
+   * Test {@link PDAcroForm#importFDF(FDFDocument)}.
+   *
+   * <ul>
+   *   <li>Given {@link COSArray} {@link COSArray#getObject(int)} return {@link
+   *       COSDictionary#COSDictionary()}.
+   *   <li>Then calls {@link COSArray#add(COSBase)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#importFDF(FDFDocument)}
+   */
+  @Test
+  @DisplayName(
+      "Test importFDF(FDFDocument); given COSArray getObject(int) return COSDictionary(); then calls add(COSBase)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.importFDF(FDFDocument)"})
+  void testImportFDF_givenCOSArrayGetObjectReturnCOSDictionary_thenCallsAdd() throws IOException {
+    // Arrange
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.getObject(anyInt())).thenReturn(new COSDictionary());
+    when(cosArray.size()).thenReturn(3);
+    doNothing().when(cosArray).add(Mockito.<COSBase>any());
+    cosArray.add(COSBoolean.FALSE);
+
+    COSDictionary form = mock(COSDictionary.class);
+    when(form.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument(), form);
+
+    FDFField fdfField = mock(FDFField.class);
+    when(fdfField.getPartialFieldName()).thenReturn("Partial Field Name");
+
+    ArrayList<FDFField> fdfFieldList = new ArrayList<>();
+    fdfFieldList.add(fdfField);
+
+    FDFDictionary fdfDictionary = mock(FDFDictionary.class);
+    when(fdfDictionary.getFields()).thenReturn(fdfFieldList);
+
+    FDFCatalog fdfCatalog = mock(FDFCatalog.class);
+    when(fdfCatalog.getFDF()).thenReturn(fdfDictionary);
+
+    FDFDocument fdf = mock(FDFDocument.class);
+    when(fdf.getCatalog()).thenReturn(fdfCatalog);
+
+    // Act
+    pdAcroForm.importFDF(fdf);
+
+    // Assert
+    verify(cosArray).add(isA(COSBase.class));
+    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray, atLeast(1)).size();
+    verify(form).getCOSArray(isA(COSName.class));
+    verify(fdfCatalog).getFDF();
+    verify(fdfDictionary).getFields();
+    verify(fdf).getCatalog();
+    verify(fdfField).getPartialFieldName();
+  }
+
+  /**
+   * Test {@link PDAcroForm#importFDF(FDFDocument)}.
+   *
+   * <ul>
+   *   <li>Given {@link COSArray} {@link COSArray#getObject(int)} return {@link
+   *       COSDictionary#COSDictionary()}.
+   *   <li>Then calls {@link COSArray#isEmpty()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#importFDF(FDFDocument)}
+   */
+  @Test
+  @DisplayName(
+      "Test importFDF(FDFDocument); given COSArray getObject(int) return COSDictionary(); then calls isEmpty()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.importFDF(FDFDocument)"})
+  void testImportFDF_givenCOSArrayGetObjectReturnCOSDictionary_thenCallsIsEmpty()
+      throws IOException {
+    // Arrange
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.getObject(anyInt())).thenReturn(new COSDictionary());
+    when(cosArray.isEmpty()).thenReturn(false);
+    when(cosArray.size()).thenReturn(3);
+    doNothing().when(cosArray).add(Mockito.<COSBase>any());
+    cosArray.add(COSBoolean.FALSE);
+
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    when(cosDictionary.containsKey(Mockito.<COSName>any())).thenReturn(true);
+    when(cosDictionary.getNameAsString(Mockito.<COSName>any())).thenReturn("Name As String");
+
+    COSArray cosArray2 = mock(COSArray.class);
+    when(cosArray2.getObject(anyInt())).thenReturn(cosDictionary);
+    when(cosArray2.size()).thenReturn(3);
+    doNothing().when(cosArray2).add(Mockito.<COSBase>any());
+    cosArray2.add(COSBoolean.FALSE);
+
+    COSDictionary form = mock(COSDictionary.class);
+    when(form.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray2);
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument(), form);
+
+    FDFField fdfField = mock(FDFField.class);
+    when(fdfField.getPartialFieldName()).thenReturn("Partial Field Name");
+
+    ArrayList<FDFField> fdfFieldList = new ArrayList<>();
+    fdfFieldList.add(fdfField);
+
+    FDFDictionary fdfDictionary = mock(FDFDictionary.class);
+    when(fdfDictionary.getFields()).thenReturn(fdfFieldList);
+
+    FDFCatalog fdfCatalog = mock(FDFCatalog.class);
+    when(fdfCatalog.getFDF()).thenReturn(fdfDictionary);
+
+    FDFDocument fdf = mock(FDFDocument.class);
+    when(fdf.getCatalog()).thenReturn(fdfCatalog);
+
+    // Act
+    pdAcroForm.importFDF(fdf);
+
+    // Assert
+    verify(cosArray2).add(isA(COSBase.class));
+    verify(cosArray).add(isA(COSBase.class));
+    verify(cosArray2, atLeast(1)).getObject(anyInt());
+    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray, atLeast(1)).isEmpty();
+    verify(cosArray2, atLeast(1)).size();
+    verify(cosArray, atLeast(1)).size();
+    verify(cosDictionary, atLeast(1)).containsKey(isA(COSName.class));
+    verify(form).getCOSArray(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getCOSArray(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getNameAsString(isA(COSName.class));
+    verify(fdfCatalog).getFDF();
+    verify(fdfDictionary).getFields();
+    verify(fdf).getCatalog();
+    verify(fdfField).getPartialFieldName();
+  }
+
+  /**
+   * Test {@link PDAcroForm#importFDF(FDFDocument)}.
+   *
+   * <ul>
+   *   <li>Given {@link COSArray} {@link COSArray#getObject(int)} return {@link COSBoolean#FALSE}.
+   *   <li>Then calls {@link COSArray#add(COSBase)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#importFDF(FDFDocument)}
+   */
+  @Test
+  @DisplayName(
+      "Test importFDF(FDFDocument); given COSArray getObject(int) return FALSE; then calls add(COSBase)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.importFDF(FDFDocument)"})
+  void testImportFDF_givenCOSArrayGetObjectReturnFalse_thenCallsAdd() throws IOException {
+    // Arrange
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.getObject(anyInt())).thenReturn(COSBoolean.FALSE);
+    when(cosArray.size()).thenReturn(3);
+    doNothing().when(cosArray).add(Mockito.<COSBase>any());
+    cosArray.add(COSBoolean.FALSE);
+
+    COSDictionary form = mock(COSDictionary.class);
+    when(form.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument(), form);
+
+    FDFField fdfField = mock(FDFField.class);
+    when(fdfField.getPartialFieldName()).thenReturn("Partial Field Name");
+
+    ArrayList<FDFField> fdfFieldList = new ArrayList<>();
+    fdfFieldList.add(fdfField);
+
+    FDFDictionary fdfDictionary = mock(FDFDictionary.class);
+    when(fdfDictionary.getFields()).thenReturn(fdfFieldList);
+
+    FDFCatalog fdfCatalog = mock(FDFCatalog.class);
+    when(fdfCatalog.getFDF()).thenReturn(fdfDictionary);
+
+    FDFDocument fdf = mock(FDFDocument.class);
+    when(fdf.getCatalog()).thenReturn(fdfCatalog);
+
+    // Act
+    pdAcroForm.importFDF(fdf);
+
+    // Assert
+    verify(cosArray).add(isA(COSBase.class));
+    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray, atLeast(1)).size();
+    verify(form).getCOSArray(isA(COSName.class));
+    verify(fdfCatalog).getFDF();
+    verify(fdfDictionary).getFields();
+    verify(fdf).getCatalog();
+    verify(fdfField).getPartialFieldName();
+  }
+
+  /**
+   * Test {@link PDAcroForm#importFDF(FDFDocument)}.
+   *
+   * <ul>
+   *   <li>Given {@link COSArray} {@link COSArray#getObject(int)} return {@link COSBoolean#FALSE}.
+   *   <li>Then calls {@link COSArray#isEmpty()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#importFDF(FDFDocument)}
+   */
+  @Test
+  @DisplayName(
+      "Test importFDF(FDFDocument); given COSArray getObject(int) return FALSE; then calls isEmpty()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.importFDF(FDFDocument)"})
+  void testImportFDF_givenCOSArrayGetObjectReturnFalse_thenCallsIsEmpty() throws IOException {
+    // Arrange
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.getObject(anyInt())).thenReturn(COSBoolean.FALSE);
+    when(cosArray.isEmpty()).thenReturn(false);
+    when(cosArray.size()).thenReturn(3);
+    doNothing().when(cosArray).add(Mockito.<COSBase>any());
+    cosArray.add(COSBoolean.FALSE);
+
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    when(cosDictionary.containsKey(Mockito.<COSName>any())).thenReturn(true);
+    when(cosDictionary.getNameAsString(Mockito.<COSName>any())).thenReturn("Name As String");
+
+    COSArray cosArray2 = mock(COSArray.class);
+    when(cosArray2.getObject(anyInt())).thenReturn(cosDictionary);
+    when(cosArray2.size()).thenReturn(3);
+    doNothing().when(cosArray2).add(Mockito.<COSBase>any());
+    cosArray2.add(COSBoolean.FALSE);
+
+    COSDictionary form = mock(COSDictionary.class);
+    when(form.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray2);
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument(), form);
+
+    FDFField fdfField = mock(FDFField.class);
+    when(fdfField.getPartialFieldName()).thenReturn("Partial Field Name");
+
+    ArrayList<FDFField> fdfFieldList = new ArrayList<>();
+    fdfFieldList.add(fdfField);
+
+    FDFDictionary fdfDictionary = mock(FDFDictionary.class);
+    when(fdfDictionary.getFields()).thenReturn(fdfFieldList);
+
+    FDFCatalog fdfCatalog = mock(FDFCatalog.class);
+    when(fdfCatalog.getFDF()).thenReturn(fdfDictionary);
+
+    FDFDocument fdf = mock(FDFDocument.class);
+    when(fdf.getCatalog()).thenReturn(fdfCatalog);
+
+    // Act
+    pdAcroForm.importFDF(fdf);
+
+    // Assert
+    verify(cosArray2).add(isA(COSBase.class));
+    verify(cosArray).add(isA(COSBase.class));
+    verify(cosArray2, atLeast(1)).getObject(anyInt());
+    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray, atLeast(1)).isEmpty();
+    verify(cosArray2, atLeast(1)).size();
+    verify(cosArray, atLeast(1)).size();
+    verify(cosDictionary, atLeast(1)).containsKey(isA(COSName.class));
+    verify(form).getCOSArray(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getCOSArray(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getNameAsString(isA(COSName.class));
+    verify(fdfCatalog).getFDF();
+    verify(fdfDictionary).getFields();
+    verify(fdf).getCatalog();
+    verify(fdfField).getPartialFieldName();
+  }
+
+  /**
+   * Test {@link PDAcroForm#importFDF(FDFDocument)}.
+   *
+   * <ul>
+   *   <li>Given {@link COSArray} {@link COSArray#isEmpty()} return {@code true}.
+   *   <li>Then calls {@link COSArray#isEmpty()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#importFDF(FDFDocument)}
+   */
+  @Test
+  @DisplayName(
+      "Test importFDF(FDFDocument); given COSArray isEmpty() return 'true'; then calls isEmpty()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.importFDF(FDFDocument)"})
+  void testImportFDF_givenCOSArrayIsEmptyReturnTrue_thenCallsIsEmpty() throws IOException {
+    // Arrange
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.isEmpty()).thenReturn(true);
+    doNothing().when(cosArray).add(Mockito.<COSBase>any());
+    cosArray.add(COSBoolean.FALSE);
+
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    when(cosDictionary.containsKey(Mockito.<COSName>any())).thenReturn(true);
+    when(cosDictionary.getNameAsString(Mockito.<COSName>any())).thenReturn("Name As String");
+
+    COSArray cosArray2 = mock(COSArray.class);
+    when(cosArray2.getObject(anyInt())).thenReturn(cosDictionary);
+    when(cosArray2.size()).thenReturn(3);
+    doNothing().when(cosArray2).add(Mockito.<COSBase>any());
+    cosArray2.add(COSBoolean.FALSE);
+
+    COSDictionary form = mock(COSDictionary.class);
+    when(form.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray2);
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument(), form);
+
+    FDFField fdfField = mock(FDFField.class);
+    when(fdfField.getPartialFieldName()).thenReturn("Partial Field Name");
+
+    ArrayList<FDFField> fdfFieldList = new ArrayList<>();
+    fdfFieldList.add(fdfField);
+
+    FDFDictionary fdfDictionary = mock(FDFDictionary.class);
+    when(fdfDictionary.getFields()).thenReturn(fdfFieldList);
+
+    FDFCatalog fdfCatalog = mock(FDFCatalog.class);
+    when(fdfCatalog.getFDF()).thenReturn(fdfDictionary);
+
+    FDFDocument fdf = mock(FDFDocument.class);
+    when(fdf.getCatalog()).thenReturn(fdfCatalog);
+
+    // Act
+    pdAcroForm.importFDF(fdf);
+
+    // Assert
+    verify(cosArray2).add(isA(COSBase.class));
+    verify(cosArray).add(isA(COSBase.class));
+    verify(cosArray2, atLeast(1)).getObject(anyInt());
+    verify(cosArray, atLeast(1)).isEmpty();
+    verify(cosArray2, atLeast(1)).size();
+    verify(cosDictionary, atLeast(1)).containsKey(isA(COSName.class));
+    verify(form).getCOSArray(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getCOSArray(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getNameAsString(isA(COSName.class));
+    verify(fdfCatalog).getFDF();
+    verify(fdfDictionary).getFields();
+    verify(fdf).getCatalog();
+    verify(fdfField).getPartialFieldName();
+  }
+
+  /**
+   * Test {@link PDAcroForm#importFDF(FDFDocument)}.
+   *
+   * <ul>
+   *   <li>Given {@link COSDictionary} {@link COSDictionary#getCOSArray(COSName)} return {@link
+   *       COSArray#COSArray()}.
+   *   <li>Then calls {@link COSDictionary#getCOSArray(COSName)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#importFDF(FDFDocument)}
+   */
+  @Test
+  @DisplayName(
+      "Test importFDF(FDFDocument); given COSDictionary getCOSArray(COSName) return COSArray(); then calls getCOSArray(COSName)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.importFDF(FDFDocument)"})
+  void testImportFDF_givenCOSDictionaryGetCOSArrayReturnCOSArray_thenCallsGetCOSArray()
+      throws IOException {
+    // Arrange
+    COSDictionary form = mock(COSDictionary.class);
+    when(form.getCOSArray(Mockito.<COSName>any())).thenReturn(new COSArray());
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument(), form);
+
+    FDFField fdfField = mock(FDFField.class);
+    when(fdfField.getPartialFieldName()).thenReturn("Partial Field Name");
+
+    ArrayList<FDFField> fdfFieldList = new ArrayList<>();
+    fdfFieldList.add(fdfField);
+
+    FDFDictionary fdfDictionary = mock(FDFDictionary.class);
+    when(fdfDictionary.getFields()).thenReturn(fdfFieldList);
+
+    FDFCatalog fdfCatalog = mock(FDFCatalog.class);
+    when(fdfCatalog.getFDF()).thenReturn(fdfDictionary);
+
+    FDFDocument fdf = mock(FDFDocument.class);
+    when(fdf.getCatalog()).thenReturn(fdfCatalog);
+
+    // Act
+    pdAcroForm.importFDF(fdf);
+
+    // Assert
+    verify(form).getCOSArray(isA(COSName.class));
+    verify(fdfCatalog).getFDF();
+    verify(fdfDictionary).getFields();
+    verify(fdf).getCatalog();
+    verify(fdfField).getPartialFieldName();
+  }
+
+  /**
+   * Test {@link PDAcroForm#importFDF(FDFDocument)}.
+   *
+   * <ul>
+   *   <li>Given {@link COSDictionary} {@link COSDictionary#getCOSArray(COSName)} return {@code
+   *       null}.
+   *   <li>Then calls {@link COSDictionary#containsKey(COSName)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#importFDF(FDFDocument)}
+   */
+  @Test
+  @DisplayName(
+      "Test importFDF(FDFDocument); given COSDictionary getCOSArray(COSName) return 'null'; then calls containsKey(COSName)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.importFDF(FDFDocument)"})
+  void testImportFDF_givenCOSDictionaryGetCOSArrayReturnNull_thenCallsContainsKey()
+      throws IOException {
+    // Arrange
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.getCOSArray(Mockito.<COSName>any())).thenReturn(null);
+    when(cosDictionary.containsKey(Mockito.<COSName>any())).thenReturn(true);
+    when(cosDictionary.getNameAsString(Mockito.<COSName>any())).thenReturn("Name As String");
+
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.getObject(anyInt())).thenReturn(cosDictionary);
+    when(cosArray.size()).thenReturn(3);
+    doNothing().when(cosArray).add(Mockito.<COSBase>any());
+    cosArray.add(COSBoolean.FALSE);
+
+    COSDictionary form = mock(COSDictionary.class);
+    when(form.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument(), form);
+
+    FDFField fdfField = mock(FDFField.class);
+    when(fdfField.getPartialFieldName()).thenReturn("Partial Field Name");
+
+    ArrayList<FDFField> fdfFieldList = new ArrayList<>();
+    fdfFieldList.add(fdfField);
+
+    FDFDictionary fdfDictionary = mock(FDFDictionary.class);
+    when(fdfDictionary.getFields()).thenReturn(fdfFieldList);
+
+    FDFCatalog fdfCatalog = mock(FDFCatalog.class);
+    when(fdfCatalog.getFDF()).thenReturn(fdfDictionary);
+
+    FDFDocument fdf = mock(FDFDocument.class);
+    when(fdf.getCatalog()).thenReturn(fdfCatalog);
+
+    // Act
+    pdAcroForm.importFDF(fdf);
+
+    // Assert
+    verify(cosArray).add(isA(COSBase.class));
+    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray, atLeast(1)).size();
+    verify(cosDictionary, atLeast(1)).containsKey(isA(COSName.class));
+    verify(form).getCOSArray(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getCOSArray(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getNameAsString(isA(COSName.class));
+    verify(fdfCatalog).getFDF();
+    verify(fdfDictionary).getFields();
+    verify(fdf).getCatalog();
+    verify(fdfField).getPartialFieldName();
+  }
+
+  /**
+   * Test {@link PDAcroForm#importFDF(FDFDocument)}.
+   *
+   * <ul>
+   *   <li>Given {@link COSDictionary} {@link COSDictionary#getCOSObject()} return {@link
+   *       COSBoolean#FALSE}.
+   *   <li>Then calls {@link COSDictionary#getCOSObject()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#importFDF(FDFDocument)}
+   */
+  @Test
+  @DisplayName(
+      "Test importFDF(FDFDocument); given COSDictionary getCOSObject() return FALSE; then calls getCOSObject()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.importFDF(FDFDocument)"})
+  void testImportFDF_givenCOSDictionaryGetCOSObjectReturnFalse_thenCallsGetCOSObject()
+      throws IOException {
+    // Arrange
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.getCOSArray(Mockito.<COSName>any())).thenReturn(new COSArray());
+    when(cosDictionary.containsKey(Mockito.<COSName>any())).thenReturn(true);
+    when(cosDictionary.getNameAsString(Mockito.<COSName>any())).thenReturn("Name As String");
+    when(cosDictionary.getCOSObject()).thenReturn(COSBoolean.FALSE);
+    when(cosDictionary.getString(Mockito.<COSName>any())).thenReturn("String");
+
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.getObject(anyInt())).thenReturn(cosDictionary);
+    when(cosArray.isEmpty()).thenReturn(false);
+    when(cosArray.size()).thenReturn(3);
+    doNothing().when(cosArray).add(Mockito.<COSBase>any());
+    cosArray.add(COSBoolean.FALSE);
+
+    COSDictionary cosDictionary2 = mock(COSDictionary.class);
+    when(cosDictionary2.getString(Mockito.<COSName>any())).thenReturn("String");
+    when(cosDictionary2.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    when(cosDictionary2.containsKey(Mockito.<COSName>any())).thenReturn(true);
+
+    COSArray cosArray2 = mock(COSArray.class);
+    when(cosArray2.getObject(anyInt())).thenReturn(cosDictionary2);
+    when(cosArray2.size()).thenReturn(3);
+    doNothing().when(cosArray2).add(Mockito.<COSBase>any());
+    cosArray2.add(COSBoolean.FALSE);
+
+    COSDictionary form = mock(COSDictionary.class);
+    when(form.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray2);
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument(), form);
+
+    FDFField fdfField = mock(FDFField.class);
+    when(fdfField.getPartialFieldName()).thenReturn("Partial Field Name");
+
+    ArrayList<FDFField> fdfFieldList = new ArrayList<>();
+    fdfFieldList.add(fdfField);
+
+    FDFDictionary fdfDictionary = mock(FDFDictionary.class);
+    when(fdfDictionary.getFields()).thenReturn(fdfFieldList);
+
+    FDFCatalog fdfCatalog = mock(FDFCatalog.class);
+    when(fdfCatalog.getFDF()).thenReturn(fdfDictionary);
+
+    FDFDocument fdf = mock(FDFDocument.class);
+    when(fdf.getCatalog()).thenReturn(fdfCatalog);
+
+    // Act
+    pdAcroForm.importFDF(fdf);
+
+    // Assert
+    verify(cosArray2).add(isA(COSBase.class));
+    verify(cosArray).add(isA(COSBase.class));
+    verify(cosArray2, atLeast(1)).getObject(anyInt());
+    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray, atLeast(1)).isEmpty();
+    verify(cosArray2, atLeast(1)).size();
+    verify(cosArray, atLeast(1)).size();
+    verify(cosDictionary, atLeast(1)).getCOSObject();
+    verify(cosDictionary2, atLeast(1)).containsKey(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).containsKey(isA(COSName.class));
+    verify(form).getCOSArray(isA(COSName.class));
+    verify(cosDictionary2, atLeast(1)).getCOSArray(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getCOSArray(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getNameAsString(isA(COSName.class));
+    verify(cosDictionary2, atLeast(1)).getString(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getString(isA(COSName.class));
+    verify(fdfCatalog).getFDF();
+    verify(fdfDictionary).getFields();
+    verify(fdf).getCatalog();
+    verify(fdfField).getPartialFieldName();
+  }
+
+  /**
+   * Test {@link PDAcroForm#importFDF(FDFDocument)}.
+   *
+   * <ul>
+   *   <li>Given {@link COSDictionary} {@link COSDictionary#getInt(COSName, int)} return one.
+   *   <li>Then calls {@link COSDictionary#getInt(COSName, int)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#importFDF(FDFDocument)}
+   */
+  @Test
+  @DisplayName(
+      "Test importFDF(FDFDocument); given COSDictionary getInt(COSName, int) return one; then calls getInt(COSName, int)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.importFDF(FDFDocument)"})
+  void testImportFDF_givenCOSDictionaryGetIntReturnOne_thenCallsGetInt() throws IOException {
+    // Arrange
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.getInt(Mockito.<COSName>any(), anyInt())).thenReturn(1);
+    when(cosDictionary.getCOSArray(Mockito.<COSName>any())).thenReturn(new COSArray());
+    when(cosDictionary.containsKey(Mockito.<COSName>any())).thenReturn(true);
+    when(cosDictionary.getNameAsString(Mockito.<COSName>any())).thenReturn("Ch");
+    when(cosDictionary.getCOSObject()).thenReturn(COSBoolean.FALSE);
+    when(cosDictionary.getString(Mockito.<COSName>any())).thenReturn("String");
+
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.getObject(anyInt())).thenReturn(cosDictionary);
+    when(cosArray.isEmpty()).thenReturn(false);
+    when(cosArray.size()).thenReturn(3);
+    doNothing().when(cosArray).add(Mockito.<COSBase>any());
+    cosArray.add(COSBoolean.FALSE);
+
+    COSDictionary cosDictionary2 = mock(COSDictionary.class);
+    doNothing().when(cosDictionary2).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
+    doNothing().when(cosDictionary2).setInt(Mockito.<COSName>any(), anyInt());
+    when(cosDictionary2.getString(Mockito.<COSName>any())).thenReturn("Partial Field Name");
+    when(cosDictionary2.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    when(cosDictionary2.containsKey(Mockito.<COSName>any())).thenReturn(true);
+
+    COSArray cosArray2 = mock(COSArray.class);
+    when(cosArray2.getObject(anyInt())).thenReturn(cosDictionary2);
+    when(cosArray2.size()).thenReturn(3);
+    doNothing().when(cosArray2).add(Mockito.<COSBase>any());
+    cosArray2.add(COSBoolean.FALSE);
+
+    COSDictionary form = mock(COSDictionary.class);
+    when(form.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray2);
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument(), form);
+
+    FDFField fdfField = mock(FDFField.class);
+    when(fdfField.getFieldFlags()).thenReturn(1);
+    when(fdfField.getKids()).thenReturn(new ArrayList<>());
+    when(fdfField.getCOSValue()).thenReturn(COSBoolean.FALSE);
+    when(fdfField.getPartialFieldName()).thenReturn("Partial Field Name");
+
+    ArrayList<FDFField> fdfFieldList = new ArrayList<>();
+    fdfFieldList.add(fdfField);
+
+    FDFDictionary fdfDictionary = mock(FDFDictionary.class);
+    when(fdfDictionary.getFields()).thenReturn(fdfFieldList);
+
+    FDFCatalog fdfCatalog = mock(FDFCatalog.class);
+    when(fdfCatalog.getFDF()).thenReturn(fdfDictionary);
+
+    FDFDocument fdf = mock(FDFDocument.class);
+    when(fdf.getCatalog()).thenReturn(fdfCatalog);
+
+    // Act
+    pdAcroForm.importFDF(fdf);
+
+    // Assert
+    verify(cosArray2).add(isA(COSBase.class));
+    verify(cosArray).add(isA(COSBase.class));
+    verify(cosArray2, atLeast(1)).getObject(anyInt());
+    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray, atLeast(1)).isEmpty();
+    verify(cosArray2, atLeast(1)).size();
+    verify(cosArray, atLeast(1)).size();
+    verify(cosDictionary, atLeast(1)).getCOSObject();
+    verify(cosDictionary2, atLeast(1)).containsKey(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).containsKey(isA(COSName.class));
+    verify(form).getCOSArray(isA(COSName.class));
+    verify(cosDictionary2, atLeast(1)).getCOSArray(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getCOSArray(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getInt(isA(COSName.class), eq(0));
+    verify(cosDictionary, atLeast(1)).getNameAsString(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getString(isA(COSName.class));
+    verify(cosDictionary2, atLeast(1)).getString(isA(COSName.class));
+    verify(cosDictionary2).setInt(isA(COSName.class), eq(1));
+    verify(cosDictionary2).setItem(isA(COSName.class), isA(COSBase.class));
+    verify(fdfCatalog).getFDF();
+    verify(fdfDictionary).getFields();
+    verify(fdf).getCatalog();
+    verify(fdfField).getCOSValue();
+    verify(fdfField).getFieldFlags();
+    verify(fdfField).getKids();
+    verify(fdfField).getPartialFieldName();
+  }
+
+  /**
+   * Test {@link PDAcroForm#importFDF(FDFDocument)}.
+   *
+   * <ul>
+   *   <li>Given {@link COSDictionary} {@link COSDictionary#getInt(COSName, int)} return one.
+   *   <li>Then calls {@link COSDictionary#getInt(COSName, int)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#importFDF(FDFDocument)}
+   */
+  @Test
+  @DisplayName(
+      "Test importFDF(FDFDocument); given COSDictionary getInt(COSName, int) return one; then calls getInt(COSName, int)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.importFDF(FDFDocument)"})
+  void testImportFDF_givenCOSDictionaryGetIntReturnOne_thenCallsGetInt2() throws IOException {
+    // Arrange
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.getInt(Mockito.<COSName>any(), anyInt())).thenReturn(1);
+    when(cosDictionary.getCOSArray(Mockito.<COSName>any())).thenReturn(new COSArray());
+    when(cosDictionary.containsKey(Mockito.<COSName>any())).thenReturn(true);
+    when(cosDictionary.getNameAsString(Mockito.<COSName>any())).thenReturn("Ch");
+    when(cosDictionary.getCOSObject()).thenReturn(COSBoolean.FALSE);
+    when(cosDictionary.getString(Mockito.<COSName>any())).thenReturn("String");
+
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.getObject(anyInt())).thenReturn(cosDictionary);
+    when(cosArray.isEmpty()).thenReturn(false);
+    when(cosArray.size()).thenReturn(3);
+    doNothing().when(cosArray).add(Mockito.<COSBase>any());
+    cosArray.add(COSBoolean.FALSE);
+
+    COSDictionary cosDictionary2 = mock(COSDictionary.class);
+    doNothing().when(cosDictionary2).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
+    doNothing().when(cosDictionary2).setInt(Mockito.<COSName>any(), anyInt());
+    when(cosDictionary2.getString(Mockito.<COSName>any())).thenReturn("Partial Field Name");
+    when(cosDictionary2.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    when(cosDictionary2.containsKey(Mockito.<COSName>any())).thenReturn(true);
+
+    COSArray cosArray2 = mock(COSArray.class);
+    when(cosArray2.getObject(anyInt())).thenReturn(cosDictionary2);
+    when(cosArray2.size()).thenReturn(3);
+    doNothing().when(cosArray2).add(Mockito.<COSBase>any());
+    cosArray2.add(COSBoolean.FALSE);
+
+    COSDictionary form = mock(COSDictionary.class);
+    when(form.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray2);
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument(), form);
+
+    FDFField fdfField = mock(FDFField.class);
+    when(fdfField.getFieldFlags()).thenReturn(1);
+    when(fdfField.getKids()).thenReturn(new ArrayList<>());
+    when(fdfField.getCOSValue()).thenReturn(COSBoolean.FALSE);
+    when(fdfField.getPartialFieldName()).thenReturn("Partial Field Name");
+
+    ArrayList<FDFField> fdfFieldList = new ArrayList<>();
+    fdfFieldList.add(new FDFField());
+    fdfFieldList.add(fdfField);
+
+    FDFDictionary fdfDictionary = mock(FDFDictionary.class);
+    when(fdfDictionary.getFields()).thenReturn(fdfFieldList);
+
+    FDFCatalog fdfCatalog = mock(FDFCatalog.class);
+    when(fdfCatalog.getFDF()).thenReturn(fdfDictionary);
+
+    FDFDocument fdf = mock(FDFDocument.class);
+    when(fdf.getCatalog()).thenReturn(fdfCatalog);
+
+    // Act
+    pdAcroForm.importFDF(fdf);
+
+    // Assert
+    verify(cosArray2).add(isA(COSBase.class));
+    verify(cosArray).add(isA(COSBase.class));
+    verify(cosArray2, atLeast(1)).getObject(anyInt());
+    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray, atLeast(1)).isEmpty();
+    verify(cosArray2, atLeast(1)).size();
+    verify(cosArray, atLeast(1)).size();
+    verify(cosDictionary, atLeast(1)).getCOSObject();
+    verify(cosDictionary2, atLeast(1)).containsKey(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).containsKey(isA(COSName.class));
+    verify(form, atLeast(1)).getCOSArray(isA(COSName.class));
+    verify(cosDictionary2, atLeast(1)).getCOSArray(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getCOSArray(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getInt(isA(COSName.class), eq(0));
+    verify(cosDictionary, atLeast(1)).getNameAsString(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getString(isA(COSName.class));
+    verify(cosDictionary2, atLeast(1)).getString(isA(COSName.class));
+    verify(cosDictionary2).setInt(isA(COSName.class), eq(1));
+    verify(cosDictionary2).setItem(isA(COSName.class), isA(COSBase.class));
+    verify(fdfCatalog).getFDF();
+    verify(fdfDictionary).getFields();
+    verify(fdf).getCatalog();
+    verify(fdfField).getCOSValue();
+    verify(fdfField).getFieldFlags();
+    verify(fdfField).getKids();
+    verify(fdfField).getPartialFieldName();
+  }
+
+  /**
+   * Test {@link PDAcroForm#importFDF(FDFDocument)}.
+   *
+   * <ul>
+   *   <li>Given {@link COSDictionary} {@link COSDictionary#getInt(COSName, int)} return one.
+   *   <li>Then calls {@link COSDictionary#getInt(COSName, int)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#importFDF(FDFDocument)}
+   */
+  @Test
+  @DisplayName(
+      "Test importFDF(FDFDocument); given COSDictionary getInt(COSName, int) return one; then calls getInt(COSName, int)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.importFDF(FDFDocument)"})
+  void testImportFDF_givenCOSDictionaryGetIntReturnOne_thenCallsGetInt3() throws IOException {
+    // Arrange
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.getInt(Mockito.<COSName>any(), anyInt())).thenReturn(1);
+    when(cosDictionary.getCOSArray(Mockito.<COSName>any())).thenReturn(new COSArray());
+    when(cosDictionary.containsKey(Mockito.<COSName>any())).thenReturn(true);
+    when(cosDictionary.getNameAsString(Mockito.<COSName>any())).thenReturn("Ch");
+    when(cosDictionary.getCOSObject()).thenReturn(COSBoolean.FALSE);
+    when(cosDictionary.getString(Mockito.<COSName>any())).thenReturn("String");
+
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.getObject(anyInt())).thenReturn(cosDictionary);
+    when(cosArray.isEmpty()).thenReturn(false);
+    when(cosArray.size()).thenReturn(3);
+    doNothing().when(cosArray).add(Mockito.<COSBase>any());
+    cosArray.add(COSBoolean.FALSE);
+
+    COSDictionary cosDictionary2 = mock(COSDictionary.class);
+    doNothing().when(cosDictionary2).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
+    doNothing().when(cosDictionary2).setInt(Mockito.<COSName>any(), anyInt());
+    when(cosDictionary2.getString(Mockito.<COSName>any())).thenReturn("Partial Field Name");
+    when(cosDictionary2.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    when(cosDictionary2.containsKey(Mockito.<COSName>any())).thenReturn(true);
+
+    COSArray cosArray2 = mock(COSArray.class);
+    when(cosArray2.getObject(anyInt())).thenReturn(cosDictionary2);
+    when(cosArray2.size()).thenReturn(3);
+    doNothing().when(cosArray2).add(Mockito.<COSBase>any());
+    cosArray2.add(COSBoolean.FALSE);
+
+    COSDictionary form = mock(COSDictionary.class);
+    when(form.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray2);
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument(), form);
+
+    ArrayList<FDFField> fdfFieldList = new ArrayList<>();
+    fdfFieldList.add(new FDFField());
+
+    FDFField fdfField = mock(FDFField.class);
+    when(fdfField.getFieldFlags()).thenReturn(1);
+    when(fdfField.getKids()).thenReturn(fdfFieldList);
+    when(fdfField.getCOSValue()).thenReturn(COSBoolean.FALSE);
+    when(fdfField.getPartialFieldName()).thenReturn("Partial Field Name");
+
+    ArrayList<FDFField> fdfFieldList2 = new ArrayList<>();
+    fdfFieldList2.add(fdfField);
+
+    FDFDictionary fdfDictionary = mock(FDFDictionary.class);
+    when(fdfDictionary.getFields()).thenReturn(fdfFieldList2);
+
+    FDFCatalog fdfCatalog = mock(FDFCatalog.class);
+    when(fdfCatalog.getFDF()).thenReturn(fdfDictionary);
+
+    FDFDocument fdf = mock(FDFDocument.class);
+    when(fdf.getCatalog()).thenReturn(fdfCatalog);
+
+    // Act
+    pdAcroForm.importFDF(fdf);
+
+    // Assert
+    verify(cosArray2).add(isA(COSBase.class));
+    verify(cosArray).add(isA(COSBase.class));
+    verify(cosArray2, atLeast(1)).getObject(anyInt());
+    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray, atLeast(1)).isEmpty();
+    verify(cosArray2, atLeast(1)).size();
+    verify(cosArray, atLeast(1)).size();
+    verify(cosDictionary, atLeast(1)).getCOSObject();
+    verify(cosDictionary2, atLeast(1)).containsKey(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).containsKey(isA(COSName.class));
+    verify(form).getCOSArray(isA(COSName.class));
+    verify(cosDictionary2, atLeast(1)).getCOSArray(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getCOSArray(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getInt(isA(COSName.class), eq(0));
+    verify(cosDictionary, atLeast(1)).getNameAsString(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getString(isA(COSName.class));
+    verify(cosDictionary2, atLeast(1)).getString(isA(COSName.class));
+    verify(cosDictionary2).setInt(isA(COSName.class), eq(1));
+    verify(cosDictionary2).setItem(isA(COSName.class), isA(COSBase.class));
+    verify(fdfCatalog).getFDF();
+    verify(fdfDictionary).getFields();
+    verify(fdf).getCatalog();
+    verify(fdfField).getCOSValue();
+    verify(fdfField).getFieldFlags();
+    verify(fdfField).getKids();
+    verify(fdfField).getPartialFieldName();
+  }
+
+  /**
+   * Test {@link PDAcroForm#importFDF(FDFDocument)}.
+   *
+   * <ul>
+   *   <li>Given {@link COSDictionary} {@link COSDictionary#getNameAsString(COSName)} return {@code
+   *       Name As String}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#importFDF(FDFDocument)}
+   */
+  @Test
+  @DisplayName(
+      "Test importFDF(FDFDocument); given COSDictionary getNameAsString(COSName) return 'Name As String'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.importFDF(FDFDocument)"})
+  void testImportFDF_givenCOSDictionaryGetNameAsStringReturnNameAsString() throws IOException {
+    // Arrange
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.getCOSArray(Mockito.<COSName>any())).thenReturn(new COSArray());
+    when(cosDictionary.containsKey(Mockito.<COSName>any())).thenReturn(true);
+    when(cosDictionary.getNameAsString(Mockito.<COSName>any())).thenReturn("Name As String");
+
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.getObject(anyInt())).thenReturn(cosDictionary);
+    when(cosArray.size()).thenReturn(3);
+    doNothing().when(cosArray).add(Mockito.<COSBase>any());
+    cosArray.add(COSBoolean.FALSE);
+
+    COSDictionary form = mock(COSDictionary.class);
+    when(form.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument(), form);
+
+    FDFField fdfField = mock(FDFField.class);
+    when(fdfField.getPartialFieldName()).thenReturn("Partial Field Name");
+
+    ArrayList<FDFField> fdfFieldList = new ArrayList<>();
+    fdfFieldList.add(fdfField);
+
+    FDFDictionary fdfDictionary = mock(FDFDictionary.class);
+    when(fdfDictionary.getFields()).thenReturn(fdfFieldList);
+
+    FDFCatalog fdfCatalog = mock(FDFCatalog.class);
+    when(fdfCatalog.getFDF()).thenReturn(fdfDictionary);
+
+    FDFDocument fdf = mock(FDFDocument.class);
+    when(fdf.getCatalog()).thenReturn(fdfCatalog);
+
+    // Act
+    pdAcroForm.importFDF(fdf);
+
+    // Assert
+    verify(cosArray).add(isA(COSBase.class));
+    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray, atLeast(1)).size();
+    verify(cosDictionary, atLeast(1)).containsKey(isA(COSName.class));
+    verify(form).getCOSArray(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getCOSArray(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getNameAsString(isA(COSName.class));
+    verify(fdfCatalog).getFDF();
+    verify(fdfDictionary).getFields();
+    verify(fdf).getCatalog();
+    verify(fdfField).getPartialFieldName();
+  }
+
+  /**
+   * Test {@link PDAcroForm#importFDF(FDFDocument)}.
+   *
+   * <ul>
+   *   <li>Given {@link COSDictionary} {@link COSDictionary#setItem(COSName, COSBase)} does nothing.
+   *   <li>Then calls {@link COSDictionary#setInt(COSName, int)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#importFDF(FDFDocument)}
+   */
+  @Test
+  @DisplayName(
+      "Test importFDF(FDFDocument); given COSDictionary setItem(COSName, COSBase) does nothing; then calls setInt(COSName, int)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.importFDF(FDFDocument)"})
+  void testImportFDF_givenCOSDictionarySetItemDoesNothing_thenCallsSetInt() throws IOException {
+    // Arrange
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.getCOSArray(Mockito.<COSName>any())).thenReturn(new COSArray());
+    when(cosDictionary.containsKey(Mockito.<COSName>any())).thenReturn(true);
+    when(cosDictionary.getNameAsString(Mockito.<COSName>any())).thenReturn("Name As String");
+    when(cosDictionary.getCOSObject()).thenReturn(COSBoolean.FALSE);
+    when(cosDictionary.getString(Mockito.<COSName>any())).thenReturn("String");
+
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.getObject(anyInt())).thenReturn(cosDictionary);
+    when(cosArray.isEmpty()).thenReturn(false);
+    when(cosArray.size()).thenReturn(3);
+    doNothing().when(cosArray).add(Mockito.<COSBase>any());
+    cosArray.add(COSBoolean.FALSE);
+
+    COSDictionary cosDictionary2 = mock(COSDictionary.class);
+    doNothing().when(cosDictionary2).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
+    doNothing().when(cosDictionary2).setInt(Mockito.<COSName>any(), anyInt());
+    when(cosDictionary2.getString(Mockito.<COSName>any())).thenReturn("Partial Field Name");
+    when(cosDictionary2.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    when(cosDictionary2.containsKey(Mockito.<COSName>any())).thenReturn(true);
+
+    COSArray cosArray2 = mock(COSArray.class);
+    when(cosArray2.getObject(anyInt())).thenReturn(cosDictionary2);
+    when(cosArray2.size()).thenReturn(3);
+    doNothing().when(cosArray2).add(Mockito.<COSBase>any());
+    cosArray2.add(COSBoolean.FALSE);
+
+    COSDictionary form = mock(COSDictionary.class);
+    when(form.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray2);
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument(), form);
+
+    FDFField fdfField = mock(FDFField.class);
+    when(fdfField.getFieldFlags()).thenReturn(1);
+    when(fdfField.getKids()).thenReturn(new ArrayList<>());
+    when(fdfField.getCOSValue()).thenReturn(COSBoolean.FALSE);
+    when(fdfField.getPartialFieldName()).thenReturn("Partial Field Name");
+
+    ArrayList<FDFField> fdfFieldList = new ArrayList<>();
+    fdfFieldList.add(fdfField);
+
+    FDFDictionary fdfDictionary = mock(FDFDictionary.class);
+    when(fdfDictionary.getFields()).thenReturn(fdfFieldList);
+
+    FDFCatalog fdfCatalog = mock(FDFCatalog.class);
+    when(fdfCatalog.getFDF()).thenReturn(fdfDictionary);
+
+    FDFDocument fdf = mock(FDFDocument.class);
+    when(fdf.getCatalog()).thenReturn(fdfCatalog);
+
+    // Act
+    pdAcroForm.importFDF(fdf);
+
+    // Assert
+    verify(cosArray2).add(isA(COSBase.class));
+    verify(cosArray).add(isA(COSBase.class));
+    verify(cosArray2, atLeast(1)).getObject(anyInt());
+    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray, atLeast(1)).isEmpty();
+    verify(cosArray2, atLeast(1)).size();
+    verify(cosArray, atLeast(1)).size();
+    verify(cosDictionary, atLeast(1)).getCOSObject();
+    verify(cosDictionary2, atLeast(1)).containsKey(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).containsKey(isA(COSName.class));
+    verify(form).getCOSArray(isA(COSName.class));
+    verify(cosDictionary2, atLeast(1)).getCOSArray(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getCOSArray(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getNameAsString(isA(COSName.class));
+    verify(cosDictionary2).getString(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getString(isA(COSName.class));
+    verify(cosDictionary2).setInt(isA(COSName.class), eq(1));
+    verify(cosDictionary2).setItem(isA(COSName.class), isA(COSBase.class));
+    verify(fdfCatalog).getFDF();
+    verify(fdfDictionary).getFields();
+    verify(fdf).getCatalog();
+    verify(fdfField).getCOSValue();
+    verify(fdfField).getFieldFlags();
+    verify(fdfField).getKids();
+    verify(fdfField).getPartialFieldName();
+  }
+
+  /**
+   * Test {@link PDAcroForm#importFDF(FDFDocument)}.
+   *
+   * <ul>
+   *   <li>Given {@link FDFCatalog} {@link FDFCatalog#getFDF()} return {@link
+   *       FDFDictionary#FDFDictionary()}.
+   *   <li>Then calls {@link FDFCatalog#getFDF()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#importFDF(FDFDocument)}
+   */
+  @Test
+  @DisplayName(
+      "Test importFDF(FDFDocument); given FDFCatalog getFDF() return FDFDictionary(); then calls getFDF()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.importFDF(FDFDocument)"})
+  void testImportFDF_givenFDFCatalogGetFDFReturnFDFDictionary_thenCallsGetFDF() throws IOException {
+    // Arrange
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+
+    FDFCatalog fdfCatalog = mock(FDFCatalog.class);
+    when(fdfCatalog.getFDF()).thenReturn(new FDFDictionary());
+
+    FDFDocument fdf = mock(FDFDocument.class);
+    when(fdf.getCatalog()).thenReturn(fdfCatalog);
+
+    // Act
+    pdAcroForm.importFDF(fdf);
+
+    // Assert
+    verify(fdfCatalog).getFDF();
+    verify(fdf).getCatalog();
+  }
+
+  /**
+   * Test {@link PDAcroForm#importFDF(FDFDocument)}.
+   *
+   * <ul>
+   *   <li>Given {@link FDFCatalog#FDFCatalog(Element)} with element is {@link
+   *       IIOMetadataNode#IIOMetadataNode()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#importFDF(FDFDocument)}
+   */
+  @Test
+  @DisplayName(
+      "Test importFDF(FDFDocument); given FDFCatalog(Element) with element is IIOMetadataNode()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.importFDF(FDFDocument)"})
+  void testImportFDF_givenFDFCatalogWithElementIsIIOMetadataNode() throws IOException {
+    // Arrange
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+
+    FDFDocument fdf = mock(FDFDocument.class);
+    when(fdf.getCatalog()).thenReturn(new FDFCatalog(new IIOMetadataNode()));
+
+    // Act
+    pdAcroForm.importFDF(fdf);
+
+    // Assert
+    verify(fdf).getCatalog();
+  }
+
+  /**
+   * Test {@link PDAcroForm#importFDF(FDFDocument)}.
+   *
+   * <ul>
+   *   <li>Given {@link FDFCatalog#FDFCatalog()}.
+   *   <li>When {@link FDFDocument} {@link FDFDocument#getCatalog()} return {@link
+   *       FDFCatalog#FDFCatalog()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#importFDF(FDFDocument)}
+   */
+  @Test
+  @DisplayName(
+      "Test importFDF(FDFDocument); given FDFCatalog(); when FDFDocument getCatalog() return FDFCatalog()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.importFDF(FDFDocument)"})
+  void testImportFDF_givenFDFCatalog_whenFDFDocumentGetCatalogReturnFDFCatalog()
+      throws IOException {
+    // Arrange
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+
+    FDFDocument fdf = mock(FDFDocument.class);
+    when(fdf.getCatalog()).thenReturn(new FDFCatalog());
+
+    // Act
+    pdAcroForm.importFDF(fdf);
+
+    // Assert
+    verify(fdf).getCatalog();
+  }
+
+  /**
+   * Test {@link PDAcroForm#importFDF(FDFDocument)}.
+   *
+   * <ul>
+   *   <li>Given {@link FDFDictionary#FDFDictionary()} Fields is {@link ArrayList#ArrayList()}.
+   *   <li>Then calls {@link FDFCatalog#getFDF()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#importFDF(FDFDocument)}
+   */
+  @Test
+  @DisplayName(
+      "Test importFDF(FDFDocument); given FDFDictionary() Fields is ArrayList(); then calls getFDF()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.importFDF(FDFDocument)"})
+  void testImportFDF_givenFDFDictionaryFieldsIsArrayList_thenCallsGetFDF() throws IOException {
+    // Arrange
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+
+    FDFDictionary fdfDictionary = new FDFDictionary();
+    fdfDictionary.setFields(new ArrayList<>());
+
+    FDFCatalog fdfCatalog = mock(FDFCatalog.class);
+    when(fdfCatalog.getFDF()).thenReturn(fdfDictionary);
+
+    FDFDocument fdf = mock(FDFDocument.class);
+    when(fdf.getCatalog()).thenReturn(fdfCatalog);
+
+    // Act
+    pdAcroForm.importFDF(fdf);
+
+    // Assert
+    verify(fdfCatalog).getFDF();
+    verify(fdf).getCatalog();
+  }
+
+  /**
+   * Test {@link PDAcroForm#importFDF(FDFDocument)}.
+   *
+   * <ul>
+   *   <li>Given {@link FDFDictionary} {@link FDFDictionary#getFields()} return {@code null}.
+   *   <li>Then calls {@link FDFDictionary#getFields()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#importFDF(FDFDocument)}
+   */
+  @Test
+  @DisplayName(
+      "Test importFDF(FDFDocument); given FDFDictionary getFields() return 'null'; then calls getFields()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.importFDF(FDFDocument)"})
+  void testImportFDF_givenFDFDictionaryGetFieldsReturnNull_thenCallsGetFields() throws IOException {
+    // Arrange
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+
+    FDFDictionary fdfDictionary = mock(FDFDictionary.class);
+    when(fdfDictionary.getFields()).thenReturn(null);
+
+    FDFCatalog fdfCatalog = mock(FDFCatalog.class);
+    when(fdfCatalog.getFDF()).thenReturn(fdfDictionary);
+
+    FDFDocument fdf = mock(FDFDocument.class);
+    when(fdf.getCatalog()).thenReturn(fdfCatalog);
+
+    // Act
+    pdAcroForm.importFDF(fdf);
+
+    // Assert
+    verify(fdfCatalog).getFDF();
+    verify(fdfDictionary).getFields();
+    verify(fdf).getCatalog();
+  }
+
+  /**
+   * Test {@link PDAcroForm#importFDF(FDFDocument)}.
+   *
+   * <ul>
+   *   <li>Given {@link FDFField} {@link FDFField#getCOSValue()} throw {@link
+   *       IOException#IOException()}.
+   *   <li>Then throw {@link IOException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#importFDF(FDFDocument)}
+   */
+  @Test
+  @DisplayName(
+      "Test importFDF(FDFDocument); given FDFField getCOSValue() throw IOException(); then throw IOException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.importFDF(FDFDocument)"})
+  void testImportFDF_givenFDFFieldGetCOSValueThrowIOException_thenThrowIOException()
+      throws IOException {
+    // Arrange
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.getCOSArray(Mockito.<COSName>any())).thenReturn(new COSArray());
+    when(cosDictionary.containsKey(Mockito.<COSName>any())).thenReturn(true);
+    when(cosDictionary.getNameAsString(Mockito.<COSName>any())).thenReturn("Name As String");
+    when(cosDictionary.getCOSObject()).thenReturn(COSBoolean.FALSE);
+    when(cosDictionary.getString(Mockito.<COSName>any())).thenReturn("String");
+
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.getObject(anyInt())).thenReturn(cosDictionary);
+    when(cosArray.isEmpty()).thenReturn(false);
+    when(cosArray.size()).thenReturn(3);
+    doNothing().when(cosArray).add(Mockito.<COSBase>any());
+    cosArray.add(COSBoolean.FALSE);
+
+    COSDictionary cosDictionary2 = mock(COSDictionary.class);
+    when(cosDictionary2.getString(Mockito.<COSName>any())).thenReturn("Partial Field Name");
+    when(cosDictionary2.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    when(cosDictionary2.containsKey(Mockito.<COSName>any())).thenReturn(true);
+
+    COSArray cosArray2 = mock(COSArray.class);
+    when(cosArray2.getObject(anyInt())).thenReturn(cosDictionary2);
+    when(cosArray2.size()).thenReturn(3);
+    doNothing().when(cosArray2).add(Mockito.<COSBase>any());
+    cosArray2.add(COSBoolean.FALSE);
+
+    COSDictionary form = mock(COSDictionary.class);
+    when(form.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray2);
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument(), form);
+
+    FDFField fdfField = mock(FDFField.class);
+    when(fdfField.getCOSValue()).thenThrow(new IOException());
+    when(fdfField.getPartialFieldName()).thenReturn("Partial Field Name");
+
+    ArrayList<FDFField> fdfFieldList = new ArrayList<>();
+    fdfFieldList.add(fdfField);
+
+    FDFDictionary fdfDictionary = mock(FDFDictionary.class);
+    when(fdfDictionary.getFields()).thenReturn(fdfFieldList);
+
+    FDFCatalog fdfCatalog = mock(FDFCatalog.class);
+    when(fdfCatalog.getFDF()).thenReturn(fdfDictionary);
+
+    FDFDocument fdf = mock(FDFDocument.class);
+    when(fdf.getCatalog()).thenReturn(fdfCatalog);
+
+    // Act and Assert
+    assertThrows(IOException.class, () -> pdAcroForm.importFDF(fdf));
+    verify(cosArray2).add(isA(COSBase.class));
+    verify(cosArray).add(isA(COSBase.class));
+    verify(cosArray2, atLeast(1)).getObject(anyInt());
+    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray, atLeast(1)).isEmpty();
+    verify(cosArray2, atLeast(1)).size();
+    verify(cosArray, atLeast(1)).size();
+    verify(cosDictionary, atLeast(1)).getCOSObject();
+    verify(cosDictionary2, atLeast(1)).containsKey(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).containsKey(isA(COSName.class));
+    verify(form).getCOSArray(isA(COSName.class));
+    verify(cosDictionary2, atLeast(1)).getCOSArray(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getCOSArray(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getNameAsString(isA(COSName.class));
+    verify(cosDictionary2).getString(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getString(isA(COSName.class));
+    verify(fdfCatalog).getFDF();
+    verify(fdfDictionary).getFields();
+    verify(fdf).getCatalog();
+    verify(fdfField).getCOSValue();
+    verify(fdfField).getPartialFieldName();
+  }
+
+  /**
+   * Test {@link PDAcroForm#importFDF(FDFDocument)}.
+   *
+   * <ul>
+   *   <li>Given {@link PDAcroForm#PDAcroForm(PDDocument, COSDictionary)} with doc is {@link
+   *       PDDocument#PDDocument()} and form is {@link COSDictionary#COSDictionary()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#importFDF(FDFDocument)}
+   */
+  @Test
+  @DisplayName(
+      "Test importFDF(FDFDocument); given PDAcroForm(PDDocument, COSDictionary) with doc is PDDocument() and form is COSDictionary()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.importFDF(FDFDocument)"})
+  void testImportFDF_givenPDAcroFormWithDocIsPDDocumentAndFormIsCOSDictionary() throws IOException {
+    // Arrange
+    PDDocument doc = new PDDocument();
+    PDAcroForm pdAcroForm = new PDAcroForm(doc, new COSDictionary());
+
+    ArrayList<FDFField> fdfFieldList = new ArrayList<>();
+    fdfFieldList.add(new FDFField());
+
+    FDFDictionary fdfDictionary = mock(FDFDictionary.class);
+    when(fdfDictionary.getFields()).thenReturn(fdfFieldList);
+
+    FDFCatalog fdfCatalog = mock(FDFCatalog.class);
+    when(fdfCatalog.getFDF()).thenReturn(fdfDictionary);
+
+    FDFDocument fdf = mock(FDFDocument.class);
+    when(fdf.getCatalog()).thenReturn(fdfCatalog);
+
+    // Act
+    pdAcroForm.importFDF(fdf);
+
+    // Assert
+    verify(fdfCatalog).getFDF();
+    verify(fdfDictionary).getFields();
+    verify(fdf).getCatalog();
+  }
+
+  /**
+   * Test {@link PDAcroForm#importFDF(FDFDocument)}.
+   *
+   * <ul>
+   *   <li>Given {@link PDAcroForm#PDAcroForm(PDDocument)} with doc is {@link
+   *       PDDocument#PDDocument()} CacheFields is {@code true}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#importFDF(FDFDocument)}
+   */
+  @Test
+  @DisplayName(
+      "Test importFDF(FDFDocument); given PDAcroForm(PDDocument) with doc is PDDocument() CacheFields is 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.importFDF(FDFDocument)"})
+  void testImportFDF_givenPDAcroFormWithDocIsPDDocumentCacheFieldsIsTrue() throws IOException {
+    // Arrange
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+    pdAcroForm.setCacheFields(true);
+
+    FDFField fdfField = mock(FDFField.class);
+    when(fdfField.getPartialFieldName()).thenReturn("Partial Field Name");
+
+    ArrayList<FDFField> fdfFieldList = new ArrayList<>();
+    fdfFieldList.add(fdfField);
+
+    FDFDictionary fdfDictionary = mock(FDFDictionary.class);
+    when(fdfDictionary.getFields()).thenReturn(fdfFieldList);
+
+    FDFCatalog fdfCatalog = mock(FDFCatalog.class);
+    when(fdfCatalog.getFDF()).thenReturn(fdfDictionary);
+
+    FDFDocument fdf = mock(FDFDocument.class);
+    when(fdf.getCatalog()).thenReturn(fdfCatalog);
+
+    // Act
+    pdAcroForm.importFDF(fdf);
+
+    // Assert
+    verify(fdfCatalog).getFDF();
+    verify(fdfDictionary).getFields();
+    verify(fdf).getCatalog();
+    verify(fdfField).getPartialFieldName();
+  }
+
+  /**
+   * Test {@link PDAcroForm#importFDF(FDFDocument)}.
+   *
+   * <ul>
+   *   <li>Given {@link PDAcroForm#PDAcroForm(PDDocument)} with doc is {@link
+   *       PDDocument#PDDocument()}.
+   *   <li>Then calls {@link FDFField#getPartialFieldName()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#importFDF(FDFDocument)}
+   */
+  @Test
+  @DisplayName(
+      "Test importFDF(FDFDocument); given PDAcroForm(PDDocument) with doc is PDDocument(); then calls getPartialFieldName()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.importFDF(FDFDocument)"})
+  void testImportFDF_givenPDAcroFormWithDocIsPDDocument_thenCallsGetPartialFieldName()
+      throws IOException {
+    // Arrange
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+
+    FDFField fdfField = mock(FDFField.class);
+    when(fdfField.getPartialFieldName()).thenReturn("Partial Field Name");
+
+    ArrayList<FDFField> fdfFieldList = new ArrayList<>();
+    fdfFieldList.add(fdfField);
+
+    FDFDictionary fdfDictionary = mock(FDFDictionary.class);
+    when(fdfDictionary.getFields()).thenReturn(fdfFieldList);
+
+    FDFCatalog fdfCatalog = mock(FDFCatalog.class);
+    when(fdfCatalog.getFDF()).thenReturn(fdfDictionary);
+
+    FDFDocument fdf = mock(FDFDocument.class);
+    when(fdf.getCatalog()).thenReturn(fdfCatalog);
+
+    // Act
+    pdAcroForm.importFDF(fdf);
+
+    // Assert
+    verify(fdfCatalog).getFDF();
+    verify(fdfDictionary).getFields();
+    verify(fdf).getCatalog();
+    verify(fdfField).getPartialFieldName();
+  }
+
+  /**
    * Test {@link PDAcroForm#exportFDF()}.
    *
    * <ul>
@@ -203,7 +1822,12 @@ class PDAcroFormDiffblueTest {
   @MethodsUnderTest({"void PDAcroForm.flatten(List, boolean)"})
   void testFlattenWithListBoolean() throws IOException {
     // Arrange
-    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+    PDDocument doc = mock(PDDocument.class);
+    when(doc.getSignatureDictionaries()).thenReturn(new ArrayList<>());
+    when(doc.getPages()).thenReturn(new PDPageTree(new COSDictionary()));
+    doNothing().when(doc).addPage(Mockito.<PDPage>any());
+    doc.addPage(new PDPage());
+    PDAcroForm pdAcroForm = new PDAcroForm(doc);
 
     ArrayList<PDField> fields = new ArrayList<>();
     fields.add(new PDCheckBox(new PDAcroForm(new PDDocument())));
@@ -211,9 +1835,10 @@ class PDAcroFormDiffblueTest {
     // Act
     pdAcroForm.flatten(fields, true);
 
-    // Assert that nothing has changed
-    assertEquals(
-        1, pdAcroForm.getDocument().getPages().getCOSObject().toIncrement().getObjects().size());
+    // Assert
+    verify(doc).addPage(isA(PDPage.class));
+    verify(doc).getPages();
+    verify(doc).getSignatureDictionaries();
   }
 
   /**
@@ -228,44 +1853,787 @@ class PDAcroFormDiffblueTest {
   @MethodsUnderTest({"void PDAcroForm.flatten(List, boolean)"})
   void testFlattenWithListBoolean2() throws IOException {
     // Arrange
-    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+    PDPageTree pdPageTree = mock(PDPageTree.class);
+
+    ArrayList<PDPage> pdPageList = new ArrayList<>();
+    when(pdPageTree.iterator()).thenReturn(pdPageList.iterator());
+    doNothing().when(pdPageTree).add(Mockito.<PDPage>any());
+    pdPageTree.add(new PDPage());
+
+    PDDocument doc = mock(PDDocument.class);
+    when(doc.getSignatureDictionaries()).thenReturn(new ArrayList<>());
+    when(doc.getPages()).thenReturn(pdPageTree);
+    doNothing().when(doc).addPage(Mockito.<PDPage>any());
+    doc.addPage(new PDPage());
+    PDAcroForm pdAcroForm = new PDAcroForm(doc);
 
     ArrayList<PDField> fields = new ArrayList<>();
-    fields.add(new PDCheckBox(new PDAcroForm(new PDDocument())));
-    fields.add(new PDCheckBox(new PDAcroForm(new PDDocument())));
+    fields.add(new PDNonTerminalField(new PDAcroForm(new PDDocument())));
 
     // Act
     pdAcroForm.flatten(fields, true);
 
-    // Assert that nothing has changed
-    assertEquals(
-        1, pdAcroForm.getDocument().getPages().getCOSObject().toIncrement().getObjects().size());
+    // Assert
+    verify(doc).addPage(isA(PDPage.class));
+    verify(doc).getPages();
+    verify(doc).getSignatureDictionaries();
+    verify(pdPageTree).add(isA(PDPage.class));
+    verify(pdPageTree).iterator();
+  }
+
+  /**
+   * Test {@link PDAcroForm#flatten(List, boolean)} with {@code List}, {@code boolean}.
+   *
+   * <p>Method under test: {@link PDAcroForm#flatten(List, boolean)}
+   */
+  @Test
+  @DisplayName("Test flatten(List, boolean) with 'List', 'boolean'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.flatten(List, boolean)"})
+  void testFlattenWithListBoolean3() throws IOException {
+    // Arrange
+    PDPageTree pdPageTree = mock(PDPageTree.class);
+    doNothing().when(pdPageTree).add(Mockito.<PDPage>any());
+    pdPageTree.add(new PDPage());
+
+    PDDocument doc = mock(PDDocument.class);
+    doNothing().when(doc).addPage(Mockito.<PDPage>any());
+    doc.addPage(new PDPage());
+
+    PDAcroForm pdAcroForm = new PDAcroForm(doc);
+    pdAcroForm.setXFA(new PDXFAResource(COSBoolean.FALSE));
+
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(mock(PDCheckBox.class));
+
+    // Act
+    pdAcroForm.flatten(fields, true);
+
+    // Assert
+    verify(doc).addPage(isA(PDPage.class));
+    verify(pdPageTree).add(isA(PDPage.class));
+  }
+
+  /**
+   * Test {@link PDAcroForm#flatten(List, boolean)} with {@code List}, {@code boolean}.
+   *
+   * <p>Method under test: {@link PDAcroForm#flatten(List, boolean)}
+   */
+  @Test
+  @DisplayName("Test flatten(List, boolean) with 'List', 'boolean'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.flatten(List, boolean)"})
+  void testFlattenWithListBoolean4() throws IOException {
+    // Arrange
+    PDPageTree pdPageTree = mock(PDPageTree.class);
+
+    ArrayList<PDPage> pdPageList = new ArrayList<>();
+    when(pdPageTree.iterator()).thenReturn(pdPageList.iterator());
+    doNothing().when(pdPageTree).add(Mockito.<PDPage>any());
+    pdPageTree.add(new PDPage());
+
+    PDDocument doc = mock(PDDocument.class);
+    when(doc.getSignatureDictionaries()).thenReturn(new ArrayList<>());
+    when(doc.getPages()).thenReturn(pdPageTree);
+    doNothing().when(doc).addPage(Mockito.<PDPage>any());
+    doc.addPage(new PDPage());
+
+    PDAcroForm pdAcroForm = new PDAcroForm(doc);
+    pdAcroForm.setNeedAppearances(true);
+
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.removeObject(Mockito.<COSBase>any())).thenReturn(true);
+    doNothing().when(cosArray).add(Mockito.<COSBase>any());
+    cosArray.add(COSBoolean.FALSE);
+
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+
+    PDNonTerminalField pdNonTerminalField = mock(PDNonTerminalField.class);
+    when(pdNonTerminalField.getCOSObject()).thenReturn(cosDictionary);
+
+    PDCheckBox pdCheckBox = mock(PDCheckBox.class);
+    when(pdCheckBox.getParent()).thenReturn(pdNonTerminalField);
+    when(pdCheckBox.getWidgets()).thenReturn(new ArrayList<>());
+    when(pdCheckBox.getCOSObject()).thenReturn(new COSDictionary());
+
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(pdCheckBox);
+
+    // Act
+    pdAcroForm.flatten(fields, false);
+
+    // Assert
+    verify(cosArray).add(isA(COSBase.class));
+    verify(cosArray).removeObject(isA(COSBase.class));
+    verify(cosDictionary).getCOSArray(isA(COSName.class));
+    verify(doc).addPage(isA(PDPage.class));
+    verify(doc).getPages();
+    verify(doc).getSignatureDictionaries();
+    verify(pdPageTree).add(isA(PDPage.class));
+    verify(pdPageTree).iterator();
+    verify(pdCheckBox).getCOSObject();
+    verify(pdNonTerminalField).getCOSObject();
+    verify(pdCheckBox, atLeast(1)).getParent();
+    verify(pdCheckBox).getWidgets();
+  }
+
+  /**
+   * Test {@link PDAcroForm#flatten(List, boolean)} with {@code List}, {@code boolean}.
+   *
+   * <p>Method under test: {@link PDAcroForm#flatten(List, boolean)}
+   */
+  @Test
+  @DisplayName("Test flatten(List, boolean) with 'List', 'boolean'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.flatten(List, boolean)"})
+  void testFlattenWithListBoolean5() throws IOException {
+    // Arrange
+    PDPageTree pdPageTree = mock(PDPageTree.class);
+
+    ArrayList<PDPage> pdPageList = new ArrayList<>();
+    when(pdPageTree.iterator()).thenReturn(pdPageList.iterator());
+    doNothing().when(pdPageTree).add(Mockito.<PDPage>any());
+    pdPageTree.add(new PDPage());
+
+    PDDocument doc = mock(PDDocument.class);
+    when(doc.getSignatureDictionaries()).thenReturn(new ArrayList<>());
+    when(doc.getPages()).thenReturn(pdPageTree);
+    doNothing().when(doc).addPage(Mockito.<PDPage>any());
+    doc.addPage(new PDPage());
+
+    PDAcroForm pdAcroForm = new PDAcroForm(doc);
+    pdAcroForm.setNeedAppearances(false);
+
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.removeObject(Mockito.<COSBase>any())).thenReturn(true);
+    doNothing().when(cosArray).add(Mockito.<COSBase>any());
+    cosArray.add(COSBoolean.FALSE);
+
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+
+    PDNonTerminalField pdNonTerminalField = mock(PDNonTerminalField.class);
+    when(pdNonTerminalField.getCOSObject()).thenReturn(cosDictionary);
+
+    PDCheckBox pdCheckBox = mock(PDCheckBox.class);
+    when(pdCheckBox.getParent()).thenReturn(pdNonTerminalField);
+    when(pdCheckBox.getWidgets()).thenReturn(new ArrayList<>());
+    when(pdCheckBox.getCOSObject()).thenReturn(new COSDictionary());
+
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(pdCheckBox);
+
+    // Act
+    pdAcroForm.flatten(fields, false);
+
+    // Assert
+    verify(cosArray).add(isA(COSBase.class));
+    verify(cosArray).removeObject(isA(COSBase.class));
+    verify(cosDictionary).getCOSArray(isA(COSName.class));
+    verify(doc).addPage(isA(PDPage.class));
+    verify(doc).getPages();
+    verify(doc).getSignatureDictionaries();
+    verify(pdPageTree).add(isA(PDPage.class));
+    verify(pdPageTree).iterator();
+    verify(pdCheckBox).getCOSObject();
+    verify(pdNonTerminalField).getCOSObject();
+    verify(pdCheckBox, atLeast(1)).getParent();
+    verify(pdCheckBox).getWidgets();
   }
 
   /**
    * Test {@link PDAcroForm#flatten(List, boolean)} with {@code List}, {@code boolean}.
    *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDPage#PDPage()}.
+   *   <li>Then calls {@link PDCheckBox#constructAppearances()}.
    * </ul>
    *
    * <p>Method under test: {@link PDAcroForm#flatten(List, boolean)}
    */
   @Test
-  @DisplayName("Test flatten(List, boolean) with 'List', 'boolean'; when ArrayList()")
+  @DisplayName(
+      "Test flatten(List, boolean) with 'List', 'boolean'; given ArrayList() add PDPage(); then calls constructAppearances()")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDAcroForm.flatten(List, boolean)"})
-  void testFlattenWithListBoolean_whenArrayList() throws IOException {
+  void testFlattenWithListBoolean_givenArrayListAddPDPage_thenCallsConstructAppearances()
+      throws IOException {
     // Arrange
-    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+    ArrayList<PDPage> pdPageList = new ArrayList<>();
+    pdPageList.add(new PDPage());
+
+    PDPageTree pdPageTree = mock(PDPageTree.class);
+    when(pdPageTree.iterator()).thenReturn(pdPageList.iterator());
+    doNothing().when(pdPageTree).add(Mockito.<PDPage>any());
+    pdPageTree.add(new PDPage());
+
+    PDDocument doc = mock(PDDocument.class);
+    when(doc.getSignatureDictionaries()).thenReturn(new ArrayList<>());
+    when(doc.getPages()).thenReturn(pdPageTree);
+    doNothing().when(doc).addPage(Mockito.<PDPage>any());
+    doc.addPage(new PDPage());
+    PDAcroForm pdAcroForm = new PDAcroForm(doc);
+
+    PDCheckBox pdCheckBox = mock(PDCheckBox.class);
+    when(pdCheckBox.getParent()).thenReturn(null);
+    when(pdCheckBox.getWidgets()).thenReturn(new ArrayList<>());
+    when(pdCheckBox.getCOSObject()).thenReturn(new COSDictionary());
+    doNothing().when(pdCheckBox).constructAppearances();
+
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(pdCheckBox);
 
     // Act
-    pdAcroForm.flatten(new ArrayList<>(), true);
+    pdAcroForm.flatten(fields, true);
 
-    // Assert that nothing has changed
-    assertEquals(
-        1, pdAcroForm.getDocument().getPages().getCOSObject().toIncrement().getObjects().size());
+    // Assert
+    verify(doc).addPage(isA(PDPage.class));
+    verify(doc).getPages();
+    verify(doc).getSignatureDictionaries();
+    verify(pdPageTree).add(isA(PDPage.class));
+    verify(pdPageTree).iterator();
+    verify(pdCheckBox).constructAppearances();
+    verify(pdCheckBox).getCOSObject();
+    verify(pdCheckBox).getParent();
+    verify(pdCheckBox).getWidgets();
+  }
+
+  /**
+   * Test {@link PDAcroForm#flatten(List, boolean)} with {@code List}, {@code boolean}.
+   *
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDSignature#PDSignature()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#flatten(List, boolean)}
+   */
+  @Test
+  @DisplayName(
+      "Test flatten(List, boolean) with 'List', 'boolean'; given ArrayList() add PDSignature()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.flatten(List, boolean)"})
+  void testFlattenWithListBoolean_givenArrayListAddPDSignature() throws IOException {
+    // Arrange
+    ArrayList<PDSignature> pdSignatureList = new ArrayList<>();
+    pdSignatureList.add(new PDSignature());
+
+    PDDocument doc = mock(PDDocument.class);
+    when(doc.getSignatureDictionaries()).thenReturn(pdSignatureList);
+    when(doc.getPages()).thenReturn(new PDPageTree());
+    doNothing().when(doc).addPage(Mockito.<PDPage>any());
+    doc.addPage(new PDPage());
+    PDAcroForm pdAcroForm = new PDAcroForm(doc);
+
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(new PDCheckBox(new PDAcroForm(new PDDocument())));
+
+    // Act
+    pdAcroForm.flatten(fields, true);
+
+    // Assert
+    verify(doc).addPage(isA(PDPage.class));
+    verify(doc).getPages();
+    verify(doc).getSignatureDictionaries();
+  }
+
+  /**
+   * Test {@link PDAcroForm#flatten(List, boolean)} with {@code List}, {@code boolean}.
+   *
+   * <ul>
+   *   <li>Given {@link COSArray#COSArray()} add {@link COSBoolean#FALSE}.
+   *   <li>Then calls {@link PDCheckBox#constructAppearances()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#flatten(List, boolean)}
+   */
+  @Test
+  @DisplayName(
+      "Test flatten(List, boolean) with 'List', 'boolean'; given COSArray() add FALSE; then calls constructAppearances()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.flatten(List, boolean)"})
+  void testFlattenWithListBoolean_givenCOSArrayAddFalse_thenCallsConstructAppearances()
+      throws IOException {
+    // Arrange
+    PDPageTree pdPageTree = mock(PDPageTree.class);
+
+    ArrayList<PDPage> pdPageList = new ArrayList<>();
+    when(pdPageTree.iterator()).thenReturn(pdPageList.iterator());
+    doNothing().when(pdPageTree).add(Mockito.<PDPage>any());
+    pdPageTree.add(new PDPage());
+
+    PDDocument doc = mock(PDDocument.class);
+    when(doc.getSignatureDictionaries()).thenReturn(new ArrayList<>());
+    when(doc.getPages()).thenReturn(pdPageTree);
+    doNothing().when(doc).addPage(Mockito.<PDPage>any());
+    doc.addPage(new PDPage());
+    PDAcroForm pdAcroForm = new PDAcroForm(doc);
+
+    COSArray cosArray = new COSArray();
+    cosArray.add(COSBoolean.FALSE);
+
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+
+    PDNonTerminalField pdNonTerminalField = mock(PDNonTerminalField.class);
+    when(pdNonTerminalField.getCOSObject()).thenReturn(cosDictionary);
+
+    PDCheckBox pdCheckBox = mock(PDCheckBox.class);
+    when(pdCheckBox.getParent()).thenReturn(pdNonTerminalField);
+    when(pdCheckBox.getWidgets()).thenReturn(new ArrayList<>());
+    when(pdCheckBox.getCOSObject()).thenReturn(new COSDictionary());
+    doNothing().when(pdCheckBox).constructAppearances();
+
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(pdCheckBox);
+
+    // Act
+    pdAcroForm.flatten(fields, true);
+
+    // Assert
+    verify(cosDictionary).getCOSArray(isA(COSName.class));
+    verify(doc).addPage(isA(PDPage.class));
+    verify(doc).getPages();
+    verify(doc).getSignatureDictionaries();
+    verify(pdPageTree).add(isA(PDPage.class));
+    verify(pdPageTree).iterator();
+    verify(pdCheckBox).constructAppearances();
+    verify(pdCheckBox).getCOSObject();
+    verify(pdNonTerminalField).getCOSObject();
+    verify(pdCheckBox, atLeast(1)).getParent();
+    verify(pdCheckBox).getWidgets();
+  }
+
+  /**
+   * Test {@link PDAcroForm#flatten(List, boolean)} with {@code List}, {@code boolean}.
+   *
+   * <ul>
+   *   <li>Given {@link COSArray} {@link COSArray#removeObject(COSBase)} return {@code true}.
+   *   <li>Then calls {@link COSArray#add(COSBase)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#flatten(List, boolean)}
+   */
+  @Test
+  @DisplayName(
+      "Test flatten(List, boolean) with 'List', 'boolean'; given COSArray removeObject(COSBase) return 'true'; then calls add(COSBase)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.flatten(List, boolean)"})
+  void testFlattenWithListBoolean_givenCOSArrayRemoveObjectReturnTrue_thenCallsAdd()
+      throws IOException {
+    // Arrange
+    PDPageTree pdPageTree = mock(PDPageTree.class);
+
+    ArrayList<PDPage> pdPageList = new ArrayList<>();
+    when(pdPageTree.iterator()).thenReturn(pdPageList.iterator());
+    doNothing().when(pdPageTree).add(Mockito.<PDPage>any());
+    pdPageTree.add(new PDPage());
+
+    PDDocument doc = mock(PDDocument.class);
+    when(doc.getSignatureDictionaries()).thenReturn(new ArrayList<>());
+    when(doc.getPages()).thenReturn(pdPageTree);
+    doNothing().when(doc).addPage(Mockito.<PDPage>any());
+    doc.addPage(new PDPage());
+    PDAcroForm pdAcroForm = new PDAcroForm(doc);
+
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.removeObject(Mockito.<COSBase>any())).thenReturn(true);
+    doNothing().when(cosArray).add(Mockito.<COSBase>any());
+    cosArray.add(COSBoolean.FALSE);
+
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+
+    PDNonTerminalField pdNonTerminalField = mock(PDNonTerminalField.class);
+    when(pdNonTerminalField.getCOSObject()).thenReturn(cosDictionary);
+
+    PDCheckBox pdCheckBox = mock(PDCheckBox.class);
+    when(pdCheckBox.getParent()).thenReturn(pdNonTerminalField);
+    when(pdCheckBox.getWidgets()).thenReturn(new ArrayList<>());
+    when(pdCheckBox.getCOSObject()).thenReturn(new COSDictionary());
+    doNothing().when(pdCheckBox).constructAppearances();
+
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(pdCheckBox);
+
+    // Act
+    pdAcroForm.flatten(fields, true);
+
+    // Assert
+    verify(cosArray).add(isA(COSBase.class));
+    verify(cosArray).removeObject(isA(COSBase.class));
+    verify(cosDictionary).getCOSArray(isA(COSName.class));
+    verify(doc).addPage(isA(PDPage.class));
+    verify(doc).getPages();
+    verify(doc).getSignatureDictionaries();
+    verify(pdPageTree).add(isA(PDPage.class));
+    verify(pdPageTree).iterator();
+    verify(pdCheckBox).constructAppearances();
+    verify(pdCheckBox).getCOSObject();
+    verify(pdNonTerminalField).getCOSObject();
+    verify(pdCheckBox, atLeast(1)).getParent();
+    verify(pdCheckBox).getWidgets();
+  }
+
+  /**
+   * Test {@link PDAcroForm#flatten(List, boolean)} with {@code List}, {@code boolean}.
+   *
+   * <ul>
+   *   <li>Given {@link COSDictionary} {@link COSDictionary#getCOSArray(COSName)} return {@link
+   *       COSArray#COSArray()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#flatten(List, boolean)}
+   */
+  @Test
+  @DisplayName(
+      "Test flatten(List, boolean) with 'List', 'boolean'; given COSDictionary getCOSArray(COSName) return COSArray()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.flatten(List, boolean)"})
+  void testFlattenWithListBoolean_givenCOSDictionaryGetCOSArrayReturnCOSArray() throws IOException {
+    // Arrange
+    PDPageTree pdPageTree = mock(PDPageTree.class);
+
+    ArrayList<PDPage> pdPageList = new ArrayList<>();
+    when(pdPageTree.iterator()).thenReturn(pdPageList.iterator());
+    doNothing().when(pdPageTree).add(Mockito.<PDPage>any());
+    pdPageTree.add(new PDPage());
+
+    PDDocument doc = mock(PDDocument.class);
+    when(doc.getSignatureDictionaries()).thenReturn(new ArrayList<>());
+    when(doc.getPages()).thenReturn(pdPageTree);
+    doNothing().when(doc).addPage(Mockito.<PDPage>any());
+    doc.addPage(new PDPage());
+    PDAcroForm pdAcroForm = new PDAcroForm(doc);
+
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.getCOSArray(Mockito.<COSName>any())).thenReturn(new COSArray());
+
+    PDNonTerminalField pdNonTerminalField = mock(PDNonTerminalField.class);
+    when(pdNonTerminalField.getCOSObject()).thenReturn(cosDictionary);
+
+    PDCheckBox pdCheckBox = mock(PDCheckBox.class);
+    when(pdCheckBox.getParent()).thenReturn(pdNonTerminalField);
+    when(pdCheckBox.getWidgets()).thenReturn(new ArrayList<>());
+    when(pdCheckBox.getCOSObject()).thenReturn(new COSDictionary());
+    doNothing().when(pdCheckBox).constructAppearances();
+
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(pdCheckBox);
+
+    // Act
+    pdAcroForm.flatten(fields, true);
+
+    // Assert
+    verify(cosDictionary).getCOSArray(isA(COSName.class));
+    verify(doc).addPage(isA(PDPage.class));
+    verify(doc).getPages();
+    verify(doc).getSignatureDictionaries();
+    verify(pdPageTree).add(isA(PDPage.class));
+    verify(pdPageTree).iterator();
+    verify(pdCheckBox).constructAppearances();
+    verify(pdCheckBox).getCOSObject();
+    verify(pdNonTerminalField).getCOSObject();
+    verify(pdCheckBox, atLeast(1)).getParent();
+    verify(pdCheckBox).getWidgets();
+  }
+
+  /**
+   * Test {@link PDAcroForm#flatten(List, boolean)} with {@code List}, {@code boolean}.
+   *
+   * <ul>
+   *   <li>Given {@link PDCheckBox} {@link PDCheckBox#getParent()} return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#flatten(List, boolean)}
+   */
+  @Test
+  @DisplayName(
+      "Test flatten(List, boolean) with 'List', 'boolean'; given PDCheckBox getParent() return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.flatten(List, boolean)"})
+  void testFlattenWithListBoolean_givenPDCheckBoxGetParentReturnNull() throws IOException {
+    // Arrange
+    PDPageTree pdPageTree = mock(PDPageTree.class);
+
+    ArrayList<PDPage> pdPageList = new ArrayList<>();
+    when(pdPageTree.iterator()).thenReturn(pdPageList.iterator());
+    doNothing().when(pdPageTree).add(Mockito.<PDPage>any());
+    pdPageTree.add(new PDPage());
+
+    PDDocument doc = mock(PDDocument.class);
+    when(doc.getSignatureDictionaries()).thenReturn(new ArrayList<>());
+    when(doc.getPages()).thenReturn(pdPageTree);
+    doNothing().when(doc).addPage(Mockito.<PDPage>any());
+    doc.addPage(new PDPage());
+    PDAcroForm pdAcroForm = new PDAcroForm(doc);
+
+    PDCheckBox pdCheckBox = mock(PDCheckBox.class);
+    when(pdCheckBox.getParent()).thenReturn(null);
+    when(pdCheckBox.getWidgets()).thenReturn(new ArrayList<>());
+    when(pdCheckBox.getCOSObject()).thenReturn(new COSDictionary());
+    doNothing().when(pdCheckBox).constructAppearances();
+
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(pdCheckBox);
+
+    // Act
+    pdAcroForm.flatten(fields, true);
+
+    // Assert
+    verify(doc).addPage(isA(PDPage.class));
+    verify(doc).getPages();
+    verify(doc).getSignatureDictionaries();
+    verify(pdPageTree).add(isA(PDPage.class));
+    verify(pdPageTree).iterator();
+    verify(pdCheckBox).constructAppearances();
+    verify(pdCheckBox).getCOSObject();
+    verify(pdCheckBox).getParent();
+    verify(pdCheckBox).getWidgets();
+  }
+
+  /**
+   * Test {@link PDAcroForm#flatten(List, boolean)} with {@code List}, {@code boolean}.
+   *
+   * <ul>
+   *   <li>Given {@link PDDocument} {@link PDDocument#getPages()} return {@link
+   *       PDPageTree#PDPageTree()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#flatten(List, boolean)}
+   */
+  @Test
+  @DisplayName(
+      "Test flatten(List, boolean) with 'List', 'boolean'; given PDDocument getPages() return PDPageTree()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.flatten(List, boolean)"})
+  void testFlattenWithListBoolean_givenPDDocumentGetPagesReturnPDPageTree() throws IOException {
+    // Arrange
+    PDDocument doc = mock(PDDocument.class);
+    when(doc.getSignatureDictionaries()).thenReturn(new ArrayList<>());
+    when(doc.getPages()).thenReturn(new PDPageTree());
+    doNothing().when(doc).addPage(Mockito.<PDPage>any());
+    doc.addPage(new PDPage());
+    PDAcroForm pdAcroForm = new PDAcroForm(doc);
+
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(new PDCheckBox(new PDAcroForm(new PDDocument())));
+
+    // Act
+    pdAcroForm.flatten(fields, true);
+
+    // Assert
+    verify(doc).addPage(isA(PDPage.class));
+    verify(doc).getPages();
+    verify(doc).getSignatureDictionaries();
+  }
+
+  /**
+   * Test {@link PDAcroForm#flatten(List, boolean)} with {@code List}, {@code boolean}.
+   *
+   * <ul>
+   *   <li>Given {@link PDPageTree#PDPageTree()} add {@link PDPage#PDPage()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#flatten(List, boolean)}
+   */
+  @Test
+  @DisplayName(
+      "Test flatten(List, boolean) with 'List', 'boolean'; given PDPageTree() add PDPage()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.flatten(List, boolean)"})
+  void testFlattenWithListBoolean_givenPDPageTreeAddPDPage() throws IOException {
+    // Arrange
+    PDPageTree pdPageTree = new PDPageTree();
+    pdPageTree.add(new PDPage());
+
+    PDDocument doc = mock(PDDocument.class);
+    when(doc.getSignatureDictionaries()).thenReturn(new ArrayList<>());
+    when(doc.getPages()).thenReturn(pdPageTree);
+    doNothing().when(doc).addPage(Mockito.<PDPage>any());
+    doc.addPage(new PDPage());
+    PDAcroForm pdAcroForm = new PDAcroForm(doc);
+
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(new PDCheckBox(new PDAcroForm(new PDDocument())));
+
+    // Act
+    pdAcroForm.flatten(fields, true);
+
+    // Assert
+    verify(doc).addPage(isA(PDPage.class));
+    verify(doc).getPages();
+    verify(doc).getSignatureDictionaries();
+  }
+
+  /**
+   * Test {@link PDAcroForm#flatten(List, boolean)} with {@code List}, {@code boolean}.
+   *
+   * <ul>
+   *   <li>Given {@link PDPushButton#PDPushButton(PDAcroForm)} with acroForm is {@link
+   *       PDAcroForm#PDAcroForm(PDDocument)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#flatten(List, boolean)}
+   */
+  @Test
+  @DisplayName(
+      "Test flatten(List, boolean) with 'List', 'boolean'; given PDPushButton(PDAcroForm) with acroForm is PDAcroForm(PDDocument)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.flatten(List, boolean)"})
+  void testFlattenWithListBoolean_givenPDPushButtonWithAcroFormIsPDAcroForm() throws IOException {
+    // Arrange
+    PDPageTree pdPageTree = mock(PDPageTree.class);
+
+    ArrayList<PDPage> pdPageList = new ArrayList<>();
+    when(pdPageTree.iterator()).thenReturn(pdPageList.iterator());
+    doNothing().when(pdPageTree).add(Mockito.<PDPage>any());
+    pdPageTree.add(new PDPage());
+
+    PDDocument doc = mock(PDDocument.class);
+    when(doc.getSignatureDictionaries()).thenReturn(new ArrayList<>());
+    when(doc.getPages()).thenReturn(pdPageTree);
+    doNothing().when(doc).addPage(Mockito.<PDPage>any());
+    doc.addPage(new PDPage());
+    PDAcroForm pdAcroForm = new PDAcroForm(doc);
+
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(new PDPushButton(new PDAcroForm(new PDDocument())));
+
+    // Act
+    pdAcroForm.flatten(fields, true);
+
+    // Assert
+    verify(doc).addPage(isA(PDPage.class));
+    verify(doc).getPages();
+    verify(doc).getSignatureDictionaries();
+    verify(pdPageTree).add(isA(PDPage.class));
+    verify(pdPageTree, atLeast(1)).iterator();
+  }
+
+  /**
+   * Test {@link PDAcroForm#flatten(List, boolean)} with {@code List}, {@code boolean}.
+   *
+   * <ul>
+   *   <li>Then calls {@link PDPageTree#iterator()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#flatten(List, boolean)}
+   */
+  @Test
+  @DisplayName("Test flatten(List, boolean) with 'List', 'boolean'; then calls iterator()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.flatten(List, boolean)"})
+  void testFlattenWithListBoolean_thenCallsIterator() throws IOException {
+    // Arrange
+    PDPageTree pdPageTree = mock(PDPageTree.class);
+
+    ArrayList<PDPage> pdPageList = new ArrayList<>();
+    when(pdPageTree.iterator()).thenReturn(pdPageList.iterator());
+    doNothing().when(pdPageTree).add(Mockito.<PDPage>any());
+    pdPageTree.add(new PDPage());
+
+    PDDocument doc = mock(PDDocument.class);
+    when(doc.getSignatureDictionaries()).thenReturn(new ArrayList<>());
+    when(doc.getPages()).thenReturn(pdPageTree);
+    doNothing().when(doc).addPage(Mockito.<PDPage>any());
+    doc.addPage(new PDPage());
+    PDAcroForm pdAcroForm = new PDAcroForm(doc);
+
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(new PDCheckBox(new PDAcroForm(new PDDocument())));
+
+    // Act
+    pdAcroForm.flatten(fields, true);
+
+    // Assert
+    verify(doc).addPage(isA(PDPage.class));
+    verify(doc).getPages();
+    verify(doc).getSignatureDictionaries();
+    verify(pdPageTree).add(isA(PDPage.class));
+    verify(pdPageTree, atLeast(1)).iterator();
+  }
+
+  /**
+   * Test {@link PDAcroForm#flatten(List, boolean)} with {@code List}, {@code boolean}.
+   *
+   * <ul>
+   *   <li>When {@code false}.
+   *   <li>Then calls {@link COSArray#add(COSBase)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#flatten(List, boolean)}
+   */
+  @Test
+  @DisplayName(
+      "Test flatten(List, boolean) with 'List', 'boolean'; when 'false'; then calls add(COSBase)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.flatten(List, boolean)"})
+  void testFlattenWithListBoolean_whenFalse_thenCallsAdd() throws IOException {
+    // Arrange
+    PDPageTree pdPageTree = mock(PDPageTree.class);
+
+    ArrayList<PDPage> pdPageList = new ArrayList<>();
+    when(pdPageTree.iterator()).thenReturn(pdPageList.iterator());
+    doNothing().when(pdPageTree).add(Mockito.<PDPage>any());
+    pdPageTree.add(new PDPage());
+
+    PDDocument doc = mock(PDDocument.class);
+    when(doc.getSignatureDictionaries()).thenReturn(new ArrayList<>());
+    when(doc.getPages()).thenReturn(pdPageTree);
+    doNothing().when(doc).addPage(Mockito.<PDPage>any());
+    doc.addPage(new PDPage());
+    PDAcroForm pdAcroForm = new PDAcroForm(doc);
+
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.removeObject(Mockito.<COSBase>any())).thenReturn(true);
+    doNothing().when(cosArray).add(Mockito.<COSBase>any());
+    cosArray.add(COSBoolean.FALSE);
+
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+
+    PDNonTerminalField pdNonTerminalField = mock(PDNonTerminalField.class);
+    when(pdNonTerminalField.getCOSObject()).thenReturn(cosDictionary);
+
+    PDCheckBox pdCheckBox = mock(PDCheckBox.class);
+    when(pdCheckBox.getParent()).thenReturn(pdNonTerminalField);
+    when(pdCheckBox.getWidgets()).thenReturn(new ArrayList<>());
+    when(pdCheckBox.getCOSObject()).thenReturn(new COSDictionary());
+
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(pdCheckBox);
+
+    // Act
+    pdAcroForm.flatten(fields, false);
+
+    // Assert
+    verify(cosArray).add(isA(COSBase.class));
+    verify(cosArray).removeObject(isA(COSBase.class));
+    verify(cosDictionary).getCOSArray(isA(COSName.class));
+    verify(doc).addPage(isA(PDPage.class));
+    verify(doc).getPages();
+    verify(doc).getSignatureDictionaries();
+    verify(pdPageTree).add(isA(PDPage.class));
+    verify(pdPageTree).iterator();
+    verify(pdCheckBox).getCOSObject();
+    verify(pdNonTerminalField).getCOSObject();
+    verify(pdCheckBox, atLeast(1)).getParent();
+    verify(pdCheckBox).getWidgets();
   }
 
   /**
@@ -2167,6 +4535,517 @@ class PDAcroFormDiffblueTest {
   }
 
   /**
+   * Test {@link PDAcroForm#refreshAppearances(List)} with {@code List}.
+   *
+   * <p>Method under test: {@link PDAcroForm#refreshAppearances(List)}
+   */
+  @Test
+  @DisplayName("Test refreshAppearances(List) with 'List'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.refreshAppearances(List)"})
+  void testRefreshAppearancesWithList() throws IOException {
+    // Arrange
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    acroForm.setDefaultResources(new PDResources());
+
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.containsKey(Mockito.<String>any())).thenReturn(true);
+    when(cosDictionary.getDictionaryObject(Mockito.<COSName>any())).thenReturn(new COSArray());
+    when(cosDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
+    doNothing().when(cosDictionary).setName(Mockito.<COSName>any(), Mockito.<String>any());
+
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.getObject(anyInt())).thenReturn(cosDictionary);
+    when(cosArray.isEmpty()).thenReturn(false);
+    when(cosArray.size()).thenReturn(3);
+
+    COSDictionary field = mock(COSDictionary.class);
+    when(field.getString(Mockito.<COSName>any())).thenReturn("String");
+    when(field.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    when(field.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
+    when(field.getDictionaryObject(Mockito.<COSName>any()))
+        .thenReturn(COSString.parseHex("0123456789ABCDEF"));
+    when(field.containsKey(Mockito.<COSName>any())).thenReturn(true);
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+
+    PDComboBox pdComboBox = new PDComboBox(acroForm, field, parent);
+
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(pdComboBox);
+
+    // Act
+    pdAcroForm.refreshAppearances(fields);
+
+    // Assert
+    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray, atLeast(1)).isEmpty();
+    verify(cosArray, atLeast(1)).size();
+    verify(cosDictionary, atLeast(1)).containsKey("PMD");
+    verify(field).containsKey(isA(COSName.class));
+    verify(field, atLeast(1)).getCOSArray(isA(COSName.class));
+    verify(field).getCOSDictionary(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getCOSDictionary(isA(COSName.class));
+    verify(field, atLeast(1)).getDictionaryObject(Mockito.<COSName>any());
+    verify(cosDictionary, atLeast(1)).getDictionaryObject(isA(COSName.class));
+    verify(field, atLeast(1)).getString(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).setName(isA(COSName.class), eq("Widget"));
+  }
+
+  /**
+   * Test {@link PDAcroForm#refreshAppearances(List)} with {@code List}.
+   *
+   * <p>Method under test: {@link PDAcroForm#refreshAppearances(List)}
+   */
+  @Test
+  @DisplayName("Test refreshAppearances(List) with 'List'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.refreshAppearances(List)"})
+  void testRefreshAppearancesWithList2() throws IOException {
+    // Arrange
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    acroForm.setDefaultResources(new PDResources());
+
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.containsKey(Mockito.<String>any())).thenReturn(true);
+    when(cosDictionary.getDictionaryObject(Mockito.<COSName>any())).thenReturn(new COSDictionary());
+    when(cosDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
+    doNothing().when(cosDictionary).setName(Mockito.<COSName>any(), Mockito.<String>any());
+
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.getObject(anyInt())).thenReturn(cosDictionary);
+    when(cosArray.isEmpty()).thenReturn(false);
+    when(cosArray.size()).thenReturn(3);
+
+    COSDictionary field = mock(COSDictionary.class);
+    when(field.getString(Mockito.<COSName>any())).thenReturn("String");
+    when(field.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    when(field.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
+    when(field.getDictionaryObject(Mockito.<COSName>any()))
+        .thenReturn(COSString.parseHex("0123456789ABCDEF"));
+    when(field.containsKey(Mockito.<COSName>any())).thenReturn(true);
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+
+    PDComboBox pdComboBox = new PDComboBox(acroForm, field, parent);
+
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(pdComboBox);
+
+    // Act
+    pdAcroForm.refreshAppearances(fields);
+
+    // Assert
+    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray, atLeast(1)).isEmpty();
+    verify(cosArray, atLeast(1)).size();
+    verify(cosDictionary, atLeast(1)).containsKey("PMD");
+    verify(field).containsKey(isA(COSName.class));
+    verify(field, atLeast(1)).getCOSArray(isA(COSName.class));
+    verify(field).getCOSDictionary(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getCOSDictionary(isA(COSName.class));
+    verify(field, atLeast(1)).getDictionaryObject(Mockito.<COSName>any());
+    verify(cosDictionary, atLeast(1)).getDictionaryObject(isA(COSName.class));
+    verify(field, atLeast(1)).getString(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).setName(isA(COSName.class), eq("Widget"));
+  }
+
+  /**
+   * Test {@link PDAcroForm#refreshAppearances(List)} with {@code List}.
+   *
+   * <p>Method under test: {@link PDAcroForm#refreshAppearances(List)}
+   */
+  @Test
+  @DisplayName("Test refreshAppearances(List) with 'List'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.refreshAppearances(List)"})
+  void testRefreshAppearancesWithList3() throws IOException {
+    // Arrange
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    acroForm.setDefaultResources(new PDResources());
+
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.containsKey(Mockito.<String>any())).thenReturn(true);
+    when(cosDictionary.getDictionaryObject(Mockito.<COSName>any())).thenReturn(new COSStream());
+    when(cosDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
+    doNothing().when(cosDictionary).setName(Mockito.<COSName>any(), Mockito.<String>any());
+
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.getObject(anyInt())).thenReturn(cosDictionary);
+    when(cosArray.isEmpty()).thenReturn(false);
+    when(cosArray.size()).thenReturn(3);
+
+    COSDictionary field = mock(COSDictionary.class);
+    when(field.getString(Mockito.<COSName>any())).thenReturn("String");
+    when(field.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    when(field.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
+    when(field.getDictionaryObject(Mockito.<COSName>any()))
+        .thenReturn(COSString.parseHex("0123456789ABCDEF"));
+    when(field.containsKey(Mockito.<COSName>any())).thenReturn(true);
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+
+    PDComboBox pdComboBox = new PDComboBox(acroForm, field, parent);
+
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(pdComboBox);
+
+    // Act
+    pdAcroForm.refreshAppearances(fields);
+
+    // Assert
+    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray, atLeast(1)).isEmpty();
+    verify(cosArray, atLeast(1)).size();
+    verify(cosDictionary, atLeast(1)).containsKey("PMD");
+    verify(field).containsKey(isA(COSName.class));
+    verify(field, atLeast(1)).getCOSArray(isA(COSName.class));
+    verify(field).getCOSDictionary(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getCOSDictionary(isA(COSName.class));
+    verify(field, atLeast(1)).getDictionaryObject(Mockito.<COSName>any());
+    verify(cosDictionary, atLeast(1)).getDictionaryObject(isA(COSName.class));
+    verify(field, atLeast(1)).getString(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).setName(isA(COSName.class), eq("Widget"));
+  }
+
+  /**
+   * Test {@link PDAcroForm#refreshAppearances(List)} with {@code List}.
+   *
+   * <ul>
+   *   <li>Given {@link COSDictionary} {@link COSDictionary#getDictionaryObject(COSName)} return
+   *       {@link COSName#A}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#refreshAppearances(List)}
+   */
+  @Test
+  @DisplayName(
+      "Test refreshAppearances(List) with 'List'; given COSDictionary getDictionaryObject(COSName) return A")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.refreshAppearances(List)"})
+  void testRefreshAppearancesWithList_givenCOSDictionaryGetDictionaryObjectReturnA()
+      throws IOException {
+    // Arrange
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    acroForm.setDefaultResources(new PDResources());
+
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.containsKey(Mockito.<String>any())).thenReturn(true);
+    when(cosDictionary.getDictionaryObject(Mockito.<COSName>any())).thenReturn(COSName.A);
+    when(cosDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
+    doNothing().when(cosDictionary).setName(Mockito.<COSName>any(), Mockito.<String>any());
+
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.getObject(anyInt())).thenReturn(cosDictionary);
+    when(cosArray.isEmpty()).thenReturn(false);
+    when(cosArray.size()).thenReturn(3);
+
+    COSDictionary field = mock(COSDictionary.class);
+    when(field.getString(Mockito.<COSName>any())).thenReturn("String");
+    when(field.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    when(field.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
+    when(field.getDictionaryObject(Mockito.<COSName>any()))
+        .thenReturn(COSString.parseHex("0123456789ABCDEF"));
+    when(field.containsKey(Mockito.<COSName>any())).thenReturn(true);
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+
+    PDComboBox pdComboBox = new PDComboBox(acroForm, field, parent);
+
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(pdComboBox);
+
+    // Act
+    pdAcroForm.refreshAppearances(fields);
+
+    // Assert
+    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray, atLeast(1)).isEmpty();
+    verify(cosArray, atLeast(1)).size();
+    verify(cosDictionary, atLeast(1)).containsKey("PMD");
+    verify(field).containsKey(isA(COSName.class));
+    verify(field, atLeast(1)).getCOSArray(isA(COSName.class));
+    verify(field).getCOSDictionary(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getCOSDictionary(isA(COSName.class));
+    verify(field, atLeast(1)).getDictionaryObject(Mockito.<COSName>any());
+    verify(cosDictionary, atLeast(1)).getDictionaryObject(isA(COSName.class));
+    verify(field, atLeast(1)).getString(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).setName(isA(COSName.class), eq("Widget"));
+  }
+
+  /**
+   * Test {@link PDAcroForm#refreshAppearances(List)} with {@code List}.
+   *
+   * <ul>
+   *   <li>Given {@link COSDictionary} {@link COSDictionary#getDictionaryObject(COSName)} return
+   *       {@link COSInteger#ONE}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#refreshAppearances(List)}
+   */
+  @Test
+  @DisplayName(
+      "Test refreshAppearances(List) with 'List'; given COSDictionary getDictionaryObject(COSName) return ONE")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.refreshAppearances(List)"})
+  void testRefreshAppearancesWithList_givenCOSDictionaryGetDictionaryObjectReturnOne()
+      throws IOException {
+    // Arrange
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    acroForm.setDefaultResources(new PDResources());
+
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.containsKey(Mockito.<String>any())).thenReturn(true);
+    when(cosDictionary.getDictionaryObject(Mockito.<COSName>any())).thenReturn(COSInteger.ONE);
+    when(cosDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
+    doNothing().when(cosDictionary).setName(Mockito.<COSName>any(), Mockito.<String>any());
+
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.getObject(anyInt())).thenReturn(cosDictionary);
+    when(cosArray.isEmpty()).thenReturn(false);
+    when(cosArray.size()).thenReturn(3);
+
+    COSDictionary field = mock(COSDictionary.class);
+    when(field.getString(Mockito.<COSName>any())).thenReturn("String");
+    when(field.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    when(field.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
+    when(field.getDictionaryObject(Mockito.<COSName>any()))
+        .thenReturn(COSString.parseHex("0123456789ABCDEF"));
+    when(field.containsKey(Mockito.<COSName>any())).thenReturn(true);
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+
+    PDComboBox pdComboBox = new PDComboBox(acroForm, field, parent);
+
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(pdComboBox);
+
+    // Act
+    pdAcroForm.refreshAppearances(fields);
+
+    // Assert
+    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray, atLeast(1)).isEmpty();
+    verify(cosArray, atLeast(1)).size();
+    verify(cosDictionary, atLeast(1)).containsKey("PMD");
+    verify(field).containsKey(isA(COSName.class));
+    verify(field, atLeast(1)).getCOSArray(isA(COSName.class));
+    verify(field).getCOSDictionary(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getCOSDictionary(isA(COSName.class));
+    verify(field, atLeast(1)).getDictionaryObject(Mockito.<COSName>any());
+    verify(cosDictionary, atLeast(1)).getDictionaryObject(isA(COSName.class));
+    verify(field, atLeast(1)).getString(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).setName(isA(COSName.class), eq("Widget"));
+  }
+
+  /**
+   * Test {@link PDAcroForm#refreshAppearances(List)} with {@code List}.
+   *
+   * <ul>
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#refreshAppearances(List)}
+   */
+  @Test
+  @DisplayName(
+      "Test refreshAppearances(List) with 'List'; given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.refreshAppearances(List)"})
+  void testRefreshAppearancesWithList_givenCOSObjectKeyWithNumIsOneAndGenIsOne()
+      throws IOException {
+    // Arrange
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    acroForm.setDefaultResources(new PDResources());
+
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.containsKey(Mockito.<String>any())).thenReturn(true);
+    COSObject cosObject = new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1));
+    when(cosDictionary.getDictionaryObject(Mockito.<COSName>any())).thenReturn(cosObject);
+    when(cosDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
+    doNothing().when(cosDictionary).setName(Mockito.<COSName>any(), Mockito.<String>any());
+
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.getObject(anyInt())).thenReturn(cosDictionary);
+    when(cosArray.isEmpty()).thenReturn(false);
+    when(cosArray.size()).thenReturn(3);
+
+    COSDictionary field = mock(COSDictionary.class);
+    when(field.getString(Mockito.<COSName>any())).thenReturn("String");
+    when(field.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    when(field.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
+    when(field.getDictionaryObject(Mockito.<COSName>any()))
+        .thenReturn(COSString.parseHex("0123456789ABCDEF"));
+    when(field.containsKey(Mockito.<COSName>any())).thenReturn(true);
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+
+    PDComboBox pdComboBox = new PDComboBox(acroForm, field, parent);
+
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(pdComboBox);
+
+    // Act
+    pdAcroForm.refreshAppearances(fields);
+
+    // Assert
+    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray, atLeast(1)).isEmpty();
+    verify(cosArray, atLeast(1)).size();
+    verify(cosDictionary, atLeast(1)).containsKey("PMD");
+    verify(field).containsKey(isA(COSName.class));
+    verify(field, atLeast(1)).getCOSArray(isA(COSName.class));
+    verify(field).getCOSDictionary(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getCOSDictionary(isA(COSName.class));
+    verify(field, atLeast(1)).getDictionaryObject(Mockito.<COSName>any());
+    verify(cosDictionary, atLeast(1)).getDictionaryObject(isA(COSName.class));
+    verify(field, atLeast(1)).getString(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).setName(isA(COSName.class), eq("Widget"));
+  }
+
+  /**
+   * Test {@link PDAcroForm#refreshAppearances(List)} with {@code List}.
+   *
+   * <ul>
+   *   <li>Then calls {@link COSArray#getObject(int)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#refreshAppearances(List)}
+   */
+  @Test
+  @DisplayName("Test refreshAppearances(List) with 'List'; then calls getObject(int)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.refreshAppearances(List)"})
+  void testRefreshAppearancesWithList_thenCallsGetObject() throws IOException {
+    // Arrange
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    acroForm.setDefaultResources(new PDResources());
+
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.containsKey(Mockito.<String>any())).thenReturn(true);
+    when(cosDictionary.getDictionaryObject(Mockito.<COSName>any())).thenReturn(COSBoolean.FALSE);
+    when(cosDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
+    doNothing().when(cosDictionary).setName(Mockito.<COSName>any(), Mockito.<String>any());
+
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.getObject(anyInt())).thenReturn(cosDictionary);
+    when(cosArray.isEmpty()).thenReturn(false);
+    when(cosArray.size()).thenReturn(3);
+
+    COSDictionary field = mock(COSDictionary.class);
+    when(field.getString(Mockito.<COSName>any())).thenReturn("String");
+    when(field.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    when(field.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
+    when(field.getDictionaryObject(Mockito.<COSName>any()))
+        .thenReturn(COSString.parseHex("0123456789ABCDEF"));
+    when(field.containsKey(Mockito.<COSName>any())).thenReturn(true);
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+
+    PDComboBox pdComboBox = new PDComboBox(acroForm, field, parent);
+
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(pdComboBox);
+
+    // Act
+    pdAcroForm.refreshAppearances(fields);
+
+    // Assert
+    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray, atLeast(1)).isEmpty();
+    verify(cosArray, atLeast(1)).size();
+    verify(cosDictionary, atLeast(1)).containsKey("PMD");
+    verify(field).containsKey(isA(COSName.class));
+    verify(field, atLeast(1)).getCOSArray(isA(COSName.class));
+    verify(field).getCOSDictionary(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getCOSDictionary(isA(COSName.class));
+    verify(field, atLeast(1)).getDictionaryObject(Mockito.<COSName>any());
+    verify(cosDictionary, atLeast(1)).getDictionaryObject(isA(COSName.class));
+    verify(field, atLeast(1)).getString(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).setName(isA(COSName.class), eq("Widget"));
+  }
+
+  /**
+   * Test {@link PDAcroForm#refreshAppearances(List)} with {@code List}.
+   *
+   * <ul>
+   *   <li>Then calls {@link COSDictionary#setItem(COSName, COSBase)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#refreshAppearances(List)}
+   */
+  @Test
+  @DisplayName("Test refreshAppearances(List) with 'List'; then calls setItem(COSName, COSBase)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.refreshAppearances(List)"})
+  void testRefreshAppearancesWithList_thenCallsSetItem() throws IOException {
+    // Arrange
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    acroForm.setDefaultResources(new PDResources());
+
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.containsKey(Mockito.<String>any())).thenReturn(true);
+    when(cosDictionary.getDictionaryObject(Mockito.<COSName>any())).thenReturn(null);
+    when(cosDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
+    doNothing().when(cosDictionary).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
+    doNothing().when(cosDictionary).setName(Mockito.<COSName>any(), Mockito.<String>any());
+
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.getObject(anyInt())).thenReturn(cosDictionary);
+    when(cosArray.isEmpty()).thenReturn(false);
+    when(cosArray.size()).thenReturn(3);
+
+    COSDictionary field = mock(COSDictionary.class);
+    when(field.getString(Mockito.<COSName>any())).thenReturn("String");
+    when(field.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    when(field.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
+    when(field.getDictionaryObject(Mockito.<COSName>any()))
+        .thenReturn(COSString.parseHex("0123456789ABCDEF"));
+    when(field.containsKey(Mockito.<COSName>any())).thenReturn(true);
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+
+    PDComboBox pdComboBox = new PDComboBox(acroForm, field, parent);
+
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(pdComboBox);
+
+    // Act
+    pdAcroForm.refreshAppearances(fields);
+
+    // Assert
+    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray, atLeast(1)).isEmpty();
+    verify(cosArray, atLeast(1)).size();
+    verify(cosDictionary, atLeast(1)).containsKey("PMD");
+    verify(field).containsKey(isA(COSName.class));
+    verify(field, atLeast(1)).getCOSArray(isA(COSName.class));
+    verify(field).getCOSDictionary(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getCOSDictionary(isA(COSName.class));
+    verify(field, atLeast(1)).getDictionaryObject(Mockito.<COSName>any());
+    verify(cosDictionary, atLeast(1)).getDictionaryObject(isA(COSName.class));
+    verify(field, atLeast(1)).getString(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).setItem(isA(COSName.class), isA(COSBase.class));
+    verify(cosDictionary, atLeast(1)).setName(isA(COSName.class), eq("Widget"));
+  }
+
+  /**
    * Test {@link PDAcroForm#refreshAppearances()}.
    *
    * <ul>
@@ -2762,6 +5641,56 @@ class PDAcroFormDiffblueTest {
    * Test {@link PDAcroForm#setFields(List)}.
    *
    * <ul>
+   *   <li>Then {@link PDAcroForm#PDAcroForm(PDDocument)} with doc is {@link
+   *       PDDocument#PDDocument()} FieldTree iterator next {@link PDCheckBox}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#setFields(List)}
+   */
+  @Test
+  @DisplayName(
+      "Test setFields(List); then PDAcroForm(PDDocument) with doc is PDDocument() FieldTree iterator next PDCheckBox")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.setFields(List)"})
+  void testSetFields_thenPDAcroFormWithDocIsPDDocumentFieldTreeIteratorNextPDCheckBox() {
+    // Arrange
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(new PDCheckBox(new PDAcroForm(new PDDocument())));
+
+    // Act
+    pdAcroForm.setFields(fields);
+
+    // Assert
+    Iterator<PDField> fieldIterator = pdAcroForm.getFieldIterator();
+    PDField nextResult = fieldIterator.next();
+    assertTrue(nextResult instanceof PDCheckBox);
+    Iterator<PDField> iteratorResult = pdAcroForm.getFieldTree().iterator();
+    PDField nextResult2 = iteratorResult.next();
+    assertTrue(nextResult2 instanceof PDCheckBox);
+    List<PDField> fields2 = pdAcroForm.getFields();
+    assertEquals(1, fields2.size());
+    PDField getResult = fields2.get(0);
+    assertTrue(getResult instanceof PDCheckBox);
+    List<PDAnnotationWidget> widgets = nextResult.getWidgets();
+    assertEquals(1, widgets.size());
+    List<PDAnnotationWidget> widgets2 = nextResult2.getWidgets();
+    assertEquals(1, widgets2.size());
+    List<PDAnnotationWidget> widgets3 = getResult.getWidgets();
+    assertEquals(1, widgets3.size());
+    assertEquals(3, widgets.get(0).getBorder().toList().size());
+    assertEquals(3, widgets2.get(0).getBorder().toList().size());
+    assertEquals(3, widgets3.get(0).getBorder().toList().size());
+    assertFalse(fieldIterator.hasNext());
+    assertFalse(iteratorResult.hasNext());
+  }
+
+  /**
+   * Test {@link PDAcroForm#setFields(List)}.
+   *
+   * <ul>
    *   <li>When {@link ArrayList#ArrayList()}.
    *   <li>Then {@link PDAcroForm#PDAcroForm(PDDocument)} with doc is {@link
    *       PDDocument#PDDocument()} Fields Empty.
@@ -2786,6 +5715,62 @@ class PDAcroFormDiffblueTest {
     assertFalse(pdAcroForm.getFieldIterator().hasNext());
     assertFalse(pdAcroForm.getFieldTree().iterator().hasNext());
     assertTrue(pdAcroForm.getFields().isEmpty());
+  }
+
+  /**
+   * Test {@link PDAcroForm#getFieldIterator()}.
+   *
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@code null}.
+   *   <li>Then return not hasNext.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#getFieldIterator()}
+   */
+  @Test
+  @DisplayName("Test getFieldIterator(); given ArrayList() add 'null'; then return not hasNext")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Iterator PDAcroForm.getFieldIterator()"})
+  void testGetFieldIterator_givenArrayListAddNull_thenReturnNotHasNext() {
+    // Arrange
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(null);
+
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+    pdAcroForm.setFields(fields);
+
+    // Act and Assert
+    assertFalse(pdAcroForm.getFieldIterator().hasNext());
+  }
+
+  /**
+   * Test {@link PDAcroForm#getFieldIterator()}.
+   *
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link
+   *       PDNonTerminalField#PDNonTerminalField(PDAcroForm)} with acroForm is {@link
+   *       PDAcroForm#PDAcroForm(PDDocument)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#getFieldIterator()}
+   */
+  @Test
+  @DisplayName(
+      "Test getFieldIterator(); given ArrayList() add PDNonTerminalField(PDAcroForm) with acroForm is PDAcroForm(PDDocument)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Iterator PDAcroForm.getFieldIterator()"})
+  void testGetFieldIterator_givenArrayListAddPDNonTerminalFieldWithAcroFormIsPDAcroForm() {
+    // Arrange
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(new PDNonTerminalField(new PDAcroForm(new PDDocument())));
+
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+    pdAcroForm.setFields(fields);
+
+    // Act and Assert
+    assertFalse(pdAcroForm.getFieldIterator().hasNext());
   }
 
   /**
@@ -2836,6 +5821,318 @@ class PDAcroFormDiffblueTest {
   }
 
   /**
+   * Test {@link PDAcroForm#getFieldIterator()}.
+   *
+   * <ul>
+   *   <li>Then next return {@link PDCheckBox}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#getFieldIterator()}
+   */
+  @Test
+  @DisplayName("Test getFieldIterator(); then next return PDCheckBox")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Iterator PDAcroForm.getFieldIterator()"})
+  void testGetFieldIterator_thenNextReturnPDCheckBox() {
+    // Arrange
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(new PDCheckBox(new PDAcroForm(new PDDocument())));
+
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+    pdAcroForm.setFields(fields);
+
+    // Act
+    Iterator<PDField> actualFieldIterator = pdAcroForm.getFieldIterator();
+
+    // Assert
+    PDField nextResult = actualFieldIterator.next();
+    assertTrue(nextResult instanceof PDCheckBox);
+    PDAcroForm acroForm = nextResult.getAcroForm();
+    Iterator<PDField> iteratorResult = acroForm.getFieldTree().iterator();
+    PDField nextResult2 = iteratorResult.next();
+    assertTrue(nextResult2 instanceof PDCheckBox);
+    List<PDField> fields2 = acroForm.getFields();
+    assertEquals(1, fields2.size());
+    PDField getResult = fields2.get(0);
+    assertTrue(getResult instanceof PDCheckBox);
+    assertEquals("", ((PDCheckBox) nextResult).getOnValue());
+    assertEquals("", ((PDCheckBox) nextResult2).getOnValue());
+    assertEquals("", ((PDCheckBox) getResult).getOnValue());
+    assertFalse(actualFieldIterator.hasNext());
+    assertFalse(iteratorResult.hasNext());
+  }
+
+  /**
+   * Test {@link PDAcroForm#getFieldIterator()}.
+   *
+   * <ul>
+   *   <li>Then next return {@link PDComboBox}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#getFieldIterator()}
+   */
+  @Test
+  @DisplayName("Test getFieldIterator(); then next return PDComboBox")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Iterator PDAcroForm.getFieldIterator()"})
+  void testGetFieldIterator_thenNextReturnPDComboBox() {
+    // Arrange
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(new PDComboBox(new PDAcroForm(new PDDocument())));
+
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+    pdAcroForm.setFields(fields);
+
+    // Act
+    Iterator<PDField> actualFieldIterator = pdAcroForm.getFieldIterator();
+
+    // Assert
+    PDField nextResult = actualFieldIterator.next();
+    assertTrue(nextResult instanceof PDComboBox);
+    PDAcroForm acroForm = nextResult.getAcroForm();
+    Iterator<PDField> iteratorResult = acroForm.getFieldTree().iterator();
+    assertTrue(iteratorResult.next() instanceof PDComboBox);
+    List<PDField> fields2 = acroForm.getFields();
+    assertEquals(1, fields2.size());
+    PDField getResult = fields2.get(0);
+    assertTrue(getResult instanceof PDComboBox);
+    assertEquals(131072, nextResult.getFieldFlags());
+    assertEquals(131072, getResult.getFieldFlags());
+    assertFalse(actualFieldIterator.hasNext());
+    assertFalse(iteratorResult.hasNext());
+    assertFalse(((PDComboBox) nextResult).isEdit());
+    assertFalse(((PDComboBox) getResult).isEdit());
+    assertTrue(((PDComboBox) nextResult).isCombo());
+    assertTrue(((PDComboBox) getResult).isCombo());
+  }
+
+  /**
+   * Test {@link PDAcroForm#getFieldIterator()}.
+   *
+   * <ul>
+   *   <li>Then next return {@link PDListBox}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#getFieldIterator()}
+   */
+  @Test
+  @DisplayName("Test getFieldIterator(); then next return PDListBox")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Iterator PDAcroForm.getFieldIterator()"})
+  void testGetFieldIterator_thenNextReturnPDListBox() {
+    // Arrange
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(new PDListBox(new PDAcroForm(new PDDocument())));
+
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+    pdAcroForm.setFields(fields);
+
+    // Act
+    Iterator<PDField> actualFieldIterator = pdAcroForm.getFieldIterator();
+
+    // Assert
+    PDField nextResult = actualFieldIterator.next();
+    assertTrue(nextResult instanceof PDListBox);
+    PDAcroForm acroForm = nextResult.getAcroForm();
+    Iterator<PDField> iteratorResult = acroForm.getFieldTree().iterator();
+    PDField nextResult2 = iteratorResult.next();
+    assertTrue(nextResult2 instanceof PDListBox);
+    List<PDField> fields2 = acroForm.getFields();
+    assertEquals(1, fields2.size());
+    PDField getResult = fields2.get(0);
+    assertTrue(getResult instanceof PDListBox);
+    assertEquals(0, ((PDListBox) nextResult).getTopIndex());
+    assertEquals(0, ((PDListBox) nextResult2).getTopIndex());
+    assertEquals(0, ((PDListBox) getResult).getTopIndex());
+    assertFalse(actualFieldIterator.hasNext());
+    assertFalse(iteratorResult.hasNext());
+    assertFalse(((PDListBox) nextResult).isCombo());
+    assertFalse(((PDListBox) nextResult2).isCombo());
+    assertFalse(((PDListBox) getResult).isCombo());
+  }
+
+  /**
+   * Test {@link PDAcroForm#getFieldIterator()}.
+   *
+   * <ul>
+   *   <li>Then next return {@link PDPushButton}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#getFieldIterator()}
+   */
+  @Test
+  @DisplayName("Test getFieldIterator(); then next return PDPushButton")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Iterator PDAcroForm.getFieldIterator()"})
+  void testGetFieldIterator_thenNextReturnPDPushButton() {
+    // Arrange
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(new PDPushButton(new PDAcroForm(new PDDocument())));
+
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+    pdAcroForm.setFields(fields);
+
+    // Act
+    Iterator<PDField> actualFieldIterator = pdAcroForm.getFieldIterator();
+
+    // Assert
+    PDField nextResult = actualFieldIterator.next();
+    assertTrue(nextResult instanceof PDPushButton);
+    assertEquals("", nextResult.getValueAsString());
+    assertEquals("", ((PDPushButton) nextResult).getDefaultValue());
+    assertEquals("", ((PDPushButton) nextResult).getValue());
+    assertEquals(65536, nextResult.getFieldFlags());
+    assertFalse(actualFieldIterator.hasNext());
+    List<String> exportValues = ((PDPushButton) nextResult).getExportValues();
+    assertTrue(exportValues.isEmpty());
+    assertTrue(((PDPushButton) nextResult).getOnValues().isEmpty());
+    assertTrue(((PDPushButton) nextResult).isPushButton());
+    assertSame(exportValues, nextResult.getAcroForm().getCalcOrder());
+  }
+
+  /**
+   * Test {@link PDAcroForm#getFieldIterator()}.
+   *
+   * <ul>
+   *   <li>Then next return {@link PDRadioButton}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#getFieldIterator()}
+   */
+  @Test
+  @DisplayName("Test getFieldIterator(); then next return PDRadioButton")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Iterator PDAcroForm.getFieldIterator()"})
+  void testGetFieldIterator_thenNextReturnPDRadioButton() {
+    // Arrange
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(new PDRadioButton(new PDAcroForm(new PDDocument())));
+
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+    pdAcroForm.setFields(fields);
+
+    // Act
+    Iterator<PDField> actualFieldIterator = pdAcroForm.getFieldIterator();
+
+    // Assert
+    PDField nextResult = actualFieldIterator.next();
+    assertTrue(nextResult instanceof PDRadioButton);
+    List<PDField> fields2 = nextResult.getAcroForm().getFields();
+    assertEquals(1, fields2.size());
+    assertTrue(fields2.get(0) instanceof PDRadioButton);
+    List<String> selectedExportValues = ((PDRadioButton) nextResult).getSelectedExportValues();
+    assertEquals(1, selectedExportValues.size());
+    assertEquals("Off", selectedExportValues.get(0));
+    assertEquals(0, ((PDRadioButton) nextResult).getSelectedIndex());
+    assertEquals(32768, nextResult.getFieldFlags());
+    assertFalse(actualFieldIterator.hasNext());
+    assertFalse(((PDRadioButton) nextResult).isRadiosInUnison());
+    assertTrue(((PDRadioButton) nextResult).isRadioButton());
+  }
+
+  /**
+   * Test {@link PDAcroForm#getFieldIterator()}.
+   *
+   * <ul>
+   *   <li>Then next return {@link PDSignatureField}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#getFieldIterator()}
+   */
+  @Test
+  @DisplayName("Test getFieldIterator(); then next return PDSignatureField")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Iterator PDAcroForm.getFieldIterator()"})
+  void testGetFieldIterator_thenNextReturnPDSignatureField() {
+    // Arrange
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(new PDSignatureField(new PDAcroForm(new PDDocument())));
+
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+    pdAcroForm.setFields(fields);
+
+    // Act
+    Iterator<PDField> actualFieldIterator = pdAcroForm.getFieldIterator();
+
+    // Assert
+    PDField nextResult = actualFieldIterator.next();
+    assertTrue(nextResult instanceof PDSignatureField);
+    assertEquals("", nextResult.getValueAsString());
+    assertEquals("Sig", nextResult.getFieldType());
+    assertEquals("Signature1", nextResult.getFullyQualifiedName());
+    assertEquals("Signature1", nextResult.getPartialName());
+    assertNull(((PDSignatureField) nextResult).getSeedValue());
+    assertNull(((PDSignatureField) nextResult).getDefaultValue());
+    assertNull(((PDSignatureField) nextResult).getSignature());
+    assertNull(((PDSignatureField) nextResult).getValue());
+    assertEquals(1, nextResult.getWidgets().size());
+    assertFalse(actualFieldIterator.hasNext());
+  }
+
+  /**
+   * Test {@link PDAcroForm#getFieldTree()}.
+   *
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@code null}.
+   *   <li>Then return not iterator hasNext.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#getFieldTree()}
+   */
+  @Test
+  @DisplayName(
+      "Test getFieldTree(); given ArrayList() add 'null'; then return not iterator hasNext")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDFieldTree PDAcroForm.getFieldTree()"})
+  void testGetFieldTree_givenArrayListAddNull_thenReturnNotIteratorHasNext() {
+    // Arrange
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(null);
+
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+    pdAcroForm.setFields(fields);
+
+    // Act and Assert
+    assertFalse(pdAcroForm.getFieldTree().iterator().hasNext());
+  }
+
+  /**
+   * Test {@link PDAcroForm#getFieldTree()}.
+   *
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link
+   *       PDNonTerminalField#PDNonTerminalField(PDAcroForm)} with acroForm is {@link
+   *       PDAcroForm#PDAcroForm(PDDocument)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#getFieldTree()}
+   */
+  @Test
+  @DisplayName(
+      "Test getFieldTree(); given ArrayList() add PDNonTerminalField(PDAcroForm) with acroForm is PDAcroForm(PDDocument)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDFieldTree PDAcroForm.getFieldTree()"})
+  void testGetFieldTree_givenArrayListAddPDNonTerminalFieldWithAcroFormIsPDAcroForm() {
+    // Arrange
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(new PDNonTerminalField(new PDAcroForm(new PDDocument())));
+
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+    pdAcroForm.setFields(fields);
+
+    // Act and Assert
+    assertFalse(pdAcroForm.getFieldTree().iterator().hasNext());
+  }
+
+  /**
    * Test {@link PDAcroForm#getFieldTree()}.
    *
    * <ul>
@@ -2883,6 +6180,231 @@ class PDAcroFormDiffblueTest {
   }
 
   /**
+   * Test {@link PDAcroForm#getFieldTree()}.
+   *
+   * <ul>
+   *   <li>Then iterator next return {@link PDCheckBox}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#getFieldTree()}
+   */
+  @Test
+  @DisplayName("Test getFieldTree(); then iterator next return PDCheckBox")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDFieldTree PDAcroForm.getFieldTree()"})
+  void testGetFieldTree_thenIteratorNextReturnPDCheckBox() {
+    // Arrange
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(new PDCheckBox(new PDAcroForm(new PDDocument())));
+
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+    pdAcroForm.setFields(fields);
+
+    // Act
+    Iterator<PDField> actualIteratorResult = pdAcroForm.getFieldTree().iterator();
+
+    // Assert
+    PDField nextResult = actualIteratorResult.next();
+    assertTrue(nextResult instanceof PDCheckBox);
+    assertEquals("", ((PDCheckBox) nextResult).getDefaultValue());
+    assertEquals("", ((PDCheckBox) nextResult).getOnValue());
+    assertEquals("Off", ((PDCheckBox) nextResult).getValue());
+    assertEquals("Off", nextResult.getValueAsString());
+    assertFalse(actualIteratorResult.hasNext());
+    assertFalse(((PDCheckBox) nextResult).isPushButton());
+    assertFalse(((PDCheckBox) nextResult).isRadioButton());
+  }
+
+  /**
+   * Test {@link PDAcroForm#getFieldTree()}.
+   *
+   * <ul>
+   *   <li>Then iterator next return {@link PDComboBox}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#getFieldTree()}
+   */
+  @Test
+  @DisplayName("Test getFieldTree(); then iterator next return PDComboBox")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDFieldTree PDAcroForm.getFieldTree()"})
+  void testGetFieldTree_thenIteratorNextReturnPDComboBox() {
+    // Arrange
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(new PDComboBox(new PDAcroForm(new PDDocument())));
+
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+    pdAcroForm.setFields(fields);
+
+    // Act
+    Iterator<PDField> actualIteratorResult = pdAcroForm.getFieldTree().iterator();
+
+    // Assert
+    PDField nextResult = actualIteratorResult.next();
+    assertTrue(nextResult instanceof PDComboBox);
+    assertEquals(131072, nextResult.getFieldFlags());
+    assertFalse(actualIteratorResult.hasNext());
+    assertFalse(((PDComboBox) nextResult).isEdit());
+    assertTrue(((PDComboBox) nextResult).isCombo());
+  }
+
+  /**
+   * Test {@link PDAcroForm#getFieldTree()}.
+   *
+   * <ul>
+   *   <li>Then iterator next return {@link PDListBox}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#getFieldTree()}
+   */
+  @Test
+  @DisplayName("Test getFieldTree(); then iterator next return PDListBox")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDFieldTree PDAcroForm.getFieldTree()"})
+  void testGetFieldTree_thenIteratorNextReturnPDListBox() {
+    // Arrange
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(new PDListBox(new PDAcroForm(new PDDocument())));
+
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+    pdAcroForm.setFields(fields);
+
+    // Act
+    Iterator<PDField> actualIteratorResult = pdAcroForm.getFieldTree().iterator();
+
+    // Assert
+    PDField nextResult = actualIteratorResult.next();
+    assertTrue(nextResult instanceof PDListBox);
+    assertEquals("", ((PDListBox) nextResult).getRichTextValue());
+    assertEquals("Ch", nextResult.getFieldType());
+    assertEquals("[]", nextResult.getValueAsString());
+    assertNull(((PDListBox) nextResult).getDefaultAppearance());
+    assertNull(((PDListBox) nextResult).getDefaultStyleString());
+    assertEquals(0, ((PDListBox) nextResult).getTopIndex());
+    assertEquals(0, ((PDListBox) nextResult).getQ());
+    assertFalse(actualIteratorResult.hasNext());
+    assertFalse(((PDListBox) nextResult).isCombo());
+    assertFalse(((PDListBox) nextResult).isCommitOnSelChange());
+    assertFalse(((PDListBox) nextResult).isDoNotSpellCheck());
+    assertFalse(((PDListBox) nextResult).isMultiSelect());
+    assertFalse(((PDListBox) nextResult).isSort());
+  }
+
+  /**
+   * Test {@link PDAcroForm#getFieldTree()}.
+   *
+   * <ul>
+   *   <li>Then iterator next return {@link PDPushButton}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#getFieldTree()}
+   */
+  @Test
+  @DisplayName("Test getFieldTree(); then iterator next return PDPushButton")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDFieldTree PDAcroForm.getFieldTree()"})
+  void testGetFieldTree_thenIteratorNextReturnPDPushButton() {
+    // Arrange
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(new PDPushButton(new PDAcroForm(new PDDocument())));
+
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+    pdAcroForm.setFields(fields);
+
+    // Act
+    Iterator<PDField> actualIteratorResult = pdAcroForm.getFieldTree().iterator();
+
+    // Assert
+    PDField nextResult = actualIteratorResult.next();
+    assertTrue(nextResult instanceof PDPushButton);
+    assertEquals("", nextResult.getValueAsString());
+    assertEquals("", ((PDPushButton) nextResult).getDefaultValue());
+    assertEquals("", ((PDPushButton) nextResult).getValue());
+    assertEquals(65536, nextResult.getFieldFlags());
+    assertFalse(actualIteratorResult.hasNext());
+    assertTrue(((PDPushButton) nextResult).isPushButton());
+  }
+
+  /**
+   * Test {@link PDAcroForm#getFieldTree()}.
+   *
+   * <ul>
+   *   <li>Then iterator next return {@link PDRadioButton}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#getFieldTree()}
+   */
+  @Test
+  @DisplayName("Test getFieldTree(); then iterator next return PDRadioButton")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDFieldTree PDAcroForm.getFieldTree()"})
+  void testGetFieldTree_thenIteratorNextReturnPDRadioButton() {
+    // Arrange
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(new PDRadioButton(new PDAcroForm(new PDDocument())));
+
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+    pdAcroForm.setFields(fields);
+
+    // Act
+    Iterator<PDField> actualIteratorResult = pdAcroForm.getFieldTree().iterator();
+
+    // Assert
+    PDField nextResult = actualIteratorResult.next();
+    assertTrue(nextResult instanceof PDRadioButton);
+    assertEquals(0, ((PDRadioButton) nextResult).getSelectedIndex());
+    assertEquals(32768, nextResult.getFieldFlags());
+    assertFalse(actualIteratorResult.hasNext());
+    assertFalse(((PDRadioButton) nextResult).isRadiosInUnison());
+    assertTrue(((PDRadioButton) nextResult).isRadioButton());
+  }
+
+  /**
+   * Test {@link PDAcroForm#getFieldTree()}.
+   *
+   * <ul>
+   *   <li>Then iterator next return {@link PDSignatureField}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#getFieldTree()}
+   */
+  @Test
+  @DisplayName("Test getFieldTree(); then iterator next return PDSignatureField")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDFieldTree PDAcroForm.getFieldTree()"})
+  void testGetFieldTree_thenIteratorNextReturnPDSignatureField() {
+    // Arrange
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(new PDSignatureField(new PDAcroForm(new PDDocument())));
+
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+    pdAcroForm.setFields(fields);
+
+    // Act
+    Iterator<PDField> actualIteratorResult = pdAcroForm.getFieldTree().iterator();
+
+    // Assert
+    PDField nextResult = actualIteratorResult.next();
+    assertTrue(nextResult instanceof PDSignatureField);
+    assertEquals("", nextResult.getValueAsString());
+    assertEquals("Sig", nextResult.getFieldType());
+    assertEquals("Signature1", nextResult.getFullyQualifiedName());
+    assertEquals("Signature1", nextResult.getPartialName());
+    assertNull(((PDSignatureField) nextResult).getSeedValue());
+    assertNull(((PDSignatureField) nextResult).getDefaultValue());
+    assertNull(((PDSignatureField) nextResult).getSignature());
+    assertNull(((PDSignatureField) nextResult).getValue());
+    assertEquals(1, nextResult.getWidgets().size());
+    assertFalse(actualIteratorResult.hasNext());
+  }
+
+  /**
    * Test {@link PDAcroForm#setCacheFields(boolean)}.
    *
    * <p>Method under test: {@link PDAcroForm#setCacheFields(boolean)}
@@ -2896,6 +6418,316 @@ class PDAcroFormDiffblueTest {
     // Arrange
     PDDocument doc = new PDDocument();
     PDAcroForm pdAcroForm = new PDAcroForm(doc, new COSDictionary());
+
+    // Act
+    pdAcroForm.setCacheFields(true);
+
+    // Assert
+    assertTrue(pdAcroForm.isCachingFields());
+  }
+
+  /**
+   * Test {@link PDAcroForm#setCacheFields(boolean)}.
+   *
+   * <p>Method under test: {@link PDAcroForm#setCacheFields(boolean)}
+   */
+  @Test
+  @DisplayName("Test setCacheFields(boolean)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.setCacheFields(boolean)"})
+  void testSetCacheFields2() {
+    // Arrange
+    PDCheckBox pdCheckBox = new PDCheckBox(new PDAcroForm(new PDDocument()));
+    pdCheckBox.setPartialName("");
+
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(pdCheckBox);
+
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+    pdAcroForm.setFields(fields);
+
+    // Act
+    pdAcroForm.setCacheFields(true);
+
+    // Assert
+    assertTrue(pdAcroForm.isCachingFields());
+  }
+
+  /**
+   * Test {@link PDAcroForm#setCacheFields(boolean)}.
+   *
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#setCacheFields(boolean)}
+   */
+  @Test
+  @DisplayName("Test setCacheFields(boolean); given ArrayList() add 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.setCacheFields(boolean)"})
+  void testSetCacheFields_givenArrayListAddNull() {
+    // Arrange
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(null);
+
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+    pdAcroForm.setFields(fields);
+
+    // Act
+    pdAcroForm.setCacheFields(true);
+
+    // Assert
+    assertTrue(pdAcroForm.isCachingFields());
+  }
+
+  /**
+   * Test {@link PDAcroForm#setCacheFields(boolean)}.
+   *
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDCheckBox#PDCheckBox(PDAcroForm)} with
+   *       acroForm is {@link PDAcroForm#PDAcroForm(PDDocument)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#setCacheFields(boolean)}
+   */
+  @Test
+  @DisplayName(
+      "Test setCacheFields(boolean); given ArrayList() add PDCheckBox(PDAcroForm) with acroForm is PDAcroForm(PDDocument)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.setCacheFields(boolean)"})
+  void testSetCacheFields_givenArrayListAddPDCheckBoxWithAcroFormIsPDAcroForm() {
+    // Arrange
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(new PDCheckBox(new PDAcroForm(new PDDocument())));
+
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+    pdAcroForm.setFields(fields);
+
+    // Act
+    pdAcroForm.setCacheFields(true);
+
+    // Assert
+    assertTrue(pdAcroForm.isCachingFields());
+  }
+
+  /**
+   * Test {@link PDAcroForm#setCacheFields(boolean)}.
+   *
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDComboBox#PDComboBox(PDAcroForm)} with
+   *       acroForm is {@link PDAcroForm#PDAcroForm(PDDocument)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#setCacheFields(boolean)}
+   */
+  @Test
+  @DisplayName(
+      "Test setCacheFields(boolean); given ArrayList() add PDComboBox(PDAcroForm) with acroForm is PDAcroForm(PDDocument)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.setCacheFields(boolean)"})
+  void testSetCacheFields_givenArrayListAddPDComboBoxWithAcroFormIsPDAcroForm() {
+    // Arrange
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(new PDComboBox(new PDAcroForm(new PDDocument())));
+
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+    pdAcroForm.setFields(fields);
+
+    // Act
+    pdAcroForm.setCacheFields(true);
+
+    // Assert
+    assertTrue(pdAcroForm.isCachingFields());
+  }
+
+  /**
+   * Test {@link PDAcroForm#setCacheFields(boolean)}.
+   *
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDListBox#PDListBox(PDAcroForm)} with
+   *       acroForm is {@link PDAcroForm#PDAcroForm(PDDocument)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#setCacheFields(boolean)}
+   */
+  @Test
+  @DisplayName(
+      "Test setCacheFields(boolean); given ArrayList() add PDListBox(PDAcroForm) with acroForm is PDAcroForm(PDDocument)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.setCacheFields(boolean)"})
+  void testSetCacheFields_givenArrayListAddPDListBoxWithAcroFormIsPDAcroForm() {
+    // Arrange
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(new PDListBox(new PDAcroForm(new PDDocument())));
+
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+    pdAcroForm.setFields(fields);
+
+    // Act
+    pdAcroForm.setCacheFields(true);
+
+    // Assert
+    assertTrue(pdAcroForm.isCachingFields());
+  }
+
+  /**
+   * Test {@link PDAcroForm#setCacheFields(boolean)}.
+   *
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link
+   *       PDNonTerminalField#PDNonTerminalField(PDAcroForm)} with acroForm is {@link
+   *       PDAcroForm#PDAcroForm(PDDocument)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#setCacheFields(boolean)}
+   */
+  @Test
+  @DisplayName(
+      "Test setCacheFields(boolean); given ArrayList() add PDNonTerminalField(PDAcroForm) with acroForm is PDAcroForm(PDDocument)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.setCacheFields(boolean)"})
+  void testSetCacheFields_givenArrayListAddPDNonTerminalFieldWithAcroFormIsPDAcroForm() {
+    // Arrange
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(new PDNonTerminalField(new PDAcroForm(new PDDocument())));
+
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+    pdAcroForm.setFields(fields);
+
+    // Act
+    pdAcroForm.setCacheFields(true);
+
+    // Assert
+    assertTrue(pdAcroForm.isCachingFields());
+  }
+
+  /**
+   * Test {@link PDAcroForm#setCacheFields(boolean)}.
+   *
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDPushButton#PDPushButton(PDAcroForm)}
+   *       with acroForm is {@link PDAcroForm#PDAcroForm(PDDocument)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#setCacheFields(boolean)}
+   */
+  @Test
+  @DisplayName(
+      "Test setCacheFields(boolean); given ArrayList() add PDPushButton(PDAcroForm) with acroForm is PDAcroForm(PDDocument)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.setCacheFields(boolean)"})
+  void testSetCacheFields_givenArrayListAddPDPushButtonWithAcroFormIsPDAcroForm() {
+    // Arrange
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(new PDPushButton(new PDAcroForm(new PDDocument())));
+
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+    pdAcroForm.setFields(fields);
+
+    // Act
+    pdAcroForm.setCacheFields(true);
+
+    // Assert
+    assertTrue(pdAcroForm.isCachingFields());
+  }
+
+  /**
+   * Test {@link PDAcroForm#setCacheFields(boolean)}.
+   *
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDRadioButton#PDRadioButton(PDAcroForm)}
+   *       with acroForm is {@link PDAcroForm#PDAcroForm(PDDocument)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#setCacheFields(boolean)}
+   */
+  @Test
+  @DisplayName(
+      "Test setCacheFields(boolean); given ArrayList() add PDRadioButton(PDAcroForm) with acroForm is PDAcroForm(PDDocument)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.setCacheFields(boolean)"})
+  void testSetCacheFields_givenArrayListAddPDRadioButtonWithAcroFormIsPDAcroForm() {
+    // Arrange
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(new PDRadioButton(new PDAcroForm(new PDDocument())));
+
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+    pdAcroForm.setFields(fields);
+
+    // Act
+    pdAcroForm.setCacheFields(true);
+
+    // Assert
+    assertTrue(pdAcroForm.isCachingFields());
+  }
+
+  /**
+   * Test {@link PDAcroForm#setCacheFields(boolean)}.
+   *
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link
+   *       PDSignatureField#PDSignatureField(PDAcroForm)} with acroForm is {@link
+   *       PDAcroForm#PDAcroForm(PDDocument)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#setCacheFields(boolean)}
+   */
+  @Test
+  @DisplayName(
+      "Test setCacheFields(boolean); given ArrayList() add PDSignatureField(PDAcroForm) with acroForm is PDAcroForm(PDDocument)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.setCacheFields(boolean)"})
+  void testSetCacheFields_givenArrayListAddPDSignatureFieldWithAcroFormIsPDAcroForm() {
+    // Arrange
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(new PDSignatureField(new PDAcroForm(new PDDocument())));
+
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+    pdAcroForm.setFields(fields);
+
+    // Act
+    pdAcroForm.setCacheFields(true);
+
+    // Assert
+    assertTrue(pdAcroForm.isCachingFields());
+  }
+
+  /**
+   * Test {@link PDAcroForm#setCacheFields(boolean)}.
+   *
+   * <ul>
+   *   <li>Given {@link PDCheckBox#PDCheckBox(PDAcroForm)} with acroForm is {@link
+   *       PDAcroForm#PDAcroForm(PDDocument)} PartialName is {@code Ch}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#setCacheFields(boolean)}
+   */
+  @Test
+  @DisplayName(
+      "Test setCacheFields(boolean); given PDCheckBox(PDAcroForm) with acroForm is PDAcroForm(PDDocument) PartialName is 'Ch'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.setCacheFields(boolean)"})
+  void testSetCacheFields_givenPDCheckBoxWithAcroFormIsPDAcroFormPartialNameIsCh() {
+    // Arrange
+    PDCheckBox pdCheckBox = new PDCheckBox(new PDAcroForm(new PDDocument()));
+    pdCheckBox.setPartialName("Ch");
+
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(pdCheckBox);
+
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+    pdAcroForm.setFields(fields);
 
     // Act
     pdAcroForm.setCacheFields(true);
@@ -3297,7 +7129,6 @@ class PDAcroFormDiffblueTest {
    * Test {@link PDAcroForm#setNeedAppearances(Boolean)}.
    *
    * <ul>
-   *   <li>When {@code true}.
    *   <li>Then {@link PDAcroForm#PDAcroForm(PDDocument)} with doc is {@link
    *       PDDocument#PDDocument()} NeedAppearances.
    * </ul>
@@ -3306,11 +7137,11 @@ class PDAcroFormDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test setNeedAppearances(Boolean); when 'true'; then PDAcroForm(PDDocument) with doc is PDDocument() NeedAppearances")
+      "Test setNeedAppearances(Boolean); then PDAcroForm(PDDocument) with doc is PDDocument() NeedAppearances")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDAcroForm.setNeedAppearances(Boolean)"})
-  void testSetNeedAppearances_whenTrue_thenPDAcroFormWithDocIsPDDocumentNeedAppearances() {
+  void testSetNeedAppearances_thenPDAcroFormWithDocIsPDDocumentNeedAppearances() {
     // Arrange
     PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
 
@@ -3485,6 +7316,114 @@ class PDAcroFormDiffblueTest {
   /**
    * Test {@link PDAcroForm#xfaIsDynamic()}.
    *
+   * <p>Method under test: {@link PDAcroForm#xfaIsDynamic()}
+   */
+  @Test
+  @DisplayName("Test xfaIsDynamic()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean PDAcroForm.xfaIsDynamic()"})
+  void testXfaIsDynamic() {
+    // Arrange
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+    pdAcroForm.setXFA(new PDXFAResource(COSBoolean.FALSE));
+
+    // Act and Assert
+    assertTrue(pdAcroForm.xfaIsDynamic());
+  }
+
+  /**
+   * Test {@link PDAcroForm#xfaIsDynamic()}.
+   *
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@code null}.
+   *   <li>Then return {@code true}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#xfaIsDynamic()}
+   */
+  @Test
+  @DisplayName("Test xfaIsDynamic(); given ArrayList() add 'null'; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean PDAcroForm.xfaIsDynamic()"})
+  void testXfaIsDynamic_givenArrayListAddNull_thenReturnTrue() {
+    // Arrange
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(null);
+    PDDocument doc = new PDDocument();
+
+    PDAcroForm pdAcroForm = new PDAcroForm(doc, new COSDictionary());
+    pdAcroForm.setFields(fields);
+    pdAcroForm.setXFA(new PDXFAResource(COSBoolean.FALSE));
+
+    // Act and Assert
+    assertTrue(pdAcroForm.xfaIsDynamic());
+  }
+
+  /**
+   * Test {@link PDAcroForm#xfaIsDynamic()}.
+   *
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDCheckBox#PDCheckBox(PDAcroForm)} with
+   *       acroForm is {@link PDAcroForm#PDAcroForm(PDDocument)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#xfaIsDynamic()}
+   */
+  @Test
+  @DisplayName(
+      "Test xfaIsDynamic(); given ArrayList() add PDCheckBox(PDAcroForm) with acroForm is PDAcroForm(PDDocument)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean PDAcroForm.xfaIsDynamic()"})
+  void testXfaIsDynamic_givenArrayListAddPDCheckBoxWithAcroFormIsPDAcroForm() {
+    // Arrange
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(new PDCheckBox(new PDAcroForm(new PDDocument())));
+    PDDocument doc = new PDDocument();
+
+    PDAcroForm pdAcroForm = new PDAcroForm(doc, new COSDictionary());
+    pdAcroForm.setFields(fields);
+    pdAcroForm.setXFA(new PDXFAResource(COSBoolean.FALSE));
+
+    // Act and Assert
+    assertFalse(pdAcroForm.xfaIsDynamic());
+  }
+
+  /**
+   * Test {@link PDAcroForm#xfaIsDynamic()}.
+   *
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDComboBox#PDComboBox(PDAcroForm)} with
+   *       acroForm is {@link PDAcroForm#PDAcroForm(PDDocument)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#xfaIsDynamic()}
+   */
+  @Test
+  @DisplayName(
+      "Test xfaIsDynamic(); given ArrayList() add PDComboBox(PDAcroForm) with acroForm is PDAcroForm(PDDocument)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean PDAcroForm.xfaIsDynamic()"})
+  void testXfaIsDynamic_givenArrayListAddPDComboBoxWithAcroFormIsPDAcroForm() {
+    // Arrange
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(new PDComboBox(new PDAcroForm(new PDDocument())));
+    PDDocument doc = new PDDocument();
+
+    PDAcroForm pdAcroForm = new PDAcroForm(doc, new COSDictionary());
+    pdAcroForm.setFields(fields);
+    pdAcroForm.setXFA(new PDXFAResource(COSBoolean.FALSE));
+
+    // Act and Assert
+    assertFalse(pdAcroForm.xfaIsDynamic());
+  }
+
+  /**
+   * Test {@link PDAcroForm#xfaIsDynamic()}.
+   *
    * <ul>
    *   <li>Given {@link PDAcroForm#PDAcroForm(PDDocument)} with doc is {@link
    *       PDDocument#PDDocument()}.
@@ -3508,6 +7447,42 @@ class PDAcroFormDiffblueTest {
    * Test {@link PDAcroForm#xfaIsDynamic()}.
    *
    * <ul>
+   *   <li>Given {@link PDNonTerminalField#PDNonTerminalField(PDAcroForm)} with acroForm is {@link
+   *       PDAcroForm#PDAcroForm(PDDocument)}.
+   *   <li>Then return {@code true}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#xfaIsDynamic()}
+   */
+  @Test
+  @DisplayName(
+      "Test xfaIsDynamic(); given PDNonTerminalField(PDAcroForm) with acroForm is PDAcroForm(PDDocument); then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean PDAcroForm.xfaIsDynamic()"})
+  void testXfaIsDynamic_givenPDNonTerminalFieldWithAcroFormIsPDAcroForm_thenReturnTrue() {
+    // Arrange
+    ArrayList<PDField> fields = new ArrayList<>();
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    COSDictionary field = new COSDictionary();
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+
+    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, field, parent);
+    fields.add(pdCheckBox);
+    PDDocument doc = new PDDocument();
+
+    PDAcroForm pdAcroForm = new PDAcroForm(doc, new COSDictionary());
+    pdAcroForm.setFields(fields);
+    pdAcroForm.setXFA(new PDXFAResource(COSBoolean.FALSE));
+
+    // Act and Assert
+    assertTrue(pdAcroForm.xfaIsDynamic());
+  }
+
+  /**
+   * Test {@link PDAcroForm#xfaIsDynamic()}.
+   *
+   * <ul>
    *   <li>Then return {@code true}.
    * </ul>
    *
@@ -3520,7 +7495,9 @@ class PDAcroFormDiffblueTest {
   @MethodsUnderTest({"boolean PDAcroForm.xfaIsDynamic()"})
   void testXfaIsDynamic_thenReturnTrue() {
     // Arrange
-    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+    PDDocument doc = new PDDocument();
+
+    PDAcroForm pdAcroForm = new PDAcroForm(doc, new COSDictionary());
     pdAcroForm.setXFA(new PDXFAResource(COSBoolean.FALSE));
 
     // Act and Assert
@@ -3547,6 +7524,40 @@ class PDAcroFormDiffblueTest {
   void testGetXFA_givenPDAcroFormWithDocIsPDDocument_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(new PDAcroForm(new PDDocument()).getXFA());
+  }
+
+  /**
+   * Test {@link PDAcroForm#setXFA(PDXFAResource)}.
+   *
+   * <ul>
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#setXFA(PDXFAResource)}
+   */
+  @Test
+  @DisplayName(
+      "Test setXFA(PDXFAResource); given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.setXFA(PDXFAResource)"})
+  void testSetXFA_givenCOSObjectKeyWithNumIsOneAndGenIsOne() throws IOException {
+    // Arrange
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+
+    COSDictionary xfaBase = new COSDictionary();
+    xfaBase.setKey(new COSObjectKey(1L, 1));
+
+    // Act
+    pdAcroForm.setXFA(new PDXFAResource(xfaBase));
+
+    // Assert
+    COSDictionary cOSObject = pdAcroForm.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    PDXFAResource xFA = pdAcroForm.getXFA();
+    assertSame(xfaBase, xFA.getCOSObject());
+    assertArrayEquals(new byte[] {}, xFA.getBytes());
   }
 
   /**
@@ -3757,6 +7768,35 @@ class PDAcroFormDiffblueTest {
    * Test {@link PDAcroForm#setQ(int)}.
    *
    * <ul>
+   *   <li>Then {@link PDAcroForm#PDAcroForm(PDDocument)} with doc is {@link
+   *       PDDocument#PDDocument()} Q is one.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#setQ(int)}
+   */
+  @Test
+  @DisplayName("Test setQ(int); then PDAcroForm(PDDocument) with doc is PDDocument() Q is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.setQ(int)"})
+  void testSetQ_thenPDAcroFormWithDocIsPDDocumentQIsOne() {
+    // Arrange
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+
+    // Act
+    pdAcroForm.setQ(1);
+
+    // Assert
+    assertEquals(1, pdAcroForm.getQ());
+    COSDictionary cOSObject = pdAcroForm.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDAcroForm#setQ(int)}.
+   *
+   * <ul>
    *   <li>When {@link Integer#MIN_VALUE}.
    *   <li>Then {@link PDAcroForm#PDAcroForm(PDDocument)} with doc is {@link
    *       PDDocument#PDDocument()} Q is {@link Integer#MIN_VALUE}.
@@ -3782,37 +7822,6 @@ class PDAcroFormDiffblueTest {
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
     assertEquals(Integer.MIN_VALUE, pdAcroForm.getQ());
-  }
-
-  /**
-   * Test {@link PDAcroForm#setQ(int)}.
-   *
-   * <ul>
-   *   <li>When one.
-   *   <li>Then {@link PDAcroForm#PDAcroForm(PDDocument)} with doc is {@link
-   *       PDDocument#PDDocument()} Q is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAcroForm#setQ(int)}
-   */
-  @Test
-  @DisplayName(
-      "Test setQ(int); when one; then PDAcroForm(PDDocument) with doc is PDDocument() Q is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAcroForm.setQ(int)"})
-  void testSetQ_whenOne_thenPDAcroFormWithDocIsPDDocumentQIsOne() {
-    // Arrange
-    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
-
-    // Act
-    pdAcroForm.setQ(1);
-
-    // Assert
-    assertEquals(1, pdAcroForm.getQ());
-    COSDictionary cOSObject = pdAcroForm.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
   }
 
   /**
@@ -4116,6 +8125,57 @@ class PDAcroFormDiffblueTest {
   /**
    * Test {@link PDAcroForm#getCalcOrder()}.
    *
+   * <p>Method under test: {@link PDAcroForm#getCalcOrder()}
+   */
+  @Test
+  @DisplayName("Test getCalcOrder()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List PDAcroForm.getCalcOrder()"})
+  void testGetCalcOrder() {
+    // Arrange
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(new PDCheckBox(new PDAcroForm(new PDDocument())));
+    PDDocument doc = new PDDocument();
+
+    PDAcroForm pdAcroForm = new PDAcroForm(doc, new COSDictionary());
+    pdAcroForm.setCalcOrder(fields);
+
+    // Act and Assert
+    assertTrue(pdAcroForm.getCalcOrder().isEmpty());
+  }
+
+  /**
+   * Test {@link PDAcroForm#getCalcOrder()}.
+   *
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDCheckBox#PDCheckBox(PDAcroForm)} with
+   *       acroForm is {@link PDAcroForm#PDAcroForm(PDDocument)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#getCalcOrder()}
+   */
+  @Test
+  @DisplayName(
+      "Test getCalcOrder(); given ArrayList() add PDCheckBox(PDAcroForm) with acroForm is PDAcroForm(PDDocument)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List PDAcroForm.getCalcOrder()"})
+  void testGetCalcOrder_givenArrayListAddPDCheckBoxWithAcroFormIsPDAcroForm() {
+    // Arrange
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(new PDCheckBox(new PDAcroForm(new PDDocument())));
+
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+    pdAcroForm.setCalcOrder(fields);
+
+    // Act and Assert
+    assertTrue(pdAcroForm.getCalcOrder().isEmpty());
+  }
+
+  /**
+   * Test {@link PDAcroForm#getCalcOrder()}.
+   *
    * <ul>
    *   <li>Given {@link PDAcroForm#PDAcroForm(PDDocument)} with doc is {@link
    *       PDDocument#PDDocument()}.
@@ -4138,22 +8198,24 @@ class PDAcroFormDiffblueTest {
    *
    * <ul>
    *   <li>Given {@link PDAcroForm#PDAcroForm(PDDocument)} with doc is {@link
-   *       PDDocument#PDDocument()}.
+   *       PDDocument#PDDocument()} CacheFields is {@code true}.
    * </ul>
    *
    * <p>Method under test: {@link PDAcroForm#getCalcOrder()}
    */
   @Test
-  @DisplayName("Test getCalcOrder(); given PDAcroForm(PDDocument) with doc is PDDocument()")
+  @DisplayName(
+      "Test getCalcOrder(); given PDAcroForm(PDDocument) with doc is PDDocument() CacheFields is 'true'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"List PDAcroForm.getCalcOrder()"})
-  void testGetCalcOrder_givenPDAcroFormWithDocIsPDDocument2() {
+  void testGetCalcOrder_givenPDAcroFormWithDocIsPDDocumentCacheFieldsIsTrue() {
     // Arrange
     ArrayList<PDField> fields = new ArrayList<>();
     fields.add(new PDCheckBox(new PDAcroForm(new PDDocument())));
 
     PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+    pdAcroForm.setCacheFields(true);
     pdAcroForm.setCalcOrder(fields);
 
     // Act and Assert
@@ -4238,6 +8300,40 @@ class PDAcroFormDiffblueTest {
     PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
 
     ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(new PDCheckBox(new PDAcroForm(new PDDocument())));
+
+    // Act
+    pdAcroForm.setCalcOrder(fields);
+
+    // Assert
+    COSDictionary cOSObject = pdAcroForm.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertTrue(pdAcroForm.getCalcOrder().isEmpty());
+  }
+
+  /**
+   * Test {@link PDAcroForm#setCalcOrder(List)}.
+   *
+   * <ul>
+   *   <li>Given {@link PDCheckBox#PDCheckBox(PDAcroForm)} with acroForm is {@link
+   *       PDAcroForm#PDAcroForm(PDDocument)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAcroForm#setCalcOrder(List)}
+   */
+  @Test
+  @DisplayName(
+      "Test setCalcOrder(List); given PDCheckBox(PDAcroForm) with acroForm is PDAcroForm(PDDocument)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAcroForm.setCalcOrder(List)"})
+  void testSetCalcOrder_givenPDCheckBoxWithAcroFormIsPDAcroForm2() {
+    // Arrange
+    PDAcroForm pdAcroForm = new PDAcroForm(new PDDocument());
+
+    ArrayList<PDField> fields = new ArrayList<>();
+    fields.add(new PDCheckBox(new PDAcroForm(new PDDocument())));
     fields.add(new PDCheckBox(new PDAcroForm(new PDDocument())));
 
     // Act

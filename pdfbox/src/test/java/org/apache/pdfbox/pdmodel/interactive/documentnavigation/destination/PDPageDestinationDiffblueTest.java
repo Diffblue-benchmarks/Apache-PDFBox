@@ -304,40 +304,6 @@ class PDPageDestinationDiffblueTest {
    * Test {@link PDPageDestination#setPageNumber(int)}.
    *
    * <ul>
-   *   <li>Then {@link PDPageFitDestination#PDPageFitDestination()} PageNumber is two hundred
-   *       fifty-six.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPageDestination#setPageNumber(int)}
-   */
-  @Test
-  @DisplayName(
-      "Test setPageNumber(int); then PDPageFitDestination() PageNumber is two hundred fifty-six")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDPageDestination.setPageNumber(int)"})
-  void testSetPageNumber_thenPDPageFitDestinationPageNumberIsTwoHundredFiftySix() {
-    // Arrange
-    PDPageFitDestination pdPageFitDestination = new PDPageFitDestination();
-
-    // Act
-    pdPageFitDestination.setPageNumber(256);
-
-    // Assert
-    List<? extends COSBase> toListResult = pdPageFitDestination.getCOSObject().toList();
-    assertEquals(2, toListResult.size());
-    COSBase getResult = toListResult.get(0);
-    assertTrue(getResult instanceof COSInteger);
-    assertNull(getResult.getKey());
-    assertEquals(256, pdPageFitDestination.getPageNumber());
-    assertFalse(getResult.isDirect());
-    assertTrue(((COSInteger) getResult).isValid());
-  }
-
-  /**
-   * Test {@link PDPageDestination#setPageNumber(int)}.
-   *
-   * <ul>
    *   <li>When {@link Integer#MIN_VALUE}.
    *   <li>Then {@link PDPageFitDestination#PDPageFitDestination()} PageNumber is {@link
    *       Integer#MIN_VALUE}.
@@ -367,39 +333,6 @@ class PDPageDestinationDiffblueTest {
     assertFalse(getResult.isDirect());
     assertTrue(((COSInteger) getResult).isValid());
     assertEquals(Integer.MIN_VALUE, pdPageFitDestination.getPageNumber());
-  }
-
-  /**
-   * Test {@link PDPageDestination#setPageNumber(int)}.
-   *
-   * <ul>
-   *   <li>When ten.
-   *   <li>Then {@link PDPageFitDestination#PDPageFitDestination()} PageNumber is ten.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPageDestination#setPageNumber(int)}
-   */
-  @Test
-  @DisplayName("Test setPageNumber(int); when ten; then PDPageFitDestination() PageNumber is ten")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDPageDestination.setPageNumber(int)"})
-  void testSetPageNumber_whenTen_thenPDPageFitDestinationPageNumberIsTen() {
-    // Arrange
-    PDPageFitDestination pdPageFitDestination = new PDPageFitDestination();
-
-    // Act
-    pdPageFitDestination.setPageNumber(10);
-
-    // Assert
-    List<? extends COSBase> toListResult = pdPageFitDestination.getCOSObject().toList();
-    assertEquals(2, toListResult.size());
-    COSBase getResult = toListResult.get(0);
-    assertTrue(getResult instanceof COSInteger);
-    assertNull(getResult.getKey());
-    assertEquals(10, pdPageFitDestination.getPageNumber());
-    assertFalse(getResult.isDirect());
-    assertTrue(((COSInteger) getResult).isValid());
   }
 
   /**

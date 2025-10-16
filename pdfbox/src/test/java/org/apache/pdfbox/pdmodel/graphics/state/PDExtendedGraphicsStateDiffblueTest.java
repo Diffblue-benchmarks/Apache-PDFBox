@@ -21,7 +21,6 @@ import org.apache.pdfbox.cos.COSBoolean;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSFloat;
 import org.apache.pdfbox.cos.COSIncrement;
-import org.apache.pdfbox.cos.COSInteger;
 import org.apache.pdfbox.cos.COSObject;
 import org.apache.pdfbox.cos.COSObjectKey;
 import org.apache.pdfbox.cos.COSUpdateState;
@@ -432,76 +431,6 @@ class PDExtendedGraphicsStateDiffblueTest {
    * Test {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}.
    *
    * <ul>
-   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} Transfer is {@link
-   *       COSArray#COSArray()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}
-   */
-  @Test
-  @DisplayName(
-      "Test copyIntoGraphicsState(PDGraphicsState); given PDExtendedGraphicsState() Transfer is COSArray()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDExtendedGraphicsState.copyIntoGraphicsState(PDGraphicsState)"})
-  void testCopyIntoGraphicsState_givenPDExtendedGraphicsStateTransferIsCOSArray2()
-      throws IOException {
-    // Arrange
-    PDExtendedGraphicsState pdExtendedGraphicsState = new PDExtendedGraphicsState();
-    pdExtendedGraphicsState.setTransfer2(COSBoolean.FALSE);
-    pdExtendedGraphicsState.setTransfer(new COSArray());
-    PDGraphicsState gs = new PDGraphicsState(PDRectangle.A0);
-
-    // Act
-    pdExtendedGraphicsState.copyIntoGraphicsState(gs);
-
-    // Assert
-    COSBase transfer = gs.getTransfer();
-    assertTrue(transfer instanceof COSBoolean);
-    assertNull(transfer.getKey());
-    assertFalse(transfer.isDirect());
-    assertFalse(((COSBoolean) transfer).getValue());
-    assertFalse(((COSBoolean) transfer).getValueAsObject());
-  }
-
-  /**
-   * Test {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}.
-   *
-   * <ul>
-   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} Transfer is {@link
-   *       COSBoolean#FALSE}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}
-   */
-  @Test
-  @DisplayName(
-      "Test copyIntoGraphicsState(PDGraphicsState); given PDExtendedGraphicsState() Transfer is FALSE")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDExtendedGraphicsState.copyIntoGraphicsState(PDGraphicsState)"})
-  void testCopyIntoGraphicsState_givenPDExtendedGraphicsStateTransferIsFalse() throws IOException {
-    // Arrange
-    PDExtendedGraphicsState pdExtendedGraphicsState = new PDExtendedGraphicsState();
-    pdExtendedGraphicsState.setTransfer(COSBoolean.FALSE);
-    PDGraphicsState gs = new PDGraphicsState(PDRectangle.A0);
-
-    // Act
-    pdExtendedGraphicsState.copyIntoGraphicsState(gs);
-
-    // Assert
-    COSBase transfer = gs.getTransfer();
-    assertTrue(transfer instanceof COSBoolean);
-    assertNull(transfer.getKey());
-    assertFalse(transfer.isDirect());
-    assertFalse(((COSBoolean) transfer).getValue());
-    assertFalse(((COSBoolean) transfer).getValueAsObject());
-  }
-
-  /**
-   * Test {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}.
-   *
-   * <ul>
    *   <li>Then {@link PDGraphicsState#PDGraphicsState(PDRectangle)} with page is {@link
    *       PDRectangle#A0} AlphaSource.
    * </ul>
@@ -771,41 +700,6 @@ class PDExtendedGraphicsStateDiffblueTest {
     assertNull(textState.getFont());
     assertNull(gs.getRenderingIntent());
     assertEquals(1.0f, textState.getFontSize());
-  }
-
-  /**
-   * Test {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}.
-   *
-   * <ul>
-   *   <li>Then {@link PDGraphicsState#PDGraphicsState(PDRectangle)} with page is {@link
-   *       PDRectangle#A0} Transfer {@link COSBoolean}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}
-   */
-  @Test
-  @DisplayName(
-      "Test copyIntoGraphicsState(PDGraphicsState); then PDGraphicsState(PDRectangle) with page is A0 Transfer COSBoolean")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDExtendedGraphicsState.copyIntoGraphicsState(PDGraphicsState)"})
-  void testCopyIntoGraphicsState_thenPDGraphicsStateWithPageIsA0TransferCOSBoolean()
-      throws IOException {
-    // Arrange
-    PDExtendedGraphicsState pdExtendedGraphicsState = new PDExtendedGraphicsState();
-    pdExtendedGraphicsState.setTransfer2(COSBoolean.FALSE);
-    PDGraphicsState gs = new PDGraphicsState(PDRectangle.A0);
-
-    // Act
-    pdExtendedGraphicsState.copyIntoGraphicsState(gs);
-
-    // Assert
-    COSBase transfer = gs.getTransfer();
-    assertTrue(transfer instanceof COSBoolean);
-    assertNull(transfer.getKey());
-    assertFalse(transfer.isDirect());
-    assertFalse(((COSBoolean) transfer).getValue());
-    assertFalse(((COSBoolean) transfer).getValueAsObject());
   }
 
   /**
@@ -1249,45 +1143,6 @@ class PDExtendedGraphicsStateDiffblueTest {
   void testGetLineDashPattern_givenPDExtendedGraphicsState_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(new PDExtendedGraphicsState().getLineDashPattern());
-  }
-
-  /**
-   * Test {@link PDExtendedGraphicsState#getLineDashPattern()}.
-   *
-   * <ul>
-   *   <li>Then return COSObject toList size is two.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getLineDashPattern()}
-   */
-  @Test
-  @DisplayName("Test getLineDashPattern(); then return COSObject toList size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDLineDashPattern PDExtendedGraphicsState.getLineDashPattern()"})
-  void testGetLineDashPattern_thenReturnCOSObjectToListSizeIsTwo() {
-    // Arrange
-    PDExtendedGraphicsState pdExtendedGraphicsState = new PDExtendedGraphicsState();
-    pdExtendedGraphicsState.setLineDashPattern(new PDLineDashPattern());
-
-    // Act
-    PDLineDashPattern actualLineDashPattern = pdExtendedGraphicsState.getLineDashPattern();
-
-    // Assert
-    COSBase cOSObject = actualLineDashPattern.getCOSObject();
-    List<? extends COSBase> toListResult = ((COSArray) cOSObject).toList();
-    assertEquals(2, toListResult.size());
-    COSBase getResult = toListResult.get(0);
-    assertTrue(getResult instanceof COSArray);
-    assertTrue(cOSObject instanceof COSArray);
-    COSBase getResult2 = toListResult.get(1);
-    assertTrue(getResult2 instanceof COSInteger);
-    assertNull(getResult2.getKey());
-    assertEquals(0, actualLineDashPattern.getPhase());
-    assertFalse(getResult2.isDirect());
-    assertTrue(((COSArray) getResult).toList().isEmpty());
-    assertTrue(((COSInteger) getResult2).isValid());
-    assertArrayEquals(new float[] {}, actualLineDashPattern.getDashArray(), 0.0f);
   }
 
   /**

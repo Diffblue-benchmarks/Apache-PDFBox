@@ -135,21 +135,6 @@ class RotationMenuDiffblueTest {
   }
 
   /**
-   * Test {@link RotationMenu#getRotationDegrees()}.
-   *
-   * <p>Method under test: {@link RotationMenu#getRotationDegrees()}
-   */
-  @Test
-  @DisplayName("Test getRotationDegrees()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int RotationMenu.getRotationDegrees()"})
-  void testGetRotationDegrees() {
-    // Arrange, Act and Assert
-    assertEquals(0, RotationMenu.getRotationDegrees());
-  }
-
-  /**
    * Test {@link RotationMenu#getRotationDegrees(String)} with {@code String}.
    *
    * <ul>

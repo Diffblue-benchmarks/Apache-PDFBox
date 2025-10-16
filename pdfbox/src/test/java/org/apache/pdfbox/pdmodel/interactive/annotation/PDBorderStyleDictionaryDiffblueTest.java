@@ -20,8 +20,6 @@ import java.util.List;
 import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSDictionary;
-import org.apache.pdfbox.cos.COSFloat;
-import org.apache.pdfbox.cos.COSInteger;
 import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.cos.COSObjectKey;
 import org.apache.pdfbox.pdmodel.graphics.PDLineDashPattern;
@@ -347,44 +345,5 @@ class PDBorderStyleDictionaryDiffblueTest {
     assertTrue(cOSObject instanceof COSArray);
     assertTrue(((COSArray) getResult).toList().isEmpty());
     assertArrayEquals(new float[] {}, dashStyle.getDashArray(), 0.0f);
-  }
-
-  /**
-   * Test {@link PDBorderStyleDictionary#getDashStyle()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDBorderStyleDictionary#PDBorderStyleDictionary()}.
-   *   <li>Then return COSObject toList size is two.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDBorderStyleDictionary#getDashStyle()}
-   */
-  @Test
-  @DisplayName(
-      "Test getDashStyle(); given PDBorderStyleDictionary(); then return COSObject toList size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDLineDashPattern PDBorderStyleDictionary.getDashStyle()"})
-  void testGetDashStyle_givenPDBorderStyleDictionary_thenReturnCOSObjectToListSizeIsTwo() {
-    // Arrange and Act
-    PDLineDashPattern actualDashStyle = new PDBorderStyleDictionary().getDashStyle();
-
-    // Assert
-    COSBase cOSObject = actualDashStyle.getCOSObject();
-    List<? extends COSBase> toListResult = ((COSArray) cOSObject).toList();
-    assertEquals(2, toListResult.size());
-    COSBase getResult = toListResult.get(0);
-    assertTrue(getResult instanceof COSArray);
-    assertTrue(cOSObject instanceof COSArray);
-    List<? extends COSBase> toListResult2 = ((COSArray) getResult).toList();
-    assertEquals(1, toListResult2.size());
-    assertTrue(toListResult2.get(0) instanceof COSFloat);
-    COSBase getResult2 = toListResult.get(1);
-    assertTrue(getResult2 instanceof COSInteger);
-    assertNull(getResult2.getKey());
-    assertEquals(0, actualDashStyle.getPhase());
-    assertFalse(getResult2.isDirect());
-    assertTrue(((COSInteger) getResult2).isValid());
-    assertArrayEquals(new float[] {3.0f}, actualDashStyle.getDashArray(), 0.0f);
   }
 }

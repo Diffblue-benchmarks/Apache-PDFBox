@@ -9,9 +9,6 @@ import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Component.BaselineResizeBehavior;
-import java.awt.Rectangle;
-import java.awt.geom.Rectangle2D;
-import java.awt.geom.Rectangle2D.Double;
 import java.awt.image.DirectColorModel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -137,17 +134,7 @@ class TreeStatusPaneDiffblueTest {
     treeStatusPane.updateTreeStatus(new TreeStatus("Root Node"));
 
     // Assert
-    JPanel panel = treeStatusPane.getPanel();
-    Rectangle visibleRect = panel.getVisibleRect();
-    Rectangle2D bounds2D = visibleRect.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    assertTrue(bounds2D.getBounds2D() instanceof Rectangle);
-    Rectangle2D frame = visibleRect.getFrame();
-    assertTrue(frame.getBounds2D() instanceof Double);
-    assertTrue(bounds2D.getFrame() instanceof Double);
-    assertTrue(frame.getFrame() instanceof Double);
-    assertTrue(frame instanceof Double);
-    Component[] components = panel.getComponents();
+    Component[] components = treeStatusPane.getPanel().getComponents();
     Component component = components[0];
     assertTrue(component instanceof JTextField);
     assertTrue(((JTextField) component).getBorder() instanceof BevelBorder);

@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.List;
 import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBase;
+import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSFloat;
 import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSStream;
@@ -27,6 +28,7 @@ import org.apache.pdfbox.pdmodel.PDAppearanceContentStream;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.interactive.annotation.PDAnnotationCaret;
+import org.apache.pdfbox.pdmodel.interactive.annotation.PDAnnotationLine;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -837,6 +839,40 @@ class PDAbstractAppearanceHandlerDiffblueTest {
     // Arrange
     PDCaretAppearanceHandler pdCaretAppearanceHandler =
         new PDCaretAppearanceHandler(new PDAnnotationCaret());
+
+    PDAppearanceContentStream cs = mock(PDAppearanceContentStream.class);
+    doThrow(new IOException()).when(cs).moveTo(anyFloat(), anyFloat());
+
+    // Act and Assert
+    assertThrows(
+        IOException.class, () -> pdCaretAppearanceHandler.drawCircle(cs, 10.0f, 10.0f, 10.0f));
+    verify(cs).moveTo(10.0f, 20.0f);
+  }
+
+  /**
+   * Test {@link PDAbstractAppearanceHandler#drawCircle(PDAppearanceContentStream, float, float,
+   * float)}.
+   *
+   * <ul>
+   *   <li>Given {@link PDAnnotationLine#PDAnnotationLine(COSDictionary)} with field is {@link
+   *       COSDictionary#COSDictionary()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAbstractAppearanceHandler#drawCircle(PDAppearanceContentStream,
+   * float, float, float)}
+   */
+  @Test
+  @DisplayName(
+      "Test drawCircle(PDAppearanceContentStream, float, float, float); given PDAnnotationLine(COSDictionary) with field is COSDictionary()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void PDAbstractAppearanceHandler.drawCircle(PDAppearanceContentStream, float, float, float)"
+  })
+  void testDrawCircle_givenPDAnnotationLineWithFieldIsCOSDictionary() throws IOException {
+    // Arrange
+    PDCaretAppearanceHandler pdCaretAppearanceHandler =
+        new PDCaretAppearanceHandler(new PDAnnotationLine(new COSDictionary()));
 
     PDAppearanceContentStream cs = mock(PDAppearanceContentStream.class);
     doThrow(new IOException()).when(cs).moveTo(anyFloat(), anyFloat());

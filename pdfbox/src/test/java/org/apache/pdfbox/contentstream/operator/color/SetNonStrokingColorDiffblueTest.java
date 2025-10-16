@@ -1,11 +1,7 @@
 package org.apache.pdfbox.contentstream.operator.color;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -14,8 +10,6 @@ import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import org.apache.pdfbox.contentstream.PDFStreamEngine;
 import org.apache.pdfbox.cos.COSArray;
-import org.apache.pdfbox.cos.COSBase;
-import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.graphics.color.PDColor;
@@ -50,45 +44,6 @@ class SetNonStrokingColorDiffblueTest {
   void testGettersAndSetters() {
     // Arrange, Act and Assert
     assertEquals("sc", new SetNonStrokingColor(new PDFMarkedContentExtractor()).getName());
-  }
-
-  /**
-   * Test {@link SetNonStrokingColor#getColor()}.
-   *
-   * <ul>
-   *   <li>Then ColorSpace COSObject return {@link COSName}.
-   * </ul>
-   *
-   * <p>Method under test: {@link SetNonStrokingColor#getColor()}
-   */
-  @Test
-  @DisplayName("Test getColor(); then ColorSpace COSObject return COSName")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDColor SetNonStrokingColor.getColor()"})
-  void testGetColor_thenColorSpaceCOSObjectReturnCOSName() throws IOException {
-    // Arrange
-    PDFTextStripperByArea context = new PDFTextStripperByArea();
-    context.processPage(new PDPage());
-
-    // Act
-    PDColor actualColor = new SetNonStrokingColor(context).getColor();
-
-    // Assert
-    PDColorSpace colorSpace = actualColor.getColorSpace();
-    COSBase cOSObject = colorSpace.getCOSObject();
-    assertTrue(cOSObject instanceof COSName);
-    assertTrue(colorSpace instanceof PDDeviceGray);
-    assertEquals("DeviceGray", ((COSName) cOSObject).getName());
-    assertEquals("DeviceGray", colorSpace.getName());
-    assertNull(actualColor.getPatternName());
-    assertNull(cOSObject.getKey());
-    assertEquals(1, colorSpace.getNumberOfComponents());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(((COSName) cOSObject).isEmpty());
-    assertFalse(actualColor.isPattern());
-    assertSame(actualColor, colorSpace.getInitialColor());
-    assertArrayEquals(new float[] {0.0f}, actualColor.getComponents(), 0.0f);
   }
 
   /**

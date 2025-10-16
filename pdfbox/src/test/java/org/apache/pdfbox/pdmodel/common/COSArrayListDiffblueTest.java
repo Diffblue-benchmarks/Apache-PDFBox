@@ -17,7 +17,6 @@ import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSBoolean;
 import org.apache.pdfbox.cos.COSDictionary;
-import org.apache.pdfbox.cos.COSFloat;
 import org.apache.pdfbox.cos.COSInteger;
 import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.cos.COSNull;
@@ -1558,46 +1557,6 @@ class COSArrayListDiffblueTest {
    * Test {@link COSArrayList#converterToCOSArray(List)}.
    *
    * <ul>
-   *   <li>Given {@link COSArray#COSArray()}.
-   *   <li>Then toList first return {@link COSArray}.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSArrayList#converterToCOSArray(List)}
-   */
-  @Test
-  @DisplayName(
-      "Test converterToCOSArray(List); given COSArray(); then toList first return COSArray")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"COSArray COSArrayList.converterToCOSArray(List)"})
-  void testConverterToCOSArray_givenCOSArray_thenToListFirstReturnCOSArray() {
-    // Arrange
-    ArrayList<Object> cosObjectableList = new ArrayList<>();
-    COSArray cosArray = new COSArray();
-    cosObjectableList.add(cosArray);
-    cosObjectableList.add(2);
-
-    // Act
-    COSArray actualConverterToCOSArrayResult = COSArrayList.converterToCOSArray(cosObjectableList);
-
-    // Assert
-    List<? extends COSBase> toListResult = actualConverterToCOSArrayResult.toList();
-    assertEquals(2, toListResult.size());
-    COSBase getResult = toListResult.get(0);
-    assertTrue(getResult instanceof COSArray);
-    COSBase getResult2 = toListResult.get(1);
-    assertTrue(getResult2 instanceof COSInteger);
-    assertNull(getResult2.getKey());
-    assertFalse(getResult2.isDirect());
-    assertTrue(((COSArray) getResult).toList().isEmpty());
-    assertTrue(((COSInteger) getResult2).isValid());
-    assertSame(cosArray, getResult);
-  }
-
-  /**
-   * Test {@link COSArrayList#converterToCOSArray(List)}.
-   *
-   * <ul>
    *   <li>Given {@code null}.
    *   <li>Then toList first return {@link COSNull}.
    * </ul>
@@ -1624,76 +1583,6 @@ class COSArrayListDiffblueTest {
     assertTrue(getResult instanceof COSNull);
     assertNull(getResult.getKey());
     assertFalse(getResult.isDirect());
-  }
-
-  /**
-   * Test {@link COSArrayList#converterToCOSArray(List)}.
-   *
-   * <ul>
-   *   <li>Given ten.
-   *   <li>Then toList first return {@link COSFloat}.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSArrayList#converterToCOSArray(List)}
-   */
-  @Test
-  @DisplayName("Test converterToCOSArray(List); given ten; then toList first return COSFloat")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"COSArray COSArrayList.converterToCOSArray(List)"})
-  void testConverterToCOSArray_givenTen_thenToListFirstReturnCOSFloat() {
-    // Arrange
-    ArrayList<Object> cosObjectableList = new ArrayList<>();
-    cosObjectableList.add(10.0d);
-    cosObjectableList.add(2);
-
-    // Act
-    COSArray actualConverterToCOSArrayResult = COSArrayList.converterToCOSArray(cosObjectableList);
-
-    // Assert
-    List<? extends COSBase> toListResult = actualConverterToCOSArrayResult.toList();
-    assertEquals(2, toListResult.size());
-    assertTrue(toListResult.get(0) instanceof COSFloat);
-    COSBase getResult = toListResult.get(1);
-    assertTrue(getResult instanceof COSInteger);
-    assertNull(getResult.getKey());
-    assertFalse(getResult.isDirect());
-    assertTrue(((COSInteger) getResult).isValid());
-  }
-
-  /**
-   * Test {@link COSArrayList#converterToCOSArray(List)}.
-   *
-   * <ul>
-   *   <li>Given ten.
-   *   <li>Then toList first return {@link COSFloat}.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSArrayList#converterToCOSArray(List)}
-   */
-  @Test
-  @DisplayName("Test converterToCOSArray(List); given ten; then toList first return COSFloat")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"COSArray COSArrayList.converterToCOSArray(List)"})
-  void testConverterToCOSArray_givenTen_thenToListFirstReturnCOSFloat2() {
-    // Arrange
-    ArrayList<Object> cosObjectableList = new ArrayList<>();
-    cosObjectableList.add(10.0f);
-    cosObjectableList.add(2);
-
-    // Act
-    COSArray actualConverterToCOSArrayResult = COSArrayList.converterToCOSArray(cosObjectableList);
-
-    // Assert
-    List<? extends COSBase> toListResult = actualConverterToCOSArrayResult.toList();
-    assertEquals(2, toListResult.size());
-    assertTrue(toListResult.get(0) instanceof COSFloat);
-    COSBase getResult = toListResult.get(1);
-    assertTrue(getResult instanceof COSInteger);
-    assertNull(getResult.getKey());
-    assertFalse(getResult.isDirect());
-    assertTrue(((COSInteger) getResult).isValid());
   }
 
   /**

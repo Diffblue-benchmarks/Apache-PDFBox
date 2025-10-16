@@ -1,5 +1,6 @@
 package org.apache.pdfbox.debugger.streampane;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
@@ -11,10 +12,15 @@ import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.Canvas;
 import java.awt.event.MouseEvent;
+import java.awt.image.DirectColorModel;
+import javax.swing.BoxLayout;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.JTextComponent;
 import javax.swing.text.StyledDocument;
+import javax.swing.text.html.HTMLDocument;
+import javax.swing.text.html.StyleSheet;
 import org.apache.pdfbox.debugger.streampane.tooltip.ToolTipController;
 import org.apache.pdfbox.pdmodel.PDResources;
 import org.junit.jupiter.api.DisplayName;
@@ -28,18 +34,17 @@ class StreamTextViewDiffblueTest {
    *
    * <ul>
    *   <li>When {@link DefaultStyledDocument#DefaultStyledDocument()}.
-   *   <li>Then View return {@link JPanel}.
    * </ul>
    *
    * <p>Method under test: {@link StreamTextView#StreamTextView(StyledDocument, ToolTipController)}
    */
   @Test
   @DisplayName(
-      "Test new StreamTextView(StyledDocument, ToolTipController); when DefaultStyledDocument(); then View return JPanel")
+      "Test new StreamTextView(StyledDocument, ToolTipController); when DefaultStyledDocument()")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void StreamTextView.<init>(StyledDocument, ToolTipController)"})
-  void testNewStreamTextView_whenDefaultStyledDocument_thenViewReturnJPanel() {
+  void testNewStreamTextView_whenDefaultStyledDocument() {
     // Arrange
     DefaultStyledDocument document = new DefaultStyledDocument();
 
@@ -48,7 +53,47 @@ class StreamTextViewDiffblueTest {
         new StreamTextView(document, new ToolTipController(new PDResources()));
 
     // Assert
-    assertTrue(actualStreamTextView.getView() instanceof JPanel);
+    JComponent view = actualStreamTextView.getView();
+    assertTrue(view.getColorModel() instanceof DirectColorModel);
+    assertTrue(view.getLayout() instanceof BoxLayout);
+    assertTrue(view instanceof JPanel);
+    assertEquals(1, view.getPropertyChangeListeners().length);
+    assertEquals(1, view.getAncestorListeners().length);
+    assertEquals(2, view.getComponents().length);
+  }
+
+  /**
+   * Test {@link StreamTextView#StreamTextView(StyledDocument, ToolTipController)}.
+   *
+   * <ul>
+   *   <li>When {@link HTMLDocument#HTMLDocument(StyleSheet)} with {@link StyleSheet} (default
+   *       constructor).
+   * </ul>
+   *
+   * <p>Method under test: {@link StreamTextView#StreamTextView(StyledDocument, ToolTipController)}
+   */
+  @Test
+  @DisplayName(
+      "Test new StreamTextView(StyledDocument, ToolTipController); when HTMLDocument(StyleSheet) with StyleSheet (default constructor)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void StreamTextView.<init>(StyledDocument, ToolTipController)"})
+  void testNewStreamTextView_whenHTMLDocumentWithStyleSheet() {
+    // Arrange
+    HTMLDocument document = new HTMLDocument(new StyleSheet());
+
+    // Act
+    StreamTextView actualStreamTextView =
+        new StreamTextView(document, new ToolTipController(new PDResources()));
+
+    // Assert
+    JComponent view = actualStreamTextView.getView();
+    assertTrue(view.getColorModel() instanceof DirectColorModel);
+    assertTrue(view.getLayout() instanceof BoxLayout);
+    assertTrue(view instanceof JPanel);
+    assertEquals(1, view.getPropertyChangeListeners().length);
+    assertEquals(1, view.getAncestorListeners().length);
+    assertEquals(2, view.getComponents().length);
   }
 
   /**

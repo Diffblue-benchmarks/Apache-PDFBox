@@ -25,6 +25,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.MatteBorder;
+import javax.swing.event.ChangeEvent;
 import javax.swing.event.DocumentEvent;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultStyledDocument;
@@ -229,21 +230,14 @@ class SearcherDiffblueTest {
   /**
    * Test {@link Searcher#insertUpdate(DocumentEvent)}.
    *
-   * <ul>
-   *   <li>Given {@link JEditorPane#JEditorPane(String, String)} with {@code foo} and {@code foo}.
-   *   <li>Then third element Text is {@code 1 of 1}.
-   * </ul>
-   *
    * <p>Method under test: {@link Searcher#insertUpdate(DocumentEvent)}
    */
   @Test
-  @DisplayName(
-      "Test insertUpdate(DocumentEvent); given JEditorPane(String, String) with 'foo' and 'foo'; then third element Text is '1 of 1'")
+  @DisplayName("Test insertUpdate(DocumentEvent)")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void Searcher.insertUpdate(DocumentEvent)"})
-  void testInsertUpdate_givenJEditorPaneWithFooAndFoo_thenThirdElementTextIs1Of1()
-      throws BadLocationException {
+  void testInsertUpdate() throws BadLocationException {
     // Arrange
     Searcher searcher = new Searcher(new JEditorPane("foo", "foo"));
 
@@ -255,22 +249,41 @@ class SearcherDiffblueTest {
 
     // Assert
     JPanel searchPanel = searcher.getSearchPanel();
+    Rectangle boundsResult = searchPanel.bounds();
+    Rectangle2D bounds2D = boundsResult.getBounds2D();
+    assertTrue(bounds2D instanceof Rectangle);
+    Rectangle bounds = searchPanel.getVisibleRect().getBounds();
+    Rectangle2D bounds2D2 = bounds.getBounds2D();
+    assertTrue(bounds2D2 instanceof Rectangle);
+    Rectangle2D bounds2D3 = bounds2D.getBounds2D();
+    assertTrue(bounds2D3 instanceof Rectangle);
+    Rectangle2D frame = boundsResult.getFrame();
+    Rectangle2D bounds2D4 = frame.getBounds2D();
+    assertTrue(bounds2D4 instanceof Double);
+    assertTrue(frame instanceof Double);
+    Rectangle2D frame2 = bounds.getFrame();
+    assertTrue(frame2 instanceof Double);
+    Rectangle2D frame3 = bounds2D.getFrame();
+    assertTrue(frame3 instanceof Double);
+    Rectangle2D frame4 = frame.getFrame();
+    assertTrue(frame4 instanceof Double);
     Component[] components = searchPanel.getComponents();
     Component component = components[2];
     assertTrue(component instanceof JLabel);
     assertEquals(" 1 of 1 ", ((JLabel) component).getText());
     Dimension minimumSize = searchPanel.getMinimumSize();
     Dimension size = minimumSize.getSize();
-    assertEquals(393, size.getSize().width);
     assertEquals(393, size.width);
     assertEquals(393, minimumSize.width);
     assertEquals(393.0d, size.getWidth());
     assertEquals(393.0d, minimumSize.getWidth());
-    Dimension maximumSize = component.getMaximumSize();
-    assertEquals(46, maximumSize.width);
     assertEquals(8, components.length);
-    assertEquals(maximumSize, component.getMinimumSize());
-    assertEquals(maximumSize, component.getPreferredSize());
+    assertEquals(boundsResult, bounds2D2);
+    assertEquals(boundsResult, bounds2D3);
+    assertEquals(boundsResult, bounds2D4);
+    assertEquals(boundsResult, frame2);
+    assertEquals(boundsResult, frame3);
+    assertEquals(boundsResult, frame4);
   }
 
   /**
@@ -278,18 +291,17 @@ class SearcherDiffblueTest {
    *
    * <ul>
    *   <li>Given zero.
-   *   <li>Then third element Text is {@code No match found}.
+   *   <li>Then fourth element {@link JButton}.
    * </ul>
    *
    * <p>Method under test: {@link Searcher#insertUpdate(DocumentEvent)}
    */
   @Test
-  @DisplayName(
-      "Test insertUpdate(DocumentEvent); given zero; then third element Text is 'No match found'")
+  @DisplayName("Test insertUpdate(DocumentEvent); given zero; then fourth element JButton")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void Searcher.insertUpdate(DocumentEvent)"})
-  void testInsertUpdate_givenZero_thenThirdElementTextIsNoMatchFound() throws BadLocationException {
+  void testInsertUpdate_givenZero_thenFourthElementJButton() throws BadLocationException {
     // Arrange
     Searcher searcher = new Searcher(new JEditorPane());
 
@@ -302,21 +314,18 @@ class SearcherDiffblueTest {
     // Assert
     JPanel searchPanel = searcher.getSearchPanel();
     Component[] components = searchPanel.getComponents();
+    assertTrue(components[3] instanceof JButton);
     Component component = components[2];
     assertTrue(component instanceof JLabel);
+    assertTrue(components[1] instanceof JTextField);
     assertEquals(" No match found ", ((JLabel) component).getText());
-    Dimension maximumSize = component.getMaximumSize();
-    assertEquals(119, maximumSize.width);
     Dimension minimumSize = searchPanel.getMinimumSize();
     Dimension size = minimumSize.getSize();
-    assertEquals(466, size.getSize().width);
     assertEquals(466, size.width);
     assertEquals(466, minimumSize.width);
     assertEquals(466.0d, size.getWidth());
     assertEquals(466.0d, minimumSize.getWidth());
     assertEquals(8, components.length);
-    assertEquals(maximumSize, component.getMinimumSize());
-    assertEquals(maximumSize, component.getPreferredSize());
   }
 
   /**
@@ -346,10 +355,8 @@ class SearcherDiffblueTest {
     Component component = components[2];
     assertTrue(component instanceof JLabel);
     assertEquals("", ((JLabel) component).getText());
-    assertEquals(0, component.getMaximumSize().width);
     Dimension minimumSize = searchPanel.getMinimumSize();
     Dimension size = minimumSize.getSize();
-    assertEquals(347, size.getSize().width);
     assertEquals(347, size.width);
     assertEquals(347, minimumSize.width);
     assertEquals(347.0d, size.getWidth());
@@ -419,14 +426,21 @@ class SearcherDiffblueTest {
   /**
    * Test {@link Searcher#removeUpdate(DocumentEvent)}.
    *
+   * <ul>
+   *   <li>Given {@link JEditorPane#JEditorPane(String, String)} with {@code foo} and {@code foo}.
+   *   <li>Then third element Text is {@code 1 of 1}.
+   * </ul>
+   *
    * <p>Method under test: {@link Searcher#removeUpdate(DocumentEvent)}
    */
   @Test
-  @DisplayName("Test removeUpdate(DocumentEvent)")
+  @DisplayName(
+      "Test removeUpdate(DocumentEvent); given JEditorPane(String, String) with 'foo' and 'foo'; then third element Text is '1 of 1'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void Searcher.removeUpdate(DocumentEvent)"})
-  void testRemoveUpdate2() throws BadLocationException {
+  void testRemoveUpdate_givenJEditorPaneWithFooAndFoo_thenThirdElementTextIs1Of1()
+      throws BadLocationException {
     // Arrange
     Searcher searcher = new Searcher(new JEditorPane("foo", "foo"));
 
@@ -438,41 +452,22 @@ class SearcherDiffblueTest {
 
     // Assert
     JPanel searchPanel = searcher.getSearchPanel();
-    Rectangle boundsResult = searchPanel.bounds();
-    Rectangle2D bounds2D = boundsResult.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Rectangle bounds = searchPanel.getVisibleRect().getBounds();
-    Rectangle2D bounds2D2 = bounds.getBounds2D();
-    assertTrue(bounds2D2 instanceof Rectangle);
-    Rectangle2D bounds2D3 = bounds2D.getBounds2D();
-    assertTrue(bounds2D3 instanceof Rectangle);
-    Rectangle2D frame = boundsResult.getFrame();
-    Rectangle2D bounds2D4 = frame.getBounds2D();
-    assertTrue(bounds2D4 instanceof Double);
-    assertTrue(frame instanceof Double);
-    Rectangle2D frame2 = bounds.getFrame();
-    assertTrue(frame2 instanceof Double);
-    Rectangle2D frame3 = bounds2D.getFrame();
-    assertTrue(frame3 instanceof Double);
-    Rectangle2D frame4 = frame.getFrame();
-    assertTrue(frame4 instanceof Double);
     Component[] components = searchPanel.getComponents();
     Component component = components[2];
     assertTrue(component instanceof JLabel);
     assertEquals(" 1 of 1 ", ((JLabel) component).getText());
     Dimension minimumSize = searchPanel.getMinimumSize();
     Dimension size = minimumSize.getSize();
+    assertEquals(393, size.getSize().width);
     assertEquals(393, size.width);
     assertEquals(393, minimumSize.width);
     assertEquals(393.0d, size.getWidth());
     assertEquals(393.0d, minimumSize.getWidth());
+    Dimension maximumSize = component.getMaximumSize();
+    assertEquals(46, maximumSize.width);
     assertEquals(8, components.length);
-    assertEquals(boundsResult, bounds2D2);
-    assertEquals(boundsResult, bounds2D3);
-    assertEquals(boundsResult, bounds2D4);
-    assertEquals(boundsResult, frame2);
-    assertEquals(boundsResult, frame3);
-    assertEquals(boundsResult, frame4);
+    assertEquals(maximumSize, component.getMinimumSize());
+    assertEquals(maximumSize, component.getPreferredSize());
   }
 
   /**
@@ -502,8 +497,10 @@ class SearcherDiffblueTest {
     Component component = components[2];
     assertTrue(component instanceof JLabel);
     assertEquals("", ((JLabel) component).getText());
+    assertEquals(0, component.getMaximumSize().width);
     Dimension minimumSize = searchPanel.getMinimumSize();
     Dimension size = minimumSize.getSize();
+    assertEquals(347, size.getSize().width);
     assertEquals(347, size.width);
     assertEquals(347, minimumSize.width);
     assertEquals(347.0d, size.getWidth());
@@ -644,6 +641,58 @@ class SearcherDiffblueTest {
   }
 
   /**
+   * Test {@link Searcher#stateChanged(ChangeEvent)}.
+   *
+   * <p>Method under test: {@link Searcher#stateChanged(ChangeEvent)}
+   */
+  @Test
+  @DisplayName("Test stateChanged(ChangeEvent)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void Searcher.stateChanged(ChangeEvent)"})
+  void testStateChanged() {
+    // Arrange
+    Searcher searcher = new Searcher(new JEditorPane());
+
+    // Act
+    searcher.stateChanged(new ChangeEvent("42"));
+
+    // Assert
+    JPanel searchPanel = searcher.getSearchPanel();
+    Rectangle boundsResult = searchPanel.bounds();
+    Rectangle2D bounds2D = boundsResult.getBounds2D();
+    assertTrue(bounds2D instanceof Rectangle);
+    Rectangle bounds = boundsResult.getBounds().getBounds();
+    Rectangle2D bounds2D2 = bounds.getBounds2D();
+    assertTrue(bounds2D2 instanceof Rectangle);
+    Rectangle bounds2 = searchPanel.getVisibleRect().getBounds();
+    Rectangle2D bounds2D3 = bounds2.getBounds2D();
+    assertTrue(bounds2D3 instanceof Rectangle);
+    Rectangle2D bounds2D4 = bounds2D.getBounds2D();
+    assertTrue(bounds2D4 instanceof Rectangle);
+    Rectangle2D frame = boundsResult.getFrame();
+    Rectangle2D bounds2D5 = frame.getBounds2D();
+    assertTrue(bounds2D5 instanceof Double);
+    assertTrue(frame instanceof Double);
+    Rectangle2D frame2 = bounds.getFrame();
+    assertTrue(frame2 instanceof Double);
+    Rectangle2D frame3 = bounds2.getFrame();
+    assertTrue(frame3 instanceof Double);
+    Rectangle2D frame4 = bounds2D.getFrame();
+    assertTrue(frame4 instanceof Double);
+    Rectangle2D frame5 = frame.getFrame();
+    assertTrue(frame5 instanceof Double);
+    assertEquals(boundsResult, bounds2D2);
+    assertEquals(boundsResult, bounds2D3);
+    assertEquals(boundsResult, bounds2D4);
+    assertEquals(boundsResult, bounds2D5);
+    assertEquals(boundsResult, frame2);
+    assertEquals(boundsResult, frame3);
+    assertEquals(boundsResult, frame4);
+    assertEquals(boundsResult, frame5);
+  }
+
+  /**
    * Test {@link Searcher#addMenuListeners(PDFDebugger)}.
    *
    * <ul>
@@ -681,17 +730,17 @@ class SearcherDiffblueTest {
    * Test {@link Searcher#removeMenuListeners(PDFDebugger)}.
    *
    * <ul>
-   *   <li>Then fourth element {@link JButton}.
+   *   <li>Then calls {@link PDFDebugger#getFindMenu()}.
    * </ul>
    *
    * <p>Method under test: {@link Searcher#removeMenuListeners(PDFDebugger)}
    */
   @Test
-  @DisplayName("Test removeMenuListeners(PDFDebugger); then fourth element JButton")
+  @DisplayName("Test removeMenuListeners(PDFDebugger); then calls getFindMenu()")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void Searcher.removeMenuListeners(PDFDebugger)"})
-  void testRemoveMenuListeners_thenFourthElementJButton() {
+  void testRemoveMenuListeners_thenCallsGetFindMenu() {
     // Arrange
     Searcher searcher = new Searcher(new JEditorPane());
 
@@ -709,10 +758,5 @@ class SearcherDiffblueTest {
     verify(frame).getFindMenuItem();
     verify(frame).getFindNextMenuItem();
     verify(frame).getFindPreviousMenuItem();
-    Component[] components = searcher.getSearchPanel().getComponents();
-    assertTrue(components[3] instanceof JButton);
-    assertTrue(components[2] instanceof JLabel);
-    assertTrue(components[1] instanceof JTextField);
-    assertEquals(8, components.length);
   }
 }

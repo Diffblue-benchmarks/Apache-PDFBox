@@ -39,6 +39,7 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDResources;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.common.PDStream;
+import org.apache.pdfbox.pdmodel.documentinterchange.markedcontent.PDPropertyList;
 import org.apache.pdfbox.pdmodel.graphics.form.PDFormXObject;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.apache.pdfbox.pdmodel.interactive.annotation.PDAnnotation;
@@ -1739,7 +1740,8 @@ class PDVisibleSigBuilderDiffblueTest {
    * PDResources, PDResources, COSArray)}.
    *
    * <ul>
-   *   <li>Then calls {@link PDPage#getCOSObject()}.
+   *   <li>Given {@link PDPropertyList}.
+   *   <li>Then calls {@link PDResources#put(COSName, PDPropertyList)}.
    * </ul>
    *
    * <p>Method under test: {@link PDVisibleSigBuilder#injectProcSetArray(PDFormXObject, PDPage,
@@ -1747,13 +1749,13 @@ class PDVisibleSigBuilderDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray); then calls getCOSObject()")
+      "Test injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray); given PDPropertyList; then calls put(COSName, PDPropertyList)")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({
     "void PDVisibleSigBuilder.injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray)"
   })
-  void testInjectProcSetArray_thenCallsGetCOSObject() {
+  void testInjectProcSetArray_givenPDPropertyList_thenCallsPut() {
     // Arrange
     PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
 
@@ -1768,12 +1770,25 @@ class PDVisibleSigBuilderDiffblueTest {
 
     PDPage page = mock(PDPage.class);
     when(page.getCOSObject()).thenReturn(cosDictionary);
-    PDResources innerFormResources = new PDResources();
-    PDResources imageFormResources = new PDResources();
+
+    COSDictionary cosDictionary2 = mock(COSDictionary.class);
+    doNothing().when(cosDictionary2).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
+
+    PDResources innerFormResources = mock(PDResources.class);
+    when(innerFormResources.getCOSObject()).thenReturn(cosDictionary2);
+
+    COSDictionary cosDictionary3 = mock(COSDictionary.class);
+    doNothing().when(cosDictionary3).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
+
+    PDResources imageFormResources = mock(PDResources.class);
+    when(imageFormResources.getCOSObject()).thenReturn(cosDictionary3);
+    doNothing().when(imageFormResources).put(Mockito.<COSName>any(), Mockito.<PDPropertyList>any());
+    imageFormResources.put(COSName.A, mock(PDPropertyList.class));
     PDResources holderFormResources = new PDResources();
 
     COSArray procSet = mock(COSArray.class);
-    when(procSet.isDirect()).thenReturn(true);
+    when(procSet.isDirect()).thenReturn(false);
+    when(procSet.getKey()).thenReturn(null);
     when(procSet.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
 
     // Act
@@ -1782,14 +1797,102 @@ class PDVisibleSigBuilderDiffblueTest {
 
     // Assert
     verify(procSet, atLeast(1)).getUpdateState();
+    verify(procSet, atLeast(1)).getKey();
     verify(procSet, atLeast(1)).isDirect();
     verify(cosDictionary).setItem(isA(COSName.class), isA(COSBase.class));
+    verify(cosDictionary2).setItem(isA(COSName.class), isA(COSBase.class));
+    verify(cosDictionary3).setItem(isA(COSName.class), isA(COSBase.class));
     verify(page).getCOSObject();
     verify(pdResources).getCOSObject();
+    verify(innerFormResources).getCOSObject();
+    verify(imageFormResources).getCOSObject();
+    verify(imageFormResources).put(isA(COSName.class), isA(PDPropertyList.class));
     verify(innerForm).getResources();
-    COSDictionary cOSObject = innerFormResources.getCOSObject();
+    COSDictionary cOSObject = holderFormResources.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDVisibleSigBuilder#injectProcSetArray(PDFormXObject, PDPage, PDResources,
+   * PDResources, PDResources, COSArray)}.
+   *
+   * <ul>
+   *   <li>Given {@link PDPropertyList}.
+   *   <li>Then calls {@link PDResources#put(COSName, PDPropertyList)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDVisibleSigBuilder#injectProcSetArray(PDFormXObject, PDPage,
+   * PDResources, PDResources, PDResources, COSArray)}
+   */
+  @Test
+  @DisplayName(
+      "Test injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray); given PDPropertyList; then calls put(COSName, PDPropertyList)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void PDVisibleSigBuilder.injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray)"
+  })
+  void testInjectProcSetArray_givenPDPropertyList_thenCallsPut2() {
+    // Arrange
+    PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
+
+    PDResources pdResources = mock(PDResources.class);
+    when(pdResources.getCOSObject()).thenReturn(new COSDictionary());
+
+    PDFormXObject innerForm = mock(PDFormXObject.class);
+    when(innerForm.getResources()).thenReturn(pdResources);
+
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    doNothing().when(cosDictionary).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
+
+    PDPage page = mock(PDPage.class);
+    when(page.getCOSObject()).thenReturn(cosDictionary);
+
+    COSDictionary cosDictionary2 = mock(COSDictionary.class);
+    doNothing().when(cosDictionary2).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
+
+    PDResources innerFormResources = mock(PDResources.class);
+    when(innerFormResources.getCOSObject()).thenReturn(cosDictionary2);
+
+    COSDictionary cosDictionary3 = mock(COSDictionary.class);
+    doNothing().when(cosDictionary3).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
+
+    PDResources imageFormResources = mock(PDResources.class);
+    when(imageFormResources.getCOSObject()).thenReturn(cosDictionary3);
+    doNothing().when(imageFormResources).put(Mockito.<COSName>any(), Mockito.<PDPropertyList>any());
+    imageFormResources.put(COSName.A, mock(PDPropertyList.class));
+
+    COSDictionary cosDictionary4 = mock(COSDictionary.class);
+    doNothing().when(cosDictionary4).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
+
+    PDResources holderFormResources = mock(PDResources.class);
+    when(holderFormResources.getCOSObject()).thenReturn(cosDictionary4);
+
+    COSArray procSet = mock(COSArray.class);
+    when(procSet.isDirect()).thenReturn(false);
+    when(procSet.getKey()).thenReturn(null);
+    when(procSet.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
+
+    // Act
+    pdVisibleSigBuilder.injectProcSetArray(
+        innerForm, page, innerFormResources, imageFormResources, holderFormResources, procSet);
+
+    // Assert
+    verify(procSet).getUpdateState();
+    verify(procSet).getKey();
+    verify(procSet).isDirect();
+    verify(cosDictionary).setItem(isA(COSName.class), isA(COSBase.class));
+    verify(cosDictionary2).setItem(isA(COSName.class), isA(COSBase.class));
+    verify(cosDictionary3).setItem(isA(COSName.class), isA(COSBase.class));
+    verify(cosDictionary4).setItem(isA(COSName.class), isA(COSBase.class));
+    verify(page).getCOSObject();
+    verify(pdResources).getCOSObject();
+    verify(innerFormResources).getCOSObject();
+    verify(imageFormResources).getCOSObject();
+    verify(holderFormResources).getCOSObject();
+    verify(imageFormResources).put(isA(COSName.class), isA(PDPropertyList.class));
+    verify(innerForm).getResources();
   }
 
   /**
@@ -1838,6 +1941,8 @@ class PDVisibleSigBuilderDiffblueTest {
 
     PDResources imageFormResources = mock(PDResources.class);
     when(imageFormResources.getCOSObject()).thenReturn(cosDictionary3);
+    doNothing().when(imageFormResources).put(Mockito.<COSName>any(), Mockito.<PDPropertyList>any());
+    imageFormResources.put(COSName.A, mock(PDPropertyList.class));
 
     COSDictionary cosDictionary4 = mock(COSDictionary.class);
     doNothing().when(cosDictionary4).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
@@ -1849,7 +1954,8 @@ class PDVisibleSigBuilderDiffblueTest {
     doNothing().when(cosUpdateState).setOriginDocumentState(Mockito.<COSDocumentState>any());
 
     COSArray procSet = mock(COSArray.class);
-    when(procSet.isDirect()).thenReturn(true);
+    when(procSet.isDirect()).thenReturn(false);
+    when(procSet.getKey()).thenReturn(null);
     when(procSet.getUpdateState()).thenReturn(cosUpdateState);
 
     // Act
@@ -1858,6 +1964,7 @@ class PDVisibleSigBuilderDiffblueTest {
 
     // Assert
     verify(procSet).getUpdateState();
+    verify(procSet).getKey();
     verify(procSet).isDirect();
     verify(cosDictionary).setItem(isA(COSName.class), isA(COSBase.class));
     verify(cosDictionary2).setItem(isA(COSName.class), isA(COSBase.class));
@@ -1869,7 +1976,150 @@ class PDVisibleSigBuilderDiffblueTest {
     verify(innerFormResources).getCOSObject();
     verify(imageFormResources).getCOSObject();
     verify(holderFormResources).getCOSObject();
+    verify(imageFormResources).put(isA(COSName.class), isA(PDPropertyList.class));
     verify(innerForm).getResources();
+  }
+
+  /**
+   * Test {@link PDVisibleSigBuilder#injectProcSetArray(PDFormXObject, PDPage, PDResources,
+   * PDResources, PDResources, COSArray)}.
+   *
+   * <ul>
+   *   <li>Then {@link PDResources#PDResources()} COSObject Values size is two.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDVisibleSigBuilder#injectProcSetArray(PDFormXObject, PDPage,
+   * PDResources, PDResources, PDResources, COSArray)}
+   */
+  @Test
+  @DisplayName(
+      "Test injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray); then PDResources() COSObject Values size is two")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void PDVisibleSigBuilder.injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray)"
+  })
+  void testInjectProcSetArray_thenPDResourcesCOSObjectValuesSizeIsTwo() {
+    // Arrange
+    PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
+
+    PDResources pdResources = mock(PDResources.class);
+    when(pdResources.getCOSObject()).thenReturn(new COSDictionary());
+
+    PDFormXObject innerForm = mock(PDFormXObject.class);
+    when(innerForm.getResources()).thenReturn(pdResources);
+
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    doNothing().when(cosDictionary).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
+
+    PDPage page = mock(PDPage.class);
+    when(page.getCOSObject()).thenReturn(cosDictionary);
+
+    PDResources innerFormResources = mock(PDResources.class);
+    when(innerFormResources.getCOSObject()).thenReturn(new COSDictionary());
+
+    PDPropertyList properties = mock(PDPropertyList.class);
+    when(properties.getCOSObject()).thenReturn(new COSDictionary());
+
+    PDResources imageFormResources = new PDResources();
+    imageFormResources.put(COSName.A, properties);
+    PDResources holderFormResources = new PDResources();
+
+    COSArray procSet = mock(COSArray.class);
+    when(procSet.isDirect()).thenReturn(false);
+    when(procSet.getKey()).thenReturn(null);
+    when(procSet.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
+
+    // Act
+    pdVisibleSigBuilder.injectProcSetArray(
+        innerForm, page, innerFormResources, imageFormResources, holderFormResources, procSet);
+
+    // Assert
+    verify(procSet, atLeast(1)).getUpdateState();
+    verify(procSet, atLeast(1)).getKey();
+    verify(procSet, atLeast(1)).isDirect();
+    verify(cosDictionary).setItem(isA(COSName.class), isA(COSBase.class));
+    verify(page).getCOSObject();
+    verify(pdResources).getCOSObject();
+    verify(innerFormResources).getCOSObject();
+    verify(properties).getCOSObject();
+    verify(innerForm).getResources();
+    COSDictionary cOSObject = imageFormResources.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDVisibleSigBuilder#injectProcSetArray(PDFormXObject, PDPage, PDResources,
+   * PDResources, PDResources, COSArray)}.
+   *
+   * <ul>
+   *   <li>Then {@link PDResources#PDResources()} COSObject Values size is two.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDVisibleSigBuilder#injectProcSetArray(PDFormXObject, PDPage,
+   * PDResources, PDResources, PDResources, COSArray)}
+   */
+  @Test
+  @DisplayName(
+      "Test injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray); then PDResources() COSObject Values size is two")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void PDVisibleSigBuilder.injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray)"
+  })
+  void testInjectProcSetArray_thenPDResourcesCOSObjectValuesSizeIsTwo2() {
+    // Arrange
+    PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
+
+    PDResources pdResources = mock(PDResources.class);
+    when(pdResources.getCOSObject()).thenReturn(new COSDictionary());
+
+    PDFormXObject innerForm = mock(PDFormXObject.class);
+    when(innerForm.getResources()).thenReturn(pdResources);
+
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    doNothing().when(cosDictionary).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
+
+    PDPage page = mock(PDPage.class);
+    when(page.getCOSObject()).thenReturn(cosDictionary);
+
+    COSDictionary cosDictionary2 = mock(COSDictionary.class);
+    doNothing().when(cosDictionary2).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
+
+    PDResources innerFormResources = mock(PDResources.class);
+    when(innerFormResources.getCOSObject()).thenReturn(cosDictionary2);
+
+    PDPropertyList properties = mock(PDPropertyList.class);
+    when(properties.getCOSObject()).thenReturn(new COSDictionary());
+
+    PDResources imageFormResources = new PDResources();
+    imageFormResources.put(COSName.A, properties);
+    PDResources holderFormResources = new PDResources();
+
+    COSArray procSet = mock(COSArray.class);
+    when(procSet.isDirect()).thenReturn(false);
+    when(procSet.getKey()).thenReturn(null);
+    when(procSet.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
+
+    // Act
+    pdVisibleSigBuilder.injectProcSetArray(
+        innerForm, page, innerFormResources, imageFormResources, holderFormResources, procSet);
+
+    // Assert
+    verify(procSet, atLeast(1)).getUpdateState();
+    verify(procSet, atLeast(1)).getKey();
+    verify(procSet, atLeast(1)).isDirect();
+    verify(cosDictionary).setItem(isA(COSName.class), isA(COSBase.class));
+    verify(cosDictionary2).setItem(isA(COSName.class), isA(COSBase.class));
+    verify(page).getCOSObject();
+    verify(pdResources).getCOSObject();
+    verify(innerFormResources).getCOSObject();
+    verify(properties).getCOSObject();
+    verify(innerForm).getResources();
+    COSDictionary cOSObject = imageFormResources.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
   }
 
   /**
@@ -1905,11 +2155,17 @@ class PDVisibleSigBuilderDiffblueTest {
     PDPage page = mock(PDPage.class);
     when(page.getCOSObject()).thenReturn(new COSDictionary());
     PDResources innerFormResources = new PDResources();
+
+    PDPropertyList properties = mock(PDPropertyList.class);
+    when(properties.getCOSObject()).thenReturn(new COSDictionary());
+
     PDResources imageFormResources = new PDResources();
+    imageFormResources.put(COSName.A, properties);
     PDResources holderFormResources = new PDResources();
 
     COSArray procSet = mock(COSArray.class);
-    when(procSet.isDirect()).thenReturn(true);
+    when(procSet.isDirect()).thenReturn(false);
+    when(procSet.getKey()).thenReturn(null);
     when(procSet.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
 
     // Act
@@ -1918,9 +2174,78 @@ class PDVisibleSigBuilderDiffblueTest {
 
     // Assert
     verify(procSet, atLeast(1)).getUpdateState();
+    verify(procSet, atLeast(1)).getKey();
     verify(procSet, atLeast(1)).isDirect();
     verify(page).getCOSObject();
     verify(pdResources).getCOSObject();
+    verify(properties).getCOSObject();
+    verify(innerForm).getResources();
+    COSDictionary cOSObject = innerFormResources.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDVisibleSigBuilder#injectProcSetArray(PDFormXObject, PDPage, PDResources,
+   * PDResources, PDResources, COSArray)}.
+   *
+   * <ul>
+   *   <li>When {@link PDResources#PDResources()} {@link COSName#A} is {@link PDPropertyList}.
+   *   <li>Then calls {@link PDPropertyList#getCOSObject()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDVisibleSigBuilder#injectProcSetArray(PDFormXObject, PDPage,
+   * PDResources, PDResources, PDResources, COSArray)}
+   */
+  @Test
+  @DisplayName(
+      "Test injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray); when PDResources() A is PDPropertyList; then calls getCOSObject()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void PDVisibleSigBuilder.injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray)"
+  })
+  void testInjectProcSetArray_whenPDResourcesAIsPDPropertyList_thenCallsGetCOSObject() {
+    // Arrange
+    PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
+
+    PDResources pdResources = mock(PDResources.class);
+    when(pdResources.getCOSObject()).thenReturn(new COSDictionary());
+
+    PDFormXObject innerForm = mock(PDFormXObject.class);
+    when(innerForm.getResources()).thenReturn(pdResources);
+
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    doNothing().when(cosDictionary).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
+
+    PDPage page = mock(PDPage.class);
+    when(page.getCOSObject()).thenReturn(cosDictionary);
+    PDResources innerFormResources = new PDResources();
+
+    PDPropertyList properties = mock(PDPropertyList.class);
+    when(properties.getCOSObject()).thenReturn(new COSDictionary());
+
+    PDResources imageFormResources = new PDResources();
+    imageFormResources.put(COSName.A, properties);
+    PDResources holderFormResources = new PDResources();
+
+    COSArray procSet = mock(COSArray.class);
+    when(procSet.isDirect()).thenReturn(false);
+    when(procSet.getKey()).thenReturn(null);
+    when(procSet.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
+
+    // Act
+    pdVisibleSigBuilder.injectProcSetArray(
+        innerForm, page, innerFormResources, imageFormResources, holderFormResources, procSet);
+
+    // Assert
+    verify(procSet, atLeast(1)).getUpdateState();
+    verify(procSet, atLeast(1)).getKey();
+    verify(procSet, atLeast(1)).isDirect();
+    verify(cosDictionary).setItem(isA(COSName.class), isA(COSBase.class));
+    verify(page).getCOSObject();
+    verify(pdResources).getCOSObject();
+    verify(properties).getCOSObject();
     verify(innerForm).getResources();
     COSDictionary cOSObject = innerFormResources.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
@@ -1963,13 +2288,21 @@ class PDVisibleSigBuilderDiffblueTest {
     PDPage page = mock(PDPage.class);
     when(page.getCOSObject()).thenReturn(cosDictionary);
 
+    COSDictionary cosDictionary2 = mock(COSDictionary.class);
+    doNothing().when(cosDictionary2).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
+
     PDResources innerFormResources = mock(PDResources.class);
-    when(innerFormResources.getCOSObject()).thenReturn(new COSDictionary());
-    PDResources imageFormResources = new PDResources();
+    when(innerFormResources.getCOSObject()).thenReturn(cosDictionary2);
+
+    PDResources imageFormResources = mock(PDResources.class);
+    when(imageFormResources.getCOSObject()).thenReturn(new COSDictionary());
+    doNothing().when(imageFormResources).put(Mockito.<COSName>any(), Mockito.<PDPropertyList>any());
+    imageFormResources.put(COSName.A, mock(PDPropertyList.class));
     PDResources holderFormResources = new PDResources();
 
     COSArray procSet = mock(COSArray.class);
-    when(procSet.isDirect()).thenReturn(true);
+    when(procSet.isDirect()).thenReturn(false);
+    when(procSet.getKey()).thenReturn(null);
     when(procSet.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
 
     // Act
@@ -1978,13 +2311,17 @@ class PDVisibleSigBuilderDiffblueTest {
 
     // Assert
     verify(procSet, atLeast(1)).getUpdateState();
+    verify(procSet, atLeast(1)).getKey();
     verify(procSet, atLeast(1)).isDirect();
     verify(cosDictionary).setItem(isA(COSName.class), isA(COSBase.class));
+    verify(cosDictionary2).setItem(isA(COSName.class), isA(COSBase.class));
     verify(page).getCOSObject();
     verify(pdResources).getCOSObject();
     verify(innerFormResources).getCOSObject();
+    verify(imageFormResources).getCOSObject();
+    verify(imageFormResources).put(isA(COSName.class), isA(PDPropertyList.class));
     verify(innerForm).getResources();
-    COSDictionary cOSObject = imageFormResources.getCOSObject();
+    COSDictionary cOSObject = holderFormResources.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
   }
@@ -1994,7 +2331,8 @@ class PDVisibleSigBuilderDiffblueTest {
    * PDResources, PDResources, COSArray)}.
    *
    * <ul>
-   *   <li>When {@link PDResources} {@link PDResources#getCOSObject()} return {@link COSDictionary}.
+   *   <li>When {@link PDResources} {@link PDResources#getCOSObject()} return {@link
+   *       COSDictionary#COSDictionary()}.
    * </ul>
    *
    * <p>Method under test: {@link PDVisibleSigBuilder#injectProcSetArray(PDFormXObject, PDPage,
@@ -2002,7 +2340,7 @@ class PDVisibleSigBuilderDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray); when PDResources getCOSObject() return COSDictionary")
+      "Test injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray); when PDResources getCOSObject() return COSDictionary()")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({
@@ -2029,225 +2367,21 @@ class PDVisibleSigBuilderDiffblueTest {
 
     PDResources innerFormResources = mock(PDResources.class);
     when(innerFormResources.getCOSObject()).thenReturn(cosDictionary2);
-    PDResources imageFormResources = new PDResources();
-    PDResources holderFormResources = new PDResources();
-
-    COSArray procSet = mock(COSArray.class);
-    when(procSet.isDirect()).thenReturn(true);
-    when(procSet.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
-
-    // Act
-    pdVisibleSigBuilder.injectProcSetArray(
-        innerForm, page, innerFormResources, imageFormResources, holderFormResources, procSet);
-
-    // Assert
-    verify(procSet, atLeast(1)).getUpdateState();
-    verify(procSet, atLeast(1)).isDirect();
-    verify(cosDictionary).setItem(isA(COSName.class), isA(COSBase.class));
-    verify(cosDictionary2).setItem(isA(COSName.class), isA(COSBase.class));
-    verify(page).getCOSObject();
-    verify(pdResources).getCOSObject();
-    verify(innerFormResources).getCOSObject();
-    verify(innerForm).getResources();
-    COSDictionary cOSObject = imageFormResources.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDVisibleSigBuilder#injectProcSetArray(PDFormXObject, PDPage, PDResources,
-   * PDResources, PDResources, COSArray)}.
-   *
-   * <ul>
-   *   <li>When {@link PDResources} {@link PDResources#getCOSObject()} return {@link
-   *       COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#injectProcSetArray(PDFormXObject, PDPage,
-   * PDResources, PDResources, PDResources, COSArray)}
-   */
-  @Test
-  @DisplayName(
-      "Test injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray); when PDResources getCOSObject() return COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PDVisibleSigBuilder.injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray)"
-  })
-  void testInjectProcSetArray_whenPDResourcesGetCOSObjectReturnCOSDictionary3() {
-    // Arrange
-    PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
-
-    PDResources pdResources = mock(PDResources.class);
-    when(pdResources.getCOSObject()).thenReturn(new COSDictionary());
-
-    PDFormXObject innerForm = mock(PDFormXObject.class);
-    when(innerForm.getResources()).thenReturn(pdResources);
-
-    COSDictionary cosDictionary = mock(COSDictionary.class);
-    doNothing().when(cosDictionary).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
-
-    PDPage page = mock(PDPage.class);
-    when(page.getCOSObject()).thenReturn(cosDictionary);
-
-    COSDictionary cosDictionary2 = mock(COSDictionary.class);
-    doNothing().when(cosDictionary2).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
-
-    PDResources innerFormResources = mock(PDResources.class);
-    when(innerFormResources.getCOSObject()).thenReturn(cosDictionary2);
-
-    PDResources imageFormResources = mock(PDResources.class);
-    when(imageFormResources.getCOSObject()).thenReturn(new COSDictionary());
-    PDResources holderFormResources = new PDResources();
-
-    COSArray procSet = mock(COSArray.class);
-    when(procSet.isDirect()).thenReturn(true);
-    when(procSet.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
-
-    // Act
-    pdVisibleSigBuilder.injectProcSetArray(
-        innerForm, page, innerFormResources, imageFormResources, holderFormResources, procSet);
-
-    // Assert
-    verify(procSet, atLeast(1)).getUpdateState();
-    verify(procSet, atLeast(1)).isDirect();
-    verify(cosDictionary).setItem(isA(COSName.class), isA(COSBase.class));
-    verify(cosDictionary2).setItem(isA(COSName.class), isA(COSBase.class));
-    verify(page).getCOSObject();
-    verify(pdResources).getCOSObject();
-    verify(innerFormResources).getCOSObject();
-    verify(imageFormResources).getCOSObject();
-    verify(innerForm).getResources();
-    COSDictionary cOSObject = holderFormResources.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDVisibleSigBuilder#injectProcSetArray(PDFormXObject, PDPage, PDResources,
-   * PDResources, PDResources, COSArray)}.
-   *
-   * <ul>
-   *   <li>When {@link PDResources} {@link PDResources#getCOSObject()} return {@link COSDictionary}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#injectProcSetArray(PDFormXObject, PDPage,
-   * PDResources, PDResources, PDResources, COSArray)}
-   */
-  @Test
-  @DisplayName(
-      "Test injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray); when PDResources getCOSObject() return COSDictionary")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PDVisibleSigBuilder.injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray)"
-  })
-  void testInjectProcSetArray_whenPDResourcesGetCOSObjectReturnCOSDictionary4() {
-    // Arrange
-    PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
-
-    PDResources pdResources = mock(PDResources.class);
-    when(pdResources.getCOSObject()).thenReturn(new COSDictionary());
-
-    PDFormXObject innerForm = mock(PDFormXObject.class);
-    when(innerForm.getResources()).thenReturn(pdResources);
-
-    COSDictionary cosDictionary = mock(COSDictionary.class);
-    doNothing().when(cosDictionary).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
-
-    PDPage page = mock(PDPage.class);
-    when(page.getCOSObject()).thenReturn(cosDictionary);
-
-    COSDictionary cosDictionary2 = mock(COSDictionary.class);
-    doNothing().when(cosDictionary2).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
-
-    PDResources innerFormResources = mock(PDResources.class);
-    when(innerFormResources.getCOSObject()).thenReturn(cosDictionary2);
 
     COSDictionary cosDictionary3 = mock(COSDictionary.class);
     doNothing().when(cosDictionary3).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
 
     PDResources imageFormResources = mock(PDResources.class);
     when(imageFormResources.getCOSObject()).thenReturn(cosDictionary3);
-    PDResources holderFormResources = new PDResources();
-
-    COSArray procSet = mock(COSArray.class);
-    when(procSet.isDirect()).thenReturn(true);
-    when(procSet.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
-
-    // Act
-    pdVisibleSigBuilder.injectProcSetArray(
-        innerForm, page, innerFormResources, imageFormResources, holderFormResources, procSet);
-
-    // Assert
-    verify(procSet, atLeast(1)).getUpdateState();
-    verify(procSet, atLeast(1)).isDirect();
-    verify(cosDictionary).setItem(isA(COSName.class), isA(COSBase.class));
-    verify(cosDictionary2).setItem(isA(COSName.class), isA(COSBase.class));
-    verify(cosDictionary3).setItem(isA(COSName.class), isA(COSBase.class));
-    verify(page).getCOSObject();
-    verify(pdResources).getCOSObject();
-    verify(innerFormResources).getCOSObject();
-    verify(imageFormResources).getCOSObject();
-    verify(innerForm).getResources();
-    COSDictionary cOSObject = holderFormResources.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDVisibleSigBuilder#injectProcSetArray(PDFormXObject, PDPage, PDResources,
-   * PDResources, PDResources, COSArray)}.
-   *
-   * <ul>
-   *   <li>When {@link PDResources} {@link PDResources#getCOSObject()} return {@link
-   *       COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#injectProcSetArray(PDFormXObject, PDPage,
-   * PDResources, PDResources, PDResources, COSArray)}
-   */
-  @Test
-  @DisplayName(
-      "Test injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray); when PDResources getCOSObject() return COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PDVisibleSigBuilder.injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray)"
-  })
-  void testInjectProcSetArray_whenPDResourcesGetCOSObjectReturnCOSDictionary5() {
-    // Arrange
-    PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
-
-    PDResources pdResources = mock(PDResources.class);
-    when(pdResources.getCOSObject()).thenReturn(new COSDictionary());
-
-    PDFormXObject innerForm = mock(PDFormXObject.class);
-    when(innerForm.getResources()).thenReturn(pdResources);
-
-    COSDictionary cosDictionary = mock(COSDictionary.class);
-    doNothing().when(cosDictionary).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
-
-    PDPage page = mock(PDPage.class);
-    when(page.getCOSObject()).thenReturn(cosDictionary);
-
-    COSDictionary cosDictionary2 = mock(COSDictionary.class);
-    doNothing().when(cosDictionary2).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
-
-    PDResources innerFormResources = mock(PDResources.class);
-    when(innerFormResources.getCOSObject()).thenReturn(cosDictionary2);
-
-    COSDictionary cosDictionary3 = mock(COSDictionary.class);
-    doNothing().when(cosDictionary3).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
-
-    PDResources imageFormResources = mock(PDResources.class);
-    when(imageFormResources.getCOSObject()).thenReturn(cosDictionary3);
+    doNothing().when(imageFormResources).put(Mockito.<COSName>any(), Mockito.<PDPropertyList>any());
+    imageFormResources.put(COSName.A, mock(PDPropertyList.class));
 
     PDResources holderFormResources = mock(PDResources.class);
     when(holderFormResources.getCOSObject()).thenReturn(new COSDictionary());
 
     COSArray procSet = mock(COSArray.class);
-    when(procSet.isDirect()).thenReturn(true);
+    when(procSet.isDirect()).thenReturn(false);
+    when(procSet.getKey()).thenReturn(null);
     when(procSet.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
 
     // Act
@@ -2256,6 +2390,7 @@ class PDVisibleSigBuilderDiffblueTest {
 
     // Assert
     verify(procSet, atLeast(1)).getUpdateState();
+    verify(procSet, atLeast(1)).getKey();
     verify(procSet, atLeast(1)).isDirect();
     verify(cosDictionary).setItem(isA(COSName.class), isA(COSBase.class));
     verify(cosDictionary2).setItem(isA(COSName.class), isA(COSBase.class));
@@ -2265,82 +2400,7 @@ class PDVisibleSigBuilderDiffblueTest {
     verify(innerFormResources).getCOSObject();
     verify(imageFormResources).getCOSObject();
     verify(holderFormResources).getCOSObject();
-    verify(innerForm).getResources();
-  }
-
-  /**
-   * Test {@link PDVisibleSigBuilder#injectProcSetArray(PDFormXObject, PDPage, PDResources,
-   * PDResources, PDResources, COSArray)}.
-   *
-   * <ul>
-   *   <li>When {@link PDResources} {@link PDResources#getCOSObject()} return {@link COSDictionary}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#injectProcSetArray(PDFormXObject, PDPage,
-   * PDResources, PDResources, PDResources, COSArray)}
-   */
-  @Test
-  @DisplayName(
-      "Test injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray); when PDResources getCOSObject() return COSDictionary")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PDVisibleSigBuilder.injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray)"
-  })
-  void testInjectProcSetArray_whenPDResourcesGetCOSObjectReturnCOSDictionary6() {
-    // Arrange
-    PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
-
-    PDResources pdResources = mock(PDResources.class);
-    when(pdResources.getCOSObject()).thenReturn(new COSDictionary());
-
-    PDFormXObject innerForm = mock(PDFormXObject.class);
-    when(innerForm.getResources()).thenReturn(pdResources);
-
-    COSDictionary cosDictionary = mock(COSDictionary.class);
-    doNothing().when(cosDictionary).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
-
-    PDPage page = mock(PDPage.class);
-    when(page.getCOSObject()).thenReturn(cosDictionary);
-
-    COSDictionary cosDictionary2 = mock(COSDictionary.class);
-    doNothing().when(cosDictionary2).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
-
-    PDResources innerFormResources = mock(PDResources.class);
-    when(innerFormResources.getCOSObject()).thenReturn(cosDictionary2);
-
-    COSDictionary cosDictionary3 = mock(COSDictionary.class);
-    doNothing().when(cosDictionary3).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
-
-    PDResources imageFormResources = mock(PDResources.class);
-    when(imageFormResources.getCOSObject()).thenReturn(cosDictionary3);
-
-    COSDictionary cosDictionary4 = mock(COSDictionary.class);
-    doNothing().when(cosDictionary4).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
-
-    PDResources holderFormResources = mock(PDResources.class);
-    when(holderFormResources.getCOSObject()).thenReturn(cosDictionary4);
-
-    COSArray procSet = mock(COSArray.class);
-    when(procSet.isDirect()).thenReturn(true);
-    when(procSet.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
-
-    // Act
-    pdVisibleSigBuilder.injectProcSetArray(
-        innerForm, page, innerFormResources, imageFormResources, holderFormResources, procSet);
-
-    // Assert
-    verify(procSet).getUpdateState();
-    verify(procSet).isDirect();
-    verify(cosDictionary).setItem(isA(COSName.class), isA(COSBase.class));
-    verify(cosDictionary2).setItem(isA(COSName.class), isA(COSBase.class));
-    verify(cosDictionary3).setItem(isA(COSName.class), isA(COSBase.class));
-    verify(cosDictionary4).setItem(isA(COSName.class), isA(COSBase.class));
-    verify(page).getCOSObject();
-    verify(pdResources).getCOSObject();
-    verify(innerFormResources).getCOSObject();
-    verify(imageFormResources).getCOSObject();
-    verify(holderFormResources).getCOSObject();
+    verify(imageFormResources).put(isA(COSName.class), isA(PDPropertyList.class));
     verify(innerForm).getResources();
   }
 

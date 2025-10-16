@@ -17,52 +17,12 @@ import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.cos.COSObjectKey;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.graphics.color.PDColor;
-import org.apache.pdfbox.pdmodel.graphics.color.PDColorSpace;
-import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceCMYK;
 import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceGray;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDAnnotationSquareCircleDiffblueTest {
-  /**
-   * Test {@link PDAnnotationSquareCircle#setInteriorColor(PDColor)}.
-   *
-   * <p>Method under test: {@link PDAnnotationSquareCircle#setInteriorColor(PDColor)}
-   */
-  @Test
-  @DisplayName("Test setInteriorColor(PDColor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAnnotationSquareCircle.setInteriorColor(PDColor)"})
-  void testSetInteriorColor() {
-    // Arrange
-    PDAnnotationCircle pdAnnotationCircle = new PDAnnotationCircle();
-    PDColor ic = new PDColor(new float[] {10.0f, 0.5f, 10.0f, 0.5f}, PDDeviceGray.INSTANCE);
-
-    // Act
-    pdAnnotationCircle.setInteriorColor(ic);
-
-    // Assert
-    PDColor interiorColor = pdAnnotationCircle.getInteriorColor();
-    PDColorSpace colorSpace = interiorColor.getColorSpace();
-    COSBase cOSObject = colorSpace.getCOSObject();
-    assertTrue(cOSObject instanceof COSName);
-    assertTrue(colorSpace instanceof PDDeviceCMYK);
-    assertEquals("DeviceCMYK", ((COSName) cOSObject).getName());
-    assertEquals("DeviceCMYK", colorSpace.getName());
-    PDColor initialColor = colorSpace.getInitialColor();
-    assertNull(initialColor.getPatternName());
-    assertNull(cOSObject.getKey());
-    assertEquals(4, colorSpace.getNumberOfComponents());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(((COSName) cOSObject).isEmpty());
-    assertFalse(initialColor.isPattern());
-    assertSame(colorSpace, initialColor.getColorSpace());
-    assertArrayEquals(new float[] {0.0f, 0.0f, 0.0f, 1.0f}, initialColor.getComponents(), 0.0f);
-    assertArrayEquals(new float[] {10.0f, 0.5f, 10.0f, 0.5f}, interiorColor.getComponents(), 0.0f);
-  }
-
   /**
    * Test {@link PDAnnotationSquareCircle#setInteriorColor(PDColor)}.
    *

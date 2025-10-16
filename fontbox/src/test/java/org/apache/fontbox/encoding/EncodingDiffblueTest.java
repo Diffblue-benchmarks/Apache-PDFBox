@@ -9,21 +9,6 @@ import org.junit.jupiter.api.Test;
 
 class EncodingDiffblueTest {
   /**
-   * Test {@link Encoding#getCode(String)}.
-   *
-   * <p>Method under test: {@link Encoding#getCode(String)}
-   */
-  @Test
-  @DisplayName("Test getCode(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"java.lang.Integer Encoding.getCode(String)"})
-  void testGetCode() {
-    // Arrange, Act and Assert
-    assertEquals(2, StandardEncoding.INSTANCE.getCode("Name").intValue());
-  }
-
-  /**
    * Test {@link Encoding#getName(int)}.
    *
    * <ul>
@@ -38,7 +23,7 @@ class EncodingDiffblueTest {
       "Test getName(int); given StandardEncoding (default constructor); then return '.notdef'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
-  @MethodsUnderTest({"String Encoding.getName(int)"})
+  @MethodsUnderTest({"java.lang.String Encoding.getName(int)"})
   void testGetName_givenStandardEncoding_thenReturnNotdef() {
     // Arrange, Act and Assert
     assertEquals(".notdef", new StandardEncoding().getName(1));

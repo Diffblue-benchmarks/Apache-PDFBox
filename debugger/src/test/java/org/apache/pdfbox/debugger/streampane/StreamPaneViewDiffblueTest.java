@@ -4,19 +4,21 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Component.BaselineResizeBehavior;
+import java.awt.Dimension;
+import java.awt.Rectangle;
 import java.awt.image.DirectColorModel;
-import java.util.Dictionary;
-import java.util.Map;
 import javax.swing.JPanel;
-import javax.swing.event.UndoableEditListener;
 import javax.swing.text.DefaultStyledDocument;
+import javax.swing.text.DocumentFilter;
+import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyledDocument;
+import javax.swing.text.html.HTMLDocument;
+import javax.swing.text.html.StyleSheet;
 import org.apache.pdfbox.debugger.streampane.tooltip.ToolTipController;
 import org.apache.pdfbox.pdmodel.PDResources;
 import org.junit.jupiter.api.DisplayName;
@@ -119,35 +121,134 @@ class StreamPaneViewDiffblueTest {
    * Test {@link StreamPaneView#showStreamText(StyledDocument, ToolTipController)}.
    *
    * <ul>
-   *   <li>Given {@link UndoableEditListener}.
+   *   <li>Given {@link DocumentFilter} (default constructor).
    * </ul>
    *
    * <p>Method under test: {@link StreamPaneView#showStreamText(StyledDocument, ToolTipController)}
    */
   @Test
-  @DisplayName("Test showStreamText(StyledDocument, ToolTipController); given UndoableEditListener")
+  @DisplayName(
+      "Test showStreamText(StyledDocument, ToolTipController); given DocumentFilter (default constructor)")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void StreamPaneView.showStreamText(StyledDocument, ToolTipController)"})
-  void testShowStreamText_givenUndoableEditListener() {
+  void testShowStreamText_givenDocumentFilter() {
     // Arrange
     StreamPaneView streamPaneView = new StreamPaneView();
 
     DefaultStyledDocument document = new DefaultStyledDocument();
-    document.addUndoableEditListener(mock(UndoableEditListener.class));
+    document.setDocumentFilter(new DocumentFilter());
 
     // Act
     streamPaneView.showStreamText(document, new ToolTipController(new PDResources()));
 
     // Assert
-    Dictionary<Object, Object> documentProperties = document.getDocumentProperties();
-    assertTrue(documentProperties instanceof Map);
     JPanel streamPanel = streamPaneView.getStreamPanel();
-    assertEquals(1, streamPanel.getComponentCount());
-    assertEquals(1, streamPanel.getComponents().length);
-    assertEquals(2, documentProperties.size());
-    assertEquals(2, document.getDocumentListeners().length);
-    assertTrue(((Map<Object, Boolean>) documentProperties).containsKey("i18n"));
+    assertTrue(streamPanel.getBounds().getBounds().getBounds2D() instanceof Rectangle);
+    Component[] components = streamPanel.getComponents();
+    Component component = components[0];
+    assertTrue(component instanceof JPanel);
+    assertEquals(1, components.length);
+    assertEquals(26, component.getPreferredSize().height);
+    Dimension preferredSize = streamPanel.getPreferredSize();
+    Dimension size = preferredSize.getSize();
+    Dimension size2 = size.getSize();
+    assertEquals(26, size2.getSize().height);
+    assertEquals(26, size2.height);
+    assertEquals(26, size.height);
+    assertEquals(26, preferredSize.height);
+    assertEquals(26.0d, size2.getHeight());
+    assertEquals(26.0d, size.getHeight());
+    assertEquals(26.0d, preferredSize.getHeight());
+  }
+
+  /**
+   * Test {@link StreamPaneView#showStreamText(StyledDocument, ToolTipController)}.
+   *
+   * <ul>
+   *   <li>Given {@link SimpleAttributeSet#SimpleAttributeSet()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StreamPaneView#showStreamText(StyledDocument, ToolTipController)}
+   */
+  @Test
+  @DisplayName("Test showStreamText(StyledDocument, ToolTipController); given SimpleAttributeSet()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void StreamPaneView.showStreamText(StyledDocument, ToolTipController)"})
+  void testShowStreamText_givenSimpleAttributeSet() {
+    // Arrange
+    StreamPaneView streamPaneView = new StreamPaneView();
+
+    StyleSheet styleSheet = new StyleSheet();
+    SimpleAttributeSet simpleAttributeSet = new SimpleAttributeSet();
+    styleSheet.addAttributes(simpleAttributeSet, new SimpleAttributeSet());
+    HTMLDocument document = new HTMLDocument(styleSheet);
+
+    // Act
+    streamPaneView.showStreamText(document, new ToolTipController(new PDResources()));
+
+    // Assert
+    JPanel streamPanel = streamPaneView.getStreamPanel();
+    Component[] components = streamPanel.getComponents();
+    Component component = components[0];
+    assertTrue(component instanceof JPanel);
+    assertEquals(1, components.length);
+    assertEquals(1, document.getStyleSheet().getChangeListeners().length);
+    assertEquals(24, component.getPreferredSize().height);
+    Dimension preferredSize = streamPanel.getPreferredSize();
+    Dimension size = preferredSize.getSize();
+    Dimension size2 = size.getSize();
+    assertEquals(24, size2.getSize().height);
+    assertEquals(24, size2.height);
+    assertEquals(24, size.height);
+    assertEquals(24, preferredSize.height);
+    assertEquals(24.0d, size2.getHeight());
+    assertEquals(24.0d, size.getHeight());
+    assertEquals(24.0d, preferredSize.getHeight());
+  }
+
+  /**
+   * Test {@link StreamPaneView#showStreamText(StyledDocument, ToolTipController)}.
+   *
+   * <ul>
+   *   <li>Then first element PreferredSize {@link Dimension#height} is twenty-four.
+   * </ul>
+   *
+   * <p>Method under test: {@link StreamPaneView#showStreamText(StyledDocument, ToolTipController)}
+   */
+  @Test
+  @DisplayName(
+      "Test showStreamText(StyledDocument, ToolTipController); then first element PreferredSize height is twenty-four")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void StreamPaneView.showStreamText(StyledDocument, ToolTipController)"})
+  void testShowStreamText_thenFirstElementPreferredSizeHeightIsTwentyFour() {
+    // Arrange
+    StreamPaneView streamPaneView = new StreamPaneView();
+    HTMLDocument document = new HTMLDocument(new StyleSheet());
+
+    // Act
+    streamPaneView.showStreamText(document, new ToolTipController(new PDResources()));
+
+    // Assert
+    JPanel streamPanel = streamPaneView.getStreamPanel();
+    Component[] components = streamPanel.getComponents();
+    Component component = components[0];
+    assertTrue(component instanceof JPanel);
+    assertEquals(1, components.length);
+    assertEquals(1, document.getStyleSheet().getChangeListeners().length);
+    assertEquals(24, component.getPreferredSize().height);
+    Dimension preferredSize = streamPanel.getPreferredSize();
+    Dimension size = preferredSize.getSize();
+    Dimension size2 = size.getSize();
+    assertEquals(24, size2.getSize().height);
+    assertEquals(24, size2.height);
+    assertEquals(24, size.height);
+    assertEquals(24, preferredSize.height);
+    assertEquals(24.0d, size2.getHeight());
+    assertEquals(24.0d, size.getHeight());
+    assertEquals(24.0d, preferredSize.getHeight());
   }
 
   /**
@@ -174,13 +275,22 @@ class StreamPaneViewDiffblueTest {
     streamPaneView.showStreamText(document, new ToolTipController(new PDResources()));
 
     // Assert
-    Dictionary<Object, Object> documentProperties = document.getDocumentProperties();
-    assertTrue(documentProperties instanceof Map);
     JPanel streamPanel = streamPaneView.getStreamPanel();
-    assertEquals(1, streamPanel.getComponentCount());
-    assertEquals(1, streamPanel.getComponents().length);
-    assertEquals(2, documentProperties.size());
-    assertEquals(2, document.getDocumentListeners().length);
-    assertTrue(((Map<Object, Boolean>) documentProperties).containsKey("i18n"));
+    assertTrue(streamPanel.getBounds().getBounds().getBounds2D() instanceof Rectangle);
+    Component[] components = streamPanel.getComponents();
+    Component component = components[0];
+    assertTrue(component instanceof JPanel);
+    assertEquals(1, components.length);
+    assertEquals(26, component.getPreferredSize().height);
+    Dimension preferredSize = streamPanel.getPreferredSize();
+    Dimension size = preferredSize.getSize();
+    Dimension size2 = size.getSize();
+    assertEquals(26, size2.getSize().height);
+    assertEquals(26, size2.height);
+    assertEquals(26, size.height);
+    assertEquals(26, preferredSize.height);
+    assertEquals(26.0d, size2.getHeight());
+    assertEquals(26.0d, size.getHeight());
+    assertEquals(26.0d, preferredSize.getHeight());
   }
 }

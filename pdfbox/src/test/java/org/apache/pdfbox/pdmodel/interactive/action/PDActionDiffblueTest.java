@@ -85,27 +85,28 @@ class PDActionDiffblueTest {
    * Test {@link PDAction#setType(String)}.
    *
    * <ul>
-   *   <li>When {@code ActionAction}.
-   *   <li>Then {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()} Type is {@code ActionAction}.
+   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()}.
+   *   <li>When {@code 42}.
+   *   <li>Then {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()} Type is {@code 42}.
    * </ul>
    *
    * <p>Method under test: {@link PDAction#setType(String)}
    */
   @Test
   @DisplayName(
-      "Test setType(String); when 'ActionAction'; then PDActionEmbeddedGoTo() Type is 'ActionAction'")
+      "Test setType(String); given PDActionEmbeddedGoTo(); when '42'; then PDActionEmbeddedGoTo() Type is '42'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDAction.setType(String)"})
-  void testSetType_whenActionAction_thenPDActionEmbeddedGoToTypeIsActionAction() {
+  void testSetType_givenPDActionEmbeddedGoTo_when42_thenPDActionEmbeddedGoToTypeIs42() {
     // Arrange
     PDActionEmbeddedGoTo pdActionEmbeddedGoTo = new PDActionEmbeddedGoTo();
 
     // Act
-    pdActionEmbeddedGoTo.setType("ActionAction");
+    pdActionEmbeddedGoTo.setType("42");
 
     // Assert
-    assertEquals("ActionAction", pdActionEmbeddedGoTo.getType());
+    assertEquals("42", pdActionEmbeddedGoTo.getType());
     COSDictionary cOSObject = pdActionEmbeddedGoTo.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());

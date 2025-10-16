@@ -12,6 +12,7 @@ import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSObjectKey;
 import org.apache.pdfbox.cos.COSUpdateState;
 import org.apache.pdfbox.pdmodel.PDDocumentInformation;
+import org.apache.pdfbox.pdmodel.PDPage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -357,17 +358,44 @@ class PDThreadDiffblueTest {
    * Test {@link PDThread#getFirstBead()}.
    *
    * <ul>
-   *   <li>Then return COSObject Key is {@code null}.
+   *   <li>Then return PreviousBead Thread is {@code null}.
    * </ul>
    *
    * <p>Method under test: {@link PDThread#getFirstBead()}
    */
   @Test
-  @DisplayName("Test getFirstBead(); then return COSObject Key is 'null'")
+  @DisplayName("Test getFirstBead(); then return PreviousBead Thread is 'null'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"PDThreadBead PDThread.getFirstBead()"})
-  void testGetFirstBead_thenReturnCOSObjectKeyIsNull() {
+  void testGetFirstBead_thenReturnPreviousBeadThreadIsNull() {
+    // Arrange
+    PDThreadBead bead = new PDThreadBead();
+    bead.setPreviousBead(new PDThreadBead());
+
+    PDThread pdThread = new PDThread();
+    pdThread.setThreadInfo(new PDDocumentInformation());
+    pdThread.setFirstBead(bead);
+
+    // Act and Assert
+    assertNull(pdThread.getFirstBead().getPreviousBead().getThread());
+  }
+
+  /**
+   * Test {@link PDThread#getFirstBead()}.
+   *
+   * <ul>
+   *   <li>Then return Thread ThreadInfo is {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDThread#getFirstBead()}
+   */
+  @Test
+  @DisplayName("Test getFirstBead(); then return Thread ThreadInfo is 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDThreadBead PDThread.getFirstBead()"})
+  void testGetFirstBead_thenReturnThreadThreadInfoIsNull() {
     // Arrange
     PDThread pdThread = new PDThread();
     pdThread.setFirstBead(new PDThreadBead());
@@ -376,50 +404,15 @@ class PDThreadDiffblueTest {
     PDThreadBead actualFirstBead = pdThread.getFirstBead();
 
     // Assert
-    COSDictionary cOSObject = actualFirstBead.getCOSObject();
-    assertNull(cOSObject.getKey());
-    PDThreadBead nextBead = actualFirstBead.getNextBead();
-    assertNull(nextBead.getPage());
-    PDThreadBead previousBead = actualFirstBead.getPreviousBead();
-    assertNull(previousBead.getPage());
-    assertNull(nextBead.getRectangle());
-    assertNull(previousBead.getRectangle());
-    assertEquals(4, cOSObject.getValues().size());
-    assertEquals(4, cOSObject.size());
-    assertSame(cOSObject, nextBead.getCOSObject());
-    assertSame(cOSObject, previousBead.getCOSObject());
-  }
-
-  /**
-   * Test {@link PDThread#getFirstBead()}.
-   *
-   * <ul>
-   *   <li>Then return NextBead COSObject is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDThread#getFirstBead()}
-   */
-  @Test
-  @DisplayName("Test getFirstBead(); then return NextBead COSObject is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDThreadBead PDThread.getFirstBead()"})
-  void testGetFirstBead_thenReturnNextBeadCOSObjectIsNull() {
-    // Arrange
-    COSDictionary b = new COSDictionary();
-    b.setKey(new COSObjectKey(1L, 1));
-    PDThreadBead bead = new PDThreadBead(b);
-
-    PDThread pdThread = new PDThread();
-    pdThread.setFirstBead(bead);
-
-    // Act
-    PDThreadBead actualFirstBead = pdThread.getFirstBead();
-
-    // Assert
-    assertNull(actualFirstBead.getNextBead().getCOSObject());
-    assertNull(actualFirstBead.getPreviousBead().getCOSObject());
-    assertSame(b, actualFirstBead.getCOSObject());
+    PDThread thread = actualFirstBead.getThread();
+    assertNull(thread.getThreadInfo());
+    assertNull(actualFirstBead.getNextBead().getThread().getThreadInfo());
+    PDThread thread2 = actualFirstBead.getPreviousBead().getThread();
+    assertNull(thread2.getThreadInfo());
+    COSDictionary cOSObject = thread.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertSame(cOSObject, thread2.getCOSObject());
   }
 
   /**
@@ -452,18 +445,18 @@ class PDThreadDiffblueTest {
    *
    * <ul>
    *   <li>Given {@link PDThread#PDThread()}.
-   *   <li>Then {@link PDThreadBead#PDThreadBead()} Thread COSObject Values size is two.
+   *   <li>Then {@link PDThreadBead#PDThreadBead()} Thread COSObject Key is {@code null}.
    * </ul>
    *
    * <p>Method under test: {@link PDThread#setFirstBead(PDThreadBead)}
    */
   @Test
   @DisplayName(
-      "Test setFirstBead(PDThreadBead); given PDThread(); then PDThreadBead() Thread COSObject Values size is two")
+      "Test setFirstBead(PDThreadBead); given PDThread(); then PDThreadBead() Thread COSObject Key is 'null'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDThread.setFirstBead(PDThreadBead)"})
-  void testSetFirstBead_givenPDThread_thenPDThreadBeadThreadCOSObjectValuesSizeIsTwo() {
+  void testSetFirstBead_givenPDThread_thenPDThreadBeadThreadCOSObjectKeyIsNull() {
     // Arrange
     PDThread pdThread = new PDThread();
     PDThreadBead bead = new PDThreadBead();
@@ -472,19 +465,55 @@ class PDThreadDiffblueTest {
     pdThread.setFirstBead(bead);
 
     // Assert
-    COSDictionary cOSObject = bead.getThread().getCOSObject();
+    PDThread thread = bead.getThread();
+    COSDictionary cOSObject = thread.getCOSObject();
+    assertNull(cOSObject.getKey());
+    PDThreadBead firstBead = thread.getFirstBead();
+    assertNull(firstBead.getPage());
+    assertNull(bead.getNextBead().getThread().getFirstBead().getPage());
+    assertNull(bead.getPreviousBead().getThread().getFirstBead().getPage());
+    assertNull(firstBead.getNextBead().getPage());
+    assertNull(firstBead.getPreviousBead().getPage());
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
+    COSDictionary cOSObject2 = bead.getCOSObject();
+    assertEquals(4, cOSObject2.getValues().size());
+    assertEquals(4, cOSObject2.size());
     assertFalse(cOSObject.isDirect());
-    assertSame(
-        cOSObject,
-        bead.getNextBead()
-            .getNextBead()
-            .getPreviousBead()
-            .getNextBead()
-            .getPreviousBead()
-            .getThread()
-            .getCOSObject());
+  }
+
+  /**
+   * Test {@link PDThread#setFirstBead(PDThreadBead)}.
+   *
+   * <ul>
+   *   <li>Then {@link PDThreadBead#PDThreadBead()} COSObject Values size is five.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDThread#setFirstBead(PDThreadBead)}
+   */
+  @Test
+  @DisplayName("Test setFirstBead(PDThreadBead); then PDThreadBead() COSObject Values size is five")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDThread.setFirstBead(PDThreadBead)"})
+  void testSetFirstBead_thenPDThreadBeadCOSObjectValuesSizeIsFive() {
+    // Arrange
+    PDThread pdThread = new PDThread();
+
+    PDPage page = new PDPage();
+    page.setRotation(1);
+
+    PDThreadBead bead = new PDThreadBead();
+    bead.setPage(page);
+
+    // Act
+    pdThread.setFirstBead(bead);
+
+    // Assert
+    COSDictionary cOSObject = bead.getCOSObject();
+    assertEquals(5, cOSObject.getValues().size());
+    assertEquals(5, cOSObject.size());
+    assertEquals(page, bead.getThread().getFirstBead().getPage());
   }
 
   /**

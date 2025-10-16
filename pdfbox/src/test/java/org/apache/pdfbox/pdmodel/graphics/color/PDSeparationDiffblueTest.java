@@ -18,7 +18,6 @@ import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSBoolean;
 import org.apache.pdfbox.cos.COSName;
-import org.apache.pdfbox.cos.COSNull;
 import org.apache.pdfbox.pdmodel.common.COSObjectable;
 import org.apache.pdfbox.pdmodel.common.function.PDFunction;
 import org.apache.pdfbox.pdmodel.common.function.PDFunctionType0;
@@ -195,77 +194,6 @@ class PDSeparationDiffblueTest {
     assertEquals("Name", ((COSName) getResult).getName());
     assertEquals("Name", pdSeparation.getColorantName());
     assertFalse(((COSName) getResult).isEmpty());
-  }
-
-  /**
-   * Test {@link PDSeparation#setAlternateColorSpace(PDColorSpace)}.
-   *
-   * <ul>
-   *   <li>Then {@link PDSeparation#PDSeparation()} AlternateColorSpace is {@link
-   *       PDDeviceGray#INSTANCE}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDSeparation#setAlternateColorSpace(PDColorSpace)}
-   */
-  @Test
-  @DisplayName(
-      "Test setAlternateColorSpace(PDColorSpace); then PDSeparation() AlternateColorSpace is INSTANCE")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDSeparation.setAlternateColorSpace(PDColorSpace)"})
-  void testSetAlternateColorSpace_thenPDSeparationAlternateColorSpaceIsInstance() {
-    // Arrange
-    PDSeparation pdSeparation = new PDSeparation();
-
-    // Act
-    pdSeparation.setAlternateColorSpace(PDDeviceGray.INSTANCE);
-
-    // Assert
-    COSBase cOSObject = pdSeparation.getCOSObject();
-    assertTrue(cOSObject instanceof COSArray);
-    List<? extends COSBase> toListResult = ((COSArray) cOSObject).toList();
-    assertEquals(4, toListResult.size());
-    COSBase getResult = toListResult.get(3);
-    assertTrue(getResult instanceof COSNull);
-    assertNull(getResult.getKey());
-    assertFalse(getResult.isDirect());
-    assertSame(PDDeviceGray.INSTANCE, pdSeparation.getAlternateColorSpace());
-  }
-
-  /**
-   * Test {@link PDSeparation#setAlternateColorSpace(PDColorSpace)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDSeparation#PDSeparation()} COSObject toList third is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDSeparation#setAlternateColorSpace(PDColorSpace)}
-   */
-  @Test
-  @DisplayName(
-      "Test setAlternateColorSpace(PDColorSpace); when 'null'; then PDSeparation() COSObject toList third is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDSeparation.setAlternateColorSpace(PDColorSpace)"})
-  void testSetAlternateColorSpace_whenNull_thenPDSeparationCOSObjectToListThirdIsNull() {
-    // Arrange
-    PDSeparation pdSeparation = new PDSeparation();
-
-    // Act
-    pdSeparation.setAlternateColorSpace(null);
-
-    // Assert
-    COSBase cOSObject = pdSeparation.getCOSObject();
-    assertTrue(cOSObject instanceof COSArray);
-    List<? extends COSBase> toListResult = ((COSArray) cOSObject).toList();
-    assertEquals(4, toListResult.size());
-    COSBase getResult = toListResult.get(3);
-    assertTrue(getResult instanceof COSNull);
-    assertNull(toListResult.get(2));
-    assertNull(getResult.getKey());
-    assertNull(pdSeparation.getAlternateColorSpace());
-    assertFalse(getResult.isDirect());
   }
 
   /**

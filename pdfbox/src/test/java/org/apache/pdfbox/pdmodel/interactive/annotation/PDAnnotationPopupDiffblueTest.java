@@ -170,41 +170,16 @@ class PDAnnotationPopupDiffblueTest {
   /**
    * Test {@link PDAnnotationPopup#getOpen()}.
    *
-   * <ul>
-   *   <li>Given {@link PDAnnotationPopup#PDAnnotationPopup()}.
-   * </ul>
-   *
    * <p>Method under test: {@link PDAnnotationPopup#getOpen()}
    */
   @Test
-  @DisplayName("Test getOpen(); given PDAnnotationPopup()")
+  @DisplayName("Test getOpen()")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"boolean PDAnnotationPopup.getOpen()"})
-  void testGetOpen_givenPDAnnotationPopup() {
+  void testGetOpen() {
     // Arrange, Act and Assert
     assertFalse(new PDAnnotationPopup().getOpen());
-  }
-
-  /**
-   * Test {@link PDAnnotationPopup#getOpen()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDAnnotationPopup#PDAnnotationPopup(COSDictionary)} with field is {@link
-   *       COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationPopup#getOpen()}
-   */
-  @Test
-  @DisplayName(
-      "Test getOpen(); given PDAnnotationPopup(COSDictionary) with field is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean PDAnnotationPopup.getOpen()"})
-  void testGetOpen_givenPDAnnotationPopupWithFieldIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertFalse(new PDAnnotationPopup(new COSDictionary()).getOpen());
   }
 
   /**

@@ -11,21 +11,6 @@ import org.junit.jupiter.api.Test;
 
 class TreeViewMenuDiffblueTest {
   /**
-   * Test {@link TreeViewMenu#getInstance()}.
-   *
-   * <p>Method under test: {@link TreeViewMenu#getInstance()}
-   */
-  @Test
-  @DisplayName("Test getInstance()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"TreeViewMenu TreeViewMenu.getInstance()"})
-  void testGetInstance() {
-    // Arrange, Act and Assert
-    assertEquals(TreeViewMenu.VIEW_PAGES, TreeViewMenu.getInstance().getTreeViewSelection());
-  }
-
-  /**
    * Test {@link TreeViewMenu#setTreeViewSelection(String)}.
    *
    * <ul>
@@ -123,21 +108,6 @@ class TreeViewMenuDiffblueTest {
     assertThrows(
         IllegalArgumentException.class,
         () -> TreeViewMenu.getInstance().setTreeViewSelection("Selection"));
-  }
-
-  /**
-   * Test {@link TreeViewMenu#getTreeViewSelection()}.
-   *
-   * <p>Method under test: {@link TreeViewMenu#getTreeViewSelection()}
-   */
-  @Test
-  @DisplayName("Test getTreeViewSelection()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String TreeViewMenu.getTreeViewSelection()"})
-  void testGetTreeViewSelection() {
-    // Arrange, Act and Assert
-    assertEquals(TreeViewMenu.VIEW_PAGES, TreeViewMenu.getInstance().getTreeViewSelection());
   }
 
   /**

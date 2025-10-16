@@ -1584,35 +1584,6 @@ class COSDictionaryDiffblueTest {
    *
    * <ul>
    *   <li>Given {@link COSDictionary#COSDictionary()}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} size is zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setName(String, String)}
-   */
-  @Test
-  @DisplayName(
-      "Test setName(String, String) with 'String', 'String'; given COSDictionary(); then COSDictionary() size is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void COSDictionary.setName(String, String)"})
-  void testSetNameWithStringString_givenCOSDictionary_thenCOSDictionarySizeIsZero() {
-    // Arrange
-    COSDictionary cosDictionary = new COSDictionary();
-
-    // Act
-    cosDictionary.setName("Key", null);
-
-    // Assert that nothing has changed
-    assertEquals(0, cosDictionary.size());
-    assertTrue(cosDictionary.getValues().isEmpty());
-    assertTrue(cosDictionary.items.isEmpty());
-  }
-
-  /**
-   * Test {@link COSDictionary#setName(String, String)} with {@code String}, {@code String}.
-   *
-   * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.
    *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.
    * </ul>
    *
@@ -1635,6 +1606,63 @@ class COSDictionaryDiffblueTest {
     assertEquals(1, cosDictionary.getValues().size());
     assertEquals(1, cosDictionary.items.size());
     assertEquals(1, cosDictionary.size());
+  }
+
+  /**
+   * Test {@link COSDictionary#setName(String, String)} with {@code String}, {@code String}.
+   * <ul>
+   *   <li>When {@code COSArray{}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link COSDictionary#setName(String, String)}
+   */
+  @Test
+  @DisplayName(
+      "Test setName(String, String) with 'String', 'String'; when 'COSArray{'; then COSDictionary() Values size is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void COSDictionary.setName(String, String)"})
+  void testSetNameWithStringString_whenCOSArray_thenCOSDictionaryValuesSizeIsOne() {
+    // Arrange
+    COSDictionary cosDictionary = new COSDictionary();
+
+    // Act
+    cosDictionary.setName("COSArray{", "42");
+
+    // Assert
+    assertEquals(1, cosDictionary.getValues().size());
+    assertEquals(1, cosDictionary.items.size());
+    assertEquals(1, cosDictionary.size());
+  }
+
+  /**
+   * Test {@link COSDictionary#setName(String, String)} with {@code String}, {@code String}.
+   *
+   * <ul>
+   *   <li>When {@code null}.
+   *   <li>Then {@link COSDictionary#COSDictionary()} size is zero.
+   * </ul>
+   *
+   * <p>Method under test: {@link COSDictionary#setName(String, String)}
+   */
+  @Test
+  @DisplayName(
+      "Test setName(String, String) with 'String', 'String'; when 'null'; then COSDictionary() size is zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void COSDictionary.setName(String, String)"})
+  void testSetNameWithStringString_whenNull_thenCOSDictionarySizeIsZero() {
+    // Arrange
+    COSDictionary cosDictionary = new COSDictionary();
+
+    // Act
+    cosDictionary.setName("Key", null);
+
+    // Assert that nothing has changed
+    assertEquals(0, cosDictionary.size());
+    assertTrue(cosDictionary.getValues().isEmpty());
+    assertTrue(cosDictionary.items.isEmpty());
   }
 
   /**
@@ -3149,6 +3177,28 @@ class COSDictionaryDiffblueTest {
    * Test {@link COSDictionary#getNameAsString(String, String)} with {@code String}, {@code String}.
    *
    * <ul>
+   *   <li>Given {@link COSDictionary#COSDictionary(COSDictionary)} with dict is {@link
+   *       COSDictionary#COSDictionary()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link COSDictionary#getNameAsString(String, String)}
+   */
+  @Test
+  @DisplayName(
+      "Test getNameAsString(String, String) with 'String', 'String'; given COSDictionary(COSDictionary) with dict is COSDictionary()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String COSDictionary.getNameAsString(String, String)"})
+  void testGetNameAsStringWithStringString_givenCOSDictionaryWithDictIsCOSDictionary() {
+    // Arrange, Act and Assert
+    assertEquals("42", new COSDictionary(new COSDictionary()).getNameAsString("Key", "42"));
+  }
+
+  /**
+   * Test {@link COSDictionary#getNameAsString(String, String)} with {@code String}, {@code String}.
+   *
+   * <ul>
+   *   <li>Given {@link COSDictionary#COSDictionary()}.
    *   <li>When {@code Key}.
    *   <li>Then return {@code 42}.
    * </ul>
@@ -3157,34 +3207,13 @@ class COSDictionaryDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test getNameAsString(String, String) with 'String', 'String'; when 'Key'; then return '42'")
+      "Test getNameAsString(String, String) with 'String', 'String'; given COSDictionary(); when 'Key'; then return '42'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String COSDictionary.getNameAsString(String, String)"})
-  void testGetNameAsStringWithStringString_whenKey_thenReturn42() {
+  void testGetNameAsStringWithStringString_givenCOSDictionary_whenKey_thenReturn42() {
     // Arrange, Act and Assert
     assertEquals("42", new COSDictionary().getNameAsString("Key", "42"));
-  }
-
-  /**
-   * Test {@link COSDictionary#getNameAsString(String, String)} with {@code String}, {@code String}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return {@code 42}.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getNameAsString(String, String)}
-   */
-  @Test
-  @DisplayName(
-      "Test getNameAsString(String, String) with 'String', 'String'; when 'null'; then return '42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String COSDictionary.getNameAsString(String, String)"})
-  void testGetNameAsStringWithStringString_whenNull_thenReturn42() {
-    // Arrange, Act and Assert
-    assertEquals("42", new COSDictionary().getNameAsString("null", "42"));
   }
 
   /**
@@ -3306,7 +3335,7 @@ class COSDictionaryDiffblueTest {
   /**
    * Test {@link COSDictionary#getString(String, String)} with {@code String}, {@code String}.
    * <ul>
-   *   <li>When {@code COSArray{}.</li>
+   *   <li>When {@code COSDictionary{}.</li>
    *   <li>Then return {@code 42}.</li>
    * </ul>
    * <p>
@@ -3314,13 +3343,13 @@ class COSDictionaryDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test getString(String, String) with 'String', 'String'; when 'COSArray{'; then return '42'")
+      "Test getString(String, String) with 'String', 'String'; when 'COSDictionary{'; then return '42'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String COSDictionary.getString(String, String)"})
-  void testGetStringWithStringString_whenCOSArray_thenReturn42() {
+  void testGetStringWithStringString_whenCOSDictionary_thenReturn42() {
     // Arrange, Act and Assert
-    assertEquals("42", new COSDictionary().getString("COSArray{", "42"));
+    assertEquals("42", new COSDictionary().getString("COSDictionary{", "42"));
   }
 
   /**
@@ -3558,27 +3587,24 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#getDate(String, Calendar)} with {@code String}, {@code Calendar}.
-   *
    * <ul>
-   *   <li>Then return {@link GregorianCalendar#GregorianCalendar(int, int, int)} with one and one
-   *       and one.
+   *   <li>When {@code COSDictionary{}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getDate(String, Calendar)}
+   * <p>
+   * Method under test: {@link COSDictionary#getDate(String, Calendar)}
    */
   @Test
-  @DisplayName(
-      "Test getDate(String, Calendar) with 'String', 'Calendar'; then return GregorianCalendar(int, int, int) with one and one and one")
+  @DisplayName("Test getDate(String, Calendar) with 'String', 'Calendar'; when 'COSDictionary{'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"Calendar COSDictionary.getDate(String, Calendar)"})
-  void testGetDateWithStringCalendar_thenReturnGregorianCalendarWithOneAndOneAndOne() {
+  void testGetDateWithStringCalendar_whenCOSDictionary() {
     // Arrange
     COSDictionary cosDictionary = new COSDictionary();
     GregorianCalendar defaultValue = new GregorianCalendar(1, 1, 1);
 
     // Act
-    Calendar actualDate = cosDictionary.getDate("null", defaultValue);
+    Calendar actualDate = cosDictionary.getDate("COSDictionary{", defaultValue);
 
     // Assert
     assertSame(defaultValue, actualDate);
@@ -4609,17 +4635,17 @@ class COSDictionaryDiffblueTest {
    * Test {@link COSDictionary#getLong(String, long)} with {@code String}, {@code long}.
    *
    * <ul>
-   *   <li>When {@code Key}.
+   *   <li>Given {@link COSDictionary#COSDictionary()}.
    * </ul>
    *
    * <p>Method under test: {@link COSDictionary#getLong(String, long)}
    */
   @Test
-  @DisplayName("Test getLong(String, long) with 'String', 'long'; when 'Key'")
+  @DisplayName("Test getLong(String, long) with 'String', 'long'; given COSDictionary()")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"long COSDictionary.getLong(String, long)"})
-  void testGetLongWithStringLong_whenKey() {
+  void testGetLongWithStringLong_givenCOSDictionary() {
     // Arrange, Act and Assert
     assertEquals(42L, new COSDictionary().getLong("Key", 42L));
   }
@@ -4628,19 +4654,21 @@ class COSDictionaryDiffblueTest {
    * Test {@link COSDictionary#getLong(String, long)} with {@code String}, {@code long}.
    *
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>Given {@link COSDictionary#COSDictionary(COSDictionary)} with dict is {@link
+   *       COSDictionary#COSDictionary()}.
    * </ul>
    *
    * <p>Method under test: {@link COSDictionary#getLong(String, long)}
    */
   @Test
-  @DisplayName("Test getLong(String, long) with 'String', 'long'; when 'null'")
+  @DisplayName(
+      "Test getLong(String, long) with 'String', 'long'; given COSDictionary(COSDictionary) with dict is COSDictionary()")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"long COSDictionary.getLong(String, long)"})
-  void testGetLongWithStringLong_whenNull() {
+  void testGetLongWithStringLong_givenCOSDictionaryWithDictIsCOSDictionary() {
     // Arrange, Act and Assert
-    assertEquals(42L, new COSDictionary().getLong("null", 42L));
+    assertEquals(42L, new COSDictionary(new COSDictionary()).getLong("Key", 42L));
   }
 
   /**
@@ -4761,45 +4789,39 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#getFloat(String, float)} with {@code String}, {@code float}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.
+   *   <li>When {@code COSArray{}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getFloat(String, float)}
+   * <p>
+   * Method under test: {@link COSDictionary#getFloat(String, float)}
    */
   @Test
-  @DisplayName("Test getFloat(String, float) with 'String', 'float'; given COSDictionary()")
+  @DisplayName("Test getFloat(String, float) with 'String', 'float'; when 'COSArray{'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"float COSDictionary.getFloat(String, float)"})
-  void testGetFloatWithStringFloat_givenCOSDictionary() {
+  void testGetFloatWithStringFloat_whenCOSArray() {
     // Arrange, Act and Assert
-    assertEquals(10.0f, new COSDictionary().getFloat("Key", 10.0f));
+    assertEquals(10.0f, new COSDictionary().getFloat("COSArray{", 10.0f));
   }
 
   /**
    * Test {@link COSDictionary#getFloat(String, float)} with {@code String}, {@code float}.
    *
    * <ul>
-   *   <li>Given {@link COSStream#COSStream()} addAll {@link COSDictionary#COSDictionary()}.
+   *   <li>When {@code Key}.
    * </ul>
    *
    * <p>Method under test: {@link COSDictionary#getFloat(String, float)}
    */
   @Test
-  @DisplayName(
-      "Test getFloat(String, float) with 'String', 'float'; given COSStream() addAll COSDictionary()")
+  @DisplayName("Test getFloat(String, float) with 'String', 'float'; when 'Key'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"float COSDictionary.getFloat(String, float)"})
-  void testGetFloatWithStringFloat_givenCOSStreamAddAllCOSDictionary() {
-    // Arrange
-    COSStream cosStream = new COSStream();
-    cosStream.addAll(new COSDictionary());
-
-    // Act and Assert
-    assertEquals(10.0f, cosStream.getFloat("Key", 10.0f));
+  void testGetFloatWithStringFloat_whenKey() {
+    // Arrange, Act and Assert
+    assertEquals(10.0f, new COSDictionary().getFloat("Key", 10.0f));
   }
 
   /**

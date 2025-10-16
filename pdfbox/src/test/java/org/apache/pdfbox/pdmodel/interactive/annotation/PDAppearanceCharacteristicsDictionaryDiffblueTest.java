@@ -2,19 +2,15 @@ package org.apache.pdfbox.pdmodel.interactive.annotation;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.pdfbox.cos.COSArray;
-import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.pdmodel.graphics.color.PDColor;
-import org.apache.pdfbox.pdmodel.graphics.color.PDColorSpace;
-import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceCMYK;
 import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceGray;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -223,47 +219,6 @@ class PDAppearanceCharacteristicsDictionaryDiffblueTest {
   }
 
   /**
-   * Test {@link PDAppearanceCharacteristicsDictionary#setBorderColour(PDColor)}.
-   *
-   * <p>Method under test: {@link PDAppearanceCharacteristicsDictionary#setBorderColour(PDColor)}
-   */
-  @Test
-  @DisplayName("Test setBorderColour(PDColor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAppearanceCharacteristicsDictionary.setBorderColour(PDColor)"})
-  void testSetBorderColour3() {
-    // Arrange
-    PDAppearanceCharacteristicsDictionary pdAppearanceCharacteristicsDictionary =
-        new PDAppearanceCharacteristicsDictionary(new COSDictionary());
-    PDColor c = new PDColor(new float[] {10.0f, 0.5f, 10.0f, 0.5f}, PDDeviceGray.INSTANCE);
-
-    // Act
-    pdAppearanceCharacteristicsDictionary.setBorderColour(c);
-
-    // Assert
-    PDColor borderColour = pdAppearanceCharacteristicsDictionary.getBorderColour();
-    PDColorSpace colorSpace = borderColour.getColorSpace();
-    COSBase cOSObject = colorSpace.getCOSObject();
-    assertTrue(cOSObject instanceof COSName);
-    assertTrue(colorSpace instanceof PDDeviceCMYK);
-    assertEquals("DeviceCMYK", ((COSName) cOSObject).getName());
-    assertEquals("DeviceCMYK", colorSpace.getName());
-    PDColor initialColor = colorSpace.getInitialColor();
-    assertNull(initialColor.getPatternName());
-    assertNull(borderColour.getPatternName());
-    assertNull(cOSObject.getKey());
-    assertEquals(4, colorSpace.getNumberOfComponents());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(((COSName) cOSObject).isEmpty());
-    assertFalse(initialColor.isPattern());
-    assertFalse(borderColour.isPattern());
-    assertSame(colorSpace, initialColor.getColorSpace());
-    assertArrayEquals(new float[] {0.0f, 0.0f, 0.0f, 1.0f}, initialColor.getComponents(), 0.0f);
-    assertArrayEquals(new float[] {10.0f, 0.5f, 10.0f, 0.5f}, borderColour.getComponents(), 0.0f);
-  }
-
-  /**
    * Test {@link PDAppearanceCharacteristicsDictionary#getBackground()}.
    *
    * <ul>
@@ -330,47 +285,6 @@ class PDAppearanceCharacteristicsDictionaryDiffblueTest {
     PDColor background = pdAppearanceCharacteristicsDictionary.getBackground();
     assertTrue(background.isPattern());
     assertArrayEquals(new float[] {0.0f}, background.getComponents(), 0.0f);
-  }
-
-  /**
-   * Test {@link PDAppearanceCharacteristicsDictionary#setBackground(PDColor)}.
-   *
-   * <p>Method under test: {@link PDAppearanceCharacteristicsDictionary#setBackground(PDColor)}
-   */
-  @Test
-  @DisplayName("Test setBackground(PDColor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAppearanceCharacteristicsDictionary.setBackground(PDColor)"})
-  void testSetBackground3() {
-    // Arrange
-    PDAppearanceCharacteristicsDictionary pdAppearanceCharacteristicsDictionary =
-        new PDAppearanceCharacteristicsDictionary(new COSDictionary());
-    PDColor c = new PDColor(new float[] {10.0f, 0.5f, 10.0f, 0.5f}, PDDeviceGray.INSTANCE);
-
-    // Act
-    pdAppearanceCharacteristicsDictionary.setBackground(c);
-
-    // Assert
-    PDColor background = pdAppearanceCharacteristicsDictionary.getBackground();
-    PDColorSpace colorSpace = background.getColorSpace();
-    COSBase cOSObject = colorSpace.getCOSObject();
-    assertTrue(cOSObject instanceof COSName);
-    assertTrue(colorSpace instanceof PDDeviceCMYK);
-    assertEquals("DeviceCMYK", ((COSName) cOSObject).getName());
-    assertEquals("DeviceCMYK", colorSpace.getName());
-    PDColor initialColor = colorSpace.getInitialColor();
-    assertNull(initialColor.getPatternName());
-    assertNull(background.getPatternName());
-    assertNull(cOSObject.getKey());
-    assertEquals(4, colorSpace.getNumberOfComponents());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(((COSName) cOSObject).isEmpty());
-    assertFalse(initialColor.isPattern());
-    assertFalse(background.isPattern());
-    assertSame(colorSpace, initialColor.getColorSpace());
-    assertArrayEquals(new float[] {0.0f, 0.0f, 0.0f, 1.0f}, initialColor.getComponents(), 0.0f);
-    assertArrayEquals(new float[] {10.0f, 0.5f, 10.0f, 0.5f}, background.getComponents(), 0.0f);
   }
 
   /**

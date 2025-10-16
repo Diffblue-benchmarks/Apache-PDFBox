@@ -958,26 +958,58 @@ class PDPropBuildDataDictDiffblueTest {
    * Test {@link PDPropBuildDataDict#setOS(String)}.
    *
    * <ul>
-   *   <li>When {@code 42}.
-   *   <li>Then {@link PDPropBuildDataDict#PDPropBuildDataDict()} OS is {@code 42}.
+   *   <li>Given {@link PDPropBuildDataDict#PDPropBuildDataDict()}.
+   *   <li>When {@code Os}.
+   *   <li>Then {@link PDPropBuildDataDict#PDPropBuildDataDict()} OS is {@code Os}.
    * </ul>
    *
    * <p>Method under test: {@link PDPropBuildDataDict#setOS(String)}
    */
   @Test
-  @DisplayName("Test setOS(String); when '42'; then PDPropBuildDataDict() OS is '42'")
+  @DisplayName(
+      "Test setOS(String); given PDPropBuildDataDict(); when 'Os'; then PDPropBuildDataDict() OS is 'Os'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDPropBuildDataDict.setOS(String)"})
-  void testSetOS_when42_thenPDPropBuildDataDictOsIs42() {
+  void testSetOS_givenPDPropBuildDataDict_whenOs_thenPDPropBuildDataDictOsIsOs() {
     // Arrange
     PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
 
     // Act
-    pdPropBuildDataDict.setOS("42");
+    pdPropBuildDataDict.setOS("Os");
 
     // Assert
-    assertEquals("42", pdPropBuildDataDict.getOS());
+    assertEquals("Os", pdPropBuildDataDict.getOS());
+    COSDictionary cOSObject = pdPropBuildDataDict.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDPropBuildDataDict#setOS(String)}.
+   *
+   * <ul>
+   *   <li>Then {@link PDPropBuildDataDict#PDPropBuildDataDict(COSDictionary)} with dict is {@link
+   *       COSDictionary#COSDictionary()} OS is {@code Os}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDPropBuildDataDict#setOS(String)}
+   */
+  @Test
+  @DisplayName(
+      "Test setOS(String); then PDPropBuildDataDict(COSDictionary) with dict is COSDictionary() OS is 'Os'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDPropBuildDataDict.setOS(String)"})
+  void testSetOS_thenPDPropBuildDataDictWithDictIsCOSDictionaryOsIsOs() {
+    // Arrange
+    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict(new COSDictionary());
+
+    // Act
+    pdPropBuildDataDict.setOS("Os");
+
+    // Assert
+    assertEquals("Os", pdPropBuildDataDict.getOS());
     COSDictionary cOSObject = pdPropBuildDataDict.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
@@ -1009,35 +1041,6 @@ class PDPropBuildDataDictDiffblueTest {
     COSDictionary cOSObject = pdPropBuildDataDict.getCOSObject();
     assertEquals(0, cOSObject.size());
     assertTrue(cOSObject.getValues().isEmpty());
-  }
-
-  /**
-   * Test {@link PDPropBuildDataDict#setOS(String)}.
-   *
-   * <ul>
-   *   <li>When {@code Os}.
-   *   <li>Then {@link PDPropBuildDataDict#PDPropBuildDataDict()} OS is {@code Os}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPropBuildDataDict#setOS(String)}
-   */
-  @Test
-  @DisplayName("Test setOS(String); when 'Os'; then PDPropBuildDataDict() OS is 'Os'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDPropBuildDataDict.setOS(String)"})
-  void testSetOS_whenOs_thenPDPropBuildDataDictOsIsOs() {
-    // Arrange
-    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
-
-    // Act
-    pdPropBuildDataDict.setOS("Os");
-
-    // Assert
-    assertEquals("Os", pdPropBuildDataDict.getOS());
-    COSDictionary cOSObject = pdPropBuildDataDict.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
   }
 
   /**

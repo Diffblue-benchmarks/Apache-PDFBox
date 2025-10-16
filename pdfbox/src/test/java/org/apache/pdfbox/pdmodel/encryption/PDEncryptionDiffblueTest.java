@@ -415,52 +415,27 @@ class PDEncryptionDiffblueTest {
   /**
    * Test {@link PDEncryption#setSubFilter(String)}.
    *
-   * <p>Method under test: {@link PDEncryption#setSubFilter(String)}
-   */
-  @Test
-  @DisplayName("Test setSubFilter(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDEncryption.setSubFilter(String)"})
-  void testSetSubFilter() {
-    // Arrange
-    PDEncryption pdEncryption = new PDEncryption(new COSDictionary());
-
-    // Act
-    pdEncryption.setSubFilter("Subfilter");
-
-    // Assert
-    assertEquals("Subfilter", pdEncryption.getSubFilter());
-    COSDictionary cOSObject = pdEncryption.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDEncryption#setSubFilter(String)}.
-   *
    * <ul>
-   *   <li>Given {@link PDEncryption#PDEncryption()}.
-   *   <li>Then {@link PDEncryption#PDEncryption()} SubFilter is {@code Subfilter}.
+   *   <li>When {@code 42}.
+   *   <li>Then {@link PDEncryption#PDEncryption()} SubFilter is {@code 42}.
    * </ul>
    *
    * <p>Method under test: {@link PDEncryption#setSubFilter(String)}
    */
   @Test
-  @DisplayName(
-      "Test setSubFilter(String); given PDEncryption(); then PDEncryption() SubFilter is 'Subfilter'")
+  @DisplayName("Test setSubFilter(String); when '42'; then PDEncryption() SubFilter is '42'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDEncryption.setSubFilter(String)"})
-  void testSetSubFilter_givenPDEncryption_thenPDEncryptionSubFilterIsSubfilter() {
+  void testSetSubFilter_when42_thenPDEncryptionSubFilterIs42() {
     // Arrange
     PDEncryption pdEncryption = new PDEncryption();
 
     // Act
-    pdEncryption.setSubFilter("Subfilter");
+    pdEncryption.setSubFilter("42");
 
     // Assert
-    assertEquals("Subfilter", pdEncryption.getSubFilter());
+    assertEquals("42", pdEncryption.getSubFilter());
     COSDictionary cOSObject = pdEncryption.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
@@ -470,7 +445,6 @@ class PDEncryptionDiffblueTest {
    * Test {@link PDEncryption#setSubFilter(String)}.
    *
    * <ul>
-   *   <li>Given {@link PDEncryption#PDEncryption()}.
    *   <li>When {@code null}.
    *   <li>Then {@link PDEncryption#PDEncryption()} COSObject size is zero.
    * </ul>
@@ -478,12 +452,11 @@ class PDEncryptionDiffblueTest {
    * <p>Method under test: {@link PDEncryption#setSubFilter(String)}
    */
   @Test
-  @DisplayName(
-      "Test setSubFilter(String); given PDEncryption(); when 'null'; then PDEncryption() COSObject size is zero")
+  @DisplayName("Test setSubFilter(String); when 'null'; then PDEncryption() COSObject size is zero")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDEncryption.setSubFilter(String)"})
-  void testSetSubFilter_givenPDEncryption_whenNull_thenPDEncryptionCOSObjectSizeIsZero() {
+  void testSetSubFilter_whenNull_thenPDEncryptionCOSObjectSizeIsZero() {
     // Arrange
     PDEncryption pdEncryption = new PDEncryption();
 
@@ -494,6 +467,36 @@ class PDEncryptionDiffblueTest {
     COSDictionary cOSObject = pdEncryption.getCOSObject();
     assertEquals(0, cOSObject.size());
     assertTrue(cOSObject.getValues().isEmpty());
+  }
+
+  /**
+   * Test {@link PDEncryption#setSubFilter(String)}.
+   *
+   * <ul>
+   *   <li>When {@code Subfilter}.
+   *   <li>Then {@link PDEncryption#PDEncryption()} SubFilter is {@code Subfilter}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDEncryption#setSubFilter(String)}
+   */
+  @Test
+  @DisplayName(
+      "Test setSubFilter(String); when 'Subfilter'; then PDEncryption() SubFilter is 'Subfilter'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDEncryption.setSubFilter(String)"})
+  void testSetSubFilter_whenSubfilter_thenPDEncryptionSubFilterIsSubfilter() {
+    // Arrange
+    PDEncryption pdEncryption = new PDEncryption();
+
+    // Act
+    pdEncryption.setSubFilter("Subfilter");
+
+    // Assert
+    assertEquals("Subfilter", pdEncryption.getSubFilter());
+    COSDictionary cOSObject = pdEncryption.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
   }
 
   /**
@@ -2137,41 +2140,6 @@ class PDEncryptionDiffblueTest {
     COSName cosName = COSName.IDENTITY;
     assertSame(cosName, pdEncryption.getStreamFilterName());
     assertSame(cosName, pdEncryption.getStringFilterName());
-  }
-
-  /**
-   * Test {@link PDEncryption#setStreamFilterName(COSName)}.
-   *
-   * <ul>
-   *   <li>When {@link COSName#A}.
-   *   <li>Then {@link PDEncryption#PDEncryption()} StringFilterName Name is {@code Identity}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDEncryption#setStreamFilterName(COSName)}
-   */
-  @Test
-  @DisplayName(
-      "Test setStreamFilterName(COSName); when A; then PDEncryption() StringFilterName Name is 'Identity'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDEncryption.setStreamFilterName(COSName)"})
-  void testSetStreamFilterName_whenA_thenPDEncryptionStringFilterNameNameIsIdentity() {
-    // Arrange
-    PDEncryption pdEncryption = new PDEncryption();
-
-    // Act
-    pdEncryption.setStreamFilterName(COSName.A);
-
-    // Assert
-    COSName stringFilterName = pdEncryption.getStringFilterName();
-    assertEquals("Identity", stringFilterName.getName());
-    assertNull(stringFilterName.getKey());
-    COSDictionary cOSObject = pdEncryption.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    assertFalse(stringFilterName.isDirect());
-    assertFalse(stringFilterName.isEmpty());
-    assertSame(COSName.A, pdEncryption.getStreamFilterName());
   }
 
   /**

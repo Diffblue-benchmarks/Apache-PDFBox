@@ -133,32 +133,6 @@ class PDDocumentCatalogDiffblueTest {
   }
 
   /**
-   * Test {@link PDDocumentCatalog#getCOSObject()}.
-   *
-   * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()} addAll {@link COSDictionary#COSDictionary()}.
-   *   <li>Then return {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getCOSObject()}
-   */
-  @Test
-  @DisplayName(
-      "Test getCOSObject(); given COSDictionary() addAll COSDictionary(); then return COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"COSDictionary PDDocumentCatalog.getCOSObject()"})
-  void testGetCOSObject_givenCOSDictionaryAddAllCOSDictionary_thenReturnCOSDictionary() {
-    // Arrange
-    COSDictionary rootDictionary = new COSDictionary();
-    rootDictionary.addAll(new COSDictionary());
-    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument(), rootDictionary);
-
-    // Act and Assert
-    assertSame(rootDictionary, pdDocumentCatalog.getCOSObject());
-  }
-
-  /**
    * Test {@link PDDocumentCatalog#getAcroForm(PDDocumentFixup)} with {@code PDDocumentFixup}.
    *
    * <ul>

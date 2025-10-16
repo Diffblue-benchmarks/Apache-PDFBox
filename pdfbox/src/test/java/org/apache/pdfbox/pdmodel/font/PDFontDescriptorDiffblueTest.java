@@ -841,25 +841,26 @@ class PDFontDescriptorDiffblueTest {
    * Test {@link PDFontDescriptor#setFontName(String)}.
    *
    * <ul>
-   *   <li>Then {@link PDFontDescriptor#PDFontDescriptor()} FontName is {@code Font NameFont Name}.
+   *   <li>When {@code 42}.
+   *   <li>Then {@link PDFontDescriptor#PDFontDescriptor()} FontName is {@code 42}.
    * </ul>
    *
    * <p>Method under test: {@link PDFontDescriptor#setFontName(String)}
    */
   @Test
-  @DisplayName("Test setFontName(String); then PDFontDescriptor() FontName is 'Font NameFont Name'")
+  @DisplayName("Test setFontName(String); when '42'; then PDFontDescriptor() FontName is '42'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDFontDescriptor.setFontName(String)"})
-  void testSetFontName_thenPDFontDescriptorFontNameIsFontNameFontName() {
+  void testSetFontName_when42_thenPDFontDescriptorFontNameIs42() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
 
     // Act
-    pdFontDescriptor.setFontName("Font NameFont Name");
+    pdFontDescriptor.setFontName("42");
 
     // Assert
-    assertEquals("Font NameFont Name", pdFontDescriptor.getFontName());
+    assertEquals("42", pdFontDescriptor.getFontName());
     COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());

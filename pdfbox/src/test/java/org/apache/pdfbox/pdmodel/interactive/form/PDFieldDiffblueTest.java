@@ -19,11 +19,16 @@ import java.io.IOException;
 import java.util.List;
 import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSDictionary;
+import org.apache.pdfbox.cos.COSDocument;
 import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.fdf.FDFField;
 import org.apache.pdfbox.pdmodel.interactive.annotation.PDAnnotationWidget;
+import org.apache.pdfbox.pdmodel.interactive.digitalsignature.PDSignature;
+import org.apache.pdfbox.pdmodel.interactive.digitalsignature.SignatureInterface;
+import org.apache.pdfbox.pdmodel.interactive.digitalsignature.SignatureOptions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -104,6 +109,37 @@ class PDFieldDiffblueTest {
   void testGetInheritableAttribute_givenPDCheckBoxWithAcroFormIsPDAcroForm_whenNull() {
     // Arrange, Act and Assert
     assertNull(new PDCheckBox(new PDAcroForm(new PDDocument())).getInheritableAttribute(null));
+  }
+
+  /**
+   * Test {@link PDField#getInheritableAttribute(COSName)}.
+   *
+   * <ul>
+   *   <li>Given {@link PDDocument#PDDocument()} addPage {@link PDPage#PDPage()}.
+   *   <li>When {@link COSName#A}.
+   *   <li>Then return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDField#getInheritableAttribute(COSName)}
+   */
+  @Test
+  @DisplayName(
+      "Test getInheritableAttribute(COSName); given PDDocument() addPage PDPage(); when A; then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"org.apache.pdfbox.cos.COSBase PDField.getInheritableAttribute(COSName)"})
+  void testGetInheritableAttribute_givenPDDocumentAddPagePDPage_whenA_thenReturnNull()
+      throws IOException {
+    // Arrange
+    PDDocument doc = new PDDocument();
+    doc.addPage(new PDPage());
+    PDSignature sigObject = new PDSignature();
+    SignatureInterface signatureInterface = mock(SignatureInterface.class);
+
+    doc.addSignature(sigObject, signatureInterface, new SignatureOptions());
+
+    // Act and Assert
+    assertNull(new PDCheckBox(new PDAcroForm(doc)).getInheritableAttribute(COSName.A));
   }
 
   /**
@@ -797,6 +833,34 @@ class PDFieldDiffblueTest {
    * Test {@link PDField#getPartialName()}.
    *
    * <ul>
+   *   <li>Given {@link PDDocument#PDDocument(COSDocument)} with doc is {@link
+   *       COSDocument#COSDocument()}.
+   *   <li>Then return {@code Name}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDField#getPartialName()}
+   */
+  @Test
+  @DisplayName(
+      "Test getPartialName(); given PDDocument(COSDocument) with doc is COSDocument(); then return 'Name'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PDField.getPartialName()"})
+  void testGetPartialName_givenPDDocumentWithDocIsCOSDocument_thenReturnName() {
+    // Arrange
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument(new COSDocument()));
+
+    PDCheckBox pdCheckBox = new PDCheckBox(acroForm);
+    pdCheckBox.setPartialName("Name");
+
+    // Act and Assert
+    assertEquals("Name", pdCheckBox.getPartialName());
+  }
+
+  /**
+   * Test {@link PDField#getPartialName()}.
+   *
+   * <ul>
    *   <li>Then return empty string.
    * </ul>
    *
@@ -873,11 +937,54 @@ class PDFieldDiffblueTest {
   @MethodsUnderTest({"String PDField.getFullyQualifiedName()"})
   void testGetFullyQualifiedName() {
     // Arrange
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    COSDictionary field = new COSDictionary();
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+
+    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, field, parent);
+
+    // Act and Assert
+    assertNull(pdCheckBox.getFullyQualifiedName());
+  }
+
+  /**
+   * Test {@link PDField#getFullyQualifiedName()}.
+   *
+   * <p>Method under test: {@link PDField#getFullyQualifiedName()}
+   */
+  @Test
+  @DisplayName("Test getFullyQualifiedName()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PDField.getFullyQualifiedName()"})
+  void testGetFullyQualifiedName2() {
+    // Arrange
     PDCheckBox pdCheckBox = new PDCheckBox(new PDAcroForm(new PDDocument()));
     pdCheckBox.setPartialName("Name");
 
     // Act and Assert
     assertEquals("Name", pdCheckBox.getFullyQualifiedName());
+  }
+
+  /**
+   * Test {@link PDField#getFullyQualifiedName()}.
+   *
+   * <p>Method under test: {@link PDField#getFullyQualifiedName()}
+   */
+  @Test
+  @DisplayName("Test getFullyQualifiedName()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PDField.getFullyQualifiedName()"})
+  void testGetFullyQualifiedName3() {
+    // Arrange
+    COSDictionary field = new COSDictionary();
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+
+    PDCheckBox pdCheckBox = new PDCheckBox(null, field, parent);
+
+    // Act and Assert
+    assertNull(pdCheckBox.getFullyQualifiedName());
   }
 
   /**
@@ -976,32 +1083,6 @@ class PDFieldDiffblueTest {
 
     // Act and Assert
     assertEquals("Name.Name", pdCheckBox.getFullyQualifiedName());
-  }
-
-  /**
-   * Test {@link PDField#getFullyQualifiedName()}.
-   *
-   * <ul>
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDField#getFullyQualifiedName()}
-   */
-  @Test
-  @DisplayName("Test getFullyQualifiedName(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDField.getFullyQualifiedName()"})
-  void testGetFullyQualifiedName_thenReturnNull() {
-    // Arrange
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    COSDictionary field = new COSDictionary();
-    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
-
-    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, field, parent);
-
-    // Act and Assert
-    assertNull(pdCheckBox.getFullyQualifiedName());
   }
 
   /**

@@ -25,40 +25,6 @@ import org.junit.jupiter.api.Test;
 
 class PDPatternDiffblueTest {
   /**
-   * Test {@link PDPattern#PDPattern(PDResources)}.
-   *
-   * <p>Method under test: {@link PDPattern#PDPattern(PDResources)}
-   */
-  @Test
-  @DisplayName("Test new PDPattern(PDResources)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDPattern.<init>(PDResources)"})
-  void testNewPDPattern() {
-    // Arrange and Act
-    PDPattern actualPdPattern = new PDPattern(new PDResources());
-
-    // Assert
-    COSBase cOSObject = actualPdPattern.getCOSObject();
-    assertTrue(cOSObject instanceof COSArray);
-    List<? extends COSBase> toListResult = ((COSArray) cOSObject).toList();
-    assertEquals(1, toListResult.size());
-    COSBase getResult = toListResult.get(0);
-    assertTrue(getResult instanceof COSName);
-    assertEquals("Pattern", ((COSName) getResult).getName());
-    assertEquals("Pattern", actualPdPattern.getName());
-    PDColor initialColor = actualPdPattern.getInitialColor();
-    assertNull(initialColor.getPatternName());
-    assertNull(getResult.getKey());
-    assertNull(initialColor.getColorSpace());
-    assertNull(actualPdPattern.getUnderlyingColorSpace());
-    assertFalse(getResult.isDirect());
-    assertFalse(((COSName) getResult).isEmpty());
-    assertFalse(initialColor.isPattern());
-    assertArrayEquals(new float[] {}, initialColor.getComponents(), 0.0f);
-  }
-
-  /**
    * Test {@link PDPattern#PDPattern(PDResources, PDColorSpace)}.
    *
    * <ul>

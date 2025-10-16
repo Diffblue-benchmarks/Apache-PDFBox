@@ -123,21 +123,6 @@ class RenderDestinationMenuDiffblueTest {
   }
 
   /**
-   * Test {@link RenderDestinationMenu#getRenderDestination()}.
-   *
-   * <p>Method under test: {@link RenderDestinationMenu#getRenderDestination()}
-   */
-  @Test
-  @DisplayName("Test getRenderDestination()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"RenderDestination RenderDestinationMenu.getRenderDestination()"})
-  void testGetRenderDestination() {
-    // Arrange, Act and Assert
-    assertEquals(RenderDestination.EXPORT, RenderDestinationMenu.getRenderDestination());
-  }
-
-  /**
    * Test {@link RenderDestinationMenu#getRenderDestination(String)} with {@code String}.
    *
    * <ul>

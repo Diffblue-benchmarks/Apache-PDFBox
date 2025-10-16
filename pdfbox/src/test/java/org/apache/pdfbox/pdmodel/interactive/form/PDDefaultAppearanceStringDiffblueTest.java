@@ -24,11 +24,14 @@ import org.apache.pdfbox.cos.COSObjectKey;
 import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.cos.COSString;
 import org.apache.pdfbox.pdmodel.PDAppearanceContentStream;
+import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDResources;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDMMType1Font;
 import org.apache.pdfbox.pdmodel.graphics.color.PDColor;
 import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceGray;
+import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
+import org.apache.pdfbox.pdmodel.graphics.pattern.PDShadingPattern;
 import org.apache.pdfbox.pdmodel.interactive.annotation.PDAppearanceStream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -66,7 +69,7 @@ class PDDefaultAppearanceStringDiffblueTest {
    * Test {@link PDDefaultAppearanceString#PDDefaultAppearanceString(COSString, PDResources)}.
    *
    * <ul>
-   *   <li>Then throw {@link IllegalArgumentException}.
+   *   <li>Given {@link PDShadingPattern#PDShadingPattern()}.
    * </ul>
    *
    * <p>Method under test: {@link PDDefaultAppearanceString#PDDefaultAppearanceString(COSString,
@@ -74,15 +77,27 @@ class PDDefaultAppearanceStringDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test new PDDefaultAppearanceString(COSString, PDResources); then throw IllegalArgumentException")
+      "Test new PDDefaultAppearanceString(COSString, PDResources); given PDShadingPattern()")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDDefaultAppearanceString.<init>(COSString, PDResources)"})
-  void testNewPDDefaultAppearanceString_thenThrowIllegalArgumentException() throws IOException {
-    // Arrange, Act and Assert
-    assertThrows(
-        IllegalArgumentException.class,
-        () -> new PDDefaultAppearanceString(COSString.parseHex("0123456789ABCDEF"), null));
+  void testNewPDDefaultAppearanceString_givenPDShadingPattern() throws IOException {
+    // Arrange
+    COSString defaultAppearance = COSString.parseHex("0123456789ABCDEF");
+
+    PDResources defaultResources = new PDResources();
+    defaultResources.add(new PDShadingPattern());
+    defaultResources.add(new PDImageXObject(new PDDocument()));
+
+    // Act
+    PDDefaultAppearanceString actualPdDefaultAppearanceString =
+        new PDDefaultAppearanceString(defaultAppearance, defaultResources);
+
+    // Assert
+    assertNull(actualPdDefaultAppearanceString.getFontName());
+    assertNull(actualPdDefaultAppearanceString.getFont());
+    assertNull(actualPdDefaultAppearanceString.getFontColor());
+    assertEquals(12.0f, actualPdDefaultAppearanceString.getFontSize());
   }
 
   /**
@@ -199,6 +214,31 @@ class PDDefaultAppearanceStringDiffblueTest {
       throws IOException {
     // Arrange, Act and Assert
     assertThrows(IllegalArgumentException.class, () -> new PDDefaultAppearanceString(null, null));
+  }
+
+  /**
+   * Test {@link PDDefaultAppearanceString#PDDefaultAppearanceString(COSString, PDResources)}.
+   *
+   * <ul>
+   *   <li>When {@code null}.
+   *   <li>Then throw {@link IllegalArgumentException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDDefaultAppearanceString#PDDefaultAppearanceString(COSString,
+   * PDResources)}
+   */
+  @Test
+  @DisplayName(
+      "Test new PDDefaultAppearanceString(COSString, PDResources); when 'null'; then throw IllegalArgumentException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDDefaultAppearanceString.<init>(COSString, PDResources)"})
+  void testNewPDDefaultAppearanceString_whenNull_thenThrowIllegalArgumentException2()
+      throws IOException {
+    // Arrange, Act and Assert
+    assertThrows(
+        IllegalArgumentException.class,
+        () -> new PDDefaultAppearanceString(COSString.parseHex("0123456789ABCDEF"), null));
   }
 
   /**
@@ -344,6 +384,41 @@ class PDDefaultAppearanceStringDiffblueTest {
 
     // Assert
     verify(contents).setFont(isNull(), eq(12.0f));
+  }
+
+  /**
+   * Test {@link PDDefaultAppearanceString#writeTo(PDAppearanceContentStream, float)}.
+   *
+   * <ul>
+   *   <li>Given {@link IOException#IOException()}.
+   *   <li>Then throw {@link IOException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDDefaultAppearanceString#writeTo(PDAppearanceContentStream,
+   * float)}
+   */
+  @Test
+  @DisplayName(
+      "Test writeTo(PDAppearanceContentStream, float); given IOException(); then throw IOException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDDefaultAppearanceString.writeTo(PDAppearanceContentStream, float)"})
+  void testWriteTo_givenIOException_thenThrowIOException() throws IOException {
+    // Arrange
+    COSString defaultAppearance = COSString.parseHex("0123456789ABCDEF");
+
+    PDDefaultAppearanceString pdDefaultAppearanceString =
+        new PDDefaultAppearanceString(defaultAppearance, new PDResources());
+    pdDefaultAppearanceString.setFontColor(new PDColor(new COSArray(), PDDeviceGray.INSTANCE));
+
+    PDAppearanceContentStream contents = mock(PDAppearanceContentStream.class);
+    doThrow(new IOException()).when(contents).setNonStrokingColor(Mockito.<PDColor>any());
+    doNothing().when(contents).setFont(Mockito.<PDFont>any(), anyFloat());
+
+    // Act and Assert
+    assertThrows(IOException.class, () -> pdDefaultAppearanceString.writeTo(contents, 0.0f));
+    verify(contents).setFont(isNull(), eq(12.0f));
+    verify(contents).setNonStrokingColor(isA(PDColor.class));
   }
 
   /**

@@ -437,6 +437,35 @@ class ImageIOUtilDiffblueTest {
   }
 
   /**
+   * Test {@link ImageIOUtil#writeImage(BufferedImage, String, OutputStream, int, float, String)}
+   * with {@code image}, {@code formatName}, {@code output}, {@code dpi}, {@code
+   * compressionQuality}, {@code compressionType}.
+   *
+   * <p>Method under test: {@link ImageIOUtil#writeImage(BufferedImage, String, OutputStream, int,
+   * float, String)}
+   */
+  @Test
+  @DisplayName(
+      "Test writeImage(BufferedImage, String, OutputStream, int, float, String) with 'image', 'formatName', 'output', 'dpi', 'compressionQuality', 'compressionType'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "boolean ImageIOUtil.writeImage(BufferedImage, String, OutputStream, int, float, String)"
+  })
+  void testWriteImageWithImageFormatNameOutputDpiCompressionQualityCompressionType8()
+      throws IOException {
+    // Arrange
+    BufferedImage image = new BufferedImage(1, 1, BufferedImage.TYPE_BYTE_BINARY);
+    ByteArrayOutputStream output = new ByteArrayOutputStream();
+
+    // Act
+    ImageIOUtil.writeImage(image, "tif", output, 19088743, 0.0f, "CCITT T.6");
+
+    // Assert
+    assertEquals(187, output.toByteArray().length);
+  }
+
+  /**
    * Test {@link ImageIOUtil#writeImage(BufferedImage, String, OutputStream, int, float)} with
    * {@code image}, {@code formatName}, {@code output}, {@code dpi}, {@code compressionQuality}.
    *

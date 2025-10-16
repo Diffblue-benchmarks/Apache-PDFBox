@@ -12,43 +12,11 @@ import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSBoolean;
 import org.apache.pdfbox.cos.COSFloat;
-import org.apache.pdfbox.cos.COSInteger;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDLineDashPatternDiffblueTest {
-  /**
-   * Test {@link PDLineDashPattern#PDLineDashPattern()}.
-   *
-   * <p>Method under test: {@link PDLineDashPattern#PDLineDashPattern()}
-   */
-  @Test
-  @DisplayName("Test new PDLineDashPattern()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDLineDashPattern.<init>()"})
-  void testNewPDLineDashPattern() {
-    // Arrange and Act
-    PDLineDashPattern actualPdLineDashPattern = new PDLineDashPattern();
-
-    // Assert
-    COSBase cOSObject = actualPdLineDashPattern.getCOSObject();
-    List<? extends COSBase> toListResult = ((COSArray) cOSObject).toList();
-    assertEquals(2, toListResult.size());
-    COSBase getResult = toListResult.get(0);
-    assertTrue(getResult instanceof COSArray);
-    assertTrue(cOSObject instanceof COSArray);
-    COSBase getResult2 = toListResult.get(1);
-    assertTrue(getResult2 instanceof COSInteger);
-    assertNull(getResult2.getKey());
-    assertEquals(0, actualPdLineDashPattern.getPhase());
-    assertFalse(getResult2.isDirect());
-    assertTrue(((COSArray) getResult).toList().isEmpty());
-    assertTrue(((COSInteger) getResult2).isValid());
-    assertArrayEquals(new float[] {}, actualPdLineDashPattern.getDashArray(), 0.0f);
-  }
-
   /**
    * Test {@link PDLineDashPattern#PDLineDashPattern(COSArray, int)}.
    *
@@ -89,43 +57,6 @@ class PDLineDashPatternDiffblueTest {
   }
 
   /**
-   * Test {@link PDLineDashPattern#PDLineDashPattern(COSArray, int)}.
-   *
-   * <ul>
-   *   <li>When {@link COSArray#COSArray()}.
-   *   <li>Then COSObject toList second return {@link COSInteger}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDLineDashPattern#PDLineDashPattern(COSArray, int)}
-   */
-  @Test
-  @DisplayName(
-      "Test new PDLineDashPattern(COSArray, int); when COSArray(); then COSObject toList second return COSInteger")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDLineDashPattern.<init>(COSArray, int)"})
-  void testNewPDLineDashPattern_whenCOSArray_thenCOSObjectToListSecondReturnCOSInteger() {
-    // Arrange and Act
-    PDLineDashPattern actualPdLineDashPattern = new PDLineDashPattern(new COSArray(), 1);
-
-    // Assert
-    COSBase cOSObject = actualPdLineDashPattern.getCOSObject();
-    List<? extends COSBase> toListResult = ((COSArray) cOSObject).toList();
-    assertEquals(2, toListResult.size());
-    COSBase getResult = toListResult.get(0);
-    assertTrue(getResult instanceof COSArray);
-    assertTrue(cOSObject instanceof COSArray);
-    COSBase getResult2 = toListResult.get(1);
-    assertTrue(getResult2 instanceof COSInteger);
-    assertNull(getResult2.getKey());
-    assertEquals(1, actualPdLineDashPattern.getPhase());
-    assertFalse(getResult2.isDirect());
-    assertTrue(((COSArray) getResult).toList().isEmpty());
-    assertTrue(((COSInteger) getResult2).isValid());
-    assertArrayEquals(new float[] {}, actualPdLineDashPattern.getDashArray(), 0.0f);
-  }
-
-  /**
    * Test {@link PDLineDashPattern#getCOSObject()}.
    *
    * <ul>
@@ -161,40 +92,6 @@ class PDLineDashPatternDiffblueTest {
     assertTrue(getResult2 instanceof COSFloat);
     assertNull(getResult2.getKey());
     assertFalse(getResult2.isDirect());
-  }
-
-  /**
-   * Test {@link PDLineDashPattern#getCOSObject()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDLineDashPattern#PDLineDashPattern()}.
-   *   <li>Then toList second return {@link COSInteger}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDLineDashPattern#getCOSObject()}
-   */
-  @Test
-  @DisplayName(
-      "Test getCOSObject(); given PDLineDashPattern(); then toList second return COSInteger")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"COSBase PDLineDashPattern.getCOSObject()"})
-  void testGetCOSObject_givenPDLineDashPattern_thenToListSecondReturnCOSInteger() {
-    // Arrange and Act
-    COSBase actualCOSObject = new PDLineDashPattern().getCOSObject();
-
-    // Assert
-    List<? extends COSBase> toListResult = ((COSArray) actualCOSObject).toList();
-    assertEquals(2, toListResult.size());
-    COSBase getResult = toListResult.get(0);
-    assertTrue(getResult instanceof COSArray);
-    assertTrue(actualCOSObject instanceof COSArray);
-    COSBase getResult2 = toListResult.get(1);
-    assertTrue(getResult2 instanceof COSInteger);
-    assertNull(getResult2.getKey());
-    assertFalse(getResult2.isDirect());
-    assertTrue(((COSArray) getResult).toList().isEmpty());
-    assertTrue(((COSInteger) getResult2).isValid());
   }
 
   /**

@@ -869,6 +869,46 @@ class PDTerminalFieldDiffblueTest {
    * Test {@link PDTerminalField#setWidgets(List)}.
    *
    * <ul>
+   *   <li>Given {@link PDAcroForm#PDAcroForm(PDDocument)} with doc is {@link
+   *       PDDocument#PDDocument()} CacheFields is {@code true}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDTerminalField#setWidgets(List)}
+   */
+  @Test
+  @DisplayName(
+      "Test setWidgets(List); given PDAcroForm(PDDocument) with doc is PDDocument() CacheFields is 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDTerminalField.setWidgets(List)"})
+  void testSetWidgets_givenPDAcroFormWithDocIsPDDocumentCacheFieldsIsTrue() {
+    // Arrange
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    acroForm.setCacheFields(true);
+    PDCheckBox pdCheckBox = new PDCheckBox(acroForm);
+
+    ArrayList<PDAnnotationWidget> children = new ArrayList<>();
+    PDAnnotationWidget pdAnnotationWidget = new PDAnnotationWidget();
+    children.add(pdAnnotationWidget);
+
+    // Act
+    pdCheckBox.setWidgets(children);
+
+    // Assert
+    assertEquals(1, children.size());
+    List<PDAnnotationWidget> widgets = pdCheckBox.getWidgets();
+    assertEquals(1, widgets.size());
+    assertEquals(1, pdCheckBox.getOnValues().size());
+    COSDictionary cOSObject = children.get(0).getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+    assertEquals(pdAnnotationWidget, widgets.get(0));
+  }
+
+  /**
+   * Test {@link PDTerminalField#setWidgets(List)}.
+   *
+   * <ul>
    *   <li>Given {@link PDAnnotationWidget#PDAnnotationWidget()}.
    *   <li>Then {@link ArrayList#ArrayList()} size is one.
    * </ul>

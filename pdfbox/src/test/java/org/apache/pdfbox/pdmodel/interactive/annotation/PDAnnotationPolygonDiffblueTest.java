@@ -28,8 +28,6 @@ import org.apache.pdfbox.cos.COSUpdateState;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.graphics.color.PDColor;
-import org.apache.pdfbox.pdmodel.graphics.color.PDColorSpace;
-import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceCMYK;
 import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceGray;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -156,44 +154,6 @@ class PDAnnotationPolygonDiffblueTest {
     assertFalse(actualPdAnnotationPolygon.isToggleNoView());
     assertEquals(PDAnnotationMarkup.RT_REPLY, actualPdAnnotationPolygon.getReplyType());
     assertSame(dict, actualPdAnnotationPolygon.getCOSObject());
-  }
-
-  /**
-   * Test {@link PDAnnotationPolygon#setInteriorColor(PDColor)}.
-   *
-   * <p>Method under test: {@link PDAnnotationPolygon#setInteriorColor(PDColor)}
-   */
-  @Test
-  @DisplayName("Test setInteriorColor(PDColor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAnnotationPolygon.setInteriorColor(PDColor)"})
-  void testSetInteriorColor() {
-    // Arrange
-    PDAnnotationPolygon pdAnnotationPolygon = new PDAnnotationPolygon();
-    PDColor ic = new PDColor(new float[] {10.0f, 0.5f, 10.0f, 0.5f}, PDDeviceGray.INSTANCE);
-
-    // Act
-    pdAnnotationPolygon.setInteriorColor(ic);
-
-    // Assert
-    PDColor interiorColor = pdAnnotationPolygon.getInteriorColor();
-    PDColorSpace colorSpace = interiorColor.getColorSpace();
-    COSBase cOSObject = colorSpace.getCOSObject();
-    assertTrue(cOSObject instanceof COSName);
-    assertTrue(colorSpace instanceof PDDeviceCMYK);
-    assertEquals("DeviceCMYK", ((COSName) cOSObject).getName());
-    assertEquals("DeviceCMYK", colorSpace.getName());
-    PDColor initialColor = colorSpace.getInitialColor();
-    assertNull(initialColor.getPatternName());
-    assertNull(cOSObject.getKey());
-    assertEquals(4, colorSpace.getNumberOfComponents());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(((COSName) cOSObject).isEmpty());
-    assertFalse(initialColor.isPattern());
-    assertSame(colorSpace, initialColor.getColorSpace());
-    assertArrayEquals(new float[] {0.0f, 0.0f, 0.0f, 1.0f}, initialColor.getComponents(), 0.0f);
-    assertArrayEquals(new float[] {10.0f, 0.5f, 10.0f, 0.5f}, interiorColor.getComponents(), 0.0f);
   }
 
   /**

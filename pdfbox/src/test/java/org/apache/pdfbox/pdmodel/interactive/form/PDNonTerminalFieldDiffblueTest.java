@@ -306,40 +306,6 @@ class PDNonTerminalFieldDiffblueTest {
    * Test {@link PDNonTerminalField#importFDF(FDFField)}.
    *
    * <ul>
-   *   <li>Given one.
-   *   <li>When {@link FDFField#FDFField()} ClearFieldFlags is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDNonTerminalField#importFDF(FDFField)}
-   */
-  @Test
-  @DisplayName("Test importFDF(FDFField); given one; when FDFField() ClearFieldFlags is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDNonTerminalField.importFDF(FDFField)"})
-  void testImportFDF_givenOne_whenFDFFieldClearFieldFlagsIsOne() throws IOException {
-    // Arrange
-    PDNonTerminalField pdNonTerminalField =
-        new PDNonTerminalField(new PDAcroForm(new PDDocument()));
-
-    FDFField fdfField = new FDFField();
-    fdfField.setClearFieldFlags((Integer) 1);
-
-    // Act
-    pdNonTerminalField.importFDF(fdfField);
-
-    // Assert
-    assertEquals("", pdNonTerminalField.getValueAsString());
-    assertNull(pdNonTerminalField.getValue());
-    COSDictionary cOSObject = pdNonTerminalField.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDNonTerminalField#importFDF(FDFField)}.
-   *
-   * <ul>
    *   <li>Given {@link PDNonTerminalField#PDNonTerminalField(PDAcroForm)} with acroForm is {@link
    *       PDAcroForm#PDAcroForm(PDDocument)} ReadOnly is {@code true}.
    * </ul>
@@ -364,6 +330,42 @@ class PDNonTerminalFieldDiffblueTest {
 
     // Assert that nothing has changed
     assertEquals("", pdNonTerminalField.getValueAsString());
+    COSDictionary cOSObject = pdNonTerminalField.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDNonTerminalField#importFDF(FDFField)}.
+   *
+   * <ul>
+   *   <li>Then {@link PDNonTerminalField#PDNonTerminalField(PDAcroForm)} with acroForm is {@link
+   *       PDAcroForm#PDAcroForm(PDDocument)} Value is {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDNonTerminalField#importFDF(FDFField)}
+   */
+  @Test
+  @DisplayName(
+      "Test importFDF(FDFField); then PDNonTerminalField(PDAcroForm) with acroForm is PDAcroForm(PDDocument) Value is 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDNonTerminalField.importFDF(FDFField)"})
+  void testImportFDF_thenPDNonTerminalFieldWithAcroFormIsPDAcroFormValueIsNull()
+      throws IOException {
+    // Arrange
+    PDNonTerminalField pdNonTerminalField =
+        new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+
+    FDFField fdfField = new FDFField();
+    fdfField.setClearFieldFlags((Integer) 1);
+
+    // Act
+    pdNonTerminalField.importFDF(fdfField);
+
+    // Assert
+    assertEquals("", pdNonTerminalField.getValueAsString());
+    assertNull(pdNonTerminalField.getValue());
     COSDictionary cOSObject = pdNonTerminalField.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
@@ -424,8 +426,6 @@ class PDNonTerminalFieldDiffblueTest {
     pdNonTerminalField.importFDF(fdfField);
 
     // Assert
-    assertEquals("", pdNonTerminalField.getValueAsString());
-    assertNull(pdNonTerminalField.getValue());
     COSDictionary cOSObject = pdNonTerminalField.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
@@ -459,13 +459,52 @@ class PDNonTerminalFieldDiffblueTest {
     pdNonTerminalField.importFDF(fdfField);
 
     // Assert
-    assertEquals("", pdNonTerminalField.getValueAsString());
-    assertNull(pdNonTerminalField.getValue());
     COSDictionary cOSObject = pdNonTerminalField.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
     assertEquals(1, pdNonTerminalField.getFieldFlags());
     assertTrue(pdNonTerminalField.isReadOnly());
+  }
+
+  /**
+   * Test {@link PDNonTerminalField#exportFDF()}.
+   *
+   * <ul>
+   *   <li>Given {@link PDNonTerminalField#PDNonTerminalField(PDAcroForm)} with acroForm is {@link
+   *       PDAcroForm#PDAcroForm(PDDocument)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDNonTerminalField#exportFDF()}
+   */
+  @Test
+  @DisplayName(
+      "Test exportFDF(); given PDNonTerminalField(PDAcroForm) with acroForm is PDAcroForm(PDDocument)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"FDFField PDNonTerminalField.exportFDF()"})
+  void testExportFDF_givenPDNonTerminalFieldWithAcroFormIsPDAcroForm() throws IOException {
+    // Arrange and Act
+    FDFField actualExportFDFResult =
+        new PDNonTerminalField(new PDAcroForm(new PDDocument())).exportFDF();
+
+    // Assert
+    assertNull(actualExportFDFResult.getClearFieldFlags());
+    assertNull(actualExportFDFResult.getClearWidgetFieldFlags());
+    assertNull(actualExportFDFResult.getFieldFlags());
+    assertNull(actualExportFDFResult.getSetFieldFlags());
+    assertNull(actualExportFDFResult.getSetWidgetFieldFlags());
+    assertNull(actualExportFDFResult.getWidgetFieldFlags());
+    assertNull(actualExportFDFResult.getValue());
+    assertNull(actualExportFDFResult.getPartialFieldName());
+    assertNull(actualExportFDFResult.getRichText());
+    assertNull(actualExportFDFResult.getOptions());
+    assertNull(actualExportFDFResult.getCOSValue());
+    assertNull(actualExportFDFResult.getIconFit());
+    assertNull(actualExportFDFResult.getAppearanceStreamReference());
+    assertNull(actualExportFDFResult.getAction());
+    assertNull(actualExportFDFResult.getAdditionalActions());
+    assertNull(actualExportFDFResult.getAppearanceDictionary());
+    assertTrue(actualExportFDFResult.getKids().isEmpty());
   }
 
   /**
@@ -543,45 +582,6 @@ class PDNonTerminalFieldDiffblueTest {
     assertNull(actualExportFDFResult.getSetWidgetFieldFlags());
     assertNull(actualExportFDFResult.getWidgetFieldFlags());
     assertNull(actualExportFDFResult.getValue());
-    assertNull(actualExportFDFResult.getRichText());
-    assertNull(actualExportFDFResult.getOptions());
-    assertNull(actualExportFDFResult.getCOSValue());
-    assertNull(actualExportFDFResult.getIconFit());
-    assertNull(actualExportFDFResult.getAppearanceStreamReference());
-    assertNull(actualExportFDFResult.getAction());
-    assertNull(actualExportFDFResult.getAdditionalActions());
-    assertNull(actualExportFDFResult.getAppearanceDictionary());
-    assertTrue(actualExportFDFResult.getKids().isEmpty());
-  }
-
-  /**
-   * Test {@link PDNonTerminalField#exportFDF()}.
-   *
-   * <ul>
-   *   <li>Then return PartialFieldName is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDNonTerminalField#exportFDF()}
-   */
-  @Test
-  @DisplayName("Test exportFDF(); then return PartialFieldName is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"FDFField PDNonTerminalField.exportFDF()"})
-  void testExportFDF_thenReturnPartialFieldNameIsNull() throws IOException {
-    // Arrange and Act
-    FDFField actualExportFDFResult =
-        new PDNonTerminalField(new PDAcroForm(new PDDocument())).exportFDF();
-
-    // Assert
-    assertNull(actualExportFDFResult.getClearFieldFlags());
-    assertNull(actualExportFDFResult.getClearWidgetFieldFlags());
-    assertNull(actualExportFDFResult.getFieldFlags());
-    assertNull(actualExportFDFResult.getSetFieldFlags());
-    assertNull(actualExportFDFResult.getSetWidgetFieldFlags());
-    assertNull(actualExportFDFResult.getWidgetFieldFlags());
-    assertNull(actualExportFDFResult.getValue());
-    assertNull(actualExportFDFResult.getPartialFieldName());
     assertNull(actualExportFDFResult.getRichText());
     assertNull(actualExportFDFResult.getOptions());
     assertNull(actualExportFDFResult.getCOSValue());
@@ -1035,17 +1035,18 @@ class PDNonTerminalFieldDiffblueTest {
    * Test {@link PDNonTerminalField#getDefaultValue()}.
    *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDAcroForm#PDAcroForm(PDDocument)} with doc is {@link
+   *       PDDocument#PDDocument()}.
    * </ul>
    *
    * <p>Method under test: {@link PDNonTerminalField#getDefaultValue()}
    */
   @Test
-  @DisplayName("Test getDefaultValue(); then return 'null'")
+  @DisplayName("Test getDefaultValue(); given PDAcroForm(PDDocument) with doc is PDDocument()")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"COSBase PDNonTerminalField.getDefaultValue()"})
-  void testGetDefaultValue_thenReturnNull() {
+  void testGetDefaultValue_givenPDAcroFormWithDocIsPDDocument() {
     // Arrange, Act and Assert
     assertNull(new PDNonTerminalField(new PDAcroForm(new PDDocument())).getDefaultValue());
   }

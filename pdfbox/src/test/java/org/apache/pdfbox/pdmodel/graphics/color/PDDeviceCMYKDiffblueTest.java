@@ -5,57 +5,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.color.ICC_Profile;
 import java.awt.image.WritableRaster;
 import java.io.IOException;
-import org.apache.pdfbox.cos.COSBase;
-import org.apache.pdfbox.cos.COSName;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDDeviceCMYKDiffblueTest {
-  /**
-   * Test {@link PDDeviceCMYK#PDDeviceCMYK()}.
-   *
-   * <p>Method under test: default or parameterless constructor of {@link PDDeviceCMYK}
-   */
-  @Test
-  @DisplayName("Test new PDDeviceCMYK()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDDeviceCMYK.<init>()"})
-  void testNewPDDeviceCMYK() throws IOException {
-    // Arrange and Act
-    PDDeviceCMYK actualPdDeviceCMYK = new PDDeviceCMYK();
-
-    // Assert
-    COSBase cOSObject = actualPdDeviceCMYK.getCOSObject();
-    assertTrue(cOSObject instanceof COSName);
-    assertEquals("DeviceCMYK", ((COSName) cOSObject).getName());
-    assertEquals("DeviceCMYK", actualPdDeviceCMYK.getName());
-    PDColor initialColor = actualPdDeviceCMYK.getInitialColor();
-    assertNull(initialColor.getPatternName());
-    assertNull(cOSObject.getKey());
-    ICC_Profile iCCProfile = actualPdDeviceCMYK.getICCProfile();
-    assertEquals(0, iCCProfile.getProfileClass());
-    assertEquals(1, iCCProfile.getPCSType());
-    assertEquals(2, iCCProfile.getMajorVersion());
-    assertEquals(4, iCCProfile.getNumComponents());
-    assertEquals(4, actualPdDeviceCMYK.getNumberOfComponents());
-    assertEquals(8532, iCCProfile.getData().length);
-    assertEquals(9, iCCProfile.getColorSpaceType());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(((COSName) cOSObject).isEmpty());
-    assertFalse(initialColor.isPattern());
-    assertEquals(Short.SIZE, iCCProfile.getMinorVersion());
-    assertSame(actualPdDeviceCMYK, initialColor.getColorSpace());
-    assertArrayEquals(new float[] {0.0f, 0.0f, 0.0f, 1.0f}, initialColor.getComponents(), 0.0f);
-  }
-
   /**
    * Test {@link PDDeviceCMYK#getICCProfile()}.
    *

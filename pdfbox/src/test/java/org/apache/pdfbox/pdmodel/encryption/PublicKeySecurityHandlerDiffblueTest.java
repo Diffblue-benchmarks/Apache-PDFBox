@@ -110,58 +110,23 @@ class PublicKeySecurityHandlerDiffblueTest {
   /**
    * Test {@link PublicKeySecurityHandler#prepareDocumentForEncryption(PDDocument)}.
    *
-   * <p>Method under test: {@link PublicKeySecurityHandler#prepareDocumentForEncryption(PDDocument)}
-   */
-  @Test
-  @DisplayName("Test prepareDocumentForEncryption(PDDocument)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PublicKeySecurityHandler.prepareDocumentForEncryption(PDDocument)"})
-  void testPrepareDocumentForEncryption() throws IOException {
-    // Arrange
-    PublicKeySecurityHandler publicKeySecurityHandler = new PublicKeySecurityHandler();
-    publicKeySecurityHandler.setProtectionPolicy(new PublicKeyProtectionPolicy());
-    PDDocument doc = new PDDocument();
-
-    // Act
-    publicKeySecurityHandler.prepareDocumentForEncryption(doc);
-
-    // Assert
-    PDEncryption encryption = doc.getEncryption();
-    assertEquals("adbe.pkcs7.s4", encryption.getSubFilter());
-    assertNull(encryption.getOwnerEncryptionKey());
-    assertNull(encryption.getOwnerKey());
-    assertNull(encryption.getPerms());
-    assertNull(encryption.getUserEncryptionKey());
-    assertNull(encryption.getUserKey());
-    assertNull(encryption.getDefaultCryptFilterDictionary());
-    assertNull(encryption.getStdCryptFilterDictionary());
-    assertEquals(0, encryption.getPermissions());
-    assertEquals(0, encryption.getRecipientsLength());
-    assertEquals(0, encryption.getRevision());
-    assertEquals(1, encryption.getVersion());
-    assertTrue(doc.getDocument().isEncrypted());
-    assertTrue(doc.isEncrypted());
-    assertTrue(encryption.hasSecurityHandler());
-    assertTrue(encryption.isEncryptMetaData());
-    assertEquals(PDEncryption.DEFAULT_LENGTH, encryption.getLength());
-    assertEquals(PublicKeySecurityHandler.FILTER, encryption.getFilter());
-  }
-
-  /**
-   * Test {@link PublicKeySecurityHandler#prepareDocumentForEncryption(PDDocument)}.
+   * <ul>
+   *   <li>Then {@link PDDocument#PDDocument()} Encryption SubFilter is {@code adbe.pkcs7.s4}.
+   * </ul>
    *
    * <p>Method under test: {@link PublicKeySecurityHandler#prepareDocumentForEncryption(PDDocument)}
    */
   @Test
-  @DisplayName("Test prepareDocumentForEncryption(PDDocument)")
+  @DisplayName(
+      "Test prepareDocumentForEncryption(PDDocument); then PDDocument() Encryption SubFilter is 'adbe.pkcs7.s4'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PublicKeySecurityHandler.prepareDocumentForEncryption(PDDocument)"})
-  void testPrepareDocumentForEncryption2() throws IOException {
+  void testPrepareDocumentForEncryption_thenPDDocumentEncryptionSubFilterIsAdbePkcs7S4()
+      throws IOException {
     // Arrange
-    PublicKeySecurityHandler publicKeySecurityHandler =
-        new PublicKeySecurityHandler(new PublicKeyProtectionPolicy());
+    PublicKeySecurityHandler publicKeySecurityHandler = new PublicKeySecurityHandler();
+    publicKeySecurityHandler.setProtectionPolicy(new PublicKeyProtectionPolicy());
     PDDocument doc = new PDDocument();
 
     // Act

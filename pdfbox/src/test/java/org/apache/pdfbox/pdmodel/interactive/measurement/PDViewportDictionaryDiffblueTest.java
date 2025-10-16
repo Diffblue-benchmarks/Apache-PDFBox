@@ -214,27 +214,28 @@ class PDViewportDictionaryDiffblueTest {
    * Test {@link PDViewportDictionary#setName(String)}.
    *
    * <ul>
-   *   <li>When {@code NameName}.
-   *   <li>Then {@link PDViewportDictionary#PDViewportDictionary()} Name is {@code NameName}.
+   *   <li>Given {@link PDViewportDictionary#PDViewportDictionary()}.
+   *   <li>When {@code 42}.
+   *   <li>Then {@link PDViewportDictionary#PDViewportDictionary()} Name is {@code 42}.
    * </ul>
    *
    * <p>Method under test: {@link PDViewportDictionary#setName(String)}
    */
   @Test
   @DisplayName(
-      "Test setName(String); when 'NameName'; then PDViewportDictionary() Name is 'NameName'")
+      "Test setName(String); given PDViewportDictionary(); when '42'; then PDViewportDictionary() Name is '42'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDViewportDictionary.setName(String)"})
-  void testSetName_whenNameName_thenPDViewportDictionaryNameIsNameName() {
+  void testSetName_givenPDViewportDictionary_when42_thenPDViewportDictionaryNameIs42() {
     // Arrange
     PDViewportDictionary pdViewportDictionary = new PDViewportDictionary();
 
     // Act
-    pdViewportDictionary.setName("NameName");
+    pdViewportDictionary.setName("42");
 
     // Assert
-    assertEquals("NameName", pdViewportDictionary.getName());
+    assertEquals("42", pdViewportDictionary.getName());
     COSDictionary cOSObject = pdViewportDictionary.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());

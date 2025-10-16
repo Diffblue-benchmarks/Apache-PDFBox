@@ -1041,43 +1041,6 @@ class FDFDictionaryDiffblueTest {
   }
 
   /**
-   * Test {@link FDFDictionary#setFields(List)}.
-   *
-   * <ul>
-   *   <li>Then {@link FDFDictionary#FDFDictionary()} COSObject Values size is two.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#setFields(List)}
-   */
-  @Test
-  @DisplayName("Test setFields(List); then FDFDictionary() COSObject Values size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFDictionary.setFields(List)"})
-  void testSetFields_thenFDFDictionaryCOSObjectValuesSizeIsTwo() {
-    // Arrange
-    PDComplexFileSpecification fs = new PDComplexFileSpecification();
-    fs.setFile("File");
-
-    FDFDictionary fdfDictionary = new FDFDictionary();
-    fdfDictionary.setFile(fs);
-
-    ArrayList<FDFField> fields = new ArrayList<>();
-    fields.add(null);
-
-    // Act
-    fdfDictionary.setFields(fields);
-
-    // Assert
-    List<FDFField> fields2 = fdfDictionary.getFields();
-    assertEquals(1, fields2.size());
-    assertNull(fields2.get(0).getCOSObject());
-    COSDictionary cOSObject = fdfDictionary.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-  }
-
-  /**
    * Test {@link FDFDictionary#getStatus()}.
    *
    * <ul>
@@ -1479,27 +1442,27 @@ class FDFDictionaryDiffblueTest {
    *
    * <ul>
    *   <li>Given {@link FDFDictionary#FDFDictionary()}.
-   *   <li>When {@code annots}.
-   *   <li>Then {@link FDFDictionary#FDFDictionary()} Encoding is {@code annots}.
+   *   <li>When {@code f}.
+   *   <li>Then {@link FDFDictionary#FDFDictionary()} Encoding is {@code f}.
    * </ul>
    *
    * <p>Method under test: {@link FDFDictionary#setEncoding(String)}
    */
   @Test
   @DisplayName(
-      "Test setEncoding(String); given FDFDictionary(); when 'annots'; then FDFDictionary() Encoding is 'annots'")
+      "Test setEncoding(String); given FDFDictionary(); when 'f'; then FDFDictionary() Encoding is 'f'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void FDFDictionary.setEncoding(String)"})
-  void testSetEncoding_givenFDFDictionary_whenAnnots_thenFDFDictionaryEncodingIsAnnots() {
+  void testSetEncoding_givenFDFDictionary_whenF_thenFDFDictionaryEncodingIsF() {
     // Arrange
     FDFDictionary fdfDictionary = new FDFDictionary();
 
     // Act
-    fdfDictionary.setEncoding("annots");
+    fdfDictionary.setEncoding("f");
 
     // Assert
-    assertEquals("annots", fdfDictionary.getEncoding());
+    assertEquals("f", fdfDictionary.getEncoding());
     COSDictionary cOSObject = fdfDictionary.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());

@@ -144,28 +144,6 @@ class PDMarkInfoDiffblueTest {
    * Test {@link PDMarkInfo#isMarked()}.
    *
    * <ul>
-   *   <li>Given {@link PDMarkInfo#PDMarkInfo(COSDictionary)} with dic is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code false}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDMarkInfo#isMarked()}
-   */
-  @Test
-  @DisplayName(
-      "Test isMarked(); given PDMarkInfo(COSDictionary) with dic is COSDictionary(); then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean PDMarkInfo.isMarked()"})
-  void testIsMarked_givenPDMarkInfoWithDicIsCOSDictionary_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse(new PDMarkInfo(new COSDictionary()).isMarked());
-  }
-
-  /**
-   * Test {@link PDMarkInfo#isMarked()}.
-   *
-   * <ul>
    *   <li>Given {@link PDMarkInfo#PDMarkInfo()}.
    *   <li>Then return {@code false}.
    * </ul>

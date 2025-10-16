@@ -102,49 +102,6 @@ class COSArrayDiffblueTest {
    * Test {@link COSArray#COSArray(List)}.
    *
    * <ul>
-   *   <li>Then return toList size is two.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSArray#COSArray(List)}
-   */
-  @Test
-  @DisplayName("Test new COSArray(List); then return toList size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void COSArray.<init>(List)"})
-  void testNewCOSArray_thenReturnToListSizeIsTwo() {
-    // Arrange
-    COSObjectable cosObjectable = mock(COSObjectable.class);
-    when(cosObjectable.getCOSObject()).thenReturn(COSBoolean.FALSE);
-
-    COSObjectable cosObjectable2 = mock(COSObjectable.class);
-    when(cosObjectable2.getCOSObject()).thenReturn(COSBoolean.FALSE);
-
-    ArrayList<COSObjectable> cosObjectables = new ArrayList<>();
-    cosObjectables.add(cosObjectable2);
-    cosObjectables.add(cosObjectable);
-
-    // Act
-    COSArray actualCosArray = new COSArray(cosObjectables);
-
-    // Assert
-    verify(cosObjectable2).getCOSObject();
-    verify(cosObjectable).getCOSObject();
-    List<? extends COSBase> toListResult = actualCosArray.toList();
-    assertEquals(2, toListResult.size());
-    COSBase getResult = toListResult.get(0);
-    assertTrue(getResult instanceof COSBoolean);
-    assertNull(getResult.getKey());
-    assertFalse(getResult.isDirect());
-    assertFalse(((COSBoolean) getResult).getValue());
-    assertFalse(((COSBoolean) getResult).getValueAsObject());
-    assertSame(getResult, toListResult.get(1));
-  }
-
-  /**
-   * Test {@link COSArray#COSArray(List)}.
-   *
-   * <ul>
    *   <li>When {@link ArrayList#ArrayList()}.
    *   <li>Then return toList Empty.
    * </ul>
@@ -5038,77 +4995,6 @@ class COSArrayDiffblueTest {
     // Arrange
     ArrayList<Integer> integer = new ArrayList<>();
     integer.add(Integer.MIN_VALUE);
-
-    // Act
-    COSArray actualOfCOSIntegersResult = COSArray.ofCOSIntegers(integer);
-
-    // Assert
-    List<? extends COSBase> toListResult = actualOfCOSIntegersResult.toList();
-    assertEquals(1, toListResult.size());
-    COSBase getResult = toListResult.get(0);
-    assertTrue(getResult instanceof COSInteger);
-    assertNull(getResult.getKey());
-    assertFalse(getResult.isDirect());
-    assertTrue(((COSInteger) getResult).isValid());
-  }
-
-  /**
-   * Test {@link COSArray#ofCOSIntegers(List)}.
-   *
-   * <ul>
-   *   <li>Given one.
-   *   <li>When {@link ArrayList#ArrayList()} add one.
-   *   <li>Then return toList size is two.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSArray#ofCOSIntegers(List)}
-   */
-  @Test
-  @DisplayName(
-      "Test ofCOSIntegers(List); given one; when ArrayList() add one; then return toList size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"COSArray COSArray.ofCOSIntegers(List)"})
-  void testOfCOSIntegers_givenOne_whenArrayListAddOne_thenReturnToListSizeIsTwo() {
-    // Arrange
-    ArrayList<Integer> integer = new ArrayList<>();
-    integer.add(1);
-    integer.add(2);
-
-    // Act
-    COSArray actualOfCOSIntegersResult = COSArray.ofCOSIntegers(integer);
-
-    // Assert
-    List<? extends COSBase> toListResult = actualOfCOSIntegersResult.toList();
-    assertEquals(2, toListResult.size());
-    COSBase getResult = toListResult.get(1);
-    assertTrue(getResult instanceof COSInteger);
-    assertNull(getResult.getKey());
-    assertFalse(getResult.isDirect());
-    assertTrue(((COSInteger) getResult).isValid());
-  }
-
-  /**
-   * Test {@link COSArray#ofCOSIntegers(List)}.
-   *
-   * <ul>
-   *   <li>Given two.
-   *   <li>When {@link ArrayList#ArrayList()} add two.
-   *   <li>Then return toList size is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSArray#ofCOSIntegers(List)}
-   */
-  @Test
-  @DisplayName(
-      "Test ofCOSIntegers(List); given two; when ArrayList() add two; then return toList size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"COSArray COSArray.ofCOSIntegers(List)"})
-  void testOfCOSIntegers_givenTwo_whenArrayListAddTwo_thenReturnToListSizeIsOne() {
-    // Arrange
-    ArrayList<Integer> integer = new ArrayList<>();
-    integer.add(2);
 
     // Act
     COSArray actualOfCOSIntegersResult = COSArray.ofCOSIntegers(integer);

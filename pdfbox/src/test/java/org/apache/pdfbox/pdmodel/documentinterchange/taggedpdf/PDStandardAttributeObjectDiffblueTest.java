@@ -160,6 +160,34 @@ class PDStandardAttributeObjectDiffblueTest {
   }
 
   /**
+   * Test {@link PDStandardAttributeObject#setString(String, String)}.
+   *
+   * <ul>
+   *   <li>When {@code org.apache.pdfbox.cos.COSArray}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDStandardAttributeObject#setString(String, String)}
+   */
+  @Test
+  @DisplayName("Test setString(String, String); when 'org.apache.pdfbox.cos.COSArray'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDStandardAttributeObject.setString(String, String)"})
+  void testSetString_whenOrgApachePdfboxCosCOSArray() {
+    // Arrange
+    PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
+
+    // Act
+    pdLayoutAttributeObject.setString("org.apache.pdfbox.cos.COSArray", "42");
+
+    // Assert
+    COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertFalse(pdLayoutAttributeObject.isEmpty());
+  }
+
+  /**
    * Test {@link PDStandardAttributeObject#getArrayOfString(String)}.
    *
    * <ul>
@@ -258,28 +286,6 @@ class PDStandardAttributeObjectDiffblueTest {
    * Test {@link PDStandardAttributeObject#getName(String)} with {@code name}.
    *
    * <ul>
-   *   <li>Given {@link PDExportFormatAttributeObject#PDExportFormatAttributeObject(String)} with
-   *       {@code Owner}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDStandardAttributeObject#getName(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test getName(String) with 'name'; given PDExportFormatAttributeObject(String) with 'Owner'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDStandardAttributeObject.getName(String)"})
-  void testGetNameWithName_givenPDExportFormatAttributeObjectWithOwner() {
-    // Arrange, Act and Assert
-    assertNull(
-        new PDExportFormatAttributeObject("Owner").getName("42org.apache.pdfbox.cos.COSNumber"));
-  }
-
-  /**
-   * Test {@link PDStandardAttributeObject#getName(String)} with {@code name}.
-   *
-   * <ul>
    *   <li>Given {@link PDLayoutAttributeObject#PDLayoutAttributeObject()}.
    *   <li>When {@code Name}.
    *   <li>Then return {@code null}.
@@ -299,10 +305,32 @@ class PDStandardAttributeObjectDiffblueTest {
   }
 
   /**
+   * Test {@link PDStandardAttributeObject#getName(String)} with {@code name}.
+   *
+   * <ul>
+   *   <li>When {@code org.apache.pdfbox.cos.COSArray}.
+   *   <li>Then return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDStandardAttributeObject#getName(String)}
+   */
+  @Test
+  @DisplayName(
+      "Test getName(String) with 'name'; when 'org.apache.pdfbox.cos.COSArray'; then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PDStandardAttributeObject.getName(String)"})
+  void testGetNameWithName_whenOrgApachePdfboxCosCOSArray_thenReturnNull() {
+    // Arrange, Act and Assert
+    assertNull(new PDLayoutAttributeObject().getName("org.apache.pdfbox.cos.COSArray"));
+  }
+
+  /**
    * Test {@link PDStandardAttributeObject#getNameOrArrayOfName(String, String)}.
    *
    * <ul>
    *   <li>Given {@link PDLayoutAttributeObject#PDLayoutAttributeObject()}.
+   *   <li>When {@code Name}.
    *   <li>Then return {@code 42}.
    * </ul>
    *
@@ -310,15 +338,40 @@ class PDStandardAttributeObjectDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test getNameOrArrayOfName(String, String); given PDLayoutAttributeObject(); then return '42'")
+      "Test getNameOrArrayOfName(String, String); given PDLayoutAttributeObject(); when 'Name'; then return '42'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({
     "java.lang.Object PDStandardAttributeObject.getNameOrArrayOfName(String, String)"
   })
-  void testGetNameOrArrayOfName_givenPDLayoutAttributeObject_thenReturn42() {
+  void testGetNameOrArrayOfName_givenPDLayoutAttributeObject_whenName_thenReturn42() {
     // Arrange, Act and Assert
     assertEquals("42", new PDLayoutAttributeObject().getNameOrArrayOfName("Name", "42"));
+  }
+
+  /**
+   * Test {@link PDStandardAttributeObject#getNameOrArrayOfName(String, String)}.
+   *
+   * <ul>
+   *   <li>When {@code org.apache.pdfbox.cos.COSArray}.
+   *   <li>Then return {@code 42}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDStandardAttributeObject#getNameOrArrayOfName(String, String)}
+   */
+  @Test
+  @DisplayName(
+      "Test getNameOrArrayOfName(String, String); when 'org.apache.pdfbox.cos.COSArray'; then return '42'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "java.lang.Object PDStandardAttributeObject.getNameOrArrayOfName(String, String)"
+  })
+  void testGetNameOrArrayOfName_whenOrgApachePdfboxCosCOSArray_thenReturn42() {
+    // Arrange, Act and Assert
+    assertEquals(
+        "42",
+        new PDLayoutAttributeObject().getNameOrArrayOfName("org.apache.pdfbox.cos.COSArray", "42"));
   }
 
   /**
@@ -477,6 +530,7 @@ class PDStandardAttributeObjectDiffblueTest {
    *
    * <ul>
    *   <li>Given {@link PDLayoutAttributeObject#PDLayoutAttributeObject()}.
+   *   <li>When {@code Name}.
    *   <li>Then return {@code 42}.
    * </ul>
    *
@@ -484,13 +538,36 @@ class PDStandardAttributeObjectDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test getNumberOrName(String, String); given PDLayoutAttributeObject(); then return '42'")
+      "Test getNumberOrName(String, String); given PDLayoutAttributeObject(); when 'Name'; then return '42'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"java.lang.Object PDStandardAttributeObject.getNumberOrName(String, String)"})
-  void testGetNumberOrName_givenPDLayoutAttributeObject_thenReturn42() {
+  void testGetNumberOrName_givenPDLayoutAttributeObject_whenName_thenReturn42() {
     // Arrange, Act and Assert
     assertEquals("42", new PDLayoutAttributeObject().getNumberOrName("Name", "42"));
+  }
+
+  /**
+   * Test {@link PDStandardAttributeObject#getNumberOrName(String, String)}.
+   *
+   * <ul>
+   *   <li>When {@code org.apache.pdfbox.cos.COSArray}.
+   *   <li>Then return {@code 42}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDStandardAttributeObject#getNumberOrName(String, String)}
+   */
+  @Test
+  @DisplayName(
+      "Test getNumberOrName(String, String); when 'org.apache.pdfbox.cos.COSArray'; then return '42'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.lang.Object PDStandardAttributeObject.getNumberOrName(String, String)"})
+  void testGetNumberOrName_whenOrgApachePdfboxCosCOSArray_thenReturn42() {
+    // Arrange, Act and Assert
+    assertEquals(
+        "42",
+        new PDLayoutAttributeObject().getNumberOrName("org.apache.pdfbox.cos.COSArray", "42"));
   }
 
   /**
@@ -498,6 +575,7 @@ class PDStandardAttributeObjectDiffblueTest {
    *
    * <ul>
    *   <li>Given {@link PDLayoutAttributeObject#PDLayoutAttributeObject()}.
+   *   <li>When {@code Name}.
    *   <li>Then return forty-two.
    * </ul>
    *
@@ -505,13 +583,35 @@ class PDStandardAttributeObjectDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test getInteger(String, int); given PDLayoutAttributeObject(); then return forty-two")
+      "Test getInteger(String, int); given PDLayoutAttributeObject(); when 'Name'; then return forty-two")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"int PDStandardAttributeObject.getInteger(String, int)"})
-  void testGetInteger_givenPDLayoutAttributeObject_thenReturnFortyTwo() {
+  void testGetInteger_givenPDLayoutAttributeObject_whenName_thenReturnFortyTwo() {
     // Arrange, Act and Assert
     assertEquals(42, new PDLayoutAttributeObject().getInteger("Name", 42));
+  }
+
+  /**
+   * Test {@link PDStandardAttributeObject#getInteger(String, int)}.
+   *
+   * <ul>
+   *   <li>When {@code org.apache.pdfbox.cos.COSArray}.
+   *   <li>Then return forty-two.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDStandardAttributeObject#getInteger(String, int)}
+   */
+  @Test
+  @DisplayName(
+      "Test getInteger(String, int); when 'org.apache.pdfbox.cos.COSArray'; then return forty-two")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"int PDStandardAttributeObject.getInteger(String, int)"})
+  void testGetInteger_whenOrgApachePdfboxCosCOSArray_thenReturnFortyTwo() {
+    // Arrange, Act and Assert
+    assertEquals(
+        42, new PDLayoutAttributeObject().getInteger("org.apache.pdfbox.cos.COSArray", 42));
   }
 
   /**
@@ -626,6 +726,29 @@ class PDStandardAttributeObjectDiffblueTest {
   }
 
   /**
+   * Test {@link PDStandardAttributeObject#getNumber(String, float)} with {@code name}, {@code
+   * defaultValue}.
+   *
+   * <ul>
+   *   <li>When {@code org.apache.pdfbox.cos.COSArray}.
+   *   <li>Then return ten.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDStandardAttributeObject#getNumber(String, float)}
+   */
+  @Test
+  @DisplayName(
+      "Test getNumber(String, float) with 'name', 'defaultValue'; when 'org.apache.pdfbox.cos.COSArray'; then return ten")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"float PDStandardAttributeObject.getNumber(String, float)"})
+  void testGetNumberWithNameDefaultValue_whenOrgApachePdfboxCosCOSArray_thenReturnTen() {
+    // Arrange, Act and Assert
+    assertEquals(
+        10.0f, new PDLayoutAttributeObject().getNumber("org.apache.pdfbox.cos.COSArray", 10.0f));
+  }
+
+  /**
    * Test {@link PDStandardAttributeObject#getNumber(String)} with {@code name}.
    *
    * <ul>
@@ -651,21 +774,20 @@ class PDStandardAttributeObjectDiffblueTest {
    * Test {@link PDStandardAttributeObject#getNumber(String)} with {@code name}.
    *
    * <ul>
-   *   <li>When {@code org.apache.pdfbox.cos.COSArray}.
+   *   <li>When {@code NameName}.
    *   <li>Then return minus one.
    * </ul>
    *
    * <p>Method under test: {@link PDStandardAttributeObject#getNumber(String)}
    */
   @Test
-  @DisplayName(
-      "Test getNumber(String) with 'name'; when 'org.apache.pdfbox.cos.COSArray'; then return minus one")
+  @DisplayName("Test getNumber(String) with 'name'; when 'NameName'; then return minus one")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"float PDStandardAttributeObject.getNumber(String)"})
-  void testGetNumberWithName_whenOrgApachePdfboxCosCOSArray_thenReturnMinusOne() {
+  void testGetNumberWithName_whenNameName_thenReturnMinusOne() {
     // Arrange, Act and Assert
-    assertEquals(-1.0f, new PDLayoutAttributeObject().getNumber("org.apache.pdfbox.cos.COSArray"));
+    assertEquals(-1.0f, new PDLayoutAttributeObject().getNumber("NameName"));
   }
 
   /**
@@ -715,33 +837,6 @@ class PDStandardAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDStandardAttributeObject#getNumberOrArrayOfNumber(String, float)}.
-   *
-   * <ul>
-   *   <li>When {@code org.apache.pdfbox.cos.COSArray}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDStandardAttributeObject#getNumberOrArrayOfNumber(String, float)}
-   */
-  @Test
-  @DisplayName(
-      "Test getNumberOrArrayOfNumber(String, float); when 'org.apache.pdfbox.cos.COSArray'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "java.lang.Object PDStandardAttributeObject.getNumberOrArrayOfNumber(String, float)"
-  })
-  void testGetNumberOrArrayOfNumber_whenOrgApachePdfboxCosCOSArray() {
-    // Arrange, Act and Assert
-    assertEquals(
-        10.0f,
-        ((Float)
-                new PDLayoutAttributeObject()
-                    .getNumberOrArrayOfNumber("org.apache.pdfbox.cos.COSArray", 10.0f))
-            .floatValue());
-  }
-
-  /**
    * Test {@link PDStandardAttributeObject#setNumber(String, float)} with {@code String}, {@code
    * float}.
    *
@@ -764,6 +859,36 @@ class PDStandardAttributeObjectDiffblueTest {
 
     // Act
     pdLayoutAttributeObject.setNumber("Name", 10.0f);
+
+    // Assert
+    COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertFalse(pdLayoutAttributeObject.isEmpty());
+  }
+
+  /**
+   * Test {@link PDStandardAttributeObject#setNumber(String, float)} with {@code String}, {@code
+   * float}.
+   *
+   * <ul>
+   *   <li>When {@code org.apache.pdfbox.cos.COSArray}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDStandardAttributeObject#setNumber(String, float)}
+   */
+  @Test
+  @DisplayName(
+      "Test setNumber(String, float) with 'String', 'float'; when 'org.apache.pdfbox.cos.COSArray'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDStandardAttributeObject.setNumber(String, float)"})
+  void testSetNumberWithStringFloat_whenOrgApachePdfboxCosCOSArray() {
+    // Arrange
+    PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
+
+    // Act
+    pdLayoutAttributeObject.setNumber("org.apache.pdfbox.cos.COSArray", 10.0f);
 
     // Assert
     COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
@@ -861,38 +986,32 @@ class PDStandardAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDStandardAttributeObject#setArrayOfNumber(String, float[])}.
+   * Test {@link PDStandardAttributeObject#getColor(String)}.
    *
    * <ul>
-   *   <li>When {@code org.apache.pdfbox.cos.COSArray}.
+   *   <li>Given {@link PDExportFormatAttributeObject#PDExportFormatAttributeObject(String)} with
+   *       {@code Owner}.
    * </ul>
    *
-   * <p>Method under test: {@link PDStandardAttributeObject#setArrayOfNumber(String, float[])}
+   * <p>Method under test: {@link PDStandardAttributeObject#getColor(String)}
    */
   @Test
-  @DisplayName("Test setArrayOfNumber(String, float[]); when 'org.apache.pdfbox.cos.COSArray'")
+  @DisplayName("Test getColor(String); given PDExportFormatAttributeObject(String) with 'Owner'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
-  @MethodsUnderTest({"void PDStandardAttributeObject.setArrayOfNumber(String, float[])"})
-  void testSetArrayOfNumber_whenOrgApachePdfboxCosCOSArray() {
-    // Arrange
-    PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
-
-    // Act
-    pdLayoutAttributeObject.setArrayOfNumber(
-        "org.apache.pdfbox.cos.COSArray", new float[] {10.0f, -1.0f, 10.0f, -1.0f});
-
-    // Assert
-    COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(pdLayoutAttributeObject.isEmpty());
+  @MethodsUnderTest({"PDGamma PDStandardAttributeObject.getColor(String)"})
+  void testGetColor_givenPDExportFormatAttributeObjectWithOwner() {
+    // Arrange, Act and Assert
+    assertNull(
+        new PDExportFormatAttributeObject("Owner")
+            .getColor("NameNameorg.apache.pdfbox.cos.COSArray"));
   }
 
   /**
    * Test {@link PDStandardAttributeObject#getColor(String)}.
    *
    * <ul>
+   *   <li>Given {@link PDLayoutAttributeObject#PDLayoutAttributeObject()}.
    *   <li>When {@code Name}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -900,35 +1019,31 @@ class PDStandardAttributeObjectDiffblueTest {
    * <p>Method under test: {@link PDStandardAttributeObject#getColor(String)}
    */
   @Test
-  @DisplayName("Test getColor(String); when 'Name'; then return 'null'")
+  @DisplayName(
+      "Test getColor(String); given PDLayoutAttributeObject(); when 'Name'; then return 'null'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"PDGamma PDStandardAttributeObject.getColor(String)"})
-  void testGetColor_whenName_thenReturnNull() {
+  void testGetColor_givenPDLayoutAttributeObject_whenName_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(new PDLayoutAttributeObject().getColor("Name"));
   }
 
   /**
-   * Test {@link PDStandardAttributeObject#getColor(String)}.
+   * Test {@link PDStandardAttributeObject#getColorOrFourColors(String)}.
    *
-   * <ul>
-   *   <li>When {@code org.apache.pdfbox.cos.COSArrayNameorg.apache.pdfbox.cos.COSArray}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDStandardAttributeObject#getColor(String)}
+   * <p>Method under test: {@link PDStandardAttributeObject#getColorOrFourColors(String)}
    */
   @Test
-  @DisplayName(
-      "Test getColor(String); when 'org.apache.pdfbox.cos.COSArrayNameorg.apache.pdfbox.cos.COSArray'")
+  @DisplayName("Test getColorOrFourColors(String)")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
-  @MethodsUnderTest({"PDGamma PDStandardAttributeObject.getColor(String)"})
-  void testGetColor_whenOrgApachePdfboxCosCOSArrayNameorgApachePdfboxCosCOSArray() {
+  @MethodsUnderTest({"java.lang.Object PDStandardAttributeObject.getColorOrFourColors(String)"})
+  void testGetColorOrFourColors() {
     // Arrange, Act and Assert
     assertNull(
         new PDLayoutAttributeObject()
-            .getColor("org.apache.pdfbox.cos.COSArrayNameorg.apache.pdfbox.cos.COSArray"));
+            .getColorOrFourColors("org.apache.pdfbox.cos.COSArrayorg.apache.pdfbox.cos.COSArray"));
   }
 
   /**
@@ -949,60 +1064,6 @@ class PDStandardAttributeObjectDiffblueTest {
   void testGetColorOrFourColors_whenName_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(new PDLayoutAttributeObject().getColorOrFourColors("Name"));
-  }
-
-  /**
-   * Test {@link PDStandardAttributeObject#getColorOrFourColors(String)}.
-   *
-   * <ul>
-   *   <li>When {@code org.apache.pdfbox.cos.COSArray}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDStandardAttributeObject#getColorOrFourColors(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test getColorOrFourColors(String); when 'org.apache.pdfbox.cos.COSArray'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"java.lang.Object PDStandardAttributeObject.getColorOrFourColors(String)"})
-  void testGetColorOrFourColors_whenOrgApachePdfboxCosCOSArray_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(
-        new PDLayoutAttributeObject().getColorOrFourColors("org.apache.pdfbox.cos.COSArray"));
-  }
-
-  /**
-   * Test {@link PDStandardAttributeObject#setColor(String, PDGamma)}.
-   *
-   * <ul>
-   *   <li>Given ten.
-   *   <li>When {@code org.apache.pdfbox.cos.COSArray}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDStandardAttributeObject#setColor(String, PDGamma)}
-   */
-  @Test
-  @DisplayName("Test setColor(String, PDGamma); given ten; when 'org.apache.pdfbox.cos.COSArray'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDStandardAttributeObject.setColor(String, PDGamma)"})
-  void testSetColor_givenTen_whenOrgApachePdfboxCosCOSArray() {
-    // Arrange
-    PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
-
-    PDGamma value = new PDGamma();
-    value.setR(10.0f);
-
-    // Act
-    pdLayoutAttributeObject.setColor("org.apache.pdfbox.cos.COSArray", value);
-
-    // Assert
-    COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(pdLayoutAttributeObject.isEmpty());
   }
 
   /**
@@ -1059,6 +1120,65 @@ class PDStandardAttributeObjectDiffblueTest {
 
     // Act
     pdLayoutAttributeObject.setColor("Name", new PDGamma());
+
+    // Assert
+    COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertFalse(pdLayoutAttributeObject.isEmpty());
+  }
+
+  /**
+   * Test {@link PDStandardAttributeObject#setColor(String, PDGamma)}.
+   *
+   * <ul>
+   *   <li>When {@code org.apache.pdfbox.cos.COSArray}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDStandardAttributeObject#setColor(String, PDGamma)}
+   */
+  @Test
+  @DisplayName("Test setColor(String, PDGamma); when 'org.apache.pdfbox.cos.COSArray'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDStandardAttributeObject.setColor(String, PDGamma)"})
+  void testSetColor_whenOrgApachePdfboxCosCOSArray() {
+    // Arrange
+    PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
+
+    // Act
+    pdLayoutAttributeObject.setColor("org.apache.pdfbox.cos.COSArray", new PDGamma());
+
+    // Assert
+    COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertFalse(pdLayoutAttributeObject.isEmpty());
+  }
+
+  /**
+   * Test {@link PDStandardAttributeObject#setFourColors(String, PDFourColours)}.
+   *
+   * <ul>
+   *   <li>When {@code 42}.
+   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} COSObject Values size is
+   *       two.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDStandardAttributeObject#setFourColors(String, PDFourColours)}
+   */
+  @Test
+  @DisplayName(
+      "Test setFourColors(String, PDFourColours); when '42'; then PDLayoutAttributeObject() COSObject Values size is two")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDStandardAttributeObject.setFourColors(String, PDFourColours)"})
+  void testSetFourColors_when42_thenPDLayoutAttributeObjectCOSObjectValuesSizeIsTwo() {
+    // Arrange
+    PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
+
+    // Act
+    pdLayoutAttributeObject.setFourColors("42", new PDFourColours());
 
     // Assert
     COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();

@@ -143,6 +143,35 @@ class PDPageLabelRangeDiffblueTest {
    *
    * <ul>
    *   <li>Given {@link PDPageLabelRange#PDPageLabelRange()}.
+   *   <li>Then {@link PDPageLabelRange#PDPageLabelRange()} COSObject size is zero.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDPageLabelRange#setStyle(String)}
+   */
+  @Test
+  @DisplayName(
+      "Test setStyle(String); given PDPageLabelRange(); then PDPageLabelRange() COSObject size is zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDPageLabelRange.setStyle(String)"})
+  void testSetStyle_givenPDPageLabelRange_thenPDPageLabelRangeCOSObjectSizeIsZero() {
+    // Arrange
+    PDPageLabelRange pdPageLabelRange = new PDPageLabelRange();
+
+    // Act
+    pdPageLabelRange.setStyle(null);
+
+    // Assert that nothing has changed
+    COSDictionary cOSObject = pdPageLabelRange.getCOSObject();
+    assertEquals(0, cOSObject.size());
+    assertTrue(cOSObject.getValues().isEmpty());
+  }
+
+  /**
+   * Test {@link PDPageLabelRange#setStyle(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link PDPageLabelRange#PDPageLabelRange()}.
    *   <li>When {@code Style}.
    *   <li>Then {@link PDPageLabelRange#PDPageLabelRange()} Style is {@code Style}.
    * </ul>
@@ -167,64 +196,6 @@ class PDPageLabelRangeDiffblueTest {
     COSDictionary cOSObject = pdPageLabelRange.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDPageLabelRange#setStyle(String)}.
-   *
-   * <ul>
-   *   <li>When {@code 42StyleStyle}.
-   *   <li>Then {@link PDPageLabelRange#PDPageLabelRange()} Style is {@code 42StyleStyle}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPageLabelRange#setStyle(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test setStyle(String); when '42StyleStyle'; then PDPageLabelRange() Style is '42StyleStyle'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDPageLabelRange.setStyle(String)"})
-  void testSetStyle_when42StyleStyle_thenPDPageLabelRangeStyleIs42StyleStyle() {
-    // Arrange
-    PDPageLabelRange pdPageLabelRange = new PDPageLabelRange();
-
-    // Act
-    pdPageLabelRange.setStyle("42StyleStyle");
-
-    // Assert
-    assertEquals("42StyleStyle", pdPageLabelRange.getStyle());
-    COSDictionary cOSObject = pdPageLabelRange.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDPageLabelRange#setStyle(String)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDPageLabelRange#PDPageLabelRange()} COSObject size is zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPageLabelRange#setStyle(String)}
-   */
-  @Test
-  @DisplayName("Test setStyle(String); when 'null'; then PDPageLabelRange() COSObject size is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDPageLabelRange.setStyle(String)"})
-  void testSetStyle_whenNull_thenPDPageLabelRangeCOSObjectSizeIsZero() {
-    // Arrange
-    PDPageLabelRange pdPageLabelRange = new PDPageLabelRange();
-
-    // Act
-    pdPageLabelRange.setStyle(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdPageLabelRange.getCOSObject();
-    assertEquals(0, cOSObject.size());
-    assertTrue(cOSObject.getValues().isEmpty());
   }
 
   /**

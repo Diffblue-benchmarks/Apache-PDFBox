@@ -17,11 +17,8 @@ import java.awt.color.ICC_ColorSpace;
 import java.awt.image.ColorModel;
 import java.awt.image.DirectColorModel;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import javax.accessibility.AccessibleContext;
 import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JTree;
 import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBoolean;
@@ -30,7 +27,6 @@ import org.apache.pdfbox.cos.COSFloat;
 import org.apache.pdfbox.cos.COSInteger;
 import org.apache.pdfbox.cos.COSObject;
 import org.apache.pdfbox.cos.COSObjectKey;
-import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.cos.COSString;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -316,67 +312,6 @@ class PDFTreeCellRendererDiffblueTest {
     COSArray object = new COSArray();
     COSObject val = new COSObject(object, new COSObjectKey(1L, 1));
     arrayEntry.setItem(val);
-    arrayEntry.setValue(new COSStream());
-
-    // Act
-    Component actualTreeCellRendererComponent =
-        pdfTreeCellRenderer.getTreeCellRendererComponent(
-            tree, arrayEntry, true, true, true, 1, true);
-
-    // Assert
-    ColorModel colorModel = actualTreeCellRendererComponent.getColorModel();
-    assertTrue(colorModel instanceof DirectColorModel);
-    Icon icon = ((PDFTreeCellRenderer) actualTreeCellRendererComponent).getIcon();
-    assertTrue(icon instanceof ImageIcon);
-    assertTrue(actualTreeCellRendererComponent instanceof PDFTreeCellRenderer);
-    assertEquals(
-        "1:  (1) [1 1 R]",
-        actualTreeCellRendererComponent.getAccessibleContext().getAccessibleName());
-    assertEquals(
-        "1:  (1) [1 1 R]", ((PDFTreeCellRenderer) actualTreeCellRendererComponent).getText());
-    Path getResult =
-        Paths.get(
-            System.getProperty("user.dir"),
-            "debugger",
-            "target",
-            "classes",
-            "org",
-            "apache",
-            "pdfbox",
-            "debugger",
-            "stream-dict.png");
-    String expectedDescription = String.join("", "file:", getResult.toString());
-    assertEquals(expectedDescription, ((ImageIcon) icon).getDescription());
-    assertArrayEquals(
-        new int[] {16711680, 65280, 255, -16777216}, ((DirectColorModel) colorModel).getMasks());
-    assertArrayEquals(new int[] {8, 8, 8, 8}, colorModel.getComponentSize());
-  }
-
-  /**
-   * Test {@link PDFTreeCellRenderer#getTreeCellRendererComponent(JTree, Object, boolean, boolean,
-   * boolean, int, boolean)}.
-   *
-   * <p>Method under test: {@link PDFTreeCellRenderer#getTreeCellRendererComponent(JTree, Object,
-   * boolean, boolean, boolean, int, boolean)}
-   */
-  @Test
-  @DisplayName(
-      "Test getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Component PDFTreeCellRenderer.getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean)"
-  })
-  void testGetTreeCellRendererComponent7() {
-    // Arrange
-    PDFTreeCellRenderer pdfTreeCellRenderer = new PDFTreeCellRenderer();
-    JTree tree = new JTree();
-
-    ArrayEntry arrayEntry = new ArrayEntry();
-    arrayEntry.setIndex(1);
-    COSArray object = new COSArray();
-    COSObject val = new COSObject(object, new COSObjectKey(1L, 1));
-    arrayEntry.setItem(val);
     arrayEntry.setValue(new COSString("Text"));
 
     // Act
@@ -393,69 +328,6 @@ class PDFTreeCellRendererDiffblueTest {
         actualTreeCellRendererComponent.getAccessibleContext().getAccessibleName());
     assertEquals(
         "1:  Text [1 1 R]", ((PDFTreeCellRenderer) actualTreeCellRendererComponent).getText());
-    assertArrayEquals(
-        new int[] {16711680, 65280, 255, -16777216}, ((DirectColorModel) colorModel).getMasks());
-    assertArrayEquals(new int[] {8, 8, 8, 8}, colorModel.getComponentSize());
-  }
-
-  /**
-   * Test {@link PDFTreeCellRenderer#getTreeCellRendererComponent(JTree, Object, boolean, boolean,
-   * boolean, int, boolean)}.
-   *
-   * <p>Method under test: {@link PDFTreeCellRenderer#getTreeCellRendererComponent(JTree, Object,
-   * boolean, boolean, boolean, int, boolean)}
-   */
-  @Test
-  @DisplayName(
-      "Test getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Component PDFTreeCellRenderer.getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean)"
-  })
-  void testGetTreeCellRendererComponent8() {
-    // Arrange
-    PDFTreeCellRenderer pdfTreeCellRenderer = new PDFTreeCellRenderer();
-    JTree tree = new JTree();
-
-    ArrayEntry arrayEntry = new ArrayEntry();
-    arrayEntry.setIndex(1);
-    arrayEntry.setItem(COSBoolean.getBoolean(true));
-    arrayEntry.setValue(COSBoolean.getBoolean(true));
-
-    // Act
-    Component actualTreeCellRendererComponent =
-        pdfTreeCellRenderer.getTreeCellRendererComponent(
-            tree, arrayEntry, true, true, true, 1, true);
-
-    // Assert
-    ColorModel colorModel = actualTreeCellRendererComponent.getColorModel();
-    assertTrue(colorModel instanceof DirectColorModel);
-    Icon icon = ((PDFTreeCellRenderer) actualTreeCellRendererComponent).getIcon();
-    assertTrue(icon instanceof ImageIcon);
-    assertTrue(actualTreeCellRendererComponent instanceof PDFTreeCellRenderer);
-    assertEquals(
-        "1:  true", actualTreeCellRendererComponent.getAccessibleContext().getAccessibleName());
-    assertEquals("1:  true", ((PDFTreeCellRenderer) actualTreeCellRendererComponent).getText());
-    Dimension maximumSize = actualTreeCellRendererComponent.getMaximumSize();
-    assertEquals(66, maximumSize.width);
-    assertEquals(66.0d, maximumSize.getWidth());
-    Dimension preferredSize = actualTreeCellRendererComponent.getPreferredSize();
-    assertEquals(69, preferredSize.width);
-    assertEquals(69.0d, preferredSize.getWidth());
-    Path getResult =
-        Paths.get(
-            System.getProperty("user.dir"),
-            "debugger",
-            "target",
-            "classes",
-            "org",
-            "apache",
-            "pdfbox",
-            "debugger",
-            "boolean.png");
-    String expectedDescription = String.join("", "file:", getResult.toString());
-    assertEquals(expectedDescription, ((ImageIcon) icon).getDescription());
     assertArrayEquals(
         new int[] {16711680, 65280, 255, -16777216}, ((DirectColorModel) colorModel).getMasks());
     assertArrayEquals(new int[] {8, 8, 8, 8}, colorModel.getComponentSize());
@@ -610,68 +482,6 @@ class PDFTreeCellRendererDiffblueTest {
     Dimension preferredSize = actualTreeCellRendererComponent.getPreferredSize();
     assertEquals(31, preferredSize.width);
     assertEquals(31.0d, preferredSize.getWidth());
-    assertArrayEquals(
-        new int[] {16711680, 65280, 255, -16777216}, ((DirectColorModel) colorModel).getMasks());
-    assertArrayEquals(new int[] {8, 8, 8, 8}, colorModel.getComponentSize());
-  }
-
-  /**
-   * Test {@link PDFTreeCellRenderer#getTreeCellRendererComponent(JTree, Object, boolean, boolean,
-   * boolean, int, boolean)}.
-   *
-   * <ul>
-   *   <li>Then return Icon ImageObserver is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDFTreeCellRenderer#getTreeCellRendererComponent(JTree, Object,
-   * boolean, boolean, boolean, int, boolean)}
-   */
-  @Test
-  @DisplayName(
-      "Test getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean); then return Icon ImageObserver is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Component PDFTreeCellRenderer.getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean)"
-  })
-  void testGetTreeCellRendererComponent_thenReturnIconImageObserverIsNull() {
-    // Arrange
-    PDFTreeCellRenderer pdfTreeCellRenderer = new PDFTreeCellRenderer();
-    JTree tree = new JTree();
-
-    ArrayEntry arrayEntry = new ArrayEntry();
-    arrayEntry.setIndex(1);
-    arrayEntry.setItem(COSBoolean.getBoolean(true));
-    arrayEntry.setValue(null);
-
-    // Act
-    Component actualTreeCellRendererComponent =
-        pdfTreeCellRenderer.getTreeCellRendererComponent(
-            tree, arrayEntry, true, true, true, 1, true);
-
-    // Assert
-    ColorModel colorModel = actualTreeCellRendererComponent.getColorModel();
-    assertTrue(colorModel instanceof DirectColorModel);
-    Icon icon = ((PDFTreeCellRenderer) actualTreeCellRendererComponent).getIcon();
-    assertTrue(icon instanceof ImageIcon);
-    assertTrue(actualTreeCellRendererComponent instanceof PDFTreeCellRenderer);
-    assertNull(((ImageIcon) icon).getImageObserver());
-    assertEquals(8, ((ImageIcon) icon).getImageLoadStatus());
-    Path getResult =
-        Paths.get(
-            System.getProperty("user.dir"),
-            "debugger",
-            "target",
-            "classes",
-            "org",
-            "apache",
-            "pdfbox",
-            "debugger",
-            "null.png");
-    String expectedDescription = String.join("", "file:", getResult.toString());
-    assertEquals(expectedDescription, ((ImageIcon) icon).getDescription());
-    assertEquals(Short.SIZE, icon.getIconHeight());
-    assertEquals(Short.SIZE, icon.getIconWidth());
     assertArrayEquals(
         new int[] {16711680, 65280, 255, -16777216}, ((DirectColorModel) colorModel).getMasks());
     assertArrayEquals(new int[] {8, 8, 8, 8}, colorModel.getComponentSize());

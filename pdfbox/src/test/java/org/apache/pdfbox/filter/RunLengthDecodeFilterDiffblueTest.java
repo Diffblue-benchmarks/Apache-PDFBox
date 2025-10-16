@@ -402,4 +402,37 @@ class RunLengthDecodeFilterDiffblueTest {
     assertEquals(-1, actualReadResult);
     assertArrayEquals(new byte[] {Byte.MIN_VALUE}, encoded.toByteArray());
   }
+
+  /**
+   * Test {@link RunLengthDecodeFilter#encode(InputStream, OutputStream, COSDictionary)} with {@code
+   * input}, {@code encoded}, {@code parameters}.
+   *
+   * <ul>
+   *   <li>Given {@link IOException#IOException()}.
+   *   <li>Then throw {@link IOException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link RunLengthDecodeFilter#encode(InputStream, OutputStream,
+   * COSDictionary)}
+   */
+  @Test
+  @DisplayName(
+      "Test encode(InputStream, OutputStream, COSDictionary) with 'input', 'encoded', 'parameters'; given IOException(); then throw IOException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void RunLengthDecodeFilter.encode(InputStream, OutputStream, COSDictionary)"})
+  void testEncodeWithInputEncodedParameters_givenIOException_thenThrowIOException()
+      throws IOException {
+    // Arrange
+    RunLengthDecodeFilter runLengthDecodeFilter = new RunLengthDecodeFilter();
+
+    DataInputStream input = mock(DataInputStream.class);
+    when(input.read()).thenThrow(new IOException());
+    ByteArrayOutputStream encoded = new ByteArrayOutputStream();
+
+    // Act and Assert
+    assertThrows(
+        IOException.class, () -> runLengthDecodeFilter.encode(input, encoded, new COSDictionary()));
+    verify(input).read();
+  }
 }

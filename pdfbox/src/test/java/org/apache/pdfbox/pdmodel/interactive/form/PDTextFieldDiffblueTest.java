@@ -17,11 +17,11 @@ import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSName;
-import org.apache.pdfbox.pdmodel.DefaultResourceCache;
+import org.apache.pdfbox.cos.COSStream;
+import org.apache.pdfbox.cos.COSString;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDResources;
 import org.apache.pdfbox.pdmodel.fdf.FDFField;
-import org.apache.pdfbox.pdmodel.font.PDMMType1Font;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -467,28 +467,34 @@ class PDTextFieldDiffblueTest {
   /**
    * Test {@link PDTextField#setDoNotSpellCheck(boolean)}.
    *
+   * <ul>
+   *   <li>Given {@link FDFField#FDFField()} RichText is parseHex {@code 0123456789ABCDEF}.
+   * </ul>
+   *
    * <p>Method under test: {@link PDTextField#setDoNotSpellCheck(boolean)}
    */
   @Test
-  @DisplayName("Test setDoNotSpellCheck(boolean)")
+  @DisplayName(
+      "Test setDoNotSpellCheck(boolean); given FDFField() RichText is parseHex '0123456789ABCDEF'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDTextField.setDoNotSpellCheck(boolean)"})
-  void testSetDoNotSpellCheck() {
+  void testSetDoNotSpellCheck_givenFDFFieldRichTextIsParseHex0123456789abcdef() throws IOException {
     // Arrange
-    COSDictionary field = mock(COSDictionary.class);
-    doNothing().when(field).setFlag(Mockito.<COSName>any(), anyInt(), anyBoolean());
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+    FDFField fdfField = new FDFField();
+    fdfField.setRichText(COSString.parseHex("0123456789ABCDEF"));
 
-    PDTextField pdTextField = new PDTextField(acroForm, field, parent);
+    PDTextField pdTextField = new PDTextField(new PDAcroForm(new PDDocument()));
+    pdTextField.importFDF(fdfField);
 
     // Act
-    pdTextField.setDoNotSpellCheck(true);
+    pdTextField.setDoNotSpellCheck(false);
 
-    // Assert that nothing has changed
-    verify(field).setFlag(isA(COSName.class), eq(4194304), eq(true));
+    // Assert
     assertEquals(0, pdTextField.getFieldFlags());
+    COSDictionary cOSObject = pdTextField.getCOSObject();
+    assertEquals(4, cOSObject.getValues().size());
+    assertEquals(4, cOSObject.size());
   }
 
   /**
@@ -564,28 +570,33 @@ class PDTextFieldDiffblueTest {
   /**
    * Test {@link PDTextField#setDoNotScroll(boolean)}.
    *
+   * <ul>
+   *   <li>Given {@link FDFField#FDFField()} RichText is {@link COSStream#COSStream()}.
+   * </ul>
+   *
    * <p>Method under test: {@link PDTextField#setDoNotScroll(boolean)}
    */
   @Test
-  @DisplayName("Test setDoNotScroll(boolean)")
+  @DisplayName("Test setDoNotScroll(boolean); given FDFField() RichText is COSStream()")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDTextField.setDoNotScroll(boolean)"})
-  void testSetDoNotScroll() {
+  void testSetDoNotScroll_givenFDFFieldRichTextIsCOSStream() throws IOException {
     // Arrange
-    COSDictionary field = mock(COSDictionary.class);
-    doNothing().when(field).setFlag(Mockito.<COSName>any(), anyInt(), anyBoolean());
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+    FDFField fdfField = new FDFField();
+    fdfField.setRichText(new COSStream());
 
-    PDTextField pdTextField = new PDTextField(acroForm, field, parent);
+    PDTextField pdTextField = new PDTextField(new PDAcroForm(new PDDocument()));
+    pdTextField.importFDF(fdfField);
 
     // Act
-    pdTextField.setDoNotScroll(true);
+    pdTextField.setDoNotScroll(false);
 
-    // Assert that nothing has changed
-    verify(field).setFlag(isA(COSName.class), eq(8388608), eq(true));
+    // Assert
     assertEquals(0, pdTextField.getFieldFlags());
+    COSDictionary cOSObject = pdTextField.getCOSObject();
+    assertEquals(4, cOSObject.getValues().size());
+    assertEquals(4, cOSObject.size());
   }
 
   /**
@@ -937,13 +948,11 @@ class PDTextFieldDiffblueTest {
   @MethodsUnderTest({"void PDTextField.setValue(String)"})
   void testSetValue4() throws IOException {
     // Arrange
-    PDResources dr = new PDResources();
-    dr.add(new PDMMType1Font(new COSDictionary()));
+    PDDocument doc = new PDDocument();
 
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    acroForm.setDefaultAppearance(
-        "\\u000D\\u000A|[\\u000A\\u000B\\u000C\\u000D\\u0085\\u2028\\u2029]");
-    acroForm.setDefaultResources(dr);
+    PDAcroForm acroForm = new PDAcroForm(doc, new COSDictionary());
+    acroForm.setDefaultAppearance("Da Value");
+    acroForm.setDefaultResources(new PDResources());
 
     PDTextField pdTextField = new PDTextField(acroForm);
     pdTextField.importFDF(new FDFField());
@@ -971,18 +980,83 @@ class PDTextFieldDiffblueTest {
   @MethodsUnderTest({"void PDTextField.setValue(String)"})
   void testSetValue5() throws IOException {
     // Arrange
-    COSDictionary resourceDictionary = new COSDictionary();
+    PDDocument doc = new PDDocument();
 
-    PDResources dr = new PDResources(resourceDictionary, new DefaultResourceCache());
-    dr.add(new PDMMType1Font(new COSDictionary()));
-
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    acroForm.setDefaultAppearance(
-        "\\u000D\\u000A|[\\u000A\\u000B\\u000C\\u000D\\u0085\\u2028\\u2029]");
-    acroForm.setDefaultResources(dr);
+    PDAcroForm acroForm = new PDAcroForm(doc, new COSDictionary());
+    acroForm.setDefaultAppearance("ID");
+    acroForm.setDefaultResources(new PDResources());
 
     PDTextField pdTextField = new PDTextField(acroForm);
     pdTextField.importFDF(new FDFField());
+
+    // Act
+    pdTextField.setValue("42");
+
+    // Assert
+    assertEquals("42", pdTextField.getValue());
+    assertEquals("42", pdTextField.getValueAsString());
+    COSDictionary cOSObject = pdTextField.getCOSObject();
+    assertEquals(4, cOSObject.getValues().size());
+    assertEquals(4, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDTextField#setValue(String)}.
+   *
+   * <p>Method under test: {@link PDTextField#setValue(String)}
+   */
+  @Test
+  @DisplayName("Test setValue(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDTextField.setValue(String)"})
+  void testSetValue6() throws IOException {
+    // Arrange
+    PDDocument doc = new PDDocument();
+
+    PDAcroForm acroForm = new PDAcroForm(doc, new COSDictionary());
+    acroForm.setDefaultAppearance("BI");
+    acroForm.setDefaultResources(new PDResources());
+
+    PDTextField pdTextField = new PDTextField(acroForm);
+    pdTextField.importFDF(new FDFField());
+
+    // Act
+    pdTextField.setValue("42");
+
+    // Assert
+    assertEquals("42", pdTextField.getValue());
+    assertEquals("42", pdTextField.getValueAsString());
+    COSDictionary cOSObject = pdTextField.getCOSObject();
+    assertEquals(4, cOSObject.getValues().size());
+    assertEquals(4, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDTextField#setValue(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link FDFField#FDFField()} RichText is parseHex {@code 0123456789ABCDEF}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDTextField#setValue(String)}
+   */
+  @Test
+  @DisplayName("Test setValue(String); given FDFField() RichText is parseHex '0123456789ABCDEF'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDTextField.setValue(String)"})
+  void testSetValue_givenFDFFieldRichTextIsParseHex0123456789abcdef() throws IOException {
+    // Arrange
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    acroForm.setDefaultAppearance("42");
+    acroForm.setDefaultResources(new PDResources());
+
+    FDFField fdfField = new FDFField();
+    fdfField.setRichText(COSString.parseHex("0123456789ABCDEF"));
+
+    PDTextField pdTextField = new PDTextField(acroForm);
+    pdTextField.importFDF(fdfField);
 
     // Act
     pdTextField.setValue("42");
@@ -1073,45 +1147,6 @@ class PDTextFieldDiffblueTest {
    *
    * <ul>
    *   <li>Given {@link PDAcroForm#PDAcroForm(PDDocument)} with doc is {@link
-   *       PDDocument#PDDocument()} DefaultAppearance is {@code BI}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDTextField#setValue(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test setValue(String); given PDAcroForm(PDDocument) with doc is PDDocument() DefaultAppearance is 'BI'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDTextField.setValue(String)"})
-  void testSetValue_givenPDAcroFormWithDocIsPDDocumentDefaultAppearanceIsBi() throws IOException {
-    // Arrange
-    PDResources dr = new PDResources();
-    dr.add(new PDMMType1Font(new COSDictionary()));
-
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    acroForm.setDefaultAppearance("BI");
-    acroForm.setDefaultResources(dr);
-
-    PDTextField pdTextField = new PDTextField(acroForm);
-    pdTextField.importFDF(new FDFField());
-
-    // Act
-    pdTextField.setValue("42");
-
-    // Assert
-    assertEquals("42", pdTextField.getValue());
-    assertEquals("42", pdTextField.getValueAsString());
-    COSDictionary cOSObject = pdTextField.getCOSObject();
-    assertEquals(4, cOSObject.getValues().size());
-    assertEquals(4, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDTextField#setValue(String)}.
-   *
-   * <ul>
-   *   <li>Given {@link PDAcroForm#PDAcroForm(PDDocument)} with doc is {@link
    *       PDDocument#PDDocument()} DefaultAppearance is {@code Da Value}.
    * </ul>
    *
@@ -1129,85 +1164,6 @@ class PDTextFieldDiffblueTest {
     PDAcroForm acroForm = new PDAcroForm(new PDDocument());
     acroForm.setDefaultAppearance("Da Value");
     acroForm.setDefaultResources(new PDResources());
-
-    PDTextField pdTextField = new PDTextField(acroForm);
-    pdTextField.importFDF(new FDFField());
-
-    // Act
-    pdTextField.setValue("42");
-
-    // Assert
-    assertEquals("42", pdTextField.getValue());
-    assertEquals("42", pdTextField.getValueAsString());
-    COSDictionary cOSObject = pdTextField.getCOSObject();
-    assertEquals(4, cOSObject.getValues().size());
-    assertEquals(4, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDTextField#setValue(String)}.
-   *
-   * <ul>
-   *   <li>Given {@link PDAcroForm#PDAcroForm(PDDocument)} with doc is {@link
-   *       PDDocument#PDDocument()} DefaultAppearance is {@code endobj}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDTextField#setValue(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test setValue(String); given PDAcroForm(PDDocument) with doc is PDDocument() DefaultAppearance is 'endobj'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDTextField.setValue(String)"})
-  void testSetValue_givenPDAcroFormWithDocIsPDDocumentDefaultAppearanceIsEndobj()
-      throws IOException {
-    // Arrange
-    PDResources dr = new PDResources();
-    dr.add(new PDMMType1Font(new COSDictionary()));
-
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    acroForm.setDefaultAppearance("endobj");
-    acroForm.setDefaultResources(dr);
-
-    PDTextField pdTextField = new PDTextField(acroForm);
-    pdTextField.importFDF(new FDFField());
-
-    // Act
-    pdTextField.setValue("42");
-
-    // Assert
-    assertEquals("42", pdTextField.getValue());
-    assertEquals("42", pdTextField.getValueAsString());
-    COSDictionary cOSObject = pdTextField.getCOSObject();
-    assertEquals(4, cOSObject.getValues().size());
-    assertEquals(4, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDTextField#setValue(String)}.
-   *
-   * <ul>
-   *   <li>Given {@link PDAcroForm#PDAcroForm(PDDocument)} with doc is {@link
-   *       PDDocument#PDDocument()} DefaultAppearance is {@code ID}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDTextField#setValue(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test setValue(String); given PDAcroForm(PDDocument) with doc is PDDocument() DefaultAppearance is 'ID'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDTextField.setValue(String)"})
-  void testSetValue_givenPDAcroFormWithDocIsPDDocumentDefaultAppearanceIsId() throws IOException {
-    // Arrange
-    PDResources dr = new PDResources();
-    dr.add(new PDMMType1Font(new COSDictionary()));
-
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    acroForm.setDefaultAppearance("ID");
-    acroForm.setDefaultResources(dr);
 
     PDTextField pdTextField = new PDTextField(acroForm);
     pdTextField.importFDF(new FDFField());
@@ -1284,6 +1240,44 @@ class PDTextFieldDiffblueTest {
 
     PDTextField pdTextField = new PDTextField(acroForm);
     pdTextField.setPartialName("\r\n");
+    pdTextField.importFDF(new FDFField());
+
+    // Act
+    pdTextField.setValue("42");
+
+    // Assert
+    assertEquals("42", pdTextField.getValue());
+    assertEquals("42", pdTextField.getValueAsString());
+    COSDictionary cOSObject = pdTextField.getCOSObject();
+    assertEquals(5, cOSObject.getValues().size());
+    assertEquals(5, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDTextField#setValue(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link PDTextField#PDTextField(PDAcroForm)} with acroForm is {@link
+   *       PDAcroForm#PDAcroForm(PDDocument)} PartialName is space.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDTextField#setValue(String)}
+   */
+  @Test
+  @DisplayName(
+      "Test setValue(String); given PDTextField(PDAcroForm) with acroForm is PDAcroForm(PDDocument) PartialName is space")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDTextField.setValue(String)"})
+  void testSetValue_givenPDTextFieldWithAcroFormIsPDAcroFormPartialNameIsSpace()
+      throws IOException {
+    // Arrange
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    acroForm.setDefaultAppearance("42");
+    acroForm.setDefaultResources(new PDResources());
+
+    PDTextField pdTextField = new PDTextField(acroForm);
+    pdTextField.setPartialName(" ");
     pdTextField.importFDF(new FDFField());
 
     // Act

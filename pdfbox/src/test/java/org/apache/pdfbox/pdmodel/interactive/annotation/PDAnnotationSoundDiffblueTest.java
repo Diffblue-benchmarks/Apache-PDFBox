@@ -684,6 +684,61 @@ class PDAnnotationSoundDiffblueTest {
         .thenReturn(new PDAppearanceEntry(new COSDictionary()));
     doNothing().when(pdAppearanceDictionary).setNormalAppearance(Mockito.<PDAppearanceEntry>any());
 
+    PDColorSpace colorSpace = mock(PDColorSpace.class);
+    when(colorSpace.getNumberOfComponents()).thenReturn(10);
+    when(colorSpace.getCOSObject()).thenReturn(COSBoolean.FALSE);
+    PDColor pdColor = new PDColor(new COSArray(), colorSpace);
+
+    PDAnnotationCaret annotation = mock(PDAnnotationCaret.class);
+    doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
+    doNothing().when(annotation).setRectDifferences(anyFloat());
+    when(annotation.getConstantOpacity()).thenReturn(-9.223372E18f);
+    when(annotation.getCOSObject()).thenReturn(new COSDictionary());
+    when(annotation.getNormalAppearanceStream())
+        .thenReturn(new PDAppearanceStream(new COSStream()));
+    when(annotation.getColor()).thenReturn(pdColor);
+    when(annotation.getRectangle()).thenReturn(PDRectangle.A0);
+    when(annotation.getAppearance()).thenReturn(pdAppearanceDictionary);
+    PDCaretAppearanceHandler appearanceHandler = new PDCaretAppearanceHandler(annotation);
+
+    PDAnnotationSound pdAnnotationSound = new PDAnnotationSound(new COSDictionary());
+    pdAnnotationSound.setCustomAppearanceHandler(appearanceHandler);
+
+    // Act
+    pdAnnotationSound.constructAppearances(new PDDocument());
+
+    // Assert
+    verify(colorSpace, atLeast(1)).getCOSObject();
+    verify(colorSpace, atLeast(1)).getNumberOfComponents();
+    verify(annotation).getAppearance();
+    verify(annotation).getCOSObject();
+    verify(annotation, atLeast(1)).getColor();
+    verify(annotation).getNormalAppearanceStream();
+    verify(annotation, atLeast(1)).getRectangle();
+    verify(annotation).setRectangle(isA(PDRectangle.class));
+    verify(annotation).setRectDifferences(5.0f);
+    verify(annotation).getConstantOpacity();
+    verify(pdAppearanceDictionary).getNormalAppearance();
+    verify(pdAppearanceDictionary).setNormalAppearance(isA(PDAppearanceEntry.class));
+  }
+
+  /**
+   * Test {@link PDAnnotationSound#constructAppearances(PDDocument)} with {@code PDDocument}.
+   *
+   * <p>Method under test: {@link PDAnnotationSound#constructAppearances(PDDocument)}
+   */
+  @Test
+  @DisplayName("Test constructAppearances(PDDocument) with 'PDDocument'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAnnotationSound.constructAppearances(PDDocument)"})
+  void testConstructAppearancesWithPDDocument7() {
+    // Arrange
+    PDAppearanceDictionary pdAppearanceDictionary = mock(PDAppearanceDictionary.class);
+    when(pdAppearanceDictionary.getNormalAppearance())
+        .thenReturn(new PDAppearanceEntry(new COSDictionary()));
+    doNothing().when(pdAppearanceDictionary).setNormalAppearance(Mockito.<PDAppearanceEntry>any());
+
     COSStream cosStream = mock(COSStream.class);
     when(cosStream.isDirect()).thenReturn(true);
     when(cosStream.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));

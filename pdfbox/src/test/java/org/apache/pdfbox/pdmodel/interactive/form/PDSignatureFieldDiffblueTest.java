@@ -29,6 +29,7 @@ import org.apache.pdfbox.cos.COSInteger;
 import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPageTree;
 import org.apache.pdfbox.pdmodel.interactive.digitalsignature.PDSeedValue;
 import org.apache.pdfbox.pdmodel.interactive.digitalsignature.PDSignature;
 import org.junit.jupiter.api.DisplayName;
@@ -212,28 +213,20 @@ class PDSignatureFieldDiffblueTest {
     PDAcroForm acroForm2 = new PDAcroForm(new PDDocument());
     acroForm2.setFields(fields);
 
-    // Act
-    PDSignatureField actualPdSignatureField = new PDSignatureField(acroForm2);
-
-    // Assert
-    assertEquals("", actualPdSignatureField.getValueAsString());
-    assertEquals("Sig", actualPdSignatureField.getFieldType());
-    assertEquals("Signature1", actualPdSignatureField.getFullyQualifiedName());
-    assertEquals("Signature1", actualPdSignatureField.getPartialName());
-    assertNull(actualPdSignatureField.getAlternateFieldName());
-    assertNull(actualPdSignatureField.getMappingName());
-    assertNull(actualPdSignatureField.getActions());
-    assertNull(actualPdSignatureField.getSeedValue());
-    assertNull(actualPdSignatureField.getDefaultValue());
-    assertNull(actualPdSignatureField.getSignature());
-    assertNull(actualPdSignatureField.getValue());
-    assertNull(actualPdSignatureField.getParent());
-    assertEquals(0, actualPdSignatureField.getFieldFlags());
-    assertEquals(1, actualPdSignatureField.getWidgets().size());
-    assertFalse(actualPdSignatureField.isNoExport());
-    assertFalse(actualPdSignatureField.isReadOnly());
-    assertFalse(actualPdSignatureField.isRequired());
-    assertSame(acroForm2, actualPdSignatureField.getAcroForm());
+    // Act and Assert
+    PDAcroForm acroForm3 = new PDSignatureField(acroForm2).getAcroForm();
+    PDDocument document = acroForm3.getDocument();
+    assertNull(document.getLastSignatureDictionary());
+    assertNull(document.getDocumentCatalog().getAcroForm());
+    assertEquals(0, document.getNumberOfPages());
+    PDPageTree pages = document.getPages();
+    assertEquals(0, pages.getCount());
+    assertFalse(pages.iterator().hasNext());
+    assertFalse(acroForm3.getFieldIterator().hasNext());
+    assertFalse(acroForm3.getFieldTree().iterator().hasNext());
+    assertTrue(document.getSignatureDictionaries().isEmpty());
+    assertTrue(document.getSignatureFields().isEmpty());
+    assertTrue(acroForm3.getFields().isEmpty());
   }
 
   /**
@@ -253,31 +246,20 @@ class PDSignatureFieldDiffblueTest {
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDSignatureField.<init>(PDAcroForm)"})
   void testNewPDSignatureField_whenPDAcroFormWithDocIsPDDocument() {
-    // Arrange
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-
-    // Act
-    PDSignatureField actualPdSignatureField = new PDSignatureField(acroForm);
-
-    // Assert
-    assertEquals("", actualPdSignatureField.getValueAsString());
-    assertEquals("Sig", actualPdSignatureField.getFieldType());
-    assertEquals("Signature1", actualPdSignatureField.getFullyQualifiedName());
-    assertEquals("Signature1", actualPdSignatureField.getPartialName());
-    assertNull(actualPdSignatureField.getAlternateFieldName());
-    assertNull(actualPdSignatureField.getMappingName());
-    assertNull(actualPdSignatureField.getActions());
-    assertNull(actualPdSignatureField.getSeedValue());
-    assertNull(actualPdSignatureField.getDefaultValue());
-    assertNull(actualPdSignatureField.getSignature());
-    assertNull(actualPdSignatureField.getValue());
-    assertNull(actualPdSignatureField.getParent());
-    assertEquals(0, actualPdSignatureField.getFieldFlags());
-    assertEquals(1, actualPdSignatureField.getWidgets().size());
-    assertFalse(actualPdSignatureField.isNoExport());
-    assertFalse(actualPdSignatureField.isReadOnly());
-    assertFalse(actualPdSignatureField.isRequired());
-    assertSame(acroForm, actualPdSignatureField.getAcroForm());
+    // Arrange, Act and Assert
+    PDAcroForm acroForm = new PDSignatureField(new PDAcroForm(new PDDocument())).getAcroForm();
+    PDDocument document = acroForm.getDocument();
+    assertNull(document.getLastSignatureDictionary());
+    assertNull(document.getDocumentCatalog().getAcroForm());
+    assertEquals(0, document.getNumberOfPages());
+    PDPageTree pages = document.getPages();
+    assertEquals(0, pages.getCount());
+    assertFalse(pages.iterator().hasNext());
+    assertFalse(acroForm.getFieldIterator().hasNext());
+    assertFalse(acroForm.getFieldTree().iterator().hasNext());
+    assertTrue(document.getSignatureDictionaries().isEmpty());
+    assertTrue(document.getSignatureFields().isEmpty());
+    assertTrue(acroForm.getFields().isEmpty());
   }
 
   /**
@@ -729,61 +711,6 @@ class PDSignatureFieldDiffblueTest {
    * Test {@link PDSignatureField#constructAppearances()}.
    *
    * <ul>
-   *   <li>Given {@link COSArray} {@link COSArray#add(COSBase)} does nothing.
-   *   <li>Then calls {@link COSArray#add(COSBase)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDSignatureField#constructAppearances()}
-   */
-  @Test
-  @DisplayName(
-      "Test constructAppearances(); given COSArray add(COSBase) does nothing; then calls add(COSBase)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDSignatureField.constructAppearances()"})
-  void testConstructAppearances_givenCOSArrayAddDoesNothing_thenCallsAdd() throws IOException {
-    // Arrange
-    COSArray cosArray = mock(COSArray.class);
-    when(cosArray.size()).thenReturn(3);
-    doNothing().when(cosArray).add(Mockito.<COSBase>any());
-    cosArray.add(COSBoolean.FALSE);
-
-    COSDictionary cosDictionary = mock(COSDictionary.class);
-    when(cosDictionary.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
-    when(cosDictionary.getDictionaryObject(Mockito.<COSName>any())).thenReturn(COSBoolean.FALSE);
-    doNothing().when(cosDictionary).setName(Mockito.<COSName>any(), Mockito.<String>any());
-
-    COSArray cosArray2 = mock(COSArray.class);
-    when(cosArray2.getObject(anyInt())).thenReturn(cosDictionary);
-    when(cosArray2.isEmpty()).thenReturn(false);
-    when(cosArray2.size()).thenReturn(3);
-
-    COSDictionary field = mock(COSDictionary.class);
-    when(field.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray2);
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
-
-    PDSignatureField pdSignatureField = new PDSignatureField(acroForm, field, parent);
-
-    // Act
-    pdSignatureField.constructAppearances();
-
-    // Assert
-    verify(cosArray).add(isA(COSBase.class));
-    verify(cosArray2, atLeast(1)).getObject(anyInt());
-    verify(cosArray2).isEmpty();
-    verify(cosArray).size();
-    verify(cosArray2, atLeast(1)).size();
-    verify(field).getCOSArray(isA(COSName.class));
-    verify(cosDictionary).getCOSArray(isA(COSName.class));
-    verify(cosDictionary, atLeast(1)).getDictionaryObject(isA(COSName.class));
-    verify(cosDictionary, atLeast(1)).setName(isA(COSName.class), eq("Widget"));
-  }
-
-  /**
-   * Test {@link PDSignatureField#constructAppearances()}.
-   *
-   * <ul>
    *   <li>Given {@link COSArray#COSArray()} add {@link COSBoolean#FALSE}.
    *   <li>Then calls {@link COSDictionary#setName(COSName, String)}.
    * </ul>
@@ -1072,6 +999,62 @@ class PDSignatureFieldDiffblueTest {
     COSDictionary cosDictionary = mock(COSDictionary.class);
     when(cosDictionary.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
     when(cosDictionary.getDictionaryObject(Mockito.<COSName>any())).thenReturn(new COSStream());
+    doNothing().when(cosDictionary).setName(Mockito.<COSName>any(), Mockito.<String>any());
+
+    COSArray cosArray2 = mock(COSArray.class);
+    when(cosArray2.getObject(anyInt())).thenReturn(cosDictionary);
+    when(cosArray2.isEmpty()).thenReturn(false);
+    when(cosArray2.size()).thenReturn(3);
+
+    COSDictionary field = mock(COSDictionary.class);
+    when(field.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray2);
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+
+    PDSignatureField pdSignatureField = new PDSignatureField(acroForm, field, parent);
+
+    // Act
+    pdSignatureField.constructAppearances();
+
+    // Assert
+    verify(cosArray).add(isA(COSBase.class));
+    verify(cosArray2, atLeast(1)).getObject(anyInt());
+    verify(cosArray2).isEmpty();
+    verify(cosArray).size();
+    verify(cosArray2, atLeast(1)).size();
+    verify(field).getCOSArray(isA(COSName.class));
+    verify(cosDictionary).getCOSArray(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getDictionaryObject(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).setName(isA(COSName.class), eq("Widget"));
+  }
+
+  /**
+   * Test {@link PDSignatureField#constructAppearances()}.
+   *
+   * <ul>
+   *   <li>Given {@link COSDictionary} {@link COSDictionary#getDictionaryObject(COSName)} return
+   *       {@link COSBoolean#FALSE}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDSignatureField#constructAppearances()}
+   */
+  @Test
+  @DisplayName(
+      "Test constructAppearances(); given COSDictionary getDictionaryObject(COSName) return FALSE")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDSignatureField.constructAppearances()"})
+  void testConstructAppearances_givenCOSDictionaryGetDictionaryObjectReturnFalse()
+      throws IOException {
+    // Arrange
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.size()).thenReturn(3);
+    doNothing().when(cosArray).add(Mockito.<COSBase>any());
+    cosArray.add(COSBoolean.FALSE);
+
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    when(cosDictionary.getDictionaryObject(Mockito.<COSName>any())).thenReturn(COSBoolean.FALSE);
     doNothing().when(cosDictionary).setName(Mockito.<COSName>any(), Mockito.<String>any());
 
     COSArray cosArray2 = mock(COSArray.class);
