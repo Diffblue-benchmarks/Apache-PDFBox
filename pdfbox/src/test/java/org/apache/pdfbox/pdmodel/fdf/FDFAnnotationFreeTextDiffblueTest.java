@@ -5,14 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
-import javax.imageio.metadata.IIOMetadataNode;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSFloat;
@@ -21,36 +17,33 @@ import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.w3c.dom.Element;
 
 class FDFAnnotationFreeTextDiffblueTest {
   /**
    * Test {@link FDFAnnotationFreeText#FDFAnnotationFreeText(COSDictionary)}.
-   *
-   * <p>Method under test: {@link FDFAnnotationFreeText#FDFAnnotationFreeText(COSDictionary)}
+   * <p>
+   * Method under test: {@link FDFAnnotationFreeText#FDFAnnotationFreeText(COSDictionary)}
    */
   @Test
   @DisplayName("Test new FDFAnnotationFreeText(COSDictionary)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFAnnotationFreeText.<init>(COSDictionary)"})
   void testNewFDFAnnotationFreeText() {
     // Arrange
     COSDictionary a = new COSDictionary();
 
     // Act and Assert
-    assertSame(a, new FDFAnnotationFreeText(a).getCOSObject());
+    assertSame(a, (new FDFAnnotationFreeText(a)).getCOSObject());
   }
 
   /**
    * Test {@link FDFAnnotationFreeText#FDFAnnotationFreeText()}.
-   *
-   * <p>Method under test: {@link FDFAnnotationFreeText#FDFAnnotationFreeText()}
+   * <p>
+   * Method under test: {@link FDFAnnotationFreeText#FDFAnnotationFreeText()}
    */
   @Test
   @DisplayName("Test new FDFAnnotationFreeText()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFAnnotationFreeText.<init>()"})
   void testNewFDFAnnotationFreeText2() throws IOException {
     // Arrange and Act
@@ -91,116 +84,82 @@ class FDFAnnotationFreeTextDiffblueTest {
   }
 
   /**
-   * Test {@link FDFAnnotationFreeText#FDFAnnotationFreeText(Element)}.
-   *
-   * <ul>
-   *   <li>When {@link IIOMetadataNode#IIOMetadataNode()}.
-   *   <li>Then throw {@link IOException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationFreeText#FDFAnnotationFreeText(Element)}
-   */
-  @Test
-  @DisplayName(
-      "Test new FDFAnnotationFreeText(Element); when IIOMetadataNode(); then throw IOException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFAnnotationFreeText.<init>(Element)"})
-  void testNewFDFAnnotationFreeText_whenIIOMetadataNode_thenThrowIOException() throws IOException {
-    // Arrange, Act and Assert
-    assertThrows(IOException.class, () -> new FDFAnnotationFreeText(new IIOMetadataNode()));
-  }
-
-  /**
    * Test {@link FDFAnnotationFreeText#setCallout(float[])}.
-   *
    * <ul>
-   *   <li>Then {@link FDFAnnotationFreeText#FDFAnnotationFreeText()} COSObject Values size is
-   *       three.
+   *   <li>Then {@link FDFAnnotationFreeText#FDFAnnotationFreeText()} COSObject Values size is three.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationFreeText#setCallout(float[])}
+   * <p>
+   * Method under test: {@link FDFAnnotationFreeText#setCallout(float[])}
    */
   @Test
-  @DisplayName(
-      "Test setCallout(float[]); then FDFAnnotationFreeText() COSObject Values size is three")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setCallout(float[]); then FDFAnnotationFreeText() COSObject Values size is three")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFAnnotationFreeText.setCallout(float[])"})
   void testSetCallout_thenFDFAnnotationFreeTextCOSObjectValuesSizeIsThree() {
     // Arrange
     FDFAnnotationFreeText fdfAnnotationFreeText = new FDFAnnotationFreeText();
 
     // Act
-    fdfAnnotationFreeText.setCallout(new float[] {10.0f, 0.5f, 10.0f, 0.5f});
+    fdfAnnotationFreeText.setCallout(new float[]{10.0f, 0.5f, 10.0f, 0.5f});
 
     // Assert
     COSDictionary cOSObject = fdfAnnotationFreeText.getCOSObject();
     assertEquals(3, cOSObject.getValues().size());
     assertEquals(3, cOSObject.size());
-    assertArrayEquals(
-        new float[] {10.0f, 0.5f, 10.0f, 0.5f}, fdfAnnotationFreeText.getCallout(), 0.0f);
+    assertArrayEquals(new float[]{10.0f, 0.5f, 10.0f, 0.5f}, fdfAnnotationFreeText.getCallout(), 0.0f);
   }
 
   /**
    * Test {@link FDFAnnotationFreeText#getCallout()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFAnnotationFreeText#FDFAnnotationFreeText()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link FDFAnnotationFreeText#FDFAnnotationFreeText()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationFreeText#getCallout()}
+   * <p>
+   * Method under test: {@link FDFAnnotationFreeText#getCallout()}
    */
   @Test
   @DisplayName("Test getCallout(); given FDFAnnotationFreeText(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"float[] FDFAnnotationFreeText.getCallout()"})
   void testGetCallout_givenFDFAnnotationFreeText_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new FDFAnnotationFreeText().getCallout());
+    assertNull((new FDFAnnotationFreeText()).getCallout());
   }
 
   /**
    * Test {@link FDFAnnotationFreeText#getCallout()}.
-   *
    * <ul>
-   *   <li>Then return array of {@code float} with ten and {@code 0.5}.
+   *   <li>Then return array of {@code float} with ten and {@code 0.5}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationFreeText#getCallout()}
+   * <p>
+   * Method under test: {@link FDFAnnotationFreeText#getCallout()}
    */
   @Test
   @DisplayName("Test getCallout(); then return array of float with ten and '0.5'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"float[] FDFAnnotationFreeText.getCallout()"})
   void testGetCallout_thenReturnArrayOfFloatWithTenAnd05() {
     // Arrange
     FDFAnnotationFreeText fdfAnnotationFreeText = new FDFAnnotationFreeText();
-    fdfAnnotationFreeText.setCallout(new float[] {10.0f, 0.5f, 10.0f, 0.5f});
+    fdfAnnotationFreeText.setCallout(new float[]{10.0f, 0.5f, 10.0f, 0.5f});
 
     // Act and Assert
-    assertArrayEquals(
-        new float[] {10.0f, 0.5f, 10.0f, 0.5f}, fdfAnnotationFreeText.getCallout(), 0.0f);
+    assertArrayEquals(new float[]{10.0f, 0.5f, 10.0f, 0.5f}, fdfAnnotationFreeText.getCallout(), 0.0f);
   }
 
   /**
    * Test {@link FDFAnnotationFreeText#setJustification(String)}.
-   *
    * <ul>
-   *   <li>When {@code centered}.
-   *   <li>Then {@link FDFAnnotationFreeText#FDFAnnotationFreeText()} Justification is {@code 1}.
+   *   <li>When {@code centered}.</li>
+   *   <li>Then {@link FDFAnnotationFreeText#FDFAnnotationFreeText()} Justification is {@code 1}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationFreeText#setJustification(String)}
+   * <p>
+   * Method under test: {@link FDFAnnotationFreeText#setJustification(String)}
    */
   @Test
-  @DisplayName(
-      "Test setJustification(String); when 'centered'; then FDFAnnotationFreeText() Justification is '1'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setJustification(String); when 'centered'; then FDFAnnotationFreeText() Justification is '1'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFAnnotationFreeText.setJustification(String)"})
   void testSetJustification_whenCentered_thenFDFAnnotationFreeTextJustificationIs1() {
     // Arrange
@@ -218,19 +177,16 @@ class FDFAnnotationFreeTextDiffblueTest {
 
   /**
    * Test {@link FDFAnnotationFreeText#setJustification(String)}.
-   *
    * <ul>
-   *   <li>When {@code Justification}.
-   *   <li>Then {@link FDFAnnotationFreeText#FDFAnnotationFreeText()} Justification is {@code 0}.
+   *   <li>When {@code Justification}.</li>
+   *   <li>Then {@link FDFAnnotationFreeText#FDFAnnotationFreeText()} Justification is {@code 0}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationFreeText#setJustification(String)}
+   * <p>
+   * Method under test: {@link FDFAnnotationFreeText#setJustification(String)}
    */
   @Test
-  @DisplayName(
-      "Test setJustification(String); when 'Justification'; then FDFAnnotationFreeText() Justification is '0'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setJustification(String); when 'Justification'; then FDFAnnotationFreeText() Justification is '0'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFAnnotationFreeText.setJustification(String)"})
   void testSetJustification_whenJustification_thenFDFAnnotationFreeTextJustificationIs0() {
     // Arrange
@@ -248,19 +204,16 @@ class FDFAnnotationFreeTextDiffblueTest {
 
   /**
    * Test {@link FDFAnnotationFreeText#setJustification(String)}.
-   *
    * <ul>
-   *   <li>When {@code right}.
-   *   <li>Then {@link FDFAnnotationFreeText#FDFAnnotationFreeText()} Justification is {@code 2}.
+   *   <li>When {@code right}.</li>
+   *   <li>Then {@link FDFAnnotationFreeText#FDFAnnotationFreeText()} Justification is {@code 2}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationFreeText#setJustification(String)}
+   * <p>
+   * Method under test: {@link FDFAnnotationFreeText#setJustification(String)}
    */
   @Test
-  @DisplayName(
-      "Test setJustification(String); when 'right'; then FDFAnnotationFreeText() Justification is '2'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setJustification(String); when 'right'; then FDFAnnotationFreeText() Justification is '2'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFAnnotationFreeText.setJustification(String)"})
   void testSetJustification_whenRight_thenFDFAnnotationFreeTextJustificationIs2() {
     // Arrange
@@ -278,19 +231,15 @@ class FDFAnnotationFreeTextDiffblueTest {
 
   /**
    * Test {@link FDFAnnotationFreeText#getJustification()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFAnnotationFreeText#FDFAnnotationFreeText()} Justification is {@code
-   *       Justification}.
+   *   <li>Given {@link FDFAnnotationFreeText#FDFAnnotationFreeText()} Justification is {@code Justification}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationFreeText#getJustification()}
+   * <p>
+   * Method under test: {@link FDFAnnotationFreeText#getJustification()}
    */
   @Test
-  @DisplayName(
-      "Test getJustification(); given FDFAnnotationFreeText() Justification is 'Justification'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getJustification(); given FDFAnnotationFreeText() Justification is 'Justification'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String FDFAnnotationFreeText.getJustification()"})
   void testGetJustification_givenFDFAnnotationFreeTextJustificationIsJustification() {
     // Arrange
@@ -303,38 +252,33 @@ class FDFAnnotationFreeTextDiffblueTest {
 
   /**
    * Test {@link FDFAnnotationFreeText#getJustification()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFAnnotationFreeText#FDFAnnotationFreeText()}.
-   *   <li>Then return {@code 0}.
+   *   <li>Given {@link FDFAnnotationFreeText#FDFAnnotationFreeText()}.</li>
+   *   <li>Then return {@code 0}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationFreeText#getJustification()}
+   * <p>
+   * Method under test: {@link FDFAnnotationFreeText#getJustification()}
    */
   @Test
   @DisplayName("Test getJustification(); given FDFAnnotationFreeText(); then return '0'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String FDFAnnotationFreeText.getJustification()"})
   void testGetJustification_givenFDFAnnotationFreeText_thenReturn0() {
     // Arrange, Act and Assert
-    assertEquals("0", new FDFAnnotationFreeText().getJustification());
+    assertEquals("0", (new FDFAnnotationFreeText()).getJustification());
   }
 
   /**
    * Test {@link FDFAnnotationFreeText#setRotation(int)}.
-   *
    * <ul>
-   *   <li>Then {@link FDFAnnotationFreeText#FDFAnnotationFreeText()} COSObject Values size is
-   *       three.
+   *   <li>Then {@link FDFAnnotationFreeText#FDFAnnotationFreeText()} COSObject Values size is three.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationFreeText#setRotation(int)}
+   * <p>
+   * Method under test: {@link FDFAnnotationFreeText#setRotation(int)}
    */
   @Test
   @DisplayName("Test setRotation(int); then FDFAnnotationFreeText() COSObject Values size is three")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFAnnotationFreeText.setRotation(int)"})
   void testSetRotation_thenFDFAnnotationFreeTextCOSObjectValuesSizeIsThree() {
     // Arrange
@@ -351,17 +295,15 @@ class FDFAnnotationFreeTextDiffblueTest {
 
   /**
    * Test {@link FDFAnnotationFreeText#setRotation(int)}.
-   *
    * <ul>
-   *   <li>When {@link Integer#MIN_VALUE}.
+   *   <li>When {@link Integer#MIN_VALUE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationFreeText#setRotation(int)}
+   * <p>
+   * Method under test: {@link FDFAnnotationFreeText#setRotation(int)}
    */
   @Test
   @DisplayName("Test setRotation(int); when MIN_VALUE")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFAnnotationFreeText.setRotation(int)"})
   void testSetRotation_whenMin_value() {
     // Arrange
@@ -378,67 +320,33 @@ class FDFAnnotationFreeTextDiffblueTest {
 
   /**
    * Test {@link FDFAnnotationFreeText#getRotation()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFAnnotationFreeText#FDFAnnotationFreeText()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link FDFAnnotationFreeText#FDFAnnotationFreeText()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationFreeText#getRotation()}
+   * <p>
+   * Method under test: {@link FDFAnnotationFreeText#getRotation()}
    */
   @Test
   @DisplayName("Test getRotation(); given FDFAnnotationFreeText(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String FDFAnnotationFreeText.getRotation()"})
   void testGetRotation_givenFDFAnnotationFreeText_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new FDFAnnotationFreeText().getRotation());
+    assertNull((new FDFAnnotationFreeText()).getRotation());
   }
 
   /**
    * Test {@link FDFAnnotationFreeText#setDefaultAppearance(String)}.
-   *
    * <ul>
-   *   <li>Then {@link FDFAnnotationFreeText#FDFAnnotationFreeText()} COSObject Values size is two.
+   *   <li>Then {@link FDFAnnotationFreeText#FDFAnnotationFreeText()} DefaultAppearance is {@code Appearance}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationFreeText#setDefaultAppearance(String)}
+   * <p>
+   * Method under test: {@link FDFAnnotationFreeText#setDefaultAppearance(String)}
    */
   @Test
-  @DisplayName(
-      "Test setDefaultAppearance(String); then FDFAnnotationFreeText() COSObject Values size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFAnnotationFreeText.setDefaultAppearance(String)"})
-  void testSetDefaultAppearance_thenFDFAnnotationFreeTextCOSObjectValuesSizeIsTwo() {
-    // Arrange
-    FDFAnnotationFreeText fdfAnnotationFreeText = new FDFAnnotationFreeText();
-
-    // Act
-    fdfAnnotationFreeText.setDefaultAppearance(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = fdfAnnotationFreeText.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-  }
-
-  /**
-   * Test {@link FDFAnnotationFreeText#setDefaultAppearance(String)}.
-   *
-   * <ul>
-   *   <li>Then {@link FDFAnnotationFreeText#FDFAnnotationFreeText()} DefaultAppearance is {@code
-   *       Appearance}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationFreeText#setDefaultAppearance(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test setDefaultAppearance(String); then FDFAnnotationFreeText() DefaultAppearance is 'Appearance'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setDefaultAppearance(String); then FDFAnnotationFreeText() DefaultAppearance is 'Appearance'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFAnnotationFreeText.setDefaultAppearance(String)"})
   void testSetDefaultAppearance_thenFDFAnnotationFreeTextDefaultAppearanceIsAppearance() {
     // Arrange
@@ -456,37 +364,33 @@ class FDFAnnotationFreeTextDiffblueTest {
 
   /**
    * Test {@link FDFAnnotationFreeText#getDefaultAppearance()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFAnnotationFreeText#FDFAnnotationFreeText()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link FDFAnnotationFreeText#FDFAnnotationFreeText()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationFreeText#getDefaultAppearance()}
+   * <p>
+   * Method under test: {@link FDFAnnotationFreeText#getDefaultAppearance()}
    */
   @Test
   @DisplayName("Test getDefaultAppearance(); given FDFAnnotationFreeText(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String FDFAnnotationFreeText.getDefaultAppearance()"})
   void testGetDefaultAppearance_givenFDFAnnotationFreeText_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new FDFAnnotationFreeText().getDefaultAppearance());
+    assertNull((new FDFAnnotationFreeText()).getDefaultAppearance());
   }
 
   /**
    * Test {@link FDFAnnotationFreeText#getDefaultAppearance()}.
-   *
    * <ul>
-   *   <li>Then return {@code Appearance}.
+   *   <li>Then return {@code Appearance}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationFreeText#getDefaultAppearance()}
+   * <p>
+   * Method under test: {@link FDFAnnotationFreeText#getDefaultAppearance()}
    */
   @Test
   @DisplayName("Test getDefaultAppearance(); then return 'Appearance'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String FDFAnnotationFreeText.getDefaultAppearance()"})
   void testGetDefaultAppearance_thenReturnAppearance() {
     // Arrange
@@ -499,17 +403,15 @@ class FDFAnnotationFreeTextDiffblueTest {
 
   /**
    * Test {@link FDFAnnotationFreeText#getDefaultAppearance()}.
-   *
    * <ul>
-   *   <li>Then return {@code ,}.
+   *   <li>Then return {@code ,}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationFreeText#getDefaultAppearance()}
+   * <p>
+   * Method under test: {@link FDFAnnotationFreeText#getDefaultAppearance()}
    */
   @Test
   @DisplayName("Test getDefaultAppearance(); then return ','")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String FDFAnnotationFreeText.getDefaultAppearance()"})
   void testGetDefaultAppearance_thenReturnComma() {
     // Arrange
@@ -522,17 +424,15 @@ class FDFAnnotationFreeTextDiffblueTest {
 
   /**
    * Test {@link FDFAnnotationFreeText#setDefaultStyle(String)}.
-   *
    * <ul>
-   *   <li>Then {@link FDFAnnotationFreeText#FDFAnnotationFreeText()} DefaultStyle is {@code Style}.
+   *   <li>Then {@link FDFAnnotationFreeText#FDFAnnotationFreeText()} DefaultStyle is {@code Style}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationFreeText#setDefaultStyle(String)}
+   * <p>
+   * Method under test: {@link FDFAnnotationFreeText#setDefaultStyle(String)}
    */
   @Test
   @DisplayName("Test setDefaultStyle(String); then FDFAnnotationFreeText() DefaultStyle is 'Style'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFAnnotationFreeText.setDefaultStyle(String)"})
   void testSetDefaultStyle_thenFDFAnnotationFreeTextDefaultStyleIsStyle() {
     // Arrange
@@ -549,67 +449,34 @@ class FDFAnnotationFreeTextDiffblueTest {
   }
 
   /**
-   * Test {@link FDFAnnotationFreeText#setDefaultStyle(String)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link FDFAnnotationFreeText#FDFAnnotationFreeText()} COSObject Values size is two.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationFreeText#setDefaultStyle(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test setDefaultStyle(String); when 'null'; then FDFAnnotationFreeText() COSObject Values size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFAnnotationFreeText.setDefaultStyle(String)"})
-  void testSetDefaultStyle_whenNull_thenFDFAnnotationFreeTextCOSObjectValuesSizeIsTwo() {
-    // Arrange
-    FDFAnnotationFreeText fdfAnnotationFreeText = new FDFAnnotationFreeText();
-
-    // Act
-    fdfAnnotationFreeText.setDefaultStyle(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = fdfAnnotationFreeText.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-  }
-
-  /**
    * Test {@link FDFAnnotationFreeText#getDefaultStyle()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFAnnotationFreeText#FDFAnnotationFreeText()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link FDFAnnotationFreeText#FDFAnnotationFreeText()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationFreeText#getDefaultStyle()}
+   * <p>
+   * Method under test: {@link FDFAnnotationFreeText#getDefaultStyle()}
    */
   @Test
   @DisplayName("Test getDefaultStyle(); given FDFAnnotationFreeText(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String FDFAnnotationFreeText.getDefaultStyle()"})
   void testGetDefaultStyle_givenFDFAnnotationFreeText_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new FDFAnnotationFreeText().getDefaultStyle());
+    assertNull((new FDFAnnotationFreeText()).getDefaultStyle());
   }
 
   /**
    * Test {@link FDFAnnotationFreeText#getDefaultStyle()}.
-   *
    * <ul>
-   *   <li>Then return {@code ,}.
+   *   <li>Then return {@code ,}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationFreeText#getDefaultStyle()}
+   * <p>
+   * Method under test: {@link FDFAnnotationFreeText#getDefaultStyle()}
    */
   @Test
   @DisplayName("Test getDefaultStyle(); then return ','")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String FDFAnnotationFreeText.getDefaultStyle()"})
   void testGetDefaultStyle_thenReturnComma() {
     // Arrange
@@ -622,17 +489,15 @@ class FDFAnnotationFreeTextDiffblueTest {
 
   /**
    * Test {@link FDFAnnotationFreeText#getDefaultStyle()}.
-   *
    * <ul>
-   *   <li>Then return {@code Style}.
+   *   <li>Then return {@code Style}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationFreeText#getDefaultStyle()}
+   * <p>
+   * Method under test: {@link FDFAnnotationFreeText#getDefaultStyle()}
    */
   @Test
   @DisplayName("Test getDefaultStyle(); then return 'Style'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String FDFAnnotationFreeText.getDefaultStyle()"})
   void testGetDefaultStyle_thenReturnStyle() {
     // Arrange
@@ -645,58 +510,16 @@ class FDFAnnotationFreeTextDiffblueTest {
 
   /**
    * Test {@link FDFAnnotationFreeText#setFringe(PDRectangle)}.
-   *
    * <ul>
-   *   <li>Then {@link FDFAnnotationFreeText#FDFAnnotationFreeText()} COSObject toIncrement Objects
-   *       size is one.
+   *   <li>When {@link PDRectangle#A0}.</li>
+   *   <li>Then {@link FDFAnnotationFreeText#FDFAnnotationFreeText()} Fringe UpperRightX is {@code 2383.937}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationFreeText#setFringe(PDRectangle)}
+   * <p>
+   * Method under test: {@link FDFAnnotationFreeText#setFringe(PDRectangle)}
    */
   @Test
-  @DisplayName(
-      "Test setFringe(PDRectangle); then FDFAnnotationFreeText() COSObject toIncrement Objects size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFAnnotationFreeText.setFringe(PDRectangle)"})
-  void testSetFringe_thenFDFAnnotationFreeTextCOSObjectToIncrementObjectsSizeIsOne() {
-    // Arrange
-    FDFAnnotationFreeText fdfAnnotationFreeText = new FDFAnnotationFreeText();
-
-    // Act
-    fdfAnnotationFreeText.setFringe(PDRectangle.LETTER);
-
-    // Assert
-    COSDictionary cOSObject = fdfAnnotationFreeText.getCOSObject();
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertEquals(1, toIncrementResult.getObjects().size());
-    Iterator<COSBase> iteratorResult = toIncrementResult.iterator();
-    COSBase actualNextResult = iteratorResult.next();
-    assertFalse(iteratorResult.hasNext());
-    assertSame(cOSObject, actualNextResult);
-    PDRectangle fringe = fdfAnnotationFreeText.getFringe();
-    assertEquals(792.0f, fringe.getHeight());
-    assertEquals(612.0f, fringe.getUpperRightX());
-    assertEquals(792.0f, fringe.getUpperRightY());
-    assertEquals(612.0f, fringe.getWidth());
-  }
-
-  /**
-   * Test {@link FDFAnnotationFreeText#setFringe(PDRectangle)}.
-   *
-   * <ul>
-   *   <li>When {@link PDRectangle#A0}.
-   *   <li>Then {@link FDFAnnotationFreeText#FDFAnnotationFreeText()} Fringe UpperRightX is {@code
-   *       2383.937}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationFreeText#setFringe(PDRectangle)}
-   */
-  @Test
-  @DisplayName(
-      "Test setFringe(PDRectangle); when A0; then FDFAnnotationFreeText() Fringe UpperRightX is '2383.937'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setFringe(PDRectangle); when A0; then FDFAnnotationFreeText() Fringe UpperRightX is '2383.937'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFAnnotationFreeText.setFringe(PDRectangle)"})
   void testSetFringe_whenA0_thenFDFAnnotationFreeTextFringeUpperRightXIs2383937() {
     // Arrange
@@ -715,20 +538,16 @@ class FDFAnnotationFreeTextDiffblueTest {
 
   /**
    * Test {@link FDFAnnotationFreeText#setFringe(PDRectangle)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link FDFAnnotationFreeText#FDFAnnotationFreeText()} COSObject toIncrement Objects
-   *       Empty.
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link FDFAnnotationFreeText#FDFAnnotationFreeText()} COSObject toIncrement Objects Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationFreeText#setFringe(PDRectangle)}
+   * <p>
+   * Method under test: {@link FDFAnnotationFreeText#setFringe(PDRectangle)}
    */
   @Test
-  @DisplayName(
-      "Test setFringe(PDRectangle); when 'null'; then FDFAnnotationFreeText() COSObject toIncrement Objects Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setFringe(PDRectangle); when 'null'; then FDFAnnotationFreeText() COSObject toIncrement Objects Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFAnnotationFreeText.setFringe(PDRectangle)"})
   void testSetFringe_whenNull_thenFDFAnnotationFreeTextCOSObjectToIncrementObjectsEmpty() {
     // Arrange
@@ -745,37 +564,33 @@ class FDFAnnotationFreeTextDiffblueTest {
 
   /**
    * Test {@link FDFAnnotationFreeText#getFringe()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFAnnotationFreeText#FDFAnnotationFreeText()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link FDFAnnotationFreeText#FDFAnnotationFreeText()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationFreeText#getFringe()}
+   * <p>
+   * Method under test: {@link FDFAnnotationFreeText#getFringe()}
    */
   @Test
   @DisplayName("Test getFringe(); given FDFAnnotationFreeText(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDRectangle FDFAnnotationFreeText.getFringe()"})
   void testGetFringe_givenFDFAnnotationFreeText_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new FDFAnnotationFreeText().getFringe());
+    assertNull((new FDFAnnotationFreeText()).getFringe());
   }
 
   /**
    * Test {@link FDFAnnotationFreeText#getFringe()}.
-   *
    * <ul>
-   *   <li>Then return COSArray toList third Key is {@code null}.
+   *   <li>Then return COSArray toList third Key is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationFreeText#getFringe()}
+   * <p>
+   * Method under test: {@link FDFAnnotationFreeText#getFringe()}
    */
   @Test
   @DisplayName("Test getFringe(); then return COSArray toList third Key is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDRectangle FDFAnnotationFreeText.getFringe()"})
   void testGetFringe_thenReturnCOSArrayToListThirdKeyIsNull() {
     // Arrange
@@ -806,24 +621,20 @@ class FDFAnnotationFreeTextDiffblueTest {
 
   /**
    * Test {@link FDFAnnotationFreeText#getFringe()}.
-   *
    * <ul>
-   *   <li>Then return Height is zero.
+   *   <li>Then return Height is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationFreeText#getFringe()}
+   * <p>
+   * Method under test: {@link FDFAnnotationFreeText#getFringe()}
    */
   @Test
   @DisplayName("Test getFringe(); then return Height is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDRectangle FDFAnnotationFreeText.getFringe()"})
   void testGetFringe_thenReturnHeightIsZero() {
     // Arrange
     FDFAnnotationFreeText fdfAnnotationFreeText = new FDFAnnotationFreeText();
-    PDRectangle fringe =
-        new PDRectangle(2.14748365E9f, 2.14748365E9f, 2.14748365E9f, 2.14748365E9f);
-    fdfAnnotationFreeText.setFringe(fringe);
+    fdfAnnotationFreeText.setFringe(new PDRectangle(2.14748365E9f, 2.14748365E9f, 2.14748365E9f, 2.14748365E9f));
 
     // Act
     PDRectangle actualFringe = fdfAnnotationFreeText.getFringe();
@@ -848,80 +659,17 @@ class FDFAnnotationFreeTextDiffblueTest {
 
   /**
    * Test {@link FDFAnnotationFreeText#setLineEndingStyle(String)}.
-   *
    * <ul>
-   *   <li>Then {@link FDFAnnotationFreeText#FDFAnnotationFreeText()} COSObject Values size is two.
+   *   <li>Then {@link FDFAnnotationFreeText#FDFAnnotationFreeText()} LineEndingStyle is {@code Style}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationFreeText#setLineEndingStyle(String)}
+   * <p>
+   * Method under test: {@link FDFAnnotationFreeText#setLineEndingStyle(String)}
    */
   @Test
-  @DisplayName(
-      "Test setLineEndingStyle(String); then FDFAnnotationFreeText() COSObject Values size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setLineEndingStyle(String); then FDFAnnotationFreeText() LineEndingStyle is 'Style'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFAnnotationFreeText.setLineEndingStyle(String)"})
-  void testSetLineEndingStyle_thenFDFAnnotationFreeTextCOSObjectValuesSizeIsTwo() {
-    // Arrange
-    FDFAnnotationFreeText fdfAnnotationFreeText = new FDFAnnotationFreeText();
-
-    // Act
-    fdfAnnotationFreeText.setLineEndingStyle(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = fdfAnnotationFreeText.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-  }
-
-  /**
-   * Test {@link FDFAnnotationFreeText#setLineEndingStyle(String)}.
-   *
-   * <ul>
-   *   <li>Then {@link FDFAnnotationFreeText#FDFAnnotationFreeText()} LineEndingStyle is {@code
-   *       Stylefringe}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationFreeText#setLineEndingStyle(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test setLineEndingStyle(String); then FDFAnnotationFreeText() LineEndingStyle is 'Stylefringe'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFAnnotationFreeText.setLineEndingStyle(String)"})
-  void testSetLineEndingStyle_thenFDFAnnotationFreeTextLineEndingStyleIsStylefringe() {
-    // Arrange
-    FDFAnnotationFreeText fdfAnnotationFreeText = new FDFAnnotationFreeText();
-
-    // Act
-    fdfAnnotationFreeText.setLineEndingStyle("Stylefringe");
-
-    // Assert
-    assertEquals("Stylefringe", fdfAnnotationFreeText.getLineEndingStyle());
-    COSDictionary cOSObject = fdfAnnotationFreeText.getCOSObject();
-    assertEquals(3, cOSObject.getValues().size());
-    assertEquals(3, cOSObject.size());
-  }
-
-  /**
-   * Test {@link FDFAnnotationFreeText#setLineEndingStyle(String)}.
-   *
-   * <ul>
-   *   <li>When {@code Style}.
-   *   <li>Then {@link FDFAnnotationFreeText#FDFAnnotationFreeText()} LineEndingStyle is {@code
-   *       Style}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationFreeText#setLineEndingStyle(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test setLineEndingStyle(String); when 'Style'; then FDFAnnotationFreeText() LineEndingStyle is 'Style'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFAnnotationFreeText.setLineEndingStyle(String)"})
-  void testSetLineEndingStyle_whenStyle_thenFDFAnnotationFreeTextLineEndingStyleIsStyle() {
+  void testSetLineEndingStyle_thenFDFAnnotationFreeTextLineEndingStyleIsStyle() {
     // Arrange
     FDFAnnotationFreeText fdfAnnotationFreeText = new FDFAnnotationFreeText();
 
@@ -936,38 +684,61 @@ class FDFAnnotationFreeTextDiffblueTest {
   }
 
   /**
-   * Test {@link FDFAnnotationFreeText#getLineEndingStyle()}.
-   *
+   * Test {@link FDFAnnotationFreeText#setLineEndingStyle(String)}.
    * <ul>
-   *   <li>Given {@link FDFAnnotationFreeText#FDFAnnotationFreeText()}.
-   *   <li>Then return {@code null}.
+   *   <li>When {@code ,}.</li>
+   *   <li>Then {@link FDFAnnotationFreeText#FDFAnnotationFreeText()} LineEndingStyle is {@code ,}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationFreeText#getLineEndingStyle()}
+   * <p>
+   * Method under test: {@link FDFAnnotationFreeText#setLineEndingStyle(String)}
    */
   @Test
-  @DisplayName("Test getLineEndingStyle(); given FDFAnnotationFreeText(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String FDFAnnotationFreeText.getLineEndingStyle()"})
-  void testGetLineEndingStyle_givenFDFAnnotationFreeText_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new FDFAnnotationFreeText().getLineEndingStyle());
+  @DisplayName("Test setLineEndingStyle(String); when ','; then FDFAnnotationFreeText() LineEndingStyle is ','")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void FDFAnnotationFreeText.setLineEndingStyle(String)"})
+  void testSetLineEndingStyle_whenComma_thenFDFAnnotationFreeTextLineEndingStyleIsComma() {
+    // Arrange
+    FDFAnnotationFreeText fdfAnnotationFreeText = new FDFAnnotationFreeText();
+
+    // Act
+    fdfAnnotationFreeText.setLineEndingStyle(",");
+
+    // Assert
+    assertEquals(",", fdfAnnotationFreeText.getLineEndingStyle());
+    COSDictionary cOSObject = fdfAnnotationFreeText.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
   }
 
   /**
    * Test {@link FDFAnnotationFreeText#getLineEndingStyle()}.
-   *
    * <ul>
-   *   <li>Then return {@code Style}.
+   *   <li>Given {@link FDFAnnotationFreeText#FDFAnnotationFreeText()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationFreeText#getLineEndingStyle()}
+   * <p>
+   * Method under test: {@link FDFAnnotationFreeText#getLineEndingStyle()}
+   */
+  @Test
+  @DisplayName("Test getLineEndingStyle(); given FDFAnnotationFreeText(); then return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String FDFAnnotationFreeText.getLineEndingStyle()"})
+  void testGetLineEndingStyle_givenFDFAnnotationFreeText_thenReturnNull() {
+    // Arrange, Act and Assert
+    assertNull((new FDFAnnotationFreeText()).getLineEndingStyle());
+  }
+
+  /**
+   * Test {@link FDFAnnotationFreeText#getLineEndingStyle()}.
+   * <ul>
+   *   <li>Then return {@code Style}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link FDFAnnotationFreeText#getLineEndingStyle()}
    */
   @Test
   @DisplayName("Test getLineEndingStyle(); then return 'Style'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String FDFAnnotationFreeText.getLineEndingStyle()"})
   void testGetLineEndingStyle_thenReturnStyle() {
     // Arrange

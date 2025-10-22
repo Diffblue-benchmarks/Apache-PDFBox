@@ -2,7 +2,6 @@ package org.apache.fontbox.ttf.table.common;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.fontbox.ttf.table.gsub.LookupTypeSingleSubstFormat1;
 import org.junit.jupiter.api.DisplayName;
@@ -12,9 +11,8 @@ import org.junit.jupiter.api.Test;
 class LookupListTableDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link LookupListTable#LookupListTable(int, LookupTable[])}
    *   <li>{@link LookupListTable#toString()}
@@ -24,20 +22,13 @@ class LookupListTableDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void LookupListTable.<init>(int, LookupTable[])",
-    "int LookupListTable.getLookupCount()",
-    "LookupTable[] LookupListTable.getLookups()",
-    "String LookupListTable.toString()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void LookupListTable.<init>(int, LookupTable[])", "int LookupListTable.getLookupCount()",
+      "LookupTable[] LookupListTable.getLookups()", "String LookupListTable.toString()"})
   void testGettersAndSetters() {
     // Arrange
-    LookupTypeSingleSubstFormat1 lookupTypeSingleSubstFormat1 =
-        new LookupTypeSingleSubstFormat1(1, null, (short) 1);
-    LookupSubTable[] subTables = new LookupSubTable[] {lookupTypeSingleSubstFormat1};
-    LookupTable[] lookups = new LookupTable[] {new LookupTable(1, 1, 1, subTables)};
+    LookupTable[] lookups = new LookupTable[]{
+        new LookupTable(1, 1, 1, new LookupSubTable[]{new LookupTypeSingleSubstFormat1(1, null, (short) 1)})};
 
     // Act
     LookupListTable actualLookupListTable = new LookupListTable(3, lookups);

@@ -2,7 +2,6 @@ package org.apache.pdfbox.filter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
@@ -13,18 +12,16 @@ import org.junit.jupiter.api.Test;
 class ASCII85OutputStreamDiffblueTest {
   /**
    * Test {@link ASCII85OutputStream#ASCII85OutputStream(OutputStream)}.
-   *
-   * <p>Method under test: {@link ASCII85OutputStream#ASCII85OutputStream(OutputStream)}
+   * <p>
+   * Method under test: {@link ASCII85OutputStream#ASCII85OutputStream(OutputStream)}
    */
   @Test
   @DisplayName("Test new ASCII85OutputStream(OutputStream)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ASCII85OutputStream.<init>(OutputStream)"})
   void testNewASCII85OutputStream() {
     // Arrange and Act
-    ASCII85OutputStream actualAscii85OutputStream =
-        new ASCII85OutputStream(new ByteArrayOutputStream());
+    ASCII85OutputStream actualAscii85OutputStream = new ASCII85OutputStream(new ByteArrayOutputStream(1));
 
     // Assert
     assertEquals('~', actualAscii85OutputStream.getTerminator());
@@ -33,17 +30,16 @@ class ASCII85OutputStreamDiffblueTest {
 
   /**
    * Test {@link ASCII85OutputStream#setTerminator(char)}.
-   *
-   * <p>Method under test: {@link ASCII85OutputStream#setTerminator(char)}
+   * <p>
+   * Method under test: {@link ASCII85OutputStream#setTerminator(char)}
    */
   @Test
   @DisplayName("Test setTerminator(char)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ASCII85OutputStream.setTerminator(char)"})
   void testSetTerminator() {
     // Arrange
-    ASCII85OutputStream ascii85OutputStream = new ASCII85OutputStream(new ByteArrayOutputStream());
+    ASCII85OutputStream ascii85OutputStream = new ASCII85OutputStream(new ByteArrayOutputStream(1));
 
     // Act
     ascii85OutputStream.setTerminator('v');
@@ -54,83 +50,73 @@ class ASCII85OutputStreamDiffblueTest {
 
   /**
    * Test {@link ASCII85OutputStream#setTerminator(char)}.
-   *
    * <ul>
-   *   <li>When {@code A}.
-   *   <li>Then throw {@link IllegalArgumentException}.
+   *   <li>When {@code A}.</li>
+   *   <li>Then throw {@link IllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ASCII85OutputStream#setTerminator(char)}
+   * <p>
+   * Method under test: {@link ASCII85OutputStream#setTerminator(char)}
    */
   @Test
   @DisplayName("Test setTerminator(char); when 'A'; then throw IllegalArgumentException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ASCII85OutputStream.setTerminator(char)"})
   void testSetTerminator_whenA_thenThrowIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        IllegalArgumentException.class,
-        () -> new ASCII85OutputStream(new ByteArrayOutputStream()).setTerminator('A'));
+    assertThrows(IllegalArgumentException.class,
+        () -> (new ASCII85OutputStream(new ByteArrayOutputStream(1))).setTerminator('A'));
   }
 
   /**
    * Test {@link ASCII85OutputStream#setTerminator(char)}.
-   *
    * <ul>
-   *   <li>When delete.
-   *   <li>Then throw {@link IllegalArgumentException}.
+   *   <li>When delete.</li>
+   *   <li>Then throw {@link IllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ASCII85OutputStream#setTerminator(char)}
+   * <p>
+   * Method under test: {@link ASCII85OutputStream#setTerminator(char)}
    */
   @Test
   @DisplayName("Test setTerminator(char); when delete; then throw IllegalArgumentException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ASCII85OutputStream.setTerminator(char)"})
   void testSetTerminator_whenDelete_thenThrowIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        IllegalArgumentException.class,
-        () -> new ASCII85OutputStream(new ByteArrayOutputStream()).setTerminator(''));
+    assertThrows(IllegalArgumentException.class,
+        () -> (new ASCII85OutputStream(new ByteArrayOutputStream(1))).setTerminator(''));
   }
 
   /**
    * Test {@link ASCII85OutputStream#setTerminator(char)}.
-   *
    * <ul>
-   *   <li>When {@code z}.
-   *   <li>Then throw {@link IllegalArgumentException}.
+   *   <li>When {@code z}.</li>
+   *   <li>Then throw {@link IllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ASCII85OutputStream#setTerminator(char)}
+   * <p>
+   * Method under test: {@link ASCII85OutputStream#setTerminator(char)}
    */
   @Test
   @DisplayName("Test setTerminator(char); when 'z'; then throw IllegalArgumentException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ASCII85OutputStream.setTerminator(char)"})
   void testSetTerminator_whenZ_thenThrowIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        IllegalArgumentException.class,
-        () -> new ASCII85OutputStream(new ByteArrayOutputStream()).setTerminator('z'));
+    assertThrows(IllegalArgumentException.class,
+        () -> (new ASCII85OutputStream(new ByteArrayOutputStream(1))).setTerminator('z'));
   }
 
   /**
    * Test {@link ASCII85OutputStream#setLineLength(int)}.
-   *
-   * <p>Method under test: {@link ASCII85OutputStream#setLineLength(int)}
+   * <p>
+   * Method under test: {@link ASCII85OutputStream#setLineLength(int)}
    */
   @Test
   @DisplayName("Test setLineLength(int)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ASCII85OutputStream.setLineLength(int)"})
   void testSetLineLength() {
     // Arrange
-    ASCII85OutputStream ascii85OutputStream = new ASCII85OutputStream(new ByteArrayOutputStream());
+    ASCII85OutputStream ascii85OutputStream = new ASCII85OutputStream(new ByteArrayOutputStream(1));
 
     // Act
     ascii85OutputStream.setLineLength(1);
@@ -141,17 +127,16 @@ class ASCII85OutputStreamDiffblueTest {
 
   /**
    * Test {@link ASCII85OutputStream#setLineLength(int)}.
-   *
-   * <p>Method under test: {@link ASCII85OutputStream#setLineLength(int)}
+   * <p>
+   * Method under test: {@link ASCII85OutputStream#setLineLength(int)}
    */
   @Test
   @DisplayName("Test setLineLength(int)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ASCII85OutputStream.setLineLength(int)"})
   void testSetLineLength2() {
     // Arrange
-    ASCII85OutputStream ascii85OutputStream = new ASCII85OutputStream(new ByteArrayOutputStream());
+    ASCII85OutputStream ascii85OutputStream = new ASCII85OutputStream(new ByteArrayOutputStream(1));
 
     // Act
     ascii85OutputStream.setLineLength(72);
@@ -162,9 +147,8 @@ class ASCII85OutputStreamDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ASCII85OutputStream#getLineLength()}
    *   <li>{@link ASCII85OutputStream#getTerminator()}
@@ -172,15 +156,11 @@ class ASCII85OutputStreamDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "int ASCII85OutputStream.getLineLength()",
-    "char ASCII85OutputStream.getTerminator()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"int ASCII85OutputStream.getLineLength()", "char ASCII85OutputStream.getTerminator()"})
   void testGettersAndSetters() {
     // Arrange
-    ASCII85OutputStream ascii85OutputStream = new ASCII85OutputStream(new ByteArrayOutputStream());
+    ASCII85OutputStream ascii85OutputStream = new ASCII85OutputStream(new ByteArrayOutputStream(1));
 
     // Act
     int actualLineLength = ascii85OutputStream.getLineLength();

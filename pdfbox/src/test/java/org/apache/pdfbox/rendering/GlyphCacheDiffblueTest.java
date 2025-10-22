@@ -2,7 +2,6 @@ package org.apache.pdfbox.rendering;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.Rectangle;
 import java.awt.geom.GeneralPath;
@@ -25,25 +24,20 @@ import org.junit.jupiter.api.Test;
 class GlyphCacheDiffblueTest {
   /**
    * Test {@link GlyphCache#getPathForCharacterCode(int)}.
-   *
    * <ul>
-   *   <li>Given {@link PDMMType1Font#PDMMType1Font(COSDictionary)} with fontDictionary is {@link
-   *       COSDictionary#COSDictionary()}.
+   *   <li>Given {@link PDMMType1Font#PDMMType1Font(COSDictionary)} with fontDictionary is {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link GlyphCache#getPathForCharacterCode(int)}
+   * <p>
+   * Method under test: {@link GlyphCache#getPathForCharacterCode(int)}
    */
   @Test
-  @DisplayName(
-      "Test getPathForCharacterCode(int); given PDMMType1Font(COSDictionary) with fontDictionary is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getPathForCharacterCode(int); given PDMMType1Font(COSDictionary) with fontDictionary is COSDictionary()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"GeneralPath GlyphCache.getPathForCharacterCode(int)"})
-  void testGetPathForCharacterCode_givenPDMMType1FontWithFontDictionaryIsCOSDictionary()
-      throws IOException {
+  void testGetPathForCharacterCode_givenPDMMType1FontWithFontDictionaryIsCOSDictionary() throws IOException {
     // Arrange and Act
-    GeneralPath actualPathForCharacterCode =
-        new GlyphCache(new PDMMType1Font(new COSDictionary())).getPathForCharacterCode(1);
+    GeneralPath actualPathForCharacterCode = (new GlyphCache(new PDMMType1Font(new COSDictionary())))
+        .getPathForCharacterCode(1);
 
     // Assert
     Rectangle bounds = actualPathForCharacterCode.getBounds();
@@ -53,8 +47,7 @@ class GlyphCacheDiffblueTest {
     assertTrue(frame instanceof Double);
     Rectangle2D bounds2D2 = actualPathForCharacterCode.getBounds2D();
     assertTrue(bounds2D2 instanceof Float);
-    Rectangle actualBounds = bounds.getBounds();
-    assertEquals(bounds, actualBounds);
+    assertEquals(bounds, bounds.getBounds());
     assertEquals(bounds, bounds2D);
     assertEquals(bounds, frame);
     assertEquals(bounds, bounds2D2);
@@ -62,25 +55,20 @@ class GlyphCacheDiffblueTest {
 
   /**
    * Test {@link GlyphCache#getPathForCharacterCode(int)}.
-   *
    * <ul>
-   *   <li>Given {@link PDMMType1Font#PDMMType1Font(COSDictionary)} with fontDictionary is {@link
-   *       COSDictionary#COSDictionary()}.
+   *   <li>Given {@link PDMMType1Font#PDMMType1Font(COSDictionary)} with fontDictionary is {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link GlyphCache#getPathForCharacterCode(int)}
+   * <p>
+   * Method under test: {@link GlyphCache#getPathForCharacterCode(int)}
    */
   @Test
-  @DisplayName(
-      "Test getPathForCharacterCode(int); given PDMMType1Font(COSDictionary) with fontDictionary is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getPathForCharacterCode(int); given PDMMType1Font(COSDictionary) with fontDictionary is COSDictionary()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"GeneralPath GlyphCache.getPathForCharacterCode(int)"})
-  void testGetPathForCharacterCode_givenPDMMType1FontWithFontDictionaryIsCOSDictionary2()
-      throws IOException {
+  void testGetPathForCharacterCode_givenPDMMType1FontWithFontDictionaryIsCOSDictionary2() throws IOException {
     // Arrange and Act
-    GeneralPath actualPathForCharacterCode =
-        new GlyphCache(new PDMMType1Font(new COSDictionary())).getPathForCharacterCode(10);
+    GeneralPath actualPathForCharacterCode = (new GlyphCache(new PDMMType1Font(new COSDictionary())))
+        .getPathForCharacterCode(10);
 
     // Assert
     Rectangle bounds = actualPathForCharacterCode.getBounds();
@@ -90,8 +78,7 @@ class GlyphCacheDiffblueTest {
     assertTrue(frame instanceof Double);
     Rectangle2D bounds2D2 = actualPathForCharacterCode.getBounds2D();
     assertTrue(bounds2D2 instanceof Float);
-    Rectangle actualBounds = bounds.getBounds();
-    assertEquals(bounds, actualBounds);
+    assertEquals(bounds, bounds.getBounds());
     assertEquals(bounds, bounds2D);
     assertEquals(bounds, frame);
     assertEquals(bounds, bounds2D2);
@@ -99,25 +86,20 @@ class GlyphCacheDiffblueTest {
 
   /**
    * Test {@link GlyphCache#getPathForCharacterCode(int)}.
-   *
    * <ul>
-   *   <li>Given {@link PDTrueTypeFont#PDTrueTypeFont(COSDictionary)} with fontDictionary is {@link
-   *       COSDictionary#COSDictionary()}.
+   *   <li>Given {@link PDTrueTypeFont#PDTrueTypeFont(COSDictionary)} with fontDictionary is {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link GlyphCache#getPathForCharacterCode(int)}
+   * <p>
+   * Method under test: {@link GlyphCache#getPathForCharacterCode(int)}
    */
   @Test
-  @DisplayName(
-      "Test getPathForCharacterCode(int); given PDTrueTypeFont(COSDictionary) with fontDictionary is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getPathForCharacterCode(int); given PDTrueTypeFont(COSDictionary) with fontDictionary is COSDictionary()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"GeneralPath GlyphCache.getPathForCharacterCode(int)"})
-  void testGetPathForCharacterCode_givenPDTrueTypeFontWithFontDictionaryIsCOSDictionary()
-      throws IOException {
+  void testGetPathForCharacterCode_givenPDTrueTypeFontWithFontDictionaryIsCOSDictionary() throws IOException {
     // Arrange and Act
-    GeneralPath actualPathForCharacterCode =
-        new GlyphCache(new PDTrueTypeFont(new COSDictionary())).getPathForCharacterCode(1);
+    GeneralPath actualPathForCharacterCode = (new GlyphCache(new PDTrueTypeFont(new COSDictionary())))
+        .getPathForCharacterCode(1);
 
     // Assert
     Rectangle bounds = actualPathForCharacterCode.getBounds();
@@ -127,8 +109,7 @@ class GlyphCacheDiffblueTest {
     assertTrue(frame instanceof Double);
     Rectangle2D bounds2D2 = actualPathForCharacterCode.getBounds2D();
     assertTrue(bounds2D2 instanceof Float);
-    Rectangle actualBounds = bounds.getBounds();
-    assertEquals(bounds, actualBounds);
+    assertEquals(bounds, bounds.getBounds());
     assertEquals(bounds, bounds2D);
     assertEquals(bounds, frame);
     assertEquals(bounds, bounds2D2);
@@ -136,25 +117,20 @@ class GlyphCacheDiffblueTest {
 
   /**
    * Test {@link GlyphCache#getPathForCharacterCode(int)}.
-   *
    * <ul>
-   *   <li>Given {@link PDType1CFont#PDType1CFont(COSDictionary)} with fontDictionary is {@link
-   *       COSDictionary#COSDictionary()}.
+   *   <li>Given {@link PDType1CFont#PDType1CFont(COSDictionary)} with fontDictionary is {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link GlyphCache#getPathForCharacterCode(int)}
+   * <p>
+   * Method under test: {@link GlyphCache#getPathForCharacterCode(int)}
    */
   @Test
-  @DisplayName(
-      "Test getPathForCharacterCode(int); given PDType1CFont(COSDictionary) with fontDictionary is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getPathForCharacterCode(int); given PDType1CFont(COSDictionary) with fontDictionary is COSDictionary()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"GeneralPath GlyphCache.getPathForCharacterCode(int)"})
-  void testGetPathForCharacterCode_givenPDType1CFontWithFontDictionaryIsCOSDictionary()
-      throws IOException {
+  void testGetPathForCharacterCode_givenPDType1CFontWithFontDictionaryIsCOSDictionary() throws IOException {
     // Arrange and Act
-    GeneralPath actualPathForCharacterCode =
-        new GlyphCache(new PDType1CFont(new COSDictionary())).getPathForCharacterCode(1);
+    GeneralPath actualPathForCharacterCode = (new GlyphCache(new PDType1CFont(new COSDictionary())))
+        .getPathForCharacterCode(1);
 
     // Assert
     Rectangle bounds = actualPathForCharacterCode.getBounds();
@@ -164,8 +140,7 @@ class GlyphCacheDiffblueTest {
     assertTrue(frame instanceof Double);
     Rectangle2D bounds2D2 = actualPathForCharacterCode.getBounds2D();
     assertTrue(bounds2D2 instanceof Float);
-    Rectangle actualBounds = bounds.getBounds();
-    assertEquals(bounds, actualBounds);
+    assertEquals(bounds, bounds.getBounds());
     assertEquals(bounds, bounds2D);
     assertEquals(bounds, frame);
     assertEquals(bounds, bounds2D2);
@@ -173,24 +148,21 @@ class GlyphCacheDiffblueTest {
 
   /**
    * Test {@link GlyphCache#getPathForCharacterCode(int)}.
-   *
    * <ul>
-   *   <li>Given {@link PDType1Font#PDType1Font(FontName)} with baseFont is {@code TIMES_ROMAN}.
-   *   <li>When one.
+   *   <li>Given {@link PDType1Font#PDType1Font(FontName)} with baseFont is {@code TIMES_ROMAN}.</li>
+   *   <li>When one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link GlyphCache#getPathForCharacterCode(int)}
+   * <p>
+   * Method under test: {@link GlyphCache#getPathForCharacterCode(int)}
    */
   @Test
-  @DisplayName(
-      "Test getPathForCharacterCode(int); given PDType1Font(FontName) with baseFont is 'TIMES_ROMAN'; when one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getPathForCharacterCode(int); given PDType1Font(FontName) with baseFont is 'TIMES_ROMAN'; when one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"GeneralPath GlyphCache.getPathForCharacterCode(int)"})
   void testGetPathForCharacterCode_givenPDType1FontWithBaseFontIsTimesRoman_whenOne() {
     // Arrange and Act
-    GeneralPath actualPathForCharacterCode =
-        new GlyphCache(new PDType1Font(FontName.TIMES_ROMAN)).getPathForCharacterCode(1);
+    GeneralPath actualPathForCharacterCode = (new GlyphCache(new PDType1Font(FontName.TIMES_ROMAN)))
+        .getPathForCharacterCode(1);
 
     // Assert
     Rectangle bounds = actualPathForCharacterCode.getBounds();
@@ -200,8 +172,7 @@ class GlyphCacheDiffblueTest {
     assertTrue(frame instanceof Double);
     Rectangle2D bounds2D2 = actualPathForCharacterCode.getBounds2D();
     assertTrue(bounds2D2 instanceof Float);
-    Rectangle actualBounds = bounds.getBounds();
-    assertEquals(bounds, actualBounds);
+    assertEquals(bounds, bounds.getBounds());
     assertEquals(bounds, bounds2D);
     assertEquals(bounds, frame);
     assertEquals(bounds, bounds2D2);
@@ -209,24 +180,21 @@ class GlyphCacheDiffblueTest {
 
   /**
    * Test {@link GlyphCache#getPathForCharacterCode(int)}.
-   *
    * <ul>
-   *   <li>Given {@link PDType1Font#PDType1Font(FontName)} with baseFont is {@code TIMES_ROMAN}.
-   *   <li>When ten.
+   *   <li>Given {@link PDType1Font#PDType1Font(FontName)} with baseFont is {@code TIMES_ROMAN}.</li>
+   *   <li>When ten.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link GlyphCache#getPathForCharacterCode(int)}
+   * <p>
+   * Method under test: {@link GlyphCache#getPathForCharacterCode(int)}
    */
   @Test
-  @DisplayName(
-      "Test getPathForCharacterCode(int); given PDType1Font(FontName) with baseFont is 'TIMES_ROMAN'; when ten")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getPathForCharacterCode(int); given PDType1Font(FontName) with baseFont is 'TIMES_ROMAN'; when ten")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"GeneralPath GlyphCache.getPathForCharacterCode(int)"})
   void testGetPathForCharacterCode_givenPDType1FontWithBaseFontIsTimesRoman_whenTen() {
     // Arrange and Act
-    GeneralPath actualPathForCharacterCode =
-        new GlyphCache(new PDType1Font(FontName.TIMES_ROMAN)).getPathForCharacterCode(10);
+    GeneralPath actualPathForCharacterCode = (new GlyphCache(new PDType1Font(FontName.TIMES_ROMAN)))
+        .getPathForCharacterCode(10);
 
     // Assert
     Rectangle bounds = actualPathForCharacterCode.getBounds();
@@ -236,8 +204,7 @@ class GlyphCacheDiffblueTest {
     assertTrue(frame instanceof Double);
     Rectangle2D bounds2D2 = actualPathForCharacterCode.getBounds2D();
     assertTrue(bounds2D2 instanceof Float);
-    Rectangle actualBounds = bounds.getBounds();
-    assertEquals(bounds, actualBounds);
+    assertEquals(bounds, bounds.getBounds());
     assertEquals(bounds, bounds2D);
     assertEquals(bounds, frame);
     assertEquals(bounds, bounds2D2);
@@ -245,23 +212,21 @@ class GlyphCacheDiffblueTest {
 
   /**
    * Test {@link GlyphCache#getPathForCharacterCode(int)}.
-   *
    * <ul>
-   *   <li>When forty-six.
-   *   <li>Then CurrentPoint return {@link Point2D.Float}.
+   *   <li>When forty-six.</li>
+   *   <li>Then CurrentPoint return {@link Point2D.Float}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link GlyphCache#getPathForCharacterCode(int)}
+   * <p>
+   * Method under test: {@link GlyphCache#getPathForCharacterCode(int)}
    */
   @Test
   @DisplayName("Test getPathForCharacterCode(int); when forty-six; then CurrentPoint return Float")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"GeneralPath GlyphCache.getPathForCharacterCode(int)"})
   void testGetPathForCharacterCode_whenFortySix_thenCurrentPointReturnFloat() throws IOException {
     // Arrange and Act
-    GeneralPath actualPathForCharacterCode =
-        new GlyphCache(new PDType1CFont(new COSDictionary())).getPathForCharacterCode(46);
+    GeneralPath actualPathForCharacterCode = (new GlyphCache(new PDType1CFont(new COSDictionary())))
+        .getPathForCharacterCode(46);
 
     // Assert
     assertTrue(actualPathForCharacterCode.getCurrentPoint() instanceof Point2D.Float);
@@ -270,25 +235,21 @@ class GlyphCacheDiffblueTest {
 
   /**
    * Test {@link GlyphCache#getPathForCharacterCode(int)}.
-   *
    * <ul>
-   *   <li>When three hundred.
-   *   <li>Then CurrentPoint return {@link Point2D.Float}.
+   *   <li>When three hundred.</li>
+   *   <li>Then CurrentPoint return {@link Point2D.Float}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link GlyphCache#getPathForCharacterCode(int)}
+   * <p>
+   * Method under test: {@link GlyphCache#getPathForCharacterCode(int)}
    */
   @Test
-  @DisplayName(
-      "Test getPathForCharacterCode(int); when three hundred; then CurrentPoint return Float")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getPathForCharacterCode(int); when three hundred; then CurrentPoint return Float")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"GeneralPath GlyphCache.getPathForCharacterCode(int)"})
-  void testGetPathForCharacterCode_whenThreeHundred_thenCurrentPointReturnFloat()
-      throws IOException {
+  void testGetPathForCharacterCode_whenThreeHundred_thenCurrentPointReturnFloat() throws IOException {
     // Arrange and Act
-    GeneralPath actualPathForCharacterCode =
-        new GlyphCache(new PDTrueTypeFont(new COSDictionary())).getPathForCharacterCode(300);
+    GeneralPath actualPathForCharacterCode = (new GlyphCache(new PDTrueTypeFont(new COSDictionary())))
+        .getPathForCharacterCode(300);
 
     // Assert
     assertTrue(actualPathForCharacterCode.getCurrentPoint() instanceof Point2D.Float);

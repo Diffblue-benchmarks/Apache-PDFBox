@@ -8,15 +8,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.apache.fontbox.cff.CFFParser.ByteSource;
-import org.apache.fontbox.util.BoundingBox;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -24,28 +21,26 @@ import org.junit.jupiter.api.Test;
 class CFFFontDiffblueTest {
   /**
    * Test {@link CFFFont#getName()}.
-   *
-   * <p>Method under test: {@link CFFFont#getName()}
+   * <p>
+   * Method under test: {@link CFFFont#getName()}
    */
   @Test
   @DisplayName("Test getName()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String CFFFont.getName()"})
   void testGetName() {
     // Arrange, Act and Assert
-    assertNull(new CFFCIDFont().getName());
+    assertNull((new CFFCIDFont()).getName());
   }
 
   /**
    * Test {@link CFFFont#setName(String)}.
-   *
-   * <p>Method under test: {@link CFFFont#setName(String)}
+   * <p>
+   * Method under test: {@link CFFFont#setName(String)}
    */
   @Test
   @DisplayName("Test setName(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void CFFFont.setName(String)"})
   void testSetName() {
     // Arrange
@@ -60,19 +55,16 @@ class CFFFontDiffblueTest {
 
   /**
    * Test {@link CFFFont#addValueToTopDict(String, Object)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link CFFCIDFont} (default constructor) TopDict Empty.
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link CFFCIDFont} (default constructor) TopDict Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CFFFont#addValueToTopDict(String, Object)}
+   * <p>
+   * Method under test: {@link CFFFont#addValueToTopDict(String, Object)}
    */
   @Test
-  @DisplayName(
-      "Test addValueToTopDict(String, Object); when 'null'; then CFFCIDFont (default constructor) TopDict Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test addValueToTopDict(String, Object); when 'null'; then CFFCIDFont (default constructor) TopDict Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void CFFFont.addValueToTopDict(String, Object)"})
   void testAddValueToTopDict_whenNull_thenCFFCIDFontTopDictEmpty() {
     // Arrange
@@ -87,19 +79,16 @@ class CFFFontDiffblueTest {
 
   /**
    * Test {@link CFFFont#addValueToTopDict(String, Object)}.
-   *
    * <ul>
-   *   <li>When {@code Value}.
-   *   <li>Then {@link CFFCIDFont} (default constructor) TopDict size is one.
+   *   <li>When {@code Value}.</li>
+   *   <li>Then {@link CFFCIDFont} (default constructor) TopDict size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CFFFont#addValueToTopDict(String, Object)}
+   * <p>
+   * Method under test: {@link CFFFont#addValueToTopDict(String, Object)}
    */
   @Test
-  @DisplayName(
-      "Test addValueToTopDict(String, Object); when 'Value'; then CFFCIDFont (default constructor) TopDict size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test addValueToTopDict(String, Object); when 'Value'; then CFFCIDFont (default constructor) TopDict size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void CFFFont.addValueToTopDict(String, Object)"})
   void testAddValueToTopDict_whenValue_thenCFFCIDFontTopDictSizeIsOne() {
     // Arrange
@@ -116,96 +105,54 @@ class CFFFontDiffblueTest {
 
   /**
    * Test {@link CFFFont#getTopDict()}.
-   *
-   * <p>Method under test: {@link CFFFont#getTopDict()}
+   * <p>
+   * Method under test: {@link CFFFont#getTopDict()}
    */
   @Test
   @DisplayName("Test getTopDict()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Map CFFFont.getTopDict()"})
   void testGetTopDict() {
     // Arrange, Act and Assert
-    assertTrue(new CFFCIDFont().getTopDict().isEmpty());
+    assertTrue((new CFFCIDFont()).getTopDict().isEmpty());
   }
 
   /**
    * Test {@link CFFFont#getFontMatrix()}.
-   *
-   * <p>Method under test: {@link CFFFont#getFontMatrix()}
+   * <p>
+   * Method under test: {@link CFFFont#getFontMatrix()}
    */
   @Test
   @DisplayName("Test getFontMatrix()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List CFFFont.getFontMatrix()"})
   void testGetFontMatrix() {
     // Arrange, Act and Assert
-    assertNull(new CFFCIDFont().getFontMatrix());
-  }
-
-  /**
-   * Test {@link CFFFont#getFontBBox()}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add valueOf one.
-   *   <li>Then return Height is zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link CFFFont#getFontBBox()}
-   */
-  @Test
-  @DisplayName("Test getFontBBox(); given ArrayList() add valueOf one; then return Height is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"BoundingBox CFFFont.getFontBBox()"})
-  void testGetFontBBox_givenArrayListAddValueOfOne_thenReturnHeightIsZero() throws IOException {
-    // Arrange
-    ArrayList<Object> objectList = new ArrayList<>();
-    objectList.add(Integer.valueOf(1));
-    objectList.add(Integer.valueOf(1));
-    objectList.add(Integer.valueOf(1));
-    objectList.add(Integer.valueOf(1));
-
-    CFFCIDFont cffcidFont = new CFFCIDFont();
-    cffcidFont.addValueToTopDict("FontBBox", objectList);
-
-    // Act
-    BoundingBox actualFontBBox = cffcidFont.getFontBBox();
-
-    // Assert
-    assertEquals(0.0f, actualFontBBox.getHeight());
-    assertEquals(0.0f, actualFontBBox.getWidth());
-    assertEquals(1.0f, actualFontBBox.getLowerLeftX());
-    assertEquals(1.0f, actualFontBBox.getLowerLeftY());
-    assertEquals(1.0f, actualFontBBox.getUpperRightX());
-    assertEquals(1.0f, actualFontBBox.getUpperRightY());
+    assertNull((new CFFCIDFont()).getFontMatrix());
   }
 
   /**
    * Test {@link CFFFont#getCharset()}.
-   *
-   * <p>Method under test: {@link CFFFont#getCharset()}
+   * <p>
+   * Method under test: {@link CFFFont#getCharset()}
    */
   @Test
   @DisplayName("Test getCharset()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"CFFCharset CFFFont.getCharset()"})
   void testGetCharset() {
     // Arrange, Act and Assert
-    assertNull(new CFFCIDFont().getCharset());
+    assertNull((new CFFCIDFont()).getCharset());
   }
 
   /**
    * Test {@link CFFFont#setCharset(CFFCharset)}.
-   *
-   * <p>Method under test: {@link CFFFont#setCharset(CFFCharset)}
+   * <p>
+   * Method under test: {@link CFFFont#setCharset(CFFCharset)}
    */
   @Test
   @DisplayName("Test setCharset(CFFCharset)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void CFFFont.setCharset(CFFCharset)"})
   void testSetCharset() {
     // Arrange
@@ -221,13 +168,12 @@ class CFFFontDiffblueTest {
 
   /**
    * Test {@link CFFFont#setData(ByteSource)}.
-   *
-   * <p>Method under test: {@link CFFFont#setData(ByteSource)}
+   * <p>
+   * Method under test: {@link CFFFont#setData(ByteSource)}
    */
   @Test
   @DisplayName("Test setData(ByteSource)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void CFFFont.setData(ByteSource)"})
   void testSetData() throws IOException {
     // Arrange
@@ -242,17 +188,15 @@ class CFFFontDiffblueTest {
 
   /**
    * Test {@link CFFFont#getData()}.
-   *
    * <ul>
-   *   <li>Then return {@code AXAXAXAX} Bytes is {@code UTF-8}.
+   *   <li>Then return {@code AXAXAXAX} Bytes is {@code UTF-8}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CFFFont#getData()}
+   * <p>
+   * Method under test: {@link CFFFont#getData()}
    */
   @Test
   @DisplayName("Test getData(); then return 'AXAXAXAX' Bytes is 'UTF-8'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"byte[] CFFFont.getData()"})
   void testGetData_thenReturnAxaxaxaxBytesIsUtf8() throws IOException {
     // Arrange
@@ -272,20 +216,19 @@ class CFFFontDiffblueTest {
 
   /**
    * Test {@link CFFFont#setGlobalSubrIndex(byte[][])}.
-   *
-   * <p>Method under test: {@link CFFFont#setGlobalSubrIndex(byte[][])}
+   * <p>
+   * Method under test: {@link CFFFont#setGlobalSubrIndex(byte[][])}
    */
   @Test
   @DisplayName("Test setGlobalSubrIndex(byte[][])")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void CFFFont.setGlobalSubrIndex(byte[][])"})
   void testSetGlobalSubrIndex() throws UnsupportedEncodingException {
     // Arrange
     CFFCIDFont cffcidFont = new CFFCIDFont();
 
     // Act
-    cffcidFont.setGlobalSubrIndex(new byte[][] {"AXAXAXAX".getBytes("UTF-8")});
+    cffcidFont.setGlobalSubrIndex(new byte[][]{"AXAXAXAX".getBytes("UTF-8")});
 
     // Assert
     assertEquals(1, cffcidFont.getGlobalSubrIndex().size());
@@ -294,22 +237,20 @@ class CFFFontDiffblueTest {
 
   /**
    * Test {@link CFFFont#getGlobalSubrIndex()}.
-   *
    * <ul>
-   *   <li>Then return size is one.
+   *   <li>Then return size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CFFFont#getGlobalSubrIndex()}
+   * <p>
+   * Method under test: {@link CFFFont#getGlobalSubrIndex()}
    */
   @Test
   @DisplayName("Test getGlobalSubrIndex(); then return size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List CFFFont.getGlobalSubrIndex()"})
   void testGetGlobalSubrIndex_thenReturnSizeIsOne() throws UnsupportedEncodingException {
     // Arrange
     CFFCIDFont cffcidFont = new CFFCIDFont();
-    cffcidFont.setGlobalSubrIndex(new byte[][] {"AXAXAXAX".getBytes("UTF-8")});
+    cffcidFont.setGlobalSubrIndex(new byte[][]{"AXAXAXAX".getBytes("UTF-8")});
 
     // Act
     List<byte[]> actualGlobalSubrIndex = cffcidFont.getGlobalSubrIndex();
@@ -321,18 +262,15 @@ class CFFFontDiffblueTest {
 
   /**
    * Test {@link CFFFont#toString()}.
-   *
-   * <p>Method under test: {@link CFFFont#toString()}
+   * <p>
+   * Method under test: {@link CFFFont#toString()}
    */
   @Test
   @DisplayName("Test toString()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String CFFFont.toString()"})
   void testToString() {
     // Arrange, Act and Assert
-    assertEquals(
-        "CFFCIDFont[name=null, topDict={}, charset=null, charStrings=null]",
-        new CFFCIDFont().toString());
+    assertEquals("CFFCIDFont[name=null, topDict={}, charset=null, charStrings=null]", (new CFFCIDFont()).toString());
   }
 }

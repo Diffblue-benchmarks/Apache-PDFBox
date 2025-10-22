@@ -1,21 +1,21 @@
 {
   "meta" : {
-    "reportVersion" : "2.7"
+    "reportVersion" : "2.6"
   },
   "run" : {
-    "version" : "2025.09.01-44e352d-licensed",
-    "creationTimestamp" : "2025-10-16T11:51:44.216365Z",
+    "version" : "2025.02.02-08b2a5a-licensed",
+    "creationTimestamp" : "2025-10-21T16:22:54.192235Z",
     "command" : "dcover create --exclude-modules org.apache.pdfbox:pdfbox-parent,org.apache.pdfbox:pdfbox-app,org.apache.pdfbox:debugger-app --coverage-reports --upload http://localhost:8080 --project-name Apache-PDFBox --name with-diffblue-tests",
-    "totalTime" : 477.435,
-    "environmentDetectionTime" : 0.15,
-    "indexingTime" : 0.441,
-    "entryPointsTime" : 0.141,
-    "generationTime" : 32435.367,
-    "timeToFirstTest" : 36961.759,
-    "timeToLastTest" : 36525.954,
-    "indexQueryTime" : 3.95,
-    "verificationTime" : 3795.962,
-    "validationTime" : 17.035
+    "totalTime" : 466.007,
+    "environmentDetectionTime" : 0.763,
+    "indexingTime" : 0.312,
+    "entryPointsTime" : 0.76,
+    "generationTime" : 46078.407,
+    "timeToFirstTest" : 51208.045,
+    "timeToLastTest" : 51291.977,
+    "indexQueryTime" : 4.724,
+    "verificationTime" : 4912.817,
+    "validationTime" : 38.516
   },
   "codes" : {
     "F009" : "Internal error",
@@ -34,7 +34,6 @@
     "T008" : "Private and never called",
     "T012" : "Synthetic method",
     "T021" : "Empty method body",
-    "T023" : "Testability unknown",
     "V000" : "Validated successfully",
     "V003" : "Tests discarded during validation",
     "W002" : "Test compiled, but did not pass"
@@ -42,9 +41,9 @@
   "summary" : {
     "classesCount" : 36,
     "methodsCount" : 204,
-    "cumulativeDiffblueTestCount" : 40,
+    "cumulativeDiffblueTestCount" : 31,
     "cumulativeManualTestCount" : 18,
-    "completeTestCount" : 40,
+    "completeTestCount" : 31,
     "incompleteTestCount" : 0,
     "skeletonTestCount" : 0,
     "totalPhysicalLineCount" : 3553,
@@ -57,31 +56,29 @@
       "T005" : 4,
       "T006" : 20,
       "T008" : 4,
-      "T012" : 5,
-      "T021" : 3,
-      "T023" : 7
+      "T012" : 12,
+      "T021" : 3
     },
     "perMethodOutcome" : {
-      "F009" : 24,
-      "R000" : 12,
+      "F009" : 22,
+      "R000" : 10,
       "R002" : 7,
       "R004" : 1,
       "R011" : 2,
-      "R013" : 46,
+      "R013" : 50,
       "T003" : 68,
       "T004" : 2,
       "T006" : 20,
       "T008" : 4,
-      "T012" : 5,
-      "T023" : 7,
+      "T012" : 12,
       "W002" : 6
     },
     "perTestOutcome" : {
-      "R000" : 40
+      "R000" : 31
     },
     "perTestValidation" : {
-      "V000" : 40,
-      "V003" : 13
+      "V000" : 31,
+      "V003" : 4
     },
     "warnings" : {
       "W002" : 5
@@ -107,19 +104,15 @@
     },
     "org.apache.pdfbox.tools.DecompressObjectstreams" : {
       "methodsCount" : 3,
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
         "T006" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 1,
-        "R013" : 1,
+        "R013" : 2,
         "T006" : 1
-      },
-      "perTestOutcome" : {
-        "R000" : 1
       }
     },
     "org.apache.pdfbox.tools.Decrypt" : {
@@ -181,12 +174,12 @@
       "perMethodTestability" : {
         "T000" : 2,
         "T006" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "R013" : 2,
         "T006" : 1,
-        "T023" : 1
+        "T012" : 1
       }
     },
     "org.apache.pdfbox.tools.ExtractImages$ImageGraphicsEngine" : {
@@ -208,14 +201,14 @@
         "T000" : 3,
         "T003" : 4,
         "T006" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "F009" : 1,
         "R013" : 2,
         "T003" : 4,
         "T006" : 1,
-        "T023" : 1
+        "T012" : 1
       }
     },
     "org.apache.pdfbox.tools.ExtractText$1" : {
@@ -250,7 +243,7 @@
         "T000" : 2
       },
       "perMethodOutcome" : {
-        "F009" : 1,
+        "R013" : 1,
         "W002" : 1
       },
       "warnings" : {
@@ -266,7 +259,7 @@
         "T005" : 1
       },
       "perMethodOutcome" : {
-        "F009" : 1,
+        "R013" : 1,
         "W002" : 1
       },
       "warnings" : {
@@ -335,19 +328,15 @@
     },
     "org.apache.pdfbox.tools.OverlayPDF" : {
       "methodsCount" : 3,
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
         "T006" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 1,
-        "R013" : 1,
+        "R013" : 2,
         "T006" : 1
-      },
-      "perTestOutcome" : {
-        "R000" : 1
       }
     },
     "org.apache.pdfbox.tools.PDFBox" : {
@@ -489,14 +478,12 @@
       "perMethodTestability" : {
         "T001" : 1,
         "T003" : 1,
-        "T012" : 2,
-        "T023" : 1
+        "T012" : 3
       },
       "perMethodOutcome" : {
         "R000" : 1,
         "T003" : 1,
-        "T012" : 2,
-        "T023" : 1
+        "T012" : 3
       },
       "perTestOutcome" : {
         "R000" : 1
@@ -524,13 +511,11 @@
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T003" : 2,
-        "T012" : 2,
-        "T023" : 1
+        "T012" : 3
       },
       "perMethodOutcome" : {
         "T003" : 2,
-        "T012" : 2,
-        "T023" : 1
+        "T012" : 3
       }
     },
     "org.apache.pdfbox.tools.Version" : {
@@ -570,28 +555,28 @@
     },
     "org.apache.pdfbox.tools.imageio.ImageIOUtil" : {
       "methodsCount" : 12,
-      "completeTestCount" : 28,
+      "completeTestCount" : 23,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 6,
         "T003" : 4,
         "T008" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "R000" : 4,
         "R011" : 2,
         "T003" : 4,
         "T008" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 28
+        "R000" : 23
       }
     },
     "org.apache.pdfbox.tools.imageio.JPEGUtil" : {
       "methodsCount" : 2,
-      "completeTestCount" : 3,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 1,
@@ -602,7 +587,7 @@
         "T008" : 1
       },
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 2
       }
     },
     "org.apache.pdfbox.tools.imageio.MetaUtil" : {
@@ -612,30 +597,30 @@
       "perMethodTestability" : {
         "T000" : 1,
         "T008" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "R004" : 1,
         "T008" : 1,
-        "T023" : 1
+        "T012" : 1
       }
     },
     "org.apache.pdfbox.tools.imageio.TIFFUtil" : {
       "methodsCount" : 8,
-      "completeTestCount" : 4,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
         "T003" : 5,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "R000" : 2,
         "T003" : 5,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 3
       }
     }
   },
@@ -679,13 +664,10 @@
       ]
     },
     "org.apache.pdfbox.tools.DecompressObjectstreams.<init>:()V" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         61,
         62,
@@ -1257,8 +1239,14 @@
     "org.apache.pdfbox.tools.ExtractImages.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        79,
+        80,
+        81,
+        79
+      ]
     },
     "org.apache.pdfbox.tools.ExtractImages.<init>:()V" : {
       "completeTestCount" : 0,
@@ -1335,8 +1323,11 @@
     "org.apache.pdfbox.tools.ExtractText.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        64
+      ]
     },
     "org.apache.pdfbox.tools.ExtractText.<init>:()V" : {
       "completeTestCount" : 0,
@@ -1628,7 +1619,7 @@
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "F009",
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         459,
         460,
@@ -1652,7 +1643,7 @@
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "F009",
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         443,
         444,
@@ -1964,13 +1955,10 @@
       ]
     },
     "org.apache.pdfbox.tools.OverlayPDF.<init>:()V" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         82,
         63,
@@ -2880,8 +2868,12 @@
     "org.apache.pdfbox.tools.PrintPDF$Duplex.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        61,
+        59
+      ]
     },
     "org.apache.pdfbox.tools.PrintPDF$Duplex.<init>:(Ljava/lang/String;ILjavax/print/attribute/standard/Sides;)V" : {
       "completeTestCount" : 0,
@@ -3097,8 +3089,20 @@
     "org.apache.pdfbox.tools.TextToPDF$PageSizes.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        101
+      ]
     },
     "org.apache.pdfbox.tools.TextToPDF$PageSizes.<init>:(Ljava/lang/String;ILorg/apache/pdfbox/pdmodel/common/PDRectangle;)V" : {
       "completeTestCount" : 0,
@@ -3546,8 +3550,11 @@
     "org.apache.pdfbox.tools.imageio.ImageIOUtil.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        58
+      ]
     },
     "org.apache.pdfbox.tools.imageio.ImageIOUtil.<init>:()V" : {
       "completeTestCount" : 0,
@@ -3647,24 +3654,24 @@
       ]
     },
     "org.apache.pdfbox.tools.imageio.ImageIOUtil.writeImage:(Ljava/awt/image/BufferedImage;Ljava/lang/String;Ljava/io/OutputStream;)Z" : {
-      "completeTestCount" : 8,
+      "completeTestCount" : 7,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 8
+        "R000" : 7
       },
       "lineNumbers" : [
         130
       ]
     },
     "org.apache.pdfbox.tools.imageio.ImageIOUtil.writeImage:(Ljava/awt/image/BufferedImage;Ljava/lang/String;Ljava/io/OutputStream;I)Z" : {
-      "completeTestCount" : 6,
+      "completeTestCount" : 5,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 5
       },
       "lineNumbers" : [
         149,
@@ -3674,24 +3681,24 @@
       ]
     },
     "org.apache.pdfbox.tools.imageio.ImageIOUtil.writeImage:(Ljava/awt/image/BufferedImage;Ljava/lang/String;Ljava/io/OutputStream;IF)Z" : {
-      "completeTestCount" : 6,
+      "completeTestCount" : 5,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 5
       },
       "lineNumbers" : [
         179
       ]
     },
     "org.apache.pdfbox.tools.imageio.ImageIOUtil.writeImage:(Ljava/awt/image/BufferedImage;Ljava/lang/String;Ljava/io/OutputStream;IFLjava/lang/String;)Z" : {
-      "completeTestCount" : 8,
+      "completeTestCount" : 6,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 8
+        "R000" : 6
       },
       "lineNumbers" : [
         207,
@@ -3773,12 +3780,12 @@
       ]
     },
     "org.apache.pdfbox.tools.imageio.JPEGUtil.updateMetadata:(Ljavax/imageio/metadata/IIOMetadata;I)V" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 2
       },
       "lineNumbers" : [
         44,
@@ -3811,8 +3818,11 @@
     "org.apache.pdfbox.tools.imageio.MetaUtil.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        38
+      ]
     },
     "org.apache.pdfbox.tools.imageio.MetaUtil.<init>:()V" : {
       "completeTestCount" : 0,
@@ -3854,8 +3864,11 @@
     "org.apache.pdfbox.tools.imageio.TIFFUtil.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        36
+      ]
     },
     "org.apache.pdfbox.tools.imageio.TIFFUtil.<init>:()V" : {
       "completeTestCount" : 0,
@@ -3952,12 +3965,12 @@
       ]
     },
     "org.apache.pdfbox.tools.imageio.TIFFUtil.updateMetadata:(Ljavax/imageio/metadata/IIOMetadata;Ljava/awt/image/BufferedImage;I)V" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         79,
@@ -3985,5 +3998,9 @@
       ]
     }
   },
-  "validationMetrics" : { }
+  "validationMetrics" : {
+    "failingTests" : [
+      "org.apache.pdfbox.cos.COSDictionaryDiffblueTest.testSetFlag_givenCOSDictionary_whenNull_thenCOSDictionaryItemsNullCOSInteger"
+    ]
+  }
 }

@@ -2,7 +2,6 @@ package org.apache.pdfbox.contentstream.operator.state;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,9 +17,8 @@ import org.junit.jupiter.api.Test;
 class SetLineMiterLimitDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link SetLineMiterLimit#SetLineMiterLimit(PDFStreamEngine)}
    *   <li>{@link SetLineMiterLimit#getName()}
@@ -28,31 +26,25 @@ class SetLineMiterLimitDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void SetLineMiterLimit.<init>(PDFStreamEngine)",
-    "java.lang.String SetLineMiterLimit.getName()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SetLineMiterLimit.<init>(PDFStreamEngine)", "java.lang.String SetLineMiterLimit.getName()"})
   void testGettersAndSetters() {
     // Arrange, Act and Assert
-    assertEquals("M", new SetLineMiterLimit(new PDFMarkedContentExtractor()).getName());
+    assertEquals("M", (new SetLineMiterLimit(new PDFMarkedContentExtractor())).getName());
   }
 
   /**
    * Test {@link SetLineMiterLimit#process(Operator, List)}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then throw {@link MissingOperandException}.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then throw {@link MissingOperandException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SetLineMiterLimit#process(Operator, List)}
+   * <p>
+   * Method under test: {@link SetLineMiterLimit#process(Operator, List)}
    */
   @Test
   @DisplayName("Test process(Operator, List); when ArrayList(); then throw MissingOperandException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SetLineMiterLimit.process(Operator, List)"})
   void testProcess_whenArrayList_thenThrowMissingOperandException() throws IOException {
     // Arrange
@@ -60,8 +52,6 @@ class SetLineMiterLimitDiffblueTest {
     Operator operator = Operator.getOperator("Operator");
 
     // Act and Assert
-    assertThrows(
-        MissingOperandException.class,
-        () -> setLineMiterLimit.process(operator, new ArrayList<>()));
+    assertThrows(MissingOperandException.class, () -> setLineMiterLimit.process(operator, new ArrayList<>()));
   }
 }

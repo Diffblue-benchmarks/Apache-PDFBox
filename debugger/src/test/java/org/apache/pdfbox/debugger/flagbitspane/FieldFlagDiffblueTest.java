@@ -3,7 +3,6 @@ package org.apache.pdfbox.debugger.flagbitspane;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.junit.jupiter.api.DisplayName;
@@ -13,13 +12,12 @@ import org.junit.jupiter.api.Test;
 class FieldFlagDiffblueTest {
   /**
    * Test {@link FieldFlag#FieldFlag(COSDictionary)}.
-   *
-   * <p>Method under test: {@link FieldFlag#FieldFlag(COSDictionary)}
+   * <p>
+   * Method under test: {@link FieldFlag#FieldFlag(COSDictionary)}
    */
   @Test
   @DisplayName("Test new FieldFlag(COSDictionary)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FieldFlag.<init>(COSDictionary)"})
   void testNewFieldFlag() {
     // Arrange and Act
@@ -45,68 +43,59 @@ class FieldFlagDiffblueTest {
     assertTrue((Boolean) objectArray2[2]);
     assertTrue((Boolean) objectArray3[2]);
     assertTrue((Boolean) objectArray[2]);
-    assertArrayEquals(
-        new String[] {"Bit Position", "Name", "Set"}, actualFieldFlag.getColumnNames());
+    assertArrayEquals(new String[]{"Bit Position", "Name", "Set"}, actualFieldFlag.getColumnNames());
   }
 
   /**
    * Test {@link FieldFlag#getFlagType()}.
-   *
    * <ul>
-   *   <li>Given {@link FieldFlag#FieldFlag(COSDictionary)} with dictionary is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code Field flag}.
+   *   <li>Given {@link FieldFlag#FieldFlag(COSDictionary)} with dictionary is {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then return {@code Field flag}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FieldFlag#getFlagType()}
+   * <p>
+   * Method under test: {@link FieldFlag#getFlagType()}
    */
   @Test
-  @DisplayName(
-      "Test getFlagType(); given FieldFlag(COSDictionary) with dictionary is COSDictionary(); then return 'Field flag'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getFlagType(); given FieldFlag(COSDictionary) with dictionary is COSDictionary(); then return 'Field flag'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String FieldFlag.getFlagType()"})
   void testGetFlagType_givenFieldFlagWithDictionaryIsCOSDictionary_thenReturnFieldFlag() {
     // Arrange, Act and Assert
-    assertEquals("Field flag", new FieldFlag(new COSDictionary()).getFlagType());
+    assertEquals("Field flag", (new FieldFlag(new COSDictionary())).getFlagType());
   }
 
   /**
    * Test {@link FieldFlag#getFlagValue()}.
-   *
    * <ul>
-   *   <li>Then return {@code Flag value: -1}.
+   *   <li>Then return {@code Flag value: -1}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FieldFlag#getFlagValue()}
+   * <p>
+   * Method under test: {@link FieldFlag#getFlagValue()}
    */
   @Test
   @DisplayName("Test getFlagValue(); then return 'Flag value: -1'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String FieldFlag.getFlagValue()"})
   void testGetFlagValue_thenReturnFlagValue1() {
     // Arrange, Act and Assert
-    assertEquals("Flag value: -1", new FieldFlag(new COSDictionary()).getFlagValue());
+    assertEquals("Flag value: -1", (new FieldFlag(new COSDictionary())).getFlagValue());
   }
 
   /**
    * Test {@link FieldFlag#getFlagBits()}.
-   *
    * <ul>
-   *   <li>Then return second element is {@code NoExport}.
+   *   <li>Then return second element is {@code NoExport}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FieldFlag#getFlagBits()}
+   * <p>
+   * Method under test: {@link FieldFlag#getFlagBits()}
    */
   @Test
   @DisplayName("Test getFlagBits(); then return second element is 'NoExport'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Object[][] FieldFlag.getFlagBits()"})
   void testGetFlagBits_thenReturnSecondElementIsNoExport() {
     // Arrange and Act
-    Object[][] actualFlagBits = new FieldFlag(new COSDictionary()).getFlagBits();
+    Object[][] actualFlagBits = (new FieldFlag(new COSDictionary())).getFlagBits();
 
     // Assert
     Object[] objectArray = actualFlagBits[2];

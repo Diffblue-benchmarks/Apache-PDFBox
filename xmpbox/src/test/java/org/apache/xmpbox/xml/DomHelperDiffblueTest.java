@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import javax.imageio.metadata.IIOMetadataNode;
@@ -21,24 +20,22 @@ import org.w3c.dom.Node;
 class DomHelperDiffblueTest {
   /**
    * Test {@link DomHelper#getUniqueElementChild(Element)}.
-   *
    * <ul>
-   *   <li>Given {@link IIOMetadataNode#IIOMetadataNode()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link IIOMetadataNode#IIOMetadataNode(String)} with {@code foo}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DomHelper#getUniqueElementChild(Element)}
+   * <p>
+   * Method under test: {@link DomHelper#getUniqueElementChild(Element)}
    */
   @Test
-  @DisplayName("Test getUniqueElementChild(Element); given IIOMetadataNode(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getUniqueElementChild(Element); given IIOMetadataNode(String) with 'foo'; then return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Element DomHelper.getUniqueElementChild(Element)"})
-  void testGetUniqueElementChild_givenIIOMetadataNode_thenReturnNull() throws XmpParsingException {
+  void testGetUniqueElementChild_givenIIOMetadataNodeWithFoo_thenReturnNull() throws XmpParsingException {
     // Arrange
-    IIOMetadataNode description = new IIOMetadataNode();
-    IIOMetadataNode iioMetadataNode = new IIOMetadataNode();
-    description.insertBefore(iioMetadataNode, new IIOMetadataNode());
+    IIOMetadataNode description = new IIOMetadataNode("foo");
+    IIOMetadataNode iioMetadataNode = new IIOMetadataNode("foo");
+    description.insertBefore(iioMetadataNode, new IIOMetadataNode("foo"));
 
     // Act and Assert
     assertNull(DomHelper.getUniqueElementChild(description));
@@ -46,25 +43,22 @@ class DomHelperDiffblueTest {
 
   /**
    * Test {@link DomHelper#getUniqueElementChild(Element)}.
-   *
    * <ul>
-   *   <li>Then ParentNode return {@link IIOMetadataNode}.
+   *   <li>Then ParentNode return {@link IIOMetadataNode}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DomHelper#getUniqueElementChild(Element)}
+   * <p>
+   * Method under test: {@link DomHelper#getUniqueElementChild(Element)}
    */
   @Test
   @DisplayName("Test getUniqueElementChild(Element); then ParentNode return IIOMetadataNode")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Element DomHelper.getUniqueElementChild(Element)"})
-  void testGetUniqueElementChild_thenParentNodeReturnIIOMetadataNode()
-      throws XmpParsingException, DOMException {
+  void testGetUniqueElementChild_thenParentNodeReturnIIOMetadataNode() throws XmpParsingException, DOMException {
     // Arrange
-    IIOMetadataNode description = new IIOMetadataNode();
-    description.appendChild(new IIOMetadataNode());
-    IIOMetadataNode iioMetadataNode = new IIOMetadataNode();
-    description.insertBefore(iioMetadataNode, new IIOMetadataNode());
+    IIOMetadataNode description = new IIOMetadataNode("foo");
+    description.appendChild(new IIOMetadataNode("foo"));
+    IIOMetadataNode iioMetadataNode = new IIOMetadataNode("foo");
+    description.insertBefore(iioMetadataNode, new IIOMetadataNode("foo"));
 
     // Act
     Element actualUniqueElementChild = DomHelper.getUniqueElementChild(description);
@@ -73,11 +67,11 @@ class DomHelperDiffblueTest {
     Node parentNode = actualUniqueElementChild.getParentNode();
     assertTrue(parentNode instanceof IIOMetadataNode);
     assertTrue(actualUniqueElementChild instanceof IIOMetadataNode);
+    assertEquals("foo", actualUniqueElementChild.getTagName());
+    assertEquals("foo", actualUniqueElementChild.getLocalName());
+    assertEquals("foo", actualUniqueElementChild.getNodeName());
     assertNull(((IIOMetadataNode) actualUniqueElementChild).getUserObject());
-    assertNull(actualUniqueElementChild.getTagName());
-    assertNull(actualUniqueElementChild.getLocalName());
     assertNull(actualUniqueElementChild.getNamespaceURI());
-    assertNull(actualUniqueElementChild.getNodeName());
     assertNull(actualUniqueElementChild.getNodeValue());
     assertNull(actualUniqueElementChild.getPrefix());
     assertNull(actualUniqueElementChild.getOwnerDocument());
@@ -94,25 +88,23 @@ class DomHelperDiffblueTest {
 
   /**
    * Test {@link DomHelper#getUniqueElementChild(Element)}.
-   *
    * <ul>
-   *   <li>Then throw {@link XmpParsingException}.
+   *   <li>Then throw {@link XmpParsingException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DomHelper#getUniqueElementChild(Element)}
+   * <p>
+   * Method under test: {@link DomHelper#getUniqueElementChild(Element)}
    */
   @Test
   @DisplayName("Test getUniqueElementChild(Element); then throw XmpParsingException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Element DomHelper.getUniqueElementChild(Element)"})
   void testGetUniqueElementChild_thenThrowXmpParsingException() throws XmpParsingException {
     // Arrange
-    IIOMetadataNode description = new IIOMetadataNode();
-    description.appendChild(new IIOMetadataNode());
-    description.appendChild(new IIOMetadataNode());
-    IIOMetadataNode iioMetadataNode = new IIOMetadataNode();
-    description.insertBefore(iioMetadataNode, new IIOMetadataNode());
+    IIOMetadataNode description = new IIOMetadataNode("foo");
+    description.appendChild(new IIOMetadataNode("foo"));
+    description.appendChild(new IIOMetadataNode("foo"));
+    IIOMetadataNode iioMetadataNode = new IIOMetadataNode("foo");
+    description.insertBefore(iioMetadataNode, new IIOMetadataNode("foo"));
 
     // Act and Assert
     assertThrows(XmpParsingException.class, () -> DomHelper.getUniqueElementChild(description));
@@ -120,44 +112,40 @@ class DomHelperDiffblueTest {
 
   /**
    * Test {@link DomHelper#getUniqueElementChild(Element)}.
-   *
    * <ul>
-   *   <li>When {@link IIOMetadataNode#IIOMetadataNode()}.
-   *   <li>Then return {@code null}.
+   *   <li>When {@link IIOMetadataNode#IIOMetadataNode(String)} with {@code foo}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DomHelper#getUniqueElementChild(Element)}
+   * <p>
+   * Method under test: {@link DomHelper#getUniqueElementChild(Element)}
    */
   @Test
-  @DisplayName("Test getUniqueElementChild(Element); when IIOMetadataNode(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getUniqueElementChild(Element); when IIOMetadataNode(String) with 'foo'; then return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Element DomHelper.getUniqueElementChild(Element)"})
-  void testGetUniqueElementChild_whenIIOMetadataNode_thenReturnNull() throws XmpParsingException {
+  void testGetUniqueElementChild_whenIIOMetadataNodeWithFoo_thenReturnNull() throws XmpParsingException {
     // Arrange, Act and Assert
-    assertNull(DomHelper.getUniqueElementChild(new IIOMetadataNode()));
+    assertNull(DomHelper.getUniqueElementChild(new IIOMetadataNode("foo")));
   }
 
   /**
    * Test {@link DomHelper#getFirstChildElement(Element)}.
-   *
    * <ul>
-   *   <li>Given {@link IIOMetadataNode#IIOMetadataNode()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link IIOMetadataNode#IIOMetadataNode(String)} with {@code foo}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DomHelper#getFirstChildElement(Element)}
+   * <p>
+   * Method under test: {@link DomHelper#getFirstChildElement(Element)}
    */
   @Test
-  @DisplayName("Test getFirstChildElement(Element); given IIOMetadataNode(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getFirstChildElement(Element); given IIOMetadataNode(String) with 'foo'; then return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Element DomHelper.getFirstChildElement(Element)"})
-  void testGetFirstChildElement_givenIIOMetadataNode_thenReturnNull() {
+  void testGetFirstChildElement_givenIIOMetadataNodeWithFoo_thenReturnNull() {
     // Arrange
-    IIOMetadataNode description = new IIOMetadataNode();
-    IIOMetadataNode iioMetadataNode = new IIOMetadataNode();
-    description.insertBefore(iioMetadataNode, new IIOMetadataNode());
+    IIOMetadataNode description = new IIOMetadataNode("foo");
+    IIOMetadataNode iioMetadataNode = new IIOMetadataNode("foo");
+    description.insertBefore(iioMetadataNode, new IIOMetadataNode("foo"));
 
     // Act and Assert
     assertNull(DomHelper.getFirstChildElement(description));
@@ -165,24 +153,22 @@ class DomHelperDiffblueTest {
 
   /**
    * Test {@link DomHelper#getFirstChildElement(Element)}.
-   *
    * <ul>
-   *   <li>Then ParentNode return {@link IIOMetadataNode}.
+   *   <li>Then ParentNode return {@link IIOMetadataNode}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DomHelper#getFirstChildElement(Element)}
+   * <p>
+   * Method under test: {@link DomHelper#getFirstChildElement(Element)}
    */
   @Test
   @DisplayName("Test getFirstChildElement(Element); then ParentNode return IIOMetadataNode")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Element DomHelper.getFirstChildElement(Element)"})
   void testGetFirstChildElement_thenParentNodeReturnIIOMetadataNode() throws DOMException {
     // Arrange
-    IIOMetadataNode description = new IIOMetadataNode();
-    description.appendChild(new IIOMetadataNode());
-    IIOMetadataNode iioMetadataNode = new IIOMetadataNode();
-    description.insertBefore(iioMetadataNode, new IIOMetadataNode());
+    IIOMetadataNode description = new IIOMetadataNode("foo");
+    description.appendChild(new IIOMetadataNode("foo"));
+    IIOMetadataNode iioMetadataNode = new IIOMetadataNode("foo");
+    description.insertBefore(iioMetadataNode, new IIOMetadataNode("foo"));
 
     // Act
     Element actualFirstChildElement = DomHelper.getFirstChildElement(description);
@@ -191,11 +177,11 @@ class DomHelperDiffblueTest {
     Node parentNode = actualFirstChildElement.getParentNode();
     assertTrue(parentNode instanceof IIOMetadataNode);
     assertTrue(actualFirstChildElement instanceof IIOMetadataNode);
+    assertEquals("foo", actualFirstChildElement.getTagName());
+    assertEquals("foo", actualFirstChildElement.getLocalName());
+    assertEquals("foo", actualFirstChildElement.getNodeName());
     assertNull(((IIOMetadataNode) actualFirstChildElement).getUserObject());
-    assertNull(actualFirstChildElement.getTagName());
-    assertNull(actualFirstChildElement.getLocalName());
     assertNull(actualFirstChildElement.getNamespaceURI());
-    assertNull(actualFirstChildElement.getNodeName());
     assertNull(actualFirstChildElement.getNodeValue());
     assertNull(actualFirstChildElement.getPrefix());
     assertNull(actualFirstChildElement.getOwnerDocument());
@@ -212,44 +198,40 @@ class DomHelperDiffblueTest {
 
   /**
    * Test {@link DomHelper#getFirstChildElement(Element)}.
-   *
    * <ul>
-   *   <li>When {@link IIOMetadataNode#IIOMetadataNode()}.
-   *   <li>Then return {@code null}.
+   *   <li>When {@link IIOMetadataNode#IIOMetadataNode(String)} with {@code foo}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DomHelper#getFirstChildElement(Element)}
+   * <p>
+   * Method under test: {@link DomHelper#getFirstChildElement(Element)}
    */
   @Test
-  @DisplayName("Test getFirstChildElement(Element); when IIOMetadataNode(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getFirstChildElement(Element); when IIOMetadataNode(String) with 'foo'; then return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Element DomHelper.getFirstChildElement(Element)"})
-  void testGetFirstChildElement_whenIIOMetadataNode_thenReturnNull() {
+  void testGetFirstChildElement_whenIIOMetadataNodeWithFoo_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(DomHelper.getFirstChildElement(new IIOMetadataNode()));
+    assertNull(DomHelper.getFirstChildElement(new IIOMetadataNode("foo")));
   }
 
   /**
    * Test {@link DomHelper#getElementChildren(Element)}.
-   *
    * <ul>
-   *   <li>Given {@link IIOMetadataNode#IIOMetadataNode()}.
-   *   <li>Then return Empty.
+   *   <li>Given {@link IIOMetadataNode#IIOMetadataNode(String)} with {@code foo}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DomHelper#getElementChildren(Element)}
+   * <p>
+   * Method under test: {@link DomHelper#getElementChildren(Element)}
    */
   @Test
-  @DisplayName("Test getElementChildren(Element); given IIOMetadataNode(); then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getElementChildren(Element); given IIOMetadataNode(String) with 'foo'; then return Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List DomHelper.getElementChildren(Element)"})
-  void testGetElementChildren_givenIIOMetadataNode_thenReturnEmpty() {
+  void testGetElementChildren_givenIIOMetadataNodeWithFoo_thenReturnEmpty() {
     // Arrange
-    IIOMetadataNode description = new IIOMetadataNode();
-    IIOMetadataNode iioMetadataNode = new IIOMetadataNode();
-    description.insertBefore(iioMetadataNode, new IIOMetadataNode());
+    IIOMetadataNode description = new IIOMetadataNode("foo");
+    IIOMetadataNode iioMetadataNode = new IIOMetadataNode("foo");
+    description.insertBefore(iioMetadataNode, new IIOMetadataNode("foo"));
 
     // Act
     List<Element> actualElementChildren = DomHelper.getElementChildren(description);
@@ -260,25 +242,23 @@ class DomHelperDiffblueTest {
 
   /**
    * Test {@link DomHelper#getElementChildren(Element)}.
-   *
    * <ul>
-   *   <li>Then return size is one.
+   *   <li>Then return size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DomHelper#getElementChildren(Element)}
+   * <p>
+   * Method under test: {@link DomHelper#getElementChildren(Element)}
    */
   @Test
   @DisplayName("Test getElementChildren(Element); then return size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List DomHelper.getElementChildren(Element)"})
   void testGetElementChildren_thenReturnSizeIsOne() {
     // Arrange
-    IIOMetadataNode description = new IIOMetadataNode();
-    IIOMetadataNode iioMetadataNode = new IIOMetadataNode();
+    IIOMetadataNode description = new IIOMetadataNode("foo");
+    IIOMetadataNode iioMetadataNode = new IIOMetadataNode("foo");
     description.appendChild(iioMetadataNode);
-    IIOMetadataNode iioMetadataNode2 = new IIOMetadataNode();
-    description.insertBefore(iioMetadataNode2, new IIOMetadataNode());
+    IIOMetadataNode iioMetadataNode2 = new IIOMetadataNode("foo");
+    description.insertBefore(iioMetadataNode2, new IIOMetadataNode("foo"));
 
     // Act
     List<Element> actualElementChildren = DomHelper.getElementChildren(description);
@@ -290,22 +270,20 @@ class DomHelperDiffblueTest {
 
   /**
    * Test {@link DomHelper#getElementChildren(Element)}.
-   *
    * <ul>
-   *   <li>When {@link IIOMetadataNode#IIOMetadataNode()}.
-   *   <li>Then return Empty.
+   *   <li>When {@link IIOMetadataNode#IIOMetadataNode(String)} with {@code foo}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DomHelper#getElementChildren(Element)}
+   * <p>
+   * Method under test: {@link DomHelper#getElementChildren(Element)}
    */
   @Test
-  @DisplayName("Test getElementChildren(Element); when IIOMetadataNode(); then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getElementChildren(Element); when IIOMetadataNode(String) with 'foo'; then return Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List DomHelper.getElementChildren(Element)"})
-  void testGetElementChildren_whenIIOMetadataNode_thenReturnEmpty() {
+  void testGetElementChildren_whenIIOMetadataNodeWithFoo_thenReturnEmpty() {
     // Arrange and Act
-    List<Element> actualElementChildren = DomHelper.getElementChildren(new IIOMetadataNode());
+    List<Element> actualElementChildren = DomHelper.getElementChildren(new IIOMetadataNode("foo"));
 
     // Assert
     assertTrue(actualElementChildren.isEmpty());
@@ -313,19 +291,16 @@ class DomHelperDiffblueTest {
 
   /**
    * Test {@link DomHelper#getQName(Element)}.
-   *
    * <ul>
-   *   <li>When {@link IIOMetadataNode#IIOMetadataNode(String)} with {@code foo}.
-   *   <li>Then return NamespaceURI is empty string.
+   *   <li>When {@link IIOMetadataNode#IIOMetadataNode(String)} with {@code foo}.</li>
+   *   <li>Then return NamespaceURI is empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DomHelper#getQName(Element)}
+   * <p>
+   * Method under test: {@link DomHelper#getQName(Element)}
    */
   @Test
-  @DisplayName(
-      "Test getQName(Element); when IIOMetadataNode(String) with 'foo'; then return NamespaceURI is empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getQName(Element); when IIOMetadataNode(String) with 'foo'; then return NamespaceURI is empty string")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"QName DomHelper.getQName(Element)"})
   void testGetQName_whenIIOMetadataNodeWithFoo_thenReturnNamespaceURIIsEmptyString() {
     // Arrange and Act
@@ -339,41 +314,37 @@ class DomHelperDiffblueTest {
 
   /**
    * Test {@link DomHelper#isRdfDescription(Element)}.
-   *
    * <ul>
-   *   <li>When {@link IIOMetadataNode#IIOMetadataNode()}.
-   *   <li>Then return {@code false}.
+   *   <li>When {@link IIOMetadataNode#IIOMetadataNode(String)} with {@code foo}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DomHelper#isRdfDescription(Element)}
+   * <p>
+   * Method under test: {@link DomHelper#isRdfDescription(Element)}
    */
   @Test
-  @DisplayName("Test isRdfDescription(Element); when IIOMetadataNode(); then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test isRdfDescription(Element); when IIOMetadataNode(String) with 'foo'; then return 'false'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean DomHelper.isRdfDescription(Element)"})
-  void testIsRdfDescription_whenIIOMetadataNode_thenReturnFalse() {
+  void testIsRdfDescription_whenIIOMetadataNodeWithFoo_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(DomHelper.isRdfDescription(new IIOMetadataNode()));
+    assertFalse(DomHelper.isRdfDescription(new IIOMetadataNode("foo")));
   }
 
   /**
    * Test {@link DomHelper#isParseTypeResource(Element)}.
-   *
    * <ul>
-   *   <li>When {@link IIOMetadataNode#IIOMetadataNode()}.
-   *   <li>Then return {@code false}.
+   *   <li>When {@link IIOMetadataNode#IIOMetadataNode(String)} with {@code foo}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DomHelper#isParseTypeResource(Element)}
+   * <p>
+   * Method under test: {@link DomHelper#isParseTypeResource(Element)}
    */
   @Test
-  @DisplayName("Test isParseTypeResource(Element); when IIOMetadataNode(); then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test isParseTypeResource(Element); when IIOMetadataNode(String) with 'foo'; then return 'false'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean DomHelper.isParseTypeResource(Element)"})
-  void testIsParseTypeResource_whenIIOMetadataNode_thenReturnFalse() {
+  void testIsParseTypeResource_whenIIOMetadataNodeWithFoo_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(DomHelper.isParseTypeResource(new IIOMetadataNode()));
+    assertFalse(DomHelper.isParseTypeResource(new IIOMetadataNode("foo")));
   }
 }

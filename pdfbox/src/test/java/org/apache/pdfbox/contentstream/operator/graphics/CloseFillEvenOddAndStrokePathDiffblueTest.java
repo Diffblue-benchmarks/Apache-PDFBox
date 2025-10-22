@@ -5,11 +5,11 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.pdfbox.contentstream.PDFStreamEngine;
 import org.apache.pdfbox.contentstream.operator.Operator;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.rendering.PageDrawer;
@@ -21,27 +21,22 @@ import org.mockito.Mockito;
 class CloseFillEvenOddAndStrokePathDiffblueTest {
   /**
    * Test {@link CloseFillEvenOddAndStrokePath#process(Operator, List)}.
-   *
    * <ul>
-   *   <li>Given {@link PageDrawer} {@link PageDrawer#processOperator(String, List)} does nothing.
-   *   <li>Then calls {@link PageDrawer#processOperator(String, List)}.
+   *   <li>Given {@link PageDrawer} {@link PDFStreamEngine#processOperator(String, List)} does nothing.</li>
+   *   <li>Then calls {@link PDFStreamEngine#processOperator(String, List)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CloseFillEvenOddAndStrokePath#process(Operator, List)}
+   * <p>
+   * Method under test: {@link CloseFillEvenOddAndStrokePath#process(Operator, List)}
    */
   @Test
-  @DisplayName(
-      "Test process(Operator, List); given PageDrawer processOperator(String, List) does nothing; then calls processOperator(String, List)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test process(Operator, List); given PageDrawer processOperator(String, List) does nothing; then calls processOperator(String, List)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void CloseFillEvenOddAndStrokePath.process(Operator, List)"})
-  void testProcess_givenPageDrawerProcessOperatorDoesNothing_thenCallsProcessOperator()
-      throws IOException {
+  void testProcess_givenPageDrawerProcessOperatorDoesNothing_thenCallsProcessOperator() throws IOException {
     // Arrange
     PageDrawer context = mock(PageDrawer.class);
     doNothing().when(context).processOperator(Mockito.<String>any(), Mockito.<List<COSBase>>any());
-    CloseFillEvenOddAndStrokePath closeFillEvenOddAndStrokePath =
-        new CloseFillEvenOddAndStrokePath(context);
+    CloseFillEvenOddAndStrokePath closeFillEvenOddAndStrokePath = new CloseFillEvenOddAndStrokePath(context);
     Operator operator = Operator.getOperator("Operator");
 
     // Act

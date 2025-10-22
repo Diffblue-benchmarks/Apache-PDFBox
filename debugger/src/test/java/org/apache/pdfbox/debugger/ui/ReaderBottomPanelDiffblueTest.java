@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -18,13 +17,12 @@ import org.junit.jupiter.api.Test;
 class ReaderBottomPanelDiffblueTest {
   /**
    * Test new {@link ReaderBottomPanel} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link ReaderBottomPanel}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link ReaderBottomPanel}
    */
   @Test
   @DisplayName("Test new ReaderBottomPanel (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ReaderBottomPanel.<init>()"})
   void testNewReaderBottomPanel() {
     // Arrange and Act

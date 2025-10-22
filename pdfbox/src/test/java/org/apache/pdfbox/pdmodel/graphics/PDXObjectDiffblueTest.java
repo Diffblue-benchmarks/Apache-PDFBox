@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.util.List;
@@ -25,18 +24,16 @@ import org.junit.jupiter.api.Test;
 class PDXObjectDiffblueTest {
   /**
    * Test {@link PDXObject#createXObject(COSBase, PDResources)}.
-   *
    * <ul>
-   *   <li>When {@link COSStream#COSStream()}.
-   *   <li>Then throw {@link IOException}.
+   *   <li>When {@link COSStream#COSStream()}.</li>
+   *   <li>Then throw {@link IOException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDXObject#createXObject(COSBase, PDResources)}
+   * <p>
+   * Method under test: {@link PDXObject#createXObject(COSBase, PDResources)}
    */
   @Test
   @DisplayName("Test createXObject(COSBase, PDResources); when COSStream(); then throw IOException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDXObject PDXObject.createXObject(COSBase, PDResources)"})
   void testCreateXObject_whenCOSStream_thenThrowIOException() throws IOException {
     // Arrange
@@ -48,58 +45,51 @@ class PDXObjectDiffblueTest {
 
   /**
    * Test {@link PDXObject#createXObject(COSBase, PDResources)}.
-   *
    * <ul>
-   *   <li>When {@link COSBoolean#FALSE}.
-   *   <li>Then throw {@link IOException}.
+   *   <li>When {@link COSBoolean#FALSE}.</li>
+   *   <li>Then throw {@link IOException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDXObject#createXObject(COSBase, PDResources)}
+   * <p>
+   * Method under test: {@link PDXObject#createXObject(COSBase, PDResources)}
    */
   @Test
   @DisplayName("Test createXObject(COSBase, PDResources); when FALSE; then throw IOException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDXObject PDXObject.createXObject(COSBase, PDResources)"})
   void testCreateXObject_whenFalse_thenThrowIOException() throws IOException {
     // Arrange, Act and Assert
-    assertThrows(
-        IOException.class, () -> PDXObject.createXObject(COSBoolean.FALSE, new PDResources()));
+    assertThrows(IOException.class, () -> PDXObject.createXObject(COSBoolean.FALSE, new PDResources()));
   }
 
   /**
    * Test {@link PDXObject#createXObject(COSBase, PDResources)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return {@code null}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDXObject#createXObject(COSBase, PDResources)}
+   * <p>
+   * Method under test: {@link PDXObject#createXObject(COSBase, PDResources)}
    */
   @Test
   @DisplayName("Test createXObject(COSBase, PDResources); when 'null'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDXObject PDXObject.createXObject(COSBase, PDResources)"})
   void testCreateXObject_whenNull_thenReturnNull() throws IOException {
     // Arrange, Act and Assert
-    assertNull(PDXObject.createXObject(null, null));
+    assertNull(PDXObject.createXObject(null, new PDResources()));
   }
 
   /**
    * Test {@link PDXObject#PDXObject(PDStream, COSName)}.
-   *
    * <ul>
-   *   <li>Then return COSObject Filters is {@code null}.
+   *   <li>Then return COSObject Filters is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDXObject#PDXObject(PDStream, COSName)}
+   * <p>
+   * Method under test: {@link PDXObject#PDXObject(PDStream, COSName)}
    */
   @Test
   @DisplayName("Test new PDXObject(PDStream, COSName); then return COSObject Filters is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDXObject.<init>(PDStream, COSName)"})
   void testNewPDXObject_thenReturnCOSObjectFiltersIsNull() {
     // Arrange
@@ -123,19 +113,16 @@ class PDXObjectDiffblueTest {
 
   /**
    * Test {@link PDXObject#PDXObject(COSStream, COSName)}.
-   *
    * <ul>
-   *   <li>When {@link COSStream#COSStream()}.
-   *   <li>Then return Stream DecodeParms is {@code null}.
+   *   <li>When {@link COSStream#COSStream()}.</li>
+   *   <li>Then return Stream DecodeParms is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDXObject#PDXObject(COSStream, COSName)}
+   * <p>
+   * Method under test: {@link PDXObject#PDXObject(COSStream, COSName)}
    */
   @Test
-  @DisplayName(
-      "Test new PDXObject(COSStream, COSName); when COSStream(); then return Stream DecodeParms is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new PDXObject(COSStream, COSName); when COSStream(); then return Stream DecodeParms is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDXObject.<init>(COSStream, COSName)"})
   void testNewPDXObject_whenCOSStream_thenReturnStreamDecodeParmsIsNull() throws IOException {
     // Arrange
@@ -162,19 +149,16 @@ class PDXObjectDiffblueTest {
 
   /**
    * Test {@link PDXObject#PDXObject(PDDocument, COSName)}.
-   *
    * <ul>
-   *   <li>When {@link PDDocument#PDDocument()}.
-   *   <li>Then return Stream DecodeParms is {@code null}.
+   *   <li>When {@link PDDocument#PDDocument()}.</li>
+   *   <li>Then return Stream DecodeParms is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDXObject#PDXObject(PDDocument, COSName)}
+   * <p>
+   * Method under test: {@link PDXObject#PDXObject(PDDocument, COSName)}
    */
   @Test
-  @DisplayName(
-      "Test new PDXObject(PDDocument, COSName); when PDDocument(); then return Stream DecodeParms is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new PDXObject(PDDocument, COSName); when PDDocument(); then return Stream DecodeParms is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDXObject.<init>(PDDocument, COSName)"})
   void testNewPDXObject_whenPDDocument_thenReturnStreamDecodeParmsIsNull() throws IOException {
     // Arrange and Act
@@ -205,38 +189,36 @@ class PDXObjectDiffblueTest {
 
   /**
    * Test {@link PDXObject#getCOSObject()}.
-   *
-   * <p>Method under test: {@link PDXObject#getCOSObject()}
+   * <p>
+   * Method under test: {@link PDXObject#getCOSObject()}
    */
   @Test
   @DisplayName("Test getCOSObject()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSStream PDXObject.getCOSObject()"})
   void testGetCOSObject() {
     // Arrange
     COSStream stream = new COSStream();
 
     // Act and Assert
-    assertSame(stream, new PDXObject(stream, COSName.A).getCOSObject());
+    assertSame(stream, (new PDXObject(stream, COSName.A)).getCOSObject());
   }
 
   /**
    * Test {@link PDXObject#getStream()}.
-   *
-   * <p>Method under test: {@link PDXObject#getStream()}
+   * <p>
+   * Method under test: {@link PDXObject#getStream()}
    */
   @Test
   @DisplayName("Test getStream()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDStream PDXObject.getStream()"})
   void testGetStream() throws IOException {
     // Arrange
     COSStream stream = new COSStream();
 
     // Act
-    PDStream actualStream = new PDXObject(stream, COSName.A).getStream();
+    PDStream actualStream = (new PDXObject(stream, COSName.A)).getStream();
 
     // Assert
     assertNull(actualStream.getDecodeParms());

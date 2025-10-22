@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.UnsupportedEncodingException;
 import org.apache.pdfbox.cos.COSDictionary;
@@ -20,17 +19,15 @@ import org.junit.jupiter.api.Test;
 class OperatorDiffblueTest {
   /**
    * Test {@link Operator#getOperator(String)}.
-   *
    * <ul>
-   *   <li>Then return Name is {@link OperatorName#BEGIN_INLINE_IMAGE_DATA}.
+   *   <li>Then return Name is {@link OperatorName#BEGIN_INLINE_IMAGE_DATA}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Operator#getOperator(String)}
+   * <p>
+   * Method under test: {@link Operator#getOperator(String)}
    */
   @Test
   @DisplayName("Test getOperator(String); then return Name is BEGIN_INLINE_IMAGE_DATA")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Operator Operator.getOperator(String)"})
   void testGetOperator_thenReturnNameIsBegin_inline_image_data() {
     // Arrange and Act
@@ -44,19 +41,16 @@ class OperatorDiffblueTest {
 
   /**
    * Test {@link Operator#getOperator(String)}.
-   *
    * <ul>
-   *   <li>When {@link OperatorName#BEGIN_INLINE_IMAGE}.
-   *   <li>Then return Name is {@link OperatorName#BEGIN_INLINE_IMAGE}.
+   *   <li>When {@link OperatorName#BEGIN_INLINE_IMAGE}.</li>
+   *   <li>Then return Name is {@link OperatorName#BEGIN_INLINE_IMAGE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Operator#getOperator(String)}
+   * <p>
+   * Method under test: {@link Operator#getOperator(String)}
    */
   @Test
-  @DisplayName(
-      "Test getOperator(String); when BEGIN_INLINE_IMAGE; then return Name is BEGIN_INLINE_IMAGE")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getOperator(String); when BEGIN_INLINE_IMAGE; then return Name is BEGIN_INLINE_IMAGE")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Operator Operator.getOperator(String)"})
   void testGetOperator_whenBegin_inline_image_thenReturnNameIsBegin_inline_image() {
     // Arrange and Act
@@ -70,18 +64,16 @@ class OperatorDiffblueTest {
 
   /**
    * Test {@link Operator#getOperator(String)}.
-   *
    * <ul>
-   *   <li>When {@code IDID}.
-   *   <li>Then return Name is {@code IDID}.
+   *   <li>When {@code IDID}.</li>
+   *   <li>Then return Name is {@code IDID}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Operator#getOperator(String)}
+   * <p>
+   * Method under test: {@link Operator#getOperator(String)}
    */
   @Test
   @DisplayName("Test getOperator(String); when 'IDID'; then return Name is 'IDID'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Operator Operator.getOperator(String)"})
   void testGetOperator_whenIdid_thenReturnNameIsIdid() {
     // Arrange and Act
@@ -95,18 +87,16 @@ class OperatorDiffblueTest {
 
   /**
    * Test {@link Operator#getOperator(String)}.
-   *
    * <ul>
-   *   <li>When {@code Operator}.
-   *   <li>Then return Name is {@code Operator}.
+   *   <li>When {@code Operator}.</li>
+   *   <li>Then return Name is {@code Operator}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Operator#getOperator(String)}
+   * <p>
+   * Method under test: {@link Operator#getOperator(String)}
    */
   @Test
   @DisplayName("Test getOperator(String); when 'Operator'; then return Name is 'Operator'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Operator Operator.getOperator(String)"})
   void testGetOperator_whenOperator_thenReturnNameIsOperator() throws UnsupportedEncodingException {
     // Arrange and Act
@@ -126,23 +116,22 @@ class OperatorDiffblueTest {
     assertFalse(updateState.isUpdated());
     assertTrue(imageParameters.getValues().isEmpty());
     assertTrue(toIncrementResult.getObjects().isEmpty());
-    assertArrayEquals("AXAXAXAX".getBytes("UTF-8"), actualOperator.getImageData());
+    byte[] expectedImageData = "AXAXAXAX".getBytes("UTF-8");
+    assertArrayEquals(expectedImageData, actualOperator.getImageData());
   }
 
   /**
    * Test {@link Operator#getOperator(String)}.
-   *
    * <ul>
-   *   <li>When {@code /}.
-   *   <li>Then throw {@link IllegalArgumentException}.
+   *   <li>When {@code /}.</li>
+   *   <li>Then throw {@link IllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Operator#getOperator(String)}
+   * <p>
+   * Method under test: {@link Operator#getOperator(String)}
    */
   @Test
   @DisplayName("Test getOperator(String); when '/'; then throw IllegalArgumentException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Operator Operator.getOperator(String)"})
   void testGetOperator_whenSlash_thenThrowIllegalArgumentException() {
     // Arrange, Act and Assert
@@ -151,9 +140,8 @@ class OperatorDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link Operator#setImageData(byte[])}
    *   <li>{@link Operator#setImageParameters(COSDictionary)}
@@ -165,16 +153,10 @@ class OperatorDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "byte[] Operator.getImageData()",
-    "COSDictionary Operator.getImageParameters()",
-    "String Operator.getName()",
-    "void Operator.setImageData(byte[])",
-    "void Operator.setImageParameters(COSDictionary)",
-    "String Operator.toString()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"byte[] Operator.getImageData()", "COSDictionary Operator.getImageParameters()",
+      "String Operator.getName()", "void Operator.setImageData(byte[])",
+      "void Operator.setImageParameters(COSDictionary)", "String Operator.toString()"})
   void testGettersAndSetters() throws UnsupportedEncodingException {
     // Arrange
     Operator operator = Operator.getOperator("Operator");

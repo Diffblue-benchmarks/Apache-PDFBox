@@ -3,7 +3,6 @@ package org.apache.pdfbox.pdmodel.interactive;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.text.AttributedString;
@@ -13,9 +12,6 @@ import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDMMType1Font;
 import org.apache.pdfbox.pdmodel.font.PDType1CFont;
-import org.apache.pdfbox.pdmodel.font.PDType1Font;
-import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
-import org.apache.pdfbox.pdmodel.font.Standard14Fonts.FontName;
 import org.apache.pdfbox.pdmodel.interactive.PlainText.Line;
 import org.apache.pdfbox.pdmodel.interactive.PlainText.Paragraph;
 import org.apache.pdfbox.pdmodel.interactive.PlainText.Word;
@@ -26,13 +22,12 @@ import org.junit.jupiter.api.Test;
 class PlainTextDiffblueTest {
   /**
    * Test Line {@link Line#addWord(Word)}.
-   *
-   * <p>Method under test: {@link Line#addWord(Word)}
+   * <p>
+   * Method under test: {@link Line#addWord(Word)}
    */
   @Test
   @DisplayName("Test Line addWord(Word)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void Line.addWord(Word)"})
   void testLineAddWord() {
     // Arrange
@@ -50,19 +45,16 @@ class PlainTextDiffblueTest {
 
   /**
    * Test Line {@link Line#calculateWidth(PDFont, float)}.
-   *
    * <ul>
-   *   <li>Given {@link Line} (default constructor).
-   *   <li>Then return zero.
+   *   <li>Given {@link Line} (default constructor).</li>
+   *   <li>Then return zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Line#calculateWidth(PDFont, float)}
+   * <p>
+   * Method under test: {@link Line#calculateWidth(PDFont, float)}
    */
   @Test
-  @DisplayName(
-      "Test Line calculateWidth(PDFont, float); given Line (default constructor); then return zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test Line calculateWidth(PDFont, float); given Line (default constructor); then return zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"float Line.calculateWidth(PDFont, float)"})
   void testLineCalculateWidth_givenLine_thenReturnZero() throws IOException {
     // Arrange
@@ -74,24 +66,22 @@ class PlainTextDiffblueTest {
 
   /**
    * Test Line {@link Line#getInterWordSpacing(float)}.
-   *
-   * <p>Method under test: {@link Line#getInterWordSpacing(float)}
+   * <p>
+   * Method under test: {@link Line#getInterWordSpacing(float)}
    */
   @Test
   @DisplayName("Test Line getInterWordSpacing(float)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"float Line.getInterWordSpacing(float)"})
   void testLineGetInterWordSpacing() {
     // Arrange, Act and Assert
-    assertEquals(-10.0f, new Line().getInterWordSpacing(10.0f));
+    assertEquals(-10.0f, (new Line()).getInterWordSpacing(10.0f));
   }
 
   /**
    * Test Line getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link Line}
    *   <li>{@link Line#setWidth(float)}
@@ -101,14 +91,9 @@ class PlainTextDiffblueTest {
    */
   @Test
   @DisplayName("Test Line getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void Line.<init>()",
-    "float Line.getWidth()",
-    "List Line.getWords()",
-    "void Line.setWidth(float)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void Line.<init>()", "float Line.getWidth()", "List Line.getWords()",
+      "void Line.setWidth(float)"})
   void testLineGettersAndSetters() {
     // Arrange and Act
     Line actualLine = new Line();
@@ -122,20 +107,17 @@ class PlainTextDiffblueTest {
 
   /**
    * Test {@link PlainText#PlainText(List)}.
-   *
    * <ul>
-   *   <li>Given {@code 42}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.
-   *   <li>Then return Paragraphs size is two.
+   *   <li>Given {@code 42}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
+   *   <li>Then return Paragraphs size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PlainText#PlainText(List)}
+   * <p>
+   * Method under test: {@link PlainText#PlainText(List)}
    */
   @Test
-  @DisplayName(
-      "Test new PlainText(List); given '42'; when ArrayList() add '42'; then return Paragraphs size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new PlainText(List); given '42'; when ArrayList() add '42'; then return Paragraphs size is two")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PlainText.<init>(List)"})
   void testNewPlainText_given42_whenArrayListAdd42_thenReturnParagraphsSizeIsTwo() {
     // Arrange
@@ -144,7 +126,7 @@ class PlainTextDiffblueTest {
     listValue.add("foo");
 
     // Act and Assert
-    List<Paragraph> paragraphs = new PlainText(listValue).getParagraphs();
+    List<Paragraph> paragraphs = (new PlainText(listValue)).getParagraphs();
     assertEquals(2, paragraphs.size());
     assertEquals("42", paragraphs.get(0).getText());
     assertEquals("foo", paragraphs.get(1).getText());
@@ -152,20 +134,17 @@ class PlainTextDiffblueTest {
 
   /**
    * Test {@link PlainText#PlainText(List)}.
-   *
    * <ul>
-   *   <li>Given {@code foo}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@code foo}.
-   *   <li>Then return Paragraphs size is one.
+   *   <li>Given {@code foo}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@code foo}.</li>
+   *   <li>Then return Paragraphs size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PlainText#PlainText(List)}
+   * <p>
+   * Method under test: {@link PlainText#PlainText(List)}
    */
   @Test
-  @DisplayName(
-      "Test new PlainText(List); given 'foo'; when ArrayList() add 'foo'; then return Paragraphs size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new PlainText(List); given 'foo'; when ArrayList() add 'foo'; then return Paragraphs size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PlainText.<init>(List)"})
   void testNewPlainText_givenFoo_whenArrayListAddFoo_thenReturnParagraphsSizeIsOne() {
     // Arrange
@@ -173,89 +152,81 @@ class PlainTextDiffblueTest {
     listValue.add("foo");
 
     // Act and Assert
-    List<Paragraph> paragraphs = new PlainText(listValue).getParagraphs();
+    List<Paragraph> paragraphs = (new PlainText(listValue)).getParagraphs();
     assertEquals(1, paragraphs.size());
     assertEquals("foo", paragraphs.get(0).getText());
   }
 
   /**
    * Test {@link PlainText#PlainText(String)}.
-   *
    * <ul>
-   *   <li>When {@code 42}.
-   *   <li>Then return Paragraphs first Text is {@code 42}.
+   *   <li>When {@code 42}.</li>
+   *   <li>Then return Paragraphs first Text is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PlainText#PlainText(String)}
+   * <p>
+   * Method under test: {@link PlainText#PlainText(String)}
    */
   @Test
   @DisplayName("Test new PlainText(String); when '42'; then return Paragraphs first Text is '42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PlainText.<init>(String)"})
   void testNewPlainText_when42_thenReturnParagraphsFirstTextIs42() {
     // Arrange, Act and Assert
-    List<Paragraph> paragraphs = new PlainText("42").getParagraphs();
+    List<Paragraph> paragraphs = (new PlainText("42")).getParagraphs();
     assertEquals(1, paragraphs.size());
     assertEquals("42", paragraphs.get(0).getText());
   }
 
   /**
    * Test {@link PlainText#PlainText(List)}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then return Paragraphs Empty.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return Paragraphs Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PlainText#PlainText(List)}
+   * <p>
+   * Method under test: {@link PlainText#PlainText(List)}
    */
   @Test
   @DisplayName("Test new PlainText(List); when ArrayList(); then return Paragraphs Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PlainText.<init>(List)"})
   void testNewPlainText_whenArrayList_thenReturnParagraphsEmpty() {
     // Arrange, Act and Assert
-    assertTrue(new PlainText(new ArrayList<>()).getParagraphs().isEmpty());
+    assertTrue((new PlainText(new ArrayList<>())).getParagraphs().isEmpty());
   }
 
   /**
    * Test {@link PlainText#PlainText(String)}.
-   *
    * <ul>
-   *   <li>When empty string.
-   *   <li>Then return Paragraphs first Text is empty string.
+   *   <li>When empty string.</li>
+   *   <li>Then return Paragraphs first Text is empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PlainText#PlainText(String)}
+   * <p>
+   * Method under test: {@link PlainText#PlainText(String)}
    */
   @Test
-  @DisplayName(
-      "Test new PlainText(String); when empty string; then return Paragraphs first Text is empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new PlainText(String); when empty string; then return Paragraphs first Text is empty string")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PlainText.<init>(String)"})
   void testNewPlainText_whenEmptyString_thenReturnParagraphsFirstTextIsEmptyString() {
     // Arrange, Act and Assert
-    List<Paragraph> paragraphs = new PlainText("").getParagraphs();
+    List<Paragraph> paragraphs = (new PlainText("")).getParagraphs();
     assertEquals(1, paragraphs.size());
     assertEquals("", paragraphs.get(0).getText());
   }
 
   /**
    * Test {@link PlainText#getParagraphs()}.
-   *
-   * <p>Method under test: {@link PlainText#getParagraphs()}
+   * <p>
+   * Method under test: {@link PlainText#getParagraphs()}
    */
   @Test
   @DisplayName("Test getParagraphs()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PlainText.getParagraphs()"})
   void testGetParagraphs() {
     // Arrange and Act
-    List<Paragraph> actualParagraphs = new PlainText("42").getParagraphs();
+    List<Paragraph> actualParagraphs = (new PlainText("42")).getParagraphs();
 
     // Assert
     assertEquals(1, actualParagraphs.size());
@@ -264,28 +235,23 @@ class PlainTextDiffblueTest {
 
   /**
    * Test Paragraph {@link Paragraph#getLines(PDFont, float, float)}.
-   *
    * <ul>
-   *   <li>Given {@link Paragraph#Paragraph(String)} with text is {@code .notdef}.
-   *   <li>Then return size is five.
+   *   <li>Given {@link Paragraph#Paragraph(String)} with text is {@code .notdef}.</li>
+   *   <li>Then return size is five.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Paragraph#getLines(PDFont, float, float)}
+   * <p>
+   * Method under test: {@link Paragraph#getLines(PDFont, float, float)}
    */
   @Test
-  @DisplayName(
-      "Test Paragraph getLines(PDFont, float, float); given Paragraph(String) with text is '.notdef'; then return size is five")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test Paragraph getLines(PDFont, float, float); given Paragraph(String) with text is '.notdef'; then return size is five")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List Paragraph.getLines(PDFont, float, float)"})
-  void testParagraphGetLines_givenParagraphWithTextIsNotdef_thenReturnSizeIsFive()
-      throws IOException {
+  void testParagraphGetLines_givenParagraphWithTextIsNotdef_thenReturnSizeIsFive() throws IOException {
     // Arrange
     Paragraph paragraph = new Paragraph(".notdef");
 
     // Act
-    List<Line> actualLines =
-        paragraph.getLines(new PDMMType1Font(new COSDictionary()), 10.0f, 10.0f);
+    List<Line> actualLines = paragraph.getLines(new PDMMType1Font(new COSDictionary()), 10.0f, 10.0f);
 
     // Assert
     assertEquals(5, actualLines.size());
@@ -298,28 +264,23 @@ class PlainTextDiffblueTest {
 
   /**
    * Test Paragraph {@link Paragraph#getLines(PDFont, float, float)}.
-   *
    * <ul>
-   *   <li>Given {@link Paragraph#Paragraph(String)} with {@code Text}.
-   *   <li>Then return first Words first Text is {@code T}.
+   *   <li>Given {@link Paragraph#Paragraph(String)} with {@code Text}.</li>
+   *   <li>Then return size is three.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Paragraph#getLines(PDFont, float, float)}
+   * <p>
+   * Method under test: {@link Paragraph#getLines(PDFont, float, float)}
    */
   @Test
-  @DisplayName(
-      "Test Paragraph getLines(PDFont, float, float); given Paragraph(String) with 'Text'; then return first Words first Text is 'T'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test Paragraph getLines(PDFont, float, float); given Paragraph(String) with 'Text'; then return size is three")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List Paragraph.getLines(PDFont, float, float)"})
-  void testParagraphGetLines_givenParagraphWithText_thenReturnFirstWordsFirstTextIsT()
-      throws IOException {
+  void testParagraphGetLines_givenParagraphWithText_thenReturnSizeIsThree() throws IOException {
     // Arrange
     Paragraph paragraph = new Paragraph("Text");
 
     // Act
-    List<Line> actualLines =
-        paragraph.getLines(new PDMMType1Font(new COSDictionary()), 10.0f, 10.0f);
+    List<Line> actualLines = paragraph.getLines(new PDMMType1Font(new COSDictionary()), 10.0f, 10.0f);
 
     // Assert
     assertEquals(3, actualLines.size());
@@ -342,26 +303,22 @@ class PlainTextDiffblueTest {
 
   /**
    * Test Paragraph {@link Paragraph#getLines(PDFont, float, float)}.
-   *
    * <ul>
-   *   <li>Then return first Words first Text is {@code maxp}.
+   *   <li>Then return first Words first Text is {@code maxp}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Paragraph#getLines(PDFont, float, float)}
+   * <p>
+   * Method under test: {@link Paragraph#getLines(PDFont, float, float)}
    */
   @Test
-  @DisplayName(
-      "Test Paragraph getLines(PDFont, float, float); then return first Words first Text is 'maxp'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test Paragraph getLines(PDFont, float, float); then return first Words first Text is 'maxp'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List Paragraph.getLines(PDFont, float, float)"})
   void testParagraphGetLines_thenReturnFirstWordsFirstTextIsMaxp() throws IOException {
     // Arrange
     Paragraph paragraph = new Paragraph("maxp");
 
     // Act
-    List<Line> actualLines =
-        paragraph.getLines(new PDType1CFont(new COSDictionary()), 10.0f, 10.0f);
+    List<Line> actualLines = paragraph.getLines(new PDType1CFont(new COSDictionary()), 10.0f, 10.0f);
 
     // Assert
     assertEquals(1, actualLines.size());
@@ -374,69 +331,23 @@ class PlainTextDiffblueTest {
 
   /**
    * Test Paragraph {@link Paragraph#getLines(PDFont, float, float)}.
-   *
    * <ul>
-   *   <li>Then return second Words first Text is {@code ax}.
+   *   <li>When {@code -0.5}.</li>
+   *   <li>Then return first Words size is six.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Paragraph#getLines(PDFont, float, float)}
+   * <p>
+   * Method under test: {@link Paragraph#getLines(PDFont, float, float)}
    */
   @Test
-  @DisplayName(
-      "Test Paragraph getLines(PDFont, float, float); then return second Words first Text is 'ax'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List Paragraph.getLines(PDFont, float, float)"})
-  void testParagraphGetLines_thenReturnSecondWordsFirstTextIsAx() throws IOException {
-    // Arrange
-    Paragraph paragraph = new Paragraph("maxp");
-
-    // Act
-    List<Line> actualLines =
-        paragraph.getLines(new PDType1Font(FontName.TIMES_ROMAN), 10.0f, 10.0f);
-
-    // Assert
-    assertEquals(3, actualLines.size());
-    Line getResult = actualLines.get(1);
-    List<Word> words = getResult.getWords();
-    assertEquals(1, words.size());
-    assertEquals("ax", words.get(0).getText());
-    Line getResult2 = actualLines.get(0);
-    List<Word> words2 = getResult2.getWords();
-    assertEquals(1, words2.size());
-    assertEquals("m", words2.get(0).getText());
-    Line getResult3 = actualLines.get(2);
-    List<Word> words3 = getResult3.getWords();
-    assertEquals(1, words3.size());
-    assertEquals("p", words3.get(0).getText());
-    assertEquals(5.0f, getResult3.getWidth());
-    assertEquals(7.7799997f, getResult2.getWidth());
-    assertEquals(9.44f, getResult.getWidth());
-  }
-
-  /**
-   * Test Paragraph {@link Paragraph#getLines(PDFont, float, float)}.
-   *
-   * <ul>
-   *   <li>When {@code -0.5}.
-   *   <li>Then return first Words size is six.
-   * </ul>
-   *
-   * <p>Method under test: {@link Paragraph#getLines(PDFont, float, float)}
-   */
-  @Test
-  @DisplayName(
-      "Test Paragraph getLines(PDFont, float, float); when '-0.5'; then return first Words size is six")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test Paragraph getLines(PDFont, float, float); when '-0.5'; then return first Words size is six")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List Paragraph.getLines(PDFont, float, float)"})
   void testParagraphGetLines_when05_thenReturnFirstWordsSizeIsSix() throws IOException {
     // Arrange
     Paragraph paragraph = new Paragraph("No embedded CFF font, returning 0");
 
     // Act
-    List<Line> actualLines =
-        paragraph.getLines(new PDMMType1Font(new COSDictionary()), -0.5f, -0.5f);
+    List<Line> actualLines = paragraph.getLines(new PDMMType1Font(new COSDictionary()), -0.5f, -0.5f);
 
     // Assert
     assertEquals(1, actualLines.size());
@@ -451,27 +362,23 @@ class PlainTextDiffblueTest {
 
   /**
    * Test Paragraph {@link Paragraph#getLines(PDFont, float, float)}.
-   *
    * <ul>
-   *   <li>When {@code 2.5}.
-   *   <li>Then return first Words size is two.
+   *   <li>When {@code 2.5}.</li>
+   *   <li>Then return first Words size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Paragraph#getLines(PDFont, float, float)}
+   * <p>
+   * Method under test: {@link Paragraph#getLines(PDFont, float, float)}
    */
   @Test
-  @DisplayName(
-      "Test Paragraph getLines(PDFont, float, float); when '2.5'; then return first Words size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test Paragraph getLines(PDFont, float, float); when '2.5'; then return first Words size is two")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List Paragraph.getLines(PDFont, float, float)"})
   void testParagraphGetLines_when25_thenReturnFirstWordsSizeIsTwo() throws IOException {
     // Arrange
     Paragraph paragraph = new Paragraph(".notdef");
 
     // Act
-    List<Line> actualLines =
-        paragraph.getLines(new PDMMType1Font(new COSDictionary()), 2.5f, 10.0f);
+    List<Line> actualLines = paragraph.getLines(new PDMMType1Font(new COSDictionary()), 2.5f, 10.0f);
 
     // Assert
     assertEquals(1, actualLines.size());
@@ -485,27 +392,23 @@ class PlainTextDiffblueTest {
 
   /**
    * Test Paragraph {@link Paragraph#getLines(PDFont, float, float)}.
-   *
    * <ul>
-   *   <li>When {@code 14.72168}.
-   *   <li>Then return size is twelve.
+   *   <li>When {@code 14.72168}.</li>
+   *   <li>Then return size is twelve.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Paragraph#getLines(PDFont, float, float)}
+   * <p>
+   * Method under test: {@link Paragraph#getLines(PDFont, float, float)}
    */
   @Test
-  @DisplayName(
-      "Test Paragraph getLines(PDFont, float, float); when '14.72168'; then return size is twelve")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test Paragraph getLines(PDFont, float, float); when '14.72168'; then return size is twelve")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List Paragraph.getLines(PDFont, float, float)"})
   void testParagraphGetLines_when1472168_thenReturnSizeIsTwelve() throws IOException {
     // Arrange
     Paragraph paragraph = new Paragraph("No embedded CFF font, returning 0");
 
     // Act
-    List<Line> actualLines =
-        paragraph.getLines(new PDMMType1Font(new COSDictionary()), 10.0f, 14.72168f);
+    List<Line> actualLines = paragraph.getLines(new PDMMType1Font(new COSDictionary()), 10.0f, 14.72168f);
 
     // Assert
     assertEquals(12, actualLines.size());
@@ -539,18 +442,16 @@ class PlainTextDiffblueTest {
 
   /**
    * Test Paragraph {@link Paragraph#getLines(PDFont, float, float)}.
-   *
    * <ul>
-   *   <li>When zero.
-   *   <li>Then return size is six.
+   *   <li>When zero.</li>
+   *   <li>Then return size is six.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Paragraph#getLines(PDFont, float, float)}
+   * <p>
+   * Method under test: {@link Paragraph#getLines(PDFont, float, float)}
    */
   @Test
   @DisplayName("Test Paragraph getLines(PDFont, float, float); when zero; then return size is six")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List Paragraph.getLines(PDFont, float, float)"})
   void testParagraphGetLines_whenZero_thenReturnSizeIsSix() throws IOException {
     // Arrange
@@ -570,9 +471,8 @@ class PlainTextDiffblueTest {
 
   /**
    * Test Paragraph getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link Paragraph#Paragraph(String)}
    *   <li>{@link Paragraph#getText()}
@@ -580,19 +480,17 @@ class PlainTextDiffblueTest {
    */
   @Test
   @DisplayName("Test Paragraph getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void Paragraph.<init>(String)", "String Paragraph.getText()"})
   void testParagraphGettersAndSetters() {
     // Arrange, Act and Assert
-    assertEquals("Text", new Paragraph("Text").getText());
+    assertEquals("Text", (new Paragraph("Text")).getText());
   }
 
   /**
    * Test Word getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link Word#Word(String)}
    *   <li>{@link Word#setAttributes(AttributedString)}
@@ -602,14 +500,9 @@ class PlainTextDiffblueTest {
    */
   @Test
   @DisplayName("Test Word getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void Word.<init>(String)",
-    "AttributedString Word.getAttributes()",
-    "String Word.getText()",
-    "void Word.setAttributes(AttributedString)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void Word.<init>(String)", "AttributedString Word.getAttributes()", "String Word.getText()",
+      "void Word.setAttributes(AttributedString)"})
   void testWordGettersAndSetters() {
     // Arrange and Act
     Word actualWord = new Word("Text");

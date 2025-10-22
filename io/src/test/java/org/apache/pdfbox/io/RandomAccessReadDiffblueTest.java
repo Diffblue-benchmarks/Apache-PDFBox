@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -16,20 +15,17 @@ import org.junit.jupiter.api.Test;
 class RandomAccessReadDiffblueTest {
   /**
    * Test {@link RandomAccessRead#read(byte[])} with {@code byte[]}.
-   *
-   * <p>Method under test: {@link RandomAccessRead#read(byte[])}
+   * <p>
+   * Method under test: {@link RandomAccessRead#read(byte[])}
    */
   @Test
   @DisplayName("Test read(byte[]) with 'byte[]'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int RandomAccessRead.read(byte[])"})
   void testReadWithByte() throws IOException {
     // Arrange
-    ByteArrayInputStream inputStream =
-        new ByteArrayInputStream(new byte[] {'A', -1, 'A', -1, 'A', -1, 'A', -1});
-    RandomAccessReadBuffer createBufferFromStreamResult =
-        RandomAccessReadBuffer.createBufferFromStream(inputStream);
+    RandomAccessReadBuffer createBufferFromStreamResult = RandomAccessReadBuffer
+        .createBufferFromStream(new ByteArrayInputStream(new byte[]{'A', -1, 'A', -1, 'A', -1, 'A', -1}));
     byte[] b = "AXAXAXAX".getBytes("UTF-8");
 
     // Act
@@ -44,35 +40,29 @@ class RandomAccessReadDiffblueTest {
     assertEquals(8L, createBufferFromStreamResult.getPosition());
     assertEquals(8L, createBufferFromStreamResult.pointer);
     assertFalse(byteBuffer.hasRemaining());
-    assertArrayEquals(new byte[] {'A', -1, 'A', -1, 'A', -1, 'A', -1}, b);
+    assertArrayEquals(new byte[]{'A', -1, 'A', -1, 'A', -1, 'A', -1}, b);
   }
 
   /**
    * Test {@link RandomAccessRead#read(byte[])} with {@code byte[]}.
-   *
    * <ul>
-   *   <li>Given {@link RandomAccessReadBuffer#RandomAccessReadBuffer()}.
-   *   <li>Then return minus one.
+   *   <li>Given {@link RandomAccessReadBuffer#RandomAccessReadBuffer()}.</li>
+   *   <li>Then return minus one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link RandomAccessRead#read(byte[])}
+   * <p>
+   * Method under test: {@link RandomAccessRead#read(byte[])}
    */
   @Test
-  @DisplayName(
-      "Test read(byte[]) with 'byte[]'; given RandomAccessReadBuffer(); then return minus one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test read(byte[]) with 'byte[]'; given RandomAccessReadBuffer(); then return minus one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int RandomAccessRead.read(byte[])"})
   void testReadWithByte_givenRandomAccessReadBuffer_thenReturnMinusOne() throws IOException {
     // Arrange
     RandomAccessReadBuffer randomAccessReadBuffer = new RandomAccessReadBuffer();
     byte[] b = "AXAXAXAX".getBytes("UTF-8");
 
-    // Act
-    int actualReadResult = randomAccessReadBuffer.read(b);
-
-    // Assert
-    assertEquals(-1, actualReadResult);
+    // Act and Assert
+    assertEquals(-1, randomAccessReadBuffer.read(b));
     ByteBuffer byteBuffer = randomAccessReadBuffer.currentBuffer;
     assertEquals(0, byteBuffer.position());
     assertEquals(0, randomAccessReadBuffer.available());
@@ -85,60 +75,54 @@ class RandomAccessReadDiffblueTest {
 
   /**
    * Test {@link RandomAccessRead#peek()}.
-   *
    * <ul>
-   *   <li>Given {@code A}.
-   *   <li>Then return sixty-five.
+   *   <li>Given {@code A}.</li>
+   *   <li>Then return sixty-five.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link RandomAccessRead#peek()}
+   * <p>
+   * Method under test: {@link RandomAccessRead#peek()}
    */
   @Test
   @DisplayName("Test peek(); given 'A'; then return sixty-five")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int RandomAccessRead.peek()"})
   void testPeek_givenA_thenReturnSixtyFive() throws IOException {
-    // Arrange
-    ByteArrayInputStream inputStream =
-        new ByteArrayInputStream(new byte[] {'A', -1, 'A', -1, 'A', -1, 'A', -1});
-
-    // Act and Assert
-    assertEquals(65, RandomAccessReadBuffer.createBufferFromStream(inputStream).peek());
+    // Arrange, Act and Assert
+    assertEquals(65,
+        RandomAccessReadBuffer
+            .createBufferFromStream(new ByteArrayInputStream(new byte[]{'A', -1, 'A', -1, 'A', -1, 'A', -1}))
+            .peek());
   }
 
   /**
    * Test {@link RandomAccessRead#peek()}.
-   *
    * <ul>
-   *   <li>Given {@link RandomAccessReadBuffer#RandomAccessReadBuffer()}.
-   *   <li>Then return minus one.
+   *   <li>Given {@link RandomAccessReadBuffer#RandomAccessReadBuffer()}.</li>
+   *   <li>Then return minus one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link RandomAccessRead#peek()}
+   * <p>
+   * Method under test: {@link RandomAccessRead#peek()}
    */
   @Test
   @DisplayName("Test peek(); given RandomAccessReadBuffer(); then return minus one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int RandomAccessRead.peek()"})
   void testPeek_givenRandomAccessReadBuffer_thenReturnMinusOne() throws IOException {
     // Arrange, Act and Assert
-    assertEquals(-1, new RandomAccessReadBuffer().peek());
+    assertEquals(-1, (new RandomAccessReadBuffer()).peek());
   }
 
   /**
    * Test {@link RandomAccessRead#available()}.
-   *
-   * <p>Method under test: {@link RandomAccessRead#available()}
+   * <p>
+   * Method under test: {@link RandomAccessRead#available()}
    */
   @Test
   @DisplayName("Test available()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int RandomAccessRead.available()"})
   void testAvailable() throws IOException {
     // Arrange, Act and Assert
-    assertEquals(0, new RandomAccessReadBuffer().available());
+    assertEquals(0, (new RandomAccessReadBuffer()).available());
   }
 }

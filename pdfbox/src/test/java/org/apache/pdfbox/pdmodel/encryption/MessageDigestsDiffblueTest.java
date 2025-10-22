@@ -1,7 +1,6 @@
 package org.apache.pdfbox.pdmodel.encryption;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.security.MessageDigest;
 import java.security.Provider;
@@ -12,13 +11,12 @@ import org.junit.jupiter.api.Test;
 class MessageDigestsDiffblueTest {
   /**
    * Test {@link MessageDigests#getMD5()}.
-   *
-   * <p>Method under test: {@link MessageDigests#getMD5()}
+   * <p>
+   * Method under test: {@link MessageDigests#getMD5()}
    */
   @Test
   @DisplayName("Test getMD5()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"MessageDigest MessageDigests.getMD5()"})
   void testGetMD5() {
     // Arrange and Act
@@ -39,13 +37,12 @@ class MessageDigestsDiffblueTest {
 
   /**
    * Test {@link MessageDigests#getSHA1()}.
-   *
-   * <p>Method under test: {@link MessageDigests#getSHA1()}
+   * <p>
+   * Method under test: {@link MessageDigests#getSHA1()}
    */
   @Test
   @DisplayName("Test getSHA1()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"MessageDigest MessageDigests.getSHA1()"})
   void testGetSHA1() {
     // Arrange and Act
@@ -66,13 +63,12 @@ class MessageDigestsDiffblueTest {
 
   /**
    * Test {@link MessageDigests#getSHA256()}.
-   *
-   * <p>Method under test: {@link MessageDigests#getSHA256()}
+   * <p>
+   * Method under test: {@link MessageDigests#getSHA256()}
    */
   @Test
   @DisplayName("Test getSHA256()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"MessageDigest MessageDigests.getSHA256()"})
   void testGetSHA256() {
     // Arrange and Act

@@ -10,7 +10,6 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import org.apache.pdfbox.cos.COSBoolean;
@@ -31,20 +30,16 @@ import org.mockito.Mockito;
 class PDOptionalContentGroupDiffblueTest {
   /**
    * Test {@link PDOptionalContentGroup#PDOptionalContentGroup(COSDictionary)}.
-   *
    * <ul>
-   *   <li>Given {@link COSName#A}.
-   *   <li>When {@link COSDictionary} {@link COSDictionary#getDictionaryObject(COSName)} return
-   *       {@link COSName#A}.
+   *   <li>Given {@link COSName#A}.</li>
+   *   <li>When {@link COSDictionary} {@link COSDictionary#getDictionaryObject(COSName)} return {@link COSName#A}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDOptionalContentGroup#PDOptionalContentGroup(COSDictionary)}
+   * <p>
+   * Method under test: {@link PDOptionalContentGroup#PDOptionalContentGroup(COSDictionary)}
    */
   @Test
-  @DisplayName(
-      "Test new PDOptionalContentGroup(COSDictionary); given A; when COSDictionary getDictionaryObject(COSName) return A")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new PDOptionalContentGroup(COSDictionary); given A; when COSDictionary getDictionaryObject(COSName) return A")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDOptionalContentGroup.<init>(COSDictionary)"})
   void testNewPDOptionalContentGroup_givenA_whenCOSDictionaryGetDictionaryObjectReturnA() {
     // Arrange
@@ -58,17 +53,15 @@ class PDOptionalContentGroupDiffblueTest {
 
   /**
    * Test {@link PDOptionalContentGroup#PDOptionalContentGroup(COSDictionary)}.
-   *
    * <ul>
-   *   <li>Given {@link COSBoolean#FALSE}.
+   *   <li>Given {@link COSBoolean#FALSE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDOptionalContentGroup#PDOptionalContentGroup(COSDictionary)}
+   * <p>
+   * Method under test: {@link PDOptionalContentGroup#PDOptionalContentGroup(COSDictionary)}
    */
   @Test
   @DisplayName("Test new PDOptionalContentGroup(COSDictionary); given FALSE")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDOptionalContentGroup.<init>(COSDictionary)"})
   void testNewPDOptionalContentGroup_givenFalse() {
     // Arrange
@@ -82,17 +75,15 @@ class PDOptionalContentGroupDiffblueTest {
 
   /**
    * Test {@link PDOptionalContentGroup#PDOptionalContentGroup(COSDictionary)}.
-   *
    * <ul>
-   *   <li>Given {@link COSFloat#ONE}.
+   *   <li>Given {@link COSFloat#ONE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDOptionalContentGroup#PDOptionalContentGroup(COSDictionary)}
+   * <p>
+   * Method under test: {@link PDOptionalContentGroup#PDOptionalContentGroup(COSDictionary)}
    */
   @Test
   @DisplayName("Test new PDOptionalContentGroup(COSDictionary); given ONE")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDOptionalContentGroup.<init>(COSDictionary)"})
   void testNewPDOptionalContentGroup_givenOne() {
     // Arrange
@@ -106,17 +97,15 @@ class PDOptionalContentGroupDiffblueTest {
 
   /**
    * Test {@link PDOptionalContentGroup#PDOptionalContentGroup(COSDictionary)}.
-   *
    * <ul>
-   *   <li>Given {@link COSInteger#ONE}.
+   *   <li>Given {@link COSInteger#ONE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDOptionalContentGroup#PDOptionalContentGroup(COSDictionary)}
+   * <p>
+   * Method under test: {@link PDOptionalContentGroup#PDOptionalContentGroup(COSDictionary)}
    */
   @Test
   @DisplayName("Test new PDOptionalContentGroup(COSDictionary); given ONE")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDOptionalContentGroup.<init>(COSDictionary)"})
   void testNewPDOptionalContentGroup_givenOne2() {
     // Arrange
@@ -130,23 +119,20 @@ class PDOptionalContentGroupDiffblueTest {
 
   /**
    * Test {@link PDOptionalContentGroup#PDOptionalContentGroup(COSDictionary)}.
-   *
    * <ul>
-   *   <li>Given parseHex {@code 0123456789ABCDEF}.
+   *   <li>Given parseHex {@code 0123456789ABCDEF}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDOptionalContentGroup#PDOptionalContentGroup(COSDictionary)}
+   * <p>
+   * Method under test: {@link PDOptionalContentGroup#PDOptionalContentGroup(COSDictionary)}
    */
   @Test
   @DisplayName("Test new PDOptionalContentGroup(COSDictionary); given parseHex '0123456789ABCDEF'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDOptionalContentGroup.<init>(COSDictionary)"})
   void testNewPDOptionalContentGroup_givenParseHex0123456789abcdef() throws IOException {
     // Arrange
     COSDictionary dict = mock(COSDictionary.class);
-    when(dict.getDictionaryObject(Mockito.<COSName>any()))
-        .thenReturn(COSString.parseHex("0123456789ABCDEF"));
+    when(dict.getDictionaryObject(Mockito.<COSName>any())).thenReturn(COSString.parseHex("0123456789ABCDEF"));
 
     // Act and Assert
     assertThrows(IllegalArgumentException.class, () -> new PDOptionalContentGroup(dict));
@@ -155,18 +141,16 @@ class PDOptionalContentGroupDiffblueTest {
 
   /**
    * Test {@link PDOptionalContentGroup#PDOptionalContentGroup(String)}.
-   *
    * <ul>
-   *   <li>When {@code Name}.
-   *   <li>Then return {@code Name}.
+   *   <li>When {@code Name}.</li>
+   *   <li>Then return {@code Name}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDOptionalContentGroup#PDOptionalContentGroup(String)}
+   * <p>
+   * Method under test: {@link PDOptionalContentGroup#PDOptionalContentGroup(String)}
    */
   @Test
   @DisplayName("Test new PDOptionalContentGroup(String); when 'Name'; then return 'Name'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDOptionalContentGroup.<init>(String)"})
   void testNewPDOptionalContentGroup_whenName_thenReturnName() {
     // Arrange and Act
@@ -190,18 +174,16 @@ class PDOptionalContentGroupDiffblueTest {
 
   /**
    * Test {@link PDOptionalContentGroup#PDOptionalContentGroup(String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return Name is {@code null}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return Name is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDOptionalContentGroup#PDOptionalContentGroup(String)}
+   * <p>
+   * Method under test: {@link PDOptionalContentGroup#PDOptionalContentGroup(String)}
    */
   @Test
   @DisplayName("Test new PDOptionalContentGroup(String); when 'null'; then return Name is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDOptionalContentGroup.<init>(String)"})
   void testNewPDOptionalContentGroup_whenNull_thenReturnNameIsNull() {
     // Arrange and Act
@@ -225,200 +207,85 @@ class PDOptionalContentGroupDiffblueTest {
 
   /**
    * Test {@link PDOptionalContentGroup#getName()}.
-   *
    * <ul>
-   *   <li>Given {@link PDOptionalContentGroup#PDOptionalContentGroup(String)} with {@code Name}
-   *       Name is {@code null}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDOptionalContentGroup#PDOptionalContentGroup(String)} with {@code Name}.</li>
+   *   <li>Then return {@code Name}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDOptionalContentGroup#getName()}
+   * <p>
+   * Method under test: {@link PDOptionalContentGroup#getName()}
    */
   @Test
-  @DisplayName(
-      "Test getName(); given PDOptionalContentGroup(String) with 'Name' Name is 'null'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDOptionalContentGroup.getName()"})
-  void testGetName_givenPDOptionalContentGroupWithNameNameIsNull_thenReturnNull() {
-    // Arrange
-    PDOptionalContentGroup pdOptionalContentGroup = new PDOptionalContentGroup("Name");
-    pdOptionalContentGroup.setName(null);
-
-    // Act and Assert
-    assertNull(pdOptionalContentGroup.getName());
-  }
-
-  /**
-   * Test {@link PDOptionalContentGroup#getName()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDOptionalContentGroup#PDOptionalContentGroup(String)} with {@code Name}.
-   *   <li>Then return {@code Name}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDOptionalContentGroup#getName()}
-   */
-  @Test
-  @DisplayName(
-      "Test getName(); given PDOptionalContentGroup(String) with 'Name'; then return 'Name'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getName(); given PDOptionalContentGroup(String) with 'Name'; then return 'Name'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDOptionalContentGroup.getName()"})
   void testGetName_givenPDOptionalContentGroupWithName_thenReturnName() {
     // Arrange, Act and Assert
-    assertEquals("Name", new PDOptionalContentGroup("Name").getName());
+    assertEquals("Name", (new PDOptionalContentGroup("Name")).getName());
   }
 
   /**
    * Test {@link PDOptionalContentGroup#getName()}.
-   *
    * <ul>
-   *   <li>Then return empty string.
+   *   <li>Then return empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDOptionalContentGroup#getName()}
+   * <p>
+   * Method under test: {@link PDOptionalContentGroup#getName()}
    */
   @Test
   @DisplayName("Test getName(); then return empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDOptionalContentGroup.getName()"})
   void testGetName_thenReturnEmptyString() {
     // Arrange, Act and Assert
-    assertEquals("", new PDOptionalContentGroup("").getName());
-  }
-
-  /**
-   * Test RenderState {@link RenderState#getName()}.
-   *
-   * <p>Method under test: {@link RenderState#getName()}
-   */
-  @Test
-  @DisplayName("Test RenderState getName()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"COSName RenderState.getName()"})
-  void testRenderStateGetName() {
-    // Arrange, Act and Assert
-    assertSame(COSName.ON, RenderState.valueOf("ON").getName());
-  }
-
-  /**
-   * Test RenderState {@link RenderState#valueOf(COSName)} with {@code state}.
-   *
-   * <ul>
-   *   <li>When {@link COSName#A}.
-   *   <li>Then throw {@link IllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link RenderState#valueOf(COSName)}
-   */
-  @Test
-  @DisplayName(
-      "Test RenderState valueOf(COSName) with 'state'; when A; then throw IllegalArgumentException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"RenderState RenderState.valueOf(COSName)"})
-  void testRenderStateValueOfWithState_whenA_thenThrowIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> RenderState.valueOf(COSName.A));
-  }
-
-  /**
-   * Test RenderState {@link RenderState#valueOf(COSName)} with {@code state}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link RenderState#valueOf(COSName)}
-   */
-  @Test
-  @DisplayName("Test RenderState valueOf(COSName) with 'state'; when 'null'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"RenderState RenderState.valueOf(COSName)"})
-  void testRenderStateValueOfWithState_whenNull_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(RenderState.valueOf((COSName) null));
-  }
-
-  /**
-   * Test {@link PDOptionalContentGroup#setName(String)}.
-   *
-   * <ul>
-   *   <li>When {@code Name}.
-   *   <li>Then {@link PDOptionalContentGroup#PDOptionalContentGroup(String)} with {@code Name} Name
-   *       is {@code Name}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDOptionalContentGroup#setName(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test setName(String); when 'Name'; then PDOptionalContentGroup(String) with 'Name' Name is 'Name'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDOptionalContentGroup.setName(String)"})
-  void testSetName_whenName_thenPDOptionalContentGroupWithNameNameIsName() {
-    // Arrange
-    PDOptionalContentGroup pdOptionalContentGroup = new PDOptionalContentGroup("Name");
-
-    // Act
-    pdOptionalContentGroup.setName("Name");
-
-    // Assert that nothing has changed
-    assertEquals("Name", pdOptionalContentGroup.getName());
-    COSDictionary cOSObject = pdOptionalContentGroup.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDOptionalContentGroup#setName(String)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDOptionalContentGroup#PDOptionalContentGroup(String)} with {@code Name} Name
-   *       is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDOptionalContentGroup#setName(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test setName(String); when 'null'; then PDOptionalContentGroup(String) with 'Name' Name is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDOptionalContentGroup.setName(String)"})
-  void testSetName_whenNull_thenPDOptionalContentGroupWithNameNameIsNull() {
-    // Arrange
-    PDOptionalContentGroup pdOptionalContentGroup = new PDOptionalContentGroup("Name");
-
-    // Act
-    pdOptionalContentGroup.setName(null);
-
-    // Assert
-    assertNull(pdOptionalContentGroup.getName());
-    COSDictionary cOSObject = pdOptionalContentGroup.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
+    assertEquals("", (new PDOptionalContentGroup("")).getName());
   }
 
   /**
    * Test {@link PDOptionalContentGroup#getRenderState(RenderDestination)}.
-   *
-   * <p>Method under test: {@link PDOptionalContentGroup#getRenderState(RenderDestination)}
+   * <p>
+   * Method under test: {@link PDOptionalContentGroup#getRenderState(RenderDestination)}
    */
   @Test
   @DisplayName("Test getRenderState(RenderDestination)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"RenderState PDOptionalContentGroup.getRenderState(RenderDestination)"})
   void testGetRenderState() {
     // Arrange, Act and Assert
-    assertNull(new PDOptionalContentGroup("Name").getRenderState(RenderDestination.EXPORT));
+    assertNull((new PDOptionalContentGroup("Name")).getRenderState(RenderDestination.EXPORT));
+  }
+
+  /**
+   * Test RenderState {@link RenderState#getName()}.
+   * <p>
+   * Method under test: {@link RenderState#getName()}
+   */
+  @Test
+  @DisplayName("Test RenderState getName()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"COSName RenderState.getName()"})
+  void testRenderStateGetName() {
+    // Arrange and Act
+    COSName actualName = RenderState.valueOf("ON").getName();
+
+    // Assert
+    assertSame(actualName.ON, actualName);
+  }
+
+  /**
+   * Test RenderState {@link RenderState#valueOf(COSName)} with {@code state}.
+   * <ul>
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link RenderState#valueOf(COSName)}
+   */
+  @Test
+  @DisplayName("Test RenderState valueOf(COSName) with 'state'; when 'null'; then return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"RenderState RenderState.valueOf(COSName)"})
+  void testRenderStateValueOfWithState_whenNull_thenReturnNull() {
+    // Arrange, Act and Assert
+    assertNull(RenderState.valueOf((COSName) null));
   }
 }

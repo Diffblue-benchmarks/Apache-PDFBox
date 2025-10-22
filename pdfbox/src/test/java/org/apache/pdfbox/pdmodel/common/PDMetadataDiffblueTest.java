@@ -1,10 +1,10 @@
 package org.apache.pdfbox.pdmodel.common;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -20,40 +20,34 @@ import org.junit.jupiter.api.Test;
 class PDMetadataDiffblueTest {
   /**
    * Test {@link PDMetadata#PDMetadata(COSStream)}.
-   *
-   * <p>Method under test: {@link PDMetadata#PDMetadata(COSStream)}
+   * <p>
+   * Method under test: {@link PDMetadata#PDMetadata(COSStream)}
    */
   @Test
   @DisplayName("Test new PDMetadata(COSStream)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDMetadata.<init>(COSStream)"})
   void testNewPDMetadata() {
     // Arrange
     COSStream str = new COSStream();
 
     // Act and Assert
-    assertSame(str, new PDMetadata(str).getCOSObject());
+    assertSame(str, (new PDMetadata(str)).getCOSObject());
   }
 
   /**
    * Test {@link PDMetadata#PDMetadata(PDDocument, InputStream)}.
-   *
    * <ul>
-   *   <li>Then {@link ByteArrayInputStream#ByteArrayInputStream(byte[])} with {@code AXAXAXAX}
-   *       Bytes is {@code UTF-8} read is minus one.
+   *   <li>Then {@link ByteArrayInputStream#ByteArrayInputStream(byte[])} with {@code AXAXAXAX} Bytes is {@code UTF-8} read is minus one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDMetadata#PDMetadata(PDDocument, InputStream)}
+   * <p>
+   * Method under test: {@link PDMetadata#PDMetadata(PDDocument, InputStream)}
    */
   @Test
-  @DisplayName(
-      "Test new PDMetadata(PDDocument, InputStream); then ByteArrayInputStream(byte[]) with 'AXAXAXAX' Bytes is 'UTF-8' read is minus one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new PDMetadata(PDDocument, InputStream); then ByteArrayInputStream(byte[]) with 'AXAXAXAX' Bytes is 'UTF-8' read is minus one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDMetadata.<init>(PDDocument, InputStream)"})
-  void testNewPDMetadata_thenByteArrayInputStreamWithAxaxaxaxBytesIsUtf8ReadIsMinusOne()
-      throws IOException {
+  void testNewPDMetadata_thenByteArrayInputStreamWithAxaxaxaxBytesIsUtf8ReadIsMinusOne() throws IOException {
     // Arrange
     PDDocument doc = new PDDocument();
     ByteArrayInputStream str = new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"));
@@ -62,27 +56,23 @@ class PDMetadataDiffblueTest {
     PDMetadata actualPdMetadata = new PDMetadata(doc, str);
 
     // Assert
-    int actualReadResult = str.read(new byte[] {});
-    assertEquals(-1, actualReadResult);
+    assertEquals(-1, str.read(new byte[]{}));
     assertEquals(8, actualPdMetadata.getLength());
     assertEquals(8L, actualPdMetadata.getCOSObject().getLength());
   }
 
   /**
    * Test {@link PDMetadata#PDMetadata(PDDocument)}.
-   *
    * <ul>
-   *   <li>When {@link PDDocument#PDDocument()}.
-   *   <li>Then return DecodeParms is {@code null}.
+   *   <li>When {@link PDDocument#PDDocument()}.</li>
+   *   <li>Then return DecodeParms is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDMetadata#PDMetadata(PDDocument)}
+   * <p>
+   * Method under test: {@link PDMetadata#PDMetadata(PDDocument)}
    */
   @Test
-  @DisplayName(
-      "Test new PDMetadata(PDDocument); when PDDocument(); then return DecodeParms is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new PDMetadata(PDDocument); when PDDocument(); then return DecodeParms is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDMetadata.<init>(PDDocument)"})
   void testNewPDMetadata_whenPDDocument_thenReturnDecodeParmsIsNull() throws IOException {
     // Arrange and Act
@@ -101,22 +91,63 @@ class PDMetadataDiffblueTest {
   }
 
   /**
+   * Test {@link PDMetadata#exportXMPMetadata()}.
+   * <p>
+   * Method under test: {@link PDMetadata#exportXMPMetadata()}
+   */
+  @Test
+  @DisplayName("Test exportXMPMetadata()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"InputStream PDMetadata.exportXMPMetadata()"})
+  void testExportXMPMetadata() throws IOException {
+    // Arrange
+    PDDocument doc = new PDDocument();
+
+    // Act and Assert
+    byte[] byteArray = new byte[8];
+    assertEquals(8, (new PDMetadata(doc, new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")))).exportXMPMetadata()
+        .read(byteArray));
+    assertArrayEquals("AXAXAXAX".getBytes("UTF-8"), byteArray);
+  }
+
+  /**
+   * Test {@link PDMetadata#exportXMPMetadata()}.
+   * <ul>
+   *   <li>Then return read is eight.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDMetadata#exportXMPMetadata()}
+   */
+  @Test
+  @DisplayName("Test exportXMPMetadata(); then return read is eight")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"InputStream PDMetadata.exportXMPMetadata()"})
+  void testExportXMPMetadata_thenReturnReadIsEight() throws IOException {
+    // Arrange
+    PDDocument doc = new PDDocument();
+
+    PDMetadata pdMetadata = new PDMetadata(doc, new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
+    pdMetadata.setFilters(new ArrayList<>());
+
+    // Act and Assert
+    byte[] byteArray = new byte[8];
+    assertEquals(8, pdMetadata.exportXMPMetadata().read(byteArray));
+    assertArrayEquals("AXAXAXAX".getBytes("UTF-8"), byteArray);
+  }
+
+  /**
    * Test {@link PDMetadata#importXMPMetadata(byte[])}.
-   *
-   * <p>Method under test: {@link PDMetadata#importXMPMetadata(byte[])}
+   * <p>
+   * Method under test: {@link PDMetadata#importXMPMetadata(byte[])}
    */
   @Test
   @DisplayName("Test importXMPMetadata(byte[])")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDMetadata.importXMPMetadata(byte[])"})
   void testImportXMPMetadata() throws IOException {
     // Arrange
     PDDocument doc = new PDDocument();
-    ByteArrayInputStream str =
-        new ByteArrayInputStream(new byte[] {'A', 1, 'A', 1, 'A', 1, 'A', 1});
-
-    PDMetadata pdMetadata = new PDMetadata(doc, str);
+    PDMetadata pdMetadata = new PDMetadata(doc, new ByteArrayInputStream(new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1}));
 
     // Act
     pdMetadata.importXMPMetadata("AXAXAXAX".getBytes("UTF-8"));
@@ -130,19 +161,15 @@ class PDMetadataDiffblueTest {
 
   /**
    * Test {@link PDMetadata#importXMPMetadata(byte[])}.
-   *
    * <ul>
-   *   <li>Then {@link PDMetadata#PDMetadata(COSStream)} with str is {@link COSStream#COSStream()}
-   *       Length is eight.
+   *   <li>Then {@link PDMetadata#PDMetadata(COSStream)} with str is {@link COSStream#COSStream()} Length is eight.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDMetadata#importXMPMetadata(byte[])}
+   * <p>
+   * Method under test: {@link PDMetadata#importXMPMetadata(byte[])}
    */
   @Test
-  @DisplayName(
-      "Test importXMPMetadata(byte[]); then PDMetadata(COSStream) with str is COSStream() Length is eight")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test importXMPMetadata(byte[]); then PDMetadata(COSStream) with str is COSStream() Length is eight")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDMetadata.importXMPMetadata(byte[])"})
   void testImportXMPMetadata_thenPDMetadataWithStrIsCOSStreamLengthIsEight() throws IOException {
     // Arrange
@@ -160,19 +187,15 @@ class PDMetadataDiffblueTest {
 
   /**
    * Test {@link PDMetadata#importXMPMetadata(byte[])}.
-   *
    * <ul>
-   *   <li>Then {@link PDMetadata#PDMetadata(COSStream)} with str is {@link COSStream#COSStream()}
-   *       Length is eight.
+   *   <li>Then {@link PDMetadata#PDMetadata(COSStream)} with str is {@link COSStream#COSStream()} Length is eight.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDMetadata#importXMPMetadata(byte[])}
+   * <p>
+   * Method under test: {@link PDMetadata#importXMPMetadata(byte[])}
    */
   @Test
-  @DisplayName(
-      "Test importXMPMetadata(byte[]); then PDMetadata(COSStream) with str is COSStream() Length is eight")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test importXMPMetadata(byte[]); then PDMetadata(COSStream) with str is COSStream() Length is eight")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDMetadata.importXMPMetadata(byte[])"})
   void testImportXMPMetadata_thenPDMetadataWithStrIsCOSStreamLengthIsEight2() throws IOException {
     // Arrange

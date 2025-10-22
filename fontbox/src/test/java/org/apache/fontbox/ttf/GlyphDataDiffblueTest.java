@@ -4,14 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.Dimension;
 import java.awt.Point;
@@ -30,57 +29,22 @@ import org.junit.jupiter.api.Test;
 class GlyphDataDiffblueTest {
   /**
    * Test {@link GlyphData#initData(GlyphTable, TTFDataStream, int, int)}.
-   *
-   * <p>Method under test: {@link GlyphData#initData(GlyphTable, TTFDataStream, int, int)}
+   * <p>
+   * Method under test: {@link GlyphData#initData(GlyphTable, TTFDataStream, int, int)}
    */
   @Test
   @DisplayName("Test initData(GlyphTable, TTFDataStream, int, int)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void GlyphData.initData(GlyphTable, TTFDataStream, int, int)"})
   void testInitData() throws IOException {
     // Arrange
     GlyphData glyphData = new GlyphData();
     GlyphTable glyphTable = new GlyphTable();
-
     RandomAccessReadDataStream data = mock(RandomAccessReadDataStream.class);
-    when(data.readUnsignedShortArray(anyInt())).thenThrow(new IOException());
-    when(data.readSignedShort()).thenReturn((short) 1);
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> glyphData.initData(glyphTable, data, 1, 1));
-    verify(data, atLeast(1)).readSignedShort();
-    verify(data).readUnsignedShortArray(1);
-  }
-
-  /**
-   * Test {@link GlyphData#initData(GlyphTable, TTFDataStream, int, int)}.
-   *
-   * <ul>
-   *   <li>Given four.
-   *   <li>When {@link RandomAccessReadDataStream} {@link
-   *       RandomAccessReadDataStream#readUnsignedByte()} return four.
-   * </ul>
-   *
-   * <p>Method under test: {@link GlyphData#initData(GlyphTable, TTFDataStream, int, int)}
-   */
-  @Test
-  @DisplayName(
-      "Test initData(GlyphTable, TTFDataStream, int, int); given four; when RandomAccessReadDataStream readUnsignedByte() return four")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void GlyphData.initData(GlyphTable, TTFDataStream, int, int)"})
-  void testInitData_givenFour_whenRandomAccessReadDataStreamReadUnsignedByteReturnFour()
-      throws IOException {
-    // Arrange
-    GlyphData glyphData = new GlyphData();
-    GlyphTable glyphTable = new GlyphTable();
-
-    RandomAccessReadDataStream data = mock(RandomAccessReadDataStream.class);
-    when(data.readUnsignedByte()).thenReturn(4);
+    when(data.readUnsignedByte()).thenReturn(1);
     when(data.readUnsignedShort()).thenReturn(1);
-    when(data.readUnsignedByteArray(anyInt())).thenReturn(new int[] {1, -1, 1, -1});
-    when(data.readUnsignedShortArray(anyInt())).thenReturn(new int[] {1, -1, 1, -1});
+    when(data.readUnsignedByteArray(anyInt())).thenReturn(new int[]{1, -1, 1, -1});
+    when(data.readUnsignedShortArray(anyInt())).thenReturn(new int[]{1, -1, 1, -1});
     when(data.readSignedShort()).thenReturn((short) 1);
 
     // Act
@@ -89,44 +53,89 @@ class GlyphDataDiffblueTest {
     // Assert
     verify(data, atLeast(1)).readSignedShort();
     verify(data, atLeast(1)).readUnsignedByte();
-    verify(data).readUnsignedByteArray(1);
+    verify(data).readUnsignedByteArray(eq(1));
     verify(data).readUnsignedShort();
-    verify(data).readUnsignedShortArray(1);
+    verify(data).readUnsignedShortArray(eq(1));
+    GlyphDescription description = glyphData.getDescription();
+    assertTrue(description instanceof GlyfSimpleDescript);
+    Point location = glyphData.getPath().getBounds().getBounds().getLocation();
+    Point location2 = location.getLocation();
+    Point location3 = location2.getLocation();
+    Point location4 = location3.getLocation();
+    assertEquals(1, location4.getLocation().x);
+    assertEquals(1, location4.x);
+    assertEquals(1, location3.x);
+    assertEquals(1, location2.x);
+    assertEquals(1, location.x);
+    assertEquals(1.0d, location4.getX());
+    assertEquals(1.0d, location3.getX());
+    assertEquals(1.0d, location2.getX());
+    assertEquals(1.0d, location.getX());
+    assertArrayEquals(new int[]{1, -1, 1, -1}, ((GlyfSimpleDescript) description).getInstructions());
+  }
+
+  /**
+   * Test {@link GlyphData#initData(GlyphTable, TTFDataStream, int, int)}.
+   * <ul>
+   *   <li>Given four.</li>
+   *   <li>When {@link RandomAccessReadDataStream} {@link TTFDataStream#readUnsignedByte()} return four.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link GlyphData#initData(GlyphTable, TTFDataStream, int, int)}
+   */
+  @Test
+  @DisplayName("Test initData(GlyphTable, TTFDataStream, int, int); given four; when RandomAccessReadDataStream readUnsignedByte() return four")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void GlyphData.initData(GlyphTable, TTFDataStream, int, int)"})
+  void testInitData_givenFour_whenRandomAccessReadDataStreamReadUnsignedByteReturnFour() throws IOException {
+    // Arrange
+    GlyphData glyphData = new GlyphData();
+    GlyphTable glyphTable = new GlyphTable();
+    RandomAccessReadDataStream data = mock(RandomAccessReadDataStream.class);
+    when(data.readUnsignedByte()).thenReturn(4);
+    when(data.readUnsignedShort()).thenReturn(1);
+    when(data.readUnsignedByteArray(anyInt())).thenReturn(new int[]{1, -1, 1, -1});
+    when(data.readUnsignedShortArray(anyInt())).thenReturn(new int[]{1, -1, 1, -1});
+    when(data.readSignedShort()).thenReturn((short) 1);
+
+    // Act
+    glyphData.initData(glyphTable, data, 1, 1);
+
+    // Assert
+    verify(data, atLeast(1)).readSignedShort();
+    verify(data, atLeast(1)).readUnsignedByte();
+    verify(data).readUnsignedByteArray(eq(1));
+    verify(data).readUnsignedShort();
+    verify(data).readUnsignedShortArray(eq(1));
     GeneralPath path = glyphData.getPath();
     assertTrue(path.getCurrentPoint() instanceof Float);
     assertTrue(path.getBounds2D() instanceof Rectangle2D.Float);
     GlyphDescription description = glyphData.getDescription();
     assertTrue(description instanceof GlyfSimpleDescript);
-    assertArrayEquals(
-        new int[] {1, -1, 1, -1}, ((GlyfSimpleDescript) description).getInstructions());
+    assertArrayEquals(new int[]{1, -1, 1, -1}, ((GlyfSimpleDescript) description).getInstructions());
   }
 
   /**
    * Test {@link GlyphData#initData(GlyphTable, TTFDataStream, int, int)}.
-   *
    * <ul>
-   *   <li>Given {@link OS2WindowsMetricsTable#FSTYPE_RESTRICTED}.
-   *   <li>Then {@link GlyphData} (default constructor) Description ContourCount is two.
+   *   <li>Given {@link OS2WindowsMetricsTable#FSTYPE_RESTRICTED}.</li>
+   *   <li>Then {@link GlyphData} (default constructor) Description ContourCount is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link GlyphData#initData(GlyphTable, TTFDataStream, int, int)}
+   * <p>
+   * Method under test: {@link GlyphData#initData(GlyphTable, TTFDataStream, int, int)}
    */
   @Test
-  @DisplayName(
-      "Test initData(GlyphTable, TTFDataStream, int, int); given FSTYPE_RESTRICTED; then GlyphData (default constructor) Description ContourCount is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test initData(GlyphTable, TTFDataStream, int, int); given FSTYPE_RESTRICTED; then GlyphData (default constructor) Description ContourCount is two")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void GlyphData.initData(GlyphTable, TTFDataStream, int, int)"})
-  void testInitData_givenFstype_restricted_thenGlyphDataDescriptionContourCountIsTwo()
-      throws IOException {
+  void testInitData_givenFstype_restricted_thenGlyphDataDescriptionContourCountIsTwo() throws IOException {
     // Arrange
     GlyphData glyphData = new GlyphData();
     GlyphTable glyphTable = new GlyphTable();
-
     RandomAccessReadDataStream data = mock(RandomAccessReadDataStream.class);
     when(data.readUnsignedShort()).thenReturn(1);
-    when(data.readUnsignedByteArray(anyInt())).thenReturn(new int[] {1, -1, 1, -1});
-    when(data.readUnsignedShortArray(anyInt())).thenReturn(new int[] {1, -1, 1, -1});
+    when(data.readUnsignedByteArray(anyInt())).thenReturn(new int[]{1, -1, 1, -1});
+    when(data.readUnsignedShortArray(anyInt())).thenReturn(new int[]{1, -1, 1, -1});
     when(data.readSignedShort()).thenReturn(OS2WindowsMetricsTable.FSTYPE_RESTRICTED);
 
     // Act
@@ -134,9 +143,9 @@ class GlyphDataDiffblueTest {
 
     // Assert
     verify(data, atLeast(1)).readSignedShort();
-    verify(data).readUnsignedByteArray(1);
+    verify(data).readUnsignedByteArray(eq(1));
     verify(data).readUnsignedShort();
-    verify(data).readUnsignedShortArray(2);
+    verify(data).readUnsignedShortArray(eq(2));
     GlyphDescription description = glyphData.getDescription();
     assertTrue(description instanceof GlyfSimpleDescript);
     assertEquals(2, description.getContourCount());
@@ -150,32 +159,26 @@ class GlyphDataDiffblueTest {
     assertEquals(OS2WindowsMetricsTable.FSTYPE_RESTRICTED, glyphData.getXMinimum());
     assertEquals(OS2WindowsMetricsTable.FSTYPE_RESTRICTED, glyphData.getYMaximum());
     assertEquals(OS2WindowsMetricsTable.FSTYPE_RESTRICTED, glyphData.getYMinimum());
-    assertArrayEquals(
-        new int[] {1, -1, 1, -1}, ((GlyfSimpleDescript) description).getInstructions());
+    assertArrayEquals(new int[]{1, -1, 1, -1}, ((GlyfSimpleDescript) description).getInstructions());
   }
 
   /**
    * Test {@link GlyphData#initData(GlyphTable, TTFDataStream, int, int)}.
-   *
    * <ul>
-   *   <li>Given {@link Short#MIN_VALUE}.
-   *   <li>Then {@link GlyphData} (default constructor) Description {@link GlyfCompositeDescript}.
+   *   <li>Given {@link Short#MIN_VALUE}.</li>
+   *   <li>Then {@link GlyphData} (default constructor) Description {@link GlyfCompositeDescript}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link GlyphData#initData(GlyphTable, TTFDataStream, int, int)}
+   * <p>
+   * Method under test: {@link GlyphData#initData(GlyphTable, TTFDataStream, int, int)}
    */
   @Test
-  @DisplayName(
-      "Test initData(GlyphTable, TTFDataStream, int, int); given MIN_VALUE; then GlyphData (default constructor) Description GlyfCompositeDescript")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test initData(GlyphTable, TTFDataStream, int, int); given MIN_VALUE; then GlyphData (default constructor) Description GlyfCompositeDescript")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void GlyphData.initData(GlyphTable, TTFDataStream, int, int)"})
-  void testInitData_givenMin_value_thenGlyphDataDescriptionGlyfCompositeDescript()
-      throws IOException {
+  void testInitData_givenMin_value_thenGlyphDataDescriptionGlyfCompositeDescript() throws IOException {
     // Arrange
     GlyphData glyphData = new GlyphData();
     GlyphTable glyphTable = new GlyphTable();
-
     RandomAccessReadDataStream data = mock(RandomAccessReadDataStream.class);
     when(data.readSignedByte()).thenReturn(1);
     when(data.readUnsignedShort()).thenReturn(1);
@@ -209,32 +212,26 @@ class GlyphDataDiffblueTest {
 
   /**
    * Test {@link GlyphData#initData(GlyphTable, TTFDataStream, int, int)}.
-   *
    * <ul>
-   *   <li>Given two.
-   *   <li>When {@link RandomAccessReadDataStream} {@link
-   *       RandomAccessReadDataStream#readUnsignedByte()} return two.
+   *   <li>Given two.</li>
+   *   <li>When {@link RandomAccessReadDataStream} {@link TTFDataStream#readUnsignedByte()} return two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link GlyphData#initData(GlyphTable, TTFDataStream, int, int)}
+   * <p>
+   * Method under test: {@link GlyphData#initData(GlyphTable, TTFDataStream, int, int)}
    */
   @Test
-  @DisplayName(
-      "Test initData(GlyphTable, TTFDataStream, int, int); given two; when RandomAccessReadDataStream readUnsignedByte() return two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test initData(GlyphTable, TTFDataStream, int, int); given two; when RandomAccessReadDataStream readUnsignedByte() return two")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void GlyphData.initData(GlyphTable, TTFDataStream, int, int)"})
-  void testInitData_givenTwo_whenRandomAccessReadDataStreamReadUnsignedByteReturnTwo()
-      throws IOException {
+  void testInitData_givenTwo_whenRandomAccessReadDataStreamReadUnsignedByteReturnTwo() throws IOException {
     // Arrange
     GlyphData glyphData = new GlyphData();
     GlyphTable glyphTable = new GlyphTable();
-
     RandomAccessReadDataStream data = mock(RandomAccessReadDataStream.class);
     when(data.readUnsignedByte()).thenReturn(2);
     when(data.readUnsignedShort()).thenReturn(1);
-    when(data.readUnsignedByteArray(anyInt())).thenReturn(new int[] {1, -1, 1, -1});
-    when(data.readUnsignedShortArray(anyInt())).thenReturn(new int[] {1, -1, 1, -1});
+    when(data.readUnsignedByteArray(anyInt())).thenReturn(new int[]{1, -1, 1, -1});
+    when(data.readUnsignedShortArray(anyInt())).thenReturn(new int[]{1, -1, 1, -1});
     when(data.readSignedShort()).thenReturn((short) 1);
 
     // Act
@@ -243,39 +240,34 @@ class GlyphDataDiffblueTest {
     // Assert
     verify(data, atLeast(1)).readSignedShort();
     verify(data, atLeast(1)).readUnsignedByte();
-    verify(data).readUnsignedByteArray(1);
+    verify(data).readUnsignedByteArray(eq(1));
     verify(data).readUnsignedShort();
-    verify(data).readUnsignedShortArray(1);
+    verify(data).readUnsignedShortArray(eq(1));
     GeneralPath path = glyphData.getPath();
     assertTrue(path.getCurrentPoint() instanceof Float);
     assertTrue(path.getBounds2D() instanceof Rectangle2D.Float);
     GlyphDescription description = glyphData.getDescription();
     assertTrue(description instanceof GlyfSimpleDescript);
-    assertArrayEquals(
-        new int[] {1, -1, 1, -1}, ((GlyfSimpleDescript) description).getInstructions());
+    assertArrayEquals(new int[]{1, -1, 1, -1}, ((GlyfSimpleDescript) description).getInstructions());
   }
 
   /**
    * Test {@link GlyphData#initData(GlyphTable, TTFDataStream, int, int)}.
-   *
    * <ul>
-   *   <li>Given zero.
-   *   <li>Then {@link GlyphData} (default constructor) BoundingBox LowerLeftX is zero.
+   *   <li>Given zero.</li>
+   *   <li>Then {@link GlyphData} (default constructor) BoundingBox LowerLeftX is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link GlyphData#initData(GlyphTable, TTFDataStream, int, int)}
+   * <p>
+   * Method under test: {@link GlyphData#initData(GlyphTable, TTFDataStream, int, int)}
    */
   @Test
-  @DisplayName(
-      "Test initData(GlyphTable, TTFDataStream, int, int); given zero; then GlyphData (default constructor) BoundingBox LowerLeftX is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test initData(GlyphTable, TTFDataStream, int, int); given zero; then GlyphData (default constructor) BoundingBox LowerLeftX is zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void GlyphData.initData(GlyphTable, TTFDataStream, int, int)"})
   void testInitData_givenZero_thenGlyphDataBoundingBoxLowerLeftXIsZero() throws IOException {
     // Arrange
     GlyphData glyphData = new GlyphData();
     GlyphTable glyphTable = new GlyphTable();
-
     RandomAccessReadDataStream data = mock(RandomAccessReadDataStream.class);
     when(data.readSignedShort()).thenReturn((short) 0);
 
@@ -301,31 +293,25 @@ class GlyphDataDiffblueTest {
 
   /**
    * Test {@link GlyphData#initData(GlyphTable, TTFDataStream, int, int)}.
-   *
    * <ul>
-   *   <li>Then {@link GlyphData} (default constructor) Path Bounds Bounds Location Location
-   *       Location {@link Point#x} is zero.
+   *   <li>Then {@link GlyphData} (default constructor) Path Bounds Bounds Location Location Location {@link Point#x} is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link GlyphData#initData(GlyphTable, TTFDataStream, int, int)}
+   * <p>
+   * Method under test: {@link GlyphData#initData(GlyphTable, TTFDataStream, int, int)}
    */
   @Test
-  @DisplayName(
-      "Test initData(GlyphTable, TTFDataStream, int, int); then GlyphData (default constructor) Path Bounds Bounds Location Location Location x is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test initData(GlyphTable, TTFDataStream, int, int); then GlyphData (default constructor) Path Bounds Bounds Location Location Location x is zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void GlyphData.initData(GlyphTable, TTFDataStream, int, int)"})
-  void testInitData_thenGlyphDataPathBoundsBoundsLocationLocationLocationXIsZero()
-      throws IOException {
+  void testInitData_thenGlyphDataPathBoundsBoundsLocationLocationLocationXIsZero() throws IOException {
     // Arrange
     GlyphData glyphData = new GlyphData();
     GlyphTable glyphTable = new GlyphTable();
-
     RandomAccessReadDataStream data = mock(RandomAccessReadDataStream.class);
     when(data.readUnsignedByte()).thenReturn(Short.SIZE);
     when(data.readUnsignedShort()).thenReturn(1);
-    when(data.readUnsignedByteArray(anyInt())).thenReturn(new int[] {1, -1, 1, -1});
-    when(data.readUnsignedShortArray(anyInt())).thenReturn(new int[] {1, -1, 1, -1});
+    when(data.readUnsignedByteArray(anyInt())).thenReturn(new int[]{1, -1, 1, -1});
+    when(data.readUnsignedShortArray(anyInt())).thenReturn(new int[]{1, -1, 1, -1});
     when(data.readSignedShort()).thenReturn((short) 1);
 
     // Act
@@ -334,9 +320,9 @@ class GlyphDataDiffblueTest {
     // Assert
     verify(data, atLeast(1)).readSignedShort();
     verify(data, atLeast(1)).readUnsignedByte();
-    verify(data).readUnsignedByteArray(1);
+    verify(data).readUnsignedByteArray(eq(1));
     verify(data).readUnsignedShort();
-    verify(data).readUnsignedShortArray(1);
+    verify(data).readUnsignedShortArray(eq(1));
     GeneralPath path = glyphData.getPath();
     Point2D currentPoint = path.getCurrentPoint();
     assertTrue(currentPoint instanceof Float);
@@ -353,144 +339,27 @@ class GlyphDataDiffblueTest {
     assertEquals(0.0d, location.getX());
     assertEquals(0.0d, currentPoint.getX());
     assertEquals(0.0f, ((Float) currentPoint).x);
-    assertArrayEquals(
-        new int[] {1, -1, 1, -1}, ((GlyfSimpleDescript) description).getInstructions());
+    assertArrayEquals(new int[]{1, -1, 1, -1}, ((GlyfSimpleDescript) description).getInstructions());
   }
 
   /**
    * Test {@link GlyphData#initData(GlyphTable, TTFDataStream, int, int)}.
-   *
    * <ul>
-   *   <li>Then {@link GlyphData} (default constructor) Path Bounds Bounds Location Location
-   *       Location {@link Point#y} is zero.
+   *   <li>Then {@link GlyphData} (default constructor) Path Bounds Frame Bounds2D {@link Rectangle2D.Double}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link GlyphData#initData(GlyphTable, TTFDataStream, int, int)}
+   * <p>
+   * Method under test: {@link GlyphData#initData(GlyphTable, TTFDataStream, int, int)}
    */
   @Test
-  @DisplayName(
-      "Test initData(GlyphTable, TTFDataStream, int, int); then GlyphData (default constructor) Path Bounds Bounds Location Location Location y is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void GlyphData.initData(GlyphTable, TTFDataStream, int, int)"})
-  void testInitData_thenGlyphDataPathBoundsBoundsLocationLocationLocationYIsZero()
-      throws IOException {
-    // Arrange
-    GlyphData glyphData = new GlyphData();
-    GlyphTable glyphTable = new GlyphTable();
-
-    RandomAccessReadDataStream data = mock(RandomAccessReadDataStream.class);
-    when(data.readUnsignedByte()).thenReturn(Integer.SIZE);
-    when(data.readUnsignedShort()).thenReturn(1);
-    when(data.readUnsignedByteArray(anyInt())).thenReturn(new int[] {1, -1, 1, -1});
-    when(data.readUnsignedShortArray(anyInt())).thenReturn(new int[] {1, -1, 1, -1});
-    when(data.readSignedShort()).thenReturn((short) 1);
-
-    // Act
-    glyphData.initData(glyphTable, data, 1, 1);
-
-    // Assert
-    verify(data, atLeast(1)).readSignedShort();
-    verify(data, atLeast(1)).readUnsignedByte();
-    verify(data).readUnsignedByteArray(1);
-    verify(data).readUnsignedShort();
-    verify(data).readUnsignedShortArray(1);
-    GeneralPath path = glyphData.getPath();
-    Point2D currentPoint = path.getCurrentPoint();
-    assertTrue(currentPoint instanceof Float);
-    GlyphDescription description = glyphData.getDescription();
-    assertTrue(description instanceof GlyfSimpleDescript);
-    Point location = path.getBounds().getBounds().getLocation();
-    Point location2 = location.getLocation();
-    Point location3 = location2.getLocation();
-    assertEquals(0, location3.y);
-    assertEquals(0, location2.y);
-    assertEquals(0, location.y);
-    assertEquals(0.0d, location3.getY());
-    assertEquals(0.0d, location2.getY());
-    assertEquals(0.0d, location.getY());
-    assertEquals(0.0d, currentPoint.getY());
-    assertEquals(0.0f, ((Float) currentPoint).y);
-    assertArrayEquals(
-        new int[] {1, -1, 1, -1}, ((GlyfSimpleDescript) description).getInstructions());
-  }
-
-  /**
-   * Test {@link GlyphData#initData(GlyphTable, TTFDataStream, int, int)}.
-   *
-   * <ul>
-   *   <li>Then {@link GlyphData} (default constructor) Path Bounds Bounds Location Location {@link
-   *       Point#x} is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link GlyphData#initData(GlyphTable, TTFDataStream, int, int)}
-   */
-  @Test
-  @DisplayName(
-      "Test initData(GlyphTable, TTFDataStream, int, int); then GlyphData (default constructor) Path Bounds Bounds Location Location x is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void GlyphData.initData(GlyphTable, TTFDataStream, int, int)"})
-  void testInitData_thenGlyphDataPathBoundsBoundsLocationLocationXIsOne() throws IOException {
-    // Arrange
-    GlyphData glyphData = new GlyphData();
-    GlyphTable glyphTable = new GlyphTable();
-
-    RandomAccessReadDataStream data = mock(RandomAccessReadDataStream.class);
-    when(data.readUnsignedByte()).thenReturn(1);
-    when(data.readUnsignedShort()).thenReturn(1);
-    when(data.readUnsignedByteArray(anyInt())).thenReturn(new int[] {1, -1, 1, -1});
-    when(data.readUnsignedShortArray(anyInt())).thenReturn(new int[] {1, -1, 1, -1});
-    when(data.readSignedShort()).thenReturn((short) 1);
-
-    // Act
-    glyphData.initData(glyphTable, data, 1, 1);
-
-    // Assert
-    verify(data, atLeast(1)).readSignedShort();
-    verify(data, atLeast(1)).readUnsignedByte();
-    verify(data).readUnsignedByteArray(1);
-    verify(data).readUnsignedShort();
-    verify(data).readUnsignedShortArray(1);
-    GlyphDescription description = glyphData.getDescription();
-    assertTrue(description instanceof GlyfSimpleDescript);
-    Point location = glyphData.getPath().getBounds().getBounds().getLocation();
-    Point location2 = location.getLocation();
-    assertEquals(1, location2.x);
-    assertEquals(1, location.x);
-    assertEquals(1, location2.y);
-    assertEquals(1, location.y);
-    assertEquals(1.0d, location2.getX());
-    assertEquals(1.0d, location.getX());
-    assertEquals(1.0d, location2.getY());
-    assertEquals(1.0d, location.getY());
-    assertArrayEquals(
-        new int[] {1, -1, 1, -1}, ((GlyfSimpleDescript) description).getInstructions());
-  }
-
-  /**
-   * Test {@link GlyphData#initData(GlyphTable, TTFDataStream, int, int)}.
-   *
-   * <ul>
-   *   <li>Then {@link GlyphData} (default constructor) Path Bounds Frame Bounds2D {@link
-   *       Rectangle2D.Double}.
-   * </ul>
-   *
-   * <p>Method under test: {@link GlyphData#initData(GlyphTable, TTFDataStream, int, int)}
-   */
-  @Test
-  @DisplayName(
-      "Test initData(GlyphTable, TTFDataStream, int, int); then GlyphData (default constructor) Path Bounds Frame Bounds2D Double")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test initData(GlyphTable, TTFDataStream, int, int); then GlyphData (default constructor) Path Bounds Frame Bounds2D Double")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void GlyphData.initData(GlyphTable, TTFDataStream, int, int)"})
   void testInitData_thenGlyphDataPathBoundsFrameBounds2DDouble() throws IOException {
     // Arrange
     GlyphData glyphData = new GlyphData();
     GlyphTable glyphTable = new GlyphTable();
-
     RandomAccessReadDataStream data = mock(RandomAccessReadDataStream.class);
-    when(data.readUnsignedShortArray(anyInt())).thenReturn(new int[] {65535, -1, 1, -1});
+    when(data.readUnsignedShortArray(anyInt())).thenReturn(new int[]{65535, -1, 1, -1});
     when(data.readSignedShort()).thenReturn((short) 1);
 
     // Act
@@ -498,7 +367,7 @@ class GlyphDataDiffblueTest {
 
     // Assert
     verify(data, atLeast(1)).readSignedShort();
-    verify(data).readUnsignedShortArray(1);
+    verify(data).readUnsignedShortArray(eq(1));
     Rectangle2D frame = glyphData.getPath().getBounds().getFrame();
     Rectangle2D bounds2D = frame.getBounds2D();
     assertTrue(bounds2D instanceof Double);
@@ -510,33 +379,32 @@ class GlyphDataDiffblueTest {
     Dimension size = bounds.getSize();
     assertEquals(0, size.height);
     assertEquals(0, size.width);
+    assertEquals(0, bounds.getLocation().y);
+    assertEquals(0.0d, bounds.getHeight());
     assertEquals(0.0d, bounds.getWidth());
+    assertEquals(0.0d, bounds.getCenterY());
+    assertEquals(0.0d, bounds.getMaxY());
+    assertEquals(0.0d, bounds.getMinY());
   }
 
   /**
    * Test {@link GlyphData#initData(GlyphTable, TTFDataStream, int, int)}.
-   *
    * <ul>
-   *   <li>When {@link GlyphTable} {@link GlyphTable#getGlyph(int, int)} return {@link GlyphData}
-   *       (default constructor).
-   *   <li>Then calls {@link GlyphTable#getGlyph(int, int)}.
+   *   <li>When {@link GlyphTable} {@link GlyphTable#getGlyph(int, int)} return {@link GlyphData} (default constructor).</li>
+   *   <li>Then calls {@link GlyphTable#getGlyph(int, int)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link GlyphData#initData(GlyphTable, TTFDataStream, int, int)}
+   * <p>
+   * Method under test: {@link GlyphData#initData(GlyphTable, TTFDataStream, int, int)}
    */
   @Test
-  @DisplayName(
-      "Test initData(GlyphTable, TTFDataStream, int, int); when GlyphTable getGlyph(int, int) return GlyphData (default constructor); then calls getGlyph(int, int)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test initData(GlyphTable, TTFDataStream, int, int); when GlyphTable getGlyph(int, int) return GlyphData (default constructor); then calls getGlyph(int, int)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void GlyphData.initData(GlyphTable, TTFDataStream, int, int)"})
   void testInitData_whenGlyphTableGetGlyphReturnGlyphData_thenCallsGetGlyph() throws IOException {
     // Arrange
     GlyphData glyphData = new GlyphData();
-
     GlyphTable glyphTable = mock(GlyphTable.class);
     when(glyphTable.getGlyph(anyInt(), anyInt())).thenReturn(new GlyphData());
-
     RandomAccessReadDataStream data = mock(RandomAccessReadDataStream.class);
     when(data.readSignedByte()).thenReturn(1);
     when(data.readUnsignedShort()).thenReturn(1);
@@ -546,7 +414,7 @@ class GlyphDataDiffblueTest {
     glyphData.initData(glyphTable, data, 1, 1);
 
     // Assert
-    verify(glyphTable).getGlyph(1, 2);
+    verify(glyphTable).getGlyph(eq(1), eq(2));
     verify(data, atLeast(1)).readSignedByte();
     verify(data, atLeast(1)).readSignedShort();
     verify(data).readUnsignedShort();
@@ -571,28 +439,22 @@ class GlyphDataDiffblueTest {
 
   /**
    * Test {@link GlyphData#initData(GlyphTable, TTFDataStream, int, int)}.
-   *
    * <ul>
-   *   <li>When {@link GlyphTable} {@link GlyphTable#getGlyph(int, int)} throw {@link
-   *       IOException#IOException()}.
-   *   <li>Then calls {@link GlyphTable#getGlyph(int, int)}.
+   *   <li>When {@link GlyphTable} {@link GlyphTable#getGlyph(int, int)} throw {@link IOException#IOException(String)} with {@code foo}.</li>
+   *   <li>Then calls {@link GlyphTable#getGlyph(int, int)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link GlyphData#initData(GlyphTable, TTFDataStream, int, int)}
+   * <p>
+   * Method under test: {@link GlyphData#initData(GlyphTable, TTFDataStream, int, int)}
    */
   @Test
-  @DisplayName(
-      "Test initData(GlyphTable, TTFDataStream, int, int); when GlyphTable getGlyph(int, int) throw IOException(); then calls getGlyph(int, int)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test initData(GlyphTable, TTFDataStream, int, int); when GlyphTable getGlyph(int, int) throw IOException(String) with 'foo'; then calls getGlyph(int, int)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void GlyphData.initData(GlyphTable, TTFDataStream, int, int)"})
-  void testInitData_whenGlyphTableGetGlyphThrowIOException_thenCallsGetGlyph() throws IOException {
+  void testInitData_whenGlyphTableGetGlyphThrowIOExceptionWithFoo_thenCallsGetGlyph() throws IOException {
     // Arrange
     GlyphData glyphData = new GlyphData();
-
     GlyphTable glyphTable = mock(GlyphTable.class);
-    when(glyphTable.getGlyph(anyInt(), anyInt())).thenThrow(new IOException());
-
+    when(glyphTable.getGlyph(anyInt(), anyInt())).thenThrow(new IOException("foo"));
     RandomAccessReadDataStream data = mock(RandomAccessReadDataStream.class);
     when(data.readSignedByte()).thenReturn(1);
     when(data.readUnsignedShort()).thenReturn(1);
@@ -602,7 +464,7 @@ class GlyphDataDiffblueTest {
     glyphData.initData(glyphTable, data, 1, 1);
 
     // Assert
-    verify(glyphTable).getGlyph(1, 2);
+    verify(glyphTable).getGlyph(eq(1), eq(2));
     verify(data, atLeast(1)).readSignedByte();
     verify(data, atLeast(1)).readSignedShort();
     verify(data).readUnsignedShort();
@@ -623,117 +485,16 @@ class GlyphDataDiffblueTest {
     assertEquals(Short.MIN_VALUE, glyphData.getXMinimum());
     assertEquals(Short.MIN_VALUE, glyphData.getYMaximum());
     assertEquals(Short.MIN_VALUE, glyphData.getYMinimum());
-  }
-
-  /**
-   * Test {@link GlyphData#initData(GlyphTable, TTFDataStream, int, int)}.
-   *
-   * <ul>
-   *   <li>When {@link RandomAccessReadDataStream} {@link
-   *       RandomAccessReadDataStream#readSignedByte()} throw {@link IOException#IOException()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link GlyphData#initData(GlyphTable, TTFDataStream, int, int)}
-   */
-  @Test
-  @DisplayName(
-      "Test initData(GlyphTable, TTFDataStream, int, int); when RandomAccessReadDataStream readSignedByte() throw IOException()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void GlyphData.initData(GlyphTable, TTFDataStream, int, int)"})
-  void testInitData_whenRandomAccessReadDataStreamReadSignedByteThrowIOException()
-      throws IOException {
-    // Arrange
-    GlyphData glyphData = new GlyphData();
-    GlyphTable glyphTable = new GlyphTable();
-
-    RandomAccessReadDataStream data = mock(RandomAccessReadDataStream.class);
-    when(data.readSignedByte()).thenThrow(new IOException());
-    when(data.readUnsignedShort()).thenReturn(1);
-    when(data.readSignedShort()).thenReturn(Short.MIN_VALUE);
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> glyphData.initData(glyphTable, data, 1, 1));
-    verify(data).readSignedByte();
-    verify(data, atLeast(1)).readSignedShort();
-    verify(data).readUnsignedShort();
-  }
-
-  /**
-   * Test {@link GlyphData#initData(GlyphTable, TTFDataStream, int, int)}.
-   *
-   * <ul>
-   *   <li>When {@link RandomAccessReadDataStream} {@link
-   *       RandomAccessReadDataStream#readUnsignedShort()} throw {@link IOException#IOException()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link GlyphData#initData(GlyphTable, TTFDataStream, int, int)}
-   */
-  @Test
-  @DisplayName(
-      "Test initData(GlyphTable, TTFDataStream, int, int); when RandomAccessReadDataStream readUnsignedShort() throw IOException()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void GlyphData.initData(GlyphTable, TTFDataStream, int, int)"})
-  void testInitData_whenRandomAccessReadDataStreamReadUnsignedShortThrowIOException()
-      throws IOException {
-    // Arrange
-    GlyphData glyphData = new GlyphData();
-    GlyphTable glyphTable = new GlyphTable();
-
-    RandomAccessReadDataStream data = mock(RandomAccessReadDataStream.class);
-    when(data.readUnsignedShort()).thenThrow(new IOException());
-    when(data.readUnsignedShortArray(anyInt())).thenReturn(new int[] {1, -1, 1, -1});
-    when(data.readSignedShort()).thenReturn((short) 1);
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> glyphData.initData(glyphTable, data, 1, 1));
-    verify(data, atLeast(1)).readSignedShort();
-    verify(data).readUnsignedShort();
-    verify(data).readUnsignedShortArray(1);
-  }
-
-  /**
-   * Test {@link GlyphData#initData(GlyphTable, TTFDataStream, int, int)}.
-   *
-   * <ul>
-   *   <li>When {@link RandomAccessReadDataStream} {@link
-   *       RandomAccessReadDataStream#readUnsignedShort()} throw {@link IOException#IOException()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link GlyphData#initData(GlyphTable, TTFDataStream, int, int)}
-   */
-  @Test
-  @DisplayName(
-      "Test initData(GlyphTable, TTFDataStream, int, int); when RandomAccessReadDataStream readUnsignedShort() throw IOException()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void GlyphData.initData(GlyphTable, TTFDataStream, int, int)"})
-  void testInitData_whenRandomAccessReadDataStreamReadUnsignedShortThrowIOException2()
-      throws IOException {
-    // Arrange
-    GlyphData glyphData = new GlyphData();
-    GlyphTable glyphTable = new GlyphTable();
-
-    RandomAccessReadDataStream data = mock(RandomAccessReadDataStream.class);
-    when(data.readUnsignedShort()).thenThrow(new IOException());
-    when(data.readSignedShort()).thenReturn((short) -1);
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> glyphData.initData(glyphTable, data, 1, 1));
-    verify(data, atLeast(1)).readSignedShort();
-    verify(data).readUnsignedShort();
   }
 
   /**
    * Test {@link GlyphData#initEmptyData()}.
-   *
-   * <p>Method under test: {@link GlyphData#initEmptyData()}
+   * <p>
+   * Method under test: {@link GlyphData#initEmptyData()}
    */
   @Test
   @DisplayName("Test initEmptyData()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void GlyphData.initEmptyData()"})
   void testInitEmptyData() {
     // Arrange
@@ -764,9 +525,8 @@ class GlyphDataDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link GlyphData}
    *   <li>{@link GlyphData#getBoundingBox()}
@@ -780,18 +540,11 @@ class GlyphDataDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void GlyphData.<init>()",
-    "BoundingBox GlyphData.getBoundingBox()",
-    "GlyphDescription GlyphData.getDescription()",
-    "short GlyphData.getNumberOfContours()",
-    "short GlyphData.getXMaximum()",
-    "short GlyphData.getXMinimum()",
-    "short GlyphData.getYMaximum()",
-    "short GlyphData.getYMinimum()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void GlyphData.<init>()", "BoundingBox GlyphData.getBoundingBox()",
+      "GlyphDescription GlyphData.getDescription()", "short GlyphData.getNumberOfContours()",
+      "short GlyphData.getXMaximum()", "short GlyphData.getXMinimum()", "short GlyphData.getYMaximum()",
+      "short GlyphData.getYMinimum()"})
   void testGettersAndSetters() {
     // Arrange and Act
     GlyphData actualGlyphData = new GlyphData();

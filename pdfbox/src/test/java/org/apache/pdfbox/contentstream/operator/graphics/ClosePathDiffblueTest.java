@@ -1,22 +1,16 @@
 package org.apache.pdfbox.contentstream.operator.graphics;
 
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.awt.geom.Point2D;
-import java.awt.geom.Point2D.Double;
+import java.awt.Point;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.pdfbox.contentstream.operator.Operator;
-import org.apache.pdfbox.cos.COSBase;
-import org.apache.pdfbox.cos.COSBoolean;
-import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.rendering.PageDrawer;
-import org.apache.pdfbox.rendering.PageDrawerParameters;
-import org.apache.pdfbox.rendering.RenderDestination;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -24,29 +18,23 @@ import org.junit.jupiter.api.Test;
 class ClosePathDiffblueTest {
   /**
    * Test {@link ClosePath#process(Operator, List)}.
-   *
-   * <p>Method under test: {@link ClosePath#process(Operator, List)}
+   * <ul>
+   *   <li>Given {@link PageDrawer} {@link PageDrawer#closePath()} does nothing.</li>
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then calls {@link PageDrawer#closePath()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ClosePath#process(Operator, List)}
    */
   @Test
-  @DisplayName("Test process(Operator, List)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test process(Operator, List); given PageDrawer closePath() does nothing; when ArrayList(); then calls closePath()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ClosePath.process(Operator, List)"})
-  void testProcess() throws IOException {
+  void testProcess_givenPageDrawerClosePathDoesNothing_whenArrayList_thenCallsClosePath() throws IOException {
     // Arrange
-    PageDrawerParameters parameters = mock(PageDrawerParameters.class);
-    when(parameters.isSubsamplingAllowed()).thenReturn(true);
-    when(parameters.getImageDownscalingOptimizationThreshold()).thenReturn(10.0f);
-    when(parameters.getRenderingHints()).thenReturn(null);
-    when(parameters.getPage()).thenReturn(new PDPage());
-    when(parameters.getDestination()).thenReturn(RenderDestination.EXPORT);
-
-    PageDrawer context = new PageDrawer(parameters);
-    Double p0 = new Double();
-    Double p1 = new Double();
-    Double p2 = new Double();
-
-    context.appendRectangle(p0, p1, p2, new Double());
+    PageDrawer context = mock(PageDrawer.class);
+    doNothing().when(context).closePath();
+    when(context.getCurrentPoint()).thenReturn(new Point(1, 1));
     ClosePath closePath = new ClosePath(context);
     Operator operator = Operator.getOperator("Operator");
 
@@ -54,124 +42,27 @@ class ClosePathDiffblueTest {
     closePath.process(operator, new ArrayList<>());
 
     // Assert
-    verify(parameters).getDestination();
-    verify(parameters).getImageDownscalingOptimizationThreshold();
-    verify(parameters).getPage();
-    verify(parameters).getRenderingHints();
-    verify(parameters).isSubsamplingAllowed();
+    verify(context).closePath();
+    verify(context).getCurrentPoint();
   }
 
   /**
    * Test {@link ClosePath#process(Operator, List)}.
-   *
    * <ul>
-   *   <li>Given {@link COSBoolean#FALSE}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@link COSBoolean#FALSE}.
-   *   <li>Then calls {@link PageDrawerParameters#getDestination()}.
+   *   <li>Given {@link PageDrawer} {@link PageDrawer#getCurrentPoint()} return {@code null}.</li>
+   *   <li>Then calls {@link PageDrawer#getCurrentPoint()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ClosePath#process(Operator, List)}
+   * <p>
+   * Method under test: {@link ClosePath#process(Operator, List)}
    */
   @Test
-  @DisplayName(
-      "Test process(Operator, List); given FALSE; when ArrayList() add FALSE; then calls getDestination()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test process(Operator, List); given PageDrawer getCurrentPoint() return 'null'; then calls getCurrentPoint()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ClosePath.process(Operator, List)"})
-  void testProcess_givenFalse_whenArrayListAddFalse_thenCallsGetDestination() throws IOException {
+  void testProcess_givenPageDrawerGetCurrentPointReturnNull_thenCallsGetCurrentPoint() throws IOException {
     // Arrange
-    PageDrawerParameters parameters = mock(PageDrawerParameters.class);
-    when(parameters.isSubsamplingAllowed()).thenReturn(true);
-    when(parameters.getImageDownscalingOptimizationThreshold()).thenReturn(10.0f);
-    when(parameters.getRenderingHints()).thenReturn(null);
-    when(parameters.getPage()).thenReturn(new PDPage());
-    when(parameters.getDestination()).thenReturn(RenderDestination.EXPORT);
-    PageDrawer context = new PageDrawer(parameters);
-    ClosePath closePath = new ClosePath(context);
-    Operator operator = Operator.getOperator("Operator");
-
-    ArrayList<COSBase> operands = new ArrayList<>();
-    operands.add(COSBoolean.FALSE);
-
-    // Act
-    closePath.process(operator, operands);
-
-    // Assert
-    verify(parameters).getDestination();
-    verify(parameters).getImageDownscalingOptimizationThreshold();
-    verify(parameters).getPage();
-    verify(parameters).getRenderingHints();
-    verify(parameters).isSubsamplingAllowed();
-  }
-
-  /**
-   * Test {@link ClosePath#process(Operator, List)}.
-   *
-   * <ul>
-   *   <li>Given {@link COSBoolean#FALSE}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@link COSBoolean#FALSE}.
-   *   <li>Then calls {@link PageDrawerParameters#getDestination()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ClosePath#process(Operator, List)}
-   */
-  @Test
-  @DisplayName(
-      "Test process(Operator, List); given FALSE; when ArrayList() add FALSE; then calls getDestination()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void ClosePath.process(Operator, List)"})
-  void testProcess_givenFalse_whenArrayListAddFalse_thenCallsGetDestination2() throws IOException {
-    // Arrange
-    PageDrawerParameters parameters = mock(PageDrawerParameters.class);
-    when(parameters.isSubsamplingAllowed()).thenReturn(true);
-    when(parameters.getImageDownscalingOptimizationThreshold()).thenReturn(10.0f);
-    when(parameters.getRenderingHints()).thenReturn(null);
-    when(parameters.getPage()).thenReturn(new PDPage());
-    when(parameters.getDestination()).thenReturn(RenderDestination.EXPORT);
-    PageDrawer context = new PageDrawer(parameters);
-    ClosePath closePath = new ClosePath(context);
-    Operator operator = Operator.getOperator("Operator");
-
-    ArrayList<COSBase> operands = new ArrayList<>();
-    operands.add(COSBoolean.FALSE);
-    operands.add(COSBoolean.FALSE);
-
-    // Act
-    closePath.process(operator, operands);
-
-    // Assert
-    verify(parameters).getDestination();
-    verify(parameters).getImageDownscalingOptimizationThreshold();
-    verify(parameters).getPage();
-    verify(parameters).getRenderingHints();
-    verify(parameters).isSubsamplingAllowed();
-  }
-
-  /**
-   * Test {@link ClosePath#process(Operator, List)}.
-   *
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then calls {@link PageDrawerParameters#getDestination()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ClosePath#process(Operator, List)}
-   */
-  @Test
-  @DisplayName("Test process(Operator, List); when ArrayList(); then calls getDestination()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void ClosePath.process(Operator, List)"})
-  void testProcess_whenArrayList_thenCallsGetDestination() throws IOException {
-    // Arrange
-    PageDrawerParameters parameters = mock(PageDrawerParameters.class);
-    when(parameters.isSubsamplingAllowed()).thenReturn(true);
-    when(parameters.getImageDownscalingOptimizationThreshold()).thenReturn(10.0f);
-    when(parameters.getRenderingHints()).thenReturn(null);
-    when(parameters.getPage()).thenReturn(new PDPage());
-    when(parameters.getDestination()).thenReturn(RenderDestination.EXPORT);
-    PageDrawer context = new PageDrawer(parameters);
+    PageDrawer context = mock(PageDrawer.class);
+    when(context.getCurrentPoint()).thenReturn(null);
     ClosePath closePath = new ClosePath(context);
     Operator operator = Operator.getOperator("Operator");
 
@@ -179,10 +70,6 @@ class ClosePathDiffblueTest {
     closePath.process(operator, new ArrayList<>());
 
     // Assert
-    verify(parameters).getDestination();
-    verify(parameters).getImageDownscalingOptimizationThreshold();
-    verify(parameters).getPage();
-    verify(parameters).getRenderingHints();
-    verify(parameters).isSubsamplingAllowed();
+    verify(context).getCurrentPoint();
   }
 }

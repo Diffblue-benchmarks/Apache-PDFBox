@@ -4,14 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
-import javax.imageio.metadata.IIOMetadataNode;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSFloat;
@@ -20,36 +16,33 @@ import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.w3c.dom.Element;
 
 class FDFAnnotationCaretDiffblueTest {
   /**
    * Test {@link FDFAnnotationCaret#FDFAnnotationCaret(COSDictionary)}.
-   *
-   * <p>Method under test: {@link FDFAnnotationCaret#FDFAnnotationCaret(COSDictionary)}
+   * <p>
+   * Method under test: {@link FDFAnnotationCaret#FDFAnnotationCaret(COSDictionary)}
    */
   @Test
   @DisplayName("Test new FDFAnnotationCaret(COSDictionary)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFAnnotationCaret.<init>(COSDictionary)"})
   void testNewFDFAnnotationCaret() {
     // Arrange
     COSDictionary a = new COSDictionary();
 
     // Act and Assert
-    assertSame(a, new FDFAnnotationCaret(a).getCOSObject());
+    assertSame(a, (new FDFAnnotationCaret(a)).getCOSObject());
   }
 
   /**
    * Test {@link FDFAnnotationCaret#FDFAnnotationCaret()}.
-   *
-   * <p>Method under test: {@link FDFAnnotationCaret#FDFAnnotationCaret()}
+   * <p>
+   * Method under test: {@link FDFAnnotationCaret#FDFAnnotationCaret()}
    */
   @Test
   @DisplayName("Test new FDFAnnotationCaret()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFAnnotationCaret.<init>()"})
   void testNewFDFAnnotationCaret2() throws IOException {
     // Arrange and Act
@@ -85,80 +78,17 @@ class FDFAnnotationCaretDiffblueTest {
   }
 
   /**
-   * Test {@link FDFAnnotationCaret#FDFAnnotationCaret(Element)}.
-   *
-   * <ul>
-   *   <li>When {@link IIOMetadataNode#IIOMetadataNode()}.
-   *   <li>Then throw {@link IOException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationCaret#FDFAnnotationCaret(Element)}
-   */
-  @Test
-  @DisplayName(
-      "Test new FDFAnnotationCaret(Element); when IIOMetadataNode(); then throw IOException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFAnnotationCaret.<init>(Element)"})
-  void testNewFDFAnnotationCaret_whenIIOMetadataNode_thenThrowIOException() throws IOException {
-    // Arrange, Act and Assert
-    assertThrows(IOException.class, () -> new FDFAnnotationCaret(new IIOMetadataNode()));
-  }
-
-  /**
    * Test {@link FDFAnnotationCaret#setFringe(PDRectangle)}.
-   *
    * <ul>
-   *   <li>Then {@link FDFAnnotationCaret#FDFAnnotationCaret()} COSObject toIncrement Objects size
-   *       is one.
+   *   <li>When {@link PDRectangle#A0}.</li>
+   *   <li>Then {@link FDFAnnotationCaret#FDFAnnotationCaret()} Fringe UpperRightX is {@code 2383.937}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationCaret#setFringe(PDRectangle)}
+   * <p>
+   * Method under test: {@link FDFAnnotationCaret#setFringe(PDRectangle)}
    */
   @Test
-  @DisplayName(
-      "Test setFringe(PDRectangle); then FDFAnnotationCaret() COSObject toIncrement Objects size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFAnnotationCaret.setFringe(PDRectangle)"})
-  void testSetFringe_thenFDFAnnotationCaretCOSObjectToIncrementObjectsSizeIsOne() {
-    // Arrange
-    FDFAnnotationCaret fdfAnnotationCaret = new FDFAnnotationCaret();
-
-    // Act
-    fdfAnnotationCaret.setFringe(PDRectangle.LETTER);
-
-    // Assert
-    COSDictionary cOSObject = fdfAnnotationCaret.getCOSObject();
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertEquals(1, toIncrementResult.getObjects().size());
-    Iterator<COSBase> iteratorResult = toIncrementResult.iterator();
-    COSBase actualNextResult = iteratorResult.next();
-    assertFalse(iteratorResult.hasNext());
-    assertSame(cOSObject, actualNextResult);
-    PDRectangle fringe = fdfAnnotationCaret.getFringe();
-    assertEquals(792.0f, fringe.getHeight());
-    assertEquals(612.0f, fringe.getUpperRightX());
-    assertEquals(792.0f, fringe.getUpperRightY());
-    assertEquals(612.0f, fringe.getWidth());
-  }
-
-  /**
-   * Test {@link FDFAnnotationCaret#setFringe(PDRectangle)}.
-   *
-   * <ul>
-   *   <li>When {@link PDRectangle#A0}.
-   *   <li>Then {@link FDFAnnotationCaret#FDFAnnotationCaret()} Fringe UpperRightX is {@code
-   *       2383.937}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationCaret#setFringe(PDRectangle)}
-   */
-  @Test
-  @DisplayName(
-      "Test setFringe(PDRectangle); when A0; then FDFAnnotationCaret() Fringe UpperRightX is '2383.937'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setFringe(PDRectangle); when A0; then FDFAnnotationCaret() Fringe UpperRightX is '2383.937'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFAnnotationCaret.setFringe(PDRectangle)"})
   void testSetFringe_whenA0_thenFDFAnnotationCaretFringeUpperRightXIs2383937() {
     // Arrange
@@ -177,19 +107,16 @@ class FDFAnnotationCaretDiffblueTest {
 
   /**
    * Test {@link FDFAnnotationCaret#setFringe(PDRectangle)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link FDFAnnotationCaret#FDFAnnotationCaret()} COSObject toIncrement Objects Empty.
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link FDFAnnotationCaret#FDFAnnotationCaret()} COSObject toIncrement Objects Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationCaret#setFringe(PDRectangle)}
+   * <p>
+   * Method under test: {@link FDFAnnotationCaret#setFringe(PDRectangle)}
    */
   @Test
-  @DisplayName(
-      "Test setFringe(PDRectangle); when 'null'; then FDFAnnotationCaret() COSObject toIncrement Objects Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setFringe(PDRectangle); when 'null'; then FDFAnnotationCaret() COSObject toIncrement Objects Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFAnnotationCaret.setFringe(PDRectangle)"})
   void testSetFringe_whenNull_thenFDFAnnotationCaretCOSObjectToIncrementObjectsEmpty() {
     // Arrange
@@ -206,37 +133,33 @@ class FDFAnnotationCaretDiffblueTest {
 
   /**
    * Test {@link FDFAnnotationCaret#getFringe()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationCaret#getFringe()}
+   * <p>
+   * Method under test: {@link FDFAnnotationCaret#getFringe()}
    */
   @Test
   @DisplayName("Test getFringe(); given FDFAnnotationCaret(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDRectangle FDFAnnotationCaret.getFringe()"})
   void testGetFringe_givenFDFAnnotationCaret_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new FDFAnnotationCaret().getFringe());
+    assertNull((new FDFAnnotationCaret()).getFringe());
   }
 
   /**
    * Test {@link FDFAnnotationCaret#getFringe()}.
-   *
    * <ul>
-   *   <li>Then return COSArray toList third Key is {@code null}.
+   *   <li>Then return COSArray toList third Key is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationCaret#getFringe()}
+   * <p>
+   * Method under test: {@link FDFAnnotationCaret#getFringe()}
    */
   @Test
   @DisplayName("Test getFringe(); then return COSArray toList third Key is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDRectangle FDFAnnotationCaret.getFringe()"})
   void testGetFringe_thenReturnCOSArrayToListThirdKeyIsNull() {
     // Arrange
@@ -267,24 +190,20 @@ class FDFAnnotationCaretDiffblueTest {
 
   /**
    * Test {@link FDFAnnotationCaret#getFringe()}.
-   *
    * <ul>
-   *   <li>Then return Height is zero.
+   *   <li>Then return Height is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationCaret#getFringe()}
+   * <p>
+   * Method under test: {@link FDFAnnotationCaret#getFringe()}
    */
   @Test
   @DisplayName("Test getFringe(); then return Height is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDRectangle FDFAnnotationCaret.getFringe()"})
   void testGetFringe_thenReturnHeightIsZero() {
     // Arrange
     FDFAnnotationCaret fdfAnnotationCaret = new FDFAnnotationCaret();
-    PDRectangle fringe =
-        new PDRectangle(2.14748365E9f, 2.14748365E9f, 2.14748365E9f, 2.14748365E9f);
-    fdfAnnotationCaret.setFringe(fringe);
+    fdfAnnotationCaret.setFringe(new PDRectangle(2.14748365E9f, 2.14748365E9f, 2.14748365E9f, 2.14748365E9f));
 
     // Act
     PDRectangle actualFringe = fdfAnnotationCaret.getFringe();
@@ -309,19 +228,16 @@ class FDFAnnotationCaretDiffblueTest {
 
   /**
    * Test {@link FDFAnnotationCaret#setSymbol(String)}.
-   *
    * <ul>
-   *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret()}.
-   *   <li>Then {@link FDFAnnotationCaret#FDFAnnotationCaret()} Symbol is {@code None}.
+   *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret()}.</li>
+   *   <li>Then {@link FDFAnnotationCaret#FDFAnnotationCaret()} Symbol is {@code None}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationCaret#setSymbol(String)}
+   * <p>
+   * Method under test: {@link FDFAnnotationCaret#setSymbol(String)}
    */
   @Test
-  @DisplayName(
-      "Test setSymbol(String); given FDFAnnotationCaret(); then FDFAnnotationCaret() Symbol is 'None'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setSymbol(String); given FDFAnnotationCaret(); then FDFAnnotationCaret() Symbol is 'None'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFAnnotationCaret.setSymbol(String)"})
   void testSetSymbol_givenFDFAnnotationCaret_thenFDFAnnotationCaretSymbolIsNone() {
     // Arrange
@@ -339,19 +255,15 @@ class FDFAnnotationCaretDiffblueTest {
 
   /**
    * Test {@link FDFAnnotationCaret#setSymbol(String)}.
-   *
    * <ul>
-   *   <li>Then {@link FDFAnnotationCaret#FDFAnnotationCaret()} Symbol is {@link
-   *       FDFIconFit#SCALE_TYPE_PROPORTIONAL}.
+   *   <li>Then {@link FDFAnnotationCaret#FDFAnnotationCaret()} Symbol is {@link FDFIconFit#SCALE_TYPE_PROPORTIONAL}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationCaret#setSymbol(String)}
+   * <p>
+   * Method under test: {@link FDFAnnotationCaret#setSymbol(String)}
    */
   @Test
-  @DisplayName(
-      "Test setSymbol(String); then FDFAnnotationCaret() Symbol is SCALE_TYPE_PROPORTIONAL")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setSymbol(String); then FDFAnnotationCaret() Symbol is SCALE_TYPE_PROPORTIONAL")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFAnnotationCaret.setSymbol(String)"})
   void testSetSymbol_thenFDFAnnotationCaretSymbolIsScale_type_proportional() {
     // Arrange
@@ -369,19 +281,16 @@ class FDFAnnotationCaretDiffblueTest {
 
   /**
    * Test {@link FDFAnnotationCaret#getSymbol()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret()} Symbol is {@code Symbol}.
-   *   <li>Then return {@code None}.
+   *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret()} Symbol is {@code Symbol}.</li>
+   *   <li>Then return {@code None}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationCaret#getSymbol()}
+   * <p>
+   * Method under test: {@link FDFAnnotationCaret#getSymbol()}
    */
   @Test
-  @DisplayName(
-      "Test getSymbol(); given FDFAnnotationCaret() Symbol is 'Symbol'; then return 'None'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getSymbol(); given FDFAnnotationCaret() Symbol is 'Symbol'; then return 'None'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String FDFAnnotationCaret.getSymbol()"})
   void testGetSymbol_givenFDFAnnotationCaretSymbolIsSymbol_thenReturnNone() {
     // Arrange
@@ -394,37 +303,33 @@ class FDFAnnotationCaretDiffblueTest {
 
   /**
    * Test {@link FDFAnnotationCaret#getSymbol()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationCaret#getSymbol()}
+   * <p>
+   * Method under test: {@link FDFAnnotationCaret#getSymbol()}
    */
   @Test
   @DisplayName("Test getSymbol(); given FDFAnnotationCaret(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String FDFAnnotationCaret.getSymbol()"})
   void testGetSymbol_givenFDFAnnotationCaret_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new FDFAnnotationCaret().getSymbol());
+    assertNull((new FDFAnnotationCaret()).getSymbol());
   }
 
   /**
    * Test {@link FDFAnnotationCaret#getSymbol()}.
-   *
    * <ul>
-   *   <li>Then return {@link FDFIconFit#SCALE_TYPE_PROPORTIONAL}.
+   *   <li>Then return {@link FDFIconFit#SCALE_TYPE_PROPORTIONAL}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationCaret#getSymbol()}
+   * <p>
+   * Method under test: {@link FDFAnnotationCaret#getSymbol()}
    */
   @Test
   @DisplayName("Test getSymbol(); then return SCALE_TYPE_PROPORTIONAL")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String FDFAnnotationCaret.getSymbol()"})
   void testGetSymbol_thenReturnScale_type_proportional() {
     // Arrange

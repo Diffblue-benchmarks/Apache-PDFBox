@@ -3,7 +3,6 @@ package org.apache.pdfbox.pdmodel.interactive.digitalsignature.visible;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.image.BufferedImage;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -15,30 +14,26 @@ import org.junit.jupiter.api.Test;
 class PDVisibleSignDesignerDiffblueTest {
   /**
    * Test {@link PDVisibleSignDesigner#PDVisibleSignDesigner(PDDocument, BufferedImage, int)}.
-   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()}.
-   *   <li>Then return SignatureFieldName is {@code sig}.
+   *   <li>Then return SignatureFieldName is {@code sig}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDVisibleSignDesigner#PDVisibleSignDesigner(PDDocument,
-   * BufferedImage, int)}
+   * <p>
+   * Method under test: {@link PDVisibleSignDesigner#PDVisibleSignDesigner(PDDocument, BufferedImage, int)}
    */
   @Test
-  @DisplayName(
-      "Test new PDVisibleSignDesigner(PDDocument, BufferedImage, int); given PDPage(); then return SignatureFieldName is 'sig'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new PDVisibleSignDesigner(PDDocument, BufferedImage, int); then return SignatureFieldName is 'sig'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDVisibleSignDesigner.<init>(PDDocument, BufferedImage, int)"})
-  void testNewPDVisibleSignDesigner_givenPDPage_thenReturnSignatureFieldNameIsSig() {
+  void testNewPDVisibleSignDesigner_thenReturnSignatureFieldNameIsSig() {
     // Arrange
+    new IllegalArgumentException("foo");
+
     PDDocument document = new PDDocument();
     document.addPage(new PDPage());
     BufferedImage image = new BufferedImage(1, 1, 1);
 
     // Act
-    PDVisibleSignDesigner actualPdVisibleSignDesigner =
-        new PDVisibleSignDesigner(document, image, 1);
+    PDVisibleSignDesigner actualPdVisibleSignDesigner = new PDVisibleSignDesigner(document, image, 1);
 
     // Assert
     assertEquals("sig", actualPdVisibleSignDesigner.getSignatureFieldName());
@@ -49,7 +44,6 @@ class PDVisibleSignDesignerDiffblueTest {
     assertEquals(792.0f, actualPdVisibleSignDesigner.getPageHeight());
     assertEquals(792.0f, actualPdVisibleSignDesigner.getTemplateHeight());
     assertSame(image, actualPdVisibleSignDesigner.getImage());
-    assertArrayEquals(
-        new int[] {0, 0, 1, 1}, actualPdVisibleSignDesigner.getFormatterRectangleParameters());
+    assertArrayEquals(new int[]{0, 0, 1, 1}, actualPdVisibleSignDesigner.getFormatterRectangleParameters());
   }
 }

@@ -3,7 +3,6 @@ package org.apache.pdfbox.pdmodel.font.encoding;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import org.apache.pdfbox.cos.COSBase;
@@ -15,13 +14,12 @@ import org.junit.jupiter.api.Test;
 class MacExpertEncodingDiffblueTest {
   /**
    * Test new {@link MacExpertEncoding} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link MacExpertEncoding}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link MacExpertEncoding}
    */
   @Test
   @DisplayName("Test new MacExpertEncoding (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void MacExpertEncoding.<init>()"})
   void testNewMacExpertEncoding() {
     // Arrange and Act
@@ -54,9 +52,8 @@ class MacExpertEncodingDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link MacExpertEncoding#getCOSObject()}
    *   <li>{@link MacExpertEncoding#getEncodingName()}
@@ -64,12 +61,8 @@ class MacExpertEncodingDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "COSBase MacExpertEncoding.getCOSObject()",
-    "String MacExpertEncoding.getEncodingName()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"COSBase MacExpertEncoding.getCOSObject()", "String MacExpertEncoding.getEncodingName()"})
   void testGettersAndSetters() {
     // Arrange
     MacExpertEncoding macExpertEncoding = new MacExpertEncoding();

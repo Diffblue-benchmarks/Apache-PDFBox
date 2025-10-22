@@ -2,7 +2,6 @@ package org.apache.pdfbox.contentstream.operator.state;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,9 +26,8 @@ import org.junit.jupiter.api.Test;
 class SetLineDashPatternDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link SetLineDashPattern#SetLineDashPattern(PDFStreamEngine)}
    *   <li>{@link SetLineDashPattern#getName()}
@@ -37,36 +35,29 @@ class SetLineDashPatternDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void SetLineDashPattern.<init>(PDFStreamEngine)",
-    "java.lang.String SetLineDashPattern.getName()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SetLineDashPattern.<init>(PDFStreamEngine)",
+      "java.lang.String SetLineDashPattern.getName()"})
   void testGettersAndSetters() {
     // Arrange, Act and Assert
-    assertEquals("d", new SetLineDashPattern(new PDFMarkedContentExtractor()).getName());
+    assertEquals("d", (new SetLineDashPattern(new PDFMarkedContentExtractor())).getName());
   }
 
   /**
    * Test {@link SetLineDashPattern#process(Operator, List)}.
-   *
    * <ul>
-   *   <li>Given {@link COSName#A}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@link COSName#A}.
-   *   <li>Then throw {@link MissingOperandException}.
+   *   <li>Given {@link COSName#A}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@link COSName#A}.</li>
+   *   <li>Then throw {@link MissingOperandException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SetLineDashPattern#process(Operator, List)}
+   * <p>
+   * Method under test: {@link SetLineDashPattern#process(Operator, List)}
    */
   @Test
-  @DisplayName(
-      "Test process(Operator, List); given A; when ArrayList() add A; then throw MissingOperandException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test process(Operator, List); given A; when ArrayList() add A; then throw MissingOperandException")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SetLineDashPattern.process(Operator, List)"})
-  void testProcess_givenA_whenArrayListAddA_thenThrowMissingOperandException()
-      throws MissingOperandException {
+  void testProcess_givenA_whenArrayListAddA_thenThrowMissingOperandException() throws MissingOperandException {
     // Arrange
     SetLineDashPattern setLineDashPattern = new SetLineDashPattern(new PDFMarkedContentExtractor());
     Operator operator = Operator.getOperator("Operator");
@@ -75,24 +66,21 @@ class SetLineDashPatternDiffblueTest {
     arguments.add(COSName.A);
 
     // Act and Assert
-    assertThrows(
-        MissingOperandException.class, () -> setLineDashPattern.process(operator, arguments));
+    assertThrows(MissingOperandException.class, () -> setLineDashPattern.process(operator, arguments));
   }
 
   /**
    * Test {@link SetLineDashPattern#process(Operator, List)}.
-   *
    * <ul>
-   *   <li>Given {@link COSArray#COSArray()}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@link COSArray#COSArray()}.
+   *   <li>Given {@link COSArray#COSArray()}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@link COSArray#COSArray()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SetLineDashPattern#process(Operator, List)}
+   * <p>
+   * Method under test: {@link SetLineDashPattern#process(Operator, List)}
    */
   @Test
   @DisplayName("Test process(Operator, List); given COSArray(); when ArrayList() add COSArray()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SetLineDashPattern.process(Operator, List)"})
   void testProcess_givenCOSArray_whenArrayListAddCOSArray() throws MissingOperandException {
     // Arrange
@@ -103,28 +91,23 @@ class SetLineDashPatternDiffblueTest {
     arguments.add(new COSArray());
 
     // Act and Assert
-    assertThrows(
-        MissingOperandException.class, () -> setLineDashPattern.process(operator, arguments));
+    assertThrows(MissingOperandException.class, () -> setLineDashPattern.process(operator, arguments));
   }
 
   /**
    * Test {@link SetLineDashPattern#process(Operator, List)}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@link COSDictionary#COSDictionary()}.
+   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SetLineDashPattern#process(Operator, List)}
+   * <p>
+   * Method under test: {@link SetLineDashPattern#process(Operator, List)}
    */
   @Test
-  @DisplayName(
-      "Test process(Operator, List); given COSDictionary(); when ArrayList() add COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test process(Operator, List); given COSDictionary(); when ArrayList() add COSDictionary()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SetLineDashPattern.process(Operator, List)"})
-  void testProcess_givenCOSDictionary_whenArrayListAddCOSDictionary()
-      throws MissingOperandException {
+  void testProcess_givenCOSDictionary_whenArrayListAddCOSDictionary() throws MissingOperandException {
     // Arrange
     SetLineDashPattern setLineDashPattern = new SetLineDashPattern(new PDFMarkedContentExtractor());
     Operator operator = Operator.getOperator("Operator");
@@ -133,26 +116,45 @@ class SetLineDashPatternDiffblueTest {
     arguments.add(new COSDictionary());
 
     // Act and Assert
-    assertThrows(
-        MissingOperandException.class, () -> setLineDashPattern.process(operator, arguments));
+    assertThrows(MissingOperandException.class, () -> setLineDashPattern.process(operator, arguments));
   }
 
   /**
    * Test {@link SetLineDashPattern#process(Operator, List)}.
-   *
    * <ul>
-   *   <li>Given {@link COSFloat#COSFloat(float)} with aFloat is ten.
-   *   <li>When {@link ArrayList#ArrayList()} add {@link COSFloat#COSFloat(float)} with aFloat is
-   *       ten.
+   *   <li>Given {@link COSFloat#COSFloat(float)} with aFloat is {@code -3.4028235E38}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SetLineDashPattern#process(Operator, List)}
+   * <p>
+   * Method under test: {@link SetLineDashPattern#process(Operator, List)}
    */
   @Test
-  @DisplayName(
-      "Test process(Operator, List); given COSFloat(float) with aFloat is ten; when ArrayList() add COSFloat(float) with aFloat is ten")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test process(Operator, List); given COSFloat(float) with aFloat is '-3.4028235E38'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SetLineDashPattern.process(Operator, List)"})
+  void testProcess_givenCOSFloatWithAFloatIs34028235e38() throws MissingOperandException {
+    // Arrange
+    SetLineDashPattern setLineDashPattern = new SetLineDashPattern(new PDFMarkedContentExtractor());
+    Operator operator = Operator.getOperator("Operator");
+
+    ArrayList<COSBase> arguments = new ArrayList<>();
+    arguments.add(new COSFloat(-3.4028235E38f));
+
+    // Act and Assert
+    assertThrows(MissingOperandException.class, () -> setLineDashPattern.process(operator, arguments));
+  }
+
+  /**
+   * Test {@link SetLineDashPattern#process(Operator, List)}.
+   * <ul>
+   *   <li>Given {@link COSFloat#COSFloat(float)} with aFloat is ten.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@link COSFloat#COSFloat(float)} with aFloat is ten.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link SetLineDashPattern#process(Operator, List)}
+   */
+  @Test
+  @DisplayName("Test process(Operator, List); given COSFloat(float) with aFloat is ten; when ArrayList() add COSFloat(float) with aFloat is ten")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SetLineDashPattern.process(Operator, List)"})
   void testProcess_givenCOSFloatWithAFloatIsTen_whenArrayListAddCOSFloatWithAFloatIsTen()
       throws MissingOperandException {
@@ -164,55 +166,45 @@ class SetLineDashPatternDiffblueTest {
     arguments.add(new COSFloat(10.0f));
 
     // Act and Assert
-    assertThrows(
-        MissingOperandException.class, () -> setLineDashPattern.process(operator, arguments));
+    assertThrows(MissingOperandException.class, () -> setLineDashPattern.process(operator, arguments));
   }
 
   /**
    * Test {@link SetLineDashPattern#process(Operator, List)}.
-   *
    * <ul>
-   *   <li>Given {@link COSObject#COSObject(COSBase, COSObjectKey)} with object is {@link
-   *       COSBoolean#FALSE} and objectKey is {@link COSObjectKey#COSObjectKey(long, int)}.
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is two and gen is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SetLineDashPattern#process(Operator, List)}
+   * <p>
+   * Method under test: {@link SetLineDashPattern#process(Operator, List)}
    */
   @Test
-  @DisplayName(
-      "Test process(Operator, List); given COSObject(COSBase, COSObjectKey) with object is FALSE and objectKey is COSObjectKey(long, int)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test process(Operator, List); given COSObjectKey(long, int) with num is two and gen is two")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SetLineDashPattern.process(Operator, List)"})
-  void testProcess_givenCOSObjectWithObjectIsFalseAndObjectKeyIsCOSObjectKey()
-      throws MissingOperandException {
+  void testProcess_givenCOSObjectKeyWithNumIsTwoAndGenIsTwo() throws MissingOperandException {
     // Arrange
     SetLineDashPattern setLineDashPattern = new SetLineDashPattern(new PDFMarkedContentExtractor());
     Operator operator = Operator.getOperator("Operator");
 
     ArrayList<COSBase> arguments = new ArrayList<>();
-    COSObject cosObject = new COSObject(COSBoolean.FALSE, new COSObjectKey(2L, 2));
-    arguments.add(cosObject);
+    arguments.add(new COSObject(COSBoolean.FALSE, new COSObjectKey(2L, 2)));
 
     // Act and Assert
-    assertThrows(
-        MissingOperandException.class, () -> setLineDashPattern.process(operator, arguments));
+    assertThrows(MissingOperandException.class, () -> setLineDashPattern.process(operator, arguments));
   }
 
   /**
    * Test {@link SetLineDashPattern#process(Operator, List)}.
-   *
    * <ul>
-   *   <li>Given {@link COSStream#COSStream()}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@link COSStream#COSStream()}.
+   *   <li>Given {@link COSStream#COSStream()}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@link COSStream#COSStream()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SetLineDashPattern#process(Operator, List)}
+   * <p>
+   * Method under test: {@link SetLineDashPattern#process(Operator, List)}
    */
   @Test
   @DisplayName("Test process(Operator, List); given COSStream(); when ArrayList() add COSStream()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SetLineDashPattern.process(Operator, List)"})
   void testProcess_givenCOSStream_whenArrayListAddCOSStream() throws MissingOperandException {
     // Arrange
@@ -223,29 +215,24 @@ class SetLineDashPatternDiffblueTest {
     arguments.add(new COSStream());
 
     // Act and Assert
-    assertThrows(
-        MissingOperandException.class, () -> setLineDashPattern.process(operator, arguments));
+    assertThrows(MissingOperandException.class, () -> setLineDashPattern.process(operator, arguments));
   }
 
   /**
    * Test {@link SetLineDashPattern#process(Operator, List)}.
-   *
    * <ul>
-   *   <li>Given {@link COSBoolean#FALSE}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@link COSBoolean#FALSE}.
-   *   <li>Then throw {@link MissingOperandException}.
+   *   <li>Given {@link COSBoolean#FALSE}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@link COSBoolean#FALSE}.</li>
+   *   <li>Then throw {@link MissingOperandException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SetLineDashPattern#process(Operator, List)}
+   * <p>
+   * Method under test: {@link SetLineDashPattern#process(Operator, List)}
    */
   @Test
-  @DisplayName(
-      "Test process(Operator, List); given FALSE; when ArrayList() add FALSE; then throw MissingOperandException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test process(Operator, List); given FALSE; when ArrayList() add FALSE; then throw MissingOperandException")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SetLineDashPattern.process(Operator, List)"})
-  void testProcess_givenFalse_whenArrayListAddFalse_thenThrowMissingOperandException()
-      throws MissingOperandException {
+  void testProcess_givenFalse_whenArrayListAddFalse_thenThrowMissingOperandException() throws MissingOperandException {
     // Arrange
     SetLineDashPattern setLineDashPattern = new SetLineDashPattern(new PDFMarkedContentExtractor());
     Operator operator = Operator.getOperator("Operator");
@@ -254,29 +241,24 @@ class SetLineDashPatternDiffblueTest {
     arguments.add(COSBoolean.FALSE);
 
     // Act and Assert
-    assertThrows(
-        MissingOperandException.class, () -> setLineDashPattern.process(operator, arguments));
+    assertThrows(MissingOperandException.class, () -> setLineDashPattern.process(operator, arguments));
   }
 
   /**
    * Test {@link SetLineDashPattern#process(Operator, List)}.
-   *
    * <ul>
-   *   <li>Given {@link COSFloat#ONE}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@link COSFloat#ONE}.
-   *   <li>Then throw {@link MissingOperandException}.
+   *   <li>Given {@link COSFloat#ONE}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@link COSFloat#ONE}.</li>
+   *   <li>Then throw {@link MissingOperandException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SetLineDashPattern#process(Operator, List)}
+   * <p>
+   * Method under test: {@link SetLineDashPattern#process(Operator, List)}
    */
   @Test
-  @DisplayName(
-      "Test process(Operator, List); given ONE; when ArrayList() add ONE; then throw MissingOperandException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test process(Operator, List); given ONE; when ArrayList() add ONE; then throw MissingOperandException")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SetLineDashPattern.process(Operator, List)"})
-  void testProcess_givenOne_whenArrayListAddOne_thenThrowMissingOperandException()
-      throws MissingOperandException {
+  void testProcess_givenOne_whenArrayListAddOne_thenThrowMissingOperandException() throws MissingOperandException {
     // Arrange
     SetLineDashPattern setLineDashPattern = new SetLineDashPattern(new PDFMarkedContentExtractor());
     Operator operator = Operator.getOperator("Operator");
@@ -285,29 +267,24 @@ class SetLineDashPatternDiffblueTest {
     arguments.add(COSFloat.ONE);
 
     // Act and Assert
-    assertThrows(
-        MissingOperandException.class, () -> setLineDashPattern.process(operator, arguments));
+    assertThrows(MissingOperandException.class, () -> setLineDashPattern.process(operator, arguments));
   }
 
   /**
    * Test {@link SetLineDashPattern#process(Operator, List)}.
-   *
    * <ul>
-   *   <li>Given {@link COSInteger#ONE}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@link COSInteger#ONE}.
-   *   <li>Then throw {@link MissingOperandException}.
+   *   <li>Given {@link COSInteger#ONE}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@link COSInteger#ONE}.</li>
+   *   <li>Then throw {@link MissingOperandException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SetLineDashPattern#process(Operator, List)}
+   * <p>
+   * Method under test: {@link SetLineDashPattern#process(Operator, List)}
    */
   @Test
-  @DisplayName(
-      "Test process(Operator, List); given ONE; when ArrayList() add ONE; then throw MissingOperandException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test process(Operator, List); given ONE; when ArrayList() add ONE; then throw MissingOperandException")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SetLineDashPattern.process(Operator, List)"})
-  void testProcess_givenOne_whenArrayListAddOne_thenThrowMissingOperandException2()
-      throws MissingOperandException {
+  void testProcess_givenOne_whenArrayListAddOne_thenThrowMissingOperandException2() throws MissingOperandException {
     // Arrange
     SetLineDashPattern setLineDashPattern = new SetLineDashPattern(new PDFMarkedContentExtractor());
     Operator operator = Operator.getOperator("Operator");
@@ -316,24 +293,21 @@ class SetLineDashPatternDiffblueTest {
     arguments.add(COSInteger.ONE);
 
     // Act and Assert
-    assertThrows(
-        MissingOperandException.class, () -> setLineDashPattern.process(operator, arguments));
+    assertThrows(MissingOperandException.class, () -> setLineDashPattern.process(operator, arguments));
   }
 
   /**
    * Test {@link SetLineDashPattern#process(Operator, List)}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then throw {@link MissingOperandException}.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then throw {@link MissingOperandException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SetLineDashPattern#process(Operator, List)}
+   * <p>
+   * Method under test: {@link SetLineDashPattern#process(Operator, List)}
    */
   @Test
   @DisplayName("Test process(Operator, List); when ArrayList(); then throw MissingOperandException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SetLineDashPattern.process(Operator, List)"})
   void testProcess_whenArrayList_thenThrowMissingOperandException() throws MissingOperandException {
     // Arrange
@@ -341,8 +315,6 @@ class SetLineDashPatternDiffblueTest {
     Operator operator = Operator.getOperator("Operator");
 
     // Act and Assert
-    assertThrows(
-        MissingOperandException.class,
-        () -> setLineDashPattern.process(operator, new ArrayList<>()));
+    assertThrows(MissingOperandException.class, () -> setLineDashPattern.process(operator, new ArrayList<>()));
   }
 }

@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.Rectangle;
 import java.awt.geom.GeneralPath;
@@ -23,9 +22,8 @@ import org.junit.jupiter.api.Test;
 class Standard14FontsDiffblueTest {
   /**
    * Test FontName getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link FontName#getName()}
    *   <li>{@link FontName#toString()}
@@ -33,8 +31,7 @@ class Standard14FontsDiffblueTest {
    */
   @Test
   @DisplayName("Test FontName getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String FontName.getName()", "String FontName.toString()"})
   void testFontNameGettersAndSetters() {
     // Arrange
@@ -50,19 +47,16 @@ class Standard14FontsDiffblueTest {
 
   /**
    * Test {@link Standard14Fonts#getAFM(String)}.
-   *
    * <ul>
-   *   <li>When {@code Arial-BoldItalicMT}.
-   *   <li>Then return FontVersion is {@code 002.000}.
+   *   <li>When {@code Arial-BoldItalicMT}.</li>
+   *   <li>Then return FontVersion is {@code 002.000}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Standard14Fonts#getAFM(String)}
+   * <p>
+   * Method under test: {@link Standard14Fonts#getAFM(String)}
    */
   @Test
-  @DisplayName(
-      "Test getAFM(String); when 'Arial-BoldItalicMT'; then return FontVersion is '002.000'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getAFM(String); when 'Arial-BoldItalicMT'; then return FontVersion is '002.000'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"FontMetrics Standard14Fonts.getAFM(String)"})
   void testGetAFM_whenArialBoldItalicMT_thenReturnFontVersionIs002000() {
     // Arrange and Act
@@ -72,10 +66,8 @@ class Standard14FontsDiffblueTest {
     assertEquals("002.000", actualAFM.getFontVersion());
     assertEquals("AdobeStandardEncoding", actualAFM.getEncodingScheme());
     assertEquals("Bold", actualAFM.getWeight());
-    assertEquals(
-        "Copyright (c) 1985, 1987, 1989, 1990, 1997 Adobe Systems Incorporated.  All Rights Reserved.Helvetica"
-            + " is a trademark of Linotype-Hell AG and/or its subsidiaries.",
-        actualAFM.getNotice());
+    assertEquals("Copyright (c) 1985, 1987, 1989, 1990, 1997 Adobe Systems Incorporated.  All Rights Reserved.Helvetica"
+        + " is a trademark of Linotype-Hell AG and/or its subsidiaries.", actualAFM.getNotice());
     assertEquals("ExtendedRoman", actualAFM.getCharacterSet());
     assertEquals("Helvetica Bold Oblique", actualAFM.getFullName());
     assertEquals("Helvetica", actualAFM.getFamilyName());
@@ -111,18 +103,16 @@ class Standard14FontsDiffblueTest {
 
   /**
    * Test {@link Standard14Fonts#getAFM(String)}.
-   *
    * <ul>
-   *   <li>When {@code Font Name}.
-   *   <li>Then return {@code null}.
+   *   <li>When {@code Font Name}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Standard14Fonts#getAFM(String)}
+   * <p>
+   * Method under test: {@link Standard14Fonts#getAFM(String)}
    */
   @Test
   @DisplayName("Test getAFM(String); when 'Font Name'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"FontMetrics Standard14Fonts.getAFM(String)"})
   void testGetAFM_whenFontName_thenReturnNull() {
     // Arrange, Act and Assert
@@ -131,18 +121,16 @@ class Standard14FontsDiffblueTest {
 
   /**
    * Test {@link Standard14Fonts#containsName(String)}.
-   *
    * <ul>
-   *   <li>When {@code Arial-BoldItalicMT}.
-   *   <li>Then return {@code true}.
+   *   <li>When {@code Arial-BoldItalicMT}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Standard14Fonts#containsName(String)}
+   * <p>
+   * Method under test: {@link Standard14Fonts#containsName(String)}
    */
   @Test
   @DisplayName("Test containsName(String); when 'Arial-BoldItalicMT'; then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean Standard14Fonts.containsName(String)"})
   void testContainsName_whenArialBoldItalicMT_thenReturnTrue() {
     // Arrange, Act and Assert
@@ -151,18 +139,16 @@ class Standard14FontsDiffblueTest {
 
   /**
    * Test {@link Standard14Fonts#containsName(String)}.
-   *
    * <ul>
-   *   <li>When {@code Font Name}.
-   *   <li>Then return {@code false}.
+   *   <li>When {@code Font Name}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Standard14Fonts#containsName(String)}
+   * <p>
+   * Method under test: {@link Standard14Fonts#containsName(String)}
    */
   @Test
   @DisplayName("Test containsName(String); when 'Font Name'; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean Standard14Fonts.containsName(String)"})
   void testContainsName_whenFontName_thenReturnFalse() {
     // Arrange, Act and Assert
@@ -171,13 +157,12 @@ class Standard14FontsDiffblueTest {
 
   /**
    * Test {@link Standard14Fonts#getNames()}.
-   *
-   * <p>Method under test: {@link Standard14Fonts#getNames()}
+   * <p>
+   * Method under test: {@link Standard14Fonts#getNames()}
    */
   @Test
   @DisplayName("Test getNames()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Set Standard14Fonts.getNames()"})
   void testGetNames() {
     // Arrange and Act
@@ -200,13 +185,12 @@ class Standard14FontsDiffblueTest {
 
   /**
    * Test {@link Standard14Fonts#getMappedFontName(String)}.
-   *
-   * <p>Method under test: {@link Standard14Fonts#getMappedFontName(String)}
+   * <p>
+   * Method under test: {@link Standard14Fonts#getMappedFontName(String)}
    */
   @Test
   @DisplayName("Test getMappedFontName(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"FontName Standard14Fonts.getMappedFontName(String)"})
   void testGetMappedFontName() {
     // Arrange, Act and Assert
@@ -215,18 +199,16 @@ class Standard14FontsDiffblueTest {
 
   /**
    * Test {@link Standard14Fonts#getGlyphPath(FontName, String)}.
-   *
    * <ul>
-   *   <li>When {@code g9}.
-   *   <li>Then CurrentPoint return {@link Point2D.Float}.
+   *   <li>When {@code g9}.</li>
+   *   <li>Then CurrentPoint return {@link Point2D.Float}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Standard14Fonts#getGlyphPath(FontName, String)}
+   * <p>
+   * Method under test: {@link Standard14Fonts#getGlyphPath(FontName, String)}
    */
   @Test
   @DisplayName("Test getGlyphPath(FontName, String); when 'g9'; then CurrentPoint return Float")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"GeneralPath Standard14Fonts.getGlyphPath(FontName, String)"})
   void testGetGlyphPath_whenG9_thenCurrentPointReturnFloat() throws IOException {
     // Arrange and Act
@@ -239,24 +221,20 @@ class Standard14FontsDiffblueTest {
 
   /**
    * Test {@link Standard14Fonts#getGlyphPath(FontName, String)}.
-   *
    * <ul>
-   *   <li>When {@code Glyph Name}.
-   *   <li>Then Bounds Bounds2D return {@link Rectangle}.
+   *   <li>When {@code HELVETICA}.</li>
+   *   <li>Then Bounds Bounds2D return {@link Rectangle}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Standard14Fonts#getGlyphPath(FontName, String)}
+   * <p>
+   * Method under test: {@link Standard14Fonts#getGlyphPath(FontName, String)}
    */
   @Test
-  @DisplayName(
-      "Test getGlyphPath(FontName, String); when 'Glyph Name'; then Bounds Bounds2D return Rectangle")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getGlyphPath(FontName, String); when 'HELVETICA'; then Bounds Bounds2D return Rectangle")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"GeneralPath Standard14Fonts.getGlyphPath(FontName, String)"})
-  void testGetGlyphPath_whenGlyphName_thenBoundsBounds2DReturnRectangle() throws IOException {
+  void testGetGlyphPath_whenHelvetica_thenBoundsBounds2DReturnRectangle() throws IOException {
     // Arrange and Act
-    GeneralPath actualGlyphPath =
-        Standard14Fonts.getGlyphPath(FontName.ZAPF_DINGBATS, "Glyph Name");
+    GeneralPath actualGlyphPath = Standard14Fonts.getGlyphPath(FontName.HELVETICA, "Glyph Name");
 
     // Assert
     Rectangle bounds = actualGlyphPath.getBounds();
@@ -266,8 +244,7 @@ class Standard14FontsDiffblueTest {
     assertTrue(frame instanceof Double);
     Rectangle2D bounds2D2 = actualGlyphPath.getBounds2D();
     assertTrue(bounds2D2 instanceof Float);
-    Rectangle actualBounds = bounds.getBounds();
-    assertEquals(bounds, actualBounds);
+    assertEquals(bounds, bounds.getBounds());
     assertEquals(bounds, bounds2D);
     assertEquals(bounds, frame);
     assertEquals(bounds, bounds2D2);
@@ -275,19 +252,16 @@ class Standard14FontsDiffblueTest {
 
   /**
    * Test {@link Standard14Fonts#getGlyphPath(FontName, String)}.
-   *
    * <ul>
-   *   <li>When {@code .notdef}.
-   *   <li>Then Bounds Bounds2D return {@link Rectangle}.
+   *   <li>When {@code .notdef}.</li>
+   *   <li>Then Bounds Bounds2D return {@link Rectangle}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Standard14Fonts#getGlyphPath(FontName, String)}
+   * <p>
+   * Method under test: {@link Standard14Fonts#getGlyphPath(FontName, String)}
    */
   @Test
-  @DisplayName(
-      "Test getGlyphPath(FontName, String); when '.notdef'; then Bounds Bounds2D return Rectangle")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getGlyphPath(FontName, String); when '.notdef'; then Bounds Bounds2D return Rectangle")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"GeneralPath Standard14Fonts.getGlyphPath(FontName, String)"})
   void testGetGlyphPath_whenNotdef_thenBoundsBounds2DReturnRectangle() throws IOException {
     // Arrange and Act
@@ -301,8 +275,7 @@ class Standard14FontsDiffblueTest {
     assertTrue(frame instanceof Double);
     Rectangle2D bounds2D2 = actualGlyphPath.getBounds2D();
     assertTrue(bounds2D2 instanceof Float);
-    Rectangle actualBounds = bounds.getBounds();
-    assertEquals(bounds, actualBounds);
+    assertEquals(bounds, bounds.getBounds());
     assertEquals(bounds, bounds2D);
     assertEquals(bounds, frame);
     assertEquals(bounds, bounds2D2);
@@ -310,24 +283,20 @@ class Standard14FontsDiffblueTest {
 
   /**
    * Test {@link Standard14Fonts#getGlyphPath(FontName, String)}.
-   *
    * <ul>
-   *   <li>When {@code pdfbox-9.log}.
-   *   <li>Then Bounds Bounds2D return {@link Rectangle}.
+   *   <li>When {@code Standard14Fonts$FontName}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Standard14Fonts#getGlyphPath(FontName, String)}
+   * <p>
+   * Method under test: {@link Standard14Fonts#getGlyphPath(FontName, String)}
    */
   @Test
-  @DisplayName(
-      "Test getGlyphPath(FontName, String); when 'pdfbox-9.log'; then Bounds Bounds2D return Rectangle")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getGlyphPath(FontName, String); when 'org.apache.pdfbox.pdmodel.font.Standard14Fonts$FontName'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"GeneralPath Standard14Fonts.getGlyphPath(FontName, String)"})
-  void testGetGlyphPath_whenPdfbox9Log_thenBoundsBounds2DReturnRectangle() throws IOException {
+  void testGetGlyphPath_whenOrgApachePdfboxPdmodelFontStandard14FontsFontName() throws IOException {
     // Arrange and Act
-    GeneralPath actualGlyphPath =
-        Standard14Fonts.getGlyphPath(FontName.ZAPF_DINGBATS, "pdfbox-9.log");
+    GeneralPath actualGlyphPath = Standard14Fonts.getGlyphPath(FontName.TIMES_ROMAN,
+        "org.apache.pdfbox.pdmodel.font.Standard14Fonts$FontName");
 
     // Assert
     Rectangle bounds = actualGlyphPath.getBounds();
@@ -337,8 +306,7 @@ class Standard14FontsDiffblueTest {
     assertTrue(frame instanceof Double);
     Rectangle2D bounds2D2 = actualGlyphPath.getBounds2D();
     assertTrue(bounds2D2 instanceof Float);
-    Rectangle actualBounds = bounds.getBounds();
-    assertEquals(bounds, actualBounds);
+    assertEquals(bounds, bounds.getBounds());
     assertEquals(bounds, bounds2D);
     assertEquals(bounds, frame);
     assertEquals(bounds, bounds2D2);
@@ -346,23 +314,20 @@ class Standard14FontsDiffblueTest {
 
   /**
    * Test {@link Standard14Fonts#getGlyphPath(FontName, String)}.
-   *
    * <ul>
-   *   <li>When {@code TIMES_BOLD_ITALIC}.
-   *   <li>Then Bounds Bounds2D return {@link Rectangle}.
+   *   <li>When {@code SYMBOL}.</li>
+   *   <li>Then Bounds Bounds2D return {@link Rectangle}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Standard14Fonts#getGlyphPath(FontName, String)}
+   * <p>
+   * Method under test: {@link Standard14Fonts#getGlyphPath(FontName, String)}
    */
   @Test
-  @DisplayName(
-      "Test getGlyphPath(FontName, String); when 'TIMES_BOLD_ITALIC'; then Bounds Bounds2D return Rectangle")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getGlyphPath(FontName, String); when 'SYMBOL'; then Bounds Bounds2D return Rectangle")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"GeneralPath Standard14Fonts.getGlyphPath(FontName, String)"})
-  void testGetGlyphPath_whenTimesBoldItalic_thenBoundsBounds2DReturnRectangle() throws IOException {
+  void testGetGlyphPath_whenSymbol_thenBoundsBounds2DReturnRectangle() throws IOException {
     // Arrange and Act
-    GeneralPath actualGlyphPath = Standard14Fonts.getGlyphPath(FontName.TIMES_BOLD_ITALIC, "uni");
+    GeneralPath actualGlyphPath = Standard14Fonts.getGlyphPath(FontName.SYMBOL, "uni");
 
     // Assert
     Rectangle bounds = actualGlyphPath.getBounds();
@@ -372,8 +337,7 @@ class Standard14FontsDiffblueTest {
     assertTrue(frame instanceof Double);
     Rectangle2D bounds2D2 = actualGlyphPath.getBounds2D();
     assertTrue(bounds2D2 instanceof Float);
-    Rectangle actualBounds = bounds.getBounds();
-    assertEquals(bounds, actualBounds);
+    assertEquals(bounds, bounds.getBounds());
     assertEquals(bounds, bounds2D);
     assertEquals(bounds, frame);
     assertEquals(bounds, bounds2D2);
@@ -381,19 +345,16 @@ class Standard14FontsDiffblueTest {
 
   /**
    * Test {@link Standard14Fonts#getGlyphPath(FontName, String)}.
-   *
    * <ul>
-   *   <li>When {@code TIMES_ROMAN}.
-   *   <li>Then Bounds Bounds2D return {@link Rectangle}.
+   *   <li>When {@code TIMES_ROMAN}.</li>
+   *   <li>Then Bounds Bounds2D return {@link Rectangle}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Standard14Fonts#getGlyphPath(FontName, String)}
+   * <p>
+   * Method under test: {@link Standard14Fonts#getGlyphPath(FontName, String)}
    */
   @Test
-  @DisplayName(
-      "Test getGlyphPath(FontName, String); when 'TIMES_ROMAN'; then Bounds Bounds2D return Rectangle")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getGlyphPath(FontName, String); when 'TIMES_ROMAN'; then Bounds Bounds2D return Rectangle")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"GeneralPath Standard14Fonts.getGlyphPath(FontName, String)"})
   void testGetGlyphPath_whenTimesRoman_thenBoundsBounds2DReturnRectangle() throws IOException {
     // Arrange and Act
@@ -407,8 +368,7 @@ class Standard14FontsDiffblueTest {
     assertTrue(frame instanceof Double);
     Rectangle2D bounds2D2 = actualGlyphPath.getBounds2D();
     assertTrue(bounds2D2 instanceof Float);
-    Rectangle actualBounds = bounds.getBounds();
-    assertEquals(bounds, actualBounds);
+    assertEquals(bounds, bounds.getBounds());
     assertEquals(bounds, bounds2D);
     assertEquals(bounds, frame);
     assertEquals(bounds, bounds2D2);
@@ -416,18 +376,16 @@ class Standard14FontsDiffblueTest {
 
   /**
    * Test {@link Standard14Fonts#getGlyphPath(FontName, String)}.
-   *
    * <ul>
-   *   <li>When {@code u}.
-   *   <li>Then CurrentPoint return {@link Point2D.Float}.
+   *   <li>When {@code u}.</li>
+   *   <li>Then CurrentPoint return {@link Point2D.Float}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Standard14Fonts#getGlyphPath(FontName, String)}
+   * <p>
+   * Method under test: {@link Standard14Fonts#getGlyphPath(FontName, String)}
    */
   @Test
   @DisplayName("Test getGlyphPath(FontName, String); when 'u'; then CurrentPoint return Float")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"GeneralPath Standard14Fonts.getGlyphPath(FontName, String)"})
   void testGetGlyphPath_whenU_thenCurrentPointReturnFloat() throws IOException {
     // Arrange and Act
@@ -440,21 +398,18 @@ class Standard14FontsDiffblueTest {
 
   /**
    * Test {@link Standard14Fonts#getGlyphPath(FontName, String)}.
-   *
    * <ul>
-   *   <li>When {@code ZAPF_DINGBATS}.
-   *   <li>Then Bounds Bounds2D return {@link Rectangle}.
+   *   <li>When {@code uni}.</li>
+   *   <li>Then Bounds Bounds2D return {@link Rectangle}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Standard14Fonts#getGlyphPath(FontName, String)}
+   * <p>
+   * Method under test: {@link Standard14Fonts#getGlyphPath(FontName, String)}
    */
   @Test
-  @DisplayName(
-      "Test getGlyphPath(FontName, String); when 'ZAPF_DINGBATS'; then Bounds Bounds2D return Rectangle")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getGlyphPath(FontName, String); when 'uni'; then Bounds Bounds2D return Rectangle")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"GeneralPath Standard14Fonts.getGlyphPath(FontName, String)"})
-  void testGetGlyphPath_whenZapfDingbats_thenBoundsBounds2DReturnRectangle() throws IOException {
+  void testGetGlyphPath_whenUni_thenBoundsBounds2DReturnRectangle() throws IOException {
     // Arrange and Act
     GeneralPath actualGlyphPath = Standard14Fonts.getGlyphPath(FontName.ZAPF_DINGBATS, "uni");
 
@@ -466,8 +421,7 @@ class Standard14FontsDiffblueTest {
     assertTrue(frame instanceof Double);
     Rectangle2D bounds2D2 = actualGlyphPath.getBounds2D();
     assertTrue(bounds2D2 instanceof Float);
-    Rectangle actualBounds = bounds.getBounds();
-    assertEquals(bounds, actualBounds);
+    assertEquals(bounds, bounds.getBounds());
     assertEquals(bounds, bounds2D);
     assertEquals(bounds, frame);
     assertEquals(bounds, bounds2D2);

@@ -7,7 +7,6 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,9 +25,8 @@ import org.mockito.Mockito;
 class EndTextDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link EndText#EndText(PDFStreamEngine)}
    *   <li>{@link EndText#getName()}
@@ -36,30 +34,26 @@ class EndTextDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void EndText.<init>(PDFStreamEngine)", "java.lang.String EndText.getName()"})
   void testGettersAndSetters() {
     // Arrange, Act and Assert
-    assertEquals("ET", new EndText(new PDFMarkedContentExtractor()).getName());
+    assertEquals("ET", (new EndText(new PDFMarkedContentExtractor())).getName());
   }
 
   /**
    * Test {@link EndText#process(Operator, List)}.
-   *
    * <ul>
-   *   <li>Given {@link COSBoolean#FALSE}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@link COSBoolean#FALSE}.
-   *   <li>Then calls {@link PDFStreamEngine#endText()}.
+   *   <li>Given {@link COSBoolean#FALSE}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@link COSBoolean#FALSE}.</li>
+   *   <li>Then calls {@link PDFStreamEngine#endText()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link EndText#process(Operator, List)}
+   * <p>
+   * Method under test: {@link EndText#process(Operator, List)}
    */
   @Test
-  @DisplayName(
-      "Test process(Operator, List); given FALSE; when ArrayList() add FALSE; then calls endText()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test process(Operator, List); given FALSE; when ArrayList() add FALSE; then calls endText()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void EndText.process(Operator, List)"})
   void testProcess_givenFalse_whenArrayListAddFalse_thenCallsEndText() throws IOException {
     // Arrange
@@ -84,20 +78,17 @@ class EndTextDiffblueTest {
 
   /**
    * Test {@link EndText#process(Operator, List)}.
-   *
    * <ul>
-   *   <li>Given {@link COSBoolean#FALSE}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@link COSBoolean#FALSE}.
-   *   <li>Then calls {@link PDFStreamEngine#endText()}.
+   *   <li>Given {@link COSBoolean#FALSE}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@link COSBoolean#FALSE}.</li>
+   *   <li>Then calls {@link PDFStreamEngine#endText()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link EndText#process(Operator, List)}
+   * <p>
+   * Method under test: {@link EndText#process(Operator, List)}
    */
   @Test
-  @DisplayName(
-      "Test process(Operator, List); given FALSE; when ArrayList() add FALSE; then calls endText()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test process(Operator, List); given FALSE; when ArrayList() add FALSE; then calls endText()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void EndText.process(Operator, List)"})
   void testProcess_givenFalse_whenArrayListAddFalse_thenCallsEndText2() throws IOException {
     // Arrange
@@ -123,19 +114,16 @@ class EndTextDiffblueTest {
 
   /**
    * Test {@link EndText#process(Operator, List)}.
-   *
    * <ul>
-   *   <li>Given {@link PDFStreamEngine} {@link PDFStreamEngine#endText()} does nothing.
-   *   <li>When {@link ArrayList#ArrayList()}.
+   *   <li>Given {@link PDFStreamEngine} {@link PDFStreamEngine#endText()} does nothing.</li>
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link EndText#process(Operator, List)}
+   * <p>
+   * Method under test: {@link EndText#process(Operator, List)}
    */
   @Test
-  @DisplayName(
-      "Test process(Operator, List); given PDFStreamEngine endText() does nothing; when ArrayList()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test process(Operator, List); given PDFStreamEngine endText() does nothing; when ArrayList()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void EndText.process(Operator, List)"})
   void testProcess_givenPDFStreamEngineEndTextDoesNothing_whenArrayList() throws IOException {
     // Arrange
@@ -157,26 +145,20 @@ class EndTextDiffblueTest {
 
   /**
    * Test {@link EndText#process(Operator, List)}.
-   *
    * <ul>
-   *   <li>Given {@link PDFStreamEngine} {@link PDFStreamEngine#endText()} throw {@link
-   *       IOException#IOException()}.
-   *   <li>Then throw {@link IOException}.
+   *   <li>Then throw {@link IOException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link EndText#process(Operator, List)}
+   * <p>
+   * Method under test: {@link EndText#process(Operator, List)}
    */
   @Test
-  @DisplayName(
-      "Test process(Operator, List); given PDFStreamEngine endText() throw IOException(); then throw IOException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test process(Operator, List); then throw IOException")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void EndText.process(Operator, List)"})
-  void testProcess_givenPDFStreamEngineEndTextThrowIOException_thenThrowIOException()
-      throws IOException {
+  void testProcess_thenThrowIOException() throws IOException {
     // Arrange
     PDFStreamEngine context = mock(PDFStreamEngine.class);
-    doThrow(new IOException()).when(context).endText();
+    doThrow(new IOException("foo")).when(context).endText();
     doNothing().when(context).setTextLineMatrix(Mockito.<Matrix>any());
     doNothing().when(context).setTextMatrix(Mockito.<Matrix>any());
     EndText endText = new EndText(context);

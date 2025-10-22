@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
+import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSBoolean;
 import org.apache.pdfbox.cos.COSDictionary;
@@ -23,20 +23,16 @@ import org.junit.jupiter.api.Test;
 class PDDefaultAttributeObjectDiffblueTest {
   /**
    * Test {@link PDDefaultAttributeObject#PDDefaultAttributeObject()}.
-   *
-   * <p>Method under test: {@link PDDefaultAttributeObject#PDDefaultAttributeObject()}
+   * <p>
+   * Method under test: {@link PDDefaultAttributeObject#PDDefaultAttributeObject()}
    */
   @Test
   @DisplayName("Test new PDDefaultAttributeObject()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PDDefaultAttributeObject.<init>()",
-    "void PDDefaultAttributeObject.<init>(COSDictionary)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDDefaultAttributeObject.<init>()", "void PDDefaultAttributeObject.<init>(COSDictionary)"})
   void testNewPDDefaultAttributeObject() {
     // Arrange, Act and Assert
-    COSDictionary cOSObject = new PDDefaultAttributeObject().getCOSObject();
+    COSDictionary cOSObject = (new PDDefaultAttributeObject()).getCOSObject();
     COSUpdateState updateState = cOSObject.getUpdateState();
     assertNull(updateState.getOriginDocumentState());
     assertNull(cOSObject.getKey());
@@ -52,68 +48,57 @@ class PDDefaultAttributeObjectDiffblueTest {
 
   /**
    * Test {@link PDDefaultAttributeObject#PDDefaultAttributeObject(COSDictionary)}.
-   *
    * <ul>
-   *   <li>Then return COSObject is {@link COSDictionary#COSDictionary()}.
+   *   <li>Then return COSObject is {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDefaultAttributeObject#PDDefaultAttributeObject(COSDictionary)}
+   * <p>
+   * Method under test: {@link PDDefaultAttributeObject#PDDefaultAttributeObject(COSDictionary)}
    */
   @Test
-  @DisplayName(
-      "Test new PDDefaultAttributeObject(COSDictionary); then return COSObject is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PDDefaultAttributeObject.<init>()",
-    "void PDDefaultAttributeObject.<init>(COSDictionary)"
-  })
+  @DisplayName("Test new PDDefaultAttributeObject(COSDictionary); then return COSObject is COSDictionary()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDDefaultAttributeObject.<init>()", "void PDDefaultAttributeObject.<init>(COSDictionary)"})
   void testNewPDDefaultAttributeObject_thenReturnCOSObjectIsCOSDictionary() {
     // Arrange
     COSDictionary dictionary = new COSDictionary();
 
     // Act and Assert
-    assertSame(dictionary, new PDDefaultAttributeObject(dictionary).getCOSObject());
+    assertSame(dictionary, (new PDDefaultAttributeObject(dictionary)).getCOSObject());
   }
 
   /**
    * Test {@link PDDefaultAttributeObject#getAttributeNames()}.
-   *
    * <ul>
-   *   <li>Given {@link PDDefaultAttributeObject#PDDefaultAttributeObject()}.
-   *   <li>Then return Empty.
+   *   <li>Given {@link PDDefaultAttributeObject#PDDefaultAttributeObject()}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDefaultAttributeObject#getAttributeNames()}
+   * <p>
+   * Method under test: {@link PDDefaultAttributeObject#getAttributeNames()}
    */
   @Test
   @DisplayName("Test getAttributeNames(); given PDDefaultAttributeObject(); then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDDefaultAttributeObject.getAttributeNames()"})
   void testGetAttributeNames_givenPDDefaultAttributeObject_thenReturnEmpty() {
     // Arrange, Act and Assert
-    assertTrue(new PDDefaultAttributeObject().getAttributeNames().isEmpty());
+    assertTrue((new PDDefaultAttributeObject()).getAttributeNames().isEmpty());
   }
 
   /**
    * Test {@link PDDefaultAttributeObject#getAttributeNames()}.
-   *
    * <ul>
-   *   <li>Then return size is one.
+   *   <li>Then return size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDefaultAttributeObject#getAttributeNames()}
+   * <p>
+   * Method under test: {@link PDDefaultAttributeObject#getAttributeNames()}
    */
   @Test
   @DisplayName("Test getAttributeNames(); then return size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDDefaultAttributeObject.getAttributeNames()"})
   void testGetAttributeNames_thenReturnSizeIsOne() {
     // Arrange and Act
-    List<String> actualAttributeNames =
-        new PDDefaultAttributeObject(new COSStream()).getAttributeNames();
+    List<String> actualAttributeNames = (new PDDefaultAttributeObject(new COSStream())).getAttributeNames();
 
     // Assert
     assertEquals(1, actualAttributeNames.size());
@@ -122,40 +107,55 @@ class PDDefaultAttributeObjectDiffblueTest {
 
   /**
    * Test {@link PDDefaultAttributeObject#getAttributeValue(String)} with {@code attrName}.
-   *
-   * <p>Method under test: {@link PDDefaultAttributeObject#getAttributeValue(String)}
+   * <p>
+   * Method under test: {@link PDDefaultAttributeObject#getAttributeValue(String)}
    */
   @Test
   @DisplayName("Test getAttributeValue(String) with 'attrName'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSBase PDDefaultAttributeObject.getAttributeValue(String)"})
   void testGetAttributeValueWithAttrName() {
     // Arrange, Act and Assert
-    assertNull(new PDDefaultAttributeObject(new COSDictionary()).getAttributeValue("Attr Name"));
+    assertNull((new PDDefaultAttributeObject(new COSDictionary())).getAttributeValue("Attr Name"));
   }
 
   /**
-   * Test {@link PDDefaultAttributeObject#getAttributeValue(String, COSBase)} with {@code attrName},
-   * {@code defaultValue}.
-   *
+   * Test {@link PDDefaultAttributeObject#getAttributeValue(String, COSBase)} with {@code attrName}, {@code defaultValue}.
    * <ul>
-   *   <li>When {@code Attr Name}.
-   *   <li>Then return {@link COSBoolean#FALSE}.
+   *   <li>When {@code 42}.</li>
+   *   <li>Then return {@link COSBoolean#FALSE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDefaultAttributeObject#getAttributeValue(String, COSBase)}
+   * <p>
+   * Method under test: {@link PDDefaultAttributeObject#getAttributeValue(String, COSBase)}
    */
   @Test
-  @DisplayName(
-      "Test getAttributeValue(String, COSBase) with 'attrName', 'defaultValue'; when 'Attr Name'; then return FALSE")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getAttributeValue(String, COSBase) with 'attrName', 'defaultValue'; when '42'; then return FALSE")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"COSBase PDDefaultAttributeObject.getAttributeValue(String, COSBase)"})
+  void testGetAttributeValueWithAttrNameDefaultValue_when42_thenReturnFalse() {
+    // Arrange and Act
+    COSBase actualAttributeValue = (new PDDefaultAttributeObject()).getAttributeValue("42", COSBoolean.FALSE);
+
+    // Assert
+    assertSame(((COSBoolean) actualAttributeValue).FALSE, actualAttributeValue);
+  }
+
+  /**
+   * Test {@link PDDefaultAttributeObject#getAttributeValue(String, COSBase)} with {@code attrName}, {@code defaultValue}.
+   * <ul>
+   *   <li>When {@code Attr Name}.</li>
+   *   <li>Then return {@link COSBoolean#FALSE}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDDefaultAttributeObject#getAttributeValue(String, COSBase)}
+   */
+  @Test
+  @DisplayName("Test getAttributeValue(String, COSBase) with 'attrName', 'defaultValue'; when 'Attr Name'; then return FALSE")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSBase PDDefaultAttributeObject.getAttributeValue(String, COSBase)"})
   void testGetAttributeValueWithAttrNameDefaultValue_whenAttrName_thenReturnFalse() {
     // Arrange and Act
-    COSBase actualAttributeValue =
-        new PDDefaultAttributeObject().getAttributeValue("Attr Name", COSBoolean.FALSE);
+    COSBase actualAttributeValue = (new PDDefaultAttributeObject()).getAttributeValue("Attr Name", COSBoolean.FALSE);
 
     // Assert
     assertSame(((COSBoolean) actualAttributeValue).FALSE, actualAttributeValue);
@@ -163,34 +163,30 @@ class PDDefaultAttributeObjectDiffblueTest {
 
   /**
    * Test {@link PDDefaultAttributeObject#getAttributeValue(String)} with {@code attrName}.
-   *
    * <ul>
-   *   <li>Given {@link PDDefaultAttributeObject#PDDefaultAttributeObject()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDDefaultAttributeObject#PDDefaultAttributeObject()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDefaultAttributeObject#getAttributeValue(String)}
+   * <p>
+   * Method under test: {@link PDDefaultAttributeObject#getAttributeValue(String)}
    */
   @Test
-  @DisplayName(
-      "Test getAttributeValue(String) with 'attrName'; given PDDefaultAttributeObject(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getAttributeValue(String) with 'attrName'; given PDDefaultAttributeObject(); then return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSBase PDDefaultAttributeObject.getAttributeValue(String)"})
   void testGetAttributeValueWithAttrName_givenPDDefaultAttributeObject_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDDefaultAttributeObject().getAttributeValue("Attr Name"));
+    assertNull((new PDDefaultAttributeObject()).getAttributeValue("Attr Name"));
   }
 
   /**
    * Test {@link PDDefaultAttributeObject#setAttribute(String, COSBase)}.
-   *
-   * <p>Method under test: {@link PDDefaultAttributeObject#setAttribute(String, COSBase)}
+   * <p>
+   * Method under test: {@link PDDefaultAttributeObject#setAttribute(String, COSBase)}
    */
   @Test
   @DisplayName("Test setAttribute(String, COSBase)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDDefaultAttributeObject.setAttribute(String, COSBase)"})
   void testSetAttribute() {
     // Arrange
@@ -211,13 +207,12 @@ class PDDefaultAttributeObjectDiffblueTest {
 
   /**
    * Test {@link PDDefaultAttributeObject#setAttribute(String, COSBase)}.
-   *
-   * <p>Method under test: {@link PDDefaultAttributeObject#setAttribute(String, COSBase)}
+   * <p>
+   * Method under test: {@link PDDefaultAttributeObject#setAttribute(String, COSBase)}
    */
   @Test
   @DisplayName("Test setAttribute(String, COSBase)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDDefaultAttributeObject.setAttribute(String, COSBase)"})
   void testSetAttribute2() {
     // Arrange
@@ -241,13 +236,12 @@ class PDDefaultAttributeObjectDiffblueTest {
 
   /**
    * Test {@link PDDefaultAttributeObject#setAttribute(String, COSBase)}.
-   *
-   * <p>Method under test: {@link PDDefaultAttributeObject#setAttribute(String, COSBase)}
+   * <p>
+   * Method under test: {@link PDDefaultAttributeObject#setAttribute(String, COSBase)}
    */
   @Test
   @DisplayName("Test setAttribute(String, COSBase)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDDefaultAttributeObject.setAttribute(String, COSBase)"})
   void testSetAttribute3() {
     // Arrange
@@ -271,28 +265,23 @@ class PDDefaultAttributeObjectDiffblueTest {
 
   /**
    * Test {@link PDDefaultAttributeObject#setAttribute(String, COSBase)}.
-   *
    * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   *   <li>Given {@link PDDefaultAttributeObject#PDDefaultAttributeObject()}.</li>
+   *   <li>When {@link COSArray#COSArray()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDefaultAttributeObject#setAttribute(String, COSBase)}
+   * <p>
+   * Method under test: {@link PDDefaultAttributeObject#setAttribute(String, COSBase)}
    */
   @Test
-  @DisplayName(
-      "Test setAttribute(String, COSBase); given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setAttribute(String, COSBase); given PDDefaultAttributeObject(); when COSArray()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDDefaultAttributeObject.setAttribute(String, COSBase)"})
-  void testSetAttribute_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
+  void testSetAttribute_givenPDDefaultAttributeObject_whenCOSArray() {
     // Arrange
     PDDefaultAttributeObject pdDefaultAttributeObject = new PDDefaultAttributeObject();
 
-    COSDictionary attrValue = new COSDictionary();
-    attrValue.setKey(new COSObjectKey(1L, 1));
-
     // Act
-    pdDefaultAttributeObject.setAttribute("Attr Name", attrValue);
+    pdDefaultAttributeObject.setAttribute("Attr Name", new COSArray());
 
     // Assert
     List<String> attributeNames = pdDefaultAttributeObject.getAttributeNames();
@@ -305,19 +294,16 @@ class PDDefaultAttributeObjectDiffblueTest {
 
   /**
    * Test {@link PDDefaultAttributeObject#setAttribute(String, COSBase)}.
-   *
    * <ul>
-   *   <li>Given {@link PDDefaultAttributeObject#PDDefaultAttributeObject()}.
-   *   <li>When {@link COSDictionary#COSDictionary()}.
+   *   <li>Given {@link PDDefaultAttributeObject#PDDefaultAttributeObject()}.</li>
+   *   <li>When {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDefaultAttributeObject#setAttribute(String, COSBase)}
+   * <p>
+   * Method under test: {@link PDDefaultAttributeObject#setAttribute(String, COSBase)}
    */
   @Test
-  @DisplayName(
-      "Test setAttribute(String, COSBase); given PDDefaultAttributeObject(); when COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setAttribute(String, COSBase); given PDDefaultAttributeObject(); when COSDictionary()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDDefaultAttributeObject.setAttribute(String, COSBase)"})
   void testSetAttribute_givenPDDefaultAttributeObject_whenCOSDictionary() {
     // Arrange
@@ -337,18 +323,16 @@ class PDDefaultAttributeObjectDiffblueTest {
 
   /**
    * Test {@link PDDefaultAttributeObject#setAttribute(String, COSBase)}.
-   *
    * <ul>
-   *   <li>Given {@link PDDefaultAttributeObject#PDDefaultAttributeObject()}.
-   *   <li>When {@link COSBoolean#FALSE}.
+   *   <li>Given {@link PDDefaultAttributeObject#PDDefaultAttributeObject()}.</li>
+   *   <li>When {@link COSBoolean#FALSE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDefaultAttributeObject#setAttribute(String, COSBase)}
+   * <p>
+   * Method under test: {@link PDDefaultAttributeObject#setAttribute(String, COSBase)}
    */
   @Test
   @DisplayName("Test setAttribute(String, COSBase); given PDDefaultAttributeObject(); when FALSE")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDDefaultAttributeObject.setAttribute(String, COSBase)"})
   void testSetAttribute_givenPDDefaultAttributeObject_whenFalse() {
     // Arrange
@@ -368,26 +352,22 @@ class PDDefaultAttributeObjectDiffblueTest {
 
   /**
    * Test {@link PDDefaultAttributeObject#setAttribute(String, COSBase)}.
-   *
    * <ul>
-   *   <li>When {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   *   <li>When {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDefaultAttributeObject#setAttribute(String, COSBase)}
+   * <p>
+   * Method under test: {@link PDDefaultAttributeObject#setAttribute(String, COSBase)}
    */
   @Test
-  @DisplayName(
-      "Test setAttribute(String, COSBase); when COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setAttribute(String, COSBase); when COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDDefaultAttributeObject.setAttribute(String, COSBase)"})
   void testSetAttribute_whenCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
     PDDefaultAttributeObject pdDefaultAttributeObject = new PDDefaultAttributeObject();
-    COSObject attrValue = new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1));
 
     // Act
-    pdDefaultAttributeObject.setAttribute("Attr Name", attrValue);
+    pdDefaultAttributeObject.setAttribute("Attr Name", new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1)));
 
     // Assert
     List<String> attributeNames = pdDefaultAttributeObject.getAttributeNames();
@@ -400,19 +380,16 @@ class PDDefaultAttributeObjectDiffblueTest {
 
   /**
    * Test {@link PDDefaultAttributeObject#setAttribute(String, COSBase)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDDefaultAttributeObject#PDDefaultAttributeObject()} COSObject size is zero.
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link PDDefaultAttributeObject#PDDefaultAttributeObject()} COSObject size is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDefaultAttributeObject#setAttribute(String, COSBase)}
+   * <p>
+   * Method under test: {@link PDDefaultAttributeObject#setAttribute(String, COSBase)}
    */
   @Test
-  @DisplayName(
-      "Test setAttribute(String, COSBase); when 'null'; then PDDefaultAttributeObject() COSObject size is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setAttribute(String, COSBase); when 'null'; then PDDefaultAttributeObject() COSObject size is zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDDefaultAttributeObject.setAttribute(String, COSBase)"})
   void testSetAttribute_whenNull_thenPDDefaultAttributeObjectCOSObjectSizeIsZero() {
     // Arrange
@@ -430,43 +407,36 @@ class PDDefaultAttributeObjectDiffblueTest {
 
   /**
    * Test {@link PDDefaultAttributeObject#toString()}.
-   *
    * <ul>
-   *   <li>Given {@link PDDefaultAttributeObject#PDDefaultAttributeObject()}.
-   *   <li>Then return {@code O=null, attributes={}}.
+   *   <li>Given {@link PDDefaultAttributeObject#PDDefaultAttributeObject()}.</li>
+   *   <li>Then return {@code O=null, attributes={}}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDefaultAttributeObject#toString()}
+   * <p>
+   * Method under test: {@link PDDefaultAttributeObject#toString()}
    */
   @Test
-  @DisplayName(
-      "Test toString(); given PDDefaultAttributeObject(); then return 'O=null, attributes={}'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test toString(); given PDDefaultAttributeObject(); then return 'O=null, attributes={}'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDDefaultAttributeObject.toString()"})
   void testToString_givenPDDefaultAttributeObject_thenReturnONullAttributes() {
     // Arrange, Act and Assert
-    assertEquals("O=null, attributes={}", new PDDefaultAttributeObject().toString());
+    assertEquals("O=null, attributes={}", (new PDDefaultAttributeObject()).toString());
   }
 
   /**
    * Test {@link PDDefaultAttributeObject#toString()}.
-   *
    * <ul>
-   *   <li>Then return {@code O=null, attributes={Length=COSInt{0}}}.
+   *   <li>Then return {@code O=null, attributes={Length=COSInt{0}}}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDefaultAttributeObject#toString()}
+   * <p>
+   * Method under test: {@link PDDefaultAttributeObject#toString()}
    */
   @Test
   @DisplayName("Test toString(); then return 'O=null, attributes={Length=COSInt{0}}'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDDefaultAttributeObject.toString()"})
   void testToString_thenReturnONullAttributesLengthCOSInt0() {
     // Arrange, Act and Assert
-    assertEquals(
-        "O=null, attributes={Length=COSInt{0}}",
-        new PDDefaultAttributeObject(new COSStream()).toString());
+    assertEquals("O=null, attributes={Length=COSInt{0}}", (new PDDefaultAttributeObject(new COSStream())).toString());
   }
 }

@@ -1,7 +1,6 @@
 package org.apache.pdfbox.pdmodel.interactive.action;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.junit.jupiter.api.DisplayName;
@@ -11,20 +10,17 @@ import org.junit.jupiter.api.Test;
 class PDActionFactoryDiffblueTest {
   /**
    * Test {@link PDActionFactory#createAction(COSDictionary)}.
-   *
    * <ul>
-   *   <li>When {@link COSDictionary#COSDictionary()}.
+   *   <li>When {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionFactory#createAction(COSDictionary)}
+   * <p>
+   * Method under test: {@link PDActionFactory#createAction(COSDictionary)}
    */
   @Test
   @DisplayName("Test createAction(COSDictionary); when COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "org.apache.pdfbox.pdmodel.interactive.action.PDAction PDActionFactory.createAction(COSDictionary)"
-  })
+      "org.apache.pdfbox.pdmodel.interactive.action.PDAction PDActionFactory.createAction(COSDictionary)"})
   void testCreateAction_whenCOSDictionary() {
     // Arrange, Act and Assert
     assertNull(PDActionFactory.createAction(new COSDictionary()));
@@ -32,20 +28,17 @@ class PDActionFactoryDiffblueTest {
 
   /**
    * Test {@link PDActionFactory#createAction(COSDictionary)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionFactory#createAction(COSDictionary)}
+   * <p>
+   * Method under test: {@link PDActionFactory#createAction(COSDictionary)}
    */
   @Test
   @DisplayName("Test createAction(COSDictionary); when 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "org.apache.pdfbox.pdmodel.interactive.action.PDAction PDActionFactory.createAction(COSDictionary)"
-  })
+      "org.apache.pdfbox.pdmodel.interactive.action.PDAction PDActionFactory.createAction(COSDictionary)"})
   void testCreateAction_whenNull() {
     // Arrange, Act and Assert
     assertNull(PDActionFactory.createAction(null));

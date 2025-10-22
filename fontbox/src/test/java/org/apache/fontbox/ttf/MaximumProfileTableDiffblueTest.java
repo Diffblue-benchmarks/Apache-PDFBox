@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -15,9 +14,8 @@ import org.junit.jupiter.api.Test;
 class MaximumProfileTableDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link MaximumProfileTable}
    *   <li>{@link MaximumProfileTable#setMaxComponentDepth(int)}
@@ -54,41 +52,23 @@ class MaximumProfileTableDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void MaximumProfileTable.<init>()",
-    "int MaximumProfileTable.getMaxComponentDepth()",
-    "int MaximumProfileTable.getMaxComponentElements()",
-    "int MaximumProfileTable.getMaxCompositeContours()",
-    "int MaximumProfileTable.getMaxCompositePoints()",
-    "int MaximumProfileTable.getMaxContours()",
-    "int MaximumProfileTable.getMaxFunctionDefs()",
-    "int MaximumProfileTable.getMaxInstructionDefs()",
-    "int MaximumProfileTable.getMaxPoints()",
-    "int MaximumProfileTable.getMaxSizeOfInstructions()",
-    "int MaximumProfileTable.getMaxStackElements()",
-    "int MaximumProfileTable.getMaxStorage()",
-    "int MaximumProfileTable.getMaxTwilightPoints()",
-    "int MaximumProfileTable.getMaxZones()",
-    "int MaximumProfileTable.getNumGlyphs()",
-    "float MaximumProfileTable.getVersion()",
-    "void MaximumProfileTable.setMaxComponentDepth(int)",
-    "void MaximumProfileTable.setMaxComponentElements(int)",
-    "void MaximumProfileTable.setMaxCompositeContours(int)",
-    "void MaximumProfileTable.setMaxCompositePoints(int)",
-    "void MaximumProfileTable.setMaxContours(int)",
-    "void MaximumProfileTable.setMaxFunctionDefs(int)",
-    "void MaximumProfileTable.setMaxInstructionDefs(int)",
-    "void MaximumProfileTable.setMaxPoints(int)",
-    "void MaximumProfileTable.setMaxSizeOfInstructions(int)",
-    "void MaximumProfileTable.setMaxStackElements(int)",
-    "void MaximumProfileTable.setMaxStorage(int)",
-    "void MaximumProfileTable.setMaxTwilightPoints(int)",
-    "void MaximumProfileTable.setMaxZones(int)",
-    "void MaximumProfileTable.setNumGlyphs(int)",
-    "void MaximumProfileTable.setVersion(float)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void MaximumProfileTable.<init>()", "int MaximumProfileTable.getMaxComponentDepth()",
+      "int MaximumProfileTable.getMaxComponentElements()", "int MaximumProfileTable.getMaxCompositeContours()",
+      "int MaximumProfileTable.getMaxCompositePoints()", "int MaximumProfileTable.getMaxContours()",
+      "int MaximumProfileTable.getMaxFunctionDefs()", "int MaximumProfileTable.getMaxInstructionDefs()",
+      "int MaximumProfileTable.getMaxPoints()", "int MaximumProfileTable.getMaxSizeOfInstructions()",
+      "int MaximumProfileTable.getMaxStackElements()", "int MaximumProfileTable.getMaxStorage()",
+      "int MaximumProfileTable.getMaxTwilightPoints()", "int MaximumProfileTable.getMaxZones()",
+      "int MaximumProfileTable.getNumGlyphs()", "float MaximumProfileTable.getVersion()",
+      "void MaximumProfileTable.setMaxComponentDepth(int)", "void MaximumProfileTable.setMaxComponentElements(int)",
+      "void MaximumProfileTable.setMaxCompositeContours(int)", "void MaximumProfileTable.setMaxCompositePoints(int)",
+      "void MaximumProfileTable.setMaxContours(int)", "void MaximumProfileTable.setMaxFunctionDefs(int)",
+      "void MaximumProfileTable.setMaxInstructionDefs(int)", "void MaximumProfileTable.setMaxPoints(int)",
+      "void MaximumProfileTable.setMaxSizeOfInstructions(int)", "void MaximumProfileTable.setMaxStackElements(int)",
+      "void MaximumProfileTable.setMaxStorage(int)", "void MaximumProfileTable.setMaxTwilightPoints(int)",
+      "void MaximumProfileTable.setMaxZones(int)", "void MaximumProfileTable.setNumGlyphs(int)",
+      "void MaximumProfileTable.setVersion(float)"})
   void testGettersAndSetters() {
     // Arrange and Act
     MaximumProfileTable actualMaximumProfileTable = new MaximumProfileTable();
@@ -148,33 +128,26 @@ class MaximumProfileTableDiffblueTest {
 
   /**
    * Test {@link MaximumProfileTable#read(TrueTypeFont, TTFDataStream)}.
-   *
    * <ul>
-   *   <li>Given {@link MaximumProfileTable#MaximumProfileTable()}.
-   *   <li>When {@code A}.
-   *   <li>Then {@link MaximumProfileTable#MaximumProfileTable()} Version is {@code -167.74475}.
+   *   <li>When {@code A}.</li>
+   *   <li>Then {@link MaximumProfileTable#MaximumProfileTable()} Version is {@code -167.74475}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MaximumProfileTable#read(TrueTypeFont, TTFDataStream)}
+   * <p>
+   * Method under test: {@link MaximumProfileTable#read(TrueTypeFont, TTFDataStream)}
    */
   @Test
-  @DisplayName(
-      "Test read(TrueTypeFont, TTFDataStream); given MaximumProfileTable(); when 'A'; then MaximumProfileTable() Version is '-167.74475'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test read(TrueTypeFont, TTFDataStream); when 'A'; then MaximumProfileTable() Version is '-167.74475'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void MaximumProfileTable.read(TrueTypeFont, TTFDataStream)"})
-  void testRead_givenMaximumProfileTable_whenA_thenMaximumProfileTableVersionIs16774475()
-      throws IOException {
+  void testRead_whenA_thenMaximumProfileTableVersionIs16774475() throws IOException {
     // Arrange
     MaximumProfileTable maximumProfileTable = new MaximumProfileTable();
-    RandomAccessReadDataStream fontData =
-        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
-    TrueTypeFont ttf = new TrueTypeFont(fontData);
-    ByteArrayInputStream inputStream =
-        new ByteArrayInputStream(new byte[] {-1, 'X', 'A', 'X', 'A', 'X', 'A', 'X'});
+    TrueTypeFont ttf = new TrueTypeFont(
+        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
 
     // Act
-    maximumProfileTable.read(ttf, new RandomAccessReadDataStream(inputStream));
+    maximumProfileTable.read(ttf,
+        new RandomAccessReadDataStream(new ByteArrayInputStream(new byte[]{-1, 'X', 'A', 'X', 'A', 'X', 'A', 'X'})));
 
     // Assert
     assertEquals(-167.74475f, maximumProfileTable.getVersion());

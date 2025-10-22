@@ -1,7 +1,6 @@
 package org.apache.pdfbox.pdmodel.interactive.form;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -12,34 +11,24 @@ import org.junit.jupiter.api.Test;
 class PDFieldFactoryDiffblueTest {
   /**
    * Test {@link PDFieldFactory#createField(PDAcroForm, COSDictionary, PDNonTerminalField)}.
-   *
    * <ul>
-   *   <li>When {@link COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
+   *   <li>When {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFieldFactory#createField(PDAcroForm, COSDictionary,
-   * PDNonTerminalField)}
+   * <p>
+   * Method under test: {@link PDFieldFactory#createField(PDAcroForm, COSDictionary, PDNonTerminalField)}
    */
   @Test
-  @DisplayName(
-      "Test createField(PDAcroForm, COSDictionary, PDNonTerminalField); when COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test createField(PDAcroForm, COSDictionary, PDNonTerminalField); when COSDictionary(); then return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "PDField PDFieldFactory.createField(PDAcroForm, COSDictionary, PDNonTerminalField)"
-  })
+      "org.apache.pdfbox.pdmodel.interactive.form.PDField PDFieldFactory.createField(PDAcroForm, COSDictionary, PDNonTerminalField)"})
   void testCreateField_whenCOSDictionary_thenReturnNull() {
     // Arrange
     PDAcroForm form = new PDAcroForm(new PDDocument());
     COSDictionary field = new COSDictionary();
 
-    // Act
-    PDField actualCreateFieldResult =
-        PDFieldFactory.createField(
-            form, field, new PDNonTerminalField(new PDAcroForm(new PDDocument())));
-
-    // Assert
-    assertNull(actualCreateFieldResult);
+    // Act and Assert
+    assertNull(PDFieldFactory.createField(form, field, new PDNonTerminalField(new PDAcroForm(new PDDocument()))));
   }
 }

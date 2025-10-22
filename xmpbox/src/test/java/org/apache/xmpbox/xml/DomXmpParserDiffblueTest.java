@@ -3,7 +3,6 @@ package org.apache.xmpbox.xml;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -18,41 +17,37 @@ import org.w3c.dom.Element;
 class DomXmpParserDiffblueTest {
   /**
    * Test NamespaceFinder {@link NamespaceFinder#containsNamespace(String)}.
-   *
-   * <p>Method under test: {@link NamespaceFinder#containsNamespace(String)}
+   * <p>
+   * Method under test: {@link NamespaceFinder#containsNamespace(String)}
    */
   @Test
   @DisplayName("Test NamespaceFinder containsNamespace(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean NamespaceFinder.containsNamespace(String)"})
   void testNamespaceFinderContainsNamespace() {
     // Arrange, Act and Assert
-    assertFalse(new NamespaceFinder().containsNamespace("Namespace"));
+    assertFalse((new NamespaceFinder()).containsNamespace("Namespace"));
   }
 
   /**
    * Test NamespaceFinder {@link NamespaceFinder#push(Element)}.
-   *
    * <ul>
-   *   <li>When {@link IIOMetadataNode#IIOMetadataNode()}.
-   *   <li>Then {@link NamespaceFinder} (default constructor) pop Empty.
+   *   <li>When {@link IIOMetadataNode#IIOMetadataNode(String)} with {@code foo}.</li>
+   *   <li>Then {@link NamespaceFinder} (default constructor) pop Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link NamespaceFinder#push(Element)}
+   * <p>
+   * Method under test: {@link NamespaceFinder#push(Element)}
    */
   @Test
-  @DisplayName(
-      "Test NamespaceFinder push(Element); when IIOMetadataNode(); then NamespaceFinder (default constructor) pop Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test NamespaceFinder push(Element); when IIOMetadataNode(String) with 'foo'; then NamespaceFinder (default constructor) pop Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void NamespaceFinder.push(Element)"})
-  void testNamespaceFinderPush_whenIIOMetadataNode_thenNamespaceFinderPopEmpty() {
+  void testNamespaceFinderPush_whenIIOMetadataNodeWithFoo_thenNamespaceFinderPopEmpty() {
     // Arrange
     NamespaceFinder namespaceFinder = new NamespaceFinder();
 
     // Act
-    namespaceFinder.push(new IIOMetadataNode());
+    namespaceFinder.push(new IIOMetadataNode("foo"));
 
     // Assert
     assertTrue(namespaceFinder.pop().isEmpty());
@@ -60,24 +55,22 @@ class DomXmpParserDiffblueTest {
 
   /**
    * Test {@link DomXmpParser#DomXmpParser()}.
-   *
-   * <p>Method under test: default or parameterless constructor of {@link DomXmpParser}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link DomXmpParser}
    */
   @Test
   @DisplayName("Test new DomXmpParser()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void DomXmpParser.<init>()"})
   void testNewDomXmpParser() throws XmpParsingException {
     // Arrange, Act and Assert
-    assertTrue(new DomXmpParser().isStrictParsing());
+    assertTrue((new DomXmpParser()).isStrictParsing());
   }
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link DomXmpParser#setStrictParsing(boolean)}
    *   <li>{@link DomXmpParser#isStrictParsing()}
@@ -85,12 +78,8 @@ class DomXmpParserDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean DomXmpParser.isStrictParsing()",
-    "void DomXmpParser.setStrictParsing(boolean)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean DomXmpParser.isStrictParsing()", "void DomXmpParser.setStrictParsing(boolean)"})
   void testGettersAndSetters() throws XmpParsingException {
     // Arrange
     DomXmpParser domXmpParser = new DomXmpParser();
@@ -104,42 +93,39 @@ class DomXmpParserDiffblueTest {
 
   /**
    * Test {@link DomXmpParser#parse(InputStream)} with {@code input}.
-   *
    * <ul>
-   *   <li>Then throw {@link XmpParsingException}.
+   *   <li>Then throw {@link XmpParsingException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DomXmpParser#parse(InputStream)}
+   * <p>
+   * Method under test: {@link DomXmpParser#parse(InputStream)}
    */
   @Test
   @DisplayName("Test parse(InputStream) with 'input'; then throw XmpParsingException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"org.apache.xmpbox.XMPMetadata DomXmpParser.parse(InputStream)"})
-  void testParseWithInput_thenThrowXmpParsingException()
-      throws UnsupportedEncodingException, XmpParsingException {
+  void testParseWithInput_thenThrowXmpParsingException() throws UnsupportedEncodingException, XmpParsingException {
     // Arrange
     DomXmpParser domXmpParser = new DomXmpParser();
 
     // Act and Assert
-    assertThrows(
-        XmpParsingException.class,
+    assertThrows(XmpParsingException.class,
         () -> domXmpParser.parse(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
   }
 
   /**
    * Test {@link DomXmpParser#parse(byte[])} with {@code xmp}.
-   *
-   * <p>Method under test: {@link DomXmpParser#parse(byte[])}
+   * <p>
+   * Method under test: {@link DomXmpParser#parse(byte[])}
    */
   @Test
   @DisplayName("Test parse(byte[]) with 'xmp'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"org.apache.xmpbox.XMPMetadata DomXmpParser.parse(byte[])"})
   void testParseWithXmp() throws UnsupportedEncodingException, XmpParsingException {
-    // Arrange, Act and Assert
-    assertThrows(
-        XmpParsingException.class, () -> new DomXmpParser().parse("AXAXAXAX".getBytes("UTF-8")));
+    // Arrange
+    DomXmpParser domXmpParser = new DomXmpParser();
+
+    // Act and Assert
+    assertThrows(XmpParsingException.class, () -> domXmpParser.parse("AXAXAXAX".getBytes("UTF-8")));
   }
 }

@@ -5,14 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Collection;
 import java.util.List;
@@ -30,54 +28,33 @@ import org.mockito.Mockito;
 class PDOptionalContentPropertiesDiffblueTest {
   /**
    * Test BaseState {@link BaseState#getName()}.
-   *
-   * <p>Method under test: {@link BaseState#getName()}
+   * <p>
+   * Method under test: {@link BaseState#getName()}
    */
   @Test
   @DisplayName("Test BaseState getName()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSName BaseState.getName()"})
   void testBaseStateGetName() {
-    // Arrange, Act and Assert
-    assertSame(COSName.ON, BaseState.valueOf("ON").getName());
+    // Arrange and Act
+    COSName actualName = BaseState.valueOf("ON").getName();
+
+    // Assert
+    assertSame(actualName.ON, actualName);
   }
 
   /**
    * Test BaseState {@link BaseState#valueOf(COSName)} with {@code state}.
-   *
    * <ul>
-   *   <li>When {@link COSName#A}.
-   *   <li>Then throw {@link IllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@code ON}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BaseState#valueOf(COSName)}
-   */
-  @Test
-  @DisplayName(
-      "Test BaseState valueOf(COSName) with 'state'; when A; then throw IllegalArgumentException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"BaseState BaseState.valueOf(COSName)"})
-  void testBaseStateValueOfWithState_whenA_thenThrowIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> BaseState.valueOf(COSName.A));
-  }
-
-  /**
-   * Test BaseState {@link BaseState#valueOf(COSName)} with {@code state}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return {@code ON}.
-   * </ul>
-   *
-   * <p>Method under test: {@link BaseState#valueOf(COSName)}
+   * <p>
+   * Method under test: {@link BaseState#valueOf(COSName)}
    */
   @Test
   @DisplayName("Test BaseState valueOf(COSName) with 'state'; when 'null'; then return 'ON'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"BaseState BaseState.valueOf(COSName)"})
   void testBaseStateValueOfWithState_whenNull_thenReturnOn() {
     // Arrange, Act and Assert
@@ -86,41 +63,37 @@ class PDOptionalContentPropertiesDiffblueTest {
 
   /**
    * Test {@link PDOptionalContentProperties#PDOptionalContentProperties(COSDictionary)}.
-   *
-   * <p>Method under test: {@link
-   * PDOptionalContentProperties#PDOptionalContentProperties(COSDictionary)}
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#PDOptionalContentProperties(COSDictionary)}
    */
   @Test
   @DisplayName("Test new PDOptionalContentProperties(COSDictionary)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDOptionalContentProperties.<init>(COSDictionary)"})
   void testNewPDOptionalContentProperties() {
     // Arrange
     COSDictionary props = new COSDictionary();
 
     // Act and Assert
-    assertSame(props, new PDOptionalContentProperties(props).getCOSObject());
+    assertSame(props, (new PDOptionalContentProperties(props)).getCOSObject());
   }
 
   /**
    * Test {@link PDOptionalContentProperties#PDOptionalContentProperties()}.
-   *
-   * <p>Method under test: {@link PDOptionalContentProperties#PDOptionalContentProperties()}
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#PDOptionalContentProperties()}
    */
   @Test
   @DisplayName("Test new PDOptionalContentProperties()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDOptionalContentProperties.<init>()"})
   void testNewPDOptionalContentProperties2() {
     // Arrange and Act
-    PDOptionalContentProperties actualPdOptionalContentProperties =
-        new PDOptionalContentProperties();
+    PDOptionalContentProperties actualPdOptionalContentProperties = new PDOptionalContentProperties();
 
     // Assert
-    Collection<PDOptionalContentGroup> optionalContentGroups =
-        actualPdOptionalContentProperties.getOptionalContentGroups();
+    Collection<PDOptionalContentGroup> optionalContentGroups = actualPdOptionalContentProperties
+        .getOptionalContentGroups();
     assertTrue(optionalContentGroups instanceof List);
     COSDictionary cOSObject = actualPdOptionalContentProperties.getCOSObject();
     COSUpdateState updateState = cOSObject.getUpdateState();
@@ -141,17 +114,16 @@ class PDOptionalContentPropertiesDiffblueTest {
 
   /**
    * Test {@link PDOptionalContentProperties#getCOSObject()}.
-   *
-   * <p>Method under test: {@link PDOptionalContentProperties#getCOSObject()}
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#getCOSObject()}
    */
   @Test
   @DisplayName("Test getCOSObject()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSDictionary PDOptionalContentProperties.getCOSObject()"})
   void testGetCOSObject() {
     // Arrange and Act
-    COSDictionary actualCOSObject = new PDOptionalContentProperties().getCOSObject();
+    COSDictionary actualCOSObject = (new PDOptionalContentProperties()).getCOSObject();
 
     // Assert
     COSUpdateState updateState = actualCOSObject.getUpdateState();
@@ -169,13 +141,12 @@ class PDOptionalContentPropertiesDiffblueTest {
 
   /**
    * Test {@link PDOptionalContentProperties#getGroup(String)}.
-   *
-   * <p>Method under test: {@link PDOptionalContentProperties#getGroup(String)}
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#getGroup(String)}
    */
   @Test
   @DisplayName("Test getGroup(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDOptionalContentGroup PDOptionalContentProperties.getGroup(String)"})
   void testGetGroup() {
     // Arrange
@@ -188,13 +159,12 @@ class PDOptionalContentPropertiesDiffblueTest {
 
   /**
    * Test {@link PDOptionalContentProperties#getGroup(String)}.
-   *
-   * <p>Method under test: {@link PDOptionalContentProperties#getGroup(String)}
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#getGroup(String)}
    */
   @Test
   @DisplayName("Test getGroup(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDOptionalContentGroup PDOptionalContentProperties.getGroup(String)"})
   void testGetGroup2() {
     // Arrange
@@ -207,58 +177,50 @@ class PDOptionalContentPropertiesDiffblueTest {
 
   /**
    * Test {@link PDOptionalContentProperties#getGroup(String)}.
-   *
    * <ul>
-   *   <li>Given {@link PDOptionalContentProperties#PDOptionalContentProperties(COSDictionary)} with
-   *       props is {@link COSDictionary#COSDictionary()}.
+   *   <li>Given {@link PDOptionalContentProperties#PDOptionalContentProperties(COSDictionary)} with props is {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDOptionalContentProperties#getGroup(String)}
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#getGroup(String)}
    */
   @Test
-  @DisplayName(
-      "Test getGroup(String); given PDOptionalContentProperties(COSDictionary) with props is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getGroup(String); given PDOptionalContentProperties(COSDictionary) with props is COSDictionary()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDOptionalContentGroup PDOptionalContentProperties.getGroup(String)"})
   void testGetGroup_givenPDOptionalContentPropertiesWithPropsIsCOSDictionary() {
     // Arrange, Act and Assert
-    assertNull(new PDOptionalContentProperties(new COSDictionary()).getGroup("Name"));
+    assertNull((new PDOptionalContentProperties(new COSDictionary())).getGroup("Name"));
   }
 
   /**
    * Test {@link PDOptionalContentProperties#getGroup(String)}.
-   *
    * <ul>
-   *   <li>Given {@link PDOptionalContentProperties#PDOptionalContentProperties()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDOptionalContentProperties#PDOptionalContentProperties()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDOptionalContentProperties#getGroup(String)}
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#getGroup(String)}
    */
   @Test
   @DisplayName("Test getGroup(String); given PDOptionalContentProperties(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDOptionalContentGroup PDOptionalContentProperties.getGroup(String)"})
   void testGetGroup_givenPDOptionalContentProperties_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDOptionalContentProperties().getGroup("Name"));
+    assertNull((new PDOptionalContentProperties()).getGroup("Name"));
   }
 
   /**
    * Test {@link PDOptionalContentProperties#getGroup(String)}.
-   *
    * <ul>
-   *   <li>Then return {@code Name}.
+   *   <li>Then return {@code Name}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDOptionalContentProperties#getGroup(String)}
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#getGroup(String)}
    */
   @Test
   @DisplayName("Test getGroup(String); then return 'Name'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDOptionalContentGroup PDOptionalContentProperties.getGroup(String)"})
   void testGetGroup_thenReturnName() {
     // Arrange
@@ -286,46 +248,39 @@ class PDOptionalContentPropertiesDiffblueTest {
 
   /**
    * Test {@link PDOptionalContentProperties#addGroup(PDOptionalContentGroup)}.
-   *
-   * <p>Method under test: {@link PDOptionalContentProperties#addGroup(PDOptionalContentGroup)}
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#addGroup(PDOptionalContentGroup)}
    */
   @Test
   @DisplayName("Test addGroup(PDOptionalContentGroup)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDOptionalContentProperties.addGroup(PDOptionalContentGroup)"})
   void testAddGroup() {
     // Arrange
-    PDOptionalContentProperties pdOptionalContentProperties =
-        new PDOptionalContentProperties(new COSDictionary());
+    PDOptionalContentProperties pdOptionalContentProperties = new PDOptionalContentProperties(new COSDictionary());
 
     // Act
     pdOptionalContentProperties.addGroup(new PDOptionalContentGroup("Name"));
 
     // Assert
-    Collection<PDOptionalContentGroup> optionalContentGroups =
-        pdOptionalContentProperties.getOptionalContentGroups();
+    Collection<PDOptionalContentGroup> optionalContentGroups = pdOptionalContentProperties.getOptionalContentGroups();
     assertEquals(1, optionalContentGroups.size());
     assertTrue(optionalContentGroups instanceof List);
     assertEquals("Name", ((List<PDOptionalContentGroup>) optionalContentGroups).get(0).getName());
-    assertArrayEquals(new String[] {"Name"}, pdOptionalContentProperties.getGroupNames());
+    assertArrayEquals(new String[]{"Name"}, pdOptionalContentProperties.getGroupNames());
   }
 
   /**
    * Test {@link PDOptionalContentProperties#addGroup(PDOptionalContentGroup)}.
-   *
    * <ul>
-   *   <li>Then {@link PDOptionalContentProperties#PDOptionalContentProperties()}
-   *       OptionalContentGroups size is one.
+   *   <li>Then {@link PDOptionalContentProperties#PDOptionalContentProperties()} OptionalContentGroups size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDOptionalContentProperties#addGroup(PDOptionalContentGroup)}
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#addGroup(PDOptionalContentGroup)}
    */
   @Test
-  @DisplayName(
-      "Test addGroup(PDOptionalContentGroup); then PDOptionalContentProperties() OptionalContentGroups size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test addGroup(PDOptionalContentGroup); then PDOptionalContentProperties() OptionalContentGroups size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDOptionalContentProperties.addGroup(PDOptionalContentGroup)"})
   void testAddGroup_thenPDOptionalContentPropertiesOptionalContentGroupsSizeIsOne() {
     // Arrange
@@ -335,29 +290,24 @@ class PDOptionalContentPropertiesDiffblueTest {
     pdOptionalContentProperties.addGroup(new PDOptionalContentGroup("Name"));
 
     // Assert
-    Collection<PDOptionalContentGroup> optionalContentGroups =
-        pdOptionalContentProperties.getOptionalContentGroups();
+    Collection<PDOptionalContentGroup> optionalContentGroups = pdOptionalContentProperties.getOptionalContentGroups();
     assertEquals(1, optionalContentGroups.size());
     assertTrue(optionalContentGroups instanceof List);
     assertEquals("Name", ((List<PDOptionalContentGroup>) optionalContentGroups).get(0).getName());
-    assertArrayEquals(new String[] {"Name"}, pdOptionalContentProperties.getGroupNames());
+    assertArrayEquals(new String[]{"Name"}, pdOptionalContentProperties.getGroupNames());
   }
 
   /**
    * Test {@link PDOptionalContentProperties#addGroup(PDOptionalContentGroup)}.
-   *
    * <ul>
-   *   <li>Then {@link PDOptionalContentProperties#PDOptionalContentProperties()}
-   *       OptionalContentGroups size is two.
+   *   <li>Then {@link PDOptionalContentProperties#PDOptionalContentProperties()} OptionalContentGroups size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDOptionalContentProperties#addGroup(PDOptionalContentGroup)}
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#addGroup(PDOptionalContentGroup)}
    */
   @Test
-  @DisplayName(
-      "Test addGroup(PDOptionalContentGroup); then PDOptionalContentProperties() OptionalContentGroups size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test addGroup(PDOptionalContentGroup); then PDOptionalContentProperties() OptionalContentGroups size is two")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDOptionalContentProperties.addGroup(PDOptionalContentGroup)"})
   void testAddGroup_thenPDOptionalContentPropertiesOptionalContentGroupsSizeIsTwo() {
     // Arrange
@@ -368,29 +318,27 @@ class PDOptionalContentPropertiesDiffblueTest {
     pdOptionalContentProperties.addGroup(new PDOptionalContentGroup("Name"));
 
     // Assert
-    Collection<PDOptionalContentGroup> optionalContentGroups =
-        pdOptionalContentProperties.getOptionalContentGroups();
+    Collection<PDOptionalContentGroup> optionalContentGroups = pdOptionalContentProperties.getOptionalContentGroups();
     assertEquals(2, optionalContentGroups.size());
     assertTrue(optionalContentGroups instanceof List);
     assertEquals("Name", ((List<PDOptionalContentGroup>) optionalContentGroups).get(0).getName());
     assertEquals("Name", ((List<PDOptionalContentGroup>) optionalContentGroups).get(1).getName());
-    assertArrayEquals(new String[] {"Name", "Name"}, pdOptionalContentProperties.getGroupNames());
+    assertArrayEquals(new String[]{"Name", "Name"}, pdOptionalContentProperties.getGroupNames());
   }
 
   /**
    * Test {@link PDOptionalContentProperties#getOptionalContentGroups()}.
-   *
-   * <p>Method under test: {@link PDOptionalContentProperties#getOptionalContentGroups()}
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#getOptionalContentGroups()}
    */
   @Test
   @DisplayName("Test getOptionalContentGroups()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Collection PDOptionalContentProperties.getOptionalContentGroups()"})
   void testGetOptionalContentGroups() {
     // Arrange and Act
-    Collection<PDOptionalContentGroup> actualOptionalContentGroups =
-        new PDOptionalContentProperties(new COSDictionary()).getOptionalContentGroups();
+    Collection<PDOptionalContentGroup> actualOptionalContentGroups = (new PDOptionalContentProperties(
+        new COSDictionary())).getOptionalContentGroups();
 
     // Assert
     assertTrue(actualOptionalContentGroups instanceof List);
@@ -399,24 +347,21 @@ class PDOptionalContentPropertiesDiffblueTest {
 
   /**
    * Test {@link PDOptionalContentProperties#getOptionalContentGroups()}.
-   *
    * <ul>
-   *   <li>Given {@link PDOptionalContentProperties#PDOptionalContentProperties()}.
-   *   <li>Then return Empty.
+   *   <li>Given {@link PDOptionalContentProperties#PDOptionalContentProperties()}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDOptionalContentProperties#getOptionalContentGroups()}
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#getOptionalContentGroups()}
    */
   @Test
-  @DisplayName(
-      "Test getOptionalContentGroups(); given PDOptionalContentProperties(); then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getOptionalContentGroups(); given PDOptionalContentProperties(); then return Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Collection PDOptionalContentProperties.getOptionalContentGroups()"})
   void testGetOptionalContentGroups_givenPDOptionalContentProperties_thenReturnEmpty() {
     // Arrange and Act
-    Collection<PDOptionalContentGroup> actualOptionalContentGroups =
-        new PDOptionalContentProperties().getOptionalContentGroups();
+    Collection<PDOptionalContentGroup> actualOptionalContentGroups = (new PDOptionalContentProperties())
+        .getOptionalContentGroups();
 
     // Assert
     assertTrue(actualOptionalContentGroups instanceof List);
@@ -425,17 +370,15 @@ class PDOptionalContentPropertiesDiffblueTest {
 
   /**
    * Test {@link PDOptionalContentProperties#getOptionalContentGroups()}.
-   *
    * <ul>
-   *   <li>Then return size is one.
+   *   <li>Then return size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDOptionalContentProperties#getOptionalContentGroups()}
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#getOptionalContentGroups()}
    */
   @Test
   @DisplayName("Test getOptionalContentGroups(); then return size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Collection PDOptionalContentProperties.getOptionalContentGroups()"})
   void testGetOptionalContentGroups_thenReturnSizeIsOne() {
     // Arrange
@@ -443,14 +386,13 @@ class PDOptionalContentPropertiesDiffblueTest {
     pdOptionalContentProperties.addGroup(new PDOptionalContentGroup("Name"));
 
     // Act
-    Collection<PDOptionalContentGroup> actualOptionalContentGroups =
-        pdOptionalContentProperties.getOptionalContentGroups();
+    Collection<PDOptionalContentGroup> actualOptionalContentGroups = pdOptionalContentProperties
+        .getOptionalContentGroups();
 
     // Assert
     assertTrue(actualOptionalContentGroups instanceof List);
     assertEquals(1, actualOptionalContentGroups.size());
-    PDOptionalContentGroup getResult =
-        ((List<PDOptionalContentGroup>) actualOptionalContentGroups).get(0);
+    PDOptionalContentGroup getResult = ((List<PDOptionalContentGroup>) actualOptionalContentGroups).get(0);
     assertEquals("Name", getResult.getName());
     COSDictionary cOSObject = getResult.getCOSObject();
     COSUpdateState updateState = cOSObject.getUpdateState();
@@ -468,60 +410,50 @@ class PDOptionalContentPropertiesDiffblueTest {
 
   /**
    * Test {@link PDOptionalContentProperties#getBaseState()}.
-   *
    * <ul>
-   *   <li>Given {@link PDOptionalContentProperties#PDOptionalContentProperties(COSDictionary)} with
-   *       props is {@link COSDictionary#COSDictionary()}.
+   *   <li>Given {@link PDOptionalContentProperties#PDOptionalContentProperties(COSDictionary)} with props is {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDOptionalContentProperties#getBaseState()}
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#getBaseState()}
    */
   @Test
-  @DisplayName(
-      "Test getBaseState(); given PDOptionalContentProperties(COSDictionary) with props is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getBaseState(); given PDOptionalContentProperties(COSDictionary) with props is COSDictionary()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"BaseState PDOptionalContentProperties.getBaseState()"})
   void testGetBaseState_givenPDOptionalContentPropertiesWithPropsIsCOSDictionary() {
     // Arrange, Act and Assert
-    assertEquals(BaseState.ON, new PDOptionalContentProperties(new COSDictionary()).getBaseState());
+    assertEquals(BaseState.ON, (new PDOptionalContentProperties(new COSDictionary())).getBaseState());
   }
 
   /**
    * Test {@link PDOptionalContentProperties#getBaseState()}.
-   *
    * <ul>
-   *   <li>Given {@link PDOptionalContentProperties#PDOptionalContentProperties()}.
-   *   <li>Then return {@code ON}.
+   *   <li>Given {@link PDOptionalContentProperties#PDOptionalContentProperties()}.</li>
+   *   <li>Then return {@code ON}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDOptionalContentProperties#getBaseState()}
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#getBaseState()}
    */
   @Test
   @DisplayName("Test getBaseState(); given PDOptionalContentProperties(); then return 'ON'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"BaseState PDOptionalContentProperties.getBaseState()"})
   void testGetBaseState_givenPDOptionalContentProperties_thenReturnOn() {
     // Arrange, Act and Assert
-    assertEquals(BaseState.ON, new PDOptionalContentProperties().getBaseState());
+    assertEquals(BaseState.ON, (new PDOptionalContentProperties()).getBaseState());
   }
 
   /**
    * Test {@link PDOptionalContentProperties#setBaseState(BaseState)}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#getCOSDictionary(COSName)} return {@link
-   *       COSDictionary#COSDictionary()}.
+   *   <li>Given {@link COSDictionary} {@link COSDictionary#getCOSDictionary(COSName)} return {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDOptionalContentProperties#setBaseState(BaseState)}
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#setBaseState(BaseState)}
    */
   @Test
-  @DisplayName(
-      "Test setBaseState(BaseState); given COSDictionary getCOSDictionary(COSName) return COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setBaseState(BaseState); given COSDictionary getCOSDictionary(COSName) return COSDictionary()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDOptionalContentProperties.setBaseState(BaseState)"})
   void testSetBaseState_givenCOSDictionaryGetCOSDictionaryReturnCOSDictionary() {
     // Arrange
@@ -529,7 +461,7 @@ class PDOptionalContentPropertiesDiffblueTest {
     when(props.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
 
     // Act
-    new PDOptionalContentProperties(props).setBaseState(BaseState.ON);
+    (new PDOptionalContentProperties(props)).setBaseState(BaseState.ON);
 
     // Assert
     verify(props).getCOSDictionary(isA(COSName.class));
@@ -537,30 +469,26 @@ class PDOptionalContentPropertiesDiffblueTest {
 
   /**
    * Test {@link PDOptionalContentProperties#setBaseState(BaseState)}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#getCOSDictionary(COSName)} return {@link
-   *       COSDictionary}.
+   *   <li>Given {@link COSDictionary} {@link COSDictionary#getCOSDictionary(COSName)} return {@link COSDictionary}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDOptionalContentProperties#setBaseState(BaseState)}
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#setBaseState(BaseState)}
    */
   @Test
-  @DisplayName(
-      "Test setBaseState(BaseState); given COSDictionary getCOSDictionary(COSName) return COSDictionary")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setBaseState(BaseState); given COSDictionary getCOSDictionary(COSName) return COSDictionary")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDOptionalContentProperties.setBaseState(BaseState)"})
   void testSetBaseState_givenCOSDictionaryGetCOSDictionaryReturnCOSDictionary2() {
     // Arrange
     COSDictionary cosDictionary = mock(COSDictionary.class);
     doNothing().when(cosDictionary).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
-
     COSDictionary props = mock(COSDictionary.class);
     when(props.getCOSDictionary(Mockito.<COSName>any())).thenReturn(cosDictionary);
+    doNothing().when(props).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
 
     // Act
-    new PDOptionalContentProperties(props).setBaseState(BaseState.ON);
+    (new PDOptionalContentProperties(props)).setBaseState(BaseState.ON);
 
     // Assert
     verify(props).getCOSDictionary(isA(COSName.class));
@@ -569,20 +497,16 @@ class PDOptionalContentPropertiesDiffblueTest {
 
   /**
    * Test {@link PDOptionalContentProperties#setBaseState(BaseState)}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#getCOSDictionary(COSName)} return {@code
-   *       null}.
-   *   <li>Then calls {@link COSDictionary#setItem(COSName, COSBase)}.
+   *   <li>Given {@link COSDictionary} {@link COSDictionary#getCOSDictionary(COSName)} return {@code null}.</li>
+   *   <li>Then calls {@link COSDictionary#setItem(COSName, COSBase)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDOptionalContentProperties#setBaseState(BaseState)}
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#setBaseState(BaseState)}
    */
   @Test
-  @DisplayName(
-      "Test setBaseState(BaseState); given COSDictionary getCOSDictionary(COSName) return 'null'; then calls setItem(COSName, COSBase)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setBaseState(BaseState); given COSDictionary getCOSDictionary(COSName) return 'null'; then calls setItem(COSName, COSBase)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDOptionalContentProperties.setBaseState(BaseState)"})
   void testSetBaseState_givenCOSDictionaryGetCOSDictionaryReturnNull_thenCallsSetItem() {
     // Arrange
@@ -591,7 +515,7 @@ class PDOptionalContentPropertiesDiffblueTest {
     doNothing().when(props).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
 
     // Act
-    new PDOptionalContentProperties(props).setBaseState(BaseState.ON);
+    (new PDOptionalContentProperties(props)).setBaseState(BaseState.ON);
 
     // Assert
     verify(props).getCOSDictionary(isA(COSName.class));
@@ -600,59 +524,50 @@ class PDOptionalContentPropertiesDiffblueTest {
 
   /**
    * Test {@link PDOptionalContentProperties#getGroupNames()}.
-   *
    * <ul>
-   *   <li>Given {@link PDOptionalContentProperties#PDOptionalContentProperties(COSDictionary)} with
-   *       props is {@link COSDictionary#COSDictionary()}.
+   *   <li>Given {@link PDOptionalContentProperties#PDOptionalContentProperties(COSDictionary)} with props is {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDOptionalContentProperties#getGroupNames()}
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#getGroupNames()}
    */
   @Test
-  @DisplayName(
-      "Test getGroupNames(); given PDOptionalContentProperties(COSDictionary) with props is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getGroupNames(); given PDOptionalContentProperties(COSDictionary) with props is COSDictionary()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String[] PDOptionalContentProperties.getGroupNames()"})
   void testGetGroupNames_givenPDOptionalContentPropertiesWithPropsIsCOSDictionary() {
     // Arrange, Act and Assert
-    assertEquals(0, new PDOptionalContentProperties(new COSDictionary()).getGroupNames().length);
+    assertEquals(0, (new PDOptionalContentProperties(new COSDictionary())).getGroupNames().length);
   }
 
   /**
    * Test {@link PDOptionalContentProperties#getGroupNames()}.
-   *
    * <ul>
-   *   <li>Given {@link PDOptionalContentProperties#PDOptionalContentProperties()}.
-   *   <li>Then return array length is zero.
+   *   <li>Given {@link PDOptionalContentProperties#PDOptionalContentProperties()}.</li>
+   *   <li>Then return array length is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDOptionalContentProperties#getGroupNames()}
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#getGroupNames()}
    */
   @Test
-  @DisplayName(
-      "Test getGroupNames(); given PDOptionalContentProperties(); then return array length is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getGroupNames(); given PDOptionalContentProperties(); then return array length is zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String[] PDOptionalContentProperties.getGroupNames()"})
   void testGetGroupNames_givenPDOptionalContentProperties_thenReturnArrayLengthIsZero() {
     // Arrange, Act and Assert
-    assertEquals(0, new PDOptionalContentProperties().getGroupNames().length);
+    assertEquals(0, (new PDOptionalContentProperties()).getGroupNames().length);
   }
 
   /**
    * Test {@link PDOptionalContentProperties#getGroupNames()}.
-   *
    * <ul>
-   *   <li>Then return array of {@link String} with empty string.
+   *   <li>Then return array of {@link String} with empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDOptionalContentProperties#getGroupNames()}
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#getGroupNames()}
    */
   @Test
   @DisplayName("Test getGroupNames(); then return array of String with empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String[] PDOptionalContentProperties.getGroupNames()"})
   void testGetGroupNames_thenReturnArrayOfStringWithEmptyString() {
     // Arrange
@@ -660,22 +575,20 @@ class PDOptionalContentPropertiesDiffblueTest {
     pdOptionalContentProperties.addGroup(new PDOptionalContentGroup(""));
 
     // Act and Assert
-    assertArrayEquals(new String[] {""}, pdOptionalContentProperties.getGroupNames());
+    assertArrayEquals(new String[]{""}, pdOptionalContentProperties.getGroupNames());
   }
 
   /**
    * Test {@link PDOptionalContentProperties#getGroupNames()}.
-   *
    * <ul>
-   *   <li>Then return array of {@link String} with {@code Name}.
+   *   <li>Then return array of {@link String} with {@code Name}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDOptionalContentProperties#getGroupNames()}
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#getGroupNames()}
    */
   @Test
   @DisplayName("Test getGroupNames(); then return array of String with 'Name'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String[] PDOptionalContentProperties.getGroupNames()"})
   void testGetGroupNames_thenReturnArrayOfStringWithName() {
     // Arrange
@@ -683,22 +596,20 @@ class PDOptionalContentPropertiesDiffblueTest {
     pdOptionalContentProperties.addGroup(new PDOptionalContentGroup("Name"));
 
     // Act and Assert
-    assertArrayEquals(new String[] {"Name"}, pdOptionalContentProperties.getGroupNames());
+    assertArrayEquals(new String[]{"Name"}, pdOptionalContentProperties.getGroupNames());
   }
 
   /**
    * Test {@link PDOptionalContentProperties#getGroupNames()}.
-   *
    * <ul>
-   *   <li>Then return array of {@link String} with {@code null}.
+   *   <li>Then return array of {@link String} with {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDOptionalContentProperties#getGroupNames()}
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#getGroupNames()}
    */
   @Test
   @DisplayName("Test getGroupNames(); then return array of String with 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String[] PDOptionalContentProperties.getGroupNames()"})
   void testGetGroupNames_thenReturnArrayOfStringWithNull() {
     // Arrange
@@ -706,18 +617,17 @@ class PDOptionalContentPropertiesDiffblueTest {
     pdOptionalContentProperties.addGroup(new PDOptionalContentGroup((String) null));
 
     // Act and Assert
-    assertArrayEquals(new String[] {null}, pdOptionalContentProperties.getGroupNames());
+    assertArrayEquals(new String[]{null}, pdOptionalContentProperties.getGroupNames());
   }
 
   /**
    * Test {@link PDOptionalContentProperties#hasGroup(String)}.
-   *
-   * <p>Method under test: {@link PDOptionalContentProperties#hasGroup(String)}
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#hasGroup(String)}
    */
   @Test
   @DisplayName("Test hasGroup(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDOptionalContentProperties.hasGroup(String)"})
   void testHasGroup() {
     // Arrange
@@ -730,13 +640,12 @@ class PDOptionalContentPropertiesDiffblueTest {
 
   /**
    * Test {@link PDOptionalContentProperties#hasGroup(String)}.
-   *
-   * <p>Method under test: {@link PDOptionalContentProperties#hasGroup(String)}
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#hasGroup(String)}
    */
   @Test
   @DisplayName("Test hasGroup(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDOptionalContentProperties.hasGroup(String)"})
   void testHasGroup2() {
     // Arrange
@@ -749,58 +658,50 @@ class PDOptionalContentPropertiesDiffblueTest {
 
   /**
    * Test {@link PDOptionalContentProperties#hasGroup(String)}.
-   *
    * <ul>
-   *   <li>Given {@link PDOptionalContentProperties#PDOptionalContentProperties(COSDictionary)} with
-   *       props is {@link COSDictionary#COSDictionary()}.
+   *   <li>Given {@link PDOptionalContentProperties#PDOptionalContentProperties(COSDictionary)} with props is {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDOptionalContentProperties#hasGroup(String)}
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#hasGroup(String)}
    */
   @Test
-  @DisplayName(
-      "Test hasGroup(String); given PDOptionalContentProperties(COSDictionary) with props is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test hasGroup(String); given PDOptionalContentProperties(COSDictionary) with props is COSDictionary()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDOptionalContentProperties.hasGroup(String)"})
   void testHasGroup_givenPDOptionalContentPropertiesWithPropsIsCOSDictionary() {
     // Arrange, Act and Assert
-    assertFalse(new PDOptionalContentProperties(new COSDictionary()).hasGroup("Group Name"));
+    assertFalse((new PDOptionalContentProperties(new COSDictionary())).hasGroup("Group Name"));
   }
 
   /**
    * Test {@link PDOptionalContentProperties#hasGroup(String)}.
-   *
    * <ul>
-   *   <li>Given {@link PDOptionalContentProperties#PDOptionalContentProperties()}.
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link PDOptionalContentProperties#PDOptionalContentProperties()}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDOptionalContentProperties#hasGroup(String)}
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#hasGroup(String)}
    */
   @Test
   @DisplayName("Test hasGroup(String); given PDOptionalContentProperties(); then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDOptionalContentProperties.hasGroup(String)"})
   void testHasGroup_givenPDOptionalContentProperties_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new PDOptionalContentProperties().hasGroup("Group Name"));
+    assertFalse((new PDOptionalContentProperties()).hasGroup("Group Name"));
   }
 
   /**
    * Test {@link PDOptionalContentProperties#hasGroup(String)}.
-   *
    * <ul>
-   *   <li>Then return {@code true}.
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDOptionalContentProperties#hasGroup(String)}
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#hasGroup(String)}
    */
   @Test
   @DisplayName("Test hasGroup(String); then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDOptionalContentProperties.hasGroup(String)"})
   void testHasGroup_thenReturnTrue() {
     // Arrange
@@ -812,78 +713,44 @@ class PDOptionalContentPropertiesDiffblueTest {
   }
 
   /**
-   * Test {@link PDOptionalContentProperties#hasGroup(String)}.
-   *
-   * <ul>
-   *   <li>Then return {@code true}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDOptionalContentProperties#hasGroup(String)}
-   */
-  @Test
-  @DisplayName("Test hasGroup(String); then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean PDOptionalContentProperties.hasGroup(String)"})
-  void testHasGroup_thenReturnTrue2() {
-    // Arrange
-    PDOptionalContentProperties pdOptionalContentProperties = new PDOptionalContentProperties();
-    pdOptionalContentProperties.addGroup(new PDOptionalContentGroup("Group Name"));
-    pdOptionalContentProperties.addGroup(new PDOptionalContentGroup((String) null));
-
-    // Act and Assert
-    assertTrue(pdOptionalContentProperties.hasGroup("Group Name"));
-  }
-
-  /**
-   * Test {@link PDOptionalContentProperties#isGroupEnabled(PDOptionalContentGroup)} with {@code
-   * group}.
-   *
-   * <p>Method under test: {@link
-   * PDOptionalContentProperties#isGroupEnabled(PDOptionalContentGroup)}
+   * Test {@link PDOptionalContentProperties#isGroupEnabled(PDOptionalContentGroup)} with {@code group}.
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#isGroupEnabled(PDOptionalContentGroup)}
    */
   @Test
   @DisplayName("Test isGroupEnabled(PDOptionalContentGroup) with 'group'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDOptionalContentProperties.isGroupEnabled(PDOptionalContentGroup)"})
   void testIsGroupEnabledWithGroup() {
     // Arrange
-    PDOptionalContentProperties pdOptionalContentProperties =
-        new PDOptionalContentProperties(new COSDictionary());
+    PDOptionalContentProperties pdOptionalContentProperties = new PDOptionalContentProperties(new COSDictionary());
 
-    // Act
-    boolean actualIsGroupEnabledResult =
-        pdOptionalContentProperties.isGroupEnabled(new PDOptionalContentGroup("Name"));
-
-    // Assert
-    assertTrue(actualIsGroupEnabledResult);
+    // Act and Assert
+    assertTrue(pdOptionalContentProperties.isGroupEnabled(new PDOptionalContentGroup("Name")));
   }
 
   /**
    * Test {@link PDOptionalContentProperties#isGroupEnabled(String)} with {@code groupName}.
-   *
-   * <p>Method under test: {@link PDOptionalContentProperties#isGroupEnabled(String)}
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#isGroupEnabled(String)}
    */
   @Test
   @DisplayName("Test isGroupEnabled(String) with 'groupName'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDOptionalContentProperties.isGroupEnabled(String)"})
   void testIsGroupEnabledWithGroupName() {
     // Arrange, Act and Assert
-    assertFalse(new PDOptionalContentProperties(new COSDictionary()).isGroupEnabled("Group Name"));
+    assertFalse((new PDOptionalContentProperties(new COSDictionary())).isGroupEnabled("Group Name"));
   }
 
   /**
    * Test {@link PDOptionalContentProperties#isGroupEnabled(String)} with {@code groupName}.
-   *
-   * <p>Method under test: {@link PDOptionalContentProperties#isGroupEnabled(String)}
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#isGroupEnabled(String)}
    */
   @Test
   @DisplayName("Test isGroupEnabled(String) with 'groupName'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDOptionalContentProperties.isGroupEnabled(String)"})
   void testIsGroupEnabledWithGroupName2() {
     // Arrange
@@ -896,13 +763,12 @@ class PDOptionalContentPropertiesDiffblueTest {
 
   /**
    * Test {@link PDOptionalContentProperties#isGroupEnabled(String)} with {@code groupName}.
-   *
-   * <p>Method under test: {@link PDOptionalContentProperties#isGroupEnabled(String)}
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#isGroupEnabled(String)}
    */
   @Test
   @DisplayName("Test isGroupEnabled(String) with 'groupName'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDOptionalContentProperties.isGroupEnabled(String)"})
   void testIsGroupEnabledWithGroupName3() {
     // Arrange
@@ -915,13 +781,12 @@ class PDOptionalContentPropertiesDiffblueTest {
 
   /**
    * Test {@link PDOptionalContentProperties#isGroupEnabled(String)} with {@code groupName}.
-   *
-   * <p>Method under test: {@link PDOptionalContentProperties#isGroupEnabled(String)}
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#isGroupEnabled(String)}
    */
   @Test
   @DisplayName("Test isGroupEnabled(String) with 'groupName'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDOptionalContentProperties.isGroupEnabled(String)"})
   void testIsGroupEnabledWithGroupName4() {
     // Arrange
@@ -934,38 +799,33 @@ class PDOptionalContentPropertiesDiffblueTest {
 
   /**
    * Test {@link PDOptionalContentProperties#isGroupEnabled(String)} with {@code groupName}.
-   *
    * <ul>
-   *   <li>Given {@link PDOptionalContentProperties#PDOptionalContentProperties()}.
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link PDOptionalContentProperties#PDOptionalContentProperties()}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDOptionalContentProperties#isGroupEnabled(String)}
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#isGroupEnabled(String)}
    */
   @Test
-  @DisplayName(
-      "Test isGroupEnabled(String) with 'groupName'; given PDOptionalContentProperties(); then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test isGroupEnabled(String) with 'groupName'; given PDOptionalContentProperties(); then return 'false'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDOptionalContentProperties.isGroupEnabled(String)"})
   void testIsGroupEnabledWithGroupName_givenPDOptionalContentProperties_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new PDOptionalContentProperties().isGroupEnabled("Group Name"));
+    assertFalse((new PDOptionalContentProperties()).isGroupEnabled("Group Name"));
   }
 
   /**
    * Test {@link PDOptionalContentProperties#isGroupEnabled(String)} with {@code groupName}.
-   *
    * <ul>
-   *   <li>Then return {@code true}.
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDOptionalContentProperties#isGroupEnabled(String)}
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#isGroupEnabled(String)}
    */
   @Test
   @DisplayName("Test isGroupEnabled(String) with 'groupName'; then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDOptionalContentProperties.isGroupEnabled(String)"})
   void testIsGroupEnabledWithGroupName_thenReturnTrue() {
     // Arrange
@@ -978,166 +838,124 @@ class PDOptionalContentPropertiesDiffblueTest {
   }
 
   /**
-   * Test {@link PDOptionalContentProperties#isGroupEnabled(PDOptionalContentGroup)} with {@code
-   * group}.
-   *
+   * Test {@link PDOptionalContentProperties#isGroupEnabled(PDOptionalContentGroup)} with {@code group}.
    * <ul>
-   *   <li>Given {@link PDOptionalContentProperties#PDOptionalContentProperties()}.
-   *   <li>Then return {@code true}.
+   *   <li>Given {@link PDOptionalContentProperties#PDOptionalContentProperties()}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * PDOptionalContentProperties#isGroupEnabled(PDOptionalContentGroup)}
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#isGroupEnabled(PDOptionalContentGroup)}
    */
   @Test
-  @DisplayName(
-      "Test isGroupEnabled(PDOptionalContentGroup) with 'group'; given PDOptionalContentProperties(); then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test isGroupEnabled(PDOptionalContentGroup) with 'group'; given PDOptionalContentProperties(); then return 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDOptionalContentProperties.isGroupEnabled(PDOptionalContentGroup)"})
   void testIsGroupEnabledWithGroup_givenPDOptionalContentProperties_thenReturnTrue() {
     // Arrange
     PDOptionalContentProperties pdOptionalContentProperties = new PDOptionalContentProperties();
 
-    // Act
-    boolean actualIsGroupEnabledResult =
-        pdOptionalContentProperties.isGroupEnabled(new PDOptionalContentGroup("Name"));
-
-    // Assert
-    assertTrue(actualIsGroupEnabledResult);
+    // Act and Assert
+    assertTrue(pdOptionalContentProperties.isGroupEnabled(new PDOptionalContentGroup("Name")));
   }
 
   /**
-   * Test {@link PDOptionalContentProperties#isGroupEnabled(PDOptionalContentGroup)} with {@code
-   * group}.
-   *
+   * Test {@link PDOptionalContentProperties#isGroupEnabled(PDOptionalContentGroup)} with {@code group}.
    * <ul>
-   *   <li>Given {@link PDOptionalContentProperties#PDOptionalContentProperties()}.
-   *   <li>When {@code null}.
+   *   <li>Given {@link PDOptionalContentProperties#PDOptionalContentProperties()}.</li>
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * PDOptionalContentProperties#isGroupEnabled(PDOptionalContentGroup)}
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#isGroupEnabled(PDOptionalContentGroup)}
    */
   @Test
-  @DisplayName(
-      "Test isGroupEnabled(PDOptionalContentGroup) with 'group'; given PDOptionalContentProperties(); when 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test isGroupEnabled(PDOptionalContentGroup) with 'group'; given PDOptionalContentProperties(); when 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDOptionalContentProperties.isGroupEnabled(PDOptionalContentGroup)"})
   void testIsGroupEnabledWithGroup_givenPDOptionalContentProperties_whenNull() {
     // Arrange, Act and Assert
-    assertTrue(new PDOptionalContentProperties().isGroupEnabled((PDOptionalContentGroup) null));
+    assertTrue((new PDOptionalContentProperties()).isGroupEnabled((PDOptionalContentGroup) null));
   }
 
   /**
-   * Test {@link PDOptionalContentProperties#setGroupEnabled(PDOptionalContentGroup, boolean)} with
-   * {@code group}, {@code enable}.
-   *
-   * <p>Method under test: {@link
-   * PDOptionalContentProperties#setGroupEnabled(PDOptionalContentGroup, boolean)}
+   * Test {@link PDOptionalContentProperties#setGroupEnabled(PDOptionalContentGroup, boolean)} with {@code group}, {@code enable}.
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#setGroupEnabled(PDOptionalContentGroup, boolean)}
    */
   @Test
   @DisplayName("Test setGroupEnabled(PDOptionalContentGroup, boolean) with 'group', 'enable'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean PDOptionalContentProperties.setGroupEnabled(PDOptionalContentGroup, boolean)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean PDOptionalContentProperties.setGroupEnabled(PDOptionalContentGroup, boolean)"})
   void testSetGroupEnabledWithGroupEnable() {
     // Arrange
-    PDOptionalContentProperties pdOptionalContentProperties =
-        new PDOptionalContentProperties(new COSDictionary());
+    PDOptionalContentProperties pdOptionalContentProperties = new PDOptionalContentProperties(new COSDictionary());
 
     // Act and Assert
-    assertFalse(
-        pdOptionalContentProperties.setGroupEnabled(new PDOptionalContentGroup("Name"), true));
+    assertFalse(pdOptionalContentProperties.setGroupEnabled(new PDOptionalContentGroup("Name"), true));
   }
 
   /**
-   * Test {@link PDOptionalContentProperties#setGroupEnabled(PDOptionalContentGroup, boolean)} with
-   * {@code group}, {@code enable}.
-   *
+   * Test {@link PDOptionalContentProperties#setGroupEnabled(PDOptionalContentGroup, boolean)} with {@code group}, {@code enable}.
    * <ul>
-   *   <li>Then return {@code false}.
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * PDOptionalContentProperties#setGroupEnabled(PDOptionalContentGroup, boolean)}
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#setGroupEnabled(PDOptionalContentGroup, boolean)}
    */
   @Test
-  @DisplayName(
-      "Test setGroupEnabled(PDOptionalContentGroup, boolean) with 'group', 'enable'; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean PDOptionalContentProperties.setGroupEnabled(PDOptionalContentGroup, boolean)"
-  })
+  @DisplayName("Test setGroupEnabled(PDOptionalContentGroup, boolean) with 'group', 'enable'; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean PDOptionalContentProperties.setGroupEnabled(PDOptionalContentGroup, boolean)"})
   void testSetGroupEnabledWithGroupEnable_thenReturnFalse() {
     // Arrange
     PDOptionalContentProperties pdOptionalContentProperties = new PDOptionalContentProperties();
 
     // Act and Assert
-    assertFalse(
-        pdOptionalContentProperties.setGroupEnabled(new PDOptionalContentGroup("Name"), true));
+    assertFalse(pdOptionalContentProperties.setGroupEnabled(new PDOptionalContentGroup("Name"), true));
   }
 
   /**
-   * Test {@link PDOptionalContentProperties#setGroupEnabled(PDOptionalContentGroup, boolean)} with
-   * {@code group}, {@code enable}.
-   *
+   * Test {@link PDOptionalContentProperties#setGroupEnabled(PDOptionalContentGroup, boolean)} with {@code group}, {@code enable}.
    * <ul>
-   *   <li>When {@code false}.
-   *   <li>Then return {@code false}.
+   *   <li>When {@code false}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * PDOptionalContentProperties#setGroupEnabled(PDOptionalContentGroup, boolean)}
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#setGroupEnabled(PDOptionalContentGroup, boolean)}
    */
   @Test
-  @DisplayName(
-      "Test setGroupEnabled(PDOptionalContentGroup, boolean) with 'group', 'enable'; when 'false'; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean PDOptionalContentProperties.setGroupEnabled(PDOptionalContentGroup, boolean)"
-  })
+  @DisplayName("Test setGroupEnabled(PDOptionalContentGroup, boolean) with 'group', 'enable'; when 'false'; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean PDOptionalContentProperties.setGroupEnabled(PDOptionalContentGroup, boolean)"})
   void testSetGroupEnabledWithGroupEnable_whenFalse_thenReturnFalse() {
     // Arrange
     PDOptionalContentProperties pdOptionalContentProperties = new PDOptionalContentProperties();
 
     // Act and Assert
-    assertFalse(
-        pdOptionalContentProperties.setGroupEnabled(new PDOptionalContentGroup("Name"), false));
+    assertFalse(pdOptionalContentProperties.setGroupEnabled(new PDOptionalContentGroup("Name"), false));
   }
 
   /**
-   * Test {@link PDOptionalContentProperties#setGroupEnabled(String, boolean)} with {@code
-   * groupName}, {@code enable}.
-   *
-   * <p>Method under test: {@link PDOptionalContentProperties#setGroupEnabled(String, boolean)}
+   * Test {@link PDOptionalContentProperties#setGroupEnabled(String, boolean)} with {@code groupName}, {@code enable}.
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#setGroupEnabled(String, boolean)}
    */
   @Test
   @DisplayName("Test setGroupEnabled(String, boolean) with 'groupName', 'enable'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDOptionalContentProperties.setGroupEnabled(String, boolean)"})
   void testSetGroupEnabledWithGroupNameEnable() {
     // Arrange, Act and Assert
-    assertFalse(
-        new PDOptionalContentProperties(new COSDictionary()).setGroupEnabled("Group Name", true));
+    assertFalse((new PDOptionalContentProperties(new COSDictionary())).setGroupEnabled("Group Name", true));
   }
 
   /**
-   * Test {@link PDOptionalContentProperties#setGroupEnabled(String, boolean)} with {@code
-   * groupName}, {@code enable}.
-   *
-   * <p>Method under test: {@link PDOptionalContentProperties#setGroupEnabled(String, boolean)}
+   * Test {@link PDOptionalContentProperties#setGroupEnabled(String, boolean)} with {@code groupName}, {@code enable}.
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#setGroupEnabled(String, boolean)}
    */
   @Test
   @DisplayName("Test setGroupEnabled(String, boolean) with 'groupName', 'enable'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDOptionalContentProperties.setGroupEnabled(String, boolean)"})
   void testSetGroupEnabledWithGroupNameEnable2() {
     // Arrange
@@ -1149,15 +967,13 @@ class PDOptionalContentPropertiesDiffblueTest {
   }
 
   /**
-   * Test {@link PDOptionalContentProperties#setGroupEnabled(String, boolean)} with {@code
-   * groupName}, {@code enable}.
-   *
-   * <p>Method under test: {@link PDOptionalContentProperties#setGroupEnabled(String, boolean)}
+   * Test {@link PDOptionalContentProperties#setGroupEnabled(String, boolean)} with {@code groupName}, {@code enable}.
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#setGroupEnabled(String, boolean)}
    */
   @Test
   @DisplayName("Test setGroupEnabled(String, boolean) with 'groupName', 'enable'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDOptionalContentProperties.setGroupEnabled(String, boolean)"})
   void testSetGroupEnabledWithGroupNameEnable3() {
     // Arrange
@@ -1170,17 +986,51 @@ class PDOptionalContentPropertiesDiffblueTest {
   }
 
   /**
-   * Test {@link PDOptionalContentProperties#setGroupEnabled(String, boolean)} with {@code
-   * groupName}, {@code enable}.
-   *
-   * <p>Method under test: {@link PDOptionalContentProperties#setGroupEnabled(String, boolean)}
+   * Test {@link PDOptionalContentProperties#setGroupEnabled(String, boolean)} with {@code groupName}, {@code enable}.
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#setGroupEnabled(String, boolean)}
    */
   @Test
   @DisplayName("Test setGroupEnabled(String, boolean) with 'groupName', 'enable'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDOptionalContentProperties.setGroupEnabled(String, boolean)"})
   void testSetGroupEnabledWithGroupNameEnable4() {
+    // Arrange
+    PDOptionalContentProperties pdOptionalContentProperties = new PDOptionalContentProperties();
+    pdOptionalContentProperties.addGroup(new PDOptionalContentGroup((String) null));
+
+    // Act and Assert
+    assertFalse(pdOptionalContentProperties.setGroupEnabled("Group Name", true));
+  }
+
+  /**
+   * Test {@link PDOptionalContentProperties#setGroupEnabled(String, boolean)} with {@code groupName}, {@code enable}.
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#setGroupEnabled(String, boolean)}
+   */
+  @Test
+  @DisplayName("Test setGroupEnabled(String, boolean) with 'groupName', 'enable'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean PDOptionalContentProperties.setGroupEnabled(String, boolean)"})
+  void testSetGroupEnabledWithGroupNameEnable5() {
+    // Arrange
+    PDOptionalContentProperties pdOptionalContentProperties = new PDOptionalContentProperties();
+    pdOptionalContentProperties.addGroup(new PDOptionalContentGroup(""));
+
+    // Act and Assert
+    assertFalse(pdOptionalContentProperties.setGroupEnabled("Group Name", true));
+  }
+
+  /**
+   * Test {@link PDOptionalContentProperties#setGroupEnabled(String, boolean)} with {@code groupName}, {@code enable}.
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#setGroupEnabled(String, boolean)}
+   */
+  @Test
+  @DisplayName("Test setGroupEnabled(String, boolean) with 'groupName', 'enable'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean PDOptionalContentProperties.setGroupEnabled(String, boolean)"})
+  void testSetGroupEnabledWithGroupNameEnable6() {
     // Arrange
     PDOptionalContentProperties pdOptionalContentProperties = new PDOptionalContentProperties();
     pdOptionalContentProperties.addGroup(new PDOptionalContentGroup("Group Name"));
@@ -1192,80 +1042,33 @@ class PDOptionalContentPropertiesDiffblueTest {
   }
 
   /**
-   * Test {@link PDOptionalContentProperties#setGroupEnabled(String, boolean)} with {@code
-   * groupName}, {@code enable}.
-   *
-   * <p>Method under test: {@link PDOptionalContentProperties#setGroupEnabled(String, boolean)}
-   */
-  @Test
-  @DisplayName("Test setGroupEnabled(String, boolean) with 'groupName', 'enable'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean PDOptionalContentProperties.setGroupEnabled(String, boolean)"})
-  void testSetGroupEnabledWithGroupNameEnable5() {
-    // Arrange
-    PDOptionalContentProperties pdOptionalContentProperties = new PDOptionalContentProperties();
-    pdOptionalContentProperties.addGroup(new PDOptionalContentGroup((String) null));
-
-    // Act and Assert
-    assertFalse(pdOptionalContentProperties.setGroupEnabled("Group Name", true));
-  }
-
-  /**
-   * Test {@link PDOptionalContentProperties#setGroupEnabled(String, boolean)} with {@code
-   * groupName}, {@code enable}.
-   *
-   * <p>Method under test: {@link PDOptionalContentProperties#setGroupEnabled(String, boolean)}
-   */
-  @Test
-  @DisplayName("Test setGroupEnabled(String, boolean) with 'groupName', 'enable'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean PDOptionalContentProperties.setGroupEnabled(String, boolean)"})
-  void testSetGroupEnabledWithGroupNameEnable6() {
-    // Arrange
-    PDOptionalContentProperties pdOptionalContentProperties = new PDOptionalContentProperties();
-    pdOptionalContentProperties.addGroup(new PDOptionalContentGroup(""));
-
-    // Act and Assert
-    assertFalse(pdOptionalContentProperties.setGroupEnabled("Group Name", true));
-  }
-
-  /**
-   * Test {@link PDOptionalContentProperties#setGroupEnabled(String, boolean)} with {@code
-   * groupName}, {@code enable}.
-   *
+   * Test {@link PDOptionalContentProperties#setGroupEnabled(String, boolean)} with {@code groupName}, {@code enable}.
    * <ul>
-   *   <li>Given {@link PDOptionalContentProperties#PDOptionalContentProperties()}.
+   *   <li>Given {@link PDOptionalContentProperties#PDOptionalContentProperties()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDOptionalContentProperties#setGroupEnabled(String, boolean)}
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#setGroupEnabled(String, boolean)}
    */
   @Test
-  @DisplayName(
-      "Test setGroupEnabled(String, boolean) with 'groupName', 'enable'; given PDOptionalContentProperties()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setGroupEnabled(String, boolean) with 'groupName', 'enable'; given PDOptionalContentProperties()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDOptionalContentProperties.setGroupEnabled(String, boolean)"})
   void testSetGroupEnabledWithGroupNameEnable_givenPDOptionalContentProperties() {
     // Arrange, Act and Assert
-    assertFalse(new PDOptionalContentProperties().setGroupEnabled("Group Name", true));
+    assertFalse((new PDOptionalContentProperties()).setGroupEnabled("Group Name", true));
   }
 
   /**
-   * Test {@link PDOptionalContentProperties#setGroupEnabled(String, boolean)} with {@code
-   * groupName}, {@code enable}.
-   *
+   * Test {@link PDOptionalContentProperties#setGroupEnabled(String, boolean)} with {@code groupName}, {@code enable}.
    * <ul>
-   *   <li>When {@code false}.
+   *   <li>When {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDOptionalContentProperties#setGroupEnabled(String, boolean)}
+   * <p>
+   * Method under test: {@link PDOptionalContentProperties#setGroupEnabled(String, boolean)}
    */
   @Test
   @DisplayName("Test setGroupEnabled(String, boolean) with 'groupName', 'enable'; when 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDOptionalContentProperties.setGroupEnabled(String, boolean)"})
   void testSetGroupEnabledWithGroupNameEnable_whenFalse() {
     // Arrange

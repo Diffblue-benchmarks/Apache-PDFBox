@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSIncrement;
@@ -17,31 +16,29 @@ import org.junit.jupiter.api.Test;
 class PDExternalDataDictionaryDiffblueTest {
   /**
    * Test {@link PDExternalDataDictionary#PDExternalDataDictionary(COSDictionary)}.
-   *
-   * <p>Method under test: {@link PDExternalDataDictionary#PDExternalDataDictionary(COSDictionary)}
+   * <p>
+   * Method under test: {@link PDExternalDataDictionary#PDExternalDataDictionary(COSDictionary)}
    */
   @Test
   @DisplayName("Test new PDExternalDataDictionary(COSDictionary)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExternalDataDictionary.<init>(COSDictionary)"})
   void testNewPDExternalDataDictionary() {
     // Arrange
     COSDictionary dictionary = new COSDictionary();
 
     // Act and Assert
-    assertSame(dictionary, new PDExternalDataDictionary(dictionary).getCOSObject());
+    assertSame(dictionary, (new PDExternalDataDictionary(dictionary)).getCOSObject());
   }
 
   /**
    * Test {@link PDExternalDataDictionary#PDExternalDataDictionary()}.
-   *
-   * <p>Method under test: {@link PDExternalDataDictionary#PDExternalDataDictionary()}
+   * <p>
+   * Method under test: {@link PDExternalDataDictionary#PDExternalDataDictionary()}
    */
   @Test
   @DisplayName("Test new PDExternalDataDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExternalDataDictionary.<init>()"})
   void testNewPDExternalDataDictionary2() {
     // Arrange and Act
@@ -66,17 +63,16 @@ class PDExternalDataDictionaryDiffblueTest {
 
   /**
    * Test {@link PDExternalDataDictionary#getCOSObject()}.
-   *
-   * <p>Method under test: {@link PDExternalDataDictionary#getCOSObject()}
+   * <p>
+   * Method under test: {@link PDExternalDataDictionary#getCOSObject()}
    */
   @Test
   @DisplayName("Test getCOSObject()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSDictionary PDExternalDataDictionary.getCOSObject()"})
   void testGetCOSObject() {
     // Arrange and Act
-    COSDictionary actualCOSObject = new PDExternalDataDictionary().getCOSObject();
+    COSDictionary actualCOSObject = (new PDExternalDataDictionary()).getCOSObject();
 
     // Assert
     COSUpdateState updateState = actualCOSObject.getUpdateState();
@@ -94,80 +90,95 @@ class PDExternalDataDictionaryDiffblueTest {
 
   /**
    * Test {@link PDExternalDataDictionary#getType()}.
-   *
    * <ul>
-   *   <li>Given {@link PDExternalDataDictionary#PDExternalDataDictionary(COSDictionary)} with
-   *       dictionary is {@link COSDictionary#COSDictionary()}.
+   *   <li>Given {@link PDExternalDataDictionary#PDExternalDataDictionary(COSDictionary)} with dictionary is {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExternalDataDictionary#getType()}
+   * <p>
+   * Method under test: {@link PDExternalDataDictionary#getType()}
    */
   @Test
-  @DisplayName(
-      "Test getType(); given PDExternalDataDictionary(COSDictionary) with dictionary is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getType(); given PDExternalDataDictionary(COSDictionary) with dictionary is COSDictionary()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDExternalDataDictionary.getType()"})
   void testGetType_givenPDExternalDataDictionaryWithDictionaryIsCOSDictionary() {
     // Arrange, Act and Assert
-    assertEquals("ExData", new PDExternalDataDictionary(new COSDictionary()).getType());
+    assertEquals("ExData", (new PDExternalDataDictionary(new COSDictionary())).getType());
   }
 
   /**
    * Test {@link PDExternalDataDictionary#getType()}.
-   *
    * <ul>
-   *   <li>Given {@link PDExternalDataDictionary#PDExternalDataDictionary()}.
-   *   <li>Then return {@code ExData}.
+   *   <li>Given {@link PDExternalDataDictionary#PDExternalDataDictionary()}.</li>
+   *   <li>Then return {@code ExData}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExternalDataDictionary#getType()}
+   * <p>
+   * Method under test: {@link PDExternalDataDictionary#getType()}
    */
   @Test
   @DisplayName("Test getType(); given PDExternalDataDictionary(); then return 'ExData'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDExternalDataDictionary.getType()"})
   void testGetType_givenPDExternalDataDictionary_thenReturnExData() {
     // Arrange, Act and Assert
-    assertEquals("ExData", new PDExternalDataDictionary().getType());
+    assertEquals("ExData", (new PDExternalDataDictionary()).getType());
   }
 
   /**
    * Test {@link PDExternalDataDictionary#getSubtype()}.
-   *
    * <ul>
-   *   <li>Given {@link PDExternalDataDictionary#PDExternalDataDictionary()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDExternalDataDictionary#PDExternalDataDictionary()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExternalDataDictionary#getSubtype()}
+   * <p>
+   * Method under test: {@link PDExternalDataDictionary#getSubtype()}
    */
   @Test
   @DisplayName("Test getSubtype(); given PDExternalDataDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDExternalDataDictionary.getSubtype()"})
   void testGetSubtype_givenPDExternalDataDictionary_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDExternalDataDictionary().getSubtype());
+    assertNull((new PDExternalDataDictionary()).getSubtype());
   }
 
   /**
    * Test {@link PDExternalDataDictionary#setSubtype(String)}.
-   *
    * <ul>
-   *   <li>When {@code 42}.
-   *   <li>Then {@link PDExternalDataDictionary#PDExternalDataDictionary()} Subtype is {@code 42}.
+   *   <li>Then {@link PDExternalDataDictionary#PDExternalDataDictionary()} Subtype is {@code Subtype}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExternalDataDictionary#setSubtype(String)}
+   * <p>
+   * Method under test: {@link PDExternalDataDictionary#setSubtype(String)}
    */
   @Test
-  @DisplayName(
-      "Test setSubtype(String); when '42'; then PDExternalDataDictionary() Subtype is '42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setSubtype(String); then PDExternalDataDictionary() Subtype is 'Subtype'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDExternalDataDictionary.setSubtype(String)"})
+  void testSetSubtype_thenPDExternalDataDictionarySubtypeIsSubtype() {
+    // Arrange
+    PDExternalDataDictionary pdExternalDataDictionary = new PDExternalDataDictionary();
+
+    // Act
+    pdExternalDataDictionary.setSubtype("Subtype");
+
+    // Assert
+    assertEquals("Subtype", pdExternalDataDictionary.getSubtype());
+    COSDictionary cOSObject = pdExternalDataDictionary.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDExternalDataDictionary#setSubtype(String)}.
+   * <ul>
+   *   <li>When {@code 42}.</li>
+   *   <li>Then {@link PDExternalDataDictionary#PDExternalDataDictionary()} Subtype is {@code 42}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDExternalDataDictionary#setSubtype(String)}
+   */
+  @Test
+  @DisplayName("Test setSubtype(String); when '42'; then PDExternalDataDictionary() Subtype is '42'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExternalDataDictionary.setSubtype(String)"})
   void testSetSubtype_when42_thenPDExternalDataDictionarySubtypeIs42() {
     // Arrange
@@ -178,67 +189,6 @@ class PDExternalDataDictionaryDiffblueTest {
 
     // Assert
     assertEquals("42", pdExternalDataDictionary.getSubtype());
-    COSDictionary cOSObject = pdExternalDataDictionary.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDExternalDataDictionary#setSubtype(String)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDExternalDataDictionary#PDExternalDataDictionary()} COSObject Values size is
-   *       one.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDExternalDataDictionary#setSubtype(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test setSubtype(String); when 'null'; then PDExternalDataDictionary() COSObject Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDExternalDataDictionary.setSubtype(String)"})
-  void testSetSubtype_whenNull_thenPDExternalDataDictionaryCOSObjectValuesSizeIsOne() {
-    // Arrange
-    PDExternalDataDictionary pdExternalDataDictionary = new PDExternalDataDictionary();
-
-    // Act
-    pdExternalDataDictionary.setSubtype(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdExternalDataDictionary.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDExternalDataDictionary#setSubtype(String)}.
-   *
-   * <ul>
-   *   <li>When {@code Subtype}.
-   *   <li>Then {@link PDExternalDataDictionary#PDExternalDataDictionary()} Subtype is {@code
-   *       Subtype}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDExternalDataDictionary#setSubtype(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test setSubtype(String); when 'Subtype'; then PDExternalDataDictionary() Subtype is 'Subtype'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDExternalDataDictionary.setSubtype(String)"})
-  void testSetSubtype_whenSubtype_thenPDExternalDataDictionarySubtypeIsSubtype() {
-    // Arrange
-    PDExternalDataDictionary pdExternalDataDictionary = new PDExternalDataDictionary();
-
-    // Act
-    pdExternalDataDictionary.setSubtype("Subtype");
-
-    // Assert
-    assertEquals("Subtype", pdExternalDataDictionary.getSubtype());
     COSDictionary cOSObject = pdExternalDataDictionary.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());

@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -17,28 +16,24 @@ import org.junit.jupiter.api.Test;
 class SequenceRandomAccessReadDiffblueTest {
   /**
    * Test {@link SequenceRandomAccessRead#SequenceRandomAccessRead(List)}.
-   *
    * <ul>
-   *   <li>Then return Position is zero.
+   *   <li>Then return Position is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SequenceRandomAccessRead#SequenceRandomAccessRead(List)}
+   * <p>
+   * Method under test: {@link SequenceRandomAccessRead#SequenceRandomAccessRead(List)}
    */
   @Test
   @DisplayName("Test new SequenceRandomAccessRead(List); then return Position is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SequenceRandomAccessRead.<init>(List)"})
   void testNewSequenceRandomAccessRead_thenReturnPositionIsZero() throws IOException {
     // Arrange
     ArrayList<RandomAccessRead> randomAccessReadList = new ArrayList<>();
-    randomAccessReadList.add(
-        RandomAccessReadBuffer.createBufferFromStream(
-            new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
+    randomAccessReadList
+        .add(RandomAccessReadBuffer.createBufferFromStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
 
     // Act
-    SequenceRandomAccessRead actualSequenceRandomAccessRead =
-        new SequenceRandomAccessRead(randomAccessReadList);
+    SequenceRandomAccessRead actualSequenceRandomAccessRead = new SequenceRandomAccessRead(randomAccessReadList);
 
     // Assert
     assertEquals(0L, actualSequenceRandomAccessRead.getPosition());
@@ -48,73 +43,34 @@ class SequenceRandomAccessReadDiffblueTest {
 
   /**
    * Test {@link SequenceRandomAccessRead#SequenceRandomAccessRead(List)}.
-   *
    * <ul>
-   *   <li>Then return Position is zero.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then throw {@link IllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SequenceRandomAccessRead#SequenceRandomAccessRead(List)}
+   * <p>
+   * Method under test: {@link SequenceRandomAccessRead#SequenceRandomAccessRead(List)}
    */
   @Test
-  @DisplayName("Test new SequenceRandomAccessRead(List); then return Position is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void SequenceRandomAccessRead.<init>(List)"})
-  void testNewSequenceRandomAccessRead_thenReturnPositionIsZero2() throws IOException {
-    // Arrange
-    ArrayList<RandomAccessRead> randomAccessReadList = new ArrayList<>();
-    randomAccessReadList.add(
-        RandomAccessReadBuffer.createBufferFromStream(
-            new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
-    randomAccessReadList.add(new RandomAccessReadBuffer());
-
-    // Act
-    SequenceRandomAccessRead actualSequenceRandomAccessRead =
-        new SequenceRandomAccessRead(randomAccessReadList);
-
-    // Assert
-    assertEquals(0L, actualSequenceRandomAccessRead.getPosition());
-    assertEquals(8, actualSequenceRandomAccessRead.available());
-    assertFalse(actualSequenceRandomAccessRead.isClosed());
-  }
-
-  /**
-   * Test {@link SequenceRandomAccessRead#SequenceRandomAccessRead(List)}.
-   *
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then throw {@link IllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link SequenceRandomAccessRead#SequenceRandomAccessRead(List)}
-   */
-  @Test
-  @DisplayName(
-      "Test new SequenceRandomAccessRead(List); when ArrayList(); then throw IllegalArgumentException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new SequenceRandomAccessRead(List); when ArrayList(); then throw IllegalArgumentException")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SequenceRandomAccessRead.<init>(List)"})
   void testNewSequenceRandomAccessRead_whenArrayList_thenThrowIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        IllegalArgumentException.class, () -> new SequenceRandomAccessRead(new ArrayList<>()));
+    assertThrows(IllegalArgumentException.class, () -> new SequenceRandomAccessRead(new ArrayList<>()));
   }
 
   /**
    * Test {@link SequenceRandomAccessRead#SequenceRandomAccessRead(List)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link IllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link IllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SequenceRandomAccessRead#SequenceRandomAccessRead(List)}
+   * <p>
+   * Method under test: {@link SequenceRandomAccessRead#SequenceRandomAccessRead(List)}
    */
   @Test
-  @DisplayName(
-      "Test new SequenceRandomAccessRead(List); when 'null'; then throw IllegalArgumentException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new SequenceRandomAccessRead(List); when 'null'; then throw IllegalArgumentException")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SequenceRandomAccessRead.<init>(List)"})
   void testNewSequenceRandomAccessRead_whenNull_thenThrowIllegalArgumentException() {
     // Arrange, Act and Assert
@@ -123,29 +79,22 @@ class SequenceRandomAccessReadDiffblueTest {
 
   /**
    * Test {@link SequenceRandomAccessRead#close()}.
-   *
    * <ul>
-   *   <li>Then {@link SequenceRandomAccessRead#SequenceRandomAccessRead(List)} with
-   *       randomAccessReadList is {@link ArrayList#ArrayList()} Closed.
+   *   <li>Then {@link SequenceRandomAccessRead#SequenceRandomAccessRead(List)} with randomAccessReadList is {@link ArrayList#ArrayList()} Closed.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SequenceRandomAccessRead#close()}
+   * <p>
+   * Method under test: {@link SequenceRandomAccessRead#close()}
    */
   @Test
-  @DisplayName(
-      "Test close(); then SequenceRandomAccessRead(List) with randomAccessReadList is ArrayList() Closed")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test close(); then SequenceRandomAccessRead(List) with randomAccessReadList is ArrayList() Closed")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SequenceRandomAccessRead.close()"})
-  void testClose_thenSequenceRandomAccessReadWithRandomAccessReadListIsArrayListClosed()
-      throws IOException {
+  void testClose_thenSequenceRandomAccessReadWithRandomAccessReadListIsArrayListClosed() throws IOException {
     // Arrange
     ArrayList<RandomAccessRead> randomAccessReadList = new ArrayList<>();
-    randomAccessReadList.add(
-        RandomAccessReadBuffer.createBufferFromStream(
-            new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
-    SequenceRandomAccessRead sequenceRandomAccessRead =
-        new SequenceRandomAccessRead(randomAccessReadList);
+    randomAccessReadList
+        .add(RandomAccessReadBuffer.createBufferFromStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
+    SequenceRandomAccessRead sequenceRandomAccessRead = new SequenceRandomAccessRead(randomAccessReadList);
 
     // Act
     sequenceRandomAccessRead.close();
@@ -156,22 +105,19 @@ class SequenceRandomAccessReadDiffblueTest {
 
   /**
    * Test {@link SequenceRandomAccessRead#read()}.
-   *
-   * <p>Method under test: {@link SequenceRandomAccessRead#read()}
+   * <p>
+   * Method under test: {@link SequenceRandomAccessRead#read()}
    */
   @Test
   @DisplayName("Test read()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int SequenceRandomAccessRead.read()"})
   void testRead() throws IOException {
     // Arrange
     ArrayList<RandomAccessRead> randomAccessReadList = new ArrayList<>();
-    randomAccessReadList.add(
-        RandomAccessReadBuffer.createBufferFromStream(
-            new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
-    SequenceRandomAccessRead sequenceRandomAccessRead =
-        new SequenceRandomAccessRead(randomAccessReadList);
+    randomAccessReadList
+        .add(RandomAccessReadBuffer.createBufferFromStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
+    SequenceRandomAccessRead sequenceRandomAccessRead = new SequenceRandomAccessRead(randomAccessReadList);
 
     // Act
     int actualReadResult = sequenceRandomAccessRead.read();
@@ -183,103 +129,20 @@ class SequenceRandomAccessReadDiffblueTest {
   }
 
   /**
-   * Test {@link SequenceRandomAccessRead#read()}.
-   *
-   * <p>Method under test: {@link SequenceRandomAccessRead#read()}
-   */
-  @Test
-  @DisplayName("Test read()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int SequenceRandomAccessRead.read()"})
-  void testRead2() throws IOException {
-    // Arrange
-    RandomAccessReadView randomAccessReadView =
-        new RandomAccessReadView(new RandomAccessReadBuffer(), 1L, 3L);
-    randomAccessReadView.seek(3L);
-
-    ArrayList<RandomAccessRead> randomAccessReadList = new ArrayList<>();
-    randomAccessReadList.add(randomAccessReadView);
-    SequenceRandomAccessRead sequenceRandomAccessRead =
-        new SequenceRandomAccessRead(randomAccessReadList);
-
-    // Act and Assert
-    assertEquals(-1, sequenceRandomAccessRead.read());
-    assertEquals(0L, sequenceRandomAccessRead.getPosition());
-    assertEquals(3, sequenceRandomAccessRead.available());
-  }
-
-  /**
-   * Test {@link SequenceRandomAccessRead#read(byte[], int, int)} with {@code b}, {@code offset},
-   * {@code length}.
-   *
-   * <p>Method under test: {@link SequenceRandomAccessRead#read(byte[], int, int)}
+   * Test {@link SequenceRandomAccessRead#read(byte[], int, int)} with {@code b}, {@code offset}, {@code length}.
+   * <p>
+   * Method under test: {@link SequenceRandomAccessRead#read(byte[], int, int)}
    */
   @Test
   @DisplayName("Test read(byte[], int, int) with 'b', 'offset', 'length'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int SequenceRandomAccessRead.read(byte[], int, int)"})
   void testReadWithBOffsetLength() throws IOException {
     // Arrange
     ArrayList<RandomAccessRead> randomAccessReadList = new ArrayList<>();
-    randomAccessReadList.add(new RandomAccessReadView(new RandomAccessReadBuffer(), 1L, 3L));
-    SequenceRandomAccessRead sequenceRandomAccessRead =
-        new SequenceRandomAccessRead(randomAccessReadList);
-
-    // Act and Assert
-    assertEquals(-1, sequenceRandomAccessRead.read(new byte[] {}, 2, 3));
-    assertEquals(-1L, sequenceRandomAccessRead.getPosition());
-    assertEquals(4, sequenceRandomAccessRead.available());
-  }
-
-  /**
-   * Test {@link SequenceRandomAccessRead#read(byte[], int, int)} with {@code b}, {@code offset},
-   * {@code length}.
-   *
-   * <p>Method under test: {@link SequenceRandomAccessRead#read(byte[], int, int)}
-   */
-  @Test
-  @DisplayName("Test read(byte[], int, int) with 'b', 'offset', 'length'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int SequenceRandomAccessRead.read(byte[], int, int)"})
-  void testReadWithBOffsetLength2() throws IOException {
-    // Arrange
-    RandomAccessReadView randomAccessReadView =
-        new RandomAccessReadView(new RandomAccessReadBuffer(), 1L, 3L);
-    randomAccessReadView.seek(2147483647L);
-
-    ArrayList<RandomAccessRead> randomAccessReadList = new ArrayList<>();
-    randomAccessReadList.add(randomAccessReadView);
-    SequenceRandomAccessRead sequenceRandomAccessRead =
-        new SequenceRandomAccessRead(randomAccessReadList);
-
-    // Act and Assert
-    assertEquals(-1, sequenceRandomAccessRead.read(new byte[] {}, 2, 3));
-    assertEquals(-1L, sequenceRandomAccessRead.getPosition());
-    assertEquals(4, sequenceRandomAccessRead.available());
-  }
-
-  /**
-   * Test {@link SequenceRandomAccessRead#read(byte[], int, int)} with {@code b}, {@code offset},
-   * {@code length}.
-   *
-   * <p>Method under test: {@link SequenceRandomAccessRead#read(byte[], int, int)}
-   */
-  @Test
-  @DisplayName("Test read(byte[], int, int) with 'b', 'offset', 'length'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int SequenceRandomAccessRead.read(byte[], int, int)"})
-  void testReadWithBOffsetLength3() throws IOException {
-    // Arrange
-    ArrayList<RandomAccessRead> randomAccessReadList = new ArrayList<>();
-    randomAccessReadList.add(
-        RandomAccessReadBuffer.createBufferFromStream(
-            new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
-    SequenceRandomAccessRead sequenceRandomAccessRead =
-        new SequenceRandomAccessRead(randomAccessReadList);
+    randomAccessReadList
+        .add(RandomAccessReadBuffer.createBufferFromStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
+    SequenceRandomAccessRead sequenceRandomAccessRead = new SequenceRandomAccessRead(randomAccessReadList);
 
     // Act and Assert
     assertEquals(-1, sequenceRandomAccessRead.read("AXAXAXAX".getBytes("UTF-8"), 2, 0));
@@ -288,28 +151,68 @@ class SequenceRandomAccessReadDiffblueTest {
   }
 
   /**
-   * Test {@link SequenceRandomAccessRead#read(byte[], int, int)} with {@code b}, {@code offset},
-   * {@code length}.
-   *
+   * Test {@link SequenceRandomAccessRead#read(byte[], int, int)} with {@code b}, {@code offset}, {@code length}.
+   * <p>
+   * Method under test: {@link SequenceRandomAccessRead#read(byte[], int, int)}
+   */
+  @Test
+  @DisplayName("Test read(byte[], int, int) with 'b', 'offset', 'length'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"int SequenceRandomAccessRead.read(byte[], int, int)"})
+  void testReadWithBOffsetLength2() throws IOException {
+    // Arrange
+    ArrayList<RandomAccessRead> randomAccessReadList = new ArrayList<>();
+    randomAccessReadList.add(new RandomAccessReadView(new RandomAccessReadBuffer(), 1L, 3L));
+    SequenceRandomAccessRead sequenceRandomAccessRead = new SequenceRandomAccessRead(randomAccessReadList);
+
+    // Act and Assert
+    assertEquals(-1, sequenceRandomAccessRead.read(new byte[]{}, 2, 3));
+    assertEquals(-1L, sequenceRandomAccessRead.getPosition());
+    assertEquals(4, sequenceRandomAccessRead.available());
+  }
+
+  /**
+   * Test {@link SequenceRandomAccessRead#read(byte[], int, int)} with {@code b}, {@code offset}, {@code length}.
+   * <p>
+   * Method under test: {@link SequenceRandomAccessRead#read(byte[], int, int)}
+   */
+  @Test
+  @DisplayName("Test read(byte[], int, int) with 'b', 'offset', 'length'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"int SequenceRandomAccessRead.read(byte[], int, int)"})
+  void testReadWithBOffsetLength3() throws IOException {
+    // Arrange
+    RandomAccessReadView randomAccessReadView = new RandomAccessReadView(new RandomAccessReadBuffer(), 1L, 3L);
+    randomAccessReadView.seek(2147483647L);
+
+    ArrayList<RandomAccessRead> randomAccessReadList = new ArrayList<>();
+    randomAccessReadList.add(randomAccessReadView);
+    SequenceRandomAccessRead sequenceRandomAccessRead = new SequenceRandomAccessRead(randomAccessReadList);
+
+    // Act and Assert
+    assertEquals(-1, sequenceRandomAccessRead.read(new byte[]{}, 2, 3));
+    assertEquals(-1L, sequenceRandomAccessRead.getPosition());
+    assertEquals(4, sequenceRandomAccessRead.available());
+  }
+
+  /**
+   * Test {@link SequenceRandomAccessRead#read(byte[], int, int)} with {@code b}, {@code offset}, {@code length}.
    * <ul>
-   *   <li>Then return three.
+   *   <li>Then return three.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SequenceRandomAccessRead#read(byte[], int, int)}
+   * <p>
+   * Method under test: {@link SequenceRandomAccessRead#read(byte[], int, int)}
    */
   @Test
   @DisplayName("Test read(byte[], int, int) with 'b', 'offset', 'length'; then return three")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int SequenceRandomAccessRead.read(byte[], int, int)"})
   void testReadWithBOffsetLength_thenReturnThree() throws IOException {
     // Arrange
     ArrayList<RandomAccessRead> randomAccessReadList = new ArrayList<>();
-    randomAccessReadList.add(
-        RandomAccessReadBuffer.createBufferFromStream(
-            new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
-    SequenceRandomAccessRead sequenceRandomAccessRead =
-        new SequenceRandomAccessRead(randomAccessReadList);
+    randomAccessReadList
+        .add(RandomAccessReadBuffer.createBufferFromStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
+    SequenceRandomAccessRead sequenceRandomAccessRead = new SequenceRandomAccessRead(randomAccessReadList);
 
     // Act and Assert
     assertEquals(3, sequenceRandomAccessRead.read("AXAXAXAX".getBytes("UTF-8"), 2, 3));
@@ -318,75 +221,42 @@ class SequenceRandomAccessReadDiffblueTest {
   }
 
   /**
-   * Test {@link SequenceRandomAccessRead#read()}.
-   *
-   * <ul>
-   *   <li>Then return minus one.
-   * </ul>
-   *
-   * <p>Method under test: {@link SequenceRandomAccessRead#read()}
-   */
-  @Test
-  @DisplayName("Test read(); then return minus one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int SequenceRandomAccessRead.read()"})
-  void testRead_thenReturnMinusOne() throws IOException {
-    // Arrange
-    ArrayList<RandomAccessRead> randomAccessReadList = new ArrayList<>();
-    randomAccessReadList.add(new RandomAccessReadView(new RandomAccessReadBuffer(), 1L, 3L));
-    SequenceRandomAccessRead sequenceRandomAccessRead =
-        new SequenceRandomAccessRead(randomAccessReadList);
-
-    // Act and Assert
-    assertEquals(-1, sequenceRandomAccessRead.read());
-    assertEquals(0L, sequenceRandomAccessRead.getPosition());
-    assertEquals(3, sequenceRandomAccessRead.available());
-  }
-
-  /**
    * Test {@link SequenceRandomAccessRead#getPosition()}.
-   *
    * <ul>
-   *   <li>Then return zero.
+   *   <li>Then return zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SequenceRandomAccessRead#getPosition()}
+   * <p>
+   * Method under test: {@link SequenceRandomAccessRead#getPosition()}
    */
   @Test
   @DisplayName("Test getPosition(); then return zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"long SequenceRandomAccessRead.getPosition()"})
   void testGetPosition_thenReturnZero() throws IOException {
     // Arrange
     ArrayList<RandomAccessRead> randomAccessReadList = new ArrayList<>();
-    randomAccessReadList.add(
-        RandomAccessReadBuffer.createBufferFromStream(
-            new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
+    randomAccessReadList
+        .add(RandomAccessReadBuffer.createBufferFromStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
 
     // Act and Assert
-    assertEquals(0L, new SequenceRandomAccessRead(randomAccessReadList).getPosition());
+    assertEquals(0L, (new SequenceRandomAccessRead(randomAccessReadList)).getPosition());
   }
 
   /**
    * Test {@link SequenceRandomAccessRead#seek(long)}.
-   *
-   * <p>Method under test: {@link SequenceRandomAccessRead#seek(long)}
+   * <p>
+   * Method under test: {@link SequenceRandomAccessRead#seek(long)}
    */
   @Test
   @DisplayName("Test seek(long)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SequenceRandomAccessRead.seek(long)"})
   void testSeek() throws IOException {
     // Arrange
     ArrayList<RandomAccessRead> randomAccessReadList = new ArrayList<>();
-    randomAccessReadList.add(
-        RandomAccessReadBuffer.createBufferFromStream(
-            new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
-    SequenceRandomAccessRead sequenceRandomAccessRead =
-        new SequenceRandomAccessRead(randomAccessReadList);
+    randomAccessReadList
+        .add(RandomAccessReadBuffer.createBufferFromStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
+    SequenceRandomAccessRead sequenceRandomAccessRead = new SequenceRandomAccessRead(randomAccessReadList);
 
     // Act
     sequenceRandomAccessRead.seek(1L);
@@ -398,22 +268,19 @@ class SequenceRandomAccessReadDiffblueTest {
 
   /**
    * Test {@link SequenceRandomAccessRead#seek(long)}.
-   *
-   * <p>Method under test: {@link SequenceRandomAccessRead#seek(long)}
+   * <p>
+   * Method under test: {@link SequenceRandomAccessRead#seek(long)}
    */
   @Test
   @DisplayName("Test seek(long)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SequenceRandomAccessRead.seek(long)"})
   void testSeek2() throws IOException {
     // Arrange
     ArrayList<RandomAccessRead> randomAccessReadList = new ArrayList<>();
-    randomAccessReadList.add(
-        RandomAccessReadBuffer.createBufferFromStream(
-            new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
-    SequenceRandomAccessRead sequenceRandomAccessRead =
-        new SequenceRandomAccessRead(randomAccessReadList);
+    randomAccessReadList
+        .add(RandomAccessReadBuffer.createBufferFromStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
+    SequenceRandomAccessRead sequenceRandomAccessRead = new SequenceRandomAccessRead(randomAccessReadList);
 
     // Act
     sequenceRandomAccessRead.seek(8L);
@@ -425,30 +292,23 @@ class SequenceRandomAccessReadDiffblueTest {
 
   /**
    * Test {@link SequenceRandomAccessRead#seek(long)}.
-   *
    * <ul>
-   *   <li>Given {@link SequenceRandomAccessRead#read(byte[], int, int)} with b is {@code AXAXAXAX}
-   *       Bytes is {@code UTF-8} and offset is two and length is three.
+   *   <li>Given {@link SequenceRandomAccessRead#read(byte[], int, int)} with b is {@code AXAXAXAX} Bytes is {@code UTF-8} and offset is two and length is three.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SequenceRandomAccessRead#seek(long)}
+   * <p>
+   * Method under test: {@link SequenceRandomAccessRead#seek(long)}
    */
   @Test
-  @DisplayName(
-      "Test seek(long); given read(byte[], int, int) with b is 'AXAXAXAX' Bytes is 'UTF-8' and offset is two and length is three")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test seek(long); given read(byte[], int, int) with b is 'AXAXAXAX' Bytes is 'UTF-8' and offset is two and length is three")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SequenceRandomAccessRead.seek(long)"})
-  void testSeek_givenReadWithBIsAxaxaxaxBytesIsUtf8AndOffsetIsTwoAndLengthIsThree()
-      throws IOException {
+  void testSeek_givenReadWithBIsAxaxaxaxBytesIsUtf8AndOffsetIsTwoAndLengthIsThree() throws IOException {
     // Arrange
     ArrayList<RandomAccessRead> randomAccessReadList = new ArrayList<>();
-    randomAccessReadList.add(
-        RandomAccessReadBuffer.createBufferFromStream(
-            new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
+    randomAccessReadList
+        .add(RandomAccessReadBuffer.createBufferFromStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
 
-    SequenceRandomAccessRead sequenceRandomAccessRead =
-        new SequenceRandomAccessRead(randomAccessReadList);
+    SequenceRandomAccessRead sequenceRandomAccessRead = new SequenceRandomAccessRead(randomAccessReadList);
     sequenceRandomAccessRead.read("AXAXAXAX".getBytes("UTF-8"), 2, 3);
 
     // Act
@@ -461,105 +321,91 @@ class SequenceRandomAccessReadDiffblueTest {
 
   /**
    * Test {@link SequenceRandomAccessRead#seek(long)}.
-   *
    * <ul>
-   *   <li>When minus one.
-   *   <li>Then throw {@link IOException}.
+   *   <li>When minus one.</li>
+   *   <li>Then throw {@link IOException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SequenceRandomAccessRead#seek(long)}
+   * <p>
+   * Method under test: {@link SequenceRandomAccessRead#seek(long)}
    */
   @Test
   @DisplayName("Test seek(long); when minus one; then throw IOException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SequenceRandomAccessRead.seek(long)"})
   void testSeek_whenMinusOne_thenThrowIOException() throws IOException {
     // Arrange
     ArrayList<RandomAccessRead> randomAccessReadList = new ArrayList<>();
-    randomAccessReadList.add(
-        RandomAccessReadBuffer.createBufferFromStream(
-            new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
+    randomAccessReadList
+        .add(RandomAccessReadBuffer.createBufferFromStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
 
     // Act and Assert
-    assertThrows(
-        IOException.class, () -> new SequenceRandomAccessRead(randomAccessReadList).seek(-1L));
+    assertThrows(IOException.class, () -> (new SequenceRandomAccessRead(randomAccessReadList)).seek(-1L));
   }
 
   /**
    * Test {@link SequenceRandomAccessRead#length()}.
-   *
    * <ul>
-   *   <li>Then return eight.
+   *   <li>Then return eight.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SequenceRandomAccessRead#length()}
+   * <p>
+   * Method under test: {@link SequenceRandomAccessRead#length()}
    */
   @Test
   @DisplayName("Test length(); then return eight")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"long SequenceRandomAccessRead.length()"})
   void testLength_thenReturnEight() throws IOException {
     // Arrange
     ArrayList<RandomAccessRead> randomAccessReadList = new ArrayList<>();
-    randomAccessReadList.add(
-        RandomAccessReadBuffer.createBufferFromStream(
-            new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
+    randomAccessReadList
+        .add(RandomAccessReadBuffer.createBufferFromStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
 
     // Act and Assert
-    assertEquals(8L, new SequenceRandomAccessRead(randomAccessReadList).length());
+    assertEquals(8L, (new SequenceRandomAccessRead(randomAccessReadList)).length());
   }
 
   /**
    * Test {@link SequenceRandomAccessRead#isEOF()}.
-   *
    * <ul>
-   *   <li>Then return {@code false}.
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SequenceRandomAccessRead#isEOF()}
+   * <p>
+   * Method under test: {@link SequenceRandomAccessRead#isEOF()}
    */
   @Test
   @DisplayName("Test isEOF(); then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean SequenceRandomAccessRead.isEOF()"})
   void testIsEOF_thenReturnFalse() throws IOException {
     // Arrange
     ArrayList<RandomAccessRead> randomAccessReadList = new ArrayList<>();
-    randomAccessReadList.add(
-        RandomAccessReadBuffer.createBufferFromStream(
-            new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
+    randomAccessReadList
+        .add(RandomAccessReadBuffer.createBufferFromStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
 
     // Act and Assert
-    assertFalse(new SequenceRandomAccessRead(randomAccessReadList).isEOF());
+    assertFalse((new SequenceRandomAccessRead(randomAccessReadList)).isEOF());
   }
 
   /**
    * Test {@link SequenceRandomAccessRead#createView(long, long)}.
-   *
    * <ul>
-   *   <li>Then throw {@link UnsupportedOperationException}.
+   *   <li>Then throw {@link UnsupportedOperationException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SequenceRandomAccessRead#createView(long, long)}
+   * <p>
+   * Method under test: {@link SequenceRandomAccessRead#createView(long, long)}
    */
   @Test
   @DisplayName("Test createView(long, long); then throw UnsupportedOperationException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"RandomAccessReadView SequenceRandomAccessRead.createView(long, long)"})
   void testCreateView_thenThrowUnsupportedOperationException() throws IOException {
     // Arrange
     ArrayList<RandomAccessRead> randomAccessReadList = new ArrayList<>();
-    randomAccessReadList.add(
-        RandomAccessReadBuffer.createBufferFromStream(
-            new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
+    randomAccessReadList
+        .add(RandomAccessReadBuffer.createBufferFromStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
 
     // Act and Assert
-    assertThrows(
-        UnsupportedOperationException.class,
-        () -> new SequenceRandomAccessRead(randomAccessReadList).createView(1L, 3L));
+    assertThrows(UnsupportedOperationException.class,
+        () -> (new SequenceRandomAccessRead(randomAccessReadList)).createView(1L, 3L));
   }
 }

@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,31 +20,29 @@ import org.junit.jupiter.api.Test;
 class FDFTemplateDiffblueTest {
   /**
    * Test {@link FDFTemplate#FDFTemplate(COSDictionary)}.
-   *
-   * <p>Method under test: {@link FDFTemplate#FDFTemplate(COSDictionary)}
+   * <p>
+   * Method under test: {@link FDFTemplate#FDFTemplate(COSDictionary)}
    */
   @Test
   @DisplayName("Test new FDFTemplate(COSDictionary)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFTemplate.<init>(COSDictionary)"})
   void testNewFDFTemplate() {
     // Arrange
     COSDictionary t = new COSDictionary();
 
     // Act and Assert
-    assertSame(t, new FDFTemplate(t).getCOSObject());
+    assertSame(t, (new FDFTemplate(t)).getCOSObject());
   }
 
   /**
    * Test {@link FDFTemplate#FDFTemplate()}.
-   *
-   * <p>Method under test: {@link FDFTemplate#FDFTemplate()}
+   * <p>
+   * Method under test: {@link FDFTemplate#FDFTemplate()}
    */
   @Test
   @DisplayName("Test new FDFTemplate()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFTemplate.<init>()"})
   void testNewFDFTemplate2() {
     // Arrange and Act
@@ -70,17 +67,16 @@ class FDFTemplateDiffblueTest {
 
   /**
    * Test {@link FDFTemplate#getCOSObject()}.
-   *
-   * <p>Method under test: {@link FDFTemplate#getCOSObject()}
+   * <p>
+   * Method under test: {@link FDFTemplate#getCOSObject()}
    */
   @Test
   @DisplayName("Test getCOSObject()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSDictionary FDFTemplate.getCOSObject()"})
   void testGetCOSObject() {
     // Arrange and Act
-    COSDictionary actualCOSObject = new FDFTemplate().getCOSObject();
+    COSDictionary actualCOSObject = (new FDFTemplate()).getCOSObject();
 
     // Assert
     COSUpdateState updateState = actualCOSObject.getUpdateState();
@@ -98,37 +94,33 @@ class FDFTemplateDiffblueTest {
 
   /**
    * Test {@link FDFTemplate#getTemplateReference()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFTemplate#FDFTemplate()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link FDFTemplate#FDFTemplate()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFTemplate#getTemplateReference()}
+   * <p>
+   * Method under test: {@link FDFTemplate#getTemplateReference()}
    */
   @Test
   @DisplayName("Test getTemplateReference(); given FDFTemplate(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"FDFNamedPageReference FDFTemplate.getTemplateReference()"})
   void testGetTemplateReference_givenFDFTemplate_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new FDFTemplate().getTemplateReference());
+    assertNull((new FDFTemplate()).getTemplateReference());
   }
 
   /**
    * Test {@link FDFTemplate#getTemplateReference()}.
-   *
    * <ul>
-   *   <li>Then return COSObject is {@link COSDictionary#COSDictionary()}.
+   *   <li>Then return COSObject is {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFTemplate#getTemplateReference()}
+   * <p>
+   * Method under test: {@link FDFTemplate#getTemplateReference()}
    */
   @Test
   @DisplayName("Test getTemplateReference(); then return COSObject is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"FDFNamedPageReference FDFTemplate.getTemplateReference()"})
   void testGetTemplateReference_thenReturnCOSObjectIsCOSDictionary() {
     // Arrange
@@ -145,17 +137,15 @@ class FDFTemplateDiffblueTest {
 
   /**
    * Test {@link FDFTemplate#getTemplateReference()}.
-   *
    * <ul>
-   *   <li>Then return Name is {@code null}.
+   *   <li>Then return Name is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFTemplate#getTemplateReference()}
+   * <p>
+   * Method under test: {@link FDFTemplate#getTemplateReference()}
    */
   @Test
   @DisplayName("Test getTemplateReference(); then return Name is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"FDFNamedPageReference FDFTemplate.getTemplateReference()"})
   void testGetTemplateReference_thenReturnNameIsNull() throws IOException {
     // Arrange
@@ -184,18 +174,15 @@ class FDFTemplateDiffblueTest {
 
   /**
    * Test {@link FDFTemplate#setTemplateReference(FDFNamedPageReference)}.
-   *
    * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFTemplate#setTemplateReference(FDFNamedPageReference)}
+   * <p>
+   * Method under test: {@link FDFTemplate#setTemplateReference(FDFNamedPageReference)}
    */
   @Test
-  @DisplayName(
-      "Test setTemplateReference(FDFNamedPageReference); given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setTemplateReference(FDFNamedPageReference); given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFTemplate.setTemplateReference(FDFNamedPageReference)"})
   void testSetTemplateReference_givenCOSObjectKeyWithNumIsOneAndGenIsOne() throws IOException {
     // Arrange
@@ -219,19 +206,16 @@ class FDFTemplateDiffblueTest {
 
   /**
    * Test {@link FDFTemplate#setTemplateReference(FDFNamedPageReference)}.
-   *
    * <ul>
-   *   <li>Given {@code true}.
-   *   <li>When {@link COSDictionary#COSDictionary()} Direct is {@code true}.
+   *   <li>Given {@code true}.</li>
+   *   <li>When {@link COSDictionary#COSDictionary()} Direct is {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFTemplate#setTemplateReference(FDFNamedPageReference)}
+   * <p>
+   * Method under test: {@link FDFTemplate#setTemplateReference(FDFNamedPageReference)}
    */
   @Test
-  @DisplayName(
-      "Test setTemplateReference(FDFNamedPageReference); given 'true'; when COSDictionary() Direct is 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setTemplateReference(FDFNamedPageReference); given 'true'; when COSDictionary() Direct is 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFTemplate.setTemplateReference(FDFNamedPageReference)"})
   void testSetTemplateReference_givenTrue_whenCOSDictionaryDirectIsTrue() throws IOException {
     // Arrange
@@ -255,17 +239,15 @@ class FDFTemplateDiffblueTest {
 
   /**
    * Test {@link FDFTemplate#setTemplateReference(FDFNamedPageReference)}.
-   *
    * <ul>
-   *   <li>When {@link FDFNamedPageReference#FDFNamedPageReference()}.
+   *   <li>When {@link FDFNamedPageReference#FDFNamedPageReference()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFTemplate#setTemplateReference(FDFNamedPageReference)}
+   * <p>
+   * Method under test: {@link FDFTemplate#setTemplateReference(FDFNamedPageReference)}
    */
   @Test
   @DisplayName("Test setTemplateReference(FDFNamedPageReference); when FDFNamedPageReference()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFTemplate.setTemplateReference(FDFNamedPageReference)"})
   void testSetTemplateReference_whenFDFNamedPageReference() throws IOException {
     // Arrange
@@ -285,19 +267,16 @@ class FDFTemplateDiffblueTest {
 
   /**
    * Test {@link FDFTemplate#setTemplateReference(FDFNamedPageReference)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link FDFTemplate#FDFTemplate()} COSObject size is zero.
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link FDFTemplate#FDFTemplate()} COSObject size is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFTemplate#setTemplateReference(FDFNamedPageReference)}
+   * <p>
+   * Method under test: {@link FDFTemplate#setTemplateReference(FDFNamedPageReference)}
    */
   @Test
-  @DisplayName(
-      "Test setTemplateReference(FDFNamedPageReference); when 'null'; then FDFTemplate() COSObject size is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setTemplateReference(FDFNamedPageReference); when 'null'; then FDFTemplate() COSObject size is zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFTemplate.setTemplateReference(FDFNamedPageReference)"})
   void testSetTemplateReference_whenNull_thenFDFTemplateCOSObjectSizeIsZero() {
     // Arrange
@@ -314,18 +293,16 @@ class FDFTemplateDiffblueTest {
 
   /**
    * Test {@link FDFTemplate#getFields()}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link FDFField#FDFField()}.
-   *   <li>Then return size is one.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link FDFField#FDFField()}.</li>
+   *   <li>Then return size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFTemplate#getFields()}
+   * <p>
+   * Method under test: {@link FDFTemplate#getFields()}
    */
   @Test
   @DisplayName("Test getFields(); given ArrayList() add FDFField(); then return size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List FDFTemplate.getFields()"})
   void testGetFields_givenArrayListAddFDFField_thenReturnSizeIsOne() throws IOException {
     // Arrange
@@ -362,18 +339,16 @@ class FDFTemplateDiffblueTest {
 
   /**
    * Test {@link FDFTemplate#getFields()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFTemplate#FDFTemplate()} Fields is {@link ArrayList#ArrayList()}.
-   *   <li>Then return Empty.
+   *   <li>Given {@link FDFTemplate#FDFTemplate()} Fields is {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFTemplate#getFields()}
+   * <p>
+   * Method under test: {@link FDFTemplate#getFields()}
    */
   @Test
   @DisplayName("Test getFields(); given FDFTemplate() Fields is ArrayList(); then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List FDFTemplate.getFields()"})
   void testGetFields_givenFDFTemplateFieldsIsArrayList_thenReturnEmpty() {
     // Arrange
@@ -386,42 +361,36 @@ class FDFTemplateDiffblueTest {
 
   /**
    * Test {@link FDFTemplate#getFields()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFTemplate#FDFTemplate()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link FDFTemplate#FDFTemplate()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFTemplate#getFields()}
+   * <p>
+   * Method under test: {@link FDFTemplate#getFields()}
    */
   @Test
   @DisplayName("Test getFields(); given FDFTemplate(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List FDFTemplate.getFields()"})
   void testGetFields_givenFDFTemplate_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new FDFTemplate().getFields());
+    assertNull((new FDFTemplate()).getFields());
   }
 
   /**
    * Test {@link FDFTemplate#setFields(List)}.
-   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()}.
-   *   <li>Then {@link FDFTemplate#FDFTemplate()} Fields first ClearFieldFlags is {@code null}.
+   *   <li>Given {@link FDFField#FDFField()}.</li>
+   *   <li>Then {@link FDFTemplate#FDFTemplate()} Fields first ClearFieldFlags is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFTemplate#setFields(List)}
+   * <p>
+   * Method under test: {@link FDFTemplate#setFields(List)}
    */
   @Test
-  @DisplayName(
-      "Test setFields(List); given FDFField(); then FDFTemplate() Fields first ClearFieldFlags is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setFields(List); given FDFField(); then FDFTemplate() Fields first ClearFieldFlags is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFTemplate.setFields(List)"})
-  void testSetFields_givenFDFField_thenFDFTemplateFieldsFirstClearFieldFlagsIsNull()
-      throws IOException {
+  void testSetFields_givenFDFField_thenFDFTemplateFieldsFirstClearFieldFlagsIsNull() throws IOException {
     // Arrange
     FDFTemplate fdfTemplate = new FDFTemplate();
 
@@ -456,18 +425,16 @@ class FDFTemplateDiffblueTest {
 
   /**
    * Test {@link FDFTemplate#setFields(List)}.
-   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()}.
-   *   <li>Then {@link FDFTemplate#FDFTemplate()} Fields size is two.
+   *   <li>Given {@link FDFField#FDFField()}.</li>
+   *   <li>Then {@link FDFTemplate#FDFTemplate()} Fields size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFTemplate#setFields(List)}
+   * <p>
+   * Method under test: {@link FDFTemplate#setFields(List)}
    */
   @Test
   @DisplayName("Test setFields(List); given FDFField(); then FDFTemplate() Fields size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFTemplate.setFields(List)"})
   void testSetFields_givenFDFField_thenFDFTemplateFieldsSizeIsTwo() throws IOException {
     // Arrange
@@ -505,20 +472,17 @@ class FDFTemplateDiffblueTest {
 
   /**
    * Test {@link FDFTemplate#setFields(List)}.
-   *
    * <ul>
-   *   <li>Given {@link FDFTemplate#FDFTemplate()}.
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then {@link FDFTemplate#FDFTemplate()} Fields Empty.
+   *   <li>Given {@link FDFTemplate#FDFTemplate()}.</li>
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then {@link FDFTemplate#FDFTemplate()} Fields Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFTemplate#setFields(List)}
+   * <p>
+   * Method under test: {@link FDFTemplate#setFields(List)}
    */
   @Test
-  @DisplayName(
-      "Test setFields(List); given FDFTemplate(); when ArrayList(); then FDFTemplate() Fields Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setFields(List); given FDFTemplate(); when ArrayList(); then FDFTemplate() Fields Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFTemplate.setFields(List)"})
   void testSetFields_givenFDFTemplate_whenArrayList_thenFDFTemplateFieldsEmpty() {
     // Arrange
@@ -536,19 +500,16 @@ class FDFTemplateDiffblueTest {
 
   /**
    * Test {@link FDFTemplate#setFields(List)}.
-   *
    * <ul>
-   *   <li>Given {@code null}.
-   *   <li>Then {@link FDFTemplate#FDFTemplate()} Fields first COSObject is {@code null}.
+   *   <li>Given {@code null}.</li>
+   *   <li>Then {@link FDFTemplate#FDFTemplate()} Fields first COSObject is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFTemplate#setFields(List)}
+   * <p>
+   * Method under test: {@link FDFTemplate#setFields(List)}
    */
   @Test
-  @DisplayName(
-      "Test setFields(List); given 'null'; then FDFTemplate() Fields first COSObject is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setFields(List); given 'null'; then FDFTemplate() Fields first COSObject is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFTemplate.setFields(List)"})
   void testSetFields_givenNull_thenFDFTemplateFieldsFirstCOSObjectIsNull() {
     // Arrange
@@ -571,18 +532,16 @@ class FDFTemplateDiffblueTest {
 
   /**
    * Test {@link FDFTemplate#shouldRename()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFTemplate#FDFTemplate()} Rename is {@code false}.
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link FDFTemplate#FDFTemplate()} Rename is {@code false}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFTemplate#shouldRename()}
+   * <p>
+   * Method under test: {@link FDFTemplate#shouldRename()}
    */
   @Test
   @DisplayName("Test shouldRename(); given FDFTemplate() Rename is 'false'; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean FDFTemplate.shouldRename()"})
   void testShouldRename_givenFDFTemplateRenameIsFalse_thenReturnFalse() {
     // Arrange
@@ -595,18 +554,16 @@ class FDFTemplateDiffblueTest {
 
   /**
    * Test {@link FDFTemplate#shouldRename()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFTemplate#FDFTemplate()} Rename is {@code true}.
-   *   <li>Then return {@code true}.
+   *   <li>Given {@link FDFTemplate#FDFTemplate()} Rename is {@code true}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFTemplate#shouldRename()}
+   * <p>
+   * Method under test: {@link FDFTemplate#shouldRename()}
    */
   @Test
   @DisplayName("Test shouldRename(); given FDFTemplate() Rename is 'true'; then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean FDFTemplate.shouldRename()"})
   void testShouldRename_givenFDFTemplateRenameIsTrue_thenReturnTrue() {
     // Arrange
@@ -619,40 +576,35 @@ class FDFTemplateDiffblueTest {
 
   /**
    * Test {@link FDFTemplate#shouldRename()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFTemplate#FDFTemplate()}.
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link FDFTemplate#FDFTemplate()}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFTemplate#shouldRename()}
+   * <p>
+   * Method under test: {@link FDFTemplate#shouldRename()}
    */
   @Test
   @DisplayName("Test shouldRename(); given FDFTemplate(); then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean FDFTemplate.shouldRename()"})
   void testShouldRename_givenFDFTemplate_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new FDFTemplate().shouldRename());
+    assertFalse((new FDFTemplate()).shouldRename());
   }
 
   /**
    * Test {@link FDFTemplate#setRename(boolean)}.
-   *
    * <ul>
-   *   <li>Given {@link FDFTemplate#FDFTemplate()}.
-   *   <li>When {@code false}.
-   *   <li>Then {@link FDFTemplate#FDFTemplate()} COSObject Values size is one.
+   *   <li>Given {@link FDFTemplate#FDFTemplate()}.</li>
+   *   <li>When {@code false}.</li>
+   *   <li>Then {@link FDFTemplate#FDFTemplate()} COSObject Values size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFTemplate#setRename(boolean)}
+   * <p>
+   * Method under test: {@link FDFTemplate#setRename(boolean)}
    */
   @Test
-  @DisplayName(
-      "Test setRename(boolean); given FDFTemplate(); when 'false'; then FDFTemplate() COSObject Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setRename(boolean); given FDFTemplate(); when 'false'; then FDFTemplate() COSObject Values size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFTemplate.setRename(boolean)"})
   void testSetRename_givenFDFTemplate_whenFalse_thenFDFTemplateCOSObjectValuesSizeIsOne() {
     // Arrange
@@ -669,20 +621,17 @@ class FDFTemplateDiffblueTest {
 
   /**
    * Test {@link FDFTemplate#setRename(boolean)}.
-   *
    * <ul>
-   *   <li>Given {@link FDFTemplate#FDFTemplate()}.
-   *   <li>When {@code true}.
-   *   <li>Then {@link FDFTemplate#FDFTemplate()} COSObject Values size is one.
+   *   <li>Given {@link FDFTemplate#FDFTemplate()}.</li>
+   *   <li>When {@code true}.</li>
+   *   <li>Then {@link FDFTemplate#FDFTemplate()} COSObject Values size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFTemplate#setRename(boolean)}
+   * <p>
+   * Method under test: {@link FDFTemplate#setRename(boolean)}
    */
   @Test
-  @DisplayName(
-      "Test setRename(boolean); given FDFTemplate(); when 'true'; then FDFTemplate() COSObject Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setRename(boolean); given FDFTemplate(); when 'true'; then FDFTemplate() COSObject Values size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFTemplate.setRename(boolean)"})
   void testSetRename_givenFDFTemplate_whenTrue_thenFDFTemplateCOSObjectValuesSizeIsOne() {
     // Arrange

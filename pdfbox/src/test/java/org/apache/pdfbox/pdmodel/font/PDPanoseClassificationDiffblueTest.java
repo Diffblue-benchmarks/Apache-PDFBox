@@ -3,7 +3,6 @@ package org.apache.pdfbox.pdmodel.font;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.UnsupportedEncodingException;
 import org.junit.jupiter.api.DisplayName;
@@ -13,9 +12,8 @@ import org.junit.jupiter.api.Test;
 class PDPanoseClassificationDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link PDPanoseClassification#PDPanoseClassification(byte[])}
    *   <li>{@link PDPanoseClassification#getBytes()}
@@ -23,19 +21,15 @@ class PDPanoseClassificationDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PDPanoseClassification.<init>(byte[])",
-    "byte[] PDPanoseClassification.getBytes()",
-    "java.lang.String PDPanoseClassification.toString()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDPanoseClassification.<init>(byte[])", "byte[] PDPanoseClassification.getBytes()",
+      "java.lang.String PDPanoseClassification.toString()"})
   void testGettersAndSetters() throws UnsupportedEncodingException {
     // Arrange
     byte[] bytes = "AXAXAXAX".getBytes("UTF-8");
 
     // Act
-    byte[] actualBytes = new PDPanoseClassification(bytes).getBytes();
+    byte[] actualBytes = (new PDPanoseClassification(bytes)).getBytes();
 
     // Assert
     assertSame(bytes, actualBytes);
@@ -44,193 +38,171 @@ class PDPanoseClassificationDiffblueTest {
 
   /**
    * Test {@link PDPanoseClassification#getFamilyKind()}.
-   *
    * <ul>
-   *   <li>Then return sixty-five.
+   *   <li>Then return sixty-five.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPanoseClassification#getFamilyKind()}
+   * <p>
+   * Method under test: {@link PDPanoseClassification#getFamilyKind()}
    */
   @Test
   @DisplayName("Test getFamilyKind(); then return sixty-five")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int PDPanoseClassification.getFamilyKind()"})
   void testGetFamilyKind_thenReturnSixtyFive() throws UnsupportedEncodingException {
     // Arrange, Act and Assert
-    assertEquals(65, new PDPanoseClassification("AXAXAXAX".getBytes("UTF-8")).getFamilyKind());
+    assertEquals(65, (new PDPanoseClassification("AXAXAXAX".getBytes("UTF-8"))).getFamilyKind());
   }
 
   /**
    * Test {@link PDPanoseClassification#getSerifStyle()}.
-   *
    * <ul>
-   *   <li>Then return eighty-eight.
+   *   <li>Then return eighty-eight.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPanoseClassification#getSerifStyle()}
+   * <p>
+   * Method under test: {@link PDPanoseClassification#getSerifStyle()}
    */
   @Test
   @DisplayName("Test getSerifStyle(); then return eighty-eight")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int PDPanoseClassification.getSerifStyle()"})
   void testGetSerifStyle_thenReturnEightyEight() throws UnsupportedEncodingException {
     // Arrange, Act and Assert
-    assertEquals(88, new PDPanoseClassification("AXAXAXAX".getBytes("UTF-8")).getSerifStyle());
+    assertEquals(88, (new PDPanoseClassification("AXAXAXAX".getBytes("UTF-8"))).getSerifStyle());
   }
 
   /**
    * Test {@link PDPanoseClassification#getWeight()}.
-   *
    * <ul>
-   *   <li>Then return sixty-five.
+   *   <li>Then return sixty-five.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPanoseClassification#getWeight()}
+   * <p>
+   * Method under test: {@link PDPanoseClassification#getWeight()}
    */
   @Test
   @DisplayName("Test getWeight(); then return sixty-five")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int PDPanoseClassification.getWeight()"})
   void testGetWeight_thenReturnSixtyFive() throws UnsupportedEncodingException {
     // Arrange, Act and Assert
-    assertEquals(65, new PDPanoseClassification("AXAXAXAX".getBytes("UTF-8")).getWeight());
+    assertEquals(65, (new PDPanoseClassification("AXAXAXAX".getBytes("UTF-8"))).getWeight());
   }
 
   /**
    * Test {@link PDPanoseClassification#getProportion()}.
-   *
    * <ul>
-   *   <li>Then return eighty-eight.
+   *   <li>Then return eighty-eight.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPanoseClassification#getProportion()}
+   * <p>
+   * Method under test: {@link PDPanoseClassification#getProportion()}
    */
   @Test
   @DisplayName("Test getProportion(); then return eighty-eight")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int PDPanoseClassification.getProportion()"})
   void testGetProportion_thenReturnEightyEight() throws UnsupportedEncodingException {
     // Arrange, Act and Assert
-    assertEquals(88, new PDPanoseClassification("AXAXAXAX".getBytes("UTF-8")).getProportion());
+    assertEquals(88, (new PDPanoseClassification("AXAXAXAX".getBytes("UTF-8"))).getProportion());
   }
 
   /**
    * Test {@link PDPanoseClassification#getContrast()}.
-   *
    * <ul>
-   *   <li>Then return sixty-five.
+   *   <li>Then return sixty-five.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPanoseClassification#getContrast()}
+   * <p>
+   * Method under test: {@link PDPanoseClassification#getContrast()}
    */
   @Test
   @DisplayName("Test getContrast(); then return sixty-five")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int PDPanoseClassification.getContrast()"})
   void testGetContrast_thenReturnSixtyFive() throws UnsupportedEncodingException {
     // Arrange, Act and Assert
-    assertEquals(65, new PDPanoseClassification("AXAXAXAX".getBytes("UTF-8")).getContrast());
+    assertEquals(65, (new PDPanoseClassification("AXAXAXAX".getBytes("UTF-8"))).getContrast());
   }
 
   /**
    * Test {@link PDPanoseClassification#getStrokeVariation()}.
-   *
    * <ul>
-   *   <li>Then return eighty-eight.
+   *   <li>Then return eighty-eight.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPanoseClassification#getStrokeVariation()}
+   * <p>
+   * Method under test: {@link PDPanoseClassification#getStrokeVariation()}
    */
   @Test
   @DisplayName("Test getStrokeVariation(); then return eighty-eight")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int PDPanoseClassification.getStrokeVariation()"})
   void testGetStrokeVariation_thenReturnEightyEight() throws UnsupportedEncodingException {
     // Arrange, Act and Assert
-    assertEquals(88, new PDPanoseClassification("AXAXAXAX".getBytes("UTF-8")).getStrokeVariation());
+    assertEquals(88, (new PDPanoseClassification("AXAXAXAX".getBytes("UTF-8"))).getStrokeVariation());
   }
 
   /**
    * Test {@link PDPanoseClassification#getArmStyle()}.
-   *
    * <ul>
-   *   <li>Then return sixty-five.
+   *   <li>Then return sixty-five.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPanoseClassification#getArmStyle()}
+   * <p>
+   * Method under test: {@link PDPanoseClassification#getArmStyle()}
    */
   @Test
   @DisplayName("Test getArmStyle(); then return sixty-five")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int PDPanoseClassification.getArmStyle()"})
   void testGetArmStyle_thenReturnSixtyFive() throws UnsupportedEncodingException {
     // Arrange, Act and Assert
-    assertEquals(65, new PDPanoseClassification("AXAXAXAX".getBytes("UTF-8")).getArmStyle());
+    assertEquals(65, (new PDPanoseClassification("AXAXAXAX".getBytes("UTF-8"))).getArmStyle());
   }
 
   /**
    * Test {@link PDPanoseClassification#getLetterform()}.
-   *
    * <ul>
-   *   <li>Then return eighty-eight.
+   *   <li>Then return eighty-eight.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPanoseClassification#getLetterform()}
+   * <p>
+   * Method under test: {@link PDPanoseClassification#getLetterform()}
    */
   @Test
   @DisplayName("Test getLetterform(); then return eighty-eight")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int PDPanoseClassification.getLetterform()"})
   void testGetLetterform_thenReturnEightyEight() throws UnsupportedEncodingException {
     // Arrange, Act and Assert
-    assertEquals(88, new PDPanoseClassification("AXAXAXAX".getBytes("UTF-8")).getLetterform());
+    assertEquals(88, (new PDPanoseClassification("AXAXAXAX".getBytes("UTF-8"))).getLetterform());
   }
 
   /**
    * Test {@link PDPanoseClassification#getMidline()}.
-   *
    * <ul>
-   *   <li>Then return sixty-five.
+   *   <li>Then return sixty-five.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPanoseClassification#getMidline()}
+   * <p>
+   * Method under test: {@link PDPanoseClassification#getMidline()}
    */
   @Test
   @DisplayName("Test getMidline(); then return sixty-five")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int PDPanoseClassification.getMidline()"})
   void testGetMidline_thenReturnSixtyFive() throws UnsupportedEncodingException {
     // Arrange, Act and Assert
-    assertEquals(
-        65, new PDPanoseClassification("A\bA\bA\bA\bA\bA\bA\bA\b".getBytes("UTF-8")).getMidline());
+    assertEquals(65, (new PDPanoseClassification("A\bA\bA\bA\bA\bA\bA\bA\b".getBytes("UTF-8"))).getMidline());
   }
 
   /**
    * Test {@link PDPanoseClassification#getXHeight()}.
-   *
    * <ul>
-   *   <li>Then return nine.
+   *   <li>Then return nine.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPanoseClassification#getXHeight()}
+   * <p>
+   * Method under test: {@link PDPanoseClassification#getXHeight()}
    */
   @Test
   @DisplayName("Test getXHeight(); then return nine")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int PDPanoseClassification.getXHeight()"})
   void testGetXHeight_thenReturnNine() throws UnsupportedEncodingException {
     // Arrange, Act and Assert
-    assertEquals(
-        9, new PDPanoseClassification("A\tA\tA\tA\tA\tA\tA\tA\t".getBytes("UTF-8")).getXHeight());
+    assertEquals(9, (new PDPanoseClassification("A\tA\tA\tA\tA\tA\tA\tA\t".getBytes("UTF-8"))).getXHeight());
   }
 }

@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import org.apache.xmpbox.XMPMetadata;
@@ -17,13 +16,12 @@ import org.junit.jupiter.api.Test;
 class PDFAExtensionSchemaDiffblueTest {
   /**
    * Test {@link PDFAExtensionSchema#PDFAExtensionSchema(XMPMetadata)}.
-   *
-   * <p>Method under test: {@link PDFAExtensionSchema#PDFAExtensionSchema(XMPMetadata)}
+   * <p>
+   * Method under test: {@link PDFAExtensionSchema#PDFAExtensionSchema(XMPMetadata)}
    */
   @Test
   @DisplayName("Test new PDFAExtensionSchema(XMPMetadata)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFAExtensionSchema.<init>(XMPMetadata)"})
   void testNewPDFAExtensionSchema() {
     // Arrange
@@ -34,15 +32,13 @@ class PDFAExtensionSchemaDiffblueTest {
 
     // Assert
     assertEquals("", actualPdfaExtensionSchema.getAboutValue());
-    assertEquals(
-        "http://www.aiim.org/pdfa/ns/extension/", actualPdfaExtensionSchema.getNamespace());
+    assertEquals("http://www.aiim.org/pdfa/ns/extension/", actualPdfaExtensionSchema.getNamespace());
     assertEquals("pdfaExtension", actualPdfaExtensionSchema.getPreferedPrefix());
     assertEquals("pdfaExtension", actualPdfaExtensionSchema.getPrefix());
     assertNull(actualPdfaExtensionSchema.getPropertyName());
     assertNull(actualPdfaExtensionSchema.getSchemasProperty());
     assertNull(actualPdfaExtensionSchema.getAboutAttribute());
-    Map<String, String> allNamespacesWithPrefix =
-        actualPdfaExtensionSchema.getAllNamespacesWithPrefix();
+    Map<String, String> allNamespacesWithPrefix = actualPdfaExtensionSchema.getAllNamespacesWithPrefix();
     assertEquals(1, allNamespacesWithPrefix.size());
     assertTrue(actualPdfaExtensionSchema.getAllProperties().isEmpty());
     assertTrue(actualPdfaExtensionSchema.getAllAttributes().isEmpty());
@@ -52,19 +48,16 @@ class PDFAExtensionSchemaDiffblueTest {
 
   /**
    * Test {@link PDFAExtensionSchema#PDFAExtensionSchema(XMPMetadata, String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return Prefix is {@code pdfaExtension}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return Prefix is {@code pdfaExtension}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFAExtensionSchema#PDFAExtensionSchema(XMPMetadata, String)}
+   * <p>
+   * Method under test: {@link PDFAExtensionSchema#PDFAExtensionSchema(XMPMetadata, String)}
    */
   @Test
-  @DisplayName(
-      "Test new PDFAExtensionSchema(XMPMetadata, String); when 'null'; then return Prefix is 'pdfaExtension'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new PDFAExtensionSchema(XMPMetadata, String); when 'null'; then return Prefix is 'pdfaExtension'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFAExtensionSchema.<init>(XMPMetadata, String)"})
   void testNewPDFAExtensionSchema_whenNull_thenReturnPrefixIsPdfaExtension() {
     // Arrange
@@ -75,15 +68,13 @@ class PDFAExtensionSchemaDiffblueTest {
 
     // Assert
     assertEquals("", actualPdfaExtensionSchema.getAboutValue());
-    assertEquals(
-        "http://www.aiim.org/pdfa/ns/extension/", actualPdfaExtensionSchema.getNamespace());
+    assertEquals("http://www.aiim.org/pdfa/ns/extension/", actualPdfaExtensionSchema.getNamespace());
     assertEquals("pdfaExtension", actualPdfaExtensionSchema.getPreferedPrefix());
     assertEquals("pdfaExtension", actualPdfaExtensionSchema.getPrefix());
     assertNull(actualPdfaExtensionSchema.getPropertyName());
     assertNull(actualPdfaExtensionSchema.getSchemasProperty());
     assertNull(actualPdfaExtensionSchema.getAboutAttribute());
-    Map<String, String> allNamespacesWithPrefix =
-        actualPdfaExtensionSchema.getAllNamespacesWithPrefix();
+    Map<String, String> allNamespacesWithPrefix = actualPdfaExtensionSchema.getAllNamespacesWithPrefix();
     assertEquals(1, allNamespacesWithPrefix.size());
     assertTrue(actualPdfaExtensionSchema.getAllProperties().isEmpty());
     assertTrue(actualPdfaExtensionSchema.getAllAttributes().isEmpty());
@@ -93,19 +84,16 @@ class PDFAExtensionSchemaDiffblueTest {
 
   /**
    * Test {@link PDFAExtensionSchema#PDFAExtensionSchema(XMPMetadata, String)}.
-   *
    * <ul>
-   *   <li>When {@code Prefix}.
-   *   <li>Then return {@code Prefix}.
+   *   <li>When {@code Prefix}.</li>
+   *   <li>Then return {@code Prefix}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFAExtensionSchema#PDFAExtensionSchema(XMPMetadata, String)}
+   * <p>
+   * Method under test: {@link PDFAExtensionSchema#PDFAExtensionSchema(XMPMetadata, String)}
    */
   @Test
-  @DisplayName(
-      "Test new PDFAExtensionSchema(XMPMetadata, String); when 'Prefix'; then return 'Prefix'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new PDFAExtensionSchema(XMPMetadata, String); when 'Prefix'; then return 'Prefix'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFAExtensionSchema.<init>(XMPMetadata, String)"})
   void testNewPDFAExtensionSchema_whenPrefix_thenReturnPrefix() {
     // Arrange
@@ -117,14 +105,12 @@ class PDFAExtensionSchemaDiffblueTest {
     // Assert
     assertEquals("", actualPdfaExtensionSchema.getAboutValue());
     assertEquals("Prefix", actualPdfaExtensionSchema.getPrefix());
-    assertEquals(
-        "http://www.aiim.org/pdfa/ns/extension/", actualPdfaExtensionSchema.getNamespace());
+    assertEquals("http://www.aiim.org/pdfa/ns/extension/", actualPdfaExtensionSchema.getNamespace());
     assertEquals("pdfaExtension", actualPdfaExtensionSchema.getPreferedPrefix());
     assertNull(actualPdfaExtensionSchema.getPropertyName());
     assertNull(actualPdfaExtensionSchema.getSchemasProperty());
     assertNull(actualPdfaExtensionSchema.getAboutAttribute());
-    Map<String, String> allNamespacesWithPrefix =
-        actualPdfaExtensionSchema.getAllNamespacesWithPrefix();
+    Map<String, String> allNamespacesWithPrefix = actualPdfaExtensionSchema.getAllNamespacesWithPrefix();
     assertEquals(1, allNamespacesWithPrefix.size());
     assertTrue(actualPdfaExtensionSchema.getAllProperties().isEmpty());
     assertTrue(actualPdfaExtensionSchema.getAllAttributes().isEmpty());
@@ -134,13 +120,12 @@ class PDFAExtensionSchemaDiffblueTest {
 
   /**
    * Test {@link PDFAExtensionSchema#getSchemasProperty()}.
-   *
-   * <p>Method under test: {@link PDFAExtensionSchema#getSchemasProperty()}
+   * <p>
+   * Method under test: {@link PDFAExtensionSchema#getSchemasProperty()}
    */
   @Test
   @DisplayName("Test getSchemasProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ArrayProperty PDFAExtensionSchema.getSchemasProperty()"})
   void testGetSchemasProperty() {
     // Arrange
@@ -167,18 +152,15 @@ class PDFAExtensionSchemaDiffblueTest {
 
   /**
    * Test {@link PDFAExtensionSchema#getSchemasProperty()}.
-   *
    * <ul>
-   *   <li>Then return Namespace is {@code http://www.aiim.org/pdfa/ns/extension/}.
+   *   <li>Then return Namespace is {@code http://www.aiim.org/pdfa/ns/extension/}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFAExtensionSchema#getSchemasProperty()}
+   * <p>
+   * Method under test: {@link PDFAExtensionSchema#getSchemasProperty()}
    */
   @Test
-  @DisplayName(
-      "Test getSchemasProperty(); then return Namespace is 'http://www.aiim.org/pdfa/ns/extension/'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getSchemasProperty(); then return Namespace is 'http://www.aiim.org/pdfa/ns/extension/'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ArrayProperty PDFAExtensionSchema.getSchemasProperty()"})
   void testGetSchemasProperty_thenReturnNamespaceIsHttpWwwAiimOrgPdfaNsExtension() {
     // Arrange
@@ -204,20 +186,18 @@ class PDFAExtensionSchemaDiffblueTest {
 
   /**
    * Test {@link PDFAExtensionSchema#getSchemasProperty()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFAExtensionSchema#getSchemasProperty()}
+   * <p>
+   * Method under test: {@link PDFAExtensionSchema#getSchemasProperty()}
    */
   @Test
   @DisplayName("Test getSchemasProperty(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ArrayProperty PDFAExtensionSchema.getSchemasProperty()"})
   void testGetSchemasProperty_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDFAExtensionSchema(XMPMetadata.createXMPMetadata()).getSchemasProperty());
+    assertNull((new PDFAExtensionSchema(XMPMetadata.createXMPMetadata())).getSchemasProperty());
   }
 }

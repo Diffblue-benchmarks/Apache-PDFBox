@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import org.apache.pdfbox.cos.COSDictionary;
@@ -19,37 +18,33 @@ import org.junit.jupiter.api.Test;
 class PDAnnotationAdditionalActionsDiffblueTest {
   /**
    * Test {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions(COSDictionary)}.
-   *
-   * <p>Method under test: {@link
-   * PDAnnotationAdditionalActions#PDAnnotationAdditionalActions(COSDictionary)}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions(COSDictionary)}
    */
   @Test
   @DisplayName("Test new PDAnnotationAdditionalActions(COSDictionary)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationAdditionalActions.<init>(COSDictionary)"})
   void testNewPDAnnotationAdditionalActions() {
     // Arrange
     COSDictionary a = new COSDictionary();
 
     // Act and Assert
-    assertSame(a, new PDAnnotationAdditionalActions(a).getCOSObject());
+    assertSame(a, (new PDAnnotationAdditionalActions(a)).getCOSObject());
   }
 
   /**
    * Test {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()}.
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()}
    */
   @Test
   @DisplayName("Test new PDAnnotationAdditionalActions()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationAdditionalActions.<init>()"})
   void testNewPDAnnotationAdditionalActions2() {
     // Arrange and Act
-    PDAnnotationAdditionalActions actualPdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions actualPdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
 
     // Assert
     assertNull(actualPdAnnotationAdditionalActions.getBl());
@@ -66,17 +61,16 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getCOSObject()}.
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getCOSObject()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getCOSObject()}
    */
   @Test
   @DisplayName("Test getCOSObject()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSDictionary PDAnnotationAdditionalActions.getCOSObject()"})
   void testGetCOSObject() {
     // Arrange and Act
-    COSDictionary actualCOSObject = new PDAnnotationAdditionalActions().getCOSObject();
+    COSDictionary actualCOSObject = (new PDAnnotationAdditionalActions()).getCOSObject();
 
     // Assert
     COSUpdateState updateState = actualCOSObject.getUpdateState();
@@ -94,18 +88,16 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getE()}.
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getE()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getE()}
    */
   @Test
   @DisplayName("Test getE()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getE()"})
   void testGetE() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setE(new PDActionEmbeddedGoTo(new COSDictionary()));
 
     // Act and Assert
@@ -114,19 +106,15 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getE()}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()} Key is {@link COSObjectKey#COSObjectKey(long,
-   *       int)} with num is one and gen is one.
+   *   <li>Given {@link COSDictionary#COSDictionary()} Key is {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getE()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getE()}
    */
   @Test
-  @DisplayName(
-      "Test getE(); given COSDictionary() Key is COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getE(); given COSDictionary() Key is COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getE()"})
   void testGetE_givenCOSDictionaryKeyIsCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
@@ -134,8 +122,7 @@ class PDAnnotationAdditionalActionsDiffblueTest {
     a.setKey(new COSObjectKey(1L, 1));
     PDActionEmbeddedGoTo e = new PDActionEmbeddedGoTo(a);
 
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setE(e);
 
     // Act and Assert
@@ -144,27 +131,22 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getE()}.
-   *
    * <ul>
-   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()} SubType is {@code foo}.
+   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link COSDictionary#COSDictionary()} SubType is {@code foo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getE()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getE()}
    */
   @Test
-  @DisplayName(
-      "Test getE(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary() SubType is 'foo'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getE(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary() SubType is 'foo'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getE()"})
   void testGetE_givenPDActionEmbeddedGoToWithAIsCOSDictionarySubTypeIsFoo() {
     // Arrange
     PDActionEmbeddedGoTo e = new PDActionEmbeddedGoTo(new COSDictionary());
     e.setSubType("foo");
 
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setE(e);
 
     // Act and Assert
@@ -173,25 +155,20 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getE()}.
-   *
    * <ul>
-   *   <li>Given {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()} E is {@link
-   *       PDActionURI#PDActionURI()}.
-   *   <li>Then return {@link PDActionURI}.
+   *   <li>Given {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()} E is {@link PDActionURI#PDActionURI()}.</li>
+   *   <li>Then return {@link PDActionURI}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getE()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getE()}
    */
   @Test
-  @DisplayName(
-      "Test getE(); given PDAnnotationAdditionalActions() E is PDActionURI(); then return PDActionURI")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getE(); given PDAnnotationAdditionalActions() E is PDActionURI(); then return PDActionURI")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getE()"})
   void testGetE_givenPDAnnotationAdditionalActionsEIsPDActionURI_thenReturnPDActionURI() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setE(new PDActionURI());
 
     // Act
@@ -213,42 +190,37 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getE()}.
-   *
    * <ul>
-   *   <li>Given {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getE()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getE()}
    */
   @Test
   @DisplayName("Test getE(); given PDAnnotationAdditionalActions(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getE()"})
   void testGetE_givenPDAnnotationAdditionalActions_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDAnnotationAdditionalActions().getE());
+    assertNull((new PDAnnotationAdditionalActions()).getE());
   }
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getE()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionEmbeddedGoTo}.
+   *   <li>Then return {@link PDActionEmbeddedGoTo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getE()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getE()}
    */
   @Test
   @DisplayName("Test getE(); then return PDActionEmbeddedGoTo")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getE()"})
   void testGetE_thenReturnPDActionEmbeddedGoTo() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setE(new PDActionEmbeddedGoTo());
 
     // Act
@@ -265,22 +237,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getE()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionGoTo}.
+   *   <li>Then return {@link PDActionGoTo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getE()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getE()}
    */
   @Test
   @DisplayName("Test getE(); then return PDActionGoTo")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getE()"})
   void testGetE_thenReturnPDActionGoTo() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setE(new PDActionGoTo());
 
     // Act
@@ -302,22 +271,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getE()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionHide}.
+   *   <li>Then return {@link PDActionHide}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getE()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getE()}
    */
   @Test
   @DisplayName("Test getE(); then return PDActionHide")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getE()"})
   void testGetE_thenReturnPDActionHide() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setE(new PDActionHide());
 
     // Act
@@ -332,22 +298,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getE()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionImportData}.
+   *   <li>Then return {@link PDActionImportData}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getE()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getE()}
    */
   @Test
   @DisplayName("Test getE(); then return PDActionImportData")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getE()"})
   void testGetE_thenReturnPDActionImportData() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setE(new PDActionImportData());
 
     // Act
@@ -369,22 +332,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getE()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionJavaScript}.
+   *   <li>Then return {@link PDActionJavaScript}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getE()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getE()}
    */
   @Test
   @DisplayName("Test getE(); then return PDActionJavaScript")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getE()"})
   void testGetE_thenReturnPDActionJavaScript() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setE(new PDActionJavaScript());
 
     // Act
@@ -406,22 +366,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getE()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionLaunch}.
+   *   <li>Then return {@link PDActionLaunch}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getE()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getE()}
    */
   @Test
   @DisplayName("Test getE(); then return PDActionLaunch")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getE()"})
   void testGetE_thenReturnPDActionLaunch() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setE(new PDActionLaunch());
 
     // Act
@@ -441,22 +398,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getE()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionMovie}.
+   *   <li>Then return {@link PDActionMovie}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getE()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getE()}
    */
   @Test
   @DisplayName("Test getE(); then return PDActionMovie")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getE()"})
   void testGetE_thenReturnPDActionMovie() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setE(new PDActionMovie());
 
     // Act
@@ -476,22 +430,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getE()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionNamed}.
+   *   <li>Then return {@link PDActionNamed}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getE()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getE()}
    */
   @Test
   @DisplayName("Test getE(); then return PDActionNamed")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getE()"})
   void testGetE_thenReturnPDActionNamed() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setE(new PDActionNamed());
 
     // Act
@@ -513,22 +464,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getE()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionRemoteGoTo}.
+   *   <li>Then return {@link PDActionRemoteGoTo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getE()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getE()}
    */
   @Test
   @DisplayName("Test getE(); then return PDActionRemoteGoTo")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getE()"})
   void testGetE_thenReturnPDActionRemoteGoTo() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setE(new PDActionRemoteGoTo());
 
     // Act
@@ -544,22 +492,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getE()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionResetForm}.
+   *   <li>Then return {@link PDActionResetForm}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getE()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getE()}
    */
   @Test
   @DisplayName("Test getE(); then return PDActionResetForm")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getE()"})
   void testGetE_thenReturnPDActionResetForm() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setE(new PDActionResetForm());
 
     // Act
@@ -574,22 +519,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getE()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionSound}.
+   *   <li>Then return {@link PDActionSound}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getE()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getE()}
    */
   @Test
   @DisplayName("Test getE(); then return PDActionSound")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getE()"})
   void testGetE_thenReturnPDActionSound() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setE(new PDActionSound());
 
     // Act
@@ -607,22 +549,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getE()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionSubmitForm}.
+   *   <li>Then return {@link PDActionSubmitForm}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getE()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getE()}
    */
   @Test
   @DisplayName("Test getE(); then return PDActionSubmitForm")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getE()"})
   void testGetE_thenReturnPDActionSubmitForm() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setE(new PDActionSubmitForm());
 
     // Act
@@ -638,22 +577,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getE()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionThread}.
+   *   <li>Then return {@link PDActionThread}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getE()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getE()}
    */
   @Test
   @DisplayName("Test getE(); then return PDActionThread")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getE()"})
   void testGetE_thenReturnPDActionThread() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setE(new PDActionThread());
 
     // Act
@@ -669,23 +605,42 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#setE(PDAction)}.
-   *
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#setE(PDAction)}
+   */
+  @Test
+  @DisplayName("Test setE(PDAction)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDAnnotationAdditionalActions.setE(PDAction)"})
+  void testSetE() {
+    // Arrange
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions(
+        new COSDictionary());
+
+    // Act
+    pdAnnotationAdditionalActions.setE(null);
+
+    // Assert that nothing has changed
+    COSDictionary cOSObject = pdAnnotationAdditionalActions.getCOSObject();
+    assertEquals(0, cOSObject.size());
+    assertTrue(cOSObject.getValues().isEmpty());
+  }
+
+  /**
+   * Test {@link PDAnnotationAdditionalActions#setE(PDAction)}.
    * <ul>
-   *   <li>Then {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()} E {@link
-   *       PDActionEmbeddedGoTo}.
+   *   <li>Then {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()} E {@link PDActionEmbeddedGoTo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#setE(PDAction)}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#setE(PDAction)}
    */
   @Test
   @DisplayName("Test setE(PDAction); then PDAnnotationAdditionalActions() E PDActionEmbeddedGoTo")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationAdditionalActions.setE(PDAction)"})
   void testSetE_thenPDAnnotationAdditionalActionsEPDActionEmbeddedGoTo() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
 
     // Act
     pdAnnotationAdditionalActions.setE(new PDActionEmbeddedGoTo());
@@ -706,50 +661,17 @@ class PDAnnotationAdditionalActionsDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotationAdditionalActions#setE(PDAction)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()} COSObject size
-   *       is zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#setE(PDAction)}
-   */
-  @Test
-  @DisplayName(
-      "Test setE(PDAction); when 'null'; then PDAnnotationAdditionalActions() COSObject size is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAnnotationAdditionalActions.setE(PDAction)"})
-  void testSetE_whenNull_thenPDAnnotationAdditionalActionsCOSObjectSizeIsZero() {
-    // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
-
-    // Act
-    pdAnnotationAdditionalActions.setE(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdAnnotationAdditionalActions.getCOSObject();
-    assertEquals(0, cOSObject.size());
-    assertTrue(cOSObject.getValues().isEmpty());
-  }
-
-  /**
    * Test {@link PDAnnotationAdditionalActions#getX()}.
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getX()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getX()}
    */
   @Test
   @DisplayName("Test getX()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getX()"})
   void testGetX() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setX(new PDActionEmbeddedGoTo(new COSDictionary()));
 
     // Act and Assert
@@ -758,19 +680,15 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getX()}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()} Key is {@link COSObjectKey#COSObjectKey(long,
-   *       int)} with num is one and gen is one.
+   *   <li>Given {@link COSDictionary#COSDictionary()} Key is {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getX()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getX()}
    */
   @Test
-  @DisplayName(
-      "Test getX(); given COSDictionary() Key is COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getX(); given COSDictionary() Key is COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getX()"})
   void testGetX_givenCOSDictionaryKeyIsCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
@@ -778,8 +696,7 @@ class PDAnnotationAdditionalActionsDiffblueTest {
     a.setKey(new COSObjectKey(1L, 1));
     PDActionEmbeddedGoTo x = new PDActionEmbeddedGoTo(a);
 
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setX(x);
 
     // Act and Assert
@@ -788,27 +705,22 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getX()}.
-   *
    * <ul>
-   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()} SubType is {@code foo}.
+   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link COSDictionary#COSDictionary()} SubType is {@code foo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getX()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getX()}
    */
   @Test
-  @DisplayName(
-      "Test getX(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary() SubType is 'foo'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getX(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary() SubType is 'foo'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getX()"})
   void testGetX_givenPDActionEmbeddedGoToWithAIsCOSDictionarySubTypeIsFoo() {
     // Arrange
     PDActionEmbeddedGoTo x = new PDActionEmbeddedGoTo(new COSDictionary());
     x.setSubType("foo");
 
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setX(x);
 
     // Act and Assert
@@ -817,25 +729,20 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getX()}.
-   *
    * <ul>
-   *   <li>Given {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()} X is {@link
-   *       PDActionURI#PDActionURI()}.
-   *   <li>Then return {@link PDActionURI}.
+   *   <li>Given {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()} X is {@link PDActionURI#PDActionURI()}.</li>
+   *   <li>Then return {@link PDActionURI}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getX()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getX()}
    */
   @Test
-  @DisplayName(
-      "Test getX(); given PDAnnotationAdditionalActions() X is PDActionURI(); then return PDActionURI")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getX(); given PDAnnotationAdditionalActions() X is PDActionURI(); then return PDActionURI")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getX()"})
   void testGetX_givenPDAnnotationAdditionalActionsXIsPDActionURI_thenReturnPDActionURI() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setX(new PDActionURI());
 
     // Act
@@ -857,42 +764,37 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getX()}.
-   *
    * <ul>
-   *   <li>Given {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getX()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getX()}
    */
   @Test
   @DisplayName("Test getX(); given PDAnnotationAdditionalActions(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getX()"})
   void testGetX_givenPDAnnotationAdditionalActions_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDAnnotationAdditionalActions().getX());
+    assertNull((new PDAnnotationAdditionalActions()).getX());
   }
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getX()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionEmbeddedGoTo}.
+   *   <li>Then return {@link PDActionEmbeddedGoTo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getX()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getX()}
    */
   @Test
   @DisplayName("Test getX(); then return PDActionEmbeddedGoTo")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getX()"})
   void testGetX_thenReturnPDActionEmbeddedGoTo() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setX(new PDActionEmbeddedGoTo());
 
     // Act
@@ -909,22 +811,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getX()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionGoTo}.
+   *   <li>Then return {@link PDActionGoTo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getX()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getX()}
    */
   @Test
   @DisplayName("Test getX(); then return PDActionGoTo")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getX()"})
   void testGetX_thenReturnPDActionGoTo() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setX(new PDActionGoTo());
 
     // Act
@@ -946,22 +845,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getX()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionHide}.
+   *   <li>Then return {@link PDActionHide}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getX()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getX()}
    */
   @Test
   @DisplayName("Test getX(); then return PDActionHide")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getX()"})
   void testGetX_thenReturnPDActionHide() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setX(new PDActionHide());
 
     // Act
@@ -976,22 +872,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getX()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionImportData}.
+   *   <li>Then return {@link PDActionImportData}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getX()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getX()}
    */
   @Test
   @DisplayName("Test getX(); then return PDActionImportData")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getX()"})
   void testGetX_thenReturnPDActionImportData() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setX(new PDActionImportData());
 
     // Act
@@ -1013,22 +906,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getX()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionJavaScript}.
+   *   <li>Then return {@link PDActionJavaScript}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getX()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getX()}
    */
   @Test
   @DisplayName("Test getX(); then return PDActionJavaScript")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getX()"})
   void testGetX_thenReturnPDActionJavaScript() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setX(new PDActionJavaScript());
 
     // Act
@@ -1050,22 +940,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getX()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionLaunch}.
+   *   <li>Then return {@link PDActionLaunch}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getX()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getX()}
    */
   @Test
   @DisplayName("Test getX(); then return PDActionLaunch")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getX()"})
   void testGetX_thenReturnPDActionLaunch() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setX(new PDActionLaunch());
 
     // Act
@@ -1085,22 +972,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getX()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionMovie}.
+   *   <li>Then return {@link PDActionMovie}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getX()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getX()}
    */
   @Test
   @DisplayName("Test getX(); then return PDActionMovie")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getX()"})
   void testGetX_thenReturnPDActionMovie() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setX(new PDActionMovie());
 
     // Act
@@ -1120,22 +1004,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getX()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionNamed}.
+   *   <li>Then return {@link PDActionNamed}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getX()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getX()}
    */
   @Test
   @DisplayName("Test getX(); then return PDActionNamed")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getX()"})
   void testGetX_thenReturnPDActionNamed() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setX(new PDActionNamed());
 
     // Act
@@ -1157,22 +1038,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getX()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionRemoteGoTo}.
+   *   <li>Then return {@link PDActionRemoteGoTo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getX()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getX()}
    */
   @Test
   @DisplayName("Test getX(); then return PDActionRemoteGoTo")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getX()"})
   void testGetX_thenReturnPDActionRemoteGoTo() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setX(new PDActionRemoteGoTo());
 
     // Act
@@ -1188,22 +1066,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getX()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionResetForm}.
+   *   <li>Then return {@link PDActionResetForm}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getX()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getX()}
    */
   @Test
   @DisplayName("Test getX(); then return PDActionResetForm")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getX()"})
   void testGetX_thenReturnPDActionResetForm() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setX(new PDActionResetForm());
 
     // Act
@@ -1218,22 +1093,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getX()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionSound}.
+   *   <li>Then return {@link PDActionSound}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getX()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getX()}
    */
   @Test
   @DisplayName("Test getX(); then return PDActionSound")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getX()"})
   void testGetX_thenReturnPDActionSound() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setX(new PDActionSound());
 
     // Act
@@ -1251,22 +1123,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getX()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionSubmitForm}.
+   *   <li>Then return {@link PDActionSubmitForm}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getX()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getX()}
    */
   @Test
   @DisplayName("Test getX(); then return PDActionSubmitForm")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getX()"})
   void testGetX_thenReturnPDActionSubmitForm() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setX(new PDActionSubmitForm());
 
     // Act
@@ -1282,22 +1151,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getX()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionThread}.
+   *   <li>Then return {@link PDActionThread}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getX()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getX()}
    */
   @Test
   @DisplayName("Test getX(); then return PDActionThread")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getX()"})
   void testGetX_thenReturnPDActionThread() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setX(new PDActionThread());
 
     // Act
@@ -1313,23 +1179,42 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#setX(PDAction)}.
-   *
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#setX(PDAction)}
+   */
+  @Test
+  @DisplayName("Test setX(PDAction)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDAnnotationAdditionalActions.setX(PDAction)"})
+  void testSetX() {
+    // Arrange
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions(
+        new COSDictionary());
+
+    // Act
+    pdAnnotationAdditionalActions.setX(null);
+
+    // Assert that nothing has changed
+    COSDictionary cOSObject = pdAnnotationAdditionalActions.getCOSObject();
+    assertEquals(0, cOSObject.size());
+    assertTrue(cOSObject.getValues().isEmpty());
+  }
+
+  /**
+   * Test {@link PDAnnotationAdditionalActions#setX(PDAction)}.
    * <ul>
-   *   <li>Then {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()} X {@link
-   *       PDActionEmbeddedGoTo}.
+   *   <li>Then {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()} X {@link PDActionEmbeddedGoTo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#setX(PDAction)}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#setX(PDAction)}
    */
   @Test
   @DisplayName("Test setX(PDAction); then PDAnnotationAdditionalActions() X PDActionEmbeddedGoTo")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationAdditionalActions.setX(PDAction)"})
   void testSetX_thenPDAnnotationAdditionalActionsXPDActionEmbeddedGoTo() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
 
     // Act
     pdAnnotationAdditionalActions.setX(new PDActionEmbeddedGoTo());
@@ -1350,50 +1235,17 @@ class PDAnnotationAdditionalActionsDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotationAdditionalActions#setX(PDAction)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()} COSObject size
-   *       is zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#setX(PDAction)}
-   */
-  @Test
-  @DisplayName(
-      "Test setX(PDAction); when 'null'; then PDAnnotationAdditionalActions() COSObject size is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAnnotationAdditionalActions.setX(PDAction)"})
-  void testSetX_whenNull_thenPDAnnotationAdditionalActionsCOSObjectSizeIsZero() {
-    // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
-
-    // Act
-    pdAnnotationAdditionalActions.setX(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdAnnotationAdditionalActions.getCOSObject();
-    assertEquals(0, cOSObject.size());
-    assertTrue(cOSObject.getValues().isEmpty());
-  }
-
-  /**
    * Test {@link PDAnnotationAdditionalActions#getD()}.
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getD()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getD()}
    */
   @Test
   @DisplayName("Test getD()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getD()"})
   void testGetD() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setD(new PDActionEmbeddedGoTo(new COSDictionary()));
 
     // Act and Assert
@@ -1402,19 +1254,15 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getD()}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()} Key is {@link COSObjectKey#COSObjectKey(long,
-   *       int)} with num is one and gen is one.
+   *   <li>Given {@link COSDictionary#COSDictionary()} Key is {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getD()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getD()}
    */
   @Test
-  @DisplayName(
-      "Test getD(); given COSDictionary() Key is COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getD(); given COSDictionary() Key is COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getD()"})
   void testGetD_givenCOSDictionaryKeyIsCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
@@ -1422,8 +1270,7 @@ class PDAnnotationAdditionalActionsDiffblueTest {
     a.setKey(new COSObjectKey(1L, 1));
     PDActionEmbeddedGoTo d = new PDActionEmbeddedGoTo(a);
 
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setD(d);
 
     // Act and Assert
@@ -1432,27 +1279,22 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getD()}.
-   *
    * <ul>
-   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()} SubType is {@code foo}.
+   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link COSDictionary#COSDictionary()} SubType is {@code foo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getD()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getD()}
    */
   @Test
-  @DisplayName(
-      "Test getD(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary() SubType is 'foo'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getD(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary() SubType is 'foo'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getD()"})
   void testGetD_givenPDActionEmbeddedGoToWithAIsCOSDictionarySubTypeIsFoo() {
     // Arrange
     PDActionEmbeddedGoTo d = new PDActionEmbeddedGoTo(new COSDictionary());
     d.setSubType("foo");
 
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setD(d);
 
     // Act and Assert
@@ -1461,25 +1303,20 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getD()}.
-   *
    * <ul>
-   *   <li>Given {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()} D is {@link
-   *       PDActionURI#PDActionURI()}.
-   *   <li>Then return {@link PDActionURI}.
+   *   <li>Given {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()} D is {@link PDActionURI#PDActionURI()}.</li>
+   *   <li>Then return {@link PDActionURI}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getD()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getD()}
    */
   @Test
-  @DisplayName(
-      "Test getD(); given PDAnnotationAdditionalActions() D is PDActionURI(); then return PDActionURI")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getD(); given PDAnnotationAdditionalActions() D is PDActionURI(); then return PDActionURI")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getD()"})
   void testGetD_givenPDAnnotationAdditionalActionsDIsPDActionURI_thenReturnPDActionURI() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setD(new PDActionURI());
 
     // Act
@@ -1501,42 +1338,37 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getD()}.
-   *
    * <ul>
-   *   <li>Given {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getD()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getD()}
    */
   @Test
   @DisplayName("Test getD(); given PDAnnotationAdditionalActions(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getD()"})
   void testGetD_givenPDAnnotationAdditionalActions_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDAnnotationAdditionalActions().getD());
+    assertNull((new PDAnnotationAdditionalActions()).getD());
   }
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getD()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionEmbeddedGoTo}.
+   *   <li>Then return {@link PDActionEmbeddedGoTo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getD()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getD()}
    */
   @Test
   @DisplayName("Test getD(); then return PDActionEmbeddedGoTo")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getD()"})
   void testGetD_thenReturnPDActionEmbeddedGoTo() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setD(new PDActionEmbeddedGoTo());
 
     // Act
@@ -1553,22 +1385,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getD()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionGoTo}.
+   *   <li>Then return {@link PDActionGoTo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getD()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getD()}
    */
   @Test
   @DisplayName("Test getD(); then return PDActionGoTo")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getD()"})
   void testGetD_thenReturnPDActionGoTo() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setD(new PDActionGoTo());
 
     // Act
@@ -1590,22 +1419,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getD()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionHide}.
+   *   <li>Then return {@link PDActionHide}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getD()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getD()}
    */
   @Test
   @DisplayName("Test getD(); then return PDActionHide")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getD()"})
   void testGetD_thenReturnPDActionHide() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setD(new PDActionHide());
 
     // Act
@@ -1620,22 +1446,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getD()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionImportData}.
+   *   <li>Then return {@link PDActionImportData}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getD()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getD()}
    */
   @Test
   @DisplayName("Test getD(); then return PDActionImportData")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getD()"})
   void testGetD_thenReturnPDActionImportData() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setD(new PDActionImportData());
 
     // Act
@@ -1657,22 +1480,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getD()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionJavaScript}.
+   *   <li>Then return {@link PDActionJavaScript}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getD()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getD()}
    */
   @Test
   @DisplayName("Test getD(); then return PDActionJavaScript")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getD()"})
   void testGetD_thenReturnPDActionJavaScript() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setD(new PDActionJavaScript());
 
     // Act
@@ -1694,22 +1514,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getD()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionLaunch}.
+   *   <li>Then return {@link PDActionLaunch}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getD()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getD()}
    */
   @Test
   @DisplayName("Test getD(); then return PDActionLaunch")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getD()"})
   void testGetD_thenReturnPDActionLaunch() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setD(new PDActionLaunch());
 
     // Act
@@ -1729,22 +1546,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getD()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionMovie}.
+   *   <li>Then return {@link PDActionMovie}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getD()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getD()}
    */
   @Test
   @DisplayName("Test getD(); then return PDActionMovie")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getD()"})
   void testGetD_thenReturnPDActionMovie() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setD(new PDActionMovie());
 
     // Act
@@ -1764,22 +1578,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getD()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionNamed}.
+   *   <li>Then return {@link PDActionNamed}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getD()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getD()}
    */
   @Test
   @DisplayName("Test getD(); then return PDActionNamed")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getD()"})
   void testGetD_thenReturnPDActionNamed() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setD(new PDActionNamed());
 
     // Act
@@ -1801,22 +1612,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getD()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionRemoteGoTo}.
+   *   <li>Then return {@link PDActionRemoteGoTo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getD()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getD()}
    */
   @Test
   @DisplayName("Test getD(); then return PDActionRemoteGoTo")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getD()"})
   void testGetD_thenReturnPDActionRemoteGoTo() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setD(new PDActionRemoteGoTo());
 
     // Act
@@ -1832,22 +1640,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getD()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionResetForm}.
+   *   <li>Then return {@link PDActionResetForm}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getD()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getD()}
    */
   @Test
   @DisplayName("Test getD(); then return PDActionResetForm")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getD()"})
   void testGetD_thenReturnPDActionResetForm() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setD(new PDActionResetForm());
 
     // Act
@@ -1862,22 +1667,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getD()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionSound}.
+   *   <li>Then return {@link PDActionSound}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getD()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getD()}
    */
   @Test
   @DisplayName("Test getD(); then return PDActionSound")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getD()"})
   void testGetD_thenReturnPDActionSound() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setD(new PDActionSound());
 
     // Act
@@ -1895,22 +1697,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getD()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionSubmitForm}.
+   *   <li>Then return {@link PDActionSubmitForm}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getD()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getD()}
    */
   @Test
   @DisplayName("Test getD(); then return PDActionSubmitForm")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getD()"})
   void testGetD_thenReturnPDActionSubmitForm() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setD(new PDActionSubmitForm());
 
     // Act
@@ -1926,22 +1725,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getD()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionThread}.
+   *   <li>Then return {@link PDActionThread}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getD()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getD()}
    */
   @Test
   @DisplayName("Test getD(); then return PDActionThread")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getD()"})
   void testGetD_thenReturnPDActionThread() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setD(new PDActionThread());
 
     // Act
@@ -1957,23 +1753,42 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#setD(PDAction)}.
-   *
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#setD(PDAction)}
+   */
+  @Test
+  @DisplayName("Test setD(PDAction)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDAnnotationAdditionalActions.setD(PDAction)"})
+  void testSetD() {
+    // Arrange
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions(
+        new COSDictionary());
+
+    // Act
+    pdAnnotationAdditionalActions.setD(null);
+
+    // Assert that nothing has changed
+    COSDictionary cOSObject = pdAnnotationAdditionalActions.getCOSObject();
+    assertEquals(0, cOSObject.size());
+    assertTrue(cOSObject.getValues().isEmpty());
+  }
+
+  /**
+   * Test {@link PDAnnotationAdditionalActions#setD(PDAction)}.
    * <ul>
-   *   <li>Then {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()} D {@link
-   *       PDActionEmbeddedGoTo}.
+   *   <li>Then {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()} D {@link PDActionEmbeddedGoTo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#setD(PDAction)}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#setD(PDAction)}
    */
   @Test
   @DisplayName("Test setD(PDAction); then PDAnnotationAdditionalActions() D PDActionEmbeddedGoTo")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationAdditionalActions.setD(PDAction)"})
   void testSetD_thenPDAnnotationAdditionalActionsDPDActionEmbeddedGoTo() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
 
     // Act
     pdAnnotationAdditionalActions.setD(new PDActionEmbeddedGoTo());
@@ -1994,50 +1809,17 @@ class PDAnnotationAdditionalActionsDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotationAdditionalActions#setD(PDAction)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()} COSObject size
-   *       is zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#setD(PDAction)}
-   */
-  @Test
-  @DisplayName(
-      "Test setD(PDAction); when 'null'; then PDAnnotationAdditionalActions() COSObject size is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAnnotationAdditionalActions.setD(PDAction)"})
-  void testSetD_whenNull_thenPDAnnotationAdditionalActionsCOSObjectSizeIsZero() {
-    // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
-
-    // Act
-    pdAnnotationAdditionalActions.setD(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdAnnotationAdditionalActions.getCOSObject();
-    assertEquals(0, cOSObject.size());
-    assertTrue(cOSObject.getValues().isEmpty());
-  }
-
-  /**
    * Test {@link PDAnnotationAdditionalActions#getU()}.
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getU()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getU()}
    */
   @Test
   @DisplayName("Test getU()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getU()"})
   void testGetU() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setU(new PDActionEmbeddedGoTo(new COSDictionary()));
 
     // Act and Assert
@@ -2046,19 +1828,15 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getU()}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()} Key is {@link COSObjectKey#COSObjectKey(long,
-   *       int)} with num is one and gen is one.
+   *   <li>Given {@link COSDictionary#COSDictionary()} Key is {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getU()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getU()}
    */
   @Test
-  @DisplayName(
-      "Test getU(); given COSDictionary() Key is COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getU(); given COSDictionary() Key is COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getU()"})
   void testGetU_givenCOSDictionaryKeyIsCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
@@ -2066,8 +1844,7 @@ class PDAnnotationAdditionalActionsDiffblueTest {
     a.setKey(new COSObjectKey(1L, 1));
     PDActionEmbeddedGoTo u = new PDActionEmbeddedGoTo(a);
 
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setU(u);
 
     // Act and Assert
@@ -2076,27 +1853,22 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getU()}.
-   *
    * <ul>
-   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()} SubType is {@code foo}.
+   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link COSDictionary#COSDictionary()} SubType is {@code foo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getU()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getU()}
    */
   @Test
-  @DisplayName(
-      "Test getU(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary() SubType is 'foo'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getU(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary() SubType is 'foo'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getU()"})
   void testGetU_givenPDActionEmbeddedGoToWithAIsCOSDictionarySubTypeIsFoo() {
     // Arrange
     PDActionEmbeddedGoTo u = new PDActionEmbeddedGoTo(new COSDictionary());
     u.setSubType("foo");
 
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setU(u);
 
     // Act and Assert
@@ -2105,25 +1877,20 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getU()}.
-   *
    * <ul>
-   *   <li>Given {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()} U is {@link
-   *       PDActionURI#PDActionURI()}.
-   *   <li>Then return {@link PDActionURI}.
+   *   <li>Given {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()} U is {@link PDActionURI#PDActionURI()}.</li>
+   *   <li>Then return {@link PDActionURI}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getU()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getU()}
    */
   @Test
-  @DisplayName(
-      "Test getU(); given PDAnnotationAdditionalActions() U is PDActionURI(); then return PDActionURI")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getU(); given PDAnnotationAdditionalActions() U is PDActionURI(); then return PDActionURI")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getU()"})
   void testGetU_givenPDAnnotationAdditionalActionsUIsPDActionURI_thenReturnPDActionURI() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setU(new PDActionURI());
 
     // Act
@@ -2145,42 +1912,37 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getU()}.
-   *
    * <ul>
-   *   <li>Given {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getU()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getU()}
    */
   @Test
   @DisplayName("Test getU(); given PDAnnotationAdditionalActions(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getU()"})
   void testGetU_givenPDAnnotationAdditionalActions_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDAnnotationAdditionalActions().getU());
+    assertNull((new PDAnnotationAdditionalActions()).getU());
   }
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getU()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionEmbeddedGoTo}.
+   *   <li>Then return {@link PDActionEmbeddedGoTo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getU()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getU()}
    */
   @Test
   @DisplayName("Test getU(); then return PDActionEmbeddedGoTo")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getU()"})
   void testGetU_thenReturnPDActionEmbeddedGoTo() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setU(new PDActionEmbeddedGoTo());
 
     // Act
@@ -2197,22 +1959,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getU()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionGoTo}.
+   *   <li>Then return {@link PDActionGoTo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getU()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getU()}
    */
   @Test
   @DisplayName("Test getU(); then return PDActionGoTo")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getU()"})
   void testGetU_thenReturnPDActionGoTo() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setU(new PDActionGoTo());
 
     // Act
@@ -2234,22 +1993,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getU()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionHide}.
+   *   <li>Then return {@link PDActionHide}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getU()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getU()}
    */
   @Test
   @DisplayName("Test getU(); then return PDActionHide")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getU()"})
   void testGetU_thenReturnPDActionHide() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setU(new PDActionHide());
 
     // Act
@@ -2264,22 +2020,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getU()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionImportData}.
+   *   <li>Then return {@link PDActionImportData}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getU()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getU()}
    */
   @Test
   @DisplayName("Test getU(); then return PDActionImportData")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getU()"})
   void testGetU_thenReturnPDActionImportData() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setU(new PDActionImportData());
 
     // Act
@@ -2301,22 +2054,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getU()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionJavaScript}.
+   *   <li>Then return {@link PDActionJavaScript}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getU()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getU()}
    */
   @Test
   @DisplayName("Test getU(); then return PDActionJavaScript")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getU()"})
   void testGetU_thenReturnPDActionJavaScript() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setU(new PDActionJavaScript());
 
     // Act
@@ -2338,22 +2088,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getU()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionLaunch}.
+   *   <li>Then return {@link PDActionLaunch}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getU()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getU()}
    */
   @Test
   @DisplayName("Test getU(); then return PDActionLaunch")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getU()"})
   void testGetU_thenReturnPDActionLaunch() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setU(new PDActionLaunch());
 
     // Act
@@ -2373,22 +2120,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getU()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionMovie}.
+   *   <li>Then return {@link PDActionMovie}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getU()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getU()}
    */
   @Test
   @DisplayName("Test getU(); then return PDActionMovie")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getU()"})
   void testGetU_thenReturnPDActionMovie() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setU(new PDActionMovie());
 
     // Act
@@ -2408,22 +2152,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getU()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionNamed}.
+   *   <li>Then return {@link PDActionNamed}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getU()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getU()}
    */
   @Test
   @DisplayName("Test getU(); then return PDActionNamed")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getU()"})
   void testGetU_thenReturnPDActionNamed() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setU(new PDActionNamed());
 
     // Act
@@ -2445,22 +2186,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getU()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionRemoteGoTo}.
+   *   <li>Then return {@link PDActionRemoteGoTo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getU()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getU()}
    */
   @Test
   @DisplayName("Test getU(); then return PDActionRemoteGoTo")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getU()"})
   void testGetU_thenReturnPDActionRemoteGoTo() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setU(new PDActionRemoteGoTo());
 
     // Act
@@ -2476,22 +2214,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getU()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionResetForm}.
+   *   <li>Then return {@link PDActionResetForm}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getU()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getU()}
    */
   @Test
   @DisplayName("Test getU(); then return PDActionResetForm")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getU()"})
   void testGetU_thenReturnPDActionResetForm() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setU(new PDActionResetForm());
 
     // Act
@@ -2506,22 +2241,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getU()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionSound}.
+   *   <li>Then return {@link PDActionSound}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getU()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getU()}
    */
   @Test
   @DisplayName("Test getU(); then return PDActionSound")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getU()"})
   void testGetU_thenReturnPDActionSound() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setU(new PDActionSound());
 
     // Act
@@ -2539,22 +2271,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getU()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionSubmitForm}.
+   *   <li>Then return {@link PDActionSubmitForm}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getU()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getU()}
    */
   @Test
   @DisplayName("Test getU(); then return PDActionSubmitForm")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getU()"})
   void testGetU_thenReturnPDActionSubmitForm() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setU(new PDActionSubmitForm());
 
     // Act
@@ -2570,22 +2299,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getU()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionThread}.
+   *   <li>Then return {@link PDActionThread}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getU()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getU()}
    */
   @Test
   @DisplayName("Test getU(); then return PDActionThread")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getU()"})
   void testGetU_thenReturnPDActionThread() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setU(new PDActionThread());
 
     // Act
@@ -2601,23 +2327,42 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#setU(PDAction)}.
-   *
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#setU(PDAction)}
+   */
+  @Test
+  @DisplayName("Test setU(PDAction)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDAnnotationAdditionalActions.setU(PDAction)"})
+  void testSetU() {
+    // Arrange
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions(
+        new COSDictionary());
+
+    // Act
+    pdAnnotationAdditionalActions.setU(null);
+
+    // Assert that nothing has changed
+    COSDictionary cOSObject = pdAnnotationAdditionalActions.getCOSObject();
+    assertEquals(0, cOSObject.size());
+    assertTrue(cOSObject.getValues().isEmpty());
+  }
+
+  /**
+   * Test {@link PDAnnotationAdditionalActions#setU(PDAction)}.
    * <ul>
-   *   <li>Then {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()} U {@link
-   *       PDActionEmbeddedGoTo}.
+   *   <li>Then {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()} U {@link PDActionEmbeddedGoTo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#setU(PDAction)}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#setU(PDAction)}
    */
   @Test
   @DisplayName("Test setU(PDAction); then PDAnnotationAdditionalActions() U PDActionEmbeddedGoTo")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationAdditionalActions.setU(PDAction)"})
   void testSetU_thenPDAnnotationAdditionalActionsUPDActionEmbeddedGoTo() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
 
     // Act
     pdAnnotationAdditionalActions.setU(new PDActionEmbeddedGoTo());
@@ -2638,50 +2383,17 @@ class PDAnnotationAdditionalActionsDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotationAdditionalActions#setU(PDAction)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()} COSObject size
-   *       is zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#setU(PDAction)}
-   */
-  @Test
-  @DisplayName(
-      "Test setU(PDAction); when 'null'; then PDAnnotationAdditionalActions() COSObject size is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAnnotationAdditionalActions.setU(PDAction)"})
-  void testSetU_whenNull_thenPDAnnotationAdditionalActionsCOSObjectSizeIsZero() {
-    // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
-
-    // Act
-    pdAnnotationAdditionalActions.setU(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdAnnotationAdditionalActions.getCOSObject();
-    assertEquals(0, cOSObject.size());
-    assertTrue(cOSObject.getValues().isEmpty());
-  }
-
-  /**
    * Test {@link PDAnnotationAdditionalActions#getFo()}.
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getFo()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getFo()}
    */
   @Test
   @DisplayName("Test getFo()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getFo()"})
   void testGetFo() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setFo(new PDActionEmbeddedGoTo(new COSDictionary()));
 
     // Act and Assert
@@ -2690,19 +2402,15 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getFo()}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()} Key is {@link COSObjectKey#COSObjectKey(long,
-   *       int)} with num is one and gen is one.
+   *   <li>Given {@link COSDictionary#COSDictionary()} Key is {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getFo()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getFo()}
    */
   @Test
-  @DisplayName(
-      "Test getFo(); given COSDictionary() Key is COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getFo(); given COSDictionary() Key is COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getFo()"})
   void testGetFo_givenCOSDictionaryKeyIsCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
@@ -2710,8 +2418,7 @@ class PDAnnotationAdditionalActionsDiffblueTest {
     a.setKey(new COSObjectKey(1L, 1));
     PDActionEmbeddedGoTo fo = new PDActionEmbeddedGoTo(a);
 
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setFo(fo);
 
     // Act and Assert
@@ -2720,27 +2427,22 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getFo()}.
-   *
    * <ul>
-   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()} SubType is {@code foo}.
+   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link COSDictionary#COSDictionary()} SubType is {@code foo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getFo()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getFo()}
    */
   @Test
-  @DisplayName(
-      "Test getFo(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary() SubType is 'foo'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getFo(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary() SubType is 'foo'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getFo()"})
   void testGetFo_givenPDActionEmbeddedGoToWithAIsCOSDictionarySubTypeIsFoo() {
     // Arrange
     PDActionEmbeddedGoTo fo = new PDActionEmbeddedGoTo(new COSDictionary());
     fo.setSubType("foo");
 
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setFo(fo);
 
     // Act and Assert
@@ -2749,42 +2451,37 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getFo()}.
-   *
    * <ul>
-   *   <li>Given {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getFo()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getFo()}
    */
   @Test
   @DisplayName("Test getFo(); given PDAnnotationAdditionalActions(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getFo()"})
   void testGetFo_givenPDAnnotationAdditionalActions_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDAnnotationAdditionalActions().getFo());
+    assertNull((new PDAnnotationAdditionalActions()).getFo());
   }
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getFo()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionEmbeddedGoTo}.
+   *   <li>Then return {@link PDActionEmbeddedGoTo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getFo()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getFo()}
    */
   @Test
   @DisplayName("Test getFo(); then return PDActionEmbeddedGoTo")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getFo()"})
   void testGetFo_thenReturnPDActionEmbeddedGoTo() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setFo(new PDActionEmbeddedGoTo());
 
     // Act
@@ -2801,22 +2498,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getFo()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionGoTo}.
+   *   <li>Then return {@link PDActionGoTo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getFo()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getFo()}
    */
   @Test
   @DisplayName("Test getFo(); then return PDActionGoTo")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getFo()"})
   void testGetFo_thenReturnPDActionGoTo() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setFo(new PDActionGoTo());
 
     // Act
@@ -2838,22 +2532,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getFo()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionHide}.
+   *   <li>Then return {@link PDActionHide}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getFo()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getFo()}
    */
   @Test
   @DisplayName("Test getFo(); then return PDActionHide")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getFo()"})
   void testGetFo_thenReturnPDActionHide() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setFo(new PDActionHide());
 
     // Act
@@ -2868,22 +2559,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getFo()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionImportData}.
+   *   <li>Then return {@link PDActionImportData}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getFo()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getFo()}
    */
   @Test
   @DisplayName("Test getFo(); then return PDActionImportData")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getFo()"})
   void testGetFo_thenReturnPDActionImportData() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setFo(new PDActionImportData());
 
     // Act
@@ -2905,22 +2593,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getFo()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionJavaScript}.
+   *   <li>Then return {@link PDActionJavaScript}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getFo()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getFo()}
    */
   @Test
   @DisplayName("Test getFo(); then return PDActionJavaScript")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getFo()"})
   void testGetFo_thenReturnPDActionJavaScript() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setFo(new PDActionJavaScript());
 
     // Act
@@ -2942,22 +2627,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getFo()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionLaunch}.
+   *   <li>Then return {@link PDActionLaunch}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getFo()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getFo()}
    */
   @Test
   @DisplayName("Test getFo(); then return PDActionLaunch")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getFo()"})
   void testGetFo_thenReturnPDActionLaunch() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setFo(new PDActionLaunch());
 
     // Act
@@ -2977,22 +2659,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getFo()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionMovie}.
+   *   <li>Then return {@link PDActionMovie}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getFo()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getFo()}
    */
   @Test
   @DisplayName("Test getFo(); then return PDActionMovie")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getFo()"})
   void testGetFo_thenReturnPDActionMovie() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setFo(new PDActionMovie());
 
     // Act
@@ -3012,22 +2691,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getFo()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionNamed}.
+   *   <li>Then return {@link PDActionNamed}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getFo()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getFo()}
    */
   @Test
   @DisplayName("Test getFo(); then return PDActionNamed")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getFo()"})
   void testGetFo_thenReturnPDActionNamed() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setFo(new PDActionNamed());
 
     // Act
@@ -3049,22 +2725,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getFo()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionRemoteGoTo}.
+   *   <li>Then return {@link PDActionRemoteGoTo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getFo()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getFo()}
    */
   @Test
   @DisplayName("Test getFo(); then return PDActionRemoteGoTo")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getFo()"})
   void testGetFo_thenReturnPDActionRemoteGoTo() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setFo(new PDActionRemoteGoTo());
 
     // Act
@@ -3080,22 +2753,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getFo()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionResetForm}.
+   *   <li>Then return {@link PDActionResetForm}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getFo()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getFo()}
    */
   @Test
   @DisplayName("Test getFo(); then return PDActionResetForm")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getFo()"})
   void testGetFo_thenReturnPDActionResetForm() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setFo(new PDActionResetForm());
 
     // Act
@@ -3110,22 +2780,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getFo()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionSound}.
+   *   <li>Then return {@link PDActionSound}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getFo()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getFo()}
    */
   @Test
   @DisplayName("Test getFo(); then return PDActionSound")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getFo()"})
   void testGetFo_thenReturnPDActionSound() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setFo(new PDActionSound());
 
     // Act
@@ -3143,22 +2810,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getFo()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionSubmitForm}.
+   *   <li>Then return {@link PDActionSubmitForm}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getFo()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getFo()}
    */
   @Test
   @DisplayName("Test getFo(); then return PDActionSubmitForm")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getFo()"})
   void testGetFo_thenReturnPDActionSubmitForm() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setFo(new PDActionSubmitForm());
 
     // Act
@@ -3174,22 +2838,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getFo()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionThread}.
+   *   <li>Then return {@link PDActionThread}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getFo()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getFo()}
    */
   @Test
   @DisplayName("Test getFo(); then return PDActionThread")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getFo()"})
   void testGetFo_thenReturnPDActionThread() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setFo(new PDActionThread());
 
     // Act
@@ -3205,22 +2866,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getFo()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionURI}.
+   *   <li>Then return {@link PDActionURI}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getFo()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getFo()}
    */
   @Test
   @DisplayName("Test getFo(); then return PDActionURI")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getFo()"})
   void testGetFo_thenReturnPDActionURI() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setFo(new PDActionURI());
 
     // Act
@@ -3242,23 +2900,42 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#setFo(PDAction)}.
-   *
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#setFo(PDAction)}
+   */
+  @Test
+  @DisplayName("Test setFo(PDAction)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDAnnotationAdditionalActions.setFo(PDAction)"})
+  void testSetFo() {
+    // Arrange
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions(
+        new COSDictionary());
+
+    // Act
+    pdAnnotationAdditionalActions.setFo(null);
+
+    // Assert that nothing has changed
+    COSDictionary cOSObject = pdAnnotationAdditionalActions.getCOSObject();
+    assertEquals(0, cOSObject.size());
+    assertTrue(cOSObject.getValues().isEmpty());
+  }
+
+  /**
+   * Test {@link PDAnnotationAdditionalActions#setFo(PDAction)}.
    * <ul>
-   *   <li>Then {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()} Fo {@link
-   *       PDActionEmbeddedGoTo}.
+   *   <li>Then {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()} Fo {@link PDActionEmbeddedGoTo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#setFo(PDAction)}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#setFo(PDAction)}
    */
   @Test
   @DisplayName("Test setFo(PDAction); then PDAnnotationAdditionalActions() Fo PDActionEmbeddedGoTo")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationAdditionalActions.setFo(PDAction)"})
   void testSetFo_thenPDAnnotationAdditionalActionsFoPDActionEmbeddedGoTo() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
 
     // Act
     pdAnnotationAdditionalActions.setFo(new PDActionEmbeddedGoTo());
@@ -3279,50 +2956,17 @@ class PDAnnotationAdditionalActionsDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotationAdditionalActions#setFo(PDAction)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()} COSObject size
-   *       is zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#setFo(PDAction)}
-   */
-  @Test
-  @DisplayName(
-      "Test setFo(PDAction); when 'null'; then PDAnnotationAdditionalActions() COSObject size is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAnnotationAdditionalActions.setFo(PDAction)"})
-  void testSetFo_whenNull_thenPDAnnotationAdditionalActionsCOSObjectSizeIsZero() {
-    // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
-
-    // Act
-    pdAnnotationAdditionalActions.setFo(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdAnnotationAdditionalActions.getCOSObject();
-    assertEquals(0, cOSObject.size());
-    assertTrue(cOSObject.getValues().isEmpty());
-  }
-
-  /**
    * Test {@link PDAnnotationAdditionalActions#getBl()}.
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getBl()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getBl()}
    */
   @Test
   @DisplayName("Test getBl()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getBl()"})
   void testGetBl() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setBl(new PDActionEmbeddedGoTo(new COSDictionary()));
 
     // Act and Assert
@@ -3331,19 +2975,15 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getBl()}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()} Key is {@link COSObjectKey#COSObjectKey(long,
-   *       int)} with num is one and gen is one.
+   *   <li>Given {@link COSDictionary#COSDictionary()} Key is {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getBl()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getBl()}
    */
   @Test
-  @DisplayName(
-      "Test getBl(); given COSDictionary() Key is COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getBl(); given COSDictionary() Key is COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getBl()"})
   void testGetBl_givenCOSDictionaryKeyIsCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
@@ -3351,8 +2991,7 @@ class PDAnnotationAdditionalActionsDiffblueTest {
     a.setKey(new COSObjectKey(1L, 1));
     PDActionEmbeddedGoTo bl = new PDActionEmbeddedGoTo(a);
 
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setBl(bl);
 
     // Act and Assert
@@ -3361,27 +3000,22 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getBl()}.
-   *
    * <ul>
-   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()} SubType is {@code foo}.
+   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link COSDictionary#COSDictionary()} SubType is {@code foo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getBl()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getBl()}
    */
   @Test
-  @DisplayName(
-      "Test getBl(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary() SubType is 'foo'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getBl(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary() SubType is 'foo'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getBl()"})
   void testGetBl_givenPDActionEmbeddedGoToWithAIsCOSDictionarySubTypeIsFoo() {
     // Arrange
     PDActionEmbeddedGoTo bl = new PDActionEmbeddedGoTo(new COSDictionary());
     bl.setSubType("foo");
 
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setBl(bl);
 
     // Act and Assert
@@ -3390,42 +3024,37 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getBl()}.
-   *
    * <ul>
-   *   <li>Given {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getBl()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getBl()}
    */
   @Test
   @DisplayName("Test getBl(); given PDAnnotationAdditionalActions(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getBl()"})
   void testGetBl_givenPDAnnotationAdditionalActions_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDAnnotationAdditionalActions().getBl());
+    assertNull((new PDAnnotationAdditionalActions()).getBl());
   }
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getBl()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionEmbeddedGoTo}.
+   *   <li>Then return {@link PDActionEmbeddedGoTo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getBl()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getBl()}
    */
   @Test
   @DisplayName("Test getBl(); then return PDActionEmbeddedGoTo")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getBl()"})
   void testGetBl_thenReturnPDActionEmbeddedGoTo() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setBl(new PDActionEmbeddedGoTo());
 
     // Act
@@ -3442,22 +3071,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getBl()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionGoTo}.
+   *   <li>Then return {@link PDActionGoTo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getBl()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getBl()}
    */
   @Test
   @DisplayName("Test getBl(); then return PDActionGoTo")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getBl()"})
   void testGetBl_thenReturnPDActionGoTo() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setBl(new PDActionGoTo());
 
     // Act
@@ -3479,22 +3105,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getBl()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionHide}.
+   *   <li>Then return {@link PDActionHide}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getBl()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getBl()}
    */
   @Test
   @DisplayName("Test getBl(); then return PDActionHide")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getBl()"})
   void testGetBl_thenReturnPDActionHide() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setBl(new PDActionHide());
 
     // Act
@@ -3509,22 +3132,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getBl()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionImportData}.
+   *   <li>Then return {@link PDActionImportData}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getBl()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getBl()}
    */
   @Test
   @DisplayName("Test getBl(); then return PDActionImportData")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getBl()"})
   void testGetBl_thenReturnPDActionImportData() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setBl(new PDActionImportData());
 
     // Act
@@ -3546,22 +3166,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getBl()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionJavaScript}.
+   *   <li>Then return {@link PDActionJavaScript}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getBl()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getBl()}
    */
   @Test
   @DisplayName("Test getBl(); then return PDActionJavaScript")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getBl()"})
   void testGetBl_thenReturnPDActionJavaScript() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setBl(new PDActionJavaScript());
 
     // Act
@@ -3583,22 +3200,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getBl()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionLaunch}.
+   *   <li>Then return {@link PDActionLaunch}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getBl()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getBl()}
    */
   @Test
   @DisplayName("Test getBl(); then return PDActionLaunch")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getBl()"})
   void testGetBl_thenReturnPDActionLaunch() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setBl(new PDActionLaunch());
 
     // Act
@@ -3618,22 +3232,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getBl()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionMovie}.
+   *   <li>Then return {@link PDActionMovie}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getBl()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getBl()}
    */
   @Test
   @DisplayName("Test getBl(); then return PDActionMovie")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getBl()"})
   void testGetBl_thenReturnPDActionMovie() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setBl(new PDActionMovie());
 
     // Act
@@ -3653,22 +3264,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getBl()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionNamed}.
+   *   <li>Then return {@link PDActionNamed}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getBl()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getBl()}
    */
   @Test
   @DisplayName("Test getBl(); then return PDActionNamed")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getBl()"})
   void testGetBl_thenReturnPDActionNamed() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setBl(new PDActionNamed());
 
     // Act
@@ -3690,22 +3298,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getBl()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionRemoteGoTo}.
+   *   <li>Then return {@link PDActionRemoteGoTo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getBl()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getBl()}
    */
   @Test
   @DisplayName("Test getBl(); then return PDActionRemoteGoTo")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getBl()"})
   void testGetBl_thenReturnPDActionRemoteGoTo() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setBl(new PDActionRemoteGoTo());
 
     // Act
@@ -3721,22 +3326,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getBl()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionResetForm}.
+   *   <li>Then return {@link PDActionResetForm}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getBl()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getBl()}
    */
   @Test
   @DisplayName("Test getBl(); then return PDActionResetForm")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getBl()"})
   void testGetBl_thenReturnPDActionResetForm() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setBl(new PDActionResetForm());
 
     // Act
@@ -3751,22 +3353,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getBl()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionSound}.
+   *   <li>Then return {@link PDActionSound}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getBl()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getBl()}
    */
   @Test
   @DisplayName("Test getBl(); then return PDActionSound")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getBl()"})
   void testGetBl_thenReturnPDActionSound() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setBl(new PDActionSound());
 
     // Act
@@ -3784,22 +3383,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getBl()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionSubmitForm}.
+   *   <li>Then return {@link PDActionSubmitForm}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getBl()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getBl()}
    */
   @Test
   @DisplayName("Test getBl(); then return PDActionSubmitForm")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getBl()"})
   void testGetBl_thenReturnPDActionSubmitForm() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setBl(new PDActionSubmitForm());
 
     // Act
@@ -3815,22 +3411,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getBl()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionThread}.
+   *   <li>Then return {@link PDActionThread}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getBl()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getBl()}
    */
   @Test
   @DisplayName("Test getBl(); then return PDActionThread")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getBl()"})
   void testGetBl_thenReturnPDActionThread() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setBl(new PDActionThread());
 
     // Act
@@ -3846,22 +3439,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getBl()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionURI}.
+   *   <li>Then return {@link PDActionURI}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getBl()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getBl()}
    */
   @Test
   @DisplayName("Test getBl(); then return PDActionURI")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getBl()"})
   void testGetBl_thenReturnPDActionURI() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setBl(new PDActionURI());
 
     // Act
@@ -3883,23 +3473,42 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#setBl(PDAction)}.
-   *
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#setBl(PDAction)}
+   */
+  @Test
+  @DisplayName("Test setBl(PDAction)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDAnnotationAdditionalActions.setBl(PDAction)"})
+  void testSetBl() {
+    // Arrange
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions(
+        new COSDictionary());
+
+    // Act
+    pdAnnotationAdditionalActions.setBl(null);
+
+    // Assert that nothing has changed
+    COSDictionary cOSObject = pdAnnotationAdditionalActions.getCOSObject();
+    assertEquals(0, cOSObject.size());
+    assertTrue(cOSObject.getValues().isEmpty());
+  }
+
+  /**
+   * Test {@link PDAnnotationAdditionalActions#setBl(PDAction)}.
    * <ul>
-   *   <li>Then {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()} Bl {@link
-   *       PDActionEmbeddedGoTo}.
+   *   <li>Then {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()} Bl {@link PDActionEmbeddedGoTo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#setBl(PDAction)}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#setBl(PDAction)}
    */
   @Test
   @DisplayName("Test setBl(PDAction); then PDAnnotationAdditionalActions() Bl PDActionEmbeddedGoTo")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationAdditionalActions.setBl(PDAction)"})
   void testSetBl_thenPDAnnotationAdditionalActionsBlPDActionEmbeddedGoTo() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
 
     // Act
     pdAnnotationAdditionalActions.setBl(new PDActionEmbeddedGoTo());
@@ -3920,50 +3529,17 @@ class PDAnnotationAdditionalActionsDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotationAdditionalActions#setBl(PDAction)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()} COSObject size
-   *       is zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#setBl(PDAction)}
-   */
-  @Test
-  @DisplayName(
-      "Test setBl(PDAction); when 'null'; then PDAnnotationAdditionalActions() COSObject size is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAnnotationAdditionalActions.setBl(PDAction)"})
-  void testSetBl_whenNull_thenPDAnnotationAdditionalActionsCOSObjectSizeIsZero() {
-    // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
-
-    // Act
-    pdAnnotationAdditionalActions.setBl(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdAnnotationAdditionalActions.getCOSObject();
-    assertEquals(0, cOSObject.size());
-    assertTrue(cOSObject.getValues().isEmpty());
-  }
-
-  /**
    * Test {@link PDAnnotationAdditionalActions#getPO()}.
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPO()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPO()}
    */
   @Test
   @DisplayName("Test getPO()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPO()"})
   void testGetPO() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPO(new PDActionEmbeddedGoTo(new COSDictionary()));
 
     // Act and Assert
@@ -3972,19 +3548,15 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPO()}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()} Key is {@link COSObjectKey#COSObjectKey(long,
-   *       int)} with num is one and gen is one.
+   *   <li>Given {@link COSDictionary#COSDictionary()} Key is {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPO()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPO()}
    */
   @Test
-  @DisplayName(
-      "Test getPO(); given COSDictionary() Key is COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getPO(); given COSDictionary() Key is COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPO()"})
   void testGetPO_givenCOSDictionaryKeyIsCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
@@ -3992,8 +3564,7 @@ class PDAnnotationAdditionalActionsDiffblueTest {
     a.setKey(new COSObjectKey(1L, 1));
     PDActionEmbeddedGoTo po = new PDActionEmbeddedGoTo(a);
 
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPO(po);
 
     // Act and Assert
@@ -4002,27 +3573,22 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPO()}.
-   *
    * <ul>
-   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()} SubType is {@code foo}.
+   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link COSDictionary#COSDictionary()} SubType is {@code foo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPO()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPO()}
    */
   @Test
-  @DisplayName(
-      "Test getPO(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary() SubType is 'foo'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getPO(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary() SubType is 'foo'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPO()"})
   void testGetPO_givenPDActionEmbeddedGoToWithAIsCOSDictionarySubTypeIsFoo() {
     // Arrange
     PDActionEmbeddedGoTo po = new PDActionEmbeddedGoTo(new COSDictionary());
     po.setSubType("foo");
 
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPO(po);
 
     // Act and Assert
@@ -4031,42 +3597,37 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPO()}.
-   *
    * <ul>
-   *   <li>Given {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPO()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPO()}
    */
   @Test
   @DisplayName("Test getPO(); given PDAnnotationAdditionalActions(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPO()"})
   void testGetPO_givenPDAnnotationAdditionalActions_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDAnnotationAdditionalActions().getPO());
+    assertNull((new PDAnnotationAdditionalActions()).getPO());
   }
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPO()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionEmbeddedGoTo}.
+   *   <li>Then return {@link PDActionEmbeddedGoTo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPO()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPO()}
    */
   @Test
   @DisplayName("Test getPO(); then return PDActionEmbeddedGoTo")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPO()"})
   void testGetPO_thenReturnPDActionEmbeddedGoTo() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPO(new PDActionEmbeddedGoTo());
 
     // Act
@@ -4083,22 +3644,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPO()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionGoTo}.
+   *   <li>Then return {@link PDActionGoTo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPO()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPO()}
    */
   @Test
   @DisplayName("Test getPO(); then return PDActionGoTo")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPO()"})
   void testGetPO_thenReturnPDActionGoTo() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPO(new PDActionGoTo());
 
     // Act
@@ -4120,22 +3678,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPO()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionHide}.
+   *   <li>Then return {@link PDActionHide}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPO()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPO()}
    */
   @Test
   @DisplayName("Test getPO(); then return PDActionHide")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPO()"})
   void testGetPO_thenReturnPDActionHide() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPO(new PDActionHide());
 
     // Act
@@ -4150,22 +3705,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPO()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionImportData}.
+   *   <li>Then return {@link PDActionImportData}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPO()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPO()}
    */
   @Test
   @DisplayName("Test getPO(); then return PDActionImportData")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPO()"})
   void testGetPO_thenReturnPDActionImportData() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPO(new PDActionImportData());
 
     // Act
@@ -4187,22 +3739,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPO()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionJavaScript}.
+   *   <li>Then return {@link PDActionJavaScript}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPO()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPO()}
    */
   @Test
   @DisplayName("Test getPO(); then return PDActionJavaScript")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPO()"})
   void testGetPO_thenReturnPDActionJavaScript() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPO(new PDActionJavaScript());
 
     // Act
@@ -4224,22 +3773,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPO()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionLaunch}.
+   *   <li>Then return {@link PDActionLaunch}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPO()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPO()}
    */
   @Test
   @DisplayName("Test getPO(); then return PDActionLaunch")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPO()"})
   void testGetPO_thenReturnPDActionLaunch() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPO(new PDActionLaunch());
 
     // Act
@@ -4259,22 +3805,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPO()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionMovie}.
+   *   <li>Then return {@link PDActionMovie}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPO()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPO()}
    */
   @Test
   @DisplayName("Test getPO(); then return PDActionMovie")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPO()"})
   void testGetPO_thenReturnPDActionMovie() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPO(new PDActionMovie());
 
     // Act
@@ -4294,22 +3837,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPO()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionNamed}.
+   *   <li>Then return {@link PDActionNamed}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPO()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPO()}
    */
   @Test
   @DisplayName("Test getPO(); then return PDActionNamed")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPO()"})
   void testGetPO_thenReturnPDActionNamed() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPO(new PDActionNamed());
 
     // Act
@@ -4331,22 +3871,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPO()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionRemoteGoTo}.
+   *   <li>Then return {@link PDActionRemoteGoTo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPO()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPO()}
    */
   @Test
   @DisplayName("Test getPO(); then return PDActionRemoteGoTo")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPO()"})
   void testGetPO_thenReturnPDActionRemoteGoTo() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPO(new PDActionRemoteGoTo());
 
     // Act
@@ -4362,22 +3899,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPO()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionResetForm}.
+   *   <li>Then return {@link PDActionResetForm}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPO()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPO()}
    */
   @Test
   @DisplayName("Test getPO(); then return PDActionResetForm")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPO()"})
   void testGetPO_thenReturnPDActionResetForm() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPO(new PDActionResetForm());
 
     // Act
@@ -4392,22 +3926,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPO()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionSound}.
+   *   <li>Then return {@link PDActionSound}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPO()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPO()}
    */
   @Test
   @DisplayName("Test getPO(); then return PDActionSound")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPO()"})
   void testGetPO_thenReturnPDActionSound() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPO(new PDActionSound());
 
     // Act
@@ -4425,22 +3956,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPO()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionSubmitForm}.
+   *   <li>Then return {@link PDActionSubmitForm}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPO()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPO()}
    */
   @Test
   @DisplayName("Test getPO(); then return PDActionSubmitForm")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPO()"})
   void testGetPO_thenReturnPDActionSubmitForm() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPO(new PDActionSubmitForm());
 
     // Act
@@ -4456,22 +3984,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPO()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionThread}.
+   *   <li>Then return {@link PDActionThread}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPO()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPO()}
    */
   @Test
   @DisplayName("Test getPO(); then return PDActionThread")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPO()"})
   void testGetPO_thenReturnPDActionThread() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPO(new PDActionThread());
 
     // Act
@@ -4487,22 +4012,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPO()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionURI}.
+   *   <li>Then return {@link PDActionURI}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPO()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPO()}
    */
   @Test
   @DisplayName("Test getPO(); then return PDActionURI")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPO()"})
   void testGetPO_thenReturnPDActionURI() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPO(new PDActionURI());
 
     // Act
@@ -4524,23 +4046,42 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#setPO(PDAction)}.
-   *
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#setPO(PDAction)}
+   */
+  @Test
+  @DisplayName("Test setPO(PDAction)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDAnnotationAdditionalActions.setPO(PDAction)"})
+  void testSetPO() {
+    // Arrange
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions(
+        new COSDictionary());
+
+    // Act
+    pdAnnotationAdditionalActions.setPO(null);
+
+    // Assert that nothing has changed
+    COSDictionary cOSObject = pdAnnotationAdditionalActions.getCOSObject();
+    assertEquals(0, cOSObject.size());
+    assertTrue(cOSObject.getValues().isEmpty());
+  }
+
+  /**
+   * Test {@link PDAnnotationAdditionalActions#setPO(PDAction)}.
    * <ul>
-   *   <li>Then {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()} PO {@link
-   *       PDActionEmbeddedGoTo}.
+   *   <li>Then {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()} PO {@link PDActionEmbeddedGoTo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#setPO(PDAction)}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#setPO(PDAction)}
    */
   @Test
   @DisplayName("Test setPO(PDAction); then PDAnnotationAdditionalActions() PO PDActionEmbeddedGoTo")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationAdditionalActions.setPO(PDAction)"})
   void testSetPO_thenPDAnnotationAdditionalActionsPoPDActionEmbeddedGoTo() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
 
     // Act
     pdAnnotationAdditionalActions.setPO(new PDActionEmbeddedGoTo());
@@ -4561,50 +4102,17 @@ class PDAnnotationAdditionalActionsDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotationAdditionalActions#setPO(PDAction)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()} COSObject size
-   *       is zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#setPO(PDAction)}
-   */
-  @Test
-  @DisplayName(
-      "Test setPO(PDAction); when 'null'; then PDAnnotationAdditionalActions() COSObject size is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAnnotationAdditionalActions.setPO(PDAction)"})
-  void testSetPO_whenNull_thenPDAnnotationAdditionalActionsCOSObjectSizeIsZero() {
-    // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
-
-    // Act
-    pdAnnotationAdditionalActions.setPO(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdAnnotationAdditionalActions.getCOSObject();
-    assertEquals(0, cOSObject.size());
-    assertTrue(cOSObject.getValues().isEmpty());
-  }
-
-  /**
    * Test {@link PDAnnotationAdditionalActions#getPC()}.
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPC()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPC()}
    */
   @Test
   @DisplayName("Test getPC()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPC()"})
   void testGetPC() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPC(new PDActionEmbeddedGoTo(new COSDictionary()));
 
     // Act and Assert
@@ -4613,19 +4121,15 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPC()}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()} Key is {@link COSObjectKey#COSObjectKey(long,
-   *       int)} with num is one and gen is one.
+   *   <li>Given {@link COSDictionary#COSDictionary()} Key is {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPC()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPC()}
    */
   @Test
-  @DisplayName(
-      "Test getPC(); given COSDictionary() Key is COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getPC(); given COSDictionary() Key is COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPC()"})
   void testGetPC_givenCOSDictionaryKeyIsCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
@@ -4633,8 +4137,7 @@ class PDAnnotationAdditionalActionsDiffblueTest {
     a.setKey(new COSObjectKey(1L, 1));
     PDActionEmbeddedGoTo pc = new PDActionEmbeddedGoTo(a);
 
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPC(pc);
 
     // Act and Assert
@@ -4643,27 +4146,22 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPC()}.
-   *
    * <ul>
-   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()} SubType is {@code foo}.
+   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link COSDictionary#COSDictionary()} SubType is {@code foo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPC()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPC()}
    */
   @Test
-  @DisplayName(
-      "Test getPC(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary() SubType is 'foo'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getPC(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary() SubType is 'foo'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPC()"})
   void testGetPC_givenPDActionEmbeddedGoToWithAIsCOSDictionarySubTypeIsFoo() {
     // Arrange
     PDActionEmbeddedGoTo pc = new PDActionEmbeddedGoTo(new COSDictionary());
     pc.setSubType("foo");
 
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPC(pc);
 
     // Act and Assert
@@ -4672,42 +4170,37 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPC()}.
-   *
    * <ul>
-   *   <li>Given {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPC()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPC()}
    */
   @Test
   @DisplayName("Test getPC(); given PDAnnotationAdditionalActions(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPC()"})
   void testGetPC_givenPDAnnotationAdditionalActions_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDAnnotationAdditionalActions().getPC());
+    assertNull((new PDAnnotationAdditionalActions()).getPC());
   }
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPC()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionEmbeddedGoTo}.
+   *   <li>Then return {@link PDActionEmbeddedGoTo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPC()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPC()}
    */
   @Test
   @DisplayName("Test getPC(); then return PDActionEmbeddedGoTo")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPC()"})
   void testGetPC_thenReturnPDActionEmbeddedGoTo() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPC(new PDActionEmbeddedGoTo());
 
     // Act
@@ -4724,22 +4217,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPC()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionGoTo}.
+   *   <li>Then return {@link PDActionGoTo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPC()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPC()}
    */
   @Test
   @DisplayName("Test getPC(); then return PDActionGoTo")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPC()"})
   void testGetPC_thenReturnPDActionGoTo() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPC(new PDActionGoTo());
 
     // Act
@@ -4761,22 +4251,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPC()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionHide}.
+   *   <li>Then return {@link PDActionHide}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPC()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPC()}
    */
   @Test
   @DisplayName("Test getPC(); then return PDActionHide")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPC()"})
   void testGetPC_thenReturnPDActionHide() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPC(new PDActionHide());
 
     // Act
@@ -4791,22 +4278,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPC()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionImportData}.
+   *   <li>Then return {@link PDActionImportData}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPC()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPC()}
    */
   @Test
   @DisplayName("Test getPC(); then return PDActionImportData")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPC()"})
   void testGetPC_thenReturnPDActionImportData() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPC(new PDActionImportData());
 
     // Act
@@ -4828,22 +4312,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPC()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionJavaScript}.
+   *   <li>Then return {@link PDActionJavaScript}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPC()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPC()}
    */
   @Test
   @DisplayName("Test getPC(); then return PDActionJavaScript")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPC()"})
   void testGetPC_thenReturnPDActionJavaScript() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPC(new PDActionJavaScript());
 
     // Act
@@ -4865,22 +4346,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPC()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionLaunch}.
+   *   <li>Then return {@link PDActionLaunch}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPC()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPC()}
    */
   @Test
   @DisplayName("Test getPC(); then return PDActionLaunch")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPC()"})
   void testGetPC_thenReturnPDActionLaunch() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPC(new PDActionLaunch());
 
     // Act
@@ -4900,22 +4378,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPC()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionMovie}.
+   *   <li>Then return {@link PDActionMovie}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPC()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPC()}
    */
   @Test
   @DisplayName("Test getPC(); then return PDActionMovie")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPC()"})
   void testGetPC_thenReturnPDActionMovie() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPC(new PDActionMovie());
 
     // Act
@@ -4935,22 +4410,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPC()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionNamed}.
+   *   <li>Then return {@link PDActionNamed}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPC()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPC()}
    */
   @Test
   @DisplayName("Test getPC(); then return PDActionNamed")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPC()"})
   void testGetPC_thenReturnPDActionNamed() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPC(new PDActionNamed());
 
     // Act
@@ -4972,22 +4444,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPC()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionRemoteGoTo}.
+   *   <li>Then return {@link PDActionRemoteGoTo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPC()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPC()}
    */
   @Test
   @DisplayName("Test getPC(); then return PDActionRemoteGoTo")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPC()"})
   void testGetPC_thenReturnPDActionRemoteGoTo() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPC(new PDActionRemoteGoTo());
 
     // Act
@@ -5003,22 +4472,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPC()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionResetForm}.
+   *   <li>Then return {@link PDActionResetForm}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPC()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPC()}
    */
   @Test
   @DisplayName("Test getPC(); then return PDActionResetForm")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPC()"})
   void testGetPC_thenReturnPDActionResetForm() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPC(new PDActionResetForm());
 
     // Act
@@ -5033,22 +4499,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPC()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionSound}.
+   *   <li>Then return {@link PDActionSound}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPC()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPC()}
    */
   @Test
   @DisplayName("Test getPC(); then return PDActionSound")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPC()"})
   void testGetPC_thenReturnPDActionSound() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPC(new PDActionSound());
 
     // Act
@@ -5066,22 +4529,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPC()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionSubmitForm}.
+   *   <li>Then return {@link PDActionSubmitForm}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPC()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPC()}
    */
   @Test
   @DisplayName("Test getPC(); then return PDActionSubmitForm")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPC()"})
   void testGetPC_thenReturnPDActionSubmitForm() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPC(new PDActionSubmitForm());
 
     // Act
@@ -5097,22 +4557,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPC()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionThread}.
+   *   <li>Then return {@link PDActionThread}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPC()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPC()}
    */
   @Test
   @DisplayName("Test getPC(); then return PDActionThread")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPC()"})
   void testGetPC_thenReturnPDActionThread() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPC(new PDActionThread());
 
     // Act
@@ -5128,22 +4585,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPC()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionURI}.
+   *   <li>Then return {@link PDActionURI}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPC()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPC()}
    */
   @Test
   @DisplayName("Test getPC(); then return PDActionURI")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPC()"})
   void testGetPC_thenReturnPDActionURI() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPC(new PDActionURI());
 
     // Act
@@ -5165,23 +4619,42 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#setPC(PDAction)}.
-   *
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#setPC(PDAction)}
+   */
+  @Test
+  @DisplayName("Test setPC(PDAction)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDAnnotationAdditionalActions.setPC(PDAction)"})
+  void testSetPC() {
+    // Arrange
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions(
+        new COSDictionary());
+
+    // Act
+    pdAnnotationAdditionalActions.setPC(null);
+
+    // Assert that nothing has changed
+    COSDictionary cOSObject = pdAnnotationAdditionalActions.getCOSObject();
+    assertEquals(0, cOSObject.size());
+    assertTrue(cOSObject.getValues().isEmpty());
+  }
+
+  /**
+   * Test {@link PDAnnotationAdditionalActions#setPC(PDAction)}.
    * <ul>
-   *   <li>Then {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()} PC {@link
-   *       PDActionEmbeddedGoTo}.
+   *   <li>Then {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()} PC {@link PDActionEmbeddedGoTo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#setPC(PDAction)}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#setPC(PDAction)}
    */
   @Test
   @DisplayName("Test setPC(PDAction); then PDAnnotationAdditionalActions() PC PDActionEmbeddedGoTo")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationAdditionalActions.setPC(PDAction)"})
   void testSetPC_thenPDAnnotationAdditionalActionsPcPDActionEmbeddedGoTo() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
 
     // Act
     pdAnnotationAdditionalActions.setPC(new PDActionEmbeddedGoTo());
@@ -5202,50 +4675,17 @@ class PDAnnotationAdditionalActionsDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotationAdditionalActions#setPC(PDAction)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()} COSObject size
-   *       is zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#setPC(PDAction)}
-   */
-  @Test
-  @DisplayName(
-      "Test setPC(PDAction); when 'null'; then PDAnnotationAdditionalActions() COSObject size is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAnnotationAdditionalActions.setPC(PDAction)"})
-  void testSetPC_whenNull_thenPDAnnotationAdditionalActionsCOSObjectSizeIsZero() {
-    // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
-
-    // Act
-    pdAnnotationAdditionalActions.setPC(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdAnnotationAdditionalActions.getCOSObject();
-    assertEquals(0, cOSObject.size());
-    assertTrue(cOSObject.getValues().isEmpty());
-  }
-
-  /**
    * Test {@link PDAnnotationAdditionalActions#getPV()}.
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPV()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPV()}
    */
   @Test
   @DisplayName("Test getPV()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPV()"})
   void testGetPV() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPV(new PDActionEmbeddedGoTo(new COSDictionary()));
 
     // Act and Assert
@@ -5254,19 +4694,15 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPV()}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()} Key is {@link COSObjectKey#COSObjectKey(long,
-   *       int)} with num is one and gen is one.
+   *   <li>Given {@link COSDictionary#COSDictionary()} Key is {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPV()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPV()}
    */
   @Test
-  @DisplayName(
-      "Test getPV(); given COSDictionary() Key is COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getPV(); given COSDictionary() Key is COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPV()"})
   void testGetPV_givenCOSDictionaryKeyIsCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
@@ -5274,8 +4710,7 @@ class PDAnnotationAdditionalActionsDiffblueTest {
     a.setKey(new COSObjectKey(1L, 1));
     PDActionEmbeddedGoTo pv = new PDActionEmbeddedGoTo(a);
 
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPV(pv);
 
     // Act and Assert
@@ -5284,27 +4719,22 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPV()}.
-   *
    * <ul>
-   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()} SubType is {@code foo}.
+   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link COSDictionary#COSDictionary()} SubType is {@code foo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPV()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPV()}
    */
   @Test
-  @DisplayName(
-      "Test getPV(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary() SubType is 'foo'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getPV(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary() SubType is 'foo'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPV()"})
   void testGetPV_givenPDActionEmbeddedGoToWithAIsCOSDictionarySubTypeIsFoo() {
     // Arrange
     PDActionEmbeddedGoTo pv = new PDActionEmbeddedGoTo(new COSDictionary());
     pv.setSubType("foo");
 
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPV(pv);
 
     // Act and Assert
@@ -5313,42 +4743,37 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPV()}.
-   *
    * <ul>
-   *   <li>Given {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPV()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPV()}
    */
   @Test
   @DisplayName("Test getPV(); given PDAnnotationAdditionalActions(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPV()"})
   void testGetPV_givenPDAnnotationAdditionalActions_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDAnnotationAdditionalActions().getPV());
+    assertNull((new PDAnnotationAdditionalActions()).getPV());
   }
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPV()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionEmbeddedGoTo}.
+   *   <li>Then return {@link PDActionEmbeddedGoTo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPV()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPV()}
    */
   @Test
   @DisplayName("Test getPV(); then return PDActionEmbeddedGoTo")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPV()"})
   void testGetPV_thenReturnPDActionEmbeddedGoTo() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPV(new PDActionEmbeddedGoTo());
 
     // Act
@@ -5365,22 +4790,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPV()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionGoTo}.
+   *   <li>Then return {@link PDActionGoTo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPV()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPV()}
    */
   @Test
   @DisplayName("Test getPV(); then return PDActionGoTo")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPV()"})
   void testGetPV_thenReturnPDActionGoTo() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPV(new PDActionGoTo());
 
     // Act
@@ -5402,22 +4824,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPV()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionHide}.
+   *   <li>Then return {@link PDActionHide}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPV()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPV()}
    */
   @Test
   @DisplayName("Test getPV(); then return PDActionHide")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPV()"})
   void testGetPV_thenReturnPDActionHide() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPV(new PDActionHide());
 
     // Act
@@ -5432,22 +4851,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPV()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionImportData}.
+   *   <li>Then return {@link PDActionImportData}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPV()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPV()}
    */
   @Test
   @DisplayName("Test getPV(); then return PDActionImportData")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPV()"})
   void testGetPV_thenReturnPDActionImportData() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPV(new PDActionImportData());
 
     // Act
@@ -5469,22 +4885,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPV()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionJavaScript}.
+   *   <li>Then return {@link PDActionJavaScript}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPV()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPV()}
    */
   @Test
   @DisplayName("Test getPV(); then return PDActionJavaScript")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPV()"})
   void testGetPV_thenReturnPDActionJavaScript() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPV(new PDActionJavaScript());
 
     // Act
@@ -5506,22 +4919,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPV()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionLaunch}.
+   *   <li>Then return {@link PDActionLaunch}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPV()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPV()}
    */
   @Test
   @DisplayName("Test getPV(); then return PDActionLaunch")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPV()"})
   void testGetPV_thenReturnPDActionLaunch() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPV(new PDActionLaunch());
 
     // Act
@@ -5541,22 +4951,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPV()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionMovie}.
+   *   <li>Then return {@link PDActionMovie}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPV()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPV()}
    */
   @Test
   @DisplayName("Test getPV(); then return PDActionMovie")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPV()"})
   void testGetPV_thenReturnPDActionMovie() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPV(new PDActionMovie());
 
     // Act
@@ -5576,22 +4983,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPV()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionNamed}.
+   *   <li>Then return {@link PDActionNamed}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPV()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPV()}
    */
   @Test
   @DisplayName("Test getPV(); then return PDActionNamed")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPV()"})
   void testGetPV_thenReturnPDActionNamed() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPV(new PDActionNamed());
 
     // Act
@@ -5613,22 +5017,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPV()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionRemoteGoTo}.
+   *   <li>Then return {@link PDActionRemoteGoTo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPV()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPV()}
    */
   @Test
   @DisplayName("Test getPV(); then return PDActionRemoteGoTo")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPV()"})
   void testGetPV_thenReturnPDActionRemoteGoTo() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPV(new PDActionRemoteGoTo());
 
     // Act
@@ -5644,22 +5045,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPV()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionResetForm}.
+   *   <li>Then return {@link PDActionResetForm}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPV()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPV()}
    */
   @Test
   @DisplayName("Test getPV(); then return PDActionResetForm")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPV()"})
   void testGetPV_thenReturnPDActionResetForm() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPV(new PDActionResetForm());
 
     // Act
@@ -5674,22 +5072,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPV()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionSound}.
+   *   <li>Then return {@link PDActionSound}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPV()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPV()}
    */
   @Test
   @DisplayName("Test getPV(); then return PDActionSound")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPV()"})
   void testGetPV_thenReturnPDActionSound() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPV(new PDActionSound());
 
     // Act
@@ -5707,22 +5102,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPV()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionSubmitForm}.
+   *   <li>Then return {@link PDActionSubmitForm}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPV()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPV()}
    */
   @Test
   @DisplayName("Test getPV(); then return PDActionSubmitForm")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPV()"})
   void testGetPV_thenReturnPDActionSubmitForm() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPV(new PDActionSubmitForm());
 
     // Act
@@ -5738,22 +5130,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPV()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionThread}.
+   *   <li>Then return {@link PDActionThread}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPV()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPV()}
    */
   @Test
   @DisplayName("Test getPV(); then return PDActionThread")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPV()"})
   void testGetPV_thenReturnPDActionThread() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPV(new PDActionThread());
 
     // Act
@@ -5769,22 +5158,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPV()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionURI}.
+   *   <li>Then return {@link PDActionURI}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPV()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPV()}
    */
   @Test
   @DisplayName("Test getPV(); then return PDActionURI")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPV()"})
   void testGetPV_thenReturnPDActionURI() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPV(new PDActionURI());
 
     // Act
@@ -5806,23 +5192,42 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#setPV(PDAction)}.
-   *
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#setPV(PDAction)}
+   */
+  @Test
+  @DisplayName("Test setPV(PDAction)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDAnnotationAdditionalActions.setPV(PDAction)"})
+  void testSetPV() {
+    // Arrange
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions(
+        new COSDictionary());
+
+    // Act
+    pdAnnotationAdditionalActions.setPV(null);
+
+    // Assert that nothing has changed
+    COSDictionary cOSObject = pdAnnotationAdditionalActions.getCOSObject();
+    assertEquals(0, cOSObject.size());
+    assertTrue(cOSObject.getValues().isEmpty());
+  }
+
+  /**
+   * Test {@link PDAnnotationAdditionalActions#setPV(PDAction)}.
    * <ul>
-   *   <li>Then {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()} PV {@link
-   *       PDActionEmbeddedGoTo}.
+   *   <li>Then {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()} PV {@link PDActionEmbeddedGoTo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#setPV(PDAction)}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#setPV(PDAction)}
    */
   @Test
   @DisplayName("Test setPV(PDAction); then PDAnnotationAdditionalActions() PV PDActionEmbeddedGoTo")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationAdditionalActions.setPV(PDAction)"})
   void testSetPV_thenPDAnnotationAdditionalActionsPvPDActionEmbeddedGoTo() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
 
     // Act
     pdAnnotationAdditionalActions.setPV(new PDActionEmbeddedGoTo());
@@ -5843,50 +5248,17 @@ class PDAnnotationAdditionalActionsDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotationAdditionalActions#setPV(PDAction)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()} COSObject size
-   *       is zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#setPV(PDAction)}
-   */
-  @Test
-  @DisplayName(
-      "Test setPV(PDAction); when 'null'; then PDAnnotationAdditionalActions() COSObject size is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAnnotationAdditionalActions.setPV(PDAction)"})
-  void testSetPV_whenNull_thenPDAnnotationAdditionalActionsCOSObjectSizeIsZero() {
-    // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
-
-    // Act
-    pdAnnotationAdditionalActions.setPV(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdAnnotationAdditionalActions.getCOSObject();
-    assertEquals(0, cOSObject.size());
-    assertTrue(cOSObject.getValues().isEmpty());
-  }
-
-  /**
    * Test {@link PDAnnotationAdditionalActions#getPI()}.
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPI()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPI()}
    */
   @Test
   @DisplayName("Test getPI()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPI()"})
   void testGetPI() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPI(new PDActionEmbeddedGoTo(new COSDictionary()));
 
     // Act and Assert
@@ -5895,19 +5267,15 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPI()}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()} Key is {@link COSObjectKey#COSObjectKey(long,
-   *       int)} with num is one and gen is one.
+   *   <li>Given {@link COSDictionary#COSDictionary()} Key is {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPI()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPI()}
    */
   @Test
-  @DisplayName(
-      "Test getPI(); given COSDictionary() Key is COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getPI(); given COSDictionary() Key is COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPI()"})
   void testGetPI_givenCOSDictionaryKeyIsCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
@@ -5915,8 +5283,7 @@ class PDAnnotationAdditionalActionsDiffblueTest {
     a.setKey(new COSObjectKey(1L, 1));
     PDActionEmbeddedGoTo pi = new PDActionEmbeddedGoTo(a);
 
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPI(pi);
 
     // Act and Assert
@@ -5925,27 +5292,22 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPI()}.
-   *
    * <ul>
-   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()} SubType is {@code foo}.
+   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link COSDictionary#COSDictionary()} SubType is {@code foo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPI()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPI()}
    */
   @Test
-  @DisplayName(
-      "Test getPI(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary() SubType is 'foo'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getPI(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary() SubType is 'foo'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPI()"})
   void testGetPI_givenPDActionEmbeddedGoToWithAIsCOSDictionarySubTypeIsFoo() {
     // Arrange
     PDActionEmbeddedGoTo pi = new PDActionEmbeddedGoTo(new COSDictionary());
     pi.setSubType("foo");
 
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPI(pi);
 
     // Act and Assert
@@ -5954,42 +5316,37 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPI()}.
-   *
    * <ul>
-   *   <li>Given {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPI()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPI()}
    */
   @Test
   @DisplayName("Test getPI(); given PDAnnotationAdditionalActions(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPI()"})
   void testGetPI_givenPDAnnotationAdditionalActions_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDAnnotationAdditionalActions().getPI());
+    assertNull((new PDAnnotationAdditionalActions()).getPI());
   }
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPI()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionEmbeddedGoTo}.
+   *   <li>Then return {@link PDActionEmbeddedGoTo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPI()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPI()}
    */
   @Test
   @DisplayName("Test getPI(); then return PDActionEmbeddedGoTo")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPI()"})
   void testGetPI_thenReturnPDActionEmbeddedGoTo() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPI(new PDActionEmbeddedGoTo());
 
     // Act
@@ -6006,22 +5363,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPI()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionGoTo}.
+   *   <li>Then return {@link PDActionGoTo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPI()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPI()}
    */
   @Test
   @DisplayName("Test getPI(); then return PDActionGoTo")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPI()"})
   void testGetPI_thenReturnPDActionGoTo() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPI(new PDActionGoTo());
 
     // Act
@@ -6043,22 +5397,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPI()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionHide}.
+   *   <li>Then return {@link PDActionHide}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPI()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPI()}
    */
   @Test
   @DisplayName("Test getPI(); then return PDActionHide")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPI()"})
   void testGetPI_thenReturnPDActionHide() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPI(new PDActionHide());
 
     // Act
@@ -6073,22 +5424,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPI()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionImportData}.
+   *   <li>Then return {@link PDActionImportData}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPI()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPI()}
    */
   @Test
   @DisplayName("Test getPI(); then return PDActionImportData")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPI()"})
   void testGetPI_thenReturnPDActionImportData() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPI(new PDActionImportData());
 
     // Act
@@ -6110,22 +5458,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPI()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionJavaScript}.
+   *   <li>Then return {@link PDActionJavaScript}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPI()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPI()}
    */
   @Test
   @DisplayName("Test getPI(); then return PDActionJavaScript")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPI()"})
   void testGetPI_thenReturnPDActionJavaScript() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPI(new PDActionJavaScript());
 
     // Act
@@ -6147,22 +5492,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPI()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionLaunch}.
+   *   <li>Then return {@link PDActionLaunch}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPI()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPI()}
    */
   @Test
   @DisplayName("Test getPI(); then return PDActionLaunch")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPI()"})
   void testGetPI_thenReturnPDActionLaunch() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPI(new PDActionLaunch());
 
     // Act
@@ -6182,22 +5524,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPI()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionMovie}.
+   *   <li>Then return {@link PDActionMovie}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPI()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPI()}
    */
   @Test
   @DisplayName("Test getPI(); then return PDActionMovie")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPI()"})
   void testGetPI_thenReturnPDActionMovie() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPI(new PDActionMovie());
 
     // Act
@@ -6217,22 +5556,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPI()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionNamed}.
+   *   <li>Then return {@link PDActionNamed}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPI()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPI()}
    */
   @Test
   @DisplayName("Test getPI(); then return PDActionNamed")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPI()"})
   void testGetPI_thenReturnPDActionNamed() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPI(new PDActionNamed());
 
     // Act
@@ -6254,22 +5590,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPI()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionRemoteGoTo}.
+   *   <li>Then return {@link PDActionRemoteGoTo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPI()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPI()}
    */
   @Test
   @DisplayName("Test getPI(); then return PDActionRemoteGoTo")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPI()"})
   void testGetPI_thenReturnPDActionRemoteGoTo() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPI(new PDActionRemoteGoTo());
 
     // Act
@@ -6285,22 +5618,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPI()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionResetForm}.
+   *   <li>Then return {@link PDActionResetForm}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPI()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPI()}
    */
   @Test
   @DisplayName("Test getPI(); then return PDActionResetForm")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPI()"})
   void testGetPI_thenReturnPDActionResetForm() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPI(new PDActionResetForm());
 
     // Act
@@ -6315,22 +5645,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPI()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionSound}.
+   *   <li>Then return {@link PDActionSound}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPI()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPI()}
    */
   @Test
   @DisplayName("Test getPI(); then return PDActionSound")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPI()"})
   void testGetPI_thenReturnPDActionSound() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPI(new PDActionSound());
 
     // Act
@@ -6348,22 +5675,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPI()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionSubmitForm}.
+   *   <li>Then return {@link PDActionSubmitForm}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPI()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPI()}
    */
   @Test
   @DisplayName("Test getPI(); then return PDActionSubmitForm")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPI()"})
   void testGetPI_thenReturnPDActionSubmitForm() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPI(new PDActionSubmitForm());
 
     // Act
@@ -6379,22 +5703,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPI()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionThread}.
+   *   <li>Then return {@link PDActionThread}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPI()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPI()}
    */
   @Test
   @DisplayName("Test getPI(); then return PDActionThread")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPI()"})
   void testGetPI_thenReturnPDActionThread() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPI(new PDActionThread());
 
     // Act
@@ -6410,22 +5731,19 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#getPI()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionURI}.
+   *   <li>Then return {@link PDActionURI}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPI()}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#getPI()}
    */
   @Test
   @DisplayName("Test getPI(); then return PDActionURI")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPI()"})
   void testGetPI_thenReturnPDActionURI() {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPI(new PDActionURI());
 
     // Act
@@ -6447,23 +5765,42 @@ class PDAnnotationAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAnnotationAdditionalActions#setPI(PDAction)}.
-   *
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#setPI(PDAction)}
+   */
+  @Test
+  @DisplayName("Test setPI(PDAction)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDAnnotationAdditionalActions.setPI(PDAction)"})
+  void testSetPI() {
+    // Arrange
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions(
+        new COSDictionary());
+
+    // Act
+    pdAnnotationAdditionalActions.setPI(null);
+
+    // Assert that nothing has changed
+    COSDictionary cOSObject = pdAnnotationAdditionalActions.getCOSObject();
+    assertEquals(0, cOSObject.size());
+    assertTrue(cOSObject.getValues().isEmpty());
+  }
+
+  /**
+   * Test {@link PDAnnotationAdditionalActions#setPI(PDAction)}.
    * <ul>
-   *   <li>Then {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()} PI {@link
-   *       PDActionEmbeddedGoTo}.
+   *   <li>Then {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()} PI {@link PDActionEmbeddedGoTo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#setPI(PDAction)}
+   * <p>
+   * Method under test: {@link PDAnnotationAdditionalActions#setPI(PDAction)}
    */
   @Test
   @DisplayName("Test setPI(PDAction); then PDAnnotationAdditionalActions() PI PDActionEmbeddedGoTo")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationAdditionalActions.setPI(PDAction)"})
   void testSetPI_thenPDAnnotationAdditionalActionsPiPDActionEmbeddedGoTo() throws IOException {
     // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
+    PDAnnotationAdditionalActions pdAnnotationAdditionalActions = new PDAnnotationAdditionalActions();
 
     // Act
     pdAnnotationAdditionalActions.setPI(new PDActionEmbeddedGoTo());
@@ -6481,36 +5818,5 @@ class PDAnnotationAdditionalActionsDiffblueTest {
     assertEquals(OpenMode.USER_PREFERENCE, ((PDActionEmbeddedGoTo) pI).getOpenInNewWindow());
     assertEquals(PDAction.TYPE, pI.getType());
     assertEquals(PDActionEmbeddedGoTo.SUB_TYPE, pI.getSubType());
-  }
-
-  /**
-   * Test {@link PDAnnotationAdditionalActions#setPI(PDAction)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()} COSObject size
-   *       is zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#setPI(PDAction)}
-   */
-  @Test
-  @DisplayName(
-      "Test setPI(PDAction); when 'null'; then PDAnnotationAdditionalActions() COSObject size is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAnnotationAdditionalActions.setPI(PDAction)"})
-  void testSetPI_whenNull_thenPDAnnotationAdditionalActionsCOSObjectSizeIsZero() {
-    // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
-
-    // Act
-    pdAnnotationAdditionalActions.setPI(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdAnnotationAdditionalActions.getCOSObject();
-    assertEquals(0, cOSObject.size());
-    assertTrue(cOSObject.getValues().isEmpty());
   }
 }

@@ -2,7 +2,6 @@ package org.apache.pdfbox.pdmodel.interactive;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import org.apache.pdfbox.cos.COSDictionary;
@@ -15,13 +14,12 @@ import org.junit.jupiter.api.Test;
 class AppearanceStyleDiffblueTest {
   /**
    * Test {@link AppearanceStyle#setFontSize(float)}.
-   *
-   * <p>Method under test: {@link AppearanceStyle#setFontSize(float)}
+   * <p>
+   * Method under test: {@link AppearanceStyle#setFontSize(float)}
    */
   @Test
   @DisplayName("Test setFontSize(float)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void AppearanceStyle.setFontSize(float)"})
   void testSetFontSize() {
     // Arrange
@@ -37,9 +35,8 @@ class AppearanceStyleDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link AppearanceStyle}
    *   <li>{@link AppearanceStyle#setFont(PDFont)}
@@ -51,16 +48,10 @@ class AppearanceStyleDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void AppearanceStyle.<init>()",
-    "PDFont AppearanceStyle.getFont()",
-    "float AppearanceStyle.getFontSize()",
-    "float AppearanceStyle.getLeading()",
-    "void AppearanceStyle.setFont(PDFont)",
-    "void AppearanceStyle.setLeading(float)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AppearanceStyle.<init>()", "PDFont AppearanceStyle.getFont()",
+      "float AppearanceStyle.getFontSize()", "float AppearanceStyle.getLeading()",
+      "void AppearanceStyle.setFont(PDFont)", "void AppearanceStyle.setLeading(float)"})
   void testGettersAndSetters() throws IOException {
     // Arrange and Act
     AppearanceStyle actualAppearanceStyle = new AppearanceStyle();

@@ -3,7 +3,6 @@ package org.apache.pdfbox.contentstream.operator;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,9 +16,8 @@ import org.junit.jupiter.api.Test;
 class DrawObjectDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link DrawObject#DrawObject(PDFStreamEngine)}
    *   <li>{@link DrawObject#getName()}
@@ -27,12 +25,8 @@ class DrawObjectDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DrawObject.<init>(PDFStreamEngine)",
-    "java.lang.String DrawObject.getName()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void DrawObject.<init>(PDFStreamEngine)", "java.lang.String DrawObject.getName()"})
   void testGettersAndSetters() {
     // Arrange
     PDFMarkedContentExtractor context = new PDFMarkedContentExtractor();
@@ -47,18 +41,16 @@ class DrawObjectDiffblueTest {
 
   /**
    * Test {@link DrawObject#process(Operator, List)}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then throw {@link MissingOperandException}.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then throw {@link MissingOperandException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DrawObject#process(Operator, List)}
+   * <p>
+   * Method under test: {@link DrawObject#process(Operator, List)}
    */
   @Test
   @DisplayName("Test process(Operator, List); when ArrayList(); then throw MissingOperandException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void DrawObject.process(Operator, List)"})
   void testProcess_whenArrayList_thenThrowMissingOperandException() throws IOException {
     // Arrange
@@ -66,7 +58,6 @@ class DrawObjectDiffblueTest {
     Operator operator = Operator.getOperator("Operator");
 
     // Act and Assert
-    assertThrows(
-        MissingOperandException.class, () -> drawObject.process(operator, new ArrayList<>()));
+    assertThrows(MissingOperandException.class, () -> drawObject.process(operator, new ArrayList<>()));
   }
 }

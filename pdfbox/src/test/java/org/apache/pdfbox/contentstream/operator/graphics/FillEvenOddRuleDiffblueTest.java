@@ -1,10 +1,10 @@
 package org.apache.pdfbox.contentstream.operator.graphics;
 
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,23 +18,19 @@ import org.junit.jupiter.api.Test;
 class FillEvenOddRuleDiffblueTest {
   /**
    * Test {@link FillEvenOddRule#process(Operator, List)}.
-   *
    * <ul>
-   *   <li>Given {@link PageDrawer} {@link PageDrawer#fillPath(int)} does nothing.
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then calls {@link PageDrawer#fillPath(int)}.
+   *   <li>Given {@link PageDrawer} {@link PageDrawer#fillPath(int)} does nothing.</li>
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then calls {@link PageDrawer#fillPath(int)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FillEvenOddRule#process(Operator, List)}
+   * <p>
+   * Method under test: {@link FillEvenOddRule#process(Operator, List)}
    */
   @Test
-  @DisplayName(
-      "Test process(Operator, List); given PageDrawer fillPath(int) does nothing; when ArrayList(); then calls fillPath(int)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test process(Operator, List); given PageDrawer fillPath(int) does nothing; when ArrayList(); then calls fillPath(int)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FillEvenOddRule.process(Operator, List)"})
-  void testProcess_givenPageDrawerFillPathDoesNothing_whenArrayList_thenCallsFillPath()
-      throws IOException {
+  void testProcess_givenPageDrawerFillPathDoesNothing_whenArrayList_thenCallsFillPath() throws IOException {
     // Arrange
     PageDrawer context = mock(PageDrawer.class);
     doNothing().when(context).fillPath(anyInt());
@@ -45,6 +41,6 @@ class FillEvenOddRuleDiffblueTest {
     fillEvenOddRule.process(operator, new ArrayList<>());
 
     // Assert
-    verify(context).fillPath(0);
+    verify(context).fillPath(eq(0));
   }
 }

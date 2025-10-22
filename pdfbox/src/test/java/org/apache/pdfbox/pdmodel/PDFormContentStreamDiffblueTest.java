@@ -3,7 +3,6 @@ package org.apache.pdfbox.pdmodel;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import org.apache.pdfbox.cos.COSStream;
@@ -15,15 +14,17 @@ import org.junit.jupiter.api.Test;
 class PDFormContentStreamDiffblueTest {
   /**
    * Test {@link PDFormContentStream#PDFormContentStream(PDFormXObject)}.
-   *
-   * <p>Method under test: {@link PDFormContentStream#PDFormContentStream(PDFormXObject)}
+   * <ul>
+   *   <li>Then return {@link PDAbstractContentStream#document} is {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDFormContentStream#PDFormContentStream(PDFormXObject)}
    */
   @Test
-  @DisplayName("Test new PDFormContentStream(PDFormXObject)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new PDFormContentStream(PDFormXObject); then return document is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFormContentStream.<init>(PDFormXObject)"})
-  void testNewPDFormContentStream() throws IOException {
+  void testNewPDFormContentStream_thenReturnDocumentIsNull() throws IOException {
     // Arrange
     PDFormXObject form = new PDFormXObject(new COSStream());
 

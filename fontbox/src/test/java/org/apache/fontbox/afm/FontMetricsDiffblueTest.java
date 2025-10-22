@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import org.apache.fontbox.util.BoundingBox;
@@ -17,9 +16,8 @@ import org.junit.jupiter.api.Test;
 class FontMetricsDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link FontMetrics}
    *   <li>{@link FontMetrics#setAFMVersion(float)}
@@ -79,71 +77,38 @@ class FontMetricsDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void FontMetrics.<init>()",
-    "float FontMetrics.getAFMVersion()",
-    "float FontMetrics.getAscender()",
-    "float FontMetrics.getCapHeight()",
-    "float[] FontMetrics.getCharWidth()",
-    "String FontMetrics.getCharacterSet()",
-    "int FontMetrics.getCharacters()",
-    "float FontMetrics.getDescender()",
-    "String FontMetrics.getEncodingScheme()",
-    "int FontMetrics.getEscChar()",
-    "String FontMetrics.getFamilyName()",
-    "BoundingBox FontMetrics.getFontBBox()",
-    "String FontMetrics.getFontName()",
-    "String FontMetrics.getFontVersion()",
-    "String FontMetrics.getFullName()",
-    "boolean FontMetrics.getIsBaseFont()",
-    "boolean FontMetrics.getIsFixedPitch()",
-    "float FontMetrics.getItalicAngle()",
-    "int FontMetrics.getMappingScheme()",
-    "int FontMetrics.getMetricSets()",
-    "String FontMetrics.getNotice()",
-    "float FontMetrics.getStandardHorizontalWidth()",
-    "float FontMetrics.getStandardVerticalWidth()",
-    "float FontMetrics.getUnderlinePosition()",
-    "float FontMetrics.getUnderlineThickness()",
-    "float[] FontMetrics.getVVector()",
-    "String FontMetrics.getWeight()",
-    "float FontMetrics.getXHeight()",
-    "void FontMetrics.setAFMVersion(float)",
-    "void FontMetrics.setAscender(float)",
-    "void FontMetrics.setCapHeight(float)",
-    "void FontMetrics.setCharWidth(float[])",
-    "void FontMetrics.setCharacterSet(String)",
-    "void FontMetrics.setCharacters(int)",
-    "void FontMetrics.setDescender(float)",
-    "void FontMetrics.setEncodingScheme(String)",
-    "void FontMetrics.setEscChar(int)",
-    "void FontMetrics.setFamilyName(String)",
-    "void FontMetrics.setFixedPitch(boolean)",
-    "void FontMetrics.setFontBBox(BoundingBox)",
-    "void FontMetrics.setFontName(String)",
-    "void FontMetrics.setFontVersion(String)",
-    "void FontMetrics.setFullName(String)",
-    "void FontMetrics.setIsBaseFont(boolean)",
-    "void FontMetrics.setItalicAngle(float)",
-    "void FontMetrics.setMappingScheme(int)",
-    "void FontMetrics.setNotice(String)",
-    "void FontMetrics.setStandardHorizontalWidth(float)",
-    "void FontMetrics.setStandardVerticalWidth(float)",
-    "void FontMetrics.setUnderlinePosition(float)",
-    "void FontMetrics.setUnderlineThickness(float)",
-    "void FontMetrics.setVVector(float[])",
-    "void FontMetrics.setWeight(String)",
-    "void FontMetrics.setXHeight(float)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void FontMetrics.<init>()", "float FontMetrics.getAFMVersion()",
+      "float FontMetrics.getAscender()", "float FontMetrics.getCapHeight()", "float[] FontMetrics.getCharWidth()",
+      "String FontMetrics.getCharacterSet()", "int FontMetrics.getCharacters()", "float FontMetrics.getDescender()",
+      "String FontMetrics.getEncodingScheme()", "int FontMetrics.getEscChar()", "String FontMetrics.getFamilyName()",
+      "BoundingBox FontMetrics.getFontBBox()", "String FontMetrics.getFontName()",
+      "String FontMetrics.getFontVersion()", "String FontMetrics.getFullName()", "boolean FontMetrics.getIsBaseFont()",
+      "boolean FontMetrics.getIsFixedPitch()", "float FontMetrics.getItalicAngle()",
+      "int FontMetrics.getMappingScheme()", "int FontMetrics.getMetricSets()", "String FontMetrics.getNotice()",
+      "float FontMetrics.getStandardHorizontalWidth()", "float FontMetrics.getStandardVerticalWidth()",
+      "float FontMetrics.getUnderlinePosition()", "float FontMetrics.getUnderlineThickness()",
+      "float[] FontMetrics.getVVector()", "String FontMetrics.getWeight()", "float FontMetrics.getXHeight()",
+      "void FontMetrics.setAFMVersion(float)", "void FontMetrics.setAscender(float)",
+      "void FontMetrics.setCapHeight(float)", "void FontMetrics.setCharWidth(float[])",
+      "void FontMetrics.setCharacterSet(String)", "void FontMetrics.setCharacters(int)",
+      "void FontMetrics.setDescender(float)", "void FontMetrics.setEncodingScheme(String)",
+      "void FontMetrics.setEscChar(int)", "void FontMetrics.setFamilyName(String)",
+      "void FontMetrics.setFixedPitch(boolean)", "void FontMetrics.setFontBBox(BoundingBox)",
+      "void FontMetrics.setFontName(String)", "void FontMetrics.setFontVersion(String)",
+      "void FontMetrics.setFullName(String)", "void FontMetrics.setIsBaseFont(boolean)",
+      "void FontMetrics.setItalicAngle(float)", "void FontMetrics.setMappingScheme(int)",
+      "void FontMetrics.setNotice(String)", "void FontMetrics.setStandardHorizontalWidth(float)",
+      "void FontMetrics.setStandardVerticalWidth(float)", "void FontMetrics.setUnderlinePosition(float)",
+      "void FontMetrics.setUnderlineThickness(float)", "void FontMetrics.setVVector(float[])",
+      "void FontMetrics.setWeight(String)", "void FontMetrics.setXHeight(float)"})
   void testGettersAndSetters() {
     // Arrange and Act
     FontMetrics actualFontMetrics = new FontMetrics();
     actualFontMetrics.setAFMVersion(10.0f);
     actualFontMetrics.setAscender(10.0f);
     actualFontMetrics.setCapHeight(10.0f);
-    float[] charWidthValue = new float[] {10.0f, 0.0f, 10.0f, 0.0f};
+    float[] charWidthValue = new float[]{10.0f, 0.0f, 10.0f, 0.0f};
     actualFontMetrics.setCharWidth(charWidthValue);
     actualFontMetrics.setCharacterSet("42");
     actualFontMetrics.setCharacters(42);
@@ -153,6 +118,7 @@ class FontMetricsDiffblueTest {
     actualFontMetrics.setFamilyName("42");
     actualFontMetrics.setFixedPitch(true);
     BoundingBox bBox = new BoundingBox(10.0f, 10.0f, 10.0f, 10.0f);
+
     actualFontMetrics.setFontBBox(bBox);
     actualFontMetrics.setFontName("Name");
     actualFontMetrics.setFontVersion("42");
@@ -165,7 +131,7 @@ class FontMetricsDiffblueTest {
     actualFontMetrics.setStandardVerticalWidth(10.0f);
     actualFontMetrics.setUnderlinePosition(10.0f);
     actualFontMetrics.setUnderlineThickness(10.0f);
-    float[] vVectorValue = new float[] {10.0f, 0.0f, 10.0f, 0.0f};
+    float[] vVectorValue = new float[]{10.0f, 0.0f, 10.0f, 0.0f};
     actualFontMetrics.setVVector(vVectorValue);
     actualFontMetrics.setWeight("42");
     actualFontMetrics.setXHeight(10.0f);
@@ -224,126 +190,188 @@ class FontMetricsDiffblueTest {
     assertSame(bBox, actualFontBBox);
     assertSame(charWidthValue, actualCharWidth);
     assertSame(vVectorValue, actualVVector);
-    assertArrayEquals(new float[] {10.0f, 0.0f, 10.0f, 0.0f}, actualCharWidth, 0.0f);
-    assertArrayEquals(new float[] {10.0f, 0.0f, 10.0f, 0.0f}, actualVVector, 0.0f);
+    assertArrayEquals(new float[]{10.0f, 0.0f, 10.0f, 0.0f}, actualCharWidth, 0.0f);
+    assertArrayEquals(new float[]{10.0f, 0.0f, 10.0f, 0.0f}, actualVVector, 0.0f);
   }
 
   /**
    * Test {@link FontMetrics#getCharacterWidth(String)}.
-   *
-   * <p>Method under test: {@link FontMetrics#getCharacterWidth(String)}
+   * <ul>
+   *   <li>Given {@link FontMetrics} (default constructor) addCharMetric {@link CharMetric} (default constructor).</li>
+   *   <li>When {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link FontMetrics#getCharacterWidth(String)}
    */
   @Test
-  @DisplayName("Test getCharacterWidth(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getCharacterWidth(String); given FontMetrics (default constructor) addCharMetric CharMetric (default constructor); when 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"float FontMetrics.getCharacterWidth(String)"})
-  void testGetCharacterWidth() {
+  void testGetCharacterWidth_givenFontMetricsAddCharMetricCharMetric_whenNull() {
+    // Arrange
+    FontMetrics fontMetrics = new FontMetrics();
+    fontMetrics.addCharMetric(new CharMetric());
+
+    // Act and Assert
+    assertEquals(0.0f, fontMetrics.getCharacterWidth(null));
+  }
+
+  /**
+   * Test {@link FontMetrics#getCharacterWidth(String)}.
+   * <ul>
+   *   <li>Given {@link FontMetrics} (default constructor).</li>
+   *   <li>When {@code Name}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link FontMetrics#getCharacterWidth(String)}
+   */
+  @Test
+  @DisplayName("Test getCharacterWidth(String); given FontMetrics (default constructor); when 'Name'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"float FontMetrics.getCharacterWidth(String)"})
+  void testGetCharacterWidth_givenFontMetrics_whenName() {
     // Arrange, Act and Assert
-    assertEquals(0.0f, new FontMetrics().getCharacterWidth("Name"));
+    assertEquals(0.0f, (new FontMetrics()).getCharacterWidth("Name"));
   }
 
   /**
    * Test {@link FontMetrics#getCharacterHeight(String)}.
-   *
-   * <p>Method under test: {@link FontMetrics#getCharacterHeight(String)}
+   * <p>
+   * Method under test: {@link FontMetrics#getCharacterHeight(String)}
    */
   @Test
   @DisplayName("Test getCharacterHeight(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"float FontMetrics.getCharacterHeight(String)"})
   void testGetCharacterHeight() {
-    // Arrange, Act and Assert
-    assertEquals(0.0f, new FontMetrics().getCharacterHeight("Name"));
-  }
-
-  /**
-   * Test {@link FontMetrics#getAverageCharacterWidth()}.
-   *
-   * <ul>
-   *   <li>Given {@link CharMetric} (default constructor) Wx is {@code 1.0E-5}.
-   *   <li>Then return {@code 1.0E-5}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FontMetrics#getAverageCharacterWidth()}
-   */
-  @Test
-  @DisplayName(
-      "Test getAverageCharacterWidth(); given CharMetric (default constructor) Wx is '1.0E-5'; then return '1.0E-5'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"float FontMetrics.getAverageCharacterWidth()"})
-  void testGetAverageCharacterWidth_givenCharMetricWxIs10e5_thenReturn10e5() {
     // Arrange
     CharMetric metric = new CharMetric();
-    metric.setWx(1.0E-5f);
+    metric.setBoundingBox(new BoundingBox(10.0f, 10.0f, 10.0f, 10.0f));
 
     FontMetrics fontMetrics = new FontMetrics();
     fontMetrics.addCharMetric(metric);
 
     // Act and Assert
-    assertEquals(1.0E-5f, fontMetrics.getAverageCharacterWidth());
+    assertEquals(0.0f, fontMetrics.getCharacterHeight(null));
+  }
+
+  /**
+   * Test {@link FontMetrics#getCharacterHeight(String)}.
+   * <ul>
+   *   <li>Given {@link CharMetric} (default constructor) Wy is ten.</li>
+   *   <li>When {@code null}.</li>
+   *   <li>Then return ten.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link FontMetrics#getCharacterHeight(String)}
+   */
+  @Test
+  @DisplayName("Test getCharacterHeight(String); given CharMetric (default constructor) Wy is ten; when 'null'; then return ten")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"float FontMetrics.getCharacterHeight(String)"})
+  void testGetCharacterHeight_givenCharMetricWyIsTen_whenNull_thenReturnTen() {
+    // Arrange
+    CharMetric metric = new CharMetric();
+    metric.setWy(10.0f);
+
+    FontMetrics fontMetrics = new FontMetrics();
+    fontMetrics.addCharMetric(metric);
+
+    // Act and Assert
+    assertEquals(10.0f, fontMetrics.getCharacterHeight(null));
+  }
+
+  /**
+   * Test {@link FontMetrics#getCharacterHeight(String)}.
+   * <ul>
+   *   <li>Given {@link FontMetrics} (default constructor).</li>
+   *   <li>When {@code Name}.</li>
+   *   <li>Then return zero.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link FontMetrics#getCharacterHeight(String)}
+   */
+  @Test
+  @DisplayName("Test getCharacterHeight(String); given FontMetrics (default constructor); when 'Name'; then return zero")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"float FontMetrics.getCharacterHeight(String)"})
+  void testGetCharacterHeight_givenFontMetrics_whenName_thenReturnZero() {
+    // Arrange, Act and Assert
+    assertEquals(0.0f, (new FontMetrics()).getCharacterHeight("Name"));
   }
 
   /**
    * Test {@link FontMetrics#getAverageCharacterWidth()}.
-   *
    * <ul>
-   *   <li>Given {@link CharMetric} (default constructor) Wx is zero.
-   *   <li>Then return zero.
+   *   <li>Given {@link CharMetric} (default constructor) Wx is ten.</li>
+   *   <li>Then return ten.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FontMetrics#getAverageCharacterWidth()}
+   * <p>
+   * Method under test: {@link FontMetrics#getAverageCharacterWidth()}
    */
   @Test
-  @DisplayName(
-      "Test getAverageCharacterWidth(); given CharMetric (default constructor) Wx is zero; then return zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getAverageCharacterWidth(); given CharMetric (default constructor) Wx is ten; then return ten")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"float FontMetrics.getAverageCharacterWidth()"})
-  void testGetAverageCharacterWidth_givenCharMetricWxIsZero_thenReturnZero() {
+  void testGetAverageCharacterWidth_givenCharMetricWxIsTen_thenReturnTen() {
     // Arrange
     CharMetric metric = new CharMetric();
-    metric.setWx(0.0f);
+    metric.setWx(10.0f);
 
     FontMetrics fontMetrics = new FontMetrics();
     fontMetrics.addCharMetric(metric);
+
+    // Act and Assert
+    assertEquals(10.0f, fontMetrics.getAverageCharacterWidth());
+  }
+
+  /**
+   * Test {@link FontMetrics#getAverageCharacterWidth()}.
+   * <ul>
+   *   <li>Given {@link FontMetrics} (default constructor).</li>
+   *   <li>Then return zero.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link FontMetrics#getAverageCharacterWidth()}
+   */
+  @Test
+  @DisplayName("Test getAverageCharacterWidth(); given FontMetrics (default constructor); then return zero")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"float FontMetrics.getAverageCharacterWidth()"})
+  void testGetAverageCharacterWidth_givenFontMetrics_thenReturnZero() {
+    // Arrange, Act and Assert
+    assertEquals(0.0f, (new FontMetrics()).getAverageCharacterWidth());
+  }
+
+  /**
+   * Test {@link FontMetrics#getAverageCharacterWidth()}.
+   * <ul>
+   *   <li>Then return zero.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link FontMetrics#getAverageCharacterWidth()}
+   */
+  @Test
+  @DisplayName("Test getAverageCharacterWidth(); then return zero")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"float FontMetrics.getAverageCharacterWidth()"})
+  void testGetAverageCharacterWidth_thenReturnZero() {
+    // Arrange
+    FontMetrics fontMetrics = new FontMetrics();
+    fontMetrics.addCharMetric(new CharMetric());
 
     // Act and Assert
     assertEquals(0.0f, fontMetrics.getAverageCharacterWidth());
   }
 
   /**
-   * Test {@link FontMetrics#getAverageCharacterWidth()}.
-   *
-   * <ul>
-   *   <li>Given {@link FontMetrics} (default constructor).
-   *   <li>Then return zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link FontMetrics#getAverageCharacterWidth()}
-   */
-  @Test
-  @DisplayName(
-      "Test getAverageCharacterWidth(); given FontMetrics (default constructor); then return zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"float FontMetrics.getAverageCharacterWidth()"})
-  void testGetAverageCharacterWidth_givenFontMetrics_thenReturnZero() {
-    // Arrange, Act and Assert
-    assertEquals(0.0f, new FontMetrics().getAverageCharacterWidth());
-  }
-
-  /**
    * Test {@link FontMetrics#addComment(String)}.
-   *
-   * <p>Method under test: {@link FontMetrics#addComment(String)}
+   * <p>
+   * Method under test: {@link FontMetrics#addComment(String)}
    */
   @Test
   @DisplayName("Test addComment(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FontMetrics.addComment(String)"})
   void testAddComment() {
     // Arrange
@@ -360,74 +388,66 @@ class FontMetricsDiffblueTest {
 
   /**
    * Test {@link FontMetrics#getComments()}.
-   *
-   * <p>Method under test: {@link FontMetrics#getComments()}
+   * <p>
+   * Method under test: {@link FontMetrics#getComments()}
    */
   @Test
   @DisplayName("Test getComments()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List FontMetrics.getComments()"})
   void testGetComments() {
     // Arrange, Act and Assert
-    assertTrue(new FontMetrics().getComments().isEmpty());
+    assertTrue((new FontMetrics()).getComments().isEmpty());
   }
 
   /**
    * Test {@link FontMetrics#setMetricSets(int)}.
-   *
    * <ul>
-   *   <li>When forty-two.
-   *   <li>Then throw {@link IllegalArgumentException}.
+   *   <li>When forty-two.</li>
+   *   <li>Then throw {@link IllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FontMetrics#setMetricSets(int)}
+   * <p>
+   * Method under test: {@link FontMetrics#setMetricSets(int)}
    */
   @Test
   @DisplayName("Test setMetricSets(int); when forty-two; then throw IllegalArgumentException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FontMetrics.setMetricSets(int)"})
   void testSetMetricSets_whenFortyTwo_thenThrowIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> new FontMetrics().setMetricSets(42));
+    assertThrows(IllegalArgumentException.class, () -> (new FontMetrics()).setMetricSets(42));
   }
 
   /**
    * Test {@link FontMetrics#setMetricSets(int)}.
-   *
    * <ul>
-   *   <li>When minus one.
-   *   <li>Then throw {@link IllegalArgumentException}.
+   *   <li>When minus one.</li>
+   *   <li>Then throw {@link IllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FontMetrics#setMetricSets(int)}
+   * <p>
+   * Method under test: {@link FontMetrics#setMetricSets(int)}
    */
   @Test
   @DisplayName("Test setMetricSets(int); when minus one; then throw IllegalArgumentException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FontMetrics.setMetricSets(int)"})
   void testSetMetricSets_whenMinusOne_thenThrowIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> new FontMetrics().setMetricSets(-1));
+    assertThrows(IllegalArgumentException.class, () -> (new FontMetrics()).setMetricSets(-1));
   }
 
   /**
    * Test {@link FontMetrics#getIsFixedV()}.
-   *
    * <ul>
-   *   <li>Given {@link FontMetrics} (default constructor) IsFixedV is {@code true}.
-   *   <li>Then return {@code true}.
+   *   <li>Given {@link FontMetrics} (default constructor) IsFixedV is {@code true}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FontMetrics#getIsFixedV()}
+   * <p>
+   * Method under test: {@link FontMetrics#getIsFixedV()}
    */
   @Test
-  @DisplayName(
-      "Test getIsFixedV(); given FontMetrics (default constructor) IsFixedV is 'true'; then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getIsFixedV(); given FontMetrics (default constructor) IsFixedV is 'true'; then return 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean FontMetrics.getIsFixedV()"})
   void testGetIsFixedV_givenFontMetricsIsFixedVIsTrue_thenReturnTrue() {
     // Arrange
@@ -441,24 +461,20 @@ class FontMetricsDiffblueTest {
 
   /**
    * Test {@link FontMetrics#getIsFixedV()}.
-   *
    * <ul>
-   *   <li>Given {@link FontMetrics} (default constructor) VVector is array of {@code float} with
-   *       ten and zero.
+   *   <li>Given {@link FontMetrics} (default constructor) VVector is array of {@code float} with ten and zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FontMetrics#getIsFixedV()}
+   * <p>
+   * Method under test: {@link FontMetrics#getIsFixedV()}
    */
   @Test
-  @DisplayName(
-      "Test getIsFixedV(); given FontMetrics (default constructor) VVector is array of float with ten and zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getIsFixedV(); given FontMetrics (default constructor) VVector is array of float with ten and zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean FontMetrics.getIsFixedV()"})
   void testGetIsFixedV_givenFontMetricsVVectorIsArrayOfFloatWithTenAndZero() {
     // Arrange
     FontMetrics fontMetrics = new FontMetrics();
-    fontMetrics.setVVector(new float[] {10.0f, 0.0f, 10.0f, 0.0f});
+    fontMetrics.setVVector(new float[]{10.0f, 0.0f, 10.0f, 0.0f});
 
     // Act and Assert
     assertTrue(fontMetrics.getIsFixedV());
@@ -466,33 +482,30 @@ class FontMetricsDiffblueTest {
 
   /**
    * Test {@link FontMetrics#getIsFixedV()}.
-   *
    * <ul>
-   *   <li>Given {@link FontMetrics} (default constructor).
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link FontMetrics} (default constructor).</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FontMetrics#getIsFixedV()}
+   * <p>
+   * Method under test: {@link FontMetrics#getIsFixedV()}
    */
   @Test
   @DisplayName("Test getIsFixedV(); given FontMetrics (default constructor); then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean FontMetrics.getIsFixedV()"})
   void testGetIsFixedV_givenFontMetrics_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new FontMetrics().getIsFixedV());
+    assertFalse((new FontMetrics()).getIsFixedV());
   }
 
   /**
    * Test {@link FontMetrics#setIsFixedV(boolean)}.
-   *
-   * <p>Method under test: {@link FontMetrics#setIsFixedV(boolean)}
+   * <p>
+   * Method under test: {@link FontMetrics#setIsFixedV(boolean)}
    */
   @Test
   @DisplayName("Test setIsFixedV(boolean)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FontMetrics.setIsFixedV(boolean)"})
   void testSetIsFixedV() {
     // Arrange
@@ -507,34 +520,30 @@ class FontMetricsDiffblueTest {
 
   /**
    * Test {@link FontMetrics#getCharMetrics()}.
-   *
-   * <p>Method under test: {@link FontMetrics#getCharMetrics()}
+   * <p>
+   * Method under test: {@link FontMetrics#getCharMetrics()}
    */
   @Test
   @DisplayName("Test getCharMetrics()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List FontMetrics.getCharMetrics()"})
   void testGetCharMetrics() {
     // Arrange, Act and Assert
-    assertTrue(new FontMetrics().getCharMetrics().isEmpty());
+    assertTrue((new FontMetrics()).getCharMetrics().isEmpty());
   }
 
   /**
    * Test {@link FontMetrics#addCharMetric(CharMetric)}.
-   *
    * <ul>
-   *   <li>When {@link CharMetric} (default constructor).
-   *   <li>Then {@link FontMetrics} (default constructor) CharMetrics size is one.
+   *   <li>When {@link CharMetric} (default constructor).</li>
+   *   <li>Then {@link FontMetrics} (default constructor) CharMetrics size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FontMetrics#addCharMetric(CharMetric)}
+   * <p>
+   * Method under test: {@link FontMetrics#addCharMetric(CharMetric)}
    */
   @Test
-  @DisplayName(
-      "Test addCharMetric(CharMetric); when CharMetric (default constructor); then FontMetrics (default constructor) CharMetrics size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test addCharMetric(CharMetric); when CharMetric (default constructor); then FontMetrics (default constructor) CharMetrics size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FontMetrics.addCharMetric(CharMetric)"})
   void testAddCharMetric_whenCharMetric_thenFontMetricsCharMetricsSizeIsOne() {
     // Arrange
@@ -552,28 +561,26 @@ class FontMetricsDiffblueTest {
 
   /**
    * Test {@link FontMetrics#getTrackKern()}.
-   *
-   * <p>Method under test: {@link FontMetrics#getTrackKern()}
+   * <p>
+   * Method under test: {@link FontMetrics#getTrackKern()}
    */
   @Test
   @DisplayName("Test getTrackKern()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List FontMetrics.getTrackKern()"})
   void testGetTrackKern() {
     // Arrange, Act and Assert
-    assertTrue(new FontMetrics().getTrackKern().isEmpty());
+    assertTrue((new FontMetrics()).getTrackKern().isEmpty());
   }
 
   /**
    * Test {@link FontMetrics#addTrackKern(TrackKern)}.
-   *
-   * <p>Method under test: {@link FontMetrics#addTrackKern(TrackKern)}
+   * <p>
+   * Method under test: {@link FontMetrics#addTrackKern(TrackKern)}
    */
   @Test
   @DisplayName("Test addTrackKern(TrackKern)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FontMetrics.addTrackKern(TrackKern)"})
   void testAddTrackKern() {
     // Arrange
@@ -591,28 +598,26 @@ class FontMetricsDiffblueTest {
 
   /**
    * Test {@link FontMetrics#getComposites()}.
-   *
-   * <p>Method under test: {@link FontMetrics#getComposites()}
+   * <p>
+   * Method under test: {@link FontMetrics#getComposites()}
    */
   @Test
   @DisplayName("Test getComposites()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List FontMetrics.getComposites()"})
   void testGetComposites() {
     // Arrange, Act and Assert
-    assertTrue(new FontMetrics().getComposites().isEmpty());
+    assertTrue((new FontMetrics()).getComposites().isEmpty());
   }
 
   /**
    * Test {@link FontMetrics#addComposite(Composite)}.
-   *
-   * <p>Method under test: {@link FontMetrics#addComposite(Composite)}
+   * <p>
+   * Method under test: {@link FontMetrics#addComposite(Composite)}
    */
   @Test
   @DisplayName("Test addComposite(Composite)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FontMetrics.addComposite(Composite)"})
   void testAddComposite() {
     // Arrange
@@ -630,28 +635,26 @@ class FontMetricsDiffblueTest {
 
   /**
    * Test {@link FontMetrics#getKernPairs()}.
-   *
-   * <p>Method under test: {@link FontMetrics#getKernPairs()}
+   * <p>
+   * Method under test: {@link FontMetrics#getKernPairs()}
    */
   @Test
   @DisplayName("Test getKernPairs()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List FontMetrics.getKernPairs()"})
   void testGetKernPairs() {
     // Arrange, Act and Assert
-    assertTrue(new FontMetrics().getKernPairs().isEmpty());
+    assertTrue((new FontMetrics()).getKernPairs().isEmpty());
   }
 
   /**
    * Test {@link FontMetrics#addKernPair(KernPair)}.
-   *
-   * <p>Method under test: {@link FontMetrics#addKernPair(KernPair)}
+   * <p>
+   * Method under test: {@link FontMetrics#addKernPair(KernPair)}
    */
   @Test
   @DisplayName("Test addKernPair(KernPair)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FontMetrics.addKernPair(KernPair)"})
   void testAddKernPair() {
     // Arrange
@@ -669,28 +672,26 @@ class FontMetricsDiffblueTest {
 
   /**
    * Test {@link FontMetrics#getKernPairs0()}.
-   *
-   * <p>Method under test: {@link FontMetrics#getKernPairs0()}
+   * <p>
+   * Method under test: {@link FontMetrics#getKernPairs0()}
    */
   @Test
   @DisplayName("Test getKernPairs0()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List FontMetrics.getKernPairs0()"})
   void testGetKernPairs0() {
     // Arrange, Act and Assert
-    assertTrue(new FontMetrics().getKernPairs0().isEmpty());
+    assertTrue((new FontMetrics()).getKernPairs0().isEmpty());
   }
 
   /**
    * Test {@link FontMetrics#addKernPair0(KernPair)}.
-   *
-   * <p>Method under test: {@link FontMetrics#addKernPair0(KernPair)}
+   * <p>
+   * Method under test: {@link FontMetrics#addKernPair0(KernPair)}
    */
   @Test
   @DisplayName("Test addKernPair0(KernPair)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FontMetrics.addKernPair0(KernPair)"})
   void testAddKernPair0() {
     // Arrange
@@ -708,28 +709,26 @@ class FontMetricsDiffblueTest {
 
   /**
    * Test {@link FontMetrics#getKernPairs1()}.
-   *
-   * <p>Method under test: {@link FontMetrics#getKernPairs1()}
+   * <p>
+   * Method under test: {@link FontMetrics#getKernPairs1()}
    */
   @Test
   @DisplayName("Test getKernPairs1()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List FontMetrics.getKernPairs1()"})
   void testGetKernPairs1() {
     // Arrange, Act and Assert
-    assertTrue(new FontMetrics().getKernPairs1().isEmpty());
+    assertTrue((new FontMetrics()).getKernPairs1().isEmpty());
   }
 
   /**
    * Test {@link FontMetrics#addKernPair1(KernPair)}.
-   *
-   * <p>Method under test: {@link FontMetrics#addKernPair1(KernPair)}
+   * <p>
+   * Method under test: {@link FontMetrics#addKernPair1(KernPair)}
    */
   @Test
   @DisplayName("Test addKernPair1(KernPair)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FontMetrics.addKernPair1(KernPair)"})
   void testAddKernPair1() {
     // Arrange

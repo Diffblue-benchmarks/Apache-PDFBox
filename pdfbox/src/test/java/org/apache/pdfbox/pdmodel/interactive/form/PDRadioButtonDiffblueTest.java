@@ -12,7 +12,6 @@ import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.util.List;
@@ -28,14 +27,12 @@ import org.mockito.Mockito;
 class PDRadioButtonDiffblueTest {
   /**
    * Test {@link PDRadioButton#PDRadioButton(PDAcroForm, COSDictionary, PDNonTerminalField)}.
-   *
-   * <p>Method under test: {@link PDRadioButton#PDRadioButton(PDAcroForm, COSDictionary,
-   * PDNonTerminalField)}
+   * <p>
+   * Method under test: {@link PDRadioButton#PDRadioButton(PDAcroForm, COSDictionary, PDNonTerminalField)}
    */
   @Test
   @DisplayName("Test new PDRadioButton(PDAcroForm, COSDictionary, PDNonTerminalField)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDRadioButton.<init>(PDAcroForm, COSDictionary, PDNonTerminalField)"})
   void testNewPDRadioButton() {
     // Arrange
@@ -54,13 +51,12 @@ class PDRadioButtonDiffblueTest {
 
   /**
    * Test {@link PDRadioButton#PDRadioButton(PDAcroForm)}.
-   *
-   * <p>Method under test: {@link PDRadioButton#PDRadioButton(PDAcroForm)}
+   * <p>
+   * Method under test: {@link PDRadioButton#PDRadioButton(PDAcroForm)}
    */
   @Test
   @DisplayName("Test new PDRadioButton(PDAcroForm)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDRadioButton.<init>(PDAcroForm)"})
   void testNewPDRadioButton2() {
     // Arrange
@@ -97,22 +93,20 @@ class PDRadioButtonDiffblueTest {
 
   /**
    * Test {@link PDRadioButton#setRadiosInUnison(boolean)}.
-   *
-   * <p>Method under test: {@link PDRadioButton#setRadiosInUnison(boolean)}
+   * <p>
+   * Method under test: {@link PDRadioButton#setRadiosInUnison(boolean)}
    */
   @Test
   @DisplayName("Test setRadiosInUnison(boolean)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDRadioButton.setRadiosInUnison(boolean)"})
   void testSetRadiosInUnison() {
     // Arrange
     COSDictionary field = mock(COSDictionary.class);
     doNothing().when(field).setFlag(Mockito.<COSName>any(), anyInt(), anyBoolean());
     PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
-
-    PDRadioButton pdRadioButton = new PDRadioButton(acroForm, field, parent);
+    PDRadioButton pdRadioButton = new PDRadioButton(acroForm, field,
+        new PDNonTerminalField(new PDAcroForm(new PDDocument())));
 
     // Act
     pdRadioButton.setRadiosInUnison(true);
@@ -125,61 +119,52 @@ class PDRadioButtonDiffblueTest {
 
   /**
    * Test {@link PDRadioButton#isRadiosInUnison()}.
-   *
-   * <p>Method under test: {@link PDRadioButton#isRadiosInUnison()}
+   * <p>
+   * Method under test: {@link PDRadioButton#isRadiosInUnison()}
    */
   @Test
   @DisplayName("Test isRadiosInUnison()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDRadioButton.isRadiosInUnison()"})
   void testIsRadiosInUnison() {
     // Arrange
     PDAcroForm acroForm = new PDAcroForm(new PDDocument());
     COSDictionary field = new COSDictionary();
-    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
-
-    PDRadioButton pdRadioButton = new PDRadioButton(acroForm, field, parent);
 
     // Act and Assert
-    assertFalse(pdRadioButton.isRadiosInUnison());
+    assertFalse((new PDRadioButton(acroForm, field, new PDNonTerminalField(new PDAcroForm(new PDDocument()))))
+        .isRadiosInUnison());
   }
 
   /**
    * Test {@link PDRadioButton#isRadiosInUnison()}.
-   *
    * <ul>
-   *   <li>Given {@link PDRadioButton#PDRadioButton(PDAcroForm)} with acroForm is {@link
-   *       PDAcroForm#PDAcroForm(PDDocument)}.
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link PDRadioButton#PDRadioButton(PDAcroForm)} with acroForm is {@link PDAcroForm#PDAcroForm(PDDocument)}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDRadioButton#isRadiosInUnison()}
+   * <p>
+   * Method under test: {@link PDRadioButton#isRadiosInUnison()}
    */
   @Test
-  @DisplayName(
-      "Test isRadiosInUnison(); given PDRadioButton(PDAcroForm) with acroForm is PDAcroForm(PDDocument); then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test isRadiosInUnison(); given PDRadioButton(PDAcroForm) with acroForm is PDAcroForm(PDDocument); then return 'false'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDRadioButton.isRadiosInUnison()"})
   void testIsRadiosInUnison_givenPDRadioButtonWithAcroFormIsPDAcroForm_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new PDRadioButton(new PDAcroForm(new PDDocument())).isRadiosInUnison());
+    assertFalse((new PDRadioButton(new PDAcroForm(new PDDocument()))).isRadiosInUnison());
   }
 
   /**
    * Test {@link PDRadioButton#isRadiosInUnison()}.
-   *
    * <ul>
-   *   <li>Then return {@code true}.
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDRadioButton#isRadiosInUnison()}
+   * <p>
+   * Method under test: {@link PDRadioButton#isRadiosInUnison()}
    */
   @Test
   @DisplayName("Test isRadiosInUnison(); then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDRadioButton.isRadiosInUnison()"})
   void testIsRadiosInUnison_thenReturnTrue() {
     // Arrange
@@ -192,22 +177,17 @@ class PDRadioButtonDiffblueTest {
 
   /**
    * Test {@link PDRadioButton#getSelectedIndex()}.
-   *
    * <ul>
-   *   <li>Given {@link PDRadioButton#PDRadioButton(PDAcroForm)} with acroForm is {@link
-   *       PDAcroForm#PDAcroForm(PDDocument)} importFDF {@link FDFField#FDFField()}.
+   *   <li>Given {@link PDRadioButton#PDRadioButton(PDAcroForm)} with acroForm is {@link PDAcroForm#PDAcroForm(PDDocument)} importFDF {@link FDFField#FDFField()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDRadioButton#getSelectedIndex()}
+   * <p>
+   * Method under test: {@link PDRadioButton#getSelectedIndex()}
    */
   @Test
-  @DisplayName(
-      "Test getSelectedIndex(); given PDRadioButton(PDAcroForm) with acroForm is PDAcroForm(PDDocument) importFDF FDFField()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getSelectedIndex(); given PDRadioButton(PDAcroForm) with acroForm is PDAcroForm(PDDocument) importFDF FDFField()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int PDRadioButton.getSelectedIndex()"})
-  void testGetSelectedIndex_givenPDRadioButtonWithAcroFormIsPDAcroFormImportFDFFDFField()
-      throws IOException {
+  void testGetSelectedIndex_givenPDRadioButtonWithAcroFormIsPDAcroFormImportFDFFDFField() throws IOException {
     // Arrange
     PDRadioButton pdRadioButton = new PDRadioButton(new PDAcroForm(new PDDocument()));
     pdRadioButton.importFDF(new FDFField());
@@ -218,52 +198,42 @@ class PDRadioButtonDiffblueTest {
 
   /**
    * Test {@link PDRadioButton#getSelectedIndex()}.
-   *
    * <ul>
-   *   <li>Given {@link PDRadioButton#PDRadioButton(PDAcroForm)} with acroForm is {@link
-   *       PDAcroForm#PDAcroForm(PDDocument)}.
-   *   <li>Then return zero.
+   *   <li>Given {@link PDRadioButton#PDRadioButton(PDAcroForm)} with acroForm is {@link PDAcroForm#PDAcroForm(PDDocument)}.</li>
+   *   <li>Then return zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDRadioButton#getSelectedIndex()}
+   * <p>
+   * Method under test: {@link PDRadioButton#getSelectedIndex()}
    */
   @Test
-  @DisplayName(
-      "Test getSelectedIndex(); given PDRadioButton(PDAcroForm) with acroForm is PDAcroForm(PDDocument); then return zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getSelectedIndex(); given PDRadioButton(PDAcroForm) with acroForm is PDAcroForm(PDDocument); then return zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int PDRadioButton.getSelectedIndex()"})
   void testGetSelectedIndex_givenPDRadioButtonWithAcroFormIsPDAcroForm_thenReturnZero() {
     // Arrange, Act and Assert
-    assertEquals(0, new PDRadioButton(new PDAcroForm(new PDDocument())).getSelectedIndex());
+    assertEquals(0, (new PDRadioButton(new PDAcroForm(new PDDocument()))).getSelectedIndex());
   }
 
   /**
    * Test {@link PDRadioButton#getSelectedExportValues()}.
-   *
    * <ul>
-   *   <li>Given {@link PDNonTerminalField#PDNonTerminalField(PDAcroForm)} with acroForm is {@link
-   *       PDAcroForm#PDAcroForm(PDDocument)}.
+   *   <li>Given {@link PDNonTerminalField#PDNonTerminalField(PDAcroForm)} with acroForm is {@link PDAcroForm#PDAcroForm(PDDocument)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDRadioButton#getSelectedExportValues()}
+   * <p>
+   * Method under test: {@link PDRadioButton#getSelectedExportValues()}
    */
   @Test
-  @DisplayName(
-      "Test getSelectedExportValues(); given PDNonTerminalField(PDAcroForm) with acroForm is PDAcroForm(PDDocument)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getSelectedExportValues(); given PDNonTerminalField(PDAcroForm) with acroForm is PDAcroForm(PDDocument)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDRadioButton.getSelectedExportValues()"})
   void testGetSelectedExportValues_givenPDNonTerminalFieldWithAcroFormIsPDAcroForm() {
     // Arrange
     PDAcroForm acroForm = new PDAcroForm(new PDDocument());
     COSDictionary field = new COSDictionary();
-    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
-
-    PDRadioButton pdRadioButton = new PDRadioButton(acroForm, field, parent);
 
     // Act
-    List<String> actualSelectedExportValues = pdRadioButton.getSelectedExportValues();
+    List<String> actualSelectedExportValues = (new PDRadioButton(acroForm, field,
+        new PDNonTerminalField(new PDAcroForm(new PDDocument())))).getSelectedExportValues();
 
     // Assert
     assertEquals(1, actualSelectedExportValues.size());
@@ -272,24 +242,20 @@ class PDRadioButtonDiffblueTest {
 
   /**
    * Test {@link PDRadioButton#getSelectedExportValues()}.
-   *
    * <ul>
-   *   <li>Given {@link PDRadioButton#PDRadioButton(PDAcroForm)} with acroForm is {@link
-   *       PDAcroForm#PDAcroForm(PDDocument)}.
+   *   <li>Given {@link PDRadioButton#PDRadioButton(PDAcroForm)} with acroForm is {@link PDAcroForm#PDAcroForm(PDDocument)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDRadioButton#getSelectedExportValues()}
+   * <p>
+   * Method under test: {@link PDRadioButton#getSelectedExportValues()}
    */
   @Test
-  @DisplayName(
-      "Test getSelectedExportValues(); given PDRadioButton(PDAcroForm) with acroForm is PDAcroForm(PDDocument)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getSelectedExportValues(); given PDRadioButton(PDAcroForm) with acroForm is PDAcroForm(PDDocument)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDRadioButton.getSelectedExportValues()"})
   void testGetSelectedExportValues_givenPDRadioButtonWithAcroFormIsPDAcroForm() {
     // Arrange and Act
-    List<String> actualSelectedExportValues =
-        new PDRadioButton(new PDAcroForm(new PDDocument())).getSelectedExportValues();
+    List<String> actualSelectedExportValues = (new PDRadioButton(new PDAcroForm(new PDDocument())))
+        .getSelectedExportValues();
 
     // Assert
     assertEquals(1, actualSelectedExportValues.size());

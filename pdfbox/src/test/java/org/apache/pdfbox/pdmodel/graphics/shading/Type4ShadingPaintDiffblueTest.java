@@ -10,7 +10,6 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.PaintContext;
 import java.awt.Rectangle;
@@ -18,7 +17,6 @@ import java.awt.RenderingHints;
 import java.awt.color.ICC_ColorSpace;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
-import java.awt.geom.Rectangle2D.Double;
 import java.awt.image.ColorModel;
 import java.awt.image.DirectColorModel;
 import java.io.IOException;
@@ -36,9 +34,8 @@ import org.mockito.Mockito;
 class Type4ShadingPaintDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link Type4ShadingPaint#Type4ShadingPaint(PDShadingType4, Matrix)}
    *   <li>{@link Type4ShadingPaint#getTransparency()}
@@ -46,12 +43,9 @@ class Type4ShadingPaintDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void Type4ShadingPaint.<init>(PDShadingType4, Matrix)",
-    "int Type4ShadingPaint.getTransparency()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void Type4ShadingPaint.<init>(PDShadingType4, Matrix)",
+      "int Type4ShadingPaint.getTransparency()"})
   void testGettersAndSetters() {
     // Arrange
     PDShadingType4 shading = new PDShadingType4(new COSDictionary());
@@ -67,40 +61,35 @@ class Type4ShadingPaintDiffblueTest {
   }
 
   /**
-   * Test {@link Type4ShadingPaint#createContext(ColorModel, Rectangle, Rectangle2D,
-   * AffineTransform, RenderingHints)}.
-   *
+   * Test {@link Type4ShadingPaint#createContext(ColorModel, Rectangle, Rectangle2D, AffineTransform, RenderingHints)}.
    * <ul>
-   *   <li>Then ColorModel ColorSpace return {@link ICC_ColorSpace}.
+   *   <li>Then ColorModel ColorSpace return {@link ICC_ColorSpace}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Type4ShadingPaint#createContext(ColorModel, Rectangle,
-   * Rectangle2D, AffineTransform, RenderingHints)}
+   * <p>
+   * Method under test: {@link Type4ShadingPaint#createContext(ColorModel, Rectangle, Rectangle2D, AffineTransform, RenderingHints)}
    */
   @Test
-  @DisplayName(
-      "Test createContext(ColorModel, Rectangle, Rectangle2D, AffineTransform, RenderingHints); then ColorModel ColorSpace return ICC_ColorSpace")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test createContext(ColorModel, Rectangle, Rectangle2D, AffineTransform, RenderingHints); then ColorModel ColorSpace return ICC_ColorSpace")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "PaintContext Type4ShadingPaint.createContext(ColorModel, Rectangle, Rectangle2D, AffineTransform, RenderingHints)"
-  })
+      "PaintContext Type4ShadingPaint.createContext(ColorModel, Rectangle, Rectangle2D, AffineTransform, RenderingHints)"})
   void testCreateContext_thenColorModelColorSpaceReturnICC_ColorSpace() throws IOException {
     // Arrange
     PDShadingType4 shading = mock(PDShadingType4.class);
-    when(shading.collectTriangles(Mockito.<AffineTransform>any(), Mockito.<Matrix>any()))
-        .thenReturn(new ArrayList<>());
+    when(shading.collectTriangles(Mockito.<AffineTransform>any(), Mockito.<Matrix>any())).thenReturn(new ArrayList<>());
     when(shading.getBitsPerFlag()).thenReturn(1);
     when(shading.getBackground()).thenReturn(null);
     when(shading.getColorSpace()).thenReturn(PDDeviceGray.INSTANCE);
     Type4ShadingPaint type4ShadingPaint = new Type4ShadingPaint(shading, new Matrix());
     DirectColorModel cm = new DirectColorModel(1, 1, 1, 1);
-    Rectangle deviceBounds = new Rectangle();
-    Double userBounds = new Double();
+
+    Rectangle deviceBounds = new Rectangle(1, 1);
+
+    Rectangle userBounds = new Rectangle(1, 1);
 
     // Act
-    PaintContext actualCreateContextResult =
-        type4ShadingPaint.createContext(cm, deviceBounds, userBounds, new AffineTransform(), null);
+    PaintContext actualCreateContextResult = type4ShadingPaint.createContext(cm, deviceBounds, userBounds,
+        new AffineTransform(), null);
 
     // Assert
     verify(shading).getBackground();
@@ -109,8 +98,7 @@ class Type4ShadingPaintDiffblueTest {
     verify(shading).getBitsPerFlag();
     ColorModel colorModel = actualCreateContextResult.getColorModel();
     assertTrue(colorModel.getColorSpace() instanceof ICC_ColorSpace);
-    PDColorSpace shadingColorSpace =
-        ((Type4ShadingContext) actualCreateContextResult).getShadingColorSpace();
+    PDColorSpace shadingColorSpace = ((Type4ShadingContext) actualCreateContextResult).getShadingColorSpace();
     assertTrue(shadingColorSpace.getCOSObject() instanceof COSName);
     assertTrue(shadingColorSpace instanceof PDDeviceGray);
     assertTrue(actualCreateContextResult instanceof Type4ShadingContext);
@@ -126,6 +114,6 @@ class Type4ShadingPaintDiffblueTest {
     assertTrue(colorModel.hasAlpha());
     assertTrue(((Type4ShadingContext) actualCreateContextResult).isDataEmpty());
     assertEquals(Integer.SIZE, colorModel.getPixelSize());
-    assertArrayEquals(new int[] {8, 8, 8, 8}, colorModel.getComponentSize());
+    assertArrayEquals(new int[]{8, 8, 8, 8}, colorModel.getComponentSize());
   }
 }

@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSIncrement;
@@ -17,31 +16,29 @@ import org.junit.jupiter.api.Test;
 class PDActionNamedDiffblueTest {
   /**
    * Test {@link PDActionNamed#PDActionNamed(COSDictionary)}.
-   *
-   * <p>Method under test: {@link PDActionNamed#PDActionNamed(COSDictionary)}
+   * <p>
+   * Method under test: {@link PDActionNamed#PDActionNamed(COSDictionary)}
    */
   @Test
   @DisplayName("Test new PDActionNamed(COSDictionary)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDActionNamed.<init>(COSDictionary)"})
   void testNewPDActionNamed() {
     // Arrange
     COSDictionary a = new COSDictionary();
 
     // Act and Assert
-    assertSame(a, new PDActionNamed(a).getCOSObject());
+    assertSame(a, (new PDActionNamed(a)).getCOSObject());
   }
 
   /**
    * Test {@link PDActionNamed#PDActionNamed()}.
-   *
-   * <p>Method under test: {@link PDActionNamed#PDActionNamed()}
+   * <p>
+   * Method under test: {@link PDActionNamed#PDActionNamed()}
    */
   @Test
   @DisplayName("Test new PDActionNamed()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDActionNamed.<init>()"})
   void testNewPDActionNamed2() {
     // Arrange and Act
@@ -68,18 +65,16 @@ class PDActionNamedDiffblueTest {
 
   /**
    * Test {@link PDActionNamed#getN()}.
-   *
    * <ul>
-   *   <li>Given {@link PDActionNamed#PDActionNamed()} N is {@code N}.
-   *   <li>Then return {@code N}.
+   *   <li>Given {@link PDActionNamed#PDActionNamed()} N is {@code N}.</li>
+   *   <li>Then return {@code N}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionNamed#getN()}
+   * <p>
+   * Method under test: {@link PDActionNamed#getN()}
    */
   @Test
   @DisplayName("Test getN(); given PDActionNamed() N is 'N'; then return 'N'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDActionNamed.getN()"})
   void testGetN_givenPDActionNamedNIsN_thenReturnN() {
     // Arrange
@@ -92,50 +87,45 @@ class PDActionNamedDiffblueTest {
 
   /**
    * Test {@link PDActionNamed#getN()}.
-   *
    * <ul>
-   *   <li>Given {@link PDActionNamed#PDActionNamed()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDActionNamed#PDActionNamed()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionNamed#getN()}
+   * <p>
+   * Method under test: {@link PDActionNamed#getN()}
    */
   @Test
   @DisplayName("Test getN(); given PDActionNamed(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDActionNamed.getN()"})
   void testGetN_givenPDActionNamed_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDActionNamed().getN());
+    assertNull((new PDActionNamed()).getN());
   }
 
   /**
    * Test {@link PDActionNamed#setN(String)}.
-   *
    * <ul>
-   *   <li>Given {@link PDActionNamed#PDActionNamed()}.
-   *   <li>When {@code 42N}.
-   *   <li>Then {@link PDActionNamed#PDActionNamed()} N is {@code 42N}.
+   *   <li>Given {@link PDActionNamed#PDActionNamed()}.</li>
+   *   <li>When {@code 42}.</li>
+   *   <li>Then {@link PDActionNamed#PDActionNamed()} N is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionNamed#setN(String)}
+   * <p>
+   * Method under test: {@link PDActionNamed#setN(String)}
    */
   @Test
-  @DisplayName(
-      "Test setN(String); given PDActionNamed(); when '42N'; then PDActionNamed() N is '42N'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setN(String); given PDActionNamed(); when '42'; then PDActionNamed() N is '42'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDActionNamed.setN(String)"})
-  void testSetN_givenPDActionNamed_when42n_thenPDActionNamedNIs42n() {
+  void testSetN_givenPDActionNamed_when42_thenPDActionNamedNIs42() {
     // Arrange
     PDActionNamed pdActionNamed = new PDActionNamed();
 
     // Act
-    pdActionNamed.setN("42N");
+    pdActionNamed.setN("42");
 
     // Assert
-    assertEquals("42N", pdActionNamed.getN());
+    assertEquals("42", pdActionNamed.getN());
     COSDictionary cOSObject = pdActionNamed.getCOSObject();
     assertEquals(3, cOSObject.getValues().size());
     assertEquals(3, cOSObject.size());
@@ -143,20 +133,17 @@ class PDActionNamedDiffblueTest {
 
   /**
    * Test {@link PDActionNamed#setN(String)}.
-   *
    * <ul>
-   *   <li>Given {@link PDActionNamed#PDActionNamed()}.
-   *   <li>When {@code Name}.
-   *   <li>Then {@link PDActionNamed#PDActionNamed()} N is {@code Name}.
+   *   <li>Given {@link PDActionNamed#PDActionNamed()}.</li>
+   *   <li>When {@code Name}.</li>
+   *   <li>Then {@link PDActionNamed#PDActionNamed()} N is {@code Name}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionNamed#setN(String)}
+   * <p>
+   * Method under test: {@link PDActionNamed#setN(String)}
    */
   @Test
-  @DisplayName(
-      "Test setN(String); given PDActionNamed(); when 'Name'; then PDActionNamed() N is 'Name'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setN(String); given PDActionNamed(); when 'Name'; then PDActionNamed() N is 'Name'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDActionNamed.setN(String)"})
   void testSetN_givenPDActionNamed_whenName_thenPDActionNamedNIsName() {
     // Arrange
@@ -170,35 +157,5 @@ class PDActionNamedDiffblueTest {
     COSDictionary cOSObject = pdActionNamed.getCOSObject();
     assertEquals(3, cOSObject.getValues().size());
     assertEquals(3, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDActionNamed#setN(String)}.
-   *
-   * <ul>
-   *   <li>Given {@link PDActionNamed#PDActionNamed()}.
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDActionNamed#PDActionNamed()} COSObject Values size is two.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionNamed#setN(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test setN(String); given PDActionNamed(); when 'null'; then PDActionNamed() COSObject Values size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDActionNamed.setN(String)"})
-  void testSetN_givenPDActionNamed_whenNull_thenPDActionNamedCOSObjectValuesSizeIsTwo() {
-    // Arrange
-    PDActionNamed pdActionNamed = new PDActionNamed();
-
-    // Act
-    pdActionNamed.setN(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdActionNamed.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
   }
 }

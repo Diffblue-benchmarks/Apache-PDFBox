@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -29,13 +28,12 @@ import org.junit.jupiter.api.Test;
 class XMPBasicSchemaDiffblueTest {
   /**
    * Test {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)}
    */
   @Test
   @DisplayName("Test new XMPBasicSchema(XMPMetadata)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.<init>(XMPMetadata)"})
   void testNewXMPBasicSchema() throws BadFieldValueException {
     // Arrange
@@ -84,19 +82,16 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata, String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return Prefix is {@code xmp}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return Prefix is {@code xmp}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata, String)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata, String)}
    */
   @Test
-  @DisplayName(
-      "Test new XMPBasicSchema(XMPMetadata, String); when 'null'; then return Prefix is 'xmp'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new XMPBasicSchema(XMPMetadata, String); when 'null'; then return Prefix is 'xmp'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.<init>(XMPMetadata, String)"})
   void testNewXMPBasicSchema_whenNull_thenReturnPrefixIsXmp() throws BadFieldValueException {
     // Arrange
@@ -145,22 +140,18 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata, String)}.
-   *
    * <ul>
-   *   <li>When {@code Own Prefix}.
-   *   <li>Then return Prefix is {@code Own Prefix}.
+   *   <li>When {@code Own Prefix}.</li>
+   *   <li>Then return Prefix is {@code Own Prefix}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata, String)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata, String)}
    */
   @Test
-  @DisplayName(
-      "Test new XMPBasicSchema(XMPMetadata, String); when 'Own Prefix'; then return Prefix is 'Own Prefix'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new XMPBasicSchema(XMPMetadata, String); when 'Own Prefix'; then return Prefix is 'Own Prefix'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.<init>(XMPMetadata, String)"})
-  void testNewXMPBasicSchema_whenOwnPrefix_thenReturnPrefixIsOwnPrefix()
-      throws BadFieldValueException {
+  void testNewXMPBasicSchema_whenOwnPrefix_thenReturnPrefixIsOwnPrefix() throws BadFieldValueException {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
 
@@ -207,13 +198,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#addThumbnails(Integer, Integer, String, String)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#addThumbnails(Integer, Integer, String, String)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#addThumbnails(Integer, Integer, String, String)}
    */
   @Test
   @DisplayName("Test addThumbnails(Integer, Integer, String, String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.addThumbnails(Integer, Integer, String, String)"})
   void testAddThumbnails() {
     // Arrange
@@ -238,13 +228,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#addThumbnails(Integer, Integer, String, String)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#addThumbnails(Integer, Integer, String, String)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#addThumbnails(Integer, Integer, String, String)}
    */
   @Test
   @DisplayName("Test addThumbnails(Integer, Integer, String, String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.addThumbnails(Integer, Integer, String, String)"})
   void testAddThumbnails2() throws BadFieldValueException {
     // Arrange
@@ -263,13 +252,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#addThumbnails(Integer, Integer, String, String)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#addThumbnails(Integer, Integer, String, String)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#addThumbnails(Integer, Integer, String, String)}
    */
   @Test
   @DisplayName("Test addThumbnails(Integer, Integer, String, String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.addThumbnails(Integer, Integer, String, String)"})
   void testAddThumbnails3() throws BadFieldValueException {
     // Arrange
@@ -288,13 +276,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#addAdvisory(String)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#addAdvisory(String)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#addAdvisory(String)}
    */
   @Test
   @DisplayName("Test addAdvisory(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.addAdvisory(String)"})
   void testAddAdvisory() {
     // Arrange
@@ -325,13 +312,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#addAdvisory(String)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#addAdvisory(String)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#addAdvisory(String)}
    */
   @Test
   @DisplayName("Test addAdvisory(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.addAdvisory(String)"})
   void testAddAdvisory2() {
     // Arrange
@@ -365,13 +351,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#addAdvisory(String)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#addAdvisory(String)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#addAdvisory(String)}
    */
   @Test
   @DisplayName("Test addAdvisory(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.addAdvisory(String)"})
   void testAddAdvisory3() {
     // Arrange
@@ -392,13 +377,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#addAdvisory(String)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#addAdvisory(String)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#addAdvisory(String)}
    */
   @Test
   @DisplayName("Test addAdvisory(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.addAdvisory(String)"})
   void testAddAdvisory4() {
     // Arrange
@@ -417,13 +401,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setBaseURL(String)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setBaseURL(String)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setBaseURL(String)}
    */
   @Test
   @DisplayName("Test setBaseURL(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setBaseURL(String)"})
   void testSetBaseURL() {
     // Arrange
@@ -452,13 +435,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setBaseURL(String)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setBaseURL(String)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setBaseURL(String)}
    */
   @Test
   @DisplayName("Test setBaseURL(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setBaseURL(String)"})
   void testSetBaseURL2() {
     // Arrange
@@ -490,13 +472,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setBaseURL(String)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setBaseURL(String)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setBaseURL(String)}
    */
   @Test
   @DisplayName("Test setBaseURL(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setBaseURL(String)"})
   void testSetBaseURL3() {
     // Arrange
@@ -515,13 +496,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setBaseURL(String)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setBaseURL(String)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setBaseURL(String)}
    */
   @Test
   @DisplayName("Test setBaseURL(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setBaseURL(String)"})
   void testSetBaseURL4() {
     // Arrange
@@ -552,24 +532,18 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setBaseURLProperty(URLType)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setBaseURLProperty(URLType)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setBaseURLProperty(URLType)}
    */
   @Test
   @DisplayName("Test setBaseURLProperty(URLType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setBaseURLProperty(URLType)"})
   void testSetBaseURLProperty() {
     // Arrange
     XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
-    URLType url =
-        new URLType(
-            XMPMetadata.createXMPMetadata(),
-            "https://example.org/example",
-            "https://example.org/example",
-            "https://example.org/example",
-            "Value");
+    URLType url = new URLType(XMPMetadata.createXMPMetadata(), "https://example.org/example",
+        "https://example.org/example", "https://example.org/example", "Value");
 
     // Act
     xmpBasicSchema.setBaseURLProperty(url);
@@ -582,25 +556,19 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setBaseURLProperty(URLType)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setBaseURLProperty(URLType)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setBaseURLProperty(URLType)}
    */
   @Test
   @DisplayName("Test setBaseURLProperty(URLType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setBaseURLProperty(URLType)"})
   void testSetBaseURLProperty2() {
     // Arrange
     XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
     xmpBasicSchema.addThumbnails(2, 1, "Format", "Img");
-    URLType url =
-        new URLType(
-            XMPMetadata.createXMPMetadata(),
-            "https://example.org/example",
-            "https://example.org/example",
-            "https://example.org/example",
-            "Value");
+    URLType url = new URLType(XMPMetadata.createXMPMetadata(), "https://example.org/example",
+        "https://example.org/example", "https://example.org/example", "Value");
 
     // Act
     xmpBasicSchema.setBaseURLProperty(url);
@@ -618,26 +586,20 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setBaseURLProperty(URLType)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setBaseURLProperty(URLType)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setBaseURLProperty(URLType)}
    */
   @Test
   @DisplayName("Test setBaseURLProperty(URLType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setBaseURLProperty(URLType)"})
   void testSetBaseURLProperty3() {
     // Arrange
     XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
     xmpBasicSchema.addAdvisory("https://example.org/example");
     xmpBasicSchema.addThumbnails(2, 1, "Format", "Img");
-    URLType url =
-        new URLType(
-            XMPMetadata.createXMPMetadata(),
-            "https://example.org/example",
-            "https://example.org/example",
-            "https://example.org/example",
-            "Value");
+    URLType url = new URLType(XMPMetadata.createXMPMetadata(), "https://example.org/example",
+        "https://example.org/example", "https://example.org/example", "Value");
 
     // Act
     xmpBasicSchema.setBaseURLProperty(url);
@@ -651,29 +613,22 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setBaseURLProperty(URLType)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setBaseURLProperty(URLType)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setBaseURLProperty(URLType)}
    */
   @Test
   @DisplayName("Test setBaseURLProperty(URLType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setBaseURLProperty(URLType)"})
   void testSetBaseURLProperty4() {
     // Arrange
     XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
     xmpBasicSchema.addBagValueAsSimple("https://example.org/example", XMPBasicSchema.THUMBNAILS);
     xmpBasicSchema.addThumbnails(2, 1, "Format", "Img");
-    URLType url =
-        new URLType(
-            XMPMetadata.createXMPMetadata(),
-            "https://example.org/example",
-            "https://example.org/example",
-            "https://example.org/example",
-            "Value");
 
     // Act
-    xmpBasicSchema.setBaseURLProperty(url);
+    xmpBasicSchema.setBaseURLProperty(new URLType(XMPMetadata.createXMPMetadata(), "https://example.org/example",
+        "https://example.org/example", "https://example.org/example", "Value"));
 
     // Assert
     List<AbstractField> allProperties = xmpBasicSchema.getAllProperties();
@@ -687,13 +642,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setCreateDate(Calendar)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setCreateDate(Calendar)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setCreateDate(Calendar)}
    */
   @Test
   @DisplayName("Test setCreateDate(Calendar)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setCreateDate(Calendar)"})
   void testSetCreateDate() {
     // Arrange
@@ -721,13 +675,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setCreateDate(Calendar)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setCreateDate(Calendar)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setCreateDate(Calendar)}
    */
   @Test
   @DisplayName("Test setCreateDate(Calendar)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setCreateDate(Calendar)"})
   void testSetCreateDate2() {
     // Arrange
@@ -758,13 +711,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setCreateDate(Calendar)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setCreateDate(Calendar)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setCreateDate(Calendar)}
    */
   @Test
   @DisplayName("Test setCreateDate(Calendar)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setCreateDate(Calendar)"})
   void testSetCreateDate3() {
     // Arrange
@@ -783,13 +735,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setCreateDate(Calendar)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setCreateDate(Calendar)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setCreateDate(Calendar)}
    */
   @Test
   @DisplayName("Test setCreateDate(Calendar)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setCreateDate(Calendar)"})
   void testSetCreateDate4() {
     // Arrange
@@ -819,20 +770,17 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setCreateDateProperty(DateType)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setCreateDateProperty(DateType)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setCreateDateProperty(DateType)}
    */
   @Test
   @DisplayName("Test setCreateDateProperty(DateType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setCreateDateProperty(DateType)"})
   void testSetCreateDateProperty() {
     // Arrange
     XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
-    DateType date =
-        new DateType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "");
+    DateType date = new DateType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "");
 
     // Act
     xmpBasicSchema.setCreateDateProperty(date);
@@ -845,21 +793,18 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setCreateDateProperty(DateType)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setCreateDateProperty(DateType)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setCreateDateProperty(DateType)}
    */
   @Test
   @DisplayName("Test setCreateDateProperty(DateType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setCreateDateProperty(DateType)"})
   void testSetCreateDateProperty2() {
     // Arrange
     XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
-    xmpBasicSchema.addThumbnails(0, 3, "42", "42");
-    DateType date =
-        new DateType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "");
+    xmpBasicSchema.addThumbnails(1, 2, XMPBasicSchema.ADVISORY, XMPBasicSchema.ADVISORY);
+    DateType date = new DateType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "");
 
     // Act
     xmpBasicSchema.setCreateDateProperty(date);
@@ -873,22 +818,19 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setCreateDateProperty(DateType)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setCreateDateProperty(DateType)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setCreateDateProperty(DateType)}
    */
   @Test
   @DisplayName("Test setCreateDateProperty(DateType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setCreateDateProperty(DateType)"})
   void testSetCreateDateProperty3() {
     // Arrange
     XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
-    xmpBasicSchema.addAdvisory(XMPBasicSchema.THUMBNAILS);
-    xmpBasicSchema.addThumbnails(0, 3, "42", "42");
-    DateType date =
-        new DateType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "");
+    xmpBasicSchema.addAdvisory("Xpath");
+    xmpBasicSchema.addThumbnails(1, 2, XMPBasicSchema.ADVISORY, XMPBasicSchema.ADVISORY);
+    DateType date = new DateType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "");
 
     // Act
     xmpBasicSchema.setCreateDateProperty(date);
@@ -902,44 +844,49 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setCreateDateProperty(DateType)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setCreateDateProperty(DateType)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setCreateDateProperty(DateType)}
    */
   @Test
   @DisplayName("Test setCreateDateProperty(DateType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setCreateDateProperty(DateType)"})
   void testSetCreateDateProperty4() {
     // Arrange
-    XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
-    xmpBasicSchema.addThumbnails(0, 3, "42", "42");
-    DateType date =
-        new DateType(
-            XMPMetadata.createXMPMetadata(),
-            "Namespace URI",
-            "Prefix",
-            XMPBasicSchema.THUMBNAILS,
-            "");
+    XMPMetadata metadata = XMPMetadata.createXMPMetadata();
+
+    XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(metadata);
+    xmpBasicSchema.addBagValueAsSimple("Property Name", XMPBasicSchema.ADVISORY);
+    xmpBasicSchema.addAdvisory("Xpath");
+    xmpBasicSchema.addThumbnails(1, 2, XMPBasicSchema.ADVISORY, XMPBasicSchema.ADVISORY);
 
     // Act
-    xmpBasicSchema.setCreateDateProperty(date);
+    xmpBasicSchema.setCreateDateProperty(
+        new DateType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", ""));
 
     // Assert
     List<AbstractField> allProperties = xmpBasicSchema.getAllProperties();
-    assertEquals(1, allProperties.size());
-    assertSame(date, allProperties.get(0));
+    assertEquals(3, allProperties.size());
+    AbstractField getResult = allProperties.get(1);
+    assertTrue(getResult instanceof ArrayProperty);
+    assertEquals("http://ns.adobe.com/xap/1.0/", getResult.getNamespace());
+    assertEquals("xmp", getResult.getPrefix());
+    assertEquals(1, ((ArrayProperty) getResult).getAllProperties().size());
+    assertEquals(Cardinality.Alt, ((ArrayProperty) getResult).getArrayType());
+    assertTrue(getResult.getAllAttributes().isEmpty());
+    assertTrue(((ArrayProperty) getResult).getAllNamespacesWithPrefix().isEmpty());
+    assertEquals(XMPBasicSchema.THUMBNAILS, getResult.getPropertyName());
+    assertSame(metadata, getResult.getMetadata());
   }
 
   /**
    * Test {@link XMPBasicSchema#setCreatorTool(String)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setCreatorTool(String)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setCreatorTool(String)}
    */
   @Test
   @DisplayName("Test setCreatorTool(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setCreatorTool(String)"})
   void testSetCreatorTool() {
     // Arrange
@@ -968,13 +915,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setCreatorTool(String)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setCreatorTool(String)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setCreatorTool(String)}
    */
   @Test
   @DisplayName("Test setCreatorTool(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setCreatorTool(String)"})
   void testSetCreatorTool2() {
     // Arrange
@@ -1006,13 +952,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setCreatorTool(String)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setCreatorTool(String)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setCreatorTool(String)}
    */
   @Test
   @DisplayName("Test setCreatorTool(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setCreatorTool(String)"})
   void testSetCreatorTool3() {
     // Arrange
@@ -1031,13 +976,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setCreatorTool(String)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setCreatorTool(String)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setCreatorTool(String)}
    */
   @Test
   @DisplayName("Test setCreatorTool(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setCreatorTool(String)"})
   void testSetCreatorTool4() {
     // Arrange
@@ -1068,20 +1012,18 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setCreatorToolProperty(AgentNameType)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setCreatorToolProperty(AgentNameType)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setCreatorToolProperty(AgentNameType)}
    */
   @Test
   @DisplayName("Test setCreatorToolProperty(AgentNameType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setCreatorToolProperty(AgentNameType)"})
   void testSetCreatorToolProperty() {
     // Arrange
     XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
-    AgentNameType creatorTool =
-        new AgentNameType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    AgentNameType creatorTool = new AgentNameType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix",
+        "Property Name", "Value");
 
     // Act
     xmpBasicSchema.setCreatorToolProperty(creatorTool);
@@ -1094,21 +1036,19 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setCreatorToolProperty(AgentNameType)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setCreatorToolProperty(AgentNameType)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setCreatorToolProperty(AgentNameType)}
    */
   @Test
   @DisplayName("Test setCreatorToolProperty(AgentNameType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setCreatorToolProperty(AgentNameType)"})
   void testSetCreatorToolProperty2() {
     // Arrange
     XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
     xmpBasicSchema.addThumbnails(2, 1, "Format", "Img");
-    AgentNameType creatorTool =
-        new AgentNameType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    AgentNameType creatorTool = new AgentNameType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix",
+        "Property Name", "Value");
 
     // Act
     xmpBasicSchema.setCreatorToolProperty(creatorTool);
@@ -1126,22 +1066,20 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setCreatorToolProperty(AgentNameType)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setCreatorToolProperty(AgentNameType)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setCreatorToolProperty(AgentNameType)}
    */
   @Test
   @DisplayName("Test setCreatorToolProperty(AgentNameType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setCreatorToolProperty(AgentNameType)"})
   void testSetCreatorToolProperty3() {
     // Arrange
     XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
     xmpBasicSchema.addAdvisory("Property Name");
     xmpBasicSchema.addThumbnails(2, 1, "Format", "Img");
-    AgentNameType creatorTool =
-        new AgentNameType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    AgentNameType creatorTool = new AgentNameType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix",
+        "Property Name", "Value");
 
     // Act
     xmpBasicSchema.setCreatorToolProperty(creatorTool);
@@ -1155,25 +1093,22 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setCreatorToolProperty(AgentNameType)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setCreatorToolProperty(AgentNameType)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setCreatorToolProperty(AgentNameType)}
    */
   @Test
   @DisplayName("Test setCreatorToolProperty(AgentNameType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setCreatorToolProperty(AgentNameType)"})
   void testSetCreatorToolProperty4() {
     // Arrange
     XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
     xmpBasicSchema.addBagValueAsSimple("Property Name", XMPBasicSchema.THUMBNAILS);
     xmpBasicSchema.addThumbnails(2, 1, "Format", "Img");
-    AgentNameType creatorTool =
-        new AgentNameType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
-    xmpBasicSchema.setCreatorToolProperty(creatorTool);
+    xmpBasicSchema.setCreatorToolProperty(
+        new AgentNameType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value"));
 
     // Assert
     List<AbstractField> allProperties = xmpBasicSchema.getAllProperties();
@@ -1187,13 +1122,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#addIdentifier(String)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#addIdentifier(String)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#addIdentifier(String)}
    */
   @Test
   @DisplayName("Test addIdentifier(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.addIdentifier(String)"})
   void testAddIdentifier() {
     // Arrange
@@ -1224,13 +1158,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#addIdentifier(String)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#addIdentifier(String)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#addIdentifier(String)}
    */
   @Test
   @DisplayName("Test addIdentifier(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.addIdentifier(String)"})
   void testAddIdentifier2() {
     // Arrange
@@ -1264,13 +1197,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#addIdentifier(String)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#addIdentifier(String)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#addIdentifier(String)}
    */
   @Test
   @DisplayName("Test addIdentifier(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.addIdentifier(String)"})
   void testAddIdentifier3() {
     // Arrange
@@ -1289,13 +1221,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#addIdentifier(String)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#addIdentifier(String)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#addIdentifier(String)}
    */
   @Test
   @DisplayName("Test addIdentifier(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.addIdentifier(String)"})
   void testAddIdentifier4() {
     // Arrange
@@ -1316,13 +1247,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setLabel(String)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setLabel(String)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setLabel(String)}
    */
   @Test
   @DisplayName("Test setLabel(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setLabel(String)"})
   void testSetLabel() {
     // Arrange
@@ -1350,13 +1280,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setLabel(String)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setLabel(String)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setLabel(String)}
    */
   @Test
   @DisplayName("Test setLabel(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setLabel(String)"})
   void testSetLabel2() {
     // Arrange
@@ -1387,13 +1316,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setLabel(String)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setLabel(String)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setLabel(String)}
    */
   @Test
   @DisplayName("Test setLabel(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setLabel(String)"})
   void testSetLabel3() {
     // Arrange
@@ -1412,13 +1340,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setLabel(String)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setLabel(String)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setLabel(String)}
    */
   @Test
   @DisplayName("Test setLabel(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setLabel(String)"})
   void testSetLabel4() {
     // Arrange
@@ -1448,20 +1375,17 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setLabelProperty(TextType)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setLabelProperty(TextType)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setLabelProperty(TextType)}
    */
   @Test
   @DisplayName("Test setLabelProperty(TextType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setLabelProperty(TextType)"})
   void testSetLabelProperty() {
     // Arrange
     XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
-    TextType text =
-        new TextType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     xmpBasicSchema.setLabelProperty(text);
@@ -1474,21 +1398,18 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setLabelProperty(TextType)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setLabelProperty(TextType)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setLabelProperty(TextType)}
    */
   @Test
   @DisplayName("Test setLabelProperty(TextType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setLabelProperty(TextType)"})
   void testSetLabelProperty2() {
     // Arrange
     XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
     xmpBasicSchema.addThumbnails(2, 1, "Format", "Img");
-    TextType text =
-        new TextType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     xmpBasicSchema.setLabelProperty(text);
@@ -1506,22 +1427,19 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setLabelProperty(TextType)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setLabelProperty(TextType)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setLabelProperty(TextType)}
    */
   @Test
   @DisplayName("Test setLabelProperty(TextType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setLabelProperty(TextType)"})
   void testSetLabelProperty3() {
     // Arrange
     XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
     xmpBasicSchema.addAdvisory("Property Name");
     xmpBasicSchema.addThumbnails(2, 1, "Format", "Img");
-    TextType text =
-        new TextType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     xmpBasicSchema.setLabelProperty(text);
@@ -1535,25 +1453,22 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setLabelProperty(TextType)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setLabelProperty(TextType)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setLabelProperty(TextType)}
    */
   @Test
   @DisplayName("Test setLabelProperty(TextType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setLabelProperty(TextType)"})
   void testSetLabelProperty4() {
     // Arrange
     XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
     xmpBasicSchema.addBagValueAsSimple("Property Name", XMPBasicSchema.THUMBNAILS);
     xmpBasicSchema.addThumbnails(2, 1, "Format", "Img");
-    TextType text =
-        new TextType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
-    xmpBasicSchema.setLabelProperty(text);
+    xmpBasicSchema.setLabelProperty(
+        new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value"));
 
     // Assert
     List<AbstractField> allProperties = xmpBasicSchema.getAllProperties();
@@ -1567,13 +1482,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setMetadataDate(Calendar)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setMetadataDate(Calendar)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setMetadataDate(Calendar)}
    */
   @Test
   @DisplayName("Test setMetadataDate(Calendar)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setMetadataDate(Calendar)"})
   void testSetMetadataDate() {
     // Arrange
@@ -1601,13 +1515,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setMetadataDate(Calendar)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setMetadataDate(Calendar)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setMetadataDate(Calendar)}
    */
   @Test
   @DisplayName("Test setMetadataDate(Calendar)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setMetadataDate(Calendar)"})
   void testSetMetadataDate2() {
     // Arrange
@@ -1638,13 +1551,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setMetadataDate(Calendar)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setMetadataDate(Calendar)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setMetadataDate(Calendar)}
    */
   @Test
   @DisplayName("Test setMetadataDate(Calendar)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setMetadataDate(Calendar)"})
   void testSetMetadataDate3() {
     // Arrange
@@ -1663,13 +1575,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setMetadataDate(Calendar)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setMetadataDate(Calendar)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setMetadataDate(Calendar)}
    */
   @Test
   @DisplayName("Test setMetadataDate(Calendar)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setMetadataDate(Calendar)"})
   void testSetMetadataDate4() {
     // Arrange
@@ -1699,20 +1610,17 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setMetadataDateProperty(DateType)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setMetadataDateProperty(DateType)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setMetadataDateProperty(DateType)}
    */
   @Test
   @DisplayName("Test setMetadataDateProperty(DateType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setMetadataDateProperty(DateType)"})
   void testSetMetadataDateProperty() {
     // Arrange
     XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
-    DateType date =
-        new DateType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "");
+    DateType date = new DateType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "");
 
     // Act
     xmpBasicSchema.setMetadataDateProperty(date);
@@ -1725,21 +1633,18 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setMetadataDateProperty(DateType)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setMetadataDateProperty(DateType)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setMetadataDateProperty(DateType)}
    */
   @Test
   @DisplayName("Test setMetadataDateProperty(DateType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setMetadataDateProperty(DateType)"})
   void testSetMetadataDateProperty2() {
     // Arrange
     XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
-    xmpBasicSchema.addThumbnails(0, 3, "42", "42");
-    DateType date =
-        new DateType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "");
+    xmpBasicSchema.addThumbnails(1, 2, XMPBasicSchema.ADVISORY, XMPBasicSchema.ADVISORY);
+    DateType date = new DateType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "");
 
     // Act
     xmpBasicSchema.setMetadataDateProperty(date);
@@ -1753,22 +1658,19 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setMetadataDateProperty(DateType)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setMetadataDateProperty(DateType)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setMetadataDateProperty(DateType)}
    */
   @Test
   @DisplayName("Test setMetadataDateProperty(DateType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setMetadataDateProperty(DateType)"})
   void testSetMetadataDateProperty3() {
     // Arrange
     XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
-    xmpBasicSchema.addAdvisory(XMPBasicSchema.THUMBNAILS);
-    xmpBasicSchema.addThumbnails(0, 3, "42", "42");
-    DateType date =
-        new DateType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "");
+    xmpBasicSchema.addAdvisory("Xpath");
+    xmpBasicSchema.addThumbnails(1, 2, XMPBasicSchema.ADVISORY, XMPBasicSchema.ADVISORY);
+    DateType date = new DateType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "");
 
     // Act
     xmpBasicSchema.setMetadataDateProperty(date);
@@ -1782,44 +1684,49 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setMetadataDateProperty(DateType)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setMetadataDateProperty(DateType)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setMetadataDateProperty(DateType)}
    */
   @Test
   @DisplayName("Test setMetadataDateProperty(DateType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setMetadataDateProperty(DateType)"})
   void testSetMetadataDateProperty4() {
     // Arrange
-    XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
-    xmpBasicSchema.addThumbnails(0, 3, "42", "42");
-    DateType date =
-        new DateType(
-            XMPMetadata.createXMPMetadata(),
-            "Namespace URI",
-            "Prefix",
-            XMPBasicSchema.THUMBNAILS,
-            "");
+    XMPMetadata metadata = XMPMetadata.createXMPMetadata();
+
+    XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(metadata);
+    xmpBasicSchema.addBagValueAsSimple("Property Name", XMPBasicSchema.ADVISORY);
+    xmpBasicSchema.addAdvisory("Xpath");
+    xmpBasicSchema.addThumbnails(1, 2, XMPBasicSchema.ADVISORY, XMPBasicSchema.ADVISORY);
 
     // Act
-    xmpBasicSchema.setMetadataDateProperty(date);
+    xmpBasicSchema.setMetadataDateProperty(
+        new DateType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", ""));
 
     // Assert
     List<AbstractField> allProperties = xmpBasicSchema.getAllProperties();
-    assertEquals(1, allProperties.size());
-    assertSame(date, allProperties.get(0));
+    assertEquals(3, allProperties.size());
+    AbstractField getResult = allProperties.get(1);
+    assertTrue(getResult instanceof ArrayProperty);
+    assertEquals("http://ns.adobe.com/xap/1.0/", getResult.getNamespace());
+    assertEquals("xmp", getResult.getPrefix());
+    assertEquals(1, ((ArrayProperty) getResult).getAllProperties().size());
+    assertEquals(Cardinality.Alt, ((ArrayProperty) getResult).getArrayType());
+    assertTrue(getResult.getAllAttributes().isEmpty());
+    assertTrue(((ArrayProperty) getResult).getAllNamespacesWithPrefix().isEmpty());
+    assertEquals(XMPBasicSchema.THUMBNAILS, getResult.getPropertyName());
+    assertSame(metadata, getResult.getMetadata());
   }
 
   /**
    * Test {@link XMPBasicSchema#setModifyDate(Calendar)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setModifyDate(Calendar)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setModifyDate(Calendar)}
    */
   @Test
   @DisplayName("Test setModifyDate(Calendar)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setModifyDate(Calendar)"})
   void testSetModifyDate() {
     // Arrange
@@ -1847,13 +1754,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setModifyDate(Calendar)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setModifyDate(Calendar)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setModifyDate(Calendar)}
    */
   @Test
   @DisplayName("Test setModifyDate(Calendar)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setModifyDate(Calendar)"})
   void testSetModifyDate2() {
     // Arrange
@@ -1884,13 +1790,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setModifyDate(Calendar)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setModifyDate(Calendar)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setModifyDate(Calendar)}
    */
   @Test
   @DisplayName("Test setModifyDate(Calendar)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setModifyDate(Calendar)"})
   void testSetModifyDate3() {
     // Arrange
@@ -1909,13 +1814,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setModifyDate(Calendar)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setModifyDate(Calendar)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setModifyDate(Calendar)}
    */
   @Test
   @DisplayName("Test setModifyDate(Calendar)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setModifyDate(Calendar)"})
   void testSetModifyDate4() {
     // Arrange
@@ -1945,13 +1849,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setModifierDate(Calendar)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setModifierDate(Calendar)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setModifierDate(Calendar)}
    */
   @Test
   @DisplayName("Test setModifierDate(Calendar)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setModifierDate(Calendar)"})
   void testSetModifierDate() {
     // Arrange
@@ -1979,13 +1882,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setModifierDate(Calendar)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setModifierDate(Calendar)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setModifierDate(Calendar)}
    */
   @Test
   @DisplayName("Test setModifierDate(Calendar)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setModifierDate(Calendar)"})
   void testSetModifierDate2() {
     // Arrange
@@ -2016,13 +1918,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setModifierDate(Calendar)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setModifierDate(Calendar)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setModifierDate(Calendar)}
    */
   @Test
   @DisplayName("Test setModifierDate(Calendar)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setModifierDate(Calendar)"})
   void testSetModifierDate3() {
     // Arrange
@@ -2041,13 +1942,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setModifierDate(Calendar)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setModifierDate(Calendar)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setModifierDate(Calendar)}
    */
   @Test
   @DisplayName("Test setModifierDate(Calendar)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setModifierDate(Calendar)"})
   void testSetModifierDate4() {
     // Arrange
@@ -2077,20 +1977,17 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setModifyDateProperty(DateType)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setModifyDateProperty(DateType)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setModifyDateProperty(DateType)}
    */
   @Test
   @DisplayName("Test setModifyDateProperty(DateType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setModifyDateProperty(DateType)"})
   void testSetModifyDateProperty() {
     // Arrange
     XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
-    DateType date =
-        new DateType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "");
+    DateType date = new DateType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "");
 
     // Act
     xmpBasicSchema.setModifyDateProperty(date);
@@ -2103,21 +2000,18 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setModifyDateProperty(DateType)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setModifyDateProperty(DateType)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setModifyDateProperty(DateType)}
    */
   @Test
   @DisplayName("Test setModifyDateProperty(DateType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setModifyDateProperty(DateType)"})
   void testSetModifyDateProperty2() {
     // Arrange
     XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
-    xmpBasicSchema.addThumbnails(0, 3, "42", "42");
-    DateType date =
-        new DateType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "");
+    xmpBasicSchema.addThumbnails(1, 2, XMPBasicSchema.ADVISORY, XMPBasicSchema.ADVISORY);
+    DateType date = new DateType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "");
 
     // Act
     xmpBasicSchema.setModifyDateProperty(date);
@@ -2131,22 +2025,19 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setModifyDateProperty(DateType)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setModifyDateProperty(DateType)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setModifyDateProperty(DateType)}
    */
   @Test
   @DisplayName("Test setModifyDateProperty(DateType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setModifyDateProperty(DateType)"})
   void testSetModifyDateProperty3() {
     // Arrange
     XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
-    xmpBasicSchema.addAdvisory(XMPBasicSchema.THUMBNAILS);
-    xmpBasicSchema.addThumbnails(0, 3, "42", "42");
-    DateType date =
-        new DateType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "");
+    xmpBasicSchema.addAdvisory("Xpath");
+    xmpBasicSchema.addThumbnails(1, 2, XMPBasicSchema.ADVISORY, XMPBasicSchema.ADVISORY);
+    DateType date = new DateType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "");
 
     // Act
     xmpBasicSchema.setModifyDateProperty(date);
@@ -2160,51 +2051,54 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setModifyDateProperty(DateType)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setModifyDateProperty(DateType)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setModifyDateProperty(DateType)}
    */
   @Test
   @DisplayName("Test setModifyDateProperty(DateType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setModifyDateProperty(DateType)"})
   void testSetModifyDateProperty4() {
     // Arrange
-    XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
-    xmpBasicSchema.addThumbnails(0, 3, "42", "42");
-    DateType date =
-        new DateType(
-            XMPMetadata.createXMPMetadata(),
-            "Namespace URI",
-            "Prefix",
-            XMPBasicSchema.THUMBNAILS,
-            "");
+    XMPMetadata metadata = XMPMetadata.createXMPMetadata();
+
+    XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(metadata);
+    xmpBasicSchema.addBagValueAsSimple("Property Name", XMPBasicSchema.ADVISORY);
+    xmpBasicSchema.addAdvisory("Xpath");
+    xmpBasicSchema.addThumbnails(1, 2, XMPBasicSchema.ADVISORY, XMPBasicSchema.ADVISORY);
 
     // Act
-    xmpBasicSchema.setModifyDateProperty(date);
+    xmpBasicSchema.setModifyDateProperty(
+        new DateType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", ""));
 
     // Assert
     List<AbstractField> allProperties = xmpBasicSchema.getAllProperties();
-    assertEquals(1, allProperties.size());
-    assertSame(date, allProperties.get(0));
+    assertEquals(3, allProperties.size());
+    AbstractField getResult = allProperties.get(1);
+    assertTrue(getResult instanceof ArrayProperty);
+    assertEquals("http://ns.adobe.com/xap/1.0/", getResult.getNamespace());
+    assertEquals("xmp", getResult.getPrefix());
+    assertEquals(1, ((ArrayProperty) getResult).getAllProperties().size());
+    assertEquals(Cardinality.Alt, ((ArrayProperty) getResult).getArrayType());
+    assertTrue(getResult.getAllAttributes().isEmpty());
+    assertTrue(((ArrayProperty) getResult).getAllNamespacesWithPrefix().isEmpty());
+    assertEquals(XMPBasicSchema.THUMBNAILS, getResult.getPropertyName());
+    assertSame(metadata, getResult.getMetadata());
   }
 
   /**
    * Test {@link XMPBasicSchema#setModifierDateProperty(DateType)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setModifierDateProperty(DateType)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setModifierDateProperty(DateType)}
    */
   @Test
   @DisplayName("Test setModifierDateProperty(DateType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setModifierDateProperty(DateType)"})
   void testSetModifierDateProperty() {
     // Arrange
     XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
-    DateType date =
-        new DateType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "");
+    DateType date = new DateType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "");
 
     // Act
     xmpBasicSchema.setModifierDateProperty(date);
@@ -2217,21 +2111,18 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setModifierDateProperty(DateType)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setModifierDateProperty(DateType)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setModifierDateProperty(DateType)}
    */
   @Test
   @DisplayName("Test setModifierDateProperty(DateType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setModifierDateProperty(DateType)"})
   void testSetModifierDateProperty2() {
     // Arrange
     XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
-    xmpBasicSchema.addThumbnails(0, 3, "42", "42");
-    DateType date =
-        new DateType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "");
+    xmpBasicSchema.addThumbnails(1, 2, XMPBasicSchema.ADVISORY, XMPBasicSchema.ADVISORY);
+    DateType date = new DateType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "");
 
     // Act
     xmpBasicSchema.setModifierDateProperty(date);
@@ -2245,22 +2136,19 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setModifierDateProperty(DateType)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setModifierDateProperty(DateType)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setModifierDateProperty(DateType)}
    */
   @Test
   @DisplayName("Test setModifierDateProperty(DateType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setModifierDateProperty(DateType)"})
   void testSetModifierDateProperty3() {
     // Arrange
     XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
-    xmpBasicSchema.addAdvisory(XMPBasicSchema.THUMBNAILS);
-    xmpBasicSchema.addThumbnails(0, 3, "42", "42");
-    DateType date =
-        new DateType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "");
+    xmpBasicSchema.addAdvisory("Xpath");
+    xmpBasicSchema.addThumbnails(1, 2, XMPBasicSchema.ADVISORY, XMPBasicSchema.ADVISORY);
+    DateType date = new DateType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "");
 
     // Act
     xmpBasicSchema.setModifierDateProperty(date);
@@ -2274,44 +2162,49 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setModifierDateProperty(DateType)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setModifierDateProperty(DateType)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setModifierDateProperty(DateType)}
    */
   @Test
   @DisplayName("Test setModifierDateProperty(DateType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setModifierDateProperty(DateType)"})
   void testSetModifierDateProperty4() {
     // Arrange
-    XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
-    xmpBasicSchema.addThumbnails(0, 3, "42", "42");
-    DateType date =
-        new DateType(
-            XMPMetadata.createXMPMetadata(),
-            "Namespace URI",
-            "Prefix",
-            XMPBasicSchema.THUMBNAILS,
-            "");
+    XMPMetadata metadata = XMPMetadata.createXMPMetadata();
+
+    XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(metadata);
+    xmpBasicSchema.addBagValueAsSimple("Property Name", XMPBasicSchema.ADVISORY);
+    xmpBasicSchema.addAdvisory("Xpath");
+    xmpBasicSchema.addThumbnails(1, 2, XMPBasicSchema.ADVISORY, XMPBasicSchema.ADVISORY);
 
     // Act
-    xmpBasicSchema.setModifierDateProperty(date);
+    xmpBasicSchema.setModifierDateProperty(
+        new DateType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", ""));
 
     // Assert
     List<AbstractField> allProperties = xmpBasicSchema.getAllProperties();
-    assertEquals(1, allProperties.size());
-    assertSame(date, allProperties.get(0));
+    assertEquals(3, allProperties.size());
+    AbstractField getResult = allProperties.get(1);
+    assertTrue(getResult instanceof ArrayProperty);
+    assertEquals("http://ns.adobe.com/xap/1.0/", getResult.getNamespace());
+    assertEquals("xmp", getResult.getPrefix());
+    assertEquals(1, ((ArrayProperty) getResult).getAllProperties().size());
+    assertEquals(Cardinality.Alt, ((ArrayProperty) getResult).getArrayType());
+    assertTrue(getResult.getAllAttributes().isEmpty());
+    assertTrue(((ArrayProperty) getResult).getAllNamespacesWithPrefix().isEmpty());
+    assertEquals(XMPBasicSchema.THUMBNAILS, getResult.getPropertyName());
+    assertSame(metadata, getResult.getMetadata());
   }
 
   /**
    * Test {@link XMPBasicSchema#setNickname(String)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setNickname(String)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setNickname(String)}
    */
   @Test
   @DisplayName("Test setNickname(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setNickname(String)"})
   void testSetNickname() {
     // Arrange
@@ -2339,13 +2232,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setNickname(String)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setNickname(String)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setNickname(String)}
    */
   @Test
   @DisplayName("Test setNickname(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setNickname(String)"})
   void testSetNickname2() {
     // Arrange
@@ -2376,13 +2268,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setNickname(String)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setNickname(String)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setNickname(String)}
    */
   @Test
   @DisplayName("Test setNickname(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setNickname(String)"})
   void testSetNickname3() {
     // Arrange
@@ -2401,13 +2292,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setNickname(String)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setNickname(String)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setNickname(String)}
    */
   @Test
   @DisplayName("Test setNickname(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setNickname(String)"})
   void testSetNickname4() {
     // Arrange
@@ -2437,20 +2327,17 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setNicknameProperty(TextType)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setNicknameProperty(TextType)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setNicknameProperty(TextType)}
    */
   @Test
   @DisplayName("Test setNicknameProperty(TextType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setNicknameProperty(TextType)"})
   void testSetNicknameProperty() {
     // Arrange
     XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
-    TextType text =
-        new TextType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     xmpBasicSchema.setNicknameProperty(text);
@@ -2463,21 +2350,18 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setNicknameProperty(TextType)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setNicknameProperty(TextType)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setNicknameProperty(TextType)}
    */
   @Test
   @DisplayName("Test setNicknameProperty(TextType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setNicknameProperty(TextType)"})
   void testSetNicknameProperty2() {
     // Arrange
     XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
     xmpBasicSchema.addThumbnails(2, 1, "Format", "Img");
-    TextType text =
-        new TextType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     xmpBasicSchema.setNicknameProperty(text);
@@ -2495,22 +2379,19 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setNicknameProperty(TextType)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setNicknameProperty(TextType)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setNicknameProperty(TextType)}
    */
   @Test
   @DisplayName("Test setNicknameProperty(TextType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setNicknameProperty(TextType)"})
   void testSetNicknameProperty3() {
     // Arrange
     XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
     xmpBasicSchema.addAdvisory("Property Name");
     xmpBasicSchema.addThumbnails(2, 1, "Format", "Img");
-    TextType text =
-        new TextType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType text = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     xmpBasicSchema.setNicknameProperty(text);
@@ -2524,25 +2405,22 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setNicknameProperty(TextType)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setNicknameProperty(TextType)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setNicknameProperty(TextType)}
    */
   @Test
   @DisplayName("Test setNicknameProperty(TextType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setNicknameProperty(TextType)"})
   void testSetNicknameProperty4() {
     // Arrange
     XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
     xmpBasicSchema.addBagValueAsSimple("Property Name", XMPBasicSchema.THUMBNAILS);
     xmpBasicSchema.addThumbnails(2, 1, "Format", "Img");
-    TextType text =
-        new TextType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
-    xmpBasicSchema.setNicknameProperty(text);
+    xmpBasicSchema.setNicknameProperty(
+        new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value"));
 
     // Assert
     List<AbstractField> allProperties = xmpBasicSchema.getAllProperties();
@@ -2556,13 +2434,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setRating(Integer)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setRating(Integer)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setRating(Integer)}
    */
   @Test
   @DisplayName("Test setRating(Integer)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setRating(Integer)"})
   void testSetRating() {
     // Arrange
@@ -2590,13 +2467,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setRating(Integer)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setRating(Integer)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setRating(Integer)}
    */
   @Test
   @DisplayName("Test setRating(Integer)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setRating(Integer)"})
   void testSetRating2() {
     // Arrange
@@ -2627,13 +2503,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setRating(Integer)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setRating(Integer)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setRating(Integer)}
    */
   @Test
   @DisplayName("Test setRating(Integer)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setRating(Integer)"})
   void testSetRating3() {
     // Arrange
@@ -2652,13 +2527,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setRating(Integer)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setRating(Integer)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setRating(Integer)}
    */
   @Test
   @DisplayName("Test setRating(Integer)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setRating(Integer)"})
   void testSetRating4() {
     // Arrange
@@ -2688,20 +2562,17 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setRatingProperty(IntegerType)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setRatingProperty(IntegerType)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setRatingProperty(IntegerType)}
    */
   @Test
   @DisplayName("Test setRatingProperty(IntegerType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setRatingProperty(IntegerType)"})
   void testSetRatingProperty() {
     // Arrange
     XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
-    IntegerType rate =
-        new IntegerType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", 42);
+    IntegerType rate = new IntegerType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", 42);
 
     // Act
     xmpBasicSchema.setRatingProperty(rate);
@@ -2714,21 +2585,18 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setRatingProperty(IntegerType)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setRatingProperty(IntegerType)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setRatingProperty(IntegerType)}
    */
   @Test
   @DisplayName("Test setRatingProperty(IntegerType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setRatingProperty(IntegerType)"})
   void testSetRatingProperty2() {
     // Arrange
     XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
     xmpBasicSchema.addThumbnails(1, 2, XMPBasicSchema.ADVISORY, XMPBasicSchema.ADVISORY);
-    IntegerType rate =
-        new IntegerType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", 42);
+    IntegerType rate = new IntegerType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", 42);
 
     // Act
     xmpBasicSchema.setRatingProperty(rate);
@@ -2742,22 +2610,19 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setRatingProperty(IntegerType)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setRatingProperty(IntegerType)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setRatingProperty(IntegerType)}
    */
   @Test
   @DisplayName("Test setRatingProperty(IntegerType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setRatingProperty(IntegerType)"})
   void testSetRatingProperty3() {
     // Arrange
     XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
     xmpBasicSchema.addAdvisory("Xpath");
     xmpBasicSchema.addThumbnails(1, 2, XMPBasicSchema.ADVISORY, XMPBasicSchema.ADVISORY);
-    IntegerType rate =
-        new IntegerType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", 42);
+    IntegerType rate = new IntegerType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", 42);
 
     // Act
     xmpBasicSchema.setRatingProperty(rate);
@@ -2771,13 +2636,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#setRatingProperty(IntegerType)}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#setRatingProperty(IntegerType)}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#setRatingProperty(IntegerType)}
    */
   @Test
   @DisplayName("Test setRatingProperty(IntegerType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPBasicSchema.setRatingProperty(IntegerType)"})
   void testSetRatingProperty4() {
     // Arrange
@@ -2787,12 +2651,10 @@ class XMPBasicSchemaDiffblueTest {
     xmpBasicSchema.addBagValueAsSimple("Property Name", XMPBasicSchema.ADVISORY);
     xmpBasicSchema.addAdvisory("Xpath");
     xmpBasicSchema.addThumbnails(1, 2, XMPBasicSchema.ADVISORY, XMPBasicSchema.ADVISORY);
-    IntegerType rate =
-        new IntegerType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", 42);
 
     // Act
-    xmpBasicSchema.setRatingProperty(rate);
+    xmpBasicSchema.setRatingProperty(
+        new IntegerType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", 42));
 
     // Assert
     List<AbstractField> allProperties = xmpBasicSchema.getAllProperties();
@@ -2811,18 +2673,15 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#getAdvisoryProperty()}.
-   *
    * <ul>
-   *   <li>Then return Namespace is {@code http://ns.adobe.com/xap/1.0/}.
+   *   <li>Then return Namespace is {@code http://ns.adobe.com/xap/1.0/}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getAdvisoryProperty()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getAdvisoryProperty()}
    */
   @Test
-  @DisplayName(
-      "Test getAdvisoryProperty(); then return Namespace is 'http://ns.adobe.com/xap/1.0/'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getAdvisoryProperty(); then return Namespace is 'http://ns.adobe.com/xap/1.0/'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ArrayProperty XMPBasicSchema.getAdvisoryProperty()"})
   void testGetAdvisoryProperty_thenReturnNamespaceIsHttpNsAdobeComXap10() {
     // Arrange
@@ -2849,36 +2708,32 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#getAdvisoryProperty()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getAdvisoryProperty()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getAdvisoryProperty()}
    */
   @Test
   @DisplayName("Test getAdvisoryProperty(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ArrayProperty XMPBasicSchema.getAdvisoryProperty()"})
   void testGetAdvisoryProperty_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new XMPBasicSchema(XMPMetadata.createXMPMetadata()).getAdvisoryProperty());
+    assertNull((new XMPBasicSchema(XMPMetadata.createXMPMetadata())).getAdvisoryProperty());
   }
 
   /**
    * Test {@link XMPBasicSchema#getAdvisoryProperty()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getAdvisoryProperty()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getAdvisoryProperty()}
    */
   @Test
   @DisplayName("Test getAdvisoryProperty(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ArrayProperty XMPBasicSchema.getAdvisoryProperty()"})
   void testGetAdvisoryProperty_thenReturnNull2() {
     // Arrange
@@ -2891,36 +2746,32 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#getAdvisory()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getAdvisory()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getAdvisory()}
    */
   @Test
   @DisplayName("Test getAdvisory(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List XMPBasicSchema.getAdvisory()"})
   void testGetAdvisory_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new XMPBasicSchema(XMPMetadata.createXMPMetadata()).getAdvisory());
+    assertNull((new XMPBasicSchema(XMPMetadata.createXMPMetadata())).getAdvisory());
   }
 
   /**
    * Test {@link XMPBasicSchema#getAdvisory()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getAdvisory()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getAdvisory()}
    */
   @Test
   @DisplayName("Test getAdvisory(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List XMPBasicSchema.getAdvisory()"})
   void testGetAdvisory_thenReturnNull2() {
     // Arrange
@@ -2933,17 +2784,15 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#getAdvisory()}.
-   *
    * <ul>
-   *   <li>Then return size is one.
+   *   <li>Then return size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getAdvisory()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getAdvisory()}
    */
   @Test
   @DisplayName("Test getAdvisory(); then return size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List XMPBasicSchema.getAdvisory()"})
   void testGetAdvisory_thenReturnSizeIsOne() {
     // Arrange
@@ -2961,13 +2810,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#getBaseURLProperty()}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getBaseURLProperty()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getBaseURLProperty()}
    */
   @Test
   @DisplayName("Test getBaseURLProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType XMPBasicSchema.getBaseURLProperty()"})
   void testGetBaseURLProperty() {
     // Arrange
@@ -2981,40 +2829,32 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#getBaseURLProperty()}.
-   *
    * <ul>
-   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getBaseURLProperty()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getBaseURLProperty()}
    */
   @Test
-  @DisplayName(
-      "Test getBaseURLProperty(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getBaseURLProperty(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType XMPBasicSchema.getBaseURLProperty()"})
   void testGetBaseURLProperty_givenXMPBasicSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull(new XMPBasicSchema(XMPMetadata.createXMPMetadata()).getBaseURLProperty());
+    assertNull((new XMPBasicSchema(XMPMetadata.createXMPMetadata())).getBaseURLProperty());
   }
 
   /**
    * Test {@link XMPBasicSchema#getBaseURLProperty()}.
-   *
    * <ul>
-   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getBaseURLProperty()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getBaseURLProperty()}
    */
   @Test
-  @DisplayName(
-      "Test getBaseURLProperty(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getBaseURLProperty(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType XMPBasicSchema.getBaseURLProperty()"})
   void testGetBaseURLProperty_givenXMPBasicSchemaWithMetadataIsCreateXMPMetadata2() {
     // Arrange
@@ -3027,13 +2867,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#getBaseURL()}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getBaseURL()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getBaseURL()}
    */
   @Test
   @DisplayName("Test getBaseURL()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String XMPBasicSchema.getBaseURL()"})
   void testGetBaseURL() {
     // Arrange
@@ -3047,40 +2886,32 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#getBaseURL()}.
-   *
    * <ul>
-   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getBaseURL()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getBaseURL()}
    */
   @Test
-  @DisplayName(
-      "Test getBaseURL(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getBaseURL(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String XMPBasicSchema.getBaseURL()"})
   void testGetBaseURL_givenXMPBasicSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull(new XMPBasicSchema(XMPMetadata.createXMPMetadata()).getBaseURL());
+    assertNull((new XMPBasicSchema(XMPMetadata.createXMPMetadata())).getBaseURL());
   }
 
   /**
    * Test {@link XMPBasicSchema#getBaseURL()}.
-   *
    * <ul>
-   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getBaseURL()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getBaseURL()}
    */
   @Test
-  @DisplayName(
-      "Test getBaseURL(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getBaseURL(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String XMPBasicSchema.getBaseURL()"})
   void testGetBaseURL_givenXMPBasicSchemaWithMetadataIsCreateXMPMetadata2() {
     // Arrange
@@ -3093,13 +2924,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#getCreateDateProperty()}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getCreateDateProperty()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getCreateDateProperty()}
    */
   @Test
   @DisplayName("Test getCreateDateProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"DateType XMPBasicSchema.getCreateDateProperty()"})
   void testGetCreateDateProperty() {
     // Arrange
@@ -3113,40 +2943,32 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#getCreateDateProperty()}.
-   *
    * <ul>
-   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getCreateDateProperty()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getCreateDateProperty()}
    */
   @Test
-  @DisplayName(
-      "Test getCreateDateProperty(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getCreateDateProperty(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"DateType XMPBasicSchema.getCreateDateProperty()"})
   void testGetCreateDateProperty_givenXMPBasicSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull(new XMPBasicSchema(XMPMetadata.createXMPMetadata()).getCreateDateProperty());
+    assertNull((new XMPBasicSchema(XMPMetadata.createXMPMetadata())).getCreateDateProperty());
   }
 
   /**
    * Test {@link XMPBasicSchema#getCreateDateProperty()}.
-   *
    * <ul>
-   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getCreateDateProperty()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getCreateDateProperty()}
    */
   @Test
-  @DisplayName(
-      "Test getCreateDateProperty(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getCreateDateProperty(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"DateType XMPBasicSchema.getCreateDateProperty()"})
   void testGetCreateDateProperty_givenXMPBasicSchemaWithMetadataIsCreateXMPMetadata2() {
     // Arrange
@@ -3159,13 +2981,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#getCreateDate()}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getCreateDate()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getCreateDate()}
    */
   @Test
   @DisplayName("Test getCreateDate()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Calendar XMPBasicSchema.getCreateDate()"})
   void testGetCreateDate() {
     // Arrange
@@ -3179,40 +3000,32 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#getCreateDate()}.
-   *
    * <ul>
-   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getCreateDate()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getCreateDate()}
    */
   @Test
-  @DisplayName(
-      "Test getCreateDate(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getCreateDate(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Calendar XMPBasicSchema.getCreateDate()"})
   void testGetCreateDate_givenXMPBasicSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull(new XMPBasicSchema(XMPMetadata.createXMPMetadata()).getCreateDate());
+    assertNull((new XMPBasicSchema(XMPMetadata.createXMPMetadata())).getCreateDate());
   }
 
   /**
    * Test {@link XMPBasicSchema#getCreateDate()}.
-   *
    * <ul>
-   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getCreateDate()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getCreateDate()}
    */
   @Test
-  @DisplayName(
-      "Test getCreateDate(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getCreateDate(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Calendar XMPBasicSchema.getCreateDate()"})
   void testGetCreateDate_givenXMPBasicSchemaWithMetadataIsCreateXMPMetadata2() {
     // Arrange
@@ -3225,13 +3038,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#getCreatorToolProperty()}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getCreatorToolProperty()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getCreatorToolProperty()}
    */
   @Test
   @DisplayName("Test getCreatorToolProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType XMPBasicSchema.getCreatorToolProperty()"})
   void testGetCreatorToolProperty() {
     // Arrange
@@ -3245,40 +3057,32 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#getCreatorToolProperty()}.
-   *
    * <ul>
-   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getCreatorToolProperty()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getCreatorToolProperty()}
    */
   @Test
-  @DisplayName(
-      "Test getCreatorToolProperty(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getCreatorToolProperty(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType XMPBasicSchema.getCreatorToolProperty()"})
   void testGetCreatorToolProperty_givenXMPBasicSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull(new XMPBasicSchema(XMPMetadata.createXMPMetadata()).getCreatorToolProperty());
+    assertNull((new XMPBasicSchema(XMPMetadata.createXMPMetadata())).getCreatorToolProperty());
   }
 
   /**
    * Test {@link XMPBasicSchema#getCreatorToolProperty()}.
-   *
    * <ul>
-   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getCreatorToolProperty()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getCreatorToolProperty()}
    */
   @Test
-  @DisplayName(
-      "Test getCreatorToolProperty(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getCreatorToolProperty(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType XMPBasicSchema.getCreatorToolProperty()"})
   void testGetCreatorToolProperty_givenXMPBasicSchemaWithMetadataIsCreateXMPMetadata2() {
     // Arrange
@@ -3291,13 +3095,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#getCreatorTool()}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getCreatorTool()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getCreatorTool()}
    */
   @Test
   @DisplayName("Test getCreatorTool()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String XMPBasicSchema.getCreatorTool()"})
   void testGetCreatorTool() {
     // Arrange
@@ -3311,40 +3114,32 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#getCreatorTool()}.
-   *
    * <ul>
-   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getCreatorTool()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getCreatorTool()}
    */
   @Test
-  @DisplayName(
-      "Test getCreatorTool(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getCreatorTool(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String XMPBasicSchema.getCreatorTool()"})
   void testGetCreatorTool_givenXMPBasicSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull(new XMPBasicSchema(XMPMetadata.createXMPMetadata()).getCreatorTool());
+    assertNull((new XMPBasicSchema(XMPMetadata.createXMPMetadata())).getCreatorTool());
   }
 
   /**
    * Test {@link XMPBasicSchema#getCreatorTool()}.
-   *
    * <ul>
-   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getCreatorTool()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getCreatorTool()}
    */
   @Test
-  @DisplayName(
-      "Test getCreatorTool(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getCreatorTool(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String XMPBasicSchema.getCreatorTool()"})
   void testGetCreatorTool_givenXMPBasicSchemaWithMetadataIsCreateXMPMetadata2() {
     // Arrange
@@ -3357,13 +3152,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#getIdentifiersProperty()}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getIdentifiersProperty()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getIdentifiersProperty()}
    */
   @Test
   @DisplayName("Test getIdentifiersProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ArrayProperty XMPBasicSchema.getIdentifiersProperty()"})
   void testGetIdentifiersProperty() {
     // Arrange
@@ -3377,40 +3171,32 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#getIdentifiersProperty()}.
-   *
    * <ul>
-   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getIdentifiersProperty()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getIdentifiersProperty()}
    */
   @Test
-  @DisplayName(
-      "Test getIdentifiersProperty(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getIdentifiersProperty(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ArrayProperty XMPBasicSchema.getIdentifiersProperty()"})
   void testGetIdentifiersProperty_givenXMPBasicSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull(new XMPBasicSchema(XMPMetadata.createXMPMetadata()).getIdentifiersProperty());
+    assertNull((new XMPBasicSchema(XMPMetadata.createXMPMetadata())).getIdentifiersProperty());
   }
 
   /**
    * Test {@link XMPBasicSchema#getIdentifiersProperty()}.
-   *
    * <ul>
-   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getIdentifiersProperty()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getIdentifiersProperty()}
    */
   @Test
-  @DisplayName(
-      "Test getIdentifiersProperty(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getIdentifiersProperty(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ArrayProperty XMPBasicSchema.getIdentifiersProperty()"})
   void testGetIdentifiersProperty_givenXMPBasicSchemaWithMetadataIsCreateXMPMetadata2() {
     // Arrange
@@ -3423,18 +3209,15 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#getIdentifiersProperty()}.
-   *
    * <ul>
-   *   <li>Then return Namespace is {@code http://ns.adobe.com/xap/1.0/}.
+   *   <li>Then return Namespace is {@code http://ns.adobe.com/xap/1.0/}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getIdentifiersProperty()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getIdentifiersProperty()}
    */
   @Test
-  @DisplayName(
-      "Test getIdentifiersProperty(); then return Namespace is 'http://ns.adobe.com/xap/1.0/'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getIdentifiersProperty(); then return Namespace is 'http://ns.adobe.com/xap/1.0/'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ArrayProperty XMPBasicSchema.getIdentifiersProperty()"})
   void testGetIdentifiersProperty_thenReturnNamespaceIsHttpNsAdobeComXap10() {
     // Arrange
@@ -3461,36 +3244,32 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#getIdentifiers()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getIdentifiers()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getIdentifiers()}
    */
   @Test
   @DisplayName("Test getIdentifiers(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List XMPBasicSchema.getIdentifiers()"})
   void testGetIdentifiers_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new XMPBasicSchema(XMPMetadata.createXMPMetadata()).getIdentifiers());
+    assertNull((new XMPBasicSchema(XMPMetadata.createXMPMetadata())).getIdentifiers());
   }
 
   /**
    * Test {@link XMPBasicSchema#getIdentifiers()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getIdentifiers()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getIdentifiers()}
    */
   @Test
   @DisplayName("Test getIdentifiers(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List XMPBasicSchema.getIdentifiers()"})
   void testGetIdentifiers_thenReturnNull2() {
     // Arrange
@@ -3503,17 +3282,15 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#getIdentifiers()}.
-   *
    * <ul>
-   *   <li>Then return size is one.
+   *   <li>Then return size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getIdentifiers()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getIdentifiers()}
    */
   @Test
   @DisplayName("Test getIdentifiers(); then return size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List XMPBasicSchema.getIdentifiers()"})
   void testGetIdentifiers_thenReturnSizeIsOne() {
     // Arrange
@@ -3531,13 +3308,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#getLabelProperty()}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getLabelProperty()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getLabelProperty()}
    */
   @Test
   @DisplayName("Test getLabelProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType XMPBasicSchema.getLabelProperty()"})
   void testGetLabelProperty() {
     // Arrange
@@ -3551,40 +3327,32 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#getLabelProperty()}.
-   *
    * <ul>
-   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getLabelProperty()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getLabelProperty()}
    */
   @Test
-  @DisplayName(
-      "Test getLabelProperty(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getLabelProperty(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType XMPBasicSchema.getLabelProperty()"})
   void testGetLabelProperty_givenXMPBasicSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull(new XMPBasicSchema(XMPMetadata.createXMPMetadata()).getLabelProperty());
+    assertNull((new XMPBasicSchema(XMPMetadata.createXMPMetadata())).getLabelProperty());
   }
 
   /**
    * Test {@link XMPBasicSchema#getLabelProperty()}.
-   *
    * <ul>
-   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getLabelProperty()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getLabelProperty()}
    */
   @Test
-  @DisplayName(
-      "Test getLabelProperty(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getLabelProperty(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType XMPBasicSchema.getLabelProperty()"})
   void testGetLabelProperty_givenXMPBasicSchemaWithMetadataIsCreateXMPMetadata2() {
     // Arrange
@@ -3597,13 +3365,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#getLabel()}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getLabel()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getLabel()}
    */
   @Test
   @DisplayName("Test getLabel()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String XMPBasicSchema.getLabel()"})
   void testGetLabel() {
     // Arrange
@@ -3617,40 +3384,32 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#getLabel()}.
-   *
    * <ul>
-   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getLabel()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getLabel()}
    */
   @Test
-  @DisplayName(
-      "Test getLabel(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getLabel(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String XMPBasicSchema.getLabel()"})
   void testGetLabel_givenXMPBasicSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull(new XMPBasicSchema(XMPMetadata.createXMPMetadata()).getLabel());
+    assertNull((new XMPBasicSchema(XMPMetadata.createXMPMetadata())).getLabel());
   }
 
   /**
    * Test {@link XMPBasicSchema#getLabel()}.
-   *
    * <ul>
-   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getLabel()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getLabel()}
    */
   @Test
-  @DisplayName(
-      "Test getLabel(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getLabel(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String XMPBasicSchema.getLabel()"})
   void testGetLabel_givenXMPBasicSchemaWithMetadataIsCreateXMPMetadata2() {
     // Arrange
@@ -3663,13 +3422,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#getMetadataDateProperty()}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getMetadataDateProperty()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getMetadataDateProperty()}
    */
   @Test
   @DisplayName("Test getMetadataDateProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"DateType XMPBasicSchema.getMetadataDateProperty()"})
   void testGetMetadataDateProperty() {
     // Arrange
@@ -3683,40 +3441,32 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#getMetadataDateProperty()}.
-   *
    * <ul>
-   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getMetadataDateProperty()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getMetadataDateProperty()}
    */
   @Test
-  @DisplayName(
-      "Test getMetadataDateProperty(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getMetadataDateProperty(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"DateType XMPBasicSchema.getMetadataDateProperty()"})
   void testGetMetadataDateProperty_givenXMPBasicSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull(new XMPBasicSchema(XMPMetadata.createXMPMetadata()).getMetadataDateProperty());
+    assertNull((new XMPBasicSchema(XMPMetadata.createXMPMetadata())).getMetadataDateProperty());
   }
 
   /**
    * Test {@link XMPBasicSchema#getMetadataDateProperty()}.
-   *
    * <ul>
-   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getMetadataDateProperty()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getMetadataDateProperty()}
    */
   @Test
-  @DisplayName(
-      "Test getMetadataDateProperty(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getMetadataDateProperty(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"DateType XMPBasicSchema.getMetadataDateProperty()"})
   void testGetMetadataDateProperty_givenXMPBasicSchemaWithMetadataIsCreateXMPMetadata2() {
     // Arrange
@@ -3729,13 +3479,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#getMetadataDate()}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getMetadataDate()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getMetadataDate()}
    */
   @Test
   @DisplayName("Test getMetadataDate()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Calendar XMPBasicSchema.getMetadataDate()"})
   void testGetMetadataDate() {
     // Arrange
@@ -3749,40 +3498,32 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#getMetadataDate()}.
-   *
    * <ul>
-   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getMetadataDate()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getMetadataDate()}
    */
   @Test
-  @DisplayName(
-      "Test getMetadataDate(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getMetadataDate(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Calendar XMPBasicSchema.getMetadataDate()"})
   void testGetMetadataDate_givenXMPBasicSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull(new XMPBasicSchema(XMPMetadata.createXMPMetadata()).getMetadataDate());
+    assertNull((new XMPBasicSchema(XMPMetadata.createXMPMetadata())).getMetadataDate());
   }
 
   /**
    * Test {@link XMPBasicSchema#getMetadataDate()}.
-   *
    * <ul>
-   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getMetadataDate()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getMetadataDate()}
    */
   @Test
-  @DisplayName(
-      "Test getMetadataDate(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getMetadataDate(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Calendar XMPBasicSchema.getMetadataDate()"})
   void testGetMetadataDate_givenXMPBasicSchemaWithMetadataIsCreateXMPMetadata2() {
     // Arrange
@@ -3795,13 +3536,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#getModifyDateProperty()}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getModifyDateProperty()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getModifyDateProperty()}
    */
   @Test
   @DisplayName("Test getModifyDateProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"DateType XMPBasicSchema.getModifyDateProperty()"})
   void testGetModifyDateProperty() {
     // Arrange
@@ -3815,40 +3555,32 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#getModifyDateProperty()}.
-   *
    * <ul>
-   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getModifyDateProperty()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getModifyDateProperty()}
    */
   @Test
-  @DisplayName(
-      "Test getModifyDateProperty(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getModifyDateProperty(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"DateType XMPBasicSchema.getModifyDateProperty()"})
   void testGetModifyDateProperty_givenXMPBasicSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull(new XMPBasicSchema(XMPMetadata.createXMPMetadata()).getModifyDateProperty());
+    assertNull((new XMPBasicSchema(XMPMetadata.createXMPMetadata())).getModifyDateProperty());
   }
 
   /**
    * Test {@link XMPBasicSchema#getModifyDateProperty()}.
-   *
    * <ul>
-   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getModifyDateProperty()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getModifyDateProperty()}
    */
   @Test
-  @DisplayName(
-      "Test getModifyDateProperty(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getModifyDateProperty(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"DateType XMPBasicSchema.getModifyDateProperty()"})
   void testGetModifyDateProperty_givenXMPBasicSchemaWithMetadataIsCreateXMPMetadata2() {
     // Arrange
@@ -3861,13 +3593,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#getModifierDateProperty()}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getModifierDateProperty()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getModifierDateProperty()}
    */
   @Test
   @DisplayName("Test getModifierDateProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"DateType XMPBasicSchema.getModifierDateProperty()"})
   void testGetModifierDateProperty() {
     // Arrange
@@ -3881,40 +3612,32 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#getModifierDateProperty()}.
-   *
    * <ul>
-   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getModifierDateProperty()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getModifierDateProperty()}
    */
   @Test
-  @DisplayName(
-      "Test getModifierDateProperty(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getModifierDateProperty(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"DateType XMPBasicSchema.getModifierDateProperty()"})
   void testGetModifierDateProperty_givenXMPBasicSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull(new XMPBasicSchema(XMPMetadata.createXMPMetadata()).getModifierDateProperty());
+    assertNull((new XMPBasicSchema(XMPMetadata.createXMPMetadata())).getModifierDateProperty());
   }
 
   /**
    * Test {@link XMPBasicSchema#getModifierDateProperty()}.
-   *
    * <ul>
-   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getModifierDateProperty()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getModifierDateProperty()}
    */
   @Test
-  @DisplayName(
-      "Test getModifierDateProperty(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getModifierDateProperty(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"DateType XMPBasicSchema.getModifierDateProperty()"})
   void testGetModifierDateProperty_givenXMPBasicSchemaWithMetadataIsCreateXMPMetadata2() {
     // Arrange
@@ -3927,13 +3650,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#getModifyDate()}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getModifyDate()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getModifyDate()}
    */
   @Test
   @DisplayName("Test getModifyDate()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Calendar XMPBasicSchema.getModifyDate()"})
   void testGetModifyDate() {
     // Arrange
@@ -3947,40 +3669,32 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#getModifyDate()}.
-   *
    * <ul>
-   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getModifyDate()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getModifyDate()}
    */
   @Test
-  @DisplayName(
-      "Test getModifyDate(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getModifyDate(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Calendar XMPBasicSchema.getModifyDate()"})
   void testGetModifyDate_givenXMPBasicSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull(new XMPBasicSchema(XMPMetadata.createXMPMetadata()).getModifyDate());
+    assertNull((new XMPBasicSchema(XMPMetadata.createXMPMetadata())).getModifyDate());
   }
 
   /**
    * Test {@link XMPBasicSchema#getModifyDate()}.
-   *
    * <ul>
-   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getModifyDate()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getModifyDate()}
    */
   @Test
-  @DisplayName(
-      "Test getModifyDate(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getModifyDate(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Calendar XMPBasicSchema.getModifyDate()"})
   void testGetModifyDate_givenXMPBasicSchemaWithMetadataIsCreateXMPMetadata2() {
     // Arrange
@@ -3993,13 +3707,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#getModifierDate()}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getModifierDate()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getModifierDate()}
    */
   @Test
   @DisplayName("Test getModifierDate()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Calendar XMPBasicSchema.getModifierDate()"})
   void testGetModifierDate() {
     // Arrange
@@ -4013,40 +3726,32 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#getModifierDate()}.
-   *
    * <ul>
-   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getModifierDate()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getModifierDate()}
    */
   @Test
-  @DisplayName(
-      "Test getModifierDate(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getModifierDate(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Calendar XMPBasicSchema.getModifierDate()"})
   void testGetModifierDate_givenXMPBasicSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull(new XMPBasicSchema(XMPMetadata.createXMPMetadata()).getModifierDate());
+    assertNull((new XMPBasicSchema(XMPMetadata.createXMPMetadata())).getModifierDate());
   }
 
   /**
    * Test {@link XMPBasicSchema#getModifierDate()}.
-   *
    * <ul>
-   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getModifierDate()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getModifierDate()}
    */
   @Test
-  @DisplayName(
-      "Test getModifierDate(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getModifierDate(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Calendar XMPBasicSchema.getModifierDate()"})
   void testGetModifierDate_givenXMPBasicSchemaWithMetadataIsCreateXMPMetadata2() {
     // Arrange
@@ -4059,13 +3764,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#getNicknameProperty()}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getNicknameProperty()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getNicknameProperty()}
    */
   @Test
   @DisplayName("Test getNicknameProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType XMPBasicSchema.getNicknameProperty()"})
   void testGetNicknameProperty() {
     // Arrange
@@ -4079,40 +3783,32 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#getNicknameProperty()}.
-   *
    * <ul>
-   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getNicknameProperty()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getNicknameProperty()}
    */
   @Test
-  @DisplayName(
-      "Test getNicknameProperty(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getNicknameProperty(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType XMPBasicSchema.getNicknameProperty()"})
   void testGetNicknameProperty_givenXMPBasicSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull(new XMPBasicSchema(XMPMetadata.createXMPMetadata()).getNicknameProperty());
+    assertNull((new XMPBasicSchema(XMPMetadata.createXMPMetadata())).getNicknameProperty());
   }
 
   /**
    * Test {@link XMPBasicSchema#getNicknameProperty()}.
-   *
    * <ul>
-   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getNicknameProperty()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getNicknameProperty()}
    */
   @Test
-  @DisplayName(
-      "Test getNicknameProperty(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getNicknameProperty(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType XMPBasicSchema.getNicknameProperty()"})
   void testGetNicknameProperty_givenXMPBasicSchemaWithMetadataIsCreateXMPMetadata2() {
     // Arrange
@@ -4125,13 +3821,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#getNickname()}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getNickname()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getNickname()}
    */
   @Test
   @DisplayName("Test getNickname()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String XMPBasicSchema.getNickname()"})
   void testGetNickname() {
     // Arrange
@@ -4145,40 +3840,32 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#getNickname()}.
-   *
    * <ul>
-   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getNickname()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getNickname()}
    */
   @Test
-  @DisplayName(
-      "Test getNickname(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getNickname(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String XMPBasicSchema.getNickname()"})
   void testGetNickname_givenXMPBasicSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull(new XMPBasicSchema(XMPMetadata.createXMPMetadata()).getNickname());
+    assertNull((new XMPBasicSchema(XMPMetadata.createXMPMetadata())).getNickname());
   }
 
   /**
    * Test {@link XMPBasicSchema#getNickname()}.
-   *
    * <ul>
-   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getNickname()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getNickname()}
    */
   @Test
-  @DisplayName(
-      "Test getNickname(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getNickname(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String XMPBasicSchema.getNickname()"})
   void testGetNickname_givenXMPBasicSchemaWithMetadataIsCreateXMPMetadata2() {
     // Arrange
@@ -4191,13 +3878,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#getRatingProperty()}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getRatingProperty()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getRatingProperty()}
    */
   @Test
   @DisplayName("Test getRatingProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"IntegerType XMPBasicSchema.getRatingProperty()"})
   void testGetRatingProperty() {
     // Arrange
@@ -4211,40 +3897,32 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#getRatingProperty()}.
-   *
    * <ul>
-   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getRatingProperty()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getRatingProperty()}
    */
   @Test
-  @DisplayName(
-      "Test getRatingProperty(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getRatingProperty(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"IntegerType XMPBasicSchema.getRatingProperty()"})
   void testGetRatingProperty_givenXMPBasicSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull(new XMPBasicSchema(XMPMetadata.createXMPMetadata()).getRatingProperty());
+    assertNull((new XMPBasicSchema(XMPMetadata.createXMPMetadata())).getRatingProperty());
   }
 
   /**
    * Test {@link XMPBasicSchema#getRatingProperty()}.
-   *
    * <ul>
-   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getRatingProperty()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getRatingProperty()}
    */
   @Test
-  @DisplayName(
-      "Test getRatingProperty(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getRatingProperty(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"IntegerType XMPBasicSchema.getRatingProperty()"})
   void testGetRatingProperty_givenXMPBasicSchemaWithMetadataIsCreateXMPMetadata2() {
     // Arrange
@@ -4257,13 +3935,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#getRating()}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getRating()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getRating()}
    */
   @Test
   @DisplayName("Test getRating()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Integer XMPBasicSchema.getRating()"})
   void testGetRating() {
     // Arrange
@@ -4277,40 +3954,32 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#getRating()}.
-   *
    * <ul>
-   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getRating()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getRating()}
    */
   @Test
-  @DisplayName(
-      "Test getRating(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getRating(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Integer XMPBasicSchema.getRating()"})
   void testGetRating_givenXMPBasicSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull(new XMPBasicSchema(XMPMetadata.createXMPMetadata()).getRating());
+    assertNull((new XMPBasicSchema(XMPMetadata.createXMPMetadata())).getRating());
   }
 
   /**
    * Test {@link XMPBasicSchema#getRating()}.
-   *
    * <ul>
-   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getRating()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getRating()}
    */
   @Test
-  @DisplayName(
-      "Test getRating(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getRating(); given XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Integer XMPBasicSchema.getRating()"})
   void testGetRating_givenXMPBasicSchemaWithMetadataIsCreateXMPMetadata2() {
     // Arrange
@@ -4323,13 +3992,12 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#getThumbnailsProperty()}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getThumbnailsProperty()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getThumbnailsProperty()}
    */
   @Test
   @DisplayName("Test getThumbnailsProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List XMPBasicSchema.getThumbnailsProperty()"})
   void testGetThumbnailsProperty() throws BadFieldValueException {
     // Arrange
@@ -4361,81 +4029,32 @@ class XMPBasicSchemaDiffblueTest {
 
   /**
    * Test {@link XMPBasicSchema#getThumbnailsProperty()}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getThumbnailsProperty()}
-   */
-  @Test
-  @DisplayName("Test getThumbnailsProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List XMPBasicSchema.getThumbnailsProperty()"})
-  void testGetThumbnailsProperty2() throws BadFieldValueException {
-    // Arrange
-    XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
-    xmpBasicSchema.addBagValueAsSimple(XMPBasicSchema.THUMBNAILS, "42");
-
-    // Act and Assert
-    assertThrows(BadFieldValueException.class, () -> xmpBasicSchema.getThumbnailsProperty());
-  }
-
-  /**
-   * Test {@link XMPBasicSchema#getThumbnailsProperty()}.
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getThumbnailsProperty()}
-   */
-  @Test
-  @DisplayName("Test getThumbnailsProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List XMPBasicSchema.getThumbnailsProperty()"})
-  void testGetThumbnailsProperty3() throws BadFieldValueException {
-    // Arrange
-    XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
-    AgentNameType obj =
-        new AgentNameType(
-            XMPMetadata.createXMPMetadata(),
-            XMPBasicSchema.THUMBNAILS,
-            XMPBasicSchema.THUMBNAILS,
-            XMPBasicSchema.THUMBNAILS,
-            "Value");
-    xmpBasicSchema.addProperty(obj);
-
-    // Act and Assert
-    assertThrows(BadFieldValueException.class, () -> xmpBasicSchema.getThumbnailsProperty());
-  }
-
-  /**
-   * Test {@link XMPBasicSchema#getThumbnailsProperty()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getThumbnailsProperty()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getThumbnailsProperty()}
    */
   @Test
   @DisplayName("Test getThumbnailsProperty(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List XMPBasicSchema.getThumbnailsProperty()"})
   void testGetThumbnailsProperty_thenReturnNull() throws BadFieldValueException {
     // Arrange, Act and Assert
-    assertNull(new XMPBasicSchema(XMPMetadata.createXMPMetadata()).getThumbnailsProperty());
+    assertNull((new XMPBasicSchema(XMPMetadata.createXMPMetadata())).getThumbnailsProperty());
   }
 
   /**
    * Test {@link XMPBasicSchema#getThumbnailsProperty()}.
-   *
    * <ul>
-   *   <li>Then return size is one.
+   *   <li>Then return size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPBasicSchema#getThumbnailsProperty()}
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getThumbnailsProperty()}
    */
   @Test
   @DisplayName("Test getThumbnailsProperty(); then return size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List XMPBasicSchema.getThumbnailsProperty()"})
   void testGetThumbnailsProperty_thenReturnSizeIsOne() throws BadFieldValueException {
     // Arrange
@@ -4462,5 +4081,26 @@ class XMPBasicSchemaDiffblueTest {
     assertEquals(XMPBasicSchema.THUMBNAILS, getResult.getFormat());
     assertEquals(XMPBasicSchema.THUMBNAILS, getResult.getImage());
     assertSame(metadata, getResult.getMetadata());
+  }
+
+  /**
+   * Test {@link XMPBasicSchema#getThumbnailsProperty()}.
+   * <ul>
+   *   <li>Then throw {@link BadFieldValueException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link XMPBasicSchema#getThumbnailsProperty()}
+   */
+  @Test
+  @DisplayName("Test getThumbnailsProperty(); then throw BadFieldValueException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List XMPBasicSchema.getThumbnailsProperty()"})
+  void testGetThumbnailsProperty_thenThrowBadFieldValueException() throws BadFieldValueException {
+    // Arrange
+    XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
+    xmpBasicSchema.addBagValueAsSimple(XMPBasicSchema.THUMBNAILS, "42");
+
+    // Act and Assert
+    assertThrows(BadFieldValueException.class, () -> xmpBasicSchema.getThumbnailsProperty());
   }
 }

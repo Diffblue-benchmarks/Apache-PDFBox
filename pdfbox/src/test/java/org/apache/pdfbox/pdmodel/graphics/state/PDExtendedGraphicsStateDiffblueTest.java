@@ -6,15 +6,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.Rectangle2D.Double;
 import java.io.IOException;
 import java.util.List;
-import org.apache.fontbox.FontBoxFont;
-import org.apache.fontbox.ttf.OS2WindowsMetricsTable;
-import org.apache.fontbox.ttf.TrueTypeFont;
 import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSBoolean;
@@ -39,31 +35,29 @@ import org.junit.jupiter.api.Test;
 class PDExtendedGraphicsStateDiffblueTest {
   /**
    * Test {@link PDExtendedGraphicsState#PDExtendedGraphicsState(COSDictionary)}.
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#PDExtendedGraphicsState(COSDictionary)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#PDExtendedGraphicsState(COSDictionary)}
    */
   @Test
   @DisplayName("Test new PDExtendedGraphicsState(COSDictionary)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.<init>(COSDictionary)"})
   void testNewPDExtendedGraphicsState() {
     // Arrange
     COSDictionary dictionary = new COSDictionary();
 
     // Act and Assert
-    assertSame(dictionary, new PDExtendedGraphicsState(dictionary).getCOSObject());
+    assertSame(dictionary, (new PDExtendedGraphicsState(dictionary)).getCOSObject());
   }
 
   /**
    * Test {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}
    */
   @Test
   @DisplayName("Test new PDExtendedGraphicsState()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.<init>()"})
   void testNewPDExtendedGraphicsState2() {
     // Arrange and Act
@@ -94,13 +88,12 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}.
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}
    */
   @Test
   @DisplayName("Test copyIntoGraphicsState(PDGraphicsState)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.copyIntoGraphicsState(PDGraphicsState)"})
   void testCopyIntoGraphicsState() throws IOException {
     // Arrange
@@ -112,18 +105,23 @@ class PDExtendedGraphicsStateDiffblueTest {
     pdExtendedGraphicsState.copyIntoGraphicsState(gs);
 
     // Assert that nothing has changed
-    assertEquals(0.0f, gs.getTextState().getFontSize());
+    assertEquals(0, gs.getLineCap());
+    assertEquals(0, gs.getLineJoin());
+    assertEquals(0, gs.getOverprintMode());
+    assertFalse(gs.isAlphaSource());
+    assertFalse(gs.isNonStrokingOverprint());
+    assertFalse(gs.isOverprint());
+    assertFalse(gs.isStrokeAdjustment());
   }
 
   /**
    * Test {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}.
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}
    */
   @Test
   @DisplayName("Test copyIntoGraphicsState(PDGraphicsState)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.copyIntoGraphicsState(PDGraphicsState)"})
   void testCopyIntoGraphicsState2() throws IOException {
     // Arrange
@@ -135,22 +133,24 @@ class PDExtendedGraphicsStateDiffblueTest {
     pdExtendedGraphicsState.copyIntoGraphicsState(gs);
 
     // Assert
-    assertNull(gs.getTransfer());
-    PDTextState textState = gs.getTextState();
-    assertNull(textState.getFont());
-    assertEquals(0.0f, textState.getFontSize());
+    assertEquals(0, gs.getLineCap());
+    assertEquals(0, gs.getLineJoin());
+    assertEquals(0, gs.getOverprintMode());
     assertEquals(RenderingIntent.RELATIVE_COLORIMETRIC, gs.getRenderingIntent());
+    assertFalse(gs.isAlphaSource());
+    assertFalse(gs.isNonStrokingOverprint());
+    assertFalse(gs.isOverprint());
+    assertFalse(gs.isStrokeAdjustment());
   }
 
   /**
    * Test {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}.
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}
    */
   @Test
   @DisplayName("Test copyIntoGraphicsState(PDGraphicsState)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.copyIntoGraphicsState(PDGraphicsState)"})
   void testCopyIntoGraphicsState3() throws IOException {
     // Arrange
@@ -178,13 +178,12 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}.
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}
    */
   @Test
   @DisplayName("Test copyIntoGraphicsState(PDGraphicsState)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.copyIntoGraphicsState(PDGraphicsState)"})
   void testCopyIntoGraphicsState4() throws IOException {
     // Arrange
@@ -196,67 +195,28 @@ class PDExtendedGraphicsStateDiffblueTest {
     pdExtendedGraphicsState.copyIntoGraphicsState(gs);
 
     // Assert that nothing has changed
-    assertEquals(0.0f, gs.getTextState().getFontSize());
+    assertEquals(0, gs.getLineCap());
+    assertEquals(0, gs.getLineJoin());
+    assertEquals(0, gs.getOverprintMode());
+    assertFalse(gs.isAlphaSource());
+    assertFalse(gs.isNonStrokingOverprint());
+    assertFalse(gs.isOverprint());
+    assertFalse(gs.isStrokeAdjustment());
   }
 
   /**
    * Test {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}.
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}
    */
   @Test
   @DisplayName("Test copyIntoGraphicsState(PDGraphicsState)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.copyIntoGraphicsState(PDGraphicsState)"})
   void testCopyIntoGraphicsState5() throws IOException {
     // Arrange
     PDFontSetting fs = new PDFontSetting();
-    fs.setFont(new PDMMType1Font(new COSDictionary()));
-
-    PDExtendedGraphicsState pdExtendedGraphicsState = new PDExtendedGraphicsState();
-    pdExtendedGraphicsState.setFontSetting(fs);
-    PDGraphicsState gs = new PDGraphicsState(PDRectangle.A0);
-
-    // Act
-    pdExtendedGraphicsState.copyIntoGraphicsState(gs);
-
-    // Assert
-    PDFont font = gs.getTextState().getFont();
-    FontBoxFont fontBoxFont = ((PDType1Font) font).getFontBoxFont();
-    assertTrue(fontBoxFont instanceof TrueTypeFont);
-    assertTrue(font instanceof PDType1Font);
-    assertNull(font.getCOSObject().getKey());
-    OS2WindowsMetricsTable oS2Windows = ((TrueTypeFont) fontBoxFont).getOS2Windows();
-    assertEquals(0, oS2Windows.getDefaultChar());
-    assertEquals(1610612895L, oS2Windows.getCodePageRange1());
-    float[][] values = font.getFontMatrix().getValues();
-    assertEquals(3, values.length);
-    assertEquals(3755409408L, oS2Windows.getCodePageRange2());
-    assertEquals(4193550753L, oS2Windows.getCheckSum());
-    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
-    assertArrayEquals(new float[] {0.0f, 4.8828125E-4f, 0.0f}, values[1], 0.0f);
-    assertArrayEquals(new float[] {4.8828125E-4f, 0.0f, 0.0f}, values[0], 0.0f);
-  }
-
-  /**
-   * Test {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}.
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}
-   */
-  @Test
-  @DisplayName("Test copyIntoGraphicsState(PDGraphicsState)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDExtendedGraphicsState.copyIntoGraphicsState(PDGraphicsState)"})
-  void testCopyIntoGraphicsState6() throws IOException {
-    // Arrange
-    COSDictionary fontDictionary = new COSDictionary();
-    COSObjectKey key = new COSObjectKey(1L, 1);
-    fontDictionary.setKey(key);
-    PDMMType1Font font = new PDMMType1Font(fontDictionary);
-
-    PDFontSetting fs = new PDFontSetting();
+    PDMMType1Font font = new PDMMType1Font(new COSDictionary());
     fs.setFont(font);
 
     PDExtendedGraphicsState pdExtendedGraphicsState = new PDExtendedGraphicsState();
@@ -269,27 +229,20 @@ class PDExtendedGraphicsStateDiffblueTest {
     // Assert
     PDFont font2 = gs.getTextState().getFont();
     assertTrue(font2 instanceof PDType1Font);
-    float[][] values = font2.getFontMatrix().getValues();
-    assertEquals(3, values.length);
-    assertSame(key, font2.getCOSObject().getKey());
-    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
-    assertArrayEquals(new float[] {0.0f, 4.8828125E-4f, 0.0f}, values[1], 0.0f);
-    assertArrayEquals(new float[] {4.8828125E-4f, 0.0f, 0.0f}, values[0], 0.0f);
+    assertEquals(font, font2);
   }
 
   /**
    * Test {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}.
-   *
    * <ul>
-   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.
+   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}
    */
   @Test
   @DisplayName("Test copyIntoGraphicsState(PDGraphicsState); given PDExtendedGraphicsState()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.copyIntoGraphicsState(PDGraphicsState)"})
   void testCopyIntoGraphicsState_givenPDExtendedGraphicsState() throws IOException {
     // Arrange
@@ -300,61 +253,59 @@ class PDExtendedGraphicsStateDiffblueTest {
     pdExtendedGraphicsState.copyIntoGraphicsState(gs);
 
     // Assert that nothing has changed
-    assertEquals(0.0f, gs.getTextState().getFontSize());
+    assertEquals(0, gs.getLineCap());
+    assertEquals(0, gs.getLineJoin());
+    assertEquals(0, gs.getOverprintMode());
+    assertFalse(gs.isAlphaSource());
+    assertFalse(gs.isNonStrokingOverprint());
+    assertFalse(gs.isOverprint());
+    assertFalse(gs.isStrokeAdjustment());
   }
 
   /**
    * Test {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}.
-   *
    * <ul>
-   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} RenderingIntent is {@code
-   *       LW}.
+   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} FontSetting is {@link PDFontSetting#PDFontSetting()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}
    */
   @Test
-  @DisplayName(
-      "Test copyIntoGraphicsState(PDGraphicsState); given PDExtendedGraphicsState() RenderingIntent is 'LW'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test copyIntoGraphicsState(PDGraphicsState); given PDExtendedGraphicsState() FontSetting is PDFontSetting()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.copyIntoGraphicsState(PDGraphicsState)"})
-  void testCopyIntoGraphicsState_givenPDExtendedGraphicsStateRenderingIntentIsLw()
-      throws IOException {
+  void testCopyIntoGraphicsState_givenPDExtendedGraphicsStateFontSettingIsPDFontSetting() throws IOException {
     // Arrange
     PDExtendedGraphicsState pdExtendedGraphicsState = new PDExtendedGraphicsState();
-    pdExtendedGraphicsState.setRenderingIntent("LW");
+    pdExtendedGraphicsState.setFontSetting(new PDFontSetting());
     PDGraphicsState gs = new PDGraphicsState(PDRectangle.A0);
 
     // Act
     pdExtendedGraphicsState.copyIntoGraphicsState(gs);
 
-    // Assert
-    assertNull(gs.getTransfer());
-    PDTextState textState = gs.getTextState();
-    assertNull(textState.getFont());
-    assertEquals(0.0f, textState.getFontSize());
-    assertEquals(RenderingIntent.RELATIVE_COLORIMETRIC, gs.getRenderingIntent());
+    // Assert that nothing has changed
+    assertEquals(0, gs.getLineCap());
+    assertEquals(0, gs.getLineJoin());
+    assertEquals(0, gs.getOverprintMode());
+    assertFalse(gs.isAlphaSource());
+    assertFalse(gs.isNonStrokingOverprint());
+    assertFalse(gs.isOverprint());
+    assertFalse(gs.isStrokeAdjustment());
   }
 
   /**
    * Test {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}.
-   *
    * <ul>
-   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} TextKnockoutFlag is
-   *       {@code true}.
+   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} TextKnockoutFlag is {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}
    */
   @Test
-  @DisplayName(
-      "Test copyIntoGraphicsState(PDGraphicsState); given PDExtendedGraphicsState() TextKnockoutFlag is 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test copyIntoGraphicsState(PDGraphicsState); given PDExtendedGraphicsState() TextKnockoutFlag is 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.copyIntoGraphicsState(PDGraphicsState)"})
-  void testCopyIntoGraphicsState_givenPDExtendedGraphicsStateTextKnockoutFlagIsTrue()
-      throws IOException {
+  void testCopyIntoGraphicsState_givenPDExtendedGraphicsStateTextKnockoutFlagIsTrue() throws IOException {
     // Arrange
     PDExtendedGraphicsState pdExtendedGraphicsState = new PDExtendedGraphicsState();
     pdExtendedGraphicsState.setTextKnockoutFlag(true);
@@ -364,27 +315,28 @@ class PDExtendedGraphicsStateDiffblueTest {
     pdExtendedGraphicsState.copyIntoGraphicsState(gs);
 
     // Assert that nothing has changed
-    assertEquals(0.0f, gs.getTextState().getFontSize());
+    assertEquals(0, gs.getLineCap());
+    assertEquals(0, gs.getLineJoin());
+    assertEquals(0, gs.getOverprintMode());
+    assertFalse(gs.isAlphaSource());
+    assertFalse(gs.isNonStrokingOverprint());
+    assertFalse(gs.isOverprint());
+    assertFalse(gs.isStrokeAdjustment());
   }
 
   /**
    * Test {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}.
-   *
    * <ul>
-   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} Transfer2 is {@link
-   *       COSArray#COSArray()}.
+   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} Transfer2 is {@link COSArray#COSArray()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}
    */
   @Test
-  @DisplayName(
-      "Test copyIntoGraphicsState(PDGraphicsState); given PDExtendedGraphicsState() Transfer2 is COSArray()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test copyIntoGraphicsState(PDGraphicsState); given PDExtendedGraphicsState() Transfer2 is COSArray()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.copyIntoGraphicsState(PDGraphicsState)"})
-  void testCopyIntoGraphicsState_givenPDExtendedGraphicsStateTransfer2IsCOSArray()
-      throws IOException {
+  void testCopyIntoGraphicsState_givenPDExtendedGraphicsStateTransfer2IsCOSArray() throws IOException {
     // Arrange
     PDExtendedGraphicsState pdExtendedGraphicsState = new PDExtendedGraphicsState();
     pdExtendedGraphicsState.setTransfer2(new COSArray());
@@ -394,27 +346,28 @@ class PDExtendedGraphicsStateDiffblueTest {
     pdExtendedGraphicsState.copyIntoGraphicsState(gs);
 
     // Assert that nothing has changed
-    assertEquals(0.0f, gs.getTextState().getFontSize());
+    assertEquals(0, gs.getLineCap());
+    assertEquals(0, gs.getLineJoin());
+    assertEquals(0, gs.getOverprintMode());
+    assertFalse(gs.isAlphaSource());
+    assertFalse(gs.isNonStrokingOverprint());
+    assertFalse(gs.isOverprint());
+    assertFalse(gs.isStrokeAdjustment());
   }
 
   /**
    * Test {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}.
-   *
    * <ul>
-   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} Transfer is {@link
-   *       COSArray#COSArray()}.
+   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} Transfer is {@link COSArray#COSArray()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}
    */
   @Test
-  @DisplayName(
-      "Test copyIntoGraphicsState(PDGraphicsState); given PDExtendedGraphicsState() Transfer is COSArray()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test copyIntoGraphicsState(PDGraphicsState); given PDExtendedGraphicsState() Transfer is COSArray()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.copyIntoGraphicsState(PDGraphicsState)"})
-  void testCopyIntoGraphicsState_givenPDExtendedGraphicsStateTransferIsCOSArray()
-      throws IOException {
+  void testCopyIntoGraphicsState_givenPDExtendedGraphicsStateTransferIsCOSArray() throws IOException {
     // Arrange
     PDExtendedGraphicsState pdExtendedGraphicsState = new PDExtendedGraphicsState();
     pdExtendedGraphicsState.setTransfer(new COSArray());
@@ -424,24 +377,26 @@ class PDExtendedGraphicsStateDiffblueTest {
     pdExtendedGraphicsState.copyIntoGraphicsState(gs);
 
     // Assert that nothing has changed
-    assertEquals(0.0f, gs.getTextState().getFontSize());
+    assertEquals(0, gs.getLineCap());
+    assertEquals(0, gs.getLineJoin());
+    assertEquals(0, gs.getOverprintMode());
+    assertFalse(gs.isAlphaSource());
+    assertFalse(gs.isNonStrokingOverprint());
+    assertFalse(gs.isOverprint());
+    assertFalse(gs.isStrokeAdjustment());
   }
 
   /**
    * Test {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}.
-   *
    * <ul>
-   *   <li>Then {@link PDGraphicsState#PDGraphicsState(PDRectangle)} with page is {@link
-   *       PDRectangle#A0} AlphaSource.
+   *   <li>Then {@link PDGraphicsState#PDGraphicsState(PDRectangle)} with page is {@link PDRectangle#A0} AlphaSource.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}
    */
   @Test
-  @DisplayName(
-      "Test copyIntoGraphicsState(PDGraphicsState); then PDGraphicsState(PDRectangle) with page is A0 AlphaSource")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test copyIntoGraphicsState(PDGraphicsState); then PDGraphicsState(PDRectangle) with page is A0 AlphaSource")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.copyIntoGraphicsState(PDGraphicsState)"})
   void testCopyIntoGraphicsState_thenPDGraphicsStateWithPageIsA0AlphaSource() throws IOException {
     // Arrange
@@ -453,29 +408,27 @@ class PDExtendedGraphicsStateDiffblueTest {
     pdExtendedGraphicsState.copyIntoGraphicsState(gs);
 
     // Assert
-    assertNull(gs.getTransfer());
-    PDTextState textState = gs.getTextState();
-    assertNull(textState.getFont());
     assertNull(gs.getRenderingIntent());
-    assertEquals(0.0f, textState.getFontSize());
+    assertEquals(0, gs.getLineCap());
+    assertEquals(0, gs.getLineJoin());
+    assertEquals(0, gs.getOverprintMode());
+    assertFalse(gs.isNonStrokingOverprint());
+    assertFalse(gs.isOverprint());
+    assertFalse(gs.isStrokeAdjustment());
     assertTrue(gs.isAlphaSource());
   }
 
   /**
    * Test {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}.
-   *
    * <ul>
-   *   <li>Then {@link PDGraphicsState#PDGraphicsState(PDRectangle)} with page is {@link
-   *       PDRectangle#A0} LineCap is one.
+   *   <li>Then {@link PDGraphicsState#PDGraphicsState(PDRectangle)} with page is {@link PDRectangle#A0} LineCap is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}
    */
   @Test
-  @DisplayName(
-      "Test copyIntoGraphicsState(PDGraphicsState); then PDGraphicsState(PDRectangle) with page is A0 LineCap is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test copyIntoGraphicsState(PDGraphicsState); then PDGraphicsState(PDRectangle) with page is A0 LineCap is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.copyIntoGraphicsState(PDGraphicsState)"})
   void testCopyIntoGraphicsState_thenPDGraphicsStateWithPageIsA0LineCapIsOne() throws IOException {
     // Arrange
@@ -487,29 +440,27 @@ class PDExtendedGraphicsStateDiffblueTest {
     pdExtendedGraphicsState.copyIntoGraphicsState(gs);
 
     // Assert
-    assertNull(gs.getTransfer());
-    PDTextState textState = gs.getTextState();
-    assertNull(textState.getFont());
     assertNull(gs.getRenderingIntent());
-    assertEquals(0.0f, textState.getFontSize());
+    assertEquals(0, gs.getLineJoin());
+    assertEquals(0, gs.getOverprintMode());
     assertEquals(1, gs.getLineCap());
+    assertFalse(gs.isAlphaSource());
+    assertFalse(gs.isNonStrokingOverprint());
+    assertFalse(gs.isOverprint());
+    assertFalse(gs.isStrokeAdjustment());
   }
 
   /**
    * Test {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}.
-   *
    * <ul>
-   *   <li>Then {@link PDGraphicsState#PDGraphicsState(PDRectangle)} with page is {@link
-   *       PDRectangle#A0} LineJoin is one.
+   *   <li>Then {@link PDGraphicsState#PDGraphicsState(PDRectangle)} with page is {@link PDRectangle#A0} LineJoin is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}
    */
   @Test
-  @DisplayName(
-      "Test copyIntoGraphicsState(PDGraphicsState); then PDGraphicsState(PDRectangle) with page is A0 LineJoin is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test copyIntoGraphicsState(PDGraphicsState); then PDGraphicsState(PDRectangle) with page is A0 LineJoin is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.copyIntoGraphicsState(PDGraphicsState)"})
   void testCopyIntoGraphicsState_thenPDGraphicsStateWithPageIsA0LineJoinIsOne() throws IOException {
     // Arrange
@@ -521,32 +472,29 @@ class PDExtendedGraphicsStateDiffblueTest {
     pdExtendedGraphicsState.copyIntoGraphicsState(gs);
 
     // Assert
-    assertNull(gs.getTransfer());
-    PDTextState textState = gs.getTextState();
-    assertNull(textState.getFont());
     assertNull(gs.getRenderingIntent());
-    assertEquals(0.0f, textState.getFontSize());
+    assertEquals(0, gs.getLineCap());
+    assertEquals(0, gs.getOverprintMode());
     assertEquals(1, gs.getLineJoin());
+    assertFalse(gs.isAlphaSource());
+    assertFalse(gs.isNonStrokingOverprint());
+    assertFalse(gs.isOverprint());
+    assertFalse(gs.isStrokeAdjustment());
   }
 
   /**
    * Test {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}.
-   *
    * <ul>
-   *   <li>Then {@link PDGraphicsState#PDGraphicsState(PDRectangle)} with page is {@link
-   *       PDRectangle#A0} NonStrokingOverprint.
+   *   <li>Then {@link PDGraphicsState#PDGraphicsState(PDRectangle)} with page is {@link PDRectangle#A0} NonStrokingOverprint.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}
    */
   @Test
-  @DisplayName(
-      "Test copyIntoGraphicsState(PDGraphicsState); then PDGraphicsState(PDRectangle) with page is A0 NonStrokingOverprint")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test copyIntoGraphicsState(PDGraphicsState); then PDGraphicsState(PDRectangle) with page is A0 NonStrokingOverprint")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.copyIntoGraphicsState(PDGraphicsState)"})
-  void testCopyIntoGraphicsState_thenPDGraphicsStateWithPageIsA0NonStrokingOverprint()
-      throws IOException {
+  void testCopyIntoGraphicsState_thenPDGraphicsStateWithPageIsA0NonStrokingOverprint() throws IOException {
     // Arrange
     PDExtendedGraphicsState pdExtendedGraphicsState = new PDExtendedGraphicsState();
     pdExtendedGraphicsState.setNonStrokingOverprintControl(true);
@@ -556,29 +504,27 @@ class PDExtendedGraphicsStateDiffblueTest {
     pdExtendedGraphicsState.copyIntoGraphicsState(gs);
 
     // Assert
-    assertNull(gs.getTransfer());
-    PDTextState textState = gs.getTextState();
-    assertNull(textState.getFont());
     assertNull(gs.getRenderingIntent());
-    assertEquals(0.0f, textState.getFontSize());
+    assertEquals(0, gs.getLineCap());
+    assertEquals(0, gs.getLineJoin());
+    assertEquals(0, gs.getOverprintMode());
+    assertFalse(gs.isAlphaSource());
+    assertFalse(gs.isOverprint());
+    assertFalse(gs.isStrokeAdjustment());
     assertTrue(gs.isNonStrokingOverprint());
   }
 
   /**
    * Test {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}.
-   *
    * <ul>
-   *   <li>Then {@link PDGraphicsState#PDGraphicsState(PDRectangle)} with page is {@link
-   *       PDRectangle#A0} Overprint.
+   *   <li>Then {@link PDGraphicsState#PDGraphicsState(PDRectangle)} with page is {@link PDRectangle#A0} Overprint.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}
    */
   @Test
-  @DisplayName(
-      "Test copyIntoGraphicsState(PDGraphicsState); then PDGraphicsState(PDRectangle) with page is A0 Overprint")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test copyIntoGraphicsState(PDGraphicsState); then PDGraphicsState(PDRectangle) with page is A0 Overprint")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.copyIntoGraphicsState(PDGraphicsState)"})
   void testCopyIntoGraphicsState_thenPDGraphicsStateWithPageIsA0Overprint() throws IOException {
     // Arrange
@@ -590,32 +536,29 @@ class PDExtendedGraphicsStateDiffblueTest {
     pdExtendedGraphicsState.copyIntoGraphicsState(gs);
 
     // Assert
-    assertNull(gs.getTransfer());
-    PDTextState textState = gs.getTextState();
-    assertNull(textState.getFont());
     assertNull(gs.getRenderingIntent());
-    assertEquals(0.0f, textState.getFontSize());
+    assertEquals(0, gs.getLineCap());
+    assertEquals(0, gs.getLineJoin());
+    assertEquals(0, gs.getOverprintMode());
+    assertFalse(gs.isAlphaSource());
+    assertFalse(gs.isNonStrokingOverprint());
+    assertFalse(gs.isStrokeAdjustment());
     assertTrue(gs.isOverprint());
   }
 
   /**
    * Test {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}.
-   *
    * <ul>
-   *   <li>Then {@link PDGraphicsState#PDGraphicsState(PDRectangle)} with page is {@link
-   *       PDRectangle#A0} OverprintMode is one.
+   *   <li>Then {@link PDGraphicsState#PDGraphicsState(PDRectangle)} with page is {@link PDRectangle#A0} OverprintMode is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}
    */
   @Test
-  @DisplayName(
-      "Test copyIntoGraphicsState(PDGraphicsState); then PDGraphicsState(PDRectangle) with page is A0 OverprintMode is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test copyIntoGraphicsState(PDGraphicsState); then PDGraphicsState(PDRectangle) with page is A0 OverprintMode is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.copyIntoGraphicsState(PDGraphicsState)"})
-  void testCopyIntoGraphicsState_thenPDGraphicsStateWithPageIsA0OverprintModeIsOne()
-      throws IOException {
+  void testCopyIntoGraphicsState_thenPDGraphicsStateWithPageIsA0OverprintModeIsOne() throws IOException {
     // Arrange
     PDExtendedGraphicsState pdExtendedGraphicsState = new PDExtendedGraphicsState();
     pdExtendedGraphicsState.setOverprintMode(1);
@@ -625,32 +568,29 @@ class PDExtendedGraphicsStateDiffblueTest {
     pdExtendedGraphicsState.copyIntoGraphicsState(gs);
 
     // Assert
-    assertNull(gs.getTransfer());
-    PDTextState textState = gs.getTextState();
-    assertNull(textState.getFont());
     assertNull(gs.getRenderingIntent());
-    assertEquals(0.0f, textState.getFontSize());
+    assertEquals(0, gs.getLineCap());
+    assertEquals(0, gs.getLineJoin());
     assertEquals(1, gs.getOverprintMode());
+    assertFalse(gs.isAlphaSource());
+    assertFalse(gs.isNonStrokingOverprint());
+    assertFalse(gs.isOverprint());
+    assertFalse(gs.isStrokeAdjustment());
   }
 
   /**
    * Test {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}.
-   *
    * <ul>
-   *   <li>Then {@link PDGraphicsState#PDGraphicsState(PDRectangle)} with page is {@link
-   *       PDRectangle#A0} StrokeAdjustment.
+   *   <li>Then {@link PDGraphicsState#PDGraphicsState(PDRectangle)} with page is {@link PDRectangle#A0} StrokeAdjustment.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}
    */
   @Test
-  @DisplayName(
-      "Test copyIntoGraphicsState(PDGraphicsState); then PDGraphicsState(PDRectangle) with page is A0 StrokeAdjustment")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test copyIntoGraphicsState(PDGraphicsState); then PDGraphicsState(PDRectangle) with page is A0 StrokeAdjustment")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.copyIntoGraphicsState(PDGraphicsState)"})
-  void testCopyIntoGraphicsState_thenPDGraphicsStateWithPageIsA0StrokeAdjustment()
-      throws IOException {
+  void testCopyIntoGraphicsState_thenPDGraphicsStateWithPageIsA0StrokeAdjustment() throws IOException {
     // Arrange
     PDExtendedGraphicsState pdExtendedGraphicsState = new PDExtendedGraphicsState();
     pdExtendedGraphicsState.setAutomaticStrokeAdjustment(true);
@@ -660,61 +600,28 @@ class PDExtendedGraphicsStateDiffblueTest {
     pdExtendedGraphicsState.copyIntoGraphicsState(gs);
 
     // Assert
-    assertNull(gs.getTransfer());
-    PDTextState textState = gs.getTextState();
-    assertNull(textState.getFont());
     assertNull(gs.getRenderingIntent());
-    assertEquals(0.0f, textState.getFontSize());
+    assertEquals(0, gs.getLineCap());
+    assertEquals(0, gs.getLineJoin());
+    assertEquals(0, gs.getOverprintMode());
+    assertFalse(gs.isAlphaSource());
+    assertFalse(gs.isNonStrokingOverprint());
+    assertFalse(gs.isOverprint());
     assertTrue(gs.isStrokeAdjustment());
   }
 
   /**
-   * Test {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}.
-   *
-   * <ul>
-   *   <li>Then {@link PDGraphicsState#PDGraphicsState(PDRectangle)} with page is {@link
-   *       PDRectangle#A0} TextState FontSize is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#copyIntoGraphicsState(PDGraphicsState)}
-   */
-  @Test
-  @DisplayName(
-      "Test copyIntoGraphicsState(PDGraphicsState); then PDGraphicsState(PDRectangle) with page is A0 TextState FontSize is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDExtendedGraphicsState.copyIntoGraphicsState(PDGraphicsState)"})
-  void testCopyIntoGraphicsState_thenPDGraphicsStateWithPageIsA0TextStateFontSizeIsOne()
-      throws IOException {
-    // Arrange
-    PDExtendedGraphicsState pdExtendedGraphicsState = new PDExtendedGraphicsState();
-    pdExtendedGraphicsState.setFontSetting(new PDFontSetting());
-    PDGraphicsState gs = new PDGraphicsState(PDRectangle.A0);
-
-    // Act
-    pdExtendedGraphicsState.copyIntoGraphicsState(gs);
-
-    // Assert
-    assertNull(gs.getTransfer());
-    PDTextState textState = gs.getTextState();
-    assertNull(textState.getFont());
-    assertNull(gs.getRenderingIntent());
-    assertEquals(1.0f, textState.getFontSize());
-  }
-
-  /**
    * Test {@link PDExtendedGraphicsState#getCOSObject()}.
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getCOSObject()}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#getCOSObject()}
    */
   @Test
   @DisplayName("Test getCOSObject()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSDictionary PDExtendedGraphicsState.getCOSObject()"})
   void testGetCOSObject() {
     // Arrange and Act
-    COSDictionary actualCOSObject = new PDExtendedGraphicsState().getCOSObject();
+    COSDictionary actualCOSObject = (new PDExtendedGraphicsState()).getCOSObject();
 
     // Assert
     COSUpdateState updateState = actualCOSObject.getUpdateState();
@@ -732,39 +639,33 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#getLineWidth()}.
-   *
    * <ul>
-   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getLineWidth()}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#getLineWidth()}
    */
   @Test
   @DisplayName("Test getLineWidth(); given PDExtendedGraphicsState(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Float PDExtendedGraphicsState.getLineWidth()"})
   void testGetLineWidth_givenPDExtendedGraphicsState_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDExtendedGraphicsState().getLineWidth());
+    assertNull((new PDExtendedGraphicsState()).getLineWidth());
   }
 
   /**
    * Test {@link PDExtendedGraphicsState#setLineWidth(Float)}.
-   *
    * <ul>
-   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} COSObject Values size is
-   *       one.
+   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} COSObject Values size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setLineWidth(Float)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setLineWidth(Float)}
    */
   @Test
-  @DisplayName(
-      "Test setLineWidth(Float); then PDExtendedGraphicsState() COSObject Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setLineWidth(Float); then PDExtendedGraphicsState() COSObject Values size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.setLineWidth(Float)"})
   void testSetLineWidth_thenPDExtendedGraphicsStateCOSObjectValuesSizeIsOne() {
     // Arrange
@@ -781,19 +682,15 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#setLineWidth(Float)}.
-   *
    * <ul>
-   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} LineWidth floatValue is
-   *       ten.
+   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} LineWidth floatValue is ten.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setLineWidth(Float)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setLineWidth(Float)}
    */
   @Test
-  @DisplayName(
-      "Test setLineWidth(Float); then PDExtendedGraphicsState() LineWidth floatValue is ten")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setLineWidth(Float); then PDExtendedGraphicsState() LineWidth floatValue is ten")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.setLineWidth(Float)"})
   void testSetLineWidth_thenPDExtendedGraphicsStateLineWidthFloatValueIsTen() {
     // Arrange
@@ -811,18 +708,15 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#getLineCapStyle()}.
-   *
    * <ul>
-   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} LineCapStyle is minus
-   *       one.
+   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} LineCapStyle is minus one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getLineCapStyle()}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#getLineCapStyle()}
    */
   @Test
   @DisplayName("Test getLineCapStyle(); given PDExtendedGraphicsState() LineCapStyle is minus one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int PDExtendedGraphicsState.getLineCapStyle()"})
   void testGetLineCapStyle_givenPDExtendedGraphicsStateLineCapStyleIsMinusOne() {
     // Arrange
@@ -835,39 +729,33 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#getLineCapStyle()}.
-   *
    * <ul>
-   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.
-   *   <li>Then return minus one.
+   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.</li>
+   *   <li>Then return minus one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getLineCapStyle()}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#getLineCapStyle()}
    */
   @Test
   @DisplayName("Test getLineCapStyle(); given PDExtendedGraphicsState(); then return minus one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int PDExtendedGraphicsState.getLineCapStyle()"})
   void testGetLineCapStyle_givenPDExtendedGraphicsState_thenReturnMinusOne() {
     // Arrange, Act and Assert
-    assertEquals(-1, new PDExtendedGraphicsState().getLineCapStyle());
+    assertEquals(-1, (new PDExtendedGraphicsState()).getLineCapStyle());
   }
 
   /**
    * Test {@link PDExtendedGraphicsState#setLineCapStyle(int)}.
-   *
    * <ul>
-   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} LineCapStyle is {@link
-   *       Integer#MIN_VALUE}.
+   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} LineCapStyle is {@link Integer#MIN_VALUE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setLineCapStyle(int)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setLineCapStyle(int)}
    */
   @Test
-  @DisplayName(
-      "Test setLineCapStyle(int); then PDExtendedGraphicsState() LineCapStyle is MIN_VALUE")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setLineCapStyle(int); then PDExtendedGraphicsState() LineCapStyle is MIN_VALUE")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.setLineCapStyle(int)"})
   void testSetLineCapStyle_thenPDExtendedGraphicsStateLineCapStyleIsMin_value() {
     // Arrange
@@ -885,19 +773,15 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#setLineCapStyle(int)}.
-   *
    * <ul>
-   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} LineCapStyle is minus one
-   *       hundred.
+   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} LineCapStyle is minus one hundred.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setLineCapStyle(int)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setLineCapStyle(int)}
    */
   @Test
-  @DisplayName(
-      "Test setLineCapStyle(int); then PDExtendedGraphicsState() LineCapStyle is minus one hundred")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setLineCapStyle(int); then PDExtendedGraphicsState() LineCapStyle is minus one hundred")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.setLineCapStyle(int)"})
   void testSetLineCapStyle_thenPDExtendedGraphicsStateLineCapStyleIsMinusOneHundred() {
     // Arrange
@@ -915,19 +799,16 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#setLineCapStyle(int)}.
-   *
    * <ul>
-   *   <li>When one.
-   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} LineCapStyle is one.
+   *   <li>When one.</li>
+   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} LineCapStyle is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setLineCapStyle(int)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setLineCapStyle(int)}
    */
   @Test
-  @DisplayName(
-      "Test setLineCapStyle(int); when one; then PDExtendedGraphicsState() LineCapStyle is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setLineCapStyle(int); when one; then PDExtendedGraphicsState() LineCapStyle is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.setLineCapStyle(int)"})
   void testSetLineCapStyle_whenOne_thenPDExtendedGraphicsStateLineCapStyleIsOne() {
     // Arrange
@@ -945,19 +826,15 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#getLineJoinStyle()}.
-   *
    * <ul>
-   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} LineJoinStyle is minus
-   *       one.
+   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} LineJoinStyle is minus one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getLineJoinStyle()}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#getLineJoinStyle()}
    */
   @Test
-  @DisplayName(
-      "Test getLineJoinStyle(); given PDExtendedGraphicsState() LineJoinStyle is minus one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getLineJoinStyle(); given PDExtendedGraphicsState() LineJoinStyle is minus one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int PDExtendedGraphicsState.getLineJoinStyle()"})
   void testGetLineJoinStyle_givenPDExtendedGraphicsStateLineJoinStyleIsMinusOne() {
     // Arrange
@@ -970,39 +847,33 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#getLineJoinStyle()}.
-   *
    * <ul>
-   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.
-   *   <li>Then return minus one.
+   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.</li>
+   *   <li>Then return minus one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getLineJoinStyle()}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#getLineJoinStyle()}
    */
   @Test
   @DisplayName("Test getLineJoinStyle(); given PDExtendedGraphicsState(); then return minus one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int PDExtendedGraphicsState.getLineJoinStyle()"})
   void testGetLineJoinStyle_givenPDExtendedGraphicsState_thenReturnMinusOne() {
     // Arrange, Act and Assert
-    assertEquals(-1, new PDExtendedGraphicsState().getLineJoinStyle());
+    assertEquals(-1, (new PDExtendedGraphicsState()).getLineJoinStyle());
   }
 
   /**
    * Test {@link PDExtendedGraphicsState#setLineJoinStyle(int)}.
-   *
    * <ul>
-   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} LineJoinStyle is {@link
-   *       Integer#MIN_VALUE}.
+   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} LineJoinStyle is {@link Integer#MIN_VALUE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setLineJoinStyle(int)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setLineJoinStyle(int)}
    */
   @Test
-  @DisplayName(
-      "Test setLineJoinStyle(int); then PDExtendedGraphicsState() LineJoinStyle is MIN_VALUE")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setLineJoinStyle(int); then PDExtendedGraphicsState() LineJoinStyle is MIN_VALUE")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.setLineJoinStyle(int)"})
   void testSetLineJoinStyle_thenPDExtendedGraphicsStateLineJoinStyleIsMin_value() {
     // Arrange
@@ -1020,17 +891,15 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#setLineJoinStyle(int)}.
-   *
    * <ul>
-   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} LineJoinStyle is one.
+   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} LineJoinStyle is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setLineJoinStyle(int)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setLineJoinStyle(int)}
    */
   @Test
   @DisplayName("Test setLineJoinStyle(int); then PDExtendedGraphicsState() LineJoinStyle is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.setLineJoinStyle(int)"})
   void testSetLineJoinStyle_thenPDExtendedGraphicsStateLineJoinStyleIsOne() {
     // Arrange
@@ -1048,39 +917,33 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#getMiterLimit()}.
-   *
    * <ul>
-   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getMiterLimit()}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#getMiterLimit()}
    */
   @Test
   @DisplayName("Test getMiterLimit(); given PDExtendedGraphicsState(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Float PDExtendedGraphicsState.getMiterLimit()"})
   void testGetMiterLimit_givenPDExtendedGraphicsState_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDExtendedGraphicsState().getMiterLimit());
+    assertNull((new PDExtendedGraphicsState()).getMiterLimit());
   }
 
   /**
    * Test {@link PDExtendedGraphicsState#setMiterLimit(Float)}.
-   *
    * <ul>
-   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} COSObject Values size is
-   *       one.
+   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} COSObject Values size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setMiterLimit(Float)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setMiterLimit(Float)}
    */
   @Test
-  @DisplayName(
-      "Test setMiterLimit(Float); then PDExtendedGraphicsState() COSObject Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setMiterLimit(Float); then PDExtendedGraphicsState() COSObject Values size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.setMiterLimit(Float)"})
   void testSetMiterLimit_thenPDExtendedGraphicsStateCOSObjectValuesSizeIsOne() {
     // Arrange
@@ -1097,19 +960,15 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#setMiterLimit(Float)}.
-   *
    * <ul>
-   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} MiterLimit floatValue is
-   *       ten.
+   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} MiterLimit floatValue is ten.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setMiterLimit(Float)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setMiterLimit(Float)}
    */
   @Test
-  @DisplayName(
-      "Test setMiterLimit(Float); then PDExtendedGraphicsState() MiterLimit floatValue is ten")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setMiterLimit(Float); then PDExtendedGraphicsState() MiterLimit floatValue is ten")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.setMiterLimit(Float)"})
   void testSetMiterLimit_thenPDExtendedGraphicsStateMiterLimitFloatValueIsTen() {
     // Arrange
@@ -1127,35 +986,110 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#getLineDashPattern()}.
-   *
    * <ul>
-   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getLineDashPattern()}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#getLineDashPattern()}
    */
   @Test
   @DisplayName("Test getLineDashPattern(); given PDExtendedGraphicsState(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDLineDashPattern PDExtendedGraphicsState.getLineDashPattern()"})
   void testGetLineDashPattern_givenPDExtendedGraphicsState_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDExtendedGraphicsState().getLineDashPattern());
+    assertNull((new PDExtendedGraphicsState()).getLineDashPattern());
+  }
+
+  /**
+   * Test {@link PDExtendedGraphicsState#getLineDashPattern()}.
+   * <ul>
+   *   <li>Then return COSObject toList first toList size is one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#getLineDashPattern()}
+   */
+  @Test
+  @DisplayName("Test getLineDashPattern(); then return COSObject toList first toList size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"PDLineDashPattern PDExtendedGraphicsState.getLineDashPattern()"})
+  void testGetLineDashPattern_thenReturnCOSObjectToListFirstToListSizeIsOne() {
+    // Arrange
+    COSArray array = new COSArray();
+    array.add(COSBoolean.FALSE);
+    PDLineDashPattern dashPattern = new PDLineDashPattern(array, 1);
+
+    PDExtendedGraphicsState pdExtendedGraphicsState = new PDExtendedGraphicsState();
+    pdExtendedGraphicsState.setLineDashPattern(dashPattern);
+
+    // Act
+    PDLineDashPattern actualLineDashPattern = pdExtendedGraphicsState.getLineDashPattern();
+
+    // Assert
+    COSBase cOSObject = actualLineDashPattern.getCOSObject();
+    List<? extends COSBase> toListResult = ((COSArray) cOSObject).toList();
+    assertEquals(2, toListResult.size());
+    COSBase getResult = toListResult.get(0);
+    assertTrue(getResult instanceof COSArray);
+    assertTrue(cOSObject instanceof COSArray);
+    List<? extends COSBase> toListResult2 = ((COSArray) getResult).toList();
+    assertEquals(1, toListResult2.size());
+    COSBase getResult2 = toListResult2.get(0);
+    assertTrue(getResult2 instanceof COSFloat);
+    assertNull(getResult2.getKey());
+    assertEquals(1, actualLineDashPattern.getPhase());
+    assertFalse(getResult2.isDirect());
+    assertArrayEquals(new float[]{0.0f}, actualLineDashPattern.getDashArray(), 0.0f);
   }
 
   /**
    * Test {@link PDExtendedGraphicsState#setLineDashPattern(PDLineDashPattern)}.
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setLineDashPattern(PDLineDashPattern)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setLineDashPattern(PDLineDashPattern)}
    */
   @Test
   @DisplayName("Test setLineDashPattern(PDLineDashPattern)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.setLineDashPattern(PDLineDashPattern)"})
   void testSetLineDashPattern() {
+    // Arrange
+    PDExtendedGraphicsState pdExtendedGraphicsState = new PDExtendedGraphicsState();
+
+    COSArray array = new COSArray();
+    array.add(COSBoolean.FALSE);
+
+    // Act
+    pdExtendedGraphicsState.setLineDashPattern(new PDLineDashPattern(array, 1));
+
+    // Assert
+    PDLineDashPattern lineDashPattern = pdExtendedGraphicsState.getLineDashPattern();
+    COSBase cOSObject = lineDashPattern.getCOSObject();
+    List<? extends COSBase> toListResult = ((COSArray) cOSObject).toList();
+    assertEquals(2, toListResult.size());
+    COSBase getResult = toListResult.get(0);
+    assertTrue(getResult instanceof COSArray);
+    assertTrue(cOSObject instanceof COSArray);
+    List<? extends COSBase> toListResult2 = ((COSArray) getResult).toList();
+    assertEquals(1, toListResult2.size());
+    assertTrue(toListResult2.get(0) instanceof COSFloat);
+    assertEquals(1, lineDashPattern.getPhase());
+    assertArrayEquals(new float[]{0.0f}, lineDashPattern.getDashArray(), 0.0f);
+  }
+
+  /**
+   * Test {@link PDExtendedGraphicsState#setLineDashPattern(PDLineDashPattern)}.
+   * <ul>
+   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} LineDashPattern Phase is zero.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setLineDashPattern(PDLineDashPattern)}
+   */
+  @Test
+  @DisplayName("Test setLineDashPattern(PDLineDashPattern); then PDExtendedGraphicsState() LineDashPattern Phase is zero")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDExtendedGraphicsState.setLineDashPattern(PDLineDashPattern)"})
+  void testSetLineDashPattern_thenPDExtendedGraphicsStateLineDashPatternPhaseIsZero() {
     // Arrange
     PDExtendedGraphicsState pdExtendedGraphicsState = new PDExtendedGraphicsState();
 
@@ -1171,46 +1105,39 @@ class PDExtendedGraphicsStateDiffblueTest {
     assertTrue(getResult instanceof COSArray);
     assertTrue(cOSObject instanceof COSArray);
     assertEquals(0, lineDashPattern.getPhase());
-    COSDictionary cOSObject2 = pdExtendedGraphicsState.getCOSObject();
-    assertEquals(2, cOSObject2.getValues().size());
-    assertEquals(2, cOSObject2.size());
     assertTrue(((COSArray) getResult).toList().isEmpty());
-    assertArrayEquals(new float[] {}, lineDashPattern.getDashArray(), 0.0f);
+    assertArrayEquals(new float[]{}, lineDashPattern.getDashArray(), 0.0f);
   }
 
   /**
    * Test {@link PDExtendedGraphicsState#getRenderingIntent()}.
-   *
    * <ul>
-   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getRenderingIntent()}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#getRenderingIntent()}
    */
   @Test
   @DisplayName("Test getRenderingIntent(); given PDExtendedGraphicsState(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"RenderingIntent PDExtendedGraphicsState.getRenderingIntent()"})
   void testGetRenderingIntent_givenPDExtendedGraphicsState_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDExtendedGraphicsState().getRenderingIntent());
+    assertNull((new PDExtendedGraphicsState()).getRenderingIntent());
   }
 
   /**
    * Test {@link PDExtendedGraphicsState#getRenderingIntent()}.
-   *
    * <ul>
-   *   <li>Then return {@code ABSOLUTE_COLORIMETRIC}.
+   *   <li>Then return {@code ABSOLUTE_COLORIMETRIC}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getRenderingIntent()}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#getRenderingIntent()}
    */
   @Test
   @DisplayName("Test getRenderingIntent(); then return 'ABSOLUTE_COLORIMETRIC'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"RenderingIntent PDExtendedGraphicsState.getRenderingIntent()"})
   void testGetRenderingIntent_thenReturnAbsoluteColorimetric() {
     // Arrange
@@ -1218,23 +1145,20 @@ class PDExtendedGraphicsStateDiffblueTest {
     pdExtendedGraphicsState.setRenderingIntent("AbsoluteColorimetric");
 
     // Act and Assert
-    assertEquals(
-        RenderingIntent.ABSOLUTE_COLORIMETRIC, pdExtendedGraphicsState.getRenderingIntent());
+    assertEquals(RenderingIntent.ABSOLUTE_COLORIMETRIC, pdExtendedGraphicsState.getRenderingIntent());
   }
 
   /**
    * Test {@link PDExtendedGraphicsState#getRenderingIntent()}.
-   *
    * <ul>
-   *   <li>Then return {@code RELATIVE_COLORIMETRIC}.
+   *   <li>Then return {@code RELATIVE_COLORIMETRIC}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getRenderingIntent()}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#getRenderingIntent()}
    */
   @Test
   @DisplayName("Test getRenderingIntent(); then return 'RELATIVE_COLORIMETRIC'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"RenderingIntent PDExtendedGraphicsState.getRenderingIntent()"})
   void testGetRenderingIntent_thenReturnRelativeColorimetric() {
     // Arrange
@@ -1242,54 +1166,20 @@ class PDExtendedGraphicsStateDiffblueTest {
     pdExtendedGraphicsState.setRenderingIntent("RI");
 
     // Act and Assert
-    assertEquals(
-        RenderingIntent.RELATIVE_COLORIMETRIC, pdExtendedGraphicsState.getRenderingIntent());
+    assertEquals(RenderingIntent.RELATIVE_COLORIMETRIC, pdExtendedGraphicsState.getRenderingIntent());
   }
 
   /**
    * Test {@link PDExtendedGraphicsState#setRenderingIntent(String)}.
-   *
    * <ul>
-   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} COSObject Values size is
-   *       one.
+   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} COSObject Values size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setRenderingIntent(String)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setRenderingIntent(String)}
    */
   @Test
-  @DisplayName(
-      "Test setRenderingIntent(String); then PDExtendedGraphicsState() COSObject Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDExtendedGraphicsState.setRenderingIntent(String)"})
-  void testSetRenderingIntent_thenPDExtendedGraphicsStateCOSObjectValuesSizeIsOne() {
-    // Arrange
-    PDExtendedGraphicsState pdExtendedGraphicsState = new PDExtendedGraphicsState();
-
-    // Act
-    pdExtendedGraphicsState.setRenderingIntent(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdExtendedGraphicsState.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDExtendedGraphicsState#setRenderingIntent(String)}.
-   *
-   * <ul>
-   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} COSObject Values size is
-   *       two.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setRenderingIntent(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test setRenderingIntent(String); then PDExtendedGraphicsState() COSObject Values size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setRenderingIntent(String); then PDExtendedGraphicsState() COSObject Values size is two")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.setRenderingIntent(String)"})
   void testSetRenderingIntent_thenPDExtendedGraphicsStateCOSObjectValuesSizeIsTwo() {
     // Arrange
@@ -1302,48 +1192,43 @@ class PDExtendedGraphicsStateDiffblueTest {
     COSDictionary cOSObject = pdExtendedGraphicsState.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    assertEquals(
-        RenderingIntent.RELATIVE_COLORIMETRIC, pdExtendedGraphicsState.getRenderingIntent());
+    assertEquals(RenderingIntent.RELATIVE_COLORIMETRIC, pdExtendedGraphicsState.getRenderingIntent());
   }
 
   /**
    * Test {@link PDExtendedGraphicsState#setRenderingIntent(String)}.
-   *
    * <ul>
-   *   <li>When {@code 42}.
+   *   <li>When {@code org.apache.pdfbox.cos.COSNumber}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setRenderingIntent(String)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setRenderingIntent(String)}
    */
   @Test
-  @DisplayName("Test setRenderingIntent(String); when '42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setRenderingIntent(String); when 'org.apache.pdfbox.cos.COSNumber'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.setRenderingIntent(String)"})
-  void testSetRenderingIntent_when42() {
+  void testSetRenderingIntent_whenOrgApachePdfboxCosCOSNumber() {
     // Arrange
     PDExtendedGraphicsState pdExtendedGraphicsState = new PDExtendedGraphicsState();
 
     // Act
-    pdExtendedGraphicsState.setRenderingIntent("42");
+    pdExtendedGraphicsState.setRenderingIntent("org.apache.pdfbox.cos.COSNumber");
 
     // Assert
     COSDictionary cOSObject = pdExtendedGraphicsState.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    assertEquals(
-        RenderingIntent.RELATIVE_COLORIMETRIC, pdExtendedGraphicsState.getRenderingIntent());
+    assertEquals(RenderingIntent.RELATIVE_COLORIMETRIC, pdExtendedGraphicsState.getRenderingIntent());
   }
 
   /**
    * Test {@link PDExtendedGraphicsState#getStrokingOverprintControl()}.
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getStrokingOverprintControl()}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#getStrokingOverprintControl()}
    */
   @Test
   @DisplayName("Test getStrokingOverprintControl()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDExtendedGraphicsState.getStrokingOverprintControl()"})
   void testGetStrokingOverprintControl() {
     // Arrange
@@ -1356,38 +1241,33 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#getStrokingOverprintControl()}.
-   *
    * <ul>
-   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getStrokingOverprintControl()}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#getStrokingOverprintControl()}
    */
   @Test
-  @DisplayName(
-      "Test getStrokingOverprintControl(); given PDExtendedGraphicsState(); then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getStrokingOverprintControl(); given PDExtendedGraphicsState(); then return 'false'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDExtendedGraphicsState.getStrokingOverprintControl()"})
   void testGetStrokingOverprintControl_givenPDExtendedGraphicsState_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new PDExtendedGraphicsState().getStrokingOverprintControl());
+    assertFalse((new PDExtendedGraphicsState()).getStrokingOverprintControl());
   }
 
   /**
    * Test {@link PDExtendedGraphicsState#getStrokingOverprintControl()}.
-   *
    * <ul>
-   *   <li>Then return {@code true}.
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getStrokingOverprintControl()}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#getStrokingOverprintControl()}
    */
   @Test
   @DisplayName("Test getStrokingOverprintControl(); then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDExtendedGraphicsState.getStrokingOverprintControl()"})
   void testGetStrokingOverprintControl_thenReturnTrue() {
     // Arrange
@@ -1400,13 +1280,12 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#setStrokingOverprintControl(boolean)}.
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setStrokingOverprintControl(boolean)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setStrokingOverprintControl(boolean)}
    */
   @Test
   @DisplayName("Test setStrokingOverprintControl(boolean)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.setStrokingOverprintControl(boolean)"})
   void testSetStrokingOverprintControl() {
     // Arrange
@@ -1425,13 +1304,12 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#setStrokingOverprintControl(boolean)}.
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setStrokingOverprintControl(boolean)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setStrokingOverprintControl(boolean)}
    */
   @Test
   @DisplayName("Test setStrokingOverprintControl(boolean)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.setStrokingOverprintControl(boolean)"})
   void testSetStrokingOverprintControl2() {
     // Arrange
@@ -1450,13 +1328,12 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#getNonStrokingOverprintControl()}.
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getNonStrokingOverprintControl()}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#getNonStrokingOverprintControl()}
    */
   @Test
   @DisplayName("Test getNonStrokingOverprintControl()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDExtendedGraphicsState.getNonStrokingOverprintControl()"})
   void testGetNonStrokingOverprintControl() {
     // Arrange
@@ -1469,38 +1346,33 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#getNonStrokingOverprintControl()}.
-   *
    * <ul>
-   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getNonStrokingOverprintControl()}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#getNonStrokingOverprintControl()}
    */
   @Test
-  @DisplayName(
-      "Test getNonStrokingOverprintControl(); given PDExtendedGraphicsState(); then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getNonStrokingOverprintControl(); given PDExtendedGraphicsState(); then return 'false'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDExtendedGraphicsState.getNonStrokingOverprintControl()"})
   void testGetNonStrokingOverprintControl_givenPDExtendedGraphicsState_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new PDExtendedGraphicsState().getNonStrokingOverprintControl());
+    assertFalse((new PDExtendedGraphicsState()).getNonStrokingOverprintControl());
   }
 
   /**
    * Test {@link PDExtendedGraphicsState#getNonStrokingOverprintControl()}.
-   *
    * <ul>
-   *   <li>Then return {@code true}.
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getNonStrokingOverprintControl()}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#getNonStrokingOverprintControl()}
    */
   @Test
   @DisplayName("Test getNonStrokingOverprintControl(); then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDExtendedGraphicsState.getNonStrokingOverprintControl()"})
   void testGetNonStrokingOverprintControl_thenReturnTrue() {
     // Arrange
@@ -1513,13 +1385,12 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#setNonStrokingOverprintControl(boolean)}.
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setNonStrokingOverprintControl(boolean)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setNonStrokingOverprintControl(boolean)}
    */
   @Test
   @DisplayName("Test setNonStrokingOverprintControl(boolean)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.setNonStrokingOverprintControl(boolean)"})
   void testSetNonStrokingOverprintControl() {
     // Arrange
@@ -1537,13 +1408,12 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#setNonStrokingOverprintControl(boolean)}.
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setNonStrokingOverprintControl(boolean)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setNonStrokingOverprintControl(boolean)}
    */
   @Test
   @DisplayName("Test setNonStrokingOverprintControl(boolean)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.setNonStrokingOverprintControl(boolean)"})
   void testSetNonStrokingOverprintControl2() {
     // Arrange
@@ -1561,37 +1431,33 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#getOverprintMode()}.
-   *
    * <ul>
-   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getOverprintMode()}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#getOverprintMode()}
    */
   @Test
   @DisplayName("Test getOverprintMode(); given PDExtendedGraphicsState(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Integer PDExtendedGraphicsState.getOverprintMode()"})
   void testGetOverprintMode_givenPDExtendedGraphicsState_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDExtendedGraphicsState().getOverprintMode());
+    assertNull((new PDExtendedGraphicsState()).getOverprintMode());
   }
 
   /**
    * Test {@link PDExtendedGraphicsState#getOverprintMode()}.
-   *
    * <ul>
-   *   <li>Then return intValue is one.
+   *   <li>Then return intValue is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getOverprintMode()}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#getOverprintMode()}
    */
   @Test
   @DisplayName("Test getOverprintMode(); then return intValue is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Integer PDExtendedGraphicsState.getOverprintMode()"})
   void testGetOverprintMode_thenReturnIntValueIsOne() {
     // Arrange
@@ -1604,19 +1470,15 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#setOverprintMode(Integer)}.
-   *
    * <ul>
-   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} COSObject Values size is
-   *       one.
+   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} COSObject Values size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setOverprintMode(Integer)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setOverprintMode(Integer)}
    */
   @Test
-  @DisplayName(
-      "Test setOverprintMode(Integer); then PDExtendedGraphicsState() COSObject Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setOverprintMode(Integer); then PDExtendedGraphicsState() COSObject Values size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.setOverprintMode(Integer)"})
   void testSetOverprintMode_thenPDExtendedGraphicsStateCOSObjectValuesSizeIsOne() {
     // Arrange
@@ -1633,19 +1495,15 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#setOverprintMode(Integer)}.
-   *
    * <ul>
-   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} OverprintMode intValue is
-   *       {@link Integer#MIN_VALUE}.
+   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} OverprintMode intValue is {@link Integer#MIN_VALUE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setOverprintMode(Integer)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setOverprintMode(Integer)}
    */
   @Test
-  @DisplayName(
-      "Test setOverprintMode(Integer); then PDExtendedGraphicsState() OverprintMode intValue is MIN_VALUE")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setOverprintMode(Integer); then PDExtendedGraphicsState() OverprintMode intValue is MIN_VALUE")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.setOverprintMode(Integer)"})
   void testSetOverprintMode_thenPDExtendedGraphicsStateOverprintModeIntValueIsMin_value() {
     // Arrange
@@ -1663,19 +1521,15 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#setOverprintMode(Integer)}.
-   *
    * <ul>
-   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} OverprintMode intValue is
-   *       one.
+   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} OverprintMode intValue is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setOverprintMode(Integer)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setOverprintMode(Integer)}
    */
   @Test
-  @DisplayName(
-      "Test setOverprintMode(Integer); then PDExtendedGraphicsState() OverprintMode intValue is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setOverprintMode(Integer); then PDExtendedGraphicsState() OverprintMode intValue is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.setOverprintMode(Integer)"})
   void testSetOverprintMode_thenPDExtendedGraphicsStateOverprintModeIntValueIsOne() {
     // Arrange
@@ -1693,37 +1547,33 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#getFontSetting()}.
-   *
    * <ul>
-   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getFontSetting()}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#getFontSetting()}
    */
   @Test
   @DisplayName("Test getFontSetting(); given PDExtendedGraphicsState(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDFontSetting PDExtendedGraphicsState.getFontSetting()"})
   void testGetFontSetting_givenPDExtendedGraphicsState_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDExtendedGraphicsState().getFontSetting());
+    assertNull((new PDExtendedGraphicsState()).getFontSetting());
   }
 
   /**
    * Test {@link PDExtendedGraphicsState#getFontSetting()}.
-   *
    * <ul>
-   *   <li>Then COSObject return {@link COSArray}.
+   *   <li>Then COSObject return {@link COSArray}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getFontSetting()}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#getFontSetting()}
    */
   @Test
   @DisplayName("Test getFontSetting(); then COSObject return COSArray")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDFontSetting PDExtendedGraphicsState.getFontSetting()"})
   void testGetFontSetting_thenCOSObjectReturnCOSArray() throws IOException {
     // Arrange
@@ -1749,19 +1599,15 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#setFontSetting(PDFontSetting)}.
-   *
    * <ul>
-   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} FontSetting Font is {@code
-   *       null}.
+   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} FontSetting Font is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setFontSetting(PDFontSetting)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setFontSetting(PDFontSetting)}
    */
   @Test
-  @DisplayName(
-      "Test setFontSetting(PDFontSetting); then PDExtendedGraphicsState() FontSetting Font is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setFontSetting(PDFontSetting); then PDExtendedGraphicsState() FontSetting Font is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.setFontSetting(PDFontSetting)"})
   void testSetFontSetting_thenPDExtendedGraphicsStateFontSettingFontIsNull() throws IOException {
     // Arrange
@@ -1781,20 +1627,16 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#setFontSetting(PDFontSetting)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} COSObject Values size is
-   *       one.
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} COSObject Values size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setFontSetting(PDFontSetting)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setFontSetting(PDFontSetting)}
    */
   @Test
-  @DisplayName(
-      "Test setFontSetting(PDFontSetting); when 'null'; then PDExtendedGraphicsState() COSObject Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setFontSetting(PDFontSetting); when 'null'; then PDExtendedGraphicsState() COSObject Values size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.setFontSetting(PDFontSetting)"})
   void testSetFontSetting_whenNull_thenPDExtendedGraphicsStateCOSObjectValuesSizeIsOne() {
     // Arrange
@@ -1811,33 +1653,30 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#getFlatnessTolerance()}.
-   *
    * <ul>
-   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getFlatnessTolerance()}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#getFlatnessTolerance()}
    */
   @Test
   @DisplayName("Test getFlatnessTolerance(); given PDExtendedGraphicsState(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Float PDExtendedGraphicsState.getFlatnessTolerance()"})
   void testGetFlatnessTolerance_givenPDExtendedGraphicsState_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDExtendedGraphicsState().getFlatnessTolerance());
+    assertNull((new PDExtendedGraphicsState()).getFlatnessTolerance());
   }
 
   /**
    * Test {@link PDExtendedGraphicsState#setFlatnessTolerance(Float)}.
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setFlatnessTolerance(Float)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setFlatnessTolerance(Float)}
    */
   @Test
   @DisplayName("Test setFlatnessTolerance(Float)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.setFlatnessTolerance(Float)"})
   void testSetFlatnessTolerance() {
     // Arrange
@@ -1855,19 +1694,15 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#setFlatnessTolerance(Float)}.
-   *
    * <ul>
-   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} COSObject Values size is
-   *       one.
+   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} COSObject Values size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setFlatnessTolerance(Float)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setFlatnessTolerance(Float)}
    */
   @Test
-  @DisplayName(
-      "Test setFlatnessTolerance(Float); then PDExtendedGraphicsState() COSObject Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setFlatnessTolerance(Float); then PDExtendedGraphicsState() COSObject Values size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.setFlatnessTolerance(Float)"})
   void testSetFlatnessTolerance_thenPDExtendedGraphicsStateCOSObjectValuesSizeIsOne() {
     // Arrange
@@ -1884,33 +1719,30 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#getSmoothnessTolerance()}.
-   *
    * <ul>
-   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getSmoothnessTolerance()}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#getSmoothnessTolerance()}
    */
   @Test
   @DisplayName("Test getSmoothnessTolerance(); given PDExtendedGraphicsState(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Float PDExtendedGraphicsState.getSmoothnessTolerance()"})
   void testGetSmoothnessTolerance_givenPDExtendedGraphicsState_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDExtendedGraphicsState().getSmoothnessTolerance());
+    assertNull((new PDExtendedGraphicsState()).getSmoothnessTolerance());
   }
 
   /**
    * Test {@link PDExtendedGraphicsState#setSmoothnessTolerance(Float)}.
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setSmoothnessTolerance(Float)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setSmoothnessTolerance(Float)}
    */
   @Test
   @DisplayName("Test setSmoothnessTolerance(Float)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.setSmoothnessTolerance(Float)"})
   void testSetSmoothnessTolerance() {
     // Arrange
@@ -1928,19 +1760,15 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#setSmoothnessTolerance(Float)}.
-   *
    * <ul>
-   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} COSObject Values size is
-   *       one.
+   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} COSObject Values size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setSmoothnessTolerance(Float)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setSmoothnessTolerance(Float)}
    */
   @Test
-  @DisplayName(
-      "Test setSmoothnessTolerance(Float); then PDExtendedGraphicsState() COSObject Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setSmoothnessTolerance(Float); then PDExtendedGraphicsState() COSObject Values size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.setSmoothnessTolerance(Float)"})
   void testSetSmoothnessTolerance_thenPDExtendedGraphicsStateCOSObjectValuesSizeIsOne() {
     // Arrange
@@ -1957,13 +1785,12 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#getAutomaticStrokeAdjustment()}.
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getAutomaticStrokeAdjustment()}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#getAutomaticStrokeAdjustment()}
    */
   @Test
   @DisplayName("Test getAutomaticStrokeAdjustment()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDExtendedGraphicsState.getAutomaticStrokeAdjustment()"})
   void testGetAutomaticStrokeAdjustment() {
     // Arrange
@@ -1976,38 +1803,33 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#getAutomaticStrokeAdjustment()}.
-   *
    * <ul>
-   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getAutomaticStrokeAdjustment()}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#getAutomaticStrokeAdjustment()}
    */
   @Test
-  @DisplayName(
-      "Test getAutomaticStrokeAdjustment(); given PDExtendedGraphicsState(); then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getAutomaticStrokeAdjustment(); given PDExtendedGraphicsState(); then return 'false'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDExtendedGraphicsState.getAutomaticStrokeAdjustment()"})
   void testGetAutomaticStrokeAdjustment_givenPDExtendedGraphicsState_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new PDExtendedGraphicsState().getAutomaticStrokeAdjustment());
+    assertFalse((new PDExtendedGraphicsState()).getAutomaticStrokeAdjustment());
   }
 
   /**
    * Test {@link PDExtendedGraphicsState#getAutomaticStrokeAdjustment()}.
-   *
    * <ul>
-   *   <li>Then return {@code true}.
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getAutomaticStrokeAdjustment()}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#getAutomaticStrokeAdjustment()}
    */
   @Test
   @DisplayName("Test getAutomaticStrokeAdjustment(); then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDExtendedGraphicsState.getAutomaticStrokeAdjustment()"})
   void testGetAutomaticStrokeAdjustment_thenReturnTrue() {
     // Arrange
@@ -2020,13 +1842,12 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#setAutomaticStrokeAdjustment(boolean)}.
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setAutomaticStrokeAdjustment(boolean)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setAutomaticStrokeAdjustment(boolean)}
    */
   @Test
   @DisplayName("Test setAutomaticStrokeAdjustment(boolean)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.setAutomaticStrokeAdjustment(boolean)"})
   void testSetAutomaticStrokeAdjustment() {
     // Arrange
@@ -2044,13 +1865,12 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#setAutomaticStrokeAdjustment(boolean)}.
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setAutomaticStrokeAdjustment(boolean)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setAutomaticStrokeAdjustment(boolean)}
    */
   @Test
   @DisplayName("Test setAutomaticStrokeAdjustment(boolean)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.setAutomaticStrokeAdjustment(boolean)"})
   void testSetAutomaticStrokeAdjustment2() {
     // Arrange
@@ -2068,34 +1888,30 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#getStrokingAlphaConstant()}.
-   *
    * <ul>
-   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getStrokingAlphaConstant()}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#getStrokingAlphaConstant()}
    */
   @Test
-  @DisplayName(
-      "Test getStrokingAlphaConstant(); given PDExtendedGraphicsState(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getStrokingAlphaConstant(); given PDExtendedGraphicsState(); then return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Float PDExtendedGraphicsState.getStrokingAlphaConstant()"})
   void testGetStrokingAlphaConstant_givenPDExtendedGraphicsState_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDExtendedGraphicsState().getStrokingAlphaConstant());
+    assertNull((new PDExtendedGraphicsState()).getStrokingAlphaConstant());
   }
 
   /**
    * Test {@link PDExtendedGraphicsState#setStrokingAlphaConstant(Float)}.
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setStrokingAlphaConstant(Float)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setStrokingAlphaConstant(Float)}
    */
   @Test
   @DisplayName("Test setStrokingAlphaConstant(Float)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.setStrokingAlphaConstant(Float)"})
   void testSetStrokingAlphaConstant() {
     // Arrange
@@ -2113,19 +1929,15 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#setStrokingAlphaConstant(Float)}.
-   *
    * <ul>
-   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} COSObject Values size is
-   *       one.
+   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} COSObject Values size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setStrokingAlphaConstant(Float)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setStrokingAlphaConstant(Float)}
    */
   @Test
-  @DisplayName(
-      "Test setStrokingAlphaConstant(Float); then PDExtendedGraphicsState() COSObject Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setStrokingAlphaConstant(Float); then PDExtendedGraphicsState() COSObject Values size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.setStrokingAlphaConstant(Float)"})
   void testSetStrokingAlphaConstant_thenPDExtendedGraphicsStateCOSObjectValuesSizeIsOne() {
     // Arrange
@@ -2142,34 +1954,30 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#getNonStrokingAlphaConstant()}.
-   *
    * <ul>
-   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getNonStrokingAlphaConstant()}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#getNonStrokingAlphaConstant()}
    */
   @Test
-  @DisplayName(
-      "Test getNonStrokingAlphaConstant(); given PDExtendedGraphicsState(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getNonStrokingAlphaConstant(); given PDExtendedGraphicsState(); then return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Float PDExtendedGraphicsState.getNonStrokingAlphaConstant()"})
   void testGetNonStrokingAlphaConstant_givenPDExtendedGraphicsState_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDExtendedGraphicsState().getNonStrokingAlphaConstant());
+    assertNull((new PDExtendedGraphicsState()).getNonStrokingAlphaConstant());
   }
 
   /**
    * Test {@link PDExtendedGraphicsState#setNonStrokingAlphaConstant(Float)}.
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setNonStrokingAlphaConstant(Float)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setNonStrokingAlphaConstant(Float)}
    */
   @Test
   @DisplayName("Test setNonStrokingAlphaConstant(Float)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.setNonStrokingAlphaConstant(Float)"})
   void testSetNonStrokingAlphaConstant() {
     // Arrange
@@ -2187,13 +1995,12 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#setNonStrokingAlphaConstant(Float)}.
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setNonStrokingAlphaConstant(Float)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setNonStrokingAlphaConstant(Float)}
    */
   @Test
   @DisplayName("Test setNonStrokingAlphaConstant(Float)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.setNonStrokingAlphaConstant(Float)"})
   void testSetNonStrokingAlphaConstant2() {
     // Arrange
@@ -2210,19 +2017,15 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#getAlphaSourceFlag()}.
-   *
    * <ul>
-   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} AlphaSourceFlag is {@code
-   *       false}.
+   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} AlphaSourceFlag is {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getAlphaSourceFlag()}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#getAlphaSourceFlag()}
    */
   @Test
-  @DisplayName(
-      "Test getAlphaSourceFlag(); given PDExtendedGraphicsState() AlphaSourceFlag is 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getAlphaSourceFlag(); given PDExtendedGraphicsState() AlphaSourceFlag is 'false'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDExtendedGraphicsState.getAlphaSourceFlag()"})
   void testGetAlphaSourceFlag_givenPDExtendedGraphicsStateAlphaSourceFlagIsFalse() {
     // Arrange
@@ -2235,37 +2038,33 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#getAlphaSourceFlag()}.
-   *
    * <ul>
-   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getAlphaSourceFlag()}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#getAlphaSourceFlag()}
    */
   @Test
   @DisplayName("Test getAlphaSourceFlag(); given PDExtendedGraphicsState(); then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDExtendedGraphicsState.getAlphaSourceFlag()"})
   void testGetAlphaSourceFlag_givenPDExtendedGraphicsState_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new PDExtendedGraphicsState().getAlphaSourceFlag());
+    assertFalse((new PDExtendedGraphicsState()).getAlphaSourceFlag());
   }
 
   /**
    * Test {@link PDExtendedGraphicsState#getAlphaSourceFlag()}.
-   *
    * <ul>
-   *   <li>Then return {@code true}.
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getAlphaSourceFlag()}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#getAlphaSourceFlag()}
    */
   @Test
   @DisplayName("Test getAlphaSourceFlag(); then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDExtendedGraphicsState.getAlphaSourceFlag()"})
   void testGetAlphaSourceFlag_thenReturnTrue() {
     // Arrange
@@ -2278,17 +2077,15 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#setAlphaSourceFlag(boolean)}.
-   *
    * <ul>
-   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} AlphaSourceFlag.
+   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} AlphaSourceFlag.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setAlphaSourceFlag(boolean)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setAlphaSourceFlag(boolean)}
    */
   @Test
   @DisplayName("Test setAlphaSourceFlag(boolean); then PDExtendedGraphicsState() AlphaSourceFlag")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.setAlphaSourceFlag(boolean)"})
   void testSetAlphaSourceFlag_thenPDExtendedGraphicsStateAlphaSourceFlag() {
     // Arrange
@@ -2306,19 +2103,16 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#setAlphaSourceFlag(boolean)}.
-   *
    * <ul>
-   *   <li>When {@code false}.
-   *   <li>Then not {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} AlphaSourceFlag.
+   *   <li>When {@code false}.</li>
+   *   <li>Then not {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} AlphaSourceFlag.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setAlphaSourceFlag(boolean)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setAlphaSourceFlag(boolean)}
    */
   @Test
-  @DisplayName(
-      "Test setAlphaSourceFlag(boolean); when 'false'; then not PDExtendedGraphicsState() AlphaSourceFlag")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setAlphaSourceFlag(boolean); when 'false'; then not PDExtendedGraphicsState() AlphaSourceFlag")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.setAlphaSourceFlag(boolean)"})
   void testSetAlphaSourceFlag_whenFalse_thenNotPDExtendedGraphicsStateAlphaSourceFlag() {
     // Arrange
@@ -2336,117 +2130,107 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#getBlendMode()}.
-   *
    * <ul>
-   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} BlendMode is {@link
-   *       BlendMode#COLOR}.
-   *   <li>Then return {@link BlendMode#COLOR}.
+   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} BlendMode is {@link BlendMode#COLOR}.</li>
+   *   <li>Then return {@link BlendMode#COLOR}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getBlendMode()}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#getBlendMode()}
    */
   @Test
-  @DisplayName(
-      "Test getBlendMode(); given PDExtendedGraphicsState() BlendMode is COLOR; then return COLOR")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getBlendMode(); given PDExtendedGraphicsState() BlendMode is COLOR; then return COLOR")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"BlendMode PDExtendedGraphicsState.getBlendMode()"})
   void testGetBlendMode_givenPDExtendedGraphicsStateBlendModeIsColor_thenReturnColor() {
     // Arrange
     PDExtendedGraphicsState pdExtendedGraphicsState = new PDExtendedGraphicsState();
     pdExtendedGraphicsState.setBlendMode(BlendMode.COLOR);
 
-    // Act and Assert
-    assertSame(BlendMode.COLOR, pdExtendedGraphicsState.getBlendMode());
+    // Act
+    BlendMode actualBlendMode = pdExtendedGraphicsState.getBlendMode();
+
+    // Assert
+    assertSame(actualBlendMode.COLOR, actualBlendMode);
   }
 
   /**
    * Test {@link PDExtendedGraphicsState#getBlendMode()}.
-   *
    * <ul>
-   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.
-   *   <li>Then return {@link BlendMode#NORMAL}.
+   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.</li>
+   *   <li>Then return {@link BlendMode#NORMAL}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getBlendMode()}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#getBlendMode()}
    */
   @Test
   @DisplayName("Test getBlendMode(); given PDExtendedGraphicsState(); then return NORMAL")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"BlendMode PDExtendedGraphicsState.getBlendMode()"})
   void testGetBlendMode_givenPDExtendedGraphicsState_thenReturnNormal() {
-    // Arrange, Act and Assert
-    assertSame(BlendMode.NORMAL, new PDExtendedGraphicsState().getBlendMode());
+    // Arrange and Act
+    BlendMode actualBlendMode = (new PDExtendedGraphicsState()).getBlendMode();
+
+    // Assert
+    assertSame(actualBlendMode.NORMAL, actualBlendMode);
   }
 
   /**
    * Test {@link PDExtendedGraphicsState#setBlendMode(BlendMode)}.
-   *
    * <ul>
-   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} COSObject Values size is
-   *       two.
+   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} COSObject Values size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setBlendMode(BlendMode)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setBlendMode(BlendMode)}
    */
   @Test
-  @DisplayName(
-      "Test setBlendMode(BlendMode); then PDExtendedGraphicsState() COSObject Values size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setBlendMode(BlendMode); then PDExtendedGraphicsState() COSObject Values size is two")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.setBlendMode(BlendMode)"})
   void testSetBlendMode_thenPDExtendedGraphicsStateCOSObjectValuesSizeIsTwo() {
     // Arrange
     PDExtendedGraphicsState pdExtendedGraphicsState = new PDExtendedGraphicsState();
+    BlendMode bm = BlendMode.COLOR;
 
     // Act
-    pdExtendedGraphicsState.setBlendMode(BlendMode.COLOR);
+    pdExtendedGraphicsState.setBlendMode(bm);
 
     // Assert
     COSDictionary cOSObject = pdExtendedGraphicsState.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    assertSame(BlendMode.COLOR, pdExtendedGraphicsState.getBlendMode());
+    BlendMode expectedBlendMode = bm.COLOR;
+    assertSame(expectedBlendMode, pdExtendedGraphicsState.getBlendMode());
   }
 
   /**
    * Test {@link PDExtendedGraphicsState#getSoftMask()}.
-   *
    * <ul>
-   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getSoftMask()}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#getSoftMask()}
    */
   @Test
   @DisplayName("Test getSoftMask(); given PDExtendedGraphicsState(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.apache.pdfbox.pdmodel.graphics.state.PDSoftMask PDExtendedGraphicsState.getSoftMask()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"org.apache.pdfbox.pdmodel.graphics.state.PDSoftMask PDExtendedGraphicsState.getSoftMask()"})
   void testGetSoftMask_givenPDExtendedGraphicsState_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDExtendedGraphicsState().getSoftMask());
+    assertNull((new PDExtendedGraphicsState()).getSoftMask());
   }
 
   /**
    * Test {@link PDExtendedGraphicsState#getTextKnockoutFlag()}.
-   *
    * <ul>
-   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} TextKnockoutFlag is
-   *       {@code true}.
+   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} TextKnockoutFlag is {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getTextKnockoutFlag()}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#getTextKnockoutFlag()}
    */
   @Test
-  @DisplayName(
-      "Test getTextKnockoutFlag(); given PDExtendedGraphicsState() TextKnockoutFlag is 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getTextKnockoutFlag(); given PDExtendedGraphicsState() TextKnockoutFlag is 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDExtendedGraphicsState.getTextKnockoutFlag()"})
   void testGetTextKnockoutFlag_givenPDExtendedGraphicsStateTextKnockoutFlagIsTrue() {
     // Arrange
@@ -2459,37 +2243,33 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#getTextKnockoutFlag()}.
-   *
    * <ul>
-   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.
-   *   <li>Then return {@code true}.
+   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getTextKnockoutFlag()}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#getTextKnockoutFlag()}
    */
   @Test
   @DisplayName("Test getTextKnockoutFlag(); given PDExtendedGraphicsState(); then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDExtendedGraphicsState.getTextKnockoutFlag()"})
   void testGetTextKnockoutFlag_givenPDExtendedGraphicsState_thenReturnTrue() {
     // Arrange, Act and Assert
-    assertTrue(new PDExtendedGraphicsState().getTextKnockoutFlag());
+    assertTrue((new PDExtendedGraphicsState()).getTextKnockoutFlag());
   }
 
   /**
    * Test {@link PDExtendedGraphicsState#getTextKnockoutFlag()}.
-   *
    * <ul>
-   *   <li>Then return {@code false}.
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getTextKnockoutFlag()}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#getTextKnockoutFlag()}
    */
   @Test
   @DisplayName("Test getTextKnockoutFlag(); then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDExtendedGraphicsState.getTextKnockoutFlag()"})
   void testGetTextKnockoutFlag_thenReturnFalse() {
     // Arrange
@@ -2502,17 +2282,15 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#setTextKnockoutFlag(boolean)}.
-   *
    * <ul>
-   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} TextKnockoutFlag.
+   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} TextKnockoutFlag.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setTextKnockoutFlag(boolean)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setTextKnockoutFlag(boolean)}
    */
   @Test
   @DisplayName("Test setTextKnockoutFlag(boolean); then PDExtendedGraphicsState() TextKnockoutFlag")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.setTextKnockoutFlag(boolean)"})
   void testSetTextKnockoutFlag_thenPDExtendedGraphicsStateTextKnockoutFlag() {
     // Arrange
@@ -2530,19 +2308,16 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#setTextKnockoutFlag(boolean)}.
-   *
    * <ul>
-   *   <li>When {@code false}.
-   *   <li>Then not {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} TextKnockoutFlag.
+   *   <li>When {@code false}.</li>
+   *   <li>Then not {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} TextKnockoutFlag.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setTextKnockoutFlag(boolean)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setTextKnockoutFlag(boolean)}
    */
   @Test
-  @DisplayName(
-      "Test setTextKnockoutFlag(boolean); when 'false'; then not PDExtendedGraphicsState() TextKnockoutFlag")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setTextKnockoutFlag(boolean); when 'false'; then not PDExtendedGraphicsState() TextKnockoutFlag")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.setTextKnockoutFlag(boolean)"})
   void testSetTextKnockoutFlag_whenFalse_thenNotPDExtendedGraphicsStateTextKnockoutFlag() {
     // Arrange
@@ -2560,25 +2335,21 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#getTransfer()}.
-   *
    * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
-   *   <li>Then return {@link COSBoolean#FALSE}.
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
+   *   <li>Then return {@link COSBoolean#FALSE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getTransfer()}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#getTransfer()}
    */
   @Test
-  @DisplayName(
-      "Test getTransfer(); given COSObjectKey(long, int) with num is one and gen is one; then return FALSE")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getTransfer(); given COSObjectKey(long, int) with num is one and gen is one; then return FALSE")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSBase PDExtendedGraphicsState.getTransfer()"})
   void testGetTransfer_givenCOSObjectKeyWithNumIsOneAndGenIsOne_thenReturnFalse() {
     // Arrange
     PDExtendedGraphicsState pdExtendedGraphicsState = new PDExtendedGraphicsState();
-    COSObject transfer = new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1));
-    pdExtendedGraphicsState.setTransfer(transfer);
+    pdExtendedGraphicsState.setTransfer(new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1)));
 
     // Act
     COSBase actualTransfer = pdExtendedGraphicsState.getTransfer();
@@ -2589,20 +2360,16 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#getTransfer()}.
-   *
    * <ul>
-   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} Transfer is {@link
-   *       COSArray#COSArray()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} Transfer is {@link COSArray#COSArray()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getTransfer()}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#getTransfer()}
    */
   @Test
-  @DisplayName(
-      "Test getTransfer(); given PDExtendedGraphicsState() Transfer is COSArray(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getTransfer(); given PDExtendedGraphicsState() Transfer is COSArray(); then return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSBase PDExtendedGraphicsState.getTransfer()"})
   void testGetTransfer_givenPDExtendedGraphicsStateTransferIsCOSArray_thenReturnNull() {
     // Arrange
@@ -2615,38 +2382,33 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#getTransfer()}.
-   *
    * <ul>
-   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getTransfer()}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#getTransfer()}
    */
   @Test
   @DisplayName("Test getTransfer(); given PDExtendedGraphicsState(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSBase PDExtendedGraphicsState.getTransfer()"})
   void testGetTransfer_givenPDExtendedGraphicsState_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDExtendedGraphicsState().getTransfer());
+    assertNull((new PDExtendedGraphicsState()).getTransfer());
   }
 
   /**
    * Test {@link PDExtendedGraphicsState#setTransfer(COSBase)}.
-   *
    * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setTransfer(COSBase)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setTransfer(COSBase)}
    */
   @Test
-  @DisplayName(
-      "Test setTransfer(COSBase); given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setTransfer(COSBase); given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.setTransfer(COSBase)"})
   void testSetTransfer_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
@@ -2667,19 +2429,16 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#setTransfer(COSBase)}.
-   *
    * <ul>
-   *   <li>When {@link COSArray#COSArray()}.
-   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} Transfer is {@code null}.
+   *   <li>When {@link COSArray#COSArray()}.</li>
+   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} Transfer is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setTransfer(COSBase)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setTransfer(COSBase)}
    */
   @Test
-  @DisplayName(
-      "Test setTransfer(COSBase); when COSArray(); then PDExtendedGraphicsState() Transfer is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setTransfer(COSBase); when COSArray(); then PDExtendedGraphicsState() Transfer is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.setTransfer(COSBase)"})
   void testSetTransfer_whenCOSArray_thenPDExtendedGraphicsStateTransferIsNull() {
     // Arrange
@@ -2697,17 +2456,15 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#setTransfer(COSBase)}.
-   *
    * <ul>
-   *   <li>When {@link COSDictionary#COSDictionary()}.
+   *   <li>When {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setTransfer(COSBase)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setTransfer(COSBase)}
    */
   @Test
   @DisplayName("Test setTransfer(COSBase); when COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.setTransfer(COSBase)"})
   void testSetTransfer_whenCOSDictionary() {
     // Arrange
@@ -2726,23 +2483,46 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#setTransfer(COSBase)}.
-   *
    * <ul>
-   *   <li>When {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   *   <li>When {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setTransfer(COSBase)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setTransfer(COSBase)}
    */
   @Test
-  @DisplayName(
-      "Test setTransfer(COSBase); when COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setTransfer(COSBase); when COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.setTransfer(COSBase)"})
   void testSetTransfer_whenCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
     PDExtendedGraphicsState pdExtendedGraphicsState = new PDExtendedGraphicsState();
-    COSObject transfer = new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1));
+
+    // Act
+    pdExtendedGraphicsState.setTransfer(new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1)));
+
+    // Assert
+    COSDictionary cOSObject = pdExtendedGraphicsState.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDExtendedGraphicsState#setTransfer(COSBase)}.
+   * <ul>
+   *   <li>When {@link COSBoolean#FALSE}.</li>
+   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} Transfer is {@link COSBoolean#FALSE} {@link COSBoolean#FALSE}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setTransfer(COSBase)}
+   */
+  @Test
+  @DisplayName("Test setTransfer(COSBase); when FALSE; then PDExtendedGraphicsState() Transfer is FALSE FALSE")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDExtendedGraphicsState.setTransfer(COSBase)"})
+  void testSetTransfer_whenFalse_thenPDExtendedGraphicsStateTransferIsFalseFalse() {
+    // Arrange
+    PDExtendedGraphicsState pdExtendedGraphicsState = new PDExtendedGraphicsState();
+    COSBoolean transfer = COSBoolean.FALSE;
 
     // Act
     pdExtendedGraphicsState.setTransfer(transfer);
@@ -2751,55 +2531,22 @@ class PDExtendedGraphicsStateDiffblueTest {
     COSDictionary cOSObject = pdExtendedGraphicsState.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
+    COSBoolean expectedTransfer = transfer.FALSE;
+    assertSame(expectedTransfer, pdExtendedGraphicsState.getTransfer());
   }
 
   /**
    * Test {@link PDExtendedGraphicsState#setTransfer(COSBase)}.
-   *
    * <ul>
-   *   <li>When {@link COSBoolean#FALSE}.
-   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} Transfer is {@link
-   *       COSBoolean#FALSE}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} COSObject Values size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setTransfer(COSBase)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setTransfer(COSBase)}
    */
   @Test
-  @DisplayName(
-      "Test setTransfer(COSBase); when FALSE; then PDExtendedGraphicsState() Transfer is FALSE")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDExtendedGraphicsState.setTransfer(COSBase)"})
-  void testSetTransfer_whenFalse_thenPDExtendedGraphicsStateTransferIsFalse() {
-    // Arrange
-    PDExtendedGraphicsState pdExtendedGraphicsState = new PDExtendedGraphicsState();
-
-    // Act
-    pdExtendedGraphicsState.setTransfer(COSBoolean.FALSE);
-
-    // Assert
-    COSDictionary cOSObject = pdExtendedGraphicsState.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertSame(COSBoolean.FALSE, pdExtendedGraphicsState.getTransfer());
-  }
-
-  /**
-   * Test {@link PDExtendedGraphicsState#setTransfer(COSBase)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} COSObject Values size is
-   *       one.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setTransfer(COSBase)}
-   */
-  @Test
-  @DisplayName(
-      "Test setTransfer(COSBase); when 'null'; then PDExtendedGraphicsState() COSObject Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setTransfer(COSBase); when 'null'; then PDExtendedGraphicsState() COSObject Values size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.setTransfer(COSBase)"})
   void testSetTransfer_whenNull_thenPDExtendedGraphicsStateCOSObjectValuesSizeIsOne() {
     // Arrange
@@ -2816,25 +2563,21 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#getTransfer2()}.
-   *
    * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
-   *   <li>Then return {@link COSBoolean#FALSE}.
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
+   *   <li>Then return {@link COSBoolean#FALSE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getTransfer2()}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#getTransfer2()}
    */
   @Test
-  @DisplayName(
-      "Test getTransfer2(); given COSObjectKey(long, int) with num is one and gen is one; then return FALSE")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getTransfer2(); given COSObjectKey(long, int) with num is one and gen is one; then return FALSE")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSBase PDExtendedGraphicsState.getTransfer2()"})
   void testGetTransfer2_givenCOSObjectKeyWithNumIsOneAndGenIsOne_thenReturnFalse() {
     // Arrange
     PDExtendedGraphicsState pdExtendedGraphicsState = new PDExtendedGraphicsState();
-    COSObject transfer2 = new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1));
-    pdExtendedGraphicsState.setTransfer2(transfer2);
+    pdExtendedGraphicsState.setTransfer2(new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1)));
 
     // Act
     COSBase actualTransfer2 = pdExtendedGraphicsState.getTransfer2();
@@ -2845,20 +2588,16 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#getTransfer2()}.
-   *
    * <ul>
-   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} Transfer2 is {@link
-   *       COSArray#COSArray()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} Transfer2 is {@link COSArray#COSArray()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getTransfer2()}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#getTransfer2()}
    */
   @Test
-  @DisplayName(
-      "Test getTransfer2(); given PDExtendedGraphicsState() Transfer2 is COSArray(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getTransfer2(); given PDExtendedGraphicsState() Transfer2 is COSArray(); then return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSBase PDExtendedGraphicsState.getTransfer2()"})
   void testGetTransfer2_givenPDExtendedGraphicsStateTransfer2IsCOSArray_thenReturnNull() {
     // Arrange
@@ -2871,38 +2610,33 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#getTransfer2()}.
-   *
    * <ul>
-   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getTransfer2()}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#getTransfer2()}
    */
   @Test
   @DisplayName("Test getTransfer2(); given PDExtendedGraphicsState(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSBase PDExtendedGraphicsState.getTransfer2()"})
   void testGetTransfer2_givenPDExtendedGraphicsState_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDExtendedGraphicsState().getTransfer2());
+    assertNull((new PDExtendedGraphicsState()).getTransfer2());
   }
 
   /**
    * Test {@link PDExtendedGraphicsState#setTransfer2(COSBase)}.
-   *
    * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setTransfer2(COSBase)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setTransfer2(COSBase)}
    */
   @Test
-  @DisplayName(
-      "Test setTransfer2(COSBase); given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setTransfer2(COSBase); given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.setTransfer2(COSBase)"})
   void testSetTransfer2_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
@@ -2923,19 +2657,16 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#setTransfer2(COSBase)}.
-   *
    * <ul>
-   *   <li>When {@link COSArray#COSArray()}.
-   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} Transfer2 is {@code null}.
+   *   <li>When {@link COSArray#COSArray()}.</li>
+   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} Transfer2 is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setTransfer2(COSBase)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setTransfer2(COSBase)}
    */
   @Test
-  @DisplayName(
-      "Test setTransfer2(COSBase); when COSArray(); then PDExtendedGraphicsState() Transfer2 is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setTransfer2(COSBase); when COSArray(); then PDExtendedGraphicsState() Transfer2 is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.setTransfer2(COSBase)"})
   void testSetTransfer2_whenCOSArray_thenPDExtendedGraphicsStateTransfer2IsNull() {
     // Arrange
@@ -2953,17 +2684,15 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#setTransfer2(COSBase)}.
-   *
    * <ul>
-   *   <li>When {@link COSDictionary#COSDictionary()}.
+   *   <li>When {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setTransfer2(COSBase)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setTransfer2(COSBase)}
    */
   @Test
   @DisplayName("Test setTransfer2(COSBase); when COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.setTransfer2(COSBase)"})
   void testSetTransfer2_whenCOSDictionary() {
     // Arrange
@@ -2982,23 +2711,46 @@ class PDExtendedGraphicsStateDiffblueTest {
 
   /**
    * Test {@link PDExtendedGraphicsState#setTransfer2(COSBase)}.
-   *
    * <ul>
-   *   <li>When {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   *   <li>When {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setTransfer2(COSBase)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setTransfer2(COSBase)}
    */
   @Test
-  @DisplayName(
-      "Test setTransfer2(COSBase); when COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setTransfer2(COSBase); when COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.setTransfer2(COSBase)"})
   void testSetTransfer2_whenCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
     PDExtendedGraphicsState pdExtendedGraphicsState = new PDExtendedGraphicsState();
-    COSObject transfer2 = new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1));
+
+    // Act
+    pdExtendedGraphicsState.setTransfer2(new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1)));
+
+    // Assert
+    COSDictionary cOSObject = pdExtendedGraphicsState.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDExtendedGraphicsState#setTransfer2(COSBase)}.
+   * <ul>
+   *   <li>When {@link COSBoolean#FALSE}.</li>
+   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} Transfer2 is {@link COSBoolean#FALSE} {@link COSBoolean#FALSE}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setTransfer2(COSBase)}
+   */
+  @Test
+  @DisplayName("Test setTransfer2(COSBase); when FALSE; then PDExtendedGraphicsState() Transfer2 is FALSE FALSE")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDExtendedGraphicsState.setTransfer2(COSBase)"})
+  void testSetTransfer2_whenFalse_thenPDExtendedGraphicsStateTransfer2IsFalseFalse() {
+    // Arrange
+    PDExtendedGraphicsState pdExtendedGraphicsState = new PDExtendedGraphicsState();
+    COSBoolean transfer2 = COSBoolean.FALSE;
 
     // Act
     pdExtendedGraphicsState.setTransfer2(transfer2);
@@ -3007,55 +2759,22 @@ class PDExtendedGraphicsStateDiffblueTest {
     COSDictionary cOSObject = pdExtendedGraphicsState.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
+    COSBoolean expectedTransfer2 = transfer2.FALSE;
+    assertSame(expectedTransfer2, pdExtendedGraphicsState.getTransfer2());
   }
 
   /**
    * Test {@link PDExtendedGraphicsState#setTransfer2(COSBase)}.
-   *
    * <ul>
-   *   <li>When {@link COSBoolean#FALSE}.
-   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} Transfer2 is {@link
-   *       COSBoolean#FALSE}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} COSObject Values size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setTransfer2(COSBase)}
+   * <p>
+   * Method under test: {@link PDExtendedGraphicsState#setTransfer2(COSBase)}
    */
   @Test
-  @DisplayName(
-      "Test setTransfer2(COSBase); when FALSE; then PDExtendedGraphicsState() Transfer2 is FALSE")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDExtendedGraphicsState.setTransfer2(COSBase)"})
-  void testSetTransfer2_whenFalse_thenPDExtendedGraphicsStateTransfer2IsFalse() {
-    // Arrange
-    PDExtendedGraphicsState pdExtendedGraphicsState = new PDExtendedGraphicsState();
-
-    // Act
-    pdExtendedGraphicsState.setTransfer2(COSBoolean.FALSE);
-
-    // Assert
-    COSDictionary cOSObject = pdExtendedGraphicsState.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertSame(COSBoolean.FALSE, pdExtendedGraphicsState.getTransfer2());
-  }
-
-  /**
-   * Test {@link PDExtendedGraphicsState#setTransfer2(COSBase)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} COSObject Values size is
-   *       one.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#setTransfer2(COSBase)}
-   */
-  @Test
-  @DisplayName(
-      "Test setTransfer2(COSBase); when 'null'; then PDExtendedGraphicsState() COSObject Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setTransfer2(COSBase); when 'null'; then PDExtendedGraphicsState() COSObject Values size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDExtendedGraphicsState.setTransfer2(COSBase)"})
   void testSetTransfer2_whenNull_thenPDExtendedGraphicsStateCOSObjectValuesSizeIsOne() {
     // Arrange

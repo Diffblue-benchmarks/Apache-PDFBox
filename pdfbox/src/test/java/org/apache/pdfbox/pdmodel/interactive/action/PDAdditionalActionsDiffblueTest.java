@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import org.apache.pdfbox.cos.COSDictionary;
@@ -19,31 +18,29 @@ import org.junit.jupiter.api.Test;
 class PDAdditionalActionsDiffblueTest {
   /**
    * Test {@link PDAdditionalActions#PDAdditionalActions(COSDictionary)}.
-   *
-   * <p>Method under test: {@link PDAdditionalActions#PDAdditionalActions(COSDictionary)}
+   * <p>
+   * Method under test: {@link PDAdditionalActions#PDAdditionalActions(COSDictionary)}
    */
   @Test
   @DisplayName("Test new PDAdditionalActions(COSDictionary)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAdditionalActions.<init>(COSDictionary)"})
   void testNewPDAdditionalActions() {
     // Arrange
     COSDictionary a = new COSDictionary();
 
     // Act and Assert
-    assertSame(a, new PDAdditionalActions(a).getCOSObject());
+    assertSame(a, (new PDAdditionalActions(a)).getCOSObject());
   }
 
   /**
    * Test {@link PDAdditionalActions#PDAdditionalActions()}.
-   *
-   * <p>Method under test: {@link PDAdditionalActions#PDAdditionalActions()}
+   * <p>
+   * Method under test: {@link PDAdditionalActions#PDAdditionalActions()}
    */
   @Test
   @DisplayName("Test new PDAdditionalActions()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAdditionalActions.<init>()"})
   void testNewPDAdditionalActions2() {
     // Arrange and Act
@@ -67,17 +64,16 @@ class PDAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAdditionalActions#getCOSObject()}.
-   *
-   * <p>Method under test: {@link PDAdditionalActions#getCOSObject()}
+   * <p>
+   * Method under test: {@link PDAdditionalActions#getCOSObject()}
    */
   @Test
   @DisplayName("Test getCOSObject()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSDictionary PDAdditionalActions.getCOSObject()"})
   void testGetCOSObject() {
     // Arrange and Act
-    COSDictionary actualCOSObject = new PDAdditionalActions().getCOSObject();
+    COSDictionary actualCOSObject = (new PDAdditionalActions()).getCOSObject();
 
     // Assert
     COSUpdateState updateState = actualCOSObject.getUpdateState();
@@ -95,19 +91,15 @@ class PDAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAdditionalActions#getF()}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()} Key is {@link COSObjectKey#COSObjectKey(long,
-   *       int)} with num is one and gen is one.
+   *   <li>Given {@link COSDictionary#COSDictionary()} Key is {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAdditionalActions#getF()}
+   * <p>
+   * Method under test: {@link PDAdditionalActions#getF()}
    */
   @Test
-  @DisplayName(
-      "Test getF(); given COSDictionary() Key is COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getF(); given COSDictionary() Key is COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAdditionalActions.getF()"})
   void testGetF_givenCOSDictionaryKeyIsCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
@@ -124,19 +116,15 @@ class PDAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAdditionalActions#getF()}.
-   *
    * <ul>
-   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()} SubType is {@code foo}.
+   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link COSDictionary#COSDictionary()} SubType is {@code foo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAdditionalActions#getF()}
+   * <p>
+   * Method under test: {@link PDAdditionalActions#getF()}
    */
   @Test
-  @DisplayName(
-      "Test getF(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary() SubType is 'foo'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getF(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary() SubType is 'foo'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAdditionalActions.getF()"})
   void testGetF_givenPDActionEmbeddedGoToWithAIsCOSDictionarySubTypeIsFoo() {
     // Arrange
@@ -152,20 +140,15 @@ class PDAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAdditionalActions#getF()}.
-   *
    * <ul>
-   *   <li>Given {@link PDAdditionalActions#PDAdditionalActions()} F is {@link
-   *       PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
+   *   <li>Given {@link PDAdditionalActions#PDAdditionalActions()} F is {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAdditionalActions#getF()}
+   * <p>
+   * Method under test: {@link PDAdditionalActions#getF()}
    */
   @Test
-  @DisplayName(
-      "Test getF(); given PDAdditionalActions() F is PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getF(); given PDAdditionalActions() F is PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAdditionalActions.getF()"})
   void testGetF_givenPDAdditionalActionsFIsPDActionEmbeddedGoToWithAIsCOSDictionary() {
     // Arrange
@@ -178,23 +161,18 @@ class PDAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAdditionalActions#getF()}.
-   *
    * <ul>
-   *   <li>Given {@link PDAdditionalActions#PDAdditionalActions()} F is {@link
-   *       PDActionGoTo#PDActionGoTo()}.
-   *   <li>Then return {@link PDActionGoTo}.
+   *   <li>Given {@link PDAdditionalActions#PDAdditionalActions()} F is {@link PDActionGoTo#PDActionGoTo()}.</li>
+   *   <li>Then return {@link PDActionGoTo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAdditionalActions#getF()}
+   * <p>
+   * Method under test: {@link PDAdditionalActions#getF()}
    */
   @Test
-  @DisplayName(
-      "Test getF(); given PDAdditionalActions() F is PDActionGoTo(); then return PDActionGoTo")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getF(); given PDAdditionalActions() F is PDActionGoTo(); then return PDActionGoTo")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAdditionalActions.getF()"})
-  void testGetF_givenPDAdditionalActionsFIsPDActionGoTo_thenReturnPDActionGoTo()
-      throws IOException {
+  void testGetF_givenPDAdditionalActionsFIsPDActionGoTo_thenReturnPDActionGoTo() throws IOException {
     // Arrange
     PDAdditionalActions pdAdditionalActions = new PDAdditionalActions();
     pdAdditionalActions.setF(new PDActionGoTo());
@@ -218,20 +196,16 @@ class PDAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAdditionalActions#getF()}.
-   *
    * <ul>
-   *   <li>Given {@link PDAdditionalActions#PDAdditionalActions()} F is {@link
-   *       PDActionHide#PDActionHide()}.
-   *   <li>Then return {@link PDActionHide}.
+   *   <li>Given {@link PDAdditionalActions#PDAdditionalActions()} F is {@link PDActionHide#PDActionHide()}.</li>
+   *   <li>Then return {@link PDActionHide}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAdditionalActions#getF()}
+   * <p>
+   * Method under test: {@link PDAdditionalActions#getF()}
    */
   @Test
-  @DisplayName(
-      "Test getF(); given PDAdditionalActions() F is PDActionHide(); then return PDActionHide")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getF(); given PDAdditionalActions() F is PDActionHide(); then return PDActionHide")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAdditionalActions.getF()"})
   void testGetF_givenPDAdditionalActionsFIsPDActionHide_thenReturnPDActionHide() {
     // Arrange
@@ -250,23 +224,18 @@ class PDAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAdditionalActions#getF()}.
-   *
    * <ul>
-   *   <li>Given {@link PDAdditionalActions#PDAdditionalActions()} F is {@link
-   *       PDActionLaunch#PDActionLaunch()}.
-   *   <li>Then return {@link PDActionLaunch}.
+   *   <li>Given {@link PDAdditionalActions#PDAdditionalActions()} F is {@link PDActionLaunch#PDActionLaunch()}.</li>
+   *   <li>Then return {@link PDActionLaunch}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAdditionalActions#getF()}
+   * <p>
+   * Method under test: {@link PDAdditionalActions#getF()}
    */
   @Test
-  @DisplayName(
-      "Test getF(); given PDAdditionalActions() F is PDActionLaunch(); then return PDActionLaunch")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getF(); given PDAdditionalActions() F is PDActionLaunch(); then return PDActionLaunch")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAdditionalActions.getF()"})
-  void testGetF_givenPDAdditionalActionsFIsPDActionLaunch_thenReturnPDActionLaunch()
-      throws IOException {
+  void testGetF_givenPDAdditionalActionsFIsPDActionLaunch_thenReturnPDActionLaunch() throws IOException {
     // Arrange
     PDAdditionalActions pdAdditionalActions = new PDAdditionalActions();
     pdAdditionalActions.setF(new PDActionLaunch());
@@ -288,20 +257,16 @@ class PDAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAdditionalActions#getF()}.
-   *
    * <ul>
-   *   <li>Given {@link PDAdditionalActions#PDAdditionalActions()} F is {@link
-   *       PDActionMovie#PDActionMovie()}.
-   *   <li>Then return {@link PDActionMovie}.
+   *   <li>Given {@link PDAdditionalActions#PDAdditionalActions()} F is {@link PDActionMovie#PDActionMovie()}.</li>
+   *   <li>Then return {@link PDActionMovie}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAdditionalActions#getF()}
+   * <p>
+   * Method under test: {@link PDAdditionalActions#getF()}
    */
   @Test
-  @DisplayName(
-      "Test getF(); given PDAdditionalActions() F is PDActionMovie(); then return PDActionMovie")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getF(); given PDAdditionalActions() F is PDActionMovie(); then return PDActionMovie")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAdditionalActions.getF()"})
   void testGetF_givenPDAdditionalActionsFIsPDActionMovie_thenReturnPDActionMovie() {
     // Arrange
@@ -325,20 +290,16 @@ class PDAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAdditionalActions#getF()}.
-   *
    * <ul>
-   *   <li>Given {@link PDAdditionalActions#PDAdditionalActions()} F is {@link
-   *       PDActionNamed#PDActionNamed()}.
-   *   <li>Then return {@link PDActionNamed}.
+   *   <li>Given {@link PDAdditionalActions#PDAdditionalActions()} F is {@link PDActionNamed#PDActionNamed()}.</li>
+   *   <li>Then return {@link PDActionNamed}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAdditionalActions#getF()}
+   * <p>
+   * Method under test: {@link PDAdditionalActions#getF()}
    */
   @Test
-  @DisplayName(
-      "Test getF(); given PDAdditionalActions() F is PDActionNamed(); then return PDActionNamed")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getF(); given PDAdditionalActions() F is PDActionNamed(); then return PDActionNamed")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAdditionalActions.getF()"})
   void testGetF_givenPDAdditionalActionsFIsPDActionNamed_thenReturnPDActionNamed() {
     // Arrange
@@ -364,20 +325,16 @@ class PDAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAdditionalActions#getF()}.
-   *
    * <ul>
-   *   <li>Given {@link PDAdditionalActions#PDAdditionalActions()} F is {@link
-   *       PDActionSound#PDActionSound()}.
-   *   <li>Then return {@link PDActionSound}.
+   *   <li>Given {@link PDAdditionalActions#PDAdditionalActions()} F is {@link PDActionSound#PDActionSound()}.</li>
+   *   <li>Then return {@link PDActionSound}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAdditionalActions#getF()}
+   * <p>
+   * Method under test: {@link PDAdditionalActions#getF()}
    */
   @Test
-  @DisplayName(
-      "Test getF(); given PDAdditionalActions() F is PDActionSound(); then return PDActionSound")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getF(); given PDAdditionalActions() F is PDActionSound(); then return PDActionSound")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAdditionalActions.getF()"})
   void testGetF_givenPDAdditionalActionsFIsPDActionSound_thenReturnPDActionSound() {
     // Arrange
@@ -399,23 +356,18 @@ class PDAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAdditionalActions#getF()}.
-   *
    * <ul>
-   *   <li>Given {@link PDAdditionalActions#PDAdditionalActions()} F is {@link
-   *       PDActionThread#PDActionThread()}.
-   *   <li>Then return {@link PDActionThread}.
+   *   <li>Given {@link PDAdditionalActions#PDAdditionalActions()} F is {@link PDActionThread#PDActionThread()}.</li>
+   *   <li>Then return {@link PDActionThread}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAdditionalActions#getF()}
+   * <p>
+   * Method under test: {@link PDAdditionalActions#getF()}
    */
   @Test
-  @DisplayName(
-      "Test getF(); given PDAdditionalActions() F is PDActionThread(); then return PDActionThread")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getF(); given PDAdditionalActions() F is PDActionThread(); then return PDActionThread")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAdditionalActions.getF()"})
-  void testGetF_givenPDAdditionalActionsFIsPDActionThread_thenReturnPDActionThread()
-      throws IOException {
+  void testGetF_givenPDAdditionalActionsFIsPDActionThread_thenReturnPDActionThread() throws IOException {
     // Arrange
     PDAdditionalActions pdAdditionalActions = new PDAdditionalActions();
     pdAdditionalActions.setF(new PDActionThread());
@@ -433,20 +385,16 @@ class PDAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAdditionalActions#getF()}.
-   *
    * <ul>
-   *   <li>Given {@link PDAdditionalActions#PDAdditionalActions()} F is {@link
-   *       PDActionURI#PDActionURI()}.
-   *   <li>Then return {@link PDActionURI}.
+   *   <li>Given {@link PDAdditionalActions#PDAdditionalActions()} F is {@link PDActionURI#PDActionURI()}.</li>
+   *   <li>Then return {@link PDActionURI}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAdditionalActions#getF()}
+   * <p>
+   * Method under test: {@link PDAdditionalActions#getF()}
    */
   @Test
-  @DisplayName(
-      "Test getF(); given PDAdditionalActions() F is PDActionURI(); then return PDActionURI")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getF(); given PDAdditionalActions() F is PDActionURI(); then return PDActionURI")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAdditionalActions.getF()"})
   void testGetF_givenPDAdditionalActionsFIsPDActionURI_thenReturnPDActionURI() {
     // Arrange
@@ -472,37 +420,33 @@ class PDAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAdditionalActions#getF()}.
-   *
    * <ul>
-   *   <li>Given {@link PDAdditionalActions#PDAdditionalActions()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDAdditionalActions#PDAdditionalActions()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAdditionalActions#getF()}
+   * <p>
+   * Method under test: {@link PDAdditionalActions#getF()}
    */
   @Test
   @DisplayName("Test getF(); given PDAdditionalActions(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAdditionalActions.getF()"})
   void testGetF_givenPDAdditionalActions_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDAdditionalActions().getF());
+    assertNull((new PDAdditionalActions()).getF());
   }
 
   /**
    * Test {@link PDAdditionalActions#getF()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionEmbeddedGoTo}.
+   *   <li>Then return {@link PDActionEmbeddedGoTo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAdditionalActions#getF()}
+   * <p>
+   * Method under test: {@link PDAdditionalActions#getF()}
    */
   @Test
   @DisplayName("Test getF(); then return PDActionEmbeddedGoTo")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAdditionalActions.getF()"})
   void testGetF_thenReturnPDActionEmbeddedGoTo() throws IOException {
     // Arrange
@@ -523,17 +467,15 @@ class PDAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAdditionalActions#getF()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionImportData}.
+   *   <li>Then return {@link PDActionImportData}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAdditionalActions#getF()}
+   * <p>
+   * Method under test: {@link PDAdditionalActions#getF()}
    */
   @Test
   @DisplayName("Test getF(); then return PDActionImportData")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAdditionalActions.getF()"})
   void testGetF_thenReturnPDActionImportData() throws IOException {
     // Arrange
@@ -559,17 +501,15 @@ class PDAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAdditionalActions#getF()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionJavaScript}.
+   *   <li>Then return {@link PDActionJavaScript}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAdditionalActions#getF()}
+   * <p>
+   * Method under test: {@link PDAdditionalActions#getF()}
    */
   @Test
   @DisplayName("Test getF(); then return PDActionJavaScript")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAdditionalActions.getF()"})
   void testGetF_thenReturnPDActionJavaScript() {
     // Arrange
@@ -595,17 +535,15 @@ class PDAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAdditionalActions#getF()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionRemoteGoTo}.
+   *   <li>Then return {@link PDActionRemoteGoTo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAdditionalActions#getF()}
+   * <p>
+   * Method under test: {@link PDAdditionalActions#getF()}
    */
   @Test
   @DisplayName("Test getF(); then return PDActionRemoteGoTo")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAdditionalActions.getF()"})
   void testGetF_thenReturnPDActionRemoteGoTo() throws IOException {
     // Arrange
@@ -625,17 +563,15 @@ class PDAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAdditionalActions#getF()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionResetForm}.
+   *   <li>Then return {@link PDActionResetForm}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAdditionalActions#getF()}
+   * <p>
+   * Method under test: {@link PDAdditionalActions#getF()}
    */
   @Test
   @DisplayName("Test getF(); then return PDActionResetForm")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAdditionalActions.getF()"})
   void testGetF_thenReturnPDActionResetForm() {
     // Arrange
@@ -654,17 +590,15 @@ class PDAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAdditionalActions#getF()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDActionSubmitForm}.
+   *   <li>Then return {@link PDActionSubmitForm}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAdditionalActions#getF()}
+   * <p>
+   * Method under test: {@link PDAdditionalActions#getF()}
    */
   @Test
   @DisplayName("Test getF(); then return PDActionSubmitForm")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAdditionalActions.getF()"})
   void testGetF_thenReturnPDActionSubmitForm() throws IOException {
     // Arrange
@@ -684,116 +618,18 @@ class PDAdditionalActionsDiffblueTest {
 
   /**
    * Test {@link PDAdditionalActions#setF(PDAction)}.
-   *
    * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   *   <li>Given {@link PDAdditionalActions#PDAdditionalActions()}.</li>
+   *   <li>Then {@link PDAdditionalActions#PDAdditionalActions()} F {@link PDActionEmbeddedGoTo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAdditionalActions#setF(PDAction)}
+   * <p>
+   * Method under test: {@link PDAdditionalActions#setF(PDAction)}
    */
   @Test
-  @DisplayName("Test setF(PDAction); given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setF(PDAction); given PDAdditionalActions(); then PDAdditionalActions() F PDActionEmbeddedGoTo")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAdditionalActions.setF(PDAction)"})
-  void testSetF_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
-    // Arrange
-    PDAdditionalActions pdAdditionalActions = new PDAdditionalActions();
-
-    COSDictionary a = new COSDictionary();
-    a.setKey(new COSObjectKey(1L, 1));
-
-    // Act
-    pdAdditionalActions.setF(new PDActionEmbeddedGoTo(a));
-
-    // Assert
-    assertNull(pdAdditionalActions.getF());
-    COSDictionary cOSObject = pdAdditionalActions.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDAdditionalActions#setF(PDAction)}.
-   *
-   * <ul>
-   *   <li>Given {@code true}.
-   *   <li>When {@link COSDictionary#COSDictionary()} Direct is {@code true}.
-   *   <li>Then {@link PDAdditionalActions#PDAdditionalActions()} F is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAdditionalActions#setF(PDAction)}
-   */
-  @Test
-  @DisplayName(
-      "Test setF(PDAction); given 'true'; when COSDictionary() Direct is 'true'; then PDAdditionalActions() F is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAdditionalActions.setF(PDAction)"})
-  void testSetF_givenTrue_whenCOSDictionaryDirectIsTrue_thenPDAdditionalActionsFIsNull() {
-    // Arrange
-    PDAdditionalActions pdAdditionalActions = new PDAdditionalActions();
-
-    COSDictionary a = new COSDictionary();
-    a.setDirect(true);
-
-    // Act
-    pdAdditionalActions.setF(new PDActionEmbeddedGoTo(a));
-
-    // Assert
-    assertNull(pdAdditionalActions.getF());
-    COSDictionary cOSObject = pdAdditionalActions.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDAdditionalActions#setF(PDAction)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDAdditionalActions#PDAdditionalActions()} COSObject size is zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAdditionalActions#setF(PDAction)}
-   */
-  @Test
-  @DisplayName(
-      "Test setF(PDAction); when 'null'; then PDAdditionalActions() COSObject size is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAdditionalActions.setF(PDAction)"})
-  void testSetF_whenNull_thenPDAdditionalActionsCOSObjectSizeIsZero() {
-    // Arrange
-    PDAdditionalActions pdAdditionalActions = new PDAdditionalActions();
-
-    // Act
-    pdAdditionalActions.setF(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdAdditionalActions.getCOSObject();
-    assertEquals(0, cOSObject.size());
-    assertTrue(cOSObject.getValues().isEmpty());
-  }
-
-  /**
-   * Test {@link PDAdditionalActions#setF(PDAction)}.
-   *
-   * <ul>
-   *   <li>When {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()}.
-   *   <li>Then {@link PDAdditionalActions#PDAdditionalActions()} F {@link PDActionEmbeddedGoTo}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAdditionalActions#setF(PDAction)}
-   */
-  @Test
-  @DisplayName(
-      "Test setF(PDAction); when PDActionEmbeddedGoTo(); then PDAdditionalActions() F PDActionEmbeddedGoTo")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAdditionalActions.setF(PDAction)"})
-  void testSetF_whenPDActionEmbeddedGoTo_thenPDAdditionalActionsFPDActionEmbeddedGoTo()
-      throws IOException {
+  void testSetF_givenPDAdditionalActions_thenPDAdditionalActionsFPDActionEmbeddedGoTo() throws IOException {
     // Arrange
     PDAdditionalActions pdAdditionalActions = new PDAdditionalActions();
 
@@ -807,8 +643,36 @@ class PDAdditionalActionsDiffblueTest {
     assertNull(((PDActionEmbeddedGoTo) f).getFile());
     assertNull(((PDActionEmbeddedGoTo) f).getTargetDirectory());
     assertNull(((PDActionEmbeddedGoTo) f).getDestination());
+    COSDictionary cOSObject = pdAdditionalActions.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
     assertEquals(OpenMode.USER_PREFERENCE, ((PDActionEmbeddedGoTo) f).getOpenInNewWindow());
     assertEquals(PDAction.TYPE, f.getType());
     assertEquals(PDActionEmbeddedGoTo.SUB_TYPE, f.getSubType());
+  }
+
+  /**
+   * Test {@link PDAdditionalActions#setF(PDAction)}.
+   * <ul>
+   *   <li>Then {@link PDAdditionalActions#PDAdditionalActions(COSDictionary)} with a is {@link COSDictionary#COSDictionary()} COSObject size is zero.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDAdditionalActions#setF(PDAction)}
+   */
+  @Test
+  @DisplayName("Test setF(PDAction); then PDAdditionalActions(COSDictionary) with a is COSDictionary() COSObject size is zero")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDAdditionalActions.setF(PDAction)"})
+  void testSetF_thenPDAdditionalActionsWithAIsCOSDictionaryCOSObjectSizeIsZero() {
+    // Arrange
+    PDAdditionalActions pdAdditionalActions = new PDAdditionalActions(new COSDictionary());
+
+    // Act
+    pdAdditionalActions.setF(null);
+
+    // Assert that nothing has changed
+    COSDictionary cOSObject = pdAdditionalActions.getCOSObject();
+    assertEquals(0, cOSObject.size());
+    assertTrue(cOSObject.getValues().isEmpty());
   }
 }

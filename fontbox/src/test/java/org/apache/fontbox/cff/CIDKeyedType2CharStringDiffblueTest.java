@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.Rectangle2D.Float;
@@ -17,28 +16,21 @@ import org.junit.jupiter.api.Test;
 
 class CIDKeyedType2CharStringDiffblueTest {
   /**
-   * Test {@link CIDKeyedType2CharString#CIDKeyedType2CharString(Type1CharStringReader, String, int,
-   * int, List, int, int)}.
-   *
-   * <p>Method under test: {@link
-   * CIDKeyedType2CharString#CIDKeyedType2CharString(Type1CharStringReader, String, int, int, List,
-   * int, int)}
+   * Test {@link CIDKeyedType2CharString#CIDKeyedType2CharString(Type1CharStringReader, String, int, int, List, int, int)}.
+   * <p>
+   * Method under test: {@link CIDKeyedType2CharString#CIDKeyedType2CharString(Type1CharStringReader, String, int, int, List, int, int)}
    */
   @Test
-  @DisplayName(
-      "Test new CIDKeyedType2CharString(Type1CharStringReader, String, int, int, List, int, int)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void CIDKeyedType2CharString.<init>(Type1CharStringReader, String, int, int, List, int, int)"
-  })
+  @DisplayName("Test new CIDKeyedType2CharString(Type1CharStringReader, String, int, int, List, int, int)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void CIDKeyedType2CharString.<init>(Type1CharStringReader, String, int, int, List, int, int)"})
   void testNewCIDKeyedType2CharString() {
     // Arrange
     Type1CharStringReader font = mock(Type1CharStringReader.class);
 
     // Act
-    CIDKeyedType2CharString actualCidKeyedType2CharString =
-        new CIDKeyedType2CharString(font, "Font Name", 1, 1, new ArrayList<>(), 1, 1);
+    CIDKeyedType2CharString actualCidKeyedType2CharString = new CIDKeyedType2CharString(font, "Font Name", 1, 1,
+        new ArrayList<>(), 1, 1);
 
     // Assert
     assertTrue(actualCidKeyedType2CharString.getBounds() instanceof Float);
@@ -52,21 +44,18 @@ class CIDKeyedType2CharStringDiffblueTest {
 
   /**
    * Test {@link CIDKeyedType2CharString#getCID()}.
-   *
-   * <p>Method under test: {@link CIDKeyedType2CharString#getCID()}
+   * <p>
+   * Method under test: {@link CIDKeyedType2CharString#getCID()}
    */
   @Test
   @DisplayName("Test getCID()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int CIDKeyedType2CharString.getCID()"})
   void testGetCID() {
     // Arrange
     Type1CharStringReader font = mock(Type1CharStringReader.class);
-    CIDKeyedType2CharString cidKeyedType2CharString =
-        new CIDKeyedType2CharString(font, "Font Name", 1, 1, new ArrayList<>(), 1, 1);
 
     // Act and Assert
-    assertEquals(1, cidKeyedType2CharString.getCID());
+    assertEquals(1, (new CIDKeyedType2CharString(font, "Font Name", 1, 1, new ArrayList<>(), 1, 1)).getCID());
   }
 }

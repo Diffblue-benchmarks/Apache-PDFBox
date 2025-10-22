@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -17,9 +16,8 @@ import org.junit.jupiter.api.Test;
 class IndexToLocationTableDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link IndexToLocationTable}
    *   <li>{@link IndexToLocationTable#setOffsets(long[])}
@@ -28,17 +26,13 @@ class IndexToLocationTableDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void IndexToLocationTable.<init>()",
-    "long[] IndexToLocationTable.getOffsets()",
-    "void IndexToLocationTable.setOffsets(long[])"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void IndexToLocationTable.<init>()", "long[] IndexToLocationTable.getOffsets()",
+      "void IndexToLocationTable.setOffsets(long[])"})
   void testGettersAndSetters() {
     // Arrange and Act
     IndexToLocationTable actualIndexToLocationTable = new IndexToLocationTable();
-    long[] offsetsValue = new long[] {42L, 1L, 42L, 1L};
+    long[] offsetsValue = new long[]{42L, 1L, 42L, 1L};
     actualIndexToLocationTable.setOffsets(offsetsValue);
     long[] actualOffsets = actualIndexToLocationTable.getOffsets();
 
@@ -49,37 +43,29 @@ class IndexToLocationTableDiffblueTest {
     assertEquals(0L, actualIndexToLocationTable.getOffset());
     assertFalse(actualIndexToLocationTable.getInitialized());
     assertSame(offsetsValue, actualOffsets);
-    assertArrayEquals(new long[] {42L, 1L, 42L, 1L}, actualOffsets);
+    assertArrayEquals(new long[]{42L, 1L, 42L, 1L}, actualOffsets);
   }
 
   /**
    * Test {@link IndexToLocationTable#read(TrueTypeFont, TTFDataStream)}.
-   *
    * <ul>
-   *   <li>Then throw {@link IOException}.
+   *   <li>Then throw {@link IOException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IndexToLocationTable#read(TrueTypeFont, TTFDataStream)}
+   * <p>
+   * Method under test: {@link IndexToLocationTable#read(TrueTypeFont, TTFDataStream)}
    */
   @Test
   @DisplayName("Test read(TrueTypeFont, TTFDataStream); then throw IOException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void IndexToLocationTable.read(TrueTypeFont, TTFDataStream)"})
   void testRead_thenThrowIOException() throws IOException {
     // Arrange
     IndexToLocationTable indexToLocationTable = new IndexToLocationTable();
-    RandomAccessReadDataStream fontData =
-        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
-    TrueTypeFont ttf = new TrueTypeFont(fontData);
+    TrueTypeFont ttf = new TrueTypeFont(
+        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
 
     // Act and Assert
-    assertThrows(
-        IOException.class,
-        () ->
-            indexToLocationTable.read(
-                ttf,
-                new RandomAccessReadDataStream(
-                    new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")))));
+    assertThrows(IOException.class, () -> indexToLocationTable.read(ttf,
+        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")))));
   }
 }

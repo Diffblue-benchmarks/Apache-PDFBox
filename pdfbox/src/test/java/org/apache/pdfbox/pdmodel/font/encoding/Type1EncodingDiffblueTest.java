@@ -3,7 +3,6 @@ package org.apache.pdfbox.pdmodel.font.encoding;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,22 +18,16 @@ import org.junit.jupiter.api.Test;
 class Type1EncodingDiffblueTest {
   /**
    * Test {@link Type1Encoding#fromFontBox(Encoding)}.
-   *
    * <ul>
-   *   <li>Then {@link BuiltInEncoding#BuiltInEncoding(Map)} with codeToName is {@link
-   *       HashMap#HashMap()} CodeToNameMap Empty.
+   *   <li>Then {@link BuiltInEncoding#BuiltInEncoding(Map)} with codeToName is {@link HashMap#HashMap()} CodeToNameMap Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Type1Encoding#fromFontBox(org.apache.fontbox.encoding.Encoding)}
+   * <p>
+   * Method under test: {@link Type1Encoding#fromFontBox(org.apache.fontbox.encoding.Encoding)}
    */
   @Test
-  @DisplayName(
-      "Test fromFontBox(Encoding); then BuiltInEncoding(Map) with codeToName is HashMap() CodeToNameMap Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Type1Encoding Type1Encoding.fromFontBox(org.apache.fontbox.encoding.Encoding)"
-  })
+  @DisplayName("Test fromFontBox(Encoding); then BuiltInEncoding(Map) with codeToName is HashMap() CodeToNameMap Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Type1Encoding Type1Encoding.fromFontBox(org.apache.fontbox.encoding.Encoding)"})
   void testFromFontBox_thenBuiltInEncodingWithCodeToNameIsHashMapCodeToNameMapEmpty() {
     // Arrange
     BuiltInEncoding encoding = new BuiltInEncoding(new HashMap<>());
@@ -52,20 +45,16 @@ class Type1EncodingDiffblueTest {
 
   /**
    * Test {@link Type1Encoding#fromFontBox(Encoding)}.
-   *
    * <ul>
-   *   <li>Then return {@link Encoding#codeToName} size is one hundred forty-nine.
+   *   <li>Then return {@link Encoding#codeToName} size is one hundred forty-nine.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Type1Encoding#fromFontBox(org.apache.fontbox.encoding.Encoding)}
+   * <p>
+   * Method under test: {@link Type1Encoding#fromFontBox(org.apache.fontbox.encoding.Encoding)}
    */
   @Test
   @DisplayName("Test fromFontBox(Encoding); then return codeToName size is one hundred forty-nine")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Type1Encoding Type1Encoding.fromFontBox(org.apache.fontbox.encoding.Encoding)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Type1Encoding Type1Encoding.fromFontBox(org.apache.fontbox.encoding.Encoding)"})
   void testFromFontBox_thenReturnCodeToNameSizeIsOneHundredFortyNine() {
     // Arrange
     StandardEncoding encoding = new StandardEncoding();
@@ -99,13 +88,12 @@ class Type1EncodingDiffblueTest {
 
   /**
    * Test {@link Type1Encoding#Type1Encoding()}.
-   *
-   * <p>Method under test: {@link Type1Encoding#Type1Encoding()}
+   * <p>
+   * Method under test: {@link Type1Encoding#Type1Encoding()}
    */
   @Test
   @DisplayName("Test new Type1Encoding()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void Type1Encoding.<init>()"})
   void testNewType1Encoding() {
     // Arrange and Act
@@ -122,19 +110,16 @@ class Type1EncodingDiffblueTest {
 
   /**
    * Test {@link Type1Encoding#Type1Encoding(FontMetrics)}.
-   *
    * <ul>
-   *   <li>Given {@link CharMetric} (default constructor).
-   *   <li>Then return CodeToNameMap size is one.
+   *   <li>Given {@link CharMetric} (default constructor).</li>
+   *   <li>Then return CodeToNameMap size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Type1Encoding#Type1Encoding(FontMetrics)}
+   * <p>
+   * Method under test: {@link Type1Encoding#Type1Encoding(FontMetrics)}
    */
   @Test
-  @DisplayName(
-      "Test new Type1Encoding(FontMetrics); given CharMetric (default constructor); then return CodeToNameMap size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new Type1Encoding(FontMetrics); given CharMetric (default constructor); then return CodeToNameMap size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void Type1Encoding.<init>(FontMetrics)"})
   void testNewType1Encoding_givenCharMetric_thenReturnCodeToNameMapSizeIsOne() {
     // Arrange
@@ -161,19 +146,16 @@ class Type1EncodingDiffblueTest {
 
   /**
    * Test {@link Type1Encoding#Type1Encoding(FontMetrics)}.
-   *
    * <ul>
-   *   <li>When {@link FontMetrics} (default constructor).
-   *   <li>Then return CodeToNameMap Empty.
+   *   <li>When {@link FontMetrics} (default constructor).</li>
+   *   <li>Then return CodeToNameMap Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Type1Encoding#Type1Encoding(FontMetrics)}
+   * <p>
+   * Method under test: {@link Type1Encoding#Type1Encoding(FontMetrics)}
    */
   @Test
-  @DisplayName(
-      "Test new Type1Encoding(FontMetrics); when FontMetrics (default constructor); then return CodeToNameMap Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new Type1Encoding(FontMetrics); when FontMetrics (default constructor); then return CodeToNameMap Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void Type1Encoding.<init>(FontMetrics)"})
   void testNewType1Encoding_whenFontMetrics_thenReturnCodeToNameMapEmpty() {
     // Arrange and Act
@@ -188,9 +170,8 @@ class Type1EncodingDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link Type1Encoding#getCOSObject()}
    *   <li>{@link Type1Encoding#getEncodingName()}
@@ -198,12 +179,8 @@ class Type1EncodingDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "COSBase Type1Encoding.getCOSObject()",
-    "String Type1Encoding.getEncodingName()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"COSBase Type1Encoding.getCOSObject()", "String Type1Encoding.getEncodingName()"})
   void testGettersAndSetters() {
     // Arrange
     Type1Encoding type1Encoding = new Type1Encoding();

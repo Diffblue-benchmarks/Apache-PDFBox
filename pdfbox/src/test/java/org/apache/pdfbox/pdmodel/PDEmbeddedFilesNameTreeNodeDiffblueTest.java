@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import org.apache.pdfbox.cos.COSBase;
@@ -18,19 +17,38 @@ import org.junit.jupiter.api.Test;
 
 class PDEmbeddedFilesNameTreeNodeDiffblueTest {
   /**
+   * Test {@link PDEmbeddedFilesNameTreeNode#PDEmbeddedFilesNameTreeNode(COSDictionary)}.
+   * <p>
+   * Method under test: {@link PDEmbeddedFilesNameTreeNode#PDEmbeddedFilesNameTreeNode(COSDictionary)}
+   */
+  @Test
+  @DisplayName("Test new PDEmbeddedFilesNameTreeNode(COSDictionary)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDEmbeddedFilesNameTreeNode.<init>(COSDictionary)"})
+  void testNewPDEmbeddedFilesNameTreeNode() {
+    // Arrange
+    COSDictionary dic = new COSDictionary();
+
+    // Act
+    PDEmbeddedFilesNameTreeNode actualPdEmbeddedFilesNameTreeNode = new PDEmbeddedFilesNameTreeNode(dic);
+
+    // Assert
+    assertNull(actualPdEmbeddedFilesNameTreeNode.getParent());
+    assertSame(dic, actualPdEmbeddedFilesNameTreeNode.getCOSObject());
+  }
+
+  /**
    * Test {@link PDEmbeddedFilesNameTreeNode#PDEmbeddedFilesNameTreeNode()}.
-   *
-   * <p>Method under test: {@link PDEmbeddedFilesNameTreeNode#PDEmbeddedFilesNameTreeNode()}
+   * <p>
+   * Method under test: {@link PDEmbeddedFilesNameTreeNode#PDEmbeddedFilesNameTreeNode()}
    */
   @Test
   @DisplayName("Test new PDEmbeddedFilesNameTreeNode()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDEmbeddedFilesNameTreeNode.<init>()"})
-  void testNewPDEmbeddedFilesNameTreeNode() throws IOException {
+  void testNewPDEmbeddedFilesNameTreeNode2() throws IOException {
     // Arrange and Act
-    PDEmbeddedFilesNameTreeNode actualPdEmbeddedFilesNameTreeNode =
-        new PDEmbeddedFilesNameTreeNode();
+    PDEmbeddedFilesNameTreeNode actualPdEmbeddedFilesNameTreeNode = new PDEmbeddedFilesNameTreeNode();
 
     // Assert
     assertNull(actualPdEmbeddedFilesNameTreeNode.getLowerLimit());
@@ -49,31 +67,24 @@ class PDEmbeddedFilesNameTreeNodeDiffblueTest {
 
   /**
    * Test {@link PDEmbeddedFilesNameTreeNode#convertCOSToPD(COSBase)}.
-   *
    * <ul>
-   *   <li>When {@link COSDictionary#COSDictionary()}.
-   *   <li>Then return COSObject is {@link COSDictionary#COSDictionary()}.
+   *   <li>When {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then return COSObject is {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDEmbeddedFilesNameTreeNode#convertCOSToPD(COSBase)}
+   * <p>
+   * Method under test: {@link PDEmbeddedFilesNameTreeNode#convertCOSToPD(COSBase)}
    */
   @Test
-  @DisplayName(
-      "Test convertCOSToPD(COSBase); when COSDictionary(); then return COSObject is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "PDComplexFileSpecification PDEmbeddedFilesNameTreeNode.convertCOSToPD(COSBase)"
-  })
-  void testConvertCOSToPD_whenCOSDictionary_thenReturnCOSObjectIsCOSDictionary()
-      throws IOException {
+  @DisplayName("Test convertCOSToPD(COSBase); when COSDictionary(); then return COSObject is COSDictionary()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"PDComplexFileSpecification PDEmbeddedFilesNameTreeNode.convertCOSToPD(COSBase)"})
+  void testConvertCOSToPD_whenCOSDictionary_thenReturnCOSObjectIsCOSDictionary() throws IOException {
     // Arrange
     PDEmbeddedFilesNameTreeNode pdEmbeddedFilesNameTreeNode = new PDEmbeddedFilesNameTreeNode();
     COSDictionary base = new COSDictionary();
 
     // Act
-    PDComplexFileSpecification actualConvertCOSToPDResult =
-        pdEmbeddedFilesNameTreeNode.convertCOSToPD(base);
+    PDComplexFileSpecification actualConvertCOSToPDResult = pdEmbeddedFilesNameTreeNode.convertCOSToPD(base);
 
     // Assert
     assertNull(actualConvertCOSToPDResult.getFile());
@@ -94,24 +105,19 @@ class PDEmbeddedFilesNameTreeNodeDiffblueTest {
 
   /**
    * Test {@link PDEmbeddedFilesNameTreeNode#convertCOSToPD(COSBase)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDEmbeddedFilesNameTreeNode#convertCOSToPD(COSBase)}
+   * <p>
+   * Method under test: {@link PDEmbeddedFilesNameTreeNode#convertCOSToPD(COSBase)}
    */
   @Test
   @DisplayName("Test convertCOSToPD(COSBase); when 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "PDComplexFileSpecification PDEmbeddedFilesNameTreeNode.convertCOSToPD(COSBase)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"PDComplexFileSpecification PDEmbeddedFilesNameTreeNode.convertCOSToPD(COSBase)"})
   void testConvertCOSToPD_whenNull() throws IOException {
     // Arrange and Act
-    PDComplexFileSpecification actualConvertCOSToPDResult =
-        new PDEmbeddedFilesNameTreeNode().convertCOSToPD(null);
+    PDComplexFileSpecification actualConvertCOSToPDResult = (new PDEmbeddedFilesNameTreeNode()).convertCOSToPD(null);
 
     // Assert
     assertNull(actualConvertCOSToPDResult.getFile());
@@ -131,13 +137,12 @@ class PDEmbeddedFilesNameTreeNodeDiffblueTest {
 
   /**
    * Test {@link PDEmbeddedFilesNameTreeNode#createChildNode(COSDictionary)}.
-   *
-   * <p>Method under test: {@link PDEmbeddedFilesNameTreeNode#createChildNode(COSDictionary)}
+   * <p>
+   * Method under test: {@link PDEmbeddedFilesNameTreeNode#createChildNode(COSDictionary)}
    */
   @Test
   @DisplayName("Test createChildNode(COSDictionary)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDNameTreeNode PDEmbeddedFilesNameTreeNode.createChildNode(COSDictionary)"})
   void testCreateChildNode() throws IOException {
     // Arrange
@@ -145,8 +150,8 @@ class PDEmbeddedFilesNameTreeNodeDiffblueTest {
     COSDictionary dic = new COSDictionary();
 
     // Act
-    PDNameTreeNode<PDComplexFileSpecification> actualCreateChildNodeResult =
-        pdEmbeddedFilesNameTreeNode.createChildNode(dic);
+    PDNameTreeNode<PDComplexFileSpecification> actualCreateChildNodeResult = pdEmbeddedFilesNameTreeNode
+        .createChildNode(dic);
 
     // Assert
     assertTrue(actualCreateChildNodeResult instanceof PDEmbeddedFilesNameTreeNode);

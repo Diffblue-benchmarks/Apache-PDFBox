@@ -3,7 +3,6 @@ package org.apache.pdfbox.pdmodel.font.encoding;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
@@ -13,13 +12,12 @@ import org.junit.jupiter.api.Test;
 class MacOSRomanEncodingDiffblueTest {
   /**
    * Test new {@link MacOSRomanEncoding} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link MacOSRomanEncoding}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link MacOSRomanEncoding}
    */
   @Test
   @DisplayName("Test new MacOSRomanEncoding (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void MacOSRomanEncoding.<init>()"})
   void testNewMacOSRomanEncoding() {
     // Arrange and Act
@@ -52,16 +50,15 @@ class MacOSRomanEncodingDiffblueTest {
 
   /**
    * Test {@link MacOSRomanEncoding#getCOSObject()}.
-   *
-   * <p>Method under test: {@link MacOSRomanEncoding#getCOSObject()}
+   * <p>
+   * Method under test: {@link MacOSRomanEncoding#getCOSObject()}
    */
   @Test
   @DisplayName("Test getCOSObject()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"org.apache.pdfbox.cos.COSBase MacOSRomanEncoding.getCOSObject()"})
   void testGetCOSObject() {
     // Arrange, Act and Assert
-    assertNull(new MacOSRomanEncoding().getCOSObject());
+    assertNull((new MacOSRomanEncoding()).getCOSObject());
   }
 }

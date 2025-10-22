@@ -3,7 +3,6 @@ package org.apache.pdfbox.contentstream.operator.graphics;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,19 +16,16 @@ import org.junit.jupiter.api.Test;
 class StrokePathDiffblueTest {
   /**
    * Test {@link StrokePath#process(Operator, List)}.
-   *
    * <ul>
-   *   <li>Given {@link PageDrawer} {@link PageDrawer#strokePath()} does nothing.
-   *   <li>Then calls {@link PageDrawer#strokePath()}.
+   *   <li>Given {@link PageDrawer} {@link PageDrawer#strokePath()} does nothing.</li>
+   *   <li>Then calls {@link PageDrawer#strokePath()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link StrokePath#process(Operator, List)}
+   * <p>
+   * Method under test: {@link StrokePath#process(Operator, List)}
    */
   @Test
-  @DisplayName(
-      "Test process(Operator, List); given PageDrawer strokePath() does nothing; then calls strokePath()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test process(Operator, List); given PageDrawer strokePath() does nothing; then calls strokePath()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void StrokePath.process(Operator, List)"})
   void testProcess_givenPageDrawerStrokePathDoesNothing_thenCallsStrokePath() throws IOException {
     // Arrange

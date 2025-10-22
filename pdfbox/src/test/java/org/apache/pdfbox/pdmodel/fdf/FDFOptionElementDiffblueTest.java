@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
@@ -20,9 +19,8 @@ import org.junit.jupiter.api.Test;
 class FDFOptionElementDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link FDFOptionElement#FDFOptionElement(COSArray)}
    *   <li>{@link FDFOptionElement#getCOSArray()}
@@ -31,13 +29,9 @@ class FDFOptionElementDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void FDFOptionElement.<init>(COSArray)",
-    "COSArray FDFOptionElement.getCOSArray()",
-    "COSBase FDFOptionElement.getCOSObject()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void FDFOptionElement.<init>(COSArray)", "COSArray FDFOptionElement.getCOSArray()",
+      "COSBase FDFOptionElement.getCOSObject()"})
   void testGettersAndSetters() {
     // Arrange
     COSArray o = new COSArray();
@@ -55,13 +49,12 @@ class FDFOptionElementDiffblueTest {
 
   /**
    * Test {@link FDFOptionElement#FDFOptionElement()}.
-   *
-   * <p>Method under test: {@link FDFOptionElement#FDFOptionElement()}
+   * <p>
+   * Method under test: {@link FDFOptionElement#FDFOptionElement()}
    */
   @Test
   @DisplayName("Test new FDFOptionElement()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFOptionElement.<init>()"})
   void testNewFDFOptionElement() {
     // Arrange and Act
@@ -85,23 +78,21 @@ class FDFOptionElementDiffblueTest {
     assertFalse(((COSString) getResult).getForceHexForm());
     assertEquals(getResult, getResult2);
     assertSame(cOSArray, actualFdfOptionElement.getCOSObject());
-    assertArrayEquals(new byte[] {}, ((COSString) getResult).getBytes());
+    assertArrayEquals(new byte[]{}, ((COSString) getResult).getBytes());
   }
 
   /**
    * Test {@link FDFOptionElement#getOption()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFOptionElement#FDFOptionElement()} Option is {@code Opt}.
-   *   <li>Then return {@code Opt}.
+   *   <li>Given {@link FDFOptionElement#FDFOptionElement()} Option is {@code Opt}.</li>
+   *   <li>Then return {@code Opt}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFOptionElement#getOption()}
+   * <p>
+   * Method under test: {@link FDFOptionElement#getOption()}
    */
   @Test
   @DisplayName("Test getOption(); given FDFOptionElement() Option is 'Opt'; then return 'Opt'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String FDFOptionElement.getOption()"})
   void testGetOption_givenFDFOptionElementOptionIsOpt_thenReturnOpt() {
     // Arrange
@@ -114,39 +105,34 @@ class FDFOptionElementDiffblueTest {
 
   /**
    * Test {@link FDFOptionElement#getOption()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFOptionElement#FDFOptionElement()}.
-   *   <li>Then return empty string.
+   *   <li>Given {@link FDFOptionElement#FDFOptionElement()}.</li>
+   *   <li>Then return empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFOptionElement#getOption()}
+   * <p>
+   * Method under test: {@link FDFOptionElement#getOption()}
    */
   @Test
   @DisplayName("Test getOption(); given FDFOptionElement(); then return empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String FDFOptionElement.getOption()"})
   void testGetOption_givenFDFOptionElement_thenReturnEmptyString() {
     // Arrange, Act and Assert
-    assertEquals("", new FDFOptionElement().getOption());
+    assertEquals("", (new FDFOptionElement()).getOption());
   }
 
   /**
    * Test {@link FDFOptionElement#setOption(String)}.
-   *
    * <ul>
-   *   <li>Given {@link FDFOptionElement#FDFOptionElement()}.
-   *   <li>Then {@link FDFOptionElement#FDFOptionElement()} COSArray toList size is two.
+   *   <li>Given {@link FDFOptionElement#FDFOptionElement()}.</li>
+   *   <li>Then {@link FDFOptionElement#FDFOptionElement()} COSArray toList size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFOptionElement#setOption(String)}
+   * <p>
+   * Method under test: {@link FDFOptionElement#setOption(String)}
    */
   @Test
-  @DisplayName(
-      "Test setOption(String); given FDFOptionElement(); then FDFOptionElement() COSArray toList size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setOption(String); given FDFOptionElement(); then FDFOptionElement() COSArray toList size is two")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFOptionElement.setOption(String)"})
   void testSetOption_givenFDFOptionElement_thenFDFOptionElementCOSArrayToListSizeIsTwo()
       throws UnsupportedEncodingException {
@@ -165,43 +151,39 @@ class FDFOptionElementDiffblueTest {
     assertEquals("Opt", ((COSString) getResult).getASCII());
     assertEquals("Opt", ((COSString) getResult).getString());
     assertEquals("Opt", fdfOptionElement.getOption());
-    assertArrayEquals("Opt".getBytes("UTF-8"), ((COSString) getResult).getBytes());
+    byte[] expectedBytes = "Opt".getBytes("UTF-8");
+    assertArrayEquals(expectedBytes, ((COSString) getResult).getBytes());
   }
 
   /**
    * Test {@link FDFOptionElement#getDefaultAppearanceString()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFOptionElement#FDFOptionElement()}.
-   *   <li>Then return empty string.
+   *   <li>Given {@link FDFOptionElement#FDFOptionElement()}.</li>
+   *   <li>Then return empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFOptionElement#getDefaultAppearanceString()}
+   * <p>
+   * Method under test: {@link FDFOptionElement#getDefaultAppearanceString()}
    */
   @Test
-  @DisplayName(
-      "Test getDefaultAppearanceString(); given FDFOptionElement(); then return empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getDefaultAppearanceString(); given FDFOptionElement(); then return empty string")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String FDFOptionElement.getDefaultAppearanceString()"})
   void testGetDefaultAppearanceString_givenFDFOptionElement_thenReturnEmptyString() {
     // Arrange, Act and Assert
-    assertEquals("", new FDFOptionElement().getDefaultAppearanceString());
+    assertEquals("", (new FDFOptionElement()).getDefaultAppearanceString());
   }
 
   /**
    * Test {@link FDFOptionElement#getDefaultAppearanceString()}.
-   *
    * <ul>
-   *   <li>Then return {@code Da}.
+   *   <li>Then return {@code Da}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFOptionElement#getDefaultAppearanceString()}
+   * <p>
+   * Method under test: {@link FDFOptionElement#getDefaultAppearanceString()}
    */
   @Test
   @DisplayName("Test getDefaultAppearanceString(); then return 'Da'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String FDFOptionElement.getDefaultAppearanceString()"})
   void testGetDefaultAppearanceString_thenReturnDa() {
     // Arrange
@@ -214,18 +196,15 @@ class FDFOptionElementDiffblueTest {
 
   /**
    * Test {@link FDFOptionElement#setDefaultAppearanceString(String)}.
-   *
    * <ul>
-   *   <li>Then {@link FDFOptionElement#FDFOptionElement()} COSArray toList size is two.
+   *   <li>Then {@link FDFOptionElement#FDFOptionElement()} COSArray toList size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFOptionElement#setDefaultAppearanceString(String)}
+   * <p>
+   * Method under test: {@link FDFOptionElement#setDefaultAppearanceString(String)}
    */
   @Test
-  @DisplayName(
-      "Test setDefaultAppearanceString(String); then FDFOptionElement() COSArray toList size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setDefaultAppearanceString(String); then FDFOptionElement() COSArray toList size is two")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFOptionElement.setDefaultAppearanceString(String)"})
   void testSetDefaultAppearanceString_thenFDFOptionElementCOSArrayToListSizeIsTwo() {
     // Arrange
@@ -243,6 +222,6 @@ class FDFOptionElementDiffblueTest {
     assertEquals("Da", ((COSString) getResult).getASCII());
     assertEquals("Da", ((COSString) getResult).getString());
     assertEquals("Da", fdfOptionElement.getDefaultAppearanceString());
-    assertArrayEquals(new byte[] {'D', 'a'}, ((COSString) getResult).getBytes());
+    assertArrayEquals(new byte[]{'D', 'a'}, ((COSString) getResult).getBytes());
   }
 }

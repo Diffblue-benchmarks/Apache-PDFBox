@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -19,9 +18,8 @@ import org.junit.jupiter.api.Test;
 class PDSimpleFileSpecificationDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link PDSimpleFileSpecification#PDSimpleFileSpecification(COSString)}
    *   <li>{@link PDSimpleFileSpecification#getCOSObject()}
@@ -29,29 +27,25 @@ class PDSimpleFileSpecificationDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PDSimpleFileSpecification.<init>(COSString)",
-    "COSBase PDSimpleFileSpecification.getCOSObject()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDSimpleFileSpecification.<init>(COSString)",
+      "COSBase PDSimpleFileSpecification.getCOSObject()"})
   void testGettersAndSetters() throws IOException {
     // Arrange
     COSString fileName = COSString.parseHex("0123456789ABCDEF");
 
     // Act and Assert
-    assertSame(fileName, new PDSimpleFileSpecification(fileName).getCOSObject());
+    assertSame(fileName, (new PDSimpleFileSpecification(fileName)).getCOSObject());
   }
 
   /**
    * Test {@link PDSimpleFileSpecification#PDSimpleFileSpecification()}.
-   *
-   * <p>Method under test: {@link PDSimpleFileSpecification#PDSimpleFileSpecification()}
+   * <p>
+   * Method under test: {@link PDSimpleFileSpecification#PDSimpleFileSpecification()}
    */
   @Test
   @DisplayName("Test new PDSimpleFileSpecification()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDSimpleFileSpecification.<init>()"})
   void testNewPDSimpleFileSpecification() {
     // Arrange and Act
@@ -67,69 +61,54 @@ class PDSimpleFileSpecificationDiffblueTest {
     assertNull(cOSObject.getKey());
     assertFalse(cOSObject.isDirect());
     assertFalse(((COSString) cOSObject).getForceHexForm());
-    assertArrayEquals(new byte[] {}, ((COSString) cOSObject).getBytes());
+    assertArrayEquals(new byte[]{}, ((COSString) cOSObject).getBytes());
   }
 
   /**
    * Test {@link PDSimpleFileSpecification#getFile()}.
-   *
    * <ul>
-   *   <li>Given {@link PDSimpleFileSpecification#PDSimpleFileSpecification()}.
-   *   <li>Then return empty string.
+   *   <li>Given {@link PDSimpleFileSpecification#PDSimpleFileSpecification()}.</li>
+   *   <li>Then return empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDSimpleFileSpecification#getFile()}
+   * <p>
+   * Method under test: {@link PDSimpleFileSpecification#getFile()}
    */
   @Test
   @DisplayName("Test getFile(); given PDSimpleFileSpecification(); then return empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDSimpleFileSpecification.getFile()"})
   void testGetFile_givenPDSimpleFileSpecification_thenReturnEmptyString() {
     // Arrange, Act and Assert
-    assertEquals("", new PDSimpleFileSpecification().getFile());
+    assertEquals("", (new PDSimpleFileSpecification()).getFile());
   }
 
   /**
    * Test {@link PDSimpleFileSpecification#getFile()}.
-   *
    * <ul>
-   *   <li>Then return {@code #Eg›«Íï}.
+   *   <li>Then return {@code #Eg›«Íï}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDSimpleFileSpecification#getFile()}
+   * <p>
+   * Method under test: {@link PDSimpleFileSpecification#getFile()}
    */
   @Test
   @DisplayName("Test getFile(); then return '#Eg›«Íï'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDSimpleFileSpecification.getFile()"})
   void testGetFile_thenReturnEg() throws IOException {
     // Arrange, Act and Assert
-    assertEquals(
-        "\u0001#Eg›«Íï",
-        new PDSimpleFileSpecification(COSString.parseHex("0123456789ABCDEF")).getFile());
+    assertEquals("\u0001#Eg›«Íï", (new PDSimpleFileSpecification(COSString.parseHex("0123456789ABCDEF"))).getFile());
   }
 
   /**
    * Test {@link PDSimpleFileSpecification#setFile(String)}.
-   *
-   * <ul>
-   *   <li>When {@code foo.txt}.
-   *   <li>Then {@link PDSimpleFileSpecification#PDSimpleFileSpecification()} COSObject {@link
-   *       COSString}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDSimpleFileSpecification#setFile(String)}
+   * <p>
+   * Method under test: {@link PDSimpleFileSpecification#setFile(String)}
    */
   @Test
-  @DisplayName(
-      "Test setFile(String); when 'foo.txt'; then PDSimpleFileSpecification() COSObject COSString")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setFile(String)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDSimpleFileSpecification.setFile(String)"})
-  void testSetFile_whenFooTxt_thenPDSimpleFileSpecificationCOSObjectCOSString()
-      throws UnsupportedEncodingException {
+  void testSetFile() throws UnsupportedEncodingException {
     // Arrange
     PDSimpleFileSpecification pdSimpleFileSpecification = new PDSimpleFileSpecification();
 
@@ -143,6 +122,7 @@ class PDSimpleFileSpecificationDiffblueTest {
     assertEquals("foo.txt", ((COSString) cOSObject).getASCII());
     assertEquals("foo.txt", ((COSString) cOSObject).getString());
     assertEquals("foo.txt", pdSimpleFileSpecification.getFile());
-    assertArrayEquals("foo.txt".getBytes("UTF-8"), ((COSString) cOSObject).getBytes());
+    byte[] expectedBytes = "foo.txt".getBytes("UTF-8");
+    assertArrayEquals(expectedBytes, ((COSString) cOSObject).getBytes());
   }
 }

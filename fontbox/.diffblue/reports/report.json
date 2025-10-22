@@ -1,27 +1,26 @@
 {
   "meta" : {
-    "reportVersion" : "2.7"
+    "reportVersion" : "2.6"
   },
   "run" : {
-    "version" : "2025.09.01-44e352d-licensed",
-    "creationTimestamp" : "2025-10-16T11:51:44.216365Z",
+    "version" : "2025.02.02-08b2a5a-licensed",
+    "creationTimestamp" : "2025-10-21T16:22:54.192235Z",
     "command" : "dcover create --exclude-modules org.apache.pdfbox:pdfbox-parent,org.apache.pdfbox:pdfbox-app,org.apache.pdfbox:debugger-app --coverage-reports --upload http://localhost:8080 --project-name Apache-PDFBox --name with-diffblue-tests",
-    "totalTime" : 2676.416,
-    "environmentDetectionTime" : 1.485,
-    "indexingTime" : 0.426,
-    "entryPointsTime" : 1.468,
-    "generationTime" : 2824.071,
-    "timeToFirstTest" : 2741.459,
-    "timeToLastTest" : 2976.293,
-    "indexQueryTime" : 4.312,
-    "verificationTime" : 64.617,
-    "validationTime" : 40.016
+    "totalTime" : 5475.844,
+    "environmentDetectionTime" : 2.304,
+    "indexingTime" : 0.297,
+    "entryPointsTime" : 2.3,
+    "generationTime" : 6299.752,
+    "timeToFirstTest" : 5539.631,
+    "timeToLastTest" : 6444.544,
+    "indexQueryTime" : 5.724,
+    "verificationTime" : 55.206,
+    "validationTime" : 43.853
   },
   "codes" : {
     "R000" : "Success",
     "R002" : "Missing observers",
     "R004" : "No meaningful assertions found",
-    "R011" : "Sandboxing policy violation",
     "R013" : "No inputs found that don't throw a trivial exception",
     "R015" : "Method may be nondeterministic",
     "R034" : "Diffblue Cover can't complete test",
@@ -38,7 +37,6 @@
     "T012" : "Synthetic method",
     "T020" : "Other trivial method",
     "T021" : "Empty method body",
-    "T023" : "Testability unknown",
     "V000" : "Validated successfully",
     "V003" : "Tests discarded during validation",
     "W002" : "Test compiled, but did not pass"
@@ -46,9 +44,9 @@
   "summary" : {
     "classesCount" : 180,
     "methodsCount" : 1687,
-    "cumulativeDiffblueTestCount" : 1090,
+    "cumulativeDiffblueTestCount" : 971,
     "cumulativeManualTestCount" : 178,
-    "completeTestCount" : 1091,
+    "completeTestCount" : 972,
     "incompleteTestCount" : 0,
     "skeletonTestCount" : 0,
     "totalPhysicalLineCount" : 19024,
@@ -62,18 +60,16 @@
       "T008" : 20,
       "T009" : 1,
       "T010" : 73,
-      "T012" : 71,
+      "T012" : 124,
       "T020" : 22,
-      "T021" : 4,
-      "T023" : 53
+      "T021" : 4
     },
     "perMethodOutcome" : {
-      "R000" : 978,
-      "R002" : 18,
-      "R004" : 10,
-      "R011" : 1,
-      "R013" : 50,
-      "R015" : 3,
+      "R000" : 970,
+      "R002" : 16,
+      "R004" : 12,
+      "R013" : 56,
+      "R015" : 6,
       "R034" : 2,
       "R081" : 5,
       "T003" : 393,
@@ -81,15 +77,14 @@
       "T008" : 20,
       "T009" : 1,
       "T010" : 73,
-      "T012" : 71,
-      "T023" : 53,
+      "T012" : 124,
       "W002" : 3
     },
     "perTestOutcome" : {
-      "R000" : 1091
+      "R000" : 972
     },
     "perTestValidation" : {
-      "V000" : 1090,
+      "V000" : 971,
       "V003" : 1
     },
     "warnings" : {
@@ -187,7 +182,7 @@
     },
     "org.apache.fontbox.afm.FontMetrics" : {
       "methodsCount" : 74,
-      "completeTestCount" : 26,
+      "completeTestCount" : 29,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 20,
@@ -199,7 +194,7 @@
         "R000" : 74
       },
       "perTestOutcome" : {
-        "R000" : 26
+        "R000" : 29
       }
     },
     "org.apache.fontbox.afm.KernPair" : {
@@ -331,7 +326,7 @@
         "T010" : 1
       },
       "perMethodOutcome" : {
-        "R004" : 1,
+        "R013" : 1,
         "T010" : 1,
         "W002" : 1
       },
@@ -346,14 +341,12 @@
       "perMethodTestability" : {
         "T001" : 1,
         "T003" : 1,
-        "T012" : 9,
-        "T023" : 1
+        "T012" : 10
       },
       "perMethodOutcome" : {
         "R000" : 1,
         "T003" : 1,
-        "T012" : 9,
-        "T023" : 1
+        "T012" : 10
       },
       "perTestOutcome" : {
         "R000" : 1
@@ -366,12 +359,12 @@
       "perMethodTestability" : {
         "T001" : 1,
         "T003" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "R000" : 1,
         "T003" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
         "R000" : 1
@@ -384,14 +377,12 @@
       "perMethodTestability" : {
         "T001" : 1,
         "T003" : 1,
-        "T012" : 9,
-        "T023" : 1
+        "T012" : 10
       },
       "perMethodOutcome" : {
         "R000" : 1,
         "T003" : 1,
-        "T012" : 9,
-        "T023" : 1
+        "T012" : 10
       },
       "perTestOutcome" : {
         "R000" : 1
@@ -399,19 +390,19 @@
     },
     "org.apache.fontbox.cff.CFFFont" : {
       "methodsCount" : 17,
-      "completeTestCount" : 14,
+      "completeTestCount" : 13,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 15,
         "T010" : 2
       },
       "perMethodOutcome" : {
-        "R000" : 13,
-        "R013" : 2,
+        "R000" : 12,
+        "R013" : 3,
         "T010" : 2
       },
       "perTestOutcome" : {
-        "R000" : 14
+        "R000" : 13
       }
     },
     "org.apache.fontbox.cff.CFFISOAdobeCharset" : {
@@ -421,14 +412,12 @@
       "perMethodTestability" : {
         "T001" : 1,
         "T003" : 1,
-        "T012" : 9,
-        "T023" : 1
+        "T012" : 10
       },
       "perMethodOutcome" : {
         "R000" : 1,
         "T003" : 1,
-        "T012" : 9,
-        "T023" : 1
+        "T012" : 10
       },
       "perTestOutcome" : {
         "R000" : 1
@@ -442,13 +431,13 @@
         "T000" : 2,
         "T003" : 3,
         "T008" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "R000" : 2,
         "T003" : 3,
         "T008" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
         "R000" : 2
@@ -456,23 +445,22 @@
     },
     "org.apache.fontbox.cff.CFFParser" : {
       "methodsCount" : 41,
-      "completeTestCount" : 12,
+      "completeTestCount" : 11,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 3,
         "T003" : 35,
         "T005" : 1,
-        "T020" : 1,
-        "T023" : 1
+        "T012" : 1,
+        "T020" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 3,
-        "R002" : 2,
+        "R000" : 5,
         "T003" : 35,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 12
+        "R000" : 11
       }
     },
     "org.apache.fontbox.cff.CFFParser$ByteSource" : {
@@ -690,12 +678,12 @@
       "perMethodTestability" : {
         "T001" : 1,
         "T003" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "R000" : 1,
         "T003" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
         "R000" : 1
@@ -708,12 +696,12 @@
       "perMethodTestability" : {
         "T000" : 1,
         "T008" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "R000" : 1,
         "T008" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
         "R000" : 1
@@ -774,14 +762,12 @@
         "T000" : 3,
         "T001" : 4,
         "T003" : 1,
-        "T012" : 3,
-        "T023" : 1
+        "T012" : 4
       },
       "perMethodOutcome" : {
         "R000" : 7,
         "T003" : 1,
-        "T012" : 3,
-        "T023" : 1
+        "T012" : 4
       },
       "perTestOutcome" : {
         "R000" : 14
@@ -793,13 +779,11 @@
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T003" : 1,
-        "T012" : 2,
-        "T023" : 1
+        "T012" : 3
       },
       "perMethodOutcome" : {
         "T003" : 1,
-        "T012" : 2,
-        "T023" : 1
+        "T012" : 3
       }
     },
     "org.apache.fontbox.cff.CharStringCommand$Type2KeyWord" : {
@@ -808,13 +792,11 @@
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T003" : 1,
-        "T012" : 2,
-        "T023" : 1
+        "T012" : 3
       },
       "perMethodOutcome" : {
         "T003" : 1,
-        "T012" : 2,
-        "T023" : 1
+        "T012" : 3
       }
     },
     "org.apache.fontbox.cff.DataInput" : {
@@ -851,17 +833,18 @@
     },
     "org.apache.fontbox.cff.DataInputRandomAccessRead" : {
       "methodsCount" : 9,
-      "completeTestCount" : 19,
+      "completeTestCount" : 17,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 8,
         "T005" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 9
+        "R000" : 8,
+        "R015" : 1
       },
       "perTestOutcome" : {
-        "R000" : 19
+        "R000" : 17
       }
     },
     "org.apache.fontbox.cff.EmbeddedCharset" : {
@@ -892,25 +875,23 @@
     },
     "org.apache.fontbox.cff.Type1CharString" : {
       "methodsCount" : 23,
-      "completeTestCount" : 56,
+      "completeTestCount" : 51,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 8,
         "T001" : 1,
         "T003" : 9,
-        "T012" : 3,
-        "T020" : 1,
-        "T023" : 1
+        "T012" : 4,
+        "T020" : 1
       },
       "perMethodOutcome" : {
         "R000" : 9,
         "R015" : 1,
         "T003" : 9,
-        "T012" : 3,
-        "T023" : 1
+        "T012" : 4
       },
       "perTestOutcome" : {
-        "R000" : 56
+        "R000" : 51
       }
     },
     "org.apache.fontbox.cff.Type1CharString$1" : {
@@ -918,30 +899,30 @@
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
-        "T023" : 1
+        "T012" : 1
       }
     },
     "org.apache.fontbox.cff.Type1CharStringParser" : {
       "methodsCount" : 9,
-      "completeTestCount" : 7,
+      "completeTestCount" : 9,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 1,
         "T003" : 6,
         "T005" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "R000" : 1,
         "R002" : 1,
         "T003" : 6,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 7
+        "R000" : 9
       }
     },
     "org.apache.fontbox.cff.Type2CharString" : {
@@ -968,15 +949,15 @@
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
-        "T023" : 1
+        "T012" : 1
       }
     },
     "org.apache.fontbox.cff.Type2CharStringParser" : {
       "methodsCount" : 13,
-      "completeTestCount" : 10,
+      "completeTestCount" : 12,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 1,
@@ -989,7 +970,7 @@
         "T003" : 10
       },
       "perTestOutcome" : {
-        "R000" : 10
+        "R000" : 12
       }
     },
     "org.apache.fontbox.cff.Type2CharStringParser$GlyphData" : {
@@ -1021,7 +1002,7 @@
     },
     "org.apache.fontbox.cmap.CMap" : {
       "methodsCount" : 43,
-      "completeTestCount" : 40,
+      "completeTestCount" : 36,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 16,
@@ -1029,22 +1010,21 @@
         "T002" : 7,
         "T003" : 5,
         "T005" : 1,
-        "T012" : 4,
-        "T023" : 1
+        "T012" : 5
       },
       "perMethodOutcome" : {
-        "R000" : 33,
+        "R000" : 32,
+        "R013" : 1,
         "T003" : 5,
-        "T012" : 4,
-        "T023" : 1
+        "T012" : 5
       },
       "perTestOutcome" : {
-        "R000" : 40
+        "R000" : 36
       }
     },
     "org.apache.fontbox.cmap.CMapParser" : {
       "methodsCount" : 30,
-      "completeTestCount" : 17,
+      "completeTestCount" : 15,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 4,
@@ -1056,7 +1036,7 @@
         "T003" : 26
       },
       "perTestOutcome" : {
-        "R000" : 17
+        "R000" : 15
       }
     },
     "org.apache.fontbox.cmap.CMapParser$LiteralName" : {
@@ -1136,11 +1116,11 @@
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T003" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "T003" : 1,
-        "T023" : 1
+        "T012" : 1
       }
     },
     "org.apache.fontbox.encoding.StandardEncoding" : {
@@ -1149,11 +1129,11 @@
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "R000" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
         "R000" : 1
@@ -1161,23 +1141,23 @@
     },
     "org.apache.fontbox.pfb.PfbParser" : {
       "methodsCount" : 11,
-      "completeTestCount" : 13,
+      "completeTestCount" : 10,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 7,
         "T001" : 2,
         "T003" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 3,
-        "R013" : 4,
+        "R000" : 2,
+        "R013" : 5,
         "R081" : 2,
         "T003" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 13
+        "R000" : 10
       }
     },
     "org.apache.fontbox.ttf.CFFTable" : {
@@ -1188,12 +1168,12 @@
         "T000" : 2,
         "T001" : 1,
         "T005" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "R000" : 2,
         "R013" : 2,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
         "R000" : 1
@@ -1223,26 +1203,25 @@
     },
     "org.apache.fontbox.ttf.CmapSubtable" : {
       "methodsCount" : 24,
-      "completeTestCount" : 39,
+      "completeTestCount" : 26,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 14,
         "T001" : 2,
         "T002" : 2,
         "T003" : 3,
-        "T012" : 1,
-        "T020" : 1,
-        "T023" : 1
+        "T012" : 2,
+        "T020" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 18,
+        "R000" : 17,
         "R004" : 1,
+        "R013" : 1,
         "T003" : 3,
-        "T012" : 1,
-        "T023" : 1
+        "T012" : 2
       },
       "perTestOutcome" : {
-        "R000" : 39
+        "R000" : 26
       }
     },
     "org.apache.fontbox.ttf.CmapSubtable$SubHeader" : {
@@ -1258,7 +1237,7 @@
     },
     "org.apache.fontbox.ttf.CmapTable" : {
       "methodsCount" : 5,
-      "completeTestCount" : 18,
+      "completeTestCount" : 11,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
@@ -1270,7 +1249,7 @@
         "R000" : 5
       },
       "perTestOutcome" : {
-        "R000" : 18
+        "R000" : 11
       }
     },
     "org.apache.fontbox.ttf.DigitalSignatureTable" : {
@@ -1306,7 +1285,7 @@
     },
     "org.apache.fontbox.ttf.GlyfCompositeComp" : {
       "methodsCount" : 17,
-      "completeTestCount" : 13,
+      "completeTestCount" : 12,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 3,
@@ -1317,28 +1296,28 @@
         "R000" : 17
       },
       "perTestOutcome" : {
-        "R000" : 13
+        "R000" : 12
       }
     },
     "org.apache.fontbox.ttf.GlyfCompositeDescript" : {
       "methodsCount" : 15,
-      "completeTestCount" : 13,
+      "completeTestCount" : 14,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 10,
         "T001" : 1,
         "T003" : 3,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "R000" : 9,
         "R013" : 1,
         "R081" : 1,
         "T003" : 3,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 13
+        "R000" : 14
       }
     },
     "org.apache.fontbox.ttf.GlyfDescript" : {
@@ -1360,7 +1339,7 @@
     },
     "org.apache.fontbox.ttf.GlyfSimpleDescript" : {
       "methodsCount" : 10,
-      "completeTestCount" : 11,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 5,
@@ -1374,12 +1353,12 @@
         "T003" : 2
       },
       "perTestOutcome" : {
-        "R000" : 11
+        "R000" : 2
       }
     },
     "org.apache.fontbox.ttf.GlyphData" : {
       "methodsCount" : 11,
-      "completeTestCount" : 17,
+      "completeTestCount" : 12,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 3,
@@ -1391,7 +1370,7 @@
         "R013" : 1
       },
       "perTestOutcome" : {
-        "R000" : 17
+        "R000" : 12
       }
     },
     "org.apache.fontbox.ttf.GlyphDescription" : {
@@ -1413,14 +1392,12 @@
         "T000" : 1,
         "T003" : 7,
         "T005" : 1,
-        "T012" : 3,
-        "T023" : 1
+        "T012" : 4
       },
       "perMethodOutcome" : {
         "R000" : 2,
         "T003" : 7,
-        "T012" : 3,
-        "T023" : 1
+        "T012" : 4
       },
       "perTestOutcome" : {
         "R000" : 2
@@ -1439,25 +1416,23 @@
     },
     "org.apache.fontbox.ttf.GlyphSubstitutionTable" : {
       "methodsCount" : 35,
-      "completeTestCount" : 6,
+      "completeTestCount" : 5,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 5,
         "T001" : 1,
         "T003" : 23,
         "T005" : 1,
-        "T012" : 4,
-        "T023" : 1
+        "T012" : 5
       },
       "perMethodOutcome" : {
         "R000" : 5,
         "R013" : 2,
         "T003" : 23,
-        "T012" : 4,
-        "T023" : 1
+        "T012" : 5
       },
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 5
       }
     },
     "org.apache.fontbox.ttf.GlyphTable" : {
@@ -1553,12 +1528,12 @@
         "T000" : 5,
         "T003" : 6,
         "T005" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "R000" : 6,
         "T003" : 6,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
         "R000" : 9
@@ -1582,14 +1557,12 @@
       "perMethodTestability" : {
         "T003" : 3,
         "T008" : 1,
-        "T012" : 1,
-        "T023" : 1
+        "T012" : 2
       },
       "perMethodOutcome" : {
         "T003" : 3,
         "T008" : 1,
-        "T012" : 1,
-        "T023" : 1
+        "T012" : 2
       }
     },
     "org.apache.fontbox.ttf.KerningTable" : {
@@ -1599,11 +1572,11 @@
       "perMethodTestability" : {
         "T000" : 3,
         "T005" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "R000" : 4,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
         "R000" : 4
@@ -1656,8 +1629,7 @@
         "T012" : 3
       },
       "perMethodOutcome" : {
-        "R000" : 7,
-        "R013" : 1,
+        "R000" : 8,
         "T003" : 6,
         "T012" : 3
       },
@@ -1667,25 +1639,25 @@
     },
     "org.apache.fontbox.ttf.OS2WindowsMetricsTable" : {
       "methodsCount" : 72,
-      "completeTestCount" : 5,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
         "T001" : 37,
         "T002" : 32,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "R000" : 71,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 5
+        "R000" : 3
       }
     },
     "org.apache.fontbox.ttf.OTFParser" : {
       "methodsCount" : 7,
-      "completeTestCount" : 24,
+      "completeTestCount" : 10,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 5,
@@ -1697,7 +1669,7 @@
         "R013" : 1
       },
       "perTestOutcome" : {
-        "R000" : 24
+        "R000" : 10
       }
     },
     "org.apache.fontbox.ttf.OTLTable" : {
@@ -1736,14 +1708,12 @@
       "perMethodTestability" : {
         "T000" : 1,
         "T003" : 4,
-        "T012" : 2,
-        "T023" : 1
+        "T012" : 3
       },
       "perMethodOutcome" : {
         "R000" : 1,
         "T003" : 4,
-        "T012" : 2,
-        "T023" : 1
+        "T012" : 3
       },
       "perTestOutcome" : {
         "R000" : 5
@@ -1751,61 +1721,65 @@
     },
     "org.apache.fontbox.ttf.PostScriptTable" : {
       "methodsCount" : 24,
-      "completeTestCount" : 12,
+      "completeTestCount" : 10,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
         "T001" : 10,
         "T002" : 10,
         "T005" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "R000" : 23,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 12
+        "R000" : 10
       }
     },
     "org.apache.fontbox.ttf.RandomAccessReadDataStream" : {
       "methodsCount" : 13,
-      "completeTestCount" : 16,
+      "completeTestCount" : 11,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 9,
         "T001" : 1,
         "T003" : 1,
-        "T021" : 1,
-        "T023" : 1
+        "T012" : 1,
+        "T021" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 11,
+        "R000" : 9,
+        "R013" : 1,
+        "R015" : 1,
         "T003" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 16
+        "R000" : 11
       }
     },
     "org.apache.fontbox.ttf.RandomAccessReadUnbufferedDataStream" : {
       "methodsCount" : 12,
-      "completeTestCount" : 9,
+      "completeTestCount" : 7,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 9,
         "T001" : 1,
         "T003" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 8,
-        "R013" : 2,
+        "R000" : 6,
+        "R004" : 2,
+        "R013" : 1,
+        "R015" : 1,
         "T003" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 9
+        "R000" : 7
       }
     },
     "org.apache.fontbox.ttf.RandomAccessReadUnbufferedDataStream$RandomAccessReadNonClosingInputStream" : {
@@ -1821,15 +1795,18 @@
     },
     "org.apache.fontbox.ttf.SubstitutingCmapLookup" : {
       "methodsCount" : 3,
-      "completeTestCount" : 0,
+      "completeTestCount" : 5,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
         "T005" : 1
       },
       "perMethodOutcome" : {
-        "R013" : 2,
+        "R000" : 2,
         "R081" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 5
       }
     },
     "org.apache.fontbox.ttf.TTCDataStream" : {
@@ -1857,12 +1834,12 @@
       "perMethodTestability" : {
         "T000" : 14,
         "T010" : 8,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "R000" : 14,
         "T010" : 8,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
         "R000" : 25
@@ -1870,47 +1847,45 @@
     },
     "org.apache.fontbox.ttf.TTFParser" : {
       "methodsCount" : 14,
-      "completeTestCount" : 18,
+      "completeTestCount" : 28,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 8,
         "T003" : 3,
         "T005" : 2,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 7,
+        "R000" : 5,
         "R002" : 2,
-        "R013" : 1,
+        "R013" : 3,
         "T003" : 3,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 18
+        "R000" : 28
       }
     },
     "org.apache.fontbox.ttf.TTFSubsetter" : {
       "methodsCount" : 36,
-      "completeTestCount" : 27,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 7,
         "T002" : 1,
         "T003" : 26,
-        "T012" : 1,
-        "T023" : 1
+        "T012" : 2
       },
       "perMethodOutcome" : {
-        "R000" : 2,
-        "R013" : 3,
+        "R000" : 1,
+        "R013" : 4,
         "R034" : 2,
         "R081" : 1,
         "T003" : 26,
-        "T012" : 1,
-        "T023" : 1
+        "T012" : 2
       },
       "perTestOutcome" : {
-        "R000" : 27
+        "R000" : 3
       }
     },
     "org.apache.fontbox.ttf.TTFTable" : {
@@ -1971,24 +1946,24 @@
     },
     "org.apache.fontbox.ttf.TrueTypeFont" : {
       "methodsCount" : 53,
-      "completeTestCount" : 74,
+      "completeTestCount" : 61,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 44,
         "T001" : 3,
         "T002" : 2,
         "T003" : 3,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 42,
-        "R004" : 4,
+        "R000" : 41,
+        "R004" : 5,
         "R013" : 3,
         "T003" : 3,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 74
+        "R000" : 61
       }
     },
     "org.apache.fontbox.ttf.VerticalHeaderTable" : {
@@ -2025,7 +2000,7 @@
     },
     "org.apache.fontbox.ttf.VerticalOriginTable" : {
       "methodsCount" : 4,
-      "completeTestCount" : 3,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
@@ -2037,7 +2012,7 @@
         "R013" : 1
       },
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 2
       }
     },
     "org.apache.fontbox.ttf.WGL4Names" : {
@@ -2047,12 +2022,12 @@
       "perMethodTestability" : {
         "T000" : 3,
         "T008" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "R000" : 3,
         "T008" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
         "R000" : 5
@@ -2060,7 +2035,7 @@
     },
     "org.apache.fontbox.ttf.gsub.CompoundCharacterTokenizer" : {
       "methodsCount" : 6,
-      "completeTestCount" : 10,
+      "completeTestCount" : 7,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
@@ -2075,7 +2050,7 @@
         "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 10
+        "R000" : 7
       }
     },
     "org.apache.fontbox.ttf.gsub.DefaultGsubWorker" : {
@@ -2085,12 +2060,12 @@
       "perMethodTestability" : {
         "T000" : 1,
         "T005" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "R000" : 1,
         "R002" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
         "R000" : 3
@@ -2109,7 +2084,7 @@
     },
     "org.apache.fontbox.ttf.gsub.GlyphArraySplitterRegexImpl" : {
       "methodsCount" : 9,
-      "completeTestCount" : 12,
+      "completeTestCount" : 10,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
@@ -2122,28 +2097,28 @@
         "T012" : 4
       },
       "perTestOutcome" : {
-        "R000" : 12
+        "R000" : 10
       }
     },
     "org.apache.fontbox.ttf.gsub.GlyphSubstitutionDataExtractor" : {
       "methodsCount" : 16,
-      "completeTestCount" : 6,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
         "T003" : 12,
         "T005" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "R000" : 1,
         "R002" : 1,
         "R004" : 1,
         "T003" : 12,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 3
       }
     },
     "org.apache.fontbox.ttf.gsub.GlyphSubstitutionDataExtractor$ScriptTableDetails" : {
@@ -2172,20 +2147,20 @@
     },
     "org.apache.fontbox.ttf.gsub.GsubWorkerFactory" : {
       "methodsCount" : 3,
-      "completeTestCount" : 24,
+      "completeTestCount" : 18,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 1,
         "T005" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "R000" : 1,
         "R002" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 24
+        "R000" : 18
       }
     },
     "org.apache.fontbox.ttf.gsub.GsubWorkerFactory$1" : {
@@ -2193,10 +2168,10 @@
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
-        "T023" : 1
+        "T012" : 1
       }
     },
     "org.apache.fontbox.ttf.gsub.GsubWorkerForBengali" : {
@@ -2206,14 +2181,12 @@
       "perMethodTestability" : {
         "T000" : 2,
         "T003" : 7,
-        "T012" : 1,
-        "T023" : 1
+        "T012" : 2
       },
       "perMethodOutcome" : {
         "R000" : 2,
         "T003" : 7,
-        "T012" : 1,
-        "T023" : 1
+        "T012" : 2
       },
       "perTestOutcome" : {
         "R000" : 9
@@ -2232,62 +2205,58 @@
     },
     "org.apache.fontbox.ttf.gsub.GsubWorkerForDevanagari" : {
       "methodsCount" : 12,
-      "completeTestCount" : 29,
+      "completeTestCount" : 22,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
         "T003" : 8,
-        "T012" : 1,
-        "T023" : 1
+        "T012" : 2
       },
       "perMethodOutcome" : {
         "R000" : 2,
         "T003" : 8,
-        "T012" : 1,
-        "T023" : 1
+        "T012" : 2
       },
       "perTestOutcome" : {
-        "R000" : 29
+        "R000" : 22
       }
     },
     "org.apache.fontbox.ttf.gsub.GsubWorkerForGujarati" : {
       "methodsCount" : 12,
-      "completeTestCount" : 29,
+      "completeTestCount" : 22,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
         "T003" : 8,
-        "T012" : 1,
-        "T023" : 1
+        "T012" : 2
       },
       "perMethodOutcome" : {
         "R000" : 2,
         "T003" : 8,
-        "T012" : 1,
-        "T023" : 1
+        "T012" : 2
       },
       "perTestOutcome" : {
-        "R000" : 29
+        "R000" : 22
       }
     },
     "org.apache.fontbox.ttf.gsub.GsubWorkerForLatin" : {
       "methodsCount" : 4,
-      "completeTestCount" : 3,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 1,
         "T003" : 1,
         "T005" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "R000" : 1,
         "R002" : 1,
         "T003" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 1
       }
     },
     "org.apache.fontbox.ttf.model.GsubData" : {
@@ -2296,11 +2265,11 @@
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T010" : 5,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "T010" : 5,
-        "T023" : 1
+        "T012" : 1
       }
     },
     "org.apache.fontbox.ttf.model.GsubData$1" : {
@@ -2321,14 +2290,12 @@
       "perMethodTestability" : {
         "T001" : 1,
         "T003" : 1,
-        "T012" : 2,
-        "T023" : 1
+        "T012" : 3
       },
       "perMethodOutcome" : {
         "R000" : 1,
         "T003" : 1,
-        "T012" : 2,
-        "T023" : 1
+        "T012" : 3
       },
       "perTestOutcome" : {
         "R000" : 1
@@ -2735,20 +2702,20 @@
     },
     "org.apache.fontbox.type1.Token" : {
       "methodsCount" : 11,
-      "completeTestCount" : 9,
+      "completeTestCount" : 8,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 5,
         "T001" : 3,
         "T005" : 2,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "R000" : 10,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 9
+        "R000" : 8
       }
     },
     "org.apache.fontbox.type1.Token$Kind" : {
@@ -2757,13 +2724,11 @@
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T003" : 1,
-        "T012" : 2,
-        "T023" : 1
+        "T012" : 3
       },
       "perMethodOutcome" : {
         "T003" : 1,
-        "T012" : 2,
-        "T023" : 1
+        "T012" : 3
       }
     },
     "org.apache.fontbox.type1.Type1CharStringReader" : {
@@ -2779,7 +2744,7 @@
     },
     "org.apache.fontbox.type1.Type1Font" : {
       "methodsCount" : 46,
-      "completeTestCount" : 19,
+      "completeTestCount" : 18,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 20,
@@ -2788,35 +2753,35 @@
         "T020" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 43,
-        "R013" : 2,
+        "R000" : 42,
+        "R013" : 3,
         "T003" : 1
       },
       "perTestOutcome" : {
-        "R000" : 19
+        "R000" : 18
       }
     },
     "org.apache.fontbox.type1.Type1Lexer" : {
       "methodsCount" : 12,
-      "completeTestCount" : 52,
+      "completeTestCount" : 55,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 4,
         "T003" : 7,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "R000" : 4,
         "T003" : 7,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 52
+        "R000" : 55
       }
     },
     "org.apache.fontbox.type1.Type1Parser" : {
       "methodsCount" : 26,
-      "completeTestCount" : 6,
+      "completeTestCount" : 9,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 1,
@@ -2829,7 +2794,7 @@
         "T003" : 24
       },
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 9
       }
     },
     "org.apache.fontbox.util.BoundingBox" : {
@@ -2869,15 +2834,13 @@
         "T000" : 2,
         "T003" : 3,
         "T005" : 1,
-        "T012" : 1,
-        "T023" : 1
+        "T012" : 2
       },
       "perMethodOutcome" : {
         "R000" : 2,
         "R002" : 1,
         "T003" : 3,
-        "T012" : 1,
-        "T023" : 1
+        "T012" : 2
       },
       "perTestOutcome" : {
         "R000" : 2
@@ -2905,12 +2868,12 @@
       "perMethodTestability" : {
         "T000" : 1,
         "T010" : 2,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "R000" : 1,
         "T010" : 2,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
         "R000" : 1
@@ -2948,19 +2911,22 @@
     },
     "org.apache.fontbox.util.autodetect.WindowsFontDirFinder" : {
       "methodsCount" : 4,
-      "completeTestCount" : 0,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 1,
         "T003" : 1,
         "T005" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
+        "R000" : 1,
         "R002" : 1,
-        "R011" : 1,
         "T003" : 1,
-        "T023" : 1
+        "T012" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 1
       }
     }
   },
@@ -4187,12 +4153,12 @@
       ]
     },
     "org.apache.fontbox.afm.FontMetrics.getCharacterHeight:(Ljava/lang/String;)F" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 3
       },
       "lineNumbers" : [
         110,
@@ -4217,12 +4183,12 @@
       ]
     },
     "org.apache.fontbox.afm.FontMetrics.getCharacterWidth:(Ljava/lang/String;)F" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         93,
@@ -5763,10 +5729,7 @@
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "W002",
-      "warnings" : {
-        "W002" : 1
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         58,
         59
@@ -5776,7 +5739,10 @@
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R004",
+      "perMethodOutcome" : "W002",
+      "warnings" : {
+        "W002" : 1
+      },
       "lineNumbers" : [
         46,
         47
@@ -5785,8 +5751,11 @@
     "org.apache.fontbox.cff.CFFExpertCharset.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        217
+      ]
     },
     "org.apache.fontbox.cff.CFFExpertCharset.<init>:()V" : {
       "completeTestCount" : 0,
@@ -6065,8 +6034,11 @@
     "org.apache.fontbox.cff.CFFExpertEncoding.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        307
+      ]
     },
     "org.apache.fontbox.cff.CFFExpertEncoding.<init>:()V" : {
       "completeTestCount" : 0,
@@ -6097,8 +6069,11 @@
     "org.apache.fontbox.cff.CFFExpertSubsetCharset.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        139
+      ]
     },
     "org.apache.fontbox.cff.CFFExpertSubsetCharset.<init>:()V" : {
       "completeTestCount" : 0,
@@ -6353,13 +6328,10 @@
       ]
     },
     "org.apache.fontbox.cff.CFFFont.getFontBBox:()Lorg/apache/fontbox/util/BoundingBox;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         105,
         106,
@@ -6499,8 +6471,11 @@
     "org.apache.fontbox.cff.CFFISOAdobeCharset.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        280
+      ]
     },
     "org.apache.fontbox.cff.CFFISOAdobeCharset.<init>:()V" : {
       "completeTestCount" : 0,
@@ -6842,8 +6817,64 @@
     "org.apache.fontbox.cff.CFFOperator.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        71,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        112,
+        113,
+        114,
+        115,
+        116,
+        117,
+        118,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130
+      ]
     },
     "org.apache.fontbox.cff.CFFOperator.<init>:()V" : {
       "completeTestCount" : 0,
@@ -7522,14 +7553,20 @@
     "org.apache.fontbox.cff.CFFParser.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        45
+      ]
     },
     "org.apache.fontbox.cff.CFFParser.<init>:()V" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T005",
-      "perMethodOutcome" : "R002",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
       "lineNumbers" : [
         40,
         51
@@ -7621,12 +7658,12 @@
       ]
     },
     "org.apache.fontbox.cff.CFFParser.parse:(Lorg/apache/pdfbox/io/RandomAccessRead;)Ljava/util/List;" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 2
       },
       "lineNumbers" : [
         150,
@@ -7640,12 +7677,12 @@
       ]
     },
     "org.apache.fontbox.cff.CFFParser.parse:([BLorg/apache/fontbox/cff/CFFParser$ByteSource;)Ljava/util/List;" : {
-      "completeTestCount" : 5,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 5
+        "R000" : 4
       },
       "lineNumbers" : [
         136,
@@ -8390,10 +8427,13 @@
       ]
     },
     "org.apache.fontbox.cff.CFFParser.toString:()Ljava/lang/String;" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T020",
-      "perMethodOutcome" : "R002",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
       "lineNumbers" : [
         1732
       ]
@@ -8401,8 +8441,11 @@
     "org.apache.fontbox.cff.CFFStandardEncoding.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        305
+      ]
     },
     "org.apache.fontbox.cff.CFFStandardEncoding.<init>:()V" : {
       "completeTestCount" : 0,
@@ -8433,8 +8476,11 @@
     "org.apache.fontbox.cff.CFFStandardString.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        40
+      ]
     },
     "org.apache.fontbox.cff.CFFStandardString.<init>:()V" : {
       "completeTestCount" : 0,
@@ -8717,8 +8763,37 @@
     "org.apache.fontbox.cff.CharStringCommand$Type1KeyWord.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        197,
+        198,
+        199,
+        200,
+        201,
+        202,
+        203,
+        204,
+        205,
+        206,
+        207,
+        208,
+        209,
+        210,
+        211,
+        212,
+        213,
+        214,
+        215,
+        216,
+        217,
+        218,
+        219,
+        220,
+        221,
+        222,
+        195
+      ]
     },
     "org.apache.fontbox.cff.CharStringCommand$Type1KeyWord.<init>:(Ljava/lang/String;I)V" : {
       "completeTestCount" : 0,
@@ -8750,8 +8825,60 @@
     "org.apache.fontbox.cff.CharStringCommand$Type2KeyWord.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        230,
+        231,
+        232,
+        233,
+        234,
+        235,
+        236,
+        237,
+        238,
+        239,
+        240,
+        241,
+        242,
+        243,
+        244,
+        245,
+        246,
+        247,
+        248,
+        249,
+        250,
+        251,
+        252,
+        253,
+        254,
+        255,
+        256,
+        257,
+        258,
+        259,
+        260,
+        261,
+        262,
+        263,
+        264,
+        265,
+        266,
+        267,
+        268,
+        269,
+        270,
+        271,
+        272,
+        273,
+        274,
+        275,
+        276,
+        277,
+        278,
+        228
+      ]
     },
     "org.apache.fontbox.cff.CharStringCommand$Type2KeyWord.<init>:(Ljava/lang/String;I)V" : {
       "completeTestCount" : 0,
@@ -8783,8 +8910,76 @@
     "org.apache.fontbox.cff.CharStringCommand.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        26,
+        93,
+        94,
+        95,
+        96,
+        97
+      ]
     },
     "org.apache.fontbox.cff.CharStringCommand.<init>:(Ljava/lang/String;ILorg/apache/fontbox/cff/CharStringCommand$Type1KeyWord;Lorg/apache/fontbox/cff/CharStringCommand$Type2KeyWord;I)V" : {
       "completeTestCount" : 0,
@@ -9155,13 +9350,10 @@
       ]
     },
     "org.apache.fontbox.cff.DataInputRandomAccessRead.<init>:(Lorg/apache/pdfbox/io/RandomAccessRead;)V" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T005",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "R015",
       "lineNumbers" : [
         40,
         41,
@@ -9242,12 +9434,12 @@
       ]
     },
     "org.apache.fontbox.cff.DataInputRandomAccessRead.readBytes:(I)[B" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 3
       },
       "lineNumbers" : [
         169,
@@ -9420,14 +9612,20 @@
     "org.apache.fontbox.cff.Type1CharString$1.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        172
+      ]
     },
     "org.apache.fontbox.cff.Type1CharString.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        42
+      ]
     },
     "org.apache.fontbox.cff.Type1CharString.<init>:(Lorg/apache/fontbox/type1/Type1CharStringReader;Ljava/lang/String;Ljava/lang/String;)V" : {
       "completeTestCount" : 1,
@@ -9529,12 +9727,12 @@
       ]
     },
     "org.apache.fontbox.cff.Type1CharString.getBounds:()Ljava/awt/geom/Rectangle2D;" : {
-      "completeTestCount" : 15,
+      "completeTestCount" : 14,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 15
+        "R000" : 14
       },
       "lineNumbers" : [
         98,
@@ -9571,12 +9769,12 @@
       ]
     },
     "org.apache.fontbox.cff.Type1CharString.getPath:()Ljava/awt/geom/GeneralPath;" : {
-      "completeTestCount" : 16,
+      "completeTestCount" : 14,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 16
+        "R000" : 14
       },
       "lineNumbers" : [
         130,
@@ -9587,12 +9785,12 @@
       ]
     },
     "org.apache.fontbox.cff.Type1CharString.getWidth:()I" : {
-      "completeTestCount" : 16,
+      "completeTestCount" : 14,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 16
+        "R000" : 14
       },
       "lineNumbers" : [
         114,
@@ -9837,8 +10035,11 @@
     "org.apache.fontbox.cff.Type1CharStringParser.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        40
+      ]
     },
     "org.apache.fontbox.cff.Type1CharStringParser.<init>:(Ljava/lang/String;)V" : {
       "completeTestCount" : 0,
@@ -9852,12 +10053,12 @@
       ]
     },
     "org.apache.fontbox.cff.Type1CharStringParser.parse:([BLjava/util/List;Ljava/lang/String;)Ljava/util/List;" : {
-      "completeTestCount" : 7,
+      "completeTestCount" : 9,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 7
+        "R000" : 9
       },
       "lineNumbers" : [
         74,
@@ -9998,8 +10199,11 @@
     "org.apache.fontbox.cff.Type2CharString$1.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        101
+      ]
     },
     "org.apache.fontbox.cff.Type2CharString.<init>:(Lorg/apache/fontbox/type1/Type1CharStringReader;Ljava/lang/String;Ljava/lang/String;ILjava/util/List;II)V" : {
       "completeTestCount" : 1,
@@ -10373,12 +10577,12 @@
       ]
     },
     "org.apache.fontbox.cff.Type2CharStringParser.parse:([B[[B[[B)Ljava/util/List;" : {
-      "completeTestCount" : 9,
+      "completeTestCount" : 11,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 9
+        "R000" : 11
       },
       "lineNumbers" : [
         61,
@@ -10594,8 +10798,11 @@
     "org.apache.fontbox.cmap.CMap.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        35
+      ]
     },
     "org.apache.fontbox.cmap.CMap.<init>:()V" : {
       "completeTestCount" : 1,
@@ -10663,12 +10870,12 @@
       ]
     },
     "org.apache.fontbox.cmap.CMap.addCIDRange:([B[BI)V" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 2
       },
       "lineNumbers" : [
         423,
@@ -11058,12 +11265,12 @@
       ]
     },
     "org.apache.fontbox.cmap.CMap.toCID:([B)I" : {
-      "completeTestCount" : 7,
+      "completeTestCount" : 5,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 7
+        "R000" : 5
       },
       "lineNumbers" : [
         231,
@@ -11187,13 +11394,10 @@
       ]
     },
     "org.apache.fontbox.cmap.CMap.useCmap:(Lorg/apache/fontbox/cmap/CMap;)V" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         461,
         462,
@@ -11356,12 +11560,12 @@
       ]
     },
     "org.apache.fontbox.cmap.CMapParser.parse:(Lorg/apache/pdfbox/io/RandomAccessRead;)Lorg/apache/fontbox/cmap/CMap;" : {
-      "completeTestCount" : 11,
+      "completeTestCount" : 9,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 11
+        "R000" : 9
       },
       "lineNumbers" : [
         88,
@@ -11963,8 +12167,219 @@
     "org.apache.fontbox.encoding.MacRomanEncoding.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        115,
+        116,
+        117,
+        118,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134,
+        135,
+        136,
+        137,
+        138,
+        139,
+        140,
+        141,
+        142,
+        143,
+        144,
+        145,
+        146,
+        147,
+        148,
+        149,
+        150,
+        151,
+        152,
+        153,
+        154,
+        155,
+        156,
+        157,
+        158,
+        159,
+        160,
+        161,
+        162,
+        163,
+        164,
+        165,
+        166,
+        167,
+        168,
+        169,
+        170,
+        171,
+        172,
+        173,
+        174,
+        175,
+        176,
+        177,
+        178,
+        179,
+        180,
+        181,
+        182,
+        183,
+        184,
+        185,
+        186,
+        187,
+        188,
+        189,
+        190,
+        191,
+        192,
+        193,
+        194,
+        195,
+        196,
+        197,
+        198,
+        199,
+        200,
+        201,
+        202,
+        203,
+        204,
+        205,
+        206,
+        207,
+        208,
+        209,
+        210,
+        211,
+        212,
+        213,
+        214,
+        215,
+        216,
+        217,
+        218,
+        219,
+        220,
+        221,
+        222,
+        223,
+        224,
+        225,
+        226,
+        227,
+        228,
+        229,
+        230,
+        231,
+        232,
+        233,
+        234,
+        235,
+        236,
+        237,
+        238,
+        239,
+        240,
+        241,
+        242,
+        250
+      ]
     },
     "org.apache.fontbox.encoding.MacRomanEncoding.<init>:()V" : {
       "completeTestCount" : 0,
@@ -11982,8 +12397,161 @@
     "org.apache.fontbox.encoding.StandardEncoding.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        115,
+        116,
+        117,
+        118,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134,
+        135,
+        136,
+        137,
+        138,
+        139,
+        140,
+        141,
+        142,
+        143,
+        144,
+        145,
+        146,
+        147,
+        148,
+        149,
+        150,
+        151,
+        152,
+        153,
+        154,
+        155,
+        156,
+        157,
+        158,
+        159,
+        160,
+        161,
+        162,
+        163,
+        164,
+        165,
+        166,
+        167,
+        168,
+        169,
+        170,
+        171,
+        172,
+        173,
+        174,
+        175,
+        176,
+        177,
+        178,
+        179,
+        180,
+        181,
+        182,
+        183,
+        188
+      ]
     },
     "org.apache.fontbox.encoding.StandardEncoding.<init>:()V" : {
       "completeTestCount" : 1,
@@ -12004,16 +12572,19 @@
     "org.apache.fontbox.pfb.PfbParser.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        39
+      ]
     },
     "org.apache.fontbox.pfb.PfbParser.<init>:(Ljava/io/InputStream;)V" : {
-      "completeTestCount" : 7,
+      "completeTestCount" : 5,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 7
+        "R000" : 5
       },
       "lineNumbers" : [
         99,
@@ -12024,13 +12595,10 @@
       ]
     },
     "org.apache.fontbox.pfb.PfbParser.<init>:(Ljava/lang/String;)V" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         90,
         91
@@ -12191,8 +12759,11 @@
     "org.apache.fontbox.ttf.CFFTable.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        29
+      ]
     },
     "org.apache.fontbox.ttf.CFFTable.<init>:()V" : {
       "completeTestCount" : 1,
@@ -12315,8 +12886,11 @@
     "org.apache.fontbox.ttf.CmapSubtable.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        38
+      ]
     },
     "org.apache.fontbox.ttf.CmapSubtable.<init>:()V" : {
       "completeTestCount" : 1,
@@ -12538,12 +13112,12 @@
       ]
     },
     "org.apache.fontbox.ttf.CmapSubtable.processSubtype12:(Lorg/apache/fontbox/ttf/TTFDataStream;I)V" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 2
       },
       "lineNumbers" : [
         241,
@@ -12625,12 +13199,12 @@
       ]
     },
     "org.apache.fontbox.ttf.CmapSubtable.processSubtype2:(Lorg/apache/fontbox/ttf/TTFDataStream;I)V" : {
-      "completeTestCount" : 5,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 5
+        "R000" : 3
       },
       "lineNumbers" : [
         494,
@@ -12738,12 +13312,12 @@
       ]
     },
     "org.apache.fontbox.ttf.CmapSubtable.processSubtype6:(Lorg/apache/fontbox/ttf/TTFDataStream;I)V" : {
-      "completeTestCount" : 6,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 3
       },
       "lineNumbers" : [
         371,
@@ -12762,13 +13336,10 @@
       ]
     },
     "org.apache.fontbox.ttf.CmapSubtable.processSubtype8:(Lorg/apache/fontbox/ttf/TTFDataStream;I)V" : {
-      "completeTestCount" : 7,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 7
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         134,
         135,
@@ -12889,12 +13460,12 @@
       ]
     },
     "org.apache.fontbox.ttf.CmapTable.read:(Lorg/apache/fontbox/ttf/TrueTypeFont;Lorg/apache/fontbox/ttf/TTFDataStream;)V" : {
-      "completeTestCount" : 16,
+      "completeTestCount" : 9,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 16
+        "R000" : 9
       },
       "lineNumbers" : [
         75,
@@ -13191,12 +13762,12 @@
       ]
     },
     "org.apache.fontbox.ttf.GlyfCompositeComp.<init>:(Lorg/apache/fontbox/ttf/TTFDataStream;)V" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 3
       },
       "lineNumbers" : [
         89,
@@ -13439,16 +14010,19 @@
     "org.apache.fontbox.ttf.GlyfCompositeDescript.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        41
+      ]
     },
     "org.apache.fontbox.ttf.GlyfCompositeDescript.<init>:(Lorg/apache/fontbox/ttf/TTFDataStream;Lorg/apache/fontbox/ttf/GlyphTable;I)V" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         61,
@@ -13760,12 +14334,12 @@
       ]
     },
     "org.apache.fontbox.ttf.GlyfSimpleDescript.<init>:(SLorg/apache/fontbox/ttf/TTFDataStream;S)V" : {
-      "completeTestCount" : 10,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 10
+        "R000" : 1
       },
       "lineNumbers" : [
         51,
@@ -14005,12 +14579,12 @@
       ]
     },
     "org.apache.fontbox.ttf.GlyphData.initData:(Lorg/apache/fontbox/ttf/GlyphTable;Lorg/apache/fontbox/ttf/TTFDataStream;II)V" : {
-      "completeTestCount" : 15,
+      "completeTestCount" : 10,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 15
+        "R000" : 10
       },
       "lineNumbers" : [
         51,
@@ -14131,8 +14705,11 @@
     "org.apache.fontbox.ttf.GlyphRenderer.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        41
+      ]
     },
     "org.apache.fontbox.ttf.GlyphRenderer.<init>:(Lorg/apache/fontbox/ttf/GlyphDescription;)V" : {
       "completeTestCount" : 1,
@@ -14305,8 +14882,12 @@
     "org.apache.fontbox.ttf.GlyphSubstitutionTable.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        66,
+        88
+      ]
     },
     "org.apache.fontbox.ttf.GlyphSubstitutionTable.<init>:()V" : {
       "completeTestCount" : 1,
@@ -14519,12 +15100,12 @@
       ]
     },
     "org.apache.fontbox.ttf.GlyphSubstitutionTable.read:(Lorg/apache/fontbox/ttf/TrueTypeFont;Lorg/apache/fontbox/ttf/TTFDataStream;)V" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 2
       },
       "lineNumbers" : [
         98,
@@ -16200,8 +16781,11 @@
     "org.apache.fontbox.ttf.KerningSubtable$PairData0Format0.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        256
+      ]
     },
     "org.apache.fontbox.ttf.KerningSubtable$PairData0Format0.<init>:()V" : {
       "completeTestCount" : 0,
@@ -16275,8 +16859,11 @@
     "org.apache.fontbox.ttf.KerningSubtable.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        33
+      ]
     },
     "org.apache.fontbox.ttf.KerningSubtable.<init>:()V" : {
       "completeTestCount" : 1,
@@ -16467,8 +17054,11 @@
     "org.apache.fontbox.ttf.KerningTable.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        31
+      ]
     },
     "org.apache.fontbox.ttf.KerningTable.<init>:()V" : {
       "completeTestCount" : 1,
@@ -17275,10 +17865,13 @@
       ]
     },
     "org.apache.fontbox.ttf.NamingTable.getName:(IIII)Ljava/lang/String;" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R013",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 4
+      },
       "lineNumbers" : [
         243,
         244,
@@ -17357,12 +17950,12 @@
       ]
     },
     "org.apache.fontbox.ttf.NamingTable.read:(Lorg/apache/fontbox/ttf/TrueTypeFont;Lorg/apache/fontbox/ttf/TTFDataStream;)V" : {
-      "completeTestCount" : 7,
+      "completeTestCount" : 6,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 7
+        "R000" : 6
       },
       "lineNumbers" : [
         61,
@@ -17402,12 +17995,12 @@
       ]
     },
     "org.apache.fontbox.ttf.NamingTable.readHeaders:(Lorg/apache/fontbox/ttf/TrueTypeFont;Lorg/apache/fontbox/ttf/TTFDataStream;Lorg/apache/fontbox/ttf/FontHeaders;)V" : {
-      "completeTestCount" : 5,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 5
+        "R000" : 2
       },
       "lineNumbers" : [
         69,
@@ -17435,8 +18028,11 @@
     "org.apache.fontbox.ttf.OS2WindowsMetricsTable.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        36
+      ]
     },
     "org.apache.fontbox.ttf.OS2WindowsMetricsTable.<init>:()V" : {
       "completeTestCount" : 1,
@@ -17900,12 +18496,12 @@
       ]
     },
     "org.apache.fontbox.ttf.OS2WindowsMetricsTable.read:(Lorg/apache/fontbox/ttf/TrueTypeFont;Lorg/apache/fontbox/ttf/TTFDataStream;)V" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 1
       },
       "lineNumbers" : [
         808,
@@ -18429,12 +19025,12 @@
       ]
     },
     "org.apache.fontbox.ttf.OTFParser.parse:(Lorg/apache/fontbox/ttf/TTFDataStream;)Lorg/apache/fontbox/ttf/OpenTypeFont;" : {
-      "completeTestCount" : 15,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 15
+        "R000" : 1
       },
       "lineNumbers" : [
         56
@@ -18591,8 +19187,163 @@
     "org.apache.fontbox.ttf.OpenTypeScript.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        45,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103,
+        104,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        115,
+        116,
+        117,
+        118,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134,
+        135,
+        136,
+        138,
+        139,
+        140,
+        141,
+        142,
+        143,
+        144,
+        145,
+        146,
+        148,
+        149,
+        150,
+        151,
+        152,
+        153,
+        154,
+        155,
+        156,
+        157,
+        158,
+        159,
+        160,
+        161,
+        162,
+        163,
+        164,
+        165,
+        166,
+        167,
+        168,
+        169,
+        170,
+        171,
+        172,
+        173,
+        174,
+        175,
+        176,
+        177,
+        178,
+        179,
+        180,
+        181,
+        182,
+        183,
+        184,
+        185,
+        186,
+        187,
+        188,
+        189,
+        190,
+        191,
+        192,
+        193,
+        194,
+        195,
+        196,
+        197,
+        198,
+        199,
+        200,
+        201,
+        202,
+        60,
+        210,
+        211,
+        212,
+        214,
+        215,
+        211,
+        215,
+        211,
+        220,
+        216,
+        218,
+        221
+      ]
     },
     "org.apache.fontbox.ttf.OpenTypeScript.<init>:()V" : {
       "completeTestCount" : 0,
@@ -18717,8 +19468,11 @@
     "org.apache.fontbox.ttf.PostScriptTable.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        31
+      ]
     },
     "org.apache.fontbox.ttf.PostScriptTable.<init>:()V" : {
       "completeTestCount" : 1,
@@ -18869,12 +19623,12 @@
       ]
     },
     "org.apache.fontbox.ttf.PostScriptTable.read:(Lorg/apache/fontbox/ttf/TrueTypeFont;Lorg/apache/fontbox/ttf/TTFDataStream;)V" : {
-      "completeTestCount" : 7,
+      "completeTestCount" : 5,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 7
+        "R000" : 5
       },
       "lineNumbers" : [
         63,
@@ -19084,17 +19838,17 @@
     "org.apache.fontbox.ttf.RandomAccessReadDataStream.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        36
+      ]
     },
     "org.apache.fontbox.ttf.RandomAccessReadDataStream.<init>:(Ljava/io/InputStream;)V" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         70,
         40,
@@ -19104,13 +19858,10 @@
       ]
     },
     "org.apache.fontbox.ttf.RandomAccessReadDataStream.<init>:(Lorg/apache/pdfbox/io/RandomAccessRead;)V" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 4
-      },
+      "perMethodOutcome" : "R015",
       "lineNumbers" : [
         50,
         40,
@@ -19317,17 +20068,17 @@
     "org.apache.fontbox.ttf.RandomAccessReadUnbufferedDataStream.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        31
+      ]
     },
     "org.apache.fontbox.ttf.RandomAccessReadUnbufferedDataStream.<init>:(Lorg/apache/pdfbox/io/RandomAccessRead;)V" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "R015",
       "lineNumbers" : [
         40,
         41,
@@ -19339,7 +20090,7 @@
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R013",
+      "perMethodOutcome" : "R004",
       "lineNumbers" : [
         62,
         63
@@ -19373,13 +20124,10 @@
       ]
     },
     "org.apache.fontbox.ttf.RandomAccessReadUnbufferedDataStream.getOriginalData:()Ljava/io/InputStream;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "R004",
       "lineNumbers" : [
         121
       ]
@@ -19469,19 +20217,25 @@
       ]
     },
     "org.apache.fontbox.ttf.SubstitutingCmapLookup.getCharCodes:(I)Ljava/util/List;" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R013",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
       "lineNumbers" : [
         51
       ]
     },
     "org.apache.fontbox.ttf.SubstitutingCmapLookup.getGlyphId:(I)I" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R013",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
       "lineNumbers" : [
         43,
         44,
@@ -19605,8 +20359,11 @@
     "org.apache.fontbox.ttf.TTFDataStream.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        36
+      ]
     },
     "org.apache.fontbox.ttf.TTFDataStream.<init>:()V" : {
       "completeTestCount" : 0,
@@ -19870,8 +20627,11 @@
     "org.apache.fontbox.ttf.TTFParser.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        34
+      ]
     },
     "org.apache.fontbox.ttf.TTFParser.<init>:()V" : {
       "completeTestCount" : 0,
@@ -19945,12 +20705,12 @@
       ]
     },
     "org.apache.fontbox.ttf.TTFParser.parse:(Lorg/apache/fontbox/ttf/TTFDataStream;)Lorg/apache/fontbox/ttf/TrueTypeFont;" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 7,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 7
       },
       "lineNumbers" : [
         158,
@@ -19959,13 +20719,10 @@
       ]
     },
     "org.apache.fontbox.ttf.TTFParser.parse:(Lorg/apache/pdfbox/io/RandomAccessRead;)Lorg/apache/fontbox/ttf/TrueTypeFont;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         65,
         66,
@@ -19997,12 +20754,12 @@
       ]
     },
     "org.apache.fontbox.ttf.TTFParser.parseTableHeaders:(Lorg/apache/fontbox/ttf/TTFDataStream;)Lorg/apache/fontbox/ttf/FontHeaders;" : {
-      "completeTestCount" : 5,
+      "completeTestCount" : 15,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 5
+        "R000" : 15
       },
       "lineNumbers" : [
         256,
@@ -20043,13 +20800,10 @@
       ]
     },
     "org.apache.fontbox.ttf.TTFParser.parseTableHeaders:(Lorg/apache/pdfbox/io/RandomAccessRead;)Lorg/apache/fontbox/ttf/FontHeaders;" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 4
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         110,
         112,
@@ -20164,8 +20918,13 @@
     "org.apache.fontbox.ttf.TTFSubsetter.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        53,
+        55,
+        57
+      ]
     },
     "org.apache.fontbox.ttf.TTFSubsetter.<init>:(Lorg/apache/fontbox/ttf/TrueTypeFont;)V" : {
       "completeTestCount" : 0,
@@ -20742,12 +21501,12 @@
       ]
     },
     "org.apache.fontbox.ttf.TTFSubsetter.getGIDMap:()Ljava/util/Map;" : {
-      "completeTestCount" : 6,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 3
       },
       "lineNumbers" : [
         147,
@@ -20917,13 +21676,10 @@
       ]
     },
     "org.apache.fontbox.ttf.TTFSubsetter.writeToStream:(Ljava/io/OutputStream;)V" : {
-      "completeTestCount" : 21,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 21
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         982,
         984,
@@ -21322,8 +22078,11 @@
     "org.apache.fontbox.ttf.TrueTypeFont.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        45
+      ]
     },
     "org.apache.fontbox.ttf.TrueTypeFont.<init>:(Lorg/apache/fontbox/ttf/TTFDataStream;)V" : {
       "completeTestCount" : 1,
@@ -21637,12 +22396,12 @@
       ]
     },
     "org.apache.fontbox.ttf.TrueTypeFont.getOriginalData:()Ljava/io/InputStream;" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         383
@@ -21686,12 +22445,12 @@
       ]
     },
     "org.apache.fontbox.ttf.TrueTypeFont.getTable:(Ljava/lang/String;)Lorg/apache/fontbox/ttf/TTFTable;" : {
-      "completeTestCount" : 9,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 9
+        "R000" : 1
       },
       "lineNumbers" : [
         173,
@@ -21701,12 +22460,12 @@
       ]
     },
     "org.apache.fontbox.ttf.TrueTypeFont.getTableBytes:(Lorg/apache/fontbox/ttf/TTFTable;)[B" : {
-      "completeTestCount" : 7,
+      "completeTestCount" : 6,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 7
+        "R000" : 6
       },
       "lineNumbers" : [
         149,
@@ -21731,12 +22490,12 @@
       ]
     },
     "org.apache.fontbox.ttf.TrueTypeFont.getTableNBytes:(Lorg/apache/fontbox/ttf/TTFTable;I)[B" : {
-      "completeTestCount" : 7,
+      "completeTestCount" : 6,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 7
+        "R000" : 6
       },
       "lineNumbers" : [
         192,
@@ -21898,12 +22657,12 @@
       ]
     },
     "org.apache.fontbox.ttf.TrueTypeFont.hasGlyph:(Ljava/lang/String;)Z" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 4
       },
       "lineNumbers" : [
         789
@@ -21922,12 +22681,12 @@
       ]
     },
     "org.apache.fontbox.ttf.TrueTypeFont.nameToGID:(Ljava/lang/String;)I" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 4
       },
       "lineNumbers" : [
         677,
@@ -21992,12 +22751,12 @@
       ]
     },
     "org.apache.fontbox.ttf.TrueTypeFont.readTable:(Lorg/apache/fontbox/ttf/TTFTable;)V" : {
-      "completeTestCount" : 7,
+      "completeTestCount" : 5,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 7
+        "R000" : 5
       },
       "lineNumbers" : [
         407,
@@ -22008,13 +22767,10 @@
       ]
     },
     "org.apache.fontbox.ttf.TrueTypeFont.readTableHeaders:(Ljava/lang/String;Lorg/apache/fontbox/ttf/FontHeaders;)V" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 2
-      },
+      "perMethodOutcome" : "R004",
       "lineNumbers" : [
         424,
         425,
@@ -22424,12 +23180,12 @@
       ]
     },
     "org.apache.fontbox.ttf.VerticalOriginTable.read:(Lorg/apache/fontbox/ttf/TrueTypeFont;Lorg/apache/fontbox/ttf/TTFDataStream;)V" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         64,
@@ -22448,8 +23204,16 @@
     "org.apache.fontbox.ttf.WGL4Names.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        35,
+        87,
+        88,
+        90,
+        88,
+        92
+      ]
     },
     "org.apache.fontbox.ttf.WGL4Names.<init>:()V" : {
       "completeTestCount" : 0,
@@ -22548,12 +23312,12 @@
       ]
     },
     "org.apache.fontbox.ttf.gsub.CompoundCharacterTokenizer.tokenize:(Ljava/lang/String;)Ljava/util/List;" : {
-      "completeTestCount" : 5,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 5
+        "R000" : 2
       },
       "lineNumbers" : [
         90,
@@ -22591,8 +23355,11 @@
     "org.apache.fontbox.ttf.gsub.DefaultGsubWorker.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        36
+      ]
     },
     "org.apache.fontbox.ttf.gsub.DefaultGsubWorker.<init>:()V" : {
       "completeTestCount" : 0,
@@ -22625,12 +23392,12 @@
       "perMethodOutcome" : "T010"
     },
     "org.apache.fontbox.ttf.gsub.GlyphArraySplitterRegexImpl.<init>:(Ljava/util/Set;)V" : {
-      "completeTestCount" : 7,
+      "completeTestCount" : 6,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 7
+        "R000" : 6
       },
       "lineNumbers" : [
         38,
@@ -22716,12 +23483,12 @@
       ]
     },
     "org.apache.fontbox.ttf.gsub.GlyphArraySplitterRegexImpl.split:(Ljava/util/List;)Ljava/util/List;" : {
-      "completeTestCount" : 5,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 5
+        "R000" : 4
       },
       "lineNumbers" : [
         45,
@@ -22774,8 +23541,11 @@
     "org.apache.fontbox.ttf.gsub.GlyphSubstitutionDataExtractor.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        60
+      ]
     },
     "org.apache.fontbox.ttf.gsub.GlyphSubstitutionDataExtractor.<init>:()V" : {
       "completeTestCount" : 0,
@@ -22952,12 +23722,12 @@
       ]
     },
     "org.apache.fontbox.ttf.gsub.GlyphSubstitutionDataExtractor.getGsubData:(Ljava/lang/String;Lorg/apache/fontbox/ttf/table/common/ScriptTable;Lorg/apache/fontbox/ttf/table/common/FeatureListTable;Lorg/apache/fontbox/ttf/table/common/LookupListTable;)Lorg/apache/fontbox/ttf/model/GsubData;" : {
-      "completeTestCount" : 6,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 3
       },
       "lineNumbers" : [
         89,
@@ -23049,14 +23819,20 @@
     "org.apache.fontbox.ttf.gsub.GsubWorkerFactory$1.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        42
+      ]
     },
     "org.apache.fontbox.ttf.gsub.GsubWorkerFactory.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        35
+      ]
     },
     "org.apache.fontbox.ttf.gsub.GsubWorkerFactory.<init>:()V" : {
       "completeTestCount" : 0,
@@ -23068,12 +23844,12 @@
       ]
     },
     "org.apache.fontbox.ttf.gsub.GsubWorkerFactory.getGsubWorker:(Lorg/apache/fontbox/ttf/CmapLookup;Lorg/apache/fontbox/ttf/model/GsubData;)Lorg/apache/fontbox/ttf/gsub/GsubWorker;" : {
-      "completeTestCount" : 24,
+      "completeTestCount" : 18,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 24
+        "R000" : 18
       },
       "lineNumbers" : [
         41,
@@ -23101,8 +23877,14 @@
     "org.apache.fontbox.ttf.gsub.GsubWorkerForBengali.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        44,
+        52,
+        56,
+        57
+      ]
     },
     "org.apache.fontbox.ttf.gsub.GsubWorkerForBengali.<init>:(Lorg/apache/fontbox/ttf/CmapLookup;Lorg/apache/fontbox/ttf/model/GsubData;)V" : {
       "completeTestCount" : 4,
@@ -23272,16 +24054,22 @@
     "org.apache.fontbox.ttf.gsub.GsubWorkerForDevanagari.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        41,
+        50,
+        55,
+        57
+      ]
     },
     "org.apache.fontbox.ttf.gsub.GsubWorkerForDevanagari.<init>:(Lorg/apache/fontbox/ttf/CmapLookup;Lorg/apache/fontbox/ttf/model/GsubData;)V" : {
-      "completeTestCount" : 14,
+      "completeTestCount" : 11,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 14
+        "R000" : 11
       },
       "lineNumbers" : [
         70,
@@ -23368,12 +24156,12 @@
       ]
     },
     "org.apache.fontbox.ttf.gsub.GsubWorkerForDevanagari.applyTransforms:(Ljava/util/List;)Ljava/util/List;" : {
-      "completeTestCount" : 15,
+      "completeTestCount" : 11,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 15
+        "R000" : 11
       },
       "lineNumbers" : [
         81,
@@ -23480,16 +24268,22 @@
     "org.apache.fontbox.ttf.gsub.GsubWorkerForGujarati.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        41,
+        50,
+        55,
+        57
+      ]
     },
     "org.apache.fontbox.ttf.gsub.GsubWorkerForGujarati.<init>:(Lorg/apache/fontbox/ttf/CmapLookup;Lorg/apache/fontbox/ttf/model/GsubData;)V" : {
-      "completeTestCount" : 14,
+      "completeTestCount" : 11,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 14
+        "R000" : 11
       },
       "lineNumbers" : [
         70,
@@ -23576,12 +24370,12 @@
       ]
     },
     "org.apache.fontbox.ttf.gsub.GsubWorkerForGujarati.applyTransforms:(Ljava/util/List;)Ljava/util/List;" : {
-      "completeTestCount" : 15,
+      "completeTestCount" : 11,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 15
+        "R000" : 11
       },
       "lineNumbers" : [
         81,
@@ -23688,8 +24482,12 @@
     "org.apache.fontbox.ttf.gsub.GsubWorkerForLatin.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        42,
+        48
+      ]
     },
     "org.apache.fontbox.ttf.gsub.GsubWorkerForLatin.<init>:(Lorg/apache/fontbox/ttf/CmapLookup;Lorg/apache/fontbox/ttf/model/GsubData;)V" : {
       "completeTestCount" : 0,
@@ -23730,12 +24528,12 @@
       ]
     },
     "org.apache.fontbox.ttf.gsub.GsubWorkerForLatin.applyTransforms:(Ljava/util/List;)Ljava/util/List;" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 1
       },
       "lineNumbers" : [
         62,
@@ -23807,8 +24605,11 @@
     "org.apache.fontbox.ttf.model.GsubData.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        33
+      ]
     },
     "org.apache.fontbox.ttf.model.GsubData.getActiveScriptName:()Ljava/lang/String;" : {
       "completeTestCount" : 0,
@@ -23843,8 +24644,16 @@
     "org.apache.fontbox.ttf.model.Language.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        35,
+        36,
+        37,
+        38,
+        46,
+        32
+      ]
     },
     "org.apache.fontbox.ttf.model.Language.<init>:(Ljava/lang/String;I[Ljava/lang/String;)V" : {
       "completeTestCount" : 0,
@@ -25264,8 +26073,16 @@
     "org.apache.fontbox.type1.Token$Kind.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        35,
+        36,
+        37,
+        38,
+        39,
+        33
+      ]
     },
     "org.apache.fontbox.type1.Token$Kind.<init>:(Ljava/lang/String;I)V" : {
       "completeTestCount" : 0,
@@ -25297,8 +26114,22 @@
     "org.apache.fontbox.type1.Token.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54
+      ]
     },
     "org.apache.fontbox.type1.Token.<init>:(CLorg/apache/fontbox/type1/Token$Kind;)V" : {
       "completeTestCount" : 1,
@@ -25418,12 +26249,12 @@
       ]
     },
     "org.apache.fontbox.type1.Token.toString:()Ljava/lang/String;" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         131,
@@ -25475,13 +26306,10 @@
       ]
     },
     "org.apache.fontbox.type1.Type1Font.createWithPFB:(Ljava/io/InputStream;)Lorg/apache/fontbox/type1/Type1Font;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         54,
         55,
@@ -26027,16 +26855,19 @@
     "org.apache.fontbox.type1.Type1Lexer.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        50
+      ]
     },
     "org.apache.fontbox.type1.Type1Lexer.<init>:([B)V" : {
-      "completeTestCount" : 25,
+      "completeTestCount" : 27,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 25
+        "R000" : 27
       },
       "lineNumbers" : [
         62,
@@ -26058,12 +26889,12 @@
       ]
     },
     "org.apache.fontbox.type1.Type1Lexer.nextToken:()Lorg/apache/fontbox/type1/Token;" : {
-      "completeTestCount" : 23,
+      "completeTestCount" : 24,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 23
+        "R000" : 24
       },
       "lineNumbers" : [
         73,
@@ -26408,12 +27239,12 @@
       ]
     },
     "org.apache.fontbox.type1.Type1Parser.parse:([B[B)Lorg/apache/fontbox/type1/Type1Font;" : {
-      "completeTestCount" : 6,
+      "completeTestCount" : 9,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 9
       },
       "lineNumbers" : [
         60,
@@ -27176,8 +28007,11 @@
     "org.apache.fontbox.util.autodetect.FontFileFinder.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        33
+      ]
     },
     "org.apache.fontbox.util.autodetect.FontFileFinder.<init>:()V" : {
       "completeTestCount" : 0,
@@ -27312,8 +28146,11 @@
     "org.apache.fontbox.util.autodetect.NativeFontDirFinder.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        32
+      ]
     },
     "org.apache.fontbox.util.autodetect.NativeFontDirFinder.<init>:()V" : {
       "completeTestCount" : 0,
@@ -27404,8 +28241,11 @@
     "org.apache.fontbox.util.autodetect.WindowsFontDirFinder.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        37
+      ]
     },
     "org.apache.fontbox.util.autodetect.WindowsFontDirFinder.<init>:()V" : {
       "completeTestCount" : 0,
@@ -27417,10 +28257,13 @@
       ]
     },
     "org.apache.fontbox.util.autodetect.WindowsFontDirFinder.find:()Ljava/util/List;" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R011",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
       "lineNumbers" : [
         73,
         74,
@@ -27493,6 +28336,5 @@
         58
       ]
     }
-  },
-  "validationMetrics" : { }
+  }
 }

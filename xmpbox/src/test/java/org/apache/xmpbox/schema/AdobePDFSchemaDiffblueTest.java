@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import java.util.Map;
@@ -20,13 +19,12 @@ import org.junit.jupiter.api.Test;
 class AdobePDFSchemaDiffblueTest {
   /**
    * Test {@link AdobePDFSchema#AdobePDFSchema(XMPMetadata)}.
-   *
-   * <p>Method under test: {@link AdobePDFSchema#AdobePDFSchema(XMPMetadata)}
+   * <p>
+   * Method under test: {@link AdobePDFSchema#AdobePDFSchema(XMPMetadata)}
    */
   @Test
   @DisplayName("Test new AdobePDFSchema(XMPMetadata)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void AdobePDFSchema.<init>(XMPMetadata)"})
   void testNewAdobePDFSchema() {
     // Arrange
@@ -58,19 +56,16 @@ class AdobePDFSchemaDiffblueTest {
 
   /**
    * Test {@link AdobePDFSchema#AdobePDFSchema(XMPMetadata, String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return Prefix is {@code pdf}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return Prefix is {@code pdf}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AdobePDFSchema#AdobePDFSchema(XMPMetadata, String)}
+   * <p>
+   * Method under test: {@link AdobePDFSchema#AdobePDFSchema(XMPMetadata, String)}
    */
   @Test
-  @DisplayName(
-      "Test new AdobePDFSchema(XMPMetadata, String); when 'null'; then return Prefix is 'pdf'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new AdobePDFSchema(XMPMetadata, String); when 'null'; then return Prefix is 'pdf'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void AdobePDFSchema.<init>(XMPMetadata, String)"})
   void testNewAdobePDFSchema_whenNull_thenReturnPrefixIsPdf() {
     // Arrange
@@ -102,19 +97,16 @@ class AdobePDFSchemaDiffblueTest {
 
   /**
    * Test {@link AdobePDFSchema#AdobePDFSchema(XMPMetadata, String)}.
-   *
    * <ul>
-   *   <li>When {@code Own Prefix}.
-   *   <li>Then return Prefix is {@code Own Prefix}.
+   *   <li>When {@code Own Prefix}.</li>
+   *   <li>Then return Prefix is {@code Own Prefix}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AdobePDFSchema#AdobePDFSchema(XMPMetadata, String)}
+   * <p>
+   * Method under test: {@link AdobePDFSchema#AdobePDFSchema(XMPMetadata, String)}
    */
   @Test
-  @DisplayName(
-      "Test new AdobePDFSchema(XMPMetadata, String); when 'Own Prefix'; then return Prefix is 'Own Prefix'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new AdobePDFSchema(XMPMetadata, String); when 'Own Prefix'; then return Prefix is 'Own Prefix'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void AdobePDFSchema.<init>(XMPMetadata, String)"})
   void testNewAdobePDFSchema_whenOwnPrefix_thenReturnPrefixIsOwnPrefix() {
     // Arrange
@@ -146,13 +138,12 @@ class AdobePDFSchemaDiffblueTest {
 
   /**
    * Test {@link AdobePDFSchema#setKeywords(String)}.
-   *
-   * <p>Method under test: {@link AdobePDFSchema#setKeywords(String)}
+   * <p>
+   * Method under test: {@link AdobePDFSchema#setKeywords(String)}
    */
   @Test
   @DisplayName("Test setKeywords(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void AdobePDFSchema.setKeywords(String)"})
   void testSetKeywords() {
     // Arrange
@@ -182,13 +173,12 @@ class AdobePDFSchemaDiffblueTest {
 
   /**
    * Test {@link AdobePDFSchema#setKeywords(String)}.
-   *
-   * <p>Method under test: {@link AdobePDFSchema#setKeywords(String)}
+   * <p>
+   * Method under test: {@link AdobePDFSchema#setKeywords(String)}
    */
   @Test
   @DisplayName("Test setKeywords(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void AdobePDFSchema.setKeywords(String)"})
   void testSetKeywords2() {
     // Arrange
@@ -220,13 +210,12 @@ class AdobePDFSchemaDiffblueTest {
 
   /**
    * Test {@link AdobePDFSchema#setKeywords(String)}.
-   *
-   * <p>Method under test: {@link AdobePDFSchema#setKeywords(String)}
+   * <p>
+   * Method under test: {@link AdobePDFSchema#setKeywords(String)}
    */
   @Test
   @DisplayName("Test setKeywords(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void AdobePDFSchema.setKeywords(String)"})
   void testSetKeywords3() {
     // Arrange
@@ -257,19 +246,15 @@ class AdobePDFSchemaDiffblueTest {
 
   /**
    * Test {@link AdobePDFSchema#setKeywords(String)}.
-   *
    * <ul>
-   *   <li>Given {@link AdobePDFSchema#AdobePDFSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link AdobePDFSchema#AdobePDFSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AdobePDFSchema#setKeywords(String)}
+   * <p>
+   * Method under test: {@link AdobePDFSchema#setKeywords(String)}
    */
   @Test
-  @DisplayName(
-      "Test setKeywords(String); given AdobePDFSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setKeywords(String); given AdobePDFSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void AdobePDFSchema.setKeywords(String)"})
   void testSetKeywords_givenAdobePDFSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange
@@ -297,20 +282,18 @@ class AdobePDFSchemaDiffblueTest {
 
   /**
    * Test {@link AdobePDFSchema#setKeywordsProperty(TextType)}.
-   *
-   * <p>Method under test: {@link AdobePDFSchema#setKeywordsProperty(TextType)}
+   * <p>
+   * Method under test: {@link AdobePDFSchema#setKeywordsProperty(TextType)}
    */
   @Test
   @DisplayName("Test setKeywordsProperty(TextType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void AdobePDFSchema.setKeywordsProperty(TextType)"})
   void testSetKeywordsProperty() {
     // Arrange
     AdobePDFSchema adobePDFSchema = new AdobePDFSchema(XMPMetadata.createXMPMetadata());
-    TextType keywords =
-        new TextType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType keywords = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name",
+        "Value");
 
     // Act
     adobePDFSchema.setKeywordsProperty(keywords);
@@ -323,21 +306,19 @@ class AdobePDFSchemaDiffblueTest {
 
   /**
    * Test {@link AdobePDFSchema#setKeywordsProperty(TextType)}.
-   *
-   * <p>Method under test: {@link AdobePDFSchema#setKeywordsProperty(TextType)}
+   * <p>
+   * Method under test: {@link AdobePDFSchema#setKeywordsProperty(TextType)}
    */
   @Test
   @DisplayName("Test setKeywordsProperty(TextType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void AdobePDFSchema.setKeywordsProperty(TextType)"})
   void testSetKeywordsProperty2() {
     // Arrange
     AdobePDFSchema adobePDFSchema = new AdobePDFSchema(XMPMetadata.createXMPMetadata());
     adobePDFSchema.addBagValueAsSimple("Simple Name", "42");
-    TextType keywords =
-        new TextType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType keywords = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name",
+        "Value");
 
     // Act
     adobePDFSchema.setKeywordsProperty(keywords);
@@ -363,25 +344,22 @@ class AdobePDFSchemaDiffblueTest {
 
   /**
    * Test {@link AdobePDFSchema#setKeywordsProperty(TextType)}.
-   *
-   * <p>Method under test: {@link AdobePDFSchema#setKeywordsProperty(TextType)}
+   * <p>
+   * Method under test: {@link AdobePDFSchema#setKeywordsProperty(TextType)}
    */
   @Test
   @DisplayName("Test setKeywordsProperty(TextType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void AdobePDFSchema.setKeywordsProperty(TextType)"})
   void testSetKeywordsProperty3() {
     // Arrange
     AdobePDFSchema adobePDFSchema = new AdobePDFSchema(XMPMetadata.createXMPMetadata());
     adobePDFSchema.addBagValueAsSimple("Property Name", "Simple Name");
     adobePDFSchema.addBagValueAsSimple("Simple Name", "42");
-    TextType keywords =
-        new TextType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
-    adobePDFSchema.setKeywordsProperty(keywords);
+    adobePDFSchema.setKeywordsProperty(
+        new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value"));
 
     // Assert
     List<AbstractField> allProperties = adobePDFSchema.getAllProperties();
@@ -403,13 +381,12 @@ class AdobePDFSchemaDiffblueTest {
 
   /**
    * Test {@link AdobePDFSchema#setPDFVersion(String)}.
-   *
-   * <p>Method under test: {@link AdobePDFSchema#setPDFVersion(String)}
+   * <p>
+   * Method under test: {@link AdobePDFSchema#setPDFVersion(String)}
    */
   @Test
   @DisplayName("Test setPDFVersion(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void AdobePDFSchema.setPDFVersion(String)"})
   void testSetPDFVersion() {
     // Arrange
@@ -439,13 +416,12 @@ class AdobePDFSchemaDiffblueTest {
 
   /**
    * Test {@link AdobePDFSchema#setPDFVersion(String)}.
-   *
-   * <p>Method under test: {@link AdobePDFSchema#setPDFVersion(String)}
+   * <p>
+   * Method under test: {@link AdobePDFSchema#setPDFVersion(String)}
    */
   @Test
   @DisplayName("Test setPDFVersion(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void AdobePDFSchema.setPDFVersion(String)"})
   void testSetPDFVersion2() {
     // Arrange
@@ -477,13 +453,12 @@ class AdobePDFSchemaDiffblueTest {
 
   /**
    * Test {@link AdobePDFSchema#setPDFVersion(String)}.
-   *
-   * <p>Method under test: {@link AdobePDFSchema#setPDFVersion(String)}
+   * <p>
+   * Method under test: {@link AdobePDFSchema#setPDFVersion(String)}
    */
   @Test
   @DisplayName("Test setPDFVersion(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void AdobePDFSchema.setPDFVersion(String)"})
   void testSetPDFVersion3() {
     // Arrange
@@ -514,19 +489,15 @@ class AdobePDFSchemaDiffblueTest {
 
   /**
    * Test {@link AdobePDFSchema#setPDFVersion(String)}.
-   *
    * <ul>
-   *   <li>Given {@link AdobePDFSchema#AdobePDFSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link AdobePDFSchema#AdobePDFSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AdobePDFSchema#setPDFVersion(String)}
+   * <p>
+   * Method under test: {@link AdobePDFSchema#setPDFVersion(String)}
    */
   @Test
-  @DisplayName(
-      "Test setPDFVersion(String); given AdobePDFSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setPDFVersion(String); given AdobePDFSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void AdobePDFSchema.setPDFVersion(String)"})
   void testSetPDFVersion_givenAdobePDFSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange
@@ -554,20 +525,18 @@ class AdobePDFSchemaDiffblueTest {
 
   /**
    * Test {@link AdobePDFSchema#setPDFVersionProperty(TextType)}.
-   *
-   * <p>Method under test: {@link AdobePDFSchema#setPDFVersionProperty(TextType)}
+   * <p>
+   * Method under test: {@link AdobePDFSchema#setPDFVersionProperty(TextType)}
    */
   @Test
   @DisplayName("Test setPDFVersionProperty(TextType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void AdobePDFSchema.setPDFVersionProperty(TextType)"})
   void testSetPDFVersionProperty() {
     // Arrange
     AdobePDFSchema adobePDFSchema = new AdobePDFSchema(XMPMetadata.createXMPMetadata());
-    TextType version =
-        new TextType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType version = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name",
+        "Value");
 
     // Act
     adobePDFSchema.setPDFVersionProperty(version);
@@ -580,21 +549,19 @@ class AdobePDFSchemaDiffblueTest {
 
   /**
    * Test {@link AdobePDFSchema#setPDFVersionProperty(TextType)}.
-   *
-   * <p>Method under test: {@link AdobePDFSchema#setPDFVersionProperty(TextType)}
+   * <p>
+   * Method under test: {@link AdobePDFSchema#setPDFVersionProperty(TextType)}
    */
   @Test
   @DisplayName("Test setPDFVersionProperty(TextType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void AdobePDFSchema.setPDFVersionProperty(TextType)"})
   void testSetPDFVersionProperty2() {
     // Arrange
     AdobePDFSchema adobePDFSchema = new AdobePDFSchema(XMPMetadata.createXMPMetadata());
     adobePDFSchema.addBagValueAsSimple("Simple Name", "42");
-    TextType version =
-        new TextType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType version = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name",
+        "Value");
 
     // Act
     adobePDFSchema.setPDFVersionProperty(version);
@@ -620,25 +587,22 @@ class AdobePDFSchemaDiffblueTest {
 
   /**
    * Test {@link AdobePDFSchema#setPDFVersionProperty(TextType)}.
-   *
-   * <p>Method under test: {@link AdobePDFSchema#setPDFVersionProperty(TextType)}
+   * <p>
+   * Method under test: {@link AdobePDFSchema#setPDFVersionProperty(TextType)}
    */
   @Test
   @DisplayName("Test setPDFVersionProperty(TextType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void AdobePDFSchema.setPDFVersionProperty(TextType)"})
   void testSetPDFVersionProperty3() {
     // Arrange
     AdobePDFSchema adobePDFSchema = new AdobePDFSchema(XMPMetadata.createXMPMetadata());
     adobePDFSchema.addBagValueAsSimple("Property Name", "Simple Name");
     adobePDFSchema.addBagValueAsSimple("Simple Name", "42");
-    TextType version =
-        new TextType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
-    adobePDFSchema.setPDFVersionProperty(version);
+    adobePDFSchema.setPDFVersionProperty(
+        new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value"));
 
     // Assert
     List<AbstractField> allProperties = adobePDFSchema.getAllProperties();
@@ -660,13 +624,12 @@ class AdobePDFSchemaDiffblueTest {
 
   /**
    * Test {@link AdobePDFSchema#setProducer(String)}.
-   *
-   * <p>Method under test: {@link AdobePDFSchema#setProducer(String)}
+   * <p>
+   * Method under test: {@link AdobePDFSchema#setProducer(String)}
    */
   @Test
   @DisplayName("Test setProducer(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void AdobePDFSchema.setProducer(String)"})
   void testSetProducer() {
     // Arrange
@@ -696,13 +659,12 @@ class AdobePDFSchemaDiffblueTest {
 
   /**
    * Test {@link AdobePDFSchema#setProducer(String)}.
-   *
-   * <p>Method under test: {@link AdobePDFSchema#setProducer(String)}
+   * <p>
+   * Method under test: {@link AdobePDFSchema#setProducer(String)}
    */
   @Test
   @DisplayName("Test setProducer(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void AdobePDFSchema.setProducer(String)"})
   void testSetProducer2() {
     // Arrange
@@ -734,13 +696,12 @@ class AdobePDFSchemaDiffblueTest {
 
   /**
    * Test {@link AdobePDFSchema#setProducer(String)}.
-   *
-   * <p>Method under test: {@link AdobePDFSchema#setProducer(String)}
+   * <p>
+   * Method under test: {@link AdobePDFSchema#setProducer(String)}
    */
   @Test
   @DisplayName("Test setProducer(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void AdobePDFSchema.setProducer(String)"})
   void testSetProducer3() {
     // Arrange
@@ -771,19 +732,15 @@ class AdobePDFSchemaDiffblueTest {
 
   /**
    * Test {@link AdobePDFSchema#setProducer(String)}.
-   *
    * <ul>
-   *   <li>Given {@link AdobePDFSchema#AdobePDFSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link AdobePDFSchema#AdobePDFSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AdobePDFSchema#setProducer(String)}
+   * <p>
+   * Method under test: {@link AdobePDFSchema#setProducer(String)}
    */
   @Test
-  @DisplayName(
-      "Test setProducer(String); given AdobePDFSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setProducer(String); given AdobePDFSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void AdobePDFSchema.setProducer(String)"})
   void testSetProducer_givenAdobePDFSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange
@@ -811,20 +768,18 @@ class AdobePDFSchemaDiffblueTest {
 
   /**
    * Test {@link AdobePDFSchema#setProducerProperty(TextType)}.
-   *
-   * <p>Method under test: {@link AdobePDFSchema#setProducerProperty(TextType)}
+   * <p>
+   * Method under test: {@link AdobePDFSchema#setProducerProperty(TextType)}
    */
   @Test
   @DisplayName("Test setProducerProperty(TextType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void AdobePDFSchema.setProducerProperty(TextType)"})
   void testSetProducerProperty() {
     // Arrange
     AdobePDFSchema adobePDFSchema = new AdobePDFSchema(XMPMetadata.createXMPMetadata());
-    TextType producer =
-        new TextType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType producer = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name",
+        "Value");
 
     // Act
     adobePDFSchema.setProducerProperty(producer);
@@ -837,21 +792,19 @@ class AdobePDFSchemaDiffblueTest {
 
   /**
    * Test {@link AdobePDFSchema#setProducerProperty(TextType)}.
-   *
-   * <p>Method under test: {@link AdobePDFSchema#setProducerProperty(TextType)}
+   * <p>
+   * Method under test: {@link AdobePDFSchema#setProducerProperty(TextType)}
    */
   @Test
   @DisplayName("Test setProducerProperty(TextType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void AdobePDFSchema.setProducerProperty(TextType)"})
   void testSetProducerProperty2() {
     // Arrange
     AdobePDFSchema adobePDFSchema = new AdobePDFSchema(XMPMetadata.createXMPMetadata());
     adobePDFSchema.addBagValueAsSimple("Simple Name", "42");
-    TextType producer =
-        new TextType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType producer = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name",
+        "Value");
 
     // Act
     adobePDFSchema.setProducerProperty(producer);
@@ -877,25 +830,22 @@ class AdobePDFSchemaDiffblueTest {
 
   /**
    * Test {@link AdobePDFSchema#setProducerProperty(TextType)}.
-   *
-   * <p>Method under test: {@link AdobePDFSchema#setProducerProperty(TextType)}
+   * <p>
+   * Method under test: {@link AdobePDFSchema#setProducerProperty(TextType)}
    */
   @Test
   @DisplayName("Test setProducerProperty(TextType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void AdobePDFSchema.setProducerProperty(TextType)"})
   void testSetProducerProperty3() {
     // Arrange
     AdobePDFSchema adobePDFSchema = new AdobePDFSchema(XMPMetadata.createXMPMetadata());
     adobePDFSchema.addBagValueAsSimple("Property Name", "Simple Name");
     adobePDFSchema.addBagValueAsSimple("Simple Name", "42");
-    TextType producer =
-        new TextType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
-    adobePDFSchema.setProducerProperty(producer);
+    adobePDFSchema.setProducerProperty(
+        new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value"));
 
     // Assert
     List<AbstractField> allProperties = adobePDFSchema.getAllProperties();
@@ -917,13 +867,12 @@ class AdobePDFSchemaDiffblueTest {
 
   /**
    * Test {@link AdobePDFSchema#getKeywordsProperty()}.
-   *
-   * <p>Method under test: {@link AdobePDFSchema#getKeywordsProperty()}
+   * <p>
+   * Method under test: {@link AdobePDFSchema#getKeywordsProperty()}
    */
   @Test
   @DisplayName("Test getKeywordsProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType AdobePDFSchema.getKeywordsProperty()"})
   void testGetKeywordsProperty() {
     // Arrange
@@ -936,13 +885,12 @@ class AdobePDFSchemaDiffblueTest {
 
   /**
    * Test {@link AdobePDFSchema#getKeywordsProperty()}.
-   *
-   * <p>Method under test: {@link AdobePDFSchema#getKeywordsProperty()}
+   * <p>
+   * Method under test: {@link AdobePDFSchema#getKeywordsProperty()}
    */
   @Test
   @DisplayName("Test getKeywordsProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType AdobePDFSchema.getKeywordsProperty()"})
   void testGetKeywordsProperty2() {
     // Arrange
@@ -956,24 +904,19 @@ class AdobePDFSchemaDiffblueTest {
 
   /**
    * Test {@link AdobePDFSchema#getKeywordsProperty()}.
-   *
-   * <p>Method under test: {@link AdobePDFSchema#getKeywordsProperty()}
+   * <p>
+   * Method under test: {@link AdobePDFSchema#getKeywordsProperty()}
    */
   @Test
   @DisplayName("Test getKeywordsProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType AdobePDFSchema.getKeywordsProperty()"})
   void testGetKeywordsProperty3() {
     // Arrange
     AdobePDFSchema adobePDFSchema = new AdobePDFSchema(XMPMetadata.createXMPMetadata());
-    AgentNameType obj =
-        new AgentNameType(
-            XMPMetadata.createXMPMetadata(),
-            AdobePDFSchema.KEYWORDS,
-            AdobePDFSchema.KEYWORDS,
-            AdobePDFSchema.KEYWORDS,
-            "Value");
+    AgentNameType obj = new AgentNameType(XMPMetadata.createXMPMetadata(), AdobePDFSchema.KEYWORDS,
+        AdobePDFSchema.KEYWORDS, AdobePDFSchema.KEYWORDS, "Value");
+
     adobePDFSchema.addProperty(obj);
 
     // Act and Assert
@@ -982,34 +925,29 @@ class AdobePDFSchemaDiffblueTest {
 
   /**
    * Test {@link AdobePDFSchema#getKeywordsProperty()}.
-   *
    * <ul>
-   *   <li>Given {@link AdobePDFSchema#AdobePDFSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link AdobePDFSchema#AdobePDFSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AdobePDFSchema#getKeywordsProperty()}
+   * <p>
+   * Method under test: {@link AdobePDFSchema#getKeywordsProperty()}
    */
   @Test
-  @DisplayName(
-      "Test getKeywordsProperty(); given AdobePDFSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getKeywordsProperty(); given AdobePDFSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType AdobePDFSchema.getKeywordsProperty()"})
   void testGetKeywordsProperty_givenAdobePDFSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull(new AdobePDFSchema(XMPMetadata.createXMPMetadata()).getKeywordsProperty());
+    assertNull((new AdobePDFSchema(XMPMetadata.createXMPMetadata())).getKeywordsProperty());
   }
 
   /**
    * Test {@link AdobePDFSchema#getKeywords()}.
-   *
-   * <p>Method under test: {@link AdobePDFSchema#getKeywords()}
+   * <p>
+   * Method under test: {@link AdobePDFSchema#getKeywords()}
    */
   @Test
   @DisplayName("Test getKeywords()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String AdobePDFSchema.getKeywords()"})
   void testGetKeywords() {
     // Arrange
@@ -1022,13 +960,12 @@ class AdobePDFSchemaDiffblueTest {
 
   /**
    * Test {@link AdobePDFSchema#getKeywords()}.
-   *
-   * <p>Method under test: {@link AdobePDFSchema#getKeywords()}
+   * <p>
+   * Method under test: {@link AdobePDFSchema#getKeywords()}
    */
   @Test
   @DisplayName("Test getKeywords()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String AdobePDFSchema.getKeywords()"})
   void testGetKeywords2() {
     // Arrange
@@ -1042,50 +979,38 @@ class AdobePDFSchemaDiffblueTest {
 
   /**
    * Test {@link AdobePDFSchema#getKeywords()}.
-   *
    * <ul>
-   *   <li>Given {@link AdobePDFSchema#AdobePDFSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link AdobePDFSchema#AdobePDFSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AdobePDFSchema#getKeywords()}
+   * <p>
+   * Method under test: {@link AdobePDFSchema#getKeywords()}
    */
   @Test
-  @DisplayName(
-      "Test getKeywords(); given AdobePDFSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getKeywords(); given AdobePDFSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String AdobePDFSchema.getKeywords()"})
   void testGetKeywords_givenAdobePDFSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull(new AdobePDFSchema(XMPMetadata.createXMPMetadata()).getKeywords());
+    assertNull((new AdobePDFSchema(XMPMetadata.createXMPMetadata())).getKeywords());
   }
 
   /**
    * Test {@link AdobePDFSchema#getKeywords()}.
-   *
    * <ul>
-   *   <li>Then return {@code Value}.
+   *   <li>Then return {@code Value}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AdobePDFSchema#getKeywords()}
+   * <p>
+   * Method under test: {@link AdobePDFSchema#getKeywords()}
    */
   @Test
   @DisplayName("Test getKeywords(); then return 'Value'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String AdobePDFSchema.getKeywords()"})
   void testGetKeywords_thenReturnValue() {
     // Arrange
     AdobePDFSchema adobePDFSchema = new AdobePDFSchema(XMPMetadata.createXMPMetadata());
-    AgentNameType obj =
-        new AgentNameType(
-            XMPMetadata.createXMPMetadata(),
-            AdobePDFSchema.KEYWORDS,
-            AdobePDFSchema.KEYWORDS,
-            AdobePDFSchema.KEYWORDS,
-            "Value");
-    adobePDFSchema.addProperty(obj);
+    adobePDFSchema.addProperty(new AgentNameType(XMPMetadata.createXMPMetadata(), AdobePDFSchema.KEYWORDS,
+        AdobePDFSchema.KEYWORDS, AdobePDFSchema.KEYWORDS, "Value"));
 
     // Act and Assert
     assertEquals("Value", adobePDFSchema.getKeywords());
@@ -1093,13 +1018,12 @@ class AdobePDFSchemaDiffblueTest {
 
   /**
    * Test {@link AdobePDFSchema#getPDFVersionProperty()}.
-   *
-   * <p>Method under test: {@link AdobePDFSchema#getPDFVersionProperty()}
+   * <p>
+   * Method under test: {@link AdobePDFSchema#getPDFVersionProperty()}
    */
   @Test
   @DisplayName("Test getPDFVersionProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType AdobePDFSchema.getPDFVersionProperty()"})
   void testGetPDFVersionProperty() {
     // Arrange
@@ -1112,13 +1036,12 @@ class AdobePDFSchemaDiffblueTest {
 
   /**
    * Test {@link AdobePDFSchema#getPDFVersionProperty()}.
-   *
-   * <p>Method under test: {@link AdobePDFSchema#getPDFVersionProperty()}
+   * <p>
+   * Method under test: {@link AdobePDFSchema#getPDFVersionProperty()}
    */
   @Test
   @DisplayName("Test getPDFVersionProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType AdobePDFSchema.getPDFVersionProperty()"})
   void testGetPDFVersionProperty2() {
     // Arrange
@@ -1132,24 +1055,19 @@ class AdobePDFSchemaDiffblueTest {
 
   /**
    * Test {@link AdobePDFSchema#getPDFVersionProperty()}.
-   *
-   * <p>Method under test: {@link AdobePDFSchema#getPDFVersionProperty()}
+   * <p>
+   * Method under test: {@link AdobePDFSchema#getPDFVersionProperty()}
    */
   @Test
   @DisplayName("Test getPDFVersionProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType AdobePDFSchema.getPDFVersionProperty()"})
   void testGetPDFVersionProperty3() {
     // Arrange
     AdobePDFSchema adobePDFSchema = new AdobePDFSchema(XMPMetadata.createXMPMetadata());
-    AgentNameType obj =
-        new AgentNameType(
-            XMPMetadata.createXMPMetadata(),
-            AdobePDFSchema.PDF_VERSION,
-            AdobePDFSchema.PDF_VERSION,
-            AdobePDFSchema.PDF_VERSION,
-            "Value");
+    AgentNameType obj = new AgentNameType(XMPMetadata.createXMPMetadata(), AdobePDFSchema.PDF_VERSION,
+        AdobePDFSchema.PDF_VERSION, AdobePDFSchema.PDF_VERSION, "Value");
+
     adobePDFSchema.addProperty(obj);
 
     // Act and Assert
@@ -1158,34 +1076,29 @@ class AdobePDFSchemaDiffblueTest {
 
   /**
    * Test {@link AdobePDFSchema#getPDFVersionProperty()}.
-   *
    * <ul>
-   *   <li>Given {@link AdobePDFSchema#AdobePDFSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link AdobePDFSchema#AdobePDFSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AdobePDFSchema#getPDFVersionProperty()}
+   * <p>
+   * Method under test: {@link AdobePDFSchema#getPDFVersionProperty()}
    */
   @Test
-  @DisplayName(
-      "Test getPDFVersionProperty(); given AdobePDFSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getPDFVersionProperty(); given AdobePDFSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType AdobePDFSchema.getPDFVersionProperty()"})
   void testGetPDFVersionProperty_givenAdobePDFSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull(new AdobePDFSchema(XMPMetadata.createXMPMetadata()).getPDFVersionProperty());
+    assertNull((new AdobePDFSchema(XMPMetadata.createXMPMetadata())).getPDFVersionProperty());
   }
 
   /**
    * Test {@link AdobePDFSchema#getPDFVersion()}.
-   *
-   * <p>Method under test: {@link AdobePDFSchema#getPDFVersion()}
+   * <p>
+   * Method under test: {@link AdobePDFSchema#getPDFVersion()}
    */
   @Test
   @DisplayName("Test getPDFVersion()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String AdobePDFSchema.getPDFVersion()"})
   void testGetPDFVersion() {
     // Arrange
@@ -1198,13 +1111,12 @@ class AdobePDFSchemaDiffblueTest {
 
   /**
    * Test {@link AdobePDFSchema#getPDFVersion()}.
-   *
-   * <p>Method under test: {@link AdobePDFSchema#getPDFVersion()}
+   * <p>
+   * Method under test: {@link AdobePDFSchema#getPDFVersion()}
    */
   @Test
   @DisplayName("Test getPDFVersion()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String AdobePDFSchema.getPDFVersion()"})
   void testGetPDFVersion2() {
     // Arrange
@@ -1218,50 +1130,38 @@ class AdobePDFSchemaDiffblueTest {
 
   /**
    * Test {@link AdobePDFSchema#getPDFVersion()}.
-   *
    * <ul>
-   *   <li>Given {@link AdobePDFSchema#AdobePDFSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link AdobePDFSchema#AdobePDFSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AdobePDFSchema#getPDFVersion()}
+   * <p>
+   * Method under test: {@link AdobePDFSchema#getPDFVersion()}
    */
   @Test
-  @DisplayName(
-      "Test getPDFVersion(); given AdobePDFSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getPDFVersion(); given AdobePDFSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String AdobePDFSchema.getPDFVersion()"})
   void testGetPDFVersion_givenAdobePDFSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull(new AdobePDFSchema(XMPMetadata.createXMPMetadata()).getPDFVersion());
+    assertNull((new AdobePDFSchema(XMPMetadata.createXMPMetadata())).getPDFVersion());
   }
 
   /**
    * Test {@link AdobePDFSchema#getPDFVersion()}.
-   *
    * <ul>
-   *   <li>Then return {@code Value}.
+   *   <li>Then return {@code Value}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AdobePDFSchema#getPDFVersion()}
+   * <p>
+   * Method under test: {@link AdobePDFSchema#getPDFVersion()}
    */
   @Test
   @DisplayName("Test getPDFVersion(); then return 'Value'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String AdobePDFSchema.getPDFVersion()"})
   void testGetPDFVersion_thenReturnValue() {
     // Arrange
     AdobePDFSchema adobePDFSchema = new AdobePDFSchema(XMPMetadata.createXMPMetadata());
-    AgentNameType obj =
-        new AgentNameType(
-            XMPMetadata.createXMPMetadata(),
-            AdobePDFSchema.PDF_VERSION,
-            AdobePDFSchema.PDF_VERSION,
-            AdobePDFSchema.PDF_VERSION,
-            "Value");
-    adobePDFSchema.addProperty(obj);
+    adobePDFSchema.addProperty(new AgentNameType(XMPMetadata.createXMPMetadata(), AdobePDFSchema.PDF_VERSION,
+        AdobePDFSchema.PDF_VERSION, AdobePDFSchema.PDF_VERSION, "Value"));
 
     // Act and Assert
     assertEquals("Value", adobePDFSchema.getPDFVersion());
@@ -1269,13 +1169,12 @@ class AdobePDFSchemaDiffblueTest {
 
   /**
    * Test {@link AdobePDFSchema#getProducerProperty()}.
-   *
-   * <p>Method under test: {@link AdobePDFSchema#getProducerProperty()}
+   * <p>
+   * Method under test: {@link AdobePDFSchema#getProducerProperty()}
    */
   @Test
   @DisplayName("Test getProducerProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType AdobePDFSchema.getProducerProperty()"})
   void testGetProducerProperty() {
     // Arrange
@@ -1288,13 +1187,12 @@ class AdobePDFSchemaDiffblueTest {
 
   /**
    * Test {@link AdobePDFSchema#getProducerProperty()}.
-   *
-   * <p>Method under test: {@link AdobePDFSchema#getProducerProperty()}
+   * <p>
+   * Method under test: {@link AdobePDFSchema#getProducerProperty()}
    */
   @Test
   @DisplayName("Test getProducerProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType AdobePDFSchema.getProducerProperty()"})
   void testGetProducerProperty2() {
     // Arrange
@@ -1308,24 +1206,19 @@ class AdobePDFSchemaDiffblueTest {
 
   /**
    * Test {@link AdobePDFSchema#getProducerProperty()}.
-   *
-   * <p>Method under test: {@link AdobePDFSchema#getProducerProperty()}
+   * <p>
+   * Method under test: {@link AdobePDFSchema#getProducerProperty()}
    */
   @Test
   @DisplayName("Test getProducerProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType AdobePDFSchema.getProducerProperty()"})
   void testGetProducerProperty3() {
     // Arrange
     AdobePDFSchema adobePDFSchema = new AdobePDFSchema(XMPMetadata.createXMPMetadata());
-    AgentNameType obj =
-        new AgentNameType(
-            XMPMetadata.createXMPMetadata(),
-            AdobePDFSchema.PRODUCER,
-            AdobePDFSchema.PRODUCER,
-            AdobePDFSchema.PRODUCER,
-            "Value");
+    AgentNameType obj = new AgentNameType(XMPMetadata.createXMPMetadata(), AdobePDFSchema.PRODUCER,
+        AdobePDFSchema.PRODUCER, AdobePDFSchema.PRODUCER, "Value");
+
     adobePDFSchema.addProperty(obj);
 
     // Act and Assert
@@ -1334,34 +1227,29 @@ class AdobePDFSchemaDiffblueTest {
 
   /**
    * Test {@link AdobePDFSchema#getProducerProperty()}.
-   *
    * <ul>
-   *   <li>Given {@link AdobePDFSchema#AdobePDFSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link AdobePDFSchema#AdobePDFSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AdobePDFSchema#getProducerProperty()}
+   * <p>
+   * Method under test: {@link AdobePDFSchema#getProducerProperty()}
    */
   @Test
-  @DisplayName(
-      "Test getProducerProperty(); given AdobePDFSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getProducerProperty(); given AdobePDFSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType AdobePDFSchema.getProducerProperty()"})
   void testGetProducerProperty_givenAdobePDFSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull(new AdobePDFSchema(XMPMetadata.createXMPMetadata()).getProducerProperty());
+    assertNull((new AdobePDFSchema(XMPMetadata.createXMPMetadata())).getProducerProperty());
   }
 
   /**
    * Test {@link AdobePDFSchema#getProducer()}.
-   *
-   * <p>Method under test: {@link AdobePDFSchema#getProducer()}
+   * <p>
+   * Method under test: {@link AdobePDFSchema#getProducer()}
    */
   @Test
   @DisplayName("Test getProducer()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String AdobePDFSchema.getProducer()"})
   void testGetProducer() {
     // Arrange
@@ -1374,13 +1262,12 @@ class AdobePDFSchemaDiffblueTest {
 
   /**
    * Test {@link AdobePDFSchema#getProducer()}.
-   *
-   * <p>Method under test: {@link AdobePDFSchema#getProducer()}
+   * <p>
+   * Method under test: {@link AdobePDFSchema#getProducer()}
    */
   @Test
   @DisplayName("Test getProducer()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String AdobePDFSchema.getProducer()"})
   void testGetProducer2() {
     // Arrange
@@ -1394,50 +1281,38 @@ class AdobePDFSchemaDiffblueTest {
 
   /**
    * Test {@link AdobePDFSchema#getProducer()}.
-   *
    * <ul>
-   *   <li>Given {@link AdobePDFSchema#AdobePDFSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link AdobePDFSchema#AdobePDFSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AdobePDFSchema#getProducer()}
+   * <p>
+   * Method under test: {@link AdobePDFSchema#getProducer()}
    */
   @Test
-  @DisplayName(
-      "Test getProducer(); given AdobePDFSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getProducer(); given AdobePDFSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String AdobePDFSchema.getProducer()"})
   void testGetProducer_givenAdobePDFSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull(new AdobePDFSchema(XMPMetadata.createXMPMetadata()).getProducer());
+    assertNull((new AdobePDFSchema(XMPMetadata.createXMPMetadata())).getProducer());
   }
 
   /**
    * Test {@link AdobePDFSchema#getProducer()}.
-   *
    * <ul>
-   *   <li>Then return {@code Value}.
+   *   <li>Then return {@code Value}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AdobePDFSchema#getProducer()}
+   * <p>
+   * Method under test: {@link AdobePDFSchema#getProducer()}
    */
   @Test
   @DisplayName("Test getProducer(); then return 'Value'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String AdobePDFSchema.getProducer()"})
   void testGetProducer_thenReturnValue() {
     // Arrange
     AdobePDFSchema adobePDFSchema = new AdobePDFSchema(XMPMetadata.createXMPMetadata());
-    AgentNameType obj =
-        new AgentNameType(
-            XMPMetadata.createXMPMetadata(),
-            AdobePDFSchema.PRODUCER,
-            AdobePDFSchema.PRODUCER,
-            AdobePDFSchema.PRODUCER,
-            "Value");
-    adobePDFSchema.addProperty(obj);
+    adobePDFSchema.addProperty(new AgentNameType(XMPMetadata.createXMPMetadata(), AdobePDFSchema.PRODUCER,
+        AdobePDFSchema.PRODUCER, AdobePDFSchema.PRODUCER, "Value"));
 
     // Act and Assert
     assertEquals("Value", adobePDFSchema.getProducer());

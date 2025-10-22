@@ -3,7 +3,6 @@ package org.apache.pdfbox.pdmodel.font.encoding;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import org.apache.pdfbox.cos.COSBase;
@@ -15,13 +14,12 @@ import org.junit.jupiter.api.Test;
 class MacRomanEncodingDiffblueTest {
   /**
    * Test {@link MacRomanEncoding#MacRomanEncoding()}.
-   *
-   * <p>Method under test: default or parameterless constructor of {@link MacRomanEncoding}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link MacRomanEncoding}
    */
   @Test
   @DisplayName("Test new MacRomanEncoding()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void MacRomanEncoding.<init>()"})
   void testNewMacRomanEncoding() {
     // Arrange and Act
@@ -54,9 +52,8 @@ class MacRomanEncodingDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link MacRomanEncoding#getCOSObject()}
    *   <li>{@link MacRomanEncoding#getEncodingName()}
@@ -64,12 +61,8 @@ class MacRomanEncodingDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "COSBase MacRomanEncoding.getCOSObject()",
-    "String MacRomanEncoding.getEncodingName()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"COSBase MacRomanEncoding.getCOSObject()", "String MacRomanEncoding.getEncodingName()"})
   void testGettersAndSetters() {
     // Arrange
     MacRomanEncoding macRomanEncoding = new MacRomanEncoding();

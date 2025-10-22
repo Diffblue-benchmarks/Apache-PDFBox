@@ -2,7 +2,6 @@ package org.apache.pdfbox.debugger.stringpane;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.image.DirectColorModel;
 import java.io.IOException;
@@ -17,21 +16,20 @@ import org.junit.jupiter.api.Test;
 class StringPaneDiffblueTest {
   /**
    * Test {@link StringPane#StringPane(COSString)}.
-   *
    * <ul>
-   *   <li>When {@link COSString#COSString(String)} with text is {@code Text View}.
+   *   <li>When parseHex {@code 42}.</li>
+   *   <li>Then Pane ColorModel return {@link DirectColorModel}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link StringPane#StringPane(COSString)}
+   * <p>
+   * Method under test: {@link StringPane#StringPane(COSString)}
    */
   @Test
-  @DisplayName("Test new StringPane(COSString); when COSString(String) with text is 'Text View'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new StringPane(COSString); when parseHex '42'; then Pane ColorModel return DirectColorModel")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void StringPane.<init>(COSString)"})
-  void testNewStringPane_whenCOSStringWithTextIsTextView() {
+  void testNewStringPane_whenParseHex42_thenPaneColorModelReturnDirectColorModel() throws IOException {
     // Arrange, Act and Assert
-    JTabbedPane pane = new StringPane(new COSString("Text View")).getPane();
+    JTabbedPane pane = (new StringPane(COSString.parseHex("42"))).getPane();
     assertTrue(pane.getColorModel() instanceof DirectColorModel);
     assertTrue(pane.getModel() instanceof DefaultSingleSelectionModel);
     assertTrue(pane.getSelectedComponent() instanceof JTextPane);
@@ -45,21 +43,19 @@ class StringPaneDiffblueTest {
 
   /**
    * Test {@link StringPane#StringPane(COSString)}.
-   *
    * <ul>
-   *   <li>When parseHex {@code 0123456789ABCDEF}.
+   *   <li>When parseHex {@code 0123456789ABCDEF}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link StringPane#StringPane(COSString)}
+   * <p>
+   * Method under test: {@link StringPane#StringPane(COSString)}
    */
   @Test
   @DisplayName("Test new StringPane(COSString); when parseHex '0123456789ABCDEF'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void StringPane.<init>(COSString)"})
   void testNewStringPane_whenParseHex0123456789abcdef() throws IOException {
     // Arrange, Act and Assert
-    JTabbedPane pane = new StringPane(COSString.parseHex("0123456789ABCDEF")).getPane();
+    JTabbedPane pane = (new StringPane(COSString.parseHex("0123456789ABCDEF"))).getPane();
     assertTrue(pane.getColorModel() instanceof DirectColorModel);
     assertTrue(pane.getModel() instanceof DefaultSingleSelectionModel);
     assertTrue(pane.getSelectedComponent() instanceof JTextPane);
@@ -73,21 +69,19 @@ class StringPaneDiffblueTest {
 
   /**
    * Test {@link StringPane#StringPane(COSString)}.
-   *
    * <ul>
-   *   <li>When parseHex empty string.
+   *   <li>When parseHex empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link StringPane#StringPane(COSString)}
+   * <p>
+   * Method under test: {@link StringPane#StringPane(COSString)}
    */
   @Test
   @DisplayName("Test new StringPane(COSString); when parseHex empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void StringPane.<init>(COSString)"})
   void testNewStringPane_whenParseHexEmptyString() throws IOException {
     // Arrange, Act and Assert
-    JTabbedPane pane = new StringPane(COSString.parseHex("")).getPane();
+    JTabbedPane pane = (new StringPane(COSString.parseHex(""))).getPane();
     assertTrue(pane.getColorModel() instanceof DirectColorModel);
     assertTrue(pane.getModel() instanceof DefaultSingleSelectionModel);
     assertTrue(pane.getSelectedComponent() instanceof JTextPane);

@@ -1,7 +1,6 @@
 package org.apache.pdfbox.debugger.ui;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSObject;
@@ -14,84 +13,71 @@ import org.junit.jupiter.api.Test;
 class XrefEntriesDiffblueTest {
   /**
    * Test {@link XrefEntries#XrefEntries(PDDocument)}.
-   *
    * <ul>
-   *   <li>When {@link PDDocument#PDDocument()}.
-   *   <li>Then return XrefEntryCount is zero.
+   *   <li>When {@link PDDocument#PDDocument()}.</li>
+   *   <li>Then return XrefEntryCount is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XrefEntries#XrefEntries(PDDocument)}
+   * <p>
+   * Method under test: {@link XrefEntries#XrefEntries(PDDocument)}
    */
   @Test
-  @DisplayName(
-      "Test new XrefEntries(PDDocument); when PDDocument(); then return XrefEntryCount is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new XrefEntries(PDDocument); when PDDocument(); then return XrefEntryCount is zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XrefEntries.<init>(PDDocument)"})
   void testNewXrefEntries_whenPDDocument_thenReturnXrefEntryCountIsZero() {
     // Arrange, Act and Assert
-    assertEquals(0, new XrefEntries(new PDDocument()).getXrefEntryCount());
+    assertEquals(0, (new XrefEntries(new PDDocument())).getXrefEntryCount());
   }
 
   /**
    * Test {@link XrefEntries#getXrefEntryCount()}.
-   *
-   * <p>Method under test: {@link XrefEntries#getXrefEntryCount()}
+   * <p>
+   * Method under test: {@link XrefEntries#getXrefEntryCount()}
    */
   @Test
   @DisplayName("Test getXrefEntryCount()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int XrefEntries.getXrefEntryCount()"})
   void testGetXrefEntryCount() {
     // Arrange, Act and Assert
-    assertEquals(0, new XrefEntries(new PDDocument()).getXrefEntryCount());
+    assertEquals(0, (new XrefEntries(new PDDocument())).getXrefEntryCount());
   }
 
   /**
    * Test {@link XrefEntries#indexOf(XrefEntry)}.
-   *
    * <ul>
-   *   <li>When {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
-   *   <li>Then return zero.
+   *   <li>When {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
+   *   <li>Then return zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XrefEntries#indexOf(XrefEntry)}
+   * <p>
+   * Method under test: {@link XrefEntries#indexOf(XrefEntry)}
    */
   @Test
-  @DisplayName(
-      "Test indexOf(XrefEntry); when COSObjectKey(long, int) with num is one and gen is one; then return zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test indexOf(XrefEntry); when COSObjectKey(long, int) with num is one and gen is one; then return zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int XrefEntries.indexOf(XrefEntry)"})
   void testIndexOf_whenCOSObjectKeyWithNumIsOneAndGenIsOne_thenReturnZero() {
     // Arrange
     XrefEntries xrefEntries = new XrefEntries(new PDDocument());
     COSObjectKey key = new COSObjectKey(1L, 1);
+
     COSArray object = new COSArray();
-    COSObject cosObject = new COSObject(object, new COSObjectKey(1L, 1));
 
-    XrefEntry xrefEntry = new XrefEntry(1, key, 1L, cosObject);
-
-    // Act
-    int actualIndexOfResult = xrefEntries.indexOf(xrefEntry);
-
-    // Assert
-    assertEquals(0, actualIndexOfResult);
+    // Act and Assert
+    assertEquals(0, xrefEntries.indexOf(new XrefEntry(1, key, 1L, new COSObject(object, new COSObjectKey(1L, 1)))));
   }
 
   /**
    * Test {@link XrefEntries#toString()}.
-   *
-   * <p>Method under test: {@link XrefEntries#toString()}
+   * <p>
+   * Method under test: {@link XrefEntries#toString()}
    */
   @Test
   @DisplayName("Test toString()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.lang.String XrefEntries.toString()"})
   void testToString() {
     // Arrange, Act and Assert
-    assertEquals(XrefEntries.PATH, new XrefEntries(new PDDocument()).toString());
+    assertEquals(XrefEntries.PATH, (new XrefEntries(new PDDocument())).toString());
   }
 }

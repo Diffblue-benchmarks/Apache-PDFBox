@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.util.List;
@@ -21,13 +20,12 @@ import org.junit.jupiter.api.Test;
 class PDComplexFileSpecificationDiffblueTest {
   /**
    * Test {@link PDComplexFileSpecification#PDComplexFileSpecification()}.
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#PDComplexFileSpecification()}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#PDComplexFileSpecification()}
    */
   @Test
   @DisplayName("Test new PDComplexFileSpecification()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDComplexFileSpecification.<init>()"})
   void testNewPDComplexFileSpecification() {
     // Arrange and Act
@@ -51,27 +49,22 @@ class PDComplexFileSpecificationDiffblueTest {
 
   /**
    * Test {@link PDComplexFileSpecification#PDComplexFileSpecification(COSDictionary)}.
-   *
    * <ul>
-   *   <li>Then return COSObject is {@link COSDictionary#COSDictionary()}.
+   *   <li>Then return COSObject is {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * PDComplexFileSpecification#PDComplexFileSpecification(COSDictionary)}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#PDComplexFileSpecification(COSDictionary)}
    */
   @Test
-  @DisplayName(
-      "Test new PDComplexFileSpecification(COSDictionary); then return COSObject is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new PDComplexFileSpecification(COSDictionary); then return COSObject is COSDictionary()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDComplexFileSpecification.<init>(COSDictionary)"})
   void testNewPDComplexFileSpecification_thenReturnCOSObjectIsCOSDictionary() {
     // Arrange
     COSDictionary dict = new COSDictionary();
 
     // Act
-    PDComplexFileSpecification actualPdComplexFileSpecification =
-        new PDComplexFileSpecification(dict);
+    PDComplexFileSpecification actualPdComplexFileSpecification = new PDComplexFileSpecification(dict);
 
     // Assert
     assertNull(actualPdComplexFileSpecification.getFile());
@@ -92,23 +85,19 @@ class PDComplexFileSpecificationDiffblueTest {
 
   /**
    * Test {@link PDComplexFileSpecification#PDComplexFileSpecification(COSDictionary)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * PDComplexFileSpecification#PDComplexFileSpecification(COSDictionary)}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#PDComplexFileSpecification(COSDictionary)}
    */
   @Test
   @DisplayName("Test new PDComplexFileSpecification(COSDictionary); when 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDComplexFileSpecification.<init>(COSDictionary)"})
   void testNewPDComplexFileSpecification_whenNull() {
     // Arrange and Act
-    PDComplexFileSpecification actualPdComplexFileSpecification =
-        new PDComplexFileSpecification(null);
+    PDComplexFileSpecification actualPdComplexFileSpecification = new PDComplexFileSpecification(null);
 
     // Assert
     assertNull(actualPdComplexFileSpecification.getFile());
@@ -128,17 +117,16 @@ class PDComplexFileSpecificationDiffblueTest {
 
   /**
    * Test {@link PDComplexFileSpecification#getCOSObject()}.
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#getCOSObject()}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#getCOSObject()}
    */
   @Test
   @DisplayName("Test getCOSObject()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSDictionary PDComplexFileSpecification.getCOSObject()"})
   void testGetCOSObject() {
     // Arrange and Act
-    COSDictionary actualCOSObject = new PDComplexFileSpecification().getCOSObject();
+    COSDictionary actualCOSObject = (new PDComplexFileSpecification()).getCOSObject();
 
     // Assert
     COSUpdateState updateState = actualCOSObject.getUpdateState();
@@ -156,20 +144,16 @@ class PDComplexFileSpecificationDiffblueTest {
 
   /**
    * Test {@link PDComplexFileSpecification#getFilename()}.
-   *
    * <ul>
-   *   <li>Given {@link PDComplexFileSpecification#PDComplexFileSpecification()} FileUnicode is
-   *       {@code File}.
-   *   <li>Then return {@code File}.
+   *   <li>Given {@link PDComplexFileSpecification#PDComplexFileSpecification()} FileUnicode is {@code File}.</li>
+   *   <li>Then return {@code File}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#getFilename()}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#getFilename()}
    */
   @Test
-  @DisplayName(
-      "Test getFilename(); given PDComplexFileSpecification() FileUnicode is 'File'; then return 'File'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getFilename(); given PDComplexFileSpecification() FileUnicode is 'File'; then return 'File'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDComplexFileSpecification.getFilename()"})
   void testGetFilename_givenPDComplexFileSpecificationFileUnicodeIsFile_thenReturnFile() {
     // Arrange
@@ -182,37 +166,33 @@ class PDComplexFileSpecificationDiffblueTest {
 
   /**
    * Test {@link PDComplexFileSpecification#getFilename()}.
-   *
    * <ul>
-   *   <li>Given {@link PDComplexFileSpecification#PDComplexFileSpecification()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDComplexFileSpecification#PDComplexFileSpecification()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#getFilename()}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#getFilename()}
    */
   @Test
   @DisplayName("Test getFilename(); given PDComplexFileSpecification(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDComplexFileSpecification.getFilename()"})
   void testGetFilename_givenPDComplexFileSpecification_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDComplexFileSpecification().getFilename());
+    assertNull((new PDComplexFileSpecification()).getFilename());
   }
 
   /**
    * Test {@link PDComplexFileSpecification#getFilename()}.
-   *
    * <ul>
-   *   <li>Then return empty string.
+   *   <li>Then return empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#getFilename()}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#getFilename()}
    */
   @Test
   @DisplayName("Test getFilename(); then return empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDComplexFileSpecification.getFilename()"})
   void testGetFilename_thenReturnEmptyString() {
     // Arrange
@@ -225,37 +205,33 @@ class PDComplexFileSpecificationDiffblueTest {
 
   /**
    * Test {@link PDComplexFileSpecification#getFileUnicode()}.
-   *
    * <ul>
-   *   <li>Given {@link PDComplexFileSpecification#PDComplexFileSpecification()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDComplexFileSpecification#PDComplexFileSpecification()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#getFileUnicode()}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#getFileUnicode()}
    */
   @Test
   @DisplayName("Test getFileUnicode(); given PDComplexFileSpecification(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDComplexFileSpecification.getFileUnicode()"})
   void testGetFileUnicode_givenPDComplexFileSpecification_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDComplexFileSpecification().getFileUnicode());
+    assertNull((new PDComplexFileSpecification()).getFileUnicode());
   }
 
   /**
    * Test {@link PDComplexFileSpecification#getFileUnicode()}.
-   *
    * <ul>
-   *   <li>Then return empty string.
+   *   <li>Then return empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#getFileUnicode()}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#getFileUnicode()}
    */
   @Test
   @DisplayName("Test getFileUnicode(); then return empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDComplexFileSpecification.getFileUnicode()"})
   void testGetFileUnicode_thenReturnEmptyString() {
     // Arrange
@@ -268,17 +244,15 @@ class PDComplexFileSpecificationDiffblueTest {
 
   /**
    * Test {@link PDComplexFileSpecification#getFileUnicode()}.
-   *
    * <ul>
-   *   <li>Then return {@code File}.
+   *   <li>Then return {@code File}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#getFileUnicode()}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#getFileUnicode()}
    */
   @Test
   @DisplayName("Test getFileUnicode(); then return 'File'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDComplexFileSpecification.getFileUnicode()"})
   void testGetFileUnicode_thenReturnFile() {
     // Arrange
@@ -291,51 +265,14 @@ class PDComplexFileSpecificationDiffblueTest {
 
   /**
    * Test {@link PDComplexFileSpecification#setFileUnicode(String)}.
-   *
-   * <ul>
-   *   <li>Then {@link PDComplexFileSpecification#PDComplexFileSpecification()} COSObject Values
-   *       size is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#setFileUnicode(String)}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#setFileUnicode(String)}
    */
   @Test
-  @DisplayName(
-      "Test setFileUnicode(String); then PDComplexFileSpecification() COSObject Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setFileUnicode(String)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDComplexFileSpecification.setFileUnicode(String)"})
-  void testSetFileUnicode_thenPDComplexFileSpecificationCOSObjectValuesSizeIsOne() {
-    // Arrange
-    PDComplexFileSpecification pdComplexFileSpecification = new PDComplexFileSpecification();
-
-    // Act
-    pdComplexFileSpecification.setFileUnicode(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdComplexFileSpecification.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDComplexFileSpecification#setFileUnicode(String)}.
-   *
-   * <ul>
-   *   <li>When {@code File}.
-   *   <li>Then {@link PDComplexFileSpecification#PDComplexFileSpecification()} FileUnicode is
-   *       {@code File}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#setFileUnicode(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test setFileUnicode(String); when 'File'; then PDComplexFileSpecification() FileUnicode is 'File'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDComplexFileSpecification.setFileUnicode(String)"})
-  void testSetFileUnicode_whenFile_thenPDComplexFileSpecificationFileUnicodeIsFile() {
+  void testSetFileUnicode() {
     // Arrange
     PDComplexFileSpecification pdComplexFileSpecification = new PDComplexFileSpecification();
 
@@ -352,20 +289,16 @@ class PDComplexFileSpecificationDiffblueTest {
 
   /**
    * Test {@link PDComplexFileSpecification#getFile()}.
-   *
    * <ul>
-   *   <li>Given {@link PDComplexFileSpecification#PDComplexFileSpecification()} File is {@code
-   *       File}.
-   *   <li>Then return {@code File}.
+   *   <li>Given {@link PDComplexFileSpecification#PDComplexFileSpecification()} File is {@code File}.</li>
+   *   <li>Then return {@code File}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#getFile()}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#getFile()}
    */
   @Test
-  @DisplayName(
-      "Test getFile(); given PDComplexFileSpecification() File is 'File'; then return 'File'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getFile(); given PDComplexFileSpecification() File is 'File'; then return 'File'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDComplexFileSpecification.getFile()"})
   void testGetFile_givenPDComplexFileSpecificationFileIsFile_thenReturnFile() {
     // Arrange
@@ -378,37 +311,33 @@ class PDComplexFileSpecificationDiffblueTest {
 
   /**
    * Test {@link PDComplexFileSpecification#getFile()}.
-   *
    * <ul>
-   *   <li>Given {@link PDComplexFileSpecification#PDComplexFileSpecification()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDComplexFileSpecification#PDComplexFileSpecification()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#getFile()}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#getFile()}
    */
   @Test
   @DisplayName("Test getFile(); given PDComplexFileSpecification(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDComplexFileSpecification.getFile()"})
   void testGetFile_givenPDComplexFileSpecification_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDComplexFileSpecification().getFile());
+    assertNull((new PDComplexFileSpecification()).getFile());
   }
 
   /**
    * Test {@link PDComplexFileSpecification#getFile()}.
-   *
    * <ul>
-   *   <li>Then return empty string.
+   *   <li>Then return empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#getFile()}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#getFile()}
    */
   @Test
   @DisplayName("Test getFile(); then return empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDComplexFileSpecification.getFile()"})
   void testGetFile_thenReturnEmptyString() {
     // Arrange
@@ -421,22 +350,14 @@ class PDComplexFileSpecificationDiffblueTest {
 
   /**
    * Test {@link PDComplexFileSpecification#setFile(String)}.
-   *
-   * <ul>
-   *   <li>When {@code File}.
-   *   <li>Then {@link PDComplexFileSpecification#PDComplexFileSpecification()} File is {@code
-   *       File}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#setFile(String)}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#setFile(String)}
    */
   @Test
-  @DisplayName(
-      "Test setFile(String); when 'File'; then PDComplexFileSpecification() File is 'File'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setFile(String)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDComplexFileSpecification.setFile(String)"})
-  void testSetFile_whenFile_thenPDComplexFileSpecificationFileIsFile() {
+  void testSetFile() {
     // Arrange
     PDComplexFileSpecification pdComplexFileSpecification = new PDComplexFileSpecification();
 
@@ -452,95 +373,59 @@ class PDComplexFileSpecificationDiffblueTest {
   }
 
   /**
-   * Test {@link PDComplexFileSpecification#setFile(String)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDComplexFileSpecification#PDComplexFileSpecification()} COSObject Values
-   *       size is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#setFile(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test setFile(String); when 'null'; then PDComplexFileSpecification() COSObject Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDComplexFileSpecification.setFile(String)"})
-  void testSetFile_whenNull_thenPDComplexFileSpecificationCOSObjectValuesSizeIsOne() {
-    // Arrange
-    PDComplexFileSpecification pdComplexFileSpecification = new PDComplexFileSpecification();
-
-    // Act
-    pdComplexFileSpecification.setFile(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdComplexFileSpecification.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-  }
-
-  /**
    * Test {@link PDComplexFileSpecification#getFileDos()}.
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#getFileDos()}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#getFileDos()}
    */
   @Test
   @DisplayName("Test getFileDos()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDComplexFileSpecification.getFileDos()"})
   void testGetFileDos() {
     // Arrange, Act and Assert
-    assertNull(new PDComplexFileSpecification().getFileDos());
+    assertNull((new PDComplexFileSpecification()).getFileDos());
   }
 
   /**
    * Test {@link PDComplexFileSpecification#getFileMac()}.
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#getFileMac()}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#getFileMac()}
    */
   @Test
   @DisplayName("Test getFileMac()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDComplexFileSpecification.getFileMac()"})
   void testGetFileMac() {
     // Arrange, Act and Assert
-    assertNull(new PDComplexFileSpecification().getFileMac());
+    assertNull((new PDComplexFileSpecification()).getFileMac());
   }
 
   /**
    * Test {@link PDComplexFileSpecification#getFileUnix()}.
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#getFileUnix()}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#getFileUnix()}
    */
   @Test
   @DisplayName("Test getFileUnix()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDComplexFileSpecification.getFileUnix()"})
   void testGetFileUnix() {
     // Arrange, Act and Assert
-    assertNull(new PDComplexFileSpecification().getFileUnix());
+    assertNull((new PDComplexFileSpecification()).getFileUnix());
   }
 
   /**
    * Test {@link PDComplexFileSpecification#setVolatile(boolean)}.
-   *
    * <ul>
-   *   <li>When {@code false}.
-   *   <li>Then not {@link PDComplexFileSpecification#PDComplexFileSpecification()} Volatile.
+   *   <li>When {@code false}.</li>
+   *   <li>Then not {@link PDComplexFileSpecification#PDComplexFileSpecification()} Volatile.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#setVolatile(boolean)}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#setVolatile(boolean)}
    */
   @Test
-  @DisplayName(
-      "Test setVolatile(boolean); when 'false'; then not PDComplexFileSpecification() Volatile")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setVolatile(boolean); when 'false'; then not PDComplexFileSpecification() Volatile")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDComplexFileSpecification.setVolatile(boolean)"})
   void testSetVolatile_whenFalse_thenNotPDComplexFileSpecificationVolatile() {
     // Arrange
@@ -558,18 +443,16 @@ class PDComplexFileSpecificationDiffblueTest {
 
   /**
    * Test {@link PDComplexFileSpecification#setVolatile(boolean)}.
-   *
    * <ul>
-   *   <li>When {@code true}.
-   *   <li>Then {@link PDComplexFileSpecification#PDComplexFileSpecification()} Volatile.
+   *   <li>When {@code true}.</li>
+   *   <li>Then {@link PDComplexFileSpecification#PDComplexFileSpecification()} Volatile.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#setVolatile(boolean)}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#setVolatile(boolean)}
    */
   @Test
   @DisplayName("Test setVolatile(boolean); when 'true'; then PDComplexFileSpecification() Volatile")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDComplexFileSpecification.setVolatile(boolean)"})
   void testSetVolatile_whenTrue_thenPDComplexFileSpecificationVolatile() {
     // Arrange
@@ -587,20 +470,16 @@ class PDComplexFileSpecificationDiffblueTest {
 
   /**
    * Test {@link PDComplexFileSpecification#isVolatile()}.
-   *
    * <ul>
-   *   <li>Given {@link PDComplexFileSpecification#PDComplexFileSpecification()} Volatile is {@code
-   *       false}.
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link PDComplexFileSpecification#PDComplexFileSpecification()} Volatile is {@code false}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#isVolatile()}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#isVolatile()}
    */
   @Test
-  @DisplayName(
-      "Test isVolatile(); given PDComplexFileSpecification() Volatile is 'false'; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test isVolatile(); given PDComplexFileSpecification() Volatile is 'false'; then return 'false'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDComplexFileSpecification.isVolatile()"})
   void testIsVolatile_givenPDComplexFileSpecificationVolatileIsFalse_thenReturnFalse() {
     // Arrange
@@ -613,20 +492,16 @@ class PDComplexFileSpecificationDiffblueTest {
 
   /**
    * Test {@link PDComplexFileSpecification#isVolatile()}.
-   *
    * <ul>
-   *   <li>Given {@link PDComplexFileSpecification#PDComplexFileSpecification()} Volatile is {@code
-   *       true}.
-   *   <li>Then return {@code true}.
+   *   <li>Given {@link PDComplexFileSpecification#PDComplexFileSpecification()} Volatile is {@code true}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#isVolatile()}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#isVolatile()}
    */
   @Test
-  @DisplayName(
-      "Test isVolatile(); given PDComplexFileSpecification() Volatile is 'true'; then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test isVolatile(); given PDComplexFileSpecification() Volatile is 'true'; then return 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDComplexFileSpecification.isVolatile()"})
   void testIsVolatile_givenPDComplexFileSpecificationVolatileIsTrue_thenReturnTrue() {
     // Arrange
@@ -639,105 +514,82 @@ class PDComplexFileSpecificationDiffblueTest {
 
   /**
    * Test {@link PDComplexFileSpecification#isVolatile()}.
-   *
    * <ul>
-   *   <li>Given {@link PDComplexFileSpecification#PDComplexFileSpecification()}.
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link PDComplexFileSpecification#PDComplexFileSpecification()}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#isVolatile()}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#isVolatile()}
    */
   @Test
   @DisplayName("Test isVolatile(); given PDComplexFileSpecification(); then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDComplexFileSpecification.isVolatile()"})
   void testIsVolatile_givenPDComplexFileSpecification_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new PDComplexFileSpecification().isVolatile());
+    assertFalse((new PDComplexFileSpecification()).isVolatile());
   }
 
   /**
    * Test {@link PDComplexFileSpecification#getEmbeddedFile()}.
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#getEmbeddedFile()}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#getEmbeddedFile()}
    */
   @Test
   @DisplayName("Test getEmbeddedFile()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDEmbeddedFile PDComplexFileSpecification.getEmbeddedFile()"})
-  void testGetEmbeddedFile() throws IOException {
+  void testGetEmbeddedFile() {
     // Arrange
+    COSStream str = new COSStream();
+    COSObjectKey key = new COSObjectKey(1L, 1);
+
+    str.setKey(key);
+    PDEmbeddedFile file = new PDEmbeddedFile(str);
+
     PDComplexFileSpecification pdComplexFileSpecification = new PDComplexFileSpecification();
     pdComplexFileSpecification.setEmbeddedFileUnicode(new PDEmbeddedFile(new COSStream()));
-    COSStream str = new COSStream();
-    pdComplexFileSpecification.setEmbeddedFile(new PDEmbeddedFile(str));
+    pdComplexFileSpecification.setEmbeddedFile(file);
 
-    // Act
-    PDEmbeddedFile actualEmbeddedFile = pdComplexFileSpecification.getEmbeddedFile();
-
-    // Assert
-    assertNull(actualEmbeddedFile.getCheckSum());
-    assertNull(actualEmbeddedFile.getMacCreator());
-    assertNull(actualEmbeddedFile.getMacResFork());
-    assertNull(actualEmbeddedFile.getMacSubtype());
-    assertNull(actualEmbeddedFile.getSubtype());
-    assertNull(actualEmbeddedFile.getCreationDate());
-    assertNull(actualEmbeddedFile.getModDate());
-    assertNull(actualEmbeddedFile.getDecodeParms());
-    assertNull(actualEmbeddedFile.getFileDecodeParams());
-    assertNull(actualEmbeddedFile.getMetadata());
-    assertNull(actualEmbeddedFile.getFile());
-    assertEquals(-1, actualEmbeddedFile.getDecodedStreamLength());
-    assertEquals(-1, actualEmbeddedFile.getSize());
-    assertEquals(0, actualEmbeddedFile.getLength());
-    List<String> fileFilters = actualEmbeddedFile.getFileFilters();
-    assertTrue(fileFilters.isEmpty());
-    assertSame(str, actualEmbeddedFile.getCOSObject());
-    assertSame(fileFilters, actualEmbeddedFile.getFilters());
+    // Act and Assert
+    assertSame(key, pdComplexFileSpecification.getEmbeddedFile().getCOSObject().getKey());
   }
 
   /**
    * Test {@link PDComplexFileSpecification#getEmbeddedFile()}.
-   *
    * <ul>
-   *   <li>Given {@link PDComplexFileSpecification#PDComplexFileSpecification()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDComplexFileSpecification#PDComplexFileSpecification()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#getEmbeddedFile()}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#getEmbeddedFile()}
    */
   @Test
   @DisplayName("Test getEmbeddedFile(); given PDComplexFileSpecification(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDEmbeddedFile PDComplexFileSpecification.getEmbeddedFile()"})
   void testGetEmbeddedFile_givenPDComplexFileSpecification_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDComplexFileSpecification().getEmbeddedFile());
+    assertNull((new PDComplexFileSpecification()).getEmbeddedFile());
   }
 
   /**
    * Test {@link PDComplexFileSpecification#getEmbeddedFile()}.
-   *
    * <ul>
-   *   <li>Then return COSObject Key is {@link COSObjectKey#COSObjectKey(long, int)} with num is one
-   *       and gen is one.
+   *   <li>Then return COSObject Key is {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#getEmbeddedFile()}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#getEmbeddedFile()}
    */
   @Test
-  @DisplayName(
-      "Test getEmbeddedFile(); then return COSObject Key is COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getEmbeddedFile(); then return COSObject Key is COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDEmbeddedFile PDComplexFileSpecification.getEmbeddedFile()"})
   void testGetEmbeddedFile_thenReturnCOSObjectKeyIsCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
     COSStream str = new COSStream();
     COSObjectKey key = new COSObjectKey(1L, 1);
+
     str.setKey(key);
     PDEmbeddedFile file = new PDEmbeddedFile(str);
 
@@ -750,17 +602,15 @@ class PDComplexFileSpecificationDiffblueTest {
 
   /**
    * Test {@link PDComplexFileSpecification#getEmbeddedFile()}.
-   *
    * <ul>
-   *   <li>Then return CheckSum is {@code null}.
+   *   <li>Then return CheckSum is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#getEmbeddedFile()}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#getEmbeddedFile()}
    */
   @Test
   @DisplayName("Test getEmbeddedFile(); then return CheckSum is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDEmbeddedFile PDComplexFileSpecification.getEmbeddedFile()"})
   void testGetEmbeddedFile_thenReturnCheckSumIsNull() throws IOException {
     // Arrange
@@ -794,13 +644,12 @@ class PDComplexFileSpecificationDiffblueTest {
 
   /**
    * Test {@link PDComplexFileSpecification#setEmbeddedFile(PDEmbeddedFile)}.
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#setEmbeddedFile(PDEmbeddedFile)}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#setEmbeddedFile(PDEmbeddedFile)}
    */
   @Test
   @DisplayName("Test setEmbeddedFile(PDEmbeddedFile)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDComplexFileSpecification.setEmbeddedFile(PDEmbeddedFile)"})
   void testSetEmbeddedFile() throws IOException {
     // Arrange
@@ -835,13 +684,12 @@ class PDComplexFileSpecificationDiffblueTest {
 
   /**
    * Test {@link PDComplexFileSpecification#setEmbeddedFile(PDEmbeddedFile)}.
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#setEmbeddedFile(PDEmbeddedFile)}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#setEmbeddedFile(PDEmbeddedFile)}
    */
   @Test
   @DisplayName("Test setEmbeddedFile(PDEmbeddedFile)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDComplexFileSpecification.setEmbeddedFile(PDEmbeddedFile)"})
   void testSetEmbeddedFile2() {
     // Arrange
@@ -859,18 +707,15 @@ class PDComplexFileSpecificationDiffblueTest {
 
   /**
    * Test {@link PDComplexFileSpecification#setEmbeddedFile(PDEmbeddedFile)}.
-   *
    * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#setEmbeddedFile(PDEmbeddedFile)}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#setEmbeddedFile(PDEmbeddedFile)}
    */
   @Test
-  @DisplayName(
-      "Test setEmbeddedFile(PDEmbeddedFile); given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setEmbeddedFile(PDEmbeddedFile); given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDComplexFileSpecification.setEmbeddedFile(PDEmbeddedFile)"})
   void testSetEmbeddedFile_givenCOSObjectKeyWithNumIsOneAndGenIsOne() throws IOException {
     // Arrange
@@ -906,19 +751,16 @@ class PDComplexFileSpecificationDiffblueTest {
 
   /**
    * Test {@link PDComplexFileSpecification#setEmbeddedFile(PDEmbeddedFile)}.
-   *
    * <ul>
-   *   <li>Given {@code true}.
-   *   <li>When {@link COSStream#COSStream()} Direct is {@code true}.
+   *   <li>Given {@code true}.</li>
+   *   <li>When {@link COSStream#COSStream()} Direct is {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#setEmbeddedFile(PDEmbeddedFile)}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#setEmbeddedFile(PDEmbeddedFile)}
    */
   @Test
-  @DisplayName(
-      "Test setEmbeddedFile(PDEmbeddedFile); given 'true'; when COSStream() Direct is 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setEmbeddedFile(PDEmbeddedFile); given 'true'; when COSStream() Direct is 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDComplexFileSpecification.setEmbeddedFile(PDEmbeddedFile)"})
   void testSetEmbeddedFile_givenTrue_whenCOSStreamDirectIsTrue() throws IOException {
     // Arrange
@@ -954,19 +796,15 @@ class PDComplexFileSpecificationDiffblueTest {
 
   /**
    * Test {@link PDComplexFileSpecification#setEmbeddedFile(PDEmbeddedFile)}.
-   *
    * <ul>
-   *   <li>Then {@link PDComplexFileSpecification#PDComplexFileSpecification()} COSObject Values
-   *       size is one.
+   *   <li>Then {@link PDComplexFileSpecification#PDComplexFileSpecification()} COSObject Values size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#setEmbeddedFile(PDEmbeddedFile)}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#setEmbeddedFile(PDEmbeddedFile)}
    */
   @Test
-  @DisplayName(
-      "Test setEmbeddedFile(PDEmbeddedFile); then PDComplexFileSpecification() COSObject Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setEmbeddedFile(PDEmbeddedFile); then PDComplexFileSpecification() COSObject Values size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDComplexFileSpecification.setEmbeddedFile(PDEmbeddedFile)"})
   void testSetEmbeddedFile_thenPDComplexFileSpecificationCOSObjectValuesSizeIsOne() {
     // Arrange
@@ -983,22 +821,17 @@ class PDComplexFileSpecificationDiffblueTest {
 
   /**
    * Test {@link PDComplexFileSpecification#setEmbeddedFile(PDEmbeddedFile)}.
-   *
    * <ul>
-   *   <li>Then {@link PDComplexFileSpecification#PDComplexFileSpecification()} EmbeddedFile
-   *       CheckSum is {@code null}.
+   *   <li>Then {@link PDComplexFileSpecification#PDComplexFileSpecification()} EmbeddedFile CheckSum is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#setEmbeddedFile(PDEmbeddedFile)}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#setEmbeddedFile(PDEmbeddedFile)}
    */
   @Test
-  @DisplayName(
-      "Test setEmbeddedFile(PDEmbeddedFile); then PDComplexFileSpecification() EmbeddedFile CheckSum is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setEmbeddedFile(PDEmbeddedFile); then PDComplexFileSpecification() EmbeddedFile CheckSum is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDComplexFileSpecification.setEmbeddedFile(PDEmbeddedFile)"})
-  void testSetEmbeddedFile_thenPDComplexFileSpecificationEmbeddedFileCheckSumIsNull()
-      throws IOException {
+  void testSetEmbeddedFile_thenPDComplexFileSpecificationEmbeddedFileCheckSumIsNull() throws IOException {
     // Arrange
     PDComplexFileSpecification pdComplexFileSpecification = new PDComplexFileSpecification();
     COSStream str = new COSStream();
@@ -1030,18 +863,15 @@ class PDComplexFileSpecificationDiffblueTest {
 
   /**
    * Test {@link PDComplexFileSpecification#setEmbeddedFile(PDEmbeddedFile)}.
-   *
    * <ul>
-   *   <li>When {@link PDEmbeddedFile#PDEmbeddedFile(COSStream)} with str is {@code null}.
+   *   <li>When {@link PDEmbeddedFile#PDEmbeddedFile(COSStream)} with str is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#setEmbeddedFile(PDEmbeddedFile)}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#setEmbeddedFile(PDEmbeddedFile)}
    */
   @Test
-  @DisplayName(
-      "Test setEmbeddedFile(PDEmbeddedFile); when PDEmbeddedFile(COSStream) with str is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setEmbeddedFile(PDEmbeddedFile); when PDEmbeddedFile(COSStream) with str is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDComplexFileSpecification.setEmbeddedFile(PDEmbeddedFile)"})
   void testSetEmbeddedFile_whenPDEmbeddedFileWithStrIsNull() {
     // Arrange
@@ -1058,13 +888,12 @@ class PDComplexFileSpecificationDiffblueTest {
 
   /**
    * Test {@link PDComplexFileSpecification#getEmbeddedFileDos()}.
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#getEmbeddedFileDos()}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#getEmbeddedFileDos()}
    */
   @Test
   @DisplayName("Test getEmbeddedFileDos()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDEmbeddedFile PDComplexFileSpecification.getEmbeddedFileDos()"})
   void testGetEmbeddedFileDos() {
     // Arrange
@@ -1077,13 +906,12 @@ class PDComplexFileSpecificationDiffblueTest {
 
   /**
    * Test {@link PDComplexFileSpecification#getEmbeddedFileDos()}.
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#getEmbeddedFileDos()}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#getEmbeddedFileDos()}
    */
   @Test
   @DisplayName("Test getEmbeddedFileDos()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDEmbeddedFile PDComplexFileSpecification.getEmbeddedFileDos()"})
   void testGetEmbeddedFileDos2() {
     // Arrange
@@ -1097,32 +925,29 @@ class PDComplexFileSpecificationDiffblueTest {
 
   /**
    * Test {@link PDComplexFileSpecification#getEmbeddedFileDos()}.
-   *
    * <ul>
-   *   <li>Given {@link PDComplexFileSpecification#PDComplexFileSpecification()}.
+   *   <li>Given {@link PDComplexFileSpecification#PDComplexFileSpecification()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#getEmbeddedFileDos()}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#getEmbeddedFileDos()}
    */
   @Test
   @DisplayName("Test getEmbeddedFileDos(); given PDComplexFileSpecification()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDEmbeddedFile PDComplexFileSpecification.getEmbeddedFileDos()"})
   void testGetEmbeddedFileDos_givenPDComplexFileSpecification() {
     // Arrange, Act and Assert
-    assertNull(new PDComplexFileSpecification().getEmbeddedFileDos());
+    assertNull((new PDComplexFileSpecification()).getEmbeddedFileDos());
   }
 
   /**
    * Test {@link PDComplexFileSpecification#getEmbeddedFileMac()}.
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#getEmbeddedFileMac()}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#getEmbeddedFileMac()}
    */
   @Test
   @DisplayName("Test getEmbeddedFileMac()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDEmbeddedFile PDComplexFileSpecification.getEmbeddedFileMac()"})
   void testGetEmbeddedFileMac() {
     // Arrange
@@ -1135,13 +960,12 @@ class PDComplexFileSpecificationDiffblueTest {
 
   /**
    * Test {@link PDComplexFileSpecification#getEmbeddedFileMac()}.
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#getEmbeddedFileMac()}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#getEmbeddedFileMac()}
    */
   @Test
   @DisplayName("Test getEmbeddedFileMac()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDEmbeddedFile PDComplexFileSpecification.getEmbeddedFileMac()"})
   void testGetEmbeddedFileMac2() {
     // Arrange
@@ -1155,32 +979,29 @@ class PDComplexFileSpecificationDiffblueTest {
 
   /**
    * Test {@link PDComplexFileSpecification#getEmbeddedFileMac()}.
-   *
    * <ul>
-   *   <li>Given {@link PDComplexFileSpecification#PDComplexFileSpecification()}.
+   *   <li>Given {@link PDComplexFileSpecification#PDComplexFileSpecification()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#getEmbeddedFileMac()}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#getEmbeddedFileMac()}
    */
   @Test
   @DisplayName("Test getEmbeddedFileMac(); given PDComplexFileSpecification()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDEmbeddedFile PDComplexFileSpecification.getEmbeddedFileMac()"})
   void testGetEmbeddedFileMac_givenPDComplexFileSpecification() {
     // Arrange, Act and Assert
-    assertNull(new PDComplexFileSpecification().getEmbeddedFileMac());
+    assertNull((new PDComplexFileSpecification()).getEmbeddedFileMac());
   }
 
   /**
    * Test {@link PDComplexFileSpecification#getEmbeddedFileUnix()}.
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#getEmbeddedFileUnix()}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#getEmbeddedFileUnix()}
    */
   @Test
   @DisplayName("Test getEmbeddedFileUnix()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDEmbeddedFile PDComplexFileSpecification.getEmbeddedFileUnix()"})
   void testGetEmbeddedFileUnix() {
     // Arrange
@@ -1193,13 +1014,12 @@ class PDComplexFileSpecificationDiffblueTest {
 
   /**
    * Test {@link PDComplexFileSpecification#getEmbeddedFileUnix()}.
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#getEmbeddedFileUnix()}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#getEmbeddedFileUnix()}
    */
   @Test
   @DisplayName("Test getEmbeddedFileUnix()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDEmbeddedFile PDComplexFileSpecification.getEmbeddedFileUnix()"})
   void testGetEmbeddedFileUnix2() {
     // Arrange
@@ -1213,37 +1033,35 @@ class PDComplexFileSpecificationDiffblueTest {
 
   /**
    * Test {@link PDComplexFileSpecification#getEmbeddedFileUnix()}.
-   *
    * <ul>
-   *   <li>Given {@link PDComplexFileSpecification#PDComplexFileSpecification()}.
+   *   <li>Given {@link PDComplexFileSpecification#PDComplexFileSpecification()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#getEmbeddedFileUnix()}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#getEmbeddedFileUnix()}
    */
   @Test
   @DisplayName("Test getEmbeddedFileUnix(); given PDComplexFileSpecification()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDEmbeddedFile PDComplexFileSpecification.getEmbeddedFileUnix()"})
   void testGetEmbeddedFileUnix_givenPDComplexFileSpecification() {
     // Arrange, Act and Assert
-    assertNull(new PDComplexFileSpecification().getEmbeddedFileUnix());
+    assertNull((new PDComplexFileSpecification()).getEmbeddedFileUnix());
   }
 
   /**
    * Test {@link PDComplexFileSpecification#getEmbeddedFileUnicode()}.
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#getEmbeddedFileUnicode()}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#getEmbeddedFileUnicode()}
    */
   @Test
   @DisplayName("Test getEmbeddedFileUnicode()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDEmbeddedFile PDComplexFileSpecification.getEmbeddedFileUnicode()"})
   void testGetEmbeddedFileUnicode() {
     // Arrange
     COSStream str = new COSStream();
     COSObjectKey key = new COSObjectKey(1L, 1);
+
     str.setKey(key);
     PDEmbeddedFile file = new PDEmbeddedFile(str);
 
@@ -1256,38 +1074,58 @@ class PDComplexFileSpecificationDiffblueTest {
 
   /**
    * Test {@link PDComplexFileSpecification#getEmbeddedFileUnicode()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDComplexFileSpecification#PDComplexFileSpecification()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#getEmbeddedFileUnicode()}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#getEmbeddedFileUnicode()}
    */
   @Test
-  @DisplayName(
-      "Test getEmbeddedFileUnicode(); given PDComplexFileSpecification(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getEmbeddedFileUnicode()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDEmbeddedFile PDComplexFileSpecification.getEmbeddedFileUnicode()"})
-  void testGetEmbeddedFileUnicode_givenPDComplexFileSpecification_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new PDComplexFileSpecification().getEmbeddedFileUnicode());
+  void testGetEmbeddedFileUnicode2() {
+    // Arrange
+    COSStream str = new COSStream();
+    COSObjectKey key = new COSObjectKey(1L, 1);
+
+    str.setKey(key);
+    PDEmbeddedFile file = new PDEmbeddedFile(str);
+
+    PDComplexFileSpecification pdComplexFileSpecification = new PDComplexFileSpecification();
+    pdComplexFileSpecification.setEmbeddedFile(new PDEmbeddedFile(new COSStream()));
+    pdComplexFileSpecification.setEmbeddedFileUnicode(file);
+
+    // Act and Assert
+    assertSame(key, pdComplexFileSpecification.getEmbeddedFileUnicode().getCOSObject().getKey());
   }
 
   /**
    * Test {@link PDComplexFileSpecification#getEmbeddedFileUnicode()}.
-   *
    * <ul>
-   *   <li>Then return CheckSum is {@code null}.
+   *   <li>Given {@link PDComplexFileSpecification#PDComplexFileSpecification()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#getEmbeddedFileUnicode()}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#getEmbeddedFileUnicode()}
+   */
+  @Test
+  @DisplayName("Test getEmbeddedFileUnicode(); given PDComplexFileSpecification(); then return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"PDEmbeddedFile PDComplexFileSpecification.getEmbeddedFileUnicode()"})
+  void testGetEmbeddedFileUnicode_givenPDComplexFileSpecification_thenReturnNull() {
+    // Arrange, Act and Assert
+    assertNull((new PDComplexFileSpecification()).getEmbeddedFileUnicode());
+  }
+
+  /**
+   * Test {@link PDComplexFileSpecification#getEmbeddedFileUnicode()}.
+   * <ul>
+   *   <li>Then return CheckSum is {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#getEmbeddedFileUnicode()}
    */
   @Test
   @DisplayName("Test getEmbeddedFileUnicode(); then return CheckSum is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDEmbeddedFile PDComplexFileSpecification.getEmbeddedFileUnicode()"})
   void testGetEmbeddedFileUnicode_thenReturnCheckSumIsNull() throws IOException {
     // Arrange
@@ -1321,62 +1159,15 @@ class PDComplexFileSpecificationDiffblueTest {
 
   /**
    * Test {@link PDComplexFileSpecification#getEmbeddedFileUnicode()}.
-   *
    * <ul>
-   *   <li>Then return CheckSum is {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#getEmbeddedFileUnicode()}
-   */
-  @Test
-  @DisplayName("Test getEmbeddedFileUnicode(); then return CheckSum is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDEmbeddedFile PDComplexFileSpecification.getEmbeddedFileUnicode()"})
-  void testGetEmbeddedFileUnicode_thenReturnCheckSumIsNull2() throws IOException {
-    // Arrange
-    PDComplexFileSpecification pdComplexFileSpecification = new PDComplexFileSpecification();
-    COSStream str = new COSStream();
-    pdComplexFileSpecification.setEmbeddedFileUnicode(new PDEmbeddedFile(str));
-    pdComplexFileSpecification.setEmbeddedFile(new PDEmbeddedFile(new COSStream()));
-
-    // Act
-    PDEmbeddedFile actualEmbeddedFileUnicode = pdComplexFileSpecification.getEmbeddedFileUnicode();
-
-    // Assert
-    assertNull(actualEmbeddedFileUnicode.getCheckSum());
-    assertNull(actualEmbeddedFileUnicode.getMacCreator());
-    assertNull(actualEmbeddedFileUnicode.getMacResFork());
-    assertNull(actualEmbeddedFileUnicode.getMacSubtype());
-    assertNull(actualEmbeddedFileUnicode.getSubtype());
-    assertNull(actualEmbeddedFileUnicode.getCreationDate());
-    assertNull(actualEmbeddedFileUnicode.getModDate());
-    assertNull(actualEmbeddedFileUnicode.getDecodeParms());
-    assertNull(actualEmbeddedFileUnicode.getFileDecodeParams());
-    assertNull(actualEmbeddedFileUnicode.getMetadata());
-    assertNull(actualEmbeddedFileUnicode.getFile());
-    assertEquals(-1, actualEmbeddedFileUnicode.getDecodedStreamLength());
-    assertEquals(-1, actualEmbeddedFileUnicode.getSize());
-    assertEquals(0, actualEmbeddedFileUnicode.getLength());
-    List<String> fileFilters = actualEmbeddedFileUnicode.getFileFilters();
-    assertTrue(fileFilters.isEmpty());
-    assertSame(str, actualEmbeddedFileUnicode.getCOSObject());
-    assertSame(fileFilters, actualEmbeddedFileUnicode.getFilters());
-  }
-
-  /**
-   * Test {@link PDComplexFileSpecification#getEmbeddedFileUnicode()}.
-   *
-   * <ul>
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#getEmbeddedFileUnicode()}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#getEmbeddedFileUnicode()}
    */
   @Test
   @DisplayName("Test getEmbeddedFileUnicode(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDEmbeddedFile PDComplexFileSpecification.getEmbeddedFileUnicode()"})
   void testGetEmbeddedFileUnicode_thenReturnNull() {
     // Arrange
@@ -1389,13 +1180,12 @@ class PDComplexFileSpecificationDiffblueTest {
 
   /**
    * Test {@link PDComplexFileSpecification#setEmbeddedFileUnicode(PDEmbeddedFile)}.
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#setEmbeddedFileUnicode(PDEmbeddedFile)}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#setEmbeddedFileUnicode(PDEmbeddedFile)}
    */
   @Test
   @DisplayName("Test setEmbeddedFileUnicode(PDEmbeddedFile)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDComplexFileSpecification.setEmbeddedFileUnicode(PDEmbeddedFile)"})
   void testSetEmbeddedFileUnicode() throws IOException {
     // Arrange
@@ -1429,13 +1219,12 @@ class PDComplexFileSpecificationDiffblueTest {
 
   /**
    * Test {@link PDComplexFileSpecification#setEmbeddedFileUnicode(PDEmbeddedFile)}.
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#setEmbeddedFileUnicode(PDEmbeddedFile)}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#setEmbeddedFileUnicode(PDEmbeddedFile)}
    */
   @Test
   @DisplayName("Test setEmbeddedFileUnicode(PDEmbeddedFile)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDComplexFileSpecification.setEmbeddedFileUnicode(PDEmbeddedFile)"})
   void testSetEmbeddedFileUnicode2() {
     // Arrange
@@ -1452,13 +1241,12 @@ class PDComplexFileSpecificationDiffblueTest {
 
   /**
    * Test {@link PDComplexFileSpecification#setEmbeddedFileUnicode(PDEmbeddedFile)}.
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#setEmbeddedFileUnicode(PDEmbeddedFile)}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#setEmbeddedFileUnicode(PDEmbeddedFile)}
    */
   @Test
   @DisplayName("Test setEmbeddedFileUnicode(PDEmbeddedFile)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDComplexFileSpecification.setEmbeddedFileUnicode(PDEmbeddedFile)"})
   void testSetEmbeddedFileUnicode3() throws IOException {
     // Arrange
@@ -1493,13 +1281,12 @@ class PDComplexFileSpecificationDiffblueTest {
 
   /**
    * Test {@link PDComplexFileSpecification#setEmbeddedFileUnicode(PDEmbeddedFile)}.
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#setEmbeddedFileUnicode(PDEmbeddedFile)}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#setEmbeddedFileUnicode(PDEmbeddedFile)}
    */
   @Test
   @DisplayName("Test setEmbeddedFileUnicode(PDEmbeddedFile)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDComplexFileSpecification.setEmbeddedFileUnicode(PDEmbeddedFile)"})
   void testSetEmbeddedFileUnicode4() {
     // Arrange
@@ -1517,18 +1304,15 @@ class PDComplexFileSpecificationDiffblueTest {
 
   /**
    * Test {@link PDComplexFileSpecification#setEmbeddedFileUnicode(PDEmbeddedFile)}.
-   *
    * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#setEmbeddedFileUnicode(PDEmbeddedFile)}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#setEmbeddedFileUnicode(PDEmbeddedFile)}
    */
   @Test
-  @DisplayName(
-      "Test setEmbeddedFileUnicode(PDEmbeddedFile); given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setEmbeddedFileUnicode(PDEmbeddedFile); given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDComplexFileSpecification.setEmbeddedFileUnicode(PDEmbeddedFile)"})
   void testSetEmbeddedFileUnicode_givenCOSObjectKeyWithNumIsOneAndGenIsOne() throws IOException {
     // Arrange
@@ -1564,19 +1348,16 @@ class PDComplexFileSpecificationDiffblueTest {
 
   /**
    * Test {@link PDComplexFileSpecification#setEmbeddedFileUnicode(PDEmbeddedFile)}.
-   *
    * <ul>
-   *   <li>Given {@code true}.
-   *   <li>When {@link COSStream#COSStream()} Direct is {@code true}.
+   *   <li>Given {@code true}.</li>
+   *   <li>When {@link COSStream#COSStream()} Direct is {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#setEmbeddedFileUnicode(PDEmbeddedFile)}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#setEmbeddedFileUnicode(PDEmbeddedFile)}
    */
   @Test
-  @DisplayName(
-      "Test setEmbeddedFileUnicode(PDEmbeddedFile); given 'true'; when COSStream() Direct is 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setEmbeddedFileUnicode(PDEmbeddedFile); given 'true'; when COSStream() Direct is 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDComplexFileSpecification.setEmbeddedFileUnicode(PDEmbeddedFile)"})
   void testSetEmbeddedFileUnicode_givenTrue_whenCOSStreamDirectIsTrue() throws IOException {
     // Arrange
@@ -1612,18 +1393,15 @@ class PDComplexFileSpecificationDiffblueTest {
 
   /**
    * Test {@link PDComplexFileSpecification#setEmbeddedFileUnicode(PDEmbeddedFile)}.
-   *
    * <ul>
-   *   <li>When {@link PDEmbeddedFile#PDEmbeddedFile(COSStream)} with str is {@code null}.
+   *   <li>When {@link PDEmbeddedFile#PDEmbeddedFile(COSStream)} with str is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#setEmbeddedFileUnicode(PDEmbeddedFile)}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#setEmbeddedFileUnicode(PDEmbeddedFile)}
    */
   @Test
-  @DisplayName(
-      "Test setEmbeddedFileUnicode(PDEmbeddedFile); when PDEmbeddedFile(COSStream) with str is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setEmbeddedFileUnicode(PDEmbeddedFile); when PDEmbeddedFile(COSStream) with str is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDComplexFileSpecification.setEmbeddedFileUnicode(PDEmbeddedFile)"})
   void testSetEmbeddedFileUnicode_whenPDEmbeddedFileWithStrIsNull() {
     // Arrange
@@ -1640,13 +1418,12 @@ class PDComplexFileSpecificationDiffblueTest {
 
   /**
    * Test {@link PDComplexFileSpecification#setFileDescription(String)}.
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#setFileDescription(String)}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#setFileDescription(String)}
    */
   @Test
   @DisplayName("Test setFileDescription(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDComplexFileSpecification.setFileDescription(String)"})
   void testSetFileDescription() {
     // Arrange
@@ -1656,76 +1433,41 @@ class PDComplexFileSpecificationDiffblueTest {
     pdComplexFileSpecification.setFileDescription("The characteristics of someone or something");
 
     // Assert
-    assertEquals(
-        "The characteristics of someone or something",
-        pdComplexFileSpecification.getFileDescription());
+    assertEquals("The characteristics of someone or something", pdComplexFileSpecification.getFileDescription());
     COSDictionary cOSObject = pdComplexFileSpecification.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
   }
 
   /**
-   * Test {@link PDComplexFileSpecification#setFileDescription(String)}.
-   *
-   * <ul>
-   *   <li>Then {@link PDComplexFileSpecification#PDComplexFileSpecification()} COSObject Values
-   *       size is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#setFileDescription(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test setFileDescription(String); then PDComplexFileSpecification() COSObject Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDComplexFileSpecification.setFileDescription(String)"})
-  void testSetFileDescription_thenPDComplexFileSpecificationCOSObjectValuesSizeIsOne() {
-    // Arrange
-    PDComplexFileSpecification pdComplexFileSpecification = new PDComplexFileSpecification();
-
-    // Act
-    pdComplexFileSpecification.setFileDescription(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdComplexFileSpecification.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-  }
-
-  /**
    * Test {@link PDComplexFileSpecification#getFileDescription()}.
-   *
    * <ul>
-   *   <li>Given {@link PDComplexFileSpecification#PDComplexFileSpecification()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDComplexFileSpecification#PDComplexFileSpecification()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#getFileDescription()}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#getFileDescription()}
    */
   @Test
   @DisplayName("Test getFileDescription(); given PDComplexFileSpecification(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDComplexFileSpecification.getFileDescription()"})
   void testGetFileDescription_givenPDComplexFileSpecification_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDComplexFileSpecification().getFileDescription());
+    assertNull((new PDComplexFileSpecification()).getFileDescription());
   }
 
   /**
    * Test {@link PDComplexFileSpecification#getFileDescription()}.
-   *
    * <ul>
-   *   <li>Then return empty string.
+   *   <li>Then return empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#getFileDescription()}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#getFileDescription()}
    */
   @Test
   @DisplayName("Test getFileDescription(); then return empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDComplexFileSpecification.getFileDescription()"})
   void testGetFileDescription_thenReturnEmptyString() {
     // Arrange
@@ -1738,18 +1480,15 @@ class PDComplexFileSpecificationDiffblueTest {
 
   /**
    * Test {@link PDComplexFileSpecification#getFileDescription()}.
-   *
    * <ul>
-   *   <li>Then return {@code The characteristics of someone or something}.
+   *   <li>Then return {@code The characteristics of someone or something}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#getFileDescription()}
+   * <p>
+   * Method under test: {@link PDComplexFileSpecification#getFileDescription()}
    */
   @Test
-  @DisplayName(
-      "Test getFileDescription(); then return 'The characteristics of someone or something'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getFileDescription(); then return 'The characteristics of someone or something'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDComplexFileSpecification.getFileDescription()"})
   void testGetFileDescription_thenReturnTheCharacteristicsOfSomeoneOrSomething() {
     // Arrange
@@ -1757,8 +1496,6 @@ class PDComplexFileSpecificationDiffblueTest {
     pdComplexFileSpecification.setFileDescription("The characteristics of someone or something");
 
     // Act and Assert
-    assertEquals(
-        "The characteristics of someone or something",
-        pdComplexFileSpecification.getFileDescription());
+    assertEquals("The characteristics of someone or something", pdComplexFileSpecification.getFileDescription());
   }
 }

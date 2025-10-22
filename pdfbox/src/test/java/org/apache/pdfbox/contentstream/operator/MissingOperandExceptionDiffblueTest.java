@@ -2,7 +2,6 @@ package org.apache.pdfbox.contentstream.operator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,41 +14,35 @@ import org.junit.jupiter.api.Test;
 class MissingOperandExceptionDiffblueTest {
   /**
    * Test {@link MissingOperandException#MissingOperandException(Operator, List)}.
-   *
-   * <p>Method under test: {@link MissingOperandException#MissingOperandException(Operator, List)}
+   * <p>
+   * Method under test: {@link MissingOperandException#MissingOperandException(Operator, List)}
    */
   @Test
   @DisplayName("Test new MissingOperandException(Operator, List)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void MissingOperandException.<init>(Operator, List)"})
   void testNewMissingOperandException() {
     // Arrange
     Operator operator = Operator.getOperator("Operator");
 
     // Act
-    MissingOperandException actualMissingOperandException =
-        new MissingOperandException(operator, new ArrayList<>());
+    MissingOperandException actualMissingOperandException = new MissingOperandException(operator, new ArrayList<>());
 
     // Assert
-    assertEquals(
-        "Operator Operator has too few operands: []",
-        actualMissingOperandException.getLocalizedMessage());
-    assertEquals(
-        "Operator Operator has too few operands: []", actualMissingOperandException.getMessage());
+    assertEquals("Operator Operator has too few operands: []", actualMissingOperandException.getLocalizedMessage());
+    assertEquals("Operator Operator has too few operands: []", actualMissingOperandException.getMessage());
     assertNull(actualMissingOperandException.getCause());
     assertEquals(0, actualMissingOperandException.getSuppressed().length);
   }
 
   /**
    * Test {@link MissingOperandException#MissingOperandException(Operator, List)}.
-   *
-   * <p>Method under test: {@link MissingOperandException#MissingOperandException(Operator, List)}
+   * <p>
+   * Method under test: {@link MissingOperandException#MissingOperandException(Operator, List)}
    */
   @Test
   @DisplayName("Test new MissingOperandException(Operator, List)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void MissingOperandException.<init>(Operator, List)"})
   void testNewMissingOperandException2() {
     // Arrange
@@ -59,29 +52,24 @@ class MissingOperandExceptionDiffblueTest {
     operands.add(COSBoolean.FALSE);
 
     // Act
-    MissingOperandException actualMissingOperandException =
-        new MissingOperandException(operator, operands);
+    MissingOperandException actualMissingOperandException = new MissingOperandException(operator, operands);
 
     // Assert
-    assertEquals(
-        "Operator Operator has too few operands: [false]",
+    assertEquals("Operator Operator has too few operands: [false]",
         actualMissingOperandException.getLocalizedMessage());
-    assertEquals(
-        "Operator Operator has too few operands: [false]",
-        actualMissingOperandException.getMessage());
+    assertEquals("Operator Operator has too few operands: [false]", actualMissingOperandException.getMessage());
     assertNull(actualMissingOperandException.getCause());
     assertEquals(0, actualMissingOperandException.getSuppressed().length);
   }
 
   /**
    * Test {@link MissingOperandException#MissingOperandException(Operator, List)}.
-   *
-   * <p>Method under test: {@link MissingOperandException#MissingOperandException(Operator, List)}
+   * <p>
+   * Method under test: {@link MissingOperandException#MissingOperandException(Operator, List)}
    */
   @Test
   @DisplayName("Test new MissingOperandException(Operator, List)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void MissingOperandException.<init>(Operator, List)"})
   void testNewMissingOperandException3() {
     // Arrange
@@ -92,16 +80,12 @@ class MissingOperandExceptionDiffblueTest {
     operands.add(COSBoolean.FALSE);
 
     // Act
-    MissingOperandException actualMissingOperandException =
-        new MissingOperandException(operator, operands);
+    MissingOperandException actualMissingOperandException = new MissingOperandException(operator, operands);
 
     // Assert
-    assertEquals(
-        "Operator Operator has too few operands: [false, false]",
+    assertEquals("Operator Operator has too few operands: [false, false]",
         actualMissingOperandException.getLocalizedMessage());
-    assertEquals(
-        "Operator Operator has too few operands: [false, false]",
-        actualMissingOperandException.getMessage());
+    assertEquals("Operator Operator has too few operands: [false, false]", actualMissingOperandException.getMessage());
     assertNull(actualMissingOperandException.getCause());
     assertEquals(0, actualMissingOperandException.getSuppressed().length);
   }

@@ -7,11 +7,11 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
@@ -35,22 +35,18 @@ import org.junit.jupiter.api.Test;
 class PDCIDFontType0DiffblueTest {
   /**
    * Test {@link PDCIDFontType0#PDCIDFontType0(COSDictionary, PDType0Font)}.
-   *
    * <ul>
-   *   <li>When {@link COSDictionary#COSDictionary()}.
-   *   <li>Then FontBoxFont return {@link TrueTypeFont}.
+   *   <li>When {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then FontBoxFont return {@link TrueTypeFont}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDCIDFontType0#PDCIDFontType0(COSDictionary, PDType0Font)}
+   * <p>
+   * Method under test: {@link PDCIDFontType0#PDCIDFontType0(COSDictionary, PDType0Font)}
    */
   @Test
-  @DisplayName(
-      "Test new PDCIDFontType0(COSDictionary, PDType0Font); when COSDictionary(); then FontBoxFont return TrueTypeFont")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new PDCIDFontType0(COSDictionary, PDType0Font); when COSDictionary(); then FontBoxFont return TrueTypeFont")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDCIDFontType0.<init>(COSDictionary, PDType0Font)"})
-  void testNewPDCIDFontType0_whenCOSDictionary_thenFontBoxFontReturnTrueTypeFont()
-      throws IOException {
+  void testNewPDCIDFontType0_whenCOSDictionary_thenFontBoxFontReturnTrueTypeFont() throws IOException {
     // Arrange
     COSDictionary fontDictionary = new COSDictionary();
 
@@ -73,24 +69,19 @@ class PDCIDFontType0DiffblueTest {
 
   /**
    * Test {@link PDCIDFontType0#getFontMatrix()}.
-   *
    * <ul>
-   *   <li>Then return ShearX is zero.
+   *   <li>Then return ShearX is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDCIDFontType0#getFontMatrix()}
+   * <p>
+   * Method under test: {@link PDCIDFontType0#getFontMatrix()}
    */
   @Test
   @DisplayName("Test getFontMatrix(); then return ShearX is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Matrix PDCIDFontType0.getFontMatrix()"})
   void testGetFontMatrix_thenReturnShearXIsZero() throws IOException {
-    // Arrange
-    PDCIDFontType0 pdcidFontType0 = new PDCIDFontType0(new COSDictionary(), null);
-
-    // Act
-    Matrix actualFontMatrix = pdcidFontType0.getFontMatrix();
+    // Arrange and Act
+    Matrix actualFontMatrix = (new PDCIDFontType0(new COSDictionary(), null)).getFontMatrix();
 
     // Assert
     assertEquals(0.0f, actualFontMatrix.getShearX());
@@ -103,31 +94,26 @@ class PDCIDFontType0DiffblueTest {
     assertEquals(4.8828125E-4f, actualFontMatrix.getScaleY());
     assertEquals(4.8828125E-4f, actualFontMatrix.getScalingFactorX());
     assertEquals(4.8828125E-4f, actualFontMatrix.getScalingFactorY());
-    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
-    assertArrayEquals(new float[] {0.0f, 4.8828125E-4f, 0.0f}, values[1], 0.0f);
-    assertArrayEquals(new float[] {4.8828125E-4f, 0.0f, 0.0f}, values[0], 0.0f);
+    assertArrayEquals(new float[]{0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[]{0.0f, 4.8828125E-4f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[]{4.8828125E-4f, 0.0f, 0.0f}, values[0], 0.0f);
   }
 
   /**
    * Test {@link PDCIDFontType0#getBoundingBox()}.
-   *
    * <ul>
-   *   <li>Then return LowerLeftY is {@code -303.22266}.
+   *   <li>Then return LowerLeftY is {@code -303.22266}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDCIDFontType0#getBoundingBox()}
+   * <p>
+   * Method under test: {@link PDCIDFontType0#getBoundingBox()}
    */
   @Test
   @DisplayName("Test getBoundingBox(); then return LowerLeftY is '-303.22266'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"BoundingBox PDCIDFontType0.getBoundingBox()"})
   void testGetBoundingBox_thenReturnLowerLeftYIs30322266() throws IOException {
-    // Arrange
-    PDCIDFontType0 pdcidFontType0 = new PDCIDFontType0(new COSDictionary(), null);
-
-    // Act
-    BoundingBox actualBoundingBox = pdcidFontType0.getBoundingBox();
+    // Arrange and Act
+    BoundingBox actualBoundingBox = (new PDCIDFontType0(new COSDictionary(), null)).getBoundingBox();
 
     // Assert
     assertEquals(-303.22266f, actualBoundingBox.getLowerLeftY());
@@ -140,46 +126,36 @@ class PDCIDFontType0DiffblueTest {
 
   /**
    * Test {@link PDCIDFontType0#getCFFFont()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDCIDFontType0#getCFFFont()}
+   * <p>
+   * Method under test: {@link PDCIDFontType0#getCFFFont()}
    */
   @Test
   @DisplayName("Test getCFFFont(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"org.apache.fontbox.cff.CFFFont PDCIDFontType0.getCFFFont()"})
   void testGetCFFFont_thenReturnNull() throws IOException {
-    // Arrange
-    PDCIDFontType0 pdcidFontType0 = new PDCIDFontType0(new COSDictionary(), null);
-
-    // Act and Assert
-    assertNull(pdcidFontType0.getCFFFont());
+    // Arrange, Act and Assert
+    assertNull((new PDCIDFontType0(new COSDictionary(), null)).getCFFFont());
   }
 
   /**
    * Test {@link PDCIDFontType0#getFontBoxFont()}.
-   *
    * <ul>
-   *   <li>Then UnicodeCmapLookup return {@link CmapSubtable}.
+   *   <li>Then UnicodeCmapLookup return {@link CmapSubtable}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDCIDFontType0#getFontBoxFont()}
+   * <p>
+   * Method under test: {@link PDCIDFontType0#getFontBoxFont()}
    */
   @Test
   @DisplayName("Test getFontBoxFont(); then UnicodeCmapLookup return CmapSubtable")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"FontBoxFont PDCIDFontType0.getFontBoxFont()"})
   void testGetFontBoxFont_thenUnicodeCmapLookupReturnCmapSubtable() throws IOException {
-    // Arrange
-    PDCIDFontType0 pdcidFontType0 = new PDCIDFontType0(new COSDictionary(), null);
-
-    // Act
-    FontBoxFont actualFontBoxFont = pdcidFontType0.getFontBoxFont();
+    // Arrange and Act
+    FontBoxFont actualFontBoxFont = (new PDCIDFontType0(new COSDictionary(), null)).getFontBoxFont();
 
     // Assert
     assertTrue(((TrueTypeFont) actualFontBoxFont).getUnicodeCmapLookup() instanceof CmapSubtable);
@@ -206,581 +182,384 @@ class PDCIDFontType0DiffblueTest {
     assertTrue(tableMap.containsKey("glyf"));
     assertTrue(tableMap.containsKey("kern"));
     assertTrue(((TrueTypeFont) actualFontBoxFont).isEnableGsub());
-    assertArrayEquals(
-        new byte[] {
-          0, 1, 0, 0, 0, 19, 1, 0, 0, 4, 0, '0', 'F', 'F', 'T', 'M', -127, -7, 28, -79, 0, 6, 'D',
-          '<', 0, 0, 0, 28, 'G', 'D', 'E', 'F', -30, '?', -20, 16, 0, 5, 14, 'T', 0, 0, 1, '*', 'G',
-          'P', 'O', 'S', -14, -32, 14
-        },
-        byteArray);
+    assertArrayEquals(new byte[]{0, 1, 0, 0, 0, 19, 1, 0, 0, 4, 0, '0', 'F', 'F', 'T', 'M', -127, -7, 28, -79, 0, 6,
+        'D', '<', 0, 0, 0, 28, 'G', 'D', 'E', 'F', -30, '?', -20, 16, 0, 5, 14, 'T', 0, 0, 1, '*', 'G', 'P', 'O', 'S',
+        -14, -32, 14}, byteArray);
   }
 
   /**
    * Test {@link PDCIDFontType0#getType2CharString(int)}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDCIDFontType0#getType2CharString(int)}
+   * <p>
+   * Method under test: {@link PDCIDFontType0#getType2CharString(int)}
    */
   @Test
   @DisplayName("Test getType2CharString(int); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.apache.fontbox.cff.Type2CharString PDCIDFontType0.getType2CharString(int)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"org.apache.fontbox.cff.Type2CharString PDCIDFontType0.getType2CharString(int)"})
   void testGetType2CharString_thenReturnNull() throws IOException {
-    // Arrange
-    PDCIDFontType0 pdcidFontType0 = new PDCIDFontType0(new COSDictionary(), null);
-
-    // Act and Assert
-    assertNull(pdcidFontType0.getType2CharString(1));
+    // Arrange, Act and Assert
+    assertNull((new PDCIDFontType0(new COSDictionary(), null)).getType2CharString(1));
   }
 
   /**
    * Test {@link PDCIDFontType0#getPath(int)}.
-   *
    * <ul>
-   *   <li>Given {@link PDType0Font} {@link PDType0Font#toUnicode(int)} return {@code null}.
-   *   <li>Then CurrentPoint return {@link Point2D.Float}.
+   *   <li>Given {@link PDType0Font} {@link PDType0Font#toUnicode(int)} return {@code null}.</li>
+   *   <li>Then CurrentPoint return {@link Point2D.Float}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDCIDFontType0#getPath(int)}
+   * <p>
+   * Method under test: {@link PDCIDFontType0#getPath(int)}
    */
   @Test
-  @DisplayName(
-      "Test getPath(int); given PDType0Font toUnicode(int) return 'null'; then CurrentPoint return Float")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getPath(int); given PDType0Font toUnicode(int) return 'null'; then CurrentPoint return Float")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"GeneralPath PDCIDFontType0.getPath(int)"})
-  void testGetPath_givenPDType0FontToUnicodeReturnNull_thenCurrentPointReturnFloat()
-      throws IOException {
+  void testGetPath_givenPDType0FontToUnicodeReturnNull_thenCurrentPointReturnFloat() throws IOException {
     // Arrange
     CMap cMap = mock(CMap.class);
     when(cMap.toCID(anyInt())).thenReturn(1);
-
     PDType0Font parent = mock(PDType0Font.class);
     when(parent.toUnicode(anyInt())).thenReturn(null);
     when(parent.getCMap()).thenReturn(cMap);
-    PDCIDFontType0 pdcidFontType0 = new PDCIDFontType0(new COSDictionary(), parent);
 
     // Act
-    GeneralPath actualPath = pdcidFontType0.getPath(1);
+    GeneralPath actualPath = (new PDCIDFontType0(new COSDictionary(), parent)).getPath(1);
 
     // Assert
-    verify(cMap).toCID(1);
+    verify(cMap).toCID(eq(1));
     verify(parent).getCMap();
-    verify(parent).toUnicode(1);
+    verify(parent).toUnicode(eq(1));
     assertTrue(actualPath.getCurrentPoint() instanceof Float);
     assertTrue(actualPath.getBounds2D() instanceof Rectangle2D.Float);
   }
 
   /**
    * Test {@link PDCIDFontType0#getPath(int)}.
-   *
    * <ul>
-   *   <li>Given {@link PDType0Font} {@link PDType0Font#toUnicode(int)} return {@code Unicode}.
-   *   <li>Then CurrentPoint return {@link Point2D.Float}.
+   *   <li>Given {@link PDType0Font} {@link PDType0Font#toUnicode(int)} return {@code Unicode}.</li>
+   *   <li>Then CurrentPoint return {@link Point2D.Float}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDCIDFontType0#getPath(int)}
+   * <p>
+   * Method under test: {@link PDCIDFontType0#getPath(int)}
    */
   @Test
-  @DisplayName(
-      "Test getPath(int); given PDType0Font toUnicode(int) return 'Unicode'; then CurrentPoint return Float")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getPath(int); given PDType0Font toUnicode(int) return 'Unicode'; then CurrentPoint return Float")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"GeneralPath PDCIDFontType0.getPath(int)"})
-  void testGetPath_givenPDType0FontToUnicodeReturnUnicode_thenCurrentPointReturnFloat()
-      throws IOException {
+  void testGetPath_givenPDType0FontToUnicodeReturnUnicode_thenCurrentPointReturnFloat() throws IOException {
     // Arrange
     CMap cMap = mock(CMap.class);
     when(cMap.toCID(anyInt())).thenReturn(1);
-
     PDType0Font parent = mock(PDType0Font.class);
     when(parent.toUnicode(anyInt())).thenReturn("Unicode");
     when(parent.getCMap()).thenReturn(cMap);
-    PDCIDFontType0 pdcidFontType0 = new PDCIDFontType0(new COSDictionary(), parent);
 
     // Act
-    GeneralPath actualPath = pdcidFontType0.getPath(1);
+    GeneralPath actualPath = (new PDCIDFontType0(new COSDictionary(), parent)).getPath(1);
 
     // Assert
-    verify(cMap).toCID(1);
+    verify(cMap).toCID(eq(1));
     verify(parent).getCMap();
-    verify(parent).toUnicode(1);
+    verify(parent).toUnicode(eq(1));
     assertTrue(actualPath.getCurrentPoint() instanceof Float);
     assertTrue(actualPath.getBounds2D() instanceof Rectangle2D.Float);
-  }
-
-  /**
-   * Test {@link PDCIDFontType0#getPath(int)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link UnsupportedOperationException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDCIDFontType0#getPath(int)}
-   */
-  @Test
-  @DisplayName("Test getPath(int); then throw UnsupportedOperationException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"GeneralPath PDCIDFontType0.getPath(int)"})
-  void testGetPath_thenThrowUnsupportedOperationException() throws IOException {
-    // Arrange
-    CMap cMap = mock(CMap.class);
-    when(cMap.toCID(anyInt())).thenReturn(1);
-
-    PDType0Font parent = mock(PDType0Font.class);
-    when(parent.toUnicode(anyInt())).thenThrow(new UnsupportedOperationException());
-    when(parent.getCMap()).thenReturn(cMap);
-    PDCIDFontType0 pdcidFontType0 = new PDCIDFontType0(new COSDictionary(), parent);
-
-    // Act and Assert
-    assertThrows(UnsupportedOperationException.class, () -> pdcidFontType0.getPath(1));
-    verify(cMap).toCID(1);
-    verify(parent).getCMap();
-    verify(parent).toUnicode(1);
   }
 
   /**
    * Test {@link PDCIDFontType0#getNormalizedPath(int)}.
-   *
    * <ul>
-   *   <li>Given {@link PDType0Font} {@link PDType0Font#toUnicode(int)} return {@code null}.
+   *   <li>Given {@link PDType0Font} {@link PDType0Font#toUnicode(int)} return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDCIDFontType0#getNormalizedPath(int)}
+   * <p>
+   * Method under test: {@link PDCIDFontType0#getNormalizedPath(int)}
    */
   @Test
   @DisplayName("Test getNormalizedPath(int); given PDType0Font toUnicode(int) return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"GeneralPath PDCIDFontType0.getNormalizedPath(int)"})
   void testGetNormalizedPath_givenPDType0FontToUnicodeReturnNull() throws IOException {
     // Arrange
     CMap cMap = mock(CMap.class);
     when(cMap.toCID(anyInt())).thenReturn(1);
-
     PDType0Font parent = mock(PDType0Font.class);
     when(parent.toUnicode(anyInt())).thenReturn(null);
     when(parent.getCMap()).thenReturn(cMap);
-    PDCIDFontType0 pdcidFontType0 = new PDCIDFontType0(new COSDictionary(), parent);
 
     // Act
-    GeneralPath actualNormalizedPath = pdcidFontType0.getNormalizedPath(1);
+    GeneralPath actualNormalizedPath = (new PDCIDFontType0(new COSDictionary(), parent)).getNormalizedPath(1);
 
     // Assert
-    verify(cMap).toCID(1);
+    verify(cMap).toCID(eq(1));
     verify(parent).getCMap();
-    verify(parent).toUnicode(1);
+    verify(parent).toUnicode(eq(1));
     assertTrue(actualNormalizedPath.getCurrentPoint() instanceof Float);
     assertTrue(actualNormalizedPath.getBounds2D() instanceof Rectangle2D.Float);
   }
 
   /**
    * Test {@link PDCIDFontType0#getNormalizedPath(int)}.
-   *
    * <ul>
-   *   <li>Given {@link PDType0Font} {@link PDType0Font#toUnicode(int)} return {@code Unicode}.
+   *   <li>Given {@link PDType0Font} {@link PDType0Font#toUnicode(int)} return {@code Unicode}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDCIDFontType0#getNormalizedPath(int)}
+   * <p>
+   * Method under test: {@link PDCIDFontType0#getNormalizedPath(int)}
    */
   @Test
   @DisplayName("Test getNormalizedPath(int); given PDType0Font toUnicode(int) return 'Unicode'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"GeneralPath PDCIDFontType0.getNormalizedPath(int)"})
   void testGetNormalizedPath_givenPDType0FontToUnicodeReturnUnicode() throws IOException {
     // Arrange
     CMap cMap = mock(CMap.class);
     when(cMap.toCID(anyInt())).thenReturn(1);
-
     PDType0Font parent = mock(PDType0Font.class);
     when(parent.toUnicode(anyInt())).thenReturn("Unicode");
     when(parent.getCMap()).thenReturn(cMap);
-    PDCIDFontType0 pdcidFontType0 = new PDCIDFontType0(new COSDictionary(), parent);
 
     // Act
-    GeneralPath actualNormalizedPath = pdcidFontType0.getNormalizedPath(1);
+    GeneralPath actualNormalizedPath = (new PDCIDFontType0(new COSDictionary(), parent)).getNormalizedPath(1);
 
     // Assert
-    verify(cMap).toCID(1);
+    verify(cMap).toCID(eq(1));
     verify(parent).getCMap();
-    verify(parent).toUnicode(1);
+    verify(parent).toUnicode(eq(1));
     assertTrue(actualNormalizedPath.getCurrentPoint() instanceof Float);
     assertTrue(actualNormalizedPath.getBounds2D() instanceof Rectangle2D.Float);
   }
 
   /**
-   * Test {@link PDCIDFontType0#getNormalizedPath(int)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link UnsupportedOperationException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDCIDFontType0#getNormalizedPath(int)}
-   */
-  @Test
-  @DisplayName("Test getNormalizedPath(int); then throw UnsupportedOperationException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"GeneralPath PDCIDFontType0.getNormalizedPath(int)"})
-  void testGetNormalizedPath_thenThrowUnsupportedOperationException() throws IOException {
-    // Arrange
-    CMap cMap = mock(CMap.class);
-    when(cMap.toCID(anyInt())).thenReturn(1);
-
-    PDType0Font parent = mock(PDType0Font.class);
-    when(parent.toUnicode(anyInt())).thenThrow(new UnsupportedOperationException());
-    when(parent.getCMap()).thenReturn(cMap);
-    PDCIDFontType0 pdcidFontType0 = new PDCIDFontType0(new COSDictionary(), parent);
-
-    // Act and Assert
-    assertThrows(UnsupportedOperationException.class, () -> pdcidFontType0.getNormalizedPath(1));
-    verify(cMap).toCID(1);
-    verify(parent).getCMap();
-    verify(parent).toUnicode(1);
-  }
-
-  /**
    * Test {@link PDCIDFontType0#hasGlyph(int)}.
-   *
    * <ul>
-   *   <li>Given {@link PDType0Font} {@link PDType0Font#toUnicode(int)} return {@code null}.
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link PDType0Font} {@link PDType0Font#toUnicode(int)} return {@code null}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDCIDFontType0#hasGlyph(int)}
+   * <p>
+   * Method under test: {@link PDCIDFontType0#hasGlyph(int)}
    */
   @Test
-  @DisplayName(
-      "Test hasGlyph(int); given PDType0Font toUnicode(int) return 'null'; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test hasGlyph(int); given PDType0Font toUnicode(int) return 'null'; then return 'false'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDCIDFontType0.hasGlyph(int)"})
   void testHasGlyph_givenPDType0FontToUnicodeReturnNull_thenReturnFalse() throws IOException {
     // Arrange
     CMap cMap = mock(CMap.class);
     when(cMap.toCID(anyInt())).thenReturn(1);
-
     PDType0Font parent = mock(PDType0Font.class);
     when(parent.toUnicode(anyInt())).thenReturn(null);
     when(parent.getCMap()).thenReturn(cMap);
-    PDCIDFontType0 pdcidFontType0 = new PDCIDFontType0(new COSDictionary(), parent);
 
     // Act
-    boolean actualHasGlyphResult = pdcidFontType0.hasGlyph(1);
+    boolean actualHasGlyphResult = (new PDCIDFontType0(new COSDictionary(), parent)).hasGlyph(1);
 
     // Assert
-    verify(cMap).toCID(1);
+    verify(cMap).toCID(eq(1));
     verify(parent).getCMap();
-    verify(parent).toUnicode(1);
+    verify(parent).toUnicode(eq(1));
     assertFalse(actualHasGlyphResult);
   }
 
   /**
    * Test {@link PDCIDFontType0#hasGlyph(int)}.
-   *
    * <ul>
-   *   <li>Given {@link PDType0Font} {@link PDType0Font#toUnicode(int)} return {@code Unicode}.
-   *   <li>Then return {@code true}.
+   *   <li>Given {@link PDType0Font} {@link PDType0Font#toUnicode(int)} return {@code Unicode}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDCIDFontType0#hasGlyph(int)}
+   * <p>
+   * Method under test: {@link PDCIDFontType0#hasGlyph(int)}
    */
   @Test
-  @DisplayName(
-      "Test hasGlyph(int); given PDType0Font toUnicode(int) return 'Unicode'; then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test hasGlyph(int); given PDType0Font toUnicode(int) return 'Unicode'; then return 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDCIDFontType0.hasGlyph(int)"})
   void testHasGlyph_givenPDType0FontToUnicodeReturnUnicode_thenReturnTrue() throws IOException {
     // Arrange
     CMap cMap = mock(CMap.class);
     when(cMap.toCID(anyInt())).thenReturn(1);
-
     PDType0Font parent = mock(PDType0Font.class);
     when(parent.toUnicode(anyInt())).thenReturn("Unicode");
     when(parent.getCMap()).thenReturn(cMap);
-    PDCIDFontType0 pdcidFontType0 = new PDCIDFontType0(new COSDictionary(), parent);
 
     // Act
-    boolean actualHasGlyphResult = pdcidFontType0.hasGlyph(1);
+    boolean actualHasGlyphResult = (new PDCIDFontType0(new COSDictionary(), parent)).hasGlyph(1);
 
     // Assert
-    verify(cMap).toCID(1);
+    verify(cMap).toCID(eq(1));
     verify(parent).getCMap();
-    verify(parent).toUnicode(1);
+    verify(parent).toUnicode(eq(1));
     assertTrue(actualHasGlyphResult);
   }
 
   /**
-   * Test {@link PDCIDFontType0#hasGlyph(int)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link UnsupportedOperationException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDCIDFontType0#hasGlyph(int)}
-   */
-  @Test
-  @DisplayName("Test hasGlyph(int); then throw UnsupportedOperationException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean PDCIDFontType0.hasGlyph(int)"})
-  void testHasGlyph_thenThrowUnsupportedOperationException() throws IOException {
-    // Arrange
-    CMap cMap = mock(CMap.class);
-    when(cMap.toCID(anyInt())).thenReturn(1);
-
-    PDType0Font parent = mock(PDType0Font.class);
-    when(parent.toUnicode(anyInt())).thenThrow(new UnsupportedOperationException());
-    when(parent.getCMap()).thenReturn(cMap);
-    PDCIDFontType0 pdcidFontType0 = new PDCIDFontType0(new COSDictionary(), parent);
-
-    // Act and Assert
-    assertThrows(UnsupportedOperationException.class, () -> pdcidFontType0.hasGlyph(1));
-    verify(cMap).toCID(1);
-    verify(parent).getCMap();
-    verify(parent).toUnicode(1);
-  }
-
-  /**
    * Test {@link PDCIDFontType0#codeToCID(int)}.
-   *
    * <ul>
-   *   <li>Given {@link CMap} {@link CMap#toCID(int)} return one.
-   *   <li>Then return one.
+   *   <li>Given {@link CMap} {@link CMap#toCID(int)} return one.</li>
+   *   <li>Then return one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDCIDFontType0#codeToCID(int)}
+   * <p>
+   * Method under test: {@link PDCIDFontType0#codeToCID(int)}
    */
   @Test
   @DisplayName("Test codeToCID(int); given CMap toCID(int) return one; then return one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int PDCIDFontType0.codeToCID(int)"})
   void testCodeToCID_givenCMapToCIDReturnOne_thenReturnOne() throws IOException {
     // Arrange
     CMap cMap = mock(CMap.class);
     when(cMap.toCID(anyInt())).thenReturn(1);
-
     PDType0Font parent = mock(PDType0Font.class);
     when(parent.getCMap()).thenReturn(cMap);
-    PDCIDFontType0 pdcidFontType0 = new PDCIDFontType0(new COSDictionary(), parent);
 
     // Act
-    int actualCodeToCIDResult = pdcidFontType0.codeToCID(1);
+    int actualCodeToCIDResult = (new PDCIDFontType0(new COSDictionary(), parent)).codeToCID(1);
 
     // Assert
-    verify(cMap).toCID(1);
+    verify(cMap).toCID(eq(1));
     verify(parent).getCMap();
     assertEquals(1, actualCodeToCIDResult);
   }
 
   /**
    * Test {@link PDCIDFontType0#codeToGID(int)}.
-   *
    * <ul>
-   *   <li>Given {@link CMap} {@link CMap#toCID(int)} return one.
-   *   <li>Then return one.
+   *   <li>Given {@link CMap} {@link CMap#toCID(int)} return one.</li>
+   *   <li>Then return one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDCIDFontType0#codeToGID(int)}
+   * <p>
+   * Method under test: {@link PDCIDFontType0#codeToGID(int)}
    */
   @Test
   @DisplayName("Test codeToGID(int); given CMap toCID(int) return one; then return one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int PDCIDFontType0.codeToGID(int)"})
   void testCodeToGID_givenCMapToCIDReturnOne_thenReturnOne() throws IOException {
     // Arrange
     CMap cMap = mock(CMap.class);
     when(cMap.toCID(anyInt())).thenReturn(1);
-
     PDType0Font parent = mock(PDType0Font.class);
     when(parent.getCMap()).thenReturn(cMap);
-    PDCIDFontType0 pdcidFontType0 = new PDCIDFontType0(new COSDictionary(), parent);
 
     // Act
-    int actualCodeToGIDResult = pdcidFontType0.codeToGID(1);
+    int actualCodeToGIDResult = (new PDCIDFontType0(new COSDictionary(), parent)).codeToGID(1);
 
     // Assert
-    verify(cMap).toCID(1);
+    verify(cMap).toCID(eq(1));
     verify(parent).getCMap();
     assertEquals(1, actualCodeToGIDResult);
   }
 
   /**
    * Test {@link PDCIDFontType0#encode(int)}.
-   *
    * <ul>
-   *   <li>Then throw {@link UnsupportedOperationException}.
+   *   <li>Then throw {@link UnsupportedOperationException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDCIDFontType0#encode(int)}
+   * <p>
+   * Method under test: {@link PDCIDFontType0#encode(int)}
    */
   @Test
   @DisplayName("Test encode(int); then throw UnsupportedOperationException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"byte[] PDCIDFontType0.encode(int)"})
   void testEncode_thenThrowUnsupportedOperationException() throws IOException {
-    // Arrange
-    PDCIDFontType0 pdcidFontType0 = new PDCIDFontType0(new COSDictionary(), null);
-
-    // Act and Assert
-    assertThrows(UnsupportedOperationException.class, () -> pdcidFontType0.encode(1));
+    // Arrange, Act and Assert
+    assertThrows(UnsupportedOperationException.class, () -> (new PDCIDFontType0(new COSDictionary(), null)).encode(1));
   }
 
   /**
    * Test {@link PDCIDFontType0#encodeGlyphId(int)}.
-   *
    * <ul>
-   *   <li>Then throw {@link UnsupportedOperationException}.
+   *   <li>Then throw {@link UnsupportedOperationException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDCIDFontType0#encodeGlyphId(int)}
+   * <p>
+   * Method under test: {@link PDCIDFontType0#encodeGlyphId(int)}
    */
   @Test
   @DisplayName("Test encodeGlyphId(int); then throw UnsupportedOperationException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"byte[] PDCIDFontType0.encodeGlyphId(int)"})
   void testEncodeGlyphId_thenThrowUnsupportedOperationException() throws IOException {
-    // Arrange
-    PDCIDFontType0 pdcidFontType0 = new PDCIDFontType0(new COSDictionary(), null);
-
-    // Act and Assert
-    assertThrows(UnsupportedOperationException.class, () -> pdcidFontType0.encodeGlyphId(1));
+    // Arrange, Act and Assert
+    assertThrows(UnsupportedOperationException.class,
+        () -> (new PDCIDFontType0(new COSDictionary(), null)).encodeGlyphId(1));
   }
 
   /**
    * Test {@link PDCIDFontType0#getWidthFromFont(int)}.
-   *
    * <ul>
-   *   <li>Given {@link PDType0Font} {@link PDType0Font#toUnicode(int)} return {@code Unicode}.
-   *   <li>Then return {@code 722.16797}.
+   *   <li>Given {@link PDType0Font} {@link PDType0Font#toUnicode(int)} return {@code Unicode}.</li>
+   *   <li>Then return {@code 722.16797}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDCIDFontType0#getWidthFromFont(int)}
+   * <p>
+   * Method under test: {@link PDCIDFontType0#getWidthFromFont(int)}
    */
   @Test
-  @DisplayName(
-      "Test getWidthFromFont(int); given PDType0Font toUnicode(int) return 'Unicode'; then return '722.16797'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getWidthFromFont(int); given PDType0Font toUnicode(int) return 'Unicode'; then return '722.16797'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"float PDCIDFontType0.getWidthFromFont(int)"})
-  void testGetWidthFromFont_givenPDType0FontToUnicodeReturnUnicode_thenReturn72216797()
-      throws IOException {
+  void testGetWidthFromFont_givenPDType0FontToUnicodeReturnUnicode_thenReturn72216797() throws IOException {
     // Arrange
     CMap cMap = mock(CMap.class);
     when(cMap.toCID(anyInt())).thenReturn(1);
-
     PDType0Font parent = mock(PDType0Font.class);
     when(parent.toUnicode(anyInt())).thenReturn("Unicode");
     when(parent.getCMap()).thenReturn(cMap);
-    PDCIDFontType0 pdcidFontType0 = new PDCIDFontType0(new COSDictionary(), parent);
 
     // Act
-    float actualWidthFromFont = pdcidFontType0.getWidthFromFont(1);
+    float actualWidthFromFont = (new PDCIDFontType0(new COSDictionary(), parent)).getWidthFromFont(1);
 
     // Assert
-    verify(cMap).toCID(1);
+    verify(cMap).toCID(eq(1));
     verify(parent).getCMap();
-    verify(parent).toUnicode(1);
+    verify(parent).toUnicode(eq(1));
     assertEquals(722.16797f, actualWidthFromFont);
   }
 
   /**
    * Test {@link PDCIDFontType0#getWidthFromFont(int)}.
-   *
    * <ul>
-   *   <li>Then return seven hundred fifty.
+   *   <li>Then return seven hundred fifty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDCIDFontType0#getWidthFromFont(int)}
+   * <p>
+   * Method under test: {@link PDCIDFontType0#getWidthFromFont(int)}
    */
   @Test
   @DisplayName("Test getWidthFromFont(int); then return seven hundred fifty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"float PDCIDFontType0.getWidthFromFont(int)"})
   void testGetWidthFromFont_thenReturnSevenHundredFifty() throws IOException {
     // Arrange
     CMap cMap = mock(CMap.class);
     when(cMap.toCID(anyInt())).thenReturn(1);
-
     PDType0Font parent = mock(PDType0Font.class);
     when(parent.toUnicode(anyInt())).thenReturn(null);
     when(parent.getCMap()).thenReturn(cMap);
-    PDCIDFontType0 pdcidFontType0 = new PDCIDFontType0(new COSDictionary(), parent);
 
     // Act
-    float actualWidthFromFont = pdcidFontType0.getWidthFromFont(1);
+    float actualWidthFromFont = (new PDCIDFontType0(new COSDictionary(), parent)).getWidthFromFont(1);
 
     // Assert
-    verify(cMap).toCID(1);
+    verify(cMap).toCID(eq(1));
     verify(parent).getCMap();
-    verify(parent).toUnicode(1);
+    verify(parent).toUnicode(eq(1));
     assertEquals(750.0f, actualWidthFromFont);
   }
 
   /**
-   * Test {@link PDCIDFontType0#getWidthFromFont(int)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link UnsupportedOperationException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDCIDFontType0#getWidthFromFont(int)}
-   */
-  @Test
-  @DisplayName("Test getWidthFromFont(int); then throw UnsupportedOperationException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"float PDCIDFontType0.getWidthFromFont(int)"})
-  void testGetWidthFromFont_thenThrowUnsupportedOperationException() throws IOException {
-    // Arrange
-    CMap cMap = mock(CMap.class);
-    when(cMap.toCID(anyInt())).thenReturn(1);
-
-    PDType0Font parent = mock(PDType0Font.class);
-    when(parent.toUnicode(anyInt())).thenThrow(new UnsupportedOperationException());
-    when(parent.getCMap()).thenReturn(cMap);
-    PDCIDFontType0 pdcidFontType0 = new PDCIDFontType0(new COSDictionary(), parent);
-
-    // Act and Assert
-    assertThrows(UnsupportedOperationException.class, () -> pdcidFontType0.getWidthFromFont(1));
-    verify(cMap).toCID(1);
-    verify(parent).getCMap();
-    verify(parent).toUnicode(1);
-  }
-
-  /**
    * Test {@link PDCIDFontType0#getAverageFontWidth()}.
-   *
    * <ul>
-   *   <li>Then return five hundred.
+   *   <li>Then return five hundred.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDCIDFontType0#getAverageFontWidth()}
+   * <p>
+   * Method under test: {@link PDCIDFontType0#getAverageFontWidth()}
    */
   @Test
   @DisplayName("Test getAverageFontWidth(); then return five hundred")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"float PDCIDFontType0.getAverageFontWidth()"})
   void testGetAverageFontWidth_thenReturnFiveHundred() throws IOException {
-    // Arrange
-    PDCIDFontType0 pdcidFontType0 = new PDCIDFontType0(new COSDictionary(), null);
-
-    // Act and Assert
-    assertEquals(500.0f, pdcidFontType0.getAverageFontWidth());
+    // Arrange, Act and Assert
+    assertEquals(500.0f, (new PDCIDFontType0(new COSDictionary(), null)).getAverageFontWidth());
   }
 }

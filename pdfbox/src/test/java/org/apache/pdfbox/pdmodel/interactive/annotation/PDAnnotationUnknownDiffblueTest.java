@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.junit.jupiter.api.DisplayName;
@@ -14,19 +13,16 @@ import org.junit.jupiter.api.Test;
 class PDAnnotationUnknownDiffblueTest {
   /**
    * Test {@link PDAnnotationUnknown#PDAnnotationUnknown(COSDictionary)}.
-   *
    * <ul>
-   *   <li>When {@link COSDictionary#COSDictionary()}.
-   *   <li>Then return AnnotationName is {@code null}.
+   *   <li>When {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then return AnnotationName is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationUnknown#PDAnnotationUnknown(COSDictionary)}
+   * <p>
+   * Method under test: {@link PDAnnotationUnknown#PDAnnotationUnknown(COSDictionary)}
    */
   @Test
-  @DisplayName(
-      "Test new PDAnnotationUnknown(COSDictionary); when COSDictionary(); then return AnnotationName is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new PDAnnotationUnknown(COSDictionary); when COSDictionary(); then return AnnotationName is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationUnknown.<init>(COSDictionary)"})
   void testNewPDAnnotationUnknown_whenCOSDictionary_thenReturnAnnotationNameIsNull() {
     // Arrange

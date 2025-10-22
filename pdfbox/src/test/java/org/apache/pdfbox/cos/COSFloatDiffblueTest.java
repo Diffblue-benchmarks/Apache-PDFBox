@@ -10,7 +10,6 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -24,9 +23,8 @@ import org.mockito.Mockito;
 class COSFloatDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link COSFloat#COSFloat(float)}
    *   <li>{@link COSFloat#toString()}
@@ -34,8 +32,7 @@ class COSFloatDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSFloat.<init>(float)", "String COSFloat.toString()"})
   void testGettersAndSetters() {
     // Arrange and Act
@@ -49,18 +46,16 @@ class COSFloatDiffblueTest {
 
   /**
    * Test {@link COSFloat#COSFloat(String)}.
-   *
    * <ul>
-   *   <li>When {@code 0.0}.
-   *   <li>Then return Key is {@code null}.
+   *   <li>When {@code 0.0}.</li>
+   *   <li>Then return Key is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSFloat#COSFloat(String)}
+   * <p>
+   * Method under test: {@link COSFloat#COSFloat(String)}
    */
   @Test
   @DisplayName("Test new COSFloat(String); when '0.0'; then return Key is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSFloat.<init>(String)"})
   void testNewCOSFloat_when00_thenReturnKeyIsNull() throws IOException {
     // Arrange and Act
@@ -73,18 +68,16 @@ class COSFloatDiffblueTest {
 
   /**
    * Test {@link COSFloat#COSFloat(String)}.
-   *
    * <ul>
-   *   <li>When {@code 0.0-9}.
-   *   <li>Then return Key is {@code null}.
+   *   <li>When {@code 0.0-9}.</li>
+   *   <li>Then return Key is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSFloat#COSFloat(String)}
+   * <p>
+   * Method under test: {@link COSFloat#COSFloat(String)}
    */
   @Test
   @DisplayName("Test new COSFloat(String); when '0.0-9'; then return Key is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSFloat.<init>(String)"})
   void testNewCOSFloat_when009_thenReturnKeyIsNull() throws IOException {
     // Arrange and Act
@@ -97,18 +90,16 @@ class COSFloatDiffblueTest {
 
   /**
    * Test {@link COSFloat#COSFloat(String)}.
-   *
    * <ul>
-   *   <li>When {@code 42}.
-   *   <li>Then return Key is {@code null}.
+   *   <li>When {@code 42}.</li>
+   *   <li>Then return Key is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSFloat#COSFloat(String)}
+   * <p>
+   * Method under test: {@link COSFloat#COSFloat(String)}
    */
   @Test
   @DisplayName("Test new COSFloat(String); when '42'; then return Key is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSFloat.<init>(String)"})
   void testNewCOSFloat_when42_thenReturnKeyIsNull() throws IOException {
     // Arrange and Act
@@ -121,18 +112,16 @@ class COSFloatDiffblueTest {
 
   /**
    * Test {@link COSFloat#COSFloat(String)}.
-   *
    * <ul>
-   *   <li>When {@code -9.-9}.
-   *   <li>Then return Key is {@code null}.
+   *   <li>When {@code -9.-9}.</li>
+   *   <li>Then return Key is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSFloat#COSFloat(String)}
+   * <p>
+   * Method under test: {@link COSFloat#COSFloat(String)}
    */
   @Test
   @DisplayName("Test new COSFloat(String); when '-9.-9'; then return Key is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSFloat.<init>(String)"})
   void testNewCOSFloat_when99_thenReturnKeyIsNull() throws IOException {
     // Arrange and Act
@@ -145,18 +134,16 @@ class COSFloatDiffblueTest {
 
   /**
    * Test {@link COSFloat#COSFloat(String)}.
-   *
    * <ul>
-   *   <li>When {@code 0.0-942}.
-   *   <li>Then return Key is {@code null}.
+   *   <li>When {@code 0.0-942}.</li>
+   *   <li>Then return Key is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSFloat#COSFloat(String)}
+   * <p>
+   * Method under test: {@link COSFloat#COSFloat(String)}
    */
   @Test
   @DisplayName("Test new COSFloat(String); when '0.0-942'; then return Key is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSFloat.<init>(String)"})
   void testNewCOSFloat_when00942_thenReturnKeyIsNull() throws IOException {
     // Arrange and Act
@@ -169,18 +156,16 @@ class COSFloatDiffblueTest {
 
   /**
    * Test {@link COSFloat#COSFloat(String)}.
-   *
    * <ul>
-   *   <li>When {@code -9.-942}.
-   *   <li>Then return Key is {@code null}.
+   *   <li>When {@code -9.-942}.</li>
+   *   <li>Then return Key is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSFloat#COSFloat(String)}
+   * <p>
+   * Method under test: {@link COSFloat#COSFloat(String)}
    */
   @Test
   @DisplayName("Test new COSFloat(String); when '-9.-942'; then return Key is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSFloat.<init>(String)"})
   void testNewCOSFloat_when9942_thenReturnKeyIsNull() throws IOException {
     // Arrange and Act
@@ -193,18 +178,16 @@ class COSFloatDiffblueTest {
 
   /**
    * Test {@link COSFloat#COSFloat(String)}.
-   *
    * <ul>
-   *   <li>When {@code 0.0-94242}.
-   *   <li>Then return Key is {@code null}.
+   *   <li>When {@code 0.0-94242}.</li>
+   *   <li>Then return Key is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSFloat#COSFloat(String)}
+   * <p>
+   * Method under test: {@link COSFloat#COSFloat(String)}
    */
   @Test
   @DisplayName("Test new COSFloat(String); when '0.0-94242'; then return Key is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSFloat.<init>(String)"})
   void testNewCOSFloat_when0094242_thenReturnKeyIsNull() throws IOException {
     // Arrange and Act
@@ -217,18 +200,16 @@ class COSFloatDiffblueTest {
 
   /**
    * Test {@link COSFloat#COSFloat(String)}.
-   *
    * <ul>
-   *   <li>When {@code A Float}.
-   *   <li>Then throw {@link IOException}.
+   *   <li>When {@code A Float}.</li>
+   *   <li>Then throw {@link IOException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSFloat#COSFloat(String)}
+   * <p>
+   * Method under test: {@link COSFloat#COSFloat(String)}
    */
   @Test
   @DisplayName("Test new COSFloat(String); when 'A Float'; then throw IOException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSFloat.<init>(String)"})
   void testNewCOSFloat_whenAFloat_thenThrowIOException() throws IOException {
     // Arrange, Act and Assert
@@ -237,18 +218,16 @@ class COSFloatDiffblueTest {
 
   /**
    * Test {@link COSFloat#COSFloat(String)}.
-   *
    * <ul>
-   *   <li>When {@code --}.
-   *   <li>Then throw {@link IOException}.
+   *   <li>When {@code --}.</li>
+   *   <li>Then throw {@link IOException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSFloat#COSFloat(String)}
+   * <p>
+   * Method under test: {@link COSFloat#COSFloat(String)}
    */
   @Test
   @DisplayName("Test new COSFloat(String); when '--'; then throw IOException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSFloat.<init>(String)"})
   void testNewCOSFloat_whenDashDash_thenThrowIOException() throws IOException {
     // Arrange, Act and Assert
@@ -257,13 +236,12 @@ class COSFloatDiffblueTest {
 
   /**
    * Test {@link COSFloat#floatValue()}.
-   *
-   * <p>Method under test: {@link COSFloat#floatValue()}
+   * <p>
+   * Method under test: {@link COSFloat#floatValue()}
    */
   @Test
   @DisplayName("Test floatValue()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"float COSFloat.floatValue()"})
   void testFloatValue() {
     // Arrange, Act and Assert
@@ -272,13 +250,12 @@ class COSFloatDiffblueTest {
 
   /**
    * Test {@link COSFloat#longValue()}.
-   *
-   * <p>Method under test: {@link COSFloat#longValue()}
+   * <p>
+   * Method under test: {@link COSFloat#longValue()}
    */
   @Test
   @DisplayName("Test longValue()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"long COSFloat.longValue()"})
   void testLongValue() {
     // Arrange, Act and Assert
@@ -287,13 +264,12 @@ class COSFloatDiffblueTest {
 
   /**
    * Test {@link COSFloat#intValue()}.
-   *
-   * <p>Method under test: {@link COSFloat#intValue()}
+   * <p>
+   * Method under test: {@link COSFloat#intValue()}
    */
   @Test
   @DisplayName("Test intValue()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int COSFloat.intValue()"})
   void testIntValue() {
     // Arrange, Act and Assert
@@ -302,14 +278,12 @@ class COSFloatDiffblueTest {
 
   /**
    * Test {@link COSFloat#equals(Object)}, and {@link COSFloat#hashCode()}.
-   *
    * <ul>
-   *   <li>When other is equal.
-   *   <li>Then return equal.
+   *   <li>When other is equal.</li>
+   *   <li>Then return equal.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link COSFloat#equals(Object)}
    *   <li>{@link COSFloat#hashCode()}
@@ -317,8 +291,7 @@ class COSFloatDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is equal; then return equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean COSFloat.equals(Object)", "int COSFloat.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsEqual_thenReturnEqual() {
     // Arrange
@@ -327,19 +300,18 @@ class COSFloatDiffblueTest {
 
     // Act and Assert
     assertEquals(cosFloat, cosFloat2);
-    assertEquals(cosFloat.hashCode(), cosFloat2.hashCode());
+    int expectedHashCodeResult = cosFloat.hashCode();
+    assertEquals(expectedHashCodeResult, cosFloat2.hashCode());
   }
 
   /**
    * Test {@link COSFloat#equals(Object)}, and {@link COSFloat#hashCode()}.
-   *
    * <ul>
-   *   <li>When other is same.
-   *   <li>Then return equal.
+   *   <li>When other is same.</li>
+   *   <li>Then return equal.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link COSFloat#equals(Object)}
    *   <li>{@link COSFloat#hashCode()}
@@ -347,8 +319,7 @@ class COSFloatDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is same; then return equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean COSFloat.equals(Object)", "int COSFloat.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsSame_thenReturnEqual() {
     // Arrange
@@ -362,18 +333,16 @@ class COSFloatDiffblueTest {
 
   /**
    * Test {@link COSFloat#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSFloat#equals(Object)}
+   * <p>
+   * Method under test: {@link COSFloat#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean COSFloat.equals(Object)", "int COSFloat.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual() {
     // Arrange, Act and Assert
@@ -382,18 +351,16 @@ class COSFloatDiffblueTest {
 
   /**
    * Test {@link COSFloat#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is {@code null}.
-   *   <li>Then return not equal.
+   *   <li>When other is {@code null}.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSFloat#equals(Object)}
+   * <p>
+   * Method under test: {@link COSFloat#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is 'null'; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean COSFloat.equals(Object)", "int COSFloat.hashCode()"})
   void testEquals_whenOtherIsNull_thenReturnNotEqual() {
     // Arrange, Act and Assert
@@ -402,18 +369,16 @@ class COSFloatDiffblueTest {
 
   /**
    * Test {@link COSFloat#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is wrong type.
-   *   <li>Then return not equal.
+   *   <li>When other is wrong type.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSFloat#equals(Object)}
+   * <p>
+   * Method under test: {@link COSFloat#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is wrong type; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean COSFloat.equals(Object)", "int COSFloat.hashCode()"})
   void testEquals_whenOtherIsWrongType_thenReturnNotEqual() {
     // Arrange, Act and Assert
@@ -422,22 +387,18 @@ class COSFloatDiffblueTest {
 
   /**
    * Test {@link COSFloat#accept(ICOSVisitor)}.
-   *
    * <ul>
-   *   <li>When {@link COSWriter} {@link COSWriter#visitFromFloat(COSFloat)} does nothing.
-   *   <li>Then calls {@link COSWriter#visitFromFloat(COSFloat)}.
+   *   <li>When {@link COSWriter} {@link COSWriter#visitFromFloat(COSFloat)} does nothing.</li>
+   *   <li>Then calls {@link COSWriter#visitFromFloat(COSFloat)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSFloat#accept(ICOSVisitor)}
+   * <p>
+   * Method under test: {@link COSFloat#accept(ICOSVisitor)}
    */
   @Test
-  @DisplayName(
-      "Test accept(ICOSVisitor); when COSWriter visitFromFloat(COSFloat) does nothing; then calls visitFromFloat(COSFloat)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test accept(ICOSVisitor); when COSWriter visitFromFloat(COSFloat) does nothing; then calls visitFromFloat(COSFloat)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSFloat.accept(ICOSVisitor)"})
-  void testAccept_whenCOSWriterVisitFromFloatDoesNothing_thenCallsVisitFromFloat()
-      throws IOException {
+  void testAccept_whenCOSWriterVisitFromFloatDoesNothing_thenCallsVisitFromFloat() throws IOException {
     // Arrange
     COSWriter visitor = mock(COSWriter.class);
     doNothing().when(visitor).visitFromFloat(Mockito.<COSFloat>any());
@@ -451,18 +412,17 @@ class COSFloatDiffblueTest {
 
   /**
    * Test {@link COSFloat#writePDF(OutputStream)}.
-   *
-   * <p>Method under test: {@link COSFloat#writePDF(OutputStream)}
+   * <p>
+   * Method under test: {@link COSFloat#writePDF(OutputStream)}
    */
   @Test
   @DisplayName("Test writePDF(OutputStream)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSFloat.writePDF(OutputStream)"})
   void testWritePDF() throws IOException {
     // Arrange
     COSFloat cosFloat = new COSFloat(-3.4028235E38f);
-    ByteArrayOutputStream output = new ByteArrayOutputStream();
+    ByteArrayOutputStream output = new ByteArrayOutputStream(1);
 
     // Act
     cosFloat.writePDF(output);
@@ -474,25 +434,20 @@ class COSFloatDiffblueTest {
 
   /**
    * Test {@link COSFloat#writePDF(OutputStream)}.
-   *
    * <ul>
-   *   <li>Given {@link COSFloat#ONE}.
-   *   <li>Then {@link ByteArrayOutputStream#ByteArrayOutputStream()} toByteArray is {@code 1.0}
-   *       Bytes is {@code UTF-8}.
+   *   <li>Given {@link COSFloat#ONE}.</li>
+   *   <li>Then {@link ByteArrayOutputStream#ByteArrayOutputStream(int)} with one toByteArray is {@code 1.0} Bytes is {@code UTF-8}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSFloat#writePDF(OutputStream)}
+   * <p>
+   * Method under test: {@link COSFloat#writePDF(OutputStream)}
    */
   @Test
-  @DisplayName(
-      "Test writePDF(OutputStream); given ONE; then ByteArrayOutputStream() toByteArray is '1.0' Bytes is 'UTF-8'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test writePDF(OutputStream); given ONE; then ByteArrayOutputStream(int) with one toByteArray is '1.0' Bytes is 'UTF-8'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSFloat.writePDF(OutputStream)"})
-  void testWritePDF_givenOne_thenByteArrayOutputStreamToByteArrayIs10BytesIsUtf8()
-      throws IOException {
+  void testWritePDF_givenOne_thenByteArrayOutputStreamWithOneToByteArrayIs10BytesIsUtf8() throws IOException {
     // Arrange
-    ByteArrayOutputStream output = new ByteArrayOutputStream();
+    ByteArrayOutputStream output = new ByteArrayOutputStream(1);
 
     // Act
     COSFloat.ONE.writePDF(output);
@@ -504,24 +459,20 @@ class COSFloatDiffblueTest {
 
   /**
    * Test {@link COSFloat#writePDF(OutputStream)}.
-   *
    * <ul>
-   *   <li>Then {@link ByteArrayOutputStream#ByteArrayOutputStream()} toByteArray is {@code 10.0}
-   *       Bytes is {@code UTF-8}.
+   *   <li>Then {@link ByteArrayOutputStream#ByteArrayOutputStream(int)} with one toByteArray is {@code 10.0} Bytes is {@code UTF-8}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSFloat#writePDF(OutputStream)}
+   * <p>
+   * Method under test: {@link COSFloat#writePDF(OutputStream)}
    */
   @Test
-  @DisplayName(
-      "Test writePDF(OutputStream); then ByteArrayOutputStream() toByteArray is '10.0' Bytes is 'UTF-8'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test writePDF(OutputStream); then ByteArrayOutputStream(int) with one toByteArray is '10.0' Bytes is 'UTF-8'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSFloat.writePDF(OutputStream)"})
-  void testWritePDF_thenByteArrayOutputStreamToByteArrayIs100BytesIsUtf8() throws IOException {
+  void testWritePDF_thenByteArrayOutputStreamWithOneToByteArrayIs100BytesIsUtf8() throws IOException {
     // Arrange
     COSFloat cosFloat = new COSFloat(10.0f);
-    ByteArrayOutputStream output = new ByteArrayOutputStream();
+    ByteArrayOutputStream output = new ByteArrayOutputStream(1);
 
     // Act
     cosFloat.writePDF(output);

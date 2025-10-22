@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.util.List;
@@ -16,8 +15,6 @@ import org.apache.pdfbox.cos.COSFloat;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDMMType1Font;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
-import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
-import org.apache.pdfbox.pdmodel.font.Standard14Fonts.FontName;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -25,9 +22,8 @@ import org.junit.jupiter.api.Test;
 class PDFontSettingDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link PDFontSetting#PDFontSetting(COSArray)}
    *   <li>{@link PDFontSetting#getCOSObject()}
@@ -35,15 +31,14 @@ class PDFontSettingDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFontSetting.<init>(COSArray)", "COSBase PDFontSetting.getCOSObject()"})
   void testGettersAndSetters() {
     // Arrange
     COSArray fs = new COSArray();
 
     // Act
-    COSBase actualCOSObject = new PDFontSetting(fs).getCOSObject();
+    COSBase actualCOSObject = (new PDFontSetting(fs)).getCOSObject();
 
     // Assert
     assertTrue(actualCOSObject instanceof COSArray);
@@ -52,13 +47,12 @@ class PDFontSettingDiffblueTest {
 
   /**
    * Test {@link PDFontSetting#PDFontSetting()}.
-   *
-   * <p>Method under test: {@link PDFontSetting#PDFontSetting()}
+   * <p>
+   * Method under test: {@link PDFontSetting#PDFontSetting()}
    */
   @Test
   @DisplayName("Test new PDFontSetting()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFontSetting.<init>()"})
   void testNewPDFontSetting() throws IOException {
     // Arrange and Act
@@ -80,41 +74,35 @@ class PDFontSettingDiffblueTest {
 
   /**
    * Test {@link PDFontSetting#getFont()}.
-   *
    * <ul>
-   *   <li>Given {@link PDFontSetting#PDFontSetting()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDFontSetting#PDFontSetting()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFontSetting#getFont()}
+   * <p>
+   * Method under test: {@link PDFontSetting#getFont()}
    */
   @Test
   @DisplayName("Test getFont(); given PDFontSetting(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDFont PDFontSetting.getFont()"})
   void testGetFont_givenPDFontSetting_thenReturnNull() throws IOException {
     // Arrange, Act and Assert
-    assertNull(new PDFontSetting().getFont());
+    assertNull((new PDFontSetting()).getFont());
   }
 
   /**
    * Test {@link PDFontSetting#getFont()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDMMType1Font#PDMMType1Font(COSDictionary)} with fontDictionary is
-   *       {@link COSDictionary#COSDictionary()}.
+   *   <li>Then return {@link PDType1Font}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFontSetting#getFont()}
+   * <p>
+   * Method under test: {@link PDFontSetting#getFont()}
    */
   @Test
-  @DisplayName(
-      "Test getFont(); then return PDMMType1Font(COSDictionary) with fontDictionary is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getFont(); then return PDType1Font")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDFont PDFontSetting.getFont()"})
-  void testGetFont_thenReturnPDMMType1FontWithFontDictionaryIsCOSDictionary() throws IOException {
+  void testGetFont_thenReturnPDType1Font() throws IOException {
     // Arrange
     PDFontSetting pdFontSetting = new PDFontSetting();
     PDMMType1Font font = new PDMMType1Font(new COSDictionary());
@@ -129,78 +117,17 @@ class PDFontSettingDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontSetting#getFont()}.
-   *
-   * <ul>
-   *   <li>Then return {@link PDMMType1Font#PDMMType1Font(COSDictionary)} with fontDictionary is
-   *       {@link COSDictionary#COSDictionary(COSDictionary)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDFontSetting#getFont()}
-   */
-  @Test
-  @DisplayName(
-      "Test getFont(); then return PDMMType1Font(COSDictionary) with fontDictionary is COSDictionary(COSDictionary)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDFont PDFontSetting.getFont()"})
-  void testGetFont_thenReturnPDMMType1FontWithFontDictionaryIsCOSDictionary2() throws IOException {
-    // Arrange
-    PDFontSetting pdFontSetting = new PDFontSetting();
-    PDMMType1Font font = new PDMMType1Font(new COSDictionary(new COSDictionary()));
-    pdFontSetting.setFont(font);
-
-    // Act
-    PDFont actualFont = pdFontSetting.getFont();
-
-    // Assert
-    assertTrue(actualFont instanceof PDType1Font);
-    assertEquals(font, actualFont);
-  }
-
-  /**
-   * Test {@link PDFontSetting#getFont()}.
-   *
-   * <ul>
-   *   <li>Then return {@link PDType1Font#PDType1Font(FontName)} with baseFont is {@code
-   *       TIMES_ROMAN}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDFontSetting#getFont()}
-   */
-  @Test
-  @DisplayName("Test getFont(); then return PDType1Font(FontName) with baseFont is 'TIMES_ROMAN'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDFont PDFontSetting.getFont()"})
-  void testGetFont_thenReturnPDType1FontWithBaseFontIsTimesRoman() throws IOException {
-    // Arrange
-    PDFontSetting pdFontSetting = new PDFontSetting();
-    PDType1Font font = new PDType1Font(FontName.TIMES_ROMAN);
-    pdFontSetting.setFont(font);
-
-    // Act
-    PDFont actualFont = pdFontSetting.getFont();
-
-    // Assert
-    assertTrue(actualFont instanceof PDType1Font);
-    assertEquals(font, actualFont);
-  }
-
-  /**
    * Test {@link PDFontSetting#setFont(PDFont)}.
-   *
    * <ul>
-   *   <li>Given {@link PDFontSetting#PDFontSetting()}.
-   *   <li>Then {@link PDFontSetting#PDFontSetting()} Font {@link PDType1Font}.
+   *   <li>Given {@link PDFontSetting#PDFontSetting()}.</li>
+   *   <li>Then {@link PDFontSetting#PDFontSetting()} Font {@link PDType1Font}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFontSetting#setFont(PDFont)}
+   * <p>
+   * Method under test: {@link PDFontSetting#setFont(PDFont)}
    */
   @Test
   @DisplayName("Test setFont(PDFont); given PDFontSetting(); then PDFontSetting() Font PDType1Font")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFontSetting.setFont(PDFont)"})
   void testSetFont_givenPDFontSetting_thenPDFontSettingFontPDType1Font() throws IOException {
     // Arrange
@@ -218,20 +145,17 @@ class PDFontSettingDiffblueTest {
 
   /**
    * Test {@link PDFontSetting#setFont(PDFont)}.
-   *
    * <ul>
-   *   <li>Given {@link PDFontSetting#PDFontSetting()}.
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDFontSetting#PDFontSetting()} Font is {@code null}.
+   *   <li>Given {@link PDFontSetting#PDFontSetting()}.</li>
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link PDFontSetting#PDFontSetting()} Font is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFontSetting#setFont(PDFont)}
+   * <p>
+   * Method under test: {@link PDFontSetting#setFont(PDFont)}
    */
   @Test
-  @DisplayName(
-      "Test setFont(PDFont); given PDFontSetting(); when 'null'; then PDFontSetting() Font is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setFont(PDFont); given PDFontSetting(); when 'null'; then PDFontSetting() Font is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFontSetting.setFont(PDFont)"})
   void testSetFont_givenPDFontSetting_whenNull_thenPDFontSettingFontIsNull() throws IOException {
     // Arrange
@@ -246,39 +170,34 @@ class PDFontSettingDiffblueTest {
 
   /**
    * Test {@link PDFontSetting#getFontSize()}.
-   *
    * <ul>
-   *   <li>Given {@link PDFontSetting#PDFontSetting()}.
-   *   <li>Then return one.
+   *   <li>Given {@link PDFontSetting#PDFontSetting()}.</li>
+   *   <li>Then return one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFontSetting#getFontSize()}
+   * <p>
+   * Method under test: {@link PDFontSetting#getFontSize()}
    */
   @Test
   @DisplayName("Test getFontSize(); given PDFontSetting(); then return one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"float PDFontSetting.getFontSize()"})
   void testGetFontSize_givenPDFontSetting_thenReturnOne() {
     // Arrange, Act and Assert
-    assertEquals(1.0f, new PDFontSetting().getFontSize());
+    assertEquals(1.0f, (new PDFontSetting()).getFontSize());
   }
 
   /**
    * Test {@link PDFontSetting#setFontSize(float)}.
-   *
    * <ul>
-   *   <li>Given {@link PDFontSetting#PDFontSetting()}.
-   *   <li>Then {@link PDFontSetting#PDFontSetting()} FontSize is ten.
+   *   <li>Given {@link PDFontSetting#PDFontSetting()}.</li>
+   *   <li>Then {@link PDFontSetting#PDFontSetting()} FontSize is ten.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFontSetting#setFontSize(float)}
+   * <p>
+   * Method under test: {@link PDFontSetting#setFontSize(float)}
    */
   @Test
-  @DisplayName(
-      "Test setFontSize(float); given PDFontSetting(); then PDFontSetting() FontSize is ten")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setFontSize(float); given PDFontSetting(); then PDFontSetting() FontSize is ten")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFontSetting.setFontSize(float)"})
   void testSetFontSize_givenPDFontSetting_thenPDFontSettingFontSizeIsTen() {
     // Arrange

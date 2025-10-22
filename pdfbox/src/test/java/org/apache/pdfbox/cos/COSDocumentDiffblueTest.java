@@ -5,12 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 import org.apache.pdfbox.pdfwriter.COSWriter;
 import org.junit.jupiter.api.DisplayName;
@@ -20,13 +17,12 @@ import org.junit.jupiter.api.Test;
 class COSDocumentDiffblueTest {
   /**
    * Test {@link COSDocument#COSDocument()}.
-   *
-   * <p>Method under test: {@link COSDocument#COSDocument()}
+   * <p>
+   * Method under test: {@link COSDocument#COSDocument()}
    */
   @Test
   @DisplayName("Test new COSDocument()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDocument.<init>()"})
   void testNewCOSDocument() {
     // Arrange and Act
@@ -50,17 +46,16 @@ class COSDocumentDiffblueTest {
 
   /**
    * Test {@link COSDocument#createCOSStream()}.
-   *
-   * <p>Method under test: {@link COSDocument#createCOSStream()}
+   * <p>
+   * Method under test: {@link COSDocument#createCOSStream()}
    */
   @Test
   @DisplayName("Test createCOSStream()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSStream COSDocument.createCOSStream()"})
   void testCreateCOSStream() {
     // Arrange and Act
-    COSStream actualCreateCOSStreamResult = new COSDocument().createCOSStream();
+    COSStream actualCreateCOSStreamResult = (new COSDocument()).createCOSStream();
 
     // Assert
     assertNull(actualCreateCOSStreamResult.getFilters());
@@ -83,147 +78,74 @@ class COSDocumentDiffblueTest {
 
   /**
    * Test {@link COSDocument#getLinearizedDictionary()}.
-   *
-   * <ul>
-   *   <li>Given {@link COSDocument#COSDocument()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSDocument#getLinearizedDictionary()}
+   * <p>
+   * Method under test: {@link COSDocument#getLinearizedDictionary()}
    */
   @Test
-  @DisplayName("Test getLinearizedDictionary(); given COSDocument(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getLinearizedDictionary()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSDictionary COSDocument.getLinearizedDictionary()"})
-  void testGetLinearizedDictionary_givenCOSDocument_thenReturnNull() {
+  void testGetLinearizedDictionary() {
     // Arrange, Act and Assert
-    assertNull(new COSDocument().getLinearizedDictionary());
+    assertNull((new COSDocument()).getLinearizedDictionary());
   }
 
   /**
-   * Test {@link COSDocument#getLinearizedDictionary()}.
-   *
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@link COSObjectKey#COSObjectKey(long, int)} with num is
-   *       one and gen is one is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSDocument#getLinearizedDictionary()}
+   * Test {@link COSDocument#getObjectsByType(COSName)} with {@code type}.
+   * <p>
+   * Method under test: {@link COSDocument#getObjectsByType(COSName)}
    */
   @Test
-  @DisplayName(
-      "Test getLinearizedDictionary(); given HashMap() COSObjectKey(long, int) with num is one and gen is one is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"COSDictionary COSDocument.getLinearizedDictionary()"})
-  void testGetLinearizedDictionary_givenHashMapCOSObjectKeyWithNumIsOneAndGenIsOneIsOne() {
-    // Arrange
-    HashMap<COSObjectKey, Long> xrefTableValues = new HashMap<>();
-    xrefTableValues.put(new COSObjectKey(1L, 1), 1L);
-
-    COSDocument cosDocument = new COSDocument();
-    cosDocument.addXRefTable(xrefTableValues);
-
-    // Act and Assert
-    assertNull(cosDocument.getLinearizedDictionary());
+  @DisplayName("Test getObjectsByType(COSName) with 'type'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"java.util.List COSDocument.getObjectsByType(COSName)"})
+  void testGetObjectsByTypeWithType() {
+    // Arrange, Act and Assert
+    assertTrue((new COSDocument()).getObjectsByType(COSName.A).isEmpty());
   }
 
   /**
    * Test {@link COSDocument#getObjectsByType(COSName, COSName)} with {@code type1}, {@code type2}.
-   *
-   * <p>Method under test: {@link COSDocument#getObjectsByType(COSName, COSName)}
+   * <p>
+   * Method under test: {@link COSDocument#getObjectsByType(COSName, COSName)}
    */
   @Test
   @DisplayName("Test getObjectsByType(COSName, COSName) with 'type1', 'type2'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.util.List COSDocument.getObjectsByType(COSName, COSName)"})
   void testGetObjectsByTypeWithType1Type2() {
     // Arrange, Act and Assert
-    assertTrue(new COSDocument().getObjectsByType(COSName.A, COSName.A).isEmpty());
-  }
-
-  /**
-   * Test {@link COSDocument#getObjectsByType(COSName)} with {@code type}.
-   *
-   * <ul>
-   *   <li>Given {@link COSDocument#COSDocument()} addXRefTable {@link HashMap#HashMap()}.
-   *   <li>Then return Empty.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSDocument#getObjectsByType(COSName)}
-   */
-  @Test
-  @DisplayName(
-      "Test getObjectsByType(COSName) with 'type'; given COSDocument() addXRefTable HashMap(); then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"java.util.List COSDocument.getObjectsByType(COSName)"})
-  void testGetObjectsByTypeWithType_givenCOSDocumentAddXRefTableHashMap_thenReturnEmpty() {
-    // Arrange
-    HashMap<COSObjectKey, Long> xrefTableValues = new HashMap<>();
-    xrefTableValues.put(new COSObjectKey(1L, 1), 1L);
-
-    COSDocument cosDocument = new COSDocument();
-    cosDocument.addXRefTable(xrefTableValues);
-
-    // Act and Assert
-    assertTrue(cosDocument.getObjectsByType(COSName.A).isEmpty());
-  }
-
-  /**
-   * Test {@link COSDocument#getObjectsByType(COSName)} with {@code type}.
-   *
-   * <ul>
-   *   <li>Given {@link COSDocument#COSDocument()}.
-   *   <li>Then return Empty.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSDocument#getObjectsByType(COSName)}
-   */
-  @Test
-  @DisplayName("Test getObjectsByType(COSName) with 'type'; given COSDocument(); then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"java.util.List COSDocument.getObjectsByType(COSName)"})
-  void testGetObjectsByTypeWithType_givenCOSDocument_thenReturnEmpty() {
-    // Arrange, Act and Assert
-    assertTrue(new COSDocument().getObjectsByType(COSName.A).isEmpty());
+    assertTrue((new COSDocument()).getObjectsByType(COSName.A, COSName.A).isEmpty());
   }
 
   /**
    * Test {@link COSDocument#isEncrypted()}.
-   *
    * <ul>
-   *   <li>Given {@link COSDocument#COSDocument()}.
+   *   <li>Given {@link COSDocument#COSDocument()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDocument#isEncrypted()}
+   * <p>
+   * Method under test: {@link COSDocument#isEncrypted()}
    */
   @Test
   @DisplayName("Test isEncrypted(); given COSDocument()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean COSDocument.isEncrypted()"})
   void testIsEncrypted_givenCOSDocument() {
     // Arrange, Act and Assert
-    assertFalse(new COSDocument().isEncrypted());
+    assertFalse((new COSDocument()).isEncrypted());
   }
 
   /**
    * Test {@link COSDocument#isEncrypted()}.
-   *
    * <ul>
-   *   <li>Given {@link COSDocument#COSDocument()} Trailer is {@link COSDictionary#COSDictionary()}.
+   *   <li>Given {@link COSDocument#COSDocument()} Trailer is {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDocument#isEncrypted()}
+   * <p>
+   * Method under test: {@link COSDocument#isEncrypted()}
    */
   @Test
   @DisplayName("Test isEncrypted(); given COSDocument() Trailer is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean COSDocument.isEncrypted()"})
   void testIsEncrypted_givenCOSDocumentTrailerIsCOSDictionary() {
     // Arrange
@@ -236,17 +158,15 @@ class COSDocumentDiffblueTest {
 
   /**
    * Test {@link COSDocument#getEncryptionDictionary()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDocument#getEncryptionDictionary()}
+   * <p>
+   * Method under test: {@link COSDocument#getEncryptionDictionary()}
    */
   @Test
   @DisplayName("Test getEncryptionDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSDictionary COSDocument.getEncryptionDictionary()"})
   void testGetEncryptionDictionary_thenReturnNull() {
     // Arrange
@@ -259,13 +179,12 @@ class COSDocumentDiffblueTest {
 
   /**
    * Test {@link COSDocument#setEncryptionDictionary(COSDictionary)}.
-   *
-   * <p>Method under test: {@link COSDocument#setEncryptionDictionary(COSDictionary)}
+   * <p>
+   * Method under test: {@link COSDocument#setEncryptionDictionary(COSDictionary)}
    */
   @Test
   @DisplayName("Test setEncryptionDictionary(COSDictionary)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDocument.setEncryptionDictionary(COSDictionary)"})
   void testSetEncryptionDictionary() {
     // Arrange
@@ -293,13 +212,12 @@ class COSDocumentDiffblueTest {
 
   /**
    * Test {@link COSDocument#setEncryptionDictionary(COSDictionary)}.
-   *
-   * <p>Method under test: {@link COSDocument#setEncryptionDictionary(COSDictionary)}
+   * <p>
+   * Method under test: {@link COSDocument#setEncryptionDictionary(COSDictionary)}
    */
   @Test
   @DisplayName("Test setEncryptionDictionary(COSDictionary)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDocument.setEncryptionDictionary(COSDictionary)"})
   void testSetEncryptionDictionary2() {
     // Arrange
@@ -328,22 +246,23 @@ class COSDocumentDiffblueTest {
 
   /**
    * Test {@link COSDocument#setEncryptionDictionary(COSDictionary)}.
-   *
-   * <p>Method under test: {@link COSDocument#setEncryptionDictionary(COSDictionary)}
+   * <ul>
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link COSDocument#setEncryptionDictionary(COSDictionary)}
    */
   @Test
-  @DisplayName("Test setEncryptionDictionary(COSDictionary)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setEncryptionDictionary(COSDictionary); given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDocument.setEncryptionDictionary(COSDictionary)"})
-  void testSetEncryptionDictionary3() {
+  void testSetEncryptionDictionary_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
     COSDocument cosDocument = new COSDocument();
     COSDictionary newTrailer = new COSDictionary();
     cosDocument.setTrailer(newTrailer);
 
-    COSDictionary encDictionary = new COSDictionary(new COSDictionary());
-    encDictionary.setDirect(false);
+    COSDictionary encDictionary = new COSDictionary();
     encDictionary.setKey(new COSObjectKey(1L, 1));
 
     // Act
@@ -360,25 +279,21 @@ class COSDocumentDiffblueTest {
     assertTrue(cosDocument.isEncrypted());
     assertSame(encDictionary, cosDocument.getEncryptionDictionary());
     assertSame(originDocumentState, cosDocument.getDocumentState());
-    assertSame(originDocumentState, trailer.getUpdateState().getOriginDocumentState());
     assertSame(newTrailer.items, cosNameCosBaseMap);
   }
 
   /**
    * Test {@link COSDocument#setEncryptionDictionary(COSDictionary)}.
-   *
    * <ul>
-   *   <li>Given {@code true}.
-   *   <li>When {@link COSDictionary#COSDictionary()} Direct is {@code true}.
+   *   <li>Given {@code true}.</li>
+   *   <li>When {@link COSDictionary#COSDictionary()} Direct is {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDocument#setEncryptionDictionary(COSDictionary)}
+   * <p>
+   * Method under test: {@link COSDocument#setEncryptionDictionary(COSDictionary)}
    */
   @Test
-  @DisplayName(
-      "Test setEncryptionDictionary(COSDictionary); given 'true'; when COSDictionary() Direct is 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setEncryptionDictionary(COSDictionary); given 'true'; when COSDictionary() Direct is 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDocument.setEncryptionDictionary(COSDictionary)"})
   void testSetEncryptionDictionary_givenTrue_whenCOSDictionaryDirectIsTrue() {
     // Arrange
@@ -408,19 +323,16 @@ class COSDocumentDiffblueTest {
 
   /**
    * Test {@link COSDocument#setEncryptionDictionary(COSDictionary)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link COSDocument#COSDocument()} Trailer size is zero.
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link COSDocument#COSDocument()} Trailer size is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDocument#setEncryptionDictionary(COSDictionary)}
+   * <p>
+   * Method under test: {@link COSDocument#setEncryptionDictionary(COSDictionary)}
    */
   @Test
-  @DisplayName(
-      "Test setEncryptionDictionary(COSDictionary); when 'null'; then COSDocument() Trailer size is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setEncryptionDictionary(COSDictionary); when 'null'; then COSDocument() Trailer size is zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDocument.setEncryptionDictionary(COSDictionary)"})
   void testSetEncryptionDictionary_whenNull_thenCOSDocumentTrailerSizeIsZero() {
     // Arrange
@@ -440,19 +352,16 @@ class COSDocumentDiffblueTest {
 
   /**
    * Test {@link COSDocument#getDocumentID()}.
-   *
    * <ul>
-   *   <li>Given {@link COSDocument#COSDocument()} Trailer is {@link COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link COSDocument#COSDocument()} Trailer is {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDocument#getDocumentID()}
+   * <p>
+   * Method under test: {@link COSDocument#getDocumentID()}
    */
   @Test
-  @DisplayName(
-      "Test getDocumentID(); given COSDocument() Trailer is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getDocumentID(); given COSDocument() Trailer is COSDictionary(); then return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSArray COSDocument.getDocumentID()"})
   void testGetDocumentID_givenCOSDocumentTrailerIsCOSDictionary_thenReturnNull() {
     // Arrange
@@ -465,23 +374,22 @@ class COSDocumentDiffblueTest {
 
   /**
    * Test {@link COSDocument#setDocumentID(COSArray)}.
-   *
-   * <p>Method under test: {@link COSDocument#setDocumentID(COSArray)}
+   * <ul>
+   *   <li>Then {@link COSDocument#COSDocument()} DocumentID is {@link COSArray#COSArray()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link COSDocument#setDocumentID(COSArray)}
    */
   @Test
-  @DisplayName("Test setDocumentID(COSArray)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setDocumentID(COSArray); then COSDocument() DocumentID is COSArray()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDocument.setDocumentID(COSArray)"})
-  void testSetDocumentID() {
+  void testSetDocumentID_thenCOSDocumentDocumentIDIsCOSArray() {
     // Arrange
     COSDocument cosDocument = new COSDocument();
     COSDictionary newTrailer = new COSDictionary();
     cosDocument.setTrailer(newTrailer);
-
-    COSArray id = new COSArray(new ArrayList<>());
-    id.setDirect(false);
-    id.setKey(new COSObjectKey(1L, 1));
+    COSArray id = new COSArray();
 
     // Act
     cosDocument.setDocumentID(id);
@@ -498,59 +406,15 @@ class COSDocumentDiffblueTest {
 
   /**
    * Test {@link COSDocument#setDocumentID(COSArray)}.
-   *
    * <ul>
-   *   <li>Given {@code null}.
-   *   <li>When {@link COSArray#COSArray(List)} with cosObjectables is {@link ArrayList#ArrayList()}
-   *       Key is {@code null}.
+   *   <li>Then {@link COSDocument#COSDocument()} DocumentID is {@link COSArray} with floats is ten and {@code 0.5}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDocument#setDocumentID(COSArray)}
+   * <p>
+   * Method under test: {@link COSDocument#setDocumentID(COSArray)}
    */
   @Test
-  @DisplayName(
-      "Test setDocumentID(COSArray); given 'null'; when COSArray(List) with cosObjectables is ArrayList() Key is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void COSDocument.setDocumentID(COSArray)"})
-  void testSetDocumentID_givenNull_whenCOSArrayWithCosObjectablesIsArrayListKeyIsNull() {
-    // Arrange
-    COSDocument cosDocument = new COSDocument();
-    COSDictionary newTrailer = new COSDictionary();
-    cosDocument.setTrailer(newTrailer);
-
-    COSArray id = new COSArray(new ArrayList<>());
-    id.setDirect(false);
-    id.setKey(null);
-
-    // Act
-    cosDocument.setDocumentID(id);
-
-    // Assert
-    COSDictionary trailer = cosDocument.getTrailer();
-    assertEquals(1, trailer.getValues().size());
-    Map<COSName, COSBase> cosNameCosBaseMap = trailer.items;
-    assertEquals(1, cosNameCosBaseMap.size());
-    assertEquals(1, trailer.size());
-    assertSame(id, cosDocument.getDocumentID());
-    assertSame(newTrailer.items, cosNameCosBaseMap);
-  }
-
-  /**
-   * Test {@link COSDocument#setDocumentID(COSArray)}.
-   *
-   * <ul>
-   *   <li>Then {@link COSDocument#COSDocument()} DocumentID is {@link COSArray} with floats is ten
-   *       and {@code 0.5}.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSDocument#setDocumentID(COSArray)}
-   */
-  @Test
-  @DisplayName(
-      "Test setDocumentID(COSArray); then COSDocument() DocumentID is COSArray with floats is ten and '0.5'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setDocumentID(COSArray); then COSDocument() DocumentID is COSArray with floats is ten and '0.5'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDocument.setDocumentID(COSArray)"})
   void testSetDocumentID_thenCOSDocumentDocumentIDIsCOSArrayWithFloatsIsTenAnd05() {
     // Arrange
@@ -574,54 +438,16 @@ class COSDocumentDiffblueTest {
 
   /**
    * Test {@link COSDocument#setDocumentID(COSArray)}.
-   *
    * <ul>
-   *   <li>When {@link COSArray#COSArray()}.
-   *   <li>Then {@link COSDocument#COSDocument()} DocumentID is {@link COSArray#COSArray()}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link COSDocument#COSDocument()} Trailer size is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDocument#setDocumentID(COSArray)}
-   */
-  @Test
-  @DisplayName(
-      "Test setDocumentID(COSArray); when COSArray(); then COSDocument() DocumentID is COSArray()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void COSDocument.setDocumentID(COSArray)"})
-  void testSetDocumentID_whenCOSArray_thenCOSDocumentDocumentIDIsCOSArray() {
-    // Arrange
-    COSDocument cosDocument = new COSDocument();
-    COSDictionary newTrailer = new COSDictionary();
-    cosDocument.setTrailer(newTrailer);
-    COSArray id = new COSArray();
-
-    // Act
-    cosDocument.setDocumentID(id);
-
-    // Assert
-    COSDictionary trailer = cosDocument.getTrailer();
-    assertEquals(1, trailer.getValues().size());
-    Map<COSName, COSBase> cosNameCosBaseMap = trailer.items;
-    assertEquals(1, cosNameCosBaseMap.size());
-    assertEquals(1, trailer.size());
-    assertSame(id, cosDocument.getDocumentID());
-    assertSame(newTrailer.items, cosNameCosBaseMap);
-  }
-
-  /**
-   * Test {@link COSDocument#setDocumentID(COSArray)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link COSDocument#COSDocument()} Trailer size is zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSDocument#setDocumentID(COSArray)}
+   * <p>
+   * Method under test: {@link COSDocument#setDocumentID(COSArray)}
    */
   @Test
   @DisplayName("Test setDocumentID(COSArray); when 'null'; then COSDocument() Trailer size is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDocument.setDocumentID(COSArray)"})
   void testSetDocumentID_whenNull_thenCOSDocumentTrailerSizeIsZero() {
     // Arrange
@@ -640,13 +466,12 @@ class COSDocumentDiffblueTest {
 
   /**
    * Test {@link COSDocument#setTrailer(COSDictionary)}.
-   *
-   * <p>Method under test: {@link COSDocument#setTrailer(COSDictionary)}
+   * <p>
+   * Method under test: {@link COSDocument#setTrailer(COSDictionary)}
    */
   @Test
   @DisplayName("Test setTrailer(COSDictionary)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDocument.setTrailer(COSDictionary)"})
   void testSetTrailer() {
     // Arrange
@@ -667,18 +492,15 @@ class COSDocumentDiffblueTest {
 
   /**
    * Test {@link COSDocument#setTrailer(COSDictionary)}.
-   *
    * <ul>
-   *   <li>Then not {@link COSStream#COSStream()} UpdateState OriginDocumentState AcceptingUpdates.
+   *   <li>Then not {@link COSStream#COSStream()} UpdateState OriginDocumentState AcceptingUpdates.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDocument#setTrailer(COSDictionary)}
+   * <p>
+   * Method under test: {@link COSDocument#setTrailer(COSDictionary)}
    */
   @Test
-  @DisplayName(
-      "Test setTrailer(COSDictionary); then not COSStream() UpdateState OriginDocumentState AcceptingUpdates")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setTrailer(COSDictionary); then not COSStream() UpdateState OriginDocumentState AcceptingUpdates")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDocument.setTrailer(COSDictionary)"})
   void testSetTrailer_thenNotCOSStreamUpdateStateOriginDocumentStateAcceptingUpdates() {
     // Arrange
@@ -699,51 +521,15 @@ class COSDocumentDiffblueTest {
 
   /**
    * Test {@link COSDocument#accept(ICOSVisitor)}.
-   *
    * <ul>
-   *   <li>Then {@link COSDocument#COSDocument()} Trailer {@link COSDictionary#items} is {@link
-   *       COSStream#COSStream()} {@link COSDictionary#items}.
+   *   <li>Then {@link COSDocument#COSDocument()} Trailer Values size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDocument#accept(ICOSVisitor)}
-   */
-  @Test
-  @DisplayName("Test accept(ICOSVisitor); then COSDocument() Trailer items is COSStream() items")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void COSDocument.accept(ICOSVisitor)"})
-  void testAccept_thenCOSDocumentTrailerItemsIsCOSStreamItems() throws IOException {
-    // Arrange
-    COSDocument cosDocument = new COSDocument();
-    COSStream newTrailer = new COSStream();
-    cosDocument.setTrailer(newTrailer);
-
-    // Act
-    cosDocument.accept(new COSWriter(new ByteArrayOutputStream()));
-
-    // Assert
-    COSDictionary trailer = cosDocument.getTrailer();
-    assertTrue(trailer instanceof COSStream);
-    assertEquals(2, trailer.getValues().size());
-    Map<COSName, COSBase> cosNameCosBaseMap = ((COSStream) trailer).items;
-    assertEquals(2, cosNameCosBaseMap.size());
-    assertEquals(2, trailer.size());
-    assertSame(newTrailer.items, cosNameCosBaseMap);
-  }
-
-  /**
-   * Test {@link COSDocument#accept(ICOSVisitor)}.
-   *
-   * <ul>
-   *   <li>Then {@link COSDocument#COSDocument()} Trailer Values size is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSDocument#accept(ICOSVisitor)}
+   * <p>
+   * Method under test: {@link COSDocument#accept(ICOSVisitor)}
    */
   @Test
   @DisplayName("Test accept(ICOSVisitor); then COSDocument() Trailer Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDocument.accept(ICOSVisitor)"})
   void testAccept_thenCOSDocumentTrailerValuesSizeIsOne() throws IOException {
     // Arrange
@@ -752,7 +538,7 @@ class COSDocumentDiffblueTest {
     cosDocument.setTrailer(newTrailer);
 
     // Act
-    cosDocument.accept(new COSWriter(new ByteArrayOutputStream()));
+    cosDocument.accept(new COSWriter(new ByteArrayOutputStream(1)));
 
     // Assert
     COSDictionary trailer = cosDocument.getTrailer();
@@ -765,18 +551,16 @@ class COSDocumentDiffblueTest {
 
   /**
    * Test {@link COSDocument#close()}.
-   *
    * <ul>
-   *   <li>Given {@link COSDocument#COSDocument()}.
-   *   <li>Then {@link COSDocument#COSDocument()} Closed.
+   *   <li>Given {@link COSDocument#COSDocument()}.</li>
+   *   <li>Then {@link COSDocument#COSDocument()} Closed.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDocument#close()}
+   * <p>
+   * Method under test: {@link COSDocument#close()}
    */
   @Test
   @DisplayName("Test close(); given COSDocument(); then COSDocument() Closed")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDocument.close()"})
   void testClose_givenCOSDocument_thenCOSDocumentClosed() throws IOException {
     // Arrange
@@ -791,17 +575,15 @@ class COSDocumentDiffblueTest {
 
   /**
    * Test {@link COSDocument#getObjectFromPool(COSObjectKey)}.
-   *
    * <ul>
-   *   <li>Then return Object is {@code null}.
+   *   <li>Then return Object is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDocument#getObjectFromPool(COSObjectKey)}
+   * <p>
+   * Method under test: {@link COSDocument#getObjectFromPool(COSObjectKey)}
    */
   @Test
   @DisplayName("Test getObjectFromPool(COSObjectKey); then return Object is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSObject COSDocument.getObjectFromPool(COSObjectKey)"})
   void testGetObjectFromPool_thenReturnObjectIsNull() {
     // Arrange
@@ -829,29 +611,26 @@ class COSDocumentDiffblueTest {
 
   /**
    * Test {@link COSDocument#getObjectFromPool(COSObjectKey)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return {@code null}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDocument#getObjectFromPool(COSObjectKey)}
+   * <p>
+   * Method under test: {@link COSDocument#getObjectFromPool(COSObjectKey)}
    */
   @Test
   @DisplayName("Test getObjectFromPool(COSObjectKey); when 'null'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSObject COSDocument.getObjectFromPool(COSObjectKey)"})
   void testGetObjectFromPool_whenNull_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new COSDocument().getObjectFromPool(null));
+    assertNull((new COSDocument()).getObjectFromPool(null));
   }
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link COSDocument#setHighestXRefObjectNumber(long)}
    *   <li>{@link COSDocument#setIsXRefStream(boolean)}
@@ -873,26 +652,14 @@ class COSDocumentDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "COSDocumentState COSDocument.getDocumentState()",
-    "long COSDocument.getHighestXRefObjectNumber()",
-    "long COSDocument.getStartXref()",
-    "COSDictionary COSDocument.getTrailer()",
-    "float COSDocument.getVersion()",
-    "Map COSDocument.getXrefTable()",
-    "boolean COSDocument.hasHybridXRef()",
-    "boolean COSDocument.isClosed()",
-    "boolean COSDocument.isDecrypted()",
-    "boolean COSDocument.isXRefStream()",
-    "void COSDocument.setDecrypted()",
-    "void COSDocument.setHasHybridXRef()",
-    "void COSDocument.setHighestXRefObjectNumber(long)",
-    "void COSDocument.setIsXRefStream(boolean)",
-    "void COSDocument.setStartXref(long)",
-    "void COSDocument.setVersion(float)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"COSDocumentState COSDocument.getDocumentState()", "long COSDocument.getHighestXRefObjectNumber()",
+      "long COSDocument.getStartXref()", "COSDictionary COSDocument.getTrailer()", "float COSDocument.getVersion()",
+      "Map COSDocument.getXrefTable()", "boolean COSDocument.hasHybridXRef()", "boolean COSDocument.isClosed()",
+      "boolean COSDocument.isDecrypted()", "boolean COSDocument.isXRefStream()", "void COSDocument.setDecrypted()",
+      "void COSDocument.setHasHybridXRef()", "void COSDocument.setHighestXRefObjectNumber(long)",
+      "void COSDocument.setIsXRefStream(boolean)", "void COSDocument.setStartXref(long)",
+      "void COSDocument.setVersion(float)"})
   void testGettersAndSetters() {
     // Arrange
     COSDocument cosDocument = new COSDocument();

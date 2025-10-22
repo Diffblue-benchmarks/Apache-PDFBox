@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.geom.AffineTransform;
 import java.io.IOException;
@@ -22,19 +21,16 @@ import org.junit.jupiter.api.Test;
 class OverlayDiffblueTest {
   /**
    * Test {@link Overlay#overlay(Map)}.
-   *
    * <ul>
-   *   <li>Given {@link Overlay} (default constructor).
-   *   <li>Then throw {@link IllegalArgumentException}.
+   *   <li>Given {@link Overlay} (default constructor).</li>
+   *   <li>Then throw {@link IllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Overlay#overlay(Map)}
+   * <p>
+   * Method under test: {@link Overlay#overlay(Map)}
    */
   @Test
-  @DisplayName(
-      "Test overlay(Map); given Overlay (default constructor); then throw IllegalArgumentException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test overlay(Map); given Overlay (default constructor); then throw IllegalArgumentException")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDDocument Overlay.overlay(Map)"})
   void testOverlay_givenOverlay_thenThrowIllegalArgumentException() throws IOException {
     // Arrange
@@ -46,19 +42,16 @@ class OverlayDiffblueTest {
 
   /**
    * Test {@link Overlay#overlayDocuments(Map)}.
-   *
    * <ul>
-   *   <li>Given {@link Overlay} (default constructor).
-   *   <li>Then throw {@link IllegalArgumentException}.
+   *   <li>Given {@link Overlay} (default constructor).</li>
+   *   <li>Then throw {@link IllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Overlay#overlayDocuments(Map)}
+   * <p>
+   * Method under test: {@link Overlay#overlayDocuments(Map)}
    */
   @Test
-  @DisplayName(
-      "Test overlayDocuments(Map); given Overlay (default constructor); then throw IllegalArgumentException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test overlayDocuments(Map); given Overlay (default constructor); then throw IllegalArgumentException")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDDocument Overlay.overlayDocuments(Map)"})
   void testOverlayDocuments_givenOverlay_thenThrowIllegalArgumentException() throws IOException {
     // Arrange
@@ -70,27 +63,23 @@ class OverlayDiffblueTest {
 
   /**
    * Test {@link Overlay#calculateAffineTransform(PDPage, PDRectangle)}.
-   *
    * <ul>
-   *   <li>When {@link PDPage#PDPage(COSDictionary)} with pageDictionary is {@link
-   *       COSDictionary#COSDictionary()}.
+   *   <li>When {@link PDPage#PDPage(COSDictionary)} with pageDictionary is {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Overlay#calculateAffineTransform(PDPage, PDRectangle)}
+   * <p>
+   * Method under test: {@link Overlay#calculateAffineTransform(PDPage, PDRectangle)}
    */
   @Test
-  @DisplayName(
-      "Test calculateAffineTransform(PDPage, PDRectangle); when PDPage(COSDictionary) with pageDictionary is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test calculateAffineTransform(PDPage, PDRectangle); when PDPage(COSDictionary) with pageDictionary is COSDictionary()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"AffineTransform Overlay.calculateAffineTransform(PDPage, PDRectangle)"})
   void testCalculateAffineTransform_whenPDPageWithPageDictionaryIsCOSDictionary() {
     // Arrange
     Overlay overlay = new Overlay();
 
     // Act
-    AffineTransform actualCalculateAffineTransformResult =
-        overlay.calculateAffineTransform(new PDPage(new COSDictionary()), PDRectangle.A0);
+    AffineTransform actualCalculateAffineTransformResult = overlay
+        .calculateAffineTransform(new PDPage(new COSDictionary()), PDRectangle.A0);
 
     // Assert
     assertEquals(-1289.1968994140625d, actualCalculateAffineTransformResult.getTranslateY());
@@ -106,27 +95,24 @@ class OverlayDiffblueTest {
 
   /**
    * Test {@link Overlay#calculateAffineTransform(PDPage, PDRectangle)}.
-   *
    * <ul>
-   *   <li>When {@link PDPage#PDPage()}.
-   *   <li>Then return TranslateY is {@code -1289.1968994140625}.
+   *   <li>When {@link PDPage#PDPage()}.</li>
+   *   <li>Then return TranslateY is {@code -1289.1968994140625}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Overlay#calculateAffineTransform(PDPage, PDRectangle)}
+   * <p>
+   * Method under test: {@link Overlay#calculateAffineTransform(PDPage, PDRectangle)}
    */
   @Test
-  @DisplayName(
-      "Test calculateAffineTransform(PDPage, PDRectangle); when PDPage(); then return TranslateY is '-1289.1968994140625'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test calculateAffineTransform(PDPage, PDRectangle); when PDPage(); then return TranslateY is '-1289.1968994140625'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"AffineTransform Overlay.calculateAffineTransform(PDPage, PDRectangle)"})
   void testCalculateAffineTransform_whenPDPage_thenReturnTranslateYIs12891968994140625() {
     // Arrange
     Overlay overlay = new Overlay();
 
     // Act
-    AffineTransform actualCalculateAffineTransformResult =
-        overlay.calculateAffineTransform(new PDPage(), PDRectangle.A0);
+    AffineTransform actualCalculateAffineTransformResult = overlay.calculateAffineTransform(new PDPage(),
+        PDRectangle.A0);
 
     // Assert
     assertEquals(-1289.1968994140625d, actualCalculateAffineTransformResult.getTranslateY());
@@ -142,9 +128,8 @@ class OverlayDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link Overlay#setAllPagesOverlayFile(String)}
    *   <li>{@link Overlay#setAllPagesOverlayPDF(PDDocument)}
@@ -167,27 +152,16 @@ class OverlayDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "String Overlay.getDefaultOverlayFile()",
-    "String Overlay.getInputFile()",
-    "void Overlay.setAllPagesOverlayFile(String)",
-    "void Overlay.setAllPagesOverlayPDF(PDDocument)",
-    "void Overlay.setDefaultOverlayFile(String)",
-    "void Overlay.setDefaultOverlayPDF(PDDocument)",
-    "void Overlay.setEvenPageOverlayFile(String)",
-    "void Overlay.setEvenPageOverlayPDF(PDDocument)",
-    "void Overlay.setFirstPageOverlayFile(String)",
-    "void Overlay.setFirstPageOverlayPDF(PDDocument)",
-    "void Overlay.setInputFile(String)",
-    "void Overlay.setInputPDF(PDDocument)",
-    "void Overlay.setLastPageOverlayFile(String)",
-    "void Overlay.setLastPageOverlayPDF(PDDocument)",
-    "void Overlay.setOddPageOverlayFile(String)",
-    "void Overlay.setOddPageOverlayPDF(PDDocument)",
-    "void Overlay.setOverlayPosition(Position)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String Overlay.getDefaultOverlayFile()", "String Overlay.getInputFile()",
+      "void Overlay.setAllPagesOverlayFile(String)", "void Overlay.setAllPagesOverlayPDF(PDDocument)",
+      "void Overlay.setDefaultOverlayFile(String)", "void Overlay.setDefaultOverlayPDF(PDDocument)",
+      "void Overlay.setEvenPageOverlayFile(String)", "void Overlay.setEvenPageOverlayPDF(PDDocument)",
+      "void Overlay.setFirstPageOverlayFile(String)", "void Overlay.setFirstPageOverlayPDF(PDDocument)",
+      "void Overlay.setInputFile(String)", "void Overlay.setInputPDF(PDDocument)",
+      "void Overlay.setLastPageOverlayFile(String)", "void Overlay.setLastPageOverlayPDF(PDDocument)",
+      "void Overlay.setOddPageOverlayFile(String)", "void Overlay.setOddPageOverlayPDF(PDDocument)",
+      "void Overlay.setOverlayPosition(Position)"})
   void testGettersAndSetters() {
     // Arrange
     Overlay overlay = new Overlay();
@@ -217,13 +191,12 @@ class OverlayDiffblueTest {
 
   /**
    * Test new {@link Overlay} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link Overlay}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link Overlay}
    */
   @Test
   @DisplayName("Test new Overlay (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void Overlay.<init>()"})
   void testNewOverlay() {
     // Arrange and Act

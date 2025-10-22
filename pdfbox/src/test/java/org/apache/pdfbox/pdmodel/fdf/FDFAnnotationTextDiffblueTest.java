@@ -4,45 +4,39 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
-import javax.imageio.metadata.IIOMetadataNode;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.w3c.dom.Element;
 
 class FDFAnnotationTextDiffblueTest {
   /**
    * Test {@link FDFAnnotationText#FDFAnnotationText(COSDictionary)}.
-   *
-   * <p>Method under test: {@link FDFAnnotationText#FDFAnnotationText(COSDictionary)}
+   * <p>
+   * Method under test: {@link FDFAnnotationText#FDFAnnotationText(COSDictionary)}
    */
   @Test
   @DisplayName("Test new FDFAnnotationText(COSDictionary)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFAnnotationText.<init>(COSDictionary)"})
   void testNewFDFAnnotationText() {
     // Arrange
     COSDictionary a = new COSDictionary();
 
     // Act and Assert
-    assertSame(a, new FDFAnnotationText(a).getCOSObject());
+    assertSame(a, (new FDFAnnotationText(a)).getCOSObject());
   }
 
   /**
    * Test {@link FDFAnnotationText#FDFAnnotationText()}.
-   *
-   * <p>Method under test: {@link FDFAnnotationText#FDFAnnotationText()}
+   * <p>
+   * Method under test: {@link FDFAnnotationText#FDFAnnotationText()}
    */
   @Test
   @DisplayName("Test new FDFAnnotationText()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFAnnotationText.<init>()"})
   void testNewFDFAnnotationText2() throws IOException {
     // Arrange and Act
@@ -79,42 +73,46 @@ class FDFAnnotationTextDiffblueTest {
   }
 
   /**
-   * Test {@link FDFAnnotationText#FDFAnnotationText(Element)}.
-   *
+   * Test {@link FDFAnnotationText#setIcon(String)}.
    * <ul>
-   *   <li>When {@link IIOMetadataNode#IIOMetadataNode()}.
-   *   <li>Then throw {@link IOException}.
+   *   <li>Given {@link FDFAnnotationText#FDFAnnotationText()}.</li>
+   *   <li>When {@code 42}.</li>
+   *   <li>Then {@link FDFAnnotationText#FDFAnnotationText()} Icon is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationText#FDFAnnotationText(Element)}
+   * <p>
+   * Method under test: {@link FDFAnnotationText#setIcon(String)}
    */
   @Test
-  @DisplayName(
-      "Test new FDFAnnotationText(Element); when IIOMetadataNode(); then throw IOException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFAnnotationText.<init>(Element)"})
-  void testNewFDFAnnotationText_whenIIOMetadataNode_thenThrowIOException() throws IOException {
-    // Arrange, Act and Assert
-    assertThrows(IOException.class, () -> new FDFAnnotationText(new IIOMetadataNode()));
+  @DisplayName("Test setIcon(String); given FDFAnnotationText(); when '42'; then FDFAnnotationText() Icon is '42'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void FDFAnnotationText.setIcon(String)"})
+  void testSetIcon_givenFDFAnnotationText_when42_thenFDFAnnotationTextIconIs42() {
+    // Arrange
+    FDFAnnotationText fdfAnnotationText = new FDFAnnotationText();
+
+    // Act
+    fdfAnnotationText.setIcon("42");
+
+    // Assert
+    assertEquals("42", fdfAnnotationText.getIcon());
+    COSDictionary cOSObject = fdfAnnotationText.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
   }
 
   /**
    * Test {@link FDFAnnotationText#setIcon(String)}.
-   *
    * <ul>
-   *   <li>Given {@link FDFAnnotationText#FDFAnnotationText()}.
-   *   <li>When {@code Icon}.
-   *   <li>Then {@link FDFAnnotationText#FDFAnnotationText()} Icon is {@code Icon}.
+   *   <li>Given {@link FDFAnnotationText#FDFAnnotationText()}.</li>
+   *   <li>When {@code Icon}.</li>
+   *   <li>Then {@link FDFAnnotationText#FDFAnnotationText()} Icon is {@code Icon}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationText#setIcon(String)}
+   * <p>
+   * Method under test: {@link FDFAnnotationText#setIcon(String)}
    */
   @Test
-  @DisplayName(
-      "Test setIcon(String); given FDFAnnotationText(); when 'Icon'; then FDFAnnotationText() Icon is 'Icon'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setIcon(String); given FDFAnnotationText(); when 'Icon'; then FDFAnnotationText() Icon is 'Icon'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFAnnotationText.setIcon(String)"})
   void testSetIcon_givenFDFAnnotationText_whenIcon_thenFDFAnnotationTextIconIsIcon() {
     // Arrange
@@ -131,81 +129,17 @@ class FDFAnnotationTextDiffblueTest {
   }
 
   /**
-   * Test {@link FDFAnnotationText#setIcon(String)}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFAnnotationText#FDFAnnotationText()}.
-   *   <li>When {@code icon}.
-   *   <li>Then {@link FDFAnnotationText#FDFAnnotationText()} Icon is {@code icon}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationText#setIcon(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test setIcon(String); given FDFAnnotationText(); when 'icon'; then FDFAnnotationText() Icon is 'icon'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFAnnotationText.setIcon(String)"})
-  void testSetIcon_givenFDFAnnotationText_whenIcon_thenFDFAnnotationTextIconIsIcon2() {
-    // Arrange
-    FDFAnnotationText fdfAnnotationText = new FDFAnnotationText();
-
-    // Act
-    fdfAnnotationText.setIcon("icon");
-
-    // Assert
-    assertEquals("icon", fdfAnnotationText.getIcon());
-    COSDictionary cOSObject = fdfAnnotationText.getCOSObject();
-    assertEquals(3, cOSObject.getValues().size());
-    assertEquals(3, cOSObject.size());
-  }
-
-  /**
-   * Test {@link FDFAnnotationText#setIcon(String)}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFAnnotationText#FDFAnnotationText()}.
-   *   <li>When {@code null}.
-   *   <li>Then {@link FDFAnnotationText#FDFAnnotationText()} Icon is {@code Note}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationText#setIcon(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test setIcon(String); given FDFAnnotationText(); when 'null'; then FDFAnnotationText() Icon is 'Note'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFAnnotationText.setIcon(String)"})
-  void testSetIcon_givenFDFAnnotationText_whenNull_thenFDFAnnotationTextIconIsNote() {
-    // Arrange
-    FDFAnnotationText fdfAnnotationText = new FDFAnnotationText();
-
-    // Act
-    fdfAnnotationText.setIcon(null);
-
-    // Assert that nothing has changed
-    assertEquals("Note", fdfAnnotationText.getIcon());
-    COSDictionary cOSObject = fdfAnnotationText.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-  }
-
-  /**
    * Test {@link FDFAnnotationText#getIcon()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFAnnotationText#FDFAnnotationText()} Icon is {@code Note}.
-   *   <li>Then return {@code Note}.
+   *   <li>Given {@link FDFAnnotationText#FDFAnnotationText()} Icon is {@code Note}.</li>
+   *   <li>Then return {@code Note}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationText#getIcon()}
+   * <p>
+   * Method under test: {@link FDFAnnotationText#getIcon()}
    */
   @Test
   @DisplayName("Test getIcon(); given FDFAnnotationText() Icon is 'Note'; then return 'Note'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String FDFAnnotationText.getIcon()"})
   void testGetIcon_givenFDFAnnotationTextIconIsNote_thenReturnNote() {
     // Arrange
@@ -218,39 +152,34 @@ class FDFAnnotationTextDiffblueTest {
 
   /**
    * Test {@link FDFAnnotationText#getIcon()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFAnnotationText#FDFAnnotationText()}.
-   *   <li>Then return {@code Note}.
+   *   <li>Given {@link FDFAnnotationText#FDFAnnotationText()}.</li>
+   *   <li>Then return {@code Note}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationText#getIcon()}
+   * <p>
+   * Method under test: {@link FDFAnnotationText#getIcon()}
    */
   @Test
   @DisplayName("Test getIcon(); given FDFAnnotationText(); then return 'Note'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String FDFAnnotationText.getIcon()"})
   void testGetIcon_givenFDFAnnotationText_thenReturnNote() {
     // Arrange, Act and Assert
-    assertEquals("Note", new FDFAnnotationText().getIcon());
+    assertEquals("Note", (new FDFAnnotationText()).getIcon());
   }
 
   /**
    * Test {@link FDFAnnotationText#getState()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFAnnotationText#FDFAnnotationText()} State is empty string.
-   *   <li>Then return empty string.
+   *   <li>Given {@link FDFAnnotationText#FDFAnnotationText()} State is empty string.</li>
+   *   <li>Then return empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationText#getState()}
+   * <p>
+   * Method under test: {@link FDFAnnotationText#getState()}
    */
   @Test
-  @DisplayName(
-      "Test getState(); given FDFAnnotationText() State is empty string; then return empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getState(); given FDFAnnotationText() State is empty string; then return empty string")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String FDFAnnotationText.getState()"})
   void testGetState_givenFDFAnnotationTextStateIsEmptyString_thenReturnEmptyString() {
     // Arrange
@@ -263,18 +192,16 @@ class FDFAnnotationTextDiffblueTest {
 
   /**
    * Test {@link FDFAnnotationText#getState()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFAnnotationText#FDFAnnotationText()} State is {@code MD}.
-   *   <li>Then return {@code MD}.
+   *   <li>Given {@link FDFAnnotationText#FDFAnnotationText()} State is {@code MD}.</li>
+   *   <li>Then return {@code MD}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationText#getState()}
+   * <p>
+   * Method under test: {@link FDFAnnotationText#getState()}
    */
   @Test
   @DisplayName("Test getState(); given FDFAnnotationText() State is 'MD'; then return 'MD'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String FDFAnnotationText.getState()"})
   void testGetState_givenFDFAnnotationTextStateIsMd_thenReturnMd() {
     // Arrange
@@ -287,42 +214,36 @@ class FDFAnnotationTextDiffblueTest {
 
   /**
    * Test {@link FDFAnnotationText#getState()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFAnnotationText#FDFAnnotationText()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link FDFAnnotationText#FDFAnnotationText()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationText#getState()}
+   * <p>
+   * Method under test: {@link FDFAnnotationText#getState()}
    */
   @Test
   @DisplayName("Test getState(); given FDFAnnotationText(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String FDFAnnotationText.getState()"})
   void testGetState_givenFDFAnnotationText_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new FDFAnnotationText().getState());
+    assertNull((new FDFAnnotationText()).getState());
   }
 
   /**
    * Test {@link FDFAnnotationText#setState(String)}.
-   *
    * <ul>
-   *   <li>Given {@link FDFAnnotationText#FDFAnnotationText()}.
-   *   <li>When {@code MD}.
-   *   <li>Then {@link FDFAnnotationText#FDFAnnotationText()} State is {@code MD}.
+   *   <li>Given {@link FDFAnnotationText#FDFAnnotationText()}.</li>
+   *   <li>Then {@link FDFAnnotationText#FDFAnnotationText()} State is {@code MD}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationText#setState(String)}
+   * <p>
+   * Method under test: {@link FDFAnnotationText#setState(String)}
    */
   @Test
-  @DisplayName(
-      "Test setState(String); given FDFAnnotationText(); when 'MD'; then FDFAnnotationText() State is 'MD'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setState(String); given FDFAnnotationText(); then FDFAnnotationText() State is 'MD'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFAnnotationText.setState(String)"})
-  void testSetState_givenFDFAnnotationText_whenMd_thenFDFAnnotationTextStateIsMd() {
+  void testSetState_givenFDFAnnotationText_thenFDFAnnotationTextStateIsMd() {
     // Arrange
     FDFAnnotationText fdfAnnotationText = new FDFAnnotationText();
 
@@ -337,49 +258,17 @@ class FDFAnnotationTextDiffblueTest {
   }
 
   /**
-   * Test {@link FDFAnnotationText#setState(String)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link FDFAnnotationText#FDFAnnotationText()} COSObject Values size is two.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationText#setState(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test setState(String); when 'null'; then FDFAnnotationText() COSObject Values size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFAnnotationText.setState(String)"})
-  void testSetState_whenNull_thenFDFAnnotationTextCOSObjectValuesSizeIsTwo() {
-    // Arrange
-    FDFAnnotationText fdfAnnotationText = new FDFAnnotationText();
-
-    // Act
-    fdfAnnotationText.setState(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = fdfAnnotationText.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-  }
-
-  /**
    * Test {@link FDFAnnotationText#getStateModel()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFAnnotationText#FDFAnnotationText()} StateModel is {@code MD}.
-   *   <li>Then return {@code MD}.
+   *   <li>Given {@link FDFAnnotationText#FDFAnnotationText()} StateModel is {@code MD}.</li>
+   *   <li>Then return {@code MD}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationText#getStateModel()}
+   * <p>
+   * Method under test: {@link FDFAnnotationText#getStateModel()}
    */
   @Test
-  @DisplayName(
-      "Test getStateModel(); given FDFAnnotationText() StateModel is 'MD'; then return 'MD'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getStateModel(); given FDFAnnotationText() StateModel is 'MD'; then return 'MD'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String FDFAnnotationText.getStateModel()"})
   void testGetStateModel_givenFDFAnnotationTextStateModelIsMd_thenReturnMd() {
     // Arrange
@@ -392,37 +281,33 @@ class FDFAnnotationTextDiffblueTest {
 
   /**
    * Test {@link FDFAnnotationText#getStateModel()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFAnnotationText#FDFAnnotationText()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link FDFAnnotationText#FDFAnnotationText()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationText#getStateModel()}
+   * <p>
+   * Method under test: {@link FDFAnnotationText#getStateModel()}
    */
   @Test
   @DisplayName("Test getStateModel(); given FDFAnnotationText(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String FDFAnnotationText.getStateModel()"})
   void testGetStateModel_givenFDFAnnotationText_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new FDFAnnotationText().getStateModel());
+    assertNull((new FDFAnnotationText()).getStateModel());
   }
 
   /**
    * Test {@link FDFAnnotationText#getStateModel()}.
-   *
    * <ul>
-   *   <li>Then return empty string.
+   *   <li>Then return empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationText#getStateModel()}
+   * <p>
+   * Method under test: {@link FDFAnnotationText#getStateModel()}
    */
   @Test
   @DisplayName("Test getStateModel(); then return empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String FDFAnnotationText.getStateModel()"})
   void testGetStateModel_thenReturnEmptyString() {
     // Arrange
@@ -435,19 +320,16 @@ class FDFAnnotationTextDiffblueTest {
 
   /**
    * Test {@link FDFAnnotationText#setStateModel(String)}.
-   *
    * <ul>
-   *   <li>Given {@link FDFAnnotationText#FDFAnnotationText()}.
-   *   <li>Then {@link FDFAnnotationText#FDFAnnotationText()} StateModel is {@code MD}.
+   *   <li>Given {@link FDFAnnotationText#FDFAnnotationText()}.</li>
+   *   <li>Then {@link FDFAnnotationText#FDFAnnotationText()} StateModel is {@code MD}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationText#setStateModel(String)}
+   * <p>
+   * Method under test: {@link FDFAnnotationText#setStateModel(String)}
    */
   @Test
-  @DisplayName(
-      "Test setStateModel(String); given FDFAnnotationText(); then FDFAnnotationText() StateModel is 'MD'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setStateModel(String); given FDFAnnotationText(); then FDFAnnotationText() StateModel is 'MD'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFAnnotationText.setStateModel(String)"})
   void testSetStateModel_givenFDFAnnotationText_thenFDFAnnotationTextStateModelIsMd() {
     // Arrange
@@ -461,34 +343,5 @@ class FDFAnnotationTextDiffblueTest {
     COSDictionary cOSObject = fdfAnnotationText.getCOSObject();
     assertEquals(3, cOSObject.getValues().size());
     assertEquals(3, cOSObject.size());
-  }
-
-  /**
-   * Test {@link FDFAnnotationText#setStateModel(String)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link FDFAnnotationText#FDFAnnotationText()} COSObject Values size is two.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationText#setStateModel(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test setStateModel(String); when 'null'; then FDFAnnotationText() COSObject Values size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFAnnotationText.setStateModel(String)"})
-  void testSetStateModel_whenNull_thenFDFAnnotationTextCOSObjectValuesSizeIsTwo() {
-    // Arrange
-    FDFAnnotationText fdfAnnotationText = new FDFAnnotationText();
-
-    // Act
-    fdfAnnotationText.setStateModel(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = fdfAnnotationText.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
   }
 }

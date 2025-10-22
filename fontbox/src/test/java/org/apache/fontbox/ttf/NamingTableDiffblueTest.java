@@ -15,7 +15,6 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -29,9 +28,8 @@ import org.mockito.Mockito;
 class NamingTableDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link NamingTable}
    *   <li>{@link NamingTable#getFontFamily()}
@@ -42,15 +40,10 @@ class NamingTableDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void NamingTable.<init>()",
-    "String NamingTable.getFontFamily()",
-    "String NamingTable.getFontSubFamily()",
-    "List NamingTable.getNameRecords()",
-    "String NamingTable.getPostScriptName()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void NamingTable.<init>()", "String NamingTable.getFontFamily()",
+      "String NamingTable.getFontSubFamily()", "List NamingTable.getNameRecords()",
+      "String NamingTable.getPostScriptName()"})
   void testGettersAndSetters() {
     // Arrange and Act
     NamingTable actualNamingTable = new NamingTable();
@@ -72,61 +65,80 @@ class NamingTableDiffblueTest {
 
   /**
    * Test {@link NamingTable#read(TrueTypeFont, TTFDataStream)} with {@code ttf}, {@code data}.
-   *
    * <ul>
-   *   <li>Given {@link IOException#IOException()}.
-   *   <li>Then throw {@link IOException}.
+   *   <li>Given four.</li>
+   *   <li>Then {@link NamingTable#NamingTable()} NameRecords size is four.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link NamingTable#read(TrueTypeFont, TTFDataStream)}
+   * <p>
+   * Method under test: {@link NamingTable#read(TrueTypeFont, TTFDataStream)}
    */
   @Test
-  @DisplayName(
-      "Test read(TrueTypeFont, TTFDataStream) with 'ttf', 'data'; given IOException(); then throw IOException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test read(TrueTypeFont, TTFDataStream) with 'ttf', 'data'; given four; then NamingTable() NameRecords size is four")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void NamingTable.read(TrueTypeFont, TTFDataStream)"})
-  void testReadWithTtfData_givenIOException_thenThrowIOException() throws IOException {
+  void testReadWithTtfData_givenFour_thenNamingTableNameRecordsSizeIsFour() throws IOException {
+    // Arrange
+    NamingTable namingTable = new NamingTable();
+    TrueTypeFont ttf = new TrueTypeFont(
+        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
+    RandomAccessReadDataStream data = mock(RandomAccessReadDataStream.class);
+    when(data.readUnsignedShort()).thenReturn(4);
+
+    // Act
+    namingTable.read(ttf, data);
+
+    // Assert
+    verify(data, atLeast(1)).readUnsignedShort();
+    assertEquals(4, namingTable.getNameRecords().size());
+  }
+
+  /**
+   * Test {@link NamingTable#read(TrueTypeFont, TTFDataStream)} with {@code ttf}, {@code data}.
+   * <ul>
+   *   <li>Given {@link IOException#IOException(String)} with {@code foo}.</li>
+   *   <li>Then throw {@link IOException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link NamingTable#read(TrueTypeFont, TTFDataStream)}
+   */
+  @Test
+  @DisplayName("Test read(TrueTypeFont, TTFDataStream) with 'ttf', 'data'; given IOException(String) with 'foo'; then throw IOException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void NamingTable.read(TrueTypeFont, TTFDataStream)"})
+  void testReadWithTtfData_givenIOExceptionWithFoo_thenThrowIOException() throws IOException {
     // Arrange
     NamingTable namingTable = new NamingTable();
     namingTable.setLength(3L);
-    RandomAccessReadDataStream fontData =
-        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
-    TrueTypeFont ttf = new TrueTypeFont(fontData);
-
+    TrueTypeFont ttf = new TrueTypeFont(
+        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
     RandomAccessReadDataStream data = mock(RandomAccessReadDataStream.class);
-    doThrow(new IOException()).when(data).seek(anyLong());
+    doThrow(new IOException("foo")).when(data).seek(anyLong());
     when(data.readUnsignedShort()).thenReturn(1);
 
     // Act and Assert
     assertThrows(IOException.class, () -> namingTable.read(ttf, data));
-    verify(data).seek(19L);
+    verify(data).seek(eq(19L));
     verify(data, atLeast(1)).readUnsignedShort();
   }
 
   /**
    * Test {@link NamingTable#read(TrueTypeFont, TTFDataStream)} with {@code ttf}, {@code data}.
-   *
    * <ul>
-   *   <li>Given one.
-   *   <li>Then {@link NamingTable#NamingTable()} NameRecords size is one.
+   *   <li>Given one.</li>
+   *   <li>Then {@link NamingTable#NamingTable()} NameRecords first String is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link NamingTable#read(TrueTypeFont, TTFDataStream)}
+   * <p>
+   * Method under test: {@link NamingTable#read(TrueTypeFont, TTFDataStream)}
    */
   @Test
-  @DisplayName(
-      "Test read(TrueTypeFont, TTFDataStream) with 'ttf', 'data'; given one; then NamingTable() NameRecords size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test read(TrueTypeFont, TTFDataStream) with 'ttf', 'data'; given one; then NamingTable() NameRecords first String is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void NamingTable.read(TrueTypeFont, TTFDataStream)"})
-  void testReadWithTtfData_givenOne_thenNamingTableNameRecordsSizeIsOne() throws IOException {
+  void testReadWithTtfData_givenOne_thenNamingTableNameRecordsFirstStringIsNull() throws IOException {
     // Arrange
     NamingTable namingTable = new NamingTable();
-    RandomAccessReadDataStream fontData =
-        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
-    TrueTypeFont ttf = new TrueTypeFont(fontData);
-
+    TrueTypeFont ttf = new TrueTypeFont(
+        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
     RandomAccessReadDataStream data = mock(RandomAccessReadDataStream.class);
     when(data.readUnsignedShort()).thenReturn(1);
 
@@ -149,28 +161,23 @@ class NamingTableDiffblueTest {
 
   /**
    * Test {@link NamingTable#read(TrueTypeFont, TTFDataStream)} with {@code ttf}, {@code data}.
-   *
    * <ul>
-   *   <li>Given one.
-   *   <li>Then {@link NamingTable#NamingTable()} NameRecords size is one.
+   *   <li>Given {@code String}.</li>
+   *   <li>Then {@link NamingTable#NamingTable()} NameRecords size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link NamingTable#read(TrueTypeFont, TTFDataStream)}
+   * <p>
+   * Method under test: {@link NamingTable#read(TrueTypeFont, TTFDataStream)}
    */
   @Test
-  @DisplayName(
-      "Test read(TrueTypeFont, TTFDataStream) with 'ttf', 'data'; given one; then NamingTable() NameRecords size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test read(TrueTypeFont, TTFDataStream) with 'ttf', 'data'; given 'String'; then NamingTable() NameRecords size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void NamingTable.read(TrueTypeFont, TTFDataStream)"})
-  void testReadWithTtfData_givenOne_thenNamingTableNameRecordsSizeIsOne2() throws IOException {
+  void testReadWithTtfData_givenString_thenNamingTableNameRecordsSizeIsOne() throws IOException {
     // Arrange
     NamingTable namingTable = new NamingTable();
     namingTable.setLength(3L);
-    RandomAccessReadDataStream fontData =
-        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
-    TrueTypeFont ttf = new TrueTypeFont(fontData);
-
+    TrueTypeFont ttf = new TrueTypeFont(
+        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
     RandomAccessReadDataStream data = mock(RandomAccessReadDataStream.class);
     when(data.readString(anyInt(), Mockito.<Charset>any())).thenReturn("String");
     doNothing().when(data).seek(anyLong());
@@ -180,7 +187,7 @@ class NamingTableDiffblueTest {
     namingTable.read(ttf, data);
 
     // Assert
-    verify(data).seek(19L);
+    verify(data).seek(eq(19L));
     verify(data).readString(eq(1), isA(Charset.class));
     verify(data, atLeast(1)).readUnsignedShort();
     List<NameRecord> nameRecords = namingTable.getNameRecords();
@@ -196,28 +203,23 @@ class NamingTableDiffblueTest {
 
   /**
    * Test {@link NamingTable#read(TrueTypeFont, TTFDataStream)} with {@code ttf}, {@code data}.
-   *
    * <ul>
-   *   <li>Given three.
-   *   <li>Then {@link NamingTable#NamingTable()} NameRecords size is three.
+   *   <li>Given three.</li>
+   *   <li>Then {@link NamingTable#NamingTable()} NameRecords size is three.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link NamingTable#read(TrueTypeFont, TTFDataStream)}
+   * <p>
+   * Method under test: {@link NamingTable#read(TrueTypeFont, TTFDataStream)}
    */
   @Test
-  @DisplayName(
-      "Test read(TrueTypeFont, TTFDataStream) with 'ttf', 'data'; given three; then NamingTable() NameRecords size is three")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test read(TrueTypeFont, TTFDataStream) with 'ttf', 'data'; given three; then NamingTable() NameRecords size is three")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void NamingTable.read(TrueTypeFont, TTFDataStream)"})
   void testReadWithTtfData_givenThree_thenNamingTableNameRecordsSizeIsThree() throws IOException {
     // Arrange
     NamingTable namingTable = new NamingTable();
     namingTable.setLength(3L);
-    RandomAccessReadDataStream fontData =
-        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
-    TrueTypeFont ttf = new TrueTypeFont(fontData);
-
+    TrueTypeFont ttf = new TrueTypeFont(
+        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
     RandomAccessReadDataStream data = mock(RandomAccessReadDataStream.class);
     when(data.readString(anyInt(), Mockito.<Charset>any())).thenReturn("String");
     doNothing().when(data).seek(anyLong());
@@ -227,7 +229,7 @@ class NamingTableDiffblueTest {
     namingTable.read(ttf, data);
 
     // Assert
-    verify(data, atLeast(1)).seek(45L);
+    verify(data, atLeast(1)).seek(eq(45L));
     verify(data, atLeast(1)).readString(eq(3), isA(Charset.class));
     verify(data, atLeast(1)).readUnsignedShort();
     List<NameRecord> nameRecords = namingTable.getNameRecords();
@@ -258,81 +260,23 @@ class NamingTableDiffblueTest {
 
   /**
    * Test {@link NamingTable#read(TrueTypeFont, TTFDataStream)} with {@code ttf}, {@code data}.
-   *
    * <ul>
-   *   <li>Given two.
-   *   <li>Then {@link NamingTable#NamingTable()} NameRecords second String is {@code null}.
+   *   <li>Given two.</li>
+   *   <li>Then {@link NamingTable#NamingTable()} NameRecords size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link NamingTable#read(TrueTypeFont, TTFDataStream)}
+   * <p>
+   * Method under test: {@link NamingTable#read(TrueTypeFont, TTFDataStream)}
    */
   @Test
-  @DisplayName(
-      "Test read(TrueTypeFont, TTFDataStream) with 'ttf', 'data'; given two; then NamingTable() NameRecords second String is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test read(TrueTypeFont, TTFDataStream) with 'ttf', 'data'; given two; then NamingTable() NameRecords size is two")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void NamingTable.read(TrueTypeFont, TTFDataStream)"})
-  void testReadWithTtfData_givenTwo_thenNamingTableNameRecordsSecondStringIsNull()
-      throws IOException {
-    // Arrange
-    NamingTable namingTable = new NamingTable();
-    RandomAccessReadDataStream fontData =
-        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
-    TrueTypeFont ttf = new TrueTypeFont(fontData);
-
-    RandomAccessReadDataStream data = mock(RandomAccessReadDataStream.class);
-    when(data.readUnsignedShort()).thenReturn(2);
-
-    // Act
-    namingTable.read(ttf, data);
-
-    // Assert
-    verify(data, atLeast(1)).readUnsignedShort();
-    List<NameRecord> nameRecords = namingTable.getNameRecords();
-    assertEquals(2, nameRecords.size());
-    NameRecord getResult = nameRecords.get(0);
-    assertNull(getResult.getString());
-    NameRecord getResult2 = nameRecords.get(1);
-    assertNull(getResult2.getString());
-    assertEquals(2, getResult.getLanguageId());
-    assertEquals(2, getResult2.getLanguageId());
-    assertEquals(2, getResult.getNameId());
-    assertEquals(2, getResult2.getNameId());
-    assertEquals(2, getResult.getPlatformEncodingId());
-    assertEquals(2, getResult2.getPlatformEncodingId());
-    assertEquals(2, getResult.getPlatformId());
-    assertEquals(2, getResult2.getPlatformId());
-    assertEquals(2, getResult.getStringLength());
-    assertEquals(2, getResult2.getStringLength());
-    assertEquals(2, getResult.getStringOffset());
-    assertEquals(2, getResult2.getStringOffset());
-  }
-
-  /**
-   * Test {@link NamingTable#read(TrueTypeFont, TTFDataStream)} with {@code ttf}, {@code data}.
-   *
-   * <ul>
-   *   <li>Given two.
-   *   <li>Then {@link NamingTable#NamingTable()} NameRecords second String is {@code String}.
-   * </ul>
-   *
-   * <p>Method under test: {@link NamingTable#read(TrueTypeFont, TTFDataStream)}
-   */
-  @Test
-  @DisplayName(
-      "Test read(TrueTypeFont, TTFDataStream) with 'ttf', 'data'; given two; then NamingTable() NameRecords second String is 'String'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void NamingTable.read(TrueTypeFont, TTFDataStream)"})
-  void testReadWithTtfData_givenTwo_thenNamingTableNameRecordsSecondStringIsString()
-      throws IOException {
+  void testReadWithTtfData_givenTwo_thenNamingTableNameRecordsSizeIsTwo() throws IOException {
     // Arrange
     NamingTable namingTable = new NamingTable();
     namingTable.setLength(3L);
-    RandomAccessReadDataStream fontData =
-        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
-    TrueTypeFont ttf = new TrueTypeFont(fontData);
-
+    TrueTypeFont ttf = new TrueTypeFont(
+        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
     RandomAccessReadDataStream data = mock(RandomAccessReadDataStream.class);
     when(data.readString(anyInt(), Mockito.<Charset>any())).thenReturn("String");
     doNothing().when(data).seek(anyLong());
@@ -342,84 +286,44 @@ class NamingTableDiffblueTest {
     namingTable.read(ttf, data);
 
     // Assert
-    verify(data, atLeast(1)).seek(32L);
+    verify(data, atLeast(1)).seek(eq(32L));
     verify(data, atLeast(1)).readString(eq(2), isA(Charset.class));
     verify(data, atLeast(1)).readUnsignedShort();
     List<NameRecord> nameRecords = namingTable.getNameRecords();
     assertEquals(2, nameRecords.size());
-    NameRecord getResult = nameRecords.get(1);
-    assertEquals("String", getResult.getString());
-    NameRecord getResult2 = nameRecords.get(0);
-    assertEquals(2, getResult2.getLanguageId());
+    NameRecord getResult = nameRecords.get(0);
     assertEquals(2, getResult.getLanguageId());
-    assertEquals(2, getResult2.getNameId());
+    NameRecord getResult2 = nameRecords.get(1);
+    assertEquals(2, getResult2.getLanguageId());
     assertEquals(2, getResult.getNameId());
-    assertEquals(2, getResult2.getPlatformEncodingId());
+    assertEquals(2, getResult2.getNameId());
     assertEquals(2, getResult.getPlatformEncodingId());
-    assertEquals(2, getResult2.getPlatformId());
+    assertEquals(2, getResult2.getPlatformEncodingId());
     assertEquals(2, getResult.getPlatformId());
-    assertEquals(2, getResult2.getStringLength());
+    assertEquals(2, getResult2.getPlatformId());
     assertEquals(2, getResult.getStringLength());
-    assertEquals(2, getResult2.getStringOffset());
+    assertEquals(2, getResult2.getStringLength());
     assertEquals(2, getResult.getStringOffset());
-  }
-
-  /**
-   * Test {@link NamingTable#read(TrueTypeFont, TTFDataStream)} with {@code ttf}, {@code data}.
-   *
-   * <ul>
-   *   <li>Given zero.
-   *   <li>Then {@link NamingTable#NamingTable()} NameRecords Empty.
-   * </ul>
-   *
-   * <p>Method under test: {@link NamingTable#read(TrueTypeFont, TTFDataStream)}
-   */
-  @Test
-  @DisplayName(
-      "Test read(TrueTypeFont, TTFDataStream) with 'ttf', 'data'; given zero; then NamingTable() NameRecords Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void NamingTable.read(TrueTypeFont, TTFDataStream)"})
-  void testReadWithTtfData_givenZero_thenNamingTableNameRecordsEmpty() throws IOException {
-    // Arrange
-    NamingTable namingTable = new NamingTable();
-    RandomAccessReadDataStream fontData =
-        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
-    TrueTypeFont ttf = new TrueTypeFont(fontData);
-
-    RandomAccessReadDataStream data = mock(RandomAccessReadDataStream.class);
-    when(data.readUnsignedShort()).thenReturn(0);
-
-    // Act
-    namingTable.read(ttf, data);
-
-    // Assert
-    verify(data, atLeast(1)).readUnsignedShort();
-    assertTrue(namingTable.getNameRecords().isEmpty());
-    assertTrue(namingTable.getInitialized());
+    assertEquals(2, getResult2.getStringOffset());
   }
 
   /**
    * Test {@link NamingTable#readHeaders(TrueTypeFont, TTFDataStream, FontHeaders)}.
-   *
    * <ul>
-   *   <li>Given six.
+   *   <li>Given six.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link NamingTable#readHeaders(TrueTypeFont, TTFDataStream, FontHeaders)}
+   * <p>
+   * Method under test: {@link NamingTable#readHeaders(TrueTypeFont, TTFDataStream, FontHeaders)}
    */
   @Test
   @DisplayName("Test readHeaders(TrueTypeFont, TTFDataStream, FontHeaders); given six")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void NamingTable.readHeaders(TrueTypeFont, TTFDataStream, FontHeaders)"})
   void testReadHeaders_givenSix() throws IOException {
     // Arrange
     NamingTable namingTable = new NamingTable();
-    RandomAccessReadDataStream fontData =
-        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
-    TrueTypeFont ttf = new TrueTypeFont(fontData);
-
+    TrueTypeFont ttf = new TrueTypeFont(
+        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
     RandomAccessReadDataStream data = mock(RandomAccessReadDataStream.class);
     when(data.readUnsignedShort()).thenReturn(6);
 
@@ -442,151 +346,21 @@ class NamingTableDiffblueTest {
 
   /**
    * Test {@link NamingTable#readHeaders(TrueTypeFont, TTFDataStream, FontHeaders)}.
-   *
    * <ul>
-   *   <li>Given three.
+   *   <li>When {@link RandomAccessReadDataStream} {@link TTFDataStream#readUnsignedShort()} return one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link NamingTable#readHeaders(TrueTypeFont, TTFDataStream, FontHeaders)}
+   * <p>
+   * Method under test: {@link NamingTable#readHeaders(TrueTypeFont, TTFDataStream, FontHeaders)}
    */
   @Test
-  @DisplayName("Test readHeaders(TrueTypeFont, TTFDataStream, FontHeaders); given three")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test readHeaders(TrueTypeFont, TTFDataStream, FontHeaders); when RandomAccessReadDataStream readUnsignedShort() return one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void NamingTable.readHeaders(TrueTypeFont, TTFDataStream, FontHeaders)"})
-  void testReadHeaders_givenThree() throws IOException {
+  void testReadHeaders_whenRandomAccessReadDataStreamReadUnsignedShortReturnOne() throws IOException {
     // Arrange
     NamingTable namingTable = new NamingTable();
-    RandomAccessReadDataStream fontData =
-        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
-    TrueTypeFont ttf = new TrueTypeFont(fontData);
-
-    RandomAccessReadDataStream data = mock(RandomAccessReadDataStream.class);
-    when(data.readUnsignedShort()).thenReturn(3);
-
-    FontHeaders outHeaders = new FontHeaders();
-    outHeaders.setError("Exception");
-    outHeaders.setHeaderMacStyle(1);
-    outHeaders.setIsOTFAndPostScript(true);
-    outHeaders.setName("Name");
-    outHeaders.setNonOtfGcid142("AXAXAXAX".getBytes("UTF-8"));
-    outHeaders.setOs2Windows(new OS2WindowsMetricsTable());
-
-    // Act
-    namingTable.readHeaders(ttf, data, outHeaders);
-
-    // Assert
-    verify(data, atLeast(1)).readUnsignedShort();
-    assertNull(outHeaders.getName());
-    assertTrue(namingTable.getNameRecords().isEmpty());
-  }
-
-  /**
-   * Test {@link NamingTable#readHeaders(TrueTypeFont, TTFDataStream, FontHeaders)}.
-   *
-   * <ul>
-   *   <li>Given two.
-   * </ul>
-   *
-   * <p>Method under test: {@link NamingTable#readHeaders(TrueTypeFont, TTFDataStream, FontHeaders)}
-   */
-  @Test
-  @DisplayName("Test readHeaders(TrueTypeFont, TTFDataStream, FontHeaders); given two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void NamingTable.readHeaders(TrueTypeFont, TTFDataStream, FontHeaders)"})
-  void testReadHeaders_givenTwo() throws IOException {
-    // Arrange
-    NamingTable namingTable = new NamingTable();
-    RandomAccessReadDataStream fontData =
-        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
-    TrueTypeFont ttf = new TrueTypeFont(fontData);
-
-    RandomAccessReadDataStream data = mock(RandomAccessReadDataStream.class);
-    when(data.readUnsignedShort()).thenReturn(2);
-
-    FontHeaders outHeaders = new FontHeaders();
-    outHeaders.setError("Exception");
-    outHeaders.setHeaderMacStyle(1);
-    outHeaders.setIsOTFAndPostScript(true);
-    outHeaders.setName("Name");
-    outHeaders.setNonOtfGcid142("AXAXAXAX".getBytes("UTF-8"));
-    outHeaders.setOs2Windows(new OS2WindowsMetricsTable());
-
-    // Act
-    namingTable.readHeaders(ttf, data, outHeaders);
-
-    // Assert
-    verify(data, atLeast(1)).readUnsignedShort();
-    assertNull(outHeaders.getName());
-    assertTrue(namingTable.getNameRecords().isEmpty());
-  }
-
-  /**
-   * Test {@link NamingTable#readHeaders(TrueTypeFont, TTFDataStream, FontHeaders)}.
-   *
-   * <ul>
-   *   <li>Given zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link NamingTable#readHeaders(TrueTypeFont, TTFDataStream, FontHeaders)}
-   */
-  @Test
-  @DisplayName("Test readHeaders(TrueTypeFont, TTFDataStream, FontHeaders); given zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void NamingTable.readHeaders(TrueTypeFont, TTFDataStream, FontHeaders)"})
-  void testReadHeaders_givenZero() throws IOException {
-    // Arrange
-    NamingTable namingTable = new NamingTable();
-    RandomAccessReadDataStream fontData =
-        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
-    TrueTypeFont ttf = new TrueTypeFont(fontData);
-
-    RandomAccessReadDataStream data = mock(RandomAccessReadDataStream.class);
-    when(data.readUnsignedShort()).thenReturn(0);
-
-    FontHeaders outHeaders = new FontHeaders();
-    outHeaders.setError("Exception");
-    outHeaders.setHeaderMacStyle(1);
-    outHeaders.setIsOTFAndPostScript(true);
-    outHeaders.setName("Name");
-    outHeaders.setNonOtfGcid142("AXAXAXAX".getBytes("UTF-8"));
-    outHeaders.setOs2Windows(new OS2WindowsMetricsTable());
-
-    // Act
-    namingTable.readHeaders(ttf, data, outHeaders);
-
-    // Assert
-    verify(data, atLeast(1)).readUnsignedShort();
-    assertNull(outHeaders.getName());
-    assertTrue(namingTable.getNameRecords().isEmpty());
-  }
-
-  /**
-   * Test {@link NamingTable#readHeaders(TrueTypeFont, TTFDataStream, FontHeaders)}.
-   *
-   * <ul>
-   *   <li>When {@link RandomAccessReadDataStream} {@link
-   *       RandomAccessReadDataStream#readUnsignedShort()} return one.
-   * </ul>
-   *
-   * <p>Method under test: {@link NamingTable#readHeaders(TrueTypeFont, TTFDataStream, FontHeaders)}
-   */
-  @Test
-  @DisplayName(
-      "Test readHeaders(TrueTypeFont, TTFDataStream, FontHeaders); when RandomAccessReadDataStream readUnsignedShort() return one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void NamingTable.readHeaders(TrueTypeFont, TTFDataStream, FontHeaders)"})
-  void testReadHeaders_whenRandomAccessReadDataStreamReadUnsignedShortReturnOne()
-      throws IOException {
-    // Arrange
-    NamingTable namingTable = new NamingTable();
-    RandomAccessReadDataStream fontData =
-        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
-    TrueTypeFont ttf = new TrueTypeFont(fontData);
-
+    TrueTypeFont ttf = new TrueTypeFont(
+        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
     RandomAccessReadDataStream data = mock(RandomAccessReadDataStream.class);
     when(data.readUnsignedShort()).thenReturn(1);
 
@@ -605,5 +379,123 @@ class NamingTableDiffblueTest {
     verify(data, atLeast(1)).readUnsignedShort();
     assertNull(outHeaders.getName());
     assertTrue(namingTable.getNameRecords().isEmpty());
+  }
+
+  /**
+   * Test {@link NamingTable#getName(int, int, int, int)}.
+   * <ul>
+   *   <li>Given {@link RandomAccessReadDataStream} {@link TTFDataStream#readUnsignedShort()} return one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link NamingTable#getName(int, int, int, int)}
+   */
+  @Test
+  @DisplayName("Test getName(int, int, int, int); given RandomAccessReadDataStream readUnsignedShort() return one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String NamingTable.getName(int, int, int, int)"})
+  void testGetName_givenRandomAccessReadDataStreamReadUnsignedShortReturnOne() throws IOException {
+    // Arrange
+    RandomAccessReadDataStream data = mock(RandomAccessReadDataStream.class);
+    when(data.readUnsignedShort()).thenReturn(1);
+
+    NamingTable namingTable = new NamingTable();
+    namingTable.read(
+        new TrueTypeFont(new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")))), data);
+
+    // Act
+    String actualName = namingTable.getName(1, 1, 1, 1);
+
+    // Assert
+    verify(data, atLeast(1)).readUnsignedShort();
+    assertNull(actualName);
+  }
+
+  /**
+   * Test {@link NamingTable#getName(int, int, int, int)}.
+   * <ul>
+   *   <li>Given {@link RandomAccessReadDataStream} {@link TTFDataStream#readUnsignedShort()} return one.</li>
+   *   <li>When two.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link NamingTable#getName(int, int, int, int)}
+   */
+  @Test
+  @DisplayName("Test getName(int, int, int, int); given RandomAccessReadDataStream readUnsignedShort() return one; when two")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String NamingTable.getName(int, int, int, int)"})
+  void testGetName_givenRandomAccessReadDataStreamReadUnsignedShortReturnOne_whenTwo() throws IOException {
+    // Arrange
+    RandomAccessReadDataStream data = mock(RandomAccessReadDataStream.class);
+    when(data.readUnsignedShort()).thenReturn(1);
+
+    NamingTable namingTable = new NamingTable();
+    namingTable.read(
+        new TrueTypeFont(new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")))), data);
+
+    // Act
+    String actualName = namingTable.getName(1, 2, 1, 1);
+
+    // Assert
+    verify(data, atLeast(1)).readUnsignedShort();
+    assertNull(actualName);
+  }
+
+  /**
+   * Test {@link NamingTable#getName(int, int, int, int)}.
+   * <ul>
+   *   <li>Given {@link RandomAccessReadDataStream} {@link TTFDataStream#readUnsignedShort()} return one.</li>
+   *   <li>When two.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link NamingTable#getName(int, int, int, int)}
+   */
+  @Test
+  @DisplayName("Test getName(int, int, int, int); given RandomAccessReadDataStream readUnsignedShort() return one; when two")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String NamingTable.getName(int, int, int, int)"})
+  void testGetName_givenRandomAccessReadDataStreamReadUnsignedShortReturnOne_whenTwo2() throws IOException {
+    // Arrange
+    RandomAccessReadDataStream data = mock(RandomAccessReadDataStream.class);
+    when(data.readUnsignedShort()).thenReturn(1);
+
+    NamingTable namingTable = new NamingTable();
+    namingTable.read(
+        new TrueTypeFont(new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")))), data);
+
+    // Act
+    String actualName = namingTable.getName(1, 1, 2, 1);
+
+    // Assert
+    verify(data, atLeast(1)).readUnsignedShort();
+    assertNull(actualName);
+  }
+
+  /**
+   * Test {@link NamingTable#getName(int, int, int, int)}.
+   * <ul>
+   *   <li>Given {@link RandomAccessReadDataStream} {@link TTFDataStream#readUnsignedShort()} return zero.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link NamingTable#getName(int, int, int, int)}
+   */
+  @Test
+  @DisplayName("Test getName(int, int, int, int); given RandomAccessReadDataStream readUnsignedShort() return zero")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String NamingTable.getName(int, int, int, int)"})
+  void testGetName_givenRandomAccessReadDataStreamReadUnsignedShortReturnZero() throws IOException {
+    // Arrange
+    RandomAccessReadDataStream data = mock(RandomAccessReadDataStream.class);
+    when(data.readUnsignedShort()).thenReturn(0);
+
+    NamingTable namingTable = new NamingTable();
+    namingTable.read(
+        new TrueTypeFont(new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")))), data);
+
+    // Act
+    String actualName = namingTable.getName(1, 1, 1, 1);
+
+    // Assert
+    verify(data, atLeast(1)).readUnsignedShort();
+    assertNull(actualName);
   }
 }

@@ -1,10 +1,10 @@
 package org.apache.pdfbox.contentstream.operator.graphics;
 
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,17 +18,15 @@ import org.junit.jupiter.api.Test;
 class FillNonZeroAndStrokePathDiffblueTest {
   /**
    * Test {@link FillNonZeroAndStrokePath#process(Operator, List)}.
-   *
    * <ul>
-   *   <li>Then calls {@link PageDrawer#fillAndStrokePath(int)}.
+   *   <li>Then calls {@link PageDrawer#fillAndStrokePath(int)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FillNonZeroAndStrokePath#process(Operator, List)}
+   * <p>
+   * Method under test: {@link FillNonZeroAndStrokePath#process(Operator, List)}
    */
   @Test
   @DisplayName("Test process(Operator, List); then calls fillAndStrokePath(int)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FillNonZeroAndStrokePath.process(Operator, List)"})
   void testProcess_thenCallsFillAndStrokePath() throws IOException {
     // Arrange
@@ -41,6 +39,6 @@ class FillNonZeroAndStrokePathDiffblueTest {
     fillNonZeroAndStrokePath.process(operator, new ArrayList<>());
 
     // Assert
-    verify(context).fillAndStrokePath(1);
+    verify(context).fillAndStrokePath(eq(1));
   }
 }

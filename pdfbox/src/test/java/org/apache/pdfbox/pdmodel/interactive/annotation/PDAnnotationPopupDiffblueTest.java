@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSObjectKey;
@@ -16,13 +15,12 @@ import org.junit.jupiter.api.Test;
 class PDAnnotationPopupDiffblueTest {
   /**
    * Test {@link PDAnnotationPopup#PDAnnotationPopup()}.
-   *
-   * <p>Method under test: {@link PDAnnotationPopup#PDAnnotationPopup()}
+   * <p>
+   * Method under test: {@link PDAnnotationPopup#PDAnnotationPopup()}
    */
   @Test
   @DisplayName("Test new PDAnnotationPopup()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationPopup.<init>()"})
   void testNewPDAnnotationPopup() {
     // Arrange and Act
@@ -58,19 +56,16 @@ class PDAnnotationPopupDiffblueTest {
 
   /**
    * Test {@link PDAnnotationPopup#PDAnnotationPopup(COSDictionary)}.
-   *
    * <ul>
-   *   <li>When {@link COSDictionary#COSDictionary()}.
-   *   <li>Then return AnnotationName is {@code null}.
+   *   <li>When {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then return AnnotationName is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationPopup#PDAnnotationPopup(COSDictionary)}
+   * <p>
+   * Method under test: {@link PDAnnotationPopup#PDAnnotationPopup(COSDictionary)}
    */
   @Test
-  @DisplayName(
-      "Test new PDAnnotationPopup(COSDictionary); when COSDictionary(); then return AnnotationName is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new PDAnnotationPopup(COSDictionary); when COSDictionary(); then return AnnotationName is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationPopup.<init>(COSDictionary)"})
   void testNewPDAnnotationPopup_whenCOSDictionary_thenReturnAnnotationNameIsNull() {
     // Arrange
@@ -111,18 +106,16 @@ class PDAnnotationPopupDiffblueTest {
 
   /**
    * Test {@link PDAnnotationPopup#setOpen(boolean)}.
-   *
    * <ul>
-   *   <li>When {@code false}.
-   *   <li>Then not {@link PDAnnotationPopup#PDAnnotationPopup()} Open.
+   *   <li>When {@code false}.</li>
+   *   <li>Then not {@link PDAnnotationPopup#PDAnnotationPopup()} Open.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationPopup#setOpen(boolean)}
+   * <p>
+   * Method under test: {@link PDAnnotationPopup#setOpen(boolean)}
    */
   @Test
   @DisplayName("Test setOpen(boolean); when 'false'; then not PDAnnotationPopup() Open")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationPopup.setOpen(boolean)"})
   void testSetOpen_whenFalse_thenNotPDAnnotationPopupOpen() {
     // Arrange
@@ -140,18 +133,16 @@ class PDAnnotationPopupDiffblueTest {
 
   /**
    * Test {@link PDAnnotationPopup#setOpen(boolean)}.
-   *
    * <ul>
-   *   <li>When {@code true}.
-   *   <li>Then {@link PDAnnotationPopup#PDAnnotationPopup()} Open.
+   *   <li>When {@code true}.</li>
+   *   <li>Then {@link PDAnnotationPopup#PDAnnotationPopup()} Open.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationPopup#setOpen(boolean)}
+   * <p>
+   * Method under test: {@link PDAnnotationPopup#setOpen(boolean)}
    */
   @Test
   @DisplayName("Test setOpen(boolean); when 'true'; then PDAnnotationPopup() Open")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationPopup.setOpen(boolean)"})
   void testSetOpen_whenTrue_thenPDAnnotationPopupOpen() {
     // Arrange
@@ -169,42 +160,59 @@ class PDAnnotationPopupDiffblueTest {
 
   /**
    * Test {@link PDAnnotationPopup#getOpen()}.
-   *
-   * <p>Method under test: {@link PDAnnotationPopup#getOpen()}
+   * <ul>
+   *   <li>Given {@link PDAnnotationPopup#PDAnnotationPopup()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDAnnotationPopup#getOpen()}
    */
   @Test
-  @DisplayName("Test getOpen()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getOpen(); given PDAnnotationPopup()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDAnnotationPopup.getOpen()"})
-  void testGetOpen() {
+  void testGetOpen_givenPDAnnotationPopup() {
     // Arrange, Act and Assert
-    assertFalse(new PDAnnotationPopup().getOpen());
+    assertFalse((new PDAnnotationPopup()).getOpen());
+  }
+
+  /**
+   * Test {@link PDAnnotationPopup#getOpen()}.
+   * <ul>
+   *   <li>Given {@link PDAnnotationPopup#PDAnnotationPopup()} Contents is {@code PopupStamp}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDAnnotationPopup#getOpen()}
+   */
+  @Test
+  @DisplayName("Test getOpen(); given PDAnnotationPopup() Contents is 'PopupStamp'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean PDAnnotationPopup.getOpen()"})
+  void testGetOpen_givenPDAnnotationPopupContentsIsPopupStamp() {
+    // Arrange
+    PDAnnotationPopup pdAnnotationPopup = new PDAnnotationPopup();
+    pdAnnotationPopup.setContents("PopupStamp");
+
+    // Act and Assert
+    assertFalse(pdAnnotationPopup.getOpen());
   }
 
   /**
    * Test {@link PDAnnotationPopup#setParent(PDAnnotationMarkup)}.
-   *
    * <ul>
-   *   <li>Given {@code false}.
-   *   <li>When {@link COSDictionary#COSDictionary(COSDictionary)} with dict is {@link
-   *       COSDictionary#COSDictionary()} Direct is {@code false}.
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationPopup#setParent(PDAnnotationMarkup)}
+   * <p>
+   * Method under test: {@link PDAnnotationPopup#setParent(PDAnnotationMarkup)}
    */
   @Test
-  @DisplayName(
-      "Test setParent(PDAnnotationMarkup); given 'false'; when COSDictionary(COSDictionary) with dict is COSDictionary() Direct is 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setParent(PDAnnotationMarkup); given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationPopup.setParent(PDAnnotationMarkup)"})
-  void testSetParent_givenFalse_whenCOSDictionaryWithDictIsCOSDictionaryDirectIsFalse() {
+  void testSetParent_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
     PDAnnotationPopup pdAnnotationPopup = new PDAnnotationPopup();
 
-    COSDictionary dict = new COSDictionary(new COSDictionary());
-    dict.setDirect(false);
+    COSDictionary dict = new COSDictionary();
     dict.setKey(new COSObjectKey(1L, 1));
 
     // Act
@@ -218,28 +226,23 @@ class PDAnnotationPopupDiffblueTest {
 
   /**
    * Test {@link PDAnnotationPopup#setParent(PDAnnotationMarkup)}.
-   *
    * <ul>
-   *   <li>Given {@code true}.
-   *   <li>When {@link COSDictionary#COSDictionary(COSDictionary)} with dict is {@link
-   *       COSDictionary#COSDictionary()} Direct is {@code true}.
+   *   <li>Given {@code true}.</li>
+   *   <li>When {@link COSDictionary#COSDictionary()} Direct is {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationPopup#setParent(PDAnnotationMarkup)}
+   * <p>
+   * Method under test: {@link PDAnnotationPopup#setParent(PDAnnotationMarkup)}
    */
   @Test
-  @DisplayName(
-      "Test setParent(PDAnnotationMarkup); given 'true'; when COSDictionary(COSDictionary) with dict is COSDictionary() Direct is 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setParent(PDAnnotationMarkup); given 'true'; when COSDictionary() Direct is 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationPopup.setParent(PDAnnotationMarkup)"})
-  void testSetParent_givenTrue_whenCOSDictionaryWithDictIsCOSDictionaryDirectIsTrue() {
+  void testSetParent_givenTrue_whenCOSDictionaryDirectIsTrue() {
     // Arrange
     PDAnnotationPopup pdAnnotationPopup = new PDAnnotationPopup();
 
-    COSDictionary dict = new COSDictionary(new COSDictionary());
+    COSDictionary dict = new COSDictionary();
     dict.setDirect(true);
-    dict.setKey(new COSObjectKey(1L, 1));
 
     // Act
     pdAnnotationPopup.setParent(new PDAnnotationMarkup(dict));
@@ -252,17 +255,15 @@ class PDAnnotationPopupDiffblueTest {
 
   /**
    * Test {@link PDAnnotationPopup#setParent(PDAnnotationMarkup)}.
-   *
    * <ul>
-   *   <li>When {@link PDAnnotationMarkup#PDAnnotationMarkup()}.
+   *   <li>When {@link PDAnnotationMarkup#PDAnnotationMarkup()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationPopup#setParent(PDAnnotationMarkup)}
+   * <p>
+   * Method under test: {@link PDAnnotationPopup#setParent(PDAnnotationMarkup)}
    */
   @Test
   @DisplayName("Test setParent(PDAnnotationMarkup); when PDAnnotationMarkup()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationPopup.setParent(PDAnnotationMarkup)"})
   void testSetParent_whenPDAnnotationMarkup() {
     // Arrange
@@ -279,16 +280,15 @@ class PDAnnotationPopupDiffblueTest {
 
   /**
    * Test {@link PDAnnotationPopup#getParent()}.
-   *
-   * <p>Method under test: {@link PDAnnotationPopup#getParent()}
+   * <p>
+   * Method under test: {@link PDAnnotationPopup#getParent()}
    */
   @Test
   @DisplayName("Test getParent()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAnnotationMarkup PDAnnotationPopup.getParent()"})
   void testGetParent() {
     // Arrange, Act and Assert
-    assertNull(new PDAnnotationPopup().getParent());
+    assertNull((new PDAnnotationPopup()).getParent());
   }
 }

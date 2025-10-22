@@ -1,7 +1,6 @@
 package org.apache.pdfbox.pdmodel.graphics.image;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -13,69 +12,56 @@ import org.junit.jupiter.api.Test;
 class CCITTFactoryDiffblueTest {
   /**
    * Test {@link CCITTFactory#createFromImage(PDDocument, BufferedImage)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link IllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link CCITTFactory#createFromImage(PDDocument, BufferedImage)}
+   * <p>
+   * Method under test: {@link CCITTFactory#createFromImage(PDDocument, BufferedImage)}
    */
   @Test
-  @DisplayName(
-      "Test createFromImage(PDDocument, BufferedImage); then throw IllegalArgumentException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test createFromImage(PDDocument, BufferedImage)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject CCITTFactory.createFromImage(PDDocument, BufferedImage)"
-  })
-  void testCreateFromImage_thenThrowIllegalArgumentException() throws IOException {
+      "org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject CCITTFactory.createFromImage(PDDocument, BufferedImage)"})
+  void testCreateFromImage() throws IOException {
     // Arrange
     PDDocument document = new PDDocument();
 
     // Act and Assert
-    assertThrows(
-        IllegalArgumentException.class,
+    assertThrows(IllegalArgumentException.class,
         () -> CCITTFactory.createFromImage(document, new BufferedImage(1, 1, 1)));
   }
 
   /**
-   * Test {@link CCITTFactory#createFromByteArray(PDDocument, byte[])} with {@code document}, {@code
-   * byteArray}.
-   *
-   * <p>Method under test: {@link CCITTFactory#createFromByteArray(PDDocument, byte[])}
+   * Test {@link CCITTFactory#createFromByteArray(PDDocument, byte[])} with {@code document}, {@code byteArray}.
+   * <p>
+   * Method under test: {@link CCITTFactory#createFromByteArray(PDDocument, byte[])}
    */
   @Test
   @DisplayName("Test createFromByteArray(PDDocument, byte[]) with 'document', 'byteArray'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject CCITTFactory.createFromByteArray(PDDocument, byte[])"
-  })
+      "org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject CCITTFactory.createFromByteArray(PDDocument, byte[])"})
   void testCreateFromByteArrayWithDocumentByteArray() throws IOException {
-    // Arrange, Act and Assert
-    assertThrows(
-        IOException.class,
-        () -> CCITTFactory.createFromByteArray(new PDDocument(), "AXAXAXAX".getBytes("UTF-8")));
+    // Arrange
+    PDDocument document = new PDDocument();
+
+    // Act and Assert
+    assertThrows(IOException.class, () -> CCITTFactory.createFromByteArray(document, "AXAXAXAX".getBytes("UTF-8")));
   }
 
   /**
-   * Test {@link CCITTFactory#createFromByteArray(PDDocument, byte[], int)} with {@code document},
-   * {@code byteArray}, {@code number}.
-   *
-   * <p>Method under test: {@link CCITTFactory#createFromByteArray(PDDocument, byte[], int)}
+   * Test {@link CCITTFactory#createFromByteArray(PDDocument, byte[], int)} with {@code document}, {@code byteArray}, {@code number}.
+   * <p>
+   * Method under test: {@link CCITTFactory#createFromByteArray(PDDocument, byte[], int)}
    */
   @Test
-  @DisplayName(
-      "Test createFromByteArray(PDDocument, byte[], int) with 'document', 'byteArray', 'number'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test createFromByteArray(PDDocument, byte[], int) with 'document', 'byteArray', 'number'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject CCITTFactory.createFromByteArray(PDDocument, byte[], int)"
-  })
+      "org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject CCITTFactory.createFromByteArray(PDDocument, byte[], int)"})
   void testCreateFromByteArrayWithDocumentByteArrayNumber() throws IOException {
-    // Arrange, Act and Assert
-    assertThrows(
-        IOException.class,
-        () -> CCITTFactory.createFromByteArray(new PDDocument(), "AXAXAXAX".getBytes("UTF-8"), 10));
+    // Arrange
+    PDDocument document = new PDDocument();
+
+    // Act and Assert
+    assertThrows(IOException.class, () -> CCITTFactory.createFromByteArray(document, "AXAXAXAX".getBytes("UTF-8"), 10));
   }
 }

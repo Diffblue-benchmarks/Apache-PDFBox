@@ -2,7 +2,6 @@ package org.apache.pdfbox.contentstream.operator.state;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,39 +17,35 @@ import org.junit.jupiter.api.Test;
 
 class RestoreDiffblueTest {
   /**
-   * Test {@link Restore#Restore(PDFStreamEngine)}.
-   *
-   * <p>Methods under test:
-   *
+   * Test getters and setters.
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link Restore#Restore(PDFStreamEngine)}
    *   <li>{@link Restore#getName()}
    * </ul>
    */
   @Test
-  @DisplayName("Test new Restore(PDFStreamEngine)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void Restore.<init>(PDFStreamEngine)", "java.lang.String Restore.getName()"})
-  void testNewRestore() {
+  void testGettersAndSetters() {
     // Arrange, Act and Assert
-    assertEquals("Q", new Restore(new PDFMarkedContentExtractor()).getName());
+    assertEquals("Q", (new Restore(new PDFMarkedContentExtractor())).getName());
   }
 
   /**
    * Test {@link Restore#process(Operator, List)}.
-   *
    * <ul>
-   *   <li>Given {@link COSBoolean#FALSE}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@link COSBoolean#FALSE}.
+   *   <li>Given {@link COSBoolean#FALSE}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@link COSBoolean#FALSE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Restore#process(Operator, List)}
+   * <p>
+   * Method under test: {@link Restore#process(Operator, List)}
    */
   @Test
   @DisplayName("Test process(Operator, List); given FALSE; when ArrayList() add FALSE")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void Restore.process(Operator, List)"})
   void testProcess_givenFalse_whenArrayListAddFalse() throws IOException {
     // Arrange
@@ -66,18 +61,16 @@ class RestoreDiffblueTest {
 
   /**
    * Test {@link Restore#process(Operator, List)}.
-   *
    * <ul>
-   *   <li>Given {@link COSBoolean#FALSE}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@link COSBoolean#FALSE}.
+   *   <li>Given {@link COSBoolean#FALSE}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@link COSBoolean#FALSE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Restore#process(Operator, List)}
+   * <p>
+   * Method under test: {@link Restore#process(Operator, List)}
    */
   @Test
   @DisplayName("Test process(Operator, List); given FALSE; when ArrayList() add FALSE")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void Restore.process(Operator, List)"})
   void testProcess_givenFalse_whenArrayListAddFalse2() throws IOException {
     // Arrange
@@ -94,19 +87,16 @@ class RestoreDiffblueTest {
 
   /**
    * Test {@link Restore#process(Operator, List)}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then throw {@link EmptyGraphicsStackException}.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then throw {@link EmptyGraphicsStackException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Restore#process(Operator, List)}
+   * <p>
+   * Method under test: {@link Restore#process(Operator, List)}
    */
   @Test
-  @DisplayName(
-      "Test process(Operator, List); when ArrayList(); then throw EmptyGraphicsStackException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test process(Operator, List); when ArrayList(); then throw EmptyGraphicsStackException")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void Restore.process(Operator, List)"})
   void testProcess_whenArrayList_thenThrowEmptyGraphicsStackException() throws IOException {
     // Arrange
@@ -114,7 +104,6 @@ class RestoreDiffblueTest {
     Operator operator = Operator.getOperator("Operator");
 
     // Act and Assert
-    assertThrows(
-        EmptyGraphicsStackException.class, () -> restore.process(operator, new ArrayList<>()));
+    assertThrows(EmptyGraphicsStackException.class, () -> restore.process(operator, new ArrayList<>()));
   }
 }

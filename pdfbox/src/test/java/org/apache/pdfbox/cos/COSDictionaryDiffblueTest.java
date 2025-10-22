@@ -11,20 +11,15 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.GregorianCalendar;
-import java.util.LinkedHashSet;
 import java.util.Map;
 import org.apache.pdfbox.pdfwriter.COSWriter;
-import org.apache.pdfbox.pdmodel.PDDestinationNameTreeNode;
-import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.common.COSObjectable;
-import org.apache.pdfbox.pdmodel.common.PDPageLabels;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -33,13 +28,12 @@ import org.mockito.Mockito;
 class COSDictionaryDiffblueTest {
   /**
    * Test {@link COSDictionary#COSDictionary()}.
-   *
-   * <p>Method under test: {@link COSDictionary#COSDictionary()}
+   * <p>
+   * Method under test: {@link COSDictionary#COSDictionary()}
    */
   @Test
   @DisplayName("Test new COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.<init>()"})
   void testNewCOSDictionary() {
     // Arrange and Act
@@ -63,18 +57,15 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#COSDictionary(COSDictionary)}.
-   *
    * <ul>
-   *   <li>Then return UpdateState OriginDocumentState is {@code null}.
+   *   <li>Then return UpdateState OriginDocumentState is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#COSDictionary(COSDictionary)}
+   * <p>
+   * Method under test: {@link COSDictionary#COSDictionary(COSDictionary)}
    */
   @Test
-  @DisplayName(
-      "Test new COSDictionary(COSDictionary); then return UpdateState OriginDocumentState is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new COSDictionary(COSDictionary); then return UpdateState OriginDocumentState is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.<init>(COSDictionary)"})
   void testNewCOSDictionary_thenReturnUpdateStateOriginDocumentStateIsNull() {
     // Arrange and Act
@@ -98,19 +89,16 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#COSDictionary(COSDictionary)}.
-   *
    * <ul>
-   *   <li>When {@link COSStream#COSStream()}.
-   *   <li>Then return Values size is one.
+   *   <li>When {@link COSStream#COSStream()}.</li>
+   *   <li>Then return Values size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#COSDictionary(COSDictionary)}
+   * <p>
+   * Method under test: {@link COSDictionary#COSDictionary(COSDictionary)}
    */
   @Test
-  @DisplayName(
-      "Test new COSDictionary(COSDictionary); when COSStream(); then return Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new COSDictionary(COSDictionary); when COSStream(); then return Values size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.<init>(COSDictionary)"})
   void testNewCOSDictionary_whenCOSStream_thenReturnValuesSizeIsOne() {
     // Arrange and Act
@@ -124,307 +112,436 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#containsValue(Object)}.
-   *
-   * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.
-   *   <li>When {@code Value}.
-   *   <li>Then return {@code false}.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#containsValue(Object)}
+   * <p>
+   * Method under test: {@link COSDictionary#containsValue(Object)}
    */
   @Test
-  @DisplayName(
-      "Test containsValue(Object); given COSDictionary(); when 'Value'; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test containsValue(Object)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean COSDictionary.containsValue(Object)"})
-  void testContainsValue_givenCOSDictionary_whenValue_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse(new COSDictionary().containsValue("Value"));
+  void testContainsValue() {
+    // Arrange
+    COSStream cosStream = new COSStream();
+    cosStream.addAll(new COSDictionary());
+
+    // Act and Assert
+    assertTrue(cosStream.containsValue(new COSObject(COSInteger.OUT_OF_RANGE_MIN, new COSObjectKey(1L, 1))));
   }
 
   /**
    * Test {@link COSDictionary#containsValue(Object)}.
-   *
    * <ul>
-   *   <li>When {@link COSObject#COSObject(COSBase, COSObjectKey)} with object is {@link
-   *       COSBoolean#FALSE} and objectKey is {@link COSObjectKey#COSObjectKey(long, int)}.
+   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#containsValue(Object)}
+   * <p>
+   * Method under test: {@link COSDictionary#containsValue(Object)}
    */
   @Test
-  @DisplayName(
-      "Test containsValue(Object); when COSObject(COSBase, COSObjectKey) with object is FALSE and objectKey is COSObjectKey(long, int)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test containsValue(Object); given COSDictionary()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean COSDictionary.containsValue(Object)"})
+  void testContainsValue_givenCOSDictionary() {
+    // Arrange
+    COSDictionary cosDictionary = new COSDictionary();
+
+    // Act and Assert
+    assertFalse(cosDictionary.containsValue(new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1))));
+  }
+
+  /**
+   * Test {@link COSDictionary#containsValue(Object)}.
+   * <ul>
+   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>When {@code Value}.</li>
+   *   <li>Then return {@code false}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link COSDictionary#containsValue(Object)}
+   */
+  @Test
+  @DisplayName("Test containsValue(Object); given COSDictionary(); when 'Value'; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean COSDictionary.containsValue(Object)"})
+  void testContainsValue_givenCOSDictionary_whenValue_thenReturnFalse() {
+    // Arrange, Act and Assert
+    assertFalse((new COSDictionary()).containsValue("Value"));
+  }
+
+  /**
+   * Test {@link COSDictionary#containsValue(Object)}.
+   * <ul>
+   *   <li>Given {@link COSStream#COSStream()} addAll {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>When {@link COSFloat#ONE}.</li>
+   *   <li>Then return {@code false}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link COSDictionary#containsValue(Object)}
+   */
+  @Test
+  @DisplayName("Test containsValue(Object); given COSStream() addAll COSDictionary(); when ONE; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean COSDictionary.containsValue(Object)"})
+  void testContainsValue_givenCOSStreamAddAllCOSDictionary_whenOne_thenReturnFalse() {
+    // Arrange
+    COSStream cosStream = new COSStream();
+    cosStream.addAll(new COSDictionary());
+
+    // Act and Assert
+    assertFalse(cosStream.containsValue(COSFloat.ONE));
+  }
+
+  /**
+   * Test {@link COSDictionary#containsValue(Object)}.
+   * <ul>
+   *   <li>Given {@link COSStream#COSStream()} addAll {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>When {@link COSInteger#ONE}.</li>
+   *   <li>Then return {@code false}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link COSDictionary#containsValue(Object)}
+   */
+  @Test
+  @DisplayName("Test containsValue(Object); given COSStream() addAll COSDictionary(); when ONE; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean COSDictionary.containsValue(Object)"})
+  void testContainsValue_givenCOSStreamAddAllCOSDictionary_whenOne_thenReturnFalse2() {
+    // Arrange
+    COSStream cosStream = new COSStream();
+    cosStream.addAll(new COSDictionary());
+
+    // Act and Assert
+    assertFalse(cosStream.containsValue(COSInteger.ONE));
+  }
+
+  /**
+   * Test {@link COSDictionary#containsValue(Object)}.
+   * <ul>
+   *   <li>When {@link COSObject#COSObject(COSBase, COSObjectKey)} with object is {@link COSName#A} and objectKey is {@link COSObjectKey#COSObjectKey(long, int)}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link COSDictionary#containsValue(Object)}
+   */
+  @Test
+  @DisplayName("Test containsValue(Object); when COSObject(COSBase, COSObjectKey) with object is A and objectKey is COSObjectKey(long, int)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean COSDictionary.containsValue(Object)"})
+  void testContainsValue_whenCOSObjectWithObjectIsAAndObjectKeyIsCOSObjectKey() {
+    // Arrange
+    COSStream cosStream = new COSStream();
+    cosStream.addAll(new COSDictionary());
+
+    // Act and Assert
+    assertFalse(cosStream.containsValue(new COSObject(COSName.A, new COSObjectKey(1L, 1))));
+  }
+
+  /**
+   * Test {@link COSDictionary#containsValue(Object)}.
+   * <ul>
+   *   <li>When {@link COSObject#COSObject(COSBase, COSObjectKey)} with object is {@link COSBoolean#FALSE} and objectKey is {@link COSObjectKey#COSObjectKey(long, int)}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link COSDictionary#containsValue(Object)}
+   */
+  @Test
+  @DisplayName("Test containsValue(Object); when COSObject(COSBase, COSObjectKey) with object is FALSE and objectKey is COSObjectKey(long, int)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean COSDictionary.containsValue(Object)"})
   void testContainsValue_whenCOSObjectWithObjectIsFalseAndObjectKeyIsCOSObjectKey() {
     // Arrange
-    COSDictionary cosDictionary = new COSDictionary();
-    COSObject cosObject = new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1));
+    COSStream cosStream = new COSStream();
+    cosStream.addAll(new COSDictionary());
 
-    // Act
-    boolean actualContainsValueResult = cosDictionary.containsValue(cosObject);
+    // Act and Assert
+    assertFalse(cosStream.containsValue(new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1))));
+  }
 
-    // Assert
-    assertFalse(actualContainsValueResult);
+  /**
+   * Test {@link COSDictionary#containsValue(Object)}.
+   * <ul>
+   *   <li>When {@link COSObject#COSObject(COSBase, COSObjectKey)} with object is {@link COSFloat#ONE} and objectKey is {@link COSObjectKey#COSObjectKey(long, int)}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link COSDictionary#containsValue(Object)}
+   */
+  @Test
+  @DisplayName("Test containsValue(Object); when COSObject(COSBase, COSObjectKey) with object is ONE and objectKey is COSObjectKey(long, int)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean COSDictionary.containsValue(Object)"})
+  void testContainsValue_whenCOSObjectWithObjectIsOneAndObjectKeyIsCOSObjectKey() {
+    // Arrange
+    COSStream cosStream = new COSStream();
+    cosStream.addAll(new COSDictionary());
+
+    // Act and Assert
+    assertFalse(cosStream.containsValue(new COSObject(COSFloat.ONE, new COSObjectKey(1L, 1))));
+  }
+
+  /**
+   * Test {@link COSDictionary#containsValue(Object)}.
+   * <ul>
+   *   <li>When {@link COSObject#COSObject(COSBase, COSObjectKey)} with object is {@link COSInteger#ONE} and objectKey is {@link COSObjectKey#COSObjectKey(long, int)}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link COSDictionary#containsValue(Object)}
+   */
+  @Test
+  @DisplayName("Test containsValue(Object); when COSObject(COSBase, COSObjectKey) with object is ONE and objectKey is COSObjectKey(long, int)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean COSDictionary.containsValue(Object)"})
+  void testContainsValue_whenCOSObjectWithObjectIsOneAndObjectKeyIsCOSObjectKey2() {
+    // Arrange
+    COSStream cosStream = new COSStream();
+    cosStream.addAll(new COSDictionary());
+
+    // Act and Assert
+    assertFalse(cosStream.containsValue(new COSObject(COSInteger.ONE, new COSObjectKey(1L, 1))));
+  }
+
+  /**
+   * Test {@link COSDictionary#containsValue(Object)}.
+   * <ul>
+   *   <li>When {@link COSInteger#OUT_OF_RANGE_MIN}.</li>
+   *   <li>Then return {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link COSDictionary#containsValue(Object)}
+   */
+  @Test
+  @DisplayName("Test containsValue(Object); when OUT_OF_RANGE_MIN; then return 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean COSDictionary.containsValue(Object)"})
+  void testContainsValue_whenOut_of_range_min_thenReturnTrue() {
+    // Arrange
+    COSStream cosStream = new COSStream();
+    cosStream.addAll(new COSDictionary());
+
+    // Act and Assert
+    assertTrue(cosStream.containsValue(COSInteger.OUT_OF_RANGE_MIN));
   }
 
   /**
    * Test {@link COSDictionary#getKeyForValue(Object)}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.
-   *   <li>When {@code Value}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>When {@code Value}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getKeyForValue(Object)}
+   * <p>
+   * Method under test: {@link COSDictionary#getKeyForValue(Object)}
    */
   @Test
-  @DisplayName(
-      "Test getKeyForValue(Object); given COSDictionary(); when 'Value'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getKeyForValue(Object); given COSDictionary(); when 'Value'; then return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSName COSDictionary.getKeyForValue(Object)"})
   void testGetKeyForValue_givenCOSDictionary_whenValue_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new COSDictionary().getKeyForValue("Value"));
+    assertNull((new COSDictionary()).getKeyForValue("Value"));
   }
 
   /**
    * Test {@link COSDictionary#getKeyForValue(Object)}.
-   *
    * <ul>
-   *   <li>Given {@link COSStream#COSStream()}.
-   *   <li>When {@link COSInteger#ONE}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link COSStream#COSStream()}.</li>
+   *   <li>When {@link COSInteger#ONE}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getKeyForValue(Object)}
+   * <p>
+   * Method under test: {@link COSDictionary#getKeyForValue(Object)}
    */
   @Test
   @DisplayName("Test getKeyForValue(Object); given COSStream(); when ONE; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSName COSDictionary.getKeyForValue(Object)"})
   void testGetKeyForValue_givenCOSStream_whenOne_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new COSStream().getKeyForValue(COSInteger.ONE));
+    assertNull((new COSStream()).getKeyForValue(COSInteger.ONE));
   }
 
   /**
    * Test {@link COSDictionary#getKeyForValue(Object)}.
-   *
    * <ul>
-   *   <li>Given {@link COSStream#COSStream()}.
-   *   <li>When {@link COSInteger#OUT_OF_RANGE_MIN}.
-   *   <li>Then return {@link COSName#LENGTH}.
+   *   <li>Given {@link COSStream#COSStream()}.</li>
+   *   <li>When {@link COSInteger#OUT_OF_RANGE_MIN}.</li>
+   *   <li>Then return {@link COSName#LENGTH}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getKeyForValue(Object)}
+   * <p>
+   * Method under test: {@link COSDictionary#getKeyForValue(Object)}
    */
   @Test
-  @DisplayName(
-      "Test getKeyForValue(Object); given COSStream(); when OUT_OF_RANGE_MIN; then return LENGTH")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getKeyForValue(Object); given COSStream(); when OUT_OF_RANGE_MIN; then return LENGTH")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSName COSDictionary.getKeyForValue(Object)"})
   void testGetKeyForValue_givenCOSStream_whenOut_of_range_min_thenReturnLength() {
-    // Arrange, Act and Assert
-    assertSame(COSName.LENGTH, new COSStream().getKeyForValue(COSInteger.OUT_OF_RANGE_MIN));
+    // Arrange and Act
+    COSName actualKeyForValue = (new COSStream()).getKeyForValue(COSInteger.OUT_OF_RANGE_MIN);
+
+    // Assert
+    assertSame(actualKeyForValue.LENGTH, actualKeyForValue);
   }
 
   /**
    * Test {@link COSDictionary#getKeyForValue(Object)}.
-   *
    * <ul>
-   *   <li>Given {@link COSStream#COSStream()}.
-   *   <li>When {@code Value}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link COSStream#COSStream()}.</li>
+   *   <li>When {@code Value}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getKeyForValue(Object)}
+   * <p>
+   * Method under test: {@link COSDictionary#getKeyForValue(Object)}
    */
   @Test
   @DisplayName("Test getKeyForValue(Object); given COSStream(); when 'Value'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSName COSDictionary.getKeyForValue(Object)"})
   void testGetKeyForValue_givenCOSStream_whenValue_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new COSStream().getKeyForValue("Value"));
+    assertNull((new COSStream()).getKeyForValue("Value"));
   }
 
   /**
    * Test {@link COSDictionary#size()}.
-   *
-   * <p>Method under test: {@link COSDictionary#size()}
+   * <p>
+   * Method under test: {@link COSDictionary#size()}
    */
   @Test
   @DisplayName("Test size()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int COSDictionary.size()"})
   void testSize() {
     // Arrange, Act and Assert
-    assertEquals(0, new COSDictionary().size());
+    assertEquals(0, (new COSDictionary()).size());
   }
 
   /**
-   * Test {@link COSDictionary#getDictionaryObject(COSName, COSName)} with {@code COSName}, {@code
-   * COSName}.
-   *
+   * Test {@link COSDictionary#getDictionaryObject(COSName, COSName)} with {@code COSName}, {@code COSName}.
    * <ul>
-   *   <li>When {@link COSName#A}.
+   *   <li>When {@link COSName#A}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getDictionaryObject(COSName, COSName)}
+   * <p>
+   * Method under test: {@link COSDictionary#getDictionaryObject(COSName, COSName)}
    */
   @Test
   @DisplayName("Test getDictionaryObject(COSName, COSName) with 'COSName', 'COSName'; when A")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSBase COSDictionary.getDictionaryObject(COSName, COSName)"})
   void testGetDictionaryObjectWithCOSNameCOSName_whenA() {
     // Arrange, Act and Assert
-    assertNull(new COSDictionary().getDictionaryObject(COSName.A, COSName.A));
+    assertNull((new COSDictionary()).getDictionaryObject(COSName.A, COSName.A));
   }
 
   /**
-   * Test {@link COSDictionary#getDictionaryObject(COSName, COSName)} with {@code COSName}, {@code
-   * COSName}.
-   *
+   * Test {@link COSDictionary#getDictionaryObject(COSName, COSName)} with {@code COSName}, {@code COSName}.
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getDictionaryObject(COSName, COSName)}
+   * <p>
+   * Method under test: {@link COSDictionary#getDictionaryObject(COSName, COSName)}
    */
   @Test
   @DisplayName("Test getDictionaryObject(COSName, COSName) with 'COSName', 'COSName'; when 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSBase COSDictionary.getDictionaryObject(COSName, COSName)"})
   void testGetDictionaryObjectWithCOSNameCOSName_whenNull() {
     // Arrange, Act and Assert
-    assertNull(new COSDictionary().getDictionaryObject(COSName.A, null));
+    assertNull((new COSDictionary()).getDictionaryObject(null, COSName.A));
   }
 
   /**
-   * Test {@link COSDictionary#getDictionaryObject(COSName, COSName)} with {@code COSName}, {@code
-   * COSName}.
-   *
+   * Test {@link COSDictionary#getDictionaryObject(COSName, COSName)} with {@code COSName}, {@code COSName}.
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getDictionaryObject(COSName, COSName)}
+   * <p>
+   * Method under test: {@link COSDictionary#getDictionaryObject(COSName, COSName)}
    */
   @Test
   @DisplayName("Test getDictionaryObject(COSName, COSName) with 'COSName', 'COSName'; when 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSBase COSDictionary.getDictionaryObject(COSName, COSName)"})
   void testGetDictionaryObjectWithCOSNameCOSName_whenNull2() {
     // Arrange, Act and Assert
-    assertNull(new COSDictionary().getDictionaryObject(null, COSName.A));
+    assertNull((new COSDictionary()).getDictionaryObject(COSName.A, null));
   }
 
   /**
    * Test {@link COSDictionary#getDictionaryObject(COSName)} with {@code COSName}.
-   *
    * <ul>
-   *   <li>When {@link COSName#A}.
+   *   <li>When {@link COSName#A}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getDictionaryObject(COSName)}
+   * <p>
+   * Method under test: {@link COSDictionary#getDictionaryObject(COSName)}
    */
   @Test
   @DisplayName("Test getDictionaryObject(COSName) with 'COSName'; when A")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSBase COSDictionary.getDictionaryObject(COSName)"})
   void testGetDictionaryObjectWithCOSName_whenA() {
     // Arrange, Act and Assert
-    assertNull(new COSDictionary().getDictionaryObject(COSName.A));
+    assertNull((new COSDictionary()).getDictionaryObject(COSName.A));
   }
 
   /**
    * Test {@link COSDictionary#getDictionaryObject(COSName)} with {@code COSName}.
-   *
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getDictionaryObject(COSName)}
+   * <p>
+   * Method under test: {@link COSDictionary#getDictionaryObject(COSName)}
    */
   @Test
   @DisplayName("Test getDictionaryObject(COSName) with 'COSName'; when 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSBase COSDictionary.getDictionaryObject(COSName)"})
   void testGetDictionaryObjectWithCOSName_whenNull() {
     // Arrange, Act and Assert
-    assertNull(new COSDictionary().getDictionaryObject((COSName) null));
+    assertNull((new COSDictionary()).getDictionaryObject((COSName) null));
   }
 
   /**
    * Test {@link COSDictionary#getDictionaryObject(String)} with {@code String}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.
+   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getDictionaryObject(String)}
+   * <p>
+   * Method under test: {@link COSDictionary#getDictionaryObject(String)}
    */
   @Test
   @DisplayName("Test getDictionaryObject(String) with 'String'; given COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSBase COSDictionary.getDictionaryObject(String)"})
   void testGetDictionaryObjectWithString_givenCOSDictionary() {
     // Arrange, Act and Assert
-    assertNull(new COSDictionary().getDictionaryObject("Key"));
+    assertNull((new COSDictionary()).getDictionaryObject("Key"));
   }
 
   /**
    * Test {@link COSDictionary#getDictionaryObject(String)} with {@code String}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary(COSDictionary)} with dict is {@link
-   *       COSDictionary#COSDictionary()}.
+   *   <li>Given {@link COSDictionary#COSDictionary(COSDictionary)} with dict is {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getDictionaryObject(String)}
+   * <p>
+   * Method under test: {@link COSDictionary#getDictionaryObject(String)}
    */
   @Test
-  @DisplayName(
-      "Test getDictionaryObject(String) with 'String'; given COSDictionary(COSDictionary) with dict is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getDictionaryObject(String) with 'String'; given COSDictionary(COSDictionary) with dict is COSDictionary()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSBase COSDictionary.getDictionaryObject(String)"})
   void testGetDictionaryObjectWithString_givenCOSDictionaryWithDictIsCOSDictionary() {
     // Arrange, Act and Assert
-    assertNull(new COSDictionary(new COSDictionary()).getDictionaryObject("Key"));
+    assertNull((new COSDictionary(new COSDictionary())).getDictionaryObject("Key"));
   }
 
   /**
    * Test {@link COSDictionary#setItem(COSName, COSBase)} with {@code COSName}, {@code COSBase}.
-   *
    * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setItem(COSName, COSBase)}
+   * <p>
+   * Method under test: {@link COSDictionary#setItem(COSName, COSBase)}
    */
   @Test
-  @DisplayName(
-      "Test setItem(COSName, COSBase) with 'COSName', 'COSBase'; given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setItem(COSName, COSBase) with 'COSName', 'COSBase'; given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setItem(COSName, COSBase)"})
   void testSetItemWithCOSNameCOSBase_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
@@ -444,18 +561,15 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#setItem(COSName, COSBase)} with {@code COSName}, {@code COSBase}.
-   *
    * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setItem(COSName, COSBase)}
+   * <p>
+   * Method under test: {@link COSDictionary#setItem(COSName, COSBase)}
    */
   @Test
-  @DisplayName(
-      "Test setItem(COSName, COSBase) with 'COSName', 'COSBase'; given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setItem(COSName, COSBase) with 'COSName', 'COSBase'; given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setItem(COSName, COSBase)"})
   void testSetItemWithCOSNameCOSBase_givenCOSObjectKeyWithNumIsOneAndGenIsOne2() {
     // Arrange
@@ -475,19 +589,16 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#setItem(COSName, COSBase)} with {@code COSName}, {@code COSBase}.
-   *
    * <ul>
-   *   <li>When {@link COSArray#COSArray()}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.
+   *   <li>When {@link COSArray#COSArray()}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setItem(COSName, COSBase)}
+   * <p>
+   * Method under test: {@link COSDictionary#setItem(COSName, COSBase)}
    */
   @Test
-  @DisplayName(
-      "Test setItem(COSName, COSBase) with 'COSName', 'COSBase'; when COSArray(); then COSDictionary() Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setItem(COSName, COSBase) with 'COSName', 'COSBase'; when COSArray(); then COSDictionary() Values size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setItem(COSName, COSBase)"})
   void testSetItemWithCOSNameCOSBase_whenCOSArray_thenCOSDictionaryValuesSizeIsOne() {
     // Arrange
@@ -504,19 +615,16 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#setItem(COSName, COSBase)} with {@code COSName}, {@code COSBase}.
-   *
    * <ul>
-   *   <li>When {@link COSDictionary#COSDictionary()}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} size is zero.
+   *   <li>When {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} size is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setItem(COSName, COSBase)}
+   * <p>
+   * Method under test: {@link COSDictionary#setItem(COSName, COSBase)}
    */
   @Test
-  @DisplayName(
-      "Test setItem(COSName, COSBase) with 'COSName', 'COSBase'; when COSDictionary(); then COSDictionary() size is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setItem(COSName, COSBase) with 'COSName', 'COSBase'; when COSDictionary(); then COSDictionary() size is zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setItem(COSName, COSBase)"})
   void testSetItemWithCOSNameCOSBase_whenCOSDictionary_thenCOSDictionarySizeIsZero() {
     // Arrange
@@ -534,26 +642,22 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#setItem(COSName, COSBase)} with {@code COSName}, {@code COSBase}.
-   *
    * <ul>
-   *   <li>When {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   *   <li>When {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setItem(COSName, COSBase)}
+   * <p>
+   * Method under test: {@link COSDictionary#setItem(COSName, COSBase)}
    */
   @Test
-  @DisplayName(
-      "Test setItem(COSName, COSBase) with 'COSName', 'COSBase'; when COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setItem(COSName, COSBase) with 'COSName', 'COSBase'; when COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setItem(COSName, COSBase)"})
   void testSetItemWithCOSNameCOSBase_whenCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
     COSDictionary cosDictionary = new COSDictionary();
-    COSObject value = new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1));
 
     // Act
-    cosDictionary.setItem(COSName.A, (COSBase) value);
+    cosDictionary.setItem(COSName.A, (COSBase) new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1)));
 
     // Assert
     assertEquals(1, cosDictionary.getValues().size());
@@ -563,51 +667,46 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#setItem(COSName, COSBase)} with {@code COSName}, {@code COSBase}.
-   *
    * <ul>
-   *   <li>When {@link COSBoolean#FALSE}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} {@link COSDictionary#items} {@code null} is
-   *       {@link COSBoolean#FALSE}.
+   *   <li>When {@link COSBoolean#FALSE}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} {@link COSDictionary#items} {@code null} is {@link COSBoolean#FALSE} {@link COSBoolean#FALSE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setItem(COSName, COSBase)}
+   * <p>
+   * Method under test: {@link COSDictionary#setItem(COSName, COSBase)}
    */
   @Test
-  @DisplayName(
-      "Test setItem(COSName, COSBase) with 'COSName', 'COSBase'; when FALSE; then COSDictionary() items 'null' is FALSE")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setItem(COSName, COSBase) with 'COSName', 'COSBase'; when FALSE; then COSDictionary() items 'null' is FALSE FALSE")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setItem(COSName, COSBase)"})
-  void testSetItemWithCOSNameCOSBase_whenFalse_thenCOSDictionaryItemsNullIsFalse() {
+  void testSetItemWithCOSNameCOSBase_whenFalse_thenCOSDictionaryItemsNullIsFalseFalse() {
     // Arrange
     COSDictionary cosDictionary = new COSDictionary();
+    COSBoolean value = COSBoolean.FALSE;
 
     // Act
-    cosDictionary.setItem((COSName) null, COSBoolean.FALSE);
+    cosDictionary.setItem((COSName) null, value);
 
     // Assert
     assertEquals(1, cosDictionary.getValues().size());
     Map<COSName, COSBase> cosNameCosBaseMap = cosDictionary.items;
     assertEquals(1, cosNameCosBaseMap.size());
     assertEquals(1, cosDictionary.size());
-    assertSame(COSBoolean.FALSE, cosNameCosBaseMap.get(null));
+    COSBoolean expectedGetResult = value.FALSE;
+    assertSame(expectedGetResult, cosNameCosBaseMap.get(null));
   }
 
   /**
    * Test {@link COSDictionary#setItem(COSName, COSBase)} with {@code COSName}, {@code COSBase}.
-   *
    * <ul>
-   *   <li>When {@link COSBoolean#FALSE}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.
+   *   <li>When {@link COSBoolean#FALSE}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setItem(COSName, COSBase)}
+   * <p>
+   * Method under test: {@link COSDictionary#setItem(COSName, COSBase)}
    */
   @Test
-  @DisplayName(
-      "Test setItem(COSName, COSBase) with 'COSName', 'COSBase'; when FALSE; then COSDictionary() Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setItem(COSName, COSBase) with 'COSName', 'COSBase'; when FALSE; then COSDictionary() Values size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setItem(COSName, COSBase)"})
   void testSetItemWithCOSNameCOSBase_whenFalse_thenCOSDictionaryValuesSizeIsOne() {
     // Arrange
@@ -624,19 +723,16 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#setItem(COSName, COSBase)} with {@code COSName}, {@code COSBase}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} size is zero.
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} size is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setItem(COSName, COSBase)}
+   * <p>
+   * Method under test: {@link COSDictionary#setItem(COSName, COSBase)}
    */
   @Test
-  @DisplayName(
-      "Test setItem(COSName, COSBase) with 'COSName', 'COSBase'; when 'null'; then COSDictionary() size is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setItem(COSName, COSBase) with 'COSName', 'COSBase'; when 'null'; then COSDictionary() size is zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setItem(COSName, COSBase)"})
   void testSetItemWithCOSNameCOSBase_whenNull_thenCOSDictionarySizeIsZero() {
     // Arrange
@@ -653,19 +749,16 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#setItem(COSName, COSBase)} with {@code COSName}, {@code COSBase}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} size is zero.
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} size is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setItem(COSName, COSBase)}
+   * <p>
+   * Method under test: {@link COSDictionary#setItem(COSName, COSBase)}
    */
   @Test
-  @DisplayName(
-      "Test setItem(COSName, COSBase) with 'COSName', 'COSBase'; when 'null'; then COSDictionary() size is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setItem(COSName, COSBase) with 'COSName', 'COSBase'; when 'null'; then COSDictionary() size is zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setItem(COSName, COSBase)"})
   void testSetItemWithCOSNameCOSBase_whenNull_thenCOSDictionarySizeIsZero2() {
     // Arrange
@@ -681,49 +774,111 @@ class COSDictionaryDiffblueTest {
   }
 
   /**
-   * Test {@link COSDictionary#setItem(COSName, COSObjectable)} with {@code COSName}, {@code
-   * COSObjectable}.
-   *
-   * <p>Method under test: {@link COSDictionary#setItem(COSName, COSObjectable)}
+   * Test {@link COSDictionary#setItem(COSName, COSObjectable)} with {@code COSName}, {@code COSObjectable}.
+   * <p>
+   * Method under test: {@link COSDictionary#setItem(COSName, COSObjectable)}
    */
   @Test
   @DisplayName("Test setItem(COSName, COSObjectable) with 'COSName', 'COSObjectable'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setItem(COSName, COSObjectable)"})
   void testSetItemWithCOSNameCOSObjectable() {
     // Arrange
     COSDictionary cosDictionary = new COSDictionary();
+    COSObjectable value = mock(COSObjectable.class);
+    when(value.getCOSObject()).thenReturn(new COSDictionary());
 
     // Act
-    cosDictionary.setItem(COSName.A, new PDDestinationNameTreeNode(new COSDictionary()));
+    cosDictionary.setItem(COSName.A, value);
 
     // Assert
+    verify(value).getCOSObject();
     assertEquals(1, cosDictionary.getValues().size());
     assertEquals(1, cosDictionary.items.size());
     assertEquals(1, cosDictionary.size());
   }
 
   /**
-   * Test {@link COSDictionary#setItem(COSName, COSObjectable)} with {@code COSName}, {@code
-   * COSObjectable}.
-   *
-   * <ul>
-   *   <li>Given {@link COSArray#COSArray()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setItem(COSName, COSObjectable)}
+   * Test {@link COSDictionary#setItem(COSName, COSObjectable)} with {@code COSName}, {@code COSObjectable}.
+   * <p>
+   * Method under test: {@link COSDictionary#setItem(COSName, COSObjectable)}
    */
   @Test
-  @DisplayName(
-      "Test setItem(COSName, COSObjectable) with 'COSName', 'COSObjectable'; given COSArray()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setItem(COSName, COSObjectable) with 'COSName', 'COSObjectable'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void COSDictionary.setItem(COSName, COSObjectable)"})
+  void testSetItemWithCOSNameCOSObjectable2() {
+    // Arrange
+    COSDictionary cosDictionary = new COSDictionary();
+
+    COSDictionary cosDictionary2 = new COSDictionary();
+    cosDictionary2.setKey(new COSObjectKey(1L, 1));
+    COSObjectable value = mock(COSObjectable.class);
+    when(value.getCOSObject()).thenReturn(cosDictionary2);
+
+    // Act
+    cosDictionary.setItem(COSName.A, value);
+
+    // Assert
+    verify(value).getCOSObject();
+    assertEquals(1, cosDictionary.getValues().size());
+    assertEquals(1, cosDictionary.items.size());
+    assertEquals(1, cosDictionary.size());
+  }
+
+  /**
+   * Test {@link COSDictionary#setItem(COSName, COSObjectable)} with {@code COSName}, {@code COSObjectable}.
+   * <p>
+   * Method under test: {@link COSDictionary#setItem(COSName, COSObjectable)}
+   */
+  @Test
+  @DisplayName("Test setItem(COSName, COSObjectable) with 'COSName', 'COSObjectable'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void COSDictionary.setItem(COSName, COSObjectable)"})
+  void testSetItemWithCOSNameCOSObjectable3() {
+    // Arrange
+    COSDictionary cosDictionary = new COSDictionary();
+
+    COSDictionary cosDictionary2 = new COSDictionary();
+    COSObjectKey key = new COSObjectKey(1L, 1);
+
+    cosDictionary2.setKey(key);
+    COSObjectable value = mock(COSObjectable.class);
+    when(value.getCOSObject()).thenReturn(cosDictionary2);
+
+    // Act
+    cosDictionary.setItem((COSName) null, value);
+
+    // Assert
+    verify(value).getCOSObject();
+    Map<COSName, COSBase> cosNameCosBaseMap = cosDictionary.items;
+    assertEquals(1, cosNameCosBaseMap.size());
+    COSBase getResult = cosNameCosBaseMap.get(null);
+    COSBase object = ((COSObject) getResult).getObject();
+    assertTrue(object instanceof COSDictionary);
+    assertTrue(getResult instanceof COSObject);
+    assertFalse(((COSObject) getResult).isObjectNull());
+    assertFalse(((COSObject) getResult).isNeedToBeUpdated());
+    assertTrue(((COSObject) getResult).isDereferenced());
+    assertSame(cosDictionary2, object);
+    assertSame(key, getResult.getKey());
+  }
+
+  /**
+   * Test {@link COSDictionary#setItem(COSName, COSObjectable)} with {@code COSName}, {@code COSObjectable}.
+   * <ul>
+   *   <li>Given {@link COSArray#COSArray()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link COSDictionary#setItem(COSName, COSObjectable)}
+   */
+  @Test
+  @DisplayName("Test setItem(COSName, COSObjectable) with 'COSName', 'COSObjectable'; given COSArray()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setItem(COSName, COSObjectable)"})
   void testSetItemWithCOSNameCOSObjectable_givenCOSArray() {
     // Arrange
     COSDictionary cosDictionary = new COSDictionary();
-
     COSObjectable value = mock(COSObjectable.class);
     when(value.getCOSObject()).thenReturn(new COSArray());
 
@@ -738,64 +893,22 @@ class COSDictionaryDiffblueTest {
   }
 
   /**
-   * Test {@link COSDictionary#setItem(COSName, COSObjectable)} with {@code COSName}, {@code
-   * COSObjectable}.
-   *
+   * Test {@link COSDictionary#setItem(COSName, COSObjectable)} with {@code COSName}, {@code COSObjectable}.
    * <ul>
-   *   <li>Given {@code false}.
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setItem(COSName, COSObjectable)}
+   * <p>
+   * Method under test: {@link COSDictionary#setItem(COSName, COSObjectable)}
    */
   @Test
-  @DisplayName(
-      "Test setItem(COSName, COSObjectable) with 'COSName', 'COSObjectable'; given 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setItem(COSName, COSObjectable) with 'COSName', 'COSObjectable'; given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setItem(COSName, COSObjectable)"})
-  void testSetItemWithCOSNameCOSObjectable_givenFalse() {
+  void testSetItemWithCOSNameCOSObjectable_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
     COSDictionary cosDictionary = new COSDictionary();
-
-    COSDictionary dic = new COSDictionary(new COSDictionary());
-    dic.setDirect(false);
-    dic.setKey(new COSObjectKey(1L, 1));
-
-    // Act
-    cosDictionary.setItem(COSName.A, new PDDestinationNameTreeNode(dic));
-
-    // Assert
-    assertEquals(1, cosDictionary.getValues().size());
-    assertEquals(1, cosDictionary.items.size());
-    assertEquals(1, cosDictionary.size());
-  }
-
-  /**
-   * Test {@link COSDictionary#setItem(COSName, COSObjectable)} with {@code COSName}, {@code
-   * COSObjectable}.
-   *
-   * <ul>
-   *   <li>Given {@link COSBoolean#FALSE} Direct is {@code false}.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setItem(COSName, COSObjectable)}
-   */
-  @Test
-  @DisplayName(
-      "Test setItem(COSName, COSObjectable) with 'COSName', 'COSObjectable'; given FALSE Direct is 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void COSDictionary.setItem(COSName, COSObjectable)"})
-  void testSetItemWithCOSNameCOSObjectable_givenFalseDirectIsFalse() {
-    // Arrange
-    COSDictionary cosDictionary = new COSDictionary();
-
-    COSBoolean cosBoolean = COSBoolean.FALSE;
-    cosBoolean.setDirect(false);
-    cosBoolean.setKey(null);
-
     COSObjectable value = mock(COSObjectable.class);
-    when(value.getCOSObject()).thenReturn(cosBoolean);
+    when(value.getCOSObject()).thenReturn(new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1)));
 
     // Act
     cosDictionary.setItem(COSName.A, value);
@@ -808,24 +921,78 @@ class COSDictionaryDiffblueTest {
   }
 
   /**
-   * Test {@link COSDictionary#setItem(COSName, COSObjectable)} with {@code COSName}, {@code
-   * COSObjectable}.
-   *
+   * Test {@link COSDictionary#setItem(COSName, COSObjectable)} with {@code COSName}, {@code COSObjectable}.
    * <ul>
-   *   <li>Given {@code null}.
+   *   <li>Given {@link COSBoolean#FALSE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setItem(COSName, COSObjectable)}
+   * <p>
+   * Method under test: {@link COSDictionary#setItem(COSName, COSObjectable)}
    */
   @Test
-  @DisplayName("Test setItem(COSName, COSObjectable) with 'COSName', 'COSObjectable'; given 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setItem(COSName, COSObjectable) with 'COSName', 'COSObjectable'; given FALSE")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setItem(COSName, COSObjectable)"})
-  void testSetItemWithCOSNameCOSObjectable_givenNull() {
+  void testSetItemWithCOSNameCOSObjectable_givenFalse() {
     // Arrange
     COSDictionary cosDictionary = new COSDictionary();
+    COSObjectable value = mock(COSObjectable.class);
+    when(value.getCOSObject()).thenReturn(COSBoolean.FALSE);
 
+    // Act
+    cosDictionary.setItem(COSName.A, value);
+
+    // Assert
+    verify(value).getCOSObject();
+    assertEquals(1, cosDictionary.getValues().size());
+    assertEquals(1, cosDictionary.items.size());
+    assertEquals(1, cosDictionary.size());
+  }
+
+  /**
+   * Test {@link COSDictionary#setItem(COSName, COSObjectable)} with {@code COSName}, {@code COSObjectable}.
+   * <ul>
+   *   <li>Given {@code null}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} size is zero.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link COSDictionary#setItem(COSName, COSObjectable)}
+   */
+  @Test
+  @DisplayName("Test setItem(COSName, COSObjectable) with 'COSName', 'COSObjectable'; given 'null'; then COSDictionary() size is zero")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void COSDictionary.setItem(COSName, COSObjectable)"})
+  void testSetItemWithCOSNameCOSObjectable_givenNull_thenCOSDictionarySizeIsZero() {
+    // Arrange
+    COSDictionary cosDictionary = new COSDictionary();
+    COSObjectable value = mock(COSObjectable.class);
+    when(value.getCOSObject()).thenReturn(null);
+
+    // Act
+    cosDictionary.setItem(COSName.A, value);
+
+    // Assert that nothing has changed
+    verify(value).getCOSObject();
+    assertEquals(0, cosDictionary.size());
+    assertTrue(cosDictionary.getValues().isEmpty());
+    assertTrue(cosDictionary.items.isEmpty());
+  }
+
+  /**
+   * Test {@link COSDictionary#setItem(COSName, COSObjectable)} with {@code COSName}, {@code COSObjectable}.
+   * <ul>
+   *   <li>Given {@code null}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} size is zero.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link COSDictionary#setItem(COSName, COSObjectable)}
+   */
+  @Test
+  @DisplayName("Test setItem(COSName, COSObjectable) with 'COSName', 'COSObjectable'; given 'null'; then COSDictionary() size is zero")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void COSDictionary.setItem(COSName, COSObjectable)"})
+  void testSetItemWithCOSNameCOSObjectable_givenNull_thenCOSDictionarySizeIsZero2() {
+    // Arrange
+    COSDictionary cosDictionary = new COSDictionary();
     COSObjectable value = mock(COSObjectable.class);
     when(value.getCOSObject()).thenReturn(null);
 
@@ -840,182 +1007,16 @@ class COSDictionaryDiffblueTest {
   }
 
   /**
-   * Test {@link COSDictionary#setItem(COSName, COSObjectable)} with {@code COSName}, {@code
-   * COSObjectable}.
-   *
-   * <ul>
-   *   <li>Then {@link COSDictionary#COSDictionary()} {@link COSDictionary#items} {@code null}
-   *       {@link COSBoolean}.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setItem(COSName, COSObjectable)}
-   */
-  @Test
-  @DisplayName(
-      "Test setItem(COSName, COSObjectable) with 'COSName', 'COSObjectable'; then COSDictionary() items 'null' COSBoolean")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void COSDictionary.setItem(COSName, COSObjectable)"})
-  void testSetItemWithCOSNameCOSObjectable_thenCOSDictionaryItemsNullCOSBoolean() {
-    // Arrange
-    COSDictionary cosDictionary = new COSDictionary();
-
-    COSBoolean cosBoolean = COSBoolean.FALSE;
-    cosBoolean.setDirect(false);
-    cosBoolean.setKey(null);
-
-    COSObjectable value = mock(COSObjectable.class);
-    when(value.getCOSObject()).thenReturn(cosBoolean);
-
-    // Act
-    cosDictionary.setItem((COSName) null, value);
-
-    // Assert
-    verify(value).getCOSObject();
-    Map<COSName, COSBase> cosNameCosBaseMap = cosDictionary.items;
-    assertEquals(1, cosNameCosBaseMap.size());
-    COSBase getResult = cosNameCosBaseMap.get(null);
-    assertTrue(getResult instanceof COSBoolean);
-    assertNull(getResult.getKey());
-    assertFalse(getResult.isDirect());
-    assertFalse(((COSBoolean) getResult).getValue());
-    assertFalse(((COSBoolean) getResult).getValueAsObject());
-  }
-
-  /**
-   * Test {@link COSDictionary#setItem(COSName, COSObjectable)} with {@code COSName}, {@code
-   * COSObjectable}.
-   *
-   * <ul>
-   *   <li>When {@link COSBoolean#FALSE}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setItem(COSName, COSObjectable)}
-   */
-  @Test
-  @DisplayName(
-      "Test setItem(COSName, COSObjectable) with 'COSName', 'COSObjectable'; when FALSE; then COSDictionary() Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void COSDictionary.setItem(COSName, COSObjectable)"})
-  void testSetItemWithCOSNameCOSObjectable_whenFalse_thenCOSDictionaryValuesSizeIsOne() {
-    // Arrange
-    COSDictionary cosDictionary = new COSDictionary();
-
-    // Act
-    cosDictionary.setItem(COSName.A, (COSObjectable) COSBoolean.FALSE);
-
-    // Assert
-    assertEquals(1, cosDictionary.getValues().size());
-    assertEquals(1, cosDictionary.items.size());
-    assertEquals(1, cosDictionary.size());
-  }
-
-  /**
-   * Test {@link COSDictionary#setItem(COSName, COSObjectable)} with {@code COSName}, {@code
-   * COSObjectable}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} size is zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setItem(COSName, COSObjectable)}
-   */
-  @Test
-  @DisplayName(
-      "Test setItem(COSName, COSObjectable) with 'COSName', 'COSObjectable'; when 'null'; then COSDictionary() size is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void COSDictionary.setItem(COSName, COSObjectable)"})
-  void testSetItemWithCOSNameCOSObjectable_whenNull_thenCOSDictionarySizeIsZero() {
-    // Arrange
-    COSDictionary cosDictionary = new COSDictionary();
-
-    // Act
-    cosDictionary.setItem(COSName.A, (COSObjectable) null);
-
-    // Assert that nothing has changed
-    assertEquals(0, cosDictionary.size());
-    assertTrue(cosDictionary.getValues().isEmpty());
-    assertTrue(cosDictionary.items.isEmpty());
-  }
-
-  /**
-   * Test {@link COSDictionary#setItem(COSName, COSObjectable)} with {@code COSName}, {@code
-   * COSObjectable}.
-   *
-   * <ul>
-   *   <li>When {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode(COSDictionary)} with dic
-   *       is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setItem(COSName, COSObjectable)}
-   */
-  @Test
-  @DisplayName(
-      "Test setItem(COSName, COSObjectable) with 'COSName', 'COSObjectable'; when PDDestinationNameTreeNode(COSDictionary) with dic is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void COSDictionary.setItem(COSName, COSObjectable)"})
-  void testSetItemWithCOSNameCOSObjectable_whenPDDestinationNameTreeNodeWithDicIsNull() {
-    // Arrange
-    COSDictionary cosDictionary = new COSDictionary();
-
-    // Act
-    cosDictionary.setItem(COSName.A, new PDDestinationNameTreeNode(null));
-
-    // Assert that nothing has changed
-    assertEquals(0, cosDictionary.size());
-    assertTrue(cosDictionary.getValues().isEmpty());
-    assertTrue(cosDictionary.items.isEmpty());
-  }
-
-  /**
-   * Test {@link COSDictionary#setItem(COSName, COSObjectable)} with {@code COSName}, {@code
-   * COSObjectable}.
-   *
-   * <ul>
-   *   <li>When {@link PDPageLabels#PDPageLabels(PDDocument)} with document is {@link
-   *       PDDocument#PDDocument()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setItem(COSName, COSObjectable)}
-   */
-  @Test
-  @DisplayName(
-      "Test setItem(COSName, COSObjectable) with 'COSName', 'COSObjectable'; when PDPageLabels(PDDocument) with document is PDDocument()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void COSDictionary.setItem(COSName, COSObjectable)"})
-  void testSetItemWithCOSNameCOSObjectable_whenPDPageLabelsWithDocumentIsPDDocument() {
-    // Arrange
-    COSDictionary cosDictionary = new COSDictionary();
-
-    // Act
-    cosDictionary.setItem(COSName.A, new PDPageLabels(new PDDocument()));
-
-    // Assert
-    assertEquals(1, cosDictionary.getValues().size());
-    assertEquals(1, cosDictionary.items.size());
-    assertEquals(1, cosDictionary.size());
-  }
-
-  /**
    * Test {@link COSDictionary#setItem(String, COSBase)} with {@code String}, {@code COSBase}.
-   *
    * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setItem(String, COSBase)}
+   * <p>
+   * Method under test: {@link COSDictionary#setItem(String, COSBase)}
    */
   @Test
-  @DisplayName(
-      "Test setItem(String, COSBase) with 'String', 'COSBase'; given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setItem(String, COSBase) with 'String', 'COSBase'; given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setItem(String, COSBase)"})
   void testSetItemWithStringCOSBase_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
@@ -1035,19 +1036,16 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#setItem(String, COSBase)} with {@code String}, {@code COSBase}.
-   *
    * <ul>
-   *   <li>When {@link COSArray#COSArray()}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.
+   *   <li>When {@link COSArray#COSArray()}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setItem(String, COSBase)}
+   * <p>
+   * Method under test: {@link COSDictionary#setItem(String, COSBase)}
    */
   @Test
-  @DisplayName(
-      "Test setItem(String, COSBase) with 'String', 'COSBase'; when COSArray(); then COSDictionary() Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setItem(String, COSBase) with 'String', 'COSBase'; when COSArray(); then COSDictionary() Values size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setItem(String, COSBase)"})
   void testSetItemWithStringCOSBase_whenCOSArray_thenCOSDictionaryValuesSizeIsOne() {
     // Arrange
@@ -1064,19 +1062,16 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#setItem(String, COSBase)} with {@code String}, {@code COSBase}.
-   *
    * <ul>
-   *   <li>When {@link COSDictionary#COSDictionary()}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} size is zero.
+   *   <li>When {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} size is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setItem(String, COSBase)}
+   * <p>
+   * Method under test: {@link COSDictionary#setItem(String, COSBase)}
    */
   @Test
-  @DisplayName(
-      "Test setItem(String, COSBase) with 'String', 'COSBase'; when COSDictionary(); then COSDictionary() size is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setItem(String, COSBase) with 'String', 'COSBase'; when COSDictionary(); then COSDictionary() size is zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setItem(String, COSBase)"})
   void testSetItemWithStringCOSBase_whenCOSDictionary_thenCOSDictionarySizeIsZero() {
     // Arrange
@@ -1094,26 +1089,22 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#setItem(String, COSBase)} with {@code String}, {@code COSBase}.
-   *
    * <ul>
-   *   <li>When {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   *   <li>When {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setItem(String, COSBase)}
+   * <p>
+   * Method under test: {@link COSDictionary#setItem(String, COSBase)}
    */
   @Test
-  @DisplayName(
-      "Test setItem(String, COSBase) with 'String', 'COSBase'; when COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setItem(String, COSBase) with 'String', 'COSBase'; when COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setItem(String, COSBase)"})
   void testSetItemWithStringCOSBase_whenCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
     COSDictionary cosDictionary = new COSDictionary();
-    COSObject value = new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1));
 
     // Act
-    cosDictionary.setItem("Key", (COSBase) value);
+    cosDictionary.setItem("Key", (COSBase) new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1)));
 
     // Assert
     assertEquals(1, cosDictionary.getValues().size());
@@ -1123,19 +1114,16 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#setItem(String, COSBase)} with {@code String}, {@code COSBase}.
-   *
    * <ul>
-   *   <li>When {@link COSBoolean#FALSE}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.
+   *   <li>When {@link COSBoolean#FALSE}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setItem(String, COSBase)}
+   * <p>
+   * Method under test: {@link COSDictionary#setItem(String, COSBase)}
    */
   @Test
-  @DisplayName(
-      "Test setItem(String, COSBase) with 'String', 'COSBase'; when FALSE; then COSDictionary() Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setItem(String, COSBase) with 'String', 'COSBase'; when FALSE; then COSDictionary() Values size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setItem(String, COSBase)"})
   void testSetItemWithStringCOSBase_whenFalse_thenCOSDictionaryValuesSizeIsOne() {
     // Arrange
@@ -1152,19 +1140,16 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#setItem(String, COSBase)} with {@code String}, {@code COSBase}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} size is zero.
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} size is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setItem(String, COSBase)}
+   * <p>
+   * Method under test: {@link COSDictionary#setItem(String, COSBase)}
    */
   @Test
-  @DisplayName(
-      "Test setItem(String, COSBase) with 'String', 'COSBase'; when 'null'; then COSDictionary() size is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setItem(String, COSBase) with 'String', 'COSBase'; when 'null'; then COSDictionary() size is zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setItem(String, COSBase)"})
   void testSetItemWithStringCOSBase_whenNull_thenCOSDictionarySizeIsZero() {
     // Arrange
@@ -1180,51 +1165,19 @@ class COSDictionaryDiffblueTest {
   }
 
   /**
-   * Test {@link COSDictionary#setItem(String, COSObjectable)} with {@code String}, {@code
-   * COSObjectable}.
-   *
-   * <p>Method under test: {@link COSDictionary#setItem(String, COSObjectable)}
+   * Test {@link COSDictionary#setItem(String, COSObjectable)} with {@code String}, {@code COSObjectable}.
+   * <p>
+   * Method under test: {@link COSDictionary#setItem(String, COSObjectable)}
    */
   @Test
   @DisplayName("Test setItem(String, COSObjectable) with 'String', 'COSObjectable'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setItem(String, COSObjectable)"})
   void testSetItemWithStringCOSObjectable() {
     // Arrange
     COSDictionary cosDictionary = new COSDictionary();
-
-    // Act
-    cosDictionary.setItem("Key", new PDDestinationNameTreeNode(new COSDictionary()));
-
-    // Assert
-    assertEquals(1, cosDictionary.getValues().size());
-    assertEquals(1, cosDictionary.items.size());
-    assertEquals(1, cosDictionary.size());
-  }
-
-  /**
-   * Test {@link COSDictionary#setItem(String, COSObjectable)} with {@code String}, {@code
-   * COSObjectable}.
-   *
-   * <ul>
-   *   <li>Given {@link COSArray#COSArray()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setItem(String, COSObjectable)}
-   */
-  @Test
-  @DisplayName(
-      "Test setItem(String, COSObjectable) with 'String', 'COSObjectable'; given COSArray()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void COSDictionary.setItem(String, COSObjectable)"})
-  void testSetItemWithStringCOSObjectable_givenCOSArray() {
-    // Arrange
-    COSDictionary cosDictionary = new COSDictionary();
-
     COSObjectable value = mock(COSObjectable.class);
-    when(value.getCOSObject()).thenReturn(new COSArray());
+    when(value.getCOSObject()).thenReturn(new COSDictionary());
 
     // Act
     cosDictionary.setItem("Key", value);
@@ -1237,64 +1190,22 @@ class COSDictionaryDiffblueTest {
   }
 
   /**
-   * Test {@link COSDictionary#setItem(String, COSObjectable)} with {@code String}, {@code
-   * COSObjectable}.
-   *
-   * <ul>
-   *   <li>Given {@code false}.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setItem(String, COSObjectable)}
+   * Test {@link COSDictionary#setItem(String, COSObjectable)} with {@code String}, {@code COSObjectable}.
+   * <p>
+   * Method under test: {@link COSDictionary#setItem(String, COSObjectable)}
    */
   @Test
-  @DisplayName("Test setItem(String, COSObjectable) with 'String', 'COSObjectable'; given 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setItem(String, COSObjectable) with 'String', 'COSObjectable'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setItem(String, COSObjectable)"})
-  void testSetItemWithStringCOSObjectable_givenFalse() {
+  void testSetItemWithStringCOSObjectable2() {
     // Arrange
     COSDictionary cosDictionary = new COSDictionary();
 
-    COSDictionary dic = new COSDictionary(new COSDictionary());
-    dic.setDirect(false);
-    dic.setKey(new COSObjectKey(1L, 1));
-
-    // Act
-    cosDictionary.setItem("Key", new PDDestinationNameTreeNode(dic));
-
-    // Assert
-    assertEquals(1, cosDictionary.getValues().size());
-    assertEquals(1, cosDictionary.items.size());
-    assertEquals(1, cosDictionary.size());
-  }
-
-  /**
-   * Test {@link COSDictionary#setItem(String, COSObjectable)} with {@code String}, {@code
-   * COSObjectable}.
-   *
-   * <ul>
-   *   <li>Given {@link COSBoolean#FALSE} Direct is {@code false}.
-   *   <li>Then calls {@link COSObjectable#getCOSObject()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setItem(String, COSObjectable)}
-   */
-  @Test
-  @DisplayName(
-      "Test setItem(String, COSObjectable) with 'String', 'COSObjectable'; given FALSE Direct is 'false'; then calls getCOSObject()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void COSDictionary.setItem(String, COSObjectable)"})
-  void testSetItemWithStringCOSObjectable_givenFalseDirectIsFalse_thenCallsGetCOSObject() {
-    // Arrange
-    COSDictionary cosDictionary = new COSDictionary();
-
-    COSBoolean cosBoolean = COSBoolean.FALSE;
-    cosBoolean.setDirect(false);
-    cosBoolean.setKey(null);
-
+    COSDictionary cosDictionary2 = new COSDictionary();
+    cosDictionary2.setKey(new COSObjectKey(1L, 1));
     COSObjectable value = mock(COSObjectable.class);
-    when(value.getCOSObject()).thenReturn(cosBoolean);
+    when(value.getCOSObject()).thenReturn(cosDictionary2);
 
     // Act
     cosDictionary.setItem("Key", value);
@@ -1309,27 +1220,137 @@ class COSDictionaryDiffblueTest {
   /**
    * Test {@link COSDictionary#setItem(String, COSObjectable)} with {@code String}, {@code COSObjectable}.
    * <ul>
-   *   <li>Given {@code null}.</li>
-   *   <li>When {@code COSArray{}.</li>
+   *   <li>Given {@link COSArray#COSArray()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link COSDictionary#setItem(String, COSObjectable)}
    */
   @Test
-  @DisplayName(
-      "Test setItem(String, COSObjectable) with 'String', 'COSObjectable'; given 'null'; when 'COSArray{'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setItem(String, COSObjectable) with 'String', 'COSObjectable'; given COSArray()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setItem(String, COSObjectable)"})
-  void testSetItemWithStringCOSObjectable_givenNull_whenCOSArray() {
+  void testSetItemWithStringCOSObjectable_givenCOSArray() {
     // Arrange
     COSDictionary cosDictionary = new COSDictionary();
+    COSObjectable value = mock(COSObjectable.class);
+    when(value.getCOSObject()).thenReturn(new COSArray());
 
+    // Act
+    cosDictionary.setItem("Key", value);
+
+    // Assert
+    verify(value).getCOSObject();
+    assertEquals(1, cosDictionary.getValues().size());
+    assertEquals(1, cosDictionary.items.size());
+    assertEquals(1, cosDictionary.size());
+  }
+
+  /**
+   * Test {@link COSDictionary#setItem(String, COSObjectable)} with {@code String}, {@code COSObjectable}.
+   * <ul>
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link COSDictionary#setItem(String, COSObjectable)}
+   */
+  @Test
+  @DisplayName("Test setItem(String, COSObjectable) with 'String', 'COSObjectable'; given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void COSDictionary.setItem(String, COSObjectable)"})
+  void testSetItemWithStringCOSObjectable_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
+    // Arrange
+    COSDictionary cosDictionary = new COSDictionary();
+    COSObjectable value = mock(COSObjectable.class);
+    when(value.getCOSObject()).thenReturn(new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1)));
+
+    // Act
+    cosDictionary.setItem("Key", value);
+
+    // Assert
+    verify(value).getCOSObject();
+    assertEquals(1, cosDictionary.getValues().size());
+    assertEquals(1, cosDictionary.items.size());
+    assertEquals(1, cosDictionary.size());
+  }
+
+  /**
+   * Test {@link COSDictionary#setItem(String, COSObjectable)} with {@code String}, {@code COSObjectable}.
+   * <ul>
+   *   <li>Given {@link COSBoolean#FALSE}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link COSDictionary#setItem(String, COSObjectable)}
+   */
+  @Test
+  @DisplayName("Test setItem(String, COSObjectable) with 'String', 'COSObjectable'; given FALSE")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void COSDictionary.setItem(String, COSObjectable)"})
+  void testSetItemWithStringCOSObjectable_givenFalse() {
+    // Arrange
+    COSDictionary cosDictionary = new COSDictionary();
+    COSObjectable value = mock(COSObjectable.class);
+    when(value.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    // Act
+    cosDictionary.setItem("Key", value);
+
+    // Assert
+    verify(value).getCOSObject();
+    assertEquals(1, cosDictionary.getValues().size());
+    assertEquals(1, cosDictionary.items.size());
+    assertEquals(1, cosDictionary.size());
+  }
+
+  /**
+   * Test {@link COSDictionary#setItem(String, COSObjectable)} with {@code String}, {@code COSObjectable}.
+   * <ul>
+   *   <li>Given {@link COSBoolean#FALSE}.</li>
+   *   <li>When {@code COSObject}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link COSDictionary#setItem(String, COSObjectable)}
+   */
+  @Test
+  @DisplayName("Test setItem(String, COSObjectable) with 'String', 'COSObjectable'; given FALSE; when 'org.apache.pdfbox.cos.COSObject'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void COSDictionary.setItem(String, COSObjectable)"})
+  void testSetItemWithStringCOSObjectable_givenFalse_whenOrgApachePdfboxCosCOSObject() {
+    // Arrange
+    COSDictionary cosDictionary = new COSDictionary();
+    COSObjectable value = mock(COSObjectable.class);
+    when(value.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    // Act
+    cosDictionary.setItem("org.apache.pdfbox.cos.COSObject", value);
+
+    // Assert
+    verify(value).getCOSObject();
+    assertEquals(1, cosDictionary.getValues().size());
+    assertEquals(1, cosDictionary.items.size());
+    assertEquals(1, cosDictionary.size());
+  }
+
+  /**
+   * Test {@link COSDictionary#setItem(String, COSObjectable)} with {@code String}, {@code COSObjectable}.
+   * <ul>
+   *   <li>Given {@code null}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} size is zero.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link COSDictionary#setItem(String, COSObjectable)}
+   */
+  @Test
+  @DisplayName("Test setItem(String, COSObjectable) with 'String', 'COSObjectable'; given 'null'; then COSDictionary() size is zero")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void COSDictionary.setItem(String, COSObjectable)"})
+  void testSetItemWithStringCOSObjectable_givenNull_thenCOSDictionarySizeIsZero() {
+    // Arrange
+    COSDictionary cosDictionary = new COSDictionary();
     COSObjectable value = mock(COSObjectable.class);
     when(value.getCOSObject()).thenReturn(null);
 
     // Act
-    cosDictionary.setItem("COSArray{", value);
+    cosDictionary.setItem("Key", value);
 
     // Assert that nothing has changed
     verify(value).getCOSObject();
@@ -1339,88 +1360,24 @@ class COSDictionaryDiffblueTest {
   }
 
   /**
-   * Test {@link COSDictionary#setItem(String, COSObjectable)} with {@code String}, {@code
-   * COSObjectable}.
-   *
+   * Test {@link COSDictionary#setName(COSName, String)} with {@code COSName}, {@code String}.
    * <ul>
-   *   <li>When {@link COSBoolean#FALSE}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.
+   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} size is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setItem(String, COSObjectable)}
+   * <p>
+   * Method under test: {@link COSDictionary#setName(COSName, String)}
    */
   @Test
-  @DisplayName(
-      "Test setItem(String, COSObjectable) with 'String', 'COSObjectable'; when FALSE; then COSDictionary() Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void COSDictionary.setItem(String, COSObjectable)"})
-  void testSetItemWithStringCOSObjectable_whenFalse_thenCOSDictionaryValuesSizeIsOne() {
+  @DisplayName("Test setName(COSName, String) with 'COSName', 'String'; given COSDictionary(); then COSDictionary() size is zero")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void COSDictionary.setName(COSName, String)"})
+  void testSetNameWithCOSNameString_givenCOSDictionary_thenCOSDictionarySizeIsZero() {
     // Arrange
     COSDictionary cosDictionary = new COSDictionary();
 
     // Act
-    cosDictionary.setItem("Key", (COSObjectable) COSBoolean.FALSE);
-
-    // Assert
-    assertEquals(1, cosDictionary.getValues().size());
-    assertEquals(1, cosDictionary.items.size());
-    assertEquals(1, cosDictionary.size());
-  }
-
-  /**
-   * Test {@link COSDictionary#setItem(String, COSObjectable)} with {@code String}, {@code
-   * COSObjectable}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} size is zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setItem(String, COSObjectable)}
-   */
-  @Test
-  @DisplayName(
-      "Test setItem(String, COSObjectable) with 'String', 'COSObjectable'; when 'null'; then COSDictionary() size is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void COSDictionary.setItem(String, COSObjectable)"})
-  void testSetItemWithStringCOSObjectable_whenNull_thenCOSDictionarySizeIsZero() {
-    // Arrange
-    COSDictionary cosDictionary = new COSDictionary();
-
-    // Act
-    cosDictionary.setItem("Key", (COSObjectable) null);
-
-    // Assert that nothing has changed
-    assertEquals(0, cosDictionary.size());
-    assertTrue(cosDictionary.getValues().isEmpty());
-    assertTrue(cosDictionary.items.isEmpty());
-  }
-
-  /**
-   * Test {@link COSDictionary#setItem(String, COSObjectable)} with {@code String}, {@code
-   * COSObjectable}.
-   *
-   * <ul>
-   *   <li>When {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode(COSDictionary)} with dic
-   *       is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setItem(String, COSObjectable)}
-   */
-  @Test
-  @DisplayName(
-      "Test setItem(String, COSObjectable) with 'String', 'COSObjectable'; when PDDestinationNameTreeNode(COSDictionary) with dic is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void COSDictionary.setItem(String, COSObjectable)"})
-  void testSetItemWithStringCOSObjectable_whenPDDestinationNameTreeNodeWithDicIsNull() {
-    // Arrange
-    COSDictionary cosDictionary = new COSDictionary();
-
-    // Act
-    cosDictionary.setItem("Key", new PDDestinationNameTreeNode(null));
+    cosDictionary.setName(COSName.A, null);
 
     // Assert that nothing has changed
     assertEquals(0, cosDictionary.size());
@@ -1430,20 +1387,42 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#setName(COSName, String)} with {@code COSName}, {@code String}.
-   *
    * <ul>
-   *   <li>When {@code 42}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} {@link COSDictionary#items} {@code null}
-   *       {@link COSName}.
+   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} size is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setName(COSName, String)}
+   * <p>
+   * Method under test: {@link COSDictionary#setName(COSName, String)}
    */
   @Test
-  @DisplayName(
-      "Test setName(COSName, String) with 'COSName', 'String'; when '42'; then COSDictionary() items 'null' COSName")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setName(COSName, String) with 'COSName', 'String'; given COSDictionary(); then COSDictionary() size is zero")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void COSDictionary.setName(COSName, String)"})
+  void testSetNameWithCOSNameString_givenCOSDictionary_thenCOSDictionarySizeIsZero2() {
+    // Arrange
+    COSDictionary cosDictionary = new COSDictionary();
+
+    // Act
+    cosDictionary.setName((COSName) null, null);
+
+    // Assert that nothing has changed
+    assertEquals(0, cosDictionary.size());
+    assertTrue(cosDictionary.getValues().isEmpty());
+    assertTrue(cosDictionary.items.isEmpty());
+  }
+
+  /**
+   * Test {@link COSDictionary#setName(COSName, String)} with {@code COSName}, {@code String}.
+   * <ul>
+   *   <li>When {@code 42}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} {@link COSDictionary#items} {@code null} {@link COSName}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link COSDictionary#setName(COSName, String)}
+   */
+  @Test
+  @DisplayName("Test setName(COSName, String) with 'COSName', 'String'; when '42'; then COSDictionary() items 'null' COSName")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setName(COSName, String)"})
   void testSetNameWithCOSNameString_when42_thenCOSDictionaryItemsNullCOSName() {
     // Arrange
@@ -1465,19 +1444,16 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#setName(COSName, String)} with {@code COSName}, {@code String}.
-   *
    * <ul>
-   *   <li>When {@code 42}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.
+   *   <li>When {@code 42}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setName(COSName, String)}
+   * <p>
+   * Method under test: {@link COSDictionary#setName(COSName, String)}
    */
   @Test
-  @DisplayName(
-      "Test setName(COSName, String) with 'COSName', 'String'; when '42'; then COSDictionary() Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setName(COSName, String) with 'COSName', 'String'; when '42'; then COSDictionary() Values size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setName(COSName, String)"})
   void testSetNameWithCOSNameString_when42_thenCOSDictionaryValuesSizeIsOne() {
     // Arrange
@@ -1493,109 +1469,19 @@ class COSDictionaryDiffblueTest {
   }
 
   /**
-   * Test {@link COSDictionary#setName(COSName, String)} with {@code COSName}, {@code String}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} size is zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setName(COSName, String)}
-   */
-  @Test
-  @DisplayName(
-      "Test setName(COSName, String) with 'COSName', 'String'; when 'null'; then COSDictionary() size is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void COSDictionary.setName(COSName, String)"})
-  void testSetNameWithCOSNameString_whenNull_thenCOSDictionarySizeIsZero() {
-    // Arrange
-    COSDictionary cosDictionary = new COSDictionary();
-
-    // Act
-    cosDictionary.setName(COSName.A, null);
-
-    // Assert that nothing has changed
-    assertEquals(0, cosDictionary.size());
-    assertTrue(cosDictionary.getValues().isEmpty());
-    assertTrue(cosDictionary.items.isEmpty());
-  }
-
-  /**
-   * Test {@link COSDictionary#setName(COSName, String)} with {@code COSName}, {@code String}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} size is zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setName(COSName, String)}
-   */
-  @Test
-  @DisplayName(
-      "Test setName(COSName, String) with 'COSName', 'String'; when 'null'; then COSDictionary() size is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void COSDictionary.setName(COSName, String)"})
-  void testSetNameWithCOSNameString_whenNull_thenCOSDictionarySizeIsZero2() {
-    // Arrange
-    COSDictionary cosDictionary = new COSDictionary();
-
-    // Act
-    cosDictionary.setName((COSName) null, null);
-
-    // Assert that nothing has changed
-    assertEquals(0, cosDictionary.size());
-    assertTrue(cosDictionary.getValues().isEmpty());
-    assertTrue(cosDictionary.items.isEmpty());
-  }
-
-  /**
-   * Test {@link COSDictionary#setName(COSName, String)} with {@code COSName}, {@code String}.
-   *
-   * <ul>
-   *   <li>When {@code Value}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setName(COSName, String)}
-   */
-  @Test
-  @DisplayName(
-      "Test setName(COSName, String) with 'COSName', 'String'; when 'Value'; then COSDictionary() Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void COSDictionary.setName(COSName, String)"})
-  void testSetNameWithCOSNameString_whenValue_thenCOSDictionaryValuesSizeIsOne() {
-    // Arrange
-    COSDictionary cosDictionary = new COSDictionary();
-
-    // Act
-    cosDictionary.setName(COSName.A, "Value");
-
-    // Assert
-    assertEquals(1, cosDictionary.getValues().size());
-    assertEquals(1, cosDictionary.items.size());
-    assertEquals(1, cosDictionary.size());
-  }
-
-  /**
    * Test {@link COSDictionary#setName(String, String)} with {@code String}, {@code String}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.
+   *   <li>When {@code 42}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setName(String, String)}
+   * <p>
+   * Method under test: {@link COSDictionary#setName(String, String)}
    */
   @Test
-  @DisplayName(
-      "Test setName(String, String) with 'String', 'String'; given COSDictionary(); then COSDictionary() Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setName(String, String) with 'String', 'String'; when '42'; then COSDictionary() Values size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setName(String, String)"})
-  void testSetNameWithStringString_givenCOSDictionary_thenCOSDictionaryValuesSizeIsOne() {
+  void testSetNameWithStringString_when42_thenCOSDictionaryValuesSizeIsOne() {
     // Arrange
     COSDictionary cosDictionary = new COSDictionary();
 
@@ -1611,46 +1497,15 @@ class COSDictionaryDiffblueTest {
   /**
    * Test {@link COSDictionary#setName(String, String)} with {@code String}, {@code String}.
    * <ul>
-   *   <li>When {@code COSArray{}.</li>
-   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.</li>
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} size is zero.</li>
    * </ul>
    * <p>
    * Method under test: {@link COSDictionary#setName(String, String)}
    */
   @Test
-  @DisplayName(
-      "Test setName(String, String) with 'String', 'String'; when 'COSArray{'; then COSDictionary() Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void COSDictionary.setName(String, String)"})
-  void testSetNameWithStringString_whenCOSArray_thenCOSDictionaryValuesSizeIsOne() {
-    // Arrange
-    COSDictionary cosDictionary = new COSDictionary();
-
-    // Act
-    cosDictionary.setName("COSArray{", "42");
-
-    // Assert
-    assertEquals(1, cosDictionary.getValues().size());
-    assertEquals(1, cosDictionary.items.size());
-    assertEquals(1, cosDictionary.size());
-  }
-
-  /**
-   * Test {@link COSDictionary#setName(String, String)} with {@code String}, {@code String}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} size is zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setName(String, String)}
-   */
-  @Test
-  @DisplayName(
-      "Test setName(String, String) with 'String', 'String'; when 'null'; then COSDictionary() size is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setName(String, String) with 'String', 'String'; when 'null'; then COSDictionary() size is zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setName(String, String)"})
   void testSetNameWithStringString_whenNull_thenCOSDictionarySizeIsZero() {
     // Arrange
@@ -1666,19 +1521,42 @@ class COSDictionaryDiffblueTest {
   }
 
   /**
-   * Test {@link COSDictionary#setBoolean(COSName, boolean)} with {@code COSName}, {@code boolean}.
-   *
+   * Test {@link COSDictionary#setName(String, String)} with {@code String}, {@code String}.
    * <ul>
-   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.
+   *   <li>When {@code Value}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setBoolean(COSName, boolean)}
+   * <p>
+   * Method under test: {@link COSDictionary#setName(String, String)}
    */
   @Test
-  @DisplayName(
-      "Test setBoolean(COSName, boolean) with 'COSName', 'boolean'; then COSDictionary() Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setName(String, String) with 'String', 'String'; when 'Value'; then COSDictionary() Values size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void COSDictionary.setName(String, String)"})
+  void testSetNameWithStringString_whenValue_thenCOSDictionaryValuesSizeIsOne() {
+    // Arrange
+    COSDictionary cosDictionary = new COSDictionary();
+
+    // Act
+    cosDictionary.setName("Key", "Value");
+
+    // Assert
+    assertEquals(1, cosDictionary.getValues().size());
+    assertEquals(1, cosDictionary.items.size());
+    assertEquals(1, cosDictionary.size());
+  }
+
+  /**
+   * Test {@link COSDictionary#setBoolean(COSName, boolean)} with {@code COSName}, {@code boolean}.
+   * <ul>
+   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link COSDictionary#setBoolean(COSName, boolean)}
+   */
+  @Test
+  @DisplayName("Test setBoolean(COSName, boolean) with 'COSName', 'boolean'; then COSDictionary() Values size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setBoolean(COSName, boolean)"})
   void testSetBooleanWithCOSNameBoolean_thenCOSDictionaryValuesSizeIsOne() {
     // Arrange
@@ -1695,19 +1573,16 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#setBoolean(COSName, boolean)} with {@code COSName}, {@code boolean}.
-   *
    * <ul>
-   *   <li>When {@code false}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.
+   *   <li>When {@code false}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setBoolean(COSName, boolean)}
+   * <p>
+   * Method under test: {@link COSDictionary#setBoolean(COSName, boolean)}
    */
   @Test
-  @DisplayName(
-      "Test setBoolean(COSName, boolean) with 'COSName', 'boolean'; when 'false'; then COSDictionary() Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setBoolean(COSName, boolean) with 'COSName', 'boolean'; when 'false'; then COSDictionary() Values size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setBoolean(COSName, boolean)"})
   void testSetBooleanWithCOSNameBoolean_whenFalse_thenCOSDictionaryValuesSizeIsOne() {
     // Arrange
@@ -1724,18 +1599,37 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#setBoolean(String, boolean)} with {@code String}, {@code boolean}.
-   *
-   * <ul>
-   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setBoolean(String, boolean)}
+   * <p>
+   * Method under test: {@link COSDictionary#setBoolean(String, boolean)}
    */
   @Test
-  @DisplayName(
-      "Test setBoolean(String, boolean) with 'String', 'boolean'; then COSDictionary() Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setBoolean(String, boolean) with 'String', 'boolean'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void COSDictionary.setBoolean(String, boolean)"})
+  void testSetBooleanWithStringBoolean() {
+    // Arrange
+    COSDictionary cosDictionary = new COSDictionary(new COSDictionary());
+
+    // Act
+    cosDictionary.setBoolean("Key", true);
+
+    // Assert
+    assertEquals(1, cosDictionary.getValues().size());
+    assertEquals(1, cosDictionary.items.size());
+    assertEquals(1, cosDictionary.size());
+  }
+
+  /**
+   * Test {@link COSDictionary#setBoolean(String, boolean)} with {@code String}, {@code boolean}.
+   * <ul>
+   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link COSDictionary#setBoolean(String, boolean)}
+   */
+  @Test
+  @DisplayName("Test setBoolean(String, boolean) with 'String', 'boolean'; then COSDictionary() Values size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setBoolean(String, boolean)"})
   void testSetBooleanWithStringBoolean_thenCOSDictionaryValuesSizeIsOne() {
     // Arrange
@@ -1752,19 +1646,16 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#setBoolean(String, boolean)} with {@code String}, {@code boolean}.
-   *
    * <ul>
-   *   <li>When {@code false}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.
+   *   <li>When {@code false}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setBoolean(String, boolean)}
+   * <p>
+   * Method under test: {@link COSDictionary#setBoolean(String, boolean)}
    */
   @Test
-  @DisplayName(
-      "Test setBoolean(String, boolean) with 'String', 'boolean'; when 'false'; then COSDictionary() Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setBoolean(String, boolean) with 'String', 'boolean'; when 'false'; then COSDictionary() Values size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setBoolean(String, boolean)"})
   void testSetBooleanWithStringBoolean_whenFalse_thenCOSDictionaryValuesSizeIsOne() {
     // Arrange
@@ -1781,19 +1672,16 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#setDate(COSName, Calendar)} with {@code COSName}, {@code Calendar}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} size is zero.
+   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} size is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setDate(COSName, Calendar)}
+   * <p>
+   * Method under test: {@link COSDictionary#setDate(COSName, Calendar)}
    */
   @Test
-  @DisplayName(
-      "Test setDate(COSName, Calendar) with 'COSName', 'Calendar'; given COSDictionary(); then COSDictionary() size is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setDate(COSName, Calendar) with 'COSName', 'Calendar'; given COSDictionary(); then COSDictionary() size is zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setDate(COSName, Calendar)"})
   void testSetDateWithCOSNameCalendar_givenCOSDictionary_thenCOSDictionarySizeIsZero() {
     // Arrange
@@ -1810,19 +1698,16 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#setDate(COSName, Calendar)} with {@code COSName}, {@code Calendar}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} size is zero.
+   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} size is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setDate(COSName, Calendar)}
+   * <p>
+   * Method under test: {@link COSDictionary#setDate(COSName, Calendar)}
    */
   @Test
-  @DisplayName(
-      "Test setDate(COSName, Calendar) with 'COSName', 'Calendar'; given COSDictionary(); then COSDictionary() size is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setDate(COSName, Calendar) with 'COSName', 'Calendar'; given COSDictionary(); then COSDictionary() size is zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setDate(COSName, Calendar)"})
   void testSetDateWithCOSNameCalendar_givenCOSDictionary_thenCOSDictionarySizeIsZero2() {
     // Arrange
@@ -1839,19 +1724,15 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#setDate(COSName, Calendar)} with {@code COSName}, {@code Calendar}.
-   *
    * <ul>
-   *   <li>Then {@link COSDictionary#COSDictionary()} {@link COSDictionary#items} {@code null}
-   *       {@link COSString}.
+   *   <li>Then {@link COSDictionary#COSDictionary()} {@link COSDictionary#items} {@code null} {@link COSString}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setDate(COSName, Calendar)}
+   * <p>
+   * Method under test: {@link COSDictionary#setDate(COSName, Calendar)}
    */
   @Test
-  @DisplayName(
-      "Test setDate(COSName, Calendar) with 'COSName', 'Calendar'; then COSDictionary() items 'null' COSString")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setDate(COSName, Calendar) with 'COSName', 'Calendar'; then COSDictionary() items 'null' COSString")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setDate(COSName, Calendar)"})
   void testSetDateWithCOSNameCalendar_thenCOSDictionaryItemsNullCOSString() {
     // Arrange
@@ -1872,18 +1753,15 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#setDate(COSName, Calendar)} with {@code COSName}, {@code Calendar}.
-   *
    * <ul>
-   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.
+   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setDate(COSName, Calendar)}
+   * <p>
+   * Method under test: {@link COSDictionary#setDate(COSName, Calendar)}
    */
   @Test
-  @DisplayName(
-      "Test setDate(COSName, Calendar) with 'COSName', 'Calendar'; then COSDictionary() Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setDate(COSName, Calendar) with 'COSName', 'Calendar'; then COSDictionary() Values size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setDate(COSName, Calendar)"})
   void testSetDateWithCOSNameCalendar_thenCOSDictionaryValuesSizeIsOne() {
     // Arrange
@@ -1900,47 +1778,37 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#setDate(String, Calendar)} with {@code String}, {@code Calendar}.
-   *
-   * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} size is zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setDate(String, Calendar)}
+   * <p>
+   * Method under test: {@link COSDictionary#setDate(String, Calendar)}
    */
   @Test
-  @DisplayName(
-      "Test setDate(String, Calendar) with 'String', 'Calendar'; given COSDictionary(); then COSDictionary() size is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setDate(String, Calendar) with 'String', 'Calendar'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setDate(String, Calendar)"})
-  void testSetDateWithStringCalendar_givenCOSDictionary_thenCOSDictionarySizeIsZero() {
+  void testSetDateWithStringCalendar() {
     // Arrange
-    COSDictionary cosDictionary = new COSDictionary();
+    COSDictionary cosDictionary = new COSDictionary(new COSDictionary());
 
     // Act
-    cosDictionary.setDate("Key", null);
+    cosDictionary.setDate("Key", new GregorianCalendar(1, 1, 1));
 
-    // Assert that nothing has changed
-    assertEquals(0, cosDictionary.size());
-    assertTrue(cosDictionary.getValues().isEmpty());
-    assertTrue(cosDictionary.items.isEmpty());
+    // Assert
+    assertEquals(1, cosDictionary.getValues().size());
+    assertEquals(1, cosDictionary.items.size());
+    assertEquals(1, cosDictionary.size());
   }
 
   /**
    * Test {@link COSDictionary#setDate(String, Calendar)} with {@code String}, {@code Calendar}.
-   *
    * <ul>
-   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.
+   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setDate(String, Calendar)}
+   * <p>
+   * Method under test: {@link COSDictionary#setDate(String, Calendar)}
    */
   @Test
-  @DisplayName(
-      "Test setDate(String, Calendar) with 'String', 'Calendar'; then COSDictionary() Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setDate(String, Calendar) with 'String', 'Calendar'; then COSDictionary() Values size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setDate(String, Calendar)"})
   void testSetDateWithStringCalendar_thenCOSDictionaryValuesSizeIsOne() {
     // Arrange
@@ -1956,20 +1824,69 @@ class COSDictionaryDiffblueTest {
   }
 
   /**
-   * Test {@link COSDictionary#setEmbeddedDate(COSName, COSName, Calendar)}.
-   *
+   * Test {@link COSDictionary#setDate(String, Calendar)} with {@code String}, {@code Calendar}.
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.
+   *   <li>When {@code name}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setEmbeddedDate(COSName, COSName, Calendar)}
+   * <p>
+   * Method under test: {@link COSDictionary#setDate(String, Calendar)}
    */
   @Test
-  @DisplayName(
-      "Test setEmbeddedDate(COSName, COSName, Calendar); given COSDictionary(); then COSDictionary() Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setDate(String, Calendar) with 'String', 'Calendar'; when 'name'; then COSDictionary() Values size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void COSDictionary.setDate(String, Calendar)"})
+  void testSetDateWithStringCalendar_whenName_thenCOSDictionaryValuesSizeIsOne() {
+    // Arrange
+    COSDictionary cosDictionary = new COSDictionary();
+
+    // Act
+    cosDictionary.setDate("name", new GregorianCalendar(1, 1, 1));
+
+    // Assert
+    assertEquals(1, cosDictionary.getValues().size());
+    assertEquals(1, cosDictionary.items.size());
+    assertEquals(1, cosDictionary.size());
+  }
+
+  /**
+   * Test {@link COSDictionary#setDate(String, Calendar)} with {@code String}, {@code Calendar}.
+   * <ul>
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} size is zero.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link COSDictionary#setDate(String, Calendar)}
+   */
+  @Test
+  @DisplayName("Test setDate(String, Calendar) with 'String', 'Calendar'; when 'null'; then COSDictionary() size is zero")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void COSDictionary.setDate(String, Calendar)"})
+  void testSetDateWithStringCalendar_whenNull_thenCOSDictionarySizeIsZero() {
+    // Arrange
+    COSDictionary cosDictionary = new COSDictionary();
+
+    // Act
+    cosDictionary.setDate("Key", null);
+
+    // Assert that nothing has changed
+    assertEquals(0, cosDictionary.size());
+    assertTrue(cosDictionary.getValues().isEmpty());
+    assertTrue(cosDictionary.items.isEmpty());
+  }
+
+  /**
+   * Test {@link COSDictionary#setEmbeddedDate(COSName, COSName, Calendar)}.
+   * <ul>
+   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link COSDictionary#setEmbeddedDate(COSName, COSName, Calendar)}
+   */
+  @Test
+  @DisplayName("Test setEmbeddedDate(COSName, COSName, Calendar); given COSDictionary(); then COSDictionary() Values size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setEmbeddedDate(COSName, COSName, Calendar)"})
   void testSetEmbeddedDate_givenCOSDictionary_thenCOSDictionaryValuesSizeIsOne() {
     // Arrange
@@ -1986,20 +1903,17 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#setEmbeddedDate(COSName, COSName, Calendar)}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.
-   *   <li>When {@code null}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} size is zero.
+   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} size is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setEmbeddedDate(COSName, COSName, Calendar)}
+   * <p>
+   * Method under test: {@link COSDictionary#setEmbeddedDate(COSName, COSName, Calendar)}
    */
   @Test
-  @DisplayName(
-      "Test setEmbeddedDate(COSName, COSName, Calendar); given COSDictionary(); when 'null'; then COSDictionary() size is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setEmbeddedDate(COSName, COSName, Calendar); given COSDictionary(); when 'null'; then COSDictionary() size is zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setEmbeddedDate(COSName, COSName, Calendar)"})
   void testSetEmbeddedDate_givenCOSDictionary_whenNull_thenCOSDictionarySizeIsZero() {
     // Arrange
@@ -2016,20 +1930,16 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#setEmbeddedDate(COSName, COSName, Calendar)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} {@link COSDictionary#items} {@code null}
-   *       {@link COSDictionary}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} {@link COSDictionary#items} {@code null} {@link COSDictionary}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setEmbeddedDate(COSName, COSName, Calendar)}
+   * <p>
+   * Method under test: {@link COSDictionary#setEmbeddedDate(COSName, COSName, Calendar)}
    */
   @Test
-  @DisplayName(
-      "Test setEmbeddedDate(COSName, COSName, Calendar); when 'null'; then COSDictionary() items 'null' COSDictionary")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setEmbeddedDate(COSName, COSName, Calendar); when 'null'; then COSDictionary() items 'null' COSDictionary")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setEmbeddedDate(COSName, COSName, Calendar)"})
   void testSetEmbeddedDate_whenNull_thenCOSDictionaryItemsNullCOSDictionary() {
     // Arrange
@@ -2060,19 +1970,16 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#setString(COSName, String)} with {@code COSName}, {@code String}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} size is zero.
+   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} size is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setString(COSName, String)}
+   * <p>
+   * Method under test: {@link COSDictionary#setString(COSName, String)}
    */
   @Test
-  @DisplayName(
-      "Test setString(COSName, String) with 'COSName', 'String'; given COSDictionary(); then COSDictionary() size is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setString(COSName, String) with 'COSName', 'String'; given COSDictionary(); then COSDictionary() size is zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setString(COSName, String)"})
   void testSetStringWithCOSNameString_givenCOSDictionary_thenCOSDictionarySizeIsZero() {
     // Arrange
@@ -2089,19 +1996,16 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#setString(COSName, String)} with {@code COSName}, {@code String}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} size is zero.
+   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} size is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setString(COSName, String)}
+   * <p>
+   * Method under test: {@link COSDictionary#setString(COSName, String)}
    */
   @Test
-  @DisplayName(
-      "Test setString(COSName, String) with 'COSName', 'String'; given COSDictionary(); then COSDictionary() size is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setString(COSName, String) with 'COSName', 'String'; given COSDictionary(); then COSDictionary() size is zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setString(COSName, String)"})
   void testSetStringWithCOSNameString_givenCOSDictionary_thenCOSDictionarySizeIsZero2() {
     // Arrange
@@ -2118,20 +2022,16 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#setString(COSName, String)} with {@code COSName}, {@code String}.
-   *
    * <ul>
-   *   <li>When {@code 42}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} {@link COSDictionary#items} {@code null}
-   *       {@link COSString}.
+   *   <li>When {@code 42}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} {@link COSDictionary#items} {@code null} {@link COSString}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setString(COSName, String)}
+   * <p>
+   * Method under test: {@link COSDictionary#setString(COSName, String)}
    */
   @Test
-  @DisplayName(
-      "Test setString(COSName, String) with 'COSName', 'String'; when '42'; then COSDictionary() items 'null' COSString")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setString(COSName, String) with 'COSName', 'String'; when '42'; then COSDictionary() items 'null' COSString")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setString(COSName, String)"})
   void testSetStringWithCOSNameString_when42_thenCOSDictionaryItemsNullCOSString() {
     // Arrange
@@ -2151,24 +2051,21 @@ class COSDictionaryDiffblueTest {
     assertNull(getResult.getKey());
     assertFalse(getResult.isDirect());
     assertFalse(((COSString) getResult).getForceHexForm());
-    assertArrayEquals(new byte[] {'4', '2'}, ((COSString) getResult).getBytes());
+    assertArrayEquals(new byte[]{'4', '2'}, ((COSString) getResult).getBytes());
   }
 
   /**
    * Test {@link COSDictionary#setString(COSName, String)} with {@code COSName}, {@code String}.
-   *
    * <ul>
-   *   <li>When {@code 42}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.
+   *   <li>When {@code 42}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setString(COSName, String)}
+   * <p>
+   * Method under test: {@link COSDictionary#setString(COSName, String)}
    */
   @Test
-  @DisplayName(
-      "Test setString(COSName, String) with 'COSName', 'String'; when '42'; then COSDictionary() Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setString(COSName, String) with 'COSName', 'String'; when '42'; then COSDictionary() Values size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setString(COSName, String)"})
   void testSetStringWithCOSNameString_when42_thenCOSDictionaryValuesSizeIsOne() {
     // Arrange
@@ -2185,18 +2082,41 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#setString(String, String)} with {@code String}, {@code String}.
-   *
    * <ul>
-   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.
+   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} size is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setString(String, String)}
+   * <p>
+   * Method under test: {@link COSDictionary#setString(String, String)}
    */
   @Test
-  @DisplayName(
-      "Test setString(String, String) with 'String', 'String'; then COSDictionary() Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setString(String, String) with 'String', 'String'; given COSDictionary(); then COSDictionary() size is zero")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void COSDictionary.setString(String, String)"})
+  void testSetStringWithStringString_givenCOSDictionary_thenCOSDictionarySizeIsZero() {
+    // Arrange
+    COSDictionary cosDictionary = new COSDictionary();
+
+    // Act
+    cosDictionary.setString("Key", null);
+
+    // Assert that nothing has changed
+    assertEquals(0, cosDictionary.size());
+    assertTrue(cosDictionary.getValues().isEmpty());
+    assertTrue(cosDictionary.items.isEmpty());
+  }
+
+  /**
+   * Test {@link COSDictionary#setString(String, String)} with {@code String}, {@code String}.
+   * <ul>
+   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link COSDictionary#setString(String, String)}
+   */
+  @Test
+  @DisplayName("Test setString(String, String) with 'String', 'String'; then COSDictionary() Values size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setString(String, String)"})
   void testSetStringWithStringString_thenCOSDictionaryValuesSizeIsOne() {
     // Arrange
@@ -2212,78 +2132,18 @@ class COSDictionaryDiffblueTest {
   }
 
   /**
-   * Test {@link COSDictionary#setString(String, String)} with {@code String}, {@code String}.
+   * Test {@link COSDictionary#setEmbeddedString(COSName, COSName, String)}.
    * <ul>
-   *   <li>When {@code COSArray{}.</li>
+   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>When {@code 42}.</li>
    *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.</li>
    * </ul>
    * <p>
-   * Method under test: {@link COSDictionary#setString(String, String)}
+   * Method under test: {@link COSDictionary#setEmbeddedString(COSName, COSName, String)}
    */
   @Test
-  @DisplayName(
-      "Test setString(String, String) with 'String', 'String'; when 'COSArray{'; then COSDictionary() Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void COSDictionary.setString(String, String)"})
-  void testSetStringWithStringString_whenCOSArray_thenCOSDictionaryValuesSizeIsOne() {
-    // Arrange
-    COSDictionary cosDictionary = new COSDictionary();
-
-    // Act
-    cosDictionary.setString("COSArray{", "42");
-
-    // Assert
-    assertEquals(1, cosDictionary.getValues().size());
-    assertEquals(1, cosDictionary.items.size());
-    assertEquals(1, cosDictionary.size());
-  }
-
-  /**
-   * Test {@link COSDictionary#setString(String, String)} with {@code String}, {@code String}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} size is zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setString(String, String)}
-   */
-  @Test
-  @DisplayName(
-      "Test setString(String, String) with 'String', 'String'; when 'null'; then COSDictionary() size is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void COSDictionary.setString(String, String)"})
-  void testSetStringWithStringString_whenNull_thenCOSDictionarySizeIsZero() {
-    // Arrange
-    COSDictionary cosDictionary = new COSDictionary();
-
-    // Act
-    cosDictionary.setString("Key", null);
-
-    // Assert that nothing has changed
-    assertEquals(0, cosDictionary.size());
-    assertTrue(cosDictionary.getValues().isEmpty());
-    assertTrue(cosDictionary.items.isEmpty());
-  }
-
-  /**
-   * Test {@link COSDictionary#setEmbeddedString(COSName, COSName, String)}.
-   *
-   * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.
-   *   <li>When {@code 42}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setEmbeddedString(COSName, COSName, String)}
-   */
-  @Test
-  @DisplayName(
-      "Test setEmbeddedString(COSName, COSName, String); given COSDictionary(); when '42'; then COSDictionary() Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setEmbeddedString(COSName, COSName, String); given COSDictionary(); when '42'; then COSDictionary() Values size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setEmbeddedString(COSName, COSName, String)"})
   void testSetEmbeddedString_givenCOSDictionary_when42_thenCOSDictionaryValuesSizeIsOne() {
     // Arrange
@@ -2300,20 +2160,17 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#setEmbeddedString(COSName, COSName, String)}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.
-   *   <li>When {@code null}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} size is zero.
+   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} size is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setEmbeddedString(COSName, COSName, String)}
+   * <p>
+   * Method under test: {@link COSDictionary#setEmbeddedString(COSName, COSName, String)}
    */
   @Test
-  @DisplayName(
-      "Test setEmbeddedString(COSName, COSName, String); given COSDictionary(); when 'null'; then COSDictionary() size is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setEmbeddedString(COSName, COSName, String); given COSDictionary(); when 'null'; then COSDictionary() size is zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setEmbeddedString(COSName, COSName, String)"})
   void testSetEmbeddedString_givenCOSDictionary_whenNull_thenCOSDictionarySizeIsZero() {
     // Arrange
@@ -2330,20 +2187,16 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#setEmbeddedString(COSName, COSName, String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} {@link COSDictionary#items} {@code null}
-   *       {@link COSDictionary}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} {@link COSDictionary#items} {@code null} {@link COSDictionary}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setEmbeddedString(COSName, COSName, String)}
+   * <p>
+   * Method under test: {@link COSDictionary#setEmbeddedString(COSName, COSName, String)}
    */
   @Test
-  @DisplayName(
-      "Test setEmbeddedString(COSName, COSName, String); when 'null'; then COSDictionary() items 'null' COSDictionary")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setEmbeddedString(COSName, COSName, String); when 'null'; then COSDictionary() items 'null' COSDictionary")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setEmbeddedString(COSName, COSName, String)"})
   void testSetEmbeddedString_whenNull_thenCOSDictionaryItemsNullCOSDictionary() {
     // Arrange
@@ -2374,19 +2227,16 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#setInt(COSName, int)} with {@code COSName}, {@code int}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.
+   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setInt(COSName, int)}
+   * <p>
+   * Method under test: {@link COSDictionary#setInt(COSName, int)}
    */
   @Test
-  @DisplayName(
-      "Test setInt(COSName, int) with 'COSName', 'int'; given COSDictionary(); then COSDictionary() Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setInt(COSName, int) with 'COSName', 'int'; given COSDictionary(); then COSDictionary() Values size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setInt(COSName, int)"})
   void testSetIntWithCOSNameInt_givenCOSDictionary_thenCOSDictionaryValuesSizeIsOne() {
     // Arrange
@@ -2403,19 +2253,16 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#setInt(COSName, int)} with {@code COSName}, {@code int}.
-   *
    * <ul>
-   *   <li>When {@link Integer#MIN_VALUE}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.
+   *   <li>When {@link Integer#MIN_VALUE}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setInt(COSName, int)}
+   * <p>
+   * Method under test: {@link COSDictionary#setInt(COSName, int)}
    */
   @Test
-  @DisplayName(
-      "Test setInt(COSName, int) with 'COSName', 'int'; when MIN_VALUE; then COSDictionary() Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setInt(COSName, int) with 'COSName', 'int'; when MIN_VALUE; then COSDictionary() Values size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setInt(COSName, int)"})
   void testSetIntWithCOSNameInt_whenMin_value_thenCOSDictionaryValuesSizeIsOne() {
     // Arrange
@@ -2431,22 +2278,49 @@ class COSDictionaryDiffblueTest {
   }
 
   /**
-   * Test {@link COSDictionary#setInt(String, int)} with {@code String}, {@code int}.
-   *
+   * Test {@link COSDictionary#setInt(COSName, int)} with {@code COSName}, {@code int}.
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} {@link COSDictionary#items} {@code null} {@link COSInteger}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setInt(String, int)}
+   * <p>
+   * Method under test: {@link COSDictionary#setInt(COSName, int)}
    */
   @Test
-  @DisplayName(
-      "Test setInt(String, int) with 'String', 'int'; given COSDictionary(); then COSDictionary() Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setInt(COSName, int) with 'COSName', 'int'; when 'null'; then COSDictionary() items 'null' COSInteger")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void COSDictionary.setInt(COSName, int)"})
+  void testSetIntWithCOSNameInt_whenNull_thenCOSDictionaryItemsNullCOSInteger() {
+    // Arrange
+    COSDictionary cosDictionary = new COSDictionary();
+
+    // Act
+    cosDictionary.setInt((COSName) null, 42);
+
+    // Assert
+    Map<COSName, COSBase> cosNameCosBaseMap = cosDictionary.items;
+    assertEquals(1, cosNameCosBaseMap.size());
+    COSBase getResult = cosNameCosBaseMap.get(null);
+    assertTrue(getResult instanceof COSInteger);
+    assertNull(getResult.getKey());
+    assertFalse(getResult.isDirect());
+    assertTrue(((COSInteger) getResult).isValid());
+  }
+
+  /**
+   * Test {@link COSDictionary#setInt(String, int)} with {@code String}, {@code int}.
+   * <ul>
+   *   <li>When {@code Key}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link COSDictionary#setInt(String, int)}
+   */
+  @Test
+  @DisplayName("Test setInt(String, int) with 'String', 'int'; when 'Key'; then COSDictionary() Values size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setInt(String, int)"})
-  void testSetIntWithStringInt_givenCOSDictionary_thenCOSDictionaryValuesSizeIsOne() {
+  void testSetIntWithStringInt_whenKey_thenCOSDictionaryValuesSizeIsOne() {
     // Arrange
     COSDictionary cosDictionary = new COSDictionary();
 
@@ -2461,48 +2335,16 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#setInt(String, int)} with {@code String}, {@code int}.
-   *
    * <ul>
-   *   <li>Then {@link COSDictionary#COSDictionary(COSDictionary)} with dict is {@link
-   *       COSDictionary#COSDictionary()} Values size is one.
+   *   <li>When {@link Integer#MIN_VALUE}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setInt(String, int)}
+   * <p>
+   * Method under test: {@link COSDictionary#setInt(String, int)}
    */
   @Test
-  @DisplayName(
-      "Test setInt(String, int) with 'String', 'int'; then COSDictionary(COSDictionary) with dict is COSDictionary() Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void COSDictionary.setInt(String, int)"})
-  void testSetIntWithStringInt_thenCOSDictionaryWithDictIsCOSDictionaryValuesSizeIsOne() {
-    // Arrange
-    COSDictionary cosDictionary = new COSDictionary(new COSDictionary());
-
-    // Act
-    cosDictionary.setInt("Key", 42);
-
-    // Assert
-    assertEquals(1, cosDictionary.getValues().size());
-    assertEquals(1, cosDictionary.items.size());
-    assertEquals(1, cosDictionary.size());
-  }
-
-  /**
-   * Test {@link COSDictionary#setInt(String, int)} with {@code String}, {@code int}.
-   *
-   * <ul>
-   *   <li>When {@link Integer#MIN_VALUE}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setInt(String, int)}
-   */
-  @Test
-  @DisplayName(
-      "Test setInt(String, int) with 'String', 'int'; when MIN_VALUE; then COSDictionary() Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setInt(String, int) with 'String', 'int'; when MIN_VALUE; then COSDictionary() Values size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setInt(String, int)"})
   void testSetIntWithStringInt_whenMin_value_thenCOSDictionaryValuesSizeIsOne() {
     // Arrange
@@ -2518,20 +2360,42 @@ class COSDictionaryDiffblueTest {
   }
 
   /**
-   * Test {@link COSDictionary#setLong(COSName, long)} with {@code COSName}, {@code long}.
-   *
+   * Test {@link COSDictionary#setInt(String, int)} with {@code String}, {@code int}.
    * <ul>
-   *   <li>When forty-two.
-   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.
+   *   <li>When {@code COSName}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setLong(COSName, long)}
+   * <p>
+   * Method under test: {@link COSDictionary#setInt(String, int)}
    */
   @Test
-  @DisplayName(
-      "Test setLong(COSName, long) with 'COSName', 'long'; when forty-two; then COSDictionary() Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setInt(String, int) with 'String', 'int'; when 'org.apache.pdfbox.cos.COSName'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void COSDictionary.setInt(String, int)"})
+  void testSetIntWithStringInt_whenOrgApachePdfboxCosCOSName() {
+    // Arrange
+    COSDictionary cosDictionary = new COSDictionary();
+
+    // Act
+    cosDictionary.setInt("org.apache.pdfbox.cos.COSName", 42);
+
+    // Assert
+    assertEquals(1, cosDictionary.getValues().size());
+    assertEquals(1, cosDictionary.items.size());
+    assertEquals(1, cosDictionary.size());
+  }
+
+  /**
+   * Test {@link COSDictionary#setLong(COSName, long)} with {@code COSName}, {@code long}.
+   * <ul>
+   *   <li>When forty-two.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link COSDictionary#setLong(COSName, long)}
+   */
+  @Test
+  @DisplayName("Test setLong(COSName, long) with 'COSName', 'long'; when forty-two; then COSDictionary() Values size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setLong(COSName, long)"})
   void testSetLongWithCOSNameLong_whenFortyTwo_thenCOSDictionaryValuesSizeIsOne() {
     // Arrange
@@ -2548,17 +2412,15 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#setLong(COSName, long)} with {@code COSName}, {@code long}.
-   *
    * <ul>
-   *   <li>When minus one hundred one.
+   *   <li>When minus one hundred one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setLong(COSName, long)}
+   * <p>
+   * Method under test: {@link COSDictionary#setLong(COSName, long)}
    */
   @Test
   @DisplayName("Test setLong(COSName, long) with 'COSName', 'long'; when minus one hundred one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setLong(COSName, long)"})
   void testSetLongWithCOSNameLong_whenMinusOneHundredOne() {
     // Arrange
@@ -2575,17 +2437,15 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#setLong(COSName, long)} with {@code COSName}, {@code long}.
-   *
    * <ul>
-   *   <li>When two hundred fifty-seven.
+   *   <li>When two hundred fifty-seven.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setLong(COSName, long)}
+   * <p>
+   * Method under test: {@link COSDictionary#setLong(COSName, long)}
    */
   @Test
   @DisplayName("Test setLong(COSName, long) with 'COSName', 'long'; when two hundred fifty-seven")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setLong(COSName, long)"})
   void testSetLongWithCOSNameLong_whenTwoHundredFiftySeven() {
     // Arrange
@@ -2603,46 +2463,15 @@ class COSDictionaryDiffblueTest {
   /**
    * Test {@link COSDictionary#setLong(String, long)} with {@code String}, {@code long}.
    * <ul>
-   *   <li>When {@code COSArray{}.</li>
+   *   <li>When {@code Key}.</li>
    *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.</li>
    * </ul>
    * <p>
    * Method under test: {@link COSDictionary#setLong(String, long)}
    */
   @Test
-  @DisplayName(
-      "Test setLong(String, long) with 'String', 'long'; when 'COSArray{'; then COSDictionary() Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void COSDictionary.setLong(String, long)"})
-  void testSetLongWithStringLong_whenCOSArray_thenCOSDictionaryValuesSizeIsOne() {
-    // Arrange
-    COSDictionary cosDictionary = new COSDictionary();
-
-    // Act
-    cosDictionary.setLong("COSArray{", 42L);
-
-    // Assert
-    assertEquals(1, cosDictionary.getValues().size());
-    assertEquals(1, cosDictionary.items.size());
-    assertEquals(1, cosDictionary.size());
-  }
-
-  /**
-   * Test {@link COSDictionary#setLong(String, long)} with {@code String}, {@code long}.
-   *
-   * <ul>
-   *   <li>When {@code Key}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setLong(String, long)}
-   */
-  @Test
-  @DisplayName(
-      "Test setLong(String, long) with 'String', 'long'; when 'Key'; then COSDictionary() Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setLong(String, long) with 'String', 'long'; when 'Key'; then COSDictionary() Values size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setLong(String, long)"})
   void testSetLongWithStringLong_whenKey_thenCOSDictionaryValuesSizeIsOne() {
     // Arrange
@@ -2659,17 +2488,15 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#setLong(String, long)} with {@code String}, {@code long}.
-   *
    * <ul>
-   *   <li>When minus one hundred one.
+   *   <li>When minus one hundred one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setLong(String, long)}
+   * <p>
+   * Method under test: {@link COSDictionary#setLong(String, long)}
    */
   @Test
   @DisplayName("Test setLong(String, long) with 'String', 'long'; when minus one hundred one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setLong(String, long)"})
   void testSetLongWithStringLong_whenMinusOneHundredOne() {
     // Arrange
@@ -2686,17 +2513,40 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#setLong(String, long)} with {@code String}, {@code long}.
-   *
    * <ul>
-   *   <li>When two hundred fifty-seven.
+   *   <li>When {@code COSObject}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setLong(String, long)}
+   * <p>
+   * Method under test: {@link COSDictionary#setLong(String, long)}
+   */
+  @Test
+  @DisplayName("Test setLong(String, long) with 'String', 'long'; when 'org.apache.pdfbox.cos.COSObject'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void COSDictionary.setLong(String, long)"})
+  void testSetLongWithStringLong_whenOrgApachePdfboxCosCOSObject() {
+    // Arrange
+    COSDictionary cosDictionary = new COSDictionary();
+
+    // Act
+    cosDictionary.setLong("org.apache.pdfbox.cos.COSObject", 42L);
+
+    // Assert
+    assertEquals(1, cosDictionary.getValues().size());
+    assertEquals(1, cosDictionary.items.size());
+    assertEquals(1, cosDictionary.size());
+  }
+
+  /**
+   * Test {@link COSDictionary#setLong(String, long)} with {@code String}, {@code long}.
+   * <ul>
+   *   <li>When two hundred fifty-seven.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link COSDictionary#setLong(String, long)}
    */
   @Test
   @DisplayName("Test setLong(String, long) with 'String', 'long'; when two hundred fifty-seven")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setLong(String, long)"})
   void testSetLongWithStringLong_whenTwoHundredFiftySeven() {
     // Arrange
@@ -2713,19 +2563,16 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#setEmbeddedInt(COSName, COSName, int)}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.
+   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setEmbeddedInt(COSName, COSName, int)}
+   * <p>
+   * Method under test: {@link COSDictionary#setEmbeddedInt(COSName, COSName, int)}
    */
   @Test
-  @DisplayName(
-      "Test setEmbeddedInt(COSName, COSName, int); given COSDictionary(); then COSDictionary() Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setEmbeddedInt(COSName, COSName, int); given COSDictionary(); then COSDictionary() Values size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setEmbeddedInt(COSName, COSName, int)"})
   void testSetEmbeddedInt_givenCOSDictionary_thenCOSDictionaryValuesSizeIsOne() {
     // Arrange
@@ -2742,19 +2589,16 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#setEmbeddedInt(COSName, COSName, int)}.
-   *
    * <ul>
-   *   <li>When {@link Integer#MIN_VALUE}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.
+   *   <li>When {@link Integer#MIN_VALUE}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setEmbeddedInt(COSName, COSName, int)}
+   * <p>
+   * Method under test: {@link COSDictionary#setEmbeddedInt(COSName, COSName, int)}
    */
   @Test
-  @DisplayName(
-      "Test setEmbeddedInt(COSName, COSName, int); when MIN_VALUE; then COSDictionary() Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setEmbeddedInt(COSName, COSName, int); when MIN_VALUE; then COSDictionary() Values size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setEmbeddedInt(COSName, COSName, int)"})
   void testSetEmbeddedInt_whenMin_value_thenCOSDictionaryValuesSizeIsOne() {
     // Arrange
@@ -2771,20 +2615,16 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#setEmbeddedInt(COSName, COSName, int)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} {@link COSDictionary#items} {@code null}
-   *       {@link COSDictionary}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} {@link COSDictionary#items} {@code null} {@link COSDictionary}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setEmbeddedInt(COSName, COSName, int)}
+   * <p>
+   * Method under test: {@link COSDictionary#setEmbeddedInt(COSName, COSName, int)}
    */
   @Test
-  @DisplayName(
-      "Test setEmbeddedInt(COSName, COSName, int); when 'null'; then COSDictionary() items 'null' COSDictionary")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setEmbeddedInt(COSName, COSName, int); when 'null'; then COSDictionary() items 'null' COSDictionary")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setEmbeddedInt(COSName, COSName, int)"})
   void testSetEmbeddedInt_whenNull_thenCOSDictionaryItemsNullCOSDictionary() {
     // Arrange
@@ -2815,19 +2655,16 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#setFloat(COSName, float)} with {@code COSName}, {@code float}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.
+   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setFloat(COSName, float)}
+   * <p>
+   * Method under test: {@link COSDictionary#setFloat(COSName, float)}
    */
   @Test
-  @DisplayName(
-      "Test setFloat(COSName, float) with 'COSName', 'float'; given COSDictionary(); then COSDictionary() Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setFloat(COSName, float) with 'COSName', 'float'; given COSDictionary(); then COSDictionary() Values size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setFloat(COSName, float)"})
   void testSetFloatWithCOSNameFloat_givenCOSDictionary_thenCOSDictionaryValuesSizeIsOne() {
     // Arrange
@@ -2844,20 +2681,16 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#setFloat(COSName, float)} with {@code COSName}, {@code float}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} {@link COSDictionary#items} {@code null}
-   *       {@link COSFloat}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} {@link COSDictionary#items} {@code null} {@link COSFloat}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setFloat(COSName, float)}
+   * <p>
+   * Method under test: {@link COSDictionary#setFloat(COSName, float)}
    */
   @Test
-  @DisplayName(
-      "Test setFloat(COSName, float) with 'COSName', 'float'; when 'null'; then COSDictionary() items 'null' COSFloat")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setFloat(COSName, float) with 'COSName', 'float'; when 'null'; then COSDictionary() items 'null' COSFloat")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setFloat(COSName, float)"})
   void testSetFloatWithCOSNameFloat_whenNull_thenCOSDictionaryItemsNullCOSFloat() {
     // Arrange
@@ -2879,20 +2712,23 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#setFloat(String, float)} with {@code String}, {@code float}.
-   *
-   * <p>Method under test: {@link COSDictionary#setFloat(String, float)}
+   * <ul>
+   *   <li>When {@code COSArray{}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link COSDictionary#setFloat(String, float)}
    */
   @Test
-  @DisplayName("Test setFloat(String, float) with 'String', 'float'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setFloat(String, float) with 'String', 'float'; when 'COSArray{'; then COSDictionary() Values size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setFloat(String, float)"})
-  void testSetFloatWithStringFloat() {
+  void testSetFloatWithStringFloat_whenCOSArray_thenCOSDictionaryValuesSizeIsOne() {
     // Arrange
-    COSDictionary cosDictionary = new COSDictionary(new COSDictionary());
+    COSDictionary cosDictionary = new COSDictionary();
 
     // Act
-    cosDictionary.setFloat("Key", 10.0f);
+    cosDictionary.setFloat("COSArray{", 10.0f);
 
     // Assert
     assertEquals(1, cosDictionary.getValues().size());
@@ -2902,21 +2738,18 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#setFloat(String, float)} with {@code String}, {@code float}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.
+   *   <li>When {@code Key}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setFloat(String, float)}
+   * <p>
+   * Method under test: {@link COSDictionary#setFloat(String, float)}
    */
   @Test
-  @DisplayName(
-      "Test setFloat(String, float) with 'String', 'float'; given COSDictionary(); then COSDictionary() Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setFloat(String, float) with 'String', 'float'; when 'Key'; then COSDictionary() Values size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setFloat(String, float)"})
-  void testSetFloatWithStringFloat_givenCOSDictionary_thenCOSDictionaryValuesSizeIsOne() {
+  void testSetFloatWithStringFloat_whenKey_thenCOSDictionaryValuesSizeIsOne() {
     // Arrange
     COSDictionary cosDictionary = new COSDictionary();
 
@@ -2931,20 +2764,17 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#setFlag(COSName, int, boolean)}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.
-   *   <li>When {@link COSName#A}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.
+   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>When {@link COSName#A}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setFlag(COSName, int, boolean)}
+   * <p>
+   * Method under test: {@link COSDictionary#setFlag(COSName, int, boolean)}
    */
   @Test
-  @DisplayName(
-      "Test setFlag(COSName, int, boolean); given COSDictionary(); when A; then COSDictionary() Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setFlag(COSName, int, boolean); given COSDictionary(); when A; then COSDictionary() Values size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setFlag(COSName, int, boolean)"})
   void testSetFlag_givenCOSDictionary_whenA_thenCOSDictionaryValuesSizeIsOne() {
     // Arrange
@@ -2961,20 +2791,17 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#setFlag(COSName, int, boolean)}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.
-   *   <li>When {@code false}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.
+   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>When {@code false}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setFlag(COSName, int, boolean)}
+   * <p>
+   * Method under test: {@link COSDictionary#setFlag(COSName, int, boolean)}
    */
   @Test
-  @DisplayName(
-      "Test setFlag(COSName, int, boolean); given COSDictionary(); when 'false'; then COSDictionary() Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setFlag(COSName, int, boolean); given COSDictionary(); when 'false'; then COSDictionary() Values size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setFlag(COSName, int, boolean)"})
   void testSetFlag_givenCOSDictionary_whenFalse_thenCOSDictionaryValuesSizeIsOne() {
     // Arrange
@@ -2991,20 +2818,17 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#setFlag(COSName, int, boolean)}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.
-   *   <li>When {@link Integer#MIN_VALUE}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.
+   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>When {@link Integer#MIN_VALUE}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#setFlag(COSName, int, boolean)}
+   * <p>
+   * Method under test: {@link COSDictionary#setFlag(COSName, int, boolean)}
    */
   @Test
-  @DisplayName(
-      "Test setFlag(COSName, int, boolean); given COSDictionary(); when MIN_VALUE; then COSDictionary() Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setFlag(COSName, int, boolean); given COSDictionary(); when MIN_VALUE; then COSDictionary() Values size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.setFlag(COSName, int, boolean)"})
   void testSetFlag_givenCOSDictionary_whenMin_value_thenCOSDictionaryValuesSizeIsOne() {
     // Arrange
@@ -3020,1456 +2844,1283 @@ class COSDictionaryDiffblueTest {
   }
 
   /**
-   * Test {@link COSDictionary#getCOSName(COSName, COSName)} with {@code key}, {@code defaultValue}.
-   *
+   * Test {@link COSDictionary#setFlag(COSName, int, boolean)}.
    * <ul>
-   *   <li>When {@link COSName#A}.
+   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} {@link COSDictionary#items} {@code null} {@link COSInteger}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getCOSName(COSName, COSName)}
+   * <p>
+   * Method under test: {@link COSDictionary#setFlag(COSName, int, boolean)}
+   */
+  @Test
+  @DisplayName("Test setFlag(COSName, int, boolean); given COSDictionary(); when 'null'; then COSDictionary() items 'null' COSInteger")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void COSDictionary.setFlag(COSName, int, boolean)"})
+  void testSetFlag_givenCOSDictionary_whenNull_thenCOSDictionaryItemsNullCOSInteger() {
+    // Arrange
+    COSDictionary cosDictionary = new COSDictionary();
+
+    // Act
+    cosDictionary.setFlag(null, 1, true);
+
+    // Assert
+    Map<COSName, COSBase> cosNameCosBaseMap = cosDictionary.items;
+    assertEquals(1, cosNameCosBaseMap.size());
+    COSBase getResult = cosNameCosBaseMap.get(null);
+    assertTrue(getResult instanceof COSInteger);
+    assertNull(getResult.getKey());
+    assertFalse(getResult.isDirect());
+    assertTrue(((COSInteger) getResult).isValid());
+  }
+
+  /**
+   * Test {@link COSDictionary#getCOSName(COSName, COSName)} with {@code key}, {@code defaultValue}.
+   * <ul>
+   *   <li>When {@link COSName#A}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link COSDictionary#getCOSName(COSName, COSName)}
    */
   @Test
   @DisplayName("Test getCOSName(COSName, COSName) with 'key', 'defaultValue'; when A")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSName COSDictionary.getCOSName(COSName, COSName)"})
   void testGetCOSNameWithKeyDefaultValue_whenA() {
-    // Arrange, Act and Assert
-    assertSame(COSName.A, new COSDictionary().getCOSName(COSName.A, COSName.A));
+    // Arrange and Act
+    COSName actualCOSName = (new COSDictionary()).getCOSName(COSName.A, COSName.A);
+
+    // Assert
+    assertSame(actualCOSName.A, actualCOSName);
   }
 
   /**
    * Test {@link COSDictionary#getCOSName(COSName, COSName)} with {@code key}, {@code defaultValue}.
-   *
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getCOSName(COSName, COSName)}
+   * <p>
+   * Method under test: {@link COSDictionary#getCOSName(COSName, COSName)}
    */
   @Test
   @DisplayName("Test getCOSName(COSName, COSName) with 'key', 'defaultValue'; when 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSName COSDictionary.getCOSName(COSName, COSName)"})
   void testGetCOSNameWithKeyDefaultValue_whenNull() {
-    // Arrange, Act and Assert
-    assertSame(COSName.A, new COSDictionary().getCOSName(null, COSName.A));
+    // Arrange and Act
+    COSName actualCOSName = (new COSDictionary()).getCOSName(null, COSName.A);
+
+    // Assert
+    assertSame(actualCOSName.A, actualCOSName);
   }
 
   /**
    * Test {@link COSDictionary#getCOSName(COSName)} with {@code key}.
-   *
    * <ul>
-   *   <li>When {@link COSName#A}.
+   *   <li>When {@link COSName#A}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getCOSName(COSName)}
+   * <p>
+   * Method under test: {@link COSDictionary#getCOSName(COSName)}
    */
   @Test
   @DisplayName("Test getCOSName(COSName) with 'key'; when A")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSName COSDictionary.getCOSName(COSName)"})
   void testGetCOSNameWithKey_whenA() {
     // Arrange, Act and Assert
-    assertNull(new COSDictionary().getCOSName(COSName.A));
+    assertNull((new COSDictionary()).getCOSName(COSName.A));
   }
 
   /**
    * Test {@link COSDictionary#getCOSName(COSName)} with {@code key}.
-   *
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getCOSName(COSName)}
+   * <p>
+   * Method under test: {@link COSDictionary#getCOSName(COSName)}
    */
   @Test
   @DisplayName("Test getCOSName(COSName) with 'key'; when 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSName COSDictionary.getCOSName(COSName)"})
   void testGetCOSNameWithKey_whenNull() {
     // Arrange, Act and Assert
-    assertNull(new COSDictionary().getCOSName(null));
+    assertNull((new COSDictionary()).getCOSName(null));
   }
 
   /**
-   * Test {@link COSDictionary#getNameAsString(COSName, String)} with {@code COSName}, {@code
-   * String}.
-   *
+   * Test {@link COSDictionary#getNameAsString(COSName, String)} with {@code COSName}, {@code String}.
    * <ul>
-   *   <li>When {@link COSName#A}.
+   *   <li>When {@link COSName#A}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getNameAsString(COSName, String)}
+   * <p>
+   * Method under test: {@link COSDictionary#getNameAsString(COSName, String)}
    */
   @Test
   @DisplayName("Test getNameAsString(COSName, String) with 'COSName', 'String'; when A")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String COSDictionary.getNameAsString(COSName, String)"})
   void testGetNameAsStringWithCOSNameString_whenA() {
     // Arrange, Act and Assert
-    assertEquals("42", new COSDictionary().getNameAsString(COSName.A, "42"));
+    assertEquals("42", (new COSDictionary()).getNameAsString(COSName.A, "42"));
   }
 
   /**
-   * Test {@link COSDictionary#getNameAsString(COSName, String)} with {@code COSName}, {@code
-   * String}.
-   *
+   * Test {@link COSDictionary#getNameAsString(COSName, String)} with {@code COSName}, {@code String}.
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getNameAsString(COSName, String)}
+   * <p>
+   * Method under test: {@link COSDictionary#getNameAsString(COSName, String)}
    */
   @Test
   @DisplayName("Test getNameAsString(COSName, String) with 'COSName', 'String'; when 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String COSDictionary.getNameAsString(COSName, String)"})
   void testGetNameAsStringWithCOSNameString_whenNull() {
     // Arrange, Act and Assert
-    assertEquals("42", new COSDictionary().getNameAsString((COSName) null, "42"));
+    assertEquals("42", (new COSDictionary()).getNameAsString((COSName) null, "42"));
   }
 
   /**
    * Test {@link COSDictionary#getNameAsString(COSName)} with {@code COSName}.
-   *
    * <ul>
-   *   <li>When {@link COSName#A}.
+   *   <li>When {@link COSName#A}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getNameAsString(COSName)}
+   * <p>
+   * Method under test: {@link COSDictionary#getNameAsString(COSName)}
    */
   @Test
   @DisplayName("Test getNameAsString(COSName) with 'COSName'; when A")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String COSDictionary.getNameAsString(COSName)"})
   void testGetNameAsStringWithCOSName_whenA() {
     // Arrange, Act and Assert
-    assertNull(new COSDictionary().getNameAsString(COSName.A));
+    assertNull((new COSDictionary()).getNameAsString(COSName.A));
   }
 
   /**
    * Test {@link COSDictionary#getNameAsString(COSName)} with {@code COSName}.
-   *
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getNameAsString(COSName)}
+   * <p>
+   * Method under test: {@link COSDictionary#getNameAsString(COSName)}
    */
   @Test
   @DisplayName("Test getNameAsString(COSName) with 'COSName'; when 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String COSDictionary.getNameAsString(COSName)"})
   void testGetNameAsStringWithCOSName_whenNull() {
     // Arrange, Act and Assert
-    assertNull(new COSDictionary().getNameAsString((COSName) null));
+    assertNull((new COSDictionary()).getNameAsString((COSName) null));
   }
 
   /**
    * Test {@link COSDictionary#getNameAsString(String, String)} with {@code String}, {@code String}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary(COSDictionary)} with dict is {@link
-   *       COSDictionary#COSDictionary()}.
+   *   <li>Given {@link COSDictionary#COSDictionary(COSDictionary)} with dict is {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getNameAsString(String, String)}
+   * <p>
+   * Method under test: {@link COSDictionary#getNameAsString(String, String)}
    */
   @Test
-  @DisplayName(
-      "Test getNameAsString(String, String) with 'String', 'String'; given COSDictionary(COSDictionary) with dict is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getNameAsString(String, String) with 'String', 'String'; given COSDictionary(COSDictionary) with dict is COSDictionary()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String COSDictionary.getNameAsString(String, String)"})
   void testGetNameAsStringWithStringString_givenCOSDictionaryWithDictIsCOSDictionary() {
     // Arrange, Act and Assert
-    assertEquals("42", new COSDictionary(new COSDictionary()).getNameAsString("Key", "42"));
+    assertEquals("42", (new COSDictionary(new COSDictionary())).getNameAsString("Key", "42"));
   }
 
   /**
    * Test {@link COSDictionary#getNameAsString(String, String)} with {@code String}, {@code String}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.
-   *   <li>When {@code Key}.
-   *   <li>Then return {@code 42}.
+   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>When {@code Key}.</li>
+   *   <li>Then return {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getNameAsString(String, String)}
+   * <p>
+   * Method under test: {@link COSDictionary#getNameAsString(String, String)}
    */
   @Test
-  @DisplayName(
-      "Test getNameAsString(String, String) with 'String', 'String'; given COSDictionary(); when 'Key'; then return '42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getNameAsString(String, String) with 'String', 'String'; given COSDictionary(); when 'Key'; then return '42'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String COSDictionary.getNameAsString(String, String)"})
   void testGetNameAsStringWithStringString_givenCOSDictionary_whenKey_thenReturn42() {
     // Arrange, Act and Assert
-    assertEquals("42", new COSDictionary().getNameAsString("Key", "42"));
+    assertEquals("42", (new COSDictionary()).getNameAsString("Key", "42"));
   }
 
   /**
    * Test {@link COSDictionary#getNameAsString(String)} with {@code String}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.
+   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getNameAsString(String)}
+   * <p>
+   * Method under test: {@link COSDictionary#getNameAsString(String)}
    */
   @Test
   @DisplayName("Test getNameAsString(String) with 'String'; given COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String COSDictionary.getNameAsString(String)"})
   void testGetNameAsStringWithString_givenCOSDictionary() {
     // Arrange, Act and Assert
-    assertNull(new COSDictionary().getNameAsString("Key"));
+    assertNull((new COSDictionary()).getNameAsString("Key"));
   }
 
   /**
    * Test {@link COSDictionary#getNameAsString(String)} with {@code String}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary(COSDictionary)} with dict is {@link
-   *       COSDictionary#COSDictionary()}.
+   *   <li>Given {@link COSDictionary#COSDictionary(COSDictionary)} with dict is {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getNameAsString(String)}
+   * <p>
+   * Method under test: {@link COSDictionary#getNameAsString(String)}
    */
   @Test
-  @DisplayName(
-      "Test getNameAsString(String) with 'String'; given COSDictionary(COSDictionary) with dict is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getNameAsString(String) with 'String'; given COSDictionary(COSDictionary) with dict is COSDictionary()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String COSDictionary.getNameAsString(String)"})
   void testGetNameAsStringWithString_givenCOSDictionaryWithDictIsCOSDictionary() {
     // Arrange, Act and Assert
-    assertNull(new COSDictionary(new COSDictionary()).getNameAsString("Key"));
+    assertNull((new COSDictionary(new COSDictionary())).getNameAsString("Key"));
   }
 
   /**
    * Test {@link COSDictionary#getString(COSName, String)} with {@code COSName}, {@code String}.
-   *
    * <ul>
-   *   <li>When {@link COSName#A}.
+   *   <li>When {@link COSName#A}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getString(COSName, String)}
+   * <p>
+   * Method under test: {@link COSDictionary#getString(COSName, String)}
    */
   @Test
   @DisplayName("Test getString(COSName, String) with 'COSName', 'String'; when A")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String COSDictionary.getString(COSName, String)"})
   void testGetStringWithCOSNameString_whenA() {
     // Arrange, Act and Assert
-    assertEquals("42", new COSDictionary().getString(COSName.A, "42"));
+    assertEquals("42", (new COSDictionary()).getString(COSName.A, "42"));
   }
 
   /**
    * Test {@link COSDictionary#getString(COSName, String)} with {@code COSName}, {@code String}.
-   *
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getString(COSName, String)}
+   * <p>
+   * Method under test: {@link COSDictionary#getString(COSName, String)}
    */
   @Test
   @DisplayName("Test getString(COSName, String) with 'COSName', 'String'; when 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String COSDictionary.getString(COSName, String)"})
   void testGetStringWithCOSNameString_whenNull() {
     // Arrange, Act and Assert
-    assertEquals("42", new COSDictionary().getString((COSName) null, "42"));
+    assertEquals("42", (new COSDictionary()).getString((COSName) null, "42"));
   }
 
   /**
    * Test {@link COSDictionary#getString(COSName)} with {@code COSName}.
-   *
    * <ul>
-   *   <li>When {@link COSName#A}.
+   *   <li>When {@link COSName#A}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getString(COSName)}
+   * <p>
+   * Method under test: {@link COSDictionary#getString(COSName)}
    */
   @Test
   @DisplayName("Test getString(COSName) with 'COSName'; when A")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String COSDictionary.getString(COSName)"})
   void testGetStringWithCOSName_whenA() {
     // Arrange, Act and Assert
-    assertNull(new COSDictionary().getString(COSName.A));
+    assertNull((new COSDictionary()).getString(COSName.A));
   }
 
   /**
    * Test {@link COSDictionary#getString(COSName)} with {@code COSName}.
-   *
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getString(COSName)}
+   * <p>
+   * Method under test: {@link COSDictionary#getString(COSName)}
    */
   @Test
   @DisplayName("Test getString(COSName) with 'COSName'; when 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String COSDictionary.getString(COSName)"})
   void testGetStringWithCOSName_whenNull() {
     // Arrange, Act and Assert
-    assertNull(new COSDictionary().getString((COSName) null));
+    assertNull((new COSDictionary()).getString((COSName) null));
   }
 
   /**
    * Test {@link COSDictionary#getString(String, String)} with {@code String}, {@code String}.
    * <ul>
-   *   <li>When {@code COSDictionary{}.</li>
+   *   <li>When {@code COSArray{}.</li>
    *   <li>Then return {@code 42}.</li>
    * </ul>
    * <p>
    * Method under test: {@link COSDictionary#getString(String, String)}
    */
   @Test
-  @DisplayName(
-      "Test getString(String, String) with 'String', 'String'; when 'COSDictionary{'; then return '42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getString(String, String) with 'String', 'String'; when 'COSArray{'; then return '42'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String COSDictionary.getString(String, String)"})
-  void testGetStringWithStringString_whenCOSDictionary_thenReturn42() {
+  void testGetStringWithStringString_whenCOSArray_thenReturn42() {
     // Arrange, Act and Assert
-    assertEquals("42", new COSDictionary().getString("COSDictionary{", "42"));
+    assertEquals("42", (new COSDictionary()).getString("COSArray{", "42"));
   }
 
   /**
    * Test {@link COSDictionary#getString(String, String)} with {@code String}, {@code String}.
-   *
    * <ul>
-   *   <li>When {@code Key}.
-   *   <li>Then return {@code 42}.
+   *   <li>When {@code Key}.</li>
+   *   <li>Then return {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getString(String, String)}
+   * <p>
+   * Method under test: {@link COSDictionary#getString(String, String)}
    */
   @Test
-  @DisplayName(
-      "Test getString(String, String) with 'String', 'String'; when 'Key'; then return '42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getString(String, String) with 'String', 'String'; when 'Key'; then return '42'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String COSDictionary.getString(String, String)"})
   void testGetStringWithStringString_whenKey_thenReturn42() {
     // Arrange, Act and Assert
-    assertEquals("42", new COSDictionary().getString("Key", "42"));
+    assertEquals("42", (new COSDictionary()).getString("Key", "42"));
   }
 
   /**
    * Test {@link COSDictionary#getString(String)} with {@code String}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.
+   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getString(String)}
+   * <p>
+   * Method under test: {@link COSDictionary#getString(String)}
    */
   @Test
   @DisplayName("Test getString(String) with 'String'; given COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String COSDictionary.getString(String)"})
   void testGetStringWithString_givenCOSDictionary() {
     // Arrange, Act and Assert
-    assertNull(new COSDictionary().getString("Key"));
+    assertNull((new COSDictionary()).getString("Key"));
   }
 
   /**
    * Test {@link COSDictionary#getString(String)} with {@code String}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary(COSDictionary)} with dict is {@link
-   *       COSDictionary#COSDictionary()}.
+   *   <li>Given {@link COSDictionary#COSDictionary(COSDictionary)} with dict is {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getString(String)}
+   * <p>
+   * Method under test: {@link COSDictionary#getString(String)}
    */
   @Test
-  @DisplayName(
-      "Test getString(String) with 'String'; given COSDictionary(COSDictionary) with dict is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getString(String) with 'String'; given COSDictionary(COSDictionary) with dict is COSDictionary()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String COSDictionary.getString(String)"})
   void testGetStringWithString_givenCOSDictionaryWithDictIsCOSDictionary() {
     // Arrange, Act and Assert
-    assertNull(new COSDictionary(new COSDictionary()).getString("Key"));
+    assertNull((new COSDictionary(new COSDictionary())).getString("Key"));
   }
 
   /**
-   * Test {@link COSDictionary#getEmbeddedString(COSName, COSName, String)} with {@code embedded},
-   * {@code key}, {@code defaultValue}.
-   *
+   * Test {@link COSDictionary#getEmbeddedString(COSName, COSName, String)} with {@code embedded}, {@code key}, {@code defaultValue}.
    * <ul>
-   *   <li>When {@link COSName#A}.
+   *   <li>When {@link COSName#A}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getEmbeddedString(COSName, COSName, String)}
+   * <p>
+   * Method under test: {@link COSDictionary#getEmbeddedString(COSName, COSName, String)}
    */
   @Test
-  @DisplayName(
-      "Test getEmbeddedString(COSName, COSName, String) with 'embedded', 'key', 'defaultValue'; when A")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getEmbeddedString(COSName, COSName, String) with 'embedded', 'key', 'defaultValue'; when A")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String COSDictionary.getEmbeddedString(COSName, COSName, String)"})
   void testGetEmbeddedStringWithEmbeddedKeyDefaultValue_whenA() {
     // Arrange, Act and Assert
-    assertEquals("42", new COSDictionary().getEmbeddedString(COSName.A, COSName.A, "42"));
+    assertEquals("42", (new COSDictionary()).getEmbeddedString(COSName.A, COSName.A, "42"));
   }
 
   /**
-   * Test {@link COSDictionary#getEmbeddedString(COSName, COSName, String)} with {@code embedded},
-   * {@code key}, {@code defaultValue}.
-   *
+   * Test {@link COSDictionary#getEmbeddedString(COSName, COSName, String)} with {@code embedded}, {@code key}, {@code defaultValue}.
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getEmbeddedString(COSName, COSName, String)}
+   * <p>
+   * Method under test: {@link COSDictionary#getEmbeddedString(COSName, COSName, String)}
    */
   @Test
-  @DisplayName(
-      "Test getEmbeddedString(COSName, COSName, String) with 'embedded', 'key', 'defaultValue'; when 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getEmbeddedString(COSName, COSName, String) with 'embedded', 'key', 'defaultValue'; when 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String COSDictionary.getEmbeddedString(COSName, COSName, String)"})
   void testGetEmbeddedStringWithEmbeddedKeyDefaultValue_whenNull() {
     // Arrange, Act and Assert
-    assertEquals("42", new COSDictionary().getEmbeddedString(null, COSName.A, "42"));
+    assertEquals("42", (new COSDictionary()).getEmbeddedString(null, COSName.A, "42"));
   }
 
   /**
-   * Test {@link COSDictionary#getEmbeddedString(COSName, COSName)} with {@code embedded}, {@code
-   * key}.
-   *
+   * Test {@link COSDictionary#getEmbeddedString(COSName, COSName)} with {@code embedded}, {@code key}.
    * <ul>
-   *   <li>When {@link COSName#A}.
+   *   <li>When {@link COSName#A}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getEmbeddedString(COSName, COSName)}
+   * <p>
+   * Method under test: {@link COSDictionary#getEmbeddedString(COSName, COSName)}
    */
   @Test
   @DisplayName("Test getEmbeddedString(COSName, COSName) with 'embedded', 'key'; when A")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String COSDictionary.getEmbeddedString(COSName, COSName)"})
   void testGetEmbeddedStringWithEmbeddedKey_whenA() {
     // Arrange, Act and Assert
-    assertNull(new COSDictionary().getEmbeddedString(COSName.A, COSName.A));
+    assertNull((new COSDictionary()).getEmbeddedString(COSName.A, COSName.A));
   }
 
   /**
-   * Test {@link COSDictionary#getEmbeddedString(COSName, COSName)} with {@code embedded}, {@code
-   * key}.
-   *
+   * Test {@link COSDictionary#getEmbeddedString(COSName, COSName)} with {@code embedded}, {@code key}.
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getEmbeddedString(COSName, COSName)}
+   * <p>
+   * Method under test: {@link COSDictionary#getEmbeddedString(COSName, COSName)}
    */
   @Test
   @DisplayName("Test getEmbeddedString(COSName, COSName) with 'embedded', 'key'; when 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String COSDictionary.getEmbeddedString(COSName, COSName)"})
   void testGetEmbeddedStringWithEmbeddedKey_whenNull() {
     // Arrange, Act and Assert
-    assertNull(new COSDictionary().getEmbeddedString(null, COSName.A));
+    assertNull((new COSDictionary()).getEmbeddedString(null, COSName.A));
   }
 
   /**
    * Test {@link COSDictionary#getDate(COSName, Calendar)} with {@code COSName}, {@code Calendar}.
-   *
    * <ul>
-   *   <li>When {@link COSName#A}.
+   *   <li>When {@link COSName#A}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getDate(COSName, Calendar)}
+   * <p>
+   * Method under test: {@link COSDictionary#getDate(COSName, Calendar)}
    */
   @Test
   @DisplayName("Test getDate(COSName, Calendar) with 'COSName', 'Calendar'; when A")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Calendar COSDictionary.getDate(COSName, Calendar)"})
   void testGetDateWithCOSNameCalendar_whenA() {
     // Arrange
     COSDictionary cosDictionary = new COSDictionary();
     GregorianCalendar defaultValue = new GregorianCalendar(1, 1, 1);
 
-    // Act
-    Calendar actualDate = cosDictionary.getDate(COSName.A, defaultValue);
-
-    // Assert
-    assertSame(defaultValue, actualDate);
+    // Act and Assert
+    assertSame(defaultValue, cosDictionary.getDate(COSName.A, defaultValue));
   }
 
   /**
    * Test {@link COSDictionary#getDate(COSName, Calendar)} with {@code COSName}, {@code Calendar}.
-   *
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getDate(COSName, Calendar)}
+   * <p>
+   * Method under test: {@link COSDictionary#getDate(COSName, Calendar)}
    */
   @Test
   @DisplayName("Test getDate(COSName, Calendar) with 'COSName', 'Calendar'; when 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Calendar COSDictionary.getDate(COSName, Calendar)"})
   void testGetDateWithCOSNameCalendar_whenNull() {
     // Arrange
     COSDictionary cosDictionary = new COSDictionary();
     GregorianCalendar defaultValue = new GregorianCalendar(1, 1, 1);
 
-    // Act
-    Calendar actualDate = cosDictionary.getDate((COSName) null, defaultValue);
-
-    // Assert
-    assertSame(defaultValue, actualDate);
+    // Act and Assert
+    assertSame(defaultValue, cosDictionary.getDate((COSName) null, defaultValue));
   }
 
   /**
    * Test {@link COSDictionary#getDate(COSName)} with {@code COSName}.
-   *
    * <ul>
-   *   <li>When {@link COSName#A}.
+   *   <li>When {@link COSName#A}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getDate(COSName)}
+   * <p>
+   * Method under test: {@link COSDictionary#getDate(COSName)}
    */
   @Test
   @DisplayName("Test getDate(COSName) with 'COSName'; when A")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Calendar COSDictionary.getDate(COSName)"})
   void testGetDateWithCOSName_whenA() {
     // Arrange, Act and Assert
-    assertNull(new COSDictionary().getDate(COSName.A));
+    assertNull((new COSDictionary()).getDate(COSName.A));
   }
 
   /**
    * Test {@link COSDictionary#getDate(COSName)} with {@code COSName}.
-   *
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getDate(COSName)}
+   * <p>
+   * Method under test: {@link COSDictionary#getDate(COSName)}
    */
   @Test
   @DisplayName("Test getDate(COSName) with 'COSName'; when 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Calendar COSDictionary.getDate(COSName)"})
   void testGetDateWithCOSName_whenNull() {
     // Arrange, Act and Assert
-    assertNull(new COSDictionary().getDate((COSName) null));
+    assertNull((new COSDictionary()).getDate((COSName) null));
   }
 
   /**
    * Test {@link COSDictionary#getDate(String, Calendar)} with {@code String}, {@code Calendar}.
    * <ul>
-   *   <li>When {@code COSDictionary{}.</li>
+   *   <li>When {@code COSArray{}.</li>
    * </ul>
    * <p>
    * Method under test: {@link COSDictionary#getDate(String, Calendar)}
    */
   @Test
-  @DisplayName("Test getDate(String, Calendar) with 'String', 'Calendar'; when 'COSDictionary{'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getDate(String, Calendar) with 'String', 'Calendar'; when 'COSArray{'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Calendar COSDictionary.getDate(String, Calendar)"})
-  void testGetDateWithStringCalendar_whenCOSDictionary() {
+  void testGetDateWithStringCalendar_whenCOSArray() {
     // Arrange
     COSDictionary cosDictionary = new COSDictionary();
     GregorianCalendar defaultValue = new GregorianCalendar(1, 1, 1);
 
-    // Act
-    Calendar actualDate = cosDictionary.getDate("COSDictionary{", defaultValue);
-
-    // Assert
-    assertSame(defaultValue, actualDate);
+    // Act and Assert
+    assertSame(defaultValue, cosDictionary.getDate("COSArray{", defaultValue));
   }
 
   /**
    * Test {@link COSDictionary#getDate(String, Calendar)} with {@code String}, {@code Calendar}.
-   *
    * <ul>
-   *   <li>When {@code Key}.
+   *   <li>When {@code Key}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getDate(String, Calendar)}
+   * <p>
+   * Method under test: {@link COSDictionary#getDate(String, Calendar)}
    */
   @Test
   @DisplayName("Test getDate(String, Calendar) with 'String', 'Calendar'; when 'Key'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Calendar COSDictionary.getDate(String, Calendar)"})
   void testGetDateWithStringCalendar_whenKey() {
     // Arrange
     COSDictionary cosDictionary = new COSDictionary();
     GregorianCalendar defaultValue = new GregorianCalendar(1, 1, 1);
 
-    // Act
-    Calendar actualDate = cosDictionary.getDate("Key", defaultValue);
-
-    // Assert
-    assertSame(defaultValue, actualDate);
+    // Act and Assert
+    assertSame(defaultValue, cosDictionary.getDate("Key", defaultValue));
   }
 
   /**
    * Test {@link COSDictionary#getDate(String)} with {@code String}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.
+   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getDate(String)}
+   * <p>
+   * Method under test: {@link COSDictionary#getDate(String)}
    */
   @Test
   @DisplayName("Test getDate(String) with 'String'; given COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Calendar COSDictionary.getDate(String)"})
   void testGetDateWithString_givenCOSDictionary() {
     // Arrange, Act and Assert
-    assertNull(new COSDictionary().getDate("Key"));
+    assertNull((new COSDictionary()).getDate("Key"));
   }
 
   /**
    * Test {@link COSDictionary#getDate(String)} with {@code String}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary(COSDictionary)} with dict is {@link
-   *       COSDictionary#COSDictionary()}.
+   *   <li>Given {@link COSDictionary#COSDictionary(COSDictionary)} with dict is {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getDate(String)}
+   * <p>
+   * Method under test: {@link COSDictionary#getDate(String)}
    */
   @Test
-  @DisplayName(
-      "Test getDate(String) with 'String'; given COSDictionary(COSDictionary) with dict is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getDate(String) with 'String'; given COSDictionary(COSDictionary) with dict is COSDictionary()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Calendar COSDictionary.getDate(String)"})
   void testGetDateWithString_givenCOSDictionaryWithDictIsCOSDictionary() {
     // Arrange, Act and Assert
-    assertNull(new COSDictionary(new COSDictionary()).getDate("Key"));
+    assertNull((new COSDictionary(new COSDictionary())).getDate("Key"));
   }
 
   /**
-   * Test {@link COSDictionary#getEmbeddedDate(COSName, COSName, Calendar)} with {@code embedded},
-   * {@code key}, {@code defaultValue}.
-   *
-   * <p>Method under test: {@link COSDictionary#getEmbeddedDate(COSName, COSName, Calendar)}
+   * Test {@link COSDictionary#getEmbeddedDate(COSName, COSName, Calendar)} with {@code embedded}, {@code key}, {@code defaultValue}.
+   * <p>
+   * Method under test: {@link COSDictionary#getEmbeddedDate(COSName, COSName, Calendar)}
    */
   @Test
-  @DisplayName(
-      "Test getEmbeddedDate(COSName, COSName, Calendar) with 'embedded', 'key', 'defaultValue'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getEmbeddedDate(COSName, COSName, Calendar) with 'embedded', 'key', 'defaultValue'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Calendar COSDictionary.getEmbeddedDate(COSName, COSName, Calendar)"})
   void testGetEmbeddedDateWithEmbeddedKeyDefaultValue() {
     // Arrange
     COSDictionary cosDictionary = new COSDictionary();
     GregorianCalendar defaultValue = new GregorianCalendar(1, 1, 1);
 
-    // Act
-    Calendar actualEmbeddedDate = cosDictionary.getEmbeddedDate(COSName.A, COSName.A, defaultValue);
-
-    // Assert
-    assertSame(defaultValue, actualEmbeddedDate);
+    // Act and Assert
+    assertSame(defaultValue, cosDictionary.getEmbeddedDate(COSName.A, COSName.A, defaultValue));
   }
 
   /**
-   * Test {@link COSDictionary#getEmbeddedDate(COSName, COSName, Calendar)} with {@code embedded},
-   * {@code key}, {@code defaultValue}.
-   *
+   * Test {@link COSDictionary#getEmbeddedDate(COSName, COSName, Calendar)} with {@code embedded}, {@code key}, {@code defaultValue}.
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getEmbeddedDate(COSName, COSName, Calendar)}
+   * <p>
+   * Method under test: {@link COSDictionary#getEmbeddedDate(COSName, COSName, Calendar)}
    */
   @Test
-  @DisplayName(
-      "Test getEmbeddedDate(COSName, COSName, Calendar) with 'embedded', 'key', 'defaultValue'; when 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getEmbeddedDate(COSName, COSName, Calendar) with 'embedded', 'key', 'defaultValue'; when 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Calendar COSDictionary.getEmbeddedDate(COSName, COSName, Calendar)"})
   void testGetEmbeddedDateWithEmbeddedKeyDefaultValue_whenNull() {
     // Arrange
     COSDictionary cosDictionary = new COSDictionary();
     GregorianCalendar defaultValue = new GregorianCalendar(1, 1, 1);
 
-    // Act
-    Calendar actualEmbeddedDate = cosDictionary.getEmbeddedDate(null, COSName.A, defaultValue);
-
-    // Assert
-    assertSame(defaultValue, actualEmbeddedDate);
+    // Act and Assert
+    assertSame(defaultValue, cosDictionary.getEmbeddedDate(null, COSName.A, defaultValue));
   }
 
   /**
-   * Test {@link COSDictionary#getEmbeddedDate(COSName, COSName)} with {@code embedded}, {@code
-   * key}.
-   *
+   * Test {@link COSDictionary#getEmbeddedDate(COSName, COSName)} with {@code embedded}, {@code key}.
    * <ul>
-   *   <li>When {@link COSName#A}.
+   *   <li>When {@link COSName#A}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getEmbeddedDate(COSName, COSName)}
+   * <p>
+   * Method under test: {@link COSDictionary#getEmbeddedDate(COSName, COSName)}
    */
   @Test
   @DisplayName("Test getEmbeddedDate(COSName, COSName) with 'embedded', 'key'; when A")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Calendar COSDictionary.getEmbeddedDate(COSName, COSName)"})
   void testGetEmbeddedDateWithEmbeddedKey_whenA() {
     // Arrange, Act and Assert
-    assertNull(new COSDictionary().getEmbeddedDate(COSName.A, COSName.A));
+    assertNull((new COSDictionary()).getEmbeddedDate(COSName.A, COSName.A));
   }
 
   /**
-   * Test {@link COSDictionary#getEmbeddedDate(COSName, COSName)} with {@code embedded}, {@code
-   * key}.
-   *
+   * Test {@link COSDictionary#getEmbeddedDate(COSName, COSName)} with {@code embedded}, {@code key}.
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getEmbeddedDate(COSName, COSName)}
+   * <p>
+   * Method under test: {@link COSDictionary#getEmbeddedDate(COSName, COSName)}
    */
   @Test
   @DisplayName("Test getEmbeddedDate(COSName, COSName) with 'embedded', 'key'; when 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Calendar COSDictionary.getEmbeddedDate(COSName, COSName)"})
   void testGetEmbeddedDateWithEmbeddedKey_whenNull() {
     // Arrange, Act and Assert
-    assertNull(new COSDictionary().getEmbeddedDate(null, COSName.A));
+    assertNull((new COSDictionary()).getEmbeddedDate(null, COSName.A));
   }
 
   /**
    * Test {@link COSDictionary#getCOSObject(COSName)} with {@code COSName}.
-   *
    * <ul>
-   *   <li>When {@link COSName#A}.
+   *   <li>When {@link COSName#A}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getCOSObject(COSName)}
+   * <p>
+   * Method under test: {@link COSDictionary#getCOSObject(COSName)}
    */
   @Test
   @DisplayName("Test getCOSObject(COSName) with 'COSName'; when A")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSObject COSDictionary.getCOSObject(COSName)"})
   void testGetCOSObjectWithCOSName_whenA() {
     // Arrange, Act and Assert
-    assertNull(new COSDictionary().getCOSObject(COSName.A));
+    assertNull((new COSDictionary()).getCOSObject(COSName.A));
   }
 
   /**
    * Test {@link COSDictionary#getCOSObject(COSName)} with {@code COSName}.
-   *
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getCOSObject(COSName)}
+   * <p>
+   * Method under test: {@link COSDictionary#getCOSObject(COSName)}
    */
   @Test
   @DisplayName("Test getCOSObject(COSName) with 'COSName'; when 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSObject COSDictionary.getCOSObject(COSName)"})
   void testGetCOSObjectWithCOSName_whenNull() {
     // Arrange, Act and Assert
-    assertNull(new COSDictionary().getCOSObject(null));
+    assertNull((new COSDictionary()).getCOSObject(null));
   }
 
   /**
-   * Test {@link COSDictionary#getCOSDictionary(COSName, COSName)} with {@code firstKey}, {@code
-   * secondKey}.
-   *
+   * Test {@link COSDictionary#getCOSDictionary(COSName, COSName)} with {@code firstKey}, {@code secondKey}.
    * <ul>
-   *   <li>When {@link COSName#A}.
+   *   <li>When {@link COSName#A}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getCOSDictionary(COSName, COSName)}
+   * <p>
+   * Method under test: {@link COSDictionary#getCOSDictionary(COSName, COSName)}
    */
   @Test
   @DisplayName("Test getCOSDictionary(COSName, COSName) with 'firstKey', 'secondKey'; when A")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSDictionary COSDictionary.getCOSDictionary(COSName, COSName)"})
   void testGetCOSDictionaryWithFirstKeySecondKey_whenA() {
     // Arrange, Act and Assert
-    assertNull(new COSDictionary().getCOSDictionary(COSName.A, COSName.A));
+    assertNull((new COSDictionary()).getCOSDictionary(COSName.A, COSName.A));
   }
 
   /**
-   * Test {@link COSDictionary#getCOSDictionary(COSName, COSName)} with {@code firstKey}, {@code
-   * secondKey}.
-   *
+   * Test {@link COSDictionary#getCOSDictionary(COSName, COSName)} with {@code firstKey}, {@code secondKey}.
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getCOSDictionary(COSName, COSName)}
+   * <p>
+   * Method under test: {@link COSDictionary#getCOSDictionary(COSName, COSName)}
    */
   @Test
   @DisplayName("Test getCOSDictionary(COSName, COSName) with 'firstKey', 'secondKey'; when 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSDictionary COSDictionary.getCOSDictionary(COSName, COSName)"})
   void testGetCOSDictionaryWithFirstKeySecondKey_whenNull() {
     // Arrange, Act and Assert
-    assertNull(new COSDictionary().getCOSDictionary(COSName.A, null));
+    assertNull((new COSDictionary()).getCOSDictionary(null, COSName.A));
   }
 
   /**
-   * Test {@link COSDictionary#getCOSDictionary(COSName, COSName)} with {@code firstKey}, {@code
-   * secondKey}.
-   *
+   * Test {@link COSDictionary#getCOSDictionary(COSName, COSName)} with {@code firstKey}, {@code secondKey}.
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getCOSDictionary(COSName, COSName)}
+   * <p>
+   * Method under test: {@link COSDictionary#getCOSDictionary(COSName, COSName)}
    */
   @Test
   @DisplayName("Test getCOSDictionary(COSName, COSName) with 'firstKey', 'secondKey'; when 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSDictionary COSDictionary.getCOSDictionary(COSName, COSName)"})
   void testGetCOSDictionaryWithFirstKeySecondKey_whenNull2() {
     // Arrange, Act and Assert
-    assertNull(new COSDictionary().getCOSDictionary(null, COSName.A));
+    assertNull((new COSDictionary()).getCOSDictionary(COSName.A, null));
   }
 
   /**
    * Test {@link COSDictionary#getCOSDictionary(COSName)} with {@code key}.
-   *
    * <ul>
-   *   <li>When {@link COSName#A}.
+   *   <li>When {@link COSName#A}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getCOSDictionary(COSName)}
+   * <p>
+   * Method under test: {@link COSDictionary#getCOSDictionary(COSName)}
    */
   @Test
   @DisplayName("Test getCOSDictionary(COSName) with 'key'; when A")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSDictionary COSDictionary.getCOSDictionary(COSName)"})
   void testGetCOSDictionaryWithKey_whenA() {
     // Arrange, Act and Assert
-    assertNull(new COSDictionary().getCOSDictionary(COSName.A));
+    assertNull((new COSDictionary()).getCOSDictionary(COSName.A));
   }
 
   /**
    * Test {@link COSDictionary#getCOSDictionary(COSName)} with {@code key}.
-   *
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getCOSDictionary(COSName)}
+   * <p>
+   * Method under test: {@link COSDictionary#getCOSDictionary(COSName)}
    */
   @Test
   @DisplayName("Test getCOSDictionary(COSName) with 'key'; when 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSDictionary COSDictionary.getCOSDictionary(COSName)"})
   void testGetCOSDictionaryWithKey_whenNull() {
     // Arrange, Act and Assert
-    assertNull(new COSDictionary().getCOSDictionary(null));
+    assertNull((new COSDictionary()).getCOSDictionary(null));
   }
 
   /**
    * Test {@link COSDictionary#getCOSStream(COSName)}.
-   *
    * <ul>
-   *   <li>When {@link COSName#A}.
+   *   <li>When {@link COSName#A}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getCOSStream(COSName)}
+   * <p>
+   * Method under test: {@link COSDictionary#getCOSStream(COSName)}
    */
   @Test
   @DisplayName("Test getCOSStream(COSName); when A")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSStream COSDictionary.getCOSStream(COSName)"})
   void testGetCOSStream_whenA() {
     // Arrange, Act and Assert
-    assertNull(new COSDictionary().getCOSStream(COSName.A));
+    assertNull((new COSDictionary()).getCOSStream(COSName.A));
   }
 
   /**
    * Test {@link COSDictionary#getCOSStream(COSName)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getCOSStream(COSName)}
+   * <p>
+   * Method under test: {@link COSDictionary#getCOSStream(COSName)}
    */
   @Test
   @DisplayName("Test getCOSStream(COSName); when 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSStream COSDictionary.getCOSStream(COSName)"})
   void testGetCOSStream_whenNull() {
     // Arrange, Act and Assert
-    assertNull(new COSDictionary().getCOSStream(null));
+    assertNull((new COSDictionary()).getCOSStream(null));
   }
 
   /**
    * Test {@link COSDictionary#getCOSArray(COSName)}.
-   *
    * <ul>
-   *   <li>When {@link COSName#A}.
+   *   <li>When {@link COSName#A}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getCOSArray(COSName)}
+   * <p>
+   * Method under test: {@link COSDictionary#getCOSArray(COSName)}
    */
   @Test
   @DisplayName("Test getCOSArray(COSName); when A")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSArray COSDictionary.getCOSArray(COSName)"})
   void testGetCOSArray_whenA() {
     // Arrange, Act and Assert
-    assertNull(new COSDictionary().getCOSArray(COSName.A));
+    assertNull((new COSDictionary()).getCOSArray(COSName.A));
   }
 
   /**
    * Test {@link COSDictionary#getCOSArray(COSName)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getCOSArray(COSName)}
+   * <p>
+   * Method under test: {@link COSDictionary#getCOSArray(COSName)}
    */
   @Test
   @DisplayName("Test getCOSArray(COSName); when 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSArray COSDictionary.getCOSArray(COSName)"})
   void testGetCOSArray_whenNull() {
     // Arrange, Act and Assert
-    assertNull(new COSDictionary().getCOSArray(null));
+    assertNull((new COSDictionary()).getCOSArray(null));
   }
 
   /**
    * Test {@link COSDictionary#getBoolean(COSName, boolean)} with {@code COSName}, {@code boolean}.
-   *
    * <ul>
-   *   <li>When {@link COSName#A}.
-   *   <li>Then return {@code true}.
+   *   <li>When {@link COSName#A}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getBoolean(COSName, boolean)}
+   * <p>
+   * Method under test: {@link COSDictionary#getBoolean(COSName, boolean)}
    */
   @Test
-  @DisplayName(
-      "Test getBoolean(COSName, boolean) with 'COSName', 'boolean'; when A; then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getBoolean(COSName, boolean) with 'COSName', 'boolean'; when A; then return 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean COSDictionary.getBoolean(COSName, boolean)"})
   void testGetBooleanWithCOSNameBoolean_whenA_thenReturnTrue() {
     // Arrange, Act and Assert
-    assertTrue(new COSDictionary().getBoolean(COSName.A, true));
+    assertTrue((new COSDictionary()).getBoolean(COSName.A, true));
   }
 
   /**
    * Test {@link COSDictionary#getBoolean(COSName, boolean)} with {@code COSName}, {@code boolean}.
-   *
    * <ul>
-   *   <li>When {@code false}.
-   *   <li>Then return {@code false}.
+   *   <li>When {@code false}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getBoolean(COSName, boolean)}
+   * <p>
+   * Method under test: {@link COSDictionary#getBoolean(COSName, boolean)}
    */
   @Test
-  @DisplayName(
-      "Test getBoolean(COSName, boolean) with 'COSName', 'boolean'; when 'false'; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getBoolean(COSName, boolean) with 'COSName', 'boolean'; when 'false'; then return 'false'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean COSDictionary.getBoolean(COSName, boolean)"})
   void testGetBooleanWithCOSNameBoolean_whenFalse_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new COSDictionary().getBoolean(COSName.A, false));
+    assertFalse((new COSDictionary()).getBoolean(COSName.A, false));
   }
 
   /**
    * Test {@link COSDictionary#getBoolean(COSName, boolean)} with {@code COSName}, {@code boolean}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return {@code true}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getBoolean(COSName, boolean)}
+   * <p>
+   * Method under test: {@link COSDictionary#getBoolean(COSName, boolean)}
    */
   @Test
-  @DisplayName(
-      "Test getBoolean(COSName, boolean) with 'COSName', 'boolean'; when 'null'; then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getBoolean(COSName, boolean) with 'COSName', 'boolean'; when 'null'; then return 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean COSDictionary.getBoolean(COSName, boolean)"})
   void testGetBooleanWithCOSNameBoolean_whenNull_thenReturnTrue() {
     // Arrange, Act and Assert
-    assertTrue(new COSDictionary().getBoolean((COSName) null, true));
+    assertTrue((new COSDictionary()).getBoolean((COSName) null, true));
   }
 
   /**
-   * Test {@link COSDictionary#getBoolean(COSName, COSName, boolean)} with {@code COSName}, {@code
-   * COSName}, {@code boolean}.
-   *
+   * Test {@link COSDictionary#getBoolean(COSName, COSName, boolean)} with {@code COSName}, {@code COSName}, {@code boolean}.
    * <ul>
-   *   <li>When {@code false}.
-   *   <li>Then return {@code false}.
+   *   <li>When {@code false}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getBoolean(COSName, COSName, boolean)}
+   * <p>
+   * Method under test: {@link COSDictionary#getBoolean(COSName, COSName, boolean)}
    */
   @Test
-  @DisplayName(
-      "Test getBoolean(COSName, COSName, boolean) with 'COSName', 'COSName', 'boolean'; when 'false'; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getBoolean(COSName, COSName, boolean) with 'COSName', 'COSName', 'boolean'; when 'false'; then return 'false'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean COSDictionary.getBoolean(COSName, COSName, boolean)"})
   void testGetBooleanWithCOSNameCOSNameBoolean_whenFalse_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new COSDictionary().getBoolean(COSName.A, COSName.A, false));
+    assertFalse((new COSDictionary()).getBoolean(COSName.A, COSName.A, false));
   }
 
   /**
-   * Test {@link COSDictionary#getBoolean(COSName, COSName, boolean)} with {@code COSName}, {@code
-   * COSName}, {@code boolean}.
-   *
+   * Test {@link COSDictionary#getBoolean(COSName, COSName, boolean)} with {@code COSName}, {@code COSName}, {@code boolean}.
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return {@code true}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getBoolean(COSName, COSName, boolean)}
+   * <p>
+   * Method under test: {@link COSDictionary#getBoolean(COSName, COSName, boolean)}
    */
   @Test
-  @DisplayName(
-      "Test getBoolean(COSName, COSName, boolean) with 'COSName', 'COSName', 'boolean'; when 'null'; then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getBoolean(COSName, COSName, boolean) with 'COSName', 'COSName', 'boolean'; when 'null'; then return 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean COSDictionary.getBoolean(COSName, COSName, boolean)"})
   void testGetBooleanWithCOSNameCOSNameBoolean_whenNull_thenReturnTrue() {
     // Arrange, Act and Assert
-    assertTrue(new COSDictionary().getBoolean(COSName.A, null, true));
+    assertTrue((new COSDictionary()).getBoolean(null, COSName.A, true));
   }
 
   /**
-   * Test {@link COSDictionary#getBoolean(COSName, COSName, boolean)} with {@code COSName}, {@code
-   * COSName}, {@code boolean}.
-   *
+   * Test {@link COSDictionary#getBoolean(COSName, COSName, boolean)} with {@code COSName}, {@code COSName}, {@code boolean}.
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return {@code true}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getBoolean(COSName, COSName, boolean)}
+   * <p>
+   * Method under test: {@link COSDictionary#getBoolean(COSName, COSName, boolean)}
    */
   @Test
-  @DisplayName(
-      "Test getBoolean(COSName, COSName, boolean) with 'COSName', 'COSName', 'boolean'; when 'null'; then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getBoolean(COSName, COSName, boolean) with 'COSName', 'COSName', 'boolean'; when 'null'; then return 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean COSDictionary.getBoolean(COSName, COSName, boolean)"})
   void testGetBooleanWithCOSNameCOSNameBoolean_whenNull_thenReturnTrue2() {
     // Arrange, Act and Assert
-    assertTrue(new COSDictionary().getBoolean(null, COSName.A, true));
+    assertTrue((new COSDictionary()).getBoolean(COSName.A, null, true));
   }
 
   /**
-   * Test {@link COSDictionary#getBoolean(COSName, COSName, boolean)} with {@code COSName}, {@code
-   * COSName}, {@code boolean}.
-   *
+   * Test {@link COSDictionary#getBoolean(COSName, COSName, boolean)} with {@code COSName}, {@code COSName}, {@code boolean}.
    * <ul>
-   *   <li>When {@code true}.
-   *   <li>Then return {@code true}.
+   *   <li>When {@code true}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getBoolean(COSName, COSName, boolean)}
+   * <p>
+   * Method under test: {@link COSDictionary#getBoolean(COSName, COSName, boolean)}
    */
   @Test
-  @DisplayName(
-      "Test getBoolean(COSName, COSName, boolean) with 'COSName', 'COSName', 'boolean'; when 'true'; then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getBoolean(COSName, COSName, boolean) with 'COSName', 'COSName', 'boolean'; when 'true'; then return 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean COSDictionary.getBoolean(COSName, COSName, boolean)"})
   void testGetBooleanWithCOSNameCOSNameBoolean_whenTrue_thenReturnTrue() {
     // Arrange, Act and Assert
-    assertTrue(new COSDictionary().getBoolean(COSName.A, COSName.A, true));
+    assertTrue((new COSDictionary()).getBoolean(COSName.A, COSName.A, true));
   }
 
   /**
    * Test {@link COSDictionary#getBoolean(String, boolean)} with {@code String}, {@code boolean}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary(COSDictionary)} with dict is {@link
-   *       COSDictionary#COSDictionary()}.
+   *   <li>Given {@link COSDictionary#COSDictionary(COSDictionary)} with dict is {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getBoolean(String, boolean)}
+   * <p>
+   * Method under test: {@link COSDictionary#getBoolean(String, boolean)}
    */
   @Test
-  @DisplayName(
-      "Test getBoolean(String, boolean) with 'String', 'boolean'; given COSDictionary(COSDictionary) with dict is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getBoolean(String, boolean) with 'String', 'boolean'; given COSDictionary(COSDictionary) with dict is COSDictionary()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean COSDictionary.getBoolean(String, boolean)"})
   void testGetBooleanWithStringBoolean_givenCOSDictionaryWithDictIsCOSDictionary() {
     // Arrange, Act and Assert
-    assertTrue(new COSDictionary(new COSDictionary()).getBoolean("Key", true));
+    assertTrue((new COSDictionary(new COSDictionary())).getBoolean("Key", true));
   }
 
   /**
    * Test {@link COSDictionary#getBoolean(String, boolean)} with {@code String}, {@code boolean}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.
-   *   <li>When {@code false}.
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>When {@code false}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getBoolean(String, boolean)}
+   * <p>
+   * Method under test: {@link COSDictionary#getBoolean(String, boolean)}
    */
   @Test
-  @DisplayName(
-      "Test getBoolean(String, boolean) with 'String', 'boolean'; given COSDictionary(); when 'false'; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getBoolean(String, boolean) with 'String', 'boolean'; given COSDictionary(); when 'false'; then return 'false'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean COSDictionary.getBoolean(String, boolean)"})
   void testGetBooleanWithStringBoolean_givenCOSDictionary_whenFalse_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new COSDictionary().getBoolean("Key", false));
+    assertFalse((new COSDictionary()).getBoolean("Key", false));
   }
 
   /**
    * Test {@link COSDictionary#getBoolean(String, boolean)} with {@code String}, {@code boolean}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.
-   *   <li>When {@code Key}.
-   *   <li>Then return {@code true}.
+   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>When {@code Key}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getBoolean(String, boolean)}
+   * <p>
+   * Method under test: {@link COSDictionary#getBoolean(String, boolean)}
    */
   @Test
-  @DisplayName(
-      "Test getBoolean(String, boolean) with 'String', 'boolean'; given COSDictionary(); when 'Key'; then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getBoolean(String, boolean) with 'String', 'boolean'; given COSDictionary(); when 'Key'; then return 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean COSDictionary.getBoolean(String, boolean)"})
   void testGetBooleanWithStringBoolean_givenCOSDictionary_whenKey_thenReturnTrue() {
     // Arrange, Act and Assert
-    assertTrue(new COSDictionary().getBoolean("Key", true));
+    assertTrue((new COSDictionary()).getBoolean("Key", true));
   }
 
   /**
-   * Test {@link COSDictionary#getEmbeddedInt(COSName, COSName, int)} with {@code
-   * embeddedDictionary}, {@code key}, {@code defaultValue}.
-   *
+   * Test {@link COSDictionary#getEmbeddedInt(COSName, COSName, int)} with {@code embeddedDictionary}, {@code key}, {@code defaultValue}.
    * <ul>
-   *   <li>When {@link COSName#A}.
+   *   <li>When {@link COSName#A}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getEmbeddedInt(COSName, COSName, int)}
+   * <p>
+   * Method under test: {@link COSDictionary#getEmbeddedInt(COSName, COSName, int)}
    */
   @Test
-  @DisplayName(
-      "Test getEmbeddedInt(COSName, COSName, int) with 'embeddedDictionary', 'key', 'defaultValue'; when A")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getEmbeddedInt(COSName, COSName, int) with 'embeddedDictionary', 'key', 'defaultValue'; when A")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int COSDictionary.getEmbeddedInt(COSName, COSName, int)"})
   void testGetEmbeddedIntWithEmbeddedDictionaryKeyDefaultValue_whenA() {
     // Arrange, Act and Assert
-    assertEquals(42, new COSDictionary().getEmbeddedInt(COSName.A, COSName.A, 42));
+    assertEquals(42, (new COSDictionary()).getEmbeddedInt(COSName.A, COSName.A, 42));
   }
 
   /**
-   * Test {@link COSDictionary#getEmbeddedInt(COSName, COSName, int)} with {@code
-   * embeddedDictionary}, {@code key}, {@code defaultValue}.
-   *
+   * Test {@link COSDictionary#getEmbeddedInt(COSName, COSName, int)} with {@code embeddedDictionary}, {@code key}, {@code defaultValue}.
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getEmbeddedInt(COSName, COSName, int)}
+   * <p>
+   * Method under test: {@link COSDictionary#getEmbeddedInt(COSName, COSName, int)}
    */
   @Test
-  @DisplayName(
-      "Test getEmbeddedInt(COSName, COSName, int) with 'embeddedDictionary', 'key', 'defaultValue'; when 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getEmbeddedInt(COSName, COSName, int) with 'embeddedDictionary', 'key', 'defaultValue'; when 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int COSDictionary.getEmbeddedInt(COSName, COSName, int)"})
   void testGetEmbeddedIntWithEmbeddedDictionaryKeyDefaultValue_whenNull() {
     // Arrange, Act and Assert
-    assertEquals(42, new COSDictionary().getEmbeddedInt(null, COSName.A, 42));
+    assertEquals(42, (new COSDictionary()).getEmbeddedInt(null, COSName.A, 42));
   }
 
   /**
-   * Test {@link COSDictionary#getEmbeddedInt(COSName, COSName)} with {@code embeddedDictionary},
-   * {@code key}.
-   *
+   * Test {@link COSDictionary#getEmbeddedInt(COSName, COSName)} with {@code embeddedDictionary}, {@code key}.
    * <ul>
-   *   <li>When {@link COSName#A}.
+   *   <li>When {@link COSName#A}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getEmbeddedInt(COSName, COSName)}
+   * <p>
+   * Method under test: {@link COSDictionary#getEmbeddedInt(COSName, COSName)}
    */
   @Test
   @DisplayName("Test getEmbeddedInt(COSName, COSName) with 'embeddedDictionary', 'key'; when A")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int COSDictionary.getEmbeddedInt(COSName, COSName)"})
   void testGetEmbeddedIntWithEmbeddedDictionaryKey_whenA() {
     // Arrange, Act and Assert
-    assertEquals(-1, new COSDictionary().getEmbeddedInt(COSName.A, COSName.A));
+    assertEquals(-1, (new COSDictionary()).getEmbeddedInt(COSName.A, COSName.A));
   }
 
   /**
-   * Test {@link COSDictionary#getEmbeddedInt(COSName, COSName)} with {@code embeddedDictionary},
-   * {@code key}.
-   *
+   * Test {@link COSDictionary#getEmbeddedInt(COSName, COSName)} with {@code embeddedDictionary}, {@code key}.
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getEmbeddedInt(COSName, COSName)}
+   * <p>
+   * Method under test: {@link COSDictionary#getEmbeddedInt(COSName, COSName)}
    */
   @Test
-  @DisplayName(
-      "Test getEmbeddedInt(COSName, COSName) with 'embeddedDictionary', 'key'; when 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getEmbeddedInt(COSName, COSName) with 'embeddedDictionary', 'key'; when 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int COSDictionary.getEmbeddedInt(COSName, COSName)"})
   void testGetEmbeddedIntWithEmbeddedDictionaryKey_whenNull() {
     // Arrange, Act and Assert
-    assertEquals(-1, new COSDictionary().getEmbeddedInt(null, COSName.A));
+    assertEquals(-1, (new COSDictionary()).getEmbeddedInt(null, COSName.A));
   }
 
   /**
-   * Test {@link COSDictionary#getInt(COSName, COSName, int)} with {@code COSName}, {@code COSName},
-   * {@code int}.
-   *
+   * Test {@link COSDictionary#getInt(COSName, COSName, int)} with {@code COSName}, {@code COSName}, {@code int}.
    * <ul>
-   *   <li>When {@link COSName#A}.
+   *   <li>When {@link COSName#A}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getInt(COSName, COSName, int)}
+   * <p>
+   * Method under test: {@link COSDictionary#getInt(COSName, COSName, int)}
    */
   @Test
   @DisplayName("Test getInt(COSName, COSName, int) with 'COSName', 'COSName', 'int'; when A")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int COSDictionary.getInt(COSName, COSName, int)"})
   void testGetIntWithCOSNameCOSNameInt_whenA() {
     // Arrange, Act and Assert
-    assertEquals(42, new COSDictionary().getInt(COSName.A, COSName.A, 42));
+    assertEquals(42, (new COSDictionary()).getInt(COSName.A, COSName.A, 42));
   }
 
   /**
-   * Test {@link COSDictionary#getInt(COSName, COSName, int)} with {@code COSName}, {@code COSName},
-   * {@code int}.
-   *
+   * Test {@link COSDictionary#getInt(COSName, COSName, int)} with {@code COSName}, {@code COSName}, {@code int}.
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getInt(COSName, COSName, int)}
+   * <p>
+   * Method under test: {@link COSDictionary#getInt(COSName, COSName, int)}
    */
   @Test
   @DisplayName("Test getInt(COSName, COSName, int) with 'COSName', 'COSName', 'int'; when 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int COSDictionary.getInt(COSName, COSName, int)"})
   void testGetIntWithCOSNameCOSNameInt_whenNull() {
     // Arrange, Act and Assert
-    assertEquals(42, new COSDictionary().getInt(COSName.A, null, 42));
+    assertEquals(42, (new COSDictionary()).getInt(null, COSName.A, 42));
   }
 
   /**
-   * Test {@link COSDictionary#getInt(COSName, COSName, int)} with {@code COSName}, {@code COSName},
-   * {@code int}.
-   *
+   * Test {@link COSDictionary#getInt(COSName, COSName, int)} with {@code COSName}, {@code COSName}, {@code int}.
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getInt(COSName, COSName, int)}
+   * <p>
+   * Method under test: {@link COSDictionary#getInt(COSName, COSName, int)}
    */
   @Test
   @DisplayName("Test getInt(COSName, COSName, int) with 'COSName', 'COSName', 'int'; when 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int COSDictionary.getInt(COSName, COSName, int)"})
   void testGetIntWithCOSNameCOSNameInt_whenNull2() {
     // Arrange, Act and Assert
-    assertEquals(42, new COSDictionary().getInt(null, COSName.A, 42));
+    assertEquals(42, (new COSDictionary()).getInt(COSName.A, null, 42));
   }
 
   /**
    * Test {@link COSDictionary#getInt(COSName, COSName)} with {@code COSName}, {@code COSName}.
-   *
    * <ul>
-   *   <li>When {@link COSName#A}.
+   *   <li>When {@link COSName#A}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getInt(COSName, COSName)}
+   * <p>
+   * Method under test: {@link COSDictionary#getInt(COSName, COSName)}
    */
   @Test
   @DisplayName("Test getInt(COSName, COSName) with 'COSName', 'COSName'; when A")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int COSDictionary.getInt(COSName, COSName)"})
   void testGetIntWithCOSNameCOSName_whenA() {
     // Arrange, Act and Assert
-    assertEquals(-1, new COSDictionary().getInt(COSName.A, COSName.A));
+    assertEquals(-1, (new COSDictionary()).getInt(COSName.A, COSName.A));
   }
 
   /**
    * Test {@link COSDictionary#getInt(COSName, COSName)} with {@code COSName}, {@code COSName}.
-   *
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getInt(COSName, COSName)}
+   * <p>
+   * Method under test: {@link COSDictionary#getInt(COSName, COSName)}
    */
   @Test
   @DisplayName("Test getInt(COSName, COSName) with 'COSName', 'COSName'; when 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int COSDictionary.getInt(COSName, COSName)"})
   void testGetIntWithCOSNameCOSName_whenNull() {
     // Arrange, Act and Assert
-    assertEquals(-1, new COSDictionary().getInt(COSName.A, null));
+    assertEquals(-1, (new COSDictionary()).getInt(null, COSName.A));
   }
 
   /**
    * Test {@link COSDictionary#getInt(COSName, COSName)} with {@code COSName}, {@code COSName}.
-   *
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getInt(COSName, COSName)}
+   * <p>
+   * Method under test: {@link COSDictionary#getInt(COSName, COSName)}
    */
   @Test
   @DisplayName("Test getInt(COSName, COSName) with 'COSName', 'COSName'; when 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int COSDictionary.getInt(COSName, COSName)"})
   void testGetIntWithCOSNameCOSName_whenNull2() {
     // Arrange, Act and Assert
-    assertEquals(-1, new COSDictionary().getInt(null, COSName.A));
+    assertEquals(-1, (new COSDictionary()).getInt(COSName.A, null));
   }
 
   /**
    * Test {@link COSDictionary#getInt(COSName, int)} with {@code COSName}, {@code int}.
-   *
    * <ul>
-   *   <li>When {@link COSName#A}.
+   *   <li>When {@link COSName#A}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getInt(COSName, int)}
+   * <p>
+   * Method under test: {@link COSDictionary#getInt(COSName, int)}
    */
   @Test
   @DisplayName("Test getInt(COSName, int) with 'COSName', 'int'; when A")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int COSDictionary.getInt(COSName, int)"})
   void testGetIntWithCOSNameInt_whenA() {
     // Arrange, Act and Assert
-    assertEquals(42, new COSDictionary().getInt(COSName.A, 42));
+    assertEquals(42, (new COSDictionary()).getInt(COSName.A, 42));
   }
 
   /**
    * Test {@link COSDictionary#getInt(COSName, int)} with {@code COSName}, {@code int}.
-   *
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getInt(COSName, int)}
+   * <p>
+   * Method under test: {@link COSDictionary#getInt(COSName, int)}
    */
   @Test
   @DisplayName("Test getInt(COSName, int) with 'COSName', 'int'; when 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int COSDictionary.getInt(COSName, int)"})
   void testGetIntWithCOSNameInt_whenNull() {
     // Arrange, Act and Assert
-    assertEquals(42, new COSDictionary().getInt((COSName) null, 42));
+    assertEquals(42, (new COSDictionary()).getInt((COSName) null, 42));
   }
 
   /**
    * Test {@link COSDictionary#getInt(COSName)} with {@code COSName}.
-   *
    * <ul>
-   *   <li>When {@link COSName#A}.
+   *   <li>When {@link COSName#A}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getInt(COSName)}
+   * <p>
+   * Method under test: {@link COSDictionary#getInt(COSName)}
    */
   @Test
   @DisplayName("Test getInt(COSName) with 'COSName'; when A")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int COSDictionary.getInt(COSName)"})
   void testGetIntWithCOSName_whenA() {
     // Arrange, Act and Assert
-    assertEquals(-1, new COSDictionary().getInt(COSName.A));
+    assertEquals(-1, (new COSDictionary()).getInt(COSName.A));
   }
 
   /**
    * Test {@link COSDictionary#getInt(COSName)} with {@code COSName}.
-   *
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getInt(COSName)}
+   * <p>
+   * Method under test: {@link COSDictionary#getInt(COSName)}
    */
   @Test
   @DisplayName("Test getInt(COSName) with 'COSName'; when 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int COSDictionary.getInt(COSName)"})
   void testGetIntWithCOSName_whenNull() {
     // Arrange, Act and Assert
-    assertEquals(-1, new COSDictionary().getInt((COSName) null));
+    assertEquals(-1, (new COSDictionary()).getInt((COSName) null));
   }
 
   /**
@@ -4482,309 +4133,270 @@ class COSDictionaryDiffblueTest {
    * Method under test: {@link COSDictionary#getInt(String, int)}
    */
   @Test
-  @DisplayName(
-      "Test getInt(String, int) with 'String', 'int'; when 'COSArray{'; then return forty-two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getInt(String, int) with 'String', 'int'; when 'COSArray{'; then return forty-two")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int COSDictionary.getInt(String, int)"})
   void testGetIntWithStringInt_whenCOSArray_thenReturnFortyTwo() {
     // Arrange, Act and Assert
-    assertEquals(42, new COSDictionary().getInt("COSArray{", 42));
+    assertEquals(42, (new COSDictionary()).getInt("COSArray{", 42));
   }
 
   /**
    * Test {@link COSDictionary#getInt(String, int)} with {@code String}, {@code int}.
-   *
    * <ul>
-   *   <li>When {@code Key}.
-   *   <li>Then return forty-two.
+   *   <li>When {@code Key}.</li>
+   *   <li>Then return forty-two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getInt(String, int)}
+   * <p>
+   * Method under test: {@link COSDictionary#getInt(String, int)}
    */
   @Test
   @DisplayName("Test getInt(String, int) with 'String', 'int'; when 'Key'; then return forty-two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int COSDictionary.getInt(String, int)"})
   void testGetIntWithStringInt_whenKey_thenReturnFortyTwo() {
     // Arrange, Act and Assert
-    assertEquals(42, new COSDictionary().getInt("Key", 42));
+    assertEquals(42, (new COSDictionary()).getInt("Key", 42));
   }
 
   /**
    * Test {@link COSDictionary#getInt(String)} with {@code String}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary(COSDictionary)} with dict is {@link
-   *       COSDictionary#COSDictionary()}.
+   *   <li>Given {@link COSDictionary#COSDictionary(COSDictionary)} with dict is {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getInt(String)}
+   * <p>
+   * Method under test: {@link COSDictionary#getInt(String)}
    */
   @Test
-  @DisplayName(
-      "Test getInt(String) with 'String'; given COSDictionary(COSDictionary) with dict is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getInt(String) with 'String'; given COSDictionary(COSDictionary) with dict is COSDictionary()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int COSDictionary.getInt(String)"})
   void testGetIntWithString_givenCOSDictionaryWithDictIsCOSDictionary() {
     // Arrange, Act and Assert
-    assertEquals(-1, new COSDictionary(new COSDictionary()).getInt("Key"));
+    assertEquals(-1, (new COSDictionary(new COSDictionary())).getInt("Key"));
   }
 
   /**
    * Test {@link COSDictionary#getInt(String)} with {@code String}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.
-   *   <li>When {@code Key}.
-   *   <li>Then return minus one.
+   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>When {@code Key}.</li>
+   *   <li>Then return minus one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getInt(String)}
+   * <p>
+   * Method under test: {@link COSDictionary#getInt(String)}
    */
   @Test
-  @DisplayName(
-      "Test getInt(String) with 'String'; given COSDictionary(); when 'Key'; then return minus one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getInt(String) with 'String'; given COSDictionary(); when 'Key'; then return minus one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int COSDictionary.getInt(String)"})
   void testGetIntWithString_givenCOSDictionary_whenKey_thenReturnMinusOne() {
     // Arrange, Act and Assert
-    assertEquals(-1, new COSDictionary().getInt("Key"));
+    assertEquals(-1, (new COSDictionary()).getInt("Key"));
   }
 
   /**
    * Test {@link COSDictionary#getLong(COSName, long)} with {@code COSName}, {@code long}.
-   *
    * <ul>
-   *   <li>When {@link COSName#A}.
+   *   <li>When {@link COSName#A}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getLong(COSName, long)}
+   * <p>
+   * Method under test: {@link COSDictionary#getLong(COSName, long)}
    */
   @Test
   @DisplayName("Test getLong(COSName, long) with 'COSName', 'long'; when A")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"long COSDictionary.getLong(COSName, long)"})
   void testGetLongWithCOSNameLong_whenA() {
     // Arrange, Act and Assert
-    assertEquals(42L, new COSDictionary().getLong(COSName.A, 42L));
+    assertEquals(42L, (new COSDictionary()).getLong(COSName.A, 42L));
   }
 
   /**
    * Test {@link COSDictionary#getLong(COSName, long)} with {@code COSName}, {@code long}.
-   *
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getLong(COSName, long)}
+   * <p>
+   * Method under test: {@link COSDictionary#getLong(COSName, long)}
    */
   @Test
   @DisplayName("Test getLong(COSName, long) with 'COSName', 'long'; when 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"long COSDictionary.getLong(COSName, long)"})
   void testGetLongWithCOSNameLong_whenNull() {
     // Arrange, Act and Assert
-    assertEquals(42L, new COSDictionary().getLong((COSName) null, 42L));
+    assertEquals(42L, (new COSDictionary()).getLong((COSName) null, 42L));
   }
 
   /**
    * Test {@link COSDictionary#getLong(COSName)} with {@code COSName}.
-   *
    * <ul>
-   *   <li>When {@link COSName#A}.
+   *   <li>When {@link COSName#A}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getLong(COSName)}
+   * <p>
+   * Method under test: {@link COSDictionary#getLong(COSName)}
    */
   @Test
   @DisplayName("Test getLong(COSName) with 'COSName'; when A")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"long COSDictionary.getLong(COSName)"})
   void testGetLongWithCOSName_whenA() {
     // Arrange, Act and Assert
-    assertEquals(-1L, new COSDictionary().getLong(COSName.A));
+    assertEquals(-1L, (new COSDictionary()).getLong(COSName.A));
   }
 
   /**
    * Test {@link COSDictionary#getLong(COSName)} with {@code COSName}.
-   *
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getLong(COSName)}
+   * <p>
+   * Method under test: {@link COSDictionary#getLong(COSName)}
    */
   @Test
   @DisplayName("Test getLong(COSName) with 'COSName'; when 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"long COSDictionary.getLong(COSName)"})
   void testGetLongWithCOSName_whenNull() {
     // Arrange, Act and Assert
-    assertEquals(-1L, new COSDictionary().getLong((COSName) null));
+    assertEquals(-1L, (new COSDictionary()).getLong((COSName) null));
   }
 
   /**
    * Test {@link COSDictionary#getLong(String, long)} with {@code String}, {@code long}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.
+   *   <li>When {@code COSArray{}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getLong(String, long)}
+   * <p>
+   * Method under test: {@link COSDictionary#getLong(String, long)}
    */
   @Test
-  @DisplayName("Test getLong(String, long) with 'String', 'long'; given COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getLong(String, long) with 'String', 'long'; when 'COSArray{'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"long COSDictionary.getLong(String, long)"})
-  void testGetLongWithStringLong_givenCOSDictionary() {
+  void testGetLongWithStringLong_whenCOSArray() {
     // Arrange, Act and Assert
-    assertEquals(42L, new COSDictionary().getLong("Key", 42L));
+    assertEquals(42L, (new COSDictionary()).getLong("COSArray{", 42L));
   }
 
   /**
    * Test {@link COSDictionary#getLong(String, long)} with {@code String}, {@code long}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary(COSDictionary)} with dict is {@link
-   *       COSDictionary#COSDictionary()}.
+   *   <li>When {@code Key}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getLong(String, long)}
+   * <p>
+   * Method under test: {@link COSDictionary#getLong(String, long)}
    */
   @Test
-  @DisplayName(
-      "Test getLong(String, long) with 'String', 'long'; given COSDictionary(COSDictionary) with dict is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getLong(String, long) with 'String', 'long'; when 'Key'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"long COSDictionary.getLong(String, long)"})
-  void testGetLongWithStringLong_givenCOSDictionaryWithDictIsCOSDictionary() {
+  void testGetLongWithStringLong_whenKey() {
     // Arrange, Act and Assert
-    assertEquals(42L, new COSDictionary(new COSDictionary()).getLong("Key", 42L));
+    assertEquals(42L, (new COSDictionary()).getLong("Key", 42L));
   }
 
   /**
    * Test {@link COSDictionary#getLong(String)} with {@code String}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.
+   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getLong(String)}
+   * <p>
+   * Method under test: {@link COSDictionary#getLong(String)}
    */
   @Test
   @DisplayName("Test getLong(String) with 'String'; given COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"long COSDictionary.getLong(String)"})
   void testGetLongWithString_givenCOSDictionary() {
     // Arrange, Act and Assert
-    assertEquals(-1L, new COSDictionary().getLong("Key"));
+    assertEquals(-1L, (new COSDictionary()).getLong("Key"));
   }
 
   /**
    * Test {@link COSDictionary#getLong(String)} with {@code String}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary(COSDictionary)} with dict is {@link
-   *       COSDictionary#COSDictionary()}.
+   *   <li>Given {@link COSDictionary#COSDictionary(COSDictionary)} with dict is {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getLong(String)}
+   * <p>
+   * Method under test: {@link COSDictionary#getLong(String)}
    */
   @Test
-  @DisplayName(
-      "Test getLong(String) with 'String'; given COSDictionary(COSDictionary) with dict is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getLong(String) with 'String'; given COSDictionary(COSDictionary) with dict is COSDictionary()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"long COSDictionary.getLong(String)"})
   void testGetLongWithString_givenCOSDictionaryWithDictIsCOSDictionary() {
     // Arrange, Act and Assert
-    assertEquals(-1L, new COSDictionary(new COSDictionary()).getLong("Key"));
+    assertEquals(-1L, (new COSDictionary(new COSDictionary())).getLong("Key"));
   }
 
   /**
    * Test {@link COSDictionary#getFloat(COSName, float)} with {@code COSName}, {@code float}.
-   *
    * <ul>
-   *   <li>When {@link COSName#A}.
+   *   <li>When {@link COSName#A}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getFloat(COSName, float)}
+   * <p>
+   * Method under test: {@link COSDictionary#getFloat(COSName, float)}
    */
   @Test
   @DisplayName("Test getFloat(COSName, float) with 'COSName', 'float'; when A")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"float COSDictionary.getFloat(COSName, float)"})
   void testGetFloatWithCOSNameFloat_whenA() {
     // Arrange, Act and Assert
-    assertEquals(10.0f, new COSDictionary().getFloat(COSName.A, 10.0f));
+    assertEquals(10.0f, (new COSDictionary()).getFloat(COSName.A, 10.0f));
   }
 
   /**
    * Test {@link COSDictionary#getFloat(COSName, float)} with {@code COSName}, {@code float}.
-   *
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getFloat(COSName, float)}
+   * <p>
+   * Method under test: {@link COSDictionary#getFloat(COSName, float)}
    */
   @Test
   @DisplayName("Test getFloat(COSName, float) with 'COSName', 'float'; when 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"float COSDictionary.getFloat(COSName, float)"})
   void testGetFloatWithCOSNameFloat_whenNull() {
     // Arrange, Act and Assert
-    assertEquals(10.0f, new COSDictionary().getFloat((COSName) null, 10.0f));
+    assertEquals(10.0f, (new COSDictionary()).getFloat((COSName) null, 10.0f));
   }
 
   /**
    * Test {@link COSDictionary#getFloat(COSName)} with {@code COSName}.
-   *
    * <ul>
-   *   <li>When {@link COSName#A}.
+   *   <li>When {@link COSName#A}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getFloat(COSName)}
+   * <p>
+   * Method under test: {@link COSDictionary#getFloat(COSName)}
    */
   @Test
   @DisplayName("Test getFloat(COSName) with 'COSName'; when A")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"float COSDictionary.getFloat(COSName)"})
   void testGetFloatWithCOSName_whenA() {
     // Arrange, Act and Assert
-    assertEquals(-1.0f, new COSDictionary().getFloat(COSName.A));
+    assertEquals(-1.0f, (new COSDictionary()).getFloat(COSName.A));
   }
 
   /**
    * Test {@link COSDictionary#getFloat(COSName)} with {@code COSName}.
-   *
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getFloat(COSName)}
+   * <p>
+   * Method under test: {@link COSDictionary#getFloat(COSName)}
    */
   @Test
   @DisplayName("Test getFloat(COSName) with 'COSName'; when 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"float COSDictionary.getFloat(COSName)"})
   void testGetFloatWithCOSName_whenNull() {
     // Arrange, Act and Assert
-    assertEquals(-1.0f, new COSDictionary().getFloat((COSName) null));
+    assertEquals(-1.0f, (new COSDictionary()).getFloat((COSName) null));
   }
 
   /**
@@ -4797,331 +4409,294 @@ class COSDictionaryDiffblueTest {
    */
   @Test
   @DisplayName("Test getFloat(String, float) with 'String', 'float'; when 'COSArray{'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"float COSDictionary.getFloat(String, float)"})
   void testGetFloatWithStringFloat_whenCOSArray() {
     // Arrange, Act and Assert
-    assertEquals(10.0f, new COSDictionary().getFloat("COSArray{", 10.0f));
+    assertEquals(10.0f, (new COSDictionary()).getFloat("COSArray{", 10.0f));
   }
 
   /**
    * Test {@link COSDictionary#getFloat(String, float)} with {@code String}, {@code float}.
-   *
    * <ul>
-   *   <li>When {@code Key}.
+   *   <li>When {@code Key}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getFloat(String, float)}
+   * <p>
+   * Method under test: {@link COSDictionary#getFloat(String, float)}
    */
   @Test
   @DisplayName("Test getFloat(String, float) with 'String', 'float'; when 'Key'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"float COSDictionary.getFloat(String, float)"})
   void testGetFloatWithStringFloat_whenKey() {
     // Arrange, Act and Assert
-    assertEquals(10.0f, new COSDictionary().getFloat("Key", 10.0f));
+    assertEquals(10.0f, (new COSDictionary()).getFloat("Key", 10.0f));
   }
 
   /**
    * Test {@link COSDictionary#getFloat(String)} with {@code String}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.
+   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getFloat(String)}
+   * <p>
+   * Method under test: {@link COSDictionary#getFloat(String)}
    */
   @Test
   @DisplayName("Test getFloat(String) with 'String'; given COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"float COSDictionary.getFloat(String)"})
   void testGetFloatWithString_givenCOSDictionary() {
     // Arrange, Act and Assert
-    assertEquals(-1.0f, new COSDictionary().getFloat("Key"));
+    assertEquals(-1.0f, (new COSDictionary()).getFloat("Key"));
   }
 
   /**
    * Test {@link COSDictionary#getFloat(String)} with {@code String}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary(COSDictionary)} with dict is {@link
-   *       COSDictionary#COSDictionary()}.
+   *   <li>Given {@link COSDictionary#COSDictionary(COSDictionary)} with dict is {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getFloat(String)}
+   * <p>
+   * Method under test: {@link COSDictionary#getFloat(String)}
    */
   @Test
-  @DisplayName(
-      "Test getFloat(String) with 'String'; given COSDictionary(COSDictionary) with dict is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getFloat(String) with 'String'; given COSDictionary(COSDictionary) with dict is COSDictionary()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"float COSDictionary.getFloat(String)"})
   void testGetFloatWithString_givenCOSDictionaryWithDictIsCOSDictionary() {
     // Arrange, Act and Assert
-    assertEquals(-1.0f, new COSDictionary(new COSDictionary()).getFloat("Key"));
+    assertEquals(-1.0f, (new COSDictionary(new COSDictionary())).getFloat("Key"));
   }
 
   /**
    * Test {@link COSDictionary#getFlag(COSName, int)}.
-   *
    * <ul>
-   *   <li>When {@link COSName#A}.
-   *   <li>Then return {@code false}.
+   *   <li>When {@link COSName#A}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getFlag(COSName, int)}
+   * <p>
+   * Method under test: {@link COSDictionary#getFlag(COSName, int)}
    */
   @Test
   @DisplayName("Test getFlag(COSName, int); when A; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean COSDictionary.getFlag(COSName, int)"})
   void testGetFlag_whenA_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new COSDictionary().getFlag(COSName.A, 1));
+    assertFalse((new COSDictionary()).getFlag(COSName.A, 1));
   }
 
   /**
    * Test {@link COSDictionary#getFlag(COSName, int)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return {@code false}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getFlag(COSName, int)}
+   * <p>
+   * Method under test: {@link COSDictionary#getFlag(COSName, int)}
    */
   @Test
   @DisplayName("Test getFlag(COSName, int); when 'null'; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean COSDictionary.getFlag(COSName, int)"})
   void testGetFlag_whenNull_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new COSDictionary().getFlag(null, 1));
+    assertFalse((new COSDictionary()).getFlag(null, 1));
   }
 
   /**
    * Test {@link COSDictionary#getFlag(COSName, int)}.
-   *
    * <ul>
-   *   <li>When zero.
-   *   <li>Then return {@code true}.
+   *   <li>When zero.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getFlag(COSName, int)}
+   * <p>
+   * Method under test: {@link COSDictionary#getFlag(COSName, int)}
    */
   @Test
   @DisplayName("Test getFlag(COSName, int); when zero; then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean COSDictionary.getFlag(COSName, int)"})
   void testGetFlag_whenZero_thenReturnTrue() {
     // Arrange, Act and Assert
-    assertTrue(new COSDictionary().getFlag(COSName.A, 0));
+    assertTrue((new COSDictionary()).getFlag(COSName.A, 0));
   }
 
   /**
    * Test {@link COSDictionary#getItem(COSName, COSName)} with {@code COSName}, {@code COSName}.
-   *
    * <ul>
-   *   <li>When {@link COSName#A}.
+   *   <li>When {@link COSName#A}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getItem(COSName, COSName)}
+   * <p>
+   * Method under test: {@link COSDictionary#getItem(COSName, COSName)}
    */
   @Test
   @DisplayName("Test getItem(COSName, COSName) with 'COSName', 'COSName'; when A")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSBase COSDictionary.getItem(COSName, COSName)"})
   void testGetItemWithCOSNameCOSName_whenA() {
     // Arrange, Act and Assert
-    assertNull(new COSDictionary().getItem(COSName.A, COSName.A));
+    assertNull((new COSDictionary()).getItem(COSName.A, COSName.A));
   }
 
   /**
    * Test {@link COSDictionary#getItem(COSName, COSName)} with {@code COSName}, {@code COSName}.
-   *
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getItem(COSName, COSName)}
+   * <p>
+   * Method under test: {@link COSDictionary#getItem(COSName, COSName)}
    */
   @Test
   @DisplayName("Test getItem(COSName, COSName) with 'COSName', 'COSName'; when 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSBase COSDictionary.getItem(COSName, COSName)"})
   void testGetItemWithCOSNameCOSName_whenNull() {
     // Arrange, Act and Assert
-    assertNull(new COSDictionary().getItem(COSName.A, null));
+    assertNull((new COSDictionary()).getItem(null, COSName.A));
   }
 
   /**
    * Test {@link COSDictionary#getItem(COSName, COSName)} with {@code COSName}, {@code COSName}.
-   *
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getItem(COSName, COSName)}
+   * <p>
+   * Method under test: {@link COSDictionary#getItem(COSName, COSName)}
    */
   @Test
   @DisplayName("Test getItem(COSName, COSName) with 'COSName', 'COSName'; when 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSBase COSDictionary.getItem(COSName, COSName)"})
   void testGetItemWithCOSNameCOSName_whenNull2() {
     // Arrange, Act and Assert
-    assertNull(new COSDictionary().getItem(null, COSName.A));
+    assertNull((new COSDictionary()).getItem(COSName.A, null));
   }
 
   /**
    * Test {@link COSDictionary#getItem(COSName)} with {@code COSName}.
-   *
    * <ul>
-   *   <li>When {@link COSName#A}.
+   *   <li>When {@link COSName#A}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getItem(COSName)}
+   * <p>
+   * Method under test: {@link COSDictionary#getItem(COSName)}
    */
   @Test
   @DisplayName("Test getItem(COSName) with 'COSName'; when A")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSBase COSDictionary.getItem(COSName)"})
   void testGetItemWithCOSName_whenA() {
     // Arrange, Act and Assert
-    assertNull(new COSDictionary().getItem(COSName.A));
+    assertNull((new COSDictionary()).getItem(COSName.A));
   }
 
   /**
    * Test {@link COSDictionary#getItem(COSName)} with {@code COSName}.
-   *
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getItem(COSName)}
+   * <p>
+   * Method under test: {@link COSDictionary#getItem(COSName)}
    */
   @Test
   @DisplayName("Test getItem(COSName) with 'COSName'; when 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSBase COSDictionary.getItem(COSName)"})
   void testGetItemWithCOSName_whenNull() {
     // Arrange, Act and Assert
-    assertNull(new COSDictionary().getItem((COSName) null));
+    assertNull((new COSDictionary()).getItem((COSName) null));
   }
 
   /**
    * Test {@link COSDictionary#getItem(String)} with {@code String}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.
+   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getItem(String)}
+   * <p>
+   * Method under test: {@link COSDictionary#getItem(String)}
    */
   @Test
   @DisplayName("Test getItem(String) with 'String'; given COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSBase COSDictionary.getItem(String)"})
   void testGetItemWithString_givenCOSDictionary() {
     // Arrange, Act and Assert
-    assertNull(new COSDictionary().getItem("Key"));
+    assertNull((new COSDictionary()).getItem("Key"));
   }
 
   /**
    * Test {@link COSDictionary#getItem(String)} with {@code String}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary(COSDictionary)} with dict is {@link
-   *       COSDictionary#COSDictionary()}.
+   *   <li>Given {@link COSDictionary#COSDictionary(COSDictionary)} with dict is {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getItem(String)}
+   * <p>
+   * Method under test: {@link COSDictionary#getItem(String)}
    */
   @Test
-  @DisplayName(
-      "Test getItem(String) with 'String'; given COSDictionary(COSDictionary) with dict is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getItem(String) with 'String'; given COSDictionary(COSDictionary) with dict is COSDictionary()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSBase COSDictionary.getItem(String)"})
   void testGetItemWithString_givenCOSDictionaryWithDictIsCOSDictionary() {
     // Arrange, Act and Assert
-    assertNull(new COSDictionary(new COSDictionary()).getItem("Key"));
+    assertNull((new COSDictionary(new COSDictionary())).getItem("Key"));
   }
 
   /**
    * Test {@link COSDictionary#keySet()}.
-   *
-   * <p>Method under test: {@link COSDictionary#keySet()}
+   * <p>
+   * Method under test: {@link COSDictionary#keySet()}
    */
   @Test
   @DisplayName("Test keySet()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.util.Set COSDictionary.keySet()"})
   void testKeySet() {
     // Arrange, Act and Assert
-    assertTrue(new COSDictionary().keySet().isEmpty());
+    assertTrue((new COSDictionary()).keySet().isEmpty());
   }
 
   /**
    * Test {@link COSDictionary#entrySet()}.
-   *
-   * <p>Method under test: {@link COSDictionary#entrySet()}
+   * <p>
+   * Method under test: {@link COSDictionary#entrySet()}
    */
   @Test
   @DisplayName("Test entrySet()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.util.Set COSDictionary.entrySet()"})
   void testEntrySet() {
     // Arrange, Act and Assert
-    assertTrue(new COSDictionary().entrySet().isEmpty());
+    assertTrue((new COSDictionary()).entrySet().isEmpty());
   }
 
   /**
    * Test {@link COSDictionary#getValues()}.
-   *
-   * <p>Method under test: {@link COSDictionary#getValues()}
+   * <p>
+   * Method under test: {@link COSDictionary#getValues()}
    */
   @Test
   @DisplayName("Test getValues()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Collection COSDictionary.getValues()"})
   void testGetValues() {
     // Arrange, Act and Assert
-    assertTrue(new COSDictionary().getValues().isEmpty());
+    assertTrue((new COSDictionary()).getValues().isEmpty());
   }
 
   /**
    * Test {@link COSDictionary#accept(ICOSVisitor)}.
-   *
    * <ul>
-   *   <li>Then calls {@link COSWriter#visitFromDictionary(COSDictionary)}.
+   *   <li>Then calls {@link COSWriter#visitFromDictionary(COSDictionary)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#accept(ICOSVisitor)}
+   * <p>
+   * Method under test: {@link COSDictionary#accept(ICOSVisitor)}
    */
   @Test
   @DisplayName("Test accept(ICOSVisitor); then calls visitFromDictionary(COSDictionary)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.accept(ICOSVisitor)"})
   void testAccept_thenCallsVisitFromDictionary() throws IOException {
     // Arrange
     COSDictionary cosDictionary = new COSDictionary();
-
     COSWriter visitor = mock(COSWriter.class);
     doNothing().when(visitor).visitFromDictionary(Mockito.<COSDictionary>any());
 
@@ -5134,25 +4709,20 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#accept(ICOSVisitor)}.
-   *
    * <ul>
-   *   <li>When {@link COSWriter} {@link COSWriter#visitFromStream(COSStream)} does nothing.
-   *   <li>Then calls {@link COSWriter#visitFromStream(COSStream)}.
+   *   <li>When {@link COSWriter} {@link COSWriter#visitFromStream(COSStream)} does nothing.</li>
+   *   <li>Then calls {@link COSWriter#visitFromStream(COSStream)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#accept(ICOSVisitor)}
+   * <p>
+   * Method under test: {@link COSDictionary#accept(ICOSVisitor)}
    */
   @Test
-  @DisplayName(
-      "Test accept(ICOSVisitor); when COSWriter visitFromStream(COSStream) does nothing; then calls visitFromStream(COSStream)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test accept(ICOSVisitor); when COSWriter visitFromStream(COSStream) does nothing; then calls visitFromStream(COSStream)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.accept(ICOSVisitor)"})
-  void testAccept_whenCOSWriterVisitFromStreamDoesNothing_thenCallsVisitFromStream()
-      throws IOException {
+  void testAccept_whenCOSWriterVisitFromStreamDoesNothing_thenCallsVisitFromStream() throws IOException {
     // Arrange
     COSStream cosStream = new COSStream();
-
     COSWriter visitor = mock(COSWriter.class);
     doNothing().when(visitor).visitFromStream(Mockito.<COSStream>any());
 
@@ -5165,20 +4735,17 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#addAll(COSDictionary)}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.
-   *   <li>When {@link COSDictionary#COSDictionary()}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} size is zero.
+   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>When {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} size is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#addAll(COSDictionary)}
+   * <p>
+   * Method under test: {@link COSDictionary#addAll(COSDictionary)}
    */
   @Test
-  @DisplayName(
-      "Test addAll(COSDictionary); given COSDictionary(); when COSDictionary(); then COSDictionary() size is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test addAll(COSDictionary); given COSDictionary(); when COSDictionary(); then COSDictionary() size is zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.addAll(COSDictionary)"})
   void testAddAll_givenCOSDictionary_whenCOSDictionary_thenCOSDictionarySizeIsZero() {
     // Arrange
@@ -5196,20 +4763,17 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#addAll(COSDictionary)}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.
-   *   <li>When {@link COSStream#COSStream()}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.
+   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>When {@link COSStream#COSStream()}.</li>
+   *   <li>Then {@link COSDictionary#COSDictionary()} Values size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#addAll(COSDictionary)}
+   * <p>
+   * Method under test: {@link COSDictionary#addAll(COSDictionary)}
    */
   @Test
-  @DisplayName(
-      "Test addAll(COSDictionary); given COSDictionary(); when COSStream(); then COSDictionary() Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test addAll(COSDictionary); given COSDictionary(); when COSStream(); then COSDictionary() Values size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.addAll(COSDictionary)"})
   void testAddAll_givenCOSDictionary_whenCOSStream_thenCOSDictionaryValuesSizeIsOne() {
     // Arrange
@@ -5228,40 +4792,36 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#containsKey(COSName)} with {@code COSName}.
-   *
    * <ul>
-   *   <li>When {@link COSName#A}.
+   *   <li>When {@link COSName#A}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#containsKey(COSName)}
+   * <p>
+   * Method under test: {@link COSDictionary#containsKey(COSName)}
    */
   @Test
   @DisplayName("Test containsKey(COSName) with 'COSName'; when A")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean COSDictionary.containsKey(COSName)"})
   void testContainsKeyWithCOSName_whenA() {
     // Arrange, Act and Assert
-    assertFalse(new COSDictionary().containsKey(COSName.A));
+    assertFalse((new COSDictionary()).containsKey(COSName.A));
   }
 
   /**
    * Test {@link COSDictionary#containsKey(COSName)} with {@code COSName}.
-   *
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#containsKey(COSName)}
+   * <p>
+   * Method under test: {@link COSDictionary#containsKey(COSName)}
    */
   @Test
   @DisplayName("Test containsKey(COSName) with 'COSName'; when 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean COSDictionary.containsKey(COSName)"})
   void testContainsKeyWithCOSName_whenNull() {
     // Arrange, Act and Assert
-    assertFalse(new COSDictionary().containsKey((COSName) null));
+    assertFalse((new COSDictionary()).containsKey((COSName) null));
   }
 
   /**
@@ -5274,104 +4834,96 @@ class COSDictionaryDiffblueTest {
    */
   @Test
   @DisplayName("Test containsKey(String) with 'String'; when 'COSArray{'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean COSDictionary.containsKey(String)"})
   void testContainsKeyWithString_whenCOSArray() {
     // Arrange, Act and Assert
-    assertFalse(new COSDictionary().containsKey("COSArray{"));
+    assertFalse((new COSDictionary()).containsKey("COSArray{"));
   }
 
   /**
    * Test {@link COSDictionary#containsKey(String)} with {@code String}.
-   *
    * <ul>
-   *   <li>When {@code Name}.
+   *   <li>When {@code Name}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#containsKey(String)}
+   * <p>
+   * Method under test: {@link COSDictionary#containsKey(String)}
    */
   @Test
   @DisplayName("Test containsKey(String) with 'String'; when 'Name'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean COSDictionary.containsKey(String)"})
   void testContainsKeyWithString_whenName() {
     // Arrange, Act and Assert
-    assertFalse(new COSDictionary().containsKey("Name"));
+    assertFalse((new COSDictionary()).containsKey("Name"));
   }
 
   /**
    * Test {@link COSDictionary#getObjectFromPath(String)}.
-   *
    * <ul>
-   *   <li>When empty string.
+   *   <li>Given {@link COSDictionary#COSDictionary(COSDictionary)} with dict is {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>When {@code Obj Path}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getObjectFromPath(String)}
+   * <p>
+   * Method under test: {@link COSDictionary#getObjectFromPath(String)}
    */
   @Test
-  @DisplayName("Test getObjectFromPath(String); when empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getObjectFromPath(String); given COSDictionary(COSDictionary) with dict is COSDictionary(); when 'Obj Path'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSBase COSDictionary.getObjectFromPath(String)"})
-  void testGetObjectFromPath_whenEmptyString() {
+  void testGetObjectFromPath_givenCOSDictionaryWithDictIsCOSDictionary_whenObjPath() {
     // Arrange, Act and Assert
-    assertNull(new COSDictionary().getObjectFromPath(""));
+    assertNull((new COSDictionary(new COSDictionary())).getObjectFromPath("Obj Path"));
   }
 
   /**
    * Test {@link COSDictionary#getObjectFromPath(String)}.
-   *
    * <ul>
-   *   <li>When {@code foo/bar}.
+   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>When {@code Obj Path}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getObjectFromPath(String)}
+   * <p>
+   * Method under test: {@link COSDictionary#getObjectFromPath(String)}
    */
   @Test
-  @DisplayName("Test getObjectFromPath(String); when 'foo/bar'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getObjectFromPath(String); given COSDictionary(); when 'Obj Path'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSBase COSDictionary.getObjectFromPath(String)"})
-  void testGetObjectFromPath_whenFooBar() {
+  void testGetObjectFromPath_givenCOSDictionary_whenObjPath() {
     // Arrange, Act and Assert
-    assertNull(new COSDictionary().getObjectFromPath("foo/bar"));
+    assertNull((new COSDictionary()).getObjectFromPath("Obj Path"));
   }
 
   /**
    * Test {@link COSDictionary#getObjectFromPath(String)}.
-   *
    * <ul>
-   *   <li>When {@code Obj Path}.
+   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>When {@code /Obj Path}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getObjectFromPath(String)}
+   * <p>
+   * Method under test: {@link COSDictionary#getObjectFromPath(String)}
    */
   @Test
-  @DisplayName("Test getObjectFromPath(String); when 'Obj Path'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getObjectFromPath(String); given COSDictionary(); when '/Obj Path'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSBase COSDictionary.getObjectFromPath(String)"})
-  void testGetObjectFromPath_whenObjPath() {
+  void testGetObjectFromPath_givenCOSDictionary_whenObjPath2() {
     // Arrange, Act and Assert
-    assertNull(new COSDictionary().getObjectFromPath("Obj Path"));
+    assertNull((new COSDictionary()).getObjectFromPath("/Obj Path"));
   }
 
   /**
    * Test {@link COSDictionary#asUnmodifiableDictionary()}.
-   *
-   * <p>Method under test: {@link COSDictionary#asUnmodifiableDictionary()}
+   * <p>
+   * Method under test: {@link COSDictionary#asUnmodifiableDictionary()}
    */
   @Test
   @DisplayName("Test asUnmodifiableDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSDictionary COSDictionary.asUnmodifiableDictionary()"})
   void testAsUnmodifiableDictionary() {
     // Arrange and Act
-    COSDictionary actualAsUnmodifiableDictionaryResult =
-        new COSDictionary().asUnmodifiableDictionary();
+    COSDictionary actualAsUnmodifiableDictionaryResult = (new COSDictionary()).asUnmodifiableDictionary();
 
     // Assert
     assertTrue(actualAsUnmodifiableDictionaryResult instanceof UnmodifiableCOSDictionary);
@@ -5392,9 +4944,8 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link COSDictionary#toString()}
    *   <li>{@link COSDictionary#getUpdateState()}
@@ -5402,12 +4953,8 @@ class COSDictionaryDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "COSUpdateState COSDictionary.getUpdateState()",
-    "String COSDictionary.toString()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"COSUpdateState COSDictionary.getUpdateState()", "String COSDictionary.toString()"})
   void testGettersAndSetters() {
     // Arrange
     COSDictionary cosDictionary = new COSDictionary();
@@ -5428,18 +4975,18 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#getIndirectObjectKeys(Collection)}.
-   *
-   * <p>Method under test: {@link COSDictionary#getIndirectObjectKeys(Collection)}
+   * <p>
+   * Method under test: {@link COSDictionary#getIndirectObjectKeys(Collection)}
    */
   @Test
   @DisplayName("Test getIndirectObjectKeys(Collection)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.getIndirectObjectKeys(Collection)"})
   void testGetIndirectObjectKeys() {
     // Arrange
-    COSDictionary cosDictionary = new COSDictionary(new COSDictionary());
+    COSDictionary cosDictionary = new COSDictionary();
     COSObjectKey key = new COSObjectKey(1L, 1);
+
     cosDictionary.setKey(key);
     ArrayList<COSObjectKey> indirectObjects = new ArrayList<>();
 
@@ -5454,20 +5001,108 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#getIndirectObjectKeys(Collection)}.
-   *
-   * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getIndirectObjectKeys(Collection)}
+   * <p>
+   * Method under test: {@link COSDictionary#getIndirectObjectKeys(Collection)}
    */
   @Test
-  @DisplayName(
-      "Test getIndirectObjectKeys(Collection); given COSDictionary(); when ArrayList(); then ArrayList() Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getIndirectObjectKeys(Collection)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void COSDictionary.getIndirectObjectKeys(Collection)"})
+  void testGetIndirectObjectKeys2() {
+    // Arrange
+    COSDictionary cosDictionary = new COSDictionary();
+    COSObjectKey key = new COSObjectKey(1L, 1);
+
+    cosDictionary.setKey(key);
+
+    ArrayList<COSObjectKey> indirectObjects = new ArrayList<>();
+    COSObjectKey cosObjectKey = new COSObjectKey(1L, 1);
+
+    indirectObjects.add(cosObjectKey);
+
+    // Act
+    cosDictionary.getIndirectObjectKeys(indirectObjects);
+
+    // Assert that nothing has changed
+    assertEquals(1, indirectObjects.size());
+    assertSame(cosObjectKey, indirectObjects.get(0));
+    assertSame(key, cosDictionary.getKey());
+  }
+
+  /**
+   * Test {@link COSDictionary#getIndirectObjectKeys(Collection)}.
+   * <ul>
+   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} size is one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link COSDictionary#getIndirectObjectKeys(Collection)}
+   */
+  @Test
+  @DisplayName("Test getIndirectObjectKeys(Collection); given COSDictionary(); then ArrayList() size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void COSDictionary.getIndirectObjectKeys(Collection)"})
+  void testGetIndirectObjectKeys_givenCOSDictionary_thenArrayListSizeIsOne() {
+    // Arrange
+    COSDictionary cosDictionary = new COSDictionary();
+
+    ArrayList<COSObjectKey> indirectObjects = new ArrayList<>();
+    COSObjectKey cosObjectKey = new COSObjectKey(1L, 1);
+
+    indirectObjects.add(cosObjectKey);
+
+    // Act
+    cosDictionary.getIndirectObjectKeys(indirectObjects);
+
+    // Assert that nothing has changed
+    assertEquals(1, indirectObjects.size());
+    assertSame(cosObjectKey, indirectObjects.get(0));
+  }
+
+  /**
+   * Test {@link COSDictionary#getIndirectObjectKeys(Collection)}.
+   * <ul>
+   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link COSDictionary#getIndirectObjectKeys(Collection)}
+   */
+  @Test
+  @DisplayName("Test getIndirectObjectKeys(Collection); given COSDictionary(); then ArrayList() size is two")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void COSDictionary.getIndirectObjectKeys(Collection)"})
+  void testGetIndirectObjectKeys_givenCOSDictionary_thenArrayListSizeIsTwo() {
+    // Arrange
+    COSDictionary cosDictionary = new COSDictionary();
+
+    ArrayList<COSObjectKey> indirectObjects = new ArrayList<>();
+    COSObjectKey cosObjectKey = new COSObjectKey(1L, 1);
+
+    indirectObjects.add(cosObjectKey);
+    indirectObjects.add(new COSObjectKey(1L, 1));
+
+    // Act
+    cosDictionary.getIndirectObjectKeys(indirectObjects);
+
+    // Assert that nothing has changed
+    assertEquals(2, indirectObjects.size());
+    assertSame(cosObjectKey, indirectObjects.get(0));
+  }
+
+  /**
+   * Test {@link COSDictionary#getIndirectObjectKeys(Collection)}.
+   * <ul>
+   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link COSDictionary#getIndirectObjectKeys(Collection)}
+   */
+  @Test
+  @DisplayName("Test getIndirectObjectKeys(Collection); given COSDictionary(); when ArrayList(); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.getIndirectObjectKeys(Collection)"})
   void testGetIndirectObjectKeys_givenCOSDictionary_whenArrayList_thenArrayListEmpty() {
     // Arrange
@@ -5483,155 +5118,27 @@ class COSDictionaryDiffblueTest {
 
   /**
    * Test {@link COSDictionary#getIndirectObjectKeys(Collection)}.
-   *
    * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   *   <li>Given {@link COSStream#COSStream()}.</li>
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getIndirectObjectKeys(Collection)}
+   * <p>
+   * Method under test: {@link COSDictionary#getIndirectObjectKeys(Collection)}
    */
   @Test
-  @DisplayName(
-      "Test getIndirectObjectKeys(Collection); given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getIndirectObjectKeys(Collection); given COSStream(); when ArrayList(); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSDictionary.getIndirectObjectKeys(Collection)"})
-  void testGetIndirectObjectKeys_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
-    // Arrange
-    COSDictionary cosDictionary = new COSDictionary(new COSDictionary());
-    COSObjectKey key = new COSObjectKey(1L, 1);
-    cosDictionary.setKey(key);
-
-    LinkedHashSet<COSObjectKey> indirectObjects = new LinkedHashSet<>();
-    indirectObjects.add(new COSObjectKey(1L, 1));
-
-    // Act
-    cosDictionary.getIndirectObjectKeys(indirectObjects);
-
-    // Assert that nothing has changed
-    assertEquals(1, indirectObjects.size());
-    assertSame(key, cosDictionary.getKey());
-  }
-
-  /**
-   * Test {@link COSDictionary#getIndirectObjectKeys(Collection)}.
-   *
-   * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getIndirectObjectKeys(Collection)}
-   */
-  @Test
-  @DisplayName(
-      "Test getIndirectObjectKeys(Collection); given COSObjectKey(long, int) with num is one and gen is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void COSDictionary.getIndirectObjectKeys(Collection)"})
-  void testGetIndirectObjectKeys_givenCOSObjectKeyWithNumIsOneAndGenIsZero() {
+  void testGetIndirectObjectKeys_givenCOSStream_whenArrayList_thenArrayListEmpty() {
     // Arrange
     COSStream cosStream = new COSStream();
-
     ArrayList<COSObjectKey> indirectObjects = new ArrayList<>();
-    indirectObjects.add(new COSObjectKey(1L, 0));
 
     // Act
     cosStream.getIndirectObjectKeys(indirectObjects);
 
     // Assert that nothing has changed
-    assertEquals(1, indirectObjects.size());
-    COSObjectKey getResult = indirectObjects.get(0);
-    assertEquals(0, getResult.getGeneration());
-    assertEquals(65536L, getResult.getInternalHash());
-  }
-
-  /**
-   * Test {@link COSDictionary#getIndirectObjectKeys(Collection)}.
-   *
-   * <ul>
-   *   <li>Given {@code null}.
-   *   <li>Then {@link LinkedHashSet#LinkedHashSet()} size is two.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getIndirectObjectKeys(Collection)}
-   */
-  @Test
-  @DisplayName(
-      "Test getIndirectObjectKeys(Collection); given 'null'; then LinkedHashSet() size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void COSDictionary.getIndirectObjectKeys(Collection)"})
-  void testGetIndirectObjectKeys_givenNull_thenLinkedHashSetSizeIsTwo() {
-    // Arrange
-    COSDictionary cosDictionary = new COSDictionary(new COSDictionary());
-    COSObjectKey key = new COSObjectKey(1L, 1);
-    cosDictionary.setKey(key);
-
-    LinkedHashSet<COSObjectKey> indirectObjects = new LinkedHashSet<>();
-    indirectObjects.add(null);
-
-    // Act
-    cosDictionary.getIndirectObjectKeys(indirectObjects);
-
-    // Assert
-    assertEquals(2, indirectObjects.size());
-    assertSame(key, cosDictionary.getKey());
-  }
-
-  /**
-   * Test {@link COSDictionary#getIndirectObjectKeys(Collection)}.
-   *
-   * <ul>
-   *   <li>Then {@link LinkedHashSet#LinkedHashSet()} size is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getIndirectObjectKeys(Collection)}
-   */
-  @Test
-  @DisplayName("Test getIndirectObjectKeys(Collection); then LinkedHashSet() size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void COSDictionary.getIndirectObjectKeys(Collection)"})
-  void testGetIndirectObjectKeys_thenLinkedHashSetSizeIsOne() {
-    // Arrange
-    COSDictionary cosDictionary = new COSDictionary(new COSDictionary());
-    cosDictionary.setKey(null);
-
-    LinkedHashSet<COSObjectKey> indirectObjects = new LinkedHashSet<>();
-    indirectObjects.add(null);
-
-    // Act
-    cosDictionary.getIndirectObjectKeys(indirectObjects);
-
-    // Assert that nothing has changed
-    assertEquals(1, indirectObjects.size());
-  }
-
-  /**
-   * Test {@link COSDictionary#getIndirectObjectKeys(Collection)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSDictionary#getIndirectObjectKeys(Collection)}
-   */
-  @Test
-  @DisplayName("Test getIndirectObjectKeys(Collection); when 'null'; then 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void COSDictionary.getIndirectObjectKeys(Collection)"})
-  void testGetIndirectObjectKeys_whenNull_thenNull() {
-    // Arrange
-    COSDictionary cosDictionary = new COSDictionary(new COSDictionary());
-    cosDictionary.setKey(null);
-
-    // Act
-    cosDictionary.getIndirectObjectKeys(null);
-
-    // Assert that nothing has changed
-    assertNull(null);
-    assertNull(cosDictionary.getKey());
+    assertTrue(indirectObjects.isEmpty());
   }
 }

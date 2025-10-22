@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import org.apache.pdfbox.cos.COSBase;
@@ -25,31 +24,29 @@ import org.junit.jupiter.api.Test;
 class PDActionImportDataDiffblueTest {
   /**
    * Test {@link PDActionImportData#PDActionImportData(COSDictionary)}.
-   *
-   * <p>Method under test: {@link PDActionImportData#PDActionImportData(COSDictionary)}
+   * <p>
+   * Method under test: {@link PDActionImportData#PDActionImportData(COSDictionary)}
    */
   @Test
   @DisplayName("Test new PDActionImportData(COSDictionary)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDActionImportData.<init>(COSDictionary)"})
   void testNewPDActionImportData() {
     // Arrange
     COSDictionary a = new COSDictionary();
 
     // Act and Assert
-    assertSame(a, new PDActionImportData(a).getCOSObject());
+    assertSame(a, (new PDActionImportData(a)).getCOSObject());
   }
 
   /**
    * Test {@link PDActionImportData#PDActionImportData()}.
-   *
-   * <p>Method under test: {@link PDActionImportData#PDActionImportData()}
+   * <p>
+   * Method under test: {@link PDActionImportData#PDActionImportData()}
    */
   @Test
   @DisplayName("Test new PDActionImportData()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDActionImportData.<init>()"})
   void testNewPDActionImportData2() throws IOException {
     // Arrange and Act
@@ -76,37 +73,33 @@ class PDActionImportDataDiffblueTest {
 
   /**
    * Test {@link PDActionImportData#getFile()}.
-   *
    * <ul>
-   *   <li>Given {@link PDActionImportData#PDActionImportData()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDActionImportData#PDActionImportData()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionImportData#getFile()}
+   * <p>
+   * Method under test: {@link PDActionImportData#getFile()}
    */
   @Test
   @DisplayName("Test getFile(); given PDActionImportData(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDFileSpecification PDActionImportData.getFile()"})
   void testGetFile_givenPDActionImportData_thenReturnNull() throws IOException {
     // Arrange, Act and Assert
-    assertNull(new PDActionImportData().getFile());
+    assertNull((new PDActionImportData()).getFile());
   }
 
   /**
    * Test {@link PDActionImportData#getFile()}.
-   *
    * <ul>
-   *   <li>Then COSObject return {@link COSString}.
+   *   <li>Then COSObject return {@link COSString}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionImportData#getFile()}
+   * <p>
+   * Method under test: {@link PDActionImportData#getFile()}
    */
   @Test
   @DisplayName("Test getFile(); then COSObject return COSString")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDFileSpecification PDActionImportData.getFile()"})
   void testGetFile_thenCOSObjectReturnCOSString() throws IOException {
     // Arrange
@@ -127,22 +120,20 @@ class PDActionImportDataDiffblueTest {
     assertNull(cOSObject.getKey());
     assertFalse(cOSObject.isDirect());
     assertFalse(((COSString) cOSObject).getForceHexForm());
-    assertArrayEquals(new byte[] {}, ((COSString) cOSObject).getBytes());
+    assertArrayEquals(new byte[]{}, ((COSString) cOSObject).getBytes());
   }
 
   /**
    * Test {@link PDActionImportData#getFile()}.
-   *
    * <ul>
-   *   <li>Then return COSObject is {@link COSDictionary#COSDictionary()}.
+   *   <li>Then return COSObject is {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionImportData#getFile()}
+   * <p>
+   * Method under test: {@link PDActionImportData#getFile()}
    */
   @Test
   @DisplayName("Test getFile(); then return COSObject is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDFileSpecification PDActionImportData.getFile()"})
   void testGetFile_thenReturnCOSObjectIsCOSDictionary() throws IOException {
     // Arrange
@@ -163,17 +154,15 @@ class PDActionImportDataDiffblueTest {
 
   /**
    * Test {@link PDActionImportData#getFile()}.
-   *
    * <ul>
-   *   <li>Then return FileDescription is {@code null}.
+   *   <li>Then return FileDescription is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionImportData#getFile()}
+   * <p>
+   * Method under test: {@link PDActionImportData#getFile()}
    */
   @Test
   @DisplayName("Test getFile(); then return FileDescription is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDFileSpecification PDActionImportData.getFile()"})
   void testGetFile_thenReturnFileDescriptionIsNull() throws IOException {
     // Arrange
@@ -202,169 +191,17 @@ class PDActionImportDataDiffblueTest {
 
   /**
    * Test {@link PDActionImportData#setFile(PDFileSpecification)}.
-   *
    * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   *   <li>Then {@link PDActionImportData#PDActionImportData()} File {@link PDComplexFileSpecification}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionImportData#setFile(PDFileSpecification)}
+   * <p>
+   * Method under test: {@link PDActionImportData#setFile(PDFileSpecification)}
    */
   @Test
-  @DisplayName(
-      "Test setFile(PDFileSpecification); given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setFile(PDFileSpecification); then PDActionImportData() File PDComplexFileSpecification")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDActionImportData.setFile(PDFileSpecification)"})
-  void testSetFile_givenCOSObjectKeyWithNumIsOneAndGenIsOne() throws IOException {
-    // Arrange
-    PDActionImportData pdActionImportData = new PDActionImportData();
-
-    COSDictionary dict = new COSDictionary();
-    dict.setKey(new COSObjectKey(1L, 1));
-
-    // Act
-    pdActionImportData.setFile(new PDComplexFileSpecification(dict));
-
-    // Assert
-    PDFileSpecification file = pdActionImportData.getFile();
-    assertTrue(file instanceof PDComplexFileSpecification);
-    assertNull(((PDComplexFileSpecification) file).getFileDescription());
-    assertNull(((PDComplexFileSpecification) file).getFileDos());
-    assertNull(((PDComplexFileSpecification) file).getFileMac());
-    assertNull(((PDComplexFileSpecification) file).getFileUnicode());
-    assertNull(((PDComplexFileSpecification) file).getFileUnix());
-    assertNull(((PDComplexFileSpecification) file).getFilename());
-    assertNull(file.getFile());
-    assertNull(((PDComplexFileSpecification) file).getEmbeddedFile());
-    assertNull(((PDComplexFileSpecification) file).getEmbeddedFileDos());
-    assertNull(((PDComplexFileSpecification) file).getEmbeddedFileMac());
-    assertNull(((PDComplexFileSpecification) file).getEmbeddedFileUnicode());
-    assertNull(((PDComplexFileSpecification) file).getEmbeddedFileUnix());
-    assertFalse(((PDComplexFileSpecification) file).isVolatile());
-    assertSame(dict, file.getCOSObject());
-  }
-
-  /**
-   * Test {@link PDActionImportData#setFile(PDFileSpecification)}.
-   *
-   * <ul>
-   *   <li>Given {@code true}.
-   *   <li>When {@link COSDictionary#COSDictionary()} Direct is {@code true}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionImportData#setFile(PDFileSpecification)}
-   */
-  @Test
-  @DisplayName(
-      "Test setFile(PDFileSpecification); given 'true'; when COSDictionary() Direct is 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDActionImportData.setFile(PDFileSpecification)"})
-  void testSetFile_givenTrue_whenCOSDictionaryDirectIsTrue() throws IOException {
-    // Arrange
-    PDActionImportData pdActionImportData = new PDActionImportData();
-
-    COSDictionary dict = new COSDictionary();
-    dict.setDirect(true);
-
-    // Act
-    pdActionImportData.setFile(new PDComplexFileSpecification(dict));
-
-    // Assert
-    PDFileSpecification file = pdActionImportData.getFile();
-    assertTrue(file instanceof PDComplexFileSpecification);
-    assertNull(((PDComplexFileSpecification) file).getFileDescription());
-    assertNull(((PDComplexFileSpecification) file).getFileDos());
-    assertNull(((PDComplexFileSpecification) file).getFileMac());
-    assertNull(((PDComplexFileSpecification) file).getFileUnicode());
-    assertNull(((PDComplexFileSpecification) file).getFileUnix());
-    assertNull(((PDComplexFileSpecification) file).getFilename());
-    assertNull(file.getFile());
-    assertNull(((PDComplexFileSpecification) file).getEmbeddedFile());
-    assertNull(((PDComplexFileSpecification) file).getEmbeddedFileDos());
-    assertNull(((PDComplexFileSpecification) file).getEmbeddedFileMac());
-    assertNull(((PDComplexFileSpecification) file).getEmbeddedFileUnicode());
-    assertNull(((PDComplexFileSpecification) file).getEmbeddedFileUnix());
-    assertFalse(((PDComplexFileSpecification) file).isVolatile());
-    assertSame(dict, file.getCOSObject());
-  }
-
-  /**
-   * Test {@link PDActionImportData#setFile(PDFileSpecification)}.
-   *
-   * <ul>
-   *   <li>Then {@link PDActionImportData#PDActionImportData()} File {@link
-   *       PDSimpleFileSpecification}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionImportData#setFile(PDFileSpecification)}
-   */
-  @Test
-  @DisplayName(
-      "Test setFile(PDFileSpecification); then PDActionImportData() File PDSimpleFileSpecification")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDActionImportData.setFile(PDFileSpecification)"})
-  void testSetFile_thenPDActionImportDataFilePDSimpleFileSpecification() throws IOException {
-    // Arrange
-    PDActionImportData pdActionImportData = new PDActionImportData();
-
-    // Act
-    pdActionImportData.setFile(new PDSimpleFileSpecification());
-
-    // Assert
-    PDFileSpecification file = pdActionImportData.getFile();
-    assertTrue(file instanceof PDSimpleFileSpecification);
-    assertEquals("", file.getFile());
-    COSDictionary cOSObject = pdActionImportData.getCOSObject();
-    assertEquals(3, cOSObject.getValues().size());
-    assertEquals(3, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDActionImportData#setFile(PDFileSpecification)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDActionImportData#PDActionImportData()} COSObject Values size is two.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionImportData#setFile(PDFileSpecification)}
-   */
-  @Test
-  @DisplayName(
-      "Test setFile(PDFileSpecification); when 'null'; then PDActionImportData() COSObject Values size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDActionImportData.setFile(PDFileSpecification)"})
-  void testSetFile_whenNull_thenPDActionImportDataCOSObjectValuesSizeIsTwo() {
-    // Arrange
-    PDActionImportData pdActionImportData = new PDActionImportData();
-
-    // Act
-    pdActionImportData.setFile(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdActionImportData.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDActionImportData#setFile(PDFileSpecification)}.
-   *
-   * <ul>
-   *   <li>When {@link PDComplexFileSpecification#PDComplexFileSpecification()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionImportData#setFile(PDFileSpecification)}
-   */
-  @Test
-  @DisplayName("Test setFile(PDFileSpecification); when PDComplexFileSpecification()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDActionImportData.setFile(PDFileSpecification)"})
-  void testSetFile_whenPDComplexFileSpecification() throws IOException {
+  void testSetFile_thenPDActionImportDataFilePDComplexFileSpecification() throws IOException {
     // Arrange
     PDActionImportData pdActionImportData = new PDActionImportData();
 
@@ -387,5 +224,59 @@ class PDActionImportDataDiffblueTest {
     assertNull(((PDComplexFileSpecification) file).getEmbeddedFileUnicode());
     assertNull(((PDComplexFileSpecification) file).getEmbeddedFileUnix());
     assertFalse(((PDComplexFileSpecification) file).isVolatile());
+  }
+
+  /**
+   * Test {@link PDActionImportData#setFile(PDFileSpecification)}.
+   * <ul>
+   *   <li>Then {@link PDActionImportData#PDActionImportData()} File {@link PDSimpleFileSpecification}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDActionImportData#setFile(PDFileSpecification)}
+   */
+  @Test
+  @DisplayName("Test setFile(PDFileSpecification); then PDActionImportData() File PDSimpleFileSpecification")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDActionImportData.setFile(PDFileSpecification)"})
+  void testSetFile_thenPDActionImportDataFilePDSimpleFileSpecification() throws IOException {
+    // Arrange
+    PDActionImportData pdActionImportData = new PDActionImportData();
+
+    // Act
+    pdActionImportData.setFile(new PDSimpleFileSpecification());
+
+    // Assert
+    PDFileSpecification file = pdActionImportData.getFile();
+    assertTrue(file instanceof PDSimpleFileSpecification);
+    assertEquals("", file.getFile());
+    COSDictionary cOSObject = pdActionImportData.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDActionImportData#setFile(PDFileSpecification)}.
+   * <ul>
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link PDActionImportData#PDActionImportData()} COSObject Values size is two.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDActionImportData#setFile(PDFileSpecification)}
+   */
+  @Test
+  @DisplayName("Test setFile(PDFileSpecification); when 'null'; then PDActionImportData() COSObject Values size is two")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDActionImportData.setFile(PDFileSpecification)"})
+  void testSetFile_whenNull_thenPDActionImportDataCOSObjectValuesSizeIsTwo() {
+    // Arrange
+    PDActionImportData pdActionImportData = new PDActionImportData();
+
+    // Act
+    pdActionImportData.setFile(null);
+
+    // Assert that nothing has changed
+    COSDictionary cOSObject = pdActionImportData.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
   }
 }

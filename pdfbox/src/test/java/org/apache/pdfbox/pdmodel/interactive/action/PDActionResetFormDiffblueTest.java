@@ -5,9 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.util.ArrayList;
 import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSObjectKey;
@@ -18,31 +16,29 @@ import org.junit.jupiter.api.Test;
 class PDActionResetFormDiffblueTest {
   /**
    * Test {@link PDActionResetForm#PDActionResetForm(COSDictionary)}.
-   *
-   * <p>Method under test: {@link PDActionResetForm#PDActionResetForm(COSDictionary)}
+   * <p>
+   * Method under test: {@link PDActionResetForm#PDActionResetForm(COSDictionary)}
    */
   @Test
   @DisplayName("Test new PDActionResetForm(COSDictionary)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDActionResetForm.<init>(COSDictionary)"})
   void testNewPDActionResetForm() {
     // Arrange
     COSDictionary a = new COSDictionary();
 
     // Act and Assert
-    assertSame(a, new PDActionResetForm(a).getCOSObject());
+    assertSame(a, (new PDActionResetForm(a)).getCOSObject());
   }
 
   /**
    * Test {@link PDActionResetForm#PDActionResetForm()}.
-   *
-   * <p>Method under test: {@link PDActionResetForm#PDActionResetForm()}
+   * <p>
+   * Method under test: {@link PDActionResetForm#PDActionResetForm()}
    */
   @Test
   @DisplayName("Test new PDActionResetForm()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDActionResetForm.<init>()"})
   void testNewPDActionResetForm2() {
     // Arrange and Act
@@ -64,20 +60,16 @@ class PDActionResetFormDiffblueTest {
 
   /**
    * Test {@link PDActionResetForm#getFields()}.
-   *
    * <ul>
-   *   <li>Given {@link PDActionResetForm#PDActionResetForm()} Fields is {@link
-   *       COSArray#COSArray()}.
-   *   <li>Then return toList Empty.
+   *   <li>Given {@link PDActionResetForm#PDActionResetForm()} Fields is {@link COSArray#COSArray()}.</li>
+   *   <li>Then return toList Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionResetForm#getFields()}
+   * <p>
+   * Method under test: {@link PDActionResetForm#getFields()}
    */
   @Test
-  @DisplayName(
-      "Test getFields(); given PDActionResetForm() Fields is COSArray(); then return toList Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getFields(); given PDActionResetForm() Fields is COSArray(); then return toList Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSArray PDActionResetForm.getFields()"})
   void testGetFields_givenPDActionResetFormFieldsIsCOSArray_thenReturnToListEmpty() {
     // Arrange
@@ -95,46 +87,41 @@ class PDActionResetFormDiffblueTest {
 
   /**
    * Test {@link PDActionResetForm#getFields()}.
-   *
    * <ul>
-   *   <li>Given {@link PDActionResetForm#PDActionResetForm()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDActionResetForm#PDActionResetForm()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionResetForm#getFields()}
+   * <p>
+   * Method under test: {@link PDActionResetForm#getFields()}
    */
   @Test
   @DisplayName("Test getFields(); given PDActionResetForm(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSArray PDActionResetForm.getFields()"})
   void testGetFields_givenPDActionResetForm_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDActionResetForm().getFields());
+    assertNull((new PDActionResetForm()).getFields());
   }
 
   /**
    * Test {@link PDActionResetForm#setFields(COSArray)}.
-   *
    * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionResetForm#setFields(COSArray)}
+   * <p>
+   * Method under test: {@link PDActionResetForm#setFields(COSArray)}
    */
   @Test
-  @DisplayName(
-      "Test setFields(COSArray); given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setFields(COSArray); given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDActionResetForm.setFields(COSArray)"})
   void testSetFields_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
     PDActionResetForm pdActionResetForm = new PDActionResetForm();
 
-    COSArray array = new COSArray(new ArrayList<>());
-    array.setDirect(false);
+    COSArray array = new COSArray();
     array.setKey(new COSObjectKey(1L, 1));
+    array.setDirect(false);
 
     // Act
     pdActionResetForm.setFields(array);
@@ -148,28 +135,23 @@ class PDActionResetFormDiffblueTest {
 
   /**
    * Test {@link PDActionResetForm#setFields(COSArray)}.
-   *
    * <ul>
-   *   <li>Given {@code null}.
-   *   <li>When {@link COSArray#COSArray(List)} with cosObjectables is {@link ArrayList#ArrayList()}
-   *       Key is {@code null}.
+   *   <li>Given {@code false}.</li>
+   *   <li>When {@link COSArray#COSArray()} Direct is {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionResetForm#setFields(COSArray)}
+   * <p>
+   * Method under test: {@link PDActionResetForm#setFields(COSArray)}
    */
   @Test
-  @DisplayName(
-      "Test setFields(COSArray); given 'null'; when COSArray(List) with cosObjectables is ArrayList() Key is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setFields(COSArray); given 'false'; when COSArray() Direct is 'false'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDActionResetForm.setFields(COSArray)"})
-  void testSetFields_givenNull_whenCOSArrayWithCosObjectablesIsArrayListKeyIsNull() {
+  void testSetFields_givenFalse_whenCOSArrayDirectIsFalse() {
     // Arrange
     PDActionResetForm pdActionResetForm = new PDActionResetForm();
 
-    COSArray array = new COSArray(new ArrayList<>());
+    COSArray array = new COSArray();
     array.setDirect(false);
-    array.setKey(null);
 
     // Act
     pdActionResetForm.setFields(array);
@@ -183,21 +165,18 @@ class PDActionResetFormDiffblueTest {
 
   /**
    * Test {@link PDActionResetForm#setFields(COSArray)}.
-   *
    * <ul>
-   *   <li>When {@link COSArray#COSArray()}.
-   *   <li>Then {@link PDActionResetForm#PDActionResetForm()} Fields is {@link COSArray#COSArray()}.
+   *   <li>When {@link COSArray#COSArray()}.</li>
+   *   <li>Then {@link PDActionResetForm#PDActionResetForm()} COSObject Values size is three.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionResetForm#setFields(COSArray)}
+   * <p>
+   * Method under test: {@link PDActionResetForm#setFields(COSArray)}
    */
   @Test
-  @DisplayName(
-      "Test setFields(COSArray); when COSArray(); then PDActionResetForm() Fields is COSArray()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setFields(COSArray); when COSArray(); then PDActionResetForm() COSObject Values size is three")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDActionResetForm.setFields(COSArray)"})
-  void testSetFields_whenCOSArray_thenPDActionResetFormFieldsIsCOSArray() {
+  void testSetFields_whenCOSArray_thenPDActionResetFormCOSObjectValuesSizeIsThree() {
     // Arrange
     PDActionResetForm pdActionResetForm = new PDActionResetForm();
     COSArray array = new COSArray();
@@ -214,19 +193,16 @@ class PDActionResetFormDiffblueTest {
 
   /**
    * Test {@link PDActionResetForm#setFields(COSArray)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDActionResetForm#PDActionResetForm()} COSObject Values size is two.
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link PDActionResetForm#PDActionResetForm()} COSObject Values size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionResetForm#setFields(COSArray)}
+   * <p>
+   * Method under test: {@link PDActionResetForm#setFields(COSArray)}
    */
   @Test
-  @DisplayName(
-      "Test setFields(COSArray); when 'null'; then PDActionResetForm() COSObject Values size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setFields(COSArray); when 'null'; then PDActionResetForm() COSObject Values size is two")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDActionResetForm.setFields(COSArray)"})
   void testSetFields_whenNull_thenPDActionResetFormCOSObjectValuesSizeIsTwo() {
     // Arrange
@@ -243,18 +219,16 @@ class PDActionResetFormDiffblueTest {
 
   /**
    * Test {@link PDActionResetForm#getFlags()}.
-   *
    * <ul>
-   *   <li>Given {@link PDActionResetForm#PDActionResetForm()} Flags is one.
-   *   <li>Then return one.
+   *   <li>Given {@link PDActionResetForm#PDActionResetForm()} Flags is one.</li>
+   *   <li>Then return one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionResetForm#getFlags()}
+   * <p>
+   * Method under test: {@link PDActionResetForm#getFlags()}
    */
   @Test
   @DisplayName("Test getFlags(); given PDActionResetForm() Flags is one; then return one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int PDActionResetForm.getFlags()"})
   void testGetFlags_givenPDActionResetFormFlagsIsOne_thenReturnOne() {
     // Arrange
@@ -267,40 +241,35 @@ class PDActionResetFormDiffblueTest {
 
   /**
    * Test {@link PDActionResetForm#getFlags()}.
-   *
    * <ul>
-   *   <li>Given {@link PDActionResetForm#PDActionResetForm()}.
-   *   <li>Then return zero.
+   *   <li>Given {@link PDActionResetForm#PDActionResetForm()}.</li>
+   *   <li>Then return zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionResetForm#getFlags()}
+   * <p>
+   * Method under test: {@link PDActionResetForm#getFlags()}
    */
   @Test
   @DisplayName("Test getFlags(); given PDActionResetForm(); then return zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int PDActionResetForm.getFlags()"})
   void testGetFlags_givenPDActionResetForm_thenReturnZero() {
     // Arrange, Act and Assert
-    assertEquals(0, new PDActionResetForm().getFlags());
+    assertEquals(0, (new PDActionResetForm()).getFlags());
   }
 
   /**
    * Test {@link PDActionResetForm#setFlags(int)}.
-   *
    * <ul>
-   *   <li>Given {@link PDActionResetForm#PDActionResetForm()}.
-   *   <li>When one.
-   *   <li>Then {@link PDActionResetForm#PDActionResetForm()} Flags is one.
+   *   <li>Given {@link PDActionResetForm#PDActionResetForm()}.</li>
+   *   <li>When one.</li>
+   *   <li>Then {@link PDActionResetForm#PDActionResetForm()} Flags is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionResetForm#setFlags(int)}
+   * <p>
+   * Method under test: {@link PDActionResetForm#setFlags(int)}
    */
   @Test
-  @DisplayName(
-      "Test setFlags(int); given PDActionResetForm(); when one; then PDActionResetForm() Flags is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setFlags(int); given PDActionResetForm(); when one; then PDActionResetForm() Flags is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDActionResetForm.setFlags(int)"})
   void testSetFlags_givenPDActionResetForm_whenOne_thenPDActionResetFormFlagsIsOne() {
     // Arrange
@@ -318,18 +287,16 @@ class PDActionResetFormDiffblueTest {
 
   /**
    * Test {@link PDActionResetForm#setFlags(int)}.
-   *
    * <ul>
-   *   <li>When {@link Integer#MIN_VALUE}.
-   *   <li>Then {@link PDActionResetForm#PDActionResetForm()} Flags is {@link Integer#MIN_VALUE}.
+   *   <li>When {@link Integer#MIN_VALUE}.</li>
+   *   <li>Then {@link PDActionResetForm#PDActionResetForm()} Flags is {@link Integer#MIN_VALUE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionResetForm#setFlags(int)}
+   * <p>
+   * Method under test: {@link PDActionResetForm#setFlags(int)}
    */
   @Test
   @DisplayName("Test setFlags(int); when MIN_VALUE; then PDActionResetForm() Flags is MIN_VALUE")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDActionResetForm.setFlags(int)"})
   void testSetFlags_whenMin_value_thenPDActionResetFormFlagsIsMin_value() {
     // Arrange

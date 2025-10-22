@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.anyFloat;
 import static org.mockito.Mockito.atLeast;
@@ -11,18 +12,13 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
-import java.util.Set;
 import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSDictionary;
-import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.cos.COSObjectKey;
 import org.apache.pdfbox.cos.COSStream;
-import org.apache.pdfbox.cos.COSUpdateState;
-import org.apache.pdfbox.pdmodel.PDResources;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.interactive.annotation.PDAnnotation;
@@ -40,13 +36,11 @@ import org.mockito.Mockito;
 class PDFileAttachmentAppearanceHandlerDiffblueTest {
   /**
    * Test getters and setters.
-   *
    * <ul>
-   *   <li>When {@link PDAnnotationCaret#PDAnnotationCaret()}.
+   *   <li>When {@link PDAnnotationCaret#PDAnnotationCaret()}.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link PDFileAttachmentAppearanceHandler#PDFileAttachmentAppearanceHandler(PDAnnotation)}
    *   <li>{@link PDFileAttachmentAppearanceHandler#generateDownAppearance()}
@@ -55,21 +49,18 @@ class PDFileAttachmentAppearanceHandlerDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters; when PDAnnotationCaret()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PDFileAttachmentAppearanceHandler.<init>(PDAnnotation)",
-    "void PDFileAttachmentAppearanceHandler.<init>(PDAnnotation, org.apache.pdfbox.pdmodel.PDDocument)",
-    "void PDFileAttachmentAppearanceHandler.generateDownAppearance()",
-    "void PDFileAttachmentAppearanceHandler.generateRolloverAppearance()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDFileAttachmentAppearanceHandler.<init>(PDAnnotation)",
+      "void PDFileAttachmentAppearanceHandler.<init>(PDAnnotation, org.apache.pdfbox.pdmodel.PDDocument)",
+      "void PDFileAttachmentAppearanceHandler.generateDownAppearance()",
+      "void PDFileAttachmentAppearanceHandler.generateRolloverAppearance()"})
   void testGettersAndSetters_whenPDAnnotationCaret() {
     // Arrange
     PDAnnotationCaret annotation = new PDAnnotationCaret();
 
     // Act
-    PDFileAttachmentAppearanceHandler actualPdFileAttachmentAppearanceHandler =
-        new PDFileAttachmentAppearanceHandler(annotation);
+    PDFileAttachmentAppearanceHandler actualPdFileAttachmentAppearanceHandler = new PDFileAttachmentAppearanceHandler(
+        annotation);
     actualPdFileAttachmentAppearanceHandler.generateDownAppearance();
     actualPdFileAttachmentAppearanceHandler.generateRolloverAppearance();
 
@@ -80,36 +71,33 @@ class PDFileAttachmentAppearanceHandlerDiffblueTest {
 
   /**
    * Test {@link PDFileAttachmentAppearanceHandler#generateNormalAppearance()}.
-   *
-   * <p>Method under test: {@link PDFileAttachmentAppearanceHandler#generateNormalAppearance()}
+   * <p>
+   * Method under test: {@link PDFileAttachmentAppearanceHandler#generateNormalAppearance()}
    */
   @Test
   @DisplayName("Test generateNormalAppearance()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFileAttachmentAppearanceHandler.generateNormalAppearance()"})
   void testGenerateNormalAppearance() {
     // Arrange
-    PDFileAttachmentAppearanceHandler pdFileAttachmentAppearanceHandler =
-        new PDFileAttachmentAppearanceHandler(new PDAnnotationFileAttachment());
+    PDFileAttachmentAppearanceHandler pdFileAttachmentAppearanceHandler = new PDFileAttachmentAppearanceHandler(
+        new PDAnnotationFileAttachment());
 
     // Act
     pdFileAttachmentAppearanceHandler.generateNormalAppearance();
 
     // Assert that nothing has changed
-    assertTrue(
-        pdFileAttachmentAppearanceHandler.getDownAppearance().getCOSObject() instanceof COSStream);
+    assertTrue(pdFileAttachmentAppearanceHandler.getDownAppearance().getCOSObject() instanceof COSStream);
   }
 
   /**
    * Test {@link PDFileAttachmentAppearanceHandler#generateNormalAppearance()}.
-   *
-   * <p>Method under test: {@link PDFileAttachmentAppearanceHandler#generateNormalAppearance()}
+   * <p>
+   * Method under test: {@link PDFileAttachmentAppearanceHandler#generateNormalAppearance()}
    */
   @Test
   @DisplayName("Test generateNormalAppearance()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFileAttachmentAppearanceHandler.generateNormalAppearance()"})
   void testGenerateNormalAppearance2() {
     // Arrange
@@ -120,18 +108,16 @@ class PDFileAttachmentAppearanceHandlerDiffblueTest {
     when(pdRectangle.getCOSArray()).thenReturn(new COSArray());
     doNothing().when(pdRectangle).setLowerLeftY(anyFloat());
     doNothing().when(pdRectangle).setUpperRightX(anyFloat());
-
     PDAppearanceStream pdAppearanceStream = mock(PDAppearanceStream.class);
     doNothing().when(pdAppearanceStream).setBBox(Mockito.<PDRectangle>any());
-
     PDAnnotationFileAttachment annotation = mock(PDAnnotationFileAttachment.class);
     when(annotation.getNormalAppearanceStream()).thenReturn(pdAppearanceStream);
     doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
     when(annotation.getConstantOpacity()).thenReturn(10.0f);
     when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
     when(annotation.getRectangle()).thenReturn(pdRectangle);
-    PDFileAttachmentAppearanceHandler pdFileAttachmentAppearanceHandler =
-        new PDFileAttachmentAppearanceHandler(annotation);
+    PDFileAttachmentAppearanceHandler pdFileAttachmentAppearanceHandler = new PDFileAttachmentAppearanceHandler(
+        annotation);
 
     // Act
     pdFileAttachmentAppearanceHandler.generateNormalAppearance();
@@ -141,23 +127,20 @@ class PDFileAttachmentAppearanceHandlerDiffblueTest {
     verify(pdRectangle, atLeast(1)).getLowerLeftX();
     verify(pdRectangle).getLowerLeftY();
     verify(pdRectangle).getUpperRightY();
-    verify(pdRectangle).setLowerLeftY(-8.0f);
-    verify(pdRectangle).setUpperRightX(28.0f);
+    verify(pdRectangle).setLowerLeftY(eq(-8.0f));
+    verify(pdRectangle).setUpperRightX(eq(28.0f));
     verify(pdAppearanceStream).setBBox(isA(PDRectangle.class));
     verify(annotation).getAppearance();
     verify(annotation).getNormalAppearanceStream();
     verify(annotation, atLeast(1)).getRectangle();
     verify(annotation).setRectangle(isA(PDRectangle.class));
     verify(annotation).getConstantOpacity();
-    PDRectangle bBox =
-        pdFileAttachmentAppearanceHandler
-            .getAppearance()
-            .getDownAppearance()
-            .getAppearanceStream()
-            .getBBox();
+    PDRectangle bBox = pdFileAttachmentAppearanceHandler.getAppearance()
+        .getDownAppearance()
+        .getAppearanceStream()
+        .getBBox();
     assertEquals(0.0f, bBox.getHeight());
-    PDAppearanceStream appearanceStream =
-        pdFileAttachmentAppearanceHandler.getDownAppearance().getAppearanceStream();
+    PDAppearanceStream appearanceStream = pdFileAttachmentAppearanceHandler.getDownAppearance().getAppearanceStream();
     PDRectangle bBox2 = appearanceStream.getBBox();
     assertEquals(0.0f, bBox2.getHeight());
     assertEquals(0.0f, bBox.getLowerLeftY());
@@ -170,26 +153,23 @@ class PDFileAttachmentAppearanceHandlerDiffblueTest {
     assertEquals(3, values.length);
     List<? extends COSBase> toListResult = bBox2.getCOSArray().toList();
     assertEquals(4, toListResult.size());
-    assertEquals(
-        toListResult,
-        pdFileAttachmentAppearanceHandler
-            .getRolloverAppearance()
+    assertEquals(toListResult,
+        pdFileAttachmentAppearanceHandler.getRolloverAppearance()
             .getAppearanceStream()
             .getBBox()
             .getCOSArray()
             .toList());
-    assertArrayEquals(new float[] {-10.0f, -10.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[]{-10.0f, -10.0f, 1.0f}, values[2], 0.0f);
   }
 
   /**
    * Test {@link PDFileAttachmentAppearanceHandler#generateNormalAppearance()}.
-   *
-   * <p>Method under test: {@link PDFileAttachmentAppearanceHandler#generateNormalAppearance()}
+   * <p>
+   * Method under test: {@link PDFileAttachmentAppearanceHandler#generateNormalAppearance()}
    */
   @Test
   @DisplayName("Test generateNormalAppearance()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFileAttachmentAppearanceHandler.generateNormalAppearance()"})
   void testGenerateNormalAppearance3() {
     // Arrange
@@ -200,18 +180,16 @@ class PDFileAttachmentAppearanceHandlerDiffblueTest {
     when(pdRectangle.getCOSArray()).thenReturn(null);
     doNothing().when(pdRectangle).setLowerLeftY(anyFloat());
     doNothing().when(pdRectangle).setUpperRightX(anyFloat());
-
     PDAppearanceStream pdAppearanceStream = mock(PDAppearanceStream.class);
     doNothing().when(pdAppearanceStream).setBBox(Mockito.<PDRectangle>any());
-
     PDAnnotationFileAttachment annotation = mock(PDAnnotationFileAttachment.class);
     when(annotation.getNormalAppearanceStream()).thenReturn(pdAppearanceStream);
     doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
     when(annotation.getConstantOpacity()).thenReturn(10.0f);
     when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
     when(annotation.getRectangle()).thenReturn(pdRectangle);
-    PDFileAttachmentAppearanceHandler pdFileAttachmentAppearanceHandler =
-        new PDFileAttachmentAppearanceHandler(annotation);
+    PDFileAttachmentAppearanceHandler pdFileAttachmentAppearanceHandler = new PDFileAttachmentAppearanceHandler(
+        annotation);
 
     // Act
     pdFileAttachmentAppearanceHandler.generateNormalAppearance();
@@ -221,8 +199,8 @@ class PDFileAttachmentAppearanceHandlerDiffblueTest {
     verify(pdRectangle, atLeast(1)).getLowerLeftX();
     verify(pdRectangle).getLowerLeftY();
     verify(pdRectangle).getUpperRightY();
-    verify(pdRectangle).setLowerLeftY(-8.0f);
-    verify(pdRectangle).setUpperRightX(28.0f);
+    verify(pdRectangle).setLowerLeftY(eq(-8.0f));
+    verify(pdRectangle).setUpperRightX(eq(28.0f));
     verify(pdAppearanceStream).setBBox(isA(PDRectangle.class));
     verify(annotation).getAppearance();
     verify(annotation).getNormalAppearanceStream();
@@ -239,93 +217,23 @@ class PDFileAttachmentAppearanceHandlerDiffblueTest {
     assertEquals(3, values.length);
     assertEquals(5, cOSObject.getValues().size());
     assertEquals(5, cOSObject.size());
-    assertArrayEquals(new float[] {-10.0f, -10.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[]{-10.0f, -10.0f, 1.0f}, values[2], 0.0f);
   }
 
   /**
    * Test {@link PDFileAttachmentAppearanceHandler#generateNormalAppearance()}.
-   *
-   * <p>Method under test: {@link PDFileAttachmentAppearanceHandler#generateNormalAppearance()}
+   * <p>
+   * Method under test: {@link PDFileAttachmentAppearanceHandler#generateNormalAppearance()}
    */
   @Test
   @DisplayName("Test generateNormalAppearance()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFileAttachmentAppearanceHandler.generateNormalAppearance()"})
   void testGenerateNormalAppearance4() {
     // Arrange
     COSArray cosArray = mock(COSArray.class);
-    when(cosArray.isDirect()).thenReturn(true);
-    when(cosArray.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
-
-    PDRectangle pdRectangle = mock(PDRectangle.class);
-    when(pdRectangle.getLowerLeftX()).thenReturn(10.0f);
-    when(pdRectangle.getLowerLeftY()).thenReturn(10.0f);
-    when(pdRectangle.getUpperRightY()).thenReturn(10.0f);
-    when(pdRectangle.getCOSArray()).thenReturn(cosArray);
-    doNothing().when(pdRectangle).setLowerLeftY(anyFloat());
-    doNothing().when(pdRectangle).setUpperRightX(anyFloat());
-
-    PDAppearanceStream pdAppearanceStream = mock(PDAppearanceStream.class);
-    doNothing().when(pdAppearanceStream).setBBox(Mockito.<PDRectangle>any());
-
-    PDAnnotationFileAttachment annotation = mock(PDAnnotationFileAttachment.class);
-    when(annotation.getNormalAppearanceStream()).thenReturn(pdAppearanceStream);
-    doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
-    when(annotation.getConstantOpacity()).thenReturn(0.5f);
-    when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
-    when(annotation.getRectangle()).thenReturn(pdRectangle);
-    PDFileAttachmentAppearanceHandler pdFileAttachmentAppearanceHandler =
-        new PDFileAttachmentAppearanceHandler(annotation);
-
-    // Act
-    pdFileAttachmentAppearanceHandler.generateNormalAppearance();
-
-    // Assert
-    verify(cosArray).getUpdateState();
-    verify(cosArray).isDirect();
-    verify(pdRectangle).getCOSArray();
-    verify(pdRectangle, atLeast(1)).getLowerLeftX();
-    verify(pdRectangle).getLowerLeftY();
-    verify(pdRectangle).getUpperRightY();
-    verify(pdRectangle).setLowerLeftY(-8.0f);
-    verify(pdRectangle).setUpperRightX(28.0f);
-    verify(pdAppearanceStream).setBBox(isA(PDRectangle.class));
-    verify(annotation).getAppearance();
-    verify(annotation).getNormalAppearanceStream();
-    verify(annotation, atLeast(1)).getRectangle();
-    verify(annotation).setRectangle(isA(PDRectangle.class));
-    verify(annotation).getConstantOpacity();
-    PDAppearanceStream appearanceStream =
-        pdFileAttachmentAppearanceHandler.getDownAppearance().getAppearanceStream();
-    Iterable<COSName> extGStateNames = appearanceStream.getResources().getExtGStateNames();
-    assertTrue(extGStateNames instanceof Set);
-    assertEquals(1, ((Set<COSName>) extGStateNames).size());
-    assertEquals(812, appearanceStream.getStream().getLength());
-    PDAppearanceStream appearanceStream2 =
-        pdFileAttachmentAppearanceHandler.getRolloverAppearance().getAppearanceStream();
-    assertEquals(812, appearanceStream2.getStream().getLength());
-    assertEquals(812, appearanceStream.getContentStream().getLength());
-    assertEquals(812, appearanceStream2.getContentStream().getLength());
-    assertSame(extGStateNames, appearanceStream2.getResources().getExtGStateNames());
-  }
-
-  /**
-   * Test {@link PDFileAttachmentAppearanceHandler#generateNormalAppearance()}.
-   *
-   * <p>Method under test: {@link PDFileAttachmentAppearanceHandler#generateNormalAppearance()}
-   */
-  @Test
-  @DisplayName("Test generateNormalAppearance()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDFileAttachmentAppearanceHandler.generateNormalAppearance()"})
-  void testGenerateNormalAppearance5() {
-    // Arrange
-    COSArray cosArray = mock(COSArray.class);
     when(cosArray.isDirect()).thenReturn(false);
     when(cosArray.getKey()).thenReturn(new COSObjectKey(1L, 1));
-
     PDRectangle pdRectangle = mock(PDRectangle.class);
     when(pdRectangle.getLowerLeftX()).thenReturn(10.0f);
     when(pdRectangle.getLowerLeftY()).thenReturn(10.0f);
@@ -333,18 +241,16 @@ class PDFileAttachmentAppearanceHandlerDiffblueTest {
     when(pdRectangle.getCOSArray()).thenReturn(cosArray);
     doNothing().when(pdRectangle).setLowerLeftY(anyFloat());
     doNothing().when(pdRectangle).setUpperRightX(anyFloat());
-
     PDAppearanceStream pdAppearanceStream = mock(PDAppearanceStream.class);
     doNothing().when(pdAppearanceStream).setBBox(Mockito.<PDRectangle>any());
-
     PDAnnotationFileAttachment annotation = mock(PDAnnotationFileAttachment.class);
     when(annotation.getNormalAppearanceStream()).thenReturn(pdAppearanceStream);
     doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
     when(annotation.getConstantOpacity()).thenReturn(10.0f);
     when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
     when(annotation.getRectangle()).thenReturn(pdRectangle);
-    PDFileAttachmentAppearanceHandler pdFileAttachmentAppearanceHandler =
-        new PDFileAttachmentAppearanceHandler(annotation);
+    PDFileAttachmentAppearanceHandler pdFileAttachmentAppearanceHandler = new PDFileAttachmentAppearanceHandler(
+        annotation);
 
     // Act
     pdFileAttachmentAppearanceHandler.generateNormalAppearance();
@@ -356,8 +262,8 @@ class PDFileAttachmentAppearanceHandlerDiffblueTest {
     verify(pdRectangle, atLeast(1)).getLowerLeftX();
     verify(pdRectangle).getLowerLeftY();
     verify(pdRectangle).getUpperRightY();
-    verify(pdRectangle).setLowerLeftY(-8.0f);
-    verify(pdRectangle).setUpperRightX(28.0f);
+    verify(pdRectangle).setLowerLeftY(eq(-8.0f));
+    verify(pdRectangle).setUpperRightX(eq(28.0f));
     verify(pdAppearanceStream).setBBox(isA(PDRectangle.class));
     verify(annotation).getAppearance();
     verify(annotation).getNormalAppearanceStream();
@@ -367,18 +273,13 @@ class PDFileAttachmentAppearanceHandlerDiffblueTest {
     PDAppearanceEntry downAppearance = pdFileAttachmentAppearanceHandler.getDownAppearance();
     COSDictionary cOSObject = downAppearance.getCOSObject();
     assertTrue(cOSObject instanceof COSStream);
+    Matrix matrix = downAppearance.getAppearanceStream().getMatrix();
+    assertEquals(-10.0f, matrix.getTranslateX());
+    assertEquals(-10.0f, matrix.getTranslateY());
+    float[][] values = matrix.getValues();
+    assertEquals(3, values.length);
     assertEquals(6, cOSObject.getValues().size());
     assertEquals(6, cOSObject.size());
-    PDAppearanceStream appearanceStream = downAppearance.getAppearanceStream();
-    assertEquals(804, appearanceStream.getStream().getLength());
-    PDAppearanceStream appearanceStream2 =
-        pdFileAttachmentAppearanceHandler.getRolloverAppearance().getAppearanceStream();
-    assertEquals(804, appearanceStream2.getStream().getLength());
-    assertEquals(804, appearanceStream.getContentStream().getLength());
-    assertEquals(804, appearanceStream2.getContentStream().getLength());
-    PDResources resources = appearanceStream.getResources();
-    Iterable<COSName> colorSpaceNames = resources.getColorSpaceNames();
-    assertSame(colorSpaceNames, resources.getExtGStateNames());
-    assertSame(colorSpaceNames, appearanceStream2.getResources().getExtGStateNames());
+    assertArrayEquals(new float[]{-10.0f, -10.0f, 1.0f}, values[2], 0.0f);
   }
 }

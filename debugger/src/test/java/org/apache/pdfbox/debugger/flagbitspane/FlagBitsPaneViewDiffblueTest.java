@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.Color;
 import java.awt.Component;
@@ -42,28 +41,21 @@ import org.junit.jupiter.api.Test;
 class FlagBitsPaneViewDiffblueTest {
   /**
    * Test {@link FlagBitsPaneView#FlagBitsPaneView(String, String, Object[][], String[])}.
-   *
    * <ul>
-   *   <li>When {@code 42}.
-   *   <li>Then Panel Layout return {@link GridBagLayout}.
+   *   <li>When {@code 42}.</li>
+   *   <li>Then Panel Layout return {@link GridBagLayout}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FlagBitsPaneView#FlagBitsPaneView(String, String, Object[][],
-   * String[])}
+   * <p>
+   * Method under test: {@link FlagBitsPaneView#FlagBitsPaneView(String, String, Object[][], String[])}
    */
   @Test
-  @DisplayName(
-      "Test new FlagBitsPaneView(String, String, Object[][], String[]); when '42'; then Panel Layout return GridBagLayout")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new FlagBitsPaneView(String, String, Object[][], String[]); when '42'; then Panel Layout return GridBagLayout")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FlagBitsPaneView.<init>(String, String, Object[][], String[])"})
   void testNewFlagBitsPaneView_when42_thenPanelLayoutReturnGridBagLayout() {
-    // Arrange
-    Object[][] tableRowData = new Object[][] {new Object[] {"Table Row Data"}};
-    String[] columnNames = new String[] {"Column Names"};
-
-    // Act and Assert
-    JPanel panel = new FlagBitsPaneView("Flag Header", "42", tableRowData, columnNames).getPanel();
+    // Arrange, Act and Assert
+    JPanel panel = (new FlagBitsPaneView("Flag Header", "42", new Object[][]{new Object[]{"Table Row Data"}},
+        new String[]{"Column Names"})).getPanel();
     assertTrue(panel.getLayout() instanceof GridBagLayout);
     assertEquals(2, panel.getComponentCount());
     assertEquals(2, panel.getComponents().length);
@@ -72,22 +64,17 @@ class FlagBitsPaneViewDiffblueTest {
 
   /**
    * Test {@link FlagBitsPaneView#getPanel()}.
-   *
-   * <p>Method under test: {@link FlagBitsPaneView#getPanel()}
+   * <p>
+   * Method under test: {@link FlagBitsPaneView#getPanel()}
    */
   @Test
   @DisplayName("Test getPanel()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"JPanel FlagBitsPaneView.getPanel()"})
   void testGetPanel() throws MissingResourceException {
-    // Arrange
-    Object[][] tableRowData = new Object[][] {new Object[] {"Table Row Data"}};
-    String[] columnNames = new String[] {"Column Names"};
-
-    // Act
-    JPanel actualPanel =
-        new FlagBitsPaneView("Flag Header", "42", tableRowData, columnNames).getPanel();
+    // Arrange and Act
+    JPanel actualPanel = (new FlagBitsPaneView("Flag Header", "42", new Object[][]{new Object[]{"Table Row Data"}},
+        new String[]{"Column Names"})).getPanel();
 
     // Assert
     LayoutManager layout = actualPanel.getLayout();
@@ -131,6 +118,12 @@ class FlagBitsPaneViewDiffblueTest {
     assertNull(((GridBagLayout) layout).rowWeights);
     assertNull(((GridBagLayout) layout).columnWidths);
     assertNull(((GridBagLayout) layout).rowHeights);
+    ActionMap actionMap = actualPanel.getActionMap();
+    assertNull(actionMap.keys());
+    AccessibleContext accessibleContext = actualPanel.getAccessibleContext();
+    assertNull(accessibleContext.getAccessibleIcon());
+    InputMap inputMap = actualPanel.getInputMap();
+    assertNull(inputMap.keys());
     assertNull(actualPanel.getNextFocusableComponent());
     assertNull(actualPanel.getFocusCycleRootAncestor());
     assertNull(actualPanel.getParent());
@@ -141,28 +134,22 @@ class FlagBitsPaneViewDiffblueTest {
     assertNull(actualPanel.getDropTarget());
     assertNull(actualPanel.getInputContext());
     assertNull(actualPanel.getInputMethodRequests());
-    ActionMap actionMap = actualPanel.getActionMap();
-    assertNull(actionMap.keys());
     assertNull(actualPanel.getName());
-    AccessibleContext accessibleContext = actualPanel.getAccessibleContext();
     assertNull(accessibleContext.getAccessibleDescription());
     assertNull(accessibleContext.getAccessibleName());
     assertNull(actualPanel.getToolTipText());
     assertNull(accessibleContext.getAccessibleParent());
     assertNull(accessibleContext.getAccessibleAction());
     assertNull(accessibleContext.getAccessibleEditableText());
-    assertNull(accessibleContext.getAccessibleIcon());
     assertNull(accessibleContext.getAccessibleSelection());
     assertNull(accessibleContext.getAccessibleTable());
     assertNull(accessibleContext.getAccessibleText());
     assertNull(accessibleContext.getAccessibleValue());
     assertNull(actionMap.getParent());
-    InputMap inputMap = actualPanel.getInputMap();
     assertNull(inputMap.getParent());
     assertNull(actualPanel.getInputVerifier());
     assertNull(actualPanel.getComponentPopupMenu());
     assertNull(actualPanel.getRootPane());
-    assertNull(inputMap.keys());
     assertNull(actualPanel.getTransferHandler());
     assertNull(actualPanel.getBorder());
     Color brighterResult = background.brighter();

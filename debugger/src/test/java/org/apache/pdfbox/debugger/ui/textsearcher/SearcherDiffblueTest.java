@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.Component;
 import java.awt.Component.BaselineResizeBehavior;
@@ -27,6 +26,8 @@ import javax.swing.JTextField;
 import javax.swing.border.MatteBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.DocumentEvent;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.AbstractDocument.DefaultDocumentEvent;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.JTextComponent;
@@ -39,23 +40,20 @@ import org.junit.jupiter.api.Test;
 class SearcherDiffblueTest {
   /**
    * Test {@link Searcher#Searcher(JTextComponent)}.
-   *
    * <ul>
-   *   <li>When {@link JEditorPane#JEditorPane()}.
-   *   <li>Then SearchPanel ColorModel return {@link DirectColorModel}.
+   *   <li>When {@link JEditorPane#JEditorPane()}.</li>
+   *   <li>Then SearchPanel ColorModel return {@link DirectColorModel}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Searcher#Searcher(JTextComponent)}
+   * <p>
+   * Method under test: {@link Searcher#Searcher(JTextComponent)}
    */
   @Test
-  @DisplayName(
-      "Test new Searcher(JTextComponent); when JEditorPane(); then SearchPanel ColorModel return DirectColorModel")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new Searcher(JTextComponent); when JEditorPane(); then SearchPanel ColorModel return DirectColorModel")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void Searcher.<init>(JTextComponent)"})
   void testNewSearcher_whenJEditorPane_thenSearchPanelColorModelReturnDirectColorModel() {
     // Arrange, Act and Assert
-    JPanel searchPanel = new Searcher(new JEditorPane()).getSearchPanel();
+    JPanel searchPanel = (new Searcher(new JEditorPane())).getSearchPanel();
     assertTrue(searchPanel.getColorModel() instanceof DirectColorModel);
     assertTrue(searchPanel.getLayout() instanceof BoxLayout);
     assertTrue(searchPanel.getBorder() instanceof MatteBorder);
@@ -136,17 +134,16 @@ class SearcherDiffblueTest {
 
   /**
    * Test {@link Searcher#getSearchPanel()}.
-   *
-   * <p>Method under test: {@link Searcher#getSearchPanel()}
+   * <p>
+   * Method under test: {@link Searcher#getSearchPanel()}
    */
   @Test
   @DisplayName("Test getSearchPanel()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"JPanel Searcher.getSearchPanel()"})
   void testGetSearchPanel() {
     // Arrange and Act
-    JPanel actualSearchPanel = new Searcher(new JEditorPane()).getSearchPanel();
+    JPanel actualSearchPanel = (new Searcher(new JEditorPane())).getSearchPanel();
 
     // Assert
     assertTrue(actualSearchPanel.getColorModel() instanceof DirectColorModel);
@@ -229,15 +226,18 @@ class SearcherDiffblueTest {
 
   /**
    * Test {@link Searcher#insertUpdate(DocumentEvent)}.
-   *
-   * <p>Method under test: {@link Searcher#insertUpdate(DocumentEvent)}
+   * <ul>
+   *   <li>Given {@link JEditorPane#JEditorPane(String, String)} with {@code foo} and {@code foo}.</li>
+   *   <li>Then third element Text is {@code 1 of 1}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link Searcher#insertUpdate(DocumentEvent)}
    */
   @Test
-  @DisplayName("Test insertUpdate(DocumentEvent)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test insertUpdate(DocumentEvent); given JEditorPane(String, String) with 'foo' and 'foo'; then third element Text is '1 of 1'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void Searcher.insertUpdate(DocumentEvent)"})
-  void testInsertUpdate() throws BadLocationException {
+  void testInsertUpdate_givenJEditorPaneWithFooAndFoo_thenThirdElementTextIs1Of1() throws BadLocationException {
     // Arrange
     Searcher searcher = new Searcher(new JEditorPane("foo", "foo"));
 
@@ -246,209 +246,6 @@ class SearcherDiffblueTest {
 
     // Act
     searcher.insertUpdate(defaultStyledDocument.new DefaultDocumentEvent(1, 1, null));
-
-    // Assert
-    JPanel searchPanel = searcher.getSearchPanel();
-    Rectangle boundsResult = searchPanel.bounds();
-    Rectangle2D bounds2D = boundsResult.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Rectangle bounds = searchPanel.getVisibleRect().getBounds();
-    Rectangle2D bounds2D2 = bounds.getBounds2D();
-    assertTrue(bounds2D2 instanceof Rectangle);
-    Rectangle2D bounds2D3 = bounds2D.getBounds2D();
-    assertTrue(bounds2D3 instanceof Rectangle);
-    Rectangle2D frame = boundsResult.getFrame();
-    Rectangle2D bounds2D4 = frame.getBounds2D();
-    assertTrue(bounds2D4 instanceof Double);
-    assertTrue(frame instanceof Double);
-    Rectangle2D frame2 = bounds.getFrame();
-    assertTrue(frame2 instanceof Double);
-    Rectangle2D frame3 = bounds2D.getFrame();
-    assertTrue(frame3 instanceof Double);
-    Rectangle2D frame4 = frame.getFrame();
-    assertTrue(frame4 instanceof Double);
-    Component[] components = searchPanel.getComponents();
-    Component component = components[2];
-    assertTrue(component instanceof JLabel);
-    assertEquals(" 1 of 1 ", ((JLabel) component).getText());
-    Dimension minimumSize = searchPanel.getMinimumSize();
-    Dimension size = minimumSize.getSize();
-    assertEquals(393, size.width);
-    assertEquals(393, minimumSize.width);
-    assertEquals(393.0d, size.getWidth());
-    assertEquals(393.0d, minimumSize.getWidth());
-    assertEquals(8, components.length);
-    assertEquals(boundsResult, bounds2D2);
-    assertEquals(boundsResult, bounds2D3);
-    assertEquals(boundsResult, bounds2D4);
-    assertEquals(boundsResult, frame2);
-    assertEquals(boundsResult, frame3);
-    assertEquals(boundsResult, frame4);
-  }
-
-  /**
-   * Test {@link Searcher#insertUpdate(DocumentEvent)}.
-   *
-   * <ul>
-   *   <li>Given zero.
-   *   <li>Then fourth element {@link JButton}.
-   * </ul>
-   *
-   * <p>Method under test: {@link Searcher#insertUpdate(DocumentEvent)}
-   */
-  @Test
-  @DisplayName("Test insertUpdate(DocumentEvent); given zero; then fourth element JButton")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void Searcher.insertUpdate(DocumentEvent)"})
-  void testInsertUpdate_givenZero_thenFourthElementJButton() throws BadLocationException {
-    // Arrange
-    Searcher searcher = new Searcher(new JEditorPane());
-
-    DefaultStyledDocument defaultStyledDocument = new DefaultStyledDocument();
-    defaultStyledDocument.insertString(0, "foo", new SimpleAttributeSet());
-
-    // Act
-    searcher.insertUpdate(defaultStyledDocument.new DefaultDocumentEvent(1, 1, null));
-
-    // Assert
-    JPanel searchPanel = searcher.getSearchPanel();
-    Component[] components = searchPanel.getComponents();
-    assertTrue(components[3] instanceof JButton);
-    Component component = components[2];
-    assertTrue(component instanceof JLabel);
-    assertTrue(components[1] instanceof JTextField);
-    assertEquals(" No match found ", ((JLabel) component).getText());
-    Dimension minimumSize = searchPanel.getMinimumSize();
-    Dimension size = minimumSize.getSize();
-    assertEquals(466, size.width);
-    assertEquals(466, minimumSize.width);
-    assertEquals(466.0d, size.getWidth());
-    assertEquals(466.0d, minimumSize.getWidth());
-    assertEquals(8, components.length);
-  }
-
-  /**
-   * Test {@link Searcher#insertUpdate(DocumentEvent)}.
-   *
-   * <ul>
-   *   <li>Then third element Text is empty string.
-   * </ul>
-   *
-   * <p>Method under test: {@link Searcher#insertUpdate(DocumentEvent)}
-   */
-  @Test
-  @DisplayName("Test insertUpdate(DocumentEvent); then third element Text is empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void Searcher.insertUpdate(DocumentEvent)"})
-  void testInsertUpdate_thenThirdElementTextIsEmptyString() {
-    // Arrange
-    Searcher searcher = new Searcher(new JEditorPane());
-
-    // Act
-    searcher.insertUpdate(new DefaultStyledDocument().new DefaultDocumentEvent(1, 1, null));
-
-    // Assert that nothing has changed
-    JPanel searchPanel = searcher.getSearchPanel();
-    Component[] components = searchPanel.getComponents();
-    Component component = components[2];
-    assertTrue(component instanceof JLabel);
-    assertEquals("", ((JLabel) component).getText());
-    Dimension minimumSize = searchPanel.getMinimumSize();
-    Dimension size = minimumSize.getSize();
-    assertEquals(347, size.width);
-    assertEquals(347, minimumSize.width);
-    assertEquals(347.0d, size.getWidth());
-    assertEquals(347.0d, minimumSize.getWidth());
-    assertEquals(8, components.length);
-  }
-
-  /**
-   * Test {@link Searcher#removeUpdate(DocumentEvent)}.
-   *
-   * <p>Method under test: {@link Searcher#removeUpdate(DocumentEvent)}
-   */
-  @Test
-  @DisplayName("Test removeUpdate(DocumentEvent)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void Searcher.removeUpdate(DocumentEvent)"})
-  void testRemoveUpdate() throws BadLocationException {
-    // Arrange
-    Searcher searcher = new Searcher(new JEditorPane());
-
-    DefaultStyledDocument defaultStyledDocument = new DefaultStyledDocument();
-    defaultStyledDocument.insertString(0, "foo", new SimpleAttributeSet());
-
-    // Act
-    searcher.removeUpdate(defaultStyledDocument.new DefaultDocumentEvent(1, 1, null));
-
-    // Assert
-    JPanel searchPanel = searcher.getSearchPanel();
-    Rectangle boundsResult = searchPanel.bounds();
-    Rectangle2D bounds2D = boundsResult.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Rectangle bounds = searchPanel.getVisibleRect().getBounds();
-    Rectangle2D bounds2D2 = bounds.getBounds2D();
-    assertTrue(bounds2D2 instanceof Rectangle);
-    Rectangle2D bounds2D3 = bounds2D.getBounds2D();
-    assertTrue(bounds2D3 instanceof Rectangle);
-    Rectangle2D frame = boundsResult.getFrame();
-    Rectangle2D bounds2D4 = frame.getBounds2D();
-    assertTrue(bounds2D4 instanceof Double);
-    assertTrue(frame instanceof Double);
-    Rectangle2D frame2 = bounds.getFrame();
-    assertTrue(frame2 instanceof Double);
-    Rectangle2D frame3 = bounds2D.getFrame();
-    assertTrue(frame3 instanceof Double);
-    Rectangle2D frame4 = frame.getFrame();
-    assertTrue(frame4 instanceof Double);
-    Component[] components = searchPanel.getComponents();
-    Component component = components[2];
-    assertTrue(component instanceof JLabel);
-    assertEquals(" No match found ", ((JLabel) component).getText());
-    Dimension minimumSize = searchPanel.getMinimumSize();
-    Dimension size = minimumSize.getSize();
-    assertEquals(466, size.width);
-    assertEquals(466, minimumSize.width);
-    assertEquals(466.0d, size.getWidth());
-    assertEquals(466.0d, minimumSize.getWidth());
-    assertEquals(8, components.length);
-    assertEquals(boundsResult, bounds2D2);
-    assertEquals(boundsResult, bounds2D3);
-    assertEquals(boundsResult, bounds2D4);
-    assertEquals(boundsResult, frame2);
-    assertEquals(boundsResult, frame3);
-    assertEquals(boundsResult, frame4);
-  }
-
-  /**
-   * Test {@link Searcher#removeUpdate(DocumentEvent)}.
-   *
-   * <ul>
-   *   <li>Given {@link JEditorPane#JEditorPane(String, String)} with {@code foo} and {@code foo}.
-   *   <li>Then third element Text is {@code 1 of 1}.
-   * </ul>
-   *
-   * <p>Method under test: {@link Searcher#removeUpdate(DocumentEvent)}
-   */
-  @Test
-  @DisplayName(
-      "Test removeUpdate(DocumentEvent); given JEditorPane(String, String) with 'foo' and 'foo'; then third element Text is '1 of 1'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void Searcher.removeUpdate(DocumentEvent)"})
-  void testRemoveUpdate_givenJEditorPaneWithFooAndFoo_thenThirdElementTextIs1Of1()
-      throws BadLocationException {
-    // Arrange
-    Searcher searcher = new Searcher(new JEditorPane("foo", "foo"));
-
-    DefaultStyledDocument defaultStyledDocument = new DefaultStyledDocument();
-    defaultStyledDocument.insertString(0, "foo", new SimpleAttributeSet());
-
-    // Act
-    searcher.removeUpdate(defaultStyledDocument.new DefaultDocumentEvent(1, 1, null));
 
     // Assert
     JPanel searchPanel = searcher.getSearchPanel();
@@ -471,25 +268,66 @@ class SearcherDiffblueTest {
   }
 
   /**
-   * Test {@link Searcher#removeUpdate(DocumentEvent)}.
-   *
+   * Test {@link Searcher#insertUpdate(DocumentEvent)}.
    * <ul>
-   *   <li>Then third element Text is empty string.
+   *   <li>Given zero.</li>
+   *   <li>Then third element Text is {@code No match found}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Searcher#removeUpdate(DocumentEvent)}
+   * <p>
+   * Method under test: {@link Searcher#insertUpdate(DocumentEvent)}
    */
   @Test
-  @DisplayName("Test removeUpdate(DocumentEvent); then third element Text is empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void Searcher.removeUpdate(DocumentEvent)"})
-  void testRemoveUpdate_thenThirdElementTextIsEmptyString() {
+  @DisplayName("Test insertUpdate(DocumentEvent); given zero; then third element Text is 'No match found'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void Searcher.insertUpdate(DocumentEvent)"})
+  void testInsertUpdate_givenZero_thenThirdElementTextIsNoMatchFound() throws BadLocationException {
+    // Arrange
+    Searcher searcher = new Searcher(new JEditorPane());
+
+    DefaultStyledDocument defaultStyledDocument = new DefaultStyledDocument();
+    defaultStyledDocument.insertString(0, "foo", new SimpleAttributeSet());
+
+    // Act
+    searcher.insertUpdate(defaultStyledDocument.new DefaultDocumentEvent(1, 1, null));
+
+    // Assert
+    JPanel searchPanel = searcher.getSearchPanel();
+    Component[] components = searchPanel.getComponents();
+    Component component = components[2];
+    assertTrue(component instanceof JLabel);
+    assertEquals(" No match found ", ((JLabel) component).getText());
+    Dimension maximumSize = component.getMaximumSize();
+    assertEquals(119, maximumSize.width);
+    Dimension minimumSize = searchPanel.getMinimumSize();
+    Dimension size = minimumSize.getSize();
+    assertEquals(466, size.getSize().width);
+    assertEquals(466, size.width);
+    assertEquals(466, minimumSize.width);
+    assertEquals(466.0d, size.getWidth());
+    assertEquals(466.0d, minimumSize.getWidth());
+    assertEquals(8, components.length);
+    assertEquals(maximumSize, component.getMinimumSize());
+    assertEquals(maximumSize, component.getPreferredSize());
+  }
+
+  /**
+   * Test {@link Searcher#insertUpdate(DocumentEvent)}.
+   * <ul>
+   *   <li>Then third element Text is empty string.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link Searcher#insertUpdate(DocumentEvent)}
+   */
+  @Test
+  @DisplayName("Test insertUpdate(DocumentEvent); then third element Text is empty string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void Searcher.insertUpdate(DocumentEvent)"})
+  void testInsertUpdate_thenThirdElementTextIsEmptyString() {
     // Arrange
     Searcher searcher = new Searcher(new JEditorPane());
 
     // Act
-    searcher.removeUpdate(new DefaultStyledDocument().new DefaultDocumentEvent(1, 1, null));
+    searcher.insertUpdate((new DefaultStyledDocument()).new DefaultDocumentEvent(1, 1, null));
 
     // Assert that nothing has changed
     JPanel searchPanel = searcher.getSearchPanel();
@@ -509,23 +347,37 @@ class SearcherDiffblueTest {
   }
 
   /**
-   * Test {@link Searcher#changedUpdate(DocumentEvent)}.
-   *
-   * <ul>
-   *   <li>Given {@link JEditorPane#JEditorPane(String, String)} with {@code foo} and {@code foo}.
-   *   <li>Then third element Text is {@code 1 of 1}.
-   * </ul>
-   *
-   * <p>Method under test: {@link Searcher#changedUpdate(DocumentEvent)}
+   * Test {@link Searcher#removeUpdate(DocumentEvent)}.
+   * <p>
+   * Method under test: {@link Searcher#removeUpdate(DocumentEvent)}
    */
   @Test
-  @DisplayName(
-      "Test changedUpdate(DocumentEvent); given JEditorPane(String, String) with 'foo' and 'foo'; then third element Text is '1 of 1'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void Searcher.changedUpdate(DocumentEvent)"})
-  void testChangedUpdate_givenJEditorPaneWithFooAndFoo_thenThirdElementTextIs1Of1()
-      throws BadLocationException {
+  @DisplayName("Test removeUpdate(DocumentEvent)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void Searcher.removeUpdate(DocumentEvent)"})
+  void testRemoveUpdate() {
+    // Arrange
+    Searcher searcher = new Searcher(new JEditorPane());
+
+    // Act
+    searcher.removeUpdate((new DefaultStyledDocument()).new DefaultDocumentEvent(1, 1, null));
+
+    // Assert that nothing has changed
+    Dimension minimumSize = searcher.getSearchPanel().getMinimumSize();
+    assertEquals(347, minimumSize.width);
+    assertEquals(347.0d, minimumSize.getWidth());
+  }
+
+  /**
+   * Test {@link Searcher#removeUpdate(DocumentEvent)}.
+   * <p>
+   * Method under test: {@link Searcher#removeUpdate(DocumentEvent)}
+   */
+  @Test
+  @DisplayName("Test removeUpdate(DocumentEvent)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void Searcher.removeUpdate(DocumentEvent)"})
+  void testRemoveUpdate2() throws BadLocationException {
     // Arrange
     Searcher searcher = new Searcher(new JEditorPane("foo", "foo"));
 
@@ -533,46 +385,28 @@ class SearcherDiffblueTest {
     defaultStyledDocument.insertString(0, "foo", new SimpleAttributeSet());
 
     // Act
-    searcher.changedUpdate(defaultStyledDocument.new DefaultDocumentEvent(1, 1, null));
+    searcher.removeUpdate(defaultStyledDocument.new DefaultDocumentEvent(1, 1, null));
 
     // Assert
-    JPanel searchPanel = searcher.getSearchPanel();
-    Component[] components = searchPanel.getComponents();
-    Component component = components[2];
-    assertTrue(component instanceof JLabel);
-    assertEquals(" 1 of 1 ", ((JLabel) component).getText());
-    Dimension minimumSize = searchPanel.getMinimumSize();
-    Dimension size = minimumSize.getSize();
-    assertEquals(393, size.getSize().width);
-    assertEquals(393, size.width);
+    Dimension minimumSize = searcher.getSearchPanel().getMinimumSize();
     assertEquals(393, minimumSize.width);
-    assertEquals(393.0d, size.getWidth());
     assertEquals(393.0d, minimumSize.getWidth());
-    Dimension maximumSize = component.getMaximumSize();
-    assertEquals(46, maximumSize.width);
-    assertEquals(8, components.length);
-    assertEquals(maximumSize, component.getMinimumSize());
-    assertEquals(maximumSize, component.getPreferredSize());
   }
 
   /**
-   * Test {@link Searcher#changedUpdate(DocumentEvent)}.
-   *
+   * Test {@link Searcher#removeUpdate(DocumentEvent)}.
    * <ul>
-   *   <li>Given zero.
-   *   <li>Then third element Text is {@code No match found}.
+   *   <li>Given zero.</li>
+   *   <li>Then third element {@link JLabel}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Searcher#changedUpdate(DocumentEvent)}
+   * <p>
+   * Method under test: {@link Searcher#removeUpdate(DocumentEvent)}
    */
   @Test
-  @DisplayName(
-      "Test changedUpdate(DocumentEvent); given zero; then third element Text is 'No match found'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void Searcher.changedUpdate(DocumentEvent)"})
-  void testChangedUpdate_givenZero_thenThirdElementTextIsNoMatchFound()
-      throws BadLocationException {
+  @DisplayName("Test removeUpdate(DocumentEvent); given zero; then third element JLabel")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void Searcher.removeUpdate(DocumentEvent)"})
+  void testRemoveUpdate_givenZero_thenThirdElementJLabel() throws BadLocationException {
     // Arrange
     Searcher searcher = new Searcher(new JEditorPane());
 
@@ -580,7 +414,7 @@ class SearcherDiffblueTest {
     defaultStyledDocument.insertString(0, "foo", new SimpleAttributeSet());
 
     // Act
-    searcher.changedUpdate(defaultStyledDocument.new DefaultDocumentEvent(1, 1, null));
+    searcher.removeUpdate(defaultStyledDocument.new DefaultDocumentEvent(1, 1, null));
 
     // Assert
     JPanel searchPanel = searcher.getSearchPanel();
@@ -604,51 +438,114 @@ class SearcherDiffblueTest {
 
   /**
    * Test {@link Searcher#changedUpdate(DocumentEvent)}.
-   *
-   * <ul>
-   *   <li>Then third element Text is empty string.
-   * </ul>
-   *
-   * <p>Method under test: {@link Searcher#changedUpdate(DocumentEvent)}
+   * <p>
+   * Method under test: {@link Searcher#changedUpdate(DocumentEvent)}
    */
   @Test
-  @DisplayName("Test changedUpdate(DocumentEvent); then third element Text is empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test changedUpdate(DocumentEvent)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void Searcher.changedUpdate(DocumentEvent)"})
-  void testChangedUpdate_thenThirdElementTextIsEmptyString() {
+  void testChangedUpdate() {
     // Arrange
     Searcher searcher = new Searcher(new JEditorPane());
 
     // Act
-    searcher.changedUpdate(new DefaultStyledDocument().new DefaultDocumentEvent(1, 1, null));
+    searcher.changedUpdate((new DefaultStyledDocument()).new DefaultDocumentEvent(1, 1, null));
 
     // Assert that nothing has changed
+    Dimension minimumSize = searcher.getSearchPanel().getMinimumSize();
+    assertEquals(347, minimumSize.width);
+    assertEquals(347.0d, minimumSize.getWidth());
+  }
+
+  /**
+   * Test {@link Searcher#changedUpdate(DocumentEvent)}.
+   * <ul>
+   *   <li>Given {@link JEditorPane#JEditorPane(String, String)} with {@code foo} and {@code foo}.</li>
+   *   <li>Then third element Text is {@code 1 of 1}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link Searcher#changedUpdate(DocumentEvent)}
+   */
+  @Test
+  @DisplayName("Test changedUpdate(DocumentEvent); given JEditorPane(String, String) with 'foo' and 'foo'; then third element Text is '1 of 1'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void Searcher.changedUpdate(DocumentEvent)"})
+  void testChangedUpdate_givenJEditorPaneWithFooAndFoo_thenThirdElementTextIs1Of1() throws BadLocationException {
+    // Arrange
+    Searcher searcher = new Searcher(new JEditorPane("foo", "foo"));
+
+    DefaultStyledDocument defaultStyledDocument = new DefaultStyledDocument();
+    defaultStyledDocument.insertString(0, "foo", new SimpleAttributeSet());
+
+    // Act
+    searcher.changedUpdate(defaultStyledDocument.new DefaultDocumentEvent(1, 1, null));
+
+    // Assert
     JPanel searchPanel = searcher.getSearchPanel();
     Component[] components = searchPanel.getComponents();
+    assertTrue(components[3] instanceof JButton);
     Component component = components[2];
     assertTrue(component instanceof JLabel);
-    assertEquals("", ((JLabel) component).getText());
-    assertEquals(0, component.getMaximumSize().width);
+    assertTrue(components[1] instanceof JTextField);
+    assertEquals(" 1 of 1 ", ((JLabel) component).getText());
     Dimension minimumSize = searchPanel.getMinimumSize();
     Dimension size = minimumSize.getSize();
-    assertEquals(347, size.getSize().width);
-    assertEquals(347, size.width);
-    assertEquals(347, minimumSize.width);
-    assertEquals(347.0d, size.getWidth());
-    assertEquals(347.0d, minimumSize.getWidth());
+    assertEquals(393, size.width);
+    assertEquals(393, minimumSize.width);
+    assertEquals(393.0d, size.getWidth());
+    assertEquals(393.0d, minimumSize.getWidth());
+    assertEquals(8, components.length);
+  }
+
+  /**
+   * Test {@link Searcher#changedUpdate(DocumentEvent)}.
+   * <ul>
+   *   <li>Given zero.</li>
+   *   <li>Then third element Text is {@code No match found}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link Searcher#changedUpdate(DocumentEvent)}
+   */
+  @Test
+  @DisplayName("Test changedUpdate(DocumentEvent); given zero; then third element Text is 'No match found'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void Searcher.changedUpdate(DocumentEvent)"})
+  void testChangedUpdate_givenZero_thenThirdElementTextIsNoMatchFound() throws BadLocationException {
+    // Arrange
+    Searcher searcher = new Searcher(new JEditorPane());
+
+    DefaultStyledDocument defaultStyledDocument = new DefaultStyledDocument();
+    defaultStyledDocument.insertString(0, "foo", new SimpleAttributeSet());
+
+    // Act
+    searcher.changedUpdate(defaultStyledDocument.new DefaultDocumentEvent(1, 1, null));
+
+    // Assert
+    JPanel searchPanel = searcher.getSearchPanel();
+    Component[] components = searchPanel.getComponents();
+    assertTrue(components[3] instanceof JButton);
+    Component component = components[2];
+    assertTrue(component instanceof JLabel);
+    assertTrue(components[1] instanceof JTextField);
+    assertEquals(" No match found ", ((JLabel) component).getText());
+    Dimension minimumSize = searchPanel.getMinimumSize();
+    Dimension size = minimumSize.getSize();
+    assertEquals(466, size.width);
+    assertEquals(466, minimumSize.width);
+    assertEquals(466.0d, size.getWidth());
+    assertEquals(466.0d, minimumSize.getWidth());
     assertEquals(8, components.length);
   }
 
   /**
    * Test {@link Searcher#stateChanged(ChangeEvent)}.
-   *
-   * <p>Method under test: {@link Searcher#stateChanged(ChangeEvent)}
+   * <p>
+   * Method under test: {@link Searcher#stateChanged(ChangeEvent)}
    */
   @Test
   @DisplayName("Test stateChanged(ChangeEvent)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void Searcher.stateChanged(ChangeEvent)"})
   void testStateChanged() {
     // Arrange
@@ -694,27 +591,24 @@ class SearcherDiffblueTest {
 
   /**
    * Test {@link Searcher#addMenuListeners(PDFDebugger)}.
-   *
    * <ul>
-   *   <li>Then calls {@link PDFDebugger#getFindMenu()}.
+   *   <li>Then fourth element {@link JButton}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Searcher#addMenuListeners(PDFDebugger)}
+   * <p>
+   * Method under test: {@link Searcher#addMenuListeners(PDFDebugger)}
    */
   @Test
-  @DisplayName("Test addMenuListeners(PDFDebugger); then calls getFindMenu()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test addMenuListeners(PDFDebugger); then fourth element JButton")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void Searcher.addMenuListeners(PDFDebugger)"})
-  void testAddMenuListeners_thenCallsGetFindMenu() {
+  void testAddMenuListeners_thenFourthElementJButton() {
     // Arrange
     Searcher searcher = new Searcher(new JEditorPane());
-
     PDFDebugger frame = mock(PDFDebugger.class);
     when(frame.getFindPreviousMenuItem()).thenReturn(new JMenuItem());
     when(frame.getFindNextMenuItem()).thenReturn(new JMenuItem());
     when(frame.getFindMenuItem()).thenReturn(new JMenuItem());
-    when(frame.getFindMenu()).thenReturn(new JMenu());
+    when(frame.getFindMenu()).thenReturn(new JMenu("foo"));
 
     // Act
     searcher.addMenuListeners(frame);
@@ -724,31 +618,33 @@ class SearcherDiffblueTest {
     verify(frame).getFindMenuItem();
     verify(frame).getFindNextMenuItem();
     verify(frame).getFindPreviousMenuItem();
+    Component[] components = searcher.getSearchPanel().getComponents();
+    assertTrue(components[3] instanceof JButton);
+    assertTrue(components[2] instanceof JLabel);
+    assertTrue(components[1] instanceof JTextField);
+    assertEquals(8, components.length);
   }
 
   /**
    * Test {@link Searcher#removeMenuListeners(PDFDebugger)}.
-   *
    * <ul>
-   *   <li>Then calls {@link PDFDebugger#getFindMenu()}.
+   *   <li>Then calls {@link PDFDebugger#getFindMenu()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Searcher#removeMenuListeners(PDFDebugger)}
+   * <p>
+   * Method under test: {@link Searcher#removeMenuListeners(PDFDebugger)}
    */
   @Test
   @DisplayName("Test removeMenuListeners(PDFDebugger); then calls getFindMenu()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void Searcher.removeMenuListeners(PDFDebugger)"})
   void testRemoveMenuListeners_thenCallsGetFindMenu() {
     // Arrange
     Searcher searcher = new Searcher(new JEditorPane());
-
     PDFDebugger frame = mock(PDFDebugger.class);
     when(frame.getFindPreviousMenuItem()).thenReturn(new JMenuItem());
     when(frame.getFindNextMenuItem()).thenReturn(new JMenuItem());
     when(frame.getFindMenuItem()).thenReturn(new JMenuItem());
-    when(frame.getFindMenu()).thenReturn(new JMenu());
+    when(frame.getFindMenu()).thenReturn(new JMenu("foo"));
 
     // Act
     searcher.removeMenuListeners(frame);

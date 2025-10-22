@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -18,13 +17,12 @@ import org.junit.jupiter.api.Test;
 class VersionTypeDiffblueTest {
   /**
    * Test {@link VersionType#VersionType(XMPMetadata)}.
-   *
-   * <p>Method under test: {@link VersionType#VersionType(XMPMetadata)}
+   * <p>
+   * Method under test: {@link VersionType#VersionType(XMPMetadata)}
    */
   @Test
   @DisplayName("Test new VersionType(XMPMetadata)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void VersionType.<init>(XMPMetadata)"})
   void testNewVersionType() {
     // Arrange
@@ -53,38 +51,33 @@ class VersionTypeDiffblueTest {
 
   /**
    * Test {@link VersionType#getComments()}.
-   *
    * <ul>
-   *   <li>Given {@link VersionType#VersionType(XMPMetadata)} with metadata is createXMPMetadata.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link VersionType#VersionType(XMPMetadata)} with metadata is createXMPMetadata.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VersionType#getComments()}
+   * <p>
+   * Method under test: {@link VersionType#getComments()}
    */
   @Test
-  @DisplayName(
-      "Test getComments(); given VersionType(XMPMetadata) with metadata is createXMPMetadata; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getComments(); given VersionType(XMPMetadata) with metadata is createXMPMetadata; then return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String VersionType.getComments()"})
   void testGetComments_givenVersionTypeWithMetadataIsCreateXMPMetadata_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new VersionType(XMPMetadata.createXMPMetadata()).getComments());
+    assertNull((new VersionType(XMPMetadata.createXMPMetadata())).getComments());
   }
 
   /**
    * Test {@link VersionType#getComments()}.
-   *
    * <ul>
-   *   <li>Then return {@code Value}.
+   *   <li>Then return {@code Value}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VersionType#getComments()}
+   * <p>
+   * Method under test: {@link VersionType#getComments()}
    */
   @Test
   @DisplayName("Test getComments(); then return 'Value'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String VersionType.getComments()"})
   void testGetComments_thenReturnValue() {
     // Arrange
@@ -97,13 +90,12 @@ class VersionTypeDiffblueTest {
 
   /**
    * Test {@link VersionType#setComments(String)}.
-   *
-   * <p>Method under test: {@link VersionType#setComments(String)}
+   * <p>
+   * Method under test: {@link VersionType#setComments(String)}
    */
   @Test
   @DisplayName("Test setComments(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void VersionType.setComments(String)"})
   void testSetComments() {
     // Arrange
@@ -131,34 +123,30 @@ class VersionTypeDiffblueTest {
 
   /**
    * Test {@link VersionType#getEvent()}.
-   *
    * <ul>
-   *   <li>Given {@link VersionType#VersionType(XMPMetadata)} with metadata is createXMPMetadata.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link VersionType#VersionType(XMPMetadata)} with metadata is createXMPMetadata.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VersionType#getEvent()}
+   * <p>
+   * Method under test: {@link VersionType#getEvent()}
    */
   @Test
-  @DisplayName(
-      "Test getEvent(); given VersionType(XMPMetadata) with metadata is createXMPMetadata; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getEvent(); given VersionType(XMPMetadata) with metadata is createXMPMetadata; then return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ResourceEventType VersionType.getEvent()"})
   void testGetEvent_givenVersionTypeWithMetadataIsCreateXMPMetadata_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new VersionType(XMPMetadata.createXMPMetadata()).getEvent());
+    assertNull((new VersionType(XMPMetadata.createXMPMetadata())).getEvent());
   }
 
   /**
    * Test {@link VersionType#setEvent(ResourceEventType)}.
-   *
-   * <p>Method under test: {@link VersionType#setEvent(ResourceEventType)}
+   * <p>
+   * Method under test: {@link VersionType#setEvent(ResourceEventType)}
    */
   @Test
   @DisplayName("Test setEvent(ResourceEventType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void VersionType.setEvent(ResourceEventType)"})
   void testSetEvent() {
     // Arrange
@@ -176,13 +164,12 @@ class VersionTypeDiffblueTest {
 
   /**
    * Test {@link VersionType#getModifyDate()}.
-   *
-   * <p>Method under test: {@link VersionType#getModifyDate()}
+   * <p>
+   * Method under test: {@link VersionType#getModifyDate()}
    */
   @Test
   @DisplayName("Test getModifyDate()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Calendar VersionType.getModifyDate()"})
   void testGetModifyDate() {
     // Arrange
@@ -195,34 +182,30 @@ class VersionTypeDiffblueTest {
 
   /**
    * Test {@link VersionType#getModifyDate()}.
-   *
    * <ul>
-   *   <li>Given {@link VersionType#VersionType(XMPMetadata)} with metadata is createXMPMetadata.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link VersionType#VersionType(XMPMetadata)} with metadata is createXMPMetadata.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VersionType#getModifyDate()}
+   * <p>
+   * Method under test: {@link VersionType#getModifyDate()}
    */
   @Test
-  @DisplayName(
-      "Test getModifyDate(); given VersionType(XMPMetadata) with metadata is createXMPMetadata; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getModifyDate(); given VersionType(XMPMetadata) with metadata is createXMPMetadata; then return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Calendar VersionType.getModifyDate()"})
   void testGetModifyDate_givenVersionTypeWithMetadataIsCreateXMPMetadata_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new VersionType(XMPMetadata.createXMPMetadata()).getModifyDate());
+    assertNull((new VersionType(XMPMetadata.createXMPMetadata())).getModifyDate());
   }
 
   /**
    * Test {@link VersionType#setModifyDate(Calendar)}.
-   *
-   * <p>Method under test: {@link VersionType#setModifyDate(Calendar)}
+   * <p>
+   * Method under test: {@link VersionType#setModifyDate(Calendar)}
    */
   @Test
   @DisplayName("Test setModifyDate(Calendar)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void VersionType.setModifyDate(Calendar)"})
   void testSetModifyDate() {
     // Arrange
@@ -250,38 +233,33 @@ class VersionTypeDiffblueTest {
 
   /**
    * Test {@link VersionType#getVersion()}.
-   *
    * <ul>
-   *   <li>Given {@link VersionType#VersionType(XMPMetadata)} with metadata is createXMPMetadata.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link VersionType#VersionType(XMPMetadata)} with metadata is createXMPMetadata.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VersionType#getVersion()}
+   * <p>
+   * Method under test: {@link VersionType#getVersion()}
    */
   @Test
-  @DisplayName(
-      "Test getVersion(); given VersionType(XMPMetadata) with metadata is createXMPMetadata; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getVersion(); given VersionType(XMPMetadata) with metadata is createXMPMetadata; then return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String VersionType.getVersion()"})
   void testGetVersion_givenVersionTypeWithMetadataIsCreateXMPMetadata_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new VersionType(XMPMetadata.createXMPMetadata()).getVersion());
+    assertNull((new VersionType(XMPMetadata.createXMPMetadata())).getVersion());
   }
 
   /**
    * Test {@link VersionType#getVersion()}.
-   *
    * <ul>
-   *   <li>Then return {@code Value}.
+   *   <li>Then return {@code Value}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VersionType#getVersion()}
+   * <p>
+   * Method under test: {@link VersionType#getVersion()}
    */
   @Test
   @DisplayName("Test getVersion(); then return 'Value'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String VersionType.getVersion()"})
   void testGetVersion_thenReturnValue() {
     // Arrange
@@ -294,13 +272,12 @@ class VersionTypeDiffblueTest {
 
   /**
    * Test {@link VersionType#setVersion(String)}.
-   *
-   * <p>Method under test: {@link VersionType#setVersion(String)}
+   * <p>
+   * Method under test: {@link VersionType#setVersion(String)}
    */
   @Test
   @DisplayName("Test setVersion(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void VersionType.setVersion(String)"})
   void testSetVersion() {
     // Arrange
@@ -328,38 +305,33 @@ class VersionTypeDiffblueTest {
 
   /**
    * Test {@link VersionType#getModifier()}.
-   *
    * <ul>
-   *   <li>Given {@link VersionType#VersionType(XMPMetadata)} with metadata is createXMPMetadata.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link VersionType#VersionType(XMPMetadata)} with metadata is createXMPMetadata.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VersionType#getModifier()}
+   * <p>
+   * Method under test: {@link VersionType#getModifier()}
    */
   @Test
-  @DisplayName(
-      "Test getModifier(); given VersionType(XMPMetadata) with metadata is createXMPMetadata; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getModifier(); given VersionType(XMPMetadata) with metadata is createXMPMetadata; then return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String VersionType.getModifier()"})
   void testGetModifier_givenVersionTypeWithMetadataIsCreateXMPMetadata_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new VersionType(XMPMetadata.createXMPMetadata()).getModifier());
+    assertNull((new VersionType(XMPMetadata.createXMPMetadata())).getModifier());
   }
 
   /**
    * Test {@link VersionType#getModifier()}.
-   *
    * <ul>
-   *   <li>Then return {@code Value}.
+   *   <li>Then return {@code Value}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VersionType#getModifier()}
+   * <p>
+   * Method under test: {@link VersionType#getModifier()}
    */
   @Test
   @DisplayName("Test getModifier(); then return 'Value'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String VersionType.getModifier()"})
   void testGetModifier_thenReturnValue() {
     // Arrange
@@ -372,13 +344,12 @@ class VersionTypeDiffblueTest {
 
   /**
    * Test {@link VersionType#setModifier(String)}.
-   *
-   * <p>Method under test: {@link VersionType#setModifier(String)}
+   * <p>
+   * Method under test: {@link VersionType#setModifier(String)}
    */
   @Test
   @DisplayName("Test setModifier(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void VersionType.setModifier(String)"})
   void testSetModifier() {
     // Arrange

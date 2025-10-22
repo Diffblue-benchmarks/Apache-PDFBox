@@ -3,8 +3,8 @@ package org.apache.pdfbox.debugger.streampane.tooltip;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.awt.Rectangle;
 import java.util.List;
 import javax.swing.JEditorPane;
 import javax.swing.text.DefaultStyledDocument;
@@ -17,18 +17,16 @@ import org.junit.jupiter.api.Test;
 class ToolTipControllerDiffblueTest {
   /**
    * Test {@link ToolTipController#getWords(String)}.
-   *
    * <ul>
-   *   <li>When space.
-   *   <li>Then return Empty.
+   *   <li>When space.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ToolTipController#getWords(String)}
+   * <p>
+   * Method under test: {@link ToolTipController#getWords(String)}
    */
   @Test
   @DisplayName("Test getWords(String); when space; then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List ToolTipController.getWords(String)"})
   void testGetWords_whenSpace_thenReturnEmpty() {
     // Arrange and Act
@@ -40,18 +38,16 @@ class ToolTipControllerDiffblueTest {
 
   /**
    * Test {@link ToolTipController#getWords(String)}.
-   *
    * <ul>
-   *   <li>When {@code Str}.
-   *   <li>Then return size is one.
+   *   <li>When {@code Str}.</li>
+   *   <li>Then return size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ToolTipController#getWords(String)}
+   * <p>
+   * Method under test: {@link ToolTipController#getWords(String)}
    */
   @Test
   @DisplayName("Test getWords(String); when 'Str'; then return size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List ToolTipController.getWords(String)"})
   void testGetWords_whenStr_thenReturnSizeIsOne() {
     // Arrange and Act
@@ -64,17 +60,15 @@ class ToolTipControllerDiffblueTest {
 
   /**
    * Test {@link ToolTipController#getToolTip(int, JTextComponent)}.
-   *
    * <ul>
-   *   <li>Given {@link DefaultStyledDocument#DefaultStyledDocument()}.
+   *   <li>Given {@link DefaultStyledDocument#DefaultStyledDocument()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ToolTipController#getToolTip(int, JTextComponent)}
+   * <p>
+   * Method under test: {@link ToolTipController#getToolTip(int, JTextComponent)}
    */
   @Test
   @DisplayName("Test getToolTip(int, JTextComponent); given DefaultStyledDocument()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String ToolTipController.getToolTip(int, JTextComponent)"})
   void testGetToolTip_givenDefaultStyledDocument() {
     // Arrange
@@ -85,45 +79,48 @@ class ToolTipControllerDiffblueTest {
 
     // Act and Assert
     assertNull(toolTipController.getToolTip(2, textComponent));
+    Rectangle boundsResult = textComponent.bounds();
+    assertEquals(boundsResult, boundsResult.getBounds());
+    assertEquals(boundsResult, textComponent.getVisibleRect());
   }
 
   /**
    * Test {@link ToolTipController#getToolTip(int, JTextComponent)}.
-   *
    * <ul>
-   *   <li>When {@link JEditorPane#JEditorPane()}.
-   *   <li>Then return {@code null}.
+   *   <li>When {@link JEditorPane#JEditorPane()}.</li>
+   *   <li>Then {@link JEditorPane#JEditorPane()} bounds Bounds is {@link JEditorPane#JEditorPane()} bounds.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ToolTipController#getToolTip(int, JTextComponent)}
+   * <p>
+   * Method under test: {@link ToolTipController#getToolTip(int, JTextComponent)}
    */
   @Test
-  @DisplayName("Test getToolTip(int, JTextComponent); when JEditorPane(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getToolTip(int, JTextComponent); when JEditorPane(); then JEditorPane() bounds Bounds is JEditorPane() bounds")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String ToolTipController.getToolTip(int, JTextComponent)"})
-  void testGetToolTip_whenJEditorPane_thenReturnNull() {
+  void testGetToolTip_whenJEditorPane_thenJEditorPaneBoundsBoundsIsJEditorPaneBounds() {
     // Arrange
     ToolTipController toolTipController = new ToolTipController(new PDResources());
+    JEditorPane textComponent = new JEditorPane();
 
     // Act and Assert
-    assertNull(toolTipController.getToolTip(2, new JEditorPane()));
+    assertNull(toolTipController.getToolTip(2, textComponent));
+    Rectangle boundsResult = textComponent.bounds();
+    assertEquals(boundsResult, boundsResult.getBounds());
+    assertEquals(boundsResult, textComponent.getVisibleRect());
   }
 
   /**
    * Test {@link ToolTipController#getToolTip(int, JTextComponent)}.
-   *
    * <ul>
-   *   <li>When zero.
-   *   <li>Then return {@code null}.
+   *   <li>When zero.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ToolTipController#getToolTip(int, JTextComponent)}
+   * <p>
+   * Method under test: {@link ToolTipController#getToolTip(int, JTextComponent)}
    */
   @Test
   @DisplayName("Test getToolTip(int, JTextComponent); when zero; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String ToolTipController.getToolTip(int, JTextComponent)"})
   void testGetToolTip_whenZero_thenReturnNull() {
     // Arrange

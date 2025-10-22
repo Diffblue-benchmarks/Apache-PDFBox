@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.util.List;
@@ -31,13 +30,12 @@ import org.junit.jupiter.api.Test;
 class PDAnnotationWidgetDiffblueTest {
   /**
    * Test {@link PDAnnotationWidget#PDAnnotationWidget()}.
-   *
-   * <p>Method under test: {@link PDAnnotationWidget#PDAnnotationWidget()}
+   * <p>
+   * Method under test: {@link PDAnnotationWidget#PDAnnotationWidget()}
    */
   @Test
   @DisplayName("Test new PDAnnotationWidget()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationWidget.<init>()"})
   void testNewPDAnnotationWidget() {
     // Arrange and Act
@@ -70,26 +68,22 @@ class PDAnnotationWidgetDiffblueTest {
     assertFalse(actualPdAnnotationWidget.isPrinted());
     assertFalse(actualPdAnnotationWidget.isReadOnly());
     assertFalse(actualPdAnnotationWidget.isToggleNoView());
-    assertEquals(
-        PDAnnotationLink.HIGHLIGHT_MODE_INVERT, actualPdAnnotationWidget.getHighlightingMode());
+    assertEquals(PDAnnotationLink.HIGHLIGHT_MODE_INVERT, actualPdAnnotationWidget.getHighlightingMode());
     assertEquals(PDAnnotationWidget.SUB_TYPE, actualPdAnnotationWidget.getSubtype());
   }
 
   /**
    * Test {@link PDAnnotationWidget#PDAnnotationWidget(COSDictionary)}.
-   *
    * <ul>
-   *   <li>When {@link COSDictionary#COSDictionary()}.
-   *   <li>Then return AnnotationName is {@code null}.
+   *   <li>When {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then return AnnotationName is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationWidget#PDAnnotationWidget(COSDictionary)}
+   * <p>
+   * Method under test: {@link PDAnnotationWidget#PDAnnotationWidget(COSDictionary)}
    */
   @Test
-  @DisplayName(
-      "Test new PDAnnotationWidget(COSDictionary); when COSDictionary(); then return AnnotationName is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new PDAnnotationWidget(COSDictionary); when COSDictionary(); then return AnnotationName is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationWidget.<init>(COSDictionary)"})
   void testNewPDAnnotationWidget_whenCOSDictionary_thenReturnAnnotationNameIsNull() {
     // Arrange
@@ -126,37 +120,33 @@ class PDAnnotationWidgetDiffblueTest {
     assertFalse(actualPdAnnotationWidget.isPrinted());
     assertFalse(actualPdAnnotationWidget.isReadOnly());
     assertFalse(actualPdAnnotationWidget.isToggleNoView());
-    assertEquals(
-        PDAnnotationLink.HIGHLIGHT_MODE_INVERT, actualPdAnnotationWidget.getHighlightingMode());
+    assertEquals(PDAnnotationLink.HIGHLIGHT_MODE_INVERT, actualPdAnnotationWidget.getHighlightingMode());
     assertEquals(PDAnnotationWidget.SUB_TYPE, actualPdAnnotationWidget.getSubtype());
     assertSame(field, actualPdAnnotationWidget.getCOSObject());
   }
 
   /**
    * Test {@link PDAnnotationWidget#getHighlightingMode()}.
-   *
-   * <p>Method under test: {@link PDAnnotationWidget#getHighlightingMode()}
+   * <p>
+   * Method under test: {@link PDAnnotationWidget#getHighlightingMode()}
    */
   @Test
   @DisplayName("Test getHighlightingMode()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDAnnotationWidget.getHighlightingMode()"})
   void testGetHighlightingMode() {
     // Arrange, Act and Assert
-    assertEquals(
-        PDAnnotationLink.HIGHLIGHT_MODE_INVERT, new PDAnnotationWidget().getHighlightingMode());
+    assertEquals(PDAnnotationLink.HIGHLIGHT_MODE_INVERT, (new PDAnnotationWidget()).getHighlightingMode());
   }
 
   /**
    * Test {@link PDAnnotationWidget#setHighlightingMode(String)}.
-   *
-   * <p>Method under test: {@link PDAnnotationWidget#setHighlightingMode(String)}
+   * <p>
+   * Method under test: {@link PDAnnotationWidget#setHighlightingMode(String)}
    */
   @Test
   @DisplayName("Test setHighlightingMode(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationWidget.setHighlightingMode(String)"})
   void testSetHighlightingMode() {
     // Arrange
@@ -174,13 +164,12 @@ class PDAnnotationWidgetDiffblueTest {
 
   /**
    * Test {@link PDAnnotationWidget#setHighlightingMode(String)}.
-   *
-   * <p>Method under test: {@link PDAnnotationWidget#setHighlightingMode(String)}
+   * <p>
+   * Method under test: {@link PDAnnotationWidget#setHighlightingMode(String)}
    */
   @Test
   @DisplayName("Test setHighlightingMode(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationWidget.setHighlightingMode(String)"})
   void testSetHighlightingMode2() {
     // Arrange
@@ -198,13 +187,12 @@ class PDAnnotationWidgetDiffblueTest {
 
   /**
    * Test {@link PDAnnotationWidget#setHighlightingMode(String)}.
-   *
-   * <p>Method under test: {@link PDAnnotationWidget#setHighlightingMode(String)}
+   * <p>
+   * Method under test: {@link PDAnnotationWidget#setHighlightingMode(String)}
    */
   @Test
   @DisplayName("Test setHighlightingMode(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationWidget.setHighlightingMode(String)"})
   void testSetHighlightingMode3() {
     // Arrange
@@ -222,17 +210,15 @@ class PDAnnotationWidgetDiffblueTest {
 
   /**
    * Test {@link PDAnnotationWidget#setHighlightingMode(String)}.
-   *
    * <ul>
-   *   <li>When {@link PDAnnotationLink#HIGHLIGHT_MODE_INVERT}.
+   *   <li>When {@link PDAnnotationLink#HIGHLIGHT_MODE_INVERT}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationWidget#setHighlightingMode(String)}
+   * <p>
+   * Method under test: {@link PDAnnotationWidget#setHighlightingMode(String)}
    */
   @Test
   @DisplayName("Test setHighlightingMode(String); when HIGHLIGHT_MODE_INVERT")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationWidget.setHighlightingMode(String)"})
   void testSetHighlightingMode_whenHighlight_mode_invert() {
     // Arrange
@@ -250,42 +236,35 @@ class PDAnnotationWidgetDiffblueTest {
 
   /**
    * Test {@link PDAnnotationWidget#setHighlightingMode(String)}.
-   *
    * <ul>
-   *   <li>When {@code Highlighting Mode}.
-   *   <li>Then throw {@link IllegalArgumentException}.
+   *   <li>When {@code Highlighting Mode}.</li>
+   *   <li>Then throw {@link IllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationWidget#setHighlightingMode(String)}
+   * <p>
+   * Method under test: {@link PDAnnotationWidget#setHighlightingMode(String)}
    */
   @Test
-  @DisplayName(
-      "Test setHighlightingMode(String); when 'Highlighting Mode'; then throw IllegalArgumentException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setHighlightingMode(String); when 'Highlighting Mode'; then throw IllegalArgumentException")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationWidget.setHighlightingMode(String)"})
   void testSetHighlightingMode_whenHighlightingMode_thenThrowIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        IllegalArgumentException.class,
-        () -> new PDAnnotationWidget().setHighlightingMode("Highlighting Mode"));
+    assertThrows(IllegalArgumentException.class,
+        () -> (new PDAnnotationWidget()).setHighlightingMode("Highlighting Mode"));
   }
 
   /**
    * Test {@link PDAnnotationWidget#setHighlightingMode(String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDAnnotationWidget#PDAnnotationWidget()} COSObject Values size is two.
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link PDAnnotationWidget#PDAnnotationWidget()} COSObject Values size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationWidget#setHighlightingMode(String)}
+   * <p>
+   * Method under test: {@link PDAnnotationWidget#setHighlightingMode(String)}
    */
   @Test
-  @DisplayName(
-      "Test setHighlightingMode(String); when 'null'; then PDAnnotationWidget() COSObject Values size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setHighlightingMode(String); when 'null'; then PDAnnotationWidget() COSObject Values size is two")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationWidget.setHighlightingMode(String)"})
   void testSetHighlightingMode_whenNull_thenPDAnnotationWidgetCOSObjectValuesSizeIsTwo() {
     // Arrange
@@ -303,19 +282,16 @@ class PDAnnotationWidgetDiffblueTest {
 
   /**
    * Test {@link PDAnnotationWidget#setHighlightingMode(String)}.
-   *
    * <ul>
-   *   <li>When {@code T}.
-   *   <li>Then {@link PDAnnotationWidget#PDAnnotationWidget()} HighlightingMode is {@code T}.
+   *   <li>When {@code T}.</li>
+   *   <li>Then {@link PDAnnotationWidget#PDAnnotationWidget()} HighlightingMode is {@code T}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationWidget#setHighlightingMode(String)}
+   * <p>
+   * Method under test: {@link PDAnnotationWidget#setHighlightingMode(String)}
    */
   @Test
-  @DisplayName(
-      "Test setHighlightingMode(String); when 'T'; then PDAnnotationWidget() HighlightingMode is 'T'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setHighlightingMode(String); when 'T'; then PDAnnotationWidget() HighlightingMode is 'T'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationWidget.setHighlightingMode(String)"})
   void testSetHighlightingMode_whenT_thenPDAnnotationWidgetHighlightingModeIsT() {
     // Arrange
@@ -333,47 +309,37 @@ class PDAnnotationWidgetDiffblueTest {
 
   /**
    * Test {@link PDAnnotationWidget#getAppearanceCharacteristics()}.
-   *
-   * <p>Method under test: {@link PDAnnotationWidget#getAppearanceCharacteristics()}
+   * <p>
+   * Method under test: {@link PDAnnotationWidget#getAppearanceCharacteristics()}
    */
   @Test
   @DisplayName("Test getAppearanceCharacteristics()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "PDAppearanceCharacteristicsDictionary PDAnnotationWidget.getAppearanceCharacteristics()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"PDAppearanceCharacteristicsDictionary PDAnnotationWidget.getAppearanceCharacteristics()"})
   void testGetAppearanceCharacteristics() {
     // Arrange, Act and Assert
-    assertNull(new PDAnnotationWidget().getAppearanceCharacteristics());
+    assertNull((new PDAnnotationWidget()).getAppearanceCharacteristics());
   }
 
   /**
-   * Test {@link
-   * PDAnnotationWidget#setAppearanceCharacteristics(PDAppearanceCharacteristicsDictionary)}.
-   *
-   * <p>Method under test: {@link
-   * PDAnnotationWidget#setAppearanceCharacteristics(PDAppearanceCharacteristicsDictionary)}
+   * Test {@link PDAnnotationWidget#setAppearanceCharacteristics(PDAppearanceCharacteristicsDictionary)}.
+   * <p>
+   * Method under test: {@link PDAnnotationWidget#setAppearanceCharacteristics(PDAppearanceCharacteristicsDictionary)}
    */
   @Test
   @DisplayName("Test setAppearanceCharacteristics(PDAppearanceCharacteristicsDictionary)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PDAnnotationWidget.setAppearanceCharacteristics(PDAppearanceCharacteristicsDictionary)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDAnnotationWidget.setAppearanceCharacteristics(PDAppearanceCharacteristicsDictionary)"})
   void testSetAppearanceCharacteristics() {
     // Arrange
     PDAnnotationWidget pdAnnotationWidget = new PDAnnotationWidget();
     COSDictionary dict = new COSDictionary();
 
     // Act
-    pdAnnotationWidget.setAppearanceCharacteristics(
-        new PDAppearanceCharacteristicsDictionary(dict));
+    pdAnnotationWidget.setAppearanceCharacteristics(new PDAppearanceCharacteristicsDictionary(dict));
 
     // Assert
-    PDAppearanceCharacteristicsDictionary appearanceCharacteristics =
-        pdAnnotationWidget.getAppearanceCharacteristics();
+    PDAppearanceCharacteristicsDictionary appearanceCharacteristics = pdAnnotationWidget.getAppearanceCharacteristics();
     assertNull(appearanceCharacteristics.getAlternateCaption());
     assertNull(appearanceCharacteristics.getNormalCaption());
     assertNull(appearanceCharacteristics.getRolloverCaption());
@@ -390,24 +356,39 @@ class PDAnnotationWidgetDiffblueTest {
   }
 
   /**
-   * Test {@link
-   * PDAnnotationWidget#setAppearanceCharacteristics(PDAppearanceCharacteristicsDictionary)}.
-   *
-   * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link
-   * PDAnnotationWidget#setAppearanceCharacteristics(PDAppearanceCharacteristicsDictionary)}
+   * Test {@link PDAnnotationWidget#setAppearanceCharacteristics(PDAppearanceCharacteristicsDictionary)}.
+   * <p>
+   * Method under test: {@link PDAnnotationWidget#setAppearanceCharacteristics(PDAppearanceCharacteristicsDictionary)}
    */
   @Test
-  @DisplayName(
-      "Test setAppearanceCharacteristics(PDAppearanceCharacteristicsDictionary); given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PDAnnotationWidget.setAppearanceCharacteristics(PDAppearanceCharacteristicsDictionary)"
-  })
+  @DisplayName("Test setAppearanceCharacteristics(PDAppearanceCharacteristicsDictionary)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDAnnotationWidget.setAppearanceCharacteristics(PDAppearanceCharacteristicsDictionary)"})
+  void testSetAppearanceCharacteristics2() {
+    // Arrange
+    PDAnnotationWidget pdAnnotationWidget = new PDAnnotationWidget();
+
+    // Act
+    pdAnnotationWidget.setAppearanceCharacteristics(new PDAppearanceCharacteristicsDictionary(null));
+
+    // Assert that nothing has changed
+    COSDictionary cOSObject = pdAnnotationWidget.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDAnnotationWidget#setAppearanceCharacteristics(PDAppearanceCharacteristicsDictionary)}.
+   * <ul>
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDAnnotationWidget#setAppearanceCharacteristics(PDAppearanceCharacteristicsDictionary)}
+   */
+  @Test
+  @DisplayName("Test setAppearanceCharacteristics(PDAppearanceCharacteristicsDictionary); given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDAnnotationWidget.setAppearanceCharacteristics(PDAppearanceCharacteristicsDictionary)"})
   void testSetAppearanceCharacteristics_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
     PDAnnotationWidget pdAnnotationWidget = new PDAnnotationWidget();
@@ -416,12 +397,10 @@ class PDAnnotationWidgetDiffblueTest {
     dict.setKey(new COSObjectKey(1L, 1));
 
     // Act
-    pdAnnotationWidget.setAppearanceCharacteristics(
-        new PDAppearanceCharacteristicsDictionary(dict));
+    pdAnnotationWidget.setAppearanceCharacteristics(new PDAppearanceCharacteristicsDictionary(dict));
 
     // Assert
-    PDAppearanceCharacteristicsDictionary appearanceCharacteristics =
-        pdAnnotationWidget.getAppearanceCharacteristics();
+    PDAppearanceCharacteristicsDictionary appearanceCharacteristics = pdAnnotationWidget.getAppearanceCharacteristics();
     assertNull(appearanceCharacteristics.getAlternateCaption());
     assertNull(appearanceCharacteristics.getNormalCaption());
     assertNull(appearanceCharacteristics.getRolloverCaption());
@@ -438,25 +417,18 @@ class PDAnnotationWidgetDiffblueTest {
   }
 
   /**
-   * Test {@link
-   * PDAnnotationWidget#setAppearanceCharacteristics(PDAppearanceCharacteristicsDictionary)}.
-   *
+   * Test {@link PDAnnotationWidget#setAppearanceCharacteristics(PDAppearanceCharacteristicsDictionary)}.
    * <ul>
-   *   <li>Given {@code true}.
-   *   <li>When {@link COSDictionary#COSDictionary()} Direct is {@code true}.
+   *   <li>Given {@code true}.</li>
+   *   <li>When {@link COSDictionary#COSDictionary()} Direct is {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * PDAnnotationWidget#setAppearanceCharacteristics(PDAppearanceCharacteristicsDictionary)}
+   * <p>
+   * Method under test: {@link PDAnnotationWidget#setAppearanceCharacteristics(PDAppearanceCharacteristicsDictionary)}
    */
   @Test
-  @DisplayName(
-      "Test setAppearanceCharacteristics(PDAppearanceCharacteristicsDictionary); given 'true'; when COSDictionary() Direct is 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PDAnnotationWidget.setAppearanceCharacteristics(PDAppearanceCharacteristicsDictionary)"
-  })
+  @DisplayName("Test setAppearanceCharacteristics(PDAppearanceCharacteristicsDictionary); given 'true'; when COSDictionary() Direct is 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDAnnotationWidget.setAppearanceCharacteristics(PDAppearanceCharacteristicsDictionary)"})
   void testSetAppearanceCharacteristics_givenTrue_whenCOSDictionaryDirectIsTrue() {
     // Arrange
     PDAnnotationWidget pdAnnotationWidget = new PDAnnotationWidget();
@@ -465,12 +437,10 @@ class PDAnnotationWidgetDiffblueTest {
     dict.setDirect(true);
 
     // Act
-    pdAnnotationWidget.setAppearanceCharacteristics(
-        new PDAppearanceCharacteristicsDictionary(dict));
+    pdAnnotationWidget.setAppearanceCharacteristics(new PDAppearanceCharacteristicsDictionary(dict));
 
     // Assert
-    PDAppearanceCharacteristicsDictionary appearanceCharacteristics =
-        pdAnnotationWidget.getAppearanceCharacteristics();
+    PDAppearanceCharacteristicsDictionary appearanceCharacteristics = pdAnnotationWidget.getAppearanceCharacteristics();
     assertNull(appearanceCharacteristics.getAlternateCaption());
     assertNull(appearanceCharacteristics.getNormalCaption());
     assertNull(appearanceCharacteristics.getRolloverCaption());
@@ -487,25 +457,18 @@ class PDAnnotationWidgetDiffblueTest {
   }
 
   /**
-   * Test {@link
-   * PDAnnotationWidget#setAppearanceCharacteristics(PDAppearanceCharacteristicsDictionary)}.
-   *
+   * Test {@link PDAnnotationWidget#setAppearanceCharacteristics(PDAppearanceCharacteristicsDictionary)}.
    * <ul>
-   *   <li>Then {@link PDAnnotationWidget#PDAnnotationWidget()} COSObject Values size is two.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * PDAnnotationWidget#setAppearanceCharacteristics(PDAppearanceCharacteristicsDictionary)}
+   * <p>
+   * Method under test: {@link PDAnnotationWidget#setAppearanceCharacteristics(PDAppearanceCharacteristicsDictionary)}
    */
   @Test
-  @DisplayName(
-      "Test setAppearanceCharacteristics(PDAppearanceCharacteristicsDictionary); then PDAnnotationWidget() COSObject Values size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PDAnnotationWidget.setAppearanceCharacteristics(PDAppearanceCharacteristicsDictionary)"
-  })
-  void testSetAppearanceCharacteristics_thenPDAnnotationWidgetCOSObjectValuesSizeIsTwo() {
+  @DisplayName("Test setAppearanceCharacteristics(PDAppearanceCharacteristicsDictionary); when 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDAnnotationWidget.setAppearanceCharacteristics(PDAppearanceCharacteristicsDictionary)"})
+  void testSetAppearanceCharacteristics_whenNull() {
     // Arrange
     PDAnnotationWidget pdAnnotationWidget = new PDAnnotationWidget();
 
@@ -520,96 +483,51 @@ class PDAnnotationWidgetDiffblueTest {
 
   /**
    * Test {@link PDAnnotationWidget#getAction()}.
-   *
-   * <p>Method under test: {@link PDAnnotationWidget#getAction()}
+   * <p>
+   * Method under test: {@link PDAnnotationWidget#getAction()}
    */
   @Test
   @DisplayName("Test getAction()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAction PDAnnotationWidget.getAction()"})
   void testGetAction() {
     // Arrange, Act and Assert
-    assertNull(new PDAnnotationWidget().getAction());
+    assertNull((new PDAnnotationWidget()).getAction());
   }
 
   /**
    * Test {@link PDAnnotationWidget#setAction(PDAction)}.
-   *
-   * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationWidget#setAction(PDAction)}
+   * <p>
+   * Method under test: {@link PDAnnotationWidget#setAction(PDAction)}
    */
   @Test
-  @DisplayName(
-      "Test setAction(PDAction); given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setAction(PDAction)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationWidget.setAction(PDAction)"})
-  void testSetAction_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
+  void testSetAction() {
     // Arrange
-    PDAnnotationWidget pdAnnotationWidget = new PDAnnotationWidget();
-
-    COSDictionary a = new COSDictionary();
-    a.setKey(new COSObjectKey(1L, 1));
+    PDAnnotationWidget pdAnnotationWidget = new PDAnnotationWidget(new COSDictionary());
 
     // Act
-    pdAnnotationWidget.setAction(new PDActionEmbeddedGoTo(a));
+    pdAnnotationWidget.setAction(null);
 
-    // Assert
-    assertNull(pdAnnotationWidget.getAction());
+    // Assert that nothing has changed
     COSDictionary cOSObject = pdAnnotationWidget.getCOSObject();
-    assertEquals(3, cOSObject.getValues().size());
-    assertEquals(3, cOSObject.size());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
   }
 
   /**
    * Test {@link PDAnnotationWidget#setAction(PDAction)}.
-   *
    * <ul>
-   *   <li>Given {@code true}.
-   *   <li>When {@link COSDictionary#COSDictionary()} Direct is {@code true}.
+   *   <li>Then {@link PDAnnotationWidget#PDAnnotationWidget()} Action {@link PDActionEmbeddedGoTo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationWidget#setAction(PDAction)}
-   */
-  @Test
-  @DisplayName("Test setAction(PDAction); given 'true'; when COSDictionary() Direct is 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAnnotationWidget.setAction(PDAction)"})
-  void testSetAction_givenTrue_whenCOSDictionaryDirectIsTrue() {
-    // Arrange
-    PDAnnotationWidget pdAnnotationWidget = new PDAnnotationWidget();
-
-    COSDictionary a = new COSDictionary();
-    a.setDirect(true);
-
-    // Act
-    pdAnnotationWidget.setAction(new PDActionEmbeddedGoTo(a));
-
-    // Assert
-    assertNull(pdAnnotationWidget.getAction());
-    COSDictionary cOSObject = pdAnnotationWidget.getCOSObject();
-    assertEquals(3, cOSObject.getValues().size());
-    assertEquals(3, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDAnnotationWidget#setAction(PDAction)}.
-   *
-   * <ul>
-   *   <li>Then {@link PDAnnotationWidget#PDAnnotationWidget()} Action {@link PDActionEmbeddedGoTo}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationWidget#setAction(PDAction)}
+   * <p>
+   * Method under test: {@link PDAnnotationWidget#setAction(PDAction)}
    */
   @Test
   @DisplayName("Test setAction(PDAction); then PDAnnotationWidget() Action PDActionEmbeddedGoTo")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationWidget.setAction(PDAction)"})
   void testSetAction_thenPDAnnotationWidgetActionPDActionEmbeddedGoTo() throws IOException {
     // Arrange
@@ -627,67 +545,37 @@ class PDAnnotationWidgetDiffblueTest {
     assertNull(((PDActionEmbeddedGoTo) action).getFile());
     assertNull(((PDActionEmbeddedGoTo) action).getTargetDirectory());
     assertNull(((PDActionEmbeddedGoTo) action).getDestination());
+    COSDictionary cOSObject = pdAnnotationWidget.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
     assertEquals(OpenMode.USER_PREFERENCE, ((PDActionEmbeddedGoTo) action).getOpenInNewWindow());
   }
 
   /**
-   * Test {@link PDAnnotationWidget#setAction(PDAction)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDAnnotationWidget#PDAnnotationWidget()} COSObject Values size is two.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationWidget#setAction(PDAction)}
-   */
-  @Test
-  @DisplayName(
-      "Test setAction(PDAction); when 'null'; then PDAnnotationWidget() COSObject Values size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAnnotationWidget.setAction(PDAction)"})
-  void testSetAction_whenNull_thenPDAnnotationWidgetCOSObjectValuesSizeIsTwo() {
-    // Arrange
-    PDAnnotationWidget pdAnnotationWidget = new PDAnnotationWidget();
-
-    // Act
-    pdAnnotationWidget.setAction(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdAnnotationWidget.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-  }
-
-  /**
    * Test {@link PDAnnotationWidget#getActions()}.
-   *
-   * <p>Method under test: {@link PDAnnotationWidget#getActions()}
+   * <p>
+   * Method under test: {@link PDAnnotationWidget#getActions()}
    */
   @Test
   @DisplayName("Test getActions()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAnnotationAdditionalActions PDAnnotationWidget.getActions()"})
   void testGetActions() {
     // Arrange, Act and Assert
-    assertNull(new PDAnnotationWidget().getActions());
+    assertNull((new PDAnnotationWidget()).getActions());
   }
 
   /**
    * Test {@link PDAnnotationWidget#setActions(PDAnnotationAdditionalActions)}.
-   *
    * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationWidget#setActions(PDAnnotationAdditionalActions)}
+   * <p>
+   * Method under test: {@link PDAnnotationWidget#setActions(PDAnnotationAdditionalActions)}
    */
   @Test
-  @DisplayName(
-      "Test setActions(PDAnnotationAdditionalActions); given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setActions(PDAnnotationAdditionalActions); given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationWidget.setActions(PDAnnotationAdditionalActions)"})
   void testSetActions_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
@@ -719,19 +607,16 @@ class PDAnnotationWidgetDiffblueTest {
 
   /**
    * Test {@link PDAnnotationWidget#setActions(PDAnnotationAdditionalActions)}.
-   *
    * <ul>
-   *   <li>Given {@code true}.
-   *   <li>When {@link COSDictionary#COSDictionary()} Direct is {@code true}.
+   *   <li>Given {@code true}.</li>
+   *   <li>When {@link COSDictionary#COSDictionary()} Direct is {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationWidget#setActions(PDAnnotationAdditionalActions)}
+   * <p>
+   * Method under test: {@link PDAnnotationWidget#setActions(PDAnnotationAdditionalActions)}
    */
   @Test
-  @DisplayName(
-      "Test setActions(PDAnnotationAdditionalActions); given 'true'; when COSDictionary() Direct is 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setActions(PDAnnotationAdditionalActions); given 'true'; when COSDictionary() Direct is 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationWidget.setActions(PDAnnotationAdditionalActions)"})
   void testSetActions_givenTrue_whenCOSDictionaryDirectIsTrue() {
     // Arrange
@@ -763,19 +648,16 @@ class PDAnnotationWidgetDiffblueTest {
 
   /**
    * Test {@link PDAnnotationWidget#setActions(PDAnnotationAdditionalActions)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDAnnotationWidget#PDAnnotationWidget()} COSObject Values size is two.
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link PDAnnotationWidget#PDAnnotationWidget()} COSObject Values size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationWidget#setActions(PDAnnotationAdditionalActions)}
+   * <p>
+   * Method under test: {@link PDAnnotationWidget#setActions(PDAnnotationAdditionalActions)}
    */
   @Test
-  @DisplayName(
-      "Test setActions(PDAnnotationAdditionalActions); when 'null'; then PDAnnotationWidget() COSObject Values size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setActions(PDAnnotationAdditionalActions); when 'null'; then PDAnnotationWidget() COSObject Values size is two")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationWidget.setActions(PDAnnotationAdditionalActions)"})
   void testSetActions_whenNull_thenPDAnnotationWidgetCOSObjectValuesSizeIsTwo() {
     // Arrange
@@ -792,18 +674,15 @@ class PDAnnotationWidgetDiffblueTest {
 
   /**
    * Test {@link PDAnnotationWidget#setActions(PDAnnotationAdditionalActions)}.
-   *
    * <ul>
-   *   <li>When {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()}.
+   *   <li>When {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationWidget#setActions(PDAnnotationAdditionalActions)}
+   * <p>
+   * Method under test: {@link PDAnnotationWidget#setActions(PDAnnotationAdditionalActions)}
    */
   @Test
-  @DisplayName(
-      "Test setActions(PDAnnotationAdditionalActions); when PDAnnotationAdditionalActions()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setActions(PDAnnotationAdditionalActions); when PDAnnotationAdditionalActions()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationWidget.setActions(PDAnnotationAdditionalActions)"})
   void testSetActions_whenPDAnnotationAdditionalActions() {
     // Arrange
@@ -831,18 +710,15 @@ class PDAnnotationWidgetDiffblueTest {
 
   /**
    * Test {@link PDAnnotationWidget#setBorderStyle(PDBorderStyleDictionary)}.
-   *
    * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationWidget#setBorderStyle(PDBorderStyleDictionary)}
+   * <p>
+   * Method under test: {@link PDAnnotationWidget#setBorderStyle(PDBorderStyleDictionary)}
    */
   @Test
-  @DisplayName(
-      "Test setBorderStyle(PDBorderStyleDictionary); given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setBorderStyle(PDBorderStyleDictionary); given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationWidget.setBorderStyle(PDBorderStyleDictionary)"})
   void testSetBorderStyle_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
@@ -863,24 +739,21 @@ class PDAnnotationWidgetDiffblueTest {
     assertTrue(toListResult.get(0) instanceof COSArray);
     assertTrue(cOSObject instanceof COSArray);
     assertSame(dict, borderStyle.getCOSObject());
-    assertArrayEquals(new float[] {3.0f}, dashStyle.getDashArray(), 0.0f);
+    assertArrayEquals(new float[]{3.0f}, dashStyle.getDashArray(), 0.0f);
   }
 
   /**
    * Test {@link PDAnnotationWidget#setBorderStyle(PDBorderStyleDictionary)}.
-   *
    * <ul>
-   *   <li>Given {@code true}.
-   *   <li>When {@link COSDictionary#COSDictionary()} Direct is {@code true}.
+   *   <li>Given {@code true}.</li>
+   *   <li>When {@link COSDictionary#COSDictionary()} Direct is {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationWidget#setBorderStyle(PDBorderStyleDictionary)}
+   * <p>
+   * Method under test: {@link PDAnnotationWidget#setBorderStyle(PDBorderStyleDictionary)}
    */
   @Test
-  @DisplayName(
-      "Test setBorderStyle(PDBorderStyleDictionary); given 'true'; when COSDictionary() Direct is 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setBorderStyle(PDBorderStyleDictionary); given 'true'; when COSDictionary() Direct is 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationWidget.setBorderStyle(PDBorderStyleDictionary)"})
   void testSetBorderStyle_givenTrue_whenCOSDictionaryDirectIsTrue() {
     // Arrange
@@ -901,22 +774,20 @@ class PDAnnotationWidgetDiffblueTest {
     assertTrue(toListResult.get(0) instanceof COSArray);
     assertTrue(cOSObject instanceof COSArray);
     assertSame(dict, borderStyle.getCOSObject());
-    assertArrayEquals(new float[] {3.0f}, dashStyle.getDashArray(), 0.0f);
+    assertArrayEquals(new float[]{3.0f}, dashStyle.getDashArray(), 0.0f);
   }
 
   /**
    * Test {@link PDAnnotationWidget#setBorderStyle(PDBorderStyleDictionary)}.
-   *
    * <ul>
-   *   <li>When {@link PDBorderStyleDictionary#PDBorderStyleDictionary()}.
+   *   <li>When {@link PDBorderStyleDictionary#PDBorderStyleDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationWidget#setBorderStyle(PDBorderStyleDictionary)}
+   * <p>
+   * Method under test: {@link PDAnnotationWidget#setBorderStyle(PDBorderStyleDictionary)}
    */
   @Test
   @DisplayName("Test setBorderStyle(PDBorderStyleDictionary); when PDBorderStyleDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationWidget.setBorderStyle(PDBorderStyleDictionary)"})
   void testSetBorderStyle_whenPDBorderStyleDictionary() {
     // Arrange
@@ -932,38 +803,34 @@ class PDAnnotationWidgetDiffblueTest {
     assertEquals(2, toListResult.size());
     assertTrue(toListResult.get(0) instanceof COSArray);
     assertTrue(cOSObject instanceof COSArray);
-    assertArrayEquals(new float[] {3.0f}, dashStyle.getDashArray(), 0.0f);
+    assertArrayEquals(new float[]{3.0f}, dashStyle.getDashArray(), 0.0f);
   }
 
   /**
    * Test {@link PDAnnotationWidget#getBorderStyle()}.
-   *
-   * <p>Method under test: {@link PDAnnotationWidget#getBorderStyle()}
+   * <p>
+   * Method under test: {@link PDAnnotationWidget#getBorderStyle()}
    */
   @Test
   @DisplayName("Test getBorderStyle()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDBorderStyleDictionary PDAnnotationWidget.getBorderStyle()"})
   void testGetBorderStyle() {
     // Arrange, Act and Assert
-    assertNull(new PDAnnotationWidget().getBorderStyle());
+    assertNull((new PDAnnotationWidget()).getBorderStyle());
   }
 
   /**
    * Test {@link PDAnnotationWidget#setParent(PDTerminalField)}.
-   *
    * <ul>
-   *   <li>Then {@link PDAnnotationWidget#PDAnnotationWidget()} COSObject Values size is three.
+   *   <li>Then {@link PDAnnotationWidget#PDAnnotationWidget()} COSObject Values size is three.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationWidget#setParent(PDTerminalField)}
+   * <p>
+   * Method under test: {@link PDAnnotationWidget#setParent(PDTerminalField)}
    */
   @Test
-  @DisplayName(
-      "Test setParent(PDTerminalField); then PDAnnotationWidget() COSObject Values size is three")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setParent(PDTerminalField); then PDAnnotationWidget() COSObject Values size is three")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationWidget.setParent(PDTerminalField)"})
   void testSetParent_thenPDAnnotationWidgetCOSObjectValuesSizeIsThree() {
     // Arrange

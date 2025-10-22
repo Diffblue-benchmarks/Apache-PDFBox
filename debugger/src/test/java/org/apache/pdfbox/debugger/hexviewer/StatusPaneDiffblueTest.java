@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.Component;
 import java.awt.Component.BaselineResizeBehavior;
@@ -19,13 +18,12 @@ import org.junit.jupiter.api.Test;
 class StatusPaneDiffblueTest {
   /**
    * Test new {@link StatusPane} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link StatusPane}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link StatusPane}
    */
   @Test
   @DisplayName("Test new StatusPane (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void StatusPane.<init>()"})
   void testNewStatusPane() {
     // Arrange and Act
@@ -112,18 +110,16 @@ class StatusPaneDiffblueTest {
 
   /**
    * Test {@link StatusPane#updateStatus(int)}.
-   *
    * <ul>
-   *   <li>When minus one.
-   *   <li>Then second element Text is {@code 0}.
+   *   <li>When minus one.</li>
+   *   <li>Then second element Text is {@code 0}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link StatusPane#updateStatus(int)}
+   * <p>
+   * Method under test: {@link StatusPane#updateStatus(int)}
    */
   @Test
   @DisplayName("Test updateStatus(int); when minus one; then second element Text is '0'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void StatusPane.updateStatus(int)"})
   void testUpdateStatus_whenMinusOne_thenSecondElementTextIs0() {
     // Arrange
@@ -157,18 +153,16 @@ class StatusPaneDiffblueTest {
 
   /**
    * Test {@link StatusPane#updateStatus(int)}.
-   *
    * <ul>
-   *   <li>When one.
-   *   <li>Then second element Text is {@code 1}.
+   *   <li>When one.</li>
+   *   <li>Then second element Text is {@code 1}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link StatusPane#updateStatus(int)}
+   * <p>
+   * Method under test: {@link StatusPane#updateStatus(int)}
    */
   @Test
   @DisplayName("Test updateStatus(int); when one; then second element Text is '1'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void StatusPane.updateStatus(int)"})
   void testUpdateStatus_whenOne_thenSecondElementTextIs1() {
     // Arrange

@@ -4,10 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBase;
@@ -24,19 +22,16 @@ import org.junit.jupiter.api.Test;
 class PDFunctionType0DiffblueTest {
   /**
    * Test {@link PDFunctionType0#PDFunctionType0(COSBase)}.
-   *
    * <ul>
-   *   <li>When {@link COSDictionary#COSDictionary()}.
-   *   <li>Then return RangeValues is {@code null}.
+   *   <li>When {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then return RangeValues is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFunctionType0#PDFunctionType0(COSBase)}
+   * <p>
+   * Method under test: {@link PDFunctionType0#PDFunctionType0(COSBase)}
    */
   @Test
-  @DisplayName(
-      "Test new PDFunctionType0(COSBase); when COSDictionary(); then return RangeValues is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new PDFunctionType0(COSBase); when COSDictionary(); then return RangeValues is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFunctionType0.<init>(COSBase)"})
   void testNewPDFunctionType0_whenCOSDictionary_thenReturnRangeValuesIsNull() {
     // Arrange
@@ -56,22 +51,18 @@ class PDFunctionType0DiffblueTest {
 
   /**
    * Test {@link PDFunctionType0#PDFunctionType0(COSBase)}.
-   *
    * <ul>
-   *   <li>When {@link COSStream#COSStream()}.
-   *   <li>Then return PDStream DecodeParms is {@code null}.
+   *   <li>When {@link COSStream#COSStream()}.</li>
+   *   <li>Then return PDStream DecodeParms is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFunctionType0#PDFunctionType0(COSBase)}
+   * <p>
+   * Method under test: {@link PDFunctionType0#PDFunctionType0(COSBase)}
    */
   @Test
-  @DisplayName(
-      "Test new PDFunctionType0(COSBase); when COSStream(); then return PDStream DecodeParms is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new PDFunctionType0(COSBase); when COSStream(); then return PDStream DecodeParms is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFunctionType0.<init>(COSBase)"})
-  void testNewPDFunctionType0_whenCOSStream_thenReturnPDStreamDecodeParmsIsNull()
-      throws IOException {
+  void testNewPDFunctionType0_whenCOSStream_thenReturnPDStreamDecodeParmsIsNull() throws IOException {
     // Arrange
     COSStream function = new COSStream();
 
@@ -96,18 +87,16 @@ class PDFunctionType0DiffblueTest {
 
   /**
    * Test {@link PDFunctionType0#PDFunctionType0(COSBase)}.
-   *
    * <ul>
-   *   <li>When {@link COSBoolean#FALSE}.
-   *   <li>Then return COSObject is {@code null}.
+   *   <li>When {@link COSBoolean#FALSE}.</li>
+   *   <li>Then return COSObject is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFunctionType0#PDFunctionType0(COSBase)}
+   * <p>
+   * Method under test: {@link PDFunctionType0#PDFunctionType0(COSBase)}
    */
   @Test
   @DisplayName("Test new PDFunctionType0(COSBase); when FALSE; then return COSObject is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFunctionType0.<init>(COSBase)"})
   void testNewPDFunctionType0_whenFalse_thenReturnCOSObjectIsNull() {
     // Arrange and Act
@@ -121,158 +110,132 @@ class PDFunctionType0DiffblueTest {
 
   /**
    * Test {@link PDFunctionType0#getFunctionType()}.
-   *
-   * <p>Method under test: {@link PDFunctionType0#getFunctionType()}
+   * <p>
+   * Method under test: {@link PDFunctionType0#getFunctionType()}
    */
   @Test
   @DisplayName("Test getFunctionType()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int PDFunctionType0.getFunctionType()"})
   void testGetFunctionType() {
     // Arrange, Act and Assert
-    assertEquals(0, new PDFunctionType0(COSBoolean.FALSE).getFunctionType());
+    assertEquals(0, (new PDFunctionType0(COSBoolean.FALSE)).getFunctionType());
   }
 
   /**
    * Test {@link PDFunctionType0#getSize()}.
-   *
    * <ul>
-   *   <li>Given {@link PDFunctionType0#PDFunctionType0(COSBase)} with function is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDFunctionType0#PDFunctionType0(COSBase)} with function is {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFunctionType0#getSize()}
+   * <p>
+   * Method under test: {@link PDFunctionType0#getSize()}
    */
   @Test
-  @DisplayName(
-      "Test getSize(); given PDFunctionType0(COSBase) with function is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getSize(); given PDFunctionType0(COSBase) with function is COSDictionary(); then return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSArray PDFunctionType0.getSize()"})
   void testGetSize_givenPDFunctionType0WithFunctionIsCOSDictionary_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDFunctionType0(new COSDictionary()).getSize());
+    assertNull((new PDFunctionType0(new COSDictionary())).getSize());
   }
 
   /**
    * Test {@link PDFunctionType0#getSize()}.
-   *
    * <ul>
-   *   <li>Given {@link PDFunctionType0#PDFunctionType0(COSBase)} with function is {@link
-   *       COSStream#COSStream()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDFunctionType0#PDFunctionType0(COSBase)} with function is {@link COSStream#COSStream()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFunctionType0#getSize()}
+   * <p>
+   * Method under test: {@link PDFunctionType0#getSize()}
    */
   @Test
-  @DisplayName(
-      "Test getSize(); given PDFunctionType0(COSBase) with function is COSStream(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getSize(); given PDFunctionType0(COSBase) with function is COSStream(); then return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSArray PDFunctionType0.getSize()"})
   void testGetSize_givenPDFunctionType0WithFunctionIsCOSStream_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDFunctionType0(new COSStream()).getSize());
+    assertNull((new PDFunctionType0(new COSStream())).getSize());
   }
 
   /**
    * Test {@link PDFunctionType0#getBitsPerSample()}.
-   *
    * <ul>
-   *   <li>Given {@link PDFunctionType0#PDFunctionType0(COSBase)} with function is {@link
-   *       COSDictionary#COSDictionary()}.
+   *   <li>Given {@link PDFunctionType0#PDFunctionType0(COSBase)} with function is {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFunctionType0#getBitsPerSample()}
+   * <p>
+   * Method under test: {@link PDFunctionType0#getBitsPerSample()}
    */
   @Test
-  @DisplayName(
-      "Test getBitsPerSample(); given PDFunctionType0(COSBase) with function is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getBitsPerSample(); given PDFunctionType0(COSBase) with function is COSDictionary()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int PDFunctionType0.getBitsPerSample()"})
   void testGetBitsPerSample_givenPDFunctionType0WithFunctionIsCOSDictionary() {
     // Arrange, Act and Assert
-    assertEquals(-1, new PDFunctionType0(new COSDictionary()).getBitsPerSample());
+    assertEquals(-1, (new PDFunctionType0(new COSDictionary())).getBitsPerSample());
   }
 
   /**
    * Test {@link PDFunctionType0#getBitsPerSample()}.
-   *
    * <ul>
-   *   <li>Given {@link PDFunctionType0#PDFunctionType0(COSBase)} with function is {@link
-   *       COSStream#COSStream()}.
+   *   <li>Given {@link PDFunctionType0#PDFunctionType0(COSBase)} with function is {@link COSStream#COSStream()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFunctionType0#getBitsPerSample()}
+   * <p>
+   * Method under test: {@link PDFunctionType0#getBitsPerSample()}
    */
   @Test
-  @DisplayName(
-      "Test getBitsPerSample(); given PDFunctionType0(COSBase) with function is COSStream()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getBitsPerSample(); given PDFunctionType0(COSBase) with function is COSStream()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int PDFunctionType0.getBitsPerSample()"})
   void testGetBitsPerSample_givenPDFunctionType0WithFunctionIsCOSStream() {
     // Arrange, Act and Assert
-    assertEquals(-1, new PDFunctionType0(new COSStream()).getBitsPerSample());
+    assertEquals(-1, (new PDFunctionType0(new COSStream())).getBitsPerSample());
   }
 
   /**
    * Test {@link PDFunctionType0#getOrder()}.
-   *
    * <ul>
-   *   <li>Given {@link PDFunctionType0#PDFunctionType0(COSBase)} with function is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return one.
+   *   <li>Given {@link PDFunctionType0#PDFunctionType0(COSBase)} with function is {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then return one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFunctionType0#getOrder()}
+   * <p>
+   * Method under test: {@link PDFunctionType0#getOrder()}
    */
   @Test
-  @DisplayName(
-      "Test getOrder(); given PDFunctionType0(COSBase) with function is COSDictionary(); then return one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getOrder(); given PDFunctionType0(COSBase) with function is COSDictionary(); then return one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int PDFunctionType0.getOrder()"})
   void testGetOrder_givenPDFunctionType0WithFunctionIsCOSDictionary_thenReturnOne() {
     // Arrange, Act and Assert
-    assertEquals(1, new PDFunctionType0(new COSDictionary()).getOrder());
+    assertEquals(1, (new PDFunctionType0(new COSDictionary())).getOrder());
   }
 
   /**
    * Test {@link PDFunctionType0#getOrder()}.
-   *
    * <ul>
-   *   <li>Given {@link PDFunctionType0#PDFunctionType0(COSBase)} with function is {@link
-   *       COSStream#COSStream()}.
-   *   <li>Then return one.
+   *   <li>Given {@link PDFunctionType0#PDFunctionType0(COSBase)} with function is {@link COSStream#COSStream()}.</li>
+   *   <li>Then return one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFunctionType0#getOrder()}
+   * <p>
+   * Method under test: {@link PDFunctionType0#getOrder()}
    */
   @Test
-  @DisplayName(
-      "Test getOrder(); given PDFunctionType0(COSBase) with function is COSStream(); then return one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getOrder(); given PDFunctionType0(COSBase) with function is COSStream(); then return one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int PDFunctionType0.getOrder()"})
   void testGetOrder_givenPDFunctionType0WithFunctionIsCOSStream_thenReturnOne() {
     // Arrange, Act and Assert
-    assertEquals(1, new PDFunctionType0(new COSStream()).getOrder());
+    assertEquals(1, (new PDFunctionType0(new COSStream())).getOrder());
   }
 
   /**
    * Test {@link PDFunctionType0#setBitsPerSample(int)}.
-   *
-   * <p>Method under test: {@link PDFunctionType0#setBitsPerSample(int)}
+   * <p>
+   * Method under test: {@link PDFunctionType0#setBitsPerSample(int)}
    */
   @Test
   @DisplayName("Test setBitsPerSample(int)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFunctionType0.setBitsPerSample(int)"})
   void testSetBitsPerSample() {
     // Arrange
@@ -290,13 +253,12 @@ class PDFunctionType0DiffblueTest {
 
   /**
    * Test {@link PDFunctionType0#setBitsPerSample(int)}.
-   *
-   * <p>Method under test: {@link PDFunctionType0#setBitsPerSample(int)}
+   * <p>
+   * Method under test: {@link PDFunctionType0#setBitsPerSample(int)}
    */
   @Test
   @DisplayName("Test setBitsPerSample(int)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFunctionType0.setBitsPerSample(int)"})
   void testSetBitsPerSample2() {
     // Arrange
@@ -315,13 +277,12 @@ class PDFunctionType0DiffblueTest {
 
   /**
    * Test {@link PDFunctionType0#setBitsPerSample(int)}.
-   *
-   * <p>Method under test: {@link PDFunctionType0#setBitsPerSample(int)}
+   * <p>
+   * Method under test: {@link PDFunctionType0#setBitsPerSample(int)}
    */
   @Test
   @DisplayName("Test setBitsPerSample(int)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFunctionType0.setBitsPerSample(int)"})
   void testSetBitsPerSample3() {
     // Arrange
@@ -339,17 +300,15 @@ class PDFunctionType0DiffblueTest {
 
   /**
    * Test {@link PDFunctionType0#getEncodeForParameter(int)}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFunctionType0#getEncodeForParameter(int)}
+   * <p>
+   * Method under test: {@link PDFunctionType0#getEncodeForParameter(int)}
    */
   @Test
   @DisplayName("Test getEncodeForParameter(int); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDRange PDFunctionType0.getEncodeForParameter(int)"})
   void testGetEncodeForParameter_thenReturnNull() {
     // Arrange
@@ -362,18 +321,16 @@ class PDFunctionType0DiffblueTest {
 
   /**
    * Test {@link PDFunctionType0#getEncodeForParameter(int)}.
-   *
    * <ul>
-   *   <li>When minus one.
-   *   <li>Then return COSArray toList Empty.
+   *   <li>When minus one.</li>
+   *   <li>Then return COSArray toList Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFunctionType0#getEncodeForParameter(int)}
+   * <p>
+   * Method under test: {@link PDFunctionType0#getEncodeForParameter(int)}
    */
   @Test
   @DisplayName("Test getEncodeForParameter(int); when minus one; then return COSArray toList Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDRange PDFunctionType0.getEncodeForParameter(int)"})
   void testGetEncodeForParameter_whenMinusOne_thenReturnCOSArrayToListEmpty() {
     // Arrange
@@ -393,13 +350,12 @@ class PDFunctionType0DiffblueTest {
 
   /**
    * Test {@link PDFunctionType0#setEncodeValues(COSArray)}.
-   *
-   * <p>Method under test: {@link PDFunctionType0#setEncodeValues(COSArray)}
+   * <p>
+   * Method under test: {@link PDFunctionType0#setEncodeValues(COSArray)}
    */
   @Test
   @DisplayName("Test setEncodeValues(COSArray)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFunctionType0.setEncodeValues(COSArray)"})
   void testSetEncodeValues() {
     // Arrange
@@ -416,13 +372,12 @@ class PDFunctionType0DiffblueTest {
 
   /**
    * Test {@link PDFunctionType0#setEncodeValues(COSArray)}.
-   *
-   * <p>Method under test: {@link PDFunctionType0#setEncodeValues(COSArray)}
+   * <p>
+   * Method under test: {@link PDFunctionType0#setEncodeValues(COSArray)}
    */
   @Test
   @DisplayName("Test setEncodeValues(COSArray)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFunctionType0.setEncodeValues(COSArray)"})
   void testSetEncodeValues2() {
     // Arrange
@@ -439,24 +394,21 @@ class PDFunctionType0DiffblueTest {
 
   /**
    * Test {@link PDFunctionType0#setEncodeValues(COSArray)}.
-   *
    * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFunctionType0#setEncodeValues(COSArray)}
+   * <p>
+   * Method under test: {@link PDFunctionType0#setEncodeValues(COSArray)}
    */
   @Test
-  @DisplayName(
-      "Test setEncodeValues(COSArray); given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setEncodeValues(COSArray); given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFunctionType0.setEncodeValues(COSArray)"})
   void testSetEncodeValues_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
     PDFunctionType0 pdFunctionType0 = new PDFunctionType0(new COSDictionary());
 
-    COSArray encodeValues = new COSArray(new ArrayList<>());
+    COSArray encodeValues = new COSArray();
     encodeValues.setDirect(false);
     encodeValues.setKey(new COSObjectKey(1L, 1));
 
@@ -471,26 +423,22 @@ class PDFunctionType0DiffblueTest {
 
   /**
    * Test {@link PDFunctionType0#setEncodeValues(COSArray)}.
-   *
    * <ul>
-   *   <li>Given {@code null}.
-   *   <li>When {@link COSArray#COSArray(List)} with cosObjectables is {@link ArrayList#ArrayList()}
-   *       Key is {@code null}.
+   *   <li>Given {@code null}.</li>
+   *   <li>When {@link COSArray#COSArray()} Key is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFunctionType0#setEncodeValues(COSArray)}
+   * <p>
+   * Method under test: {@link PDFunctionType0#setEncodeValues(COSArray)}
    */
   @Test
-  @DisplayName(
-      "Test setEncodeValues(COSArray); given 'null'; when COSArray(List) with cosObjectables is ArrayList() Key is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setEncodeValues(COSArray); given 'null'; when COSArray() Key is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFunctionType0.setEncodeValues(COSArray)"})
-  void testSetEncodeValues_givenNull_whenCOSArrayWithCosObjectablesIsArrayListKeyIsNull() {
+  void testSetEncodeValues_givenNull_whenCOSArrayKeyIsNull() {
     // Arrange
     PDFunctionType0 pdFunctionType0 = new PDFunctionType0(new COSDictionary());
 
-    COSArray encodeValues = new COSArray(new ArrayList<>());
+    COSArray encodeValues = new COSArray();
     encodeValues.setDirect(false);
     encodeValues.setKey(null);
 
@@ -505,19 +453,15 @@ class PDFunctionType0DiffblueTest {
 
   /**
    * Test {@link PDFunctionType0#setEncodeValues(COSArray)}.
-   *
    * <ul>
-   *   <li>Then {@link PDFunctionType0#PDFunctionType0(COSBase)} with function is {@link
-   *       COSStream#COSStream()} COSObject {@link COSStream}.
+   *   <li>Then {@link PDFunctionType0#PDFunctionType0(COSBase)} with function is {@link COSStream#COSStream()} COSObject {@link COSStream}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFunctionType0#setEncodeValues(COSArray)}
+   * <p>
+   * Method under test: {@link PDFunctionType0#setEncodeValues(COSArray)}
    */
   @Test
-  @DisplayName(
-      "Test setEncodeValues(COSArray); then PDFunctionType0(COSBase) with function is COSStream() COSObject COSStream")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setEncodeValues(COSArray); then PDFunctionType0(COSBase) with function is COSStream() COSObject COSStream")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFunctionType0.setEncodeValues(COSArray)"})
   void testSetEncodeValues_thenPDFunctionType0WithFunctionIsCOSStreamCOSObjectCOSStream() {
     // Arrange
@@ -535,13 +479,12 @@ class PDFunctionType0DiffblueTest {
 
   /**
    * Test {@link PDFunctionType0#getDecodeForParameter(int)}.
-   *
-   * <p>Method under test: {@link PDFunctionType0#getDecodeForParameter(int)}
+   * <p>
+   * Method under test: {@link PDFunctionType0#getDecodeForParameter(int)}
    */
   @Test
   @DisplayName("Test getDecodeForParameter(int)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDRange PDFunctionType0.getDecodeForParameter(int)"})
   void testGetDecodeForParameter() {
     // Arrange
@@ -554,13 +497,12 @@ class PDFunctionType0DiffblueTest {
 
   /**
    * Test {@link PDFunctionType0#getDecodeForParameter(int)}.
-   *
-   * <p>Method under test: {@link PDFunctionType0#getDecodeForParameter(int)}
+   * <p>
+   * Method under test: {@link PDFunctionType0#getDecodeForParameter(int)}
    */
   @Test
   @DisplayName("Test getDecodeForParameter(int)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDRange PDFunctionType0.getDecodeForParameter(int)"})
   void testGetDecodeForParameter2() {
     // Arrange
@@ -573,60 +515,50 @@ class PDFunctionType0DiffblueTest {
 
   /**
    * Test {@link PDFunctionType0#getDecodeForParameter(int)}.
-   *
    * <ul>
-   *   <li>Given {@link PDFunctionType0#PDFunctionType0(COSBase)} with function is {@link
-   *       COSDictionary#COSDictionary()}.
+   *   <li>Given {@link PDFunctionType0#PDFunctionType0(COSBase)} with function is {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFunctionType0#getDecodeForParameter(int)}
+   * <p>
+   * Method under test: {@link PDFunctionType0#getDecodeForParameter(int)}
    */
   @Test
-  @DisplayName(
-      "Test getDecodeForParameter(int); given PDFunctionType0(COSBase) with function is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getDecodeForParameter(int); given PDFunctionType0(COSBase) with function is COSDictionary()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDRange PDFunctionType0.getDecodeForParameter(int)"})
   void testGetDecodeForParameter_givenPDFunctionType0WithFunctionIsCOSDictionary() {
     // Arrange, Act and Assert
-    assertNull(new PDFunctionType0(new COSDictionary()).getDecodeForParameter(10));
+    assertNull((new PDFunctionType0(new COSDictionary())).getDecodeForParameter(10));
   }
 
   /**
    * Test {@link PDFunctionType0#getDecodeForParameter(int)}.
-   *
    * <ul>
-   *   <li>Given {@link PDFunctionType0#PDFunctionType0(COSBase)} with function is {@link
-   *       COSStream#COSStream()}.
+   *   <li>Given {@link PDFunctionType0#PDFunctionType0(COSBase)} with function is {@link COSStream#COSStream()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFunctionType0#getDecodeForParameter(int)}
+   * <p>
+   * Method under test: {@link PDFunctionType0#getDecodeForParameter(int)}
    */
   @Test
-  @DisplayName(
-      "Test getDecodeForParameter(int); given PDFunctionType0(COSBase) with function is COSStream()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getDecodeForParameter(int); given PDFunctionType0(COSBase) with function is COSStream()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDRange PDFunctionType0.getDecodeForParameter(int)"})
   void testGetDecodeForParameter_givenPDFunctionType0WithFunctionIsCOSStream() {
     // Arrange, Act and Assert
-    assertNull(new PDFunctionType0(new COSStream()).getDecodeForParameter(10));
+    assertNull((new PDFunctionType0(new COSStream())).getDecodeForParameter(10));
   }
 
   /**
    * Test {@link PDFunctionType0#getDecodeForParameter(int)}.
-   *
    * <ul>
-   *   <li>When minus one.
-   *   <li>Then return COSArray toList Empty.
+   *   <li>When minus one.</li>
+   *   <li>Then return COSArray toList Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFunctionType0#getDecodeForParameter(int)}
+   * <p>
+   * Method under test: {@link PDFunctionType0#getDecodeForParameter(int)}
    */
   @Test
   @DisplayName("Test getDecodeForParameter(int); when minus one; then return COSArray toList Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDRange PDFunctionType0.getDecodeForParameter(int)"})
   void testGetDecodeForParameter_whenMinusOne_thenReturnCOSArrayToListEmpty() {
     // Arrange
@@ -646,13 +578,12 @@ class PDFunctionType0DiffblueTest {
 
   /**
    * Test {@link PDFunctionType0#setDecodeValues(COSArray)}.
-   *
-   * <p>Method under test: {@link PDFunctionType0#setDecodeValues(COSArray)}
+   * <p>
+   * Method under test: {@link PDFunctionType0#setDecodeValues(COSArray)}
    */
   @Test
   @DisplayName("Test setDecodeValues(COSArray)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFunctionType0.setDecodeValues(COSArray)"})
   void testSetDecodeValues() {
     // Arrange
@@ -669,13 +600,12 @@ class PDFunctionType0DiffblueTest {
 
   /**
    * Test {@link PDFunctionType0#setDecodeValues(COSArray)}.
-   *
-   * <p>Method under test: {@link PDFunctionType0#setDecodeValues(COSArray)}
+   * <p>
+   * Method under test: {@link PDFunctionType0#setDecodeValues(COSArray)}
    */
   @Test
   @DisplayName("Test setDecodeValues(COSArray)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFunctionType0.setDecodeValues(COSArray)"})
   void testSetDecodeValues2() {
     // Arrange
@@ -692,24 +622,21 @@ class PDFunctionType0DiffblueTest {
 
   /**
    * Test {@link PDFunctionType0#setDecodeValues(COSArray)}.
-   *
    * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFunctionType0#setDecodeValues(COSArray)}
+   * <p>
+   * Method under test: {@link PDFunctionType0#setDecodeValues(COSArray)}
    */
   @Test
-  @DisplayName(
-      "Test setDecodeValues(COSArray); given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setDecodeValues(COSArray); given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFunctionType0.setDecodeValues(COSArray)"})
   void testSetDecodeValues_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
     PDFunctionType0 pdFunctionType0 = new PDFunctionType0(new COSDictionary());
 
-    COSArray decodeValues = new COSArray(new ArrayList<>());
+    COSArray decodeValues = new COSArray();
     decodeValues.setDirect(false);
     decodeValues.setKey(new COSObjectKey(1L, 1));
 
@@ -724,26 +651,22 @@ class PDFunctionType0DiffblueTest {
 
   /**
    * Test {@link PDFunctionType0#setDecodeValues(COSArray)}.
-   *
    * <ul>
-   *   <li>Given {@code null}.
-   *   <li>When {@link COSArray#COSArray(List)} with cosObjectables is {@link ArrayList#ArrayList()}
-   *       Key is {@code null}.
+   *   <li>Given {@code null}.</li>
+   *   <li>When {@link COSArray#COSArray()} Key is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFunctionType0#setDecodeValues(COSArray)}
+   * <p>
+   * Method under test: {@link PDFunctionType0#setDecodeValues(COSArray)}
    */
   @Test
-  @DisplayName(
-      "Test setDecodeValues(COSArray); given 'null'; when COSArray(List) with cosObjectables is ArrayList() Key is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setDecodeValues(COSArray); given 'null'; when COSArray() Key is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFunctionType0.setDecodeValues(COSArray)"})
-  void testSetDecodeValues_givenNull_whenCOSArrayWithCosObjectablesIsArrayListKeyIsNull() {
+  void testSetDecodeValues_givenNull_whenCOSArrayKeyIsNull() {
     // Arrange
     PDFunctionType0 pdFunctionType0 = new PDFunctionType0(new COSDictionary());
 
-    COSArray decodeValues = new COSArray(new ArrayList<>());
+    COSArray decodeValues = new COSArray();
     decodeValues.setDirect(false);
     decodeValues.setKey(null);
 
@@ -758,19 +681,15 @@ class PDFunctionType0DiffblueTest {
 
   /**
    * Test {@link PDFunctionType0#setDecodeValues(COSArray)}.
-   *
    * <ul>
-   *   <li>Then {@link PDFunctionType0#PDFunctionType0(COSBase)} with function is {@link
-   *       COSStream#COSStream()} COSObject {@link COSStream}.
+   *   <li>Then {@link PDFunctionType0#PDFunctionType0(COSBase)} with function is {@link COSStream#COSStream()} COSObject {@link COSStream}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFunctionType0#setDecodeValues(COSArray)}
+   * <p>
+   * Method under test: {@link PDFunctionType0#setDecodeValues(COSArray)}
    */
   @Test
-  @DisplayName(
-      "Test setDecodeValues(COSArray); then PDFunctionType0(COSBase) with function is COSStream() COSObject COSStream")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setDecodeValues(COSArray); then PDFunctionType0(COSBase) with function is COSStream() COSObject COSStream")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFunctionType0.setDecodeValues(COSArray)"})
   void testSetDecodeValues_thenPDFunctionType0WithFunctionIsCOSStreamCOSObjectCOSStream() {
     // Arrange

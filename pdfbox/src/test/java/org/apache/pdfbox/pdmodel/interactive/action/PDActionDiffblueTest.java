@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,143 +19,71 @@ import org.junit.jupiter.api.Test;
 class PDActionDiffblueTest {
   /**
    * Test {@link PDAction#getCOSObject()}.
-   *
-   * <p>Method under test: {@link PDAction#getCOSObject()}
+   * <p>
+   * Method under test: {@link PDAction#getCOSObject()}
    */
   @Test
   @DisplayName("Test getCOSObject()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSDictionary PDAction.getCOSObject()"})
   void testGetCOSObject() {
     // Arrange
     PDActionEmbeddedGoTo pdActionEmbeddedGoTo = new PDActionEmbeddedGoTo();
 
-    // Act
-    COSDictionary actualCOSObject = pdActionEmbeddedGoTo.getCOSObject();
-
-    // Assert
-    assertSame(pdActionEmbeddedGoTo.action, actualCOSObject);
+    // Act and Assert
+    assertSame(pdActionEmbeddedGoTo.action, pdActionEmbeddedGoTo.getCOSObject());
   }
 
   /**
    * Test {@link PDAction#getType()}.
-   *
    * <ul>
-   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAction#getType()}
+   * <p>
+   * Method under test: {@link PDAction#getType()}
    */
   @Test
-  @DisplayName(
-      "Test getType(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getType(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary(); then return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDAction.getType()"})
   void testGetType_givenPDActionEmbeddedGoToWithAIsCOSDictionary_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDActionEmbeddedGoTo(new COSDictionary()).getType());
+    assertNull((new PDActionEmbeddedGoTo(new COSDictionary())).getType());
   }
 
   /**
    * Test {@link PDAction#getType()}.
-   *
    * <ul>
-   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()}.
-   *   <li>Then return {@link PDAction#TYPE}.
+   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()}.</li>
+   *   <li>Then return {@link PDAction#TYPE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAction#getType()}
+   * <p>
+   * Method under test: {@link PDAction#getType()}
    */
   @Test
   @DisplayName("Test getType(); given PDActionEmbeddedGoTo(); then return TYPE")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDAction.getType()"})
   void testGetType_givenPDActionEmbeddedGoTo_thenReturnType() {
     // Arrange, Act and Assert
-    assertEquals(PDAction.TYPE, new PDActionEmbeddedGoTo().getType());
+    assertEquals(PDAction.TYPE, (new PDActionEmbeddedGoTo()).getType());
   }
 
   /**
    * Test {@link PDAction#setType(String)}.
-   *
    * <ul>
-   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()}.
-   *   <li>When {@code 42}.
-   *   <li>Then {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()} Type is {@code 42}.
+   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()}.</li>
+   *   <li>Then {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()} Type is {@code Type}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAction#setType(String)}
+   * <p>
+   * Method under test: {@link PDAction#setType(String)}
    */
   @Test
-  @DisplayName(
-      "Test setType(String); given PDActionEmbeddedGoTo(); when '42'; then PDActionEmbeddedGoTo() Type is '42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setType(String); given PDActionEmbeddedGoTo(); then PDActionEmbeddedGoTo() Type is 'Type'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAction.setType(String)"})
-  void testSetType_givenPDActionEmbeddedGoTo_when42_thenPDActionEmbeddedGoToTypeIs42() {
-    // Arrange
-    PDActionEmbeddedGoTo pdActionEmbeddedGoTo = new PDActionEmbeddedGoTo();
-
-    // Act
-    pdActionEmbeddedGoTo.setType("42");
-
-    // Assert
-    assertEquals("42", pdActionEmbeddedGoTo.getType());
-    COSDictionary cOSObject = pdActionEmbeddedGoTo.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDAction#setType(String)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()} Type is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAction#setType(String)}
-   */
-  @Test
-  @DisplayName("Test setType(String); when 'null'; then PDActionEmbeddedGoTo() Type is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAction.setType(String)"})
-  void testSetType_whenNull_thenPDActionEmbeddedGoToTypeIsNull() {
-    // Arrange
-    PDActionEmbeddedGoTo pdActionEmbeddedGoTo = new PDActionEmbeddedGoTo();
-
-    // Act
-    pdActionEmbeddedGoTo.setType(null);
-
-    // Assert
-    assertNull(pdActionEmbeddedGoTo.getType());
-    COSDictionary cOSObject = pdActionEmbeddedGoTo.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDAction#setType(String)}.
-   *
-   * <ul>
-   *   <li>When {@code Type}.
-   *   <li>Then {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()} Type is {@code Type}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAction#setType(String)}
-   */
-  @Test
-  @DisplayName("Test setType(String); when 'Type'; then PDActionEmbeddedGoTo() Type is 'Type'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAction.setType(String)"})
-  void testSetType_whenType_thenPDActionEmbeddedGoToTypeIsType() {
+  void testSetType_givenPDActionEmbeddedGoTo_thenPDActionEmbeddedGoToTypeIsType() {
     // Arrange
     PDActionEmbeddedGoTo pdActionEmbeddedGoTo = new PDActionEmbeddedGoTo();
 
@@ -165,69 +92,81 @@ class PDActionDiffblueTest {
 
     // Assert
     assertEquals("Type", pdActionEmbeddedGoTo.getType());
-    COSDictionary cOSObject = pdActionEmbeddedGoTo.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDAction#setType(String)}.
+   * <ul>
+   *   <li>Then {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()} Type is {@code org.apache.pdfbox.cos.COSArray}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDAction#setType(String)}
+   */
+  @Test
+  @DisplayName("Test setType(String); then PDActionEmbeddedGoTo() Type is 'org.apache.pdfbox.cos.COSArray'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDAction.setType(String)"})
+  void testSetType_thenPDActionEmbeddedGoToTypeIsOrgApachePdfboxCosCOSArray() {
+    // Arrange
+    PDActionEmbeddedGoTo pdActionEmbeddedGoTo = new PDActionEmbeddedGoTo();
+
+    // Act
+    pdActionEmbeddedGoTo.setType("org.apache.pdfbox.cos.COSArray");
+
+    // Assert
+    assertEquals("org.apache.pdfbox.cos.COSArray", pdActionEmbeddedGoTo.getType());
   }
 
   /**
    * Test {@link PDAction#getSubType()}.
-   *
    * <ul>
-   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAction#getSubType()}
+   * <p>
+   * Method under test: {@link PDAction#getSubType()}
    */
   @Test
-  @DisplayName(
-      "Test getSubType(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getSubType(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary(); then return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDAction.getSubType()"})
   void testGetSubType_givenPDActionEmbeddedGoToWithAIsCOSDictionary_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDActionEmbeddedGoTo(new COSDictionary()).getSubType());
+    assertNull((new PDActionEmbeddedGoTo(new COSDictionary())).getSubType());
   }
 
   /**
    * Test {@link PDAction#getSubType()}.
-   *
    * <ul>
-   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()}.
-   *   <li>Then return {@link PDActionEmbeddedGoTo#SUB_TYPE}.
+   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()}.</li>
+   *   <li>Then return {@link PDActionEmbeddedGoTo#SUB_TYPE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAction#getSubType()}
+   * <p>
+   * Method under test: {@link PDAction#getSubType()}
    */
   @Test
   @DisplayName("Test getSubType(); given PDActionEmbeddedGoTo(); then return SUB_TYPE")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDAction.getSubType()"})
   void testGetSubType_givenPDActionEmbeddedGoTo_thenReturnSub_type() {
     // Arrange, Act and Assert
-    assertEquals(PDActionEmbeddedGoTo.SUB_TYPE, new PDActionEmbeddedGoTo().getSubType());
+    assertEquals(PDActionEmbeddedGoTo.SUB_TYPE, (new PDActionEmbeddedGoTo()).getSubType());
   }
 
   /**
    * Test {@link PDAction#setSubType(String)}.
-   *
    * <ul>
-   *   <li>When {@code foo}.
-   *   <li>Then {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()} SubType is {@code foo}.
+   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()}.</li>
+   *   <li>Then {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()} SubType is {@code foo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAction#setSubType(String)}
+   * <p>
+   * Method under test: {@link PDAction#setSubType(String)}
    */
   @Test
-  @DisplayName("Test setSubType(String); when 'foo'; then PDActionEmbeddedGoTo() SubType is 'foo'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setSubType(String); given PDActionEmbeddedGoTo(); then PDActionEmbeddedGoTo() SubType is 'foo'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAction.setSubType(String)"})
-  void testSetSubType_whenFoo_thenPDActionEmbeddedGoToSubTypeIsFoo() {
+  void testSetSubType_givenPDActionEmbeddedGoTo_thenPDActionEmbeddedGoToSubTypeIsFoo() {
     // Arrange
     PDActionEmbeddedGoTo pdActionEmbeddedGoTo = new PDActionEmbeddedGoTo();
 
@@ -236,87 +175,43 @@ class PDActionDiffblueTest {
 
     // Assert
     assertEquals("foo", pdActionEmbeddedGoTo.getSubType());
-    COSDictionary cOSObject = pdActionEmbeddedGoTo.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
   }
 
   /**
    * Test {@link PDAction#setSubType(String)}.
-   *
    * <ul>
-   *   <li>When {@code foofoo}.
-   *   <li>Then {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()} SubType is {@code foofoo}.
+   *   <li>When {@code 42}.</li>
+   *   <li>Then {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()} SubType is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAction#setSubType(String)}
+   * <p>
+   * Method under test: {@link PDAction#setSubType(String)}
    */
   @Test
-  @DisplayName(
-      "Test setSubType(String); when 'foofoo'; then PDActionEmbeddedGoTo() SubType is 'foofoo'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setSubType(String); when '42'; then PDActionEmbeddedGoTo() SubType is '42'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAction.setSubType(String)"})
-  void testSetSubType_whenFoofoo_thenPDActionEmbeddedGoToSubTypeIsFoofoo() {
+  void testSetSubType_when42_thenPDActionEmbeddedGoToSubTypeIs42() {
     // Arrange
     PDActionEmbeddedGoTo pdActionEmbeddedGoTo = new PDActionEmbeddedGoTo();
 
     // Act
-    pdActionEmbeddedGoTo.setSubType("foofoo");
+    pdActionEmbeddedGoTo.setSubType("42");
 
     // Assert
-    assertEquals("foofoo", pdActionEmbeddedGoTo.getSubType());
-    COSDictionary cOSObject = pdActionEmbeddedGoTo.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDAction#setSubType(String)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()} SubType is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAction#setSubType(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test setSubType(String); when 'null'; then PDActionEmbeddedGoTo() SubType is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAction.setSubType(String)"})
-  void testSetSubType_whenNull_thenPDActionEmbeddedGoToSubTypeIsNull() {
-    // Arrange
-    PDActionEmbeddedGoTo pdActionEmbeddedGoTo = new PDActionEmbeddedGoTo();
-
-    // Act
-    pdActionEmbeddedGoTo.setSubType(null);
-
-    // Assert
-    assertNull(pdActionEmbeddedGoTo.getSubType());
-    COSDictionary cOSObject = pdActionEmbeddedGoTo.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
+    assertEquals("42", pdActionEmbeddedGoTo.getSubType());
   }
 
   /**
    * Test {@link PDAction#getNext()}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link
-   *       PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAction#getNext()}
+   * <p>
+   * Method under test: {@link PDAction#getNext()}
    */
   @Test
-  @DisplayName(
-      "Test getNext(); given ArrayList() add PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getNext(); given ArrayList() add PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDAction.getNext()"})
   void testGetNext_givenArrayListAddPDActionEmbeddedGoToWithAIsCOSDictionary() {
     // Arrange
@@ -336,19 +231,15 @@ class PDActionDiffblueTest {
 
   /**
    * Test {@link PDAction#getNext()}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link
-   *       PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@code null}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAction#getNext()}
+   * <p>
+   * Method under test: {@link PDAction#getNext()}
    */
   @Test
-  @DisplayName(
-      "Test getNext(); given ArrayList() add PDActionEmbeddedGoTo(COSDictionary) with a is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getNext(); given ArrayList() add PDActionEmbeddedGoTo(COSDictionary) with a is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDAction.getNext()"})
   void testGetNext_givenArrayListAddPDActionEmbeddedGoToWithAIsNull() {
     // Arrange
@@ -368,19 +259,16 @@ class PDActionDiffblueTest {
 
   /**
    * Test {@link PDAction#getNext()}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDActionGoTo#PDActionGoTo()}.
-   *   <li>Then first return {@link PDActionGoTo}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDActionGoTo#PDActionGoTo()}.</li>
+   *   <li>Then first return {@link PDActionGoTo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAction#getNext()}
+   * <p>
+   * Method under test: {@link PDAction#getNext()}
    */
   @Test
-  @DisplayName(
-      "Test getNext(); given ArrayList() add PDActionGoTo(); then first return PDActionGoTo")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getNext(); given ArrayList() add PDActionGoTo(); then first return PDActionGoTo")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDAction.getNext()"})
   void testGetNext_givenArrayListAddPDActionGoTo_thenFirstReturnPDActionGoTo() throws IOException {
     // Arrange
@@ -410,19 +298,16 @@ class PDActionDiffblueTest {
 
   /**
    * Test {@link PDAction#getNext()}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDActionHide#PDActionHide()}.
-   *   <li>Then first return {@link PDActionHide}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDActionHide#PDActionHide()}.</li>
+   *   <li>Then first return {@link PDActionHide}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAction#getNext()}
+   * <p>
+   * Method under test: {@link PDAction#getNext()}
    */
   @Test
-  @DisplayName(
-      "Test getNext(); given ArrayList() add PDActionHide(); then first return PDActionHide")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getNext(); given ArrayList() add PDActionHide(); then first return PDActionHide")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDAction.getNext()"})
   void testGetNext_givenArrayListAddPDActionHide_thenFirstReturnPDActionHide() {
     // Arrange
@@ -446,22 +331,18 @@ class PDActionDiffblueTest {
 
   /**
    * Test {@link PDAction#getNext()}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDActionLaunch#PDActionLaunch()}.
-   *   <li>Then first return {@link PDActionLaunch}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDActionLaunch#PDActionLaunch()}.</li>
+   *   <li>Then first return {@link PDActionLaunch}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAction#getNext()}
+   * <p>
+   * Method under test: {@link PDAction#getNext()}
    */
   @Test
-  @DisplayName(
-      "Test getNext(); given ArrayList() add PDActionLaunch(); then first return PDActionLaunch")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getNext(); given ArrayList() add PDActionLaunch(); then first return PDActionLaunch")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDAction.getNext()"})
-  void testGetNext_givenArrayListAddPDActionLaunch_thenFirstReturnPDActionLaunch()
-      throws IOException {
+  void testGetNext_givenArrayListAddPDActionLaunch_thenFirstReturnPDActionLaunch() throws IOException {
     // Arrange
     ArrayList<PDAction> next = new ArrayList<>();
     next.add(new PDActionLaunch());
@@ -488,19 +369,16 @@ class PDActionDiffblueTest {
 
   /**
    * Test {@link PDAction#getNext()}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDActionMovie#PDActionMovie()}.
-   *   <li>Then first return {@link PDActionMovie}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDActionMovie#PDActionMovie()}.</li>
+   *   <li>Then first return {@link PDActionMovie}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAction#getNext()}
+   * <p>
+   * Method under test: {@link PDAction#getNext()}
    */
   @Test
-  @DisplayName(
-      "Test getNext(); given ArrayList() add PDActionMovie(); then first return PDActionMovie")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getNext(); given ArrayList() add PDActionMovie(); then first return PDActionMovie")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDAction.getNext()"})
   void testGetNext_givenArrayListAddPDActionMovie_thenFirstReturnPDActionMovie() {
     // Arrange
@@ -529,19 +407,16 @@ class PDActionDiffblueTest {
 
   /**
    * Test {@link PDAction#getNext()}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDActionNamed#PDActionNamed()}.
-   *   <li>Then first return {@link PDActionNamed}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDActionNamed#PDActionNamed()}.</li>
+   *   <li>Then first return {@link PDActionNamed}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAction#getNext()}
+   * <p>
+   * Method under test: {@link PDAction#getNext()}
    */
   @Test
-  @DisplayName(
-      "Test getNext(); given ArrayList() add PDActionNamed(); then first return PDActionNamed")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getNext(); given ArrayList() add PDActionNamed(); then first return PDActionNamed")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDAction.getNext()"})
   void testGetNext_givenArrayListAddPDActionNamed_thenFirstReturnPDActionNamed() {
     // Arrange
@@ -571,19 +446,16 @@ class PDActionDiffblueTest {
 
   /**
    * Test {@link PDAction#getNext()}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDActionResetForm#PDActionResetForm()}.
-   *   <li>Then first return {@link PDActionResetForm}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDActionResetForm#PDActionResetForm()}.</li>
+   *   <li>Then first return {@link PDActionResetForm}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAction#getNext()}
+   * <p>
+   * Method under test: {@link PDAction#getNext()}
    */
   @Test
-  @DisplayName(
-      "Test getNext(); given ArrayList() add PDActionResetForm(); then first return PDActionResetForm")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getNext(); given ArrayList() add PDActionResetForm(); then first return PDActionResetForm")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDAction.getNext()"})
   void testGetNext_givenArrayListAddPDActionResetForm_thenFirstReturnPDActionResetForm() {
     // Arrange
@@ -607,19 +479,16 @@ class PDActionDiffblueTest {
 
   /**
    * Test {@link PDAction#getNext()}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDActionSound#PDActionSound()}.
-   *   <li>Then first return {@link PDActionSound}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDActionSound#PDActionSound()}.</li>
+   *   <li>Then first return {@link PDActionSound}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAction#getNext()}
+   * <p>
+   * Method under test: {@link PDAction#getNext()}
    */
   @Test
-  @DisplayName(
-      "Test getNext(); given ArrayList() add PDActionSound(); then first return PDActionSound")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getNext(); given ArrayList() add PDActionSound(); then first return PDActionSound")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDAction.getNext()"})
   void testGetNext_givenArrayListAddPDActionSound_thenFirstReturnPDActionSound() {
     // Arrange
@@ -646,22 +515,18 @@ class PDActionDiffblueTest {
 
   /**
    * Test {@link PDAction#getNext()}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDActionThread#PDActionThread()}.
-   *   <li>Then first return {@link PDActionThread}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDActionThread#PDActionThread()}.</li>
+   *   <li>Then first return {@link PDActionThread}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAction#getNext()}
+   * <p>
+   * Method under test: {@link PDAction#getNext()}
    */
   @Test
-  @DisplayName(
-      "Test getNext(); given ArrayList() add PDActionThread(); then first return PDActionThread")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getNext(); given ArrayList() add PDActionThread(); then first return PDActionThread")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDAction.getNext()"})
-  void testGetNext_givenArrayListAddPDActionThread_thenFirstReturnPDActionThread()
-      throws IOException {
+  void testGetNext_givenArrayListAddPDActionThread_thenFirstReturnPDActionThread() throws IOException {
     // Arrange
     ArrayList<PDAction> next = new ArrayList<>();
     next.add(new PDActionThread());
@@ -684,20 +549,55 @@ class PDActionDiffblueTest {
 
   /**
    * Test {@link PDAction#getNext()}.
-   *
    * <ul>
-   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()} Next is {@link
-   *       ArrayList#ArrayList()}.
-   *   <li>Then return Empty.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDActionURI#PDActionURI()}.</li>
+   *   <li>Then first return {@link PDActionURI}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAction#getNext()}
+   * <p>
+   * Method under test: {@link PDAction#getNext()}
    */
   @Test
-  @DisplayName(
-      "Test getNext(); given PDActionEmbeddedGoTo() Next is ArrayList(); then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getNext(); given ArrayList() add PDActionURI(); then first return PDActionURI")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List PDAction.getNext()"})
+  void testGetNext_givenArrayListAddPDActionURI_thenFirstReturnPDActionURI() {
+    // Arrange
+    ArrayList<PDAction> next = new ArrayList<>();
+    next.add(new PDActionURI());
+
+    PDActionEmbeddedGoTo pdActionEmbeddedGoTo = new PDActionEmbeddedGoTo();
+    pdActionEmbeddedGoTo.setNext(next);
+
+    // Act
+    List<PDAction> actualNext = pdActionEmbeddedGoTo.getNext();
+
+    // Assert
+    assertEquals(1, actualNext.size());
+    PDAction getResult = actualNext.get(0);
+    assertTrue(getResult instanceof PDActionURI);
+    assertNull(((PDActionURI) getResult).getURI());
+    COSDictionary cOSObject = getResult.getCOSObject();
+    assertNull(cOSObject.getKey());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertEquals(PDAction.TYPE, getResult.getType());
+    assertEquals(PDActionURI.SUB_TYPE, getResult.getSubType());
+  }
+
+  /**
+   * Test {@link PDAction#getNext()}.
+   * <ul>
+   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()} Next is {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return Empty.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDAction#getNext()}
+   */
+  @Test
+  @DisplayName("Test getNext(); given PDActionEmbeddedGoTo() Next is ArrayList(); then return Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDAction.getNext()"})
   void testGetNext_givenPDActionEmbeddedGoToNextIsArrayList_thenReturnEmpty() {
     // Arrange
@@ -710,19 +610,15 @@ class PDActionDiffblueTest {
 
   /**
    * Test {@link PDAction#getNext()}.
-   *
    * <ul>
-   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()} SubType is {@code foo}.
+   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link COSDictionary#COSDictionary()} SubType is {@code foo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAction#getNext()}
+   * <p>
+   * Method under test: {@link PDAction#getNext()}
    */
   @Test
-  @DisplayName(
-      "Test getNext(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary() SubType is 'foo'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getNext(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary() SubType is 'foo'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDAction.getNext()"})
   void testGetNext_givenPDActionEmbeddedGoToWithAIsCOSDictionarySubTypeIsFoo() {
     // Arrange
@@ -745,37 +641,33 @@ class PDActionDiffblueTest {
 
   /**
    * Test {@link PDAction#getNext()}.
-   *
    * <ul>
-   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAction#getNext()}
+   * <p>
+   * Method under test: {@link PDAction#getNext()}
    */
   @Test
   @DisplayName("Test getNext(); given PDActionEmbeddedGoTo(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDAction.getNext()"})
   void testGetNext_givenPDActionEmbeddedGoTo_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDActionEmbeddedGoTo().getNext());
+    assertNull((new PDActionEmbeddedGoTo()).getNext());
   }
 
   /**
    * Test {@link PDAction#getNext()}.
-   *
    * <ul>
-   *   <li>Then first return {@link PDActionEmbeddedGoTo}.
+   *   <li>Then first return {@link PDActionEmbeddedGoTo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAction#getNext()}
+   * <p>
+   * Method under test: {@link PDAction#getNext()}
    */
   @Test
   @DisplayName("Test getNext(); then first return PDActionEmbeddedGoTo")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDAction.getNext()"})
   void testGetNext_thenFirstReturnPDActionEmbeddedGoTo() throws IOException {
     // Arrange
@@ -801,17 +693,15 @@ class PDActionDiffblueTest {
 
   /**
    * Test {@link PDAction#getNext()}.
-   *
    * <ul>
-   *   <li>Then first return {@link PDActionImportData}.
+   *   <li>Then first return {@link PDActionImportData}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAction#getNext()}
+   * <p>
+   * Method under test: {@link PDAction#getNext()}
    */
   @Test
   @DisplayName("Test getNext(); then first return PDActionImportData")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDAction.getNext()"})
   void testGetNext_thenFirstReturnPDActionImportData() throws IOException {
     // Arrange
@@ -841,17 +731,15 @@ class PDActionDiffblueTest {
 
   /**
    * Test {@link PDAction#getNext()}.
-   *
    * <ul>
-   *   <li>Then first return {@link PDActionJavaScript}.
+   *   <li>Then first return {@link PDActionJavaScript}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAction#getNext()}
+   * <p>
+   * Method under test: {@link PDAction#getNext()}
    */
   @Test
   @DisplayName("Test getNext(); then first return PDActionJavaScript")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDAction.getNext()"})
   void testGetNext_thenFirstReturnPDActionJavaScript() {
     // Arrange
@@ -881,17 +769,15 @@ class PDActionDiffblueTest {
 
   /**
    * Test {@link PDAction#getNext()}.
-   *
    * <ul>
-   *   <li>Then first return {@link PDActionRemoteGoTo}.
+   *   <li>Then first return {@link PDActionRemoteGoTo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAction#getNext()}
+   * <p>
+   * Method under test: {@link PDAction#getNext()}
    */
   @Test
   @DisplayName("Test getNext(); then first return PDActionRemoteGoTo")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDAction.getNext()"})
   void testGetNext_thenFirstReturnPDActionRemoteGoTo() throws IOException {
     // Arrange
@@ -916,17 +802,15 @@ class PDActionDiffblueTest {
 
   /**
    * Test {@link PDAction#getNext()}.
-   *
    * <ul>
-   *   <li>Then first return {@link PDActionSubmitForm}.
+   *   <li>Then first return {@link PDActionSubmitForm}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAction#getNext()}
+   * <p>
+   * Method under test: {@link PDAction#getNext()}
    */
   @Test
   @DisplayName("Test getNext(); then first return PDActionSubmitForm")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDAction.getNext()"})
   void testGetNext_thenFirstReturnPDActionSubmitForm() throws IOException {
     // Arrange
@@ -951,25 +835,23 @@ class PDActionDiffblueTest {
 
   /**
    * Test {@link PDAction#setNext(List)}.
-   *
    * <ul>
-   *   <li>Given {@code null}.
-   *   <li>Then {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()} Next is {@link
-   *       ArrayList#ArrayList()}.
+   *   <li>Given {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()} Next is {@link ArrayList#ArrayList()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAction#setNext(List)}
+   * <p>
+   * Method under test: {@link PDAction#setNext(List)}
    */
   @Test
-  @DisplayName("Test setNext(List); given 'null'; then PDActionEmbeddedGoTo() Next is ArrayList()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setNext(List); given ArrayList(); then PDActionEmbeddedGoTo() Next is ArrayList()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAction.setNext(List)"})
-  void testSetNext_givenNull_thenPDActionEmbeddedGoToNextIsArrayList() {
+  void testSetNext_givenArrayList_thenPDActionEmbeddedGoToNextIsArrayList() {
     // Arrange
     PDActionEmbeddedGoTo pdActionEmbeddedGoTo = new PDActionEmbeddedGoTo();
 
     ArrayList<PDAction> next = new ArrayList<>();
+    next.addAll(new ArrayList<>());
     next.add(null);
 
     // Act
@@ -984,17 +866,15 @@ class PDActionDiffblueTest {
 
   /**
    * Test {@link PDAction#setNext(List)}.
-   *
    * <ul>
-   *   <li>Then {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()} Next size is one.
+   *   <li>Then {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()} Next size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAction#setNext(List)}
+   * <p>
+   * Method under test: {@link PDAction#setNext(List)}
    */
   @Test
   @DisplayName("Test setNext(List); then PDActionEmbeddedGoTo() Next size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAction.setNext(List)"})
   void testSetNext_thenPDActionEmbeddedGoToNextSizeIsOne() throws IOException {
     // Arrange
@@ -1022,17 +902,15 @@ class PDActionDiffblueTest {
 
   /**
    * Test {@link PDAction#setNext(List)}.
-   *
    * <ul>
-   *   <li>Then {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()} Next size is two.
+   *   <li>Then {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()} Next size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAction#setNext(List)}
+   * <p>
+   * Method under test: {@link PDAction#setNext(List)}
    */
   @Test
   @DisplayName("Test setNext(List); then PDActionEmbeddedGoTo() Next size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAction.setNext(List)"})
   void testSetNext_thenPDActionEmbeddedGoToNextSizeIsTwo() throws IOException {
     // Arrange
@@ -1061,18 +939,16 @@ class PDActionDiffblueTest {
 
   /**
    * Test {@link PDAction#setNext(List)}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()} Next Empty.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()} Next Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAction#setNext(List)}
+   * <p>
+   * Method under test: {@link PDAction#setNext(List)}
    */
   @Test
   @DisplayName("Test setNext(List); when ArrayList(); then PDActionEmbeddedGoTo() Next Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAction.setNext(List)"})
   void testSetNext_whenArrayList_thenPDActionEmbeddedGoToNextEmpty() {
     // Arrange

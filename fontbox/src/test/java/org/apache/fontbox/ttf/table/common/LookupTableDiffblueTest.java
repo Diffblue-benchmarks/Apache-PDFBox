@@ -2,7 +2,6 @@ package org.apache.fontbox.ttf.table.common;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.fontbox.ttf.table.gsub.LookupTypeSingleSubstFormat1;
 import org.junit.jupiter.api.DisplayName;
@@ -12,9 +11,8 @@ import org.junit.jupiter.api.Test;
 class LookupTableDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link LookupTable#LookupTable(int, int, int, LookupSubTable[])}
    *   <li>{@link LookupTable#toString()}
@@ -26,22 +24,14 @@ class LookupTableDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void LookupTable.<init>(int, int, int, LookupSubTable[])",
-    "int LookupTable.getLookupFlag()",
-    "int LookupTable.getLookupType()",
-    "int LookupTable.getMarkFilteringSet()",
-    "LookupSubTable[] LookupTable.getSubTables()",
-    "String LookupTable.toString()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void LookupTable.<init>(int, int, int, LookupSubTable[])", "int LookupTable.getLookupFlag()",
+      "int LookupTable.getLookupType()", "int LookupTable.getMarkFilteringSet()",
+      "LookupSubTable[] LookupTable.getSubTables()", "String LookupTable.toString()"})
   void testGettersAndSetters() {
     // Arrange
-    CoverageTableFormat1 coverageTable = new CoverageTableFormat1(1, new int[] {1, -1, 1, -1});
-    LookupTypeSingleSubstFormat1 lookupTypeSingleSubstFormat1 =
-        new LookupTypeSingleSubstFormat1(1, coverageTable, (short) 1);
-    LookupSubTable[] subTables = new LookupSubTable[] {lookupTypeSingleSubstFormat1};
+    LookupSubTable[] subTables = new LookupSubTable[]{
+        new LookupTypeSingleSubstFormat1(1, new CoverageTableFormat1(1, new int[]{1, -1, 1, -1}), (short) 1)};
 
     // Act
     LookupTable actualLookupTable = new LookupTable(1, 1, 1, subTables);

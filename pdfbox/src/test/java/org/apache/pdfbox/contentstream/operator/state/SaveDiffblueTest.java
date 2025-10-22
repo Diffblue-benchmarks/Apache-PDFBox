@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +19,8 @@ import org.junit.jupiter.api.Test;
 class SaveDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link Save#Save(PDFStreamEngine)}
    *   <li>{@link Save#getName()}
@@ -30,30 +28,26 @@ class SaveDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void Save.<init>(PDFStreamEngine)", "java.lang.String Save.getName()"})
   void testGettersAndSetters() {
     // Arrange, Act and Assert
-    assertEquals("q", new Save(new PDFMarkedContentExtractor()).getName());
+    assertEquals("q", (new Save(new PDFMarkedContentExtractor())).getName());
   }
 
   /**
    * Test {@link Save#process(Operator, List)}.
-   *
    * <ul>
-   *   <li>Given {@link COSBoolean#FALSE}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@link COSBoolean#FALSE}.
-   *   <li>Then calls {@link PDFStreamEngine#saveGraphicsState()}.
+   *   <li>Given {@link COSBoolean#FALSE}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@link COSBoolean#FALSE}.</li>
+   *   <li>Then calls {@link PDFStreamEngine#saveGraphicsState()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Save#process(Operator, List)}
+   * <p>
+   * Method under test: {@link Save#process(Operator, List)}
    */
   @Test
-  @DisplayName(
-      "Test process(Operator, List); given FALSE; when ArrayList() add FALSE; then calls saveGraphicsState()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test process(Operator, List); given FALSE; when ArrayList() add FALSE; then calls saveGraphicsState()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void Save.process(Operator, List)"})
   void testProcess_givenFalse_whenArrayListAddFalse_thenCallsSaveGraphicsState() {
     // Arrange
@@ -74,20 +68,17 @@ class SaveDiffblueTest {
 
   /**
    * Test {@link Save#process(Operator, List)}.
-   *
    * <ul>
-   *   <li>Given {@link COSBoolean#FALSE}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@link COSBoolean#FALSE}.
-   *   <li>Then calls {@link PDFStreamEngine#saveGraphicsState()}.
+   *   <li>Given {@link COSBoolean#FALSE}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@link COSBoolean#FALSE}.</li>
+   *   <li>Then calls {@link PDFStreamEngine#saveGraphicsState()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Save#process(Operator, List)}
+   * <p>
+   * Method under test: {@link Save#process(Operator, List)}
    */
   @Test
-  @DisplayName(
-      "Test process(Operator, List); given FALSE; when ArrayList() add FALSE; then calls saveGraphicsState()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test process(Operator, List); given FALSE; when ArrayList() add FALSE; then calls saveGraphicsState()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void Save.process(Operator, List)"})
   void testProcess_givenFalse_whenArrayListAddFalse_thenCallsSaveGraphicsState2() {
     // Arrange
@@ -109,18 +100,16 @@ class SaveDiffblueTest {
 
   /**
    * Test {@link Save#process(Operator, List)}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then calls {@link PDFStreamEngine#saveGraphicsState()}.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then calls {@link PDFStreamEngine#saveGraphicsState()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Save#process(Operator, List)}
+   * <p>
+   * Method under test: {@link Save#process(Operator, List)}
    */
   @Test
   @DisplayName("Test process(Operator, List); when ArrayList(); then calls saveGraphicsState()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void Save.process(Operator, List)"})
   void testProcess_whenArrayList_thenCallsSaveGraphicsState() {
     // Arrange

@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import org.apache.pdfbox.cos.COSDictionary;
@@ -15,13 +14,12 @@ import org.junit.jupiter.api.Test;
 class PDAnnotationRubberStampDiffblueTest {
   /**
    * Test {@link PDAnnotationRubberStamp#PDAnnotationRubberStamp()}.
-   *
-   * <p>Method under test: {@link PDAnnotationRubberStamp#PDAnnotationRubberStamp()}
+   * <p>
+   * Method under test: {@link PDAnnotationRubberStamp#PDAnnotationRubberStamp()}
    */
   @Test
   @DisplayName("Test new PDAnnotationRubberStamp()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationRubberStamp.<init>()"})
   void testNewPDAnnotationRubberStamp() throws IOException {
     // Arrange and Act
@@ -67,22 +65,18 @@ class PDAnnotationRubberStampDiffblueTest {
 
   /**
    * Test {@link PDAnnotationRubberStamp#PDAnnotationRubberStamp(COSDictionary)}.
-   *
    * <ul>
-   *   <li>When {@link COSDictionary#COSDictionary()}.
-   *   <li>Then return AnnotationName is {@code null}.
+   *   <li>When {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then return AnnotationName is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationRubberStamp#PDAnnotationRubberStamp(COSDictionary)}
+   * <p>
+   * Method under test: {@link PDAnnotationRubberStamp#PDAnnotationRubberStamp(COSDictionary)}
    */
   @Test
-  @DisplayName(
-      "Test new PDAnnotationRubberStamp(COSDictionary); when COSDictionary(); then return AnnotationName is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new PDAnnotationRubberStamp(COSDictionary); when COSDictionary(); then return AnnotationName is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationRubberStamp.<init>(COSDictionary)"})
-  void testNewPDAnnotationRubberStamp_whenCOSDictionary_thenReturnAnnotationNameIsNull()
-      throws IOException {
+  void testNewPDAnnotationRubberStamp_whenCOSDictionary_thenReturnAnnotationNameIsNull() throws IOException {
     // Arrange
     COSDictionary field = new COSDictionary();
 
@@ -131,18 +125,16 @@ class PDAnnotationRubberStampDiffblueTest {
 
   /**
    * Test {@link PDAnnotationRubberStamp#setName(String)}.
-   *
    * <ul>
-   *   <li>When {@code 42}.
-   *   <li>Then {@link PDAnnotationRubberStamp#PDAnnotationRubberStamp()} Name is {@code 42}.
+   *   <li>When {@code 42}.</li>
+   *   <li>Then {@link PDAnnotationRubberStamp#PDAnnotationRubberStamp()} Name is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationRubberStamp#setName(String)}
+   * <p>
+   * Method under test: {@link PDAnnotationRubberStamp#setName(String)}
    */
   @Test
   @DisplayName("Test setName(String); when '42'; then PDAnnotationRubberStamp() Name is '42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationRubberStamp.setName(String)"})
   void testSetName_when42_thenPDAnnotationRubberStampNameIs42() {
     // Arrange
@@ -160,18 +152,16 @@ class PDAnnotationRubberStampDiffblueTest {
 
   /**
    * Test {@link PDAnnotationRubberStamp#setName(String)}.
-   *
    * <ul>
-   *   <li>When {@code Name}.
-   *   <li>Then {@link PDAnnotationRubberStamp#PDAnnotationRubberStamp()} Name is {@code Name}.
+   *   <li>When {@code Name}.</li>
+   *   <li>Then {@link PDAnnotationRubberStamp#PDAnnotationRubberStamp()} Name is {@code Name}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationRubberStamp#setName(String)}
+   * <p>
+   * Method under test: {@link PDAnnotationRubberStamp#setName(String)}
    */
   @Test
   @DisplayName("Test setName(String); when 'Name'; then PDAnnotationRubberStamp() Name is 'Name'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationRubberStamp.setName(String)"})
   void testSetName_whenName_thenPDAnnotationRubberStampNameIsName() {
     // Arrange
@@ -188,48 +178,16 @@ class PDAnnotationRubberStampDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotationRubberStamp#setName(String)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDAnnotationRubberStamp#PDAnnotationRubberStamp()} COSObject Values size is
-   *       two.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationRubberStamp#setName(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test setName(String); when 'null'; then PDAnnotationRubberStamp() COSObject Values size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAnnotationRubberStamp.setName(String)"})
-  void testSetName_whenNull_thenPDAnnotationRubberStampCOSObjectValuesSizeIsTwo() {
-    // Arrange
-    PDAnnotationRubberStamp pdAnnotationRubberStamp = new PDAnnotationRubberStamp();
-
-    // Act
-    pdAnnotationRubberStamp.setName(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdAnnotationRubberStamp.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertEquals(PDAnnotationRubberStamp.NAME_DRAFT, pdAnnotationRubberStamp.getName());
-  }
-
-  /**
    * Test {@link PDAnnotationRubberStamp#getName()}.
-   *
-   * <p>Method under test: {@link PDAnnotationRubberStamp#getName()}
+   * <p>
+   * Method under test: {@link PDAnnotationRubberStamp#getName()}
    */
   @Test
   @DisplayName("Test getName()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDAnnotationRubberStamp.getName()"})
   void testGetName() {
     // Arrange, Act and Assert
-    assertEquals(PDAnnotationRubberStamp.NAME_DRAFT, new PDAnnotationRubberStamp().getName());
+    assertEquals(PDAnnotationRubberStamp.NAME_DRAFT, (new PDAnnotationRubberStamp()).getName());
   }
 }

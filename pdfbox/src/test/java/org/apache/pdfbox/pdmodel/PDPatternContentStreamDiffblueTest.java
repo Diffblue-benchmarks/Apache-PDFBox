@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.util.Set;
@@ -20,13 +19,12 @@ import org.junit.jupiter.api.Test;
 class PDPatternContentStreamDiffblueTest {
   /**
    * Test {@link PDPatternContentStream#PDPatternContentStream(PDTilingPattern)}.
-   *
-   * <p>Method under test: {@link PDPatternContentStream#PDPatternContentStream(PDTilingPattern)}
+   * <p>
+   * Method under test: {@link PDPatternContentStream#PDPatternContentStream(PDTilingPattern)}
    */
   @Test
   @DisplayName("Test new PDPatternContentStream(PDTilingPattern)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDPatternContentStream.<init>(PDTilingPattern)"})
   void testNewPDPatternContentStream() throws IOException {
     // Arrange
@@ -49,22 +47,19 @@ class PDPatternContentStreamDiffblueTest {
 
   /**
    * Test {@link PDPatternContentStream#PDPatternContentStream(PDTilingPattern)}.
-   *
    * <ul>
-   *   <li>Then {@link PDAbstractContentStream#resources} ColorSpaceNames return {@link Set}.
+   *   <li>Then {@link PDAbstractContentStream#resources} ColorSpaceNames return {@link Set}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPatternContentStream#PDPatternContentStream(PDTilingPattern)}
+   * <p>
+   * Method under test: {@link PDPatternContentStream#PDPatternContentStream(PDTilingPattern)}
    */
   @Test
-  @DisplayName(
-      "Test new PDPatternContentStream(PDTilingPattern); then resources ColorSpaceNames return Set")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new PDPatternContentStream(PDTilingPattern); then resources ColorSpaceNames return Set")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDPatternContentStream.<init>(PDTilingPattern)"})
   void testNewPDPatternContentStream_thenResourcesColorSpaceNamesReturnSet() throws IOException {
     // Arrange, Act and Assert
-    PDResources pdResources = new PDPatternContentStream(new PDTilingPattern()).resources;
+    PDResources pdResources = (new PDPatternContentStream(new PDTilingPattern())).resources;
     Iterable<COSName> colorSpaceNames = pdResources.getColorSpaceNames();
     assertTrue(colorSpaceNames instanceof Set);
     COSDictionary cOSObject = pdResources.getCOSObject();

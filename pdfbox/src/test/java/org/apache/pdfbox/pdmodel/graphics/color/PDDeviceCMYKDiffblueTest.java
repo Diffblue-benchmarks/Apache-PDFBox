@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.color.ICC_Profile;
 import java.awt.image.WritableRaster;
@@ -17,17 +16,16 @@ import org.junit.jupiter.api.Test;
 class PDDeviceCMYKDiffblueTest {
   /**
    * Test {@link PDDeviceCMYK#getICCProfile()}.
-   *
-   * <p>Method under test: {@link PDDeviceCMYK#getICCProfile()}
+   * <p>
+   * Method under test: {@link PDDeviceCMYK#getICCProfile()}
    */
   @Test
   @DisplayName("Test getICCProfile()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ICC_Profile PDDeviceCMYK.getICCProfile()"})
   void testGetICCProfile() throws IOException {
     // Arrange and Act
-    ICC_Profile actualICCProfile = new PDDeviceCMYK().getICCProfile();
+    ICC_Profile actualICCProfile = (new PDDeviceCMYK()).getICCProfile();
 
     // Assert
     assertEquals(0, actualICCProfile.getProfileClass());
@@ -41,42 +39,37 @@ class PDDeviceCMYKDiffblueTest {
 
   /**
    * Test {@link PDDeviceCMYK#getName()}.
-   *
-   * <p>Method under test: {@link PDDeviceCMYK#getName()}
+   * <p>
+   * Method under test: {@link PDDeviceCMYK#getName()}
    */
   @Test
   @DisplayName("Test getName()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.lang.String PDDeviceCMYK.getName()"})
   void testGetName() {
     // Arrange, Act and Assert
-    assertEquals("DeviceCMYK", new PDDeviceCMYK().getName());
+    assertEquals("DeviceCMYK", (new PDDeviceCMYK()).getName());
   }
 
   /**
    * Test {@link PDDeviceCMYK#getDefaultDecode(int)}.
-   *
-   * <p>Method under test: {@link PDDeviceCMYK#getDefaultDecode(int)}
+   * <p>
+   * Method under test: {@link PDDeviceCMYK#getDefaultDecode(int)}
    */
   @Test
   @DisplayName("Test getDefaultDecode(int)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"float[] PDDeviceCMYK.getDefaultDecode(int)"})
   void testGetDefaultDecode() {
     // Arrange, Act and Assert
-    assertArrayEquals(
-        new float[] {0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f},
-        new PDDeviceCMYK().getDefaultDecode(1),
-        0.0f);
+    assertArrayEquals(new float[]{0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f},
+        (new PDDeviceCMYK()).getDefaultDecode(1), 0.0f);
   }
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link PDDeviceCMYK#getInitialColor()}
    *   <li>{@link PDDeviceCMYK#getNumberOfComponents()}
@@ -84,62 +77,53 @@ class PDDeviceCMYKDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "PDColor PDDeviceCMYK.getInitialColor()",
-    "int PDDeviceCMYK.getNumberOfComponents()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"PDColor PDDeviceCMYK.getInitialColor()", "int PDDeviceCMYK.getNumberOfComponents()"})
   void testGettersAndSetters() {
     // Arrange
     PDDeviceCMYK pdDeviceCMYK = new PDDeviceCMYK();
 
     // Act
     PDColor actualInitialColor = pdDeviceCMYK.getInitialColor();
+    int actualNumberOfComponents = pdDeviceCMYK.getNumberOfComponents();
 
     // Assert
     assertNull(actualInitialColor.getPatternName());
-    assertEquals(4, pdDeviceCMYK.getNumberOfComponents());
+    assertEquals(4, actualNumberOfComponents);
     assertFalse(actualInitialColor.isPattern());
     assertSame(pdDeviceCMYK, actualInitialColor.getColorSpace());
-    assertArrayEquals(
-        new float[] {0.0f, 0.0f, 0.0f, 1.0f}, actualInitialColor.getComponents(), 0.0f);
+    assertArrayEquals(new float[]{0.0f, 0.0f, 0.0f, 1.0f}, actualInitialColor.getComponents(), 0.0f);
   }
 
   /**
    * Test {@link PDDeviceCMYK#toRGB(float[])}.
-   *
    * <ul>
-   *   <li>Then return array of {@code float} with zero and {@code 0.6499733}.
+   *   <li>Then return array of {@code float} with zero and {@code 0.6499733}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDeviceCMYK#toRGB(float[])}
+   * <p>
+   * Method under test: {@link PDDeviceCMYK#toRGB(float[])}
    */
   @Test
   @DisplayName("Test toRGB(float[]); then return array of float with zero and '0.6499733'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"float[] PDDeviceCMYK.toRGB(float[])"})
   void testToRGB_thenReturnArrayOfFloatWithZeroAnd06499733() throws IOException {
-    // Arrange and Act
-    float[] actualToRGBResult = new PDDeviceCMYK().toRGB(new float[] {10.0f, -1.0f, 10.0f, -1.0f});
-
-    // Assert
-    assertArrayEquals(new float[] {0.0f, 0.6499733f, 0.31564814f}, actualToRGBResult, 0.0f);
+    // Arrange, Act and Assert
+    assertArrayEquals(new float[]{0.0f, 0.6499733f, 0.31564814f},
+        (new PDDeviceCMYK()).toRGB(new float[]{10.0f, -1.0f, 10.0f, -1.0f}), 0.0f);
   }
 
   /**
    * Test {@link PDDeviceCMYK#toRawImage(WritableRaster)} with {@code raster}.
-   *
-   * <p>Method under test: {@link PDDeviceCMYK#toRawImage(WritableRaster)}
+   * <p>
+   * Method under test: {@link PDDeviceCMYK#toRawImage(WritableRaster)}
    */
   @Test
   @DisplayName("Test toRawImage(WritableRaster) with 'raster'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.awt.image.BufferedImage PDDeviceCMYK.toRawImage(WritableRaster)"})
   void testToRawImageWithRaster() throws IOException {
     // Arrange, Act and Assert
-    assertNull(new PDDeviceCMYK().toRawImage(null));
+    assertNull((new PDDeviceCMYK()).toRawImage(null));
   }
 }

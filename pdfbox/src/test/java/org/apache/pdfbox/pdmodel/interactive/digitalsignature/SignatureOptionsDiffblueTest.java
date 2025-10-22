@@ -2,7 +2,6 @@ package org.apache.pdfbox.pdmodel.interactive.digitalsignature;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -11,9 +10,8 @@ import org.junit.jupiter.api.Test;
 class SignatureOptionsDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link SignatureOptions}
    *   <li>{@link SignatureOptions#setPage(int)}
@@ -24,15 +22,10 @@ class SignatureOptionsDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void SignatureOptions.<init>()",
-    "int SignatureOptions.getPage()",
-    "int SignatureOptions.getPreferredSignatureSize()",
-    "org.apache.pdfbox.cos.COSDocument SignatureOptions.getVisualSignature()",
-    "void SignatureOptions.setPage(int)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SignatureOptions.<init>()", "int SignatureOptions.getPage()",
+      "int SignatureOptions.getPreferredSignatureSize()",
+      "org.apache.pdfbox.cos.COSDocument SignatureOptions.getVisualSignature()", "void SignatureOptions.setPage(int)"})
   void testGettersAndSetters() {
     // Arrange and Act
     SignatureOptions actualSignatureOptions = new SignatureOptions();
@@ -48,18 +41,15 @@ class SignatureOptionsDiffblueTest {
 
   /**
    * Test {@link SignatureOptions#setPreferredSignatureSize(int)}.
-   *
    * <ul>
-   *   <li>Then {@link SignatureOptions} (default constructor) PreferredSignatureSize is three.
+   *   <li>Then {@link SignatureOptions} (default constructor) PreferredSignatureSize is three.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SignatureOptions#setPreferredSignatureSize(int)}
+   * <p>
+   * Method under test: {@link SignatureOptions#setPreferredSignatureSize(int)}
    */
   @Test
-  @DisplayName(
-      "Test setPreferredSignatureSize(int); then SignatureOptions (default constructor) PreferredSignatureSize is three")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setPreferredSignatureSize(int); then SignatureOptions (default constructor) PreferredSignatureSize is three")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SignatureOptions.setPreferredSignatureSize(int)"})
   void testSetPreferredSignatureSize_thenSignatureOptionsPreferredSignatureSizeIsThree() {
     // Arrange
@@ -74,18 +64,15 @@ class SignatureOptionsDiffblueTest {
 
   /**
    * Test {@link SignatureOptions#setPreferredSignatureSize(int)}.
-   *
    * <ul>
-   *   <li>Then {@link SignatureOptions} (default constructor) PreferredSignatureSize is zero.
+   *   <li>Then {@link SignatureOptions} (default constructor) PreferredSignatureSize is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SignatureOptions#setPreferredSignatureSize(int)}
+   * <p>
+   * Method under test: {@link SignatureOptions#setPreferredSignatureSize(int)}
    */
   @Test
-  @DisplayName(
-      "Test setPreferredSignatureSize(int); then SignatureOptions (default constructor) PreferredSignatureSize is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setPreferredSignatureSize(int); then SignatureOptions (default constructor) PreferredSignatureSize is zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SignatureOptions.setPreferredSignatureSize(int)"})
   void testSetPreferredSignatureSize_thenSignatureOptionsPreferredSignatureSizeIsZero() {
     // Arrange

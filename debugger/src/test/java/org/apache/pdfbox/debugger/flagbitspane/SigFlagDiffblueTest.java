@@ -2,7 +2,6 @@ package org.apache.pdfbox.debugger.flagbitspane;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -13,9 +12,8 @@ import org.junit.jupiter.api.Test;
 class SigFlagDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link SigFlag#SigFlag(PDDocument, COSDictionary)}
    *   <li>{@link SigFlag#getFlagType()}
@@ -23,67 +21,54 @@ class SigFlagDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void SigFlag.<init>(PDDocument, COSDictionary)",
-    "java.lang.String SigFlag.getFlagType()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SigFlag.<init>(PDDocument, COSDictionary)", "java.lang.String SigFlag.getFlagType()"})
   void testGettersAndSetters() {
     // Arrange
     PDDocument document = new PDDocument();
 
-    // Act
-    SigFlag actualSigFlag = new SigFlag(document, new COSDictionary());
-
-    // Assert
-    assertEquals("Signature flag", actualSigFlag.getFlagType());
+    // Act and Assert
+    assertEquals("Signature flag", (new SigFlag(document, new COSDictionary())).getFlagType());
   }
 
   /**
    * Test {@link SigFlag#getFlagValue()}.
-   *
    * <ul>
-   *   <li>Then return {@code Flag value: -1}.
+   *   <li>Then return {@code Flag value: -1}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SigFlag#getFlagValue()}
+   * <p>
+   * Method under test: {@link SigFlag#getFlagValue()}
    */
   @Test
   @DisplayName("Test getFlagValue(); then return 'Flag value: -1'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.lang.String SigFlag.getFlagValue()"})
   void testGetFlagValue_thenReturnFlagValue1() {
     // Arrange
     PDDocument document = new PDDocument();
-    SigFlag sigFlag = new SigFlag(document, new COSDictionary());
 
     // Act and Assert
-    assertEquals("Flag value: -1", sigFlag.getFlagValue());
+    assertEquals("Flag value: -1", (new SigFlag(document, new COSDictionary())).getFlagValue());
   }
 
   /**
    * Test {@link SigFlag#getFlagBits()}.
-   *
    * <ul>
-   *   <li>Then return second element is {@code AppendOnly}.
+   *   <li>Then return second element is {@code AppendOnly}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SigFlag#getFlagBits()}
+   * <p>
+   * Method under test: {@link SigFlag#getFlagBits()}
    */
   @Test
   @DisplayName("Test getFlagBits(); then return second element is 'AppendOnly'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Object[][] SigFlag.getFlagBits()"})
   void testGetFlagBits_thenReturnSecondElementIsAppendOnly() {
     // Arrange
     PDDocument document = new PDDocument();
-    SigFlag sigFlag = new SigFlag(document, new COSDictionary());
 
     // Act
-    Object[][] actualFlagBits = sigFlag.getFlagBits();
+    Object[][] actualFlagBits = (new SigFlag(document, new COSDictionary())).getFlagBits();
 
     // Assert
     Object[] objectArray = actualFlagBits[1];

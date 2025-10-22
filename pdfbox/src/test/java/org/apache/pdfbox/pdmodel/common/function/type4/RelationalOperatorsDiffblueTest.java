@@ -2,7 +2,6 @@ package org.apache.pdfbox.pdmodel.common.function.type4;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.pdfbox.pdmodel.common.function.type4.RelationalOperators.Eq;
 import org.apache.pdfbox.pdmodel.common.function.type4.RelationalOperators.Ge;
@@ -17,321 +16,355 @@ import org.junit.jupiter.api.Test;
 class RelationalOperatorsDiffblueTest {
   /**
    * Test Eq {@link Eq#isEqual(Object, Object)}.
-   *
    * <ul>
-   *   <li>When {@code A}.
-   *   <li>Then return {@code false}.
+   *   <li>When {@code A}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Eq#isEqual(Object, Object)}
+   * <p>
+   * Method under test: {@link Eq#isEqual(Object, Object)}
    */
   @Test
   @DisplayName("Test Eq isEqual(Object, Object); when 'A'; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean Eq.isEqual(Object, Object)"})
   void testEqIsEqual_whenA_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new Eq().isEqual((byte) 'A', "Op2"));
+    assertFalse((new Eq()).isEqual((byte) 'A', "Op2"));
   }
 
   /**
    * Test Eq {@link Eq#isEqual(Object, Object)}.
-   *
    * <ul>
-   *   <li>When one.
-   *   <li>Then return {@code false}.
+   *   <li>When {@code A}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Eq#isEqual(Object, Object)}
+   * <p>
+   * Method under test: {@link Eq#isEqual(Object, Object)}
+   */
+  @Test
+  @DisplayName("Test Eq isEqual(Object, Object); when 'A'; then return 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean Eq.isEqual(Object, Object)"})
+  void testEqIsEqual_whenA_thenReturnTrue() {
+    // Arrange, Act and Assert
+    assertTrue((new Eq()).isEqual((byte) 'A', (byte) 'A'));
+  }
+
+  /**
+   * Test Eq {@link Eq#isEqual(Object, Object)}.
+   * <ul>
+   *   <li>When one.</li>
+   *   <li>Then return {@code false}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link Eq#isEqual(Object, Object)}
    */
   @Test
   @DisplayName("Test Eq isEqual(Object, Object); when one; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean Eq.isEqual(Object, Object)"})
   void testEqIsEqual_whenOne_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new Eq().isEqual((byte) 'A', 1));
+    assertFalse((new Eq()).isEqual((byte) 'A', 1));
   }
 
   /**
    * Test Eq {@link Eq#isEqual(Object, Object)}.
-   *
    * <ul>
-   *   <li>When {@code Op1}.
-   *   <li>Then return {@code false}.
+   *   <li>When {@code Op1}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Eq#isEqual(Object, Object)}
+   * <p>
+   * Method under test: {@link Eq#isEqual(Object, Object)}
    */
   @Test
   @DisplayName("Test Eq isEqual(Object, Object); when 'Op1'; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean Eq.isEqual(Object, Object)"})
   void testEqIsEqual_whenOp1_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new Eq().isEqual("Op1", "Op2"));
+    assertFalse((new Eq()).isEqual("Op1", "Op2"));
   }
 
   /**
    * Test Eq {@link Eq#isEqual(Object, Object)}.
-   *
    * <ul>
-   *   <li>When valueOf one.
-   *   <li>Then return {@code true}.
+   *   <li>When {@code Op2}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Eq#isEqual(Object, Object)}
+   * <p>
+   * Method under test: {@link Eq#isEqual(Object, Object)}
    */
   @Test
-  @DisplayName("Test Eq isEqual(Object, Object); when valueOf one; then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test Eq isEqual(Object, Object); when 'Op2'; then return 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean Eq.isEqual(Object, Object)"})
-  void testEqIsEqual_whenValueOfOne_thenReturnTrue() {
+  void testEqIsEqual_whenOp2_thenReturnTrue() {
     // Arrange, Act and Assert
-    assertTrue(new Eq().isEqual(Integer.valueOf(1), Integer.valueOf(1)));
+    assertTrue((new Eq()).isEqual("Op2", "Op2"));
   }
 
   /**
    * Test Ge {@link Ge#compare(Number, Number)}.
-   *
    * <ul>
-   *   <li>When valueOf one.
-   *   <li>Then return {@code true}.
+   *   <li>When valueOf one.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Ge#compare(Number, Number)}
+   * <p>
+   * Method under test: {@link Ge#compare(Number, Number)}
    */
   @Test
   @DisplayName("Test Ge compare(Number, Number); when valueOf one; then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean Ge.compare(Number, Number)"})
   void testGeCompare_whenValueOfOne_thenReturnTrue() {
-    // Arrange, Act and Assert
-    assertTrue(new Ge().compare(Integer.valueOf(1), Integer.valueOf(1)));
+    // Arrange
+    Ge ge = new Ge();
+    Integer num1 = Integer.valueOf(1);
+
+    // Act and Assert
+    assertTrue(ge.compare(num1, Integer.valueOf(1)));
   }
 
   /**
    * Test Ge {@link Ge#compare(Number, Number)}.
-   *
    * <ul>
-   *   <li>When valueOf zero.
-   *   <li>Then return {@code false}.
+   *   <li>When valueOf zero.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Ge#compare(Number, Number)}
+   * <p>
+   * Method under test: {@link Ge#compare(Number, Number)}
    */
   @Test
   @DisplayName("Test Ge compare(Number, Number); when valueOf zero; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean Ge.compare(Number, Number)"})
   void testGeCompare_whenValueOfZero_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse(new Ge().compare(Integer.valueOf(0), Integer.valueOf(1)));
+    // Arrange
+    Ge ge = new Ge();
+    Integer num1 = Integer.valueOf(0);
+
+    // Act and Assert
+    assertFalse(ge.compare(num1, Integer.valueOf(1)));
   }
 
   /**
    * Test Gt {@link Gt#compare(Number, Number)}.
-   *
    * <ul>
-   *   <li>When ten.
-   *   <li>Then return {@code true}.
+   *   <li>When ten.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Gt#compare(Number, Number)}
+   * <p>
+   * Method under test: {@link Gt#compare(Number, Number)}
    */
   @Test
   @DisplayName("Test Gt compare(Number, Number); when ten; then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean Gt.compare(Number, Number)"})
   void testGtCompare_whenTen_thenReturnTrue() {
-    // Arrange, Act and Assert
-    assertTrue(new Gt().compare(10, Integer.valueOf(1)));
+    // Arrange
+    Gt gt = new Gt();
+
+    // Act and Assert
+    assertTrue(gt.compare(10, Integer.valueOf(1)));
   }
 
   /**
    * Test Gt {@link Gt#compare(Number, Number)}.
-   *
    * <ul>
-   *   <li>When valueOf one.
-   *   <li>Then return {@code false}.
+   *   <li>When valueOf one.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Gt#compare(Number, Number)}
+   * <p>
+   * Method under test: {@link Gt#compare(Number, Number)}
    */
   @Test
   @DisplayName("Test Gt compare(Number, Number); when valueOf one; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean Gt.compare(Number, Number)"})
   void testGtCompare_whenValueOfOne_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse(new Gt().compare(Integer.valueOf(1), Integer.valueOf(1)));
+    // Arrange
+    Gt gt = new Gt();
+    Integer num1 = Integer.valueOf(1);
+
+    // Act and Assert
+    assertFalse(gt.compare(num1, Integer.valueOf(1)));
   }
 
   /**
    * Test Le {@link Le#compare(Number, Number)}.
-   *
    * <ul>
-   *   <li>When ten.
-   *   <li>Then return {@code false}.
+   *   <li>When ten.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Le#compare(Number, Number)}
+   * <p>
+   * Method under test: {@link Le#compare(Number, Number)}
    */
   @Test
   @DisplayName("Test Le compare(Number, Number); when ten; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean Le.compare(Number, Number)"})
   void testLeCompare_whenTen_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse(new Le().compare(10, Integer.valueOf(1)));
+    // Arrange
+    Le le = new Le();
+
+    // Act and Assert
+    assertFalse(le.compare(10, Integer.valueOf(1)));
   }
 
   /**
    * Test Le {@link Le#compare(Number, Number)}.
-   *
    * <ul>
-   *   <li>When valueOf one.
-   *   <li>Then return {@code true}.
+   *   <li>When valueOf one.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Le#compare(Number, Number)}
+   * <p>
+   * Method under test: {@link Le#compare(Number, Number)}
    */
   @Test
   @DisplayName("Test Le compare(Number, Number); when valueOf one; then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean Le.compare(Number, Number)"})
   void testLeCompare_whenValueOfOne_thenReturnTrue() {
-    // Arrange, Act and Assert
-    assertTrue(new Le().compare(Integer.valueOf(1), Integer.valueOf(1)));
+    // Arrange
+    Le le = new Le();
+    Integer num1 = Integer.valueOf(1);
+
+    // Act and Assert
+    assertTrue(le.compare(num1, Integer.valueOf(1)));
   }
 
   /**
    * Test Lt {@link Lt#compare(Number, Number)}.
-   *
    * <ul>
-   *   <li>When valueOf one.
-   *   <li>Then return {@code false}.
+   *   <li>When valueOf one.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Lt#compare(Number, Number)}
+   * <p>
+   * Method under test: {@link Lt#compare(Number, Number)}
    */
   @Test
   @DisplayName("Test Lt compare(Number, Number); when valueOf one; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean Lt.compare(Number, Number)"})
   void testLtCompare_whenValueOfOne_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse(new Lt().compare(Integer.valueOf(1), Integer.valueOf(1)));
+    // Arrange
+    Lt lt = new Lt();
+    Integer num1 = Integer.valueOf(1);
+
+    // Act and Assert
+    assertFalse(lt.compare(num1, Integer.valueOf(1)));
   }
 
   /**
    * Test Lt {@link Lt#compare(Number, Number)}.
-   *
    * <ul>
-   *   <li>When valueOf zero.
-   *   <li>Then return {@code true}.
+   *   <li>When valueOf zero.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Lt#compare(Number, Number)}
+   * <p>
+   * Method under test: {@link Lt#compare(Number, Number)}
    */
   @Test
   @DisplayName("Test Lt compare(Number, Number); when valueOf zero; then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean Lt.compare(Number, Number)"})
   void testLtCompare_whenValueOfZero_thenReturnTrue() {
-    // Arrange, Act and Assert
-    assertTrue(new Lt().compare(Integer.valueOf(0), Integer.valueOf(1)));
+    // Arrange
+    Lt lt = new Lt();
+    Integer num1 = Integer.valueOf(0);
+
+    // Act and Assert
+    assertTrue(lt.compare(num1, Integer.valueOf(1)));
   }
 
   /**
    * Test Ne {@link Ne#isEqual(Object, Object)}.
-   *
    * <ul>
-   *   <li>When {@code A}.
-   *   <li>Then return {@code true}.
+   *   <li>When {@code A}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Ne#isEqual(Object, Object)}
+   * <p>
+   * Method under test: {@link Ne#isEqual(Object, Object)}
+   */
+  @Test
+  @DisplayName("Test Ne isEqual(Object, Object); when 'A'; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean Ne.isEqual(Object, Object)"})
+  void testNeIsEqual_whenA_thenReturnFalse() {
+    // Arrange, Act and Assert
+    assertFalse((new Ne()).isEqual((byte) 'A', (byte) 'A'));
+  }
+
+  /**
+   * Test Ne {@link Ne#isEqual(Object, Object)}.
+   * <ul>
+   *   <li>When {@code A}.</li>
+   *   <li>Then return {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link Ne#isEqual(Object, Object)}
    */
   @Test
   @DisplayName("Test Ne isEqual(Object, Object); when 'A'; then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean Ne.isEqual(Object, Object)"})
   void testNeIsEqual_whenA_thenReturnTrue() {
     // Arrange, Act and Assert
-    assertTrue(new Ne().isEqual((byte) 'A', "Op2"));
+    assertTrue((new Ne()).isEqual((byte) 'A', "Op2"));
   }
 
   /**
    * Test Ne {@link Ne#isEqual(Object, Object)}.
-   *
    * <ul>
-   *   <li>When one.
-   *   <li>Then return {@code true}.
+   *   <li>When one.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Ne#isEqual(Object, Object)}
+   * <p>
+   * Method under test: {@link Ne#isEqual(Object, Object)}
    */
   @Test
   @DisplayName("Test Ne isEqual(Object, Object); when one; then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean Ne.isEqual(Object, Object)"})
   void testNeIsEqual_whenOne_thenReturnTrue() {
     // Arrange, Act and Assert
-    assertTrue(new Ne().isEqual((byte) 'A', 1));
+    assertTrue((new Ne()).isEqual((byte) 'A', 1));
   }
 
   /**
    * Test Ne {@link Ne#isEqual(Object, Object)}.
-   *
    * <ul>
-   *   <li>When {@code Op1}.
-   *   <li>Then return {@code true}.
+   *   <li>When {@code Op1}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Ne#isEqual(Object, Object)}
+   * <p>
+   * Method under test: {@link Ne#isEqual(Object, Object)}
    */
   @Test
   @DisplayName("Test Ne isEqual(Object, Object); when 'Op1'; then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean Ne.isEqual(Object, Object)"})
   void testNeIsEqual_whenOp1_thenReturnTrue() {
     // Arrange, Act and Assert
-    assertTrue(new Ne().isEqual("Op1", "Op2"));
+    assertTrue((new Ne()).isEqual("Op1", "Op2"));
   }
 
   /**
    * Test Ne {@link Ne#isEqual(Object, Object)}.
-   *
    * <ul>
-   *   <li>When valueOf one.
-   *   <li>Then return {@code false}.
+   *   <li>When {@code Op2}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Ne#isEqual(Object, Object)}
+   * <p>
+   * Method under test: {@link Ne#isEqual(Object, Object)}
    */
   @Test
-  @DisplayName("Test Ne isEqual(Object, Object); when valueOf one; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test Ne isEqual(Object, Object); when 'Op2'; then return 'false'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean Ne.isEqual(Object, Object)"})
-  void testNeIsEqual_whenValueOfOne_thenReturnFalse() {
+  void testNeIsEqual_whenOp2_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new Ne().isEqual(Integer.valueOf(1), Integer.valueOf(1)));
+    assertFalse((new Ne()).isEqual("Op2", "Op2"));
   }
 }

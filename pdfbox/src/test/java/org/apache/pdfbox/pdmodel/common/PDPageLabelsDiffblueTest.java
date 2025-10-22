@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.util.Map;
@@ -24,13 +23,12 @@ import org.junit.jupiter.api.Test;
 class PDPageLabelsDiffblueTest {
   /**
    * Test {@link PDPageLabels#PDPageLabels(PDDocument)}.
-   *
-   * <p>Method under test: {@link PDPageLabels#PDPageLabels(PDDocument)}
+   * <p>
+   * Method under test: {@link PDPageLabels#PDPageLabels(PDDocument)}
    */
   @Test
   @DisplayName("Test new PDPageLabels(PDDocument)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDPageLabels.<init>(PDDocument)"})
   void testNewPDPageLabels() {
     // Arrange and Act
@@ -54,17 +52,15 @@ class PDPageLabelsDiffblueTest {
 
   /**
    * Test {@link PDPageLabels#PDPageLabels(PDDocument, COSDictionary)}.
-   *
    * <ul>
-   *   <li>When {@link COSDictionary#COSDictionary()}.
+   *   <li>When {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPageLabels#PDPageLabels(PDDocument, COSDictionary)}
+   * <p>
+   * Method under test: {@link PDPageLabels#PDPageLabels(PDDocument, COSDictionary)}
    */
   @Test
   @DisplayName("Test new PDPageLabels(PDDocument, COSDictionary); when COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDPageLabels.<init>(PDDocument, COSDictionary)"})
   void testNewPDPageLabels_whenCOSDictionary() throws IOException {
     // Arrange
@@ -91,17 +87,15 @@ class PDPageLabelsDiffblueTest {
 
   /**
    * Test {@link PDPageLabels#PDPageLabels(PDDocument, COSDictionary)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPageLabels#PDPageLabels(PDDocument, COSDictionary)}
+   * <p>
+   * Method under test: {@link PDPageLabels#PDPageLabels(PDDocument, COSDictionary)}
    */
   @Test
   @DisplayName("Test new PDPageLabels(PDDocument, COSDictionary); when 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDPageLabels.<init>(PDDocument, COSDictionary)"})
   void testNewPDPageLabels_whenNull() throws IOException {
     // Arrange and Act
@@ -125,43 +119,40 @@ class PDPageLabelsDiffblueTest {
 
   /**
    * Test {@link PDPageLabels#getPageRangeCount()}.
-   *
-   * <p>Method under test: {@link PDPageLabels#getPageRangeCount()}
+   * <p>
+   * Method under test: {@link PDPageLabels#getPageRangeCount()}
    */
   @Test
   @DisplayName("Test getPageRangeCount()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int PDPageLabels.getPageRangeCount()"})
   void testGetPageRangeCount() {
     // Arrange, Act and Assert
-    assertEquals(1, new PDPageLabels(new PDDocument()).getPageRangeCount());
+    assertEquals(1, (new PDPageLabels(new PDDocument())).getPageRangeCount());
   }
 
   /**
    * Test {@link PDPageLabels#getPageLabelRange(int)}.
-   *
-   * <p>Method under test: {@link PDPageLabels#getPageLabelRange(int)}
+   * <p>
+   * Method under test: {@link PDPageLabels#getPageLabelRange(int)}
    */
   @Test
   @DisplayName("Test getPageLabelRange(int)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDPageLabelRange PDPageLabels.getPageLabelRange(int)"})
   void testGetPageLabelRange() {
     // Arrange, Act and Assert
-    assertNull(new PDPageLabels(new PDDocument()).getPageLabelRange(1));
+    assertNull((new PDPageLabels(new PDDocument())).getPageLabelRange(1));
   }
 
   /**
    * Test {@link PDPageLabels#setLabelItem(int, PDPageLabelRange)}.
-   *
-   * <p>Method under test: {@link PDPageLabels#setLabelItem(int, PDPageLabelRange)}
+   * <p>
+   * Method under test: {@link PDPageLabels#setLabelItem(int, PDPageLabelRange)}
    */
   @Test
   @DisplayName("Test setLabelItem(int, PDPageLabelRange)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDPageLabels.setLabelItem(int, PDPageLabelRange)"})
   void testSetLabelItem() {
     // Arrange
@@ -182,43 +173,37 @@ class PDPageLabelsDiffblueTest {
 
   /**
    * Test {@link PDPageLabels#setLabelItem(int, PDPageLabelRange)}.
-   *
    * <ul>
-   *   <li>When minus one.
-   *   <li>Then throw {@link IllegalArgumentException}.
+   *   <li>When minus one.</li>
+   *   <li>Then throw {@link IllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPageLabels#setLabelItem(int, PDPageLabelRange)}
+   * <p>
+   * Method under test: {@link PDPageLabels#setLabelItem(int, PDPageLabelRange)}
    */
   @Test
-  @DisplayName(
-      "Test setLabelItem(int, PDPageLabelRange); when minus one; then throw IllegalArgumentException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setLabelItem(int, PDPageLabelRange); when minus one; then throw IllegalArgumentException")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDPageLabels.setLabelItem(int, PDPageLabelRange)"})
   void testSetLabelItem_whenMinusOne_thenThrowIllegalArgumentException() {
     // Arrange
     PDPageLabels pdPageLabels = new PDPageLabels(new PDDocument());
 
     // Act and Assert
-    assertThrows(
-        IllegalArgumentException.class,
-        () -> pdPageLabels.setLabelItem(-1, new PDPageLabelRange()));
+    assertThrows(IllegalArgumentException.class, () -> pdPageLabels.setLabelItem(-1, new PDPageLabelRange()));
   }
 
   /**
    * Test {@link PDPageLabels#getCOSObject()}.
-   *
-   * <p>Method under test: {@link PDPageLabels#getCOSObject()}
+   * <p>
+   * Method under test: {@link PDPageLabels#getCOSObject()}
    */
   @Test
   @DisplayName("Test getCOSObject()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSBase PDPageLabels.getCOSObject()"})
   void testGetCOSObject() {
     // Arrange and Act
-    COSBase actualCOSObject = new PDPageLabels(new PDDocument()).getCOSObject();
+    COSBase actualCOSObject = (new PDPageLabels(new PDDocument())).getCOSObject();
 
     // Assert
     assertTrue(actualCOSObject instanceof COSDictionary);
@@ -237,19 +222,16 @@ class PDPageLabelsDiffblueTest {
 
   /**
    * Test {@link PDPageLabels#getPageIndicesByLabels()}.
-   *
    * <ul>
-   *   <li>Given {@link PDDocument#PDDocument()} addPage {@link PDPage#PDPage()}.
-   *   <li>Then return size is one.
+   *   <li>Given {@link PDDocument#PDDocument()} addPage {@link PDPage#PDPage()}.</li>
+   *   <li>Then return size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPageLabels#getPageIndicesByLabels()}
+   * <p>
+   * Method under test: {@link PDPageLabels#getPageIndicesByLabels()}
    */
   @Test
-  @DisplayName(
-      "Test getPageIndicesByLabels(); given PDDocument() addPage PDPage(); then return size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getPageIndicesByLabels(); given PDDocument() addPage PDPage(); then return size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Map PDPageLabels.getPageIndicesByLabels()"})
   void testGetPageIndicesByLabels_givenPDDocumentAddPagePDPage_thenReturnSizeIsOne() {
     // Arrange
@@ -257,8 +239,7 @@ class PDPageLabelsDiffblueTest {
     document.addPage(new PDPage());
 
     // Act
-    Map<String, Integer> actualPageIndicesByLabels =
-        new PDPageLabels(document).getPageIndicesByLabels();
+    Map<String, Integer> actualPageIndicesByLabels = (new PDPageLabels(document)).getPageIndicesByLabels();
 
     // Assert
     assertEquals(1, actualPageIndicesByLabels.size());
@@ -267,55 +248,49 @@ class PDPageLabelsDiffblueTest {
 
   /**
    * Test {@link PDPageLabels#getPageIndicesByLabels()}.
-   *
    * <ul>
-   *   <li>Then return Empty.
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPageLabels#getPageIndicesByLabels()}
+   * <p>
+   * Method under test: {@link PDPageLabels#getPageIndicesByLabels()}
    */
   @Test
   @DisplayName("Test getPageIndicesByLabels(); then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Map PDPageLabels.getPageIndicesByLabels()"})
   void testGetPageIndicesByLabels_thenReturnEmpty() {
     // Arrange, Act and Assert
-    assertTrue(new PDPageLabels(new PDDocument()).getPageIndicesByLabels().isEmpty());
+    assertTrue((new PDPageLabels(new PDDocument())).getPageIndicesByLabels().isEmpty());
   }
 
   /**
    * Test {@link PDPageLabels#getLabelsByPageIndices()}.
-   *
    * <ul>
-   *   <li>Then return array length is zero.
+   *   <li>Then return array length is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPageLabels#getLabelsByPageIndices()}
+   * <p>
+   * Method under test: {@link PDPageLabels#getLabelsByPageIndices()}
    */
   @Test
   @DisplayName("Test getLabelsByPageIndices(); then return array length is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String[] PDPageLabels.getLabelsByPageIndices()"})
   void testGetLabelsByPageIndices_thenReturnArrayLengthIsZero() {
     // Arrange, Act and Assert
-    assertEquals(0, new PDPageLabels(new PDDocument()).getLabelsByPageIndices().length);
+    assertEquals(0, (new PDPageLabels(new PDDocument())).getLabelsByPageIndices().length);
   }
 
   /**
    * Test {@link PDPageLabels#getLabelsByPageIndices()}.
-   *
    * <ul>
-   *   <li>Then return array of {@link String} with {@code 1}.
+   *   <li>Then return array of {@link String} with {@code 1}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPageLabels#getLabelsByPageIndices()}
+   * <p>
+   * Method under test: {@link PDPageLabels#getLabelsByPageIndices()}
    */
   @Test
   @DisplayName("Test getLabelsByPageIndices(); then return array of String with '1'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String[] PDPageLabels.getLabelsByPageIndices()"})
   void testGetLabelsByPageIndices_thenReturnArrayOfStringWith1() {
     // Arrange
@@ -323,22 +298,21 @@ class PDPageLabelsDiffblueTest {
     document.addPage(new PDPage());
 
     // Act and Assert
-    assertArrayEquals(new String[] {"1"}, new PDPageLabels(document).getLabelsByPageIndices());
+    assertArrayEquals(new String[]{"1"}, (new PDPageLabels(document)).getLabelsByPageIndices());
   }
 
   /**
    * Test {@link PDPageLabels#getPageIndices()}.
-   *
-   * <p>Method under test: {@link PDPageLabels#getPageIndices()}
+   * <p>
+   * Method under test: {@link PDPageLabels#getPageIndices()}
    */
   @Test
   @DisplayName("Test getPageIndices()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"NavigableSet PDPageLabels.getPageIndices()"})
   void testGetPageIndices() {
     // Arrange and Act
-    NavigableSet<Integer> actualPageIndices = new PDPageLabels(new PDDocument()).getPageIndices();
+    NavigableSet<Integer> actualPageIndices = (new PDPageLabels(new PDDocument())).getPageIndices();
 
     // Assert
     assertEquals(1, actualPageIndices.size());

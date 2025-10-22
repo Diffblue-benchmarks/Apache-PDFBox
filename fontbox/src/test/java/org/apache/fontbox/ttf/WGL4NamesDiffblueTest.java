@@ -2,7 +2,6 @@ package org.apache.fontbox.ttf;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -11,13 +10,12 @@ import org.junit.jupiter.api.Test;
 class WGL4NamesDiffblueTest {
   /**
    * Test {@link WGL4Names#getGlyphIndex(String)}.
-   *
-   * <p>Method under test: {@link WGL4Names#getGlyphIndex(String)}
+   * <p>
+   * Method under test: {@link WGL4Names#getGlyphIndex(String)}
    */
   @Test
   @DisplayName("Test getGlyphIndex(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.lang.Integer WGL4Names.getGlyphIndex(String)"})
   void testGetGlyphIndex() {
     // Arrange, Act and Assert
@@ -26,18 +24,16 @@ class WGL4NamesDiffblueTest {
 
   /**
    * Test {@link WGL4Names#getGlyphName(int)}.
-   *
    * <ul>
-   *   <li>When minus one.
-   *   <li>Then return {@code null}.
+   *   <li>When minus one.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link WGL4Names#getGlyphName(int)}
+   * <p>
+   * Method under test: {@link WGL4Names#getGlyphName(int)}
    */
   @Test
   @DisplayName("Test getGlyphName(int); when minus one; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String WGL4Names.getGlyphName(int)"})
   void testGetGlyphName_whenMinusOne_thenReturnNull() {
     // Arrange, Act and Assert
@@ -46,18 +42,16 @@ class WGL4NamesDiffblueTest {
 
   /**
    * Test {@link WGL4Names#getGlyphName(int)}.
-   *
    * <ul>
-   *   <li>When {@link WGL4Names#NUMBER_OF_MAC_GLYPHS}.
-   *   <li>Then return {@code null}.
+   *   <li>When {@link WGL4Names#NUMBER_OF_MAC_GLYPHS}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link WGL4Names#getGlyphName(int)}
+   * <p>
+   * Method under test: {@link WGL4Names#getGlyphName(int)}
    */
   @Test
   @DisplayName("Test getGlyphName(int); when NUMBER_OF_MAC_GLYPHS; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String WGL4Names.getGlyphName(int)"})
   void testGetGlyphName_whenNumber_of_mac_glyphs_thenReturnNull() {
     // Arrange, Act and Assert
@@ -66,18 +60,16 @@ class WGL4NamesDiffblueTest {
 
   /**
    * Test {@link WGL4Names#getGlyphName(int)}.
-   *
    * <ul>
-   *   <li>When one.
-   *   <li>Then return {@code .null}.
+   *   <li>When one.</li>
+   *   <li>Then return {@code .null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link WGL4Names#getGlyphName(int)}
+   * <p>
+   * Method under test: {@link WGL4Names#getGlyphName(int)}
    */
   @Test
   @DisplayName("Test getGlyphName(int); when one; then return '.null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String WGL4Names.getGlyphName(int)"})
   void testGetGlyphName_whenOne_thenReturnNull() {
     // Arrange, Act and Assert
@@ -86,13 +78,12 @@ class WGL4NamesDiffblueTest {
 
   /**
    * Test {@link WGL4Names#getAllNames()}.
-   *
-   * <p>Method under test: {@link WGL4Names#getAllNames()}
+   * <p>
+   * Method under test: {@link WGL4Names#getAllNames()}
    */
   @Test
   @DisplayName("Test getAllNames()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String[] WGL4Names.getAllNames()"})
   void testGetAllNames() {
     // Arrange and Act

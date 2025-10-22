@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import org.apache.pdfbox.cos.COSDictionary;
@@ -18,14 +17,12 @@ import org.junit.jupiter.api.Test;
 class PDCheckBoxDiffblueTest {
   /**
    * Test {@link PDCheckBox#PDCheckBox(PDAcroForm, COSDictionary, PDNonTerminalField)}.
-   *
-   * <p>Method under test: {@link PDCheckBox#PDCheckBox(PDAcroForm, COSDictionary,
-   * PDNonTerminalField)}
+   * <p>
+   * Method under test: {@link PDCheckBox#PDCheckBox(PDAcroForm, COSDictionary, PDNonTerminalField)}
    */
   @Test
   @DisplayName("Test new PDCheckBox(PDAcroForm, COSDictionary, PDNonTerminalField)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDCheckBox.<init>(PDAcroForm, COSDictionary, PDNonTerminalField)"})
   void testNewPDCheckBox() {
     // Arrange
@@ -44,13 +41,12 @@ class PDCheckBoxDiffblueTest {
 
   /**
    * Test {@link PDCheckBox#PDCheckBox(PDAcroForm)}.
-   *
-   * <p>Method under test: {@link PDCheckBox#PDCheckBox(PDAcroForm)}
+   * <p>
+   * Method under test: {@link PDCheckBox#PDCheckBox(PDAcroForm)}
    */
   @Test
   @DisplayName("Test new PDCheckBox(PDAcroForm)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDCheckBox.<init>(PDAcroForm)"})
   void testNewPDCheckBox2() {
     // Arrange
@@ -85,19 +81,15 @@ class PDCheckBoxDiffblueTest {
 
   /**
    * Test {@link PDCheckBox#isChecked()}.
-   *
    * <ul>
-   *   <li>Given {@link PDCheckBox#PDCheckBox(PDAcroForm)} with acroForm is {@link
-   *       PDAcroForm#PDAcroForm(PDDocument)} importFDF {@link FDFField#FDFField()}.
+   *   <li>Given {@link PDCheckBox#PDCheckBox(PDAcroForm)} with acroForm is {@link PDAcroForm#PDAcroForm(PDDocument)} importFDF {@link FDFField#FDFField()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDCheckBox#isChecked()}
+   * <p>
+   * Method under test: {@link PDCheckBox#isChecked()}
    */
   @Test
-  @DisplayName(
-      "Test isChecked(); given PDCheckBox(PDAcroForm) with acroForm is PDAcroForm(PDDocument) importFDF FDFField()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test isChecked(); given PDCheckBox(PDAcroForm) with acroForm is PDAcroForm(PDDocument) importFDF FDFField()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDCheckBox.isChecked()"})
   void testIsChecked_givenPDCheckBoxWithAcroFormIsPDAcroFormImportFDFFDFField() throws IOException {
     // Arrange
@@ -110,72 +102,59 @@ class PDCheckBoxDiffblueTest {
 
   /**
    * Test {@link PDCheckBox#isChecked()}.
-   *
    * <ul>
-   *   <li>Given {@link PDCheckBox#PDCheckBox(PDAcroForm)} with acroForm is {@link
-   *       PDAcroForm#PDAcroForm(PDDocument)}.
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link PDCheckBox#PDCheckBox(PDAcroForm)} with acroForm is {@link PDAcroForm#PDAcroForm(PDDocument)}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDCheckBox#isChecked()}
+   * <p>
+   * Method under test: {@link PDCheckBox#isChecked()}
    */
   @Test
-  @DisplayName(
-      "Test isChecked(); given PDCheckBox(PDAcroForm) with acroForm is PDAcroForm(PDDocument); then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test isChecked(); given PDCheckBox(PDAcroForm) with acroForm is PDAcroForm(PDDocument); then return 'false'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDCheckBox.isChecked()"})
   void testIsChecked_givenPDCheckBoxWithAcroFormIsPDAcroForm_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new PDCheckBox(new PDAcroForm(new PDDocument())).isChecked());
+    assertFalse((new PDCheckBox(new PDAcroForm(new PDDocument()))).isChecked());
   }
 
   /**
    * Test {@link PDCheckBox#isChecked()}.
-   *
    * <ul>
-   *   <li>Given {@link PDNonTerminalField#PDNonTerminalField(PDAcroForm)} with acroForm is {@link
-   *       PDAcroForm#PDAcroForm(PDDocument)}.
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link PDNonTerminalField#PDNonTerminalField(PDAcroForm)} with acroForm is {@link PDAcroForm#PDAcroForm(PDDocument)}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDCheckBox#isChecked()}
+   * <p>
+   * Method under test: {@link PDCheckBox#isChecked()}
    */
   @Test
-  @DisplayName(
-      "Test isChecked(); given PDNonTerminalField(PDAcroForm) with acroForm is PDAcroForm(PDDocument); then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test isChecked(); given PDNonTerminalField(PDAcroForm) with acroForm is PDAcroForm(PDDocument); then return 'false'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDCheckBox.isChecked()"})
   void testIsChecked_givenPDNonTerminalFieldWithAcroFormIsPDAcroForm_thenReturnFalse() {
     // Arrange
     PDAcroForm acroForm = new PDAcroForm(new PDDocument());
     COSDictionary field = new COSDictionary();
-    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
-
-    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, field, parent);
 
     // Act and Assert
-    assertFalse(pdCheckBox.isChecked());
+    assertFalse(
+        (new PDCheckBox(acroForm, field, new PDNonTerminalField(new PDAcroForm(new PDDocument())))).isChecked());
   }
 
   /**
    * Test {@link PDCheckBox#check()}.
-   *
-   * <p>Method under test: {@link PDCheckBox#check()}
+   * <p>
+   * Method under test: {@link PDCheckBox#check()}
    */
   @Test
   @DisplayName("Test check()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDCheckBox.check()"})
   void testCheck() throws IOException {
     // Arrange
     PDAcroForm acroForm = new PDAcroForm(new PDDocument());
     COSDictionary field = new COSDictionary();
-    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
-
-    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, field, parent);
+    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, field, new PDNonTerminalField(new PDAcroForm(new PDDocument())));
 
     // Act
     pdCheckBox.check();
@@ -190,19 +169,15 @@ class PDCheckBoxDiffblueTest {
 
   /**
    * Test {@link PDCheckBox#check()}.
-   *
    * <ul>
-   *   <li>Then {@link PDCheckBox#PDCheckBox(PDAcroForm)} with acroForm is {@link
-   *       PDAcroForm#PDAcroForm(PDDocument)} Value is empty string.
+   *   <li>Then {@link PDCheckBox#PDCheckBox(PDAcroForm)} with acroForm is {@link PDAcroForm#PDAcroForm(PDDocument)} Value is empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDCheckBox#check()}
+   * <p>
+   * Method under test: {@link PDCheckBox#check()}
    */
   @Test
-  @DisplayName(
-      "Test check(); then PDCheckBox(PDAcroForm) with acroForm is PDAcroForm(PDDocument) Value is empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test check(); then PDCheckBox(PDAcroForm) with acroForm is PDAcroForm(PDDocument) Value is empty string")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDCheckBox.check()"})
   void testCheck_thenPDCheckBoxWithAcroFormIsPDAcroFormValueIsEmptyString() throws IOException {
     // Arrange
@@ -221,21 +196,18 @@ class PDCheckBoxDiffblueTest {
 
   /**
    * Test {@link PDCheckBox#unCheck()}.
-   *
-   * <p>Method under test: {@link PDCheckBox#unCheck()}
+   * <p>
+   * Method under test: {@link PDCheckBox#unCheck()}
    */
   @Test
   @DisplayName("Test unCheck()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDCheckBox.unCheck()"})
   void testUnCheck() throws IOException {
     // Arrange
     PDAcroForm acroForm = new PDAcroForm(new PDDocument());
     COSDictionary field = new COSDictionary();
-    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
-
-    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, field, parent);
+    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, field, new PDNonTerminalField(new PDAcroForm(new PDDocument())));
 
     // Act
     pdCheckBox.unCheck();
@@ -248,22 +220,17 @@ class PDCheckBoxDiffblueTest {
 
   /**
    * Test {@link PDCheckBox#unCheck()}.
-   *
    * <ul>
-   *   <li>Then {@link PDCheckBox#PDCheckBox(PDAcroForm)} with acroForm is {@link
-   *       PDAcroForm#PDAcroForm(PDDocument)} COSObject Values size is four.
+   *   <li>Then {@link PDCheckBox#PDCheckBox(PDAcroForm)} with acroForm is {@link PDAcroForm#PDAcroForm(PDDocument)} COSObject Values size is four.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDCheckBox#unCheck()}
+   * <p>
+   * Method under test: {@link PDCheckBox#unCheck()}
    */
   @Test
-  @DisplayName(
-      "Test unCheck(); then PDCheckBox(PDAcroForm) with acroForm is PDAcroForm(PDDocument) COSObject Values size is four")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test unCheck(); then PDCheckBox(PDAcroForm) with acroForm is PDAcroForm(PDDocument) COSObject Values size is four")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDCheckBox.unCheck()"})
-  void testUnCheck_thenPDCheckBoxWithAcroFormIsPDAcroFormCOSObjectValuesSizeIsFour()
-      throws IOException {
+  void testUnCheck_thenPDCheckBoxWithAcroFormIsPDAcroFormCOSObjectValuesSizeIsFour() throws IOException {
     // Arrange
     PDCheckBox pdCheckBox = new PDCheckBox(new PDAcroForm(new PDDocument()));
 
@@ -278,22 +245,17 @@ class PDCheckBoxDiffblueTest {
 
   /**
    * Test {@link PDCheckBox#getOnValue()}.
-   *
    * <ul>
-   *   <li>Given {@link PDCheckBox#PDCheckBox(PDAcroForm)} with acroForm is {@link
-   *       PDAcroForm#PDAcroForm(PDDocument)} importFDF {@link FDFField#FDFField()}.
+   *   <li>Given {@link PDCheckBox#PDCheckBox(PDAcroForm)} with acroForm is {@link PDAcroForm#PDAcroForm(PDDocument)} importFDF {@link FDFField#FDFField()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDCheckBox#getOnValue()}
+   * <p>
+   * Method under test: {@link PDCheckBox#getOnValue()}
    */
   @Test
-  @DisplayName(
-      "Test getOnValue(); given PDCheckBox(PDAcroForm) with acroForm is PDAcroForm(PDDocument) importFDF FDFField()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getOnValue(); given PDCheckBox(PDAcroForm) with acroForm is PDAcroForm(PDDocument) importFDF FDFField()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.lang.String PDCheckBox.getOnValue()"})
-  void testGetOnValue_givenPDCheckBoxWithAcroFormIsPDAcroFormImportFDFFDFField()
-      throws IOException {
+  void testGetOnValue_givenPDCheckBoxWithAcroFormIsPDAcroFormImportFDFFDFField() throws IOException {
     // Arrange
     PDCheckBox pdCheckBox = new PDCheckBox(new PDAcroForm(new PDDocument()));
     pdCheckBox.importFDF(new FDFField());
@@ -304,23 +266,19 @@ class PDCheckBoxDiffblueTest {
 
   /**
    * Test {@link PDCheckBox#getOnValue()}.
-   *
    * <ul>
-   *   <li>Given {@link PDCheckBox#PDCheckBox(PDAcroForm)} with acroForm is {@link
-   *       PDAcroForm#PDAcroForm(PDDocument)}.
-   *   <li>Then return empty string.
+   *   <li>Given {@link PDCheckBox#PDCheckBox(PDAcroForm)} with acroForm is {@link PDAcroForm#PDAcroForm(PDDocument)}.</li>
+   *   <li>Then return empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDCheckBox#getOnValue()}
+   * <p>
+   * Method under test: {@link PDCheckBox#getOnValue()}
    */
   @Test
-  @DisplayName(
-      "Test getOnValue(); given PDCheckBox(PDAcroForm) with acroForm is PDAcroForm(PDDocument); then return empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getOnValue(); given PDCheckBox(PDAcroForm) with acroForm is PDAcroForm(PDDocument); then return empty string")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.lang.String PDCheckBox.getOnValue()"})
   void testGetOnValue_givenPDCheckBoxWithAcroFormIsPDAcroForm_thenReturnEmptyString() {
     // Arrange, Act and Assert
-    assertEquals("", new PDCheckBox(new PDAcroForm(new PDDocument())).getOnValue());
+    assertEquals("", (new PDCheckBox(new PDAcroForm(new PDDocument()))).getOnValue());
   }
 }

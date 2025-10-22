@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.List;
@@ -28,13 +27,12 @@ import org.junit.jupiter.api.Test;
 class XMPMetadataDiffblueTest {
   /**
    * Test {@link XMPMetadata#XMPMetadata()}.
-   *
-   * <p>Method under test: {@link XMPMetadata#XMPMetadata()}
+   * <p>
+   * Method under test: {@link XMPMetadata#XMPMetadata()}
    */
   @Test
   @DisplayName("Test new XMPMetadata()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMetadata.<init>()"})
   void testNewXMPMetadata() {
     // Arrange and Act
@@ -60,19 +58,17 @@ class XMPMetadataDiffblueTest {
 
   /**
    * Test {@link XMPMetadata#XMPMetadata(String, String, String, String)}.
-   *
-   * <p>Method under test: {@link XMPMetadata#XMPMetadata(String, String, String, String)}
+   * <p>
+   * Method under test: {@link XMPMetadata#XMPMetadata(String, String, String, String)}
    */
   @Test
   @DisplayName("Test new XMPMetadata(String, String, String, String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMetadata.<init>(String, String, String, String)"})
   void testNewXMPMetadata2() {
     // Arrange and Act
-    XMPMetadata actualXmpMetadata =
-        new XMPMetadata(
-            "Xpacket Begin", "42", "Xpacket Bytes", XmpConstants.DEFAULT_XPACKET_ENCODING);
+    XMPMetadata actualXmpMetadata = new XMPMetadata("Xpacket Begin", "42", "Xpacket Bytes",
+        XmpConstants.DEFAULT_XPACKET_ENCODING);
 
     // Assert
     assertEquals("42", actualXmpMetadata.getXpacketId());
@@ -94,13 +90,12 @@ class XMPMetadataDiffblueTest {
 
   /**
    * Test {@link XMPMetadata#createXMPMetadata()}.
-   *
-   * <p>Method under test: {@link XMPMetadata#createXMPMetadata()}
+   * <p>
+   * Method under test: {@link XMPMetadata#createXMPMetadata()}
    */
   @Test
   @DisplayName("Test createXMPMetadata()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"XMPMetadata XMPMetadata.createXMPMetadata()"})
   void testCreateXMPMetadata() {
     // Arrange and Act
@@ -118,31 +113,25 @@ class XMPMetadataDiffblueTest {
     assertNull(actualCreateXMPMetadataResult.getXMPMediaManagementSchema());
     assertNull(actualCreateXMPMetadataResult.getXMPRightsManagementSchema());
     assertTrue(actualCreateXMPMetadataResult.getAllSchemas().isEmpty());
-    assertEquals(
-        XmpConstants.DEFAULT_XPACKET_BEGIN, actualCreateXMPMetadataResult.getXpacketBegin());
-    assertEquals(
-        XmpConstants.DEFAULT_XPACKET_ENCODING, actualCreateXMPMetadataResult.getXpacketEncoding());
+    assertEquals(XmpConstants.DEFAULT_XPACKET_BEGIN, actualCreateXMPMetadataResult.getXpacketBegin());
+    assertEquals(XmpConstants.DEFAULT_XPACKET_ENCODING, actualCreateXMPMetadataResult.getXpacketEncoding());
     assertEquals(XmpConstants.DEFAULT_XPACKET_END, actualCreateXMPMetadataResult.getEndXPacket());
     assertEquals(XmpConstants.DEFAULT_XPACKET_ID, actualCreateXMPMetadataResult.getXpacketId());
   }
 
   /**
-   * Test {@link XMPMetadata#createXMPMetadata(String, String, String, String)} with {@code String},
-   * {@code String}, {@code String}, {@code String}.
-   *
-   * <p>Method under test: {@link XMPMetadata#createXMPMetadata(String, String, String, String)}
+   * Test {@link XMPMetadata#createXMPMetadata(String, String, String, String)} with {@code String}, {@code String}, {@code String}, {@code String}.
+   * <p>
+   * Method under test: {@link XMPMetadata#createXMPMetadata(String, String, String, String)}
    */
   @Test
-  @DisplayName(
-      "Test createXMPMetadata(String, String, String, String) with 'String', 'String', 'String', 'String'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test createXMPMetadata(String, String, String, String) with 'String', 'String', 'String', 'String'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"XMPMetadata XMPMetadata.createXMPMetadata(String, String, String, String)"})
   void testCreateXMPMetadataWithStringStringStringString() {
     // Arrange and Act
-    XMPMetadata actualCreateXMPMetadataResult =
-        XMPMetadata.createXMPMetadata(
-            "Xpacket Begin", "42", "Xpacket Bytes", XmpConstants.DEFAULT_XPACKET_ENCODING);
+    XMPMetadata actualCreateXMPMetadataResult = XMPMetadata.createXMPMetadata("Xpacket Begin", "42", "Xpacket Bytes",
+        XmpConstants.DEFAULT_XPACKET_ENCODING);
 
     // Assert
     assertEquals("42", actualCreateXMPMetadataResult.getXpacketId());
@@ -158,20 +147,18 @@ class XMPMetadataDiffblueTest {
     assertNull(actualCreateXMPMetadataResult.getXMPMediaManagementSchema());
     assertNull(actualCreateXMPMetadataResult.getXMPRightsManagementSchema());
     assertTrue(actualCreateXMPMetadataResult.getAllSchemas().isEmpty());
-    assertEquals(
-        XmpConstants.DEFAULT_XPACKET_ENCODING, actualCreateXMPMetadataResult.getXpacketEncoding());
+    assertEquals(XmpConstants.DEFAULT_XPACKET_ENCODING, actualCreateXMPMetadataResult.getXpacketEncoding());
     assertEquals(XmpConstants.DEFAULT_XPACKET_END, actualCreateXMPMetadataResult.getEndXPacket());
   }
 
   /**
    * Test {@link XMPMetadata#getAllSchemas()}.
-   *
-   * <p>Method under test: {@link XMPMetadata#getAllSchemas()}
+   * <p>
+   * Method under test: {@link XMPMetadata#getAllSchemas()}
    */
   @Test
   @DisplayName("Test getAllSchemas()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List XMPMetadata.getAllSchemas()"})
   void testGetAllSchemas() {
     // Arrange, Act and Assert
@@ -180,9 +167,8 @@ class XMPMetadataDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link XMPMetadata#setEndXPacket(String)}
    *   <li>{@link XMPMetadata#getEndXPacket()}
@@ -195,17 +181,11 @@ class XMPMetadataDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "String XMPMetadata.getEndXPacket()",
-    "org.apache.xmpbox.type.TypeMapping XMPMetadata.getTypeMapping()",
-    "String XMPMetadata.getXpacketBegin()",
-    "String XMPMetadata.getXpacketBytes()",
-    "String XMPMetadata.getXpacketEncoding()",
-    "String XMPMetadata.getXpacketId()",
-    "void XMPMetadata.setEndXPacket(String)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String XMPMetadata.getEndXPacket()",
+      "org.apache.xmpbox.type.TypeMapping XMPMetadata.getTypeMapping()", "String XMPMetadata.getXpacketBegin()",
+      "String XMPMetadata.getXpacketBytes()", "String XMPMetadata.getXpacketEncoding()",
+      "String XMPMetadata.getXpacketId()", "void XMPMetadata.setEndXPacket(String)"})
   void testGettersAndSetters() {
     // Arrange
     XMPMetadata createXMPMetadataResult = XMPMetadata.createXMPMetadata();
@@ -228,20 +208,17 @@ class XMPMetadataDiffblueTest {
 
   /**
    * Test {@link XMPMetadata#getSchema(String)} with {@code nsURI}.
-   *
    * <ul>
-   *   <li>Given createXMPMetadata.
-   *   <li>When {@code Ns URI}.
-   *   <li>Then return {@code null}.
+   *   <li>Given createXMPMetadata.</li>
+   *   <li>When {@code Ns URI}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMetadata#getSchema(String)}
+   * <p>
+   * Method under test: {@link XMPMetadata#getSchema(String)}
    */
   @Test
-  @DisplayName(
-      "Test getSchema(String) with 'nsURI'; given createXMPMetadata; when 'Ns URI'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getSchema(String) with 'nsURI'; given createXMPMetadata; when 'Ns URI'; then return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"XMPSchema XMPMetadata.getSchema(String)"})
   void testGetSchemaWithNsURI_givenCreateXMPMetadata_whenNsUri_thenReturnNull() {
     // Arrange, Act and Assert
@@ -250,19 +227,15 @@ class XMPMetadataDiffblueTest {
 
   /**
    * Test {@link XMPMetadata#getSchema(String)} with {@code nsURI}.
-   *
    * <ul>
-   *   <li>Then return {@link AdobePDFSchema#AdobePDFSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Then return {@link AdobePDFSchema#AdobePDFSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMetadata#getSchema(String)}
+   * <p>
+   * Method under test: {@link XMPMetadata#getSchema(String)}
    */
   @Test
-  @DisplayName(
-      "Test getSchema(String) with 'nsURI'; then return AdobePDFSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getSchema(String) with 'nsURI'; then return AdobePDFSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"XMPSchema XMPMetadata.getSchema(String)"})
   void testGetSchemaWithNsURI_thenReturnAdobePDFSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange
@@ -276,17 +249,15 @@ class XMPMetadataDiffblueTest {
 
   /**
    * Test {@link XMPMetadata#getSchema(String)} with {@code nsURI}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMetadata#getSchema(String)}
+   * <p>
+   * Method under test: {@link XMPMetadata#getSchema(String)}
    */
   @Test
   @DisplayName("Test getSchema(String) with 'nsURI'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"XMPSchema XMPMetadata.getSchema(String)"})
   void testGetSchemaWithNsURI_thenReturnNull() {
     // Arrange
@@ -299,13 +270,12 @@ class XMPMetadataDiffblueTest {
 
   /**
    * Test {@link XMPMetadata#getSchema(String, String)} with {@code prefix}, {@code nsURI}.
-   *
-   * <p>Method under test: {@link XMPMetadata#getSchema(String, String)}
+   * <p>
+   * Method under test: {@link XMPMetadata#getSchema(String, String)}
    */
   @Test
   @DisplayName("Test getSchema(String, String) with 'prefix', 'nsURI'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"XMPSchema XMPMetadata.getSchema(String, String)"})
   void testGetSchemaWithPrefixNsURI() {
     // Arrange
@@ -319,20 +289,17 @@ class XMPMetadataDiffblueTest {
 
   /**
    * Test {@link XMPMetadata#getSchema(String, String)} with {@code prefix}, {@code nsURI}.
-   *
    * <ul>
-   *   <li>Given createXMPMetadata.
-   *   <li>When {@code Ns URI}.
-   *   <li>Then return {@code null}.
+   *   <li>Given createXMPMetadata.</li>
+   *   <li>When {@code Ns URI}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMetadata#getSchema(String, String)}
+   * <p>
+   * Method under test: {@link XMPMetadata#getSchema(String, String)}
    */
   @Test
-  @DisplayName(
-      "Test getSchema(String, String) with 'prefix', 'nsURI'; given createXMPMetadata; when 'Ns URI'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getSchema(String, String) with 'prefix', 'nsURI'; given createXMPMetadata; when 'Ns URI'; then return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"XMPSchema XMPMetadata.getSchema(String, String)"})
   void testGetSchemaWithPrefixNsURI_givenCreateXMPMetadata_whenNsUri_thenReturnNull() {
     // Arrange, Act and Assert
@@ -341,17 +308,15 @@ class XMPMetadataDiffblueTest {
 
   /**
    * Test {@link XMPMetadata#getSchema(String, String)} with {@code prefix}, {@code nsURI}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMetadata#getSchema(String, String)}
+   * <p>
+   * Method under test: {@link XMPMetadata#getSchema(String, String)}
    */
   @Test
   @DisplayName("Test getSchema(String, String) with 'prefix', 'nsURI'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"XMPSchema XMPMetadata.getSchema(String, String)"})
   void testGetSchemaWithPrefixNsURI_thenReturnNull() {
     // Arrange
@@ -364,19 +329,16 @@ class XMPMetadataDiffblueTest {
 
   /**
    * Test {@link XMPMetadata#getSchema(String, String)} with {@code prefix}, {@code nsURI}.
-   *
    * <ul>
-   *   <li>When {@code Ns URI}.
-   *   <li>Then return {@code null}.
+   *   <li>When {@code Ns URI}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMetadata#getSchema(String, String)}
+   * <p>
+   * Method under test: {@link XMPMetadata#getSchema(String, String)}
    */
   @Test
-  @DisplayName(
-      "Test getSchema(String, String) with 'prefix', 'nsURI'; when 'Ns URI'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getSchema(String, String) with 'prefix', 'nsURI'; when 'Ns URI'; then return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"XMPSchema XMPMetadata.getSchema(String, String)"})
   void testGetSchemaWithPrefixNsURI_whenNsUri_thenReturnNull() {
     // Arrange
@@ -389,33 +351,28 @@ class XMPMetadataDiffblueTest {
 
   /**
    * Test {@link XMPMetadata#createAndAddDefaultSchema(String, String)}.
-   *
    * <ul>
-   *   <li>Then return AllNamespacesWithPrefix {@code Ns URI} is {@code Ns Prefix}.
+   *   <li>Then return AllNamespacesWithPrefix {@code Ns URI} is {@code Ns Prefix}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMetadata#createAndAddDefaultSchema(String, String)}
+   * <p>
+   * Method under test: {@link XMPMetadata#createAndAddDefaultSchema(String, String)}
    */
   @Test
-  @DisplayName(
-      "Test createAndAddDefaultSchema(String, String); then return AllNamespacesWithPrefix 'Ns URI' is 'Ns Prefix'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test createAndAddDefaultSchema(String, String); then return AllNamespacesWithPrefix 'Ns URI' is 'Ns Prefix'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"XMPSchema XMPMetadata.createAndAddDefaultSchema(String, String)"})
   void testCreateAndAddDefaultSchema_thenReturnAllNamespacesWithPrefixNsUriIsNsPrefix() {
     // Arrange and Act
-    XMPSchema actualCreateAndAddDefaultSchemaResult =
-        XMPMetadata.createXMPMetadata().createAndAddDefaultSchema("Ns Prefix", "Ns URI");
+    XMPSchema actualCreateAndAddDefaultSchemaResult = XMPMetadata.createXMPMetadata()
+        .createAndAddDefaultSchema("Ns Prefix", "Ns URI");
 
     // Assert
-    Map<String, String> allNamespacesWithPrefix =
-        actualCreateAndAddDefaultSchemaResult.getAllNamespacesWithPrefix();
+    Map<String, String> allNamespacesWithPrefix = actualCreateAndAddDefaultSchemaResult.getAllNamespacesWithPrefix();
     assertEquals(1, allNamespacesWithPrefix.size());
     assertEquals("Ns Prefix", allNamespacesWithPrefix.get("Ns URI"));
     assertEquals("Ns Prefix", actualCreateAndAddDefaultSchemaResult.getPreferedPrefix());
     assertEquals("Ns Prefix", actualCreateAndAddDefaultSchemaResult.getPrefix());
-    List<XMPSchema> allSchemas =
-        actualCreateAndAddDefaultSchemaResult.getMetadata().getAllSchemas();
+    List<XMPSchema> allSchemas = actualCreateAndAddDefaultSchemaResult.getMetadata().getAllSchemas();
     assertEquals(1, allSchemas.size());
     assertEquals(1, actualCreateAndAddDefaultSchemaResult.getAllAttributes().size());
     assertSame(actualCreateAndAddDefaultSchemaResult, allSchemas.get(0));
@@ -423,33 +380,28 @@ class XMPMetadataDiffblueTest {
 
   /**
    * Test {@link XMPMetadata#createAndAddDefaultSchema(String, String)}.
-   *
    * <ul>
-   *   <li>Then return AllNamespacesWithPrefix {@code Ns URI} is {@code null}.
+   *   <li>Then return AllNamespacesWithPrefix {@code Ns URI} is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMetadata#createAndAddDefaultSchema(String, String)}
+   * <p>
+   * Method under test: {@link XMPMetadata#createAndAddDefaultSchema(String, String)}
    */
   @Test
-  @DisplayName(
-      "Test createAndAddDefaultSchema(String, String); then return AllNamespacesWithPrefix 'Ns URI' is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test createAndAddDefaultSchema(String, String); then return AllNamespacesWithPrefix 'Ns URI' is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"XMPSchema XMPMetadata.createAndAddDefaultSchema(String, String)"})
   void testCreateAndAddDefaultSchema_thenReturnAllNamespacesWithPrefixNsUriIsNull() {
     // Arrange and Act
-    XMPSchema actualCreateAndAddDefaultSchemaResult =
-        XMPMetadata.createXMPMetadata().createAndAddDefaultSchema(null, "Ns URI");
+    XMPSchema actualCreateAndAddDefaultSchemaResult = XMPMetadata.createXMPMetadata()
+        .createAndAddDefaultSchema(null, "Ns URI");
 
     // Assert
-    Map<String, String> allNamespacesWithPrefix =
-        actualCreateAndAddDefaultSchemaResult.getAllNamespacesWithPrefix();
+    Map<String, String> allNamespacesWithPrefix = actualCreateAndAddDefaultSchemaResult.getAllNamespacesWithPrefix();
     assertEquals(1, allNamespacesWithPrefix.size());
     assertNull(allNamespacesWithPrefix.get("Ns URI"));
     assertNull(actualCreateAndAddDefaultSchemaResult.getPreferedPrefix());
     assertNull(actualCreateAndAddDefaultSchemaResult.getPrefix());
-    List<XMPSchema> allSchemas =
-        actualCreateAndAddDefaultSchemaResult.getMetadata().getAllSchemas();
+    List<XMPSchema> allSchemas = actualCreateAndAddDefaultSchemaResult.getMetadata().getAllSchemas();
     assertEquals(1, allSchemas.size());
     assertEquals(1, actualCreateAndAddDefaultSchemaResult.getAllAttributes().size());
     assertSame(actualCreateAndAddDefaultSchemaResult, allSchemas.get(0));
@@ -457,146 +409,124 @@ class XMPMetadataDiffblueTest {
 
   /**
    * Test {@link XMPMetadata#createAndAddPDFAExtensionSchemaWithDefaultNS()}.
-   *
-   * <p>Method under test: {@link XMPMetadata#createAndAddPDFAExtensionSchemaWithDefaultNS()}
+   * <p>
+   * Method under test: {@link XMPMetadata#createAndAddPDFAExtensionSchemaWithDefaultNS()}
    */
   @Test
   @DisplayName("Test createAndAddPDFAExtensionSchemaWithDefaultNS()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "PDFAExtensionSchema XMPMetadata.createAndAddPDFAExtensionSchemaWithDefaultNS()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"PDFAExtensionSchema XMPMetadata.createAndAddPDFAExtensionSchemaWithDefaultNS()"})
   void testCreateAndAddPDFAExtensionSchemaWithDefaultNS() {
     // Arrange
     XMPMetadata createXMPMetadataResult = XMPMetadata.createXMPMetadata();
 
     // Act
-    PDFAExtensionSchema actualCreateAndAddPDFAExtensionSchemaWithDefaultNSResult =
-        createXMPMetadataResult.createAndAddPDFAExtensionSchemaWithDefaultNS();
+    PDFAExtensionSchema actualCreateAndAddPDFAExtensionSchemaWithDefaultNSResult = createXMPMetadataResult
+        .createAndAddPDFAExtensionSchemaWithDefaultNS();
 
     // Assert
     assertEquals("", actualCreateAndAddPDFAExtensionSchemaWithDefaultNSResult.getAboutValue());
-    assertEquals(
-        "http://www.aiim.org/pdfa/ns/extension/",
+    assertEquals("http://www.aiim.org/pdfa/ns/extension/",
         actualCreateAndAddPDFAExtensionSchemaWithDefaultNSResult.getNamespace());
-    assertEquals(
-        "pdfaExtension",
-        actualCreateAndAddPDFAExtensionSchemaWithDefaultNSResult.getPreferedPrefix());
-    assertEquals(
-        "pdfaExtension", actualCreateAndAddPDFAExtensionSchemaWithDefaultNSResult.getPrefix());
+    assertEquals("pdfaExtension", actualCreateAndAddPDFAExtensionSchemaWithDefaultNSResult.getPreferedPrefix());
+    assertEquals("pdfaExtension", actualCreateAndAddPDFAExtensionSchemaWithDefaultNSResult.getPrefix());
     assertNull(actualCreateAndAddPDFAExtensionSchemaWithDefaultNSResult.getPropertyName());
     assertNull(actualCreateAndAddPDFAExtensionSchemaWithDefaultNSResult.getSchemasProperty());
     assertEquals(1, createXMPMetadataResult.getAllSchemas().size());
-    assertEquals(
-        1, actualCreateAndAddPDFAExtensionSchemaWithDefaultNSResult.getAllAttributes().size());
-    Map<String, String> allNamespacesWithPrefix =
-        actualCreateAndAddPDFAExtensionSchemaWithDefaultNSResult.getAllNamespacesWithPrefix();
+    assertEquals(1, actualCreateAndAddPDFAExtensionSchemaWithDefaultNSResult.getAllAttributes().size());
+    Map<String, String> allNamespacesWithPrefix = actualCreateAndAddPDFAExtensionSchemaWithDefaultNSResult
+        .getAllNamespacesWithPrefix();
     assertEquals(1, allNamespacesWithPrefix.size());
-    assertTrue(
-        actualCreateAndAddPDFAExtensionSchemaWithDefaultNSResult.getAllProperties().isEmpty());
+    assertTrue(actualCreateAndAddPDFAExtensionSchemaWithDefaultNSResult.getAllProperties().isEmpty());
     assertTrue(allNamespacesWithPrefix.containsKey("http://www.aiim.org/pdfa/ns/extension/"));
-    assertSame(
-        createXMPMetadataResult,
-        actualCreateAndAddPDFAExtensionSchemaWithDefaultNSResult.getMetadata());
+    assertSame(createXMPMetadataResult, actualCreateAndAddPDFAExtensionSchemaWithDefaultNSResult.getMetadata());
   }
 
   /**
    * Test {@link XMPMetadata#createAndAddPDFAExtensionSchemaWithNS(Map)}.
-   *
-   * <p>Method under test: {@link XMPMetadata#createAndAddPDFAExtensionSchemaWithNS(Map)}
+   * <p>
+   * Method under test: {@link XMPMetadata#createAndAddPDFAExtensionSchemaWithNS(Map)}
    */
   @Test
   @DisplayName("Test createAndAddPDFAExtensionSchemaWithNS(Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDFAExtensionSchema XMPMetadata.createAndAddPDFAExtensionSchemaWithNS(Map)"})
   void testCreateAndAddPDFAExtensionSchemaWithNS() throws XmpSchemaException {
     // Arrange
     XMPMetadata createXMPMetadataResult = XMPMetadata.createXMPMetadata();
 
     // Act
-    PDFAExtensionSchema actualCreateAndAddPDFAExtensionSchemaWithNSResult =
-        createXMPMetadataResult.createAndAddPDFAExtensionSchemaWithNS(new HashMap<>());
+    PDFAExtensionSchema actualCreateAndAddPDFAExtensionSchemaWithNSResult = createXMPMetadataResult
+        .createAndAddPDFAExtensionSchemaWithNS(new HashMap<>());
 
     // Assert
     assertEquals("", actualCreateAndAddPDFAExtensionSchemaWithNSResult.getAboutValue());
-    assertEquals(
-        "http://www.aiim.org/pdfa/ns/extension/",
+    assertEquals("http://www.aiim.org/pdfa/ns/extension/",
         actualCreateAndAddPDFAExtensionSchemaWithNSResult.getNamespace());
-    assertEquals(
-        "pdfaExtension", actualCreateAndAddPDFAExtensionSchemaWithNSResult.getPreferedPrefix());
+    assertEquals("pdfaExtension", actualCreateAndAddPDFAExtensionSchemaWithNSResult.getPreferedPrefix());
     assertEquals("pdfaExtension", actualCreateAndAddPDFAExtensionSchemaWithNSResult.getPrefix());
     assertNull(actualCreateAndAddPDFAExtensionSchemaWithNSResult.getPropertyName());
     assertNull(actualCreateAndAddPDFAExtensionSchemaWithNSResult.getSchemasProperty());
     assertEquals(1, createXMPMetadataResult.getAllSchemas().size());
     assertEquals(1, actualCreateAndAddPDFAExtensionSchemaWithNSResult.getAllAttributes().size());
-    Map<String, String> allNamespacesWithPrefix =
-        actualCreateAndAddPDFAExtensionSchemaWithNSResult.getAllNamespacesWithPrefix();
+    Map<String, String> allNamespacesWithPrefix = actualCreateAndAddPDFAExtensionSchemaWithNSResult
+        .getAllNamespacesWithPrefix();
     assertEquals(1, allNamespacesWithPrefix.size());
     assertTrue(actualCreateAndAddPDFAExtensionSchemaWithNSResult.getAllProperties().isEmpty());
     assertTrue(allNamespacesWithPrefix.containsKey("http://www.aiim.org/pdfa/ns/extension/"));
-    assertSame(
-        createXMPMetadataResult, actualCreateAndAddPDFAExtensionSchemaWithNSResult.getMetadata());
+    assertSame(createXMPMetadataResult, actualCreateAndAddPDFAExtensionSchemaWithNSResult.getMetadata());
   }
 
   /**
    * Test {@link XMPMetadata#getPDFExtensionSchema()}.
-   *
-   * <p>Method under test: {@link XMPMetadata#getPDFExtensionSchema()}
+   * <p>
+   * Method under test: {@link XMPMetadata#getPDFExtensionSchema()}
    */
   @Test
   @DisplayName("Test getPDFExtensionSchema()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDFAExtensionSchema XMPMetadata.getPDFExtensionSchema()"})
   void testGetPDFExtensionSchema() {
     // Arrange
-    XMPMetadata xmpMetadata =
-        new XMPMetadata(
-            "Xpacket Begin", "42", "Xpacket Bytes", XmpConstants.DEFAULT_XPACKET_ENCODING);
-    PDFAExtensionSchema obj = new PDFAExtensionSchema(XMPMetadata.createXMPMetadata());
-    xmpMetadata.addSchema(obj);
+    XMPMetadata createXMPMetadataResult = XMPMetadata.createXMPMetadata();
+    createXMPMetadataResult.addSchema(new AdobePDFSchema(XMPMetadata.createXMPMetadata()));
 
     // Act and Assert
-    assertSame(obj, xmpMetadata.getPDFExtensionSchema());
+    assertNull(createXMPMetadataResult.getPDFExtensionSchema());
   }
 
   /**
    * Test {@link XMPMetadata#getPDFExtensionSchema()}.
-   *
-   * <p>Method under test: {@link XMPMetadata#getPDFExtensionSchema()}
+   * <p>
+   * Method under test: {@link XMPMetadata#getPDFExtensionSchema()}
    */
   @Test
   @DisplayName("Test getPDFExtensionSchema()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDFAExtensionSchema XMPMetadata.getPDFExtensionSchema()"})
   void testGetPDFExtensionSchema2() {
     // Arrange
-    XMPMetadata xmpMetadata =
-        new XMPMetadata(
-            "Xpacket Begin", "42", "Xpacket Bytes", XmpConstants.DEFAULT_XPACKET_ENCODING);
-    xmpMetadata.addSchema(new AdobePDFSchema(XMPMetadata.createXMPMetadata()));
+    PDFAExtensionSchema obj = new PDFAExtensionSchema(XMPMetadata.createXMPMetadata());
+    obj.addBagValueAsSimple("http://www.aiim.org/pdfa/ns/extension/", "http://ns.adobe.com/pdf/1.3/");
+    XMPMetadata createXMPMetadataResult = XMPMetadata.createXMPMetadata();
+    createXMPMetadataResult.addSchema(obj);
 
     // Act and Assert
-    assertNull(xmpMetadata.getPDFExtensionSchema());
+    assertSame(obj, createXMPMetadataResult.getPDFExtensionSchema());
   }
 
   /**
    * Test {@link XMPMetadata#getPDFExtensionSchema()}.
-   *
    * <ul>
-   *   <li>Given createXMPMetadata.
-   *   <li>Then return {@code null}.
+   *   <li>Given createXMPMetadata.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMetadata#getPDFExtensionSchema()}
+   * <p>
+   * Method under test: {@link XMPMetadata#getPDFExtensionSchema()}
    */
   @Test
   @DisplayName("Test getPDFExtensionSchema(); given createXMPMetadata; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDFAExtensionSchema XMPMetadata.getPDFExtensionSchema()"})
   void testGetPDFExtensionSchema_givenCreateXMPMetadata_thenReturnNull() {
     // Arrange, Act and Assert
@@ -605,27 +535,24 @@ class XMPMetadataDiffblueTest {
 
   /**
    * Test {@link XMPMetadata#createAndAddPDFAIdentificationSchema()}.
-   *
-   * <p>Method under test: {@link XMPMetadata#createAndAddPDFAIdentificationSchema()}
+   * <p>
+   * Method under test: {@link XMPMetadata#createAndAddPDFAIdentificationSchema()}
    */
   @Test
   @DisplayName("Test createAndAddPDFAIdentificationSchema()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDFAIdentificationSchema XMPMetadata.createAndAddPDFAIdentificationSchema()"})
   void testCreateAndAddPDFAIdentificationSchema() {
     // Arrange
     XMPMetadata createXMPMetadataResult = XMPMetadata.createXMPMetadata();
 
     // Act
-    PDFAIdentificationSchema actualCreateAndAddPDFAIdentificationSchemaResult =
-        createXMPMetadataResult.createAndAddPDFAIdentificationSchema();
+    PDFAIdentificationSchema actualCreateAndAddPDFAIdentificationSchemaResult = createXMPMetadataResult
+        .createAndAddPDFAIdentificationSchema();
 
     // Assert
     assertEquals("", actualCreateAndAddPDFAIdentificationSchemaResult.getAboutValue());
-    assertEquals(
-        "http://www.aiim.org/pdfa/ns/id/",
-        actualCreateAndAddPDFAIdentificationSchemaResult.getNamespace());
+    assertEquals("http://www.aiim.org/pdfa/ns/id/", actualCreateAndAddPDFAIdentificationSchemaResult.getNamespace());
     assertEquals("pdfaid", actualCreateAndAddPDFAIdentificationSchemaResult.getPreferedPrefix());
     assertEquals("pdfaid", actualCreateAndAddPDFAIdentificationSchemaResult.getPrefix());
     assertNull(actualCreateAndAddPDFAIdentificationSchemaResult.getPart());
@@ -638,72 +565,64 @@ class XMPMetadataDiffblueTest {
     assertNull(actualCreateAndAddPDFAIdentificationSchemaResult.getConformanceProperty());
     assertEquals(1, createXMPMetadataResult.getAllSchemas().size());
     assertEquals(1, actualCreateAndAddPDFAIdentificationSchemaResult.getAllAttributes().size());
-    Map<String, String> allNamespacesWithPrefix =
-        actualCreateAndAddPDFAIdentificationSchemaResult.getAllNamespacesWithPrefix();
+    Map<String, String> allNamespacesWithPrefix = actualCreateAndAddPDFAIdentificationSchemaResult
+        .getAllNamespacesWithPrefix();
     assertEquals(1, allNamespacesWithPrefix.size());
     assertTrue(actualCreateAndAddPDFAIdentificationSchemaResult.getAllProperties().isEmpty());
     assertTrue(allNamespacesWithPrefix.containsKey("http://www.aiim.org/pdfa/ns/id/"));
-    assertSame(
-        createXMPMetadataResult, actualCreateAndAddPDFAIdentificationSchemaResult.getMetadata());
+    assertSame(createXMPMetadataResult, actualCreateAndAddPDFAIdentificationSchemaResult.getMetadata());
   }
 
   /**
    * Test {@link XMPMetadata#getPDFAIdentificationSchema()}.
-   *
-   * <p>Method under test: {@link XMPMetadata#getPDFAIdentificationSchema()}
+   * <p>
+   * Method under test: {@link XMPMetadata#getPDFAIdentificationSchema()}
    */
   @Test
   @DisplayName("Test getPDFAIdentificationSchema()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDFAIdentificationSchema XMPMetadata.getPDFAIdentificationSchema()"})
   void testGetPDFAIdentificationSchema() {
     // Arrange
-    XMPMetadata xmpMetadata =
-        new XMPMetadata(
-            "Xpacket Begin", "42", "Xpacket Bytes", XmpConstants.DEFAULT_XPACKET_ENCODING);
-    PDFAIdentificationSchema obj = new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata());
-    xmpMetadata.addSchema(obj);
+    XMPMetadata createXMPMetadataResult = XMPMetadata.createXMPMetadata();
+    createXMPMetadataResult.addSchema(new AdobePDFSchema(XMPMetadata.createXMPMetadata()));
 
     // Act and Assert
-    assertSame(obj, xmpMetadata.getPDFAIdentificationSchema());
+    assertNull(createXMPMetadataResult.getPDFAIdentificationSchema());
   }
 
   /**
    * Test {@link XMPMetadata#getPDFAIdentificationSchema()}.
-   *
-   * <p>Method under test: {@link XMPMetadata#getPDFAIdentificationSchema()}
+   * <p>
+   * Method under test: {@link XMPMetadata#getPDFAIdentificationSchema()}
    */
   @Test
   @DisplayName("Test getPDFAIdentificationSchema()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDFAIdentificationSchema XMPMetadata.getPDFAIdentificationSchema()"})
   void testGetPDFAIdentificationSchema2() {
     // Arrange
-    XMPMetadata xmpMetadata =
-        new XMPMetadata(
-            "Xpacket Begin", "42", "Xpacket Bytes", XmpConstants.DEFAULT_XPACKET_ENCODING);
-    xmpMetadata.addSchema(new AdobePDFSchema(XMPMetadata.createXMPMetadata()));
+    PDFAIdentificationSchema obj = new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata());
+    obj.addBagValueAsSimple("http://www.aiim.org/pdfa/ns/id/", "http://ns.adobe.com/pdf/1.3/");
+    XMPMetadata createXMPMetadataResult = XMPMetadata.createXMPMetadata();
+    createXMPMetadataResult.addSchema(obj);
 
     // Act and Assert
-    assertNull(xmpMetadata.getPDFAIdentificationSchema());
+    assertSame(obj, createXMPMetadataResult.getPDFAIdentificationSchema());
   }
 
   /**
    * Test {@link XMPMetadata#getPDFAIdentificationSchema()}.
-   *
    * <ul>
-   *   <li>Given createXMPMetadata.
-   *   <li>Then return {@code null}.
+   *   <li>Given createXMPMetadata.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMetadata#getPDFAIdentificationSchema()}
+   * <p>
+   * Method under test: {@link XMPMetadata#getPDFAIdentificationSchema()}
    */
   @Test
   @DisplayName("Test getPDFAIdentificationSchema(); given createXMPMetadata; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDFAIdentificationSchema XMPMetadata.getPDFAIdentificationSchema()"})
   void testGetPDFAIdentificationSchema_givenCreateXMPMetadata_thenReturnNull() {
     // Arrange, Act and Assert
@@ -712,29 +631,25 @@ class XMPMetadataDiffblueTest {
 
   /**
    * Test {@link XMPMetadata#createAndAddDublinCoreSchema()}.
-   *
-   * <p>Method under test: {@link XMPMetadata#createAndAddDublinCoreSchema()}
+   * <p>
+   * Method under test: {@link XMPMetadata#createAndAddDublinCoreSchema()}
    */
   @Test
   @DisplayName("Test createAndAddDublinCoreSchema()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"DublinCoreSchema XMPMetadata.createAndAddDublinCoreSchema()"})
   void testCreateAndAddDublinCoreSchema() throws BadFieldValueException {
     // Arrange
     XMPMetadata createXMPMetadataResult = XMPMetadata.createXMPMetadata();
 
     // Act
-    DublinCoreSchema actualCreateAndAddDublinCoreSchemaResult =
-        createXMPMetadataResult.createAndAddDublinCoreSchema();
+    DublinCoreSchema actualCreateAndAddDublinCoreSchemaResult = createXMPMetadataResult.createAndAddDublinCoreSchema();
 
     // Assert
     assertEquals("", actualCreateAndAddDublinCoreSchemaResult.getAboutValue());
     assertEquals("dc", actualCreateAndAddDublinCoreSchemaResult.getPreferedPrefix());
     assertEquals("dc", actualCreateAndAddDublinCoreSchemaResult.getPrefix());
-    assertEquals(
-        "http://purl.org/dc/elements/1.1/",
-        actualCreateAndAddDublinCoreSchemaResult.getNamespace());
+    assertEquals("http://purl.org/dc/elements/1.1/", actualCreateAndAddDublinCoreSchemaResult.getNamespace());
     assertNull(actualCreateAndAddDublinCoreSchemaResult.getCoverage());
     assertNull(actualCreateAndAddDublinCoreSchemaResult.getDescription());
     assertNull(actualCreateAndAddDublinCoreSchemaResult.getFormat());
@@ -771,8 +686,7 @@ class XMPMetadataDiffblueTest {
     assertNull(actualCreateAndAddDublinCoreSchemaResult.getSourceProperty());
     assertEquals(1, createXMPMetadataResult.getAllSchemas().size());
     assertEquals(1, actualCreateAndAddDublinCoreSchemaResult.getAllAttributes().size());
-    Map<String, String> allNamespacesWithPrefix =
-        actualCreateAndAddDublinCoreSchemaResult.getAllNamespacesWithPrefix();
+    Map<String, String> allNamespacesWithPrefix = actualCreateAndAddDublinCoreSchemaResult.getAllNamespacesWithPrefix();
     assertEquals(1, allNamespacesWithPrefix.size());
     assertTrue(actualCreateAndAddDublinCoreSchemaResult.getAllProperties().isEmpty());
     assertTrue(allNamespacesWithPrefix.containsKey("http://purl.org/dc/elements/1.1/"));
@@ -781,61 +695,54 @@ class XMPMetadataDiffblueTest {
 
   /**
    * Test {@link XMPMetadata#getDublinCoreSchema()}.
-   *
-   * <p>Method under test: {@link XMPMetadata#getDublinCoreSchema()}
+   * <p>
+   * Method under test: {@link XMPMetadata#getDublinCoreSchema()}
    */
   @Test
   @DisplayName("Test getDublinCoreSchema()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"DublinCoreSchema XMPMetadata.getDublinCoreSchema()"})
   void testGetDublinCoreSchema() {
     // Arrange
-    XMPMetadata xmpMetadata =
-        new XMPMetadata(
-            "Xpacket Begin", "42", "Xpacket Bytes", XmpConstants.DEFAULT_XPACKET_ENCODING);
-    DublinCoreSchema obj = new DublinCoreSchema(XMPMetadata.createXMPMetadata());
-    xmpMetadata.addSchema(obj);
+    XMPMetadata createXMPMetadataResult = XMPMetadata.createXMPMetadata();
+    createXMPMetadataResult.addSchema(new AdobePDFSchema(XMPMetadata.createXMPMetadata()));
 
     // Act and Assert
-    assertSame(obj, xmpMetadata.getDublinCoreSchema());
+    assertNull(createXMPMetadataResult.getDublinCoreSchema());
   }
 
   /**
    * Test {@link XMPMetadata#getDublinCoreSchema()}.
-   *
-   * <p>Method under test: {@link XMPMetadata#getDublinCoreSchema()}
+   * <p>
+   * Method under test: {@link XMPMetadata#getDublinCoreSchema()}
    */
   @Test
   @DisplayName("Test getDublinCoreSchema()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"DublinCoreSchema XMPMetadata.getDublinCoreSchema()"})
   void testGetDublinCoreSchema2() {
     // Arrange
-    XMPMetadata xmpMetadata =
-        new XMPMetadata(
-            "Xpacket Begin", "42", "Xpacket Bytes", XmpConstants.DEFAULT_XPACKET_ENCODING);
-    xmpMetadata.addSchema(new AdobePDFSchema(XMPMetadata.createXMPMetadata()));
+    DublinCoreSchema obj = new DublinCoreSchema(XMPMetadata.createXMPMetadata());
+    obj.addBagValueAsSimple("http://purl.org/dc/elements/1.1/", "http://ns.adobe.com/pdf/1.3/");
+    XMPMetadata createXMPMetadataResult = XMPMetadata.createXMPMetadata();
+    createXMPMetadataResult.addSchema(obj);
 
     // Act and Assert
-    assertNull(xmpMetadata.getDublinCoreSchema());
+    assertSame(obj, createXMPMetadataResult.getDublinCoreSchema());
   }
 
   /**
    * Test {@link XMPMetadata#getDublinCoreSchema()}.
-   *
    * <ul>
-   *   <li>Given createXMPMetadata.
-   *   <li>Then return {@code null}.
+   *   <li>Given createXMPMetadata.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMetadata#getDublinCoreSchema()}
+   * <p>
+   * Method under test: {@link XMPMetadata#getDublinCoreSchema()}
    */
   @Test
   @DisplayName("Test getDublinCoreSchema(); given createXMPMetadata; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"DublinCoreSchema XMPMetadata.getDublinCoreSchema()"})
   void testGetDublinCoreSchema_givenCreateXMPMetadata_thenReturnNull() {
     // Arrange, Act and Assert
@@ -844,35 +751,32 @@ class XMPMetadataDiffblueTest {
 
   /**
    * Test {@link XMPMetadata#createAndAddBasicJobTicketSchema()}.
-   *
-   * <p>Method under test: {@link XMPMetadata#createAndAddBasicJobTicketSchema()}
+   * <p>
+   * Method under test: {@link XMPMetadata#createAndAddBasicJobTicketSchema()}
    */
   @Test
   @DisplayName("Test createAndAddBasicJobTicketSchema()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"XMPBasicJobTicketSchema XMPMetadata.createAndAddBasicJobTicketSchema()"})
   void testCreateAndAddBasicJobTicketSchema() throws BadFieldValueException {
     // Arrange
     XMPMetadata createXMPMetadataResult = XMPMetadata.createXMPMetadata();
 
     // Act
-    XMPBasicJobTicketSchema actualCreateAndAddBasicJobTicketSchemaResult =
-        createXMPMetadataResult.createAndAddBasicJobTicketSchema();
+    XMPBasicJobTicketSchema actualCreateAndAddBasicJobTicketSchemaResult = createXMPMetadataResult
+        .createAndAddBasicJobTicketSchema();
 
     // Assert
     assertEquals("", actualCreateAndAddBasicJobTicketSchemaResult.getAboutValue());
-    assertEquals(
-        "http://ns.adobe.com/xap/1.0/bj/",
-        actualCreateAndAddBasicJobTicketSchemaResult.getNamespace());
+    assertEquals("http://ns.adobe.com/xap/1.0/bj/", actualCreateAndAddBasicJobTicketSchemaResult.getNamespace());
     assertEquals("xmpBJ", actualCreateAndAddBasicJobTicketSchemaResult.getPreferedPrefix());
     assertEquals("xmpBJ", actualCreateAndAddBasicJobTicketSchemaResult.getPrefix());
     assertNull(actualCreateAndAddBasicJobTicketSchemaResult.getPropertyName());
     assertNull(actualCreateAndAddBasicJobTicketSchemaResult.getJobs());
     assertEquals(1, createXMPMetadataResult.getAllSchemas().size());
     assertEquals(1, actualCreateAndAddBasicJobTicketSchemaResult.getAllAttributes().size());
-    Map<String, String> allNamespacesWithPrefix =
-        actualCreateAndAddBasicJobTicketSchemaResult.getAllNamespacesWithPrefix();
+    Map<String, String> allNamespacesWithPrefix = actualCreateAndAddBasicJobTicketSchemaResult
+        .getAllNamespacesWithPrefix();
     assertEquals(1, allNamespacesWithPrefix.size());
     assertTrue(actualCreateAndAddBasicJobTicketSchemaResult.getAllProperties().isEmpty());
     assertTrue(allNamespacesWithPrefix.containsKey("http://ns.adobe.com/xap/1.0/bj/"));
@@ -881,61 +785,54 @@ class XMPMetadataDiffblueTest {
 
   /**
    * Test {@link XMPMetadata#getBasicJobTicketSchema()}.
-   *
-   * <p>Method under test: {@link XMPMetadata#getBasicJobTicketSchema()}
+   * <p>
+   * Method under test: {@link XMPMetadata#getBasicJobTicketSchema()}
    */
   @Test
   @DisplayName("Test getBasicJobTicketSchema()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"XMPBasicJobTicketSchema XMPMetadata.getBasicJobTicketSchema()"})
   void testGetBasicJobTicketSchema() {
     // Arrange
-    XMPMetadata xmpMetadata =
-        new XMPMetadata(
-            "Xpacket Begin", "42", "Xpacket Bytes", XmpConstants.DEFAULT_XPACKET_ENCODING);
-    XMPBasicJobTicketSchema obj = new XMPBasicJobTicketSchema(XMPMetadata.createXMPMetadata());
-    xmpMetadata.addSchema(obj);
+    XMPMetadata createXMPMetadataResult = XMPMetadata.createXMPMetadata();
+    createXMPMetadataResult.addSchema(new AdobePDFSchema(XMPMetadata.createXMPMetadata()));
 
     // Act and Assert
-    assertSame(obj, xmpMetadata.getBasicJobTicketSchema());
+    assertNull(createXMPMetadataResult.getBasicJobTicketSchema());
   }
 
   /**
    * Test {@link XMPMetadata#getBasicJobTicketSchema()}.
-   *
-   * <p>Method under test: {@link XMPMetadata#getBasicJobTicketSchema()}
+   * <p>
+   * Method under test: {@link XMPMetadata#getBasicJobTicketSchema()}
    */
   @Test
   @DisplayName("Test getBasicJobTicketSchema()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"XMPBasicJobTicketSchema XMPMetadata.getBasicJobTicketSchema()"})
   void testGetBasicJobTicketSchema2() {
     // Arrange
-    XMPMetadata xmpMetadata =
-        new XMPMetadata(
-            "Xpacket Begin", "42", "Xpacket Bytes", XmpConstants.DEFAULT_XPACKET_ENCODING);
-    xmpMetadata.addSchema(new AdobePDFSchema(XMPMetadata.createXMPMetadata()));
+    XMPBasicJobTicketSchema obj = new XMPBasicJobTicketSchema(XMPMetadata.createXMPMetadata());
+    obj.addBagValueAsSimple("http://ns.adobe.com/xap/1.0/bj/", "http://ns.adobe.com/pdf/1.3/");
+    XMPMetadata createXMPMetadataResult = XMPMetadata.createXMPMetadata();
+    createXMPMetadataResult.addSchema(obj);
 
     // Act and Assert
-    assertNull(xmpMetadata.getBasicJobTicketSchema());
+    assertSame(obj, createXMPMetadataResult.getBasicJobTicketSchema());
   }
 
   /**
    * Test {@link XMPMetadata#getBasicJobTicketSchema()}.
-   *
    * <ul>
-   *   <li>Given createXMPMetadata.
-   *   <li>Then return {@code null}.
+   *   <li>Given createXMPMetadata.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMetadata#getBasicJobTicketSchema()}
+   * <p>
+   * Method under test: {@link XMPMetadata#getBasicJobTicketSchema()}
    */
   @Test
   @DisplayName("Test getBasicJobTicketSchema(); given createXMPMetadata; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"XMPBasicJobTicketSchema XMPMetadata.getBasicJobTicketSchema()"})
   void testGetBasicJobTicketSchema_givenCreateXMPMetadata_thenReturnNull() {
     // Arrange, Act and Assert
@@ -944,31 +841,26 @@ class XMPMetadataDiffblueTest {
 
   /**
    * Test {@link XMPMetadata#createAndAddXMPRightsManagementSchema()}.
-   *
-   * <p>Method under test: {@link XMPMetadata#createAndAddXMPRightsManagementSchema()}
+   * <p>
+   * Method under test: {@link XMPMetadata#createAndAddXMPRightsManagementSchema()}
    */
   @Test
   @DisplayName("Test createAndAddXMPRightsManagementSchema()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "XMPRightsManagementSchema XMPMetadata.createAndAddXMPRightsManagementSchema()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"XMPRightsManagementSchema XMPMetadata.createAndAddXMPRightsManagementSchema()"})
   void testCreateAndAddXMPRightsManagementSchema() throws BadFieldValueException {
     // Arrange
     XMPMetadata createXMPMetadataResult = XMPMetadata.createXMPMetadata();
 
     // Act
-    XMPRightsManagementSchema actualCreateAndAddXMPRightsManagementSchemaResult =
-        createXMPMetadataResult.createAndAddXMPRightsManagementSchema();
+    XMPRightsManagementSchema actualCreateAndAddXMPRightsManagementSchemaResult = createXMPMetadataResult
+        .createAndAddXMPRightsManagementSchema();
 
     // Assert
     assertEquals("", actualCreateAndAddXMPRightsManagementSchemaResult.getAboutValue());
-    assertEquals(
-        "http://ns.adobe.com/xap/1.0/rights/",
+    assertEquals("http://ns.adobe.com/xap/1.0/rights/",
         actualCreateAndAddXMPRightsManagementSchemaResult.getNamespace());
-    assertEquals(
-        "xmpRights", actualCreateAndAddXMPRightsManagementSchemaResult.getPreferedPrefix());
+    assertEquals("xmpRights", actualCreateAndAddXMPRightsManagementSchemaResult.getPreferedPrefix());
     assertEquals("xmpRights", actualCreateAndAddXMPRightsManagementSchemaResult.getPrefix());
     assertNull(actualCreateAndAddXMPRightsManagementSchemaResult.getMarked());
     assertNull(actualCreateAndAddXMPRightsManagementSchemaResult.getCertificate());
@@ -984,100 +876,68 @@ class XMPMetadataDiffblueTest {
     assertNull(actualCreateAndAddXMPRightsManagementSchemaResult.getWebStatementProperty());
     assertEquals(1, createXMPMetadataResult.getAllSchemas().size());
     assertEquals(1, actualCreateAndAddXMPRightsManagementSchemaResult.getAllAttributes().size());
-    Map<String, String> allNamespacesWithPrefix =
-        actualCreateAndAddXMPRightsManagementSchemaResult.getAllNamespacesWithPrefix();
+    Map<String, String> allNamespacesWithPrefix = actualCreateAndAddXMPRightsManagementSchemaResult
+        .getAllNamespacesWithPrefix();
     assertEquals(1, allNamespacesWithPrefix.size());
     assertTrue(actualCreateAndAddXMPRightsManagementSchemaResult.getAllProperties().isEmpty());
     assertTrue(allNamespacesWithPrefix.containsKey("http://ns.adobe.com/xap/1.0/rights/"));
-    assertSame(
-        createXMPMetadataResult, actualCreateAndAddXMPRightsManagementSchemaResult.getMetadata());
+    assertSame(createXMPMetadataResult, actualCreateAndAddXMPRightsManagementSchemaResult.getMetadata());
   }
 
   /**
    * Test {@link XMPMetadata#getXMPRightsManagementSchema()}.
-   *
-   * <p>Method under test: {@link XMPMetadata#getXMPRightsManagementSchema()}
+   * <p>
+   * Method under test: {@link XMPMetadata#getXMPRightsManagementSchema()}
    */
   @Test
   @DisplayName("Test getXMPRightsManagementSchema()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"XMPRightsManagementSchema XMPMetadata.getXMPRightsManagementSchema()"})
   void testGetXMPRightsManagementSchema() {
     // Arrange
-    XMPMetadata xmpMetadata =
-        new XMPMetadata(
-            "Xpacket Begin", "42", "Xpacket Bytes", XmpConstants.DEFAULT_XPACKET_ENCODING);
-    XMPRightsManagementSchema obj = new XMPRightsManagementSchema(XMPMetadata.createXMPMetadata());
-    xmpMetadata.addSchema(obj);
+    XMPMetadata createXMPMetadataResult = XMPMetadata.createXMPMetadata();
+    createXMPMetadataResult.addSchema(new AdobePDFSchema(XMPMetadata.createXMPMetadata()));
 
     // Act and Assert
-    assertSame(obj, xmpMetadata.getXMPRightsManagementSchema());
+    assertNull(createXMPMetadataResult.getXMPRightsManagementSchema());
   }
 
   /**
    * Test {@link XMPMetadata#getXMPRightsManagementSchema()}.
-   *
-   * <p>Method under test: {@link XMPMetadata#getXMPRightsManagementSchema()}
-   */
-  @Test
-  @DisplayName("Test getXMPRightsManagementSchema()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"XMPRightsManagementSchema XMPMetadata.getXMPRightsManagementSchema()"})
-  void testGetXMPRightsManagementSchema2() {
-    // Arrange
-    XMPMetadata xmpMetadata =
-        new XMPMetadata(
-            "Xpacket Begin", "42", "Xpacket Bytes", XmpConstants.DEFAULT_XPACKET_ENCODING);
-    xmpMetadata.addSchema(new AdobePDFSchema(XMPMetadata.createXMPMetadata()));
-
-    // Act and Assert
-    assertNull(xmpMetadata.getXMPRightsManagementSchema());
-  }
-
-  /**
-   * Test {@link XMPMetadata#getXMPRightsManagementSchema()}.
-   *
    * <ul>
-   *   <li>Given createXMPMetadata.
-   *   <li>Then return {@code null}.
+   *   <li>Given createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMetadata#getXMPRightsManagementSchema()}
+   * <p>
+   * Method under test: {@link XMPMetadata#getXMPRightsManagementSchema()}
    */
   @Test
-  @DisplayName("Test getXMPRightsManagementSchema(); given createXMPMetadata; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getXMPRightsManagementSchema(); given createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"XMPRightsManagementSchema XMPMetadata.getXMPRightsManagementSchema()"})
-  void testGetXMPRightsManagementSchema_givenCreateXMPMetadata_thenReturnNull() {
+  void testGetXMPRightsManagementSchema_givenCreateXMPMetadata() {
     // Arrange, Act and Assert
     assertNull(XMPMetadata.createXMPMetadata().getXMPRightsManagementSchema());
   }
 
   /**
    * Test {@link XMPMetadata#createAndAddXMPBasicSchema()}.
-   *
-   * <p>Method under test: {@link XMPMetadata#createAndAddXMPBasicSchema()}
+   * <p>
+   * Method under test: {@link XMPMetadata#createAndAddXMPBasicSchema()}
    */
   @Test
   @DisplayName("Test createAndAddXMPBasicSchema()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"XMPBasicSchema XMPMetadata.createAndAddXMPBasicSchema()"})
   void testCreateAndAddXMPBasicSchema() throws BadFieldValueException {
     // Arrange
     XMPMetadata createXMPMetadataResult = XMPMetadata.createXMPMetadata();
 
     // Act
-    XMPBasicSchema actualCreateAndAddXMPBasicSchemaResult =
-        createXMPMetadataResult.createAndAddXMPBasicSchema();
+    XMPBasicSchema actualCreateAndAddXMPBasicSchemaResult = createXMPMetadataResult.createAndAddXMPBasicSchema();
 
     // Assert
     assertEquals("", actualCreateAndAddXMPBasicSchemaResult.getAboutValue());
-    assertEquals(
-        "http://ns.adobe.com/xap/1.0/", actualCreateAndAddXMPBasicSchemaResult.getNamespace());
+    assertEquals("http://ns.adobe.com/xap/1.0/", actualCreateAndAddXMPBasicSchemaResult.getNamespace());
     assertEquals("xmp", actualCreateAndAddXMPBasicSchemaResult.getPreferedPrefix());
     assertEquals("xmp", actualCreateAndAddXMPBasicSchemaResult.getPrefix());
     assertNull(actualCreateAndAddXMPBasicSchemaResult.getRating());
@@ -1106,8 +966,7 @@ class XMPMetadataDiffblueTest {
     assertNull(actualCreateAndAddXMPBasicSchemaResult.getNicknameProperty());
     assertEquals(1, createXMPMetadataResult.getAllSchemas().size());
     assertEquals(1, actualCreateAndAddXMPBasicSchemaResult.getAllAttributes().size());
-    Map<String, String> allNamespacesWithPrefix =
-        actualCreateAndAddXMPBasicSchemaResult.getAllNamespacesWithPrefix();
+    Map<String, String> allNamespacesWithPrefix = actualCreateAndAddXMPBasicSchemaResult.getAllNamespacesWithPrefix();
     assertEquals(1, allNamespacesWithPrefix.size());
     assertTrue(actualCreateAndAddXMPBasicSchemaResult.getAllProperties().isEmpty());
     assertTrue(allNamespacesWithPrefix.containsKey("http://ns.adobe.com/xap/1.0/"));
@@ -1116,96 +975,59 @@ class XMPMetadataDiffblueTest {
 
   /**
    * Test {@link XMPMetadata#getXMPBasicSchema()}.
-   *
-   * <p>Method under test: {@link XMPMetadata#getXMPBasicSchema()}
+   * <p>
+   * Method under test: {@link XMPMetadata#getXMPBasicSchema()}
    */
   @Test
   @DisplayName("Test getXMPBasicSchema()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"XMPBasicSchema XMPMetadata.getXMPBasicSchema()"})
   void testGetXMPBasicSchema() {
     // Arrange
-    XMPMetadata xmpMetadata =
-        new XMPMetadata(
-            "Xpacket Begin", "42", "Xpacket Bytes", XmpConstants.DEFAULT_XPACKET_ENCODING);
-    xmpMetadata.addSchema(new AdobePDFSchema(XMPMetadata.createXMPMetadata()));
+    XMPMetadata createXMPMetadataResult = XMPMetadata.createXMPMetadata();
+    createXMPMetadataResult.addSchema(new AdobePDFSchema(XMPMetadata.createXMPMetadata()));
 
     // Act and Assert
-    assertNull(xmpMetadata.getXMPBasicSchema());
+    assertNull(createXMPMetadataResult.getXMPBasicSchema());
   }
 
   /**
    * Test {@link XMPMetadata#getXMPBasicSchema()}.
-   *
    * <ul>
-   *   <li>Given createXMPMetadata.
-   *   <li>Then return {@code null}.
+   *   <li>Given createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMetadata#getXMPBasicSchema()}
+   * <p>
+   * Method under test: {@link XMPMetadata#getXMPBasicSchema()}
    */
   @Test
-  @DisplayName("Test getXMPBasicSchema(); given createXMPMetadata; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getXMPBasicSchema(); given createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"XMPBasicSchema XMPMetadata.getXMPBasicSchema()"})
-  void testGetXMPBasicSchema_givenCreateXMPMetadata_thenReturnNull() {
+  void testGetXMPBasicSchema_givenCreateXMPMetadata() {
     // Arrange, Act and Assert
     assertNull(XMPMetadata.createXMPMetadata().getXMPBasicSchema());
   }
 
   /**
-   * Test {@link XMPMetadata#getXMPBasicSchema()}.
-   *
-   * <ul>
-   *   <li>Then return {@link XMPBasicSchema#XMPBasicSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
-   * </ul>
-   *
-   * <p>Method under test: {@link XMPMetadata#getXMPBasicSchema()}
-   */
-  @Test
-  @DisplayName(
-      "Test getXMPBasicSchema(); then return XMPBasicSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"XMPBasicSchema XMPMetadata.getXMPBasicSchema()"})
-  void testGetXMPBasicSchema_thenReturnXMPBasicSchemaWithMetadataIsCreateXMPMetadata() {
-    // Arrange
-    XMPMetadata xmpMetadata =
-        new XMPMetadata(
-            "Xpacket Begin", "42", "Xpacket Bytes", XmpConstants.DEFAULT_XPACKET_ENCODING);
-    XMPBasicSchema obj = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
-    xmpMetadata.addSchema(obj);
-
-    // Act and Assert
-    assertSame(obj, xmpMetadata.getXMPBasicSchema());
-  }
-
-  /**
    * Test {@link XMPMetadata#createAndAddXMPMediaManagementSchema()}.
-   *
-   * <p>Method under test: {@link XMPMetadata#createAndAddXMPMediaManagementSchema()}
+   * <p>
+   * Method under test: {@link XMPMetadata#createAndAddXMPMediaManagementSchema()}
    */
   @Test
   @DisplayName("Test createAndAddXMPMediaManagementSchema()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"XMPMediaManagementSchema XMPMetadata.createAndAddXMPMediaManagementSchema()"})
   void testCreateAndAddXMPMediaManagementSchema() {
     // Arrange
     XMPMetadata createXMPMetadataResult = XMPMetadata.createXMPMetadata();
 
     // Act
-    XMPMediaManagementSchema actualCreateAndAddXMPMediaManagementSchemaResult =
-        createXMPMetadataResult.createAndAddXMPMediaManagementSchema();
+    XMPMediaManagementSchema actualCreateAndAddXMPMediaManagementSchemaResult = createXMPMetadataResult
+        .createAndAddXMPMediaManagementSchema();
 
     // Assert
     assertEquals("", actualCreateAndAddXMPMediaManagementSchemaResult.getAboutValue());
-    assertEquals(
-        "http://ns.adobe.com/xap/1.0/mm/",
-        actualCreateAndAddXMPMediaManagementSchemaResult.getNamespace());
+    assertEquals("http://ns.adobe.com/xap/1.0/mm/", actualCreateAndAddXMPMediaManagementSchemaResult.getNamespace());
     assertEquals("xmpMM", actualCreateAndAddXMPMediaManagementSchemaResult.getPreferedPrefix());
     assertEquals("xmpMM", actualCreateAndAddXMPMediaManagementSchemaResult.getPrefix());
     assertNull(actualCreateAndAddXMPMediaManagementSchemaResult.getSaveID());
@@ -1243,38 +1065,33 @@ class XMPMetadataDiffblueTest {
     assertNull(actualCreateAndAddXMPMediaManagementSchemaResult.getLastURLProperty());
     assertEquals(1, createXMPMetadataResult.getAllSchemas().size());
     assertEquals(1, actualCreateAndAddXMPMediaManagementSchemaResult.getAllAttributes().size());
-    Map<String, String> allNamespacesWithPrefix =
-        actualCreateAndAddXMPMediaManagementSchemaResult.getAllNamespacesWithPrefix();
+    Map<String, String> allNamespacesWithPrefix = actualCreateAndAddXMPMediaManagementSchemaResult
+        .getAllNamespacesWithPrefix();
     assertEquals(1, allNamespacesWithPrefix.size());
     assertTrue(actualCreateAndAddXMPMediaManagementSchemaResult.getAllProperties().isEmpty());
     assertTrue(allNamespacesWithPrefix.containsKey("http://ns.adobe.com/xap/1.0/mm/"));
-    assertSame(
-        createXMPMetadataResult, actualCreateAndAddXMPMediaManagementSchemaResult.getMetadata());
+    assertSame(createXMPMetadataResult, actualCreateAndAddXMPMediaManagementSchemaResult.getMetadata());
   }
 
   /**
    * Test {@link XMPMetadata#createAndAddPhotoshopSchema()}.
-   *
-   * <p>Method under test: {@link XMPMetadata#createAndAddPhotoshopSchema()}
+   * <p>
+   * Method under test: {@link XMPMetadata#createAndAddPhotoshopSchema()}
    */
   @Test
   @DisplayName("Test createAndAddPhotoshopSchema()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PhotoshopSchema XMPMetadata.createAndAddPhotoshopSchema()"})
   void testCreateAndAddPhotoshopSchema() throws BadFieldValueException {
     // Arrange
     XMPMetadata createXMPMetadataResult = XMPMetadata.createXMPMetadata();
 
     // Act
-    PhotoshopSchema actualCreateAndAddPhotoshopSchemaResult =
-        createXMPMetadataResult.createAndAddPhotoshopSchema();
+    PhotoshopSchema actualCreateAndAddPhotoshopSchemaResult = createXMPMetadataResult.createAndAddPhotoshopSchema();
 
     // Assert
     assertEquals("", actualCreateAndAddPhotoshopSchemaResult.getAboutValue());
-    assertEquals(
-        "http://ns.adobe.com/photoshop/1.0/",
-        actualCreateAndAddPhotoshopSchemaResult.getNamespace());
+    assertEquals("http://ns.adobe.com/photoshop/1.0/", actualCreateAndAddPhotoshopSchemaResult.getNamespace());
     assertEquals("photoshop", actualCreateAndAddPhotoshopSchemaResult.getPreferedPrefix());
     assertEquals("photoshop", actualCreateAndAddPhotoshopSchemaResult.getPrefix());
     assertNull(actualCreateAndAddPhotoshopSchemaResult.getColorMode());
@@ -1319,8 +1136,7 @@ class XMPMetadataDiffblueTest {
     assertNull(actualCreateAndAddPhotoshopSchemaResult.getAncestorIDProperty());
     assertEquals(1, createXMPMetadataResult.getAllSchemas().size());
     assertEquals(1, actualCreateAndAddPhotoshopSchemaResult.getAllAttributes().size());
-    Map<String, String> allNamespacesWithPrefix =
-        actualCreateAndAddPhotoshopSchemaResult.getAllNamespacesWithPrefix();
+    Map<String, String> allNamespacesWithPrefix = actualCreateAndAddPhotoshopSchemaResult.getAllNamespacesWithPrefix();
     assertEquals(1, allNamespacesWithPrefix.size());
     assertTrue(actualCreateAndAddPhotoshopSchemaResult.getAllProperties().isEmpty());
     assertTrue(allNamespacesWithPrefix.containsKey("http://ns.adobe.com/photoshop/1.0/"));
@@ -1329,39 +1145,34 @@ class XMPMetadataDiffblueTest {
 
   /**
    * Test {@link XMPMetadata#getPhotoshopSchema()}.
-   *
-   * <p>Method under test: {@link XMPMetadata#getPhotoshopSchema()}
+   * <p>
+   * Method under test: {@link XMPMetadata#getPhotoshopSchema()}
    */
   @Test
   @DisplayName("Test getPhotoshopSchema()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PhotoshopSchema XMPMetadata.getPhotoshopSchema()"})
   void testGetPhotoshopSchema() {
     // Arrange
-    XMPMetadata xmpMetadata =
-        new XMPMetadata(
-            "Xpacket Begin", "42", "Xpacket Bytes", XmpConstants.DEFAULT_XPACKET_ENCODING);
-    xmpMetadata.addSchema(new AdobePDFSchema(XMPMetadata.createXMPMetadata()));
+    XMPMetadata createXMPMetadataResult = XMPMetadata.createXMPMetadata();
+    createXMPMetadataResult.addSchema(new AdobePDFSchema(XMPMetadata.createXMPMetadata()));
 
     // Act and Assert
-    assertNull(xmpMetadata.getPhotoshopSchema());
+    assertNull(createXMPMetadataResult.getPhotoshopSchema());
   }
 
   /**
    * Test {@link XMPMetadata#getPhotoshopSchema()}.
-   *
    * <ul>
-   *   <li>Given createXMPMetadata.
-   *   <li>Then return {@code null}.
+   *   <li>Given createXMPMetadata.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMetadata#getPhotoshopSchema()}
+   * <p>
+   * Method under test: {@link XMPMetadata#getPhotoshopSchema()}
    */
   @Test
   @DisplayName("Test getPhotoshopSchema(); given createXMPMetadata; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PhotoshopSchema XMPMetadata.getPhotoshopSchema()"})
   void testGetPhotoshopSchema_givenCreateXMPMetadata_thenReturnNull() {
     // Arrange, Act and Assert
@@ -1370,117 +1181,81 @@ class XMPMetadataDiffblueTest {
 
   /**
    * Test {@link XMPMetadata#getPhotoshopSchema()}.
-   *
    * <ul>
-   *   <li>Then return {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Then return {@link PhotoshopSchema#PhotoshopSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMetadata#getPhotoshopSchema()}
+   * <p>
+   * Method under test: {@link XMPMetadata#getPhotoshopSchema()}
    */
   @Test
-  @DisplayName(
-      "Test getPhotoshopSchema(); then return PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getPhotoshopSchema(); then return PhotoshopSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PhotoshopSchema XMPMetadata.getPhotoshopSchema()"})
   void testGetPhotoshopSchema_thenReturnPhotoshopSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange
-    XMPMetadata xmpMetadata =
-        new XMPMetadata(
-            "Xpacket Begin", "42", "Xpacket Bytes", XmpConstants.DEFAULT_XPACKET_ENCODING);
     PhotoshopSchema obj = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    xmpMetadata.addSchema(obj);
+    obj.addBagValueAsSimple("http://ns.adobe.com/photoshop/1.0/", "http://ns.adobe.com/pdf/1.3/");
+    XMPMetadata createXMPMetadataResult = XMPMetadata.createXMPMetadata();
+    createXMPMetadataResult.addSchema(obj);
 
     // Act and Assert
-    assertSame(obj, xmpMetadata.getPhotoshopSchema());
+    assertSame(obj, createXMPMetadataResult.getPhotoshopSchema());
   }
 
   /**
    * Test {@link XMPMetadata#getXMPMediaManagementSchema()}.
-   *
-   * <p>Method under test: {@link XMPMetadata#getXMPMediaManagementSchema()}
+   * <p>
+   * Method under test: {@link XMPMetadata#getXMPMediaManagementSchema()}
    */
   @Test
   @DisplayName("Test getXMPMediaManagementSchema()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"XMPMediaManagementSchema XMPMetadata.getXMPMediaManagementSchema()"})
   void testGetXMPMediaManagementSchema() {
     // Arrange
-    XMPMetadata xmpMetadata =
-        new XMPMetadata(
-            "Xpacket Begin", "42", "Xpacket Bytes", XmpConstants.DEFAULT_XPACKET_ENCODING);
-    XMPMediaManagementSchema obj = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
-    xmpMetadata.addSchema(obj);
+    XMPMetadata createXMPMetadataResult = XMPMetadata.createXMPMetadata();
+    createXMPMetadataResult.addSchema(new AdobePDFSchema(XMPMetadata.createXMPMetadata()));
 
     // Act and Assert
-    assertSame(obj, xmpMetadata.getXMPMediaManagementSchema());
+    assertNull(createXMPMetadataResult.getXMPMediaManagementSchema());
   }
 
   /**
    * Test {@link XMPMetadata#getXMPMediaManagementSchema()}.
-   *
-   * <p>Method under test: {@link XMPMetadata#getXMPMediaManagementSchema()}
-   */
-  @Test
-  @DisplayName("Test getXMPMediaManagementSchema()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"XMPMediaManagementSchema XMPMetadata.getXMPMediaManagementSchema()"})
-  void testGetXMPMediaManagementSchema2() {
-    // Arrange
-    XMPMetadata xmpMetadata =
-        new XMPMetadata(
-            "Xpacket Begin", "42", "Xpacket Bytes", XmpConstants.DEFAULT_XPACKET_ENCODING);
-    xmpMetadata.addSchema(new AdobePDFSchema(XMPMetadata.createXMPMetadata()));
-
-    // Act and Assert
-    assertNull(xmpMetadata.getXMPMediaManagementSchema());
-  }
-
-  /**
-   * Test {@link XMPMetadata#getXMPMediaManagementSchema()}.
-   *
    * <ul>
-   *   <li>Given createXMPMetadata.
-   *   <li>Then return {@code null}.
+   *   <li>Given createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMetadata#getXMPMediaManagementSchema()}
+   * <p>
+   * Method under test: {@link XMPMetadata#getXMPMediaManagementSchema()}
    */
   @Test
-  @DisplayName("Test getXMPMediaManagementSchema(); given createXMPMetadata; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getXMPMediaManagementSchema(); given createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"XMPMediaManagementSchema XMPMetadata.getXMPMediaManagementSchema()"})
-  void testGetXMPMediaManagementSchema_givenCreateXMPMetadata_thenReturnNull() {
+  void testGetXMPMediaManagementSchema_givenCreateXMPMetadata() {
     // Arrange, Act and Assert
     assertNull(XMPMetadata.createXMPMetadata().getXMPMediaManagementSchema());
   }
 
   /**
    * Test {@link XMPMetadata#createAndAddAdobePDFSchema()}.
-   *
-   * <p>Method under test: {@link XMPMetadata#createAndAddAdobePDFSchema()}
+   * <p>
+   * Method under test: {@link XMPMetadata#createAndAddAdobePDFSchema()}
    */
   @Test
   @DisplayName("Test createAndAddAdobePDFSchema()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"AdobePDFSchema XMPMetadata.createAndAddAdobePDFSchema()"})
   void testCreateAndAddAdobePDFSchema() {
     // Arrange
     XMPMetadata createXMPMetadataResult = XMPMetadata.createXMPMetadata();
 
     // Act
-    AdobePDFSchema actualCreateAndAddAdobePDFSchemaResult =
-        createXMPMetadataResult.createAndAddAdobePDFSchema();
+    AdobePDFSchema actualCreateAndAddAdobePDFSchemaResult = createXMPMetadataResult.createAndAddAdobePDFSchema();
 
     // Assert
     assertEquals("", actualCreateAndAddAdobePDFSchemaResult.getAboutValue());
-    assertEquals(
-        "http://ns.adobe.com/pdf/1.3/", actualCreateAndAddAdobePDFSchemaResult.getNamespace());
+    assertEquals("http://ns.adobe.com/pdf/1.3/", actualCreateAndAddAdobePDFSchemaResult.getNamespace());
     assertEquals("pdf", actualCreateAndAddAdobePDFSchemaResult.getPreferedPrefix());
     assertEquals("pdf", actualCreateAndAddAdobePDFSchemaResult.getPrefix());
     assertNull(actualCreateAndAddAdobePDFSchemaResult.getKeywords());
@@ -1492,8 +1267,7 @@ class XMPMetadataDiffblueTest {
     assertNull(actualCreateAndAddAdobePDFSchemaResult.getProducerProperty());
     assertEquals(1, createXMPMetadataResult.getAllSchemas().size());
     assertEquals(1, actualCreateAndAddAdobePDFSchemaResult.getAllAttributes().size());
-    Map<String, String> allNamespacesWithPrefix =
-        actualCreateAndAddAdobePDFSchemaResult.getAllNamespacesWithPrefix();
+    Map<String, String> allNamespacesWithPrefix = actualCreateAndAddAdobePDFSchemaResult.getAllNamespacesWithPrefix();
     assertEquals(1, allNamespacesWithPrefix.size());
     assertTrue(actualCreateAndAddAdobePDFSchemaResult.getAllProperties().isEmpty());
     assertTrue(allNamespacesWithPrefix.containsKey("http://ns.adobe.com/pdf/1.3/"));
@@ -1502,39 +1276,36 @@ class XMPMetadataDiffblueTest {
 
   /**
    * Test {@link XMPMetadata#getAdobePDFSchema()}.
-   *
-   * <p>Method under test: {@link XMPMetadata#getAdobePDFSchema()}
+   * <p>
+   * Method under test: {@link XMPMetadata#getAdobePDFSchema()}
    */
   @Test
   @DisplayName("Test getAdobePDFSchema()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"AdobePDFSchema XMPMetadata.getAdobePDFSchema()"})
   void testGetAdobePDFSchema() {
     // Arrange
-    XMPMetadata xmpMetadata =
-        new XMPMetadata(
-            "Xpacket Begin", "42", "Xpacket Bytes", XmpConstants.DEFAULT_XPACKET_ENCODING);
-    xmpMetadata.addSchema(new DublinCoreSchema(XMPMetadata.createXMPMetadata()));
+    DublinCoreSchema obj = new DublinCoreSchema(XMPMetadata.createXMPMetadata());
+    obj.addBagValueAsSimple("Simple Name", "http://ns.adobe.com/pdf/1.3/");
+    XMPMetadata createXMPMetadataResult = XMPMetadata.createXMPMetadata();
+    createXMPMetadataResult.addSchema(obj);
 
     // Act and Assert
-    assertNull(xmpMetadata.getAdobePDFSchema());
+    assertNull(createXMPMetadataResult.getAdobePDFSchema());
   }
 
   /**
    * Test {@link XMPMetadata#getAdobePDFSchema()}.
-   *
    * <ul>
-   *   <li>Given createXMPMetadata.
-   *   <li>Then return {@code null}.
+   *   <li>Given createXMPMetadata.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMetadata#getAdobePDFSchema()}
+   * <p>
+   * Method under test: {@link XMPMetadata#getAdobePDFSchema()}
    */
   @Test
   @DisplayName("Test getAdobePDFSchema(); given createXMPMetadata; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"AdobePDFSchema XMPMetadata.getAdobePDFSchema()"})
   void testGetAdobePDFSchema_givenCreateXMPMetadata_thenReturnNull() {
     // Arrange, Act and Assert
@@ -1543,45 +1314,37 @@ class XMPMetadataDiffblueTest {
 
   /**
    * Test {@link XMPMetadata#getAdobePDFSchema()}.
-   *
    * <ul>
-   *   <li>Then return {@link AdobePDFSchema#AdobePDFSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Then return {@link AdobePDFSchema#AdobePDFSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMetadata#getAdobePDFSchema()}
+   * <p>
+   * Method under test: {@link XMPMetadata#getAdobePDFSchema()}
    */
   @Test
-  @DisplayName(
-      "Test getAdobePDFSchema(); then return AdobePDFSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getAdobePDFSchema(); then return AdobePDFSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"AdobePDFSchema XMPMetadata.getAdobePDFSchema()"})
   void testGetAdobePDFSchema_thenReturnAdobePDFSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange
-    XMPMetadata xmpMetadata =
-        new XMPMetadata(
-            "Xpacket Begin", "42", "Xpacket Bytes", XmpConstants.DEFAULT_XPACKET_ENCODING);
+    XMPMetadata createXMPMetadataResult = XMPMetadata.createXMPMetadata();
     AdobePDFSchema obj = new AdobePDFSchema(XMPMetadata.createXMPMetadata());
-    xmpMetadata.addSchema(obj);
+    createXMPMetadataResult.addSchema(obj);
 
     // Act and Assert
-    assertSame(obj, xmpMetadata.getAdobePDFSchema());
+    assertSame(obj, createXMPMetadataResult.getAdobePDFSchema());
   }
 
   /**
    * Test {@link XMPMetadata#addSchema(XMPSchema)}.
-   *
    * <ul>
-   *   <li>Then createXMPMetadata AllSchemas size is one.
+   *   <li>Then createXMPMetadata AllSchemas size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMetadata#addSchema(XMPSchema)}
+   * <p>
+   * Method under test: {@link XMPMetadata#addSchema(XMPSchema)}
    */
   @Test
   @DisplayName("Test addSchema(XMPSchema); then createXMPMetadata AllSchemas size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMetadata.addSchema(XMPSchema)"})
   void testAddSchema_thenCreateXMPMetadataAllSchemasSizeIsOne() {
     // Arrange

@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,7 +21,6 @@ import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSInteger;
 import org.apache.pdfbox.cos.COSName;
-import org.apache.pdfbox.cos.COSNull;
 import org.apache.pdfbox.cos.COSObject;
 import org.apache.pdfbox.cos.COSObjectKey;
 import org.apache.pdfbox.cos.COSStream;
@@ -39,17 +37,16 @@ import org.junit.jupiter.api.Test;
 class PDNameTreeNodeDiffblueTest {
   /**
    * Test {@link PDNameTreeNode#getCOSObject()}.
-   *
-   * <p>Method under test: {@link PDNameTreeNode#getCOSObject()}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#getCOSObject()}
    */
   @Test
   @DisplayName("Test getCOSObject()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSDictionary PDNameTreeNode.getCOSObject()"})
   void testGetCOSObject() {
     // Arrange and Act
-    COSDictionary actualCOSObject = new PDDestinationNameTreeNode().getCOSObject();
+    COSDictionary actualCOSObject = (new PDDestinationNameTreeNode()).getCOSObject();
 
     // Assert
     COSUpdateState updateState = actualCOSObject.getUpdateState();
@@ -67,34 +64,30 @@ class PDNameTreeNodeDiffblueTest {
 
   /**
    * Test {@link PDNameTreeNode#getParent()}.
-   *
-   * <p>Method under test: {@link PDNameTreeNode#getParent()}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#getParent()}
    */
   @Test
   @DisplayName("Test getParent()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDNameTreeNode PDNameTreeNode.getParent()"})
   void testGetParent() {
     // Arrange, Act and Assert
-    assertNull(new PDDestinationNameTreeNode().getParent());
+    assertNull((new PDDestinationNameTreeNode()).getParent());
   }
 
   /**
    * Test {@link PDNameTreeNode#setParent(PDNameTreeNode)}.
-   *
    * <ul>
-   *   <li>Given {@link COSObject} {@link COSObject#getObject()} return {@link COSBoolean#FALSE}.
-   *   <li>Then calls {@link COSObject#getObject()}.
+   *   <li>Given {@link COSObject} {@link COSObject#getObject()} return {@link COSBoolean#FALSE}.</li>
+   *   <li>Then calls {@link COSObject#getObject()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#setParent(PDNameTreeNode)}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#setParent(PDNameTreeNode)}
    */
   @Test
-  @DisplayName(
-      "Test setParent(PDNameTreeNode); given COSObject getObject() return FALSE; then calls getObject()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setParent(PDNameTreeNode); given COSObject getObject() return FALSE; then calls getObject()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDNameTreeNode.setParent(PDNameTreeNode)"})
   void testSetParent_givenCOSObjectGetObjectReturnFalse_thenCallsGetObject() {
     // Arrange
@@ -123,60 +116,15 @@ class PDNameTreeNodeDiffblueTest {
 
   /**
    * Test {@link PDNameTreeNode#setParent(PDNameTreeNode)}.
-   *
    * <ul>
-   *   <li>Given {@link COSObject} {@link COSObject#getObject()} return {@link COSNull#NULL}.
-   *   <li>Then calls {@link COSObject#getObject()}.
+   *   <li>Given {@link PDPageFitDestination#PDPageFitDestination(COSArray)} with arr is {@link COSArray#COSArray()} Page is {@link PDPage#PDPage()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#setParent(PDNameTreeNode)}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#setParent(PDNameTreeNode)}
    */
   @Test
-  @DisplayName(
-      "Test setParent(PDNameTreeNode); given COSObject getObject() return NULL; then calls getObject()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDNameTreeNode.setParent(PDNameTreeNode)"})
-  void testSetParent_givenCOSObjectGetObjectReturnNull_thenCallsGetObject() {
-    // Arrange
-    COSObject object = mock(COSObject.class);
-    when(object.getObject()).thenReturn(COSNull.NULL);
-    when(object.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
-
-    COSArray arr = new COSArray();
-    arr.add(COSBoolean.FALSE);
-    arr.add((COSBase) object);
-    PDPageFitDestination pdPageFitDestination = new PDPageFitDestination(arr);
-
-    HashMap<String, PDPageDestination> names = new HashMap<>();
-    names.put("foo", pdPageFitDestination);
-
-    PDDestinationNameTreeNode pdDestinationNameTreeNode = new PDDestinationNameTreeNode();
-    pdDestinationNameTreeNode.setNames(names);
-
-    // Act
-    pdDestinationNameTreeNode.setParent(new PDDestinationNameTreeNode());
-
-    // Assert
-    verify(object).getObject();
-    verify(object).getUpdateState();
-  }
-
-  /**
-   * Test {@link PDNameTreeNode#setParent(PDNameTreeNode)}.
-   *
-   * <ul>
-   *   <li>Given {@link PDPageFitDestination#PDPageFitDestination(COSArray)} with arr is {@link
-   *       COSArray#COSArray()} Page is {@link PDPage#PDPage()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#setParent(PDNameTreeNode)}
-   */
-  @Test
-  @DisplayName(
-      "Test setParent(PDNameTreeNode); given PDPageFitDestination(COSArray) with arr is COSArray() Page is PDPage()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setParent(PDNameTreeNode); given PDPageFitDestination(COSArray) with arr is COSArray() Page is PDPage()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDNameTreeNode.setParent(PDNameTreeNode)"})
   void testSetParent_givenPDPageFitDestinationWithArrIsCOSArrayPageIsPDPage() {
     // Arrange
@@ -207,37 +155,33 @@ class PDNameTreeNodeDiffblueTest {
 
   /**
    * Test {@link PDNameTreeNode#isRootNode()}.
-   *
    * <ul>
-   *   <li>Given {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()}.
-   *   <li>Then return {@code true}.
+   *   <li>Given {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#isRootNode()}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#isRootNode()}
    */
   @Test
   @DisplayName("Test isRootNode(); given PDDestinationNameTreeNode(); then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDNameTreeNode.isRootNode()"})
   void testIsRootNode_givenPDDestinationNameTreeNode_thenReturnTrue() {
     // Arrange, Act and Assert
-    assertTrue(new PDDestinationNameTreeNode().isRootNode());
+    assertTrue((new PDDestinationNameTreeNode()).isRootNode());
   }
 
   /**
    * Test {@link PDNameTreeNode#isRootNode()}.
-   *
    * <ul>
-   *   <li>Then return {@code false}.
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#isRootNode()}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#isRootNode()}
    */
   @Test
   @DisplayName("Test isRootNode(); then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDNameTreeNode.isRootNode()"})
   void testIsRootNode_thenReturnFalse() {
     // Arrange
@@ -250,23 +194,18 @@ class PDNameTreeNodeDiffblueTest {
 
   /**
    * Test {@link PDNameTreeNode#getKids()}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link
-   *       PDDestinationNameTreeNode#PDDestinationNameTreeNode()}.
-   *   <li>Then return size is one.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()}.</li>
+   *   <li>Then return size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#getKids()}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#getKids()}
    */
   @Test
-  @DisplayName(
-      "Test getKids(); given ArrayList() add PDDestinationNameTreeNode(); then return size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getKids(); given ArrayList() add PDDestinationNameTreeNode(); then return size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDNameTreeNode.getKids()"})
-  void testGetKids_givenArrayListAddPDDestinationNameTreeNode_thenReturnSizeIsOne()
-      throws IOException {
+  void testGetKids_givenArrayListAddPDDestinationNameTreeNode_thenReturnSizeIsOne() throws IOException {
     // Arrange
     ArrayList<PDNameTreeNode<PDPageDestination>> kids = new ArrayList<>();
     kids.add(new PDDestinationNameTreeNode());
@@ -296,37 +235,33 @@ class PDNameTreeNodeDiffblueTest {
 
   /**
    * Test {@link PDNameTreeNode#getKids()}.
-   *
    * <ul>
-   *   <li>Given {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#getKids()}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#getKids()}
    */
   @Test
   @DisplayName("Test getKids(); given PDDestinationNameTreeNode(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDNameTreeNode.getKids()"})
   void testGetKids_givenPDDestinationNameTreeNode_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDDestinationNameTreeNode().getKids());
+    assertNull((new PDDestinationNameTreeNode()).getKids());
   }
 
   /**
    * Test {@link PDNameTreeNode#setKids(List)}.
-   *
    * <ul>
-   *   <li>Given {@link COSArray#COSArray()} add {@link COSName#A}.
+   *   <li>Given {@link COSArray#COSArray()} add {@link COSName#A}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#setKids(List)}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#setKids(List)}
    */
   @Test
   @DisplayName("Test setKids(List); given COSArray() add A")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDNameTreeNode.setKids(List)"})
   void testSetKids_givenCOSArrayAddA() {
     // Arrange
@@ -342,45 +277,43 @@ class PDNameTreeNodeDiffblueTest {
     PDDestinationNameTreeNode pdDestinationNameTreeNode2 = new PDDestinationNameTreeNode();
     pdDestinationNameTreeNode2.setNames(names);
 
-    COSArrayList<PDNameTreeNode<PDPageDestination>> kids = new COSArrayList<>();
+    ArrayList<PDNameTreeNode<PDPageDestination>> kids = new ArrayList<>();
     kids.add(pdDestinationNameTreeNode2);
 
     // Act
     pdDestinationNameTreeNode.setKids(kids);
 
     // Assert
+    assertEquals(1, kids.size());
+    PDNameTreeNode<PDPageDestination> getResult = kids.get(0);
+    assertTrue(getResult instanceof PDDestinationNameTreeNode);
     List<PDNameTreeNode<PDPageDestination>> kids2 = pdDestinationNameTreeNode.getKids();
     assertEquals(1, kids2.size());
-    PDNameTreeNode<PDPageDestination> getResult = kids2.get(0);
-    assertTrue(getResult instanceof PDDestinationNameTreeNode);
-    assertEquals(1, kids.size());
-    PDNameTreeNode<PDPageDestination> getResult2 = kids.get(0);
-    PDNameTreeNode<PDPageDestination> parent = getResult2.getParent();
+    PDNameTreeNode<PDPageDestination> getResult2 = kids2.get(0);
+    assertTrue(getResult2 instanceof PDDestinationNameTreeNode);
+    PDNameTreeNode<PDPageDestination> parent = getResult.getParent();
     List<PDNameTreeNode<PDPageDestination>> kids3 = parent.getKids();
     assertEquals(1, kids3.size());
     PDNameTreeNode<PDPageDestination> getResult3 = kids3.get(0);
     assertTrue(getResult3 instanceof PDDestinationNameTreeNode);
-    assertTrue(getResult2 instanceof PDDestinationNameTreeNode);
     assertTrue(parent instanceof PDDestinationNameTreeNode);
-    assertNull(getResult.getLowerLimit());
+    assertNull(getResult2.getLowerLimit());
     assertNull(getResult3.getLowerLimit());
-    assertNull(getResult.getUpperLimit());
+    assertNull(getResult2.getUpperLimit());
     assertNull(getResult3.getUpperLimit());
   }
 
   /**
    * Test {@link PDNameTreeNode#setKids(List)}.
-   *
    * <ul>
-   *   <li>Given {@link COSArray#COSArray()} add {@link COSArray#COSArray()}.
+   *   <li>Given {@link COSArray#COSArray()} add {@link COSArray#COSArray()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#setKids(List)}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#setKids(List)}
    */
   @Test
   @DisplayName("Test setKids(List); given COSArray() add COSArray()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDNameTreeNode.setKids(List)"})
   void testSetKids_givenCOSArrayAddCOSArray() {
     // Arrange
@@ -396,45 +329,43 @@ class PDNameTreeNodeDiffblueTest {
     PDDestinationNameTreeNode pdDestinationNameTreeNode2 = new PDDestinationNameTreeNode();
     pdDestinationNameTreeNode2.setNames(names);
 
-    COSArrayList<PDNameTreeNode<PDPageDestination>> kids = new COSArrayList<>();
+    ArrayList<PDNameTreeNode<PDPageDestination>> kids = new ArrayList<>();
     kids.add(pdDestinationNameTreeNode2);
 
     // Act
     pdDestinationNameTreeNode.setKids(kids);
 
     // Assert
+    assertEquals(1, kids.size());
+    PDNameTreeNode<PDPageDestination> getResult = kids.get(0);
+    assertTrue(getResult instanceof PDDestinationNameTreeNode);
     List<PDNameTreeNode<PDPageDestination>> kids2 = pdDestinationNameTreeNode.getKids();
     assertEquals(1, kids2.size());
-    PDNameTreeNode<PDPageDestination> getResult = kids2.get(0);
-    assertTrue(getResult instanceof PDDestinationNameTreeNode);
-    assertEquals(1, kids.size());
-    PDNameTreeNode<PDPageDestination> getResult2 = kids.get(0);
-    PDNameTreeNode<PDPageDestination> parent = getResult2.getParent();
+    PDNameTreeNode<PDPageDestination> getResult2 = kids2.get(0);
+    assertTrue(getResult2 instanceof PDDestinationNameTreeNode);
+    PDNameTreeNode<PDPageDestination> parent = getResult.getParent();
     List<PDNameTreeNode<PDPageDestination>> kids3 = parent.getKids();
     assertEquals(1, kids3.size());
     PDNameTreeNode<PDPageDestination> getResult3 = kids3.get(0);
     assertTrue(getResult3 instanceof PDDestinationNameTreeNode);
-    assertTrue(getResult2 instanceof PDDestinationNameTreeNode);
     assertTrue(parent instanceof PDDestinationNameTreeNode);
-    assertNull(getResult.getLowerLimit());
+    assertNull(getResult2.getLowerLimit());
     assertNull(getResult3.getLowerLimit());
-    assertNull(getResult.getUpperLimit());
+    assertNull(getResult2.getUpperLimit());
     assertNull(getResult3.getUpperLimit());
   }
 
   /**
    * Test {@link PDNameTreeNode#setKids(List)}.
-   *
    * <ul>
-   *   <li>Given {@link COSArray#COSArray()} add {@link COSDictionary#COSDictionary()}.
+   *   <li>Given {@link COSArray#COSArray()} add {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#setKids(List)}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#setKids(List)}
    */
   @Test
   @DisplayName("Test setKids(List); given COSArray() add COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDNameTreeNode.setKids(List)"})
   void testSetKids_givenCOSArrayAddCOSDictionary() {
     // Arrange
@@ -450,56 +381,51 @@ class PDNameTreeNodeDiffblueTest {
     PDDestinationNameTreeNode pdDestinationNameTreeNode2 = new PDDestinationNameTreeNode();
     pdDestinationNameTreeNode2.setNames(names);
 
-    COSArrayList<PDNameTreeNode<PDPageDestination>> kids = new COSArrayList<>();
+    ArrayList<PDNameTreeNode<PDPageDestination>> kids = new ArrayList<>();
     kids.add(pdDestinationNameTreeNode2);
 
     // Act
     pdDestinationNameTreeNode.setKids(kids);
 
     // Assert
+    assertEquals(1, kids.size());
+    PDNameTreeNode<PDPageDestination> getResult = kids.get(0);
+    assertTrue(getResult instanceof PDDestinationNameTreeNode);
     List<PDNameTreeNode<PDPageDestination>> kids2 = pdDestinationNameTreeNode.getKids();
     assertEquals(1, kids2.size());
-    PDNameTreeNode<PDPageDestination> getResult = kids2.get(0);
-    assertTrue(getResult instanceof PDDestinationNameTreeNode);
-    assertEquals(1, kids.size());
-    PDNameTreeNode<PDPageDestination> getResult2 = kids.get(0);
-    PDNameTreeNode<PDPageDestination> parent = getResult2.getParent();
+    PDNameTreeNode<PDPageDestination> getResult2 = kids2.get(0);
+    assertTrue(getResult2 instanceof PDDestinationNameTreeNode);
+    PDNameTreeNode<PDPageDestination> parent = getResult.getParent();
     List<PDNameTreeNode<PDPageDestination>> kids3 = parent.getKids();
     assertEquals(1, kids3.size());
     PDNameTreeNode<PDPageDestination> getResult3 = kids3.get(0);
     assertTrue(getResult3 instanceof PDDestinationNameTreeNode);
-    assertTrue(getResult2 instanceof PDDestinationNameTreeNode);
     assertTrue(parent instanceof PDDestinationNameTreeNode);
-    assertNull(getResult.getLowerLimit());
+    assertNull(getResult2.getLowerLimit());
     assertNull(getResult3.getLowerLimit());
-    assertNull(getResult.getUpperLimit());
+    assertNull(getResult2.getUpperLimit());
     assertNull(getResult3.getUpperLimit());
   }
 
   /**
    * Test {@link PDNameTreeNode#setKids(List)}.
-   *
    * <ul>
-   *   <li>Given {@link COSArray#COSArray()} add {@link COSObject#COSObject(COSBase, COSObjectKey)}
-   *       with object is {@link COSBoolean#FALSE} and objectKey is {@link
-   *       COSObjectKey#COSObjectKey(long, int)}.
+   *   <li>Given {@link COSArray#COSArray()} add {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#setKids(List)}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#setKids(List)}
    */
   @Test
-  @DisplayName(
-      "Test setKids(List); given COSArray() add COSObject(COSBase, COSObjectKey) with object is FALSE and objectKey is COSObjectKey(long, int)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setKids(List); given COSArray() add COSDictionary()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDNameTreeNode.setKids(List)"})
-  void testSetKids_givenCOSArrayAddCOSObjectWithObjectIsFalseAndObjectKeyIsCOSObjectKey() {
+  void testSetKids_givenCOSArrayAddCOSDictionary2() {
     // Arrange
     PDDestinationNameTreeNode pdDestinationNameTreeNode = new PDDestinationNameTreeNode();
 
     COSArray arr = new COSArray();
-    COSObject object = new COSObject(COSBoolean.FALSE, new COSObjectKey(4L, 4));
-    arr.add((COSBase) object);
+    arr.add(COSBoolean.FALSE);
+    arr.add((COSBase) new COSDictionary());
     PDPageFitDestination pdPageFitDestination = new PDPageFitDestination(arr);
 
     HashMap<String, PDPageDestination> names = new HashMap<>();
@@ -508,45 +434,43 @@ class PDNameTreeNodeDiffblueTest {
     PDDestinationNameTreeNode pdDestinationNameTreeNode2 = new PDDestinationNameTreeNode();
     pdDestinationNameTreeNode2.setNames(names);
 
-    COSArrayList<PDNameTreeNode<PDPageDestination>> kids = new COSArrayList<>();
+    ArrayList<PDNameTreeNode<PDPageDestination>> kids = new ArrayList<>();
     kids.add(pdDestinationNameTreeNode2);
 
     // Act
     pdDestinationNameTreeNode.setKids(kids);
 
     // Assert
+    assertEquals(1, kids.size());
+    PDNameTreeNode<PDPageDestination> getResult = kids.get(0);
+    assertTrue(getResult instanceof PDDestinationNameTreeNode);
     List<PDNameTreeNode<PDPageDestination>> kids2 = pdDestinationNameTreeNode.getKids();
     assertEquals(1, kids2.size());
-    PDNameTreeNode<PDPageDestination> getResult = kids2.get(0);
-    assertTrue(getResult instanceof PDDestinationNameTreeNode);
-    assertEquals(1, kids.size());
-    PDNameTreeNode<PDPageDestination> getResult2 = kids.get(0);
-    PDNameTreeNode<PDPageDestination> parent = getResult2.getParent();
+    PDNameTreeNode<PDPageDestination> getResult2 = kids2.get(0);
+    assertTrue(getResult2 instanceof PDDestinationNameTreeNode);
+    PDNameTreeNode<PDPageDestination> parent = getResult.getParent();
     List<PDNameTreeNode<PDPageDestination>> kids3 = parent.getKids();
     assertEquals(1, kids3.size());
     PDNameTreeNode<PDPageDestination> getResult3 = kids3.get(0);
     assertTrue(getResult3 instanceof PDDestinationNameTreeNode);
-    assertTrue(getResult2 instanceof PDDestinationNameTreeNode);
     assertTrue(parent instanceof PDDestinationNameTreeNode);
-    assertNull(getResult.getLowerLimit());
+    assertNull(getResult2.getLowerLimit());
     assertNull(getResult3.getLowerLimit());
-    assertNull(getResult.getUpperLimit());
+    assertNull(getResult2.getUpperLimit());
     assertNull(getResult3.getUpperLimit());
   }
 
   /**
    * Test {@link PDNameTreeNode#setKids(List)}.
-   *
    * <ul>
-   *   <li>Given {@link COSArray#COSArray()} add {@link COSStream#COSStream()}.
+   *   <li>Given {@link COSArray#COSArray()} add {@link COSStream#COSStream()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#setKids(List)}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#setKids(List)}
    */
   @Test
   @DisplayName("Test setKids(List); given COSArray() add COSStream()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDNameTreeNode.setKids(List)"})
   void testSetKids_givenCOSArrayAddCOSStream() {
     // Arrange
@@ -562,45 +486,43 @@ class PDNameTreeNodeDiffblueTest {
     PDDestinationNameTreeNode pdDestinationNameTreeNode2 = new PDDestinationNameTreeNode();
     pdDestinationNameTreeNode2.setNames(names);
 
-    COSArrayList<PDNameTreeNode<PDPageDestination>> kids = new COSArrayList<>();
+    ArrayList<PDNameTreeNode<PDPageDestination>> kids = new ArrayList<>();
     kids.add(pdDestinationNameTreeNode2);
 
     // Act
     pdDestinationNameTreeNode.setKids(kids);
 
     // Assert
+    assertEquals(1, kids.size());
+    PDNameTreeNode<PDPageDestination> getResult = kids.get(0);
+    assertTrue(getResult instanceof PDDestinationNameTreeNode);
     List<PDNameTreeNode<PDPageDestination>> kids2 = pdDestinationNameTreeNode.getKids();
     assertEquals(1, kids2.size());
-    PDNameTreeNode<PDPageDestination> getResult = kids2.get(0);
-    assertTrue(getResult instanceof PDDestinationNameTreeNode);
-    assertEquals(1, kids.size());
-    PDNameTreeNode<PDPageDestination> getResult2 = kids.get(0);
-    PDNameTreeNode<PDPageDestination> parent = getResult2.getParent();
+    PDNameTreeNode<PDPageDestination> getResult2 = kids2.get(0);
+    assertTrue(getResult2 instanceof PDDestinationNameTreeNode);
+    PDNameTreeNode<PDPageDestination> parent = getResult.getParent();
     List<PDNameTreeNode<PDPageDestination>> kids3 = parent.getKids();
     assertEquals(1, kids3.size());
     PDNameTreeNode<PDPageDestination> getResult3 = kids3.get(0);
     assertTrue(getResult3 instanceof PDDestinationNameTreeNode);
-    assertTrue(getResult2 instanceof PDDestinationNameTreeNode);
     assertTrue(parent instanceof PDDestinationNameTreeNode);
-    assertNull(getResult.getLowerLimit());
+    assertNull(getResult2.getLowerLimit());
     assertNull(getResult3.getLowerLimit());
-    assertNull(getResult.getUpperLimit());
+    assertNull(getResult2.getUpperLimit());
     assertNull(getResult3.getUpperLimit());
   }
 
   /**
    * Test {@link PDNameTreeNode#setKids(List)}.
-   *
    * <ul>
-   *   <li>Given {@link COSArray#COSArray()} add {@link COSBoolean#FALSE}.
+   *   <li>Given {@link COSArray#COSArray()} add {@link COSBoolean#FALSE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#setKids(List)}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#setKids(List)}
    */
   @Test
   @DisplayName("Test setKids(List); given COSArray() add FALSE")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDNameTreeNode.setKids(List)"})
   void testSetKids_givenCOSArrayAddFalse() {
     // Arrange
@@ -616,45 +538,43 @@ class PDNameTreeNodeDiffblueTest {
     PDDestinationNameTreeNode pdDestinationNameTreeNode2 = new PDDestinationNameTreeNode();
     pdDestinationNameTreeNode2.setNames(names);
 
-    COSArrayList<PDNameTreeNode<PDPageDestination>> kids = new COSArrayList<>();
+    ArrayList<PDNameTreeNode<PDPageDestination>> kids = new ArrayList<>();
     kids.add(pdDestinationNameTreeNode2);
 
     // Act
     pdDestinationNameTreeNode.setKids(kids);
 
     // Assert
+    assertEquals(1, kids.size());
+    PDNameTreeNode<PDPageDestination> getResult = kids.get(0);
+    assertTrue(getResult instanceof PDDestinationNameTreeNode);
     List<PDNameTreeNode<PDPageDestination>> kids2 = pdDestinationNameTreeNode.getKids();
     assertEquals(1, kids2.size());
-    PDNameTreeNode<PDPageDestination> getResult = kids2.get(0);
-    assertTrue(getResult instanceof PDDestinationNameTreeNode);
-    assertEquals(1, kids.size());
-    PDNameTreeNode<PDPageDestination> getResult2 = kids.get(0);
-    PDNameTreeNode<PDPageDestination> parent = getResult2.getParent();
+    PDNameTreeNode<PDPageDestination> getResult2 = kids2.get(0);
+    assertTrue(getResult2 instanceof PDDestinationNameTreeNode);
+    PDNameTreeNode<PDPageDestination> parent = getResult.getParent();
     List<PDNameTreeNode<PDPageDestination>> kids3 = parent.getKids();
     assertEquals(1, kids3.size());
     PDNameTreeNode<PDPageDestination> getResult3 = kids3.get(0);
     assertTrue(getResult3 instanceof PDDestinationNameTreeNode);
-    assertTrue(getResult2 instanceof PDDestinationNameTreeNode);
     assertTrue(parent instanceof PDDestinationNameTreeNode);
-    assertNull(getResult.getLowerLimit());
+    assertNull(getResult2.getLowerLimit());
     assertNull(getResult3.getLowerLimit());
-    assertNull(getResult.getUpperLimit());
+    assertNull(getResult2.getUpperLimit());
     assertNull(getResult3.getUpperLimit());
   }
 
   /**
    * Test {@link PDNameTreeNode#setKids(List)}.
-   *
    * <ul>
-   *   <li>Given {@link COSArray#COSArray()} add {@link COSBoolean#FALSE}.
+   *   <li>Given {@link COSArray#COSArray()} add {@link COSBoolean#FALSE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#setKids(List)}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#setKids(List)}
    */
   @Test
   @DisplayName("Test setKids(List); given COSArray() add FALSE")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDNameTreeNode.setKids(List)"})
   void testSetKids_givenCOSArrayAddFalse2() {
     // Arrange
@@ -671,45 +591,43 @@ class PDNameTreeNodeDiffblueTest {
     PDDestinationNameTreeNode pdDestinationNameTreeNode2 = new PDDestinationNameTreeNode();
     pdDestinationNameTreeNode2.setNames(names);
 
-    COSArrayList<PDNameTreeNode<PDPageDestination>> kids = new COSArrayList<>();
+    ArrayList<PDNameTreeNode<PDPageDestination>> kids = new ArrayList<>();
     kids.add(pdDestinationNameTreeNode2);
 
     // Act
     pdDestinationNameTreeNode.setKids(kids);
 
     // Assert
+    assertEquals(1, kids.size());
+    PDNameTreeNode<PDPageDestination> getResult = kids.get(0);
+    assertTrue(getResult instanceof PDDestinationNameTreeNode);
     List<PDNameTreeNode<PDPageDestination>> kids2 = pdDestinationNameTreeNode.getKids();
     assertEquals(1, kids2.size());
-    PDNameTreeNode<PDPageDestination> getResult = kids2.get(0);
-    assertTrue(getResult instanceof PDDestinationNameTreeNode);
-    assertEquals(1, kids.size());
-    PDNameTreeNode<PDPageDestination> getResult2 = kids.get(0);
-    PDNameTreeNode<PDPageDestination> parent = getResult2.getParent();
+    PDNameTreeNode<PDPageDestination> getResult2 = kids2.get(0);
+    assertTrue(getResult2 instanceof PDDestinationNameTreeNode);
+    PDNameTreeNode<PDPageDestination> parent = getResult.getParent();
     List<PDNameTreeNode<PDPageDestination>> kids3 = parent.getKids();
     assertEquals(1, kids3.size());
     PDNameTreeNode<PDPageDestination> getResult3 = kids3.get(0);
     assertTrue(getResult3 instanceof PDDestinationNameTreeNode);
-    assertTrue(getResult2 instanceof PDDestinationNameTreeNode);
     assertTrue(parent instanceof PDDestinationNameTreeNode);
-    assertNull(getResult.getLowerLimit());
+    assertNull(getResult2.getLowerLimit());
     assertNull(getResult3.getLowerLimit());
-    assertNull(getResult.getUpperLimit());
+    assertNull(getResult2.getUpperLimit());
     assertNull(getResult3.getUpperLimit());
   }
 
   /**
    * Test {@link PDNameTreeNode#setKids(List)}.
-   *
    * <ul>
-   *   <li>Given {@link COSArray#COSArray()} add {@link COSInteger#ONE}.
+   *   <li>Given {@link COSArray#COSArray()} add {@link COSInteger#ONE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#setKids(List)}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#setKids(List)}
    */
   @Test
   @DisplayName("Test setKids(List); given COSArray() add ONE")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDNameTreeNode.setKids(List)"})
   void testSetKids_givenCOSArrayAddOne() {
     // Arrange
@@ -725,45 +643,96 @@ class PDNameTreeNodeDiffblueTest {
     PDDestinationNameTreeNode pdDestinationNameTreeNode2 = new PDDestinationNameTreeNode();
     pdDestinationNameTreeNode2.setNames(names);
 
-    COSArrayList<PDNameTreeNode<PDPageDestination>> kids = new COSArrayList<>();
+    ArrayList<PDNameTreeNode<PDPageDestination>> kids = new ArrayList<>();
     kids.add(pdDestinationNameTreeNode2);
 
     // Act
     pdDestinationNameTreeNode.setKids(kids);
 
     // Assert
+    assertEquals(1, kids.size());
+    PDNameTreeNode<PDPageDestination> getResult = kids.get(0);
+    assertTrue(getResult instanceof PDDestinationNameTreeNode);
     List<PDNameTreeNode<PDPageDestination>> kids2 = pdDestinationNameTreeNode.getKids();
     assertEquals(1, kids2.size());
-    PDNameTreeNode<PDPageDestination> getResult = kids2.get(0);
-    assertTrue(getResult instanceof PDDestinationNameTreeNode);
-    assertEquals(1, kids.size());
-    PDNameTreeNode<PDPageDestination> getResult2 = kids.get(0);
-    PDNameTreeNode<PDPageDestination> parent = getResult2.getParent();
+    PDNameTreeNode<PDPageDestination> getResult2 = kids2.get(0);
+    assertTrue(getResult2 instanceof PDDestinationNameTreeNode);
+    PDNameTreeNode<PDPageDestination> parent = getResult.getParent();
     List<PDNameTreeNode<PDPageDestination>> kids3 = parent.getKids();
     assertEquals(1, kids3.size());
     PDNameTreeNode<PDPageDestination> getResult3 = kids3.get(0);
     assertTrue(getResult3 instanceof PDDestinationNameTreeNode);
-    assertTrue(getResult2 instanceof PDDestinationNameTreeNode);
     assertTrue(parent instanceof PDDestinationNameTreeNode);
-    assertNull(getResult.getLowerLimit());
+    assertNull(getResult2.getLowerLimit());
     assertNull(getResult3.getLowerLimit());
-    assertNull(getResult.getUpperLimit());
+    assertNull(getResult2.getUpperLimit());
     assertNull(getResult3.getUpperLimit());
   }
 
   /**
    * Test {@link PDNameTreeNode#setKids(List)}.
-   *
    * <ul>
-   *   <li>Given {@link COSArray#COSArray()} add parseHex {@code 0123456789ABCDEF}.
+   *   <li>Given {@link COSArray#COSArray()} add {@link COSInteger#ONE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#setKids(List)}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#setKids(List)}
+   */
+  @Test
+  @DisplayName("Test setKids(List); given COSArray() add ONE")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDNameTreeNode.setKids(List)"})
+  void testSetKids_givenCOSArrayAddOne2() {
+    // Arrange
+    PDDestinationNameTreeNode pdDestinationNameTreeNode = new PDDestinationNameTreeNode();
+
+    COSArray arr = new COSArray();
+    arr.add(COSBoolean.FALSE);
+    arr.add(COSInteger.ONE);
+    PDPageFitDestination pdPageFitDestination = new PDPageFitDestination(arr);
+
+    HashMap<String, PDPageDestination> names = new HashMap<>();
+    names.put("foo", pdPageFitDestination);
+
+    PDDestinationNameTreeNode pdDestinationNameTreeNode2 = new PDDestinationNameTreeNode();
+    pdDestinationNameTreeNode2.setNames(names);
+
+    ArrayList<PDNameTreeNode<PDPageDestination>> kids = new ArrayList<>();
+    kids.add(pdDestinationNameTreeNode2);
+
+    // Act
+    pdDestinationNameTreeNode.setKids(kids);
+
+    // Assert
+    assertEquals(1, kids.size());
+    PDNameTreeNode<PDPageDestination> getResult = kids.get(0);
+    assertTrue(getResult instanceof PDDestinationNameTreeNode);
+    List<PDNameTreeNode<PDPageDestination>> kids2 = pdDestinationNameTreeNode.getKids();
+    assertEquals(1, kids2.size());
+    PDNameTreeNode<PDPageDestination> getResult2 = kids2.get(0);
+    assertTrue(getResult2 instanceof PDDestinationNameTreeNode);
+    PDNameTreeNode<PDPageDestination> parent = getResult.getParent();
+    List<PDNameTreeNode<PDPageDestination>> kids3 = parent.getKids();
+    assertEquals(1, kids3.size());
+    PDNameTreeNode<PDPageDestination> getResult3 = kids3.get(0);
+    assertTrue(getResult3 instanceof PDDestinationNameTreeNode);
+    assertTrue(parent instanceof PDDestinationNameTreeNode);
+    assertNull(getResult2.getLowerLimit());
+    assertNull(getResult3.getLowerLimit());
+    assertNull(getResult2.getUpperLimit());
+    assertNull(getResult3.getUpperLimit());
+  }
+
+  /**
+   * Test {@link PDNameTreeNode#setKids(List)}.
+   * <ul>
+   *   <li>Given {@link COSArray#COSArray()} add parseHex {@code 0123456789ABCDEF}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDNameTreeNode#setKids(List)}
    */
   @Test
   @DisplayName("Test setKids(List); given COSArray() add parseHex '0123456789ABCDEF'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDNameTreeNode.setKids(List)"})
   void testSetKids_givenCOSArrayAddParseHex0123456789abcdef() throws IOException {
     // Arrange
@@ -779,48 +748,201 @@ class PDNameTreeNodeDiffblueTest {
     PDDestinationNameTreeNode pdDestinationNameTreeNode2 = new PDDestinationNameTreeNode();
     pdDestinationNameTreeNode2.setNames(names);
 
-    COSArrayList<PDNameTreeNode<PDPageDestination>> kids = new COSArrayList<>();
+    ArrayList<PDNameTreeNode<PDPageDestination>> kids = new ArrayList<>();
     kids.add(pdDestinationNameTreeNode2);
 
     // Act
     pdDestinationNameTreeNode.setKids(kids);
 
     // Assert
+    assertEquals(1, kids.size());
+    PDNameTreeNode<PDPageDestination> getResult = kids.get(0);
+    assertTrue(getResult instanceof PDDestinationNameTreeNode);
     List<PDNameTreeNode<PDPageDestination>> kids2 = pdDestinationNameTreeNode.getKids();
     assertEquals(1, kids2.size());
-    PDNameTreeNode<PDPageDestination> getResult = kids2.get(0);
-    assertTrue(getResult instanceof PDDestinationNameTreeNode);
-    assertEquals(1, kids.size());
-    PDNameTreeNode<PDPageDestination> getResult2 = kids.get(0);
-    PDNameTreeNode<PDPageDestination> parent = getResult2.getParent();
+    PDNameTreeNode<PDPageDestination> getResult2 = kids2.get(0);
+    assertTrue(getResult2 instanceof PDDestinationNameTreeNode);
+    PDNameTreeNode<PDPageDestination> parent = getResult.getParent();
     List<PDNameTreeNode<PDPageDestination>> kids3 = parent.getKids();
     assertEquals(1, kids3.size());
     PDNameTreeNode<PDPageDestination> getResult3 = kids3.get(0);
     assertTrue(getResult3 instanceof PDDestinationNameTreeNode);
-    assertTrue(getResult2 instanceof PDDestinationNameTreeNode);
     assertTrue(parent instanceof PDDestinationNameTreeNode);
-    assertNull(getResult.getLowerLimit());
+    assertNull(getResult2.getLowerLimit());
     assertNull(getResult3.getLowerLimit());
-    assertNull(getResult.getUpperLimit());
+    assertNull(getResult2.getUpperLimit());
     assertNull(getResult3.getUpperLimit());
   }
 
   /**
    * Test {@link PDNameTreeNode#setKids(List)}.
-   *
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code foo} is {@link
-   *       PDPageFitDestination#PDPageFitDestination(COSArray)} with arr is {@link
-   *       COSArray#COSArray()}.
+   *   <li>Given {@link COSArray#COSArray()} add parseHex {@code 0123456789ABCDEF}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#setKids(List)}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#setKids(List)}
    */
   @Test
-  @DisplayName(
-      "Test setKids(List); given HashMap() 'foo' is PDPageFitDestination(COSArray) with arr is COSArray()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setKids(List); given COSArray() add parseHex '0123456789ABCDEF'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDNameTreeNode.setKids(List)"})
+  void testSetKids_givenCOSArrayAddParseHex0123456789abcdef2() throws IOException {
+    // Arrange
+    PDDestinationNameTreeNode pdDestinationNameTreeNode = new PDDestinationNameTreeNode();
+
+    COSArray arr = new COSArray();
+    arr.add(COSBoolean.FALSE);
+    arr.add(COSString.parseHex("0123456789ABCDEF"));
+    PDPageFitDestination pdPageFitDestination = new PDPageFitDestination(arr);
+
+    HashMap<String, PDPageDestination> names = new HashMap<>();
+    names.put("foo", pdPageFitDestination);
+
+    PDDestinationNameTreeNode pdDestinationNameTreeNode2 = new PDDestinationNameTreeNode();
+    pdDestinationNameTreeNode2.setNames(names);
+
+    ArrayList<PDNameTreeNode<PDPageDestination>> kids = new ArrayList<>();
+    kids.add(pdDestinationNameTreeNode2);
+
+    // Act
+    pdDestinationNameTreeNode.setKids(kids);
+
+    // Assert
+    assertEquals(1, kids.size());
+    PDNameTreeNode<PDPageDestination> getResult = kids.get(0);
+    assertTrue(getResult instanceof PDDestinationNameTreeNode);
+    List<PDNameTreeNode<PDPageDestination>> kids2 = pdDestinationNameTreeNode.getKids();
+    assertEquals(1, kids2.size());
+    PDNameTreeNode<PDPageDestination> getResult2 = kids2.get(0);
+    assertTrue(getResult2 instanceof PDDestinationNameTreeNode);
+    PDNameTreeNode<PDPageDestination> parent = getResult.getParent();
+    List<PDNameTreeNode<PDPageDestination>> kids3 = parent.getKids();
+    assertEquals(1, kids3.size());
+    PDNameTreeNode<PDPageDestination> getResult3 = kids3.get(0);
+    assertTrue(getResult3 instanceof PDDestinationNameTreeNode);
+    assertTrue(parent instanceof PDDestinationNameTreeNode);
+    assertNull(getResult2.getLowerLimit());
+    assertNull(getResult3.getLowerLimit());
+    assertNull(getResult2.getUpperLimit());
+    assertNull(getResult3.getUpperLimit());
+  }
+
+  /**
+   * Test {@link PDNameTreeNode#setKids(List)}.
+   * <ul>
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDNameTreeNode#setKids(List)}
+   */
+  @Test
+  @DisplayName("Test setKids(List); given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDNameTreeNode.setKids(List)"})
+  void testSetKids_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
+    // Arrange
+    PDDestinationNameTreeNode pdDestinationNameTreeNode = new PDDestinationNameTreeNode();
+
+    COSArray arr = new COSArray();
+    arr.add((COSBase) new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1)));
+    PDPageFitDestination pdPageFitDestination = new PDPageFitDestination(arr);
+
+    HashMap<String, PDPageDestination> names = new HashMap<>();
+    names.put("foo", pdPageFitDestination);
+
+    PDDestinationNameTreeNode pdDestinationNameTreeNode2 = new PDDestinationNameTreeNode();
+    pdDestinationNameTreeNode2.setNames(names);
+
+    ArrayList<PDNameTreeNode<PDPageDestination>> kids = new ArrayList<>();
+    kids.add(pdDestinationNameTreeNode2);
+
+    // Act
+    pdDestinationNameTreeNode.setKids(kids);
+
+    // Assert
+    assertEquals(1, kids.size());
+    PDNameTreeNode<PDPageDestination> getResult = kids.get(0);
+    assertTrue(getResult instanceof PDDestinationNameTreeNode);
+    List<PDNameTreeNode<PDPageDestination>> kids2 = pdDestinationNameTreeNode.getKids();
+    assertEquals(1, kids2.size());
+    PDNameTreeNode<PDPageDestination> getResult2 = kids2.get(0);
+    assertTrue(getResult2 instanceof PDDestinationNameTreeNode);
+    PDNameTreeNode<PDPageDestination> parent = getResult.getParent();
+    List<PDNameTreeNode<PDPageDestination>> kids3 = parent.getKids();
+    assertEquals(1, kids3.size());
+    PDNameTreeNode<PDPageDestination> getResult3 = kids3.get(0);
+    assertTrue(getResult3 instanceof PDDestinationNameTreeNode);
+    assertTrue(parent instanceof PDDestinationNameTreeNode);
+    assertNull(getResult2.getLowerLimit());
+    assertNull(getResult3.getLowerLimit());
+    assertNull(getResult2.getUpperLimit());
+    assertNull(getResult3.getUpperLimit());
+  }
+
+  /**
+   * Test {@link PDNameTreeNode#setKids(List)}.
+   * <ul>
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDNameTreeNode#setKids(List)}
+   */
+  @Test
+  @DisplayName("Test setKids(List); given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDNameTreeNode.setKids(List)"})
+  void testSetKids_givenCOSObjectKeyWithNumIsOneAndGenIsOne2() {
+    // Arrange
+    PDDestinationNameTreeNode pdDestinationNameTreeNode = new PDDestinationNameTreeNode();
+
+    COSArray arr = new COSArray();
+    arr.add(COSBoolean.FALSE);
+    arr.add((COSBase) new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1)));
+    PDPageFitDestination pdPageFitDestination = new PDPageFitDestination(arr);
+
+    HashMap<String, PDPageDestination> names = new HashMap<>();
+    names.put("foo", pdPageFitDestination);
+
+    PDDestinationNameTreeNode pdDestinationNameTreeNode2 = new PDDestinationNameTreeNode();
+    pdDestinationNameTreeNode2.setNames(names);
+
+    ArrayList<PDNameTreeNode<PDPageDestination>> kids = new ArrayList<>();
+    kids.add(pdDestinationNameTreeNode2);
+
+    // Act
+    pdDestinationNameTreeNode.setKids(kids);
+
+    // Assert
+    assertEquals(1, kids.size());
+    PDNameTreeNode<PDPageDestination> getResult = kids.get(0);
+    assertTrue(getResult instanceof PDDestinationNameTreeNode);
+    List<PDNameTreeNode<PDPageDestination>> kids2 = pdDestinationNameTreeNode.getKids();
+    assertEquals(1, kids2.size());
+    PDNameTreeNode<PDPageDestination> getResult2 = kids2.get(0);
+    assertTrue(getResult2 instanceof PDDestinationNameTreeNode);
+    PDNameTreeNode<PDPageDestination> parent = getResult.getParent();
+    List<PDNameTreeNode<PDPageDestination>> kids3 = parent.getKids();
+    assertEquals(1, kids3.size());
+    PDNameTreeNode<PDPageDestination> getResult3 = kids3.get(0);
+    assertTrue(getResult3 instanceof PDDestinationNameTreeNode);
+    assertTrue(parent instanceof PDDestinationNameTreeNode);
+    assertNull(getResult2.getLowerLimit());
+    assertNull(getResult3.getLowerLimit());
+    assertNull(getResult2.getUpperLimit());
+    assertNull(getResult3.getUpperLimit());
+  }
+
+  /**
+   * Test {@link PDNameTreeNode#setKids(List)}.
+   * <ul>
+   *   <li>Given {@link HashMap#HashMap()} {@code foo} is {@link PDPageFitDestination#PDPageFitDestination(COSArray)} with arr is {@link COSArray#COSArray()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDNameTreeNode#setKids(List)}
+   */
+  @Test
+  @DisplayName("Test setKids(List); given HashMap() 'foo' is PDPageFitDestination(COSArray) with arr is COSArray()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDNameTreeNode.setKids(List)"})
   void testSetKids_givenHashMapFooIsPDPageFitDestinationWithArrIsCOSArray() {
     // Arrange
@@ -832,98 +954,93 @@ class PDNameTreeNodeDiffblueTest {
     PDDestinationNameTreeNode pdDestinationNameTreeNode2 = new PDDestinationNameTreeNode();
     pdDestinationNameTreeNode2.setNames(names);
 
-    COSArrayList<PDNameTreeNode<PDPageDestination>> kids = new COSArrayList<>();
+    ArrayList<PDNameTreeNode<PDPageDestination>> kids = new ArrayList<>();
     kids.add(pdDestinationNameTreeNode2);
 
     // Act
     pdDestinationNameTreeNode.setKids(kids);
 
     // Assert
+    assertEquals(1, kids.size());
+    PDNameTreeNode<PDPageDestination> getResult = kids.get(0);
+    assertTrue(getResult instanceof PDDestinationNameTreeNode);
     List<PDNameTreeNode<PDPageDestination>> kids2 = pdDestinationNameTreeNode.getKids();
     assertEquals(1, kids2.size());
-    PDNameTreeNode<PDPageDestination> getResult = kids2.get(0);
-    assertTrue(getResult instanceof PDDestinationNameTreeNode);
-    assertEquals(1, kids.size());
-    PDNameTreeNode<PDPageDestination> getResult2 = kids.get(0);
-    PDNameTreeNode<PDPageDestination> parent = getResult2.getParent();
+    PDNameTreeNode<PDPageDestination> getResult2 = kids2.get(0);
+    assertTrue(getResult2 instanceof PDDestinationNameTreeNode);
+    PDNameTreeNode<PDPageDestination> parent = getResult.getParent();
     List<PDNameTreeNode<PDPageDestination>> kids3 = parent.getKids();
     assertEquals(1, kids3.size());
     PDNameTreeNode<PDPageDestination> getResult3 = kids3.get(0);
     assertTrue(getResult3 instanceof PDDestinationNameTreeNode);
-    assertTrue(getResult2 instanceof PDDestinationNameTreeNode);
     assertTrue(parent instanceof PDDestinationNameTreeNode);
-    assertNull(getResult.getLowerLimit());
+    assertNull(getResult2.getLowerLimit());
     assertNull(getResult3.getLowerLimit());
-    assertNull(getResult.getUpperLimit());
+    assertNull(getResult2.getUpperLimit());
     assertNull(getResult3.getUpperLimit());
   }
 
   /**
    * Test {@link PDNameTreeNode#setKids(List)}.
-   *
    * <ul>
-   *   <li>Then {@link COSArrayList#COSArrayList()} first LowerLimit is {@code foo}.
+   *   <li>Then {@link ArrayList#ArrayList()} first LowerLimit is empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#setKids(List)}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#setKids(List)}
    */
   @Test
-  @DisplayName("Test setKids(List); then COSArrayList() first LowerLimit is 'foo'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setKids(List); then ArrayList() first LowerLimit is empty string")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDNameTreeNode.setKids(List)"})
-  void testSetKids_thenCOSArrayListFirstLowerLimitIsFoo() throws IOException {
+  void testSetKids_thenArrayListFirstLowerLimitIsEmptyString() {
     // Arrange
     PDDestinationNameTreeNode pdDestinationNameTreeNode = new PDDestinationNameTreeNode();
 
     HashMap<String, PDPageDestination> names = new HashMap<>();
-    names.put("foo", new PDPageFitDestination());
+    names.put("", new PDPageFitDestination());
 
     PDDestinationNameTreeNode pdDestinationNameTreeNode2 = new PDDestinationNameTreeNode();
     pdDestinationNameTreeNode2.setNames(names);
 
-    COSArrayList<PDNameTreeNode<PDPageDestination>> kids = new COSArrayList<>();
+    ArrayList<PDNameTreeNode<PDPageDestination>> kids = new ArrayList<>();
     kids.add(pdDestinationNameTreeNode2);
 
     // Act
     pdDestinationNameTreeNode.setKids(kids);
 
     // Assert
+    assertEquals(1, kids.size());
+    PDNameTreeNode<PDPageDestination> getResult = kids.get(0);
+    assertTrue(getResult instanceof PDDestinationNameTreeNode);
     List<PDNameTreeNode<PDPageDestination>> kids2 = pdDestinationNameTreeNode.getKids();
     assertEquals(1, kids2.size());
-    PDNameTreeNode<PDPageDestination> getResult = kids2.get(0);
-    assertTrue(getResult instanceof PDDestinationNameTreeNode);
-    assertEquals(1, kids.size());
-    PDNameTreeNode<PDPageDestination> getResult2 = kids.get(0);
+    PDNameTreeNode<PDPageDestination> getResult2 = kids2.get(0);
     assertTrue(getResult2 instanceof PDDestinationNameTreeNode);
-    Map<String, PDPageDestination> names2 = getResult.getNames();
-    assertEquals(1, names2.size());
-    assertTrue(names2.get("foo") instanceof PDPageFitDestination);
-    assertEquals("foo", getResult2.getLowerLimit());
-    assertEquals("foo", getResult2.getUpperLimit());
+    assertEquals("", getResult.getLowerLimit());
+    assertEquals("", getResult2.getLowerLimit());
+    assertEquals("", getResult.getUpperLimit());
+    assertEquals("", getResult2.getUpperLimit());
   }
 
   /**
    * Test {@link PDNameTreeNode#setKids(List)}.
-   *
    * <ul>
-   *   <li>Then {@link COSArrayList#COSArrayList()} first Parent COSObject Values size is two.
+   *   <li>Then {@link ArrayList#ArrayList()} first Parent COSObject Values size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#setKids(List)}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#setKids(List)}
    */
   @Test
-  @DisplayName("Test setKids(List); then COSArrayList() first Parent COSObject Values size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setKids(List); then ArrayList() first Parent COSObject Values size is two")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDNameTreeNode.setKids(List)"})
-  void testSetKids_thenCOSArrayListFirstParentCOSObjectValuesSizeIsTwo() {
+  void testSetKids_thenArrayListFirstParentCOSObjectValuesSizeIsTwo() {
     // Arrange
     PDDestinationNameTreeNode pdDestinationNameTreeNode = new PDDestinationNameTreeNode();
     PDDestinationNameTreeNode parentNode = new PDDestinationNameTreeNode();
     pdDestinationNameTreeNode.setParent(parentNode);
 
-    COSArrayList<PDNameTreeNode<PDPageDestination>> kids = new COSArrayList<>();
+    ArrayList<PDNameTreeNode<PDPageDestination>> kids = new ArrayList<>();
     kids.add(new PDDestinationNameTreeNode());
 
     // Act
@@ -944,110 +1061,51 @@ class PDNameTreeNodeDiffblueTest {
 
   /**
    * Test {@link PDNameTreeNode#setKids(List)}.
-   *
    * <ul>
-   *   <li>Then {@link COSArrayList#COSArrayList()} first Parent Kids first Names is {@code null}.
+   *   <li>Then {@link ArrayList#ArrayList()} first Parent is {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#setKids(List)}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#setKids(List)}
    */
   @Test
-  @DisplayName("Test setKids(List); then COSArrayList() first Parent Kids first Names is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setKids(List); then ArrayList() first Parent is PDDestinationNameTreeNode()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDNameTreeNode.setKids(List)"})
-  void testSetKids_thenCOSArrayListFirstParentKidsFirstNamesIsNull() throws IOException {
-    // Arrange
-    PDDestinationNameTreeNode pdDestinationNameTreeNode = new PDDestinationNameTreeNode();
-
-    COSArrayList<PDNameTreeNode<PDPageDestination>> kids = new COSArrayList<>();
-    kids.add(new PDDestinationNameTreeNode());
-
-    // Act
-    pdDestinationNameTreeNode.setKids(kids);
-
-    // Assert
-    List<PDNameTreeNode<PDPageDestination>> kids2 = pdDestinationNameTreeNode.getKids();
-    assertEquals(1, kids2.size());
-    PDNameTreeNode<PDPageDestination> getResult = kids2.get(0);
-    assertTrue(getResult instanceof PDDestinationNameTreeNode);
-    assertEquals(1, kids.size());
-    PDNameTreeNode<PDPageDestination> getResult2 = kids.get(0);
-    PDNameTreeNode<PDPageDestination> parent = getResult2.getParent();
-    List<PDNameTreeNode<PDPageDestination>> kids3 = parent.getKids();
-    assertEquals(1, kids3.size());
-    PDNameTreeNode<PDPageDestination> getResult3 = kids3.get(0);
-    assertTrue(getResult3 instanceof PDDestinationNameTreeNode);
-    assertTrue(getResult2 instanceof PDDestinationNameTreeNode);
-    assertTrue(parent instanceof PDDestinationNameTreeNode);
-    assertNull(getResult.getLowerLimit());
-    assertNull(getResult3.getLowerLimit());
-    assertNull(getResult.getUpperLimit());
-    assertNull(getResult3.getUpperLimit());
-    assertNull(getResult.getNames());
-    assertNull(getResult3.getNames());
-  }
-
-  /**
-   * Test {@link PDNameTreeNode#setKids(List)}.
-   *
-   * <ul>
-   *   <li>Then {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()} Kids first LowerLimit
-   *       is empty string.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#setKids(List)}
-   */
-  @Test
-  @DisplayName(
-      "Test setKids(List); then PDDestinationNameTreeNode() Kids first LowerLimit is empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDNameTreeNode.setKids(List)"})
-  void testSetKids_thenPDDestinationNameTreeNodeKidsFirstLowerLimitIsEmptyString() {
+  void testSetKids_thenArrayListFirstParentIsPDDestinationNameTreeNode() {
     // Arrange
     PDDestinationNameTreeNode pdDestinationNameTreeNode = new PDDestinationNameTreeNode();
 
     HashMap<String, PDPageDestination> names = new HashMap<>();
-    names.put("", new PDPageFitDestination());
+    names.put("foo", new PDPageFitDestination());
 
     PDDestinationNameTreeNode pdDestinationNameTreeNode2 = new PDDestinationNameTreeNode();
+    pdDestinationNameTreeNode2.setParent(new PDDestinationNameTreeNode());
     pdDestinationNameTreeNode2.setNames(names);
 
-    COSArrayList<PDNameTreeNode<PDPageDestination>> kids = new COSArrayList<>();
+    ArrayList<PDNameTreeNode<PDPageDestination>> kids = new ArrayList<>();
     kids.add(pdDestinationNameTreeNode2);
 
     // Act
     pdDestinationNameTreeNode.setKids(kids);
 
-    // Assert
-    List<PDNameTreeNode<PDPageDestination>> kids2 = pdDestinationNameTreeNode.getKids();
-    assertEquals(1, kids2.size());
-    PDNameTreeNode<PDPageDestination> getResult = kids2.get(0);
-    assertTrue(getResult instanceof PDDestinationNameTreeNode);
+    // Assert that nothing has changed
     assertEquals(1, kids.size());
-    PDNameTreeNode<PDPageDestination> getResult2 = kids.get(0);
-    assertTrue(getResult2 instanceof PDDestinationNameTreeNode);
-    assertEquals("", getResult.getLowerLimit());
-    assertEquals("", getResult2.getLowerLimit());
-    assertEquals("", getResult.getUpperLimit());
-    assertEquals("", getResult2.getUpperLimit());
+    PDNameTreeNode<PDPageDestination> getResult = kids.get(0);
+    assertTrue(getResult instanceof PDDestinationNameTreeNode);
+    assertSame(pdDestinationNameTreeNode, getResult.getParent());
   }
 
   /**
    * Test {@link PDNameTreeNode#setKids(List)}.
-   *
    * <ul>
-   *   <li>Then {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()} Kids first Names
-   *       Empty.
+   *   <li>Then {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()} Kids first Names Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#setKids(List)}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#setKids(List)}
    */
   @Test
   @DisplayName("Test setKids(List); then PDDestinationNameTreeNode() Kids first Names Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDNameTreeNode.setKids(List)"})
   void testSetKids_thenPDDestinationNameTreeNodeKidsFirstNamesEmpty() throws IOException {
     // Arrange
@@ -1056,49 +1114,45 @@ class PDNameTreeNodeDiffblueTest {
     PDDestinationNameTreeNode pdDestinationNameTreeNode2 = new PDDestinationNameTreeNode();
     pdDestinationNameTreeNode2.setNames(new HashMap<>());
 
-    COSArrayList<PDNameTreeNode<PDPageDestination>> kids = new COSArrayList<>();
+    ArrayList<PDNameTreeNode<PDPageDestination>> kids = new ArrayList<>();
     kids.add(pdDestinationNameTreeNode2);
 
     // Act
     pdDestinationNameTreeNode.setKids(kids);
 
     // Assert
+    assertEquals(1, kids.size());
+    PDNameTreeNode<PDPageDestination> getResult = kids.get(0);
+    assertTrue(getResult instanceof PDDestinationNameTreeNode);
     List<PDNameTreeNode<PDPageDestination>> kids2 = pdDestinationNameTreeNode.getKids();
     assertEquals(1, kids2.size());
-    PDNameTreeNode<PDPageDestination> getResult = kids2.get(0);
-    assertTrue(getResult instanceof PDDestinationNameTreeNode);
-    assertEquals(1, kids.size());
-    PDNameTreeNode<PDPageDestination> getResult2 = kids.get(0);
-    PDNameTreeNode<PDPageDestination> parent = getResult2.getParent();
+    PDNameTreeNode<PDPageDestination> getResult2 = kids2.get(0);
+    assertTrue(getResult2 instanceof PDDestinationNameTreeNode);
+    PDNameTreeNode<PDPageDestination> parent = getResult.getParent();
     List<PDNameTreeNode<PDPageDestination>> kids3 = parent.getKids();
     assertEquals(1, kids3.size());
     PDNameTreeNode<PDPageDestination> getResult3 = kids3.get(0);
     assertTrue(getResult3 instanceof PDDestinationNameTreeNode);
-    assertTrue(getResult2 instanceof PDDestinationNameTreeNode);
     assertTrue(parent instanceof PDDestinationNameTreeNode);
-    assertNull(getResult.getLowerLimit());
+    assertNull(getResult2.getLowerLimit());
     assertNull(getResult3.getLowerLimit());
-    assertNull(getResult.getUpperLimit());
+    assertNull(getResult2.getUpperLimit());
     assertNull(getResult3.getUpperLimit());
-    assertTrue(getResult.getNames().isEmpty());
+    assertTrue(getResult2.getNames().isEmpty());
     assertTrue(getResult3.getNames().isEmpty());
   }
 
   /**
    * Test {@link PDNameTreeNode#setKids(List)}.
-   *
    * <ul>
-   *   <li>Then {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()} Kids first Names
-   *       {@code foo} is {@code null}.
+   *   <li>Then {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()} Kids first Names {@code foo} is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#setKids(List)}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#setKids(List)}
    */
   @Test
-  @DisplayName(
-      "Test setKids(List); then PDDestinationNameTreeNode() Kids first Names 'foo' is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setKids(List); then PDDestinationNameTreeNode() Kids first Names 'foo' is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDNameTreeNode.setKids(List)"})
   void testSetKids_thenPDDestinationNameTreeNodeKidsFirstNamesFooIsNull() throws IOException {
     // Arrange
@@ -1110,27 +1164,27 @@ class PDNameTreeNodeDiffblueTest {
     PDDestinationNameTreeNode pdDestinationNameTreeNode2 = new PDDestinationNameTreeNode();
     pdDestinationNameTreeNode2.setNames(names);
 
-    COSArrayList<PDNameTreeNode<PDPageDestination>> kids = new COSArrayList<>();
+    ArrayList<PDNameTreeNode<PDPageDestination>> kids = new ArrayList<>();
     kids.add(pdDestinationNameTreeNode2);
 
     // Act
     pdDestinationNameTreeNode.setKids(kids);
 
     // Assert
+    assertEquals(1, kids.size());
+    PDNameTreeNode<PDPageDestination> getResult = kids.get(0);
+    assertTrue(getResult instanceof PDDestinationNameTreeNode);
     List<PDNameTreeNode<PDPageDestination>> kids2 = pdDestinationNameTreeNode.getKids();
     assertEquals(1, kids2.size());
-    PDNameTreeNode<PDPageDestination> getResult = kids2.get(0);
-    assertTrue(getResult instanceof PDDestinationNameTreeNode);
-    assertEquals(1, kids.size());
-    PDNameTreeNode<PDPageDestination> getResult2 = kids.get(0);
-    PDNameTreeNode<PDPageDestination> parent = getResult2.getParent();
+    PDNameTreeNode<PDPageDestination> getResult2 = kids2.get(0);
+    assertTrue(getResult2 instanceof PDDestinationNameTreeNode);
+    PDNameTreeNode<PDPageDestination> parent = getResult.getParent();
     List<PDNameTreeNode<PDPageDestination>> kids3 = parent.getKids();
     assertEquals(1, kids3.size());
     PDNameTreeNode<PDPageDestination> getResult3 = kids3.get(0);
     assertTrue(getResult3 instanceof PDDestinationNameTreeNode);
-    assertTrue(getResult2 instanceof PDDestinationNameTreeNode);
     assertTrue(parent instanceof PDDestinationNameTreeNode);
-    Map<String, PDPageDestination> names2 = getResult.getNames();
+    Map<String, PDPageDestination> names2 = getResult2.getNames();
     assertEquals(1, names2.size());
     assertNull(names2.get("foo"));
     Map<String, PDPageDestination> names3 = getResult3.getNames();
@@ -1140,21 +1194,17 @@ class PDNameTreeNodeDiffblueTest {
 
   /**
    * Test {@link PDNameTreeNode#setKids(List)}.
-   *
    * <ul>
-   *   <li>Then {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()} Kids first Names
-   *       {@code foo} Page is {@code null}.
+   *   <li>Then {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()} Kids first Names {@code foo} {@link PDPageFitDestination}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#setKids(List)}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#setKids(List)}
    */
   @Test
-  @DisplayName(
-      "Test setKids(List); then PDDestinationNameTreeNode() Kids first Names 'foo' Page is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setKids(List); then PDDestinationNameTreeNode() Kids first Names 'foo' PDPageFitDestination")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDNameTreeNode.setKids(List)"})
-  void testSetKids_thenPDDestinationNameTreeNodeKidsFirstNamesFooPageIsNull() throws IOException {
+  void testSetKids_thenPDDestinationNameTreeNodeKidsFirstNamesFooPDPageFitDestination() throws IOException {
     // Arrange
     PDDestinationNameTreeNode pdDestinationNameTreeNode = new PDDestinationNameTreeNode();
 
@@ -1162,90 +1212,84 @@ class PDNameTreeNodeDiffblueTest {
     names.put("foo", new PDPageFitDestination());
 
     PDDestinationNameTreeNode pdDestinationNameTreeNode2 = new PDDestinationNameTreeNode();
-    pdDestinationNameTreeNode2.setParent(new PDDestinationNameTreeNode());
     pdDestinationNameTreeNode2.setNames(names);
 
-    COSArrayList<PDNameTreeNode<PDPageDestination>> kids = new COSArrayList<>();
+    ArrayList<PDNameTreeNode<PDPageDestination>> kids = new ArrayList<>();
     kids.add(pdDestinationNameTreeNode2);
 
     // Act
     pdDestinationNameTreeNode.setKids(kids);
 
     // Assert
+    assertEquals(1, kids.size());
+    PDNameTreeNode<PDPageDestination> getResult = kids.get(0);
+    assertTrue(getResult instanceof PDDestinationNameTreeNode);
     List<PDNameTreeNode<PDPageDestination>> kids2 = pdDestinationNameTreeNode.getKids();
     assertEquals(1, kids2.size());
-    PDNameTreeNode<PDPageDestination> getResult = kids2.get(0);
-    assertTrue(getResult instanceof PDDestinationNameTreeNode);
-    assertEquals(1, kids.size());
-    PDNameTreeNode<PDPageDestination> getResult2 = kids.get(0);
-    PDNameTreeNode<PDPageDestination> parent = getResult2.getParent();
-    List<PDNameTreeNode<PDPageDestination>> kids3 = parent.getKids();
-    assertEquals(1, kids3.size());
-    PDNameTreeNode<PDPageDestination> getResult3 = kids3.get(0);
-    assertTrue(getResult3 instanceof PDDestinationNameTreeNode);
+    PDNameTreeNode<PDPageDestination> getResult2 = kids2.get(0);
     assertTrue(getResult2 instanceof PDDestinationNameTreeNode);
-    assertTrue(parent instanceof PDDestinationNameTreeNode);
-    Map<String, PDPageDestination> names2 = getResult.getNames();
+    Map<String, PDPageDestination> names2 = getResult2.getNames();
     assertEquals(1, names2.size());
-    PDPageDestination getResult4 = names2.get("foo");
-    assertTrue(getResult4 instanceof PDPageFitDestination);
-    assertNull(getResult4.getPage());
-    assertEquals(-1, getResult4.getPageNumber());
-    Map<String, PDPageDestination> names3 = getResult3.getNames();
-    assertEquals(1, names3.size());
-    assertTrue(names3.containsKey("foo"));
+    assertTrue(names2.get("foo") instanceof PDPageFitDestination);
+    assertEquals("foo", getResult.getLowerLimit());
+    assertEquals("foo", getResult.getUpperLimit());
   }
 
   /**
    * Test {@link PDNameTreeNode#setKids(List)}.
-   *
    * <ul>
-   *   <li>Then {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()} Kids size is two.
+   *   <li>Then {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()} Kids first Names is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#setKids(List)}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#setKids(List)}
    */
   @Test
-  @DisplayName("Test setKids(List); then PDDestinationNameTreeNode() Kids size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setKids(List); then PDDestinationNameTreeNode() Kids first Names is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDNameTreeNode.setKids(List)"})
-  void testSetKids_thenPDDestinationNameTreeNodeKidsSizeIsTwo() {
+  void testSetKids_thenPDDestinationNameTreeNodeKidsFirstNamesIsNull() throws IOException {
     // Arrange
     PDDestinationNameTreeNode pdDestinationNameTreeNode = new PDDestinationNameTreeNode();
 
-    COSArrayList<PDNameTreeNode<PDPageDestination>> kids = new COSArrayList<>();
-    kids.add(new PDDestinationNameTreeNode());
+    ArrayList<PDNameTreeNode<PDPageDestination>> kids = new ArrayList<>();
     kids.add(new PDDestinationNameTreeNode());
 
     // Act
     pdDestinationNameTreeNode.setKids(kids);
 
     // Assert
-    List<PDNameTreeNode<PDPageDestination>> kids2 = pdDestinationNameTreeNode.getKids();
-    assertEquals(2, kids2.size());
-    assertTrue(kids2.get(1) instanceof PDDestinationNameTreeNode);
-    assertEquals(2, kids.size());
-    PDNameTreeNode<PDPageDestination> getResult = kids.get(1);
+    assertEquals(1, kids.size());
+    PDNameTreeNode<PDPageDestination> getResult = kids.get(0);
     assertTrue(getResult instanceof PDDestinationNameTreeNode);
-    assertFalse(getResult.isRootNode());
-    assertSame(pdDestinationNameTreeNode, getResult.getParent());
+    List<PDNameTreeNode<PDPageDestination>> kids2 = pdDestinationNameTreeNode.getKids();
+    assertEquals(1, kids2.size());
+    PDNameTreeNode<PDPageDestination> getResult2 = kids2.get(0);
+    assertTrue(getResult2 instanceof PDDestinationNameTreeNode);
+    PDNameTreeNode<PDPageDestination> parent = getResult.getParent();
+    List<PDNameTreeNode<PDPageDestination>> kids3 = parent.getKids();
+    assertEquals(1, kids3.size());
+    PDNameTreeNode<PDPageDestination> getResult3 = kids3.get(0);
+    assertTrue(getResult3 instanceof PDDestinationNameTreeNode);
+    assertTrue(parent instanceof PDDestinationNameTreeNode);
+    assertNull(getResult2.getLowerLimit());
+    assertNull(getResult3.getLowerLimit());
+    assertNull(getResult2.getUpperLimit());
+    assertNull(getResult3.getUpperLimit());
+    assertNull(getResult2.getNames());
+    assertNull(getResult3.getNames());
   }
 
   /**
    * Test {@link PDNameTreeNode#setKids(List)}.
-   *
    * <ul>
-   *   <li>Then {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()} LowerLimit is {@code
-   *       foo}.
+   *   <li>Then {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()} LowerLimit is {@code foo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#setKids(List)}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#setKids(List)}
    */
   @Test
   @DisplayName("Test setKids(List); then PDDestinationNameTreeNode() LowerLimit is 'foo'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDNameTreeNode.setKids(List)"})
   void testSetKids_thenPDDestinationNameTreeNodeLowerLimitIsFoo() {
     // Arrange
@@ -1258,7 +1302,7 @@ class PDNameTreeNodeDiffblueTest {
     PDDestinationNameTreeNode pdDestinationNameTreeNode2 = new PDDestinationNameTreeNode();
     pdDestinationNameTreeNode2.setNames(names);
 
-    COSArrayList<PDNameTreeNode<PDPageDestination>> kids = new COSArrayList<>();
+    ArrayList<PDNameTreeNode<PDPageDestination>> kids = new ArrayList<>();
     kids.add(pdDestinationNameTreeNode2);
 
     // Act
@@ -1278,20 +1322,51 @@ class PDNameTreeNodeDiffblueTest {
 
   /**
    * Test {@link PDNameTreeNode#setKids(List)}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()} LowerLimit is {@code
-   *       null}.
+   *   <li>When {@link ArrayList#ArrayList()} add {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()}.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#setKids(List)}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#setKids(List)}
    */
   @Test
-  @DisplayName(
-      "Test setKids(List); when ArrayList(); then PDDestinationNameTreeNode() LowerLimit is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setKids(List); when ArrayList() add PDDestinationNameTreeNode(); then ArrayList() size is two")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDNameTreeNode.setKids(List)"})
+  void testSetKids_whenArrayListAddPDDestinationNameTreeNode_thenArrayListSizeIsTwo() {
+    // Arrange
+    PDDestinationNameTreeNode pdDestinationNameTreeNode = new PDDestinationNameTreeNode();
+
+    ArrayList<PDNameTreeNode<PDPageDestination>> kids = new ArrayList<>();
+    kids.add(new PDDestinationNameTreeNode());
+    kids.add(new PDDestinationNameTreeNode());
+
+    // Act
+    pdDestinationNameTreeNode.setKids(kids);
+
+    // Assert
+    assertEquals(2, kids.size());
+    PDNameTreeNode<PDPageDestination> getResult = kids.get(1);
+    assertTrue(getResult instanceof PDDestinationNameTreeNode);
+    List<PDNameTreeNode<PDPageDestination>> kids2 = pdDestinationNameTreeNode.getKids();
+    assertEquals(2, kids2.size());
+    assertTrue(kids2.get(1) instanceof PDDestinationNameTreeNode);
+    assertFalse(getResult.isRootNode());
+    assertSame(pdDestinationNameTreeNode, getResult.getParent());
+  }
+
+  /**
+   * Test {@link PDNameTreeNode#setKids(List)}.
+   * <ul>
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()} LowerLimit is {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDNameTreeNode#setKids(List)}
+   */
+  @Test
+  @DisplayName("Test setKids(List); when ArrayList(); then PDDestinationNameTreeNode() LowerLimit is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDNameTreeNode.setKids(List)"})
   void testSetKids_whenArrayList_thenPDDestinationNameTreeNodeLowerLimitIsNull() {
     // Arrange
@@ -1307,86 +1382,19 @@ class PDNameTreeNodeDiffblueTest {
   }
 
   /**
-   * Test {@link PDNameTreeNode#setKids(List)}.
-   *
-   * <ul>
-   *   <li>When {@link COSArrayList#COSArrayList()}.
-   *   <li>Then {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()} LowerLimit is {@code
-   *       null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#setKids(List)}
-   */
-  @Test
-  @DisplayName(
-      "Test setKids(List); when COSArrayList(); then PDDestinationNameTreeNode() LowerLimit is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDNameTreeNode.setKids(List)"})
-  void testSetKids_whenCOSArrayList_thenPDDestinationNameTreeNodeLowerLimitIsNull() {
-    // Arrange
-    PDDestinationNameTreeNode pdDestinationNameTreeNode = new PDDestinationNameTreeNode();
-
-    // Act
-    pdDestinationNameTreeNode.setKids(new COSArrayList<>());
-
-    // Assert that nothing has changed
-    assertNull(pdDestinationNameTreeNode.getLowerLimit());
-    assertNull(pdDestinationNameTreeNode.getUpperLimit());
-    assertNull(pdDestinationNameTreeNode.getKids());
-  }
-
-  /**
-   * Test {@link PDNameTreeNode#setKids(List)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()} LowerLimit is {@code
-   *       null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#setKids(List)}
-   */
-  @Test
-  @DisplayName(
-      "Test setKids(List); when 'null'; then PDDestinationNameTreeNode() LowerLimit is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDNameTreeNode.setKids(List)"})
-  void testSetKids_whenNull_thenPDDestinationNameTreeNodeLowerLimitIsNull() {
-    // Arrange
-    PDDestinationNameTreeNode pdDestinationNameTreeNode = new PDDestinationNameTreeNode();
-
-    // Act
-    pdDestinationNameTreeNode.setKids(null);
-
-    // Assert that nothing has changed
-    assertNull(pdDestinationNameTreeNode.getLowerLimit());
-    assertNull(pdDestinationNameTreeNode.getUpperLimit());
-    assertNull(pdDestinationNameTreeNode.getKids());
-  }
-
-  /**
    * Test {@link PDNameTreeNode#getValue(String)}.
-   *
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} empty string is {@link
-   *       PDPageFitDestination#PDPageFitDestination()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link HashMap#HashMap()} empty string is {@link PDPageFitDestination#PDPageFitDestination()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#getValue(String)}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#getValue(String)}
    */
   @Test
-  @DisplayName(
-      "Test getValue(String); given HashMap() empty string is PDPageFitDestination(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.apache.pdfbox.pdmodel.common.COSObjectable PDNameTreeNode.getValue(String)"
-  })
-  void testGetValue_givenHashMapEmptyStringIsPDPageFitDestination_thenReturnNull()
-      throws IOException {
+  @DisplayName("Test getValue(String); given HashMap() empty string is PDPageFitDestination(); then return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"org.apache.pdfbox.pdmodel.common.COSObjectable PDNameTreeNode.getValue(String)"})
+  void testGetValue_givenHashMapEmptyStringIsPDPageFitDestination_thenReturnNull() throws IOException {
     // Arrange
     HashMap<String, PDPageDestination> names = new HashMap<>();
     names.put("", new PDPageFitDestination());
@@ -1400,21 +1408,17 @@ class PDNameTreeNodeDiffblueTest {
 
   /**
    * Test {@link PDNameTreeNode#getValue(String)}.
-   *
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code foo} is {@code null}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link HashMap#HashMap()} {@code foo} is {@code null}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#getValue(String)}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#getValue(String)}
    */
   @Test
   @DisplayName("Test getValue(String); given HashMap() 'foo' is 'null'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.apache.pdfbox.pdmodel.common.COSObjectable PDNameTreeNode.getValue(String)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"org.apache.pdfbox.pdmodel.common.COSObjectable PDNameTreeNode.getValue(String)"})
   void testGetValue_givenHashMapFooIsNull_thenReturnNull() throws IOException {
     // Arrange
     HashMap<String, PDPageDestination> names = new HashMap<>();
@@ -1429,23 +1433,17 @@ class PDNameTreeNodeDiffblueTest {
 
   /**
    * Test {@link PDNameTreeNode#getValue(String)}.
-   *
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code foo} is {@link
-   *       PDPageFitDestination#PDPageFitDestination()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link HashMap#HashMap()} {@code foo} is {@link PDPageFitDestination#PDPageFitDestination()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#getValue(String)}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#getValue(String)}
    */
   @Test
-  @DisplayName(
-      "Test getValue(String); given HashMap() 'foo' is PDPageFitDestination(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.apache.pdfbox.pdmodel.common.COSObjectable PDNameTreeNode.getValue(String)"
-  })
+  @DisplayName("Test getValue(String); given HashMap() 'foo' is PDPageFitDestination(); then return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"org.apache.pdfbox.pdmodel.common.COSObjectable PDNameTreeNode.getValue(String)"})
   void testGetValue_givenHashMapFooIsPDPageFitDestination_thenReturnNull() throws IOException {
     // Arrange
     HashMap<String, PDPageDestination> names = new HashMap<>();
@@ -1460,25 +1458,18 @@ class PDNameTreeNodeDiffblueTest {
 
   /**
    * Test {@link PDNameTreeNode#getValue(String)}.
-   *
    * <ul>
-   *   <li>Given {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()} Names is {@link
-   *       HashMap#HashMap()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()} Names is {@link HashMap#HashMap()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#getValue(String)}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#getValue(String)}
    */
   @Test
-  @DisplayName(
-      "Test getValue(String); given PDDestinationNameTreeNode() Names is HashMap(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.apache.pdfbox.pdmodel.common.COSObjectable PDNameTreeNode.getValue(String)"
-  })
-  void testGetValue_givenPDDestinationNameTreeNodeNamesIsHashMap_thenReturnNull()
-      throws IOException {
+  @DisplayName("Test getValue(String); given PDDestinationNameTreeNode() Names is HashMap(); then return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"org.apache.pdfbox.pdmodel.common.COSObjectable PDNameTreeNode.getValue(String)"})
+  void testGetValue_givenPDDestinationNameTreeNodeNamesIsHashMap_thenReturnNull() throws IOException {
     // Arrange
     PDDestinationNameTreeNode pdDestinationNameTreeNode = new PDDestinationNameTreeNode();
     pdDestinationNameTreeNode.setNames(new HashMap<>());
@@ -1489,40 +1480,34 @@ class PDNameTreeNodeDiffblueTest {
 
   /**
    * Test {@link PDNameTreeNode#getValue(String)}.
-   *
    * <ul>
-   *   <li>Given {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#getValue(String)}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#getValue(String)}
    */
   @Test
   @DisplayName("Test getValue(String); given PDDestinationNameTreeNode(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.apache.pdfbox.pdmodel.common.COSObjectable PDNameTreeNode.getValue(String)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"org.apache.pdfbox.pdmodel.common.COSObjectable PDNameTreeNode.getValue(String)"})
   void testGetValue_givenPDDestinationNameTreeNode_thenReturnNull() throws IOException {
     // Arrange, Act and Assert
-    assertNull(new PDDestinationNameTreeNode().getValue("Name"));
+    assertNull((new PDDestinationNameTreeNode()).getValue("Name"));
   }
 
   /**
    * Test {@link PDNameTreeNode#getNames()}.
-   *
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code foo} is {@code null}.
-   *   <li>Then return {@code foo} is {@code null}.
+   *   <li>Given {@link HashMap#HashMap()} {@code foo} is {@code null}.</li>
+   *   <li>Then return {@code foo} is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#getNames()}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#getNames()}
    */
   @Test
   @DisplayName("Test getNames(); given HashMap() 'foo' is 'null'; then return 'foo' is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Map PDNameTreeNode.getNames()"})
   void testGetNames_givenHashMapFooIsNull_thenReturnFooIsNull() throws IOException {
     // Arrange
@@ -1542,23 +1527,18 @@ class PDNameTreeNodeDiffblueTest {
 
   /**
    * Test {@link PDNameTreeNode#getNames()}.
-   *
    * <ul>
-   *   <li>Given {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()} Names is {@link
-   *       HashMap#HashMap()}.
-   *   <li>Then return Empty.
+   *   <li>Given {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()} Names is {@link HashMap#HashMap()}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#getNames()}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#getNames()}
    */
   @Test
-  @DisplayName(
-      "Test getNames(); given PDDestinationNameTreeNode() Names is HashMap(); then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getNames(); given PDDestinationNameTreeNode() Names is HashMap(); then return Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Map PDNameTreeNode.getNames()"})
-  void testGetNames_givenPDDestinationNameTreeNodeNamesIsHashMap_thenReturnEmpty()
-      throws IOException {
+  void testGetNames_givenPDDestinationNameTreeNodeNamesIsHashMap_thenReturnEmpty() throws IOException {
     // Arrange
     PDDestinationNameTreeNode pdDestinationNameTreeNode = new PDDestinationNameTreeNode();
     pdDestinationNameTreeNode.setNames(new HashMap<>());
@@ -1569,37 +1549,33 @@ class PDNameTreeNodeDiffblueTest {
 
   /**
    * Test {@link PDNameTreeNode#getNames()}.
-   *
    * <ul>
-   *   <li>Given {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#getNames()}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#getNames()}
    */
   @Test
   @DisplayName("Test getNames(); given PDDestinationNameTreeNode(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Map PDNameTreeNode.getNames()"})
   void testGetNames_givenPDDestinationNameTreeNode_thenReturnNull() throws IOException {
     // Arrange, Act and Assert
-    assertNull(new PDDestinationNameTreeNode().getNames());
+    assertNull((new PDDestinationNameTreeNode()).getNames());
   }
 
   /**
    * Test {@link PDNameTreeNode#getNames()}.
-   *
    * <ul>
-   *   <li>Then return empty string COSObject toList size is two.
+   *   <li>Then return empty string COSObject toList size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#getNames()}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#getNames()}
    */
   @Test
   @DisplayName("Test getNames(); then return empty string COSObject toList size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Map PDNameTreeNode.getNames()"})
   void testGetNames_thenReturnEmptyStringCOSObjectToListSizeIsTwo() throws IOException {
     // Arrange
@@ -1631,17 +1607,15 @@ class PDNameTreeNodeDiffblueTest {
 
   /**
    * Test {@link PDNameTreeNode#getNames()}.
-   *
    * <ul>
-   *   <li>Then return {@code foo} COSObject toList size is two.
+   *   <li>Then return {@code foo} COSObject toList size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#getNames()}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#getNames()}
    */
   @Test
   @DisplayName("Test getNames(); then return 'foo' COSObject toList size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Map PDNameTreeNode.getNames()"})
   void testGetNames_thenReturnFooCOSObjectToListSizeIsTwo() throws IOException {
     // Arrange
@@ -1673,51 +1647,15 @@ class PDNameTreeNodeDiffblueTest {
 
   /**
    * Test {@link PDNameTreeNode#setNames(Map)}.
-   *
-   * <p>Method under test: {@link PDNameTreeNode#setNames(Map)}
-   */
-  @Test
-  @DisplayName("Test setNames(Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDNameTreeNode.setNames(Map)"})
-  void testSetNames() {
-    // Arrange
-    PDDestinationNameTreeNode pdDestinationNameTreeNode = new PDDestinationNameTreeNode();
-    pdDestinationNameTreeNode.setParent(new PDDestinationNameTreeNode());
-
-    COSArray arr = new COSArray();
-    COSObject object = new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1));
-    arr.add((COSBase) object);
-    PDPageFitDestination pdPageFitDestination = new PDPageFitDestination(arr);
-
-    HashMap<String, PDPageDestination> names = new HashMap<>();
-    names.put("", pdPageFitDestination);
-
-    // Act
-    pdDestinationNameTreeNode.setNames(names);
-
-    // Assert
-    assertNull(pdDestinationNameTreeNode.getLowerLimit());
-    assertNull(pdDestinationNameTreeNode.getUpperLimit());
-    COSDictionary cOSObject = pdDestinationNameTreeNode.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDNameTreeNode#setNames(Map)}.
-   *
    * <ul>
-   *   <li>Given {@link COSArray#COSArray()} add {@link COSName#A}.
+   *   <li>Given {@link COSArray#COSArray()} add {@link COSName#A}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#setNames(Map)}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#setNames(Map)}
    */
   @Test
   @DisplayName("Test setNames(Map); given COSArray() add A")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDNameTreeNode.setNames(Map)"})
   void testSetNames_givenCOSArrayAddA() {
     // Arrange
@@ -1729,7 +1667,7 @@ class PDNameTreeNodeDiffblueTest {
     PDPageFitDestination pdPageFitDestination = new PDPageFitDestination(arr);
 
     HashMap<String, PDPageDestination> names = new HashMap<>();
-    names.put("", pdPageFitDestination);
+    names.put("42", pdPageFitDestination);
 
     // Act
     pdDestinationNameTreeNode.setNames(names);
@@ -1744,17 +1682,15 @@ class PDNameTreeNodeDiffblueTest {
 
   /**
    * Test {@link PDNameTreeNode#setNames(Map)}.
-   *
    * <ul>
-   *   <li>Given {@link COSArray#COSArray()} add {@link COSArray#COSArray()}.
+   *   <li>Given {@link COSArray#COSArray()} add {@link COSArray#COSArray()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#setNames(Map)}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#setNames(Map)}
    */
   @Test
   @DisplayName("Test setNames(Map); given COSArray() add COSArray()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDNameTreeNode.setNames(Map)"})
   void testSetNames_givenCOSArrayAddCOSArray() {
     // Arrange
@@ -1766,7 +1702,7 @@ class PDNameTreeNodeDiffblueTest {
     PDPageFitDestination pdPageFitDestination = new PDPageFitDestination(arr);
 
     HashMap<String, PDPageDestination> names = new HashMap<>();
-    names.put("", pdPageFitDestination);
+    names.put("42", pdPageFitDestination);
 
     // Act
     pdDestinationNameTreeNode.setNames(names);
@@ -1781,17 +1717,15 @@ class PDNameTreeNodeDiffblueTest {
 
   /**
    * Test {@link PDNameTreeNode#setNames(Map)}.
-   *
    * <ul>
-   *   <li>Given {@link COSArray#COSArray()} add {@link COSDictionary#COSDictionary()}.
+   *   <li>Given {@link COSArray#COSArray()} add {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#setNames(Map)}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#setNames(Map)}
    */
   @Test
   @DisplayName("Test setNames(Map); given COSArray() add COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDNameTreeNode.setNames(Map)"})
   void testSetNames_givenCOSArrayAddCOSDictionary() {
     // Arrange
@@ -1803,7 +1737,7 @@ class PDNameTreeNodeDiffblueTest {
     PDPageFitDestination pdPageFitDestination = new PDPageFitDestination(arr);
 
     HashMap<String, PDPageDestination> names = new HashMap<>();
-    names.put("", pdPageFitDestination);
+    names.put("42", pdPageFitDestination);
 
     // Act
     pdDestinationNameTreeNode.setNames(names);
@@ -1818,17 +1752,51 @@ class PDNameTreeNodeDiffblueTest {
 
   /**
    * Test {@link PDNameTreeNode#setNames(Map)}.
-   *
    * <ul>
-   *   <li>Given {@link COSArray#COSArray()} add {@link COSStream#COSStream()}.
+   *   <li>Given {@link COSArray#COSArray()} add {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#setNames(Map)}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#setNames(Map)}
+   */
+  @Test
+  @DisplayName("Test setNames(Map); given COSArray() add COSDictionary()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDNameTreeNode.setNames(Map)"})
+  void testSetNames_givenCOSArrayAddCOSDictionary2() {
+    // Arrange
+    PDDestinationNameTreeNode pdDestinationNameTreeNode = new PDDestinationNameTreeNode();
+    pdDestinationNameTreeNode.setParent(new PDDestinationNameTreeNode());
+
+    COSArray arr = new COSArray();
+    arr.add(COSBoolean.FALSE);
+    arr.add((COSBase) new COSDictionary());
+    PDPageFitDestination pdPageFitDestination = new PDPageFitDestination(arr);
+
+    HashMap<String, PDPageDestination> names = new HashMap<>();
+    names.put("42", pdPageFitDestination);
+
+    // Act
+    pdDestinationNameTreeNode.setNames(names);
+
+    // Assert
+    assertNull(pdDestinationNameTreeNode.getLowerLimit());
+    assertNull(pdDestinationNameTreeNode.getUpperLimit());
+    COSDictionary cOSObject = pdDestinationNameTreeNode.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDNameTreeNode#setNames(Map)}.
+   * <ul>
+   *   <li>Given {@link COSArray#COSArray()} add {@link COSStream#COSStream()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDNameTreeNode#setNames(Map)}
    */
   @Test
   @DisplayName("Test setNames(Map); given COSArray() add COSStream()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDNameTreeNode.setNames(Map)"})
   void testSetNames_givenCOSArrayAddCOSStream() {
     // Arrange
@@ -1840,7 +1808,7 @@ class PDNameTreeNodeDiffblueTest {
     PDPageFitDestination pdPageFitDestination = new PDPageFitDestination(arr);
 
     HashMap<String, PDPageDestination> names = new HashMap<>();
-    names.put("", pdPageFitDestination);
+    names.put("42", pdPageFitDestination);
 
     // Act
     pdDestinationNameTreeNode.setNames(names);
@@ -1855,17 +1823,15 @@ class PDNameTreeNodeDiffblueTest {
 
   /**
    * Test {@link PDNameTreeNode#setNames(Map)}.
-   *
    * <ul>
-   *   <li>Given {@link COSArray#COSArray()} add {@link COSBoolean#FALSE}.
+   *   <li>Given {@link COSArray#COSArray()} add {@link COSBoolean#FALSE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#setNames(Map)}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#setNames(Map)}
    */
   @Test
   @DisplayName("Test setNames(Map); given COSArray() add FALSE")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDNameTreeNode.setNames(Map)"})
   void testSetNames_givenCOSArrayAddFalse() {
     // Arrange
@@ -1877,7 +1843,7 @@ class PDNameTreeNodeDiffblueTest {
     PDPageFitDestination pdPageFitDestination = new PDPageFitDestination(arr);
 
     HashMap<String, PDPageDestination> names = new HashMap<>();
-    names.put("", pdPageFitDestination);
+    names.put("42", pdPageFitDestination);
 
     // Act
     pdDestinationNameTreeNode.setNames(names);
@@ -1892,17 +1858,15 @@ class PDNameTreeNodeDiffblueTest {
 
   /**
    * Test {@link PDNameTreeNode#setNames(Map)}.
-   *
    * <ul>
-   *   <li>Given {@link COSArray#COSArray()} add {@link COSBoolean#FALSE}.
+   *   <li>Given {@link COSArray#COSArray()} add {@link COSBoolean#FALSE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#setNames(Map)}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#setNames(Map)}
    */
   @Test
   @DisplayName("Test setNames(Map); given COSArray() add FALSE")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDNameTreeNode.setNames(Map)"})
   void testSetNames_givenCOSArrayAddFalse2() {
     // Arrange
@@ -1915,7 +1879,7 @@ class PDNameTreeNodeDiffblueTest {
     PDPageFitDestination pdPageFitDestination = new PDPageFitDestination(arr);
 
     HashMap<String, PDPageDestination> names = new HashMap<>();
-    names.put("", pdPageFitDestination);
+    names.put("42", pdPageFitDestination);
 
     // Act
     pdDestinationNameTreeNode.setNames(names);
@@ -1930,17 +1894,15 @@ class PDNameTreeNodeDiffblueTest {
 
   /**
    * Test {@link PDNameTreeNode#setNames(Map)}.
-   *
    * <ul>
-   *   <li>Given {@link COSArray#COSArray()} add {@link COSInteger#ONE}.
+   *   <li>Given {@link COSArray#COSArray()} add {@link COSInteger#ONE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#setNames(Map)}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#setNames(Map)}
    */
   @Test
   @DisplayName("Test setNames(Map); given COSArray() add ONE")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDNameTreeNode.setNames(Map)"})
   void testSetNames_givenCOSArrayAddOne() {
     // Arrange
@@ -1952,7 +1914,7 @@ class PDNameTreeNodeDiffblueTest {
     PDPageFitDestination pdPageFitDestination = new PDPageFitDestination(arr);
 
     HashMap<String, PDPageDestination> names = new HashMap<>();
-    names.put("", pdPageFitDestination);
+    names.put("42", pdPageFitDestination);
 
     // Act
     pdDestinationNameTreeNode.setNames(names);
@@ -1967,17 +1929,51 @@ class PDNameTreeNodeDiffblueTest {
 
   /**
    * Test {@link PDNameTreeNode#setNames(Map)}.
-   *
    * <ul>
-   *   <li>Given {@link COSArray#COSArray()} add parseHex {@code 0123456789ABCDEF}.
+   *   <li>Given {@link COSArray#COSArray()} add {@link COSInteger#ONE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#setNames(Map)}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#setNames(Map)}
+   */
+  @Test
+  @DisplayName("Test setNames(Map); given COSArray() add ONE")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDNameTreeNode.setNames(Map)"})
+  void testSetNames_givenCOSArrayAddOne2() {
+    // Arrange
+    PDDestinationNameTreeNode pdDestinationNameTreeNode = new PDDestinationNameTreeNode();
+    pdDestinationNameTreeNode.setParent(new PDDestinationNameTreeNode());
+
+    COSArray arr = new COSArray();
+    arr.add(COSBoolean.FALSE);
+    arr.add(COSInteger.ONE);
+    PDPageFitDestination pdPageFitDestination = new PDPageFitDestination(arr);
+
+    HashMap<String, PDPageDestination> names = new HashMap<>();
+    names.put("42", pdPageFitDestination);
+
+    // Act
+    pdDestinationNameTreeNode.setNames(names);
+
+    // Assert
+    assertNull(pdDestinationNameTreeNode.getLowerLimit());
+    assertNull(pdDestinationNameTreeNode.getUpperLimit());
+    COSDictionary cOSObject = pdDestinationNameTreeNode.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDNameTreeNode#setNames(Map)}.
+   * <ul>
+   *   <li>Given {@link COSArray#COSArray()} add parseHex {@code 0123456789ABCDEF}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDNameTreeNode#setNames(Map)}
    */
   @Test
   @DisplayName("Test setNames(Map); given COSArray() add parseHex '0123456789ABCDEF'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDNameTreeNode.setNames(Map)"})
   void testSetNames_givenCOSArrayAddParseHex0123456789abcdef() throws IOException {
     // Arrange
@@ -1989,7 +1985,7 @@ class PDNameTreeNodeDiffblueTest {
     PDPageFitDestination pdPageFitDestination = new PDPageFitDestination(arr);
 
     HashMap<String, PDPageDestination> names = new HashMap<>();
-    names.put("", pdPageFitDestination);
+    names.put("42", pdPageFitDestination);
 
     // Act
     pdDestinationNameTreeNode.setNames(names);
@@ -2004,57 +2000,122 @@ class PDNameTreeNodeDiffblueTest {
 
   /**
    * Test {@link PDNameTreeNode#setNames(Map)}.
-   *
    * <ul>
-   *   <li>Given {@code Fit}.
-   *   <li>Then {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()} Names size is two.
+   *   <li>Given {@link COSArray#COSArray()} add parseHex {@code 0123456789ABCDEF}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#setNames(Map)}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#setNames(Map)}
    */
   @Test
-  @DisplayName(
-      "Test setNames(Map); given 'Fit'; then PDDestinationNameTreeNode() Names size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setNames(Map); given COSArray() add parseHex '0123456789ABCDEF'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDNameTreeNode.setNames(Map)"})
-  void testSetNames_givenFit_thenPDDestinationNameTreeNodeNamesSizeIsTwo() throws IOException {
+  void testSetNames_givenCOSArrayAddParseHex0123456789abcdef2() throws IOException {
     // Arrange
     PDDestinationNameTreeNode pdDestinationNameTreeNode = new PDDestinationNameTreeNode();
     pdDestinationNameTreeNode.setParent(new PDDestinationNameTreeNode());
 
+    COSArray arr = new COSArray();
+    arr.add(COSBoolean.FALSE);
+    arr.add(COSString.parseHex("0123456789ABCDEF"));
+    PDPageFitDestination pdPageFitDestination = new PDPageFitDestination(arr);
+
     HashMap<String, PDPageDestination> names = new HashMap<>();
-    names.put("Fit", new PDPageFitDestination());
-    names.put("", new PDPageFitDestination());
+    names.put("42", pdPageFitDestination);
 
     // Act
     pdDestinationNameTreeNode.setNames(names);
 
     // Assert
-    Map<String, PDPageDestination> names2 = pdDestinationNameTreeNode.getNames();
-    assertEquals(2, names2.size());
-    PDPageDestination getResult = names2.get("Fit");
-    assertTrue(getResult instanceof PDPageFitDestination);
-    assertEquals("Fit", pdDestinationNameTreeNode.getUpperLimit());
-    assertNull(getResult.getPage());
-    assertEquals(-1, getResult.getPageNumber());
-    assertTrue(names2.containsKey(""));
+    assertNull(pdDestinationNameTreeNode.getLowerLimit());
+    assertNull(pdDestinationNameTreeNode.getUpperLimit());
+    COSDictionary cOSObject = pdDestinationNameTreeNode.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
   }
 
   /**
    * Test {@link PDNameTreeNode#setNames(Map)}.
-   *
    * <ul>
-   *   <li>Given {@link PDPageFitDestination#PDPageFitDestination(COSArray)} with arr is {@link
-   *       COSArray#COSArray()}.
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#setNames(Map)}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#setNames(Map)}
+   */
+  @Test
+  @DisplayName("Test setNames(Map); given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDNameTreeNode.setNames(Map)"})
+  void testSetNames_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
+    // Arrange
+    PDDestinationNameTreeNode pdDestinationNameTreeNode = new PDDestinationNameTreeNode();
+    pdDestinationNameTreeNode.setParent(new PDDestinationNameTreeNode());
+
+    COSArray arr = new COSArray();
+    arr.add((COSBase) new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1)));
+    PDPageFitDestination pdPageFitDestination = new PDPageFitDestination(arr);
+
+    HashMap<String, PDPageDestination> names = new HashMap<>();
+    names.put("42", pdPageFitDestination);
+
+    // Act
+    pdDestinationNameTreeNode.setNames(names);
+
+    // Assert
+    assertNull(pdDestinationNameTreeNode.getLowerLimit());
+    assertNull(pdDestinationNameTreeNode.getUpperLimit());
+    COSDictionary cOSObject = pdDestinationNameTreeNode.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDNameTreeNode#setNames(Map)}.
+   * <ul>
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDNameTreeNode#setNames(Map)}
+   */
+  @Test
+  @DisplayName("Test setNames(Map); given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDNameTreeNode.setNames(Map)"})
+  void testSetNames_givenCOSObjectKeyWithNumIsOneAndGenIsOne2() {
+    // Arrange
+    PDDestinationNameTreeNode pdDestinationNameTreeNode = new PDDestinationNameTreeNode();
+    pdDestinationNameTreeNode.setParent(new PDDestinationNameTreeNode());
+
+    COSArray arr = new COSArray();
+    arr.add(COSBoolean.FALSE);
+    arr.add((COSBase) new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1)));
+    PDPageFitDestination pdPageFitDestination = new PDPageFitDestination(arr);
+
+    HashMap<String, PDPageDestination> names = new HashMap<>();
+    names.put("42", pdPageFitDestination);
+
+    // Act
+    pdDestinationNameTreeNode.setNames(names);
+
+    // Assert
+    assertNull(pdDestinationNameTreeNode.getLowerLimit());
+    assertNull(pdDestinationNameTreeNode.getUpperLimit());
+    COSDictionary cOSObject = pdDestinationNameTreeNode.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDNameTreeNode#setNames(Map)}.
+   * <ul>
+   *   <li>Given {@link PDPageFitDestination#PDPageFitDestination(COSArray)} with arr is {@link COSArray#COSArray()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDNameTreeNode#setNames(Map)}
    */
   @Test
   @DisplayName("Test setNames(Map); given PDPageFitDestination(COSArray) with arr is COSArray()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDNameTreeNode.setNames(Map)"})
   void testSetNames_givenPDPageFitDestinationWithArrIsCOSArray() {
     // Arrange
@@ -2062,7 +2123,7 @@ class PDNameTreeNodeDiffblueTest {
     pdDestinationNameTreeNode.setParent(new PDDestinationNameTreeNode());
 
     HashMap<String, PDPageDestination> names = new HashMap<>();
-    names.put("", new PDPageFitDestination(new COSArray()));
+    names.put("42", new PDPageFitDestination(new COSArray()));
 
     // Act
     pdDestinationNameTreeNode.setNames(names);
@@ -2077,56 +2138,49 @@ class PDNameTreeNodeDiffblueTest {
 
   /**
    * Test {@link PDNameTreeNode#setNames(Map)}.
-   *
    * <ul>
-   *   <li>Then {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()} LowerLimit is empty
-   *       string.
+   *   <li>Then {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()} Names {@code 42} {@link PDPageFitDestination}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#setNames(Map)}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#setNames(Map)}
    */
   @Test
-  @DisplayName("Test setNames(Map); then PDDestinationNameTreeNode() LowerLimit is empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setNames(Map); then PDDestinationNameTreeNode() Names '42' PDPageFitDestination")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDNameTreeNode.setNames(Map)"})
-  void testSetNames_thenPDDestinationNameTreeNodeLowerLimitIsEmptyString() {
+  void testSetNames_thenPDDestinationNameTreeNodeNames42PDPageFitDestination() throws IOException {
     // Arrange
     PDDestinationNameTreeNode pdDestinationNameTreeNode = new PDDestinationNameTreeNode();
     pdDestinationNameTreeNode.setParent(new PDDestinationNameTreeNode());
 
     HashMap<String, PDPageDestination> names = new HashMap<>();
-    names.put("", null);
+    names.put("42", new PDPageFitDestination());
 
     // Act
     pdDestinationNameTreeNode.setNames(names);
 
     // Assert
-    assertEquals("", pdDestinationNameTreeNode.getLowerLimit());
-    assertEquals("", pdDestinationNameTreeNode.getUpperLimit());
-    COSDictionary cOSObject = pdDestinationNameTreeNode.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
+    Map<String, PDPageDestination> names2 = pdDestinationNameTreeNode.getNames();
+    assertEquals(1, names2.size());
+    PDPageDestination getResult = names2.get("42");
+    assertTrue(getResult instanceof PDPageFitDestination);
+    assertNull(getResult.getPage());
+    assertEquals(-1, getResult.getPageNumber());
   }
 
   /**
    * Test {@link PDNameTreeNode#setNames(Map)}.
-   *
    * <ul>
-   *   <li>Then {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()} Names empty string
-   *       {@link PDPageFitDestination}.
+   *   <li>Then {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()} Names empty string {@link PDPageFitDestination}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#setNames(Map)}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#setNames(Map)}
    */
   @Test
-  @DisplayName(
-      "Test setNames(Map); then PDDestinationNameTreeNode() Names empty string PDPageFitDestination")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setNames(Map); then PDDestinationNameTreeNode() Names empty string PDPageFitDestination")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDNameTreeNode.setNames(Map)"})
-  void testSetNames_thenPDDestinationNameTreeNodeNamesEmptyStringPDPageFitDestination()
-      throws IOException {
+  void testSetNames_thenPDDestinationNameTreeNodeNamesEmptyStringPDPageFitDestination() throws IOException {
     // Arrange
     PDDestinationNameTreeNode pdDestinationNameTreeNode = new PDDestinationNameTreeNode();
     pdDestinationNameTreeNode.setParent(new PDDestinationNameTreeNode());
@@ -2142,25 +2196,23 @@ class PDNameTreeNodeDiffblueTest {
     assertEquals(1, names2.size());
     PDPageDestination getResult = names2.get("");
     assertTrue(getResult instanceof PDPageFitDestination);
+    assertEquals("", pdDestinationNameTreeNode.getLowerLimit());
+    assertEquals("", pdDestinationNameTreeNode.getUpperLimit());
     assertNull(getResult.getPage());
     assertEquals(-1, getResult.getPageNumber());
   }
 
   /**
    * Test {@link PDNameTreeNode#setNames(Map)}.
-   *
    * <ul>
-   *   <li>Then {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()} Names {@code foo}
-   *       {@link PDPageFitDestination}.
+   *   <li>Then {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()} Names {@code foo} {@link PDPageFitDestination}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#setNames(Map)}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#setNames(Map)}
    */
   @Test
-  @DisplayName(
-      "Test setNames(Map); then PDDestinationNameTreeNode() Names 'foo' PDPageFitDestination")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setNames(Map); then PDDestinationNameTreeNode() Names 'foo' PDPageFitDestination")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDNameTreeNode.setNames(Map)"})
   void testSetNames_thenPDDestinationNameTreeNodeNamesFooPDPageFitDestination() throws IOException {
     // Arrange
@@ -2183,23 +2235,50 @@ class PDNameTreeNodeDiffblueTest {
 
   /**
    * Test {@link PDNameTreeNode#setNames(Map)}.
-   *
    * <ul>
-   *   <li>When {@link HashMap#HashMap()} {@code foo} is {@code null}.
-   *   <li>Then {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()} Names is {@link
-   *       HashMap#HashMap()}.
+   *   <li>When {@link HashMap#HashMap()} {@code 42} is {@code null}.</li>
+   *   <li>Then {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()} LowerLimit is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#setNames(Map)}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#setNames(Map)}
    */
   @Test
-  @DisplayName(
-      "Test setNames(Map); when HashMap() 'foo' is 'null'; then PDDestinationNameTreeNode() Names is HashMap()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setNames(Map); when HashMap() '42' is 'null'; then PDDestinationNameTreeNode() LowerLimit is '42'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDNameTreeNode.setNames(Map)"})
-  void testSetNames_whenHashMapFooIsNull_thenPDDestinationNameTreeNodeNamesIsHashMap()
-      throws IOException {
+  void testSetNames_whenHashMap42IsNull_thenPDDestinationNameTreeNodeLowerLimitIs42() {
+    // Arrange
+    PDDestinationNameTreeNode pdDestinationNameTreeNode = new PDDestinationNameTreeNode();
+    pdDestinationNameTreeNode.setParent(new PDDestinationNameTreeNode());
+
+    HashMap<String, PDPageDestination> names = new HashMap<>();
+    names.put("42", null);
+
+    // Act
+    pdDestinationNameTreeNode.setNames(names);
+
+    // Assert
+    assertEquals("42", pdDestinationNameTreeNode.getLowerLimit());
+    assertEquals("42", pdDestinationNameTreeNode.getUpperLimit());
+    COSDictionary cOSObject = pdDestinationNameTreeNode.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDNameTreeNode#setNames(Map)}.
+   * <ul>
+   *   <li>When {@link HashMap#HashMap()} {@code foo} is {@code null}.</li>
+   *   <li>Then {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()} Names is {@link HashMap#HashMap()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDNameTreeNode#setNames(Map)}
+   */
+  @Test
+  @DisplayName("Test setNames(Map); when HashMap() 'foo' is 'null'; then PDDestinationNameTreeNode() Names is HashMap()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDNameTreeNode.setNames(Map)"})
+  void testSetNames_whenHashMapFooIsNull_thenPDDestinationNameTreeNodeNamesIsHashMap() throws IOException {
     // Arrange
     PDDestinationNameTreeNode pdDestinationNameTreeNode = new PDDestinationNameTreeNode();
 
@@ -2220,18 +2299,16 @@ class PDNameTreeNodeDiffblueTest {
 
   /**
    * Test {@link PDNameTreeNode#setNames(Map)}.
-   *
    * <ul>
-   *   <li>When {@link HashMap#HashMap()}.
-   *   <li>Then {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()} Names Empty.
+   *   <li>When {@link HashMap#HashMap()}.</li>
+   *   <li>Then {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()} Names Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#setNames(Map)}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#setNames(Map)}
    */
   @Test
   @DisplayName("Test setNames(Map); when HashMap(); then PDDestinationNameTreeNode() Names Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDNameTreeNode.setNames(Map)"})
   void testSetNames_whenHashMap_thenPDDestinationNameTreeNodeNamesEmpty() throws IOException {
     // Arrange
@@ -2251,18 +2328,16 @@ class PDNameTreeNodeDiffblueTest {
 
   /**
    * Test {@link PDNameTreeNode#setNames(Map)}.
-   *
    * <ul>
-   *   <li>When {@link HashMap#HashMap()}.
-   *   <li>Then {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()} Names Empty.
+   *   <li>When {@link HashMap#HashMap()}.</li>
+   *   <li>Then {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()} Names Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#setNames(Map)}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#setNames(Map)}
    */
   @Test
   @DisplayName("Test setNames(Map); when HashMap(); then PDDestinationNameTreeNode() Names Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDNameTreeNode.setNames(Map)"})
   void testSetNames_whenHashMap_thenPDDestinationNameTreeNodeNamesEmpty2() throws IOException {
     // Arrange
@@ -2282,72 +2357,38 @@ class PDNameTreeNodeDiffblueTest {
   }
 
   /**
-   * Test {@link PDNameTreeNode#setNames(Map)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()} COSObject size is
-   *       zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#setNames(Map)}
-   */
-  @Test
-  @DisplayName(
-      "Test setNames(Map); when 'null'; then PDDestinationNameTreeNode() COSObject size is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDNameTreeNode.setNames(Map)"})
-  void testSetNames_whenNull_thenPDDestinationNameTreeNodeCOSObjectSizeIsZero() {
-    // Arrange
-    PDDestinationNameTreeNode pdDestinationNameTreeNode = new PDDestinationNameTreeNode();
-
-    // Act
-    pdDestinationNameTreeNode.setNames(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdDestinationNameTreeNode.getCOSObject();
-    assertEquals(0, cOSObject.size());
-    assertTrue(cOSObject.getValues().isEmpty());
-  }
-
-  /**
    * Test {@link PDNameTreeNode#getUpperLimit()}.
-   *
    * <ul>
-   *   <li>Given {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#getUpperLimit()}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#getUpperLimit()}
    */
   @Test
   @DisplayName("Test getUpperLimit(); given PDDestinationNameTreeNode(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDNameTreeNode.getUpperLimit()"})
   void testGetUpperLimit_givenPDDestinationNameTreeNode_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDDestinationNameTreeNode().getUpperLimit());
+    assertNull((new PDDestinationNameTreeNode()).getUpperLimit());
   }
 
   /**
    * Test {@link PDNameTreeNode#getLowerLimit()}.
-   *
    * <ul>
-   *   <li>Given {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDNameTreeNode#getLowerLimit()}
+   * <p>
+   * Method under test: {@link PDNameTreeNode#getLowerLimit()}
    */
   @Test
   @DisplayName("Test getLowerLimit(); given PDDestinationNameTreeNode(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDNameTreeNode.getLowerLimit()"})
   void testGetLowerLimit_givenPDDestinationNameTreeNode_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDDestinationNameTreeNode().getLowerLimit());
+    assertNull((new PDDestinationNameTreeNode()).getLowerLimit());
   }
 }

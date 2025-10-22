@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import java.util.Map;
@@ -26,21 +25,19 @@ import org.junit.jupiter.api.Test;
 class XMPMediaManagementSchemaDiffblueTest {
   /**
    * Test {@link XMPMediaManagementSchema#XMPMediaManagementSchema(XMPMetadata)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#XMPMediaManagementSchema(XMPMetadata)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#XMPMediaManagementSchema(XMPMetadata)}
    */
   @Test
   @DisplayName("Test new XMPMediaManagementSchema(XMPMetadata)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.<init>(XMPMetadata)"})
   void testNewXMPMediaManagementSchema() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
 
     // Act
-    XMPMediaManagementSchema actualXmpMediaManagementSchema =
-        new XMPMediaManagementSchema(metadata);
+    XMPMediaManagementSchema actualXmpMediaManagementSchema = new XMPMediaManagementSchema(metadata);
 
     // Assert
     assertEquals("", actualXmpMediaManagementSchema.getAboutValue());
@@ -81,8 +78,7 @@ class XMPMediaManagementSchemaDiffblueTest {
     assertNull(actualXmpMediaManagementSchema.getRenditionParamsProperty());
     assertNull(actualXmpMediaManagementSchema.getVersionIDProperty());
     assertNull(actualXmpMediaManagementSchema.getLastURLProperty());
-    Map<String, String> allNamespacesWithPrefix =
-        actualXmpMediaManagementSchema.getAllNamespacesWithPrefix();
+    Map<String, String> allNamespacesWithPrefix = actualXmpMediaManagementSchema.getAllNamespacesWithPrefix();
     assertEquals(1, allNamespacesWithPrefix.size());
     assertTrue(actualXmpMediaManagementSchema.getAllProperties().isEmpty());
     assertTrue(actualXmpMediaManagementSchema.getAllAttributes().isEmpty());
@@ -92,28 +88,23 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#XMPMediaManagementSchema(XMPMetadata, String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return Prefix is {@code xmpMM}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return Prefix is {@code xmpMM}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#XMPMediaManagementSchema(XMPMetadata,
-   * String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#XMPMediaManagementSchema(XMPMetadata, String)}
    */
   @Test
-  @DisplayName(
-      "Test new XMPMediaManagementSchema(XMPMetadata, String); when 'null'; then return Prefix is 'xmpMM'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new XMPMediaManagementSchema(XMPMetadata, String); when 'null'; then return Prefix is 'xmpMM'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.<init>(XMPMetadata, String)"})
   void testNewXMPMediaManagementSchema_whenNull_thenReturnPrefixIsXmpMM() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
 
     // Act
-    XMPMediaManagementSchema actualXmpMediaManagementSchema =
-        new XMPMediaManagementSchema(metadata, null);
+    XMPMediaManagementSchema actualXmpMediaManagementSchema = new XMPMediaManagementSchema(metadata, null);
 
     // Assert
     assertEquals("", actualXmpMediaManagementSchema.getAboutValue());
@@ -154,8 +145,7 @@ class XMPMediaManagementSchemaDiffblueTest {
     assertNull(actualXmpMediaManagementSchema.getRenditionParamsProperty());
     assertNull(actualXmpMediaManagementSchema.getVersionIDProperty());
     assertNull(actualXmpMediaManagementSchema.getLastURLProperty());
-    Map<String, String> allNamespacesWithPrefix =
-        actualXmpMediaManagementSchema.getAllNamespacesWithPrefix();
+    Map<String, String> allNamespacesWithPrefix = actualXmpMediaManagementSchema.getAllNamespacesWithPrefix();
     assertEquals(1, allNamespacesWithPrefix.size());
     assertTrue(actualXmpMediaManagementSchema.getAllProperties().isEmpty());
     assertTrue(actualXmpMediaManagementSchema.getAllAttributes().isEmpty());
@@ -165,28 +155,23 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#XMPMediaManagementSchema(XMPMetadata, String)}.
-   *
    * <ul>
-   *   <li>When {@code Own Prefix}.
-   *   <li>Then return Prefix is {@code Own Prefix}.
+   *   <li>When {@code Own Prefix}.</li>
+   *   <li>Then return Prefix is {@code Own Prefix}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#XMPMediaManagementSchema(XMPMetadata,
-   * String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#XMPMediaManagementSchema(XMPMetadata, String)}
    */
   @Test
-  @DisplayName(
-      "Test new XMPMediaManagementSchema(XMPMetadata, String); when 'Own Prefix'; then return Prefix is 'Own Prefix'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new XMPMediaManagementSchema(XMPMetadata, String); when 'Own Prefix'; then return Prefix is 'Own Prefix'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.<init>(XMPMetadata, String)"})
   void testNewXMPMediaManagementSchema_whenOwnPrefix_thenReturnPrefixIsOwnPrefix() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
 
     // Act
-    XMPMediaManagementSchema actualXmpMediaManagementSchema =
-        new XMPMediaManagementSchema(metadata, "Own Prefix");
+    XMPMediaManagementSchema actualXmpMediaManagementSchema = new XMPMediaManagementSchema(metadata, "Own Prefix");
 
     // Assert
     assertEquals("", actualXmpMediaManagementSchema.getAboutValue());
@@ -227,8 +212,7 @@ class XMPMediaManagementSchemaDiffblueTest {
     assertNull(actualXmpMediaManagementSchema.getRenditionParamsProperty());
     assertNull(actualXmpMediaManagementSchema.getVersionIDProperty());
     assertNull(actualXmpMediaManagementSchema.getLastURLProperty());
-    Map<String, String> allNamespacesWithPrefix =
-        actualXmpMediaManagementSchema.getAllNamespacesWithPrefix();
+    Map<String, String> allNamespacesWithPrefix = actualXmpMediaManagementSchema.getAllNamespacesWithPrefix();
     assertEquals(1, allNamespacesWithPrefix.size());
     assertTrue(actualXmpMediaManagementSchema.getAllProperties().isEmpty());
     assertTrue(actualXmpMediaManagementSchema.getAllAttributes().isEmpty());
@@ -238,18 +222,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setDerivedFromProperty(ResourceRefType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setDerivedFromProperty(ResourceRefType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setDerivedFromProperty(ResourceRefType)}
    */
   @Test
   @DisplayName("Test setDerivedFromProperty(ResourceRefType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setDerivedFromProperty(ResourceRefType)"})
   void testSetDerivedFromProperty() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     ResourceRefType tt = new ResourceRefType(XMPMetadata.createXMPMetadata());
 
     // Act
@@ -263,18 +245,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setDerivedFromProperty(ResourceRefType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setDerivedFromProperty(ResourceRefType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setDerivedFromProperty(ResourceRefType)}
    */
   @Test
   @DisplayName("Test setDerivedFromProperty(ResourceRefType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setDerivedFromProperty(ResourceRefType)"})
   void testSetDerivedFromProperty2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addVersions("42");
     ResourceRefType tt = new ResourceRefType(XMPMetadata.createXMPMetadata());
 
@@ -293,13 +273,12 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setDerivedFromProperty(ResourceRefType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setDerivedFromProperty(ResourceRefType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setDerivedFromProperty(ResourceRefType)}
    */
   @Test
   @DisplayName("Test setDerivedFromProperty(ResourceRefType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setDerivedFromProperty(ResourceRefType)"})
   void testSetDerivedFromProperty3() {
     // Arrange
@@ -335,34 +314,30 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getResourceRefProperty()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getResourceRefProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getResourceRefProperty()}
    */
   @Test
   @DisplayName("Test getResourceRefProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ResourceRefType XMPMediaManagementSchema.getResourceRefProperty()"})
   void testGetResourceRefProperty() {
     // Arrange, Act and Assert
-    assertNull(
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata()).getResourceRefProperty());
+    assertNull((new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata())).getResourceRefProperty());
   }
 
   /**
    * Test {@link XMPMediaManagementSchema#getResourceRefProperty()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getResourceRefProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getResourceRefProperty()}
    */
   @Test
   @DisplayName("Test getResourceRefProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ResourceRefType XMPMediaManagementSchema.getResourceRefProperty()"})
   void testGetResourceRefProperty2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addVersions("42");
 
     // Act and Assert
@@ -371,18 +346,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getResourceRefProperty()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getResourceRefProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getResourceRefProperty()}
    */
   @Test
   @DisplayName("Test getResourceRefProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ResourceRefType XMPMediaManagementSchema.getResourceRefProperty()"})
   void testGetResourceRefProperty3() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory(XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
 
@@ -392,13 +365,12 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setDocumentID(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setDocumentID(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setDocumentID(String)}
    */
   @Test
   @DisplayName("Test setDocumentID(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setDocumentID(String)"})
   void testSetDocumentID() {
     // Arrange
@@ -429,18 +401,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setDocumentID(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setDocumentID(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setDocumentID(String)}
    */
   @Test
   @DisplayName("Test setDocumentID(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setDocumentID(String)"})
   void testSetDocumentID2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory(XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
 
@@ -453,13 +423,12 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setDocumentID(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setDocumentID(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setDocumentID(String)}
    */
   @Test
   @DisplayName("Test setDocumentID(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setDocumentID(String)"})
   void testSetDocumentID3() {
     // Arrange
@@ -490,19 +459,15 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setDocumentID(String)}.
-   *
    * <ul>
-   *   <li>Given {@link XMPMediaManagementSchema#XMPMediaManagementSchema(XMPMetadata)} with
-   *       metadata is createXMPMetadata.
+   *   <li>Given {@link XMPMediaManagementSchema#XMPMediaManagementSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setDocumentID(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setDocumentID(String)}
    */
   @Test
-  @DisplayName(
-      "Test setDocumentID(String); given XMPMediaManagementSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setDocumentID(String); given XMPMediaManagementSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setDocumentID(String)"})
   void testSetDocumentID_givenXMPMediaManagementSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange
@@ -531,21 +496,17 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setDocumentIDProperty(URIType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setDocumentIDProperty(URIType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setDocumentIDProperty(URIType)}
    */
   @Test
   @DisplayName("Test setDocumentIDProperty(URIType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setDocumentIDProperty(URIType)"})
   void testSetDocumentIDProperty() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
-    URIType tt =
-        new URIType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    URIType tt = new URIType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     xmpMediaManagementSchema.setDocumentIDProperty(tt);
@@ -558,22 +519,18 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setDocumentIDProperty(URIType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setDocumentIDProperty(URIType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setDocumentIDProperty(URIType)}
    */
   @Test
   @DisplayName("Test setDocumentIDProperty(URIType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setDocumentIDProperty(URIType)"})
   void testSetDocumentIDProperty2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addVersions("42");
-    URIType tt =
-        new URIType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    URIType tt = new URIType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     xmpMediaManagementSchema.setDocumentIDProperty(tt);
@@ -586,23 +543,19 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setDocumentIDProperty(URIType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setDocumentIDProperty(URIType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setDocumentIDProperty(URIType)}
    */
   @Test
   @DisplayName("Test setDocumentIDProperty(URIType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setDocumentIDProperty(URIType)"})
   void testSetDocumentIDProperty3() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory("Property Name");
     xmpMediaManagementSchema.addVersions("42");
-    URIType tt =
-        new URIType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    URIType tt = new URIType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     xmpMediaManagementSchema.setDocumentIDProperty(tt);
@@ -615,24 +568,19 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setDocumentIDProperty(URIType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setDocumentIDProperty(URIType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setDocumentIDProperty(URIType)}
    */
   @Test
   @DisplayName("Test setDocumentIDProperty(URIType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setDocumentIDProperty(URIType)"})
   void testSetDocumentIDProperty4() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
-    xmpMediaManagementSchema.addBagValueAsSimple(
-        "Property Name", XMPMediaManagementSchema.VERSIONS);
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    xmpMediaManagementSchema.addBagValueAsSimple("Property Name", XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
-    URIType tt =
-        new URIType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    URIType tt = new URIType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     xmpMediaManagementSchema.setDocumentIDProperty(tt);
@@ -645,34 +593,30 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getDocumentIDProperty()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getDocumentIDProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getDocumentIDProperty()}
    */
   @Test
   @DisplayName("Test getDocumentIDProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType XMPMediaManagementSchema.getDocumentIDProperty()"})
   void testGetDocumentIDProperty() {
     // Arrange, Act and Assert
-    assertNull(
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata()).getDocumentIDProperty());
+    assertNull((new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata())).getDocumentIDProperty());
   }
 
   /**
    * Test {@link XMPMediaManagementSchema#getDocumentIDProperty()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getDocumentIDProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getDocumentIDProperty()}
    */
   @Test
   @DisplayName("Test getDocumentIDProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType XMPMediaManagementSchema.getDocumentIDProperty()"})
   void testGetDocumentIDProperty2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addVersions("42");
 
     // Act and Assert
@@ -681,18 +625,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getDocumentIDProperty()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getDocumentIDProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getDocumentIDProperty()}
    */
   @Test
   @DisplayName("Test getDocumentIDProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType XMPMediaManagementSchema.getDocumentIDProperty()"})
   void testGetDocumentIDProperty3() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory(XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
 
@@ -702,18 +644,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getDocumentID()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getDocumentID()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getDocumentID()}
    */
   @Test
   @DisplayName("Test getDocumentID()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String XMPMediaManagementSchema.getDocumentID()"})
   void testGetDocumentID() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addVersions("42");
 
     // Act and Assert
@@ -722,18 +662,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getDocumentID()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getDocumentID()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getDocumentID()}
    */
   @Test
   @DisplayName("Test getDocumentID()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String XMPMediaManagementSchema.getDocumentID()"})
   void testGetDocumentID2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory(XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
 
@@ -743,34 +681,29 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getDocumentID()}.
-   *
    * <ul>
-   *   <li>Given {@link XMPMediaManagementSchema#XMPMediaManagementSchema(XMPMetadata)} with
-   *       metadata is createXMPMetadata.
+   *   <li>Given {@link XMPMediaManagementSchema#XMPMediaManagementSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getDocumentID()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getDocumentID()}
    */
   @Test
-  @DisplayName(
-      "Test getDocumentID(); given XMPMediaManagementSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getDocumentID(); given XMPMediaManagementSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String XMPMediaManagementSchema.getDocumentID()"})
   void testGetDocumentID_givenXMPMediaManagementSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull(new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata()).getDocumentID());
+    assertNull((new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata())).getDocumentID());
   }
 
   /**
    * Test {@link XMPMediaManagementSchema#setLastURL(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setLastURL(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setLastURL(String)}
    */
   @Test
   @DisplayName("Test setLastURL(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setLastURL(String)"})
   void testSetLastURL() {
     // Arrange
@@ -800,18 +733,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setLastURL(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setLastURL(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setLastURL(String)}
    */
   @Test
   @DisplayName("Test setLastURL(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setLastURL(String)"})
   void testSetLastURL2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory(XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
 
@@ -824,13 +755,12 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setLastURL(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setLastURL(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setLastURL(String)}
    */
   @Test
   @DisplayName("Test setLastURL(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setLastURL(String)"})
   void testSetLastURL3() {
     // Arrange
@@ -860,19 +790,15 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setLastURL(String)}.
-   *
    * <ul>
-   *   <li>Given {@link XMPMediaManagementSchema#XMPMediaManagementSchema(XMPMetadata)} with
-   *       metadata is createXMPMetadata.
+   *   <li>Given {@link XMPMediaManagementSchema#XMPMediaManagementSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setLastURL(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setLastURL(String)}
    */
   @Test
-  @DisplayName(
-      "Test setLastURL(String); given XMPMediaManagementSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setLastURL(String); given XMPMediaManagementSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setLastURL(String)"})
   void testSetLastURL_givenXMPMediaManagementSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange
@@ -900,25 +826,18 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setLastURLProperty(URLType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setLastURLProperty(URLType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setLastURLProperty(URLType)}
    */
   @Test
   @DisplayName("Test setLastURLProperty(URLType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setLastURLProperty(URLType)"})
   void testSetLastURLProperty() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
-    URLType tt =
-        new URLType(
-            XMPMetadata.createXMPMetadata(),
-            "https://example.org/example",
-            "https://example.org/example",
-            "https://example.org/example",
-            "Value");
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    URLType tt = new URLType(XMPMetadata.createXMPMetadata(), "https://example.org/example",
+        "https://example.org/example", "https://example.org/example", "Value");
 
     // Act
     xmpMediaManagementSchema.setLastURLProperty(tt);
@@ -931,26 +850,19 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setLastURLProperty(URLType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setLastURLProperty(URLType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setLastURLProperty(URLType)}
    */
   @Test
   @DisplayName("Test setLastURLProperty(URLType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setLastURLProperty(URLType)"})
   void testSetLastURLProperty2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addVersions("42");
-    URLType tt =
-        new URLType(
-            XMPMetadata.createXMPMetadata(),
-            "https://example.org/example",
-            "https://example.org/example",
-            "https://example.org/example",
-            "Value");
+    URLType tt = new URLType(XMPMetadata.createXMPMetadata(), "https://example.org/example",
+        "https://example.org/example", "https://example.org/example", "Value");
 
     // Act
     xmpMediaManagementSchema.setLastURLProperty(tt);
@@ -963,27 +875,20 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setLastURLProperty(URLType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setLastURLProperty(URLType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setLastURLProperty(URLType)}
    */
   @Test
   @DisplayName("Test setLastURLProperty(URLType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setLastURLProperty(URLType)"})
   void testSetLastURLProperty3() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory("https://example.org/example");
     xmpMediaManagementSchema.addVersions("42");
-    URLType tt =
-        new URLType(
-            XMPMetadata.createXMPMetadata(),
-            "https://example.org/example",
-            "https://example.org/example",
-            "https://example.org/example",
-            "Value");
+    URLType tt = new URLType(XMPMetadata.createXMPMetadata(), "https://example.org/example",
+        "https://example.org/example", "https://example.org/example", "Value");
 
     // Act
     xmpMediaManagementSchema.setLastURLProperty(tt);
@@ -996,28 +901,20 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setLastURLProperty(URLType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setLastURLProperty(URLType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setLastURLProperty(URLType)}
    */
   @Test
   @DisplayName("Test setLastURLProperty(URLType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setLastURLProperty(URLType)"})
   void testSetLastURLProperty4() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
-    xmpMediaManagementSchema.addBagValueAsSimple(
-        "https://example.org/example", XMPMediaManagementSchema.VERSIONS);
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    xmpMediaManagementSchema.addBagValueAsSimple("https://example.org/example", XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
-    URLType tt =
-        new URLType(
-            XMPMetadata.createXMPMetadata(),
-            "https://example.org/example",
-            "https://example.org/example",
-            "https://example.org/example",
-            "Value");
+    URLType tt = new URLType(XMPMetadata.createXMPMetadata(), "https://example.org/example",
+        "https://example.org/example", "https://example.org/example", "Value");
 
     // Act
     xmpMediaManagementSchema.setLastURLProperty(tt);
@@ -1030,33 +927,30 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getLastURLProperty()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getLastURLProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getLastURLProperty()}
    */
   @Test
   @DisplayName("Test getLastURLProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"URLType XMPMediaManagementSchema.getLastURLProperty()"})
   void testGetLastURLProperty() {
     // Arrange, Act and Assert
-    assertNull(new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata()).getLastURLProperty());
+    assertNull((new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata())).getLastURLProperty());
   }
 
   /**
    * Test {@link XMPMediaManagementSchema#getLastURLProperty()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getLastURLProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getLastURLProperty()}
    */
   @Test
   @DisplayName("Test getLastURLProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"URLType XMPMediaManagementSchema.getLastURLProperty()"})
   void testGetLastURLProperty2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addVersions("42");
 
     // Act and Assert
@@ -1065,18 +959,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getLastURLProperty()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getLastURLProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getLastURLProperty()}
    */
   @Test
   @DisplayName("Test getLastURLProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"URLType XMPMediaManagementSchema.getLastURLProperty()"})
   void testGetLastURLProperty3() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory(XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
 
@@ -1086,18 +978,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getLastURL()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getLastURL()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getLastURL()}
    */
   @Test
   @DisplayName("Test getLastURL()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String XMPMediaManagementSchema.getLastURL()"})
   void testGetLastURL() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addVersions("42");
 
     // Act and Assert
@@ -1106,18 +996,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getLastURL()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getLastURL()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getLastURL()}
    */
   @Test
   @DisplayName("Test getLastURL()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String XMPMediaManagementSchema.getLastURL()"})
   void testGetLastURL2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory(XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
 
@@ -1127,34 +1015,29 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getLastURL()}.
-   *
    * <ul>
-   *   <li>Given {@link XMPMediaManagementSchema#XMPMediaManagementSchema(XMPMetadata)} with
-   *       metadata is createXMPMetadata.
+   *   <li>Given {@link XMPMediaManagementSchema#XMPMediaManagementSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getLastURL()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getLastURL()}
    */
   @Test
-  @DisplayName(
-      "Test getLastURL(); given XMPMediaManagementSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getLastURL(); given XMPMediaManagementSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String XMPMediaManagementSchema.getLastURL()"})
   void testGetLastURL_givenXMPMediaManagementSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull(new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata()).getLastURL());
+    assertNull((new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata())).getLastURL());
   }
 
   /**
    * Test {@link XMPMediaManagementSchema#setSaveId(Integer)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setSaveId(Integer)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setSaveId(Integer)}
    */
   @Test
   @DisplayName("Test setSaveId(Integer)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setSaveId(Integer)"})
   void testSetSaveId() {
     // Arrange
@@ -1184,18 +1067,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setSaveId(Integer)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setSaveId(Integer)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setSaveId(Integer)}
    */
   @Test
   @DisplayName("Test setSaveId(Integer)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setSaveId(Integer)"})
   void testSetSaveId2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory(XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
 
@@ -1208,13 +1089,12 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setSaveId(Integer)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setSaveId(Integer)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setSaveId(Integer)}
    */
   @Test
   @DisplayName("Test setSaveId(Integer)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setSaveId(Integer)"})
   void testSetSaveId3() {
     // Arrange
@@ -1244,19 +1124,15 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setSaveId(Integer)}.
-   *
    * <ul>
-   *   <li>Given {@link XMPMediaManagementSchema#XMPMediaManagementSchema(XMPMetadata)} with
-   *       metadata is createXMPMetadata.
+   *   <li>Given {@link XMPMediaManagementSchema#XMPMediaManagementSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setSaveId(Integer)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setSaveId(Integer)}
    */
   @Test
-  @DisplayName(
-      "Test setSaveId(Integer); given XMPMediaManagementSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setSaveId(Integer); given XMPMediaManagementSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setSaveId(Integer)"})
   void testSetSaveId_givenXMPMediaManagementSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange
@@ -1284,21 +1160,17 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setSaveIDProperty(IntegerType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setSaveIDProperty(IntegerType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setSaveIDProperty(IntegerType)}
    */
   @Test
   @DisplayName("Test setSaveIDProperty(IntegerType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setSaveIDProperty(IntegerType)"})
   void testSetSaveIDProperty() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
-    IntegerType tt =
-        new IntegerType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", 42);
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    IntegerType tt = new IntegerType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", 42);
 
     // Act
     xmpMediaManagementSchema.setSaveIDProperty(tt);
@@ -1311,22 +1183,18 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setSaveIDProperty(IntegerType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setSaveIDProperty(IntegerType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setSaveIDProperty(IntegerType)}
    */
   @Test
   @DisplayName("Test setSaveIDProperty(IntegerType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setSaveIDProperty(IntegerType)"})
   void testSetSaveIDProperty2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addVersions("Value");
-    IntegerType tt =
-        new IntegerType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", 42);
+    IntegerType tt = new IntegerType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", 42);
 
     // Act
     xmpMediaManagementSchema.setSaveIDProperty(tt);
@@ -1339,23 +1207,19 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setSaveIDProperty(IntegerType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setSaveIDProperty(IntegerType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setSaveIDProperty(IntegerType)}
    */
   @Test
   @DisplayName("Test setSaveIDProperty(IntegerType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setSaveIDProperty(IntegerType)"})
   void testSetSaveIDProperty3() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory(XMPMediaManagementSchema.HISTORY);
     xmpMediaManagementSchema.addVersions("Value");
-    IntegerType tt =
-        new IntegerType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", 42);
+    IntegerType tt = new IntegerType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", 42);
 
     // Act
     xmpMediaManagementSchema.setSaveIDProperty(tt);
@@ -1368,24 +1232,20 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setSaveIDProperty(IntegerType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setSaveIDProperty(IntegerType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setSaveIDProperty(IntegerType)}
    */
   @Test
   @DisplayName("Test setSaveIDProperty(IntegerType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setSaveIDProperty(IntegerType)"})
   void testSetSaveIDProperty4() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addBagValueAsSimple("Property Name", XMPMediaManagementSchema.HISTORY);
     xmpMediaManagementSchema.addHistory(XMPMediaManagementSchema.HISTORY);
     xmpMediaManagementSchema.addVersions("Value");
-    IntegerType tt =
-        new IntegerType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", 42);
+    IntegerType tt = new IntegerType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", 42);
 
     // Act
     xmpMediaManagementSchema.setSaveIDProperty(tt);
@@ -1398,33 +1258,30 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getSaveIDProperty()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getSaveIDProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getSaveIDProperty()}
    */
   @Test
   @DisplayName("Test getSaveIDProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"IntegerType XMPMediaManagementSchema.getSaveIDProperty()"})
   void testGetSaveIDProperty() {
     // Arrange, Act and Assert
-    assertNull(new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata()).getSaveIDProperty());
+    assertNull((new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata())).getSaveIDProperty());
   }
 
   /**
    * Test {@link XMPMediaManagementSchema#getSaveIDProperty()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getSaveIDProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getSaveIDProperty()}
    */
   @Test
   @DisplayName("Test getSaveIDProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"IntegerType XMPMediaManagementSchema.getSaveIDProperty()"})
   void testGetSaveIDProperty2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addVersions("42");
 
     // Act and Assert
@@ -1433,18 +1290,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getSaveIDProperty()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getSaveIDProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getSaveIDProperty()}
    */
   @Test
   @DisplayName("Test getSaveIDProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"IntegerType XMPMediaManagementSchema.getSaveIDProperty()"})
   void testGetSaveIDProperty3() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory(XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
 
@@ -1454,18 +1309,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getSaveID()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getSaveID()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getSaveID()}
    */
   @Test
   @DisplayName("Test getSaveID()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Integer XMPMediaManagementSchema.getSaveID()"})
   void testGetSaveID() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addVersions("42");
 
     // Act and Assert
@@ -1474,18 +1327,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getSaveID()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getSaveID()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getSaveID()}
    */
   @Test
   @DisplayName("Test getSaveID()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Integer XMPMediaManagementSchema.getSaveID()"})
   void testGetSaveID2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory(XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
 
@@ -1495,34 +1346,29 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getSaveID()}.
-   *
    * <ul>
-   *   <li>Given {@link XMPMediaManagementSchema#XMPMediaManagementSchema(XMPMetadata)} with
-   *       metadata is createXMPMetadata.
+   *   <li>Given {@link XMPMediaManagementSchema#XMPMediaManagementSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getSaveID()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getSaveID()}
    */
   @Test
-  @DisplayName(
-      "Test getSaveID(); given XMPMediaManagementSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getSaveID(); given XMPMediaManagementSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Integer XMPMediaManagementSchema.getSaveID()"})
   void testGetSaveID_givenXMPMediaManagementSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull(new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata()).getSaveID());
+    assertNull((new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata())).getSaveID());
   }
 
   /**
    * Test {@link XMPMediaManagementSchema#setManager(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setManager(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setManager(String)}
    */
   @Test
   @DisplayName("Test setManager(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setManager(String)"})
   void testSetManager() {
     // Arrange
@@ -1553,18 +1399,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setManager(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setManager(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setManager(String)}
    */
   @Test
   @DisplayName("Test setManager(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setManager(String)"})
   void testSetManager2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory(XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
 
@@ -1577,13 +1421,12 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setManager(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setManager(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setManager(String)}
    */
   @Test
   @DisplayName("Test setManager(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setManager(String)"})
   void testSetManager3() {
     // Arrange
@@ -1614,19 +1457,15 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setManager(String)}.
-   *
    * <ul>
-   *   <li>Given {@link XMPMediaManagementSchema#XMPMediaManagementSchema(XMPMetadata)} with
-   *       metadata is createXMPMetadata.
+   *   <li>Given {@link XMPMediaManagementSchema#XMPMediaManagementSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setManager(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setManager(String)}
    */
   @Test
-  @DisplayName(
-      "Test setManager(String); given XMPMediaManagementSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setManager(String); given XMPMediaManagementSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setManager(String)"})
   void testSetManager_givenXMPMediaManagementSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange
@@ -1655,21 +1494,18 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setManagerProperty(AgentNameType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setManagerProperty(AgentNameType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setManagerProperty(AgentNameType)}
    */
   @Test
   @DisplayName("Test setManagerProperty(AgentNameType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setManagerProperty(AgentNameType)"})
   void testSetManagerProperty() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
-    AgentNameType tt =
-        new AgentNameType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    AgentNameType tt = new AgentNameType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name",
+        "Value");
 
     // Act
     xmpMediaManagementSchema.setManagerProperty(tt);
@@ -1682,22 +1518,19 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setManagerProperty(AgentNameType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setManagerProperty(AgentNameType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setManagerProperty(AgentNameType)}
    */
   @Test
   @DisplayName("Test setManagerProperty(AgentNameType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setManagerProperty(AgentNameType)"})
   void testSetManagerProperty2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addVersions("42");
-    AgentNameType tt =
-        new AgentNameType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    AgentNameType tt = new AgentNameType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name",
+        "Value");
 
     // Act
     xmpMediaManagementSchema.setManagerProperty(tt);
@@ -1710,23 +1543,20 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setManagerProperty(AgentNameType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setManagerProperty(AgentNameType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setManagerProperty(AgentNameType)}
    */
   @Test
   @DisplayName("Test setManagerProperty(AgentNameType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setManagerProperty(AgentNameType)"})
   void testSetManagerProperty3() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory("Property Name");
     xmpMediaManagementSchema.addVersions("42");
-    AgentNameType tt =
-        new AgentNameType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    AgentNameType tt = new AgentNameType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name",
+        "Value");
 
     // Act
     xmpMediaManagementSchema.setManagerProperty(tt);
@@ -1739,24 +1569,20 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setManagerProperty(AgentNameType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setManagerProperty(AgentNameType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setManagerProperty(AgentNameType)}
    */
   @Test
   @DisplayName("Test setManagerProperty(AgentNameType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setManagerProperty(AgentNameType)"})
   void testSetManagerProperty4() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
-    xmpMediaManagementSchema.addBagValueAsSimple(
-        "Property Name", XMPMediaManagementSchema.VERSIONS);
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    xmpMediaManagementSchema.addBagValueAsSimple("Property Name", XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
-    AgentNameType tt =
-        new AgentNameType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    AgentNameType tt = new AgentNameType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name",
+        "Value");
 
     // Act
     xmpMediaManagementSchema.setManagerProperty(tt);
@@ -1769,33 +1595,30 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getManagerProperty()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getManagerProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getManagerProperty()}
    */
   @Test
   @DisplayName("Test getManagerProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType XMPMediaManagementSchema.getManagerProperty()"})
   void testGetManagerProperty() {
     // Arrange, Act and Assert
-    assertNull(new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata()).getManagerProperty());
+    assertNull((new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata())).getManagerProperty());
   }
 
   /**
    * Test {@link XMPMediaManagementSchema#getManagerProperty()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getManagerProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getManagerProperty()}
    */
   @Test
   @DisplayName("Test getManagerProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType XMPMediaManagementSchema.getManagerProperty()"})
   void testGetManagerProperty2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addVersions("42");
 
     // Act and Assert
@@ -1804,18 +1627,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getManagerProperty()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getManagerProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getManagerProperty()}
    */
   @Test
   @DisplayName("Test getManagerProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType XMPMediaManagementSchema.getManagerProperty()"})
   void testGetManagerProperty3() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory(XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
 
@@ -1825,18 +1646,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getManager()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getManager()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getManager()}
    */
   @Test
   @DisplayName("Test getManager()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String XMPMediaManagementSchema.getManager()"})
   void testGetManager() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addVersions("42");
 
     // Act and Assert
@@ -1845,18 +1664,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getManager()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getManager()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getManager()}
    */
   @Test
   @DisplayName("Test getManager()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String XMPMediaManagementSchema.getManager()"})
   void testGetManager2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory(XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
 
@@ -1866,34 +1683,29 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getManager()}.
-   *
    * <ul>
-   *   <li>Given {@link XMPMediaManagementSchema#XMPMediaManagementSchema(XMPMetadata)} with
-   *       metadata is createXMPMetadata.
+   *   <li>Given {@link XMPMediaManagementSchema#XMPMediaManagementSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getManager()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getManager()}
    */
   @Test
-  @DisplayName(
-      "Test getManager(); given XMPMediaManagementSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getManager(); given XMPMediaManagementSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String XMPMediaManagementSchema.getManager()"})
   void testGetManager_givenXMPMediaManagementSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull(new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata()).getManager());
+    assertNull((new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata())).getManager());
   }
 
   /**
    * Test {@link XMPMediaManagementSchema#setManageTo(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setManageTo(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setManageTo(String)}
    */
   @Test
   @DisplayName("Test setManageTo(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setManageTo(String)"})
   void testSetManageTo() {
     // Arrange
@@ -1924,18 +1736,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setManageTo(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setManageTo(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setManageTo(String)}
    */
   @Test
   @DisplayName("Test setManageTo(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setManageTo(String)"})
   void testSetManageTo2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory(XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
 
@@ -1948,13 +1758,12 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setManageTo(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setManageTo(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setManageTo(String)}
    */
   @Test
   @DisplayName("Test setManageTo(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setManageTo(String)"})
   void testSetManageTo3() {
     // Arrange
@@ -1985,19 +1794,15 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setManageTo(String)}.
-   *
    * <ul>
-   *   <li>Given {@link XMPMediaManagementSchema#XMPMediaManagementSchema(XMPMetadata)} with
-   *       metadata is createXMPMetadata.
+   *   <li>Given {@link XMPMediaManagementSchema#XMPMediaManagementSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setManageTo(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setManageTo(String)}
    */
   @Test
-  @DisplayName(
-      "Test setManageTo(String); given XMPMediaManagementSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setManageTo(String); given XMPMediaManagementSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setManageTo(String)"})
   void testSetManageTo_givenXMPMediaManagementSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange
@@ -2026,21 +1831,17 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setManageToProperty(URIType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setManageToProperty(URIType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setManageToProperty(URIType)}
    */
   @Test
   @DisplayName("Test setManageToProperty(URIType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setManageToProperty(URIType)"})
   void testSetManageToProperty() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
-    URIType tt =
-        new URIType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    URIType tt = new URIType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     xmpMediaManagementSchema.setManageToProperty(tt);
@@ -2053,22 +1854,18 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setManageToProperty(URIType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setManageToProperty(URIType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setManageToProperty(URIType)}
    */
   @Test
   @DisplayName("Test setManageToProperty(URIType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setManageToProperty(URIType)"})
   void testSetManageToProperty2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addVersions("42");
-    URIType tt =
-        new URIType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    URIType tt = new URIType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     xmpMediaManagementSchema.setManageToProperty(tt);
@@ -2081,23 +1878,19 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setManageToProperty(URIType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setManageToProperty(URIType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setManageToProperty(URIType)}
    */
   @Test
   @DisplayName("Test setManageToProperty(URIType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setManageToProperty(URIType)"})
   void testSetManageToProperty3() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory("Property Name");
     xmpMediaManagementSchema.addVersions("42");
-    URIType tt =
-        new URIType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    URIType tt = new URIType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     xmpMediaManagementSchema.setManageToProperty(tt);
@@ -2110,24 +1903,19 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setManageToProperty(URIType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setManageToProperty(URIType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setManageToProperty(URIType)}
    */
   @Test
   @DisplayName("Test setManageToProperty(URIType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setManageToProperty(URIType)"})
   void testSetManageToProperty4() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
-    xmpMediaManagementSchema.addBagValueAsSimple(
-        "Property Name", XMPMediaManagementSchema.VERSIONS);
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    xmpMediaManagementSchema.addBagValueAsSimple("Property Name", XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
-    URIType tt =
-        new URIType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    URIType tt = new URIType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     xmpMediaManagementSchema.setManageToProperty(tt);
@@ -2140,33 +1928,30 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getManageToProperty()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getManageToProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getManageToProperty()}
    */
   @Test
   @DisplayName("Test getManageToProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType XMPMediaManagementSchema.getManageToProperty()"})
   void testGetManageToProperty() {
     // Arrange, Act and Assert
-    assertNull(new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata()).getManageToProperty());
+    assertNull((new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata())).getManageToProperty());
   }
 
   /**
    * Test {@link XMPMediaManagementSchema#getManageToProperty()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getManageToProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getManageToProperty()}
    */
   @Test
   @DisplayName("Test getManageToProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType XMPMediaManagementSchema.getManageToProperty()"})
   void testGetManageToProperty2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addVersions("42");
 
     // Act and Assert
@@ -2175,18 +1960,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getManageToProperty()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getManageToProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getManageToProperty()}
    */
   @Test
   @DisplayName("Test getManageToProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType XMPMediaManagementSchema.getManageToProperty()"})
   void testGetManageToProperty3() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory(XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
 
@@ -2196,18 +1979,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getManageTo()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getManageTo()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getManageTo()}
    */
   @Test
   @DisplayName("Test getManageTo()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String XMPMediaManagementSchema.getManageTo()"})
   void testGetManageTo() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addVersions("42");
 
     // Act and Assert
@@ -2216,18 +1997,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getManageTo()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getManageTo()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getManageTo()}
    */
   @Test
   @DisplayName("Test getManageTo()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String XMPMediaManagementSchema.getManageTo()"})
   void testGetManageTo2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory(XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
 
@@ -2237,34 +2016,29 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getManageTo()}.
-   *
    * <ul>
-   *   <li>Given {@link XMPMediaManagementSchema#XMPMediaManagementSchema(XMPMetadata)} with
-   *       metadata is createXMPMetadata.
+   *   <li>Given {@link XMPMediaManagementSchema#XMPMediaManagementSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getManageTo()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getManageTo()}
    */
   @Test
-  @DisplayName(
-      "Test getManageTo(); given XMPMediaManagementSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getManageTo(); given XMPMediaManagementSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String XMPMediaManagementSchema.getManageTo()"})
   void testGetManageTo_givenXMPMediaManagementSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull(new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata()).getManageTo());
+    assertNull((new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata())).getManageTo());
   }
 
   /**
    * Test {@link XMPMediaManagementSchema#setManageUI(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setManageUI(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setManageUI(String)}
    */
   @Test
   @DisplayName("Test setManageUI(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setManageUI(String)"})
   void testSetManageUI() {
     // Arrange
@@ -2295,18 +2069,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setManageUI(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setManageUI(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setManageUI(String)}
    */
   @Test
   @DisplayName("Test setManageUI(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setManageUI(String)"})
   void testSetManageUI2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory(XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
 
@@ -2319,13 +2091,12 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setManageUI(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setManageUI(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setManageUI(String)}
    */
   @Test
   @DisplayName("Test setManageUI(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setManageUI(String)"})
   void testSetManageUI3() {
     // Arrange
@@ -2356,19 +2127,15 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setManageUI(String)}.
-   *
    * <ul>
-   *   <li>Given {@link XMPMediaManagementSchema#XMPMediaManagementSchema(XMPMetadata)} with
-   *       metadata is createXMPMetadata.
+   *   <li>Given {@link XMPMediaManagementSchema#XMPMediaManagementSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setManageUI(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setManageUI(String)}
    */
   @Test
-  @DisplayName(
-      "Test setManageUI(String); given XMPMediaManagementSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setManageUI(String); given XMPMediaManagementSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setManageUI(String)"})
   void testSetManageUI_givenXMPMediaManagementSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange
@@ -2397,21 +2164,17 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setManageUIProperty(URIType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setManageUIProperty(URIType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setManageUIProperty(URIType)}
    */
   @Test
   @DisplayName("Test setManageUIProperty(URIType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setManageUIProperty(URIType)"})
   void testSetManageUIProperty() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
-    URIType tt =
-        new URIType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    URIType tt = new URIType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     xmpMediaManagementSchema.setManageUIProperty(tt);
@@ -2424,22 +2187,18 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setManageUIProperty(URIType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setManageUIProperty(URIType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setManageUIProperty(URIType)}
    */
   @Test
   @DisplayName("Test setManageUIProperty(URIType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setManageUIProperty(URIType)"})
   void testSetManageUIProperty2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addVersions("42");
-    URIType tt =
-        new URIType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    URIType tt = new URIType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     xmpMediaManagementSchema.setManageUIProperty(tt);
@@ -2452,23 +2211,19 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setManageUIProperty(URIType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setManageUIProperty(URIType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setManageUIProperty(URIType)}
    */
   @Test
   @DisplayName("Test setManageUIProperty(URIType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setManageUIProperty(URIType)"})
   void testSetManageUIProperty3() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory("Property Name");
     xmpMediaManagementSchema.addVersions("42");
-    URIType tt =
-        new URIType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    URIType tt = new URIType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     xmpMediaManagementSchema.setManageUIProperty(tt);
@@ -2481,24 +2236,19 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setManageUIProperty(URIType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setManageUIProperty(URIType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setManageUIProperty(URIType)}
    */
   @Test
   @DisplayName("Test setManageUIProperty(URIType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setManageUIProperty(URIType)"})
   void testSetManageUIProperty4() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
-    xmpMediaManagementSchema.addBagValueAsSimple(
-        "Property Name", XMPMediaManagementSchema.VERSIONS);
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    xmpMediaManagementSchema.addBagValueAsSimple("Property Name", XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
-    URIType tt =
-        new URIType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    URIType tt = new URIType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     xmpMediaManagementSchema.setManageUIProperty(tt);
@@ -2511,33 +2261,30 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getManageUIProperty()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getManageUIProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getManageUIProperty()}
    */
   @Test
   @DisplayName("Test getManageUIProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType XMPMediaManagementSchema.getManageUIProperty()"})
   void testGetManageUIProperty() {
     // Arrange, Act and Assert
-    assertNull(new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata()).getManageUIProperty());
+    assertNull((new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata())).getManageUIProperty());
   }
 
   /**
    * Test {@link XMPMediaManagementSchema#getManageUIProperty()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getManageUIProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getManageUIProperty()}
    */
   @Test
   @DisplayName("Test getManageUIProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType XMPMediaManagementSchema.getManageUIProperty()"})
   void testGetManageUIProperty2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addVersions("42");
 
     // Act and Assert
@@ -2546,18 +2293,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getManageUIProperty()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getManageUIProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getManageUIProperty()}
    */
   @Test
   @DisplayName("Test getManageUIProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType XMPMediaManagementSchema.getManageUIProperty()"})
   void testGetManageUIProperty3() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory(XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
 
@@ -2567,18 +2312,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getManageUI()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getManageUI()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getManageUI()}
    */
   @Test
   @DisplayName("Test getManageUI()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String XMPMediaManagementSchema.getManageUI()"})
   void testGetManageUI() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addVersions("42");
 
     // Act and Assert
@@ -2587,18 +2330,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getManageUI()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getManageUI()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getManageUI()}
    */
   @Test
   @DisplayName("Test getManageUI()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String XMPMediaManagementSchema.getManageUI()"})
   void testGetManageUI2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory(XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
 
@@ -2608,34 +2349,29 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getManageUI()}.
-   *
    * <ul>
-   *   <li>Given {@link XMPMediaManagementSchema#XMPMediaManagementSchema(XMPMetadata)} with
-   *       metadata is createXMPMetadata.
+   *   <li>Given {@link XMPMediaManagementSchema#XMPMediaManagementSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getManageUI()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getManageUI()}
    */
   @Test
-  @DisplayName(
-      "Test getManageUI(); given XMPMediaManagementSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getManageUI(); given XMPMediaManagementSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String XMPMediaManagementSchema.getManageUI()"})
   void testGetManageUI_givenXMPMediaManagementSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull(new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata()).getManageUI());
+    assertNull((new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata())).getManageUI());
   }
 
   /**
    * Test {@link XMPMediaManagementSchema#setManagerVariant(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setManagerVariant(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setManagerVariant(String)}
    */
   @Test
   @DisplayName("Test setManagerVariant(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setManagerVariant(String)"})
   void testSetManagerVariant() {
     // Arrange
@@ -2663,13 +2399,12 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setManagerVariant(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setManagerVariant(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setManagerVariant(String)}
    */
   @Test
   @DisplayName("Test setManagerVariant(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setManagerVariant(String)"})
   void testSetManagerVariant2() {
     // Arrange
@@ -2699,18 +2434,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setManagerVariant(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setManagerVariant(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setManagerVariant(String)}
    */
   @Test
   @DisplayName("Test setManagerVariant(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setManagerVariant(String)"})
   void testSetManagerVariant3() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory(XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
 
@@ -2723,13 +2456,12 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setManagerVariant(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setManagerVariant(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setManagerVariant(String)}
    */
   @Test
   @DisplayName("Test setManagerVariant(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setManagerVariant(String)"})
   void testSetManagerVariant4() {
     // Arrange
@@ -2759,21 +2491,17 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setManagerVariantProperty(TextType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setManagerVariantProperty(TextType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setManagerVariantProperty(TextType)}
    */
   @Test
   @DisplayName("Test setManagerVariantProperty(TextType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setManagerVariantProperty(TextType)"})
   void testSetManagerVariantProperty() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
-    TextType tt =
-        new TextType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    TextType tt = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     xmpMediaManagementSchema.setManagerVariantProperty(tt);
@@ -2786,22 +2514,18 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setManagerVariantProperty(TextType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setManagerVariantProperty(TextType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setManagerVariantProperty(TextType)}
    */
   @Test
   @DisplayName("Test setManagerVariantProperty(TextType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setManagerVariantProperty(TextType)"})
   void testSetManagerVariantProperty2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addVersions("42");
-    TextType tt =
-        new TextType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType tt = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     xmpMediaManagementSchema.setManagerVariantProperty(tt);
@@ -2814,23 +2538,19 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setManagerVariantProperty(TextType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setManagerVariantProperty(TextType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setManagerVariantProperty(TextType)}
    */
   @Test
   @DisplayName("Test setManagerVariantProperty(TextType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setManagerVariantProperty(TextType)"})
   void testSetManagerVariantProperty3() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory("Property Name");
     xmpMediaManagementSchema.addVersions("42");
-    TextType tt =
-        new TextType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType tt = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     xmpMediaManagementSchema.setManagerVariantProperty(tt);
@@ -2843,24 +2563,19 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setManagerVariantProperty(TextType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setManagerVariantProperty(TextType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setManagerVariantProperty(TextType)}
    */
   @Test
   @DisplayName("Test setManagerVariantProperty(TextType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setManagerVariantProperty(TextType)"})
   void testSetManagerVariantProperty4() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
-    xmpMediaManagementSchema.addBagValueAsSimple(
-        "Property Name", XMPMediaManagementSchema.VERSIONS);
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    xmpMediaManagementSchema.addBagValueAsSimple("Property Name", XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
-    TextType tt =
-        new TextType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType tt = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     xmpMediaManagementSchema.setManagerVariantProperty(tt);
@@ -2873,34 +2588,30 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getManagerVariantProperty()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getManagerVariantProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getManagerVariantProperty()}
    */
   @Test
   @DisplayName("Test getManagerVariantProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType XMPMediaManagementSchema.getManagerVariantProperty()"})
   void testGetManagerVariantProperty() {
     // Arrange, Act and Assert
-    assertNull(
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata()).getManagerVariantProperty());
+    assertNull((new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata())).getManagerVariantProperty());
   }
 
   /**
    * Test {@link XMPMediaManagementSchema#getManagerVariantProperty()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getManagerVariantProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getManagerVariantProperty()}
    */
   @Test
   @DisplayName("Test getManagerVariantProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType XMPMediaManagementSchema.getManagerVariantProperty()"})
   void testGetManagerVariantProperty2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addVersions("42");
 
     // Act and Assert
@@ -2909,18 +2620,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getManagerVariantProperty()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getManagerVariantProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getManagerVariantProperty()}
    */
   @Test
   @DisplayName("Test getManagerVariantProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType XMPMediaManagementSchema.getManagerVariantProperty()"})
   void testGetManagerVariantProperty3() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory(XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
 
@@ -2930,33 +2639,30 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getManagerVariant()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getManagerVariant()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getManagerVariant()}
    */
   @Test
   @DisplayName("Test getManagerVariant()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String XMPMediaManagementSchema.getManagerVariant()"})
   void testGetManagerVariant() {
     // Arrange, Act and Assert
-    assertNull(new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata()).getManagerVariant());
+    assertNull((new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata())).getManagerVariant());
   }
 
   /**
    * Test {@link XMPMediaManagementSchema#getManagerVariant()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getManagerVariant()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getManagerVariant()}
    */
   @Test
   @DisplayName("Test getManagerVariant()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String XMPMediaManagementSchema.getManagerVariant()"})
   void testGetManagerVariant2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addVersions("42");
 
     // Act and Assert
@@ -2965,18 +2671,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getManagerVariant()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getManagerVariant()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getManagerVariant()}
    */
   @Test
   @DisplayName("Test getManagerVariant()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String XMPMediaManagementSchema.getManagerVariant()"})
   void testGetManagerVariant3() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory(XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
 
@@ -2986,13 +2690,12 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setInstanceID(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setInstanceID(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setInstanceID(String)}
    */
   @Test
   @DisplayName("Test setInstanceID(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setInstanceID(String)"})
   void testSetInstanceID() {
     // Arrange
@@ -3023,18 +2726,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setInstanceID(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setInstanceID(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setInstanceID(String)}
    */
   @Test
   @DisplayName("Test setInstanceID(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setInstanceID(String)"})
   void testSetInstanceID2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory(XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
 
@@ -3047,13 +2748,12 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setInstanceID(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setInstanceID(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setInstanceID(String)}
    */
   @Test
   @DisplayName("Test setInstanceID(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setInstanceID(String)"})
   void testSetInstanceID3() {
     // Arrange
@@ -3084,19 +2784,15 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setInstanceID(String)}.
-   *
    * <ul>
-   *   <li>Given {@link XMPMediaManagementSchema#XMPMediaManagementSchema(XMPMetadata)} with
-   *       metadata is createXMPMetadata.
+   *   <li>Given {@link XMPMediaManagementSchema#XMPMediaManagementSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setInstanceID(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setInstanceID(String)}
    */
   @Test
-  @DisplayName(
-      "Test setInstanceID(String); given XMPMediaManagementSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setInstanceID(String); given XMPMediaManagementSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setInstanceID(String)"})
   void testSetInstanceID_givenXMPMediaManagementSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange
@@ -3125,21 +2821,17 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setInstanceIDProperty(URIType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setInstanceIDProperty(URIType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setInstanceIDProperty(URIType)}
    */
   @Test
   @DisplayName("Test setInstanceIDProperty(URIType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setInstanceIDProperty(URIType)"})
   void testSetInstanceIDProperty() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
-    URIType tt =
-        new URIType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    URIType tt = new URIType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     xmpMediaManagementSchema.setInstanceIDProperty(tt);
@@ -3152,22 +2844,18 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setInstanceIDProperty(URIType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setInstanceIDProperty(URIType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setInstanceIDProperty(URIType)}
    */
   @Test
   @DisplayName("Test setInstanceIDProperty(URIType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setInstanceIDProperty(URIType)"})
   void testSetInstanceIDProperty2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addVersions("42");
-    URIType tt =
-        new URIType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    URIType tt = new URIType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     xmpMediaManagementSchema.setInstanceIDProperty(tt);
@@ -3180,23 +2868,19 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setInstanceIDProperty(URIType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setInstanceIDProperty(URIType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setInstanceIDProperty(URIType)}
    */
   @Test
   @DisplayName("Test setInstanceIDProperty(URIType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setInstanceIDProperty(URIType)"})
   void testSetInstanceIDProperty3() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory("Property Name");
     xmpMediaManagementSchema.addVersions("42");
-    URIType tt =
-        new URIType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    URIType tt = new URIType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     xmpMediaManagementSchema.setInstanceIDProperty(tt);
@@ -3209,24 +2893,19 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setInstanceIDProperty(URIType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setInstanceIDProperty(URIType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setInstanceIDProperty(URIType)}
    */
   @Test
   @DisplayName("Test setInstanceIDProperty(URIType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setInstanceIDProperty(URIType)"})
   void testSetInstanceIDProperty4() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
-    xmpMediaManagementSchema.addBagValueAsSimple(
-        "Property Name", XMPMediaManagementSchema.VERSIONS);
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    xmpMediaManagementSchema.addBagValueAsSimple("Property Name", XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
-    URIType tt =
-        new URIType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    URIType tt = new URIType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     xmpMediaManagementSchema.setInstanceIDProperty(tt);
@@ -3239,34 +2918,30 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getInstanceIDProperty()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getInstanceIDProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getInstanceIDProperty()}
    */
   @Test
   @DisplayName("Test getInstanceIDProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType XMPMediaManagementSchema.getInstanceIDProperty()"})
   void testGetInstanceIDProperty() {
     // Arrange, Act and Assert
-    assertNull(
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata()).getInstanceIDProperty());
+    assertNull((new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata())).getInstanceIDProperty());
   }
 
   /**
    * Test {@link XMPMediaManagementSchema#getInstanceIDProperty()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getInstanceIDProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getInstanceIDProperty()}
    */
   @Test
   @DisplayName("Test getInstanceIDProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType XMPMediaManagementSchema.getInstanceIDProperty()"})
   void testGetInstanceIDProperty2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addVersions("42");
 
     // Act and Assert
@@ -3275,18 +2950,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getInstanceIDProperty()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getInstanceIDProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getInstanceIDProperty()}
    */
   @Test
   @DisplayName("Test getInstanceIDProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType XMPMediaManagementSchema.getInstanceIDProperty()"})
   void testGetInstanceIDProperty3() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory(XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
 
@@ -3296,18 +2969,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getInstanceID()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getInstanceID()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getInstanceID()}
    */
   @Test
   @DisplayName("Test getInstanceID()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String XMPMediaManagementSchema.getInstanceID()"})
   void testGetInstanceID() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addVersions("42");
 
     // Act and Assert
@@ -3316,18 +2987,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getInstanceID()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getInstanceID()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getInstanceID()}
    */
   @Test
   @DisplayName("Test getInstanceID()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String XMPMediaManagementSchema.getInstanceID()"})
   void testGetInstanceID2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory(XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
 
@@ -3337,39 +3006,33 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getInstanceID()}.
-   *
    * <ul>
-   *   <li>Given {@link XMPMediaManagementSchema#XMPMediaManagementSchema(XMPMetadata)} with
-   *       metadata is createXMPMetadata.
+   *   <li>Given {@link XMPMediaManagementSchema#XMPMediaManagementSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getInstanceID()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getInstanceID()}
    */
   @Test
-  @DisplayName(
-      "Test getInstanceID(); given XMPMediaManagementSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getInstanceID(); given XMPMediaManagementSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String XMPMediaManagementSchema.getInstanceID()"})
   void testGetInstanceID_givenXMPMediaManagementSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull(new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata()).getInstanceID());
+    assertNull((new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata())).getInstanceID());
   }
 
   /**
    * Test {@link XMPMediaManagementSchema#setManagedFromProperty(ResourceRefType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setManagedFromProperty(ResourceRefType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setManagedFromProperty(ResourceRefType)}
    */
   @Test
   @DisplayName("Test setManagedFromProperty(ResourceRefType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setManagedFromProperty(ResourceRefType)"})
   void testSetManagedFromProperty() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     ResourceRefType resourceRef = new ResourceRefType(XMPMetadata.createXMPMetadata());
 
     // Act
@@ -3383,18 +3046,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setManagedFromProperty(ResourceRefType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setManagedFromProperty(ResourceRefType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setManagedFromProperty(ResourceRefType)}
    */
   @Test
   @DisplayName("Test setManagedFromProperty(ResourceRefType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setManagedFromProperty(ResourceRefType)"})
   void testSetManagedFromProperty2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addVersions("42");
     ResourceRefType resourceRef = new ResourceRefType(XMPMetadata.createXMPMetadata());
 
@@ -3413,13 +3074,12 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setManagedFromProperty(ResourceRefType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setManagedFromProperty(ResourceRefType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setManagedFromProperty(ResourceRefType)}
    */
   @Test
   @DisplayName("Test setManagedFromProperty(ResourceRefType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setManagedFromProperty(ResourceRefType)"})
   void testSetManagedFromProperty3() {
     // Arrange
@@ -3455,34 +3115,30 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getManagedFromProperty()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getManagedFromProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getManagedFromProperty()}
    */
   @Test
   @DisplayName("Test getManagedFromProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ResourceRefType XMPMediaManagementSchema.getManagedFromProperty()"})
   void testGetManagedFromProperty() {
     // Arrange, Act and Assert
-    assertNull(
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata()).getManagedFromProperty());
+    assertNull((new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata())).getManagedFromProperty());
   }
 
   /**
    * Test {@link XMPMediaManagementSchema#getManagedFromProperty()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getManagedFromProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getManagedFromProperty()}
    */
   @Test
   @DisplayName("Test getManagedFromProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ResourceRefType XMPMediaManagementSchema.getManagedFromProperty()"})
   void testGetManagedFromProperty2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addVersions("42");
 
     // Act and Assert
@@ -3491,18 +3147,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getManagedFromProperty()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getManagedFromProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getManagedFromProperty()}
    */
   @Test
   @DisplayName("Test getManagedFromProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ResourceRefType XMPMediaManagementSchema.getManagedFromProperty()"})
   void testGetManagedFromProperty3() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory(XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
 
@@ -3512,13 +3166,12 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setOriginalDocumentID(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setOriginalDocumentID(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setOriginalDocumentID(String)}
    */
   @Test
   @DisplayName("Test setOriginalDocumentID(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setOriginalDocumentID(String)"})
   void testSetOriginalDocumentID() {
     // Arrange
@@ -3539,21 +3192,19 @@ class XMPMediaManagementSchemaDiffblueTest {
     List<AbstractField> allProperties = xmpMediaManagementSchema.getAllProperties();
     assertEquals(1, allProperties.size());
     assertTrue(originalDocumentIDProperty.getAllAttributes().isEmpty());
-    assertEquals(
-        XMPMediaManagementSchema.ORIGINALDOCUMENTID, originalDocumentIDProperty.getPropertyName());
+    assertEquals(XMPMediaManagementSchema.ORIGINALDOCUMENTID, originalDocumentIDProperty.getPropertyName());
     assertSame(originalDocumentIDProperty, allProperties.get(0));
     assertSame(metadata, originalDocumentIDProperty.getMetadata());
   }
 
   /**
    * Test {@link XMPMediaManagementSchema#setOriginalDocumentID(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setOriginalDocumentID(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setOriginalDocumentID(String)}
    */
   @Test
   @DisplayName("Test setOriginalDocumentID(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setOriginalDocumentID(String)"})
   void testSetOriginalDocumentID2() {
     // Arrange
@@ -3576,26 +3227,23 @@ class XMPMediaManagementSchemaDiffblueTest {
     List<AbstractField> allProperties = xmpMediaManagementSchema.getAllProperties();
     assertEquals(2, allProperties.size());
     assertTrue(originalDocumentIDProperty.getAllAttributes().isEmpty());
-    assertEquals(
-        XMPMediaManagementSchema.ORIGINALDOCUMENTID, originalDocumentIDProperty.getPropertyName());
+    assertEquals(XMPMediaManagementSchema.ORIGINALDOCUMENTID, originalDocumentIDProperty.getPropertyName());
     assertSame(originalDocumentIDProperty, allProperties.get(1));
     assertSame(metadata, originalDocumentIDProperty.getMetadata());
   }
 
   /**
    * Test {@link XMPMediaManagementSchema#setOriginalDocumentID(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setOriginalDocumentID(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setOriginalDocumentID(String)}
    */
   @Test
   @DisplayName("Test setOriginalDocumentID(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setOriginalDocumentID(String)"})
   void testSetOriginalDocumentID3() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory(XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
 
@@ -3608,13 +3256,12 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setOriginalDocumentID(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setOriginalDocumentID(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setOriginalDocumentID(String)}
    */
   @Test
   @DisplayName("Test setOriginalDocumentID(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setOriginalDocumentID(String)"})
   void testSetOriginalDocumentID4() {
     // Arrange
@@ -3637,29 +3284,24 @@ class XMPMediaManagementSchemaDiffblueTest {
     List<AbstractField> allProperties = xmpMediaManagementSchema.getAllProperties();
     assertEquals(1, allProperties.size());
     assertTrue(originalDocumentIDProperty.getAllAttributes().isEmpty());
-    assertEquals(
-        XMPMediaManagementSchema.ORIGINALDOCUMENTID, originalDocumentIDProperty.getPropertyName());
+    assertEquals(XMPMediaManagementSchema.ORIGINALDOCUMENTID, originalDocumentIDProperty.getPropertyName());
     assertSame(originalDocumentIDProperty, allProperties.get(0));
     assertSame(metadata, originalDocumentIDProperty.getMetadata());
   }
 
   /**
    * Test {@link XMPMediaManagementSchema#setOriginalDocumentIDProperty(TextType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setOriginalDocumentIDProperty(TextType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setOriginalDocumentIDProperty(TextType)}
    */
   @Test
   @DisplayName("Test setOriginalDocumentIDProperty(TextType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setOriginalDocumentIDProperty(TextType)"})
   void testSetOriginalDocumentIDProperty() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
-    TextType tt =
-        new TextType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    TextType tt = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     xmpMediaManagementSchema.setOriginalDocumentIDProperty(tt);
@@ -3672,22 +3314,18 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setOriginalDocumentIDProperty(TextType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setOriginalDocumentIDProperty(TextType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setOriginalDocumentIDProperty(TextType)}
    */
   @Test
   @DisplayName("Test setOriginalDocumentIDProperty(TextType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setOriginalDocumentIDProperty(TextType)"})
   void testSetOriginalDocumentIDProperty2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addVersions("42");
-    TextType tt =
-        new TextType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType tt = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     xmpMediaManagementSchema.setOriginalDocumentIDProperty(tt);
@@ -3700,23 +3338,19 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setOriginalDocumentIDProperty(TextType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setOriginalDocumentIDProperty(TextType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setOriginalDocumentIDProperty(TextType)}
    */
   @Test
   @DisplayName("Test setOriginalDocumentIDProperty(TextType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setOriginalDocumentIDProperty(TextType)"})
   void testSetOriginalDocumentIDProperty3() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory("Property Name");
     xmpMediaManagementSchema.addVersions("42");
-    TextType tt =
-        new TextType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType tt = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     xmpMediaManagementSchema.setOriginalDocumentIDProperty(tt);
@@ -3729,24 +3363,19 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setOriginalDocumentIDProperty(TextType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setOriginalDocumentIDProperty(TextType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setOriginalDocumentIDProperty(TextType)}
    */
   @Test
   @DisplayName("Test setOriginalDocumentIDProperty(TextType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setOriginalDocumentIDProperty(TextType)"})
   void testSetOriginalDocumentIDProperty4() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
-    xmpMediaManagementSchema.addBagValueAsSimple(
-        "Property Name", XMPMediaManagementSchema.VERSIONS);
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    xmpMediaManagementSchema.addBagValueAsSimple("Property Name", XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
-    TextType tt =
-        new TextType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType tt = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     xmpMediaManagementSchema.setOriginalDocumentIDProperty(tt);
@@ -3759,35 +3388,30 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getOriginalDocumentIDProperty()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getOriginalDocumentIDProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getOriginalDocumentIDProperty()}
    */
   @Test
   @DisplayName("Test getOriginalDocumentIDProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType XMPMediaManagementSchema.getOriginalDocumentIDProperty()"})
   void testGetOriginalDocumentIDProperty() {
     // Arrange, Act and Assert
-    assertNull(
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata())
-            .getOriginalDocumentIDProperty());
+    assertNull((new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata())).getOriginalDocumentIDProperty());
   }
 
   /**
    * Test {@link XMPMediaManagementSchema#getOriginalDocumentIDProperty()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getOriginalDocumentIDProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getOriginalDocumentIDProperty()}
    */
   @Test
   @DisplayName("Test getOriginalDocumentIDProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType XMPMediaManagementSchema.getOriginalDocumentIDProperty()"})
   void testGetOriginalDocumentIDProperty2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addVersions("42");
 
     // Act and Assert
@@ -3796,18 +3420,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getOriginalDocumentIDProperty()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getOriginalDocumentIDProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getOriginalDocumentIDProperty()}
    */
   @Test
   @DisplayName("Test getOriginalDocumentIDProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType XMPMediaManagementSchema.getOriginalDocumentIDProperty()"})
   void testGetOriginalDocumentIDProperty3() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory(XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
 
@@ -3817,34 +3439,30 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getOriginalDocumentID()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getOriginalDocumentID()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getOriginalDocumentID()}
    */
   @Test
   @DisplayName("Test getOriginalDocumentID()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String XMPMediaManagementSchema.getOriginalDocumentID()"})
   void testGetOriginalDocumentID() {
     // Arrange, Act and Assert
-    assertNull(
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata()).getOriginalDocumentID());
+    assertNull((new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata())).getOriginalDocumentID());
   }
 
   /**
    * Test {@link XMPMediaManagementSchema#getOriginalDocumentID()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getOriginalDocumentID()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getOriginalDocumentID()}
    */
   @Test
   @DisplayName("Test getOriginalDocumentID()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String XMPMediaManagementSchema.getOriginalDocumentID()"})
   void testGetOriginalDocumentID2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addVersions("42");
 
     // Act and Assert
@@ -3853,18 +3471,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getOriginalDocumentID()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getOriginalDocumentID()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getOriginalDocumentID()}
    */
   @Test
   @DisplayName("Test getOriginalDocumentID()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String XMPMediaManagementSchema.getOriginalDocumentID()"})
   void testGetOriginalDocumentID3() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory(XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
 
@@ -3874,13 +3490,12 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setRenditionClass(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setRenditionClass(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setRenditionClass(String)}
    */
   @Test
   @DisplayName("Test setRenditionClass(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setRenditionClass(String)"})
   void testSetRenditionClass() {
     // Arrange
@@ -3909,13 +3524,12 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setRenditionClass(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setRenditionClass(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setRenditionClass(String)}
    */
   @Test
   @DisplayName("Test setRenditionClass(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setRenditionClass(String)"})
   void testSetRenditionClass2() {
     // Arrange
@@ -3946,18 +3560,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setRenditionClass(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setRenditionClass(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setRenditionClass(String)}
    */
   @Test
   @DisplayName("Test setRenditionClass(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setRenditionClass(String)"})
   void testSetRenditionClass3() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory(XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
 
@@ -3970,13 +3582,12 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setRenditionClass(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setRenditionClass(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setRenditionClass(String)}
    */
   @Test
   @DisplayName("Test setRenditionClass(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setRenditionClass(String)"})
   void testSetRenditionClass4() {
     // Arrange
@@ -4007,22 +3618,18 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setRenditionClassProperty(RenditionClassType)}.
-   *
-   * <p>Method under test: {@link
-   * XMPMediaManagementSchema#setRenditionClassProperty(RenditionClassType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setRenditionClassProperty(RenditionClassType)}
    */
   @Test
   @DisplayName("Test setRenditionClassProperty(RenditionClassType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setRenditionClassProperty(RenditionClassType)"})
   void testSetRenditionClassProperty() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
-    RenditionClassType tt =
-        new RenditionClassType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    RenditionClassType tt = new RenditionClassType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix",
+        "Property Name", "Value");
 
     // Act
     xmpMediaManagementSchema.setRenditionClassProperty(tt);
@@ -4035,23 +3642,19 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setRenditionClassProperty(RenditionClassType)}.
-   *
-   * <p>Method under test: {@link
-   * XMPMediaManagementSchema#setRenditionClassProperty(RenditionClassType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setRenditionClassProperty(RenditionClassType)}
    */
   @Test
   @DisplayName("Test setRenditionClassProperty(RenditionClassType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setRenditionClassProperty(RenditionClassType)"})
   void testSetRenditionClassProperty2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addVersions("42");
-    RenditionClassType tt =
-        new RenditionClassType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    RenditionClassType tt = new RenditionClassType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix",
+        "Property Name", "Value");
 
     // Act
     xmpMediaManagementSchema.setRenditionClassProperty(tt);
@@ -4064,24 +3667,20 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setRenditionClassProperty(RenditionClassType)}.
-   *
-   * <p>Method under test: {@link
-   * XMPMediaManagementSchema#setRenditionClassProperty(RenditionClassType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setRenditionClassProperty(RenditionClassType)}
    */
   @Test
   @DisplayName("Test setRenditionClassProperty(RenditionClassType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setRenditionClassProperty(RenditionClassType)"})
   void testSetRenditionClassProperty3() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory("Property Name");
     xmpMediaManagementSchema.addVersions("42");
-    RenditionClassType tt =
-        new RenditionClassType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    RenditionClassType tt = new RenditionClassType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix",
+        "Property Name", "Value");
 
     // Act
     xmpMediaManagementSchema.setRenditionClassProperty(tt);
@@ -4094,25 +3693,20 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setRenditionClassProperty(RenditionClassType)}.
-   *
-   * <p>Method under test: {@link
-   * XMPMediaManagementSchema#setRenditionClassProperty(RenditionClassType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setRenditionClassProperty(RenditionClassType)}
    */
   @Test
   @DisplayName("Test setRenditionClassProperty(RenditionClassType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setRenditionClassProperty(RenditionClassType)"})
   void testSetRenditionClassProperty4() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
-    xmpMediaManagementSchema.addBagValueAsSimple(
-        "Property Name", XMPMediaManagementSchema.VERSIONS);
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    xmpMediaManagementSchema.addBagValueAsSimple("Property Name", XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
-    RenditionClassType tt =
-        new RenditionClassType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    RenditionClassType tt = new RenditionClassType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix",
+        "Property Name", "Value");
 
     // Act
     xmpMediaManagementSchema.setRenditionClassProperty(tt);
@@ -4125,34 +3719,30 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getRenditionClassProperty()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getRenditionClassProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getRenditionClassProperty()}
    */
   @Test
   @DisplayName("Test getRenditionClassProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType XMPMediaManagementSchema.getRenditionClassProperty()"})
   void testGetRenditionClassProperty() {
     // Arrange, Act and Assert
-    assertNull(
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata()).getRenditionClassProperty());
+    assertNull((new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata())).getRenditionClassProperty());
   }
 
   /**
    * Test {@link XMPMediaManagementSchema#getRenditionClassProperty()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getRenditionClassProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getRenditionClassProperty()}
    */
   @Test
   @DisplayName("Test getRenditionClassProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType XMPMediaManagementSchema.getRenditionClassProperty()"})
   void testGetRenditionClassProperty2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addVersions("42");
 
     // Act and Assert
@@ -4161,18 +3751,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getRenditionClassProperty()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getRenditionClassProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getRenditionClassProperty()}
    */
   @Test
   @DisplayName("Test getRenditionClassProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType XMPMediaManagementSchema.getRenditionClassProperty()"})
   void testGetRenditionClassProperty3() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory(XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
 
@@ -4182,33 +3770,30 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getRenditionClass()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getRenditionClass()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getRenditionClass()}
    */
   @Test
   @DisplayName("Test getRenditionClass()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String XMPMediaManagementSchema.getRenditionClass()"})
   void testGetRenditionClass() {
     // Arrange, Act and Assert
-    assertNull(new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata()).getRenditionClass());
+    assertNull((new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata())).getRenditionClass());
   }
 
   /**
    * Test {@link XMPMediaManagementSchema#getRenditionClass()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getRenditionClass()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getRenditionClass()}
    */
   @Test
   @DisplayName("Test getRenditionClass()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String XMPMediaManagementSchema.getRenditionClass()"})
   void testGetRenditionClass2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addVersions("42");
 
     // Act and Assert
@@ -4217,18 +3802,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getRenditionClass()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getRenditionClass()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getRenditionClass()}
    */
   @Test
   @DisplayName("Test getRenditionClass()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String XMPMediaManagementSchema.getRenditionClass()"})
   void testGetRenditionClass3() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory(XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
 
@@ -4238,13 +3821,12 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setRenditionParams(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setRenditionParams(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setRenditionParams(String)}
    */
   @Test
   @DisplayName("Test setRenditionParams(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setRenditionParams(String)"})
   void testSetRenditionParams() {
     // Arrange
@@ -4265,21 +3847,19 @@ class XMPMediaManagementSchemaDiffblueTest {
     List<AbstractField> allProperties = xmpMediaManagementSchema.getAllProperties();
     assertEquals(1, allProperties.size());
     assertTrue(renditionParamsProperty.getAllAttributes().isEmpty());
-    assertEquals(
-        XMPMediaManagementSchema.RENDITIONPARAMS, renditionParamsProperty.getPropertyName());
+    assertEquals(XMPMediaManagementSchema.RENDITIONPARAMS, renditionParamsProperty.getPropertyName());
     assertSame(renditionParamsProperty, allProperties.get(0));
     assertSame(metadata, renditionParamsProperty.getMetadata());
   }
 
   /**
    * Test {@link XMPMediaManagementSchema#setRenditionParams(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setRenditionParams(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setRenditionParams(String)}
    */
   @Test
   @DisplayName("Test setRenditionParams(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setRenditionParams(String)"})
   void testSetRenditionParams2() {
     // Arrange
@@ -4302,26 +3882,23 @@ class XMPMediaManagementSchemaDiffblueTest {
     List<AbstractField> allProperties = xmpMediaManagementSchema.getAllProperties();
     assertEquals(2, allProperties.size());
     assertTrue(renditionParamsProperty.getAllAttributes().isEmpty());
-    assertEquals(
-        XMPMediaManagementSchema.RENDITIONPARAMS, renditionParamsProperty.getPropertyName());
+    assertEquals(XMPMediaManagementSchema.RENDITIONPARAMS, renditionParamsProperty.getPropertyName());
     assertSame(renditionParamsProperty, allProperties.get(1));
     assertSame(metadata, renditionParamsProperty.getMetadata());
   }
 
   /**
    * Test {@link XMPMediaManagementSchema#setRenditionParams(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setRenditionParams(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setRenditionParams(String)}
    */
   @Test
   @DisplayName("Test setRenditionParams(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setRenditionParams(String)"})
   void testSetRenditionParams3() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory(XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
 
@@ -4334,13 +3911,12 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setRenditionParams(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setRenditionParams(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setRenditionParams(String)}
    */
   @Test
   @DisplayName("Test setRenditionParams(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setRenditionParams(String)"})
   void testSetRenditionParams4() {
     // Arrange
@@ -4363,29 +3939,24 @@ class XMPMediaManagementSchemaDiffblueTest {
     List<AbstractField> allProperties = xmpMediaManagementSchema.getAllProperties();
     assertEquals(1, allProperties.size());
     assertTrue(renditionParamsProperty.getAllAttributes().isEmpty());
-    assertEquals(
-        XMPMediaManagementSchema.RENDITIONPARAMS, renditionParamsProperty.getPropertyName());
+    assertEquals(XMPMediaManagementSchema.RENDITIONPARAMS, renditionParamsProperty.getPropertyName());
     assertSame(renditionParamsProperty, allProperties.get(0));
     assertSame(metadata, renditionParamsProperty.getMetadata());
   }
 
   /**
    * Test {@link XMPMediaManagementSchema#setRenditionParamsProperty(TextType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setRenditionParamsProperty(TextType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setRenditionParamsProperty(TextType)}
    */
   @Test
   @DisplayName("Test setRenditionParamsProperty(TextType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setRenditionParamsProperty(TextType)"})
   void testSetRenditionParamsProperty() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
-    TextType tt =
-        new TextType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    TextType tt = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     xmpMediaManagementSchema.setRenditionParamsProperty(tt);
@@ -4398,22 +3969,18 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setRenditionParamsProperty(TextType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setRenditionParamsProperty(TextType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setRenditionParamsProperty(TextType)}
    */
   @Test
   @DisplayName("Test setRenditionParamsProperty(TextType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setRenditionParamsProperty(TextType)"})
   void testSetRenditionParamsProperty2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addVersions("42");
-    TextType tt =
-        new TextType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType tt = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     xmpMediaManagementSchema.setRenditionParamsProperty(tt);
@@ -4426,23 +3993,19 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setRenditionParamsProperty(TextType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setRenditionParamsProperty(TextType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setRenditionParamsProperty(TextType)}
    */
   @Test
   @DisplayName("Test setRenditionParamsProperty(TextType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setRenditionParamsProperty(TextType)"})
   void testSetRenditionParamsProperty3() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory("Property Name");
     xmpMediaManagementSchema.addVersions("42");
-    TextType tt =
-        new TextType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType tt = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     xmpMediaManagementSchema.setRenditionParamsProperty(tt);
@@ -4455,24 +4018,19 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setRenditionParamsProperty(TextType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setRenditionParamsProperty(TextType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setRenditionParamsProperty(TextType)}
    */
   @Test
   @DisplayName("Test setRenditionParamsProperty(TextType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setRenditionParamsProperty(TextType)"})
   void testSetRenditionParamsProperty4() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
-    xmpMediaManagementSchema.addBagValueAsSimple(
-        "Property Name", XMPMediaManagementSchema.VERSIONS);
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    xmpMediaManagementSchema.addBagValueAsSimple("Property Name", XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
-    TextType tt =
-        new TextType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType tt = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     xmpMediaManagementSchema.setRenditionParamsProperty(tt);
@@ -4485,34 +4043,30 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getRenditionParamsProperty()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getRenditionParamsProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getRenditionParamsProperty()}
    */
   @Test
   @DisplayName("Test getRenditionParamsProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType XMPMediaManagementSchema.getRenditionParamsProperty()"})
   void testGetRenditionParamsProperty() {
     // Arrange, Act and Assert
-    assertNull(
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata()).getRenditionParamsProperty());
+    assertNull((new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata())).getRenditionParamsProperty());
   }
 
   /**
    * Test {@link XMPMediaManagementSchema#getRenditionParamsProperty()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getRenditionParamsProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getRenditionParamsProperty()}
    */
   @Test
   @DisplayName("Test getRenditionParamsProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType XMPMediaManagementSchema.getRenditionParamsProperty()"})
   void testGetRenditionParamsProperty2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addVersions("42");
 
     // Act and Assert
@@ -4521,18 +4075,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getRenditionParamsProperty()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getRenditionParamsProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getRenditionParamsProperty()}
    */
   @Test
   @DisplayName("Test getRenditionParamsProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType XMPMediaManagementSchema.getRenditionParamsProperty()"})
   void testGetRenditionParamsProperty3() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory(XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
 
@@ -4542,33 +4094,30 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getRenditionParams()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getRenditionParams()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getRenditionParams()}
    */
   @Test
   @DisplayName("Test getRenditionParams()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String XMPMediaManagementSchema.getRenditionParams()"})
   void testGetRenditionParams() {
     // Arrange, Act and Assert
-    assertNull(new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata()).getRenditionParams());
+    assertNull((new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata())).getRenditionParams());
   }
 
   /**
    * Test {@link XMPMediaManagementSchema#getRenditionParams()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getRenditionParams()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getRenditionParams()}
    */
   @Test
   @DisplayName("Test getRenditionParams()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String XMPMediaManagementSchema.getRenditionParams()"})
   void testGetRenditionParams2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addVersions("42");
 
     // Act and Assert
@@ -4577,18 +4126,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getRenditionParams()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getRenditionParams()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getRenditionParams()}
    */
   @Test
   @DisplayName("Test getRenditionParams()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String XMPMediaManagementSchema.getRenditionParams()"})
   void testGetRenditionParams3() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory(XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
 
@@ -4598,13 +4145,12 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setVersionID(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setVersionID(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setVersionID(String)}
    */
   @Test
   @DisplayName("Test setVersionID(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setVersionID(String)"})
   void testSetVersionID() {
     // Arrange
@@ -4634,18 +4180,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setVersionID(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setVersionID(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setVersionID(String)}
    */
   @Test
   @DisplayName("Test setVersionID(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setVersionID(String)"})
   void testSetVersionID2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory(XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
 
@@ -4658,13 +4202,12 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setVersionID(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setVersionID(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setVersionID(String)}
    */
   @Test
   @DisplayName("Test setVersionID(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setVersionID(String)"})
   void testSetVersionID3() {
     // Arrange
@@ -4694,19 +4237,15 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setVersionID(String)}.
-   *
    * <ul>
-   *   <li>Given {@link XMPMediaManagementSchema#XMPMediaManagementSchema(XMPMetadata)} with
-   *       metadata is createXMPMetadata.
+   *   <li>Given {@link XMPMediaManagementSchema#XMPMediaManagementSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setVersionID(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setVersionID(String)}
    */
   @Test
-  @DisplayName(
-      "Test setVersionID(String); given XMPMediaManagementSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setVersionID(String); given XMPMediaManagementSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setVersionID(String)"})
   void testSetVersionID_givenXMPMediaManagementSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange
@@ -4734,21 +4273,17 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setVersionIDProperty(TextType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setVersionIDProperty(TextType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setVersionIDProperty(TextType)}
    */
   @Test
   @DisplayName("Test setVersionIDProperty(TextType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setVersionIDProperty(TextType)"})
   void testSetVersionIDProperty() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
-    TextType tt =
-        new TextType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    TextType tt = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     xmpMediaManagementSchema.setVersionIDProperty(tt);
@@ -4761,22 +4296,18 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setVersionIDProperty(TextType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setVersionIDProperty(TextType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setVersionIDProperty(TextType)}
    */
   @Test
   @DisplayName("Test setVersionIDProperty(TextType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setVersionIDProperty(TextType)"})
   void testSetVersionIDProperty2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addVersions("42");
-    TextType tt =
-        new TextType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType tt = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     xmpMediaManagementSchema.setVersionIDProperty(tt);
@@ -4789,23 +4320,19 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setVersionIDProperty(TextType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setVersionIDProperty(TextType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setVersionIDProperty(TextType)}
    */
   @Test
   @DisplayName("Test setVersionIDProperty(TextType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setVersionIDProperty(TextType)"})
   void testSetVersionIDProperty3() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory("Property Name");
     xmpMediaManagementSchema.addVersions("42");
-    TextType tt =
-        new TextType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType tt = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     xmpMediaManagementSchema.setVersionIDProperty(tt);
@@ -4818,24 +4345,19 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#setVersionIDProperty(TextType)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#setVersionIDProperty(TextType)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#setVersionIDProperty(TextType)}
    */
   @Test
   @DisplayName("Test setVersionIDProperty(TextType)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.setVersionIDProperty(TextType)"})
   void testSetVersionIDProperty4() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
-    xmpMediaManagementSchema.addBagValueAsSimple(
-        "Property Name", XMPMediaManagementSchema.VERSIONS);
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    xmpMediaManagementSchema.addBagValueAsSimple("Property Name", XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
-    TextType tt =
-        new TextType(
-            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    TextType tt = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
     xmpMediaManagementSchema.setVersionIDProperty(tt);
@@ -4848,34 +4370,30 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getVersionIDProperty()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getVersionIDProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getVersionIDProperty()}
    */
   @Test
   @DisplayName("Test getVersionIDProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType XMPMediaManagementSchema.getVersionIDProperty()"})
   void testGetVersionIDProperty() {
     // Arrange, Act and Assert
-    assertNull(
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata()).getVersionIDProperty());
+    assertNull((new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata())).getVersionIDProperty());
   }
 
   /**
    * Test {@link XMPMediaManagementSchema#getVersionIDProperty()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getVersionIDProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getVersionIDProperty()}
    */
   @Test
   @DisplayName("Test getVersionIDProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType XMPMediaManagementSchema.getVersionIDProperty()"})
   void testGetVersionIDProperty2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addVersions("42");
 
     // Act and Assert
@@ -4884,18 +4402,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getVersionIDProperty()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getVersionIDProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getVersionIDProperty()}
    */
   @Test
   @DisplayName("Test getVersionIDProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType XMPMediaManagementSchema.getVersionIDProperty()"})
   void testGetVersionIDProperty3() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory(XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
 
@@ -4905,18 +4421,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getVersionID()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getVersionID()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getVersionID()}
    */
   @Test
   @DisplayName("Test getVersionID()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String XMPMediaManagementSchema.getVersionID()"})
   void testGetVersionID() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addVersions("42");
 
     // Act and Assert
@@ -4925,18 +4439,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getVersionID()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getVersionID()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getVersionID()}
    */
   @Test
   @DisplayName("Test getVersionID()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String XMPMediaManagementSchema.getVersionID()"})
   void testGetVersionID2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory(XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
 
@@ -4946,34 +4458,29 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getVersionID()}.
-   *
    * <ul>
-   *   <li>Given {@link XMPMediaManagementSchema#XMPMediaManagementSchema(XMPMetadata)} with
-   *       metadata is createXMPMetadata.
+   *   <li>Given {@link XMPMediaManagementSchema#XMPMediaManagementSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getVersionID()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getVersionID()}
    */
   @Test
-  @DisplayName(
-      "Test getVersionID(); given XMPMediaManagementSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getVersionID(); given XMPMediaManagementSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String XMPMediaManagementSchema.getVersionID()"})
   void testGetVersionID_givenXMPMediaManagementSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull(new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata()).getVersionID());
+    assertNull((new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata())).getVersionID());
   }
 
   /**
    * Test {@link XMPMediaManagementSchema#addVersions(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#addVersions(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#addVersions(String)}
    */
   @Test
   @DisplayName("Test addVersions(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.addVersions(String)"})
   void testAddVersions() {
     // Arrange
@@ -5004,13 +4511,12 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#addVersions(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#addVersions(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#addVersions(String)}
    */
   @Test
   @DisplayName("Test addVersions(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.addVersions(String)"})
   void testAddVersions2() {
     // Arrange
@@ -5042,13 +4548,12 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#addVersions(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#addVersions(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#addVersions(String)}
    */
   @Test
   @DisplayName("Test addVersions(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.addVersions(String)"})
   void testAddVersions3() {
     // Arrange
@@ -5081,13 +4586,12 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#addVersions(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#addVersions(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#addVersions(String)}
    */
   @Test
   @DisplayName("Test addVersions(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.addVersions(String)"})
   void testAddVersions4() {
     // Arrange
@@ -5120,13 +4624,12 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#addVersions(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#addVersions(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#addVersions(String)}
    */
   @Test
   @DisplayName("Test addVersions(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.addVersions(String)"})
   void testAddVersions5() {
     // Arrange
@@ -5160,13 +4663,12 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getVersionsProperty()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getVersionsProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getVersionsProperty()}
    */
   @Test
   @DisplayName("Test getVersionsProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ArrayProperty XMPMediaManagementSchema.getVersionsProperty()"})
   void testGetVersionsProperty() {
     // Arrange
@@ -5193,18 +4695,15 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getVersionsProperty()}.
-   *
    * <ul>
-   *   <li>Then return Namespace is {@code http://ns.adobe.com/xap/1.0/mm/}.
+   *   <li>Then return Namespace is {@code http://ns.adobe.com/xap/1.0/mm/}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getVersionsProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getVersionsProperty()}
    */
   @Test
-  @DisplayName(
-      "Test getVersionsProperty(); then return Namespace is 'http://ns.adobe.com/xap/1.0/mm/'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getVersionsProperty(); then return Namespace is 'http://ns.adobe.com/xap/1.0/mm/'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ArrayProperty XMPMediaManagementSchema.getVersionsProperty()"})
   void testGetVersionsProperty_thenReturnNamespaceIsHttpNsAdobeComXap10Mm() {
     // Arrange
@@ -5230,37 +4729,33 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getVersionsProperty()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getVersionsProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getVersionsProperty()}
    */
   @Test
   @DisplayName("Test getVersionsProperty(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ArrayProperty XMPMediaManagementSchema.getVersionsProperty()"})
   void testGetVersionsProperty_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata()).getVersionsProperty());
+    assertNull((new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata())).getVersionsProperty());
   }
 
   /**
    * Test {@link XMPMediaManagementSchema#getVersions()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getVersions()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getVersions()}
    */
   @Test
   @DisplayName("Test getVersions()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List XMPMediaManagementSchema.getVersions()"})
   void testGetVersions() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory(XMPMediaManagementSchema.HISTORY);
     xmpMediaManagementSchema.addVersions("42");
 
@@ -5274,41 +4769,36 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getVersions()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getVersions()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getVersions()}
    */
   @Test
   @DisplayName("Test getVersions(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List XMPMediaManagementSchema.getVersions()"})
   void testGetVersions_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata()).getVersions());
+    assertNull((new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata())).getVersions());
   }
 
   /**
    * Test {@link XMPMediaManagementSchema#getVersions()}.
-   *
    * <ul>
-   *   <li>Then return size is one.
+   *   <li>Then return size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getVersions()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getVersions()}
    */
   @Test
   @DisplayName("Test getVersions(); then return size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List XMPMediaManagementSchema.getVersions()"})
   void testGetVersions_thenReturnSizeIsOne() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addVersions("42");
 
     // Act
@@ -5321,13 +4811,12 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#addHistory(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#addHistory(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#addHistory(String)}
    */
   @Test
   @DisplayName("Test addHistory(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.addHistory(String)"})
   void testAddHistory() {
     // Arrange
@@ -5358,13 +4847,12 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#addHistory(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#addHistory(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#addHistory(String)}
    */
   @Test
   @DisplayName("Test addHistory(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.addHistory(String)"})
   void testAddHistory2() {
     // Arrange
@@ -5397,18 +4885,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#addHistory(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#addHistory(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#addHistory(String)}
    */
   @Test
   @DisplayName("Test addHistory(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.addHistory(String)"})
   void testAddHistory3() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory(XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
 
@@ -5425,18 +4911,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#addHistory(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#addHistory(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#addHistory(String)}
    */
   @Test
   @DisplayName("Test addHistory(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.addHistory(String)"})
   void testAddHistory4() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addIngredients(XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
 
@@ -5449,33 +4933,29 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getHistoryProperty()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getHistoryProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getHistoryProperty()}
    */
   @Test
   @DisplayName("Test getHistoryProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ArrayProperty XMPMediaManagementSchema.getHistoryProperty()"})
   void testGetHistoryProperty() {
     // Arrange, Act and Assert
-    assertNull(new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata()).getHistoryProperty());
+    assertNull((new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata())).getHistoryProperty());
   }
 
   /**
    * Test {@link XMPMediaManagementSchema#getHistoryProperty()}.
-   *
    * <ul>
-   *   <li>Then return Namespace is {@code http://ns.adobe.com/xap/1.0/mm/}.
+   *   <li>Then return Namespace is {@code http://ns.adobe.com/xap/1.0/mm/}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getHistoryProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getHistoryProperty()}
    */
   @Test
-  @DisplayName(
-      "Test getHistoryProperty(); then return Namespace is 'http://ns.adobe.com/xap/1.0/mm/'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getHistoryProperty(); then return Namespace is 'http://ns.adobe.com/xap/1.0/mm/'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ArrayProperty XMPMediaManagementSchema.getHistoryProperty()"})
   void testGetHistoryProperty_thenReturnNamespaceIsHttpNsAdobeComXap10Mm() {
     // Arrange
@@ -5502,22 +4982,19 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getHistoryProperty()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getHistoryProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getHistoryProperty()}
    */
   @Test
   @DisplayName("Test getHistoryProperty(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ArrayProperty XMPMediaManagementSchema.getHistoryProperty()"})
   void testGetHistoryProperty_thenReturnNull() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addVersions("42");
 
     // Act and Assert
@@ -5526,43 +5003,36 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getHistory()}.
-   *
    * <ul>
-   *   <li>Given {@link XMPMediaManagementSchema#XMPMediaManagementSchema(XMPMetadata)} with
-   *       metadata is createXMPMetadata.
+   *   <li>Given {@link XMPMediaManagementSchema#XMPMediaManagementSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getHistory()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getHistory()}
    */
   @Test
-  @DisplayName(
-      "Test getHistory(); given XMPMediaManagementSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getHistory(); given XMPMediaManagementSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List XMPMediaManagementSchema.getHistory()"})
   void testGetHistory_givenXMPMediaManagementSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull(new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata()).getHistory());
+    assertNull((new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata())).getHistory());
   }
 
   /**
    * Test {@link XMPMediaManagementSchema#getHistory()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getHistory()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getHistory()}
    */
   @Test
   @DisplayName("Test getHistory(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List XMPMediaManagementSchema.getHistory()"})
   void testGetHistory_thenReturnNull() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addVersions("42");
 
     // Act and Assert
@@ -5571,22 +5041,19 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getHistory()}.
-   *
    * <ul>
-   *   <li>Then return size is one.
+   *   <li>Then return size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getHistory()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getHistory()}
    */
   @Test
   @DisplayName("Test getHistory(); then return size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List XMPMediaManagementSchema.getHistory()"})
   void testGetHistory_thenReturnSizeIsOne() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory(XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
 
@@ -5600,13 +5067,12 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#addIngredients(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#addIngredients(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#addIngredients(String)}
    */
   @Test
   @DisplayName("Test addIngredients(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.addIngredients(String)"})
   void testAddIngredients() {
     // Arrange
@@ -5637,13 +5103,12 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#addIngredients(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#addIngredients(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#addIngredients(String)}
    */
   @Test
   @DisplayName("Test addIngredients(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.addIngredients(String)"})
   void testAddIngredients2() {
     // Arrange
@@ -5676,18 +5141,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#addIngredients(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#addIngredients(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#addIngredients(String)}
    */
   @Test
   @DisplayName("Test addIngredients(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.addIngredients(String)"})
   void testAddIngredients3() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory(XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
 
@@ -5700,18 +5163,16 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#addIngredients(String)}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#addIngredients(String)}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#addIngredients(String)}
    */
   @Test
   @DisplayName("Test addIngredients(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void XMPMediaManagementSchema.addIngredients(String)"})
   void testAddIngredients4() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addIngredients(XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
 
@@ -5728,34 +5189,30 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getIngredientsProperty()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getIngredientsProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getIngredientsProperty()}
    */
   @Test
   @DisplayName("Test getIngredientsProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ArrayProperty XMPMediaManagementSchema.getIngredientsProperty()"})
   void testGetIngredientsProperty() {
     // Arrange, Act and Assert
-    assertNull(
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata()).getIngredientsProperty());
+    assertNull((new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata())).getIngredientsProperty());
   }
 
   /**
    * Test {@link XMPMediaManagementSchema#getIngredientsProperty()}.
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getIngredientsProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getIngredientsProperty()}
    */
   @Test
   @DisplayName("Test getIngredientsProperty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ArrayProperty XMPMediaManagementSchema.getIngredientsProperty()"})
   void testGetIngredientsProperty2() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addHistory(XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
 
@@ -5765,18 +5222,15 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getIngredientsProperty()}.
-   *
    * <ul>
-   *   <li>Then return Namespace is {@code http://ns.adobe.com/xap/1.0/mm/}.
+   *   <li>Then return Namespace is {@code http://ns.adobe.com/xap/1.0/mm/}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getIngredientsProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getIngredientsProperty()}
    */
   @Test
-  @DisplayName(
-      "Test getIngredientsProperty(); then return Namespace is 'http://ns.adobe.com/xap/1.0/mm/'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getIngredientsProperty(); then return Namespace is 'http://ns.adobe.com/xap/1.0/mm/'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ArrayProperty XMPMediaManagementSchema.getIngredientsProperty()"})
   void testGetIngredientsProperty_thenReturnNamespaceIsHttpNsAdobeComXap10Mm() {
     // Arrange
@@ -5803,22 +5257,19 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getIngredientsProperty()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getIngredientsProperty()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getIngredientsProperty()}
    */
   @Test
   @DisplayName("Test getIngredientsProperty(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ArrayProperty XMPMediaManagementSchema.getIngredientsProperty()"})
   void testGetIngredientsProperty_thenReturnNull() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addVersions("42");
 
     // Act and Assert
@@ -5827,43 +5278,36 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getIngredients()}.
-   *
    * <ul>
-   *   <li>Given {@link XMPMediaManagementSchema#XMPMediaManagementSchema(XMPMetadata)} with
-   *       metadata is createXMPMetadata.
+   *   <li>Given {@link XMPMediaManagementSchema#XMPMediaManagementSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getIngredients()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getIngredients()}
    */
   @Test
-  @DisplayName(
-      "Test getIngredients(); given XMPMediaManagementSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getIngredients(); given XMPMediaManagementSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List XMPMediaManagementSchema.getIngredients()"})
   void testGetIngredients_givenXMPMediaManagementSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull(new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata()).getIngredients());
+    assertNull((new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata())).getIngredients());
   }
 
   /**
    * Test {@link XMPMediaManagementSchema#getIngredients()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getIngredients()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getIngredients()}
    */
   @Test
   @DisplayName("Test getIngredients(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List XMPMediaManagementSchema.getIngredients()"})
   void testGetIngredients_thenReturnNull() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addVersions("42");
 
     // Act and Assert
@@ -5872,22 +5316,19 @@ class XMPMediaManagementSchemaDiffblueTest {
 
   /**
    * Test {@link XMPMediaManagementSchema#getIngredients()}.
-   *
    * <ul>
-   *   <li>Then return size is one.
+   *   <li>Then return size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMPMediaManagementSchema#getIngredients()}
+   * <p>
+   * Method under test: {@link XMPMediaManagementSchema#getIngredients()}
    */
   @Test
   @DisplayName("Test getIngredients(); then return size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List XMPMediaManagementSchema.getIngredients()"})
   void testGetIngredients_thenReturnSizeIsOne() {
     // Arrange
-    XMPMediaManagementSchema xmpMediaManagementSchema =
-        new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
+    XMPMediaManagementSchema xmpMediaManagementSchema = new XMPMediaManagementSchema(XMPMetadata.createXMPMetadata());
     xmpMediaManagementSchema.addIngredients(XMPMediaManagementSchema.VERSIONS);
     xmpMediaManagementSchema.addVersions("42");
 

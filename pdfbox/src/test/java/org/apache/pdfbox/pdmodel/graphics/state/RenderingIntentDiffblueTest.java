@@ -1,7 +1,6 @@
 package org.apache.pdfbox.pdmodel.graphics.state;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -10,18 +9,16 @@ import org.junit.jupiter.api.Test;
 class RenderingIntentDiffblueTest {
   /**
    * Test {@link RenderingIntent#fromString(String)}.
-   *
    * <ul>
-   *   <li>When {@code 42}.
-   *   <li>Then return {@code RELATIVE_COLORIMETRIC}.
+   *   <li>When {@code 42}.</li>
+   *   <li>Then return {@code RELATIVE_COLORIMETRIC}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link RenderingIntent#fromString(String)}
+   * <p>
+   * Method under test: {@link RenderingIntent#fromString(String)}
    */
   @Test
   @DisplayName("Test fromString(String); when '42'; then return 'RELATIVE_COLORIMETRIC'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"RenderingIntent RenderingIntent.fromString(String)"})
   void testFromString_when42_thenReturnRelativeColorimetric() {
     // Arrange, Act and Assert
@@ -30,35 +27,30 @@ class RenderingIntentDiffblueTest {
 
   /**
    * Test {@link RenderingIntent#fromString(String)}.
-   *
    * <ul>
-   *   <li>When {@code AbsoluteColorimetric}.
-   *   <li>Then return {@code ABSOLUTE_COLORIMETRIC}.
+   *   <li>When {@code AbsoluteColorimetric}.</li>
+   *   <li>Then return {@code ABSOLUTE_COLORIMETRIC}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link RenderingIntent#fromString(String)}
+   * <p>
+   * Method under test: {@link RenderingIntent#fromString(String)}
    */
   @Test
-  @DisplayName(
-      "Test fromString(String); when 'AbsoluteColorimetric'; then return 'ABSOLUTE_COLORIMETRIC'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test fromString(String); when 'AbsoluteColorimetric'; then return 'ABSOLUTE_COLORIMETRIC'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"RenderingIntent RenderingIntent.fromString(String)"})
   void testFromString_whenAbsoluteColorimetric_thenReturnAbsoluteColorimetric() {
     // Arrange, Act and Assert
-    assertEquals(
-        RenderingIntent.ABSOLUTE_COLORIMETRIC, RenderingIntent.fromString("AbsoluteColorimetric"));
+    assertEquals(RenderingIntent.ABSOLUTE_COLORIMETRIC, RenderingIntent.fromString("AbsoluteColorimetric"));
   }
 
   /**
    * Test {@link RenderingIntent#stringValue()}.
-   *
-   * <p>Method under test: {@link RenderingIntent#stringValue()}
+   * <p>
+   * Method under test: {@link RenderingIntent#stringValue()}
    */
   @Test
   @DisplayName("Test stringValue()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String RenderingIntent.stringValue()"})
   void testStringValue() {
     // Arrange, Act and Assert

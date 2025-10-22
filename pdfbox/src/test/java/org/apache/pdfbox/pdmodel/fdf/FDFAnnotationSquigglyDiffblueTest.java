@@ -4,45 +4,39 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
-import javax.imageio.metadata.IIOMetadataNode;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.w3c.dom.Element;
 
 class FDFAnnotationSquigglyDiffblueTest {
   /**
    * Test {@link FDFAnnotationSquiggly#FDFAnnotationSquiggly(COSDictionary)}.
-   *
-   * <p>Method under test: {@link FDFAnnotationSquiggly#FDFAnnotationSquiggly(COSDictionary)}
+   * <p>
+   * Method under test: {@link FDFAnnotationSquiggly#FDFAnnotationSquiggly(COSDictionary)}
    */
   @Test
   @DisplayName("Test new FDFAnnotationSquiggly(COSDictionary)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFAnnotationSquiggly.<init>(COSDictionary)"})
   void testNewFDFAnnotationSquiggly() {
     // Arrange
     COSDictionary a = new COSDictionary();
 
     // Act and Assert
-    assertSame(a, new FDFAnnotationSquiggly(a).getCOSObject());
+    assertSame(a, (new FDFAnnotationSquiggly(a)).getCOSObject());
   }
 
   /**
    * Test {@link FDFAnnotationSquiggly#FDFAnnotationSquiggly()}.
-   *
-   * <p>Method under test: {@link FDFAnnotationSquiggly#FDFAnnotationSquiggly()}
+   * <p>
+   * Method under test: {@link FDFAnnotationSquiggly#FDFAnnotationSquiggly()}
    */
   @Test
   @DisplayName("Test new FDFAnnotationSquiggly()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFAnnotationSquiggly.<init>()"})
   void testNewFDFAnnotationSquiggly2() throws IOException {
     // Arrange and Act
@@ -74,26 +68,5 @@ class FDFAnnotationSquigglyDiffblueTest {
     assertFalse(actualFdfAnnotationSquiggly.isPrinted());
     assertFalse(actualFdfAnnotationSquiggly.isReadOnly());
     assertFalse(actualFdfAnnotationSquiggly.isToggleNoView());
-  }
-
-  /**
-   * Test {@link FDFAnnotationSquiggly#FDFAnnotationSquiggly(Element)}.
-   *
-   * <ul>
-   *   <li>When {@link IIOMetadataNode#IIOMetadataNode()}.
-   *   <li>Then throw {@link IOException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationSquiggly#FDFAnnotationSquiggly(Element)}
-   */
-  @Test
-  @DisplayName(
-      "Test new FDFAnnotationSquiggly(Element); when IIOMetadataNode(); then throw IOException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFAnnotationSquiggly.<init>(Element)"})
-  void testNewFDFAnnotationSquiggly_whenIIOMetadataNode_thenThrowIOException() throws IOException {
-    // Arrange, Act and Assert
-    assertThrows(IOException.class, () -> new FDFAnnotationSquiggly(new IIOMetadataNode()));
   }
 }

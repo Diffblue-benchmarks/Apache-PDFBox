@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.Paint;
 import java.awt.geom.AffineTransform;
@@ -18,46 +17,43 @@ import org.junit.jupiter.api.Test;
 class PDShadingType6DiffblueTest {
   /**
    * Test {@link PDShadingType6#PDShadingType6(COSDictionary)}.
-   *
-   * <p>Method under test: {@link PDShadingType6#PDShadingType6(COSDictionary)}
+   * <p>
+   * Method under test: {@link PDShadingType6#PDShadingType6(COSDictionary)}
    */
   @Test
   @DisplayName("Test new PDShadingType6(COSDictionary)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDShadingType6.<init>(COSDictionary)"})
   void testNewPDShadingType6() {
     // Arrange
     COSDictionary shadingDictionary = new COSDictionary();
 
     // Act and Assert
-    assertSame(shadingDictionary, new PDShadingType6(shadingDictionary).getCOSObject());
+    assertSame(shadingDictionary, (new PDShadingType6(shadingDictionary)).getCOSObject());
   }
 
   /**
    * Test {@link PDShadingType6#getShadingType()}.
-   *
-   * <p>Method under test: {@link PDShadingType6#getShadingType()}
+   * <p>
+   * Method under test: {@link PDShadingType6#getShadingType()}
    */
   @Test
   @DisplayName("Test getShadingType()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int PDShadingType6.getShadingType()"})
   void testGetShadingType() {
     // Arrange, Act and Assert
-    assertEquals(6, new PDShadingType6(new COSDictionary()).getShadingType());
+    assertEquals(6, (new PDShadingType6(new COSDictionary())).getShadingType());
   }
 
   /**
    * Test {@link PDShadingType6#toPaint(Matrix)}.
-   *
-   * <p>Method under test: {@link PDShadingType6#toPaint(Matrix)}
+   * <p>
+   * Method under test: {@link PDShadingType6#toPaint(Matrix)}
    */
   @Test
   @DisplayName("Test toPaint(Matrix)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Paint PDShadingType6.toPaint(Matrix)"})
   void testToPaint() {
     // Arrange
@@ -75,15 +71,13 @@ class PDShadingType6DiffblueTest {
   }
 
   /**
-   * Test {@link PDShadingType6#getBounds(AffineTransform, Matrix)} with {@code xform}, {@code
-   * matrix}.
-   *
-   * <p>Method under test: {@link PDShadingType6#getBounds(AffineTransform, Matrix)}
+   * Test {@link PDShadingType6#getBounds(AffineTransform, Matrix)} with {@code xform}, {@code matrix}.
+   * <p>
+   * Method under test: {@link PDShadingType6#getBounds(AffineTransform, Matrix)}
    */
   @Test
   @DisplayName("Test getBounds(AffineTransform, Matrix) with 'xform', 'matrix'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.awt.geom.Rectangle2D PDShadingType6.getBounds(AffineTransform, Matrix)"})
   void testGetBoundsWithXformMatrix() throws IOException {
     // Arrange

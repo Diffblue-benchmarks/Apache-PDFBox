@@ -8,7 +8,6 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -19,9 +18,8 @@ import org.junit.jupiter.api.Test;
 class HorizontalHeaderTableDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link HorizontalHeaderTable}
    *   <li>{@link HorizontalHeaderTable#setAdvanceWidthMax(int)}
@@ -62,45 +60,26 @@ class HorizontalHeaderTableDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void HorizontalHeaderTable.<init>()",
-    "int HorizontalHeaderTable.getAdvanceWidthMax()",
-    "short HorizontalHeaderTable.getAscender()",
-    "short HorizontalHeaderTable.getCaretSlopeRise()",
-    "short HorizontalHeaderTable.getCaretSlopeRun()",
-    "short HorizontalHeaderTable.getDescender()",
-    "short HorizontalHeaderTable.getLineGap()",
-    "short HorizontalHeaderTable.getMetricDataFormat()",
-    "short HorizontalHeaderTable.getMinLeftSideBearing()",
-    "short HorizontalHeaderTable.getMinRightSideBearing()",
-    "int HorizontalHeaderTable.getNumberOfHMetrics()",
-    "short HorizontalHeaderTable.getReserved1()",
-    "short HorizontalHeaderTable.getReserved2()",
-    "short HorizontalHeaderTable.getReserved3()",
-    "short HorizontalHeaderTable.getReserved4()",
-    "short HorizontalHeaderTable.getReserved5()",
-    "float HorizontalHeaderTable.getVersion()",
-    "short HorizontalHeaderTable.getXMaxExtent()",
-    "void HorizontalHeaderTable.setAdvanceWidthMax(int)",
-    "void HorizontalHeaderTable.setAscender(short)",
-    "void HorizontalHeaderTable.setCaretSlopeRise(short)",
-    "void HorizontalHeaderTable.setCaretSlopeRun(short)",
-    "void HorizontalHeaderTable.setDescender(short)",
-    "void HorizontalHeaderTable.setLineGap(short)",
-    "void HorizontalHeaderTable.setMetricDataFormat(short)",
-    "void HorizontalHeaderTable.setMinLeftSideBearing(short)",
-    "void HorizontalHeaderTable.setMinRightSideBearing(short)",
-    "void HorizontalHeaderTable.setNumberOfHMetrics(int)",
-    "void HorizontalHeaderTable.setReserved1(short)",
-    "void HorizontalHeaderTable.setReserved2(short)",
-    "void HorizontalHeaderTable.setReserved3(short)",
-    "void HorizontalHeaderTable.setReserved4(short)",
-    "void HorizontalHeaderTable.setReserved5(short)",
-    "void HorizontalHeaderTable.setVersion(float)",
-    "void HorizontalHeaderTable.setXMaxExtent(short)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void HorizontalHeaderTable.<init>()", "int HorizontalHeaderTable.getAdvanceWidthMax()",
+      "short HorizontalHeaderTable.getAscender()", "short HorizontalHeaderTable.getCaretSlopeRise()",
+      "short HorizontalHeaderTable.getCaretSlopeRun()", "short HorizontalHeaderTable.getDescender()",
+      "short HorizontalHeaderTable.getLineGap()", "short HorizontalHeaderTable.getMetricDataFormat()",
+      "short HorizontalHeaderTable.getMinLeftSideBearing()", "short HorizontalHeaderTable.getMinRightSideBearing()",
+      "int HorizontalHeaderTable.getNumberOfHMetrics()", "short HorizontalHeaderTable.getReserved1()",
+      "short HorizontalHeaderTable.getReserved2()", "short HorizontalHeaderTable.getReserved3()",
+      "short HorizontalHeaderTable.getReserved4()", "short HorizontalHeaderTable.getReserved5()",
+      "float HorizontalHeaderTable.getVersion()", "short HorizontalHeaderTable.getXMaxExtent()",
+      "void HorizontalHeaderTable.setAdvanceWidthMax(int)", "void HorizontalHeaderTable.setAscender(short)",
+      "void HorizontalHeaderTable.setCaretSlopeRise(short)", "void HorizontalHeaderTable.setCaretSlopeRun(short)",
+      "void HorizontalHeaderTable.setDescender(short)", "void HorizontalHeaderTable.setLineGap(short)",
+      "void HorizontalHeaderTable.setMetricDataFormat(short)",
+      "void HorizontalHeaderTable.setMinLeftSideBearing(short)",
+      "void HorizontalHeaderTable.setMinRightSideBearing(short)", "void HorizontalHeaderTable.setNumberOfHMetrics(int)",
+      "void HorizontalHeaderTable.setReserved1(short)", "void HorizontalHeaderTable.setReserved2(short)",
+      "void HorizontalHeaderTable.setReserved3(short)", "void HorizontalHeaderTable.setReserved4(short)",
+      "void HorizontalHeaderTable.setReserved5(short)", "void HorizontalHeaderTable.setVersion(float)",
+      "void HorizontalHeaderTable.setXMaxExtent(short)"})
   void testGettersAndSetters() {
     // Arrange and Act
     HorizontalHeaderTable actualHorizontalHeaderTable = new HorizontalHeaderTable();
@@ -166,27 +145,22 @@ class HorizontalHeaderTableDiffblueTest {
 
   /**
    * Test {@link HorizontalHeaderTable#read(TrueTypeFont, TTFDataStream)}.
-   *
    * <ul>
-   *   <li>Given ten.
-   *   <li>Then {@link HorizontalHeaderTable#HorizontalHeaderTable()} AdvanceWidthMax is one.
+   *   <li>Given ten.</li>
+   *   <li>Then {@link HorizontalHeaderTable#HorizontalHeaderTable()} AdvanceWidthMax is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HorizontalHeaderTable#read(TrueTypeFont, TTFDataStream)}
+   * <p>
+   * Method under test: {@link HorizontalHeaderTable#read(TrueTypeFont, TTFDataStream)}
    */
   @Test
-  @DisplayName(
-      "Test read(TrueTypeFont, TTFDataStream); given ten; then HorizontalHeaderTable() AdvanceWidthMax is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test read(TrueTypeFont, TTFDataStream); given ten; then HorizontalHeaderTable() AdvanceWidthMax is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void HorizontalHeaderTable.read(TrueTypeFont, TTFDataStream)"})
   void testRead_givenTen_thenHorizontalHeaderTableAdvanceWidthMaxIsOne() throws IOException {
     // Arrange
     HorizontalHeaderTable horizontalHeaderTable = new HorizontalHeaderTable();
-    RandomAccessReadDataStream fontData =
-        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
-    TrueTypeFont ttf = new TrueTypeFont(fontData);
-
+    TrueTypeFont ttf = new TrueTypeFont(
+        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
     RandomAccessReadDataStream data = mock(RandomAccessReadDataStream.class);
     when(data.read32Fixed()).thenReturn(10.0f);
     when(data.readUnsignedShort()).thenReturn(1);

@@ -6,14 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.io.DataInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import org.apache.fontbox.encoding.Encoding;
 import org.junit.jupiter.api.DisplayName;
@@ -22,45 +16,20 @@ import org.junit.jupiter.api.Test;
 
 class Type1FontDiffblueTest {
   /**
-   * Test {@link Type1Font#createWithPFB(InputStream)} with {@code pfbStream}.
-   *
-   * <ul>
-   *   <li>Given {@link IOException#IOException()}.
-   *   <li>Then throw {@link IOException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link Type1Font#createWithPFB(InputStream)}
-   */
-  @Test
-  @DisplayName(
-      "Test createWithPFB(InputStream) with 'pfbStream'; given IOException(); then throw IOException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Type1Font Type1Font.createWithPFB(InputStream)"})
-  void testCreateWithPFBWithPfbStream_givenIOException_thenThrowIOException() throws IOException {
-    // Arrange
-    DataInputStream pfbStream = mock(DataInputStream.class);
-    when(pfbStream.readAllBytes()).thenThrow(new IOException());
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> Type1Font.createWithPFB(pfbStream));
-    verify(pfbStream).readAllBytes();
-  }
-
-  /**
    * Test {@link Type1Font#Type1Font(byte[], byte[])}.
-   *
-   * <p>Method under test: {@link Type1Font#Type1Font(byte[], byte[])}
+   * <p>
+   * Method under test: {@link Type1Font#Type1Font(byte[], byte[])}
    */
   @Test
   @DisplayName("Test new Type1Font(byte[], byte[])")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void Type1Font.<init>(byte[], byte[])"})
   void testNewType1Font() throws UnsupportedEncodingException {
-    // Arrange and Act
-    Type1Font actualType1Font =
-        new Type1Font("AXAXAXAX".getBytes("UTF-8"), "AXAXAXAX".getBytes("UTF-8"));
+    // Arrange
+    byte[] segment1 = "AXAXAXAX".getBytes("UTF-8");
+
+    // Act
+    Type1Font actualType1Font = new Type1Font(segment1, "AXAXAXAX".getBytes("UTF-8"));
 
     // Assert
     assertEquals("", actualType1Font.getFamilyName());
@@ -108,318 +77,301 @@ class Type1FontDiffblueTest {
     assertTrue(actualType1Font.subrs.isEmpty());
     assertTrue(actualType1Font.getCharStringsDict().isEmpty());
     assertTrue(actualType1Font.charstrings.isEmpty());
-    assertArrayEquals("AXAXAXAX".getBytes("UTF-8"), actualType1Font.getASCIISegment());
-    assertArrayEquals("AXAXAXAX".getBytes("UTF-8"), actualType1Font.getBinarySegment());
+    byte[] expectedASCIISegment = "AXAXAXAX".getBytes("UTF-8");
+    assertArrayEquals(expectedASCIISegment, actualType1Font.getASCIISegment());
+    byte[] expectedBinarySegment = "AXAXAXAX".getBytes("UTF-8");
+    assertArrayEquals(expectedBinarySegment, actualType1Font.getBinarySegment());
   }
 
   /**
    * Test {@link Type1Font#getSubrsArray()}.
-   *
-   * <p>Method under test: {@link Type1Font#getSubrsArray()}
+   * <p>
+   * Method under test: {@link Type1Font#getSubrsArray()}
    */
   @Test
   @DisplayName("Test getSubrsArray()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.util.List Type1Font.getSubrsArray()"})
   void testGetSubrsArray() throws UnsupportedEncodingException {
     // Arrange
-    Type1Font type1Font = new Type1Font("AXAXAXAX".getBytes("UTF-8"), "AXAXAXAX".getBytes("UTF-8"));
+    byte[] segment1 = "AXAXAXAX".getBytes("UTF-8");
 
     // Act and Assert
-    assertTrue(type1Font.getSubrsArray().isEmpty());
+    assertTrue((new Type1Font(segment1, "AXAXAXAX".getBytes("UTF-8"))).getSubrsArray().isEmpty());
   }
 
   /**
    * Test {@link Type1Font#getCharStringsDict()}.
-   *
-   * <p>Method under test: {@link Type1Font#getCharStringsDict()}
+   * <p>
+   * Method under test: {@link Type1Font#getCharStringsDict()}
    */
   @Test
   @DisplayName("Test getCharStringsDict()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.util.Map Type1Font.getCharStringsDict()"})
   void testGetCharStringsDict() throws UnsupportedEncodingException {
     // Arrange
-    Type1Font type1Font = new Type1Font("AXAXAXAX".getBytes("UTF-8"), "AXAXAXAX".getBytes("UTF-8"));
+    byte[] segment1 = "AXAXAXAX".getBytes("UTF-8");
 
     // Act and Assert
-    assertTrue(type1Font.getCharStringsDict().isEmpty());
+    assertTrue((new Type1Font(segment1, "AXAXAXAX".getBytes("UTF-8"))).getCharStringsDict().isEmpty());
   }
 
   /**
    * Test {@link Type1Font#getPath(String)}.
-   *
    * <ul>
-   *   <li>When {@code Name}.
-   *   <li>Then throw {@link IOException}.
+   *   <li>When {@code Name}.</li>
+   *   <li>Then throw {@link IOException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Type1Font#getPath(String)}
+   * <p>
+   * Method under test: {@link Type1Font#getPath(String)}
    */
   @Test
   @DisplayName("Test getPath(String); when 'Name'; then throw IOException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.awt.geom.GeneralPath Type1Font.getPath(String)"})
   void testGetPath_whenName_thenThrowIOException() throws IOException {
     // Arrange
-    Type1Font type1Font = new Type1Font("AXAXAXAX".getBytes("UTF-8"), "AXAXAXAX".getBytes("UTF-8"));
+    byte[] segment1 = "AXAXAXAX".getBytes("UTF-8");
 
     // Act and Assert
-    assertThrows(IOException.class, () -> type1Font.getPath("Name"));
+    assertThrows(IOException.class, () -> (new Type1Font(segment1, "AXAXAXAX".getBytes("UTF-8"))).getPath("Name"));
   }
 
   /**
    * Test {@link Type1Font#getWidth(String)}.
-   *
    * <ul>
-   *   <li>When {@code Name}.
-   *   <li>Then throw {@link IOException}.
+   *   <li>When {@code Name}.</li>
+   *   <li>Then throw {@link IOException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Type1Font#getWidth(String)}
+   * <p>
+   * Method under test: {@link Type1Font#getWidth(String)}
    */
   @Test
   @DisplayName("Test getWidth(String); when 'Name'; then throw IOException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"float Type1Font.getWidth(String)"})
   void testGetWidth_whenName_thenThrowIOException() throws IOException {
     // Arrange
-    Type1Font type1Font = new Type1Font("AXAXAXAX".getBytes("UTF-8"), "AXAXAXAX".getBytes("UTF-8"));
+    byte[] segment1 = "AXAXAXAX".getBytes("UTF-8");
 
     // Act and Assert
-    assertThrows(IOException.class, () -> type1Font.getWidth("Name"));
+    assertThrows(IOException.class, () -> (new Type1Font(segment1, "AXAXAXAX".getBytes("UTF-8"))).getWidth("Name"));
   }
 
   /**
    * Test {@link Type1Font#hasGlyph(String)}.
-   *
-   * <p>Method under test: {@link Type1Font#hasGlyph(String)}
+   * <p>
+   * Method under test: {@link Type1Font#hasGlyph(String)}
    */
   @Test
   @DisplayName("Test hasGlyph(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean Type1Font.hasGlyph(String)"})
   void testHasGlyph() throws UnsupportedEncodingException {
     // Arrange
-    Type1Font type1Font = new Type1Font("AXAXAXAX".getBytes("UTF-8"), "AXAXAXAX".getBytes("UTF-8"));
+    byte[] segment1 = "AXAXAXAX".getBytes("UTF-8");
 
     // Act and Assert
-    assertFalse(type1Font.hasGlyph("Name"));
+    assertFalse((new Type1Font(segment1, "AXAXAXAX".getBytes("UTF-8"))).hasGlyph("Name"));
   }
 
   /**
    * Test {@link Type1Font#getType1CharString(String)}.
-   *
    * <ul>
-   *   <li>When {@code Name}.
-   *   <li>Then throw {@link IOException}.
+   *   <li>When {@code Name}.</li>
+   *   <li>Then throw {@link IOException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Type1Font#getType1CharString(String)}
+   * <p>
+   * Method under test: {@link Type1Font#getType1CharString(String)}
    */
   @Test
   @DisplayName("Test getType1CharString(String); when 'Name'; then throw IOException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"org.apache.fontbox.cff.Type1CharString Type1Font.getType1CharString(String)"})
   void testGetType1CharString_whenName_thenThrowIOException() throws IOException {
     // Arrange
-    Type1Font type1Font = new Type1Font("AXAXAXAX".getBytes("UTF-8"), "AXAXAXAX".getBytes("UTF-8"));
+    byte[] segment1 = "AXAXAXAX".getBytes("UTF-8");
 
     // Act and Assert
-    assertThrows(IOException.class, () -> type1Font.getType1CharString("Name"));
+    assertThrows(IOException.class,
+        () -> (new Type1Font(segment1, "AXAXAXAX".getBytes("UTF-8"))).getType1CharString("Name"));
   }
 
   /**
    * Test {@link Type1Font#getFontMatrix()}.
-   *
-   * <p>Method under test: {@link Type1Font#getFontMatrix()}
+   * <p>
+   * Method under test: {@link Type1Font#getFontMatrix()}
    */
   @Test
   @DisplayName("Test getFontMatrix()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.util.List Type1Font.getFontMatrix()"})
   void testGetFontMatrix() throws UnsupportedEncodingException {
     // Arrange
-    Type1Font type1Font = new Type1Font("AXAXAXAX".getBytes("UTF-8"), "AXAXAXAX".getBytes("UTF-8"));
+    byte[] segment1 = "AXAXAXAX".getBytes("UTF-8");
 
     // Act and Assert
-    assertTrue(type1Font.getFontMatrix().isEmpty());
+    assertTrue((new Type1Font(segment1, "AXAXAXAX".getBytes("UTF-8"))).getFontMatrix().isEmpty());
   }
 
   /**
    * Test {@link Type1Font#getFontBBox()}.
-   *
-   * <p>Method under test: {@link Type1Font#getFontBBox()}
+   * <p>
+   * Method under test: {@link Type1Font#getFontBBox()}
    */
   @Test
   @DisplayName("Test getFontBBox()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"org.apache.fontbox.util.BoundingBox Type1Font.getFontBBox()"})
   void testGetFontBBox() throws IOException {
     // Arrange
-    Type1Font type1Font = new Type1Font("AXAXAXAX".getBytes("UTF-8"), "AXAXAXAX".getBytes("UTF-8"));
+    byte[] segment1 = "AXAXAXAX".getBytes("UTF-8");
 
     // Act and Assert
-    assertThrows(IOException.class, () -> type1Font.getFontBBox());
+    assertThrows(IOException.class, () -> (new Type1Font(segment1, "AXAXAXAX".getBytes("UTF-8"))).getFontBBox());
   }
 
   /**
    * Test {@link Type1Font#getBlueValues()}.
-   *
-   * <p>Method under test: {@link Type1Font#getBlueValues()}
+   * <p>
+   * Method under test: {@link Type1Font#getBlueValues()}
    */
   @Test
   @DisplayName("Test getBlueValues()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.util.List Type1Font.getBlueValues()"})
   void testGetBlueValues() throws UnsupportedEncodingException {
     // Arrange
-    Type1Font type1Font = new Type1Font("AXAXAXAX".getBytes("UTF-8"), "AXAXAXAX".getBytes("UTF-8"));
+    byte[] segment1 = "AXAXAXAX".getBytes("UTF-8");
 
     // Act and Assert
-    assertTrue(type1Font.getBlueValues().isEmpty());
+    assertTrue((new Type1Font(segment1, "AXAXAXAX".getBytes("UTF-8"))).getBlueValues().isEmpty());
   }
 
   /**
    * Test {@link Type1Font#getOtherBlues()}.
-   *
-   * <p>Method under test: {@link Type1Font#getOtherBlues()}
+   * <p>
+   * Method under test: {@link Type1Font#getOtherBlues()}
    */
   @Test
   @DisplayName("Test getOtherBlues()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.util.List Type1Font.getOtherBlues()"})
   void testGetOtherBlues() throws UnsupportedEncodingException {
     // Arrange
-    Type1Font type1Font = new Type1Font("AXAXAXAX".getBytes("UTF-8"), "AXAXAXAX".getBytes("UTF-8"));
+    byte[] segment1 = "AXAXAXAX".getBytes("UTF-8");
 
     // Act and Assert
-    assertTrue(type1Font.getOtherBlues().isEmpty());
+    assertTrue((new Type1Font(segment1, "AXAXAXAX".getBytes("UTF-8"))).getOtherBlues().isEmpty());
   }
 
   /**
    * Test {@link Type1Font#getFamilyBlues()}.
-   *
-   * <p>Method under test: {@link Type1Font#getFamilyBlues()}
+   * <p>
+   * Method under test: {@link Type1Font#getFamilyBlues()}
    */
   @Test
   @DisplayName("Test getFamilyBlues()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.util.List Type1Font.getFamilyBlues()"})
   void testGetFamilyBlues() throws UnsupportedEncodingException {
     // Arrange
-    Type1Font type1Font = new Type1Font("AXAXAXAX".getBytes("UTF-8"), "AXAXAXAX".getBytes("UTF-8"));
+    byte[] segment1 = "AXAXAXAX".getBytes("UTF-8");
 
     // Act and Assert
-    assertTrue(type1Font.getFamilyBlues().isEmpty());
+    assertTrue((new Type1Font(segment1, "AXAXAXAX".getBytes("UTF-8"))).getFamilyBlues().isEmpty());
   }
 
   /**
    * Test {@link Type1Font#getFamilyOtherBlues()}.
-   *
-   * <p>Method under test: {@link Type1Font#getFamilyOtherBlues()}
+   * <p>
+   * Method under test: {@link Type1Font#getFamilyOtherBlues()}
    */
   @Test
   @DisplayName("Test getFamilyOtherBlues()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.util.List Type1Font.getFamilyOtherBlues()"})
   void testGetFamilyOtherBlues() throws UnsupportedEncodingException {
     // Arrange
-    Type1Font type1Font = new Type1Font("AXAXAXAX".getBytes("UTF-8"), "AXAXAXAX".getBytes("UTF-8"));
+    byte[] segment1 = "AXAXAXAX".getBytes("UTF-8");
 
     // Act and Assert
-    assertTrue(type1Font.getFamilyOtherBlues().isEmpty());
+    assertTrue((new Type1Font(segment1, "AXAXAXAX".getBytes("UTF-8"))).getFamilyOtherBlues().isEmpty());
   }
 
   /**
    * Test {@link Type1Font#getStdHW()}.
-   *
-   * <p>Method under test: {@link Type1Font#getStdHW()}
+   * <p>
+   * Method under test: {@link Type1Font#getStdHW()}
    */
   @Test
   @DisplayName("Test getStdHW()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.util.List Type1Font.getStdHW()"})
   void testGetStdHW() throws UnsupportedEncodingException {
     // Arrange
-    Type1Font type1Font = new Type1Font("AXAXAXAX".getBytes("UTF-8"), "AXAXAXAX".getBytes("UTF-8"));
+    byte[] segment1 = "AXAXAXAX".getBytes("UTF-8");
 
     // Act and Assert
-    assertTrue(type1Font.getStdHW().isEmpty());
+    assertTrue((new Type1Font(segment1, "AXAXAXAX".getBytes("UTF-8"))).getStdHW().isEmpty());
   }
 
   /**
    * Test {@link Type1Font#getStdVW()}.
-   *
-   * <p>Method under test: {@link Type1Font#getStdVW()}
+   * <p>
+   * Method under test: {@link Type1Font#getStdVW()}
    */
   @Test
   @DisplayName("Test getStdVW()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.util.List Type1Font.getStdVW()"})
   void testGetStdVW() throws UnsupportedEncodingException {
     // Arrange
-    Type1Font type1Font = new Type1Font("AXAXAXAX".getBytes("UTF-8"), "AXAXAXAX".getBytes("UTF-8"));
+    byte[] segment1 = "AXAXAXAX".getBytes("UTF-8");
 
     // Act and Assert
-    assertTrue(type1Font.getStdVW().isEmpty());
+    assertTrue((new Type1Font(segment1, "AXAXAXAX".getBytes("UTF-8"))).getStdVW().isEmpty());
   }
 
   /**
    * Test {@link Type1Font#getStemSnapH()}.
-   *
-   * <p>Method under test: {@link Type1Font#getStemSnapH()}
+   * <p>
+   * Method under test: {@link Type1Font#getStemSnapH()}
    */
   @Test
   @DisplayName("Test getStemSnapH()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.util.List Type1Font.getStemSnapH()"})
   void testGetStemSnapH() throws UnsupportedEncodingException {
     // Arrange
-    Type1Font type1Font = new Type1Font("AXAXAXAX".getBytes("UTF-8"), "AXAXAXAX".getBytes("UTF-8"));
+    byte[] segment1 = "AXAXAXAX".getBytes("UTF-8");
 
     // Act and Assert
-    assertTrue(type1Font.getStemSnapH().isEmpty());
+    assertTrue((new Type1Font(segment1, "AXAXAXAX".getBytes("UTF-8"))).getStemSnapH().isEmpty());
   }
 
   /**
    * Test {@link Type1Font#getStemSnapV()}.
-   *
-   * <p>Method under test: {@link Type1Font#getStemSnapV()}
+   * <p>
+   * Method under test: {@link Type1Font#getStemSnapV()}
    */
   @Test
   @DisplayName("Test getStemSnapV()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.util.List Type1Font.getStemSnapV()"})
   void testGetStemSnapV() throws UnsupportedEncodingException {
     // Arrange
-    Type1Font type1Font = new Type1Font("AXAXAXAX".getBytes("UTF-8"), "AXAXAXAX".getBytes("UTF-8"));
+    byte[] segment1 = "AXAXAXAX".getBytes("UTF-8");
 
     // Act and Assert
-    assertTrue(type1Font.getStemSnapV().isEmpty());
+    assertTrue((new Type1Font(segment1, "AXAXAXAX".getBytes("UTF-8"))).getStemSnapV().isEmpty());
   }
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link Type1Font#toString()}
    *   <li>{@link Type1Font#getASCIISegment()}
@@ -450,38 +402,20 @@ class Type1FontDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "byte[] Type1Font.getASCIISegment()",
-    "byte[] Type1Font.getBinarySegment()",
-    "int Type1Font.getBlueFuzz()",
-    "float Type1Font.getBlueScale()",
-    "int Type1Font.getBlueShift()",
-    "Encoding Type1Font.getEncoding()",
-    "String Type1Font.getFamilyName()",
-    "String Type1Font.getFontID()",
-    "String Type1Font.getFontName()",
-    "int Type1Font.getFontType()",
-    "String Type1Font.getFullName()",
-    "float Type1Font.getItalicAngle()",
-    "int Type1Font.getLanguageGroup()",
-    "String Type1Font.getName()",
-    "String Type1Font.getNotice()",
-    "int Type1Font.getPaintType()",
-    "float Type1Font.getStrokeWidth()",
-    "float Type1Font.getUnderlinePosition()",
-    "float Type1Font.getUnderlineThickness()",
-    "int Type1Font.getUniqueID()",
-    "String Type1Font.getVersion()",
-    "String Type1Font.getWeight()",
-    "boolean Type1Font.isFixedPitch()",
-    "boolean Type1Font.isForceBold()",
-    "String Type1Font.toString()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"byte[] Type1Font.getASCIISegment()", "byte[] Type1Font.getBinarySegment()",
+      "int Type1Font.getBlueFuzz()", "float Type1Font.getBlueScale()", "int Type1Font.getBlueShift()",
+      "Encoding Type1Font.getEncoding()", "String Type1Font.getFamilyName()", "String Type1Font.getFontID()",
+      "String Type1Font.getFontName()", "int Type1Font.getFontType()", "String Type1Font.getFullName()",
+      "float Type1Font.getItalicAngle()", "int Type1Font.getLanguageGroup()", "String Type1Font.getName()",
+      "String Type1Font.getNotice()", "int Type1Font.getPaintType()", "float Type1Font.getStrokeWidth()",
+      "float Type1Font.getUnderlinePosition()", "float Type1Font.getUnderlineThickness()",
+      "int Type1Font.getUniqueID()", "String Type1Font.getVersion()", "String Type1Font.getWeight()",
+      "boolean Type1Font.isFixedPitch()", "boolean Type1Font.isForceBold()", "String Type1Font.toString()"})
   void testGettersAndSetters() throws UnsupportedEncodingException {
     // Arrange
-    Type1Font type1Font = new Type1Font("AXAXAXAX".getBytes("UTF-8"), "AXAXAXAX".getBytes("UTF-8"));
+    byte[] segment1 = "AXAXAXAX".getBytes("UTF-8");
+    Type1Font type1Font = new Type1Font(segment1, "AXAXAXAX".getBytes("UTF-8"));
 
     // Act
     String actualToStringResult = type1Font.toString();
@@ -518,8 +452,7 @@ class Type1FontDiffblueTest {
     assertEquals("", actualNotice);
     assertEquals("", actualVersion);
     assertEquals("", actualWeight);
-    assertEquals(
-        "org.apache.fontbox.type1.Type1Font[fontName=, fullName=, encoding=null, charStringsDict={}]",
+    assertEquals("org.apache.fontbox.type1.Type1Font[fontName=, fullName=, encoding=null, charStringsDict={}]",
         actualToStringResult);
     assertNull(actualEncoding);
     assertEquals(0, actualBlueFuzz);

@@ -4,11 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Component.BaselineResizeBehavior;
+import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D;
+import java.awt.geom.Rectangle2D.Double;
 import java.awt.image.DirectColorModel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -21,23 +23,20 @@ import org.junit.jupiter.api.Test;
 class TreeStatusPaneDiffblueTest {
   /**
    * Test {@link TreeStatusPane#TreeStatusPane(JTree)}.
-   *
    * <ul>
-   *   <li>When {@link JTree#JTree()}.
-   *   <li>Then Panel Layout return {@link BorderLayout}.
+   *   <li>When {@link JTree#JTree()}.</li>
+   *   <li>Then Panel Layout return {@link BorderLayout}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TreeStatusPane#TreeStatusPane(JTree)}
+   * <p>
+   * Method under test: {@link TreeStatusPane#TreeStatusPane(JTree)}
    */
   @Test
-  @DisplayName(
-      "Test new TreeStatusPane(JTree); when JTree(); then Panel Layout return BorderLayout")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new TreeStatusPane(JTree); when JTree(); then Panel Layout return BorderLayout")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void TreeStatusPane.<init>(JTree)"})
   void testNewTreeStatusPane_whenJTree_thenPanelLayoutReturnBorderLayout() {
     // Arrange, Act and Assert
-    JPanel panel = new TreeStatusPane(new JTree()).getPanel();
+    JPanel panel = (new TreeStatusPane(new JTree())).getPanel();
     assertTrue(panel.getLayout() instanceof BorderLayout);
     assertTrue(panel.getColorModel() instanceof DirectColorModel);
     assertEquals("PanelUI", panel.getUIClassID());
@@ -118,13 +117,12 @@ class TreeStatusPaneDiffblueTest {
 
   /**
    * Test {@link TreeStatusPane#updateTreeStatus(TreeStatus)}.
-   *
-   * <p>Method under test: {@link TreeStatusPane#updateTreeStatus(TreeStatus)}
+   * <p>
+   * Method under test: {@link TreeStatusPane#updateTreeStatus(TreeStatus)}
    */
   @Test
   @DisplayName("Test updateTreeStatus(TreeStatus)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void TreeStatusPane.updateTreeStatus(TreeStatus)"})
   void testUpdateTreeStatus() {
     // Arrange
@@ -134,7 +132,17 @@ class TreeStatusPaneDiffblueTest {
     treeStatusPane.updateTreeStatus(new TreeStatus("Root Node"));
 
     // Assert
-    Component[] components = treeStatusPane.getPanel().getComponents();
+    JPanel panel = treeStatusPane.getPanel();
+    Rectangle visibleRect = panel.getVisibleRect();
+    Rectangle2D bounds2D = visibleRect.getBounds2D();
+    assertTrue(bounds2D instanceof Rectangle);
+    assertTrue(bounds2D.getBounds2D() instanceof Rectangle);
+    Rectangle2D frame = visibleRect.getFrame();
+    assertTrue(frame.getBounds2D() instanceof Double);
+    assertTrue(bounds2D.getFrame() instanceof Double);
+    assertTrue(frame.getFrame() instanceof Double);
+    assertTrue(frame instanceof Double);
+    Component[] components = panel.getComponents();
     Component component = components[0];
     assertTrue(component instanceof JTextField);
     assertTrue(((JTextField) component).getBorder() instanceof BevelBorder);

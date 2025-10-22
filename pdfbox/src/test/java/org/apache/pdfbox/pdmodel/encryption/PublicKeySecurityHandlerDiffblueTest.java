@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import org.apache.pdfbox.cos.COSArray;
@@ -18,13 +17,12 @@ import org.junit.jupiter.api.Test;
 class PublicKeySecurityHandlerDiffblueTest {
   /**
    * Test {@link PublicKeySecurityHandler#PublicKeySecurityHandler()}.
-   *
-   * <p>Method under test: {@link PublicKeySecurityHandler#PublicKeySecurityHandler()}
+   * <p>
+   * Method under test: {@link PublicKeySecurityHandler#PublicKeySecurityHandler()}
    */
   @Test
   @DisplayName("Test new PublicKeySecurityHandler()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PublicKeySecurityHandler.<init>()"})
   void testNewPublicKeySecurityHandler() {
     // Arrange and Act
@@ -42,27 +40,22 @@ class PublicKeySecurityHandlerDiffblueTest {
 
   /**
    * Test {@link PublicKeySecurityHandler#PublicKeySecurityHandler(PublicKeyProtectionPolicy)}.
-   *
    * <ul>
-   *   <li>Then return EncryptionKey is {@code null}.
+   *   <li>Then return EncryptionKey is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * PublicKeySecurityHandler#PublicKeySecurityHandler(PublicKeyProtectionPolicy)}
+   * <p>
+   * Method under test: {@link PublicKeySecurityHandler#PublicKeySecurityHandler(PublicKeyProtectionPolicy)}
    */
   @Test
-  @DisplayName(
-      "Test new PublicKeySecurityHandler(PublicKeyProtectionPolicy); then return EncryptionKey is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new PublicKeySecurityHandler(PublicKeyProtectionPolicy); then return EncryptionKey is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PublicKeySecurityHandler.<init>(PublicKeyProtectionPolicy)"})
   void testNewPublicKeySecurityHandler_thenReturnEncryptionKeyIsNull() {
     // Arrange
     PublicKeyProtectionPolicy publicKeyProtectionPolicy = new PublicKeyProtectionPolicy();
 
     // Act
-    PublicKeySecurityHandler actualPublicKeySecurityHandler =
-        new PublicKeySecurityHandler(publicKeyProtectionPolicy);
+    PublicKeySecurityHandler actualPublicKeySecurityHandler = new PublicKeySecurityHandler(publicKeyProtectionPolicy);
 
     // Assert
     assertNull(actualPublicKeySecurityHandler.getEncryptionKey());
@@ -75,55 +68,38 @@ class PublicKeySecurityHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link PublicKeySecurityHandler#prepareForDecryption(PDEncryption, COSArray,
-   * DecryptionMaterial)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link IOException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PublicKeySecurityHandler#prepareForDecryption(PDEncryption,
-   * COSArray, DecryptionMaterial)}
+   * Test {@link PublicKeySecurityHandler#prepareForDecryption(PDEncryption, COSArray, DecryptionMaterial)}.
+   * <p>
+   * Method under test: {@link PublicKeySecurityHandler#prepareForDecryption(PDEncryption, COSArray, DecryptionMaterial)}
    */
   @Test
-  @DisplayName(
-      "Test prepareForDecryption(PDEncryption, COSArray, DecryptionMaterial); then throw IOException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PublicKeySecurityHandler.prepareForDecryption(PDEncryption, COSArray, DecryptionMaterial)"
-  })
-  void testPrepareForDecryption_thenThrowIOException() throws IOException {
+  @DisplayName("Test prepareForDecryption(PDEncryption, COSArray, DecryptionMaterial)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PublicKeySecurityHandler.prepareForDecryption(PDEncryption, COSArray, DecryptionMaterial)"})
+  void testPrepareForDecryption() throws IOException {
     // Arrange
     PublicKeySecurityHandler publicKeySecurityHandler = new PublicKeySecurityHandler();
     PDEncryption encryption = new PDEncryption();
     COSArray documentIDArray = new COSArray();
 
     // Act and Assert
-    assertThrows(
-        IOException.class,
-        () ->
-            publicKeySecurityHandler.prepareForDecryption(
-                encryption, documentIDArray, new StandardDecryptionMaterial("Pwd")));
+    assertThrows(IOException.class, () -> publicKeySecurityHandler.prepareForDecryption(encryption, documentIDArray,
+        new StandardDecryptionMaterial("Pwd")));
   }
 
   /**
    * Test {@link PublicKeySecurityHandler#prepareDocumentForEncryption(PDDocument)}.
-   *
    * <ul>
-   *   <li>Then {@link PDDocument#PDDocument()} Encryption SubFilter is {@code adbe.pkcs7.s4}.
+   *   <li>Then {@link PDDocument#PDDocument()} Encryption SubFilter is {@code adbe.pkcs7.s4}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PublicKeySecurityHandler#prepareDocumentForEncryption(PDDocument)}
+   * <p>
+   * Method under test: {@link PublicKeySecurityHandler#prepareDocumentForEncryption(PDDocument)}
    */
   @Test
-  @DisplayName(
-      "Test prepareDocumentForEncryption(PDDocument); then PDDocument() Encryption SubFilter is 'adbe.pkcs7.s4'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test prepareDocumentForEncryption(PDDocument); then PDDocument() Encryption SubFilter is 'adbe.pkcs7.s4'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PublicKeySecurityHandler.prepareDocumentForEncryption(PDDocument)"})
-  void testPrepareDocumentForEncryption_thenPDDocumentEncryptionSubFilterIsAdbePkcs7S4()
-      throws IOException {
+  void testPrepareDocumentForEncryption_thenPDDocumentEncryptionSubFilterIsAdbePkcs7S4() throws IOException {
     // Arrange
     PublicKeySecurityHandler publicKeySecurityHandler = new PublicKeySecurityHandler();
     publicKeySecurityHandler.setProtectionPolicy(new PublicKeyProtectionPolicy());

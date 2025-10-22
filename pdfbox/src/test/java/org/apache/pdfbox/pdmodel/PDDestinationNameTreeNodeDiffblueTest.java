@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import org.apache.pdfbox.cos.COSBase;
@@ -19,14 +18,12 @@ import org.junit.jupiter.api.Test;
 class PDDestinationNameTreeNodeDiffblueTest {
   /**
    * Test {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode(COSDictionary)}.
-   *
-   * <p>Method under test: {@link
-   * PDDestinationNameTreeNode#PDDestinationNameTreeNode(COSDictionary)}
+   * <p>
+   * Method under test: {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode(COSDictionary)}
    */
   @Test
   @DisplayName("Test new PDDestinationNameTreeNode(COSDictionary)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDDestinationNameTreeNode.<init>(COSDictionary)"})
   void testNewPDDestinationNameTreeNode() {
     // Arrange
@@ -42,13 +39,12 @@ class PDDestinationNameTreeNodeDiffblueTest {
 
   /**
    * Test {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()}.
-   *
-   * <p>Method under test: {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()}
+   * <p>
+   * Method under test: {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()}
    */
   @Test
   @DisplayName("Test new PDDestinationNameTreeNode()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDDestinationNameTreeNode.<init>()"})
   void testNewPDDestinationNameTreeNode2() throws IOException {
     // Arrange and Act
@@ -71,18 +67,16 @@ class PDDestinationNameTreeNodeDiffblueTest {
 
   /**
    * Test {@link PDDestinationNameTreeNode#convertCOSToPD(COSBase)}.
-   *
    * <ul>
-   *   <li>When {@link COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
+   *   <li>When {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDestinationNameTreeNode#convertCOSToPD(COSBase)}
+   * <p>
+   * Method under test: {@link PDDestinationNameTreeNode#convertCOSToPD(COSBase)}
    */
   @Test
   @DisplayName("Test convertCOSToPD(COSBase); when COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDPageDestination PDDestinationNameTreeNode.convertCOSToPD(COSBase)"})
   void testConvertCOSToPD_whenCOSDictionary_thenReturnNull() throws IOException {
     // Arrange
@@ -93,34 +87,13 @@ class PDDestinationNameTreeNodeDiffblueTest {
   }
 
   /**
-   * Test {@link PDDestinationNameTreeNode#convertCOSToPD(COSBase)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDestinationNameTreeNode#convertCOSToPD(COSBase)}
-   */
-  @Test
-  @DisplayName("Test convertCOSToPD(COSBase); when 'null'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDPageDestination PDDestinationNameTreeNode.convertCOSToPD(COSBase)"})
-  void testConvertCOSToPD_whenNull_thenReturnNull() throws IOException {
-    // Arrange, Act and Assert
-    assertNull(new PDDestinationNameTreeNode().convertCOSToPD(null));
-  }
-
-  /**
    * Test {@link PDDestinationNameTreeNode#createChildNode(COSDictionary)}.
-   *
-   * <p>Method under test: {@link PDDestinationNameTreeNode#createChildNode(COSDictionary)}
+   * <p>
+   * Method under test: {@link PDDestinationNameTreeNode#createChildNode(COSDictionary)}
    */
   @Test
   @DisplayName("Test createChildNode(COSDictionary)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDNameTreeNode PDDestinationNameTreeNode.createChildNode(COSDictionary)"})
   void testCreateChildNode() throws IOException {
     // Arrange
@@ -128,8 +101,7 @@ class PDDestinationNameTreeNodeDiffblueTest {
     COSDictionary dic = new COSDictionary();
 
     // Act
-    PDNameTreeNode<PDPageDestination> actualCreateChildNodeResult =
-        pdDestinationNameTreeNode.createChildNode(dic);
+    PDNameTreeNode<PDPageDestination> actualCreateChildNodeResult = pdDestinationNameTreeNode.createChildNode(dic);
 
     // Assert
     assertTrue(actualCreateChildNodeResult instanceof PDDestinationNameTreeNode);

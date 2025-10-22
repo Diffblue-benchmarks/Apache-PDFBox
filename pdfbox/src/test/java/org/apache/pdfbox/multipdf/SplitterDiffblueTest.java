@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.util.Iterator;
@@ -22,24 +21,21 @@ import org.junit.jupiter.api.Test;
 class SplitterDiffblueTest {
   /**
    * Test {@link Splitter#split(PDDocument)}.
-   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()}.
-   *   <li>When {@link PDDocument#PDDocument()} addPage {@link PDPage#PDPage()}.
-   *   <li>Then return size is one.
+   *   <li>Given {@link IllegalArgumentException#IllegalArgumentException(String)} with {@code foo}.</li>
+   *   <li>Then return size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Splitter#split(PDDocument)}
+   * <p>
+   * Method under test: {@link Splitter#split(PDDocument)}
    */
   @Test
-  @DisplayName(
-      "Test split(PDDocument); given PDPage(); when PDDocument() addPage PDPage(); then return size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test split(PDDocument); given IllegalArgumentException(String) with 'foo'; then return size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List Splitter.split(PDDocument)"})
-  void testSplit_givenPDPage_whenPDDocumentAddPagePDPage_thenReturnSizeIsOne() throws IOException {
+  void testSplit_givenIllegalArgumentExceptionWithFoo_thenReturnSizeIsOne() throws IOException {
     // Arrange
     Splitter splitter = new Splitter();
+    new IllegalArgumentException("foo");
 
     PDDocument document = new PDDocument();
     document.addPage(new PDPage());
@@ -53,31 +49,28 @@ class SplitterDiffblueTest {
     float[][] values = iteratorResult.next().getMatrix().getValues();
     assertEquals(3, values.length);
     assertFalse(iteratorResult.hasNext());
-    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
-    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
-    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
+    assertArrayEquals(new float[]{0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[]{0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[]{1.0f, 0.0f, 0.0f}, values[0], 0.0f);
   }
 
   /**
    * Test {@link Splitter#split(PDDocument)}.
-   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()}.
-   *   <li>When {@link PDDocument#PDDocument()} addPage {@link PDPage#PDPage()}.
-   *   <li>Then return size is two.
+   *   <li>Given {@link IllegalArgumentException#IllegalArgumentException(String)} with {@code foo}.</li>
+   *   <li>Then return size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Splitter#split(PDDocument)}
+   * <p>
+   * Method under test: {@link Splitter#split(PDDocument)}
    */
   @Test
-  @DisplayName(
-      "Test split(PDDocument); given PDPage(); when PDDocument() addPage PDPage(); then return size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test split(PDDocument); given IllegalArgumentException(String) with 'foo'; then return size is two")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List Splitter.split(PDDocument)"})
-  void testSplit_givenPDPage_whenPDDocumentAddPagePDPage_thenReturnSizeIsTwo() throws IOException {
+  void testSplit_givenIllegalArgumentExceptionWithFoo_thenReturnSizeIsTwo() throws IOException {
     // Arrange
     Splitter splitter = new Splitter();
+    new IllegalArgumentException("foo");
 
     PDDocument document = new PDDocument();
     document.addPage(new PDPage());
@@ -103,18 +96,16 @@ class SplitterDiffblueTest {
 
   /**
    * Test {@link Splitter#split(PDDocument)}.
-   *
    * <ul>
-   *   <li>When {@link PDDocument#PDDocument()}.
-   *   <li>Then return Empty.
+   *   <li>When {@link PDDocument#PDDocument()}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Splitter#split(PDDocument)}
+   * <p>
+   * Method under test: {@link Splitter#split(PDDocument)}
    */
   @Test
   @DisplayName("Test split(PDDocument); when PDDocument(); then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List Splitter.split(PDDocument)"})
   void testSplit_whenPDDocument_thenReturnEmpty() throws IOException {
     // Arrange
@@ -128,76 +119,69 @@ class SplitterDiffblueTest {
 
   /**
    * Test {@link Splitter#setSplitAtPage(int)}.
-   *
    * <ul>
-   *   <li>When zero.
-   *   <li>Then throw {@link IllegalArgumentException}.
+   *   <li>When zero.</li>
+   *   <li>Then throw {@link IllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Splitter#setSplitAtPage(int)}
+   * <p>
+   * Method under test: {@link Splitter#setSplitAtPage(int)}
    */
   @Test
   @DisplayName("Test setSplitAtPage(int); when zero; then throw IllegalArgumentException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void Splitter.setSplitAtPage(int)"})
   void testSetSplitAtPage_whenZero_thenThrowIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> new Splitter().setSplitAtPage(0));
+    assertThrows(IllegalArgumentException.class, () -> (new Splitter()).setSplitAtPage(0));
   }
 
   /**
    * Test {@link Splitter#setStartPage(int)}.
-   *
    * <ul>
-   *   <li>When zero.
-   *   <li>Then throw {@link IllegalArgumentException}.
+   *   <li>When zero.</li>
+   *   <li>Then throw {@link IllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Splitter#setStartPage(int)}
+   * <p>
+   * Method under test: {@link Splitter#setStartPage(int)}
    */
   @Test
   @DisplayName("Test setStartPage(int); when zero; then throw IllegalArgumentException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void Splitter.setStartPage(int)"})
   void testSetStartPage_whenZero_thenThrowIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> new Splitter().setStartPage(0));
+    assertThrows(IllegalArgumentException.class, () -> (new Splitter()).setStartPage(0));
   }
 
   /**
    * Test {@link Splitter#setEndPage(int)}.
-   *
    * <ul>
-   *   <li>When zero.
-   *   <li>Then throw {@link IllegalArgumentException}.
+   *   <li>When zero.</li>
+   *   <li>Then throw {@link IllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Splitter#setEndPage(int)}
+   * <p>
+   * Method under test: {@link Splitter#setEndPage(int)}
    */
   @Test
   @DisplayName("Test setEndPage(int); when zero; then throw IllegalArgumentException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void Splitter.setEndPage(int)"})
   void testSetEndPage_whenZero_thenThrowIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> new Splitter().setEndPage(0));
+    assertThrows(IllegalArgumentException.class, () -> (new Splitter()).setEndPage(0));
   }
 
   /**
    * Test {@link Splitter#splitAtPage(int)}.
-   *
-   * <p>Method under test: {@link Splitter#splitAtPage(int)}
+   * <p>
+   * Method under test: {@link Splitter#splitAtPage(int)}
    */
   @Test
   @DisplayName("Test splitAtPage(int)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean Splitter.splitAtPage(int)"})
   void testSplitAtPage() {
     // Arrange, Act and Assert
-    assertTrue(new Splitter().splitAtPage(10));
+    assertTrue((new Splitter()).splitAtPage(10));
   }
 }

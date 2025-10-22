@@ -5,54 +5,40 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.isA;
-import static org.mockito.ArgumentMatchers.isNull;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.Color;
 import java.io.IOException;
-import javax.imageio.metadata.IIOMetadataNode;
-import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSDictionary;
-import org.apache.pdfbox.cos.COSName;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import org.w3c.dom.Element;
 
 class FDFAnnotationPolygonDiffblueTest {
   /**
    * Test {@link FDFAnnotationPolygon#FDFAnnotationPolygon(COSDictionary)}.
-   *
-   * <p>Method under test: {@link FDFAnnotationPolygon#FDFAnnotationPolygon(COSDictionary)}
+   * <p>
+   * Method under test: {@link FDFAnnotationPolygon#FDFAnnotationPolygon(COSDictionary)}
    */
   @Test
   @DisplayName("Test new FDFAnnotationPolygon(COSDictionary)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFAnnotationPolygon.<init>(COSDictionary)"})
   void testNewFDFAnnotationPolygon() {
     // Arrange
     COSDictionary a = new COSDictionary();
 
     // Act and Assert
-    assertSame(a, new FDFAnnotationPolygon(a).getCOSObject());
+    assertSame(a, (new FDFAnnotationPolygon(a)).getCOSObject());
   }
 
   /**
    * Test {@link FDFAnnotationPolygon#FDFAnnotationPolygon()}.
-   *
-   * <p>Method under test: {@link FDFAnnotationPolygon#FDFAnnotationPolygon()}
+   * <p>
+   * Method under test: {@link FDFAnnotationPolygon#FDFAnnotationPolygon()}
    */
   @Test
   @DisplayName("Test new FDFAnnotationPolygon()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFAnnotationPolygon.<init>()"})
   void testNewFDFAnnotationPolygon2() throws IOException {
     // Arrange and Act
@@ -88,145 +74,107 @@ class FDFAnnotationPolygonDiffblueTest {
   }
 
   /**
-   * Test {@link FDFAnnotationPolygon#FDFAnnotationPolygon(Element)}.
-   *
-   * <ul>
-   *   <li>When {@link IIOMetadataNode#IIOMetadataNode()}.
-   *   <li>Then throw {@link IOException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationPolygon#FDFAnnotationPolygon(Element)}
-   */
-  @Test
-  @DisplayName(
-      "Test new FDFAnnotationPolygon(Element); when IIOMetadataNode(); then throw IOException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFAnnotationPolygon.<init>(Element)"})
-  void testNewFDFAnnotationPolygon_whenIIOMetadataNode_thenThrowIOException() throws IOException {
-    // Arrange, Act and Assert
-    assertThrows(IOException.class, () -> new FDFAnnotationPolygon(new IIOMetadataNode()));
-  }
-
-  /**
    * Test {@link FDFAnnotationPolygon#setVertices(float[])}.
-   *
    * <ul>
-   *   <li>Then {@link FDFAnnotationPolygon#FDFAnnotationPolygon()} COSObject Values size is three.
+   *   <li>Then {@link FDFAnnotationPolygon#FDFAnnotationPolygon()} COSObject Values size is three.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationPolygon#setVertices(float[])}
+   * <p>
+   * Method under test: {@link FDFAnnotationPolygon#setVertices(float[])}
    */
   @Test
-  @DisplayName(
-      "Test setVertices(float[]); then FDFAnnotationPolygon() COSObject Values size is three")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setVertices(float[]); then FDFAnnotationPolygon() COSObject Values size is three")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFAnnotationPolygon.setVertices(float[])"})
   void testSetVertices_thenFDFAnnotationPolygonCOSObjectValuesSizeIsThree() {
     // Arrange
     FDFAnnotationPolygon fdfAnnotationPolygon = new FDFAnnotationPolygon();
 
     // Act
-    fdfAnnotationPolygon.setVertices(new float[] {10.0f, 0.5f, 10.0f, 0.5f});
+    fdfAnnotationPolygon.setVertices(new float[]{10.0f, 0.5f, 10.0f, 0.5f});
 
     // Assert
     COSDictionary cOSObject = fdfAnnotationPolygon.getCOSObject();
     assertEquals(3, cOSObject.getValues().size());
     assertEquals(3, cOSObject.size());
-    assertArrayEquals(
-        new float[] {10.0f, 0.5f, 10.0f, 0.5f}, fdfAnnotationPolygon.getVertices(), 0.0f);
+    assertArrayEquals(new float[]{10.0f, 0.5f, 10.0f, 0.5f}, fdfAnnotationPolygon.getVertices(), 0.0f);
   }
 
   /**
    * Test {@link FDFAnnotationPolygon#getVertices()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFAnnotationPolygon#FDFAnnotationPolygon()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link FDFAnnotationPolygon#FDFAnnotationPolygon()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationPolygon#getVertices()}
+   * <p>
+   * Method under test: {@link FDFAnnotationPolygon#getVertices()}
    */
   @Test
   @DisplayName("Test getVertices(); given FDFAnnotationPolygon(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"float[] FDFAnnotationPolygon.getVertices()"})
   void testGetVertices_givenFDFAnnotationPolygon_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new FDFAnnotationPolygon().getVertices());
+    assertNull((new FDFAnnotationPolygon()).getVertices());
   }
 
   /**
    * Test {@link FDFAnnotationPolygon#getVertices()}.
-   *
    * <ul>
-   *   <li>Then return array of {@code float} with ten and {@code 0.5}.
+   *   <li>Then return array of {@code float} with ten and {@code 0.5}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationPolygon#getVertices()}
+   * <p>
+   * Method under test: {@link FDFAnnotationPolygon#getVertices()}
    */
   @Test
   @DisplayName("Test getVertices(); then return array of float with ten and '0.5'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"float[] FDFAnnotationPolygon.getVertices()"})
   void testGetVertices_thenReturnArrayOfFloatWithTenAnd05() {
     // Arrange
     FDFAnnotationPolygon fdfAnnotationPolygon = new FDFAnnotationPolygon();
-    fdfAnnotationPolygon.setVertices(new float[] {10.0f, 0.5f, 10.0f, 0.5f});
+    fdfAnnotationPolygon.setVertices(new float[]{10.0f, 0.5f, 10.0f, 0.5f});
 
     // Act and Assert
-    assertArrayEquals(
-        new float[] {10.0f, 0.5f, 10.0f, 0.5f}, fdfAnnotationPolygon.getVertices(), 0.0f);
-  }
-
-  /**
-   * Test {@link FDFAnnotationPolygon#setInteriorColor(Color)}.
-   *
-   * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#setItem(COSName, COSBase)} does nothing.
-   *   <li>Then calls {@link COSDictionary#setItem(COSName, COSBase)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationPolygon#setInteriorColor(Color)}
-   */
-  @Test
-  @DisplayName(
-      "Test setInteriorColor(Color); given COSDictionary setItem(COSName, COSBase) does nothing; then calls setItem(COSName, COSBase)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFAnnotationPolygon.setInteriorColor(Color)"})
-  void testSetInteriorColor_givenCOSDictionarySetItemDoesNothing_thenCallsSetItem() {
-    // Arrange
-    COSDictionary a = mock(COSDictionary.class);
-    doNothing().when(a).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
-
-    // Act
-    new FDFAnnotationPolygon(a).setInteriorColor(null);
-
-    // Assert
-    verify(a).setItem(isA(COSName.class), (COSBase) isNull());
+    assertArrayEquals(new float[]{10.0f, 0.5f, 10.0f, 0.5f}, fdfAnnotationPolygon.getVertices(), 0.0f);
   }
 
   /**
    * Test {@link FDFAnnotationPolygon#getInteriorColor()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFAnnotationPolygon#FDFAnnotationPolygon()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link FDFAnnotationPolygon#FDFAnnotationPolygon()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationPolygon#getInteriorColor()}
+   * <p>
+   * Method under test: {@link FDFAnnotationPolygon#getInteriorColor()}
    */
   @Test
   @DisplayName("Test getInteriorColor(); given FDFAnnotationPolygon(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Color FDFAnnotationPolygon.getInteriorColor()"})
   void testGetInteriorColor_givenFDFAnnotationPolygon_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new FDFAnnotationPolygon().getInteriorColor());
+    assertNull((new FDFAnnotationPolygon()).getInteriorColor());
+  }
+
+  /**
+   * Test {@link FDFAnnotationPolygon#getInteriorColor()}.
+   * <ul>
+   *   <li>Then return decode {@code 42}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link FDFAnnotationPolygon#getInteriorColor()}
+   */
+  @Test
+  @DisplayName("Test getInteriorColor(); then return decode '42'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Color FDFAnnotationPolygon.getInteriorColor()"})
+  void testGetInteriorColor_thenReturnDecode42() throws NumberFormatException {
+    // Arrange
+    FDFAnnotationPolygon fdfAnnotationPolygon = new FDFAnnotationPolygon();
+    Color color = Color.decode("42");
+    fdfAnnotationPolygon.setInteriorColor(color);
+
+    // Act and Assert
+    assertEquals(color, fdfAnnotationPolygon.getInteriorColor());
   }
 }

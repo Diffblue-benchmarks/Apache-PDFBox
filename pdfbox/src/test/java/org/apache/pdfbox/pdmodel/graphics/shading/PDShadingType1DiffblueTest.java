@@ -5,14 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.Paint;
 import java.awt.geom.AffineTransform;
-import java.util.ArrayList;
 import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSDictionary;
-import org.apache.pdfbox.cos.COSObjectKey;
 import org.apache.pdfbox.util.Matrix;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -21,9 +18,8 @@ import org.junit.jupiter.api.Test;
 class PDShadingType1DiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link PDShadingType1#PDShadingType1(COSDictionary)}
    *   <li>{@link PDShadingType1#getShadingType()}
@@ -31,12 +27,8 @@ class PDShadingType1DiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PDShadingType1.<init>(COSDictionary)",
-    "int PDShadingType1.getShadingType()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDShadingType1.<init>(COSDictionary)", "int PDShadingType1.getShadingType()"})
   void testGettersAndSetters() {
     // Arrange
     COSDictionary shadingDictionary = new COSDictionary();
@@ -51,21 +43,19 @@ class PDShadingType1DiffblueTest {
 
   /**
    * Test {@link PDShadingType1#getMatrix()}.
-   *
    * <ul>
-   *   <li>Then return ShearX is zero.
+   *   <li>Then return ShearX is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDShadingType1#getMatrix()}
+   * <p>
+   * Method under test: {@link PDShadingType1#getMatrix()}
    */
   @Test
   @DisplayName("Test getMatrix(); then return ShearX is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Matrix PDShadingType1.getMatrix()"})
   void testGetMatrix_thenReturnShearXIsZero() {
     // Arrange and Act
-    Matrix actualMatrix = new PDShadingType1(new COSDictionary()).getMatrix();
+    Matrix actualMatrix = (new PDShadingType1(new COSDictionary())).getMatrix();
 
     // Assert
     assertEquals(0.0f, actualMatrix.getShearX());
@@ -78,20 +68,19 @@ class PDShadingType1DiffblueTest {
     assertEquals(1.0f, actualMatrix.getScalingFactorY());
     float[][] values = actualMatrix.getValues();
     assertEquals(3, values.length);
-    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
-    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
-    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
+    assertArrayEquals(new float[]{0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[]{0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[]{1.0f, 0.0f, 0.0f}, values[0], 0.0f);
   }
 
   /**
    * Test {@link PDShadingType1#setMatrix(AffineTransform)}.
-   *
-   * <p>Method under test: {@link PDShadingType1#setMatrix(AffineTransform)}
+   * <p>
+   * Method under test: {@link PDShadingType1#setMatrix(AffineTransform)}
    */
   @Test
   @DisplayName("Test setMatrix(AffineTransform)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDShadingType1.setMatrix(AffineTransform)"})
   void testSetMatrix() {
     // Arrange
@@ -108,36 +97,32 @@ class PDShadingType1DiffblueTest {
 
   /**
    * Test {@link PDShadingType1#getDomain()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDShadingType1#getDomain()}
+   * <p>
+   * Method under test: {@link PDShadingType1#getDomain()}
    */
   @Test
   @DisplayName("Test getDomain(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSArray PDShadingType1.getDomain()"})
   void testGetDomain_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDShadingType1(new COSDictionary()).getDomain());
+    assertNull((new PDShadingType1(new COSDictionary())).getDomain());
   }
 
   /**
    * Test {@link PDShadingType1#getDomain()}.
-   *
    * <ul>
-   *   <li>Then return toList Empty.
+   *   <li>Then return toList Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDShadingType1#getDomain()}
+   * <p>
+   * Method under test: {@link PDShadingType1#getDomain()}
    */
   @Test
   @DisplayName("Test getDomain(); then return toList Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSArray PDShadingType1.getDomain()"})
   void testGetDomain_thenReturnToListEmpty() {
     // Arrange
@@ -155,13 +140,12 @@ class PDShadingType1DiffblueTest {
 
   /**
    * Test {@link PDShadingType1#setDomain(COSArray)}.
-   *
-   * <p>Method under test: {@link PDShadingType1#setDomain(COSArray)}
+   * <p>
+   * Method under test: {@link PDShadingType1#setDomain(COSArray)}
    */
   @Test
   @DisplayName("Test setDomain(COSArray)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDShadingType1.setDomain(COSArray)"})
   void testSetDomain() {
     // Arrange
@@ -180,13 +164,12 @@ class PDShadingType1DiffblueTest {
 
   /**
    * Test {@link PDShadingType1#setDomain(COSArray)}.
-   *
-   * <p>Method under test: {@link PDShadingType1#setDomain(COSArray)}
+   * <p>
+   * Method under test: {@link PDShadingType1#setDomain(COSArray)}
    */
   @Test
   @DisplayName("Test setDomain(COSArray)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDShadingType1.setDomain(COSArray)"})
   void testSetDomain2() {
     // Arrange
@@ -202,82 +185,13 @@ class PDShadingType1DiffblueTest {
   }
 
   /**
-   * Test {@link PDShadingType1#setDomain(COSArray)}.
-   *
-   * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDShadingType1#setDomain(COSArray)}
-   */
-  @Test
-  @DisplayName(
-      "Test setDomain(COSArray); given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDShadingType1.setDomain(COSArray)"})
-  void testSetDomain_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
-    // Arrange
-    PDShadingType1 pdShadingType1 = new PDShadingType1(new COSDictionary());
-
-    COSArray newDomain = new COSArray(new ArrayList<>());
-    newDomain.setDirect(false);
-    newDomain.setKey(new COSObjectKey(1L, 1));
-
-    // Act
-    pdShadingType1.setDomain(newDomain);
-
-    // Assert
-    COSDictionary cOSObject = pdShadingType1.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    assertSame(newDomain, pdShadingType1.getDomain());
-  }
-
-  /**
-   * Test {@link PDShadingType1#setDomain(COSArray)}.
-   *
-   * <ul>
-   *   <li>Given {@code null}.
-   *   <li>When {@link COSArray#COSArray(List)} with cosObjectables is {@link ArrayList#ArrayList()}
-   *       Key is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDShadingType1#setDomain(COSArray)}
-   */
-  @Test
-  @DisplayName(
-      "Test setDomain(COSArray); given 'null'; when COSArray(List) with cosObjectables is ArrayList() Key is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDShadingType1.setDomain(COSArray)"})
-  void testSetDomain_givenNull_whenCOSArrayWithCosObjectablesIsArrayListKeyIsNull() {
-    // Arrange
-    PDShadingType1 pdShadingType1 = new PDShadingType1(new COSDictionary());
-
-    COSArray newDomain = new COSArray(new ArrayList<>());
-    newDomain.setDirect(false);
-    newDomain.setKey(null);
-
-    // Act
-    pdShadingType1.setDomain(newDomain);
-
-    // Assert
-    COSDictionary cOSObject = pdShadingType1.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    assertSame(newDomain, pdShadingType1.getDomain());
-  }
-
-  /**
    * Test {@link PDShadingType1#toPaint(Matrix)}.
-   *
-   * <p>Method under test: {@link PDShadingType1#toPaint(Matrix)}
+   * <p>
+   * Method under test: {@link PDShadingType1#toPaint(Matrix)}
    */
   @Test
   @DisplayName("Test toPaint(Matrix)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Paint PDShadingType1.toPaint(Matrix)"})
   void testToPaint() {
     // Arrange
@@ -296,13 +210,12 @@ class PDShadingType1DiffblueTest {
 
   /**
    * Test {@link PDShadingType1#toPaint(Matrix)}.
-   *
-   * <p>Method under test: {@link PDShadingType1#toPaint(Matrix)}
+   * <p>
+   * Method under test: {@link PDShadingType1#toPaint(Matrix)}
    */
   @Test
   @DisplayName("Test toPaint(Matrix)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Paint PDShadingType1.toPaint(Matrix)"})
   void testToPaint2() {
     // Arrange

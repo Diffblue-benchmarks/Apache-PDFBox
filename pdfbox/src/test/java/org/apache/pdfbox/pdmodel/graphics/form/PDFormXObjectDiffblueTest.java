@@ -9,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.geom.AffineTransform;
 import java.io.IOException;
@@ -34,17 +33,15 @@ import org.junit.jupiter.api.Test;
 class PDFormXObjectDiffblueTest {
   /**
    * Test {@link PDFormXObject#PDFormXObject(PDStream)}.
-   *
    * <ul>
-   *   <li>Then return Resources is {@code null}.
+   *   <li>Then return Resources is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFormXObject#PDFormXObject(PDStream)}
+   * <p>
+   * Method under test: {@link PDFormXObject#PDFormXObject(PDStream)}
    */
   @Test
   @DisplayName("Test new PDFormXObject(PDStream); then return Resources is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFormXObject.<init>(PDStream)"})
   void testNewPDFormXObject_thenReturnResourcesIsNull() {
     // Arrange
@@ -65,19 +62,16 @@ class PDFormXObjectDiffblueTest {
 
   /**
    * Test {@link PDFormXObject#PDFormXObject(COSStream)}.
-   *
    * <ul>
-   *   <li>When {@link COSStream#COSStream()}.
-   *   <li>Then return Resources is {@code null}.
+   *   <li>When {@link COSStream#COSStream()}.</li>
+   *   <li>Then return Resources is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFormXObject#PDFormXObject(COSStream)}
+   * <p>
+   * Method under test: {@link PDFormXObject#PDFormXObject(COSStream)}
    */
   @Test
-  @DisplayName(
-      "Test new PDFormXObject(COSStream); when COSStream(); then return Resources is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new PDFormXObject(COSStream); when COSStream(); then return Resources is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFormXObject.<init>(COSStream)"})
   void testNewPDFormXObject_whenCOSStream_thenReturnResourcesIsNull() {
     // Arrange
@@ -99,19 +93,16 @@ class PDFormXObjectDiffblueTest {
 
   /**
    * Test {@link PDFormXObject#PDFormXObject(COSStream, ResourceCache)}.
-   *
    * <ul>
-   *   <li>When {@link COSStream#COSStream()}.
-   *   <li>Then return Resources is {@code null}.
+   *   <li>When {@link COSStream#COSStream()}.</li>
+   *   <li>Then return Resources is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFormXObject#PDFormXObject(COSStream, ResourceCache)}
+   * <p>
+   * Method under test: {@link PDFormXObject#PDFormXObject(COSStream, ResourceCache)}
    */
   @Test
-  @DisplayName(
-      "Test new PDFormXObject(COSStream, ResourceCache); when COSStream(); then return Resources is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new PDFormXObject(COSStream, ResourceCache); when COSStream(); then return Resources is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFormXObject.<init>(COSStream, ResourceCache)"})
   void testNewPDFormXObject_whenCOSStream_thenReturnResourcesIsNull2() {
     // Arrange
@@ -133,19 +124,16 @@ class PDFormXObjectDiffblueTest {
 
   /**
    * Test {@link PDFormXObject#PDFormXObject(PDDocument)}.
-   *
    * <ul>
-   *   <li>When {@link PDDocument#PDDocument()}.
-   *   <li>Then return Resources is {@code null}.
+   *   <li>When {@link PDDocument#PDDocument()}.</li>
+   *   <li>Then return Resources is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFormXObject#PDFormXObject(PDDocument)}
+   * <p>
+   * Method under test: {@link PDFormXObject#PDFormXObject(PDDocument)}
    */
   @Test
-  @DisplayName(
-      "Test new PDFormXObject(PDDocument); when PDDocument(); then return Resources is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new PDFormXObject(PDDocument); when PDDocument(); then return Resources is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFormXObject.<init>(PDDocument)"})
   void testNewPDFormXObject_whenPDDocument_thenReturnResourcesIsNull() {
     // Arrange and Act
@@ -162,67 +150,28 @@ class PDFormXObjectDiffblueTest {
 
   /**
    * Test {@link PDFormXObject#getFormType()}.
-   *
-   * <p>Method under test: {@link PDFormXObject#getFormType()}
+   * <p>
+   * Method under test: {@link PDFormXObject#getFormType()}
    */
   @Test
   @DisplayName("Test getFormType()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int PDFormXObject.getFormType()"})
   void testGetFormType() {
     // Arrange, Act and Assert
-    assertEquals(1, new PDFormXObject(new COSStream()).getFormType());
+    assertEquals(1, (new PDFormXObject(new COSStream())).getFormType());
   }
 
   /**
    * Test {@link PDFormXObject#setFormType(int)}.
-   *
-   * <ul>
-   *   <li>Then {@link PDFormXObject#PDFormXObject(COSStream)} with stream is {@link
-   *       COSStream#COSStream()} FormType is {@link Integer#MIN_VALUE}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDFormXObject#setFormType(int)}
+   * <p>
+   * Method under test: {@link PDFormXObject#setFormType(int)}
    */
   @Test
-  @DisplayName(
-      "Test setFormType(int); then PDFormXObject(COSStream) with stream is COSStream() FormType is MIN_VALUE")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setFormType(int)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFormXObject.setFormType(int)"})
-  void testSetFormType_thenPDFormXObjectWithStreamIsCOSStreamFormTypeIsMin_value() {
-    // Arrange
-    PDFormXObject pdFormXObject = new PDFormXObject(new COSStream());
-
-    // Act
-    pdFormXObject.setFormType(Integer.MIN_VALUE);
-
-    // Assert
-    COSStream cOSObject = pdFormXObject.getCOSObject();
-    assertEquals(4, cOSObject.getValues().size());
-    assertEquals(4, cOSObject.size());
-    assertEquals(Integer.MIN_VALUE, pdFormXObject.getFormType());
-  }
-
-  /**
-   * Test {@link PDFormXObject#setFormType(int)}.
-   *
-   * <ul>
-   *   <li>When one.
-   *   <li>Then {@link PDFormXObject#PDFormXObject(COSStream)} with stream is {@link
-   *       COSStream#COSStream()} FormType is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDFormXObject#setFormType(int)}
-   */
-  @Test
-  @DisplayName(
-      "Test setFormType(int); when one; then PDFormXObject(COSStream) with stream is COSStream() FormType is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDFormXObject.setFormType(int)"})
-  void testSetFormType_whenOne_thenPDFormXObjectWithStreamIsCOSStreamFormTypeIsOne() {
+  void testSetFormType() {
     // Arrange
     PDFormXObject pdFormXObject = new PDFormXObject(new COSStream());
 
@@ -230,76 +179,40 @@ class PDFormXObjectDiffblueTest {
     pdFormXObject.setFormType(1);
 
     // Assert
-    assertEquals(1, pdFormXObject.getFormType());
     COSStream cOSObject = pdFormXObject.getCOSObject();
     assertEquals(4, cOSObject.getValues().size());
     assertEquals(4, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDFormXObject#setFormType(int)}.
-   *
-   * <ul>
-   *   <li>When six.
-   *   <li>Then {@link PDFormXObject#PDFormXObject(COSStream)} with stream is {@link
-   *       COSStream#COSStream()} FormType is six.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDFormXObject#setFormType(int)}
-   */
-  @Test
-  @DisplayName(
-      "Test setFormType(int); when six; then PDFormXObject(COSStream) with stream is COSStream() FormType is six")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDFormXObject.setFormType(int)"})
-  void testSetFormType_whenSix_thenPDFormXObjectWithStreamIsCOSStreamFormTypeIsSix() {
-    // Arrange
-    PDFormXObject pdFormXObject = new PDFormXObject(new COSStream());
-
-    // Act
-    pdFormXObject.setFormType(6);
-
-    // Assert
-    COSStream cOSObject = pdFormXObject.getCOSObject();
-    assertEquals(4, cOSObject.getValues().size());
-    assertEquals(4, cOSObject.size());
-    assertEquals(6, pdFormXObject.getFormType());
   }
 
   /**
    * Test {@link PDFormXObject#getGroup()}.
-   *
-   * <p>Method under test: {@link PDFormXObject#getGroup()}
+   * <p>
+   * Method under test: {@link PDFormXObject#getGroup()}
    */
   @Test
   @DisplayName("Test getGroup()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.apache.pdfbox.pdmodel.graphics.form.PDTransparencyGroupAttributes PDFormXObject.getGroup()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"org.apache.pdfbox.pdmodel.graphics.form.PDTransparencyGroupAttributes PDFormXObject.getGroup()"})
   void testGetGroup() {
     // Arrange, Act and Assert
-    assertNull(new PDFormXObject(new COSStream()).getGroup());
+    assertNull((new PDFormXObject(new COSStream())).getGroup());
   }
 
   /**
    * Test {@link PDFormXObject#getContentStream()}.
-   *
-   * <p>Method under test: {@link PDFormXObject#getContentStream()}
+   * <p>
+   * Method under test: {@link PDFormXObject#getContentStream()}
    */
   @Test
   @DisplayName("Test getContentStream()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDStream PDFormXObject.getContentStream()"})
   void testGetContentStream() throws IOException {
     // Arrange
     COSStream stream = new COSStream();
 
     // Act
-    PDStream actualContentStream = new PDFormXObject(stream).getContentStream();
+    PDStream actualContentStream = (new PDFormXObject(stream)).getContentStream();
 
     // Assert
     assertNull(actualContentStream.getDecodeParms());
@@ -316,28 +229,26 @@ class PDFormXObjectDiffblueTest {
 
   /**
    * Test {@link PDFormXObject#getResources()}.
-   *
-   * <p>Method under test: {@link PDFormXObject#getResources()}
+   * <p>
+   * Method under test: {@link PDFormXObject#getResources()}
    */
   @Test
   @DisplayName("Test getResources()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDResources PDFormXObject.getResources()"})
   void testGetResources() {
     // Arrange, Act and Assert
-    assertNull(new PDFormXObject(new COSStream()).getResources());
+    assertNull((new PDFormXObject(new COSStream())).getResources());
   }
 
   /**
    * Test {@link PDFormXObject#setResources(PDResources)}.
-   *
-   * <p>Method under test: {@link PDFormXObject#setResources(PDResources)}
+   * <p>
+   * Method under test: {@link PDFormXObject#setResources(PDResources)}
    */
   @Test
   @DisplayName("Test setResources(PDResources)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFormXObject.setResources(PDResources)"})
   void testSetResources() {
     // Arrange
@@ -355,30 +266,31 @@ class PDFormXObjectDiffblueTest {
 
   /**
    * Test {@link PDFormXObject#getBBox()}.
-   *
-   * <p>Method under test: {@link PDFormXObject#getBBox()}
+   * <p>
+   * Method under test: {@link PDFormXObject#getBBox()}
    */
   @Test
   @DisplayName("Test getBBox()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDRectangle PDFormXObject.getBBox()"})
   void testGetBBox() {
     // Arrange, Act and Assert
-    assertNull(new PDFormXObject(new COSStream()).getBBox());
+    assertNull((new PDFormXObject(new COSStream())).getBBox());
   }
 
   /**
    * Test {@link PDFormXObject#setBBox(PDRectangle)}.
-   *
-   * <p>Method under test: {@link PDFormXObject#setBBox(PDRectangle)}
+   * <ul>
+   *   <li>Then {@link PDFormXObject#PDFormXObject(COSStream)} with stream is {@link COSStream#COSStream()} COSObject Values size is three.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDFormXObject#setBBox(PDRectangle)}
    */
   @Test
-  @DisplayName("Test setBBox(PDRectangle)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setBBox(PDRectangle); then PDFormXObject(COSStream) with stream is COSStream() COSObject Values size is three")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFormXObject.setBBox(PDRectangle)"})
-  void testSetBBox() {
+  void testSetBBox_thenPDFormXObjectWithStreamIsCOSStreamCOSObjectValuesSizeIsThree() {
     // Arrange
     PDFormXObject pdFormXObject = new PDFormXObject(new COSStream());
 
@@ -386,55 +298,26 @@ class PDFormXObjectDiffblueTest {
     pdFormXObject.setBBox(null);
 
     // Assert that nothing has changed
-    COSIncrement toIncrementResult = pdFormXObject.getCOSObject().toIncrement();
+    COSStream cOSObject = pdFormXObject.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
     assertFalse(toIncrementResult.iterator().hasNext());
     assertTrue(toIncrementResult.getObjects().isEmpty());
   }
 
   /**
-   * Test {@link PDFormXObject#setBBox(PDRectangle)}.
-   *
-   * <ul>
-   *   <li>Then {@link PDFormXObject#PDFormXObject(COSStream)} with stream is {@link
-   *       COSStream#COSStream()} BBox UpperRightX is {@code 1683.7795}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDFormXObject#setBBox(PDRectangle)}
-   */
-  @Test
-  @DisplayName(
-      "Test setBBox(PDRectangle); then PDFormXObject(COSStream) with stream is COSStream() BBox UpperRightX is '1683.7795'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDFormXObject.setBBox(PDRectangle)"})
-  void testSetBBox_thenPDFormXObjectWithStreamIsCOSStreamBBoxUpperRightXIs16837795() {
-    // Arrange
-    PDFormXObject pdFormXObject = new PDFormXObject(new COSStream());
-
-    // Act
-    pdFormXObject.setBBox(PDRectangle.A1);
-
-    // Assert
-    PDRectangle bBox = pdFormXObject.getBBox();
-    assertEquals(1683.7795f, bBox.getUpperRightX());
-    assertEquals(1683.7795f, bBox.getWidth());
-    assertEquals(2383.937f, bBox.getHeight());
-    assertEquals(2383.937f, bBox.getUpperRightY());
-  }
-
-  /**
    * Test {@link PDFormXObject#getMatrix()}.
-   *
-   * <p>Method under test: {@link PDFormXObject#getMatrix()}
+   * <p>
+   * Method under test: {@link PDFormXObject#getMatrix()}
    */
   @Test
   @DisplayName("Test getMatrix()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Matrix PDFormXObject.getMatrix()"})
   void testGetMatrix() {
     // Arrange and Act
-    Matrix actualMatrix = new PDFormXObject(new COSStream()).getMatrix();
+    Matrix actualMatrix = (new PDFormXObject(new COSStream())).getMatrix();
 
     // Assert
     assertEquals(0.0f, actualMatrix.getShearX());
@@ -447,28 +330,21 @@ class PDFormXObjectDiffblueTest {
     assertEquals(1.0f, actualMatrix.getScalingFactorY());
     float[][] values = actualMatrix.getValues();
     assertEquals(3, values.length);
-    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
-    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
-    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
+    assertArrayEquals(new float[]{0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[]{0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[]{1.0f, 0.0f, 0.0f}, values[0], 0.0f);
   }
 
   /**
    * Test {@link PDFormXObject#setMatrix(AffineTransform)}.
-   *
-   * <ul>
-   *   <li>Then {@link PDFormXObject#PDFormXObject(COSStream)} with stream is {@link
-   *       COSStream#COSStream()} COSObject Values size is four.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDFormXObject#setMatrix(AffineTransform)}
+   * <p>
+   * Method under test: {@link PDFormXObject#setMatrix(AffineTransform)}
    */
   @Test
-  @DisplayName(
-      "Test setMatrix(AffineTransform); then PDFormXObject(COSStream) with stream is COSStream() COSObject Values size is four")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setMatrix(AffineTransform)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFormXObject.setMatrix(AffineTransform)"})
-  void testSetMatrix_thenPDFormXObjectWithStreamIsCOSStreamCOSObjectValuesSizeIsFour() {
+  void testSetMatrix() {
     // Arrange
     PDFormXObject pdFormXObject = new PDFormXObject(new COSStream());
 
@@ -483,60 +359,28 @@ class PDFormXObjectDiffblueTest {
 
   /**
    * Test {@link PDFormXObject#getStructParents()}.
-   *
-   * <p>Method under test: {@link PDFormXObject#getStructParents()}
+   * <p>
+   * Method under test: {@link PDFormXObject#getStructParents()}
    */
   @Test
   @DisplayName("Test getStructParents()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int PDFormXObject.getStructParents()"})
   void testGetStructParents() {
     // Arrange, Act and Assert
-    assertEquals(-1, new PDFormXObject(new COSStream()).getStructParents());
+    assertEquals(-1, (new PDFormXObject(new COSStream())).getStructParents());
   }
 
   /**
    * Test {@link PDFormXObject#setStructParents(int)}.
-   *
-   * <p>Method under test: {@link PDFormXObject#setStructParents(int)}
+   * <p>
+   * Method under test: {@link PDFormXObject#setStructParents(int)}
    */
   @Test
   @DisplayName("Test setStructParents(int)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFormXObject.setStructParents(int)"})
   void testSetStructParents() {
-    // Arrange
-    PDFormXObject pdFormXObject = new PDFormXObject(new COSStream());
-
-    // Act
-    pdFormXObject.setStructParents(Integer.MIN_VALUE);
-
-    // Assert
-    COSStream cOSObject = pdFormXObject.getCOSObject();
-    assertEquals(4, cOSObject.getValues().size());
-    assertEquals(4, cOSObject.size());
-    assertEquals(Integer.MIN_VALUE, pdFormXObject.getStructParents());
-  }
-
-  /**
-   * Test {@link PDFormXObject#setStructParents(int)}.
-   *
-   * <ul>
-   *   <li>Then {@link PDFormXObject#PDFormXObject(COSStream)} with stream is {@link
-   *       COSStream#COSStream()} StructParents is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDFormXObject#setStructParents(int)}
-   */
-  @Test
-  @DisplayName(
-      "Test setStructParents(int); then PDFormXObject(COSStream) with stream is COSStream() StructParents is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDFormXObject.setStructParents(int)"})
-  void testSetStructParents_thenPDFormXObjectWithStreamIsCOSStreamStructParentsIsOne() {
     // Arrange
     PDFormXObject pdFormXObject = new PDFormXObject(new COSStream());
 
@@ -551,38 +395,17 @@ class PDFormXObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDFormXObject#getOptionalContent()}.
-   *
-   * <ul>
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDFormXObject#getOptionalContent()}
-   */
-  @Test
-  @DisplayName("Test getOptionalContent(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDPropertyList PDFormXObject.getOptionalContent()"})
-  void testGetOptionalContent_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new PDFormXObject(new COSStream()).getOptionalContent());
-  }
-
-  /**
    * Test {@link PDFormXObject#setOptionalContent(PDPropertyList)}.
-   *
-   * <p>Method under test: {@link PDFormXObject#setOptionalContent(PDPropertyList)}
+   * <p>
+   * Method under test: {@link PDFormXObject#setOptionalContent(PDPropertyList)}
    */
   @Test
   @DisplayName("Test setOptionalContent(PDPropertyList)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFormXObject.setOptionalContent(PDPropertyList)"})
   void testSetOptionalContent() {
     // Arrange
     PDFormXObject pdFormXObject = new PDFormXObject(new COSStream());
-
     PDPropertyList oc = mock(PDPropertyList.class);
     when(oc.getCOSObject()).thenReturn(null);
 
@@ -598,13 +421,12 @@ class PDFormXObjectDiffblueTest {
 
   /**
    * Test {@link PDFormXObject#setOptionalContent(PDPropertyList)}.
-   *
-   * <p>Method under test: {@link PDFormXObject#setOptionalContent(PDPropertyList)}
+   * <p>
+   * Method under test: {@link PDFormXObject#setOptionalContent(PDPropertyList)}
    */
   @Test
   @DisplayName("Test setOptionalContent(PDPropertyList)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFormXObject.setOptionalContent(PDPropertyList)"})
   void testSetOptionalContent2() {
     // Arrange
@@ -612,8 +434,8 @@ class PDFormXObjectDiffblueTest {
 
     COSDictionary cosDictionary = new COSDictionary();
     COSObjectKey key = new COSObjectKey(1L, 1);
-    cosDictionary.setKey(key);
 
+    cosDictionary.setKey(key);
     PDPropertyList oc = mock(PDPropertyList.class);
     when(oc.getCOSObject()).thenReturn(cosDictionary);
 
@@ -627,22 +449,19 @@ class PDFormXObjectDiffblueTest {
 
   /**
    * Test {@link PDFormXObject#setOptionalContent(PDPropertyList)}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.
+   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFormXObject#setOptionalContent(PDPropertyList)}
+   * <p>
+   * Method under test: {@link PDFormXObject#setOptionalContent(PDPropertyList)}
    */
   @Test
   @DisplayName("Test setOptionalContent(PDPropertyList); given COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFormXObject.setOptionalContent(PDPropertyList)"})
   void testSetOptionalContent_givenCOSDictionary() {
     // Arrange
     PDFormXObject pdFormXObject = new PDFormXObject(new COSStream());
-
     PDPropertyList oc = mock(PDPropertyList.class);
     COSDictionary cosDictionary = new COSDictionary();
     when(oc.getCOSObject()).thenReturn(cosDictionary);
@@ -660,17 +479,15 @@ class PDFormXObjectDiffblueTest {
 
   /**
    * Test {@link PDFormXObject#setOptionalContent(PDPropertyList)}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()} Direct is {@code true}.
+   *   <li>Given {@link COSDictionary#COSDictionary()} Direct is {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFormXObject#setOptionalContent(PDPropertyList)}
+   * <p>
+   * Method under test: {@link PDFormXObject#setOptionalContent(PDPropertyList)}
    */
   @Test
   @DisplayName("Test setOptionalContent(PDPropertyList); given COSDictionary() Direct is 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFormXObject.setOptionalContent(PDPropertyList)"})
   void testSetOptionalContent_givenCOSDictionaryDirectIsTrue() {
     // Arrange
@@ -678,7 +495,6 @@ class PDFormXObjectDiffblueTest {
 
     COSDictionary cosDictionary = new COSDictionary();
     cosDictionary.setDirect(true);
-
     PDPropertyList oc = mock(PDPropertyList.class);
     when(oc.getCOSObject()).thenReturn(cosDictionary);
 

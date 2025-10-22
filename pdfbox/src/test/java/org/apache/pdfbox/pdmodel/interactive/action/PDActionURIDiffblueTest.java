@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSIncrement;
@@ -17,31 +16,29 @@ import org.junit.jupiter.api.Test;
 class PDActionURIDiffblueTest {
   /**
    * Test {@link PDActionURI#PDActionURI(COSDictionary)}.
-   *
-   * <p>Method under test: {@link PDActionURI#PDActionURI(COSDictionary)}
+   * <p>
+   * Method under test: {@link PDActionURI#PDActionURI(COSDictionary)}
    */
   @Test
   @DisplayName("Test new PDActionURI(COSDictionary)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDActionURI.<init>(COSDictionary)"})
   void testNewPDActionURI() {
     // Arrange
     COSDictionary a = new COSDictionary();
 
     // Act and Assert
-    assertSame(a, new PDActionURI(a).getCOSObject());
+    assertSame(a, (new PDActionURI(a)).getCOSObject());
   }
 
   /**
    * Test {@link PDActionURI#PDActionURI()}.
-   *
-   * <p>Method under test: {@link PDActionURI#PDActionURI()}
+   * <p>
+   * Method under test: {@link PDActionURI#PDActionURI()}
    */
   @Test
   @DisplayName("Test new PDActionURI()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDActionURI.<init>()"})
   void testNewPDActionURI2() {
     // Arrange and Act
@@ -68,18 +65,16 @@ class PDActionURIDiffblueTest {
 
   /**
    * Test {@link PDActionURI#getURI()}.
-   *
    * <ul>
-   *   <li>Given {@link PDActionURI#PDActionURI()} URI is empty string.
-   *   <li>Then return empty string.
+   *   <li>Given {@link PDActionURI#PDActionURI()} URI is empty string.</li>
+   *   <li>Then return empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionURI#getURI()}
+   * <p>
+   * Method under test: {@link PDActionURI#getURI()}
    */
   @Test
   @DisplayName("Test getURI(); given PDActionURI() URI is empty string; then return empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDActionURI.getURI()"})
   void testGetURI_givenPDActionURIUriIsEmptyString_thenReturnEmptyString() {
     // Arrange
@@ -92,18 +87,16 @@ class PDActionURIDiffblueTest {
 
   /**
    * Test {@link PDActionURI#getURI()}.
-   *
    * <ul>
-   *   <li>Given {@link PDActionURI#PDActionURI()} URI is {@code Uri}.
-   *   <li>Then return {@code Uri}.
+   *   <li>Given {@link PDActionURI#PDActionURI()} URI is {@code Uri}.</li>
+   *   <li>Then return {@code Uri}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionURI#getURI()}
+   * <p>
+   * Method under test: {@link PDActionURI#getURI()}
    */
   @Test
   @DisplayName("Test getURI(); given PDActionURI() URI is 'Uri'; then return 'Uri'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDActionURI.getURI()"})
   void testGetURI_givenPDActionURIUriIsUri_thenReturnUri() {
     // Arrange
@@ -116,72 +109,36 @@ class PDActionURIDiffblueTest {
 
   /**
    * Test {@link PDActionURI#getURI()}.
-   *
    * <ul>
-   *   <li>Given {@link PDActionURI#PDActionURI()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDActionURI#PDActionURI()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionURI#getURI()}
+   * <p>
+   * Method under test: {@link PDActionURI#getURI()}
    */
   @Test
   @DisplayName("Test getURI(); given PDActionURI(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDActionURI.getURI()"})
   void testGetURI_givenPDActionURI_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDActionURI().getURI());
+    assertNull((new PDActionURI()).getURI());
   }
 
   /**
    * Test {@link PDActionURI#setURI(String)}.
-   *
    * <ul>
-   *   <li>Given {@link PDActionURI#PDActionURI()}.
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDActionURI#PDActionURI()} COSObject Values size is two.
+   *   <li>Given {@link PDActionURI#PDActionURI()}.</li>
+   *   <li>Then {@link PDActionURI#PDActionURI()} URI is {@code Uri}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionURI#setURI(String)}
+   * <p>
+   * Method under test: {@link PDActionURI#setURI(String)}
    */
   @Test
-  @DisplayName(
-      "Test setURI(String); given PDActionURI(); when 'null'; then PDActionURI() COSObject Values size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setURI(String); given PDActionURI(); then PDActionURI() URI is 'Uri'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDActionURI.setURI(String)"})
-  void testSetURI_givenPDActionURI_whenNull_thenPDActionURICOSObjectValuesSizeIsTwo() {
-    // Arrange
-    PDActionURI pdActionURI = new PDActionURI();
-
-    // Act
-    pdActionURI.setURI(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdActionURI.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDActionURI#setURI(String)}.
-   *
-   * <ul>
-   *   <li>Given {@link PDActionURI#PDActionURI()}.
-   *   <li>When {@code Uri}.
-   *   <li>Then {@link PDActionURI#PDActionURI()} URI is {@code Uri}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionURI#setURI(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test setURI(String); given PDActionURI(); when 'Uri'; then PDActionURI() URI is 'Uri'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDActionURI.setURI(String)"})
-  void testSetURI_givenPDActionURI_whenUri_thenPDActionURIUriIsUri() {
+  void testSetURI_givenPDActionURI_thenPDActionURIUriIsUri() {
     // Arrange
     PDActionURI pdActionURI = new PDActionURI();
 
@@ -197,17 +154,15 @@ class PDActionURIDiffblueTest {
 
   /**
    * Test {@link PDActionURI#shouldTrackMousePosition()}.
-   *
    * <ul>
-   *   <li>Given {@link PDActionURI#PDActionURI()} TrackMousePosition is {@code false}.
+   *   <li>Given {@link PDActionURI#PDActionURI()} TrackMousePosition is {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionURI#shouldTrackMousePosition()}
+   * <p>
+   * Method under test: {@link PDActionURI#shouldTrackMousePosition()}
    */
   @Test
   @DisplayName("Test shouldTrackMousePosition(); given PDActionURI() TrackMousePosition is 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDActionURI.shouldTrackMousePosition()"})
   void testShouldTrackMousePosition_givenPDActionURITrackMousePositionIsFalse() {
     // Arrange
@@ -220,37 +175,33 @@ class PDActionURIDiffblueTest {
 
   /**
    * Test {@link PDActionURI#shouldTrackMousePosition()}.
-   *
    * <ul>
-   *   <li>Given {@link PDActionURI#PDActionURI()}.
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link PDActionURI#PDActionURI()}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionURI#shouldTrackMousePosition()}
+   * <p>
+   * Method under test: {@link PDActionURI#shouldTrackMousePosition()}
    */
   @Test
   @DisplayName("Test shouldTrackMousePosition(); given PDActionURI(); then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDActionURI.shouldTrackMousePosition()"})
   void testShouldTrackMousePosition_givenPDActionURI_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new PDActionURI().shouldTrackMousePosition());
+    assertFalse((new PDActionURI()).shouldTrackMousePosition());
   }
 
   /**
    * Test {@link PDActionURI#shouldTrackMousePosition()}.
-   *
    * <ul>
-   *   <li>Then return {@code true}.
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionURI#shouldTrackMousePosition()}
+   * <p>
+   * Method under test: {@link PDActionURI#shouldTrackMousePosition()}
    */
   @Test
   @DisplayName("Test shouldTrackMousePosition(); then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDActionURI.shouldTrackMousePosition()"})
   void testShouldTrackMousePosition_thenReturnTrue() {
     // Arrange
@@ -263,18 +214,37 @@ class PDActionURIDiffblueTest {
 
   /**
    * Test {@link PDActionURI#setTrackMousePosition(boolean)}.
-   *
-   * <ul>
-   *   <li>Then {@link PDActionURI#PDActionURI()} COSObject Values size is three.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionURI#setTrackMousePosition(boolean)}
+   * <p>
+   * Method under test: {@link PDActionURI#setTrackMousePosition(boolean)}
    */
   @Test
-  @DisplayName(
-      "Test setTrackMousePosition(boolean); then PDActionURI() COSObject Values size is three")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setTrackMousePosition(boolean)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDActionURI.setTrackMousePosition(boolean)"})
+  void testSetTrackMousePosition() {
+    // Arrange
+    PDActionURI pdActionURI = new PDActionURI(new COSDictionary());
+
+    // Act
+    pdActionURI.setTrackMousePosition(true);
+
+    // Assert
+    COSDictionary cOSObject = pdActionURI.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDActionURI#setTrackMousePosition(boolean)}.
+   * <ul>
+   *   <li>Then {@link PDActionURI#PDActionURI()} COSObject Values size is three.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDActionURI#setTrackMousePosition(boolean)}
+   */
+  @Test
+  @DisplayName("Test setTrackMousePosition(boolean); then PDActionURI() COSObject Values size is three")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDActionURI.setTrackMousePosition(boolean)"})
   void testSetTrackMousePosition_thenPDActionURICOSObjectValuesSizeIsThree() {
     // Arrange
@@ -291,19 +261,16 @@ class PDActionURIDiffblueTest {
 
   /**
    * Test {@link PDActionURI#setTrackMousePosition(boolean)}.
-   *
    * <ul>
-   *   <li>When {@code false}.
-   *   <li>Then {@link PDActionURI#PDActionURI()} COSObject Values size is three.
+   *   <li>When {@code false}.</li>
+   *   <li>Then {@link PDActionURI#PDActionURI()} COSObject Values size is three.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionURI#setTrackMousePosition(boolean)}
+   * <p>
+   * Method under test: {@link PDActionURI#setTrackMousePosition(boolean)}
    */
   @Test
-  @DisplayName(
-      "Test setTrackMousePosition(boolean); when 'false'; then PDActionURI() COSObject Values size is three")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setTrackMousePosition(boolean); when 'false'; then PDActionURI() COSObject Values size is three")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDActionURI.setTrackMousePosition(boolean)"})
   void testSetTrackMousePosition_whenFalse_thenPDActionURICOSObjectValuesSizeIsThree() {
     // Arrange

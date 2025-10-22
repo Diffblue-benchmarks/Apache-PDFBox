@@ -3,7 +3,6 @@ package org.apache.pdfbox.pdmodel.interactive.annotation;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -14,19 +13,16 @@ import org.junit.jupiter.api.Test;
 class PDAppearanceStreamDiffblueTest {
   /**
    * Test {@link PDAppearanceStream#PDAppearanceStream(COSStream)}.
-   *
    * <ul>
-   *   <li>When {@link COSStream#COSStream()}.
-   *   <li>Then return Resources is {@code null}.
+   *   <li>When {@link COSStream#COSStream()}.</li>
+   *   <li>Then return Resources is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAppearanceStream#PDAppearanceStream(COSStream)}
+   * <p>
+   * Method under test: {@link PDAppearanceStream#PDAppearanceStream(COSStream)}
    */
   @Test
-  @DisplayName(
-      "Test new PDAppearanceStream(COSStream); when COSStream(); then return Resources is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new PDAppearanceStream(COSStream); when COSStream(); then return Resources is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAppearanceStream.<init>(COSStream)"})
   void testNewPDAppearanceStream_whenCOSStream_thenReturnResourcesIsNull() {
     // Arrange
@@ -48,19 +44,16 @@ class PDAppearanceStreamDiffblueTest {
 
   /**
    * Test {@link PDAppearanceStream#PDAppearanceStream(PDDocument)}.
-   *
    * <ul>
-   *   <li>When {@link PDDocument#PDDocument()}.
-   *   <li>Then return Resources is {@code null}.
+   *   <li>When {@link PDDocument#PDDocument()}.</li>
+   *   <li>Then return Resources is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAppearanceStream#PDAppearanceStream(PDDocument)}
+   * <p>
+   * Method under test: {@link PDAppearanceStream#PDAppearanceStream(PDDocument)}
    */
   @Test
-  @DisplayName(
-      "Test new PDAppearanceStream(PDDocument); when PDDocument(); then return Resources is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new PDAppearanceStream(PDDocument); when PDDocument(); then return Resources is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAppearanceStream.<init>(PDDocument)"})
   void testNewPDAppearanceStream_whenPDDocument_thenReturnResourcesIsNull() {
     // Arrange and Act

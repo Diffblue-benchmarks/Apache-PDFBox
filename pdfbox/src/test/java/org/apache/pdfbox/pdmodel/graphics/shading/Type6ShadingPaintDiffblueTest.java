@@ -11,7 +11,6 @@ import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.PaintContext;
 import java.awt.Rectangle;
@@ -22,7 +21,6 @@ import java.awt.color.ICC_Profile;
 import java.awt.color.ICC_ProfileRGB;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
-import java.awt.geom.Rectangle2D.Double;
 import java.awt.image.ColorModel;
 import java.awt.image.DirectColorModel;
 import java.io.IOException;
@@ -41,9 +39,8 @@ import org.mockito.Mockito;
 class Type6ShadingPaintDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link Type6ShadingPaint#Type6ShadingPaint(PDShadingType6, Matrix)}
    *   <li>{@link Type6ShadingPaint#getTransparency()}
@@ -51,12 +48,9 @@ class Type6ShadingPaintDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void Type6ShadingPaint.<init>(PDShadingType6, Matrix)",
-    "int Type6ShadingPaint.getTransparency()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void Type6ShadingPaint.<init>(PDShadingType6, Matrix)",
+      "int Type6ShadingPaint.getTransparency()"})
   void testGettersAndSetters() {
     // Arrange
     PDShadingType6 shading = new PDShadingType6(new COSDictionary());
@@ -72,29 +66,22 @@ class Type6ShadingPaintDiffblueTest {
   }
 
   /**
-   * Test {@link Type6ShadingPaint#createContext(ColorModel, Rectangle, Rectangle2D,
-   * AffineTransform, RenderingHints)}.
-   *
+   * Test {@link Type6ShadingPaint#createContext(ColorModel, Rectangle, Rectangle2D, AffineTransform, RenderingHints)}.
    * <ul>
-   *   <li>Then return Background is array of {@code float} with zero.
+   *   <li>Then return Background is array of {@code float} with zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Type6ShadingPaint#createContext(ColorModel, Rectangle,
-   * Rectangle2D, AffineTransform, RenderingHints)}
+   * <p>
+   * Method under test: {@link Type6ShadingPaint#createContext(ColorModel, Rectangle, Rectangle2D, AffineTransform, RenderingHints)}
    */
   @Test
-  @DisplayName(
-      "Test createContext(ColorModel, Rectangle, Rectangle2D, AffineTransform, RenderingHints); then return Background is array of float with zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test createContext(ColorModel, Rectangle, Rectangle2D, AffineTransform, RenderingHints); then return Background is array of float with zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "PaintContext Type6ShadingPaint.createContext(ColorModel, Rectangle, Rectangle2D, AffineTransform, RenderingHints)"
-  })
+      "PaintContext Type6ShadingPaint.createContext(ColorModel, Rectangle, Rectangle2D, AffineTransform, RenderingHints)"})
   void testCreateContext_thenReturnBackgroundIsArrayOfFloatWithZero() throws IOException {
     // Arrange
     COSArray cosArray = new COSArray();
     cosArray.add(COSBoolean.FALSE);
-
     PDShadingType6 shading = mock(PDShadingType6.class);
     when(shading.collectPatches(Mockito.<AffineTransform>any(), Mockito.<Matrix>any(), anyInt()))
         .thenReturn(new ArrayList<>());
@@ -102,12 +89,14 @@ class Type6ShadingPaintDiffblueTest {
     when(shading.getColorSpace()).thenReturn(PDDeviceGray.INSTANCE);
     Type6ShadingPaint type6ShadingPaint = new Type6ShadingPaint(shading, new Matrix());
     DirectColorModel cm = new DirectColorModel(1, 1, 1, 1);
-    Rectangle deviceBounds = new Rectangle();
-    Double userBounds = new Double();
+
+    Rectangle deviceBounds = new Rectangle(1, 1);
+
+    Rectangle userBounds = new Rectangle(1, 1);
 
     // Act
-    PaintContext actualCreateContextResult =
-        type6ShadingPaint.createContext(cm, deviceBounds, userBounds, new AffineTransform(), null);
+    PaintContext actualCreateContextResult = type6ShadingPaint.createContext(cm, deviceBounds, userBounds,
+        new AffineTransform(), null);
 
     // Assert
     verify(shading).collectPatches(isA(AffineTransform.class), isA(Matrix.class), eq(12));
@@ -118,47 +107,34 @@ class Type6ShadingPaintDiffblueTest {
     assertTrue(colorSpace instanceof ICC_ColorSpace);
     ICC_Profile profile = ((ICC_ColorSpace) colorSpace).getProfile();
     assertTrue(profile instanceof ICC_ProfileRGB);
-    PDColorSpace shadingColorSpace =
-        ((Type6ShadingContext) actualCreateContextResult).getShadingColorSpace();
+    PDColorSpace shadingColorSpace = ((Type6ShadingContext) actualCreateContextResult).getShadingColorSpace();
     assertTrue(shadingColorSpace instanceof PDDeviceGray);
     assertTrue(actualCreateContextResult instanceof Type6ShadingContext);
     float[][] matrix = ((ICC_ProfileRGB) profile).getMatrix();
     assertEquals(3, matrix.length);
-    assertArrayEquals(
-        new float[] {0.0f}, shadingColorSpace.getInitialColor().getComponents(), 0.0f);
-    assertArrayEquals(
-        new float[] {0.0f},
-        ((Type6ShadingContext) actualCreateContextResult).getBackground(),
+    assertArrayEquals(new float[]{0.0f}, shadingColorSpace.getInitialColor().getComponents(), 0.0f);
+    assertArrayEquals(new float[]{0.0f}, ((Type6ShadingContext) actualCreateContextResult).getBackground(), 0.0f);
+    assertArrayEquals(new float[]{0.013916016f, 0.09713745f, 0.71383667f}, matrix[2], 0.0f);
+    assertArrayEquals(new float[]{0.22238159f, 0.717041f, 0.06059265f}, matrix[1], 0.0f);
+    assertArrayEquals(new float[]{0.43585205f, 0.3853302f, 0.14302063f}, matrix[0], 0.0f);
+    assertArrayEquals(new float[]{0.95014954f, 1.0f, 1.0882568f}, ((ICC_ProfileRGB) profile).getMediaWhitePoint(),
         0.0f);
-    assertArrayEquals(new float[] {0.013916016f, 0.09713745f, 0.71383667f}, matrix[2], 0.0f);
-    assertArrayEquals(new float[] {0.22238159f, 0.717041f, 0.06059265f}, matrix[1], 0.0f);
-    assertArrayEquals(new float[] {0.43585205f, 0.3853302f, 0.14302063f}, matrix[0], 0.0f);
-    assertArrayEquals(
-        new float[] {0.95014954f, 1.0f, 1.0882568f},
-        ((ICC_ProfileRGB) profile).getMediaWhitePoint(),
-        0.0f);
-    assertArrayEquals(new int[] {8, 8, 8, 8}, colorModel.getComponentSize());
+    assertArrayEquals(new int[]{8, 8, 8, 8}, colorModel.getComponentSize());
   }
 
   /**
-   * Test {@link Type6ShadingPaint#createContext(ColorModel, Rectangle, Rectangle2D,
-   * AffineTransform, RenderingHints)}.
-   *
+   * Test {@link Type6ShadingPaint#createContext(ColorModel, Rectangle, Rectangle2D, AffineTransform, RenderingHints)}.
    * <ul>
-   *   <li>Then return Background is {@code null}.
+   *   <li>Then return Background is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Type6ShadingPaint#createContext(ColorModel, Rectangle,
-   * Rectangle2D, AffineTransform, RenderingHints)}
+   * <p>
+   * Method under test: {@link Type6ShadingPaint#createContext(ColorModel, Rectangle, Rectangle2D, AffineTransform, RenderingHints)}
    */
   @Test
-  @DisplayName(
-      "Test createContext(ColorModel, Rectangle, Rectangle2D, AffineTransform, RenderingHints); then return Background is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test createContext(ColorModel, Rectangle, Rectangle2D, AffineTransform, RenderingHints); then return Background is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "PaintContext Type6ShadingPaint.createContext(ColorModel, Rectangle, Rectangle2D, AffineTransform, RenderingHints)"
-  })
+      "PaintContext Type6ShadingPaint.createContext(ColorModel, Rectangle, Rectangle2D, AffineTransform, RenderingHints)"})
   void testCreateContext_thenReturnBackgroundIsNull() throws IOException {
     // Arrange
     PDShadingType6 shading = mock(PDShadingType6.class);
@@ -168,12 +144,14 @@ class Type6ShadingPaintDiffblueTest {
     when(shading.getColorSpace()).thenReturn(PDDeviceGray.INSTANCE);
     Type6ShadingPaint type6ShadingPaint = new Type6ShadingPaint(shading, new Matrix());
     DirectColorModel cm = new DirectColorModel(1, 1, 1, 1);
-    Rectangle deviceBounds = new Rectangle();
-    Double userBounds = new Double();
+
+    Rectangle deviceBounds = new Rectangle(1, 1);
+
+    Rectangle userBounds = new Rectangle(1, 1);
 
     // Act
-    PaintContext actualCreateContextResult =
-        type6ShadingPaint.createContext(cm, deviceBounds, userBounds, new AffineTransform(), null);
+    PaintContext actualCreateContextResult = type6ShadingPaint.createContext(cm, deviceBounds, userBounds,
+        new AffineTransform(), null);
 
     // Assert
     verify(shading).collectPatches(isA(AffineTransform.class), isA(Matrix.class), eq(12));
@@ -184,22 +162,18 @@ class Type6ShadingPaintDiffblueTest {
     assertTrue(colorSpace instanceof ICC_ColorSpace);
     ICC_Profile profile = ((ICC_ColorSpace) colorSpace).getProfile();
     assertTrue(profile instanceof ICC_ProfileRGB);
-    PDColorSpace shadingColorSpace =
-        ((Type6ShadingContext) actualCreateContextResult).getShadingColorSpace();
+    PDColorSpace shadingColorSpace = ((Type6ShadingContext) actualCreateContextResult).getShadingColorSpace();
     assertTrue(shadingColorSpace instanceof PDDeviceGray);
     assertTrue(actualCreateContextResult instanceof Type6ShadingContext);
     assertNull(((Type6ShadingContext) actualCreateContextResult).getBackground());
     float[][] matrix = ((ICC_ProfileRGB) profile).getMatrix();
     assertEquals(3, matrix.length);
-    assertArrayEquals(
-        new float[] {0.0f}, shadingColorSpace.getInitialColor().getComponents(), 0.0f);
-    assertArrayEquals(new float[] {0.013916016f, 0.09713745f, 0.71383667f}, matrix[2], 0.0f);
-    assertArrayEquals(new float[] {0.22238159f, 0.717041f, 0.06059265f}, matrix[1], 0.0f);
-    assertArrayEquals(new float[] {0.43585205f, 0.3853302f, 0.14302063f}, matrix[0], 0.0f);
-    assertArrayEquals(
-        new float[] {0.95014954f, 1.0f, 1.0882568f},
-        ((ICC_ProfileRGB) profile).getMediaWhitePoint(),
+    assertArrayEquals(new float[]{0.0f}, shadingColorSpace.getInitialColor().getComponents(), 0.0f);
+    assertArrayEquals(new float[]{0.013916016f, 0.09713745f, 0.71383667f}, matrix[2], 0.0f);
+    assertArrayEquals(new float[]{0.22238159f, 0.717041f, 0.06059265f}, matrix[1], 0.0f);
+    assertArrayEquals(new float[]{0.43585205f, 0.3853302f, 0.14302063f}, matrix[0], 0.0f);
+    assertArrayEquals(new float[]{0.95014954f, 1.0f, 1.0882568f}, ((ICC_ProfileRGB) profile).getMediaWhitePoint(),
         0.0f);
-    assertArrayEquals(new int[] {8, 8, 8, 8}, colorModel.getComponentSize());
+    assertArrayEquals(new int[]{8, 8, 8, 8}, colorModel.getComponentSize());
   }
 }

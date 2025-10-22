@@ -4,37 +4,32 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.anyFloat;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.util.List;
 import java.util.Set;
 import org.apache.pdfbox.cos.COSArray;
+import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.cos.COSObjectKey;
 import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.cos.COSUpdateState;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDResources;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.PDLineDashPattern;
 import org.apache.pdfbox.pdmodel.graphics.color.PDCalGray;
 import org.apache.pdfbox.pdmodel.graphics.color.PDColor;
 import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceGray;
-import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceN;
 import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceRGB;
-import org.apache.pdfbox.pdmodel.graphics.color.PDICCBased;
-import org.apache.pdfbox.pdmodel.graphics.color.PDPattern;
+import org.apache.pdfbox.pdmodel.graphics.color.PDSeparation;
 import org.apache.pdfbox.pdmodel.interactive.annotation.PDAnnotation;
 import org.apache.pdfbox.pdmodel.interactive.annotation.PDAnnotationCaret;
 import org.apache.pdfbox.pdmodel.interactive.annotation.PDAnnotationInk;
@@ -51,13 +46,11 @@ import org.mockito.Mockito;
 class PDInkAppearanceHandlerDiffblueTest {
   /**
    * Test getters and setters.
-   *
    * <ul>
-   *   <li>When {@link PDAnnotationCaret#PDAnnotationCaret()}.
+   *   <li>When {@link PDAnnotationCaret#PDAnnotationCaret()}.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link PDInkAppearanceHandler#PDInkAppearanceHandler(PDAnnotation)}
    *   <li>{@link PDInkAppearanceHandler#generateDownAppearance()}
@@ -66,14 +59,11 @@ class PDInkAppearanceHandlerDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters; when PDAnnotationCaret()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PDInkAppearanceHandler.<init>(PDAnnotation)",
-    "void PDInkAppearanceHandler.<init>(PDAnnotation, PDDocument)",
-    "void PDInkAppearanceHandler.generateDownAppearance()",
-    "void PDInkAppearanceHandler.generateRolloverAppearance()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDInkAppearanceHandler.<init>(PDAnnotation)",
+      "void PDInkAppearanceHandler.<init>(PDAnnotation, org.apache.pdfbox.pdmodel.PDDocument)",
+      "void PDInkAppearanceHandler.generateDownAppearance()",
+      "void PDInkAppearanceHandler.generateRolloverAppearance()"})
   void testGettersAndSetters_whenPDAnnotationCaret() {
     // Arrange
     PDAnnotationCaret annotation = new PDAnnotationCaret();
@@ -90,18 +80,16 @@ class PDInkAppearanceHandlerDiffblueTest {
 
   /**
    * Test {@link PDInkAppearanceHandler#generateNormalAppearance()}.
-   *
-   * <p>Method under test: {@link PDInkAppearanceHandler#generateNormalAppearance()}
+   * <p>
+   * Method under test: {@link PDInkAppearanceHandler#generateNormalAppearance()}
    */
   @Test
   @DisplayName("Test generateNormalAppearance()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDInkAppearanceHandler.generateNormalAppearance()"})
   void testGenerateNormalAppearance() {
     // Arrange
-    PDInkAppearanceHandler pdInkAppearanceHandler =
-        new PDInkAppearanceHandler(new PDAnnotationInk());
+    PDInkAppearanceHandler pdInkAppearanceHandler = new PDInkAppearanceHandler(new PDAnnotationInk());
 
     // Act
     pdInkAppearanceHandler.generateNormalAppearance();
@@ -112,13 +100,12 @@ class PDInkAppearanceHandlerDiffblueTest {
 
   /**
    * Test {@link PDInkAppearanceHandler#generateNormalAppearance()}.
-   *
-   * <p>Method under test: {@link PDInkAppearanceHandler#generateNormalAppearance()}
+   * <p>
+   * Method under test: {@link PDInkAppearanceHandler#generateNormalAppearance()}
    */
   @Test
   @DisplayName("Test generateNormalAppearance()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDInkAppearanceHandler.generateNormalAppearance()"})
   void testGenerateNormalAppearance2() {
     // Arrange
@@ -127,8 +114,7 @@ class PDInkAppearanceHandlerDiffblueTest {
     when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
     doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
     when(annotation.getRectangle()).thenReturn(new PDRectangle());
-    when(annotation.getInkList())
-        .thenReturn(new float[][] {new float[] {10.0f, 0.5f, 10.0f, 0.5f}});
+    when(annotation.getInkList()).thenReturn(new float[][]{new float[]{10.0f, 0.5f, 10.0f, 0.5f}});
     when(annotation.getBorderStyle()).thenReturn(new PDBorderStyleDictionary());
     when(annotation.getColor()).thenReturn(new PDColor(new COSArray(), PDDeviceGray.INSTANCE));
     PDInkAppearanceHandler pdInkAppearanceHandler = new PDInkAppearanceHandler(annotation);
@@ -144,14 +130,12 @@ class PDInkAppearanceHandlerDiffblueTest {
     verify(annotation, atLeast(1)).getInkList();
     verify(annotation).getBorderStyle();
     verify(annotation).getConstantOpacity();
-    PDAppearanceStream appearanceStream =
-        pdInkAppearanceHandler.getDownAppearance().getAppearanceStream();
+    PDAppearanceStream appearanceStream = pdInkAppearanceHandler.getDownAppearance().getAppearanceStream();
     Matrix matrix = appearanceStream.getMatrix();
     assertEquals(-0.0f, matrix.getTranslateX());
     PDRectangle bBox = appearanceStream.getBBox();
     assertEquals(-1.5f, bBox.getLowerLeftY());
-    PDRectangle bBox2 =
-        pdInkAppearanceHandler.getRolloverAppearance().getAppearanceStream().getBBox();
+    PDRectangle bBox2 = pdInkAppearanceHandler.getRolloverAppearance().getAppearanceStream().getBBox();
     assertEquals(-1.5f, bBox2.getLowerLeftY());
     assertEquals(1.5f, matrix.getTranslateY());
     assertEquals(12.0f, bBox.getUpperRightX());
@@ -166,15 +150,70 @@ class PDInkAppearanceHandlerDiffblueTest {
 
   /**
    * Test {@link PDInkAppearanceHandler#generateNormalAppearance()}.
-   *
-   * <p>Method under test: {@link PDInkAppearanceHandler#generateNormalAppearance()}
+   * <p>
+   * Method under test: {@link PDInkAppearanceHandler#generateNormalAppearance()}
    */
   @Test
   @DisplayName("Test generateNormalAppearance()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDInkAppearanceHandler.generateNormalAppearance()"})
   void testGenerateNormalAppearance3() {
+    // Arrange
+    PDAnnotationInk annotation = mock(PDAnnotationInk.class);
+    when(annotation.getConstantOpacity()).thenReturn(Float.MIN_VALUE);
+    when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
+    doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
+    when(annotation.getRectangle()).thenReturn(new PDRectangle());
+    when(annotation.getInkList()).thenReturn(new float[][]{new float[]{10.0f, 0.5f, 10.0f, 0.5f}});
+    when(annotation.getBorderStyle()).thenReturn(new PDBorderStyleDictionary());
+    when(annotation.getColor()).thenReturn(new PDColor(new COSArray(), PDDeviceGray.INSTANCE));
+    PDInkAppearanceHandler pdInkAppearanceHandler = new PDInkAppearanceHandler(annotation);
+
+    // Act
+    pdInkAppearanceHandler.generateNormalAppearance();
+
+    // Assert
+    verify(annotation).getAppearance();
+    verify(annotation).getColor();
+    verify(annotation, atLeast(1)).getRectangle();
+    verify(annotation).setRectangle(isA(PDRectangle.class));
+    verify(annotation, atLeast(1)).getInkList();
+    verify(annotation).getBorderStyle();
+    verify(annotation).getConstantOpacity();
+    PDAppearanceStream appearanceStream = pdInkAppearanceHandler.getDownAppearance().getAppearanceStream();
+    Iterable<COSName> extGStateNames = appearanceStream.getResources().getExtGStateNames();
+    assertTrue(extGStateNames instanceof Set);
+    assertEquals(1, ((Set<COSName>) extGStateNames).size());
+    float[][] values = appearanceStream.getMatrix().getValues();
+    assertEquals(3, values.length);
+    PDAppearanceDictionary appearance = pdInkAppearanceHandler.getAppearance();
+    PDAppearanceStream appearanceStream2 = appearance.getDownAppearance().getAppearanceStream();
+    assertEquals(52, appearanceStream2.getStream().getLength());
+    PDAppearanceStream appearanceStream3 = appearance.getNormalAppearance().getAppearanceStream();
+    assertEquals(52, appearanceStream3.getStream().getLength());
+    PDAppearanceStream appearanceStream4 = appearance.getRolloverAppearance().getAppearanceStream();
+    assertEquals(52, appearanceStream4.getStream().getLength());
+    assertEquals(52, appearanceStream.getStream().getLength());
+    PDAppearanceStream appearanceStream5 = pdInkAppearanceHandler.getRolloverAppearance().getAppearanceStream();
+    assertEquals(52, appearanceStream5.getStream().getLength());
+    assertEquals(52, appearanceStream2.getContentStream().getLength());
+    assertEquals(52, appearanceStream3.getContentStream().getLength());
+    assertEquals(52, appearanceStream4.getContentStream().getLength());
+    assertEquals(52, appearanceStream.getContentStream().getLength());
+    assertEquals(52, appearanceStream5.getContentStream().getLength());
+    assertArrayEquals(new float[]{-0.0f, 1.5f, 1.0f}, values[2], 0.0f);
+  }
+
+  /**
+   * Test {@link PDInkAppearanceHandler#generateNormalAppearance()}.
+   * <p>
+   * Method under test: {@link PDInkAppearanceHandler#generateNormalAppearance()}
+   */
+  @Test
+  @DisplayName("Test generateNormalAppearance()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDInkAppearanceHandler.generateNormalAppearance()"})
+  void testGenerateNormalAppearance4() {
     // Arrange
     PDAnnotationInk annotation = mock(PDAnnotationInk.class);
     when(annotation.getConstantOpacity()).thenReturn(10.0f);
@@ -182,8 +221,7 @@ class PDInkAppearanceHandlerDiffblueTest {
     doNothing().when(annotation).setAppearance(Mockito.<PDAppearanceDictionary>any());
     doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
     when(annotation.getRectangle()).thenReturn(new PDRectangle());
-    when(annotation.getInkList())
-        .thenReturn(new float[][] {new float[] {10.0f, 0.5f, 10.0f, 0.5f}});
+    when(annotation.getInkList()).thenReturn(new float[][]{new float[]{10.0f, 0.5f, 10.0f, 0.5f}});
     when(annotation.getBorderStyle()).thenReturn(new PDBorderStyleDictionary());
     when(annotation.getColor()).thenReturn(new PDColor(new COSArray(), PDDeviceGray.INSTANCE));
     PDInkAppearanceHandler pdInkAppearanceHandler = new PDInkAppearanceHandler(annotation);
@@ -210,185 +248,14 @@ class PDInkAppearanceHandlerDiffblueTest {
 
   /**
    * Test {@link PDInkAppearanceHandler#generateNormalAppearance()}.
-   *
-   * <p>Method under test: {@link PDInkAppearanceHandler#generateNormalAppearance()}
+   * <p>
+   * Method under test: {@link PDInkAppearanceHandler#generateNormalAppearance()}
    */
   @Test
   @DisplayName("Test generateNormalAppearance()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDInkAppearanceHandler.generateNormalAppearance()"})
-  void testGenerateNormalAppearance4() {
-    // Arrange
-    PDAnnotationInk annotation = mock(PDAnnotationInk.class);
-    when(annotation.getConstantOpacity()).thenReturn(10.0f);
-    when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
-    doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
-    when(annotation.getRectangle()).thenReturn(new PDRectangle());
-    when(annotation.getInkList())
-        .thenReturn(
-            new float[][] {
-              new float[] {
-                1.0f,
-                Float.MAX_VALUE,
-                1.0f,
-                Float.MAX_VALUE,
-                1.0f,
-                Float.MAX_VALUE,
-                1.0f,
-                Float.MAX_VALUE
-              }
-            });
-    when(annotation.getBorderStyle()).thenReturn(new PDBorderStyleDictionary());
-    when(annotation.getColor()).thenReturn(new PDColor(new COSArray(), PDDeviceGray.INSTANCE));
-    PDInkAppearanceHandler pdInkAppearanceHandler = new PDInkAppearanceHandler(annotation);
-
-    // Act
-    pdInkAppearanceHandler.generateNormalAppearance();
-
-    // Assert
-    verify(annotation).getAppearance();
-    verify(annotation).getColor();
-    verify(annotation, atLeast(1)).getRectangle();
-    verify(annotation).setRectangle(isA(PDRectangle.class));
-    verify(annotation, atLeast(1)).getInkList();
-    verify(annotation).getBorderStyle();
-    verify(annotation).getConstantOpacity();
-    PDRectangle rectangle = pdInkAppearanceHandler.getRectangle();
-    assertEquals(-1.0f, rectangle.getLowerLeftX());
-    assertEquals(3.0f, rectangle.getUpperRightX());
-    assertEquals(4.0f, rectangle.getWidth());
-    assertEquals(Float.MAX_VALUE, rectangle.getHeight());
-    assertEquals(Float.MAX_VALUE, rectangle.getUpperRightY());
-  }
-
-  /**
-   * Test {@link PDInkAppearanceHandler#generateNormalAppearance()}.
-   *
-   * <p>Method under test: {@link PDInkAppearanceHandler#generateNormalAppearance()}
-   */
-  @Test
-  @DisplayName("Test generateNormalAppearance()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDInkAppearanceHandler.generateNormalAppearance()"})
   void testGenerateNormalAppearance5() {
-    // Arrange
-    PDAnnotationInk annotation = mock(PDAnnotationInk.class);
-    when(annotation.getConstantOpacity()).thenReturn(10.0f);
-    when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
-    doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
-    when(annotation.getRectangle()).thenReturn(new PDRectangle());
-    when(annotation.getInkList())
-        .thenReturn(new float[][] {new float[] {10.0f, 0.5f, 10.0f, 0.5f}});
-    when(annotation.getBorderStyle()).thenReturn(new PDBorderStyleDictionary());
-    when(annotation.getColor()).thenReturn(new PDColor(new COSArray(), PDDeviceRGB.INSTANCE));
-    PDInkAppearanceHandler pdInkAppearanceHandler = new PDInkAppearanceHandler(annotation);
-
-    // Act
-    pdInkAppearanceHandler.generateNormalAppearance();
-
-    // Assert
-    verify(annotation).getAppearance();
-    verify(annotation).getColor();
-    verify(annotation, atLeast(1)).getRectangle();
-    verify(annotation).setRectangle(isA(PDRectangle.class));
-    verify(annotation, atLeast(1)).getInkList();
-    verify(annotation).getBorderStyle();
-    verify(annotation).getConstantOpacity();
-    PDAppearanceStream appearanceStream =
-        pdInkAppearanceHandler.getDownAppearance().getAppearanceStream();
-    float[][] values = appearanceStream.getMatrix().getValues();
-    assertEquals(3, values.length);
-    PDAppearanceDictionary appearance = pdInkAppearanceHandler.getAppearance();
-    PDAppearanceStream appearanceStream2 = appearance.getDownAppearance().getAppearanceStream();
-    assertEquals(47, appearanceStream2.getStream().getLength());
-    PDAppearanceStream appearanceStream3 = appearance.getNormalAppearance().getAppearanceStream();
-    assertEquals(47, appearanceStream3.getStream().getLength());
-    PDAppearanceStream appearanceStream4 = appearance.getRolloverAppearance().getAppearanceStream();
-    assertEquals(47, appearanceStream4.getStream().getLength());
-    assertEquals(47, appearanceStream.getStream().getLength());
-    PDAppearanceStream appearanceStream5 =
-        pdInkAppearanceHandler.getRolloverAppearance().getAppearanceStream();
-    assertEquals(47, appearanceStream5.getStream().getLength());
-    assertEquals(47, appearanceStream2.getContentStream().getLength());
-    assertEquals(47, appearanceStream3.getContentStream().getLength());
-    assertEquals(47, appearanceStream4.getContentStream().getLength());
-    assertEquals(47, appearanceStream.getContentStream().getLength());
-    assertEquals(47, appearanceStream5.getContentStream().getLength());
-    assertArrayEquals(new float[] {-0.0f, 1.5f, 1.0f}, values[2], 0.0f);
-  }
-
-  /**
-   * Test {@link PDInkAppearanceHandler#generateNormalAppearance()}.
-   *
-   * <p>Method under test: {@link PDInkAppearanceHandler#generateNormalAppearance()}
-   */
-  @Test
-  @DisplayName("Test generateNormalAppearance()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDInkAppearanceHandler.generateNormalAppearance()"})
-  void testGenerateNormalAppearance6() {
-    // Arrange
-    PDAnnotationInk annotation = mock(PDAnnotationInk.class);
-    when(annotation.getConstantOpacity()).thenReturn(10.0f);
-    when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
-    doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
-    when(annotation.getRectangle()).thenReturn(new PDRectangle());
-    when(annotation.getInkList())
-        .thenReturn(new float[][] {new float[] {10.0f, 0.5f, 10.0f, 0.5f}});
-    when(annotation.getBorderStyle()).thenReturn(new PDBorderStyleDictionary());
-    COSArray array = new COSArray();
-    PDColor pdColor = new PDColor(array, new PDCalGray());
-    when(annotation.getColor()).thenReturn(pdColor);
-    PDInkAppearanceHandler pdInkAppearanceHandler = new PDInkAppearanceHandler(annotation);
-
-    // Act
-    pdInkAppearanceHandler.generateNormalAppearance();
-
-    // Assert
-    verify(annotation).getAppearance();
-    verify(annotation).getColor();
-    verify(annotation, atLeast(1)).getRectangle();
-    verify(annotation).setRectangle(isA(PDRectangle.class));
-    verify(annotation, atLeast(1)).getInkList();
-    verify(annotation).getBorderStyle();
-    verify(annotation).getConstantOpacity();
-    PDAppearanceStream appearanceStream =
-        pdInkAppearanceHandler.getDownAppearance().getAppearanceStream();
-    float[][] values = appearanceStream.getMatrix().getValues();
-    assertEquals(3, values.length);
-    PDAppearanceDictionary appearance = pdInkAppearanceHandler.getAppearance();
-    PDAppearanceStream appearanceStream2 = appearance.getDownAppearance().getAppearanceStream();
-    assertEquals(37, appearanceStream2.getStream().getLength());
-    PDAppearanceStream appearanceStream3 = appearance.getNormalAppearance().getAppearanceStream();
-    assertEquals(37, appearanceStream3.getStream().getLength());
-    PDAppearanceStream appearanceStream4 = appearance.getRolloverAppearance().getAppearanceStream();
-    assertEquals(37, appearanceStream4.getStream().getLength());
-    assertEquals(37, appearanceStream.getStream().getLength());
-    PDAppearanceStream appearanceStream5 =
-        pdInkAppearanceHandler.getRolloverAppearance().getAppearanceStream();
-    assertEquals(37, appearanceStream5.getStream().getLength());
-    assertEquals(37, appearanceStream2.getContentStream().getLength());
-    assertEquals(37, appearanceStream3.getContentStream().getLength());
-    assertEquals(37, appearanceStream4.getContentStream().getLength());
-    assertEquals(37, appearanceStream.getContentStream().getLength());
-    assertEquals(37, appearanceStream5.getContentStream().getLength());
-    assertArrayEquals(new float[] {-0.0f, 1.5f, 1.0f}, values[2], 0.0f);
-  }
-
-  /**
-   * Test {@link PDInkAppearanceHandler#generateNormalAppearance()}.
-   *
-   * <p>Method under test: {@link PDInkAppearanceHandler#generateNormalAppearance()}
-   */
-  @Test
-  @DisplayName("Test generateNormalAppearance()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDInkAppearanceHandler.generateNormalAppearance()"})
-  void testGenerateNormalAppearance7() {
     // Arrange
     PDRectangle pdRectangle = mock(PDRectangle.class);
     when(pdRectangle.getLowerLeftX()).thenReturn(10.0f);
@@ -400,14 +267,12 @@ class PDInkAppearanceHandlerDiffblueTest {
     doNothing().when(pdRectangle).setLowerLeftY(anyFloat());
     doNothing().when(pdRectangle).setUpperRightX(anyFloat());
     doNothing().when(pdRectangle).setUpperRightY(anyFloat());
-
     PDAnnotationInk annotation = mock(PDAnnotationInk.class);
     when(annotation.getConstantOpacity()).thenReturn(10.0f);
     when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
     doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
     when(annotation.getRectangle()).thenReturn(pdRectangle);
-    when(annotation.getInkList())
-        .thenReturn(new float[][] {new float[] {10.0f, 0.5f, 10.0f, 0.5f}});
+    when(annotation.getInkList()).thenReturn(new float[][]{new float[]{10.0f, 0.5f, 10.0f, 0.5f}});
     when(annotation.getBorderStyle()).thenReturn(new PDBorderStyleDictionary());
     when(annotation.getColor()).thenReturn(new PDColor(new COSArray(), PDDeviceGray.INSTANCE));
     PDInkAppearanceHandler pdInkAppearanceHandler = new PDInkAppearanceHandler(annotation);
@@ -421,10 +286,10 @@ class PDInkAppearanceHandlerDiffblueTest {
     verify(pdRectangle, atLeast(1)).getLowerLeftY();
     verify(pdRectangle).getUpperRightX();
     verify(pdRectangle).getUpperRightY();
-    verify(pdRectangle).setLowerLeftX(8.0f);
-    verify(pdRectangle).setLowerLeftY(-1.5f);
-    verify(pdRectangle).setUpperRightX(12.0f);
-    verify(pdRectangle).setUpperRightY(10.0f);
+    verify(pdRectangle).setLowerLeftX(eq(8.0f));
+    verify(pdRectangle).setLowerLeftY(eq(-1.5f));
+    verify(pdRectangle).setUpperRightX(eq(12.0f));
+    verify(pdRectangle).setUpperRightY(eq(10.0f));
     verify(annotation).getAppearance();
     verify(annotation).getColor();
     verify(annotation, atLeast(1)).getRectangle();
@@ -432,13 +297,13 @@ class PDInkAppearanceHandlerDiffblueTest {
     verify(annotation, atLeast(1)).getInkList();
     verify(annotation).getBorderStyle();
     verify(annotation).getConstantOpacity();
-    PDRectangle bBox =
-        pdInkAppearanceHandler.getAppearance().getDownAppearance().getAppearanceStream().getBBox();
+    PDRectangle bBox = pdInkAppearanceHandler.getAppearance().getDownAppearance().getAppearanceStream().getBBox();
     assertEquals(0.0f, bBox.getHeight());
-    PDAppearanceStream appearanceStream =
-        pdInkAppearanceHandler.getDownAppearance().getAppearanceStream();
+    PDAppearanceStream appearanceStream = pdInkAppearanceHandler.getDownAppearance().getAppearanceStream();
     PDRectangle bBox2 = appearanceStream.getBBox();
     assertEquals(0.0f, bBox2.getHeight());
+    assertEquals(0.0f, bBox.getLowerLeftY());
+    assertEquals(0.0f, bBox2.getLowerLeftY());
     assertEquals(0.0f, bBox.getUpperRightX());
     assertEquals(0.0f, bBox2.getUpperRightX());
     assertEquals(0.0f, bBox.getUpperRightY());
@@ -447,21 +312,23 @@ class PDInkAppearanceHandlerDiffblueTest {
     assertEquals(0.0f, bBox2.getWidth());
     float[][] values = appearanceStream.getMatrix().getValues();
     assertEquals(3, values.length);
-    assertEquals(4, bBox2.getCOSArray().toList().size());
-    assertArrayEquals(new float[] {-10.0f, -10.0f, 1.0f}, values[2], 0.0f);
+    List<? extends COSBase> toListResult = bBox2.getCOSArray().toList();
+    assertEquals(4, toListResult.size());
+    assertEquals(toListResult,
+        pdInkAppearanceHandler.getRolloverAppearance().getAppearanceStream().getBBox().getCOSArray().toList());
+    assertArrayEquals(new float[]{-10.0f, -10.0f, 1.0f}, values[2], 0.0f);
   }
 
   /**
    * Test {@link PDInkAppearanceHandler#generateNormalAppearance()}.
-   *
-   * <p>Method under test: {@link PDInkAppearanceHandler#generateNormalAppearance()}
+   * <p>
+   * Method under test: {@link PDInkAppearanceHandler#generateNormalAppearance()}
    */
   @Test
   @DisplayName("Test generateNormalAppearance()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDInkAppearanceHandler.generateNormalAppearance()"})
-  void testGenerateNormalAppearance8() {
+  void testGenerateNormalAppearance6() {
     // Arrange
     PDRectangle pdRectangle = mock(PDRectangle.class);
     when(pdRectangle.getLowerLeftX()).thenReturn(10.0f);
@@ -473,14 +340,12 @@ class PDInkAppearanceHandlerDiffblueTest {
     doNothing().when(pdRectangle).setLowerLeftY(anyFloat());
     doNothing().when(pdRectangle).setUpperRightX(anyFloat());
     doNothing().when(pdRectangle).setUpperRightY(anyFloat());
-
     PDAnnotationInk annotation = mock(PDAnnotationInk.class);
     when(annotation.getConstantOpacity()).thenReturn(10.0f);
     when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
     doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
     when(annotation.getRectangle()).thenReturn(pdRectangle);
-    when(annotation.getInkList())
-        .thenReturn(new float[][] {new float[] {10.0f, 0.5f, 10.0f, 0.5f}});
+    when(annotation.getInkList()).thenReturn(new float[][]{new float[]{10.0f, 0.5f, 10.0f, 0.5f}});
     when(annotation.getBorderStyle()).thenReturn(new PDBorderStyleDictionary());
     when(annotation.getColor()).thenReturn(new PDColor(new COSArray(), PDDeviceGray.INSTANCE));
     PDInkAppearanceHandler pdInkAppearanceHandler = new PDInkAppearanceHandler(annotation);
@@ -494,10 +359,10 @@ class PDInkAppearanceHandlerDiffblueTest {
     verify(pdRectangle, atLeast(1)).getLowerLeftY();
     verify(pdRectangle).getUpperRightX();
     verify(pdRectangle).getUpperRightY();
-    verify(pdRectangle).setLowerLeftX(8.0f);
-    verify(pdRectangle).setLowerLeftY(-1.5f);
-    verify(pdRectangle).setUpperRightX(12.0f);
-    verify(pdRectangle).setUpperRightY(10.0f);
+    verify(pdRectangle).setLowerLeftX(eq(8.0f));
+    verify(pdRectangle).setLowerLeftY(eq(-1.5f));
+    verify(pdRectangle).setUpperRightX(eq(12.0f));
+    verify(pdRectangle).setUpperRightY(eq(10.0f));
     verify(annotation).getAppearance();
     verify(annotation).getColor();
     verify(annotation, atLeast(1)).getRectangle();
@@ -508,43 +373,46 @@ class PDInkAppearanceHandlerDiffblueTest {
     PDAppearanceEntry downAppearance = pdInkAppearanceHandler.getDownAppearance();
     COSDictionary cOSObject = downAppearance.getCOSObject();
     assertTrue(cOSObject instanceof COSStream);
-    float[][] values = downAppearance.getAppearanceStream().getMatrix().getValues();
+    PDAppearanceStream appearanceStream = downAppearance.getAppearanceStream();
+    float[][] values = appearanceStream.getMatrix().getValues();
     assertEquals(3, values.length);
     PDAppearanceDictionary appearance = pdInkAppearanceHandler.getAppearance();
-    PDAppearanceStream appearanceStream = appearance.getDownAppearance().getAppearanceStream();
-    assertEquals(44, appearanceStream.getStream().getLength());
-    PDAppearanceStream appearanceStream2 = appearance.getNormalAppearance().getAppearanceStream();
+    PDAppearanceStream appearanceStream2 = appearance.getDownAppearance().getAppearanceStream();
     assertEquals(44, appearanceStream2.getStream().getLength());
-    PDAppearanceStream appearanceStream3 = appearance.getRolloverAppearance().getAppearanceStream();
+    PDAppearanceStream appearanceStream3 = appearance.getNormalAppearance().getAppearanceStream();
     assertEquals(44, appearanceStream3.getStream().getLength());
-    assertEquals(44, appearanceStream.getContentStream().getLength());
+    PDAppearanceStream appearanceStream4 = appearance.getRolloverAppearance().getAppearanceStream();
+    assertEquals(44, appearanceStream4.getStream().getLength());
+    assertEquals(44, appearanceStream.getStream().getLength());
+    PDAppearanceStream appearanceStream5 = pdInkAppearanceHandler.getRolloverAppearance().getAppearanceStream();
+    assertEquals(44, appearanceStream5.getStream().getLength());
     assertEquals(44, appearanceStream2.getContentStream().getLength());
     assertEquals(44, appearanceStream3.getContentStream().getLength());
+    assertEquals(44, appearanceStream4.getContentStream().getLength());
+    assertEquals(44, appearanceStream.getContentStream().getLength());
+    assertEquals(44, appearanceStream5.getContentStream().getLength());
     assertEquals(5, cOSObject.getValues().size());
     assertEquals(5, cOSObject.size());
-    assertArrayEquals(new float[] {-10.0f, -10.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[]{-10.0f, -10.0f, 1.0f}, values[2], 0.0f);
   }
 
   /**
    * Test {@link PDInkAppearanceHandler#generateNormalAppearance()}.
-   *
-   * <p>Method under test: {@link PDInkAppearanceHandler#generateNormalAppearance()}
+   * <p>
+   * Method under test: {@link PDInkAppearanceHandler#generateNormalAppearance()}
    */
   @Test
   @DisplayName("Test generateNormalAppearance()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDInkAppearanceHandler.generateNormalAppearance()"})
-  void testGenerateNormalAppearance9() {
+  void testGenerateNormalAppearance7() {
     // Arrange
     PDBorderStyleDictionary pdBorderStyleDictionary = mock(PDBorderStyleDictionary.class);
     when(pdBorderStyleDictionary.getWidth()).thenReturn(10.0f);
     when(pdBorderStyleDictionary.getStyle()).thenReturn("Style");
-
     COSArray cosArray = mock(COSArray.class);
     when(cosArray.isDirect()).thenReturn(true);
     when(cosArray.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
-
     PDRectangle pdRectangle = mock(PDRectangle.class);
     when(pdRectangle.getLowerLeftX()).thenReturn(10.0f);
     when(pdRectangle.getLowerLeftY()).thenReturn(10.0f);
@@ -555,14 +423,12 @@ class PDInkAppearanceHandlerDiffblueTest {
     doNothing().when(pdRectangle).setLowerLeftY(anyFloat());
     doNothing().when(pdRectangle).setUpperRightX(anyFloat());
     doNothing().when(pdRectangle).setUpperRightY(anyFloat());
-
     PDAnnotationInk annotation = mock(PDAnnotationInk.class);
     when(annotation.getConstantOpacity()).thenReturn(10.0f);
     when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
     doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
     when(annotation.getRectangle()).thenReturn(pdRectangle);
-    when(annotation.getInkList())
-        .thenReturn(new float[][] {new float[] {10.0f, 0.5f, 10.0f, 0.5f}});
+    when(annotation.getInkList()).thenReturn(new float[][]{new float[]{10.0f, 0.5f, 10.0f, 0.5f}});
     when(annotation.getBorderStyle()).thenReturn(pdBorderStyleDictionary);
     when(annotation.getColor()).thenReturn(new PDColor(new COSArray(), PDDeviceGray.INSTANCE));
     PDInkAppearanceHandler pdInkAppearanceHandler = new PDInkAppearanceHandler(annotation);
@@ -578,10 +444,10 @@ class PDInkAppearanceHandlerDiffblueTest {
     verify(pdRectangle, atLeast(1)).getLowerLeftY();
     verify(pdRectangle).getUpperRightX();
     verify(pdRectangle).getUpperRightY();
-    verify(pdRectangle).setLowerLeftX(-10.0f);
-    verify(pdRectangle).setLowerLeftY(-19.5f);
-    verify(pdRectangle).setUpperRightX(30.0f);
-    verify(pdRectangle).setUpperRightY(20.5f);
+    verify(pdRectangle).setLowerLeftX(eq(-10.0f));
+    verify(pdRectangle).setLowerLeftY(eq(-19.5f));
+    verify(pdRectangle).setUpperRightX(eq(30.0f));
+    verify(pdRectangle).setUpperRightY(eq(20.5f));
     verify(annotation).getAppearance();
     verify(annotation).getColor();
     verify(annotation, atLeast(1)).getRectangle();
@@ -591,8 +457,7 @@ class PDInkAppearanceHandlerDiffblueTest {
     verify(annotation).getConstantOpacity();
     verify(pdBorderStyleDictionary, atLeast(1)).getStyle();
     verify(pdBorderStyleDictionary).getWidth();
-    PDAppearanceStream appearanceStream =
-        pdInkAppearanceHandler.getDownAppearance().getAppearanceStream();
+    PDAppearanceStream appearanceStream = pdInkAppearanceHandler.getDownAppearance().getAppearanceStream();
     float[][] values = appearanceStream.getMatrix().getValues();
     assertEquals(3, values.length);
     PDAppearanceDictionary appearance = pdInkAppearanceHandler.getAppearance();
@@ -603,41 +468,33 @@ class PDInkAppearanceHandlerDiffblueTest {
     PDAppearanceStream appearanceStream4 = appearance.getRolloverAppearance().getAppearanceStream();
     assertEquals(45, appearanceStream4.getStream().getLength());
     assertEquals(45, appearanceStream.getStream().getLength());
-    PDAppearanceStream appearanceStream5 =
-        pdInkAppearanceHandler.getRolloverAppearance().getAppearanceStream();
+    PDAppearanceStream appearanceStream5 = pdInkAppearanceHandler.getRolloverAppearance().getAppearanceStream();
     assertEquals(45, appearanceStream5.getStream().getLength());
     assertEquals(45, appearanceStream2.getContentStream().getLength());
     assertEquals(45, appearanceStream3.getContentStream().getLength());
     assertEquals(45, appearanceStream4.getContentStream().getLength());
     assertEquals(45, appearanceStream.getContentStream().getLength());
     assertEquals(45, appearanceStream5.getContentStream().getLength());
-    assertArrayEquals(new float[] {-10.0f, -10.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[]{-10.0f, -10.0f, 1.0f}, values[2], 0.0f);
   }
 
   /**
    * Test {@link PDInkAppearanceHandler#generateNormalAppearance()}.
-   *
-   * <p>Method under test: {@link PDInkAppearanceHandler#generateNormalAppearance()}
+   * <p>
+   * Method under test: {@link PDInkAppearanceHandler#generateNormalAppearance()}
    */
   @Test
   @DisplayName("Test generateNormalAppearance()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDInkAppearanceHandler.generateNormalAppearance()"})
-  void testGenerateNormalAppearance10() {
+  void testGenerateNormalAppearance8() {
     // Arrange
-    PDColor pdColor = mock(PDColor.class);
-    when(pdColor.getColorSpace()).thenReturn(PDDeviceGray.INSTANCE);
-    when(pdColor.getComponents()).thenReturn(new float[] {10.0f, 0.5f, 10.0f, 0.5f});
-
     PDBorderStyleDictionary pdBorderStyleDictionary = mock(PDBorderStyleDictionary.class);
     when(pdBorderStyleDictionary.getWidth()).thenReturn(10.0f);
     when(pdBorderStyleDictionary.getStyle()).thenReturn("Style");
-
     COSArray cosArray = mock(COSArray.class);
     when(cosArray.isDirect()).thenReturn(true);
     when(cosArray.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
-
     PDRectangle pdRectangle = mock(PDRectangle.class);
     when(pdRectangle.getLowerLeftX()).thenReturn(10.0f);
     when(pdRectangle.getLowerLeftY()).thenReturn(10.0f);
@@ -648,16 +505,14 @@ class PDInkAppearanceHandlerDiffblueTest {
     doNothing().when(pdRectangle).setLowerLeftY(anyFloat());
     doNothing().when(pdRectangle).setUpperRightX(anyFloat());
     doNothing().when(pdRectangle).setUpperRightY(anyFloat());
-
     PDAnnotationInk annotation = mock(PDAnnotationInk.class);
-    when(annotation.getConstantOpacity()).thenReturn(0.5f);
+    when(annotation.getConstantOpacity()).thenReturn(10.0f);
     when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
     doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
     when(annotation.getRectangle()).thenReturn(pdRectangle);
-    when(annotation.getInkList())
-        .thenReturn(new float[][] {new float[] {10.0f, 0.5f, 10.0f, 0.5f}});
+    when(annotation.getInkList()).thenReturn(new float[][]{new float[]{Float.MAX_VALUE, 0.5f, 10.0f, 0.5f}});
     when(annotation.getBorderStyle()).thenReturn(pdBorderStyleDictionary);
-    when(annotation.getColor()).thenReturn(pdColor);
+    when(annotation.getColor()).thenReturn(new PDColor(new COSArray(), PDDeviceGray.INSTANCE));
     PDInkAppearanceHandler pdInkAppearanceHandler = new PDInkAppearanceHandler(annotation);
 
     // Act
@@ -671,12 +526,10 @@ class PDInkAppearanceHandlerDiffblueTest {
     verify(pdRectangle, atLeast(1)).getLowerLeftY();
     verify(pdRectangle).getUpperRightX();
     verify(pdRectangle).getUpperRightY();
-    verify(pdRectangle).setLowerLeftX(-10.0f);
-    verify(pdRectangle).setLowerLeftY(-19.5f);
-    verify(pdRectangle).setUpperRightX(30.0f);
-    verify(pdRectangle).setUpperRightY(20.5f);
-    verify(pdColor, atLeast(1)).getColorSpace();
-    verify(pdColor, atLeast(1)).getComponents();
+    verify(pdRectangle).setLowerLeftX(eq(-10.0f));
+    verify(pdRectangle).setLowerLeftY(eq(-19.5f));
+    verify(pdRectangle).setUpperRightX(eq(3.4028235E38f));
+    verify(pdRectangle).setUpperRightY(eq(20.5f));
     verify(annotation).getAppearance();
     verify(annotation).getColor();
     verify(annotation, atLeast(1)).getRectangle();
@@ -686,56 +539,45 @@ class PDInkAppearanceHandlerDiffblueTest {
     verify(annotation).getConstantOpacity();
     verify(pdBorderStyleDictionary, atLeast(1)).getStyle();
     verify(pdBorderStyleDictionary).getWidth();
-    PDAppearanceStream appearanceStream =
-        pdInkAppearanceHandler.getDownAppearance().getAppearanceStream();
-    Iterable<COSName> extGStateNames = appearanceStream.getResources().getExtGStateNames();
-    assertTrue(extGStateNames instanceof Set);
-    assertEquals(1, ((Set<COSName>) extGStateNames).size());
+    PDAppearanceStream appearanceStream = pdInkAppearanceHandler.getDownAppearance().getAppearanceStream();
     float[][] values = appearanceStream.getMatrix().getValues();
     assertEquals(3, values.length);
     PDAppearanceDictionary appearance = pdInkAppearanceHandler.getAppearance();
     PDAppearanceStream appearanceStream2 = appearance.getDownAppearance().getAppearanceStream();
-    assertEquals(65, appearanceStream2.getStream().getLength());
+    assertEquals(82, appearanceStream2.getStream().getLength());
     PDAppearanceStream appearanceStream3 = appearance.getNormalAppearance().getAppearanceStream();
-    assertEquals(65, appearanceStream3.getStream().getLength());
+    assertEquals(82, appearanceStream3.getStream().getLength());
     PDAppearanceStream appearanceStream4 = appearance.getRolloverAppearance().getAppearanceStream();
-    assertEquals(65, appearanceStream4.getStream().getLength());
-    assertEquals(65, appearanceStream.getStream().getLength());
-    PDAppearanceStream appearanceStream5 =
-        pdInkAppearanceHandler.getRolloverAppearance().getAppearanceStream();
-    assertEquals(65, appearanceStream5.getStream().getLength());
-    assertEquals(65, appearanceStream2.getContentStream().getLength());
-    assertEquals(65, appearanceStream3.getContentStream().getLength());
-    assertEquals(65, appearanceStream4.getContentStream().getLength());
-    assertEquals(65, appearanceStream.getContentStream().getLength());
-    assertEquals(65, appearanceStream5.getContentStream().getLength());
-    assertArrayEquals(new float[] {-10.0f, -10.0f, 1.0f}, values[2], 0.0f);
+    assertEquals(82, appearanceStream4.getStream().getLength());
+    assertEquals(82, appearanceStream.getStream().getLength());
+    PDAppearanceStream appearanceStream5 = pdInkAppearanceHandler.getRolloverAppearance().getAppearanceStream();
+    assertEquals(82, appearanceStream5.getStream().getLength());
+    assertEquals(82, appearanceStream2.getContentStream().getLength());
+    assertEquals(82, appearanceStream3.getContentStream().getLength());
+    assertEquals(82, appearanceStream4.getContentStream().getLength());
+    assertEquals(82, appearanceStream.getContentStream().getLength());
+    assertEquals(82, appearanceStream5.getContentStream().getLength());
+    assertArrayEquals(new float[]{-10.0f, -10.0f, 1.0f}, values[2], 0.0f);
   }
 
   /**
    * Test {@link PDInkAppearanceHandler#generateNormalAppearance()}.
-   *
-   * <p>Method under test: {@link PDInkAppearanceHandler#generateNormalAppearance()}
+   * <p>
+   * Method under test: {@link PDInkAppearanceHandler#generateNormalAppearance()}
    */
   @Test
   @DisplayName("Test generateNormalAppearance()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDInkAppearanceHandler.generateNormalAppearance()"})
-  void testGenerateNormalAppearance11() {
+  void testGenerateNormalAppearance9() {
     // Arrange
-    PDColor pdColor = mock(PDColor.class);
-    when(pdColor.getColorSpace()).thenReturn(PDDeviceGray.INSTANCE);
-    when(pdColor.getComponents()).thenReturn(new float[] {10.0f, 0.5f, 10.0f, 0.5f});
-
     PDBorderStyleDictionary pdBorderStyleDictionary = mock(PDBorderStyleDictionary.class);
+    when(pdBorderStyleDictionary.getDashStyle()).thenReturn(new PDLineDashPattern());
     when(pdBorderStyleDictionary.getWidth()).thenReturn(10.0f);
-    when(pdBorderStyleDictionary.getStyle()).thenReturn("Style");
-
+    when(pdBorderStyleDictionary.getStyle()).thenReturn("D");
     COSArray cosArray = mock(COSArray.class);
-    when(cosArray.isDirect()).thenReturn(false);
-    when(cosArray.getKey()).thenReturn(new COSObjectKey(1L, 1));
-
+    when(cosArray.isDirect()).thenReturn(true);
+    when(cosArray.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
     PDRectangle pdRectangle = mock(PDRectangle.class);
     when(pdRectangle.getLowerLeftX()).thenReturn(10.0f);
     when(pdRectangle.getLowerLeftY()).thenReturn(10.0f);
@@ -746,16 +588,352 @@ class PDInkAppearanceHandlerDiffblueTest {
     doNothing().when(pdRectangle).setLowerLeftY(anyFloat());
     doNothing().when(pdRectangle).setUpperRightX(anyFloat());
     doNothing().when(pdRectangle).setUpperRightY(anyFloat());
-
     PDAnnotationInk annotation = mock(PDAnnotationInk.class);
     when(annotation.getConstantOpacity()).thenReturn(10.0f);
     when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
     doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
     when(annotation.getRectangle()).thenReturn(pdRectangle);
-    when(annotation.getInkList())
-        .thenReturn(new float[][] {new float[] {10.0f, 0.5f, 10.0f, 0.5f}});
+    when(annotation.getInkList()).thenReturn(new float[][]{new float[]{10.0f, 0.5f, 10.0f, 0.5f}});
     when(annotation.getBorderStyle()).thenReturn(pdBorderStyleDictionary);
-    when(annotation.getColor()).thenReturn(pdColor);
+    when(annotation.getColor()).thenReturn(new PDColor(new COSArray(), PDDeviceGray.INSTANCE));
+    PDInkAppearanceHandler pdInkAppearanceHandler = new PDInkAppearanceHandler(annotation);
+
+    // Act
+    pdInkAppearanceHandler.generateNormalAppearance();
+
+    // Assert
+    verify(cosArray).getUpdateState();
+    verify(cosArray).isDirect();
+    verify(pdRectangle).getCOSArray();
+    verify(pdRectangle, atLeast(1)).getLowerLeftX();
+    verify(pdRectangle, atLeast(1)).getLowerLeftY();
+    verify(pdRectangle).getUpperRightX();
+    verify(pdRectangle).getUpperRightY();
+    verify(pdRectangle).setLowerLeftX(eq(-10.0f));
+    verify(pdRectangle).setLowerLeftY(eq(-19.5f));
+    verify(pdRectangle).setUpperRightX(eq(30.0f));
+    verify(pdRectangle).setUpperRightY(eq(20.5f));
+    verify(annotation).getAppearance();
+    verify(annotation).getColor();
+    verify(annotation, atLeast(1)).getRectangle();
+    verify(annotation).setRectangle(isA(PDRectangle.class));
+    verify(annotation, atLeast(1)).getInkList();
+    verify(annotation).getBorderStyle();
+    verify(annotation).getConstantOpacity();
+    verify(pdBorderStyleDictionary).getDashStyle();
+    verify(pdBorderStyleDictionary, atLeast(1)).getStyle();
+    verify(pdBorderStyleDictionary).getWidth();
+    PDAppearanceStream appearanceStream = pdInkAppearanceHandler.getDownAppearance().getAppearanceStream();
+    float[][] values = appearanceStream.getMatrix().getValues();
+    assertEquals(3, values.length);
+    PDAppearanceDictionary appearance = pdInkAppearanceHandler.getAppearance();
+    PDAppearanceStream appearanceStream2 = appearance.getDownAppearance().getAppearanceStream();
+    assertEquals(45, appearanceStream2.getStream().getLength());
+    PDAppearanceStream appearanceStream3 = appearance.getNormalAppearance().getAppearanceStream();
+    assertEquals(45, appearanceStream3.getStream().getLength());
+    PDAppearanceStream appearanceStream4 = appearance.getRolloverAppearance().getAppearanceStream();
+    assertEquals(45, appearanceStream4.getStream().getLength());
+    assertEquals(45, appearanceStream.getStream().getLength());
+    PDAppearanceStream appearanceStream5 = pdInkAppearanceHandler.getRolloverAppearance().getAppearanceStream();
+    assertEquals(45, appearanceStream5.getStream().getLength());
+    assertEquals(45, appearanceStream2.getContentStream().getLength());
+    assertEquals(45, appearanceStream3.getContentStream().getLength());
+    assertEquals(45, appearanceStream4.getContentStream().getLength());
+    assertEquals(45, appearanceStream.getContentStream().getLength());
+    assertEquals(45, appearanceStream5.getContentStream().getLength());
+    assertArrayEquals(new float[]{-10.0f, -10.0f, 1.0f}, values[2], 0.0f);
+  }
+
+  /**
+   * Test {@link PDInkAppearanceHandler#generateNormalAppearance()}.
+   * <p>
+   * Method under test: {@link PDInkAppearanceHandler#generateNormalAppearance()}
+   */
+  @Test
+  @DisplayName("Test generateNormalAppearance()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDInkAppearanceHandler.generateNormalAppearance()"})
+  void testGenerateNormalAppearance10() {
+    // Arrange
+    PDBorderStyleDictionary pdBorderStyleDictionary = mock(PDBorderStyleDictionary.class);
+    when(pdBorderStyleDictionary.getDashStyle()).thenReturn(new PDLineDashPattern());
+    when(pdBorderStyleDictionary.getWidth()).thenReturn(10.0f);
+    when(pdBorderStyleDictionary.getStyle()).thenReturn("D");
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.isDirect()).thenReturn(true);
+    when(cosArray.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
+    PDRectangle pdRectangle = mock(PDRectangle.class);
+    when(pdRectangle.getLowerLeftX()).thenReturn(10.0f);
+    when(pdRectangle.getLowerLeftY()).thenReturn(10.0f);
+    when(pdRectangle.getUpperRightX()).thenReturn(10.0f);
+    when(pdRectangle.getUpperRightY()).thenReturn(10.0f);
+    when(pdRectangle.getCOSArray()).thenReturn(cosArray);
+    doNothing().when(pdRectangle).setLowerLeftX(anyFloat());
+    doNothing().when(pdRectangle).setLowerLeftY(anyFloat());
+    doNothing().when(pdRectangle).setUpperRightX(anyFloat());
+    doNothing().when(pdRectangle).setUpperRightY(anyFloat());
+    PDAnnotationInk annotation = mock(PDAnnotationInk.class);
+    when(annotation.getConstantOpacity()).thenReturn(10.0f);
+    when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
+    doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
+    when(annotation.getRectangle()).thenReturn(pdRectangle);
+    when(annotation.getInkList()).thenReturn(new float[][]{new float[]{10.0f, 0.5f, 10.0f, 0.5f}});
+    when(annotation.getBorderStyle()).thenReturn(pdBorderStyleDictionary);
+    when(annotation.getColor()).thenReturn(new PDColor(new COSArray(), PDDeviceRGB.INSTANCE));
+    PDInkAppearanceHandler pdInkAppearanceHandler = new PDInkAppearanceHandler(annotation);
+
+    // Act
+    pdInkAppearanceHandler.generateNormalAppearance();
+
+    // Assert
+    verify(cosArray).getUpdateState();
+    verify(cosArray).isDirect();
+    verify(pdRectangle).getCOSArray();
+    verify(pdRectangle, atLeast(1)).getLowerLeftX();
+    verify(pdRectangle, atLeast(1)).getLowerLeftY();
+    verify(pdRectangle).getUpperRightX();
+    verify(pdRectangle).getUpperRightY();
+    verify(pdRectangle).setLowerLeftX(eq(-10.0f));
+    verify(pdRectangle).setLowerLeftY(eq(-19.5f));
+    verify(pdRectangle).setUpperRightX(eq(30.0f));
+    verify(pdRectangle).setUpperRightY(eq(20.5f));
+    verify(annotation).getAppearance();
+    verify(annotation).getColor();
+    verify(annotation, atLeast(1)).getRectangle();
+    verify(annotation).setRectangle(isA(PDRectangle.class));
+    verify(annotation, atLeast(1)).getInkList();
+    verify(annotation).getBorderStyle();
+    verify(annotation).getConstantOpacity();
+    verify(pdBorderStyleDictionary).getDashStyle();
+    verify(pdBorderStyleDictionary, atLeast(1)).getStyle();
+    verify(pdBorderStyleDictionary).getWidth();
+    PDAppearanceStream appearanceStream = pdInkAppearanceHandler.getDownAppearance().getAppearanceStream();
+    float[][] values = appearanceStream.getMatrix().getValues();
+    assertEquals(3, values.length);
+    PDAppearanceDictionary appearance = pdInkAppearanceHandler.getAppearance();
+    PDAppearanceStream appearanceStream2 = appearance.getDownAppearance().getAppearanceStream();
+    assertEquals(48, appearanceStream2.getStream().getLength());
+    PDAppearanceStream appearanceStream3 = appearance.getNormalAppearance().getAppearanceStream();
+    assertEquals(48, appearanceStream3.getStream().getLength());
+    PDAppearanceStream appearanceStream4 = appearance.getRolloverAppearance().getAppearanceStream();
+    assertEquals(48, appearanceStream4.getStream().getLength());
+    assertEquals(48, appearanceStream.getStream().getLength());
+    PDAppearanceStream appearanceStream5 = pdInkAppearanceHandler.getRolloverAppearance().getAppearanceStream();
+    assertEquals(48, appearanceStream5.getStream().getLength());
+    assertEquals(48, appearanceStream2.getContentStream().getLength());
+    assertEquals(48, appearanceStream3.getContentStream().getLength());
+    assertEquals(48, appearanceStream4.getContentStream().getLength());
+    assertEquals(48, appearanceStream.getContentStream().getLength());
+    assertEquals(48, appearanceStream5.getContentStream().getLength());
+    assertArrayEquals(new float[]{-10.0f, -10.0f, 1.0f}, values[2], 0.0f);
+  }
+
+  /**
+   * Test {@link PDInkAppearanceHandler#generateNormalAppearance()}.
+   * <p>
+   * Method under test: {@link PDInkAppearanceHandler#generateNormalAppearance()}
+   */
+  @Test
+  @DisplayName("Test generateNormalAppearance()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDInkAppearanceHandler.generateNormalAppearance()"})
+  void testGenerateNormalAppearance11() {
+    // Arrange
+    PDBorderStyleDictionary pdBorderStyleDictionary = mock(PDBorderStyleDictionary.class);
+    when(pdBorderStyleDictionary.getDashStyle()).thenReturn(new PDLineDashPattern());
+    when(pdBorderStyleDictionary.getWidth()).thenReturn(10.0f);
+    when(pdBorderStyleDictionary.getStyle()).thenReturn("D");
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.isDirect()).thenReturn(true);
+    when(cosArray.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
+    PDRectangle pdRectangle = mock(PDRectangle.class);
+    when(pdRectangle.getLowerLeftX()).thenReturn(10.0f);
+    when(pdRectangle.getLowerLeftY()).thenReturn(10.0f);
+    when(pdRectangle.getUpperRightX()).thenReturn(10.0f);
+    when(pdRectangle.getUpperRightY()).thenReturn(10.0f);
+    when(pdRectangle.getCOSArray()).thenReturn(cosArray);
+    doNothing().when(pdRectangle).setLowerLeftX(anyFloat());
+    doNothing().when(pdRectangle).setLowerLeftY(anyFloat());
+    doNothing().when(pdRectangle).setUpperRightX(anyFloat());
+    doNothing().when(pdRectangle).setUpperRightY(anyFloat());
+    PDAnnotationInk annotation = mock(PDAnnotationInk.class);
+    when(annotation.getConstantOpacity()).thenReturn(10.0f);
+    when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
+    doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
+    when(annotation.getRectangle()).thenReturn(pdRectangle);
+    when(annotation.getInkList()).thenReturn(new float[][]{new float[]{10.0f, 0.5f, 10.0f, 0.5f}});
+    when(annotation.getBorderStyle()).thenReturn(pdBorderStyleDictionary);
+    COSArray array = new COSArray();
+    when(annotation.getColor()).thenReturn(new PDColor(array, new PDCalGray()));
+    PDInkAppearanceHandler pdInkAppearanceHandler = new PDInkAppearanceHandler(annotation);
+
+    // Act
+    pdInkAppearanceHandler.generateNormalAppearance();
+
+    // Assert
+    verify(cosArray).getUpdateState();
+    verify(cosArray).isDirect();
+    verify(pdRectangle).getCOSArray();
+    verify(pdRectangle, atLeast(1)).getLowerLeftX();
+    verify(pdRectangle, atLeast(1)).getLowerLeftY();
+    verify(pdRectangle).getUpperRightX();
+    verify(pdRectangle).getUpperRightY();
+    verify(pdRectangle).setLowerLeftX(eq(-10.0f));
+    verify(pdRectangle).setLowerLeftY(eq(-19.5f));
+    verify(pdRectangle).setUpperRightX(eq(30.0f));
+    verify(pdRectangle).setUpperRightY(eq(20.5f));
+    verify(annotation).getAppearance();
+    verify(annotation).getColor();
+    verify(annotation, atLeast(1)).getRectangle();
+    verify(annotation).setRectangle(isA(PDRectangle.class));
+    verify(annotation, atLeast(1)).getInkList();
+    verify(annotation).getBorderStyle();
+    verify(annotation).getConstantOpacity();
+    verify(pdBorderStyleDictionary).getDashStyle();
+    verify(pdBorderStyleDictionary, atLeast(1)).getStyle();
+    verify(pdBorderStyleDictionary).getWidth();
+    PDAppearanceStream appearanceStream = pdInkAppearanceHandler.getDownAppearance().getAppearanceStream();
+    float[][] values = appearanceStream.getMatrix().getValues();
+    assertEquals(3, values.length);
+    PDAppearanceDictionary appearance = pdInkAppearanceHandler.getAppearance();
+    PDAppearanceStream appearanceStream2 = appearance.getDownAppearance().getAppearanceStream();
+    assertEquals(38, appearanceStream2.getStream().getLength());
+    PDAppearanceStream appearanceStream3 = appearance.getNormalAppearance().getAppearanceStream();
+    assertEquals(38, appearanceStream3.getStream().getLength());
+    PDAppearanceStream appearanceStream4 = appearance.getRolloverAppearance().getAppearanceStream();
+    assertEquals(38, appearanceStream4.getStream().getLength());
+    assertEquals(38, appearanceStream.getStream().getLength());
+    PDAppearanceStream appearanceStream5 = pdInkAppearanceHandler.getRolloverAppearance().getAppearanceStream();
+    assertEquals(38, appearanceStream5.getStream().getLength());
+    assertEquals(38, appearanceStream2.getContentStream().getLength());
+    assertEquals(38, appearanceStream3.getContentStream().getLength());
+    assertEquals(38, appearanceStream4.getContentStream().getLength());
+    assertEquals(38, appearanceStream.getContentStream().getLength());
+    assertEquals(38, appearanceStream5.getContentStream().getLength());
+    assertArrayEquals(new float[]{-10.0f, -10.0f, 1.0f}, values[2], 0.0f);
+  }
+
+  /**
+   * Test {@link PDInkAppearanceHandler#generateNormalAppearance()}.
+   * <p>
+   * Method under test: {@link PDInkAppearanceHandler#generateNormalAppearance()}
+   */
+  @Test
+  @DisplayName("Test generateNormalAppearance()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDInkAppearanceHandler.generateNormalAppearance()"})
+  void testGenerateNormalAppearance12() {
+    // Arrange
+    PDBorderStyleDictionary pdBorderStyleDictionary = mock(PDBorderStyleDictionary.class);
+    when(pdBorderStyleDictionary.getDashStyle()).thenReturn(new PDLineDashPattern());
+    when(pdBorderStyleDictionary.getWidth()).thenReturn(10.0f);
+    when(pdBorderStyleDictionary.getStyle()).thenReturn("D");
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.isDirect()).thenReturn(true);
+    when(cosArray.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
+    PDRectangle pdRectangle = mock(PDRectangle.class);
+    when(pdRectangle.getLowerLeftX()).thenReturn(10.0f);
+    when(pdRectangle.getLowerLeftY()).thenReturn(10.0f);
+    when(pdRectangle.getUpperRightX()).thenReturn(10.0f);
+    when(pdRectangle.getUpperRightY()).thenReturn(10.0f);
+    when(pdRectangle.getCOSArray()).thenReturn(cosArray);
+    doNothing().when(pdRectangle).setLowerLeftX(anyFloat());
+    doNothing().when(pdRectangle).setLowerLeftY(anyFloat());
+    doNothing().when(pdRectangle).setUpperRightX(anyFloat());
+    doNothing().when(pdRectangle).setUpperRightY(anyFloat());
+    PDAnnotationInk annotation = mock(PDAnnotationInk.class);
+    when(annotation.getConstantOpacity()).thenReturn(10.0f);
+    when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
+    doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
+    when(annotation.getRectangle()).thenReturn(pdRectangle);
+    when(annotation.getInkList()).thenReturn(new float[][]{new float[]{10.0f, 0.5f, 10.0f, 0.5f}});
+    when(annotation.getBorderStyle()).thenReturn(pdBorderStyleDictionary);
+    COSArray array = new COSArray();
+    when(annotation.getColor()).thenReturn(new PDColor(array, new PDSeparation()));
+    PDInkAppearanceHandler pdInkAppearanceHandler = new PDInkAppearanceHandler(annotation);
+
+    // Act
+    pdInkAppearanceHandler.generateNormalAppearance();
+
+    // Assert
+    verify(cosArray).getUpdateState();
+    verify(cosArray).isDirect();
+    verify(pdRectangle).getCOSArray();
+    verify(pdRectangle, atLeast(1)).getLowerLeftX();
+    verify(pdRectangle, atLeast(1)).getLowerLeftY();
+    verify(pdRectangle).getUpperRightX();
+    verify(pdRectangle).getUpperRightY();
+    verify(pdRectangle).setLowerLeftX(eq(-10.0f));
+    verify(pdRectangle).setLowerLeftY(eq(-19.5f));
+    verify(pdRectangle).setUpperRightX(eq(30.0f));
+    verify(pdRectangle).setUpperRightY(eq(20.5f));
+    verify(annotation).getAppearance();
+    verify(annotation).getColor();
+    verify(annotation, atLeast(1)).getRectangle();
+    verify(annotation).setRectangle(isA(PDRectangle.class));
+    verify(annotation, atLeast(1)).getInkList();
+    verify(annotation).getBorderStyle();
+    verify(annotation).getConstantOpacity();
+    verify(pdBorderStyleDictionary).getDashStyle();
+    verify(pdBorderStyleDictionary, atLeast(1)).getStyle();
+    verify(pdBorderStyleDictionary).getWidth();
+    PDAppearanceStream appearanceStream = pdInkAppearanceHandler.getDownAppearance().getAppearanceStream();
+    float[][] values = appearanceStream.getMatrix().getValues();
+    assertEquals(3, values.length);
+    PDAppearanceDictionary appearance = pdInkAppearanceHandler.getAppearance();
+    PDAppearanceStream appearanceStream2 = appearance.getDownAppearance().getAppearanceStream();
+    assertEquals(39, appearanceStream2.getStream().getLength());
+    PDAppearanceStream appearanceStream3 = appearance.getNormalAppearance().getAppearanceStream();
+    assertEquals(39, appearanceStream3.getStream().getLength());
+    PDAppearanceStream appearanceStream4 = appearance.getRolloverAppearance().getAppearanceStream();
+    assertEquals(39, appearanceStream4.getStream().getLength());
+    assertEquals(39, appearanceStream.getStream().getLength());
+    PDAppearanceStream appearanceStream5 = pdInkAppearanceHandler.getRolloverAppearance().getAppearanceStream();
+    assertEquals(39, appearanceStream5.getStream().getLength());
+    assertEquals(39, appearanceStream2.getContentStream().getLength());
+    assertEquals(39, appearanceStream3.getContentStream().getLength());
+    assertEquals(39, appearanceStream4.getContentStream().getLength());
+    assertEquals(39, appearanceStream.getContentStream().getLength());
+    assertEquals(39, appearanceStream5.getContentStream().getLength());
+    assertArrayEquals(new float[]{-10.0f, -10.0f, 1.0f}, values[2], 0.0f);
+  }
+
+  /**
+   * Test {@link PDInkAppearanceHandler#generateNormalAppearance()}.
+   * <ul>
+   *   <li>Given {@link COSArray} {@link COSBase#isDirect()} return {@code false}.</li>
+   *   <li>Then calls {@link COSBase#getKey()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDInkAppearanceHandler#generateNormalAppearance()}
+   */
+  @Test
+  @DisplayName("Test generateNormalAppearance(); given COSArray isDirect() return 'false'; then calls getKey()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDInkAppearanceHandler.generateNormalAppearance()"})
+  void testGenerateNormalAppearance_givenCOSArrayIsDirectReturnFalse_thenCallsGetKey() {
+    // Arrange
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.isDirect()).thenReturn(false);
+    when(cosArray.getKey()).thenReturn(new COSObjectKey(1L, 1));
+    PDRectangle pdRectangle = mock(PDRectangle.class);
+    when(pdRectangle.getLowerLeftX()).thenReturn(10.0f);
+    when(pdRectangle.getLowerLeftY()).thenReturn(10.0f);
+    when(pdRectangle.getUpperRightX()).thenReturn(10.0f);
+    when(pdRectangle.getUpperRightY()).thenReturn(10.0f);
+    when(pdRectangle.getCOSArray()).thenReturn(cosArray);
+    doNothing().when(pdRectangle).setLowerLeftX(anyFloat());
+    doNothing().when(pdRectangle).setLowerLeftY(anyFloat());
+    doNothing().when(pdRectangle).setUpperRightX(anyFloat());
+    doNothing().when(pdRectangle).setUpperRightY(anyFloat());
+    PDAnnotationInk annotation = mock(PDAnnotationInk.class);
+    when(annotation.getConstantOpacity()).thenReturn(10.0f);
+    when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
+    doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
+    when(annotation.getRectangle()).thenReturn(pdRectangle);
+    when(annotation.getInkList()).thenReturn(new float[][]{new float[]{10.0f, 0.5f, 10.0f, 0.5f}});
+    when(annotation.getBorderStyle()).thenReturn(new PDBorderStyleDictionary());
+    when(annotation.getColor()).thenReturn(new PDColor(new COSArray(), PDDeviceGray.INSTANCE));
     PDInkAppearanceHandler pdInkAppearanceHandler = new PDInkAppearanceHandler(annotation);
 
     // Act
@@ -769,12 +947,10 @@ class PDInkAppearanceHandlerDiffblueTest {
     verify(pdRectangle, atLeast(1)).getLowerLeftY();
     verify(pdRectangle).getUpperRightX();
     verify(pdRectangle).getUpperRightY();
-    verify(pdRectangle).setLowerLeftX(-10.0f);
-    verify(pdRectangle).setLowerLeftY(-19.5f);
-    verify(pdRectangle).setUpperRightX(30.0f);
-    verify(pdRectangle).setUpperRightY(20.5f);
-    verify(pdColor, atLeast(1)).getColorSpace();
-    verify(pdColor, atLeast(1)).getComponents();
+    verify(pdRectangle).setLowerLeftX(eq(8.0f));
+    verify(pdRectangle).setLowerLeftY(eq(-1.5f));
+    verify(pdRectangle).setUpperRightX(eq(12.0f));
+    verify(pdRectangle).setUpperRightY(eq(10.0f));
     verify(annotation).getAppearance();
     verify(annotation).getColor();
     verify(annotation, atLeast(1)).getRectangle();
@@ -782,557 +958,47 @@ class PDInkAppearanceHandlerDiffblueTest {
     verify(annotation, atLeast(1)).getInkList();
     verify(annotation).getBorderStyle();
     verify(annotation).getConstantOpacity();
-    verify(pdBorderStyleDictionary, atLeast(1)).getStyle();
-    verify(pdBorderStyleDictionary).getWidth();
-    PDAppearanceStream appearanceStream =
-        pdInkAppearanceHandler.getDownAppearance().getAppearanceStream();
+    PDAppearanceStream appearanceStream = pdInkAppearanceHandler.getDownAppearance().getAppearanceStream();
     float[][] values = appearanceStream.getMatrix().getValues();
     assertEquals(3, values.length);
     PDAppearanceDictionary appearance = pdInkAppearanceHandler.getAppearance();
     PDAppearanceStream appearanceStream2 = appearance.getDownAppearance().getAppearanceStream();
-    assertEquals(57, appearanceStream2.getStream().getLength());
+    assertEquals(44, appearanceStream2.getStream().getLength());
     PDAppearanceStream appearanceStream3 = appearance.getNormalAppearance().getAppearanceStream();
-    assertEquals(57, appearanceStream3.getStream().getLength());
+    assertEquals(44, appearanceStream3.getStream().getLength());
     PDAppearanceStream appearanceStream4 = appearance.getRolloverAppearance().getAppearanceStream();
-    assertEquals(57, appearanceStream4.getStream().getLength());
-    assertEquals(57, appearanceStream.getStream().getLength());
-    PDAppearanceStream appearanceStream5 =
-        pdInkAppearanceHandler.getRolloverAppearance().getAppearanceStream();
-    assertEquals(57, appearanceStream5.getStream().getLength());
-    assertEquals(57, appearanceStream2.getContentStream().getLength());
-    assertEquals(57, appearanceStream3.getContentStream().getLength());
-    assertEquals(57, appearanceStream4.getContentStream().getLength());
-    assertEquals(57, appearanceStream.getContentStream().getLength());
-    assertEquals(57, appearanceStream5.getContentStream().getLength());
-    assertArrayEquals(new float[] {-10.0f, -10.0f, 1.0f}, values[2], 0.0f);
+    assertEquals(44, appearanceStream4.getStream().getLength());
+    assertEquals(44, appearanceStream.getStream().getLength());
+    PDAppearanceStream appearanceStream5 = pdInkAppearanceHandler.getRolloverAppearance().getAppearanceStream();
+    assertEquals(44, appearanceStream5.getStream().getLength());
+    assertEquals(44, appearanceStream2.getContentStream().getLength());
+    assertEquals(44, appearanceStream3.getContentStream().getLength());
+    assertEquals(44, appearanceStream4.getContentStream().getLength());
+    assertEquals(44, appearanceStream.getContentStream().getLength());
+    assertEquals(44, appearanceStream5.getContentStream().getLength());
+    assertArrayEquals(new float[]{-10.0f, -10.0f, 1.0f}, values[2], 0.0f);
   }
 
   /**
    * Test {@link PDInkAppearanceHandler#generateNormalAppearance()}.
-   *
-   * <p>Method under test: {@link PDInkAppearanceHandler#generateNormalAppearance()}
-   */
-  @Test
-  @DisplayName("Test generateNormalAppearance()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDInkAppearanceHandler.generateNormalAppearance()"})
-  void testGenerateNormalAppearance12() {
-    // Arrange
-    PDColor pdColor = mock(PDColor.class);
-    when(pdColor.getColorSpace()).thenReturn(new PDICCBased(new PDDocument()));
-    when(pdColor.getComponents()).thenReturn(new float[] {10.0f, 0.5f, 10.0f, 0.5f});
-
-    PDBorderStyleDictionary pdBorderStyleDictionary = mock(PDBorderStyleDictionary.class);
-    when(pdBorderStyleDictionary.getWidth()).thenReturn(10.0f);
-    when(pdBorderStyleDictionary.getStyle()).thenReturn("Style");
-
-    COSArray cosArray = mock(COSArray.class);
-    when(cosArray.isDirect()).thenReturn(true);
-    when(cosArray.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
-
-    PDRectangle pdRectangle = mock(PDRectangle.class);
-    when(pdRectangle.getLowerLeftX()).thenReturn(10.0f);
-    when(pdRectangle.getLowerLeftY()).thenReturn(10.0f);
-    when(pdRectangle.getUpperRightX()).thenReturn(10.0f);
-    when(pdRectangle.getUpperRightY()).thenReturn(10.0f);
-    when(pdRectangle.getCOSArray()).thenReturn(cosArray);
-    doNothing().when(pdRectangle).setLowerLeftX(anyFloat());
-    doNothing().when(pdRectangle).setLowerLeftY(anyFloat());
-    doNothing().when(pdRectangle).setUpperRightX(anyFloat());
-    doNothing().when(pdRectangle).setUpperRightY(anyFloat());
-
-    PDAnnotationInk annotation = mock(PDAnnotationInk.class);
-    when(annotation.getConstantOpacity()).thenReturn(10.0f);
-    when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
-    doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
-    when(annotation.getRectangle()).thenReturn(pdRectangle);
-    when(annotation.getInkList())
-        .thenReturn(new float[][] {new float[] {10.0f, 0.5f, 10.0f, 0.5f}});
-    when(annotation.getBorderStyle()).thenReturn(pdBorderStyleDictionary);
-    when(annotation.getColor()).thenReturn(pdColor);
-    PDInkAppearanceHandler pdInkAppearanceHandler = new PDInkAppearanceHandler(annotation);
-
-    // Act
-    pdInkAppearanceHandler.generateNormalAppearance();
-
-    // Assert
-    verify(cosArray).getUpdateState();
-    verify(cosArray).isDirect();
-    verify(pdRectangle).getCOSArray();
-    verify(pdRectangle, atLeast(1)).getLowerLeftX();
-    verify(pdRectangle, atLeast(1)).getLowerLeftY();
-    verify(pdRectangle).getUpperRightX();
-    verify(pdRectangle).getUpperRightY();
-    verify(pdRectangle).setLowerLeftX(-10.0f);
-    verify(pdRectangle).setLowerLeftY(-19.5f);
-    verify(pdRectangle).setUpperRightX(30.0f);
-    verify(pdRectangle).setUpperRightY(20.5f);
-    verify(pdColor, atLeast(1)).getColorSpace();
-    verify(pdColor, atLeast(1)).getComponents();
-    verify(annotation).getAppearance();
-    verify(annotation).getColor();
-    verify(annotation, atLeast(1)).getRectangle();
-    verify(annotation).setRectangle(isA(PDRectangle.class));
-    verify(annotation, atLeast(1)).getInkList();
-    verify(annotation).getBorderStyle();
-    verify(annotation).getConstantOpacity();
-    verify(pdBorderStyleDictionary, atLeast(1)).getStyle();
-    verify(pdBorderStyleDictionary).getWidth();
-    PDAppearanceStream appearanceStream =
-        pdInkAppearanceHandler.getDownAppearance().getAppearanceStream();
-    float[][] values = appearanceStream.getMatrix().getValues();
-    assertEquals(3, values.length);
-    PDAppearanceDictionary appearance = pdInkAppearanceHandler.getAppearance();
-    PDAppearanceStream appearanceStream2 = appearance.getDownAppearance().getAppearanceStream();
-    assertEquals(51, appearanceStream2.getStream().getLength());
-    PDAppearanceStream appearanceStream3 = appearance.getNormalAppearance().getAppearanceStream();
-    assertEquals(51, appearanceStream3.getStream().getLength());
-    PDAppearanceStream appearanceStream4 = appearance.getRolloverAppearance().getAppearanceStream();
-    assertEquals(51, appearanceStream4.getStream().getLength());
-    assertEquals(51, appearanceStream.getStream().getLength());
-    PDAppearanceStream appearanceStream5 =
-        pdInkAppearanceHandler.getRolloverAppearance().getAppearanceStream();
-    assertEquals(51, appearanceStream5.getStream().getLength());
-    assertEquals(51, appearanceStream2.getContentStream().getLength());
-    assertEquals(51, appearanceStream3.getContentStream().getLength());
-    assertEquals(51, appearanceStream4.getContentStream().getLength());
-    assertEquals(51, appearanceStream.getContentStream().getLength());
-    assertEquals(51, appearanceStream5.getContentStream().getLength());
-    assertArrayEquals(new float[] {-10.0f, -10.0f, 1.0f}, values[2], 0.0f);
-  }
-
-  /**
-   * Test {@link PDInkAppearanceHandler#generateNormalAppearance()}.
-   *
-   * <p>Method under test: {@link PDInkAppearanceHandler#generateNormalAppearance()}
-   */
-  @Test
-  @DisplayName("Test generateNormalAppearance()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDInkAppearanceHandler.generateNormalAppearance()"})
-  void testGenerateNormalAppearance13() {
-    // Arrange
-    PDColor pdColor = mock(PDColor.class);
-    when(pdColor.getPatternName()).thenReturn(COSName.A);
-    when(pdColor.getColorSpace()).thenReturn(new PDPattern(new PDResources()));
-    when(pdColor.getComponents()).thenReturn(new float[] {10.0f, 0.5f, 10.0f, 0.5f});
-
-    PDBorderStyleDictionary pdBorderStyleDictionary = mock(PDBorderStyleDictionary.class);
-    when(pdBorderStyleDictionary.getWidth()).thenReturn(10.0f);
-    when(pdBorderStyleDictionary.getStyle()).thenReturn("Style");
-
-    COSArray cosArray = mock(COSArray.class);
-    when(cosArray.isDirect()).thenReturn(true);
-    when(cosArray.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
-
-    PDRectangle pdRectangle = mock(PDRectangle.class);
-    when(pdRectangle.getLowerLeftX()).thenReturn(10.0f);
-    when(pdRectangle.getLowerLeftY()).thenReturn(10.0f);
-    when(pdRectangle.getUpperRightX()).thenReturn(10.0f);
-    when(pdRectangle.getUpperRightY()).thenReturn(10.0f);
-    when(pdRectangle.getCOSArray()).thenReturn(cosArray);
-    doNothing().when(pdRectangle).setLowerLeftX(anyFloat());
-    doNothing().when(pdRectangle).setLowerLeftY(anyFloat());
-    doNothing().when(pdRectangle).setUpperRightX(anyFloat());
-    doNothing().when(pdRectangle).setUpperRightY(anyFloat());
-
-    PDAnnotationInk annotation = mock(PDAnnotationInk.class);
-    when(annotation.getConstantOpacity()).thenReturn(10.0f);
-    when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
-    doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
-    when(annotation.getRectangle()).thenReturn(pdRectangle);
-    when(annotation.getInkList())
-        .thenReturn(new float[][] {new float[] {10.0f, 0.5f, 10.0f, 0.5f}});
-    when(annotation.getBorderStyle()).thenReturn(pdBorderStyleDictionary);
-    when(annotation.getColor()).thenReturn(pdColor);
-    PDInkAppearanceHandler pdInkAppearanceHandler = new PDInkAppearanceHandler(annotation);
-
-    // Act
-    pdInkAppearanceHandler.generateNormalAppearance();
-
-    // Assert
-    verify(cosArray).getUpdateState();
-    verify(cosArray).isDirect();
-    verify(pdRectangle).getCOSArray();
-    verify(pdRectangle, atLeast(1)).getLowerLeftX();
-    verify(pdRectangle, atLeast(1)).getLowerLeftY();
-    verify(pdRectangle).getUpperRightX();
-    verify(pdRectangle).getUpperRightY();
-    verify(pdRectangle).setLowerLeftX(-10.0f);
-    verify(pdRectangle).setLowerLeftY(-19.5f);
-    verify(pdRectangle).setUpperRightX(30.0f);
-    verify(pdRectangle).setUpperRightY(20.5f);
-    verify(pdColor, atLeast(1)).getColorSpace();
-    verify(pdColor, atLeast(1)).getComponents();
-    verify(pdColor).getPatternName();
-    verify(annotation).getAppearance();
-    verify(annotation).getColor();
-    verify(annotation, atLeast(1)).getRectangle();
-    verify(annotation).setRectangle(isA(PDRectangle.class));
-    verify(annotation, atLeast(1)).getInkList();
-    verify(annotation).getBorderStyle();
-    verify(annotation).getConstantOpacity();
-    verify(pdBorderStyleDictionary, atLeast(1)).getStyle();
-    verify(pdBorderStyleDictionary).getWidth();
-    PDAppearanceStream appearanceStream =
-        pdInkAppearanceHandler.getDownAppearance().getAppearanceStream();
-    float[][] values = appearanceStream.getMatrix().getValues();
-    assertEquals(3, values.length);
-    PDAppearanceDictionary appearance = pdInkAppearanceHandler.getAppearance();
-    PDAppearanceStream appearanceStream2 = appearance.getDownAppearance().getAppearanceStream();
-    assertEquals(54, appearanceStream2.getStream().getLength());
-    PDAppearanceStream appearanceStream3 = appearance.getNormalAppearance().getAppearanceStream();
-    assertEquals(54, appearanceStream3.getStream().getLength());
-    PDAppearanceStream appearanceStream4 = appearance.getRolloverAppearance().getAppearanceStream();
-    assertEquals(54, appearanceStream4.getStream().getLength());
-    assertEquals(54, appearanceStream.getStream().getLength());
-    PDAppearanceStream appearanceStream5 =
-        pdInkAppearanceHandler.getRolloverAppearance().getAppearanceStream();
-    assertEquals(54, appearanceStream5.getStream().getLength());
-    assertEquals(54, appearanceStream2.getContentStream().getLength());
-    assertEquals(54, appearanceStream3.getContentStream().getLength());
-    assertEquals(54, appearanceStream4.getContentStream().getLength());
-    assertEquals(54, appearanceStream.getContentStream().getLength());
-    assertEquals(54, appearanceStream5.getContentStream().getLength());
-    assertArrayEquals(new float[] {-10.0f, -10.0f, 1.0f}, values[2], 0.0f);
-  }
-
-  /**
-   * Test {@link PDInkAppearanceHandler#generateNormalAppearance()}.
-   *
-   * <p>Method under test: {@link PDInkAppearanceHandler#generateNormalAppearance()}
-   */
-  @Test
-  @DisplayName("Test generateNormalAppearance()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDInkAppearanceHandler.generateNormalAppearance()"})
-  void testGenerateNormalAppearance14() throws IOException {
-    // Arrange
-    COSName cosName = mock(COSName.class);
-    doThrow(new IOException()).when(cosName).writePDF(Mockito.<OutputStream>any());
-
-    PDColor pdColor = mock(PDColor.class);
-    when(pdColor.getPatternName()).thenReturn(cosName);
-    when(pdColor.getColorSpace()).thenReturn(new PDPattern(new PDResources()));
-    when(pdColor.getComponents()).thenReturn(new float[] {10.0f, 0.5f, 10.0f, 0.5f});
-
-    PDBorderStyleDictionary pdBorderStyleDictionary = mock(PDBorderStyleDictionary.class);
-    when(pdBorderStyleDictionary.getWidth()).thenReturn(10.0f);
-    when(pdBorderStyleDictionary.getStyle()).thenReturn("Style");
-
-    COSArray cosArray = mock(COSArray.class);
-    when(cosArray.isDirect()).thenReturn(true);
-    when(cosArray.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
-
-    PDRectangle pdRectangle = mock(PDRectangle.class);
-    when(pdRectangle.getLowerLeftX()).thenReturn(10.0f);
-    when(pdRectangle.getLowerLeftY()).thenReturn(10.0f);
-    when(pdRectangle.getUpperRightX()).thenReturn(10.0f);
-    when(pdRectangle.getUpperRightY()).thenReturn(10.0f);
-    when(pdRectangle.getCOSArray()).thenReturn(cosArray);
-    doNothing().when(pdRectangle).setLowerLeftX(anyFloat());
-    doNothing().when(pdRectangle).setLowerLeftY(anyFloat());
-    doNothing().when(pdRectangle).setUpperRightX(anyFloat());
-    doNothing().when(pdRectangle).setUpperRightY(anyFloat());
-
-    PDAnnotationInk annotation = mock(PDAnnotationInk.class);
-    when(annotation.getConstantOpacity()).thenReturn(10.0f);
-    when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
-    doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
-    when(annotation.getRectangle()).thenReturn(pdRectangle);
-    when(annotation.getInkList())
-        .thenReturn(new float[][] {new float[] {10.0f, 0.5f, 10.0f, 0.5f}});
-    when(annotation.getBorderStyle()).thenReturn(pdBorderStyleDictionary);
-    when(annotation.getColor()).thenReturn(pdColor);
-    PDInkAppearanceHandler pdInkAppearanceHandler = new PDInkAppearanceHandler(annotation);
-
-    // Act
-    pdInkAppearanceHandler.generateNormalAppearance();
-
-    // Assert
-    verify(cosArray).getUpdateState();
-    verify(cosArray).isDirect();
-    verify(cosName).writePDF(isA(OutputStream.class));
-    verify(pdRectangle).getCOSArray();
-    verify(pdRectangle, atLeast(1)).getLowerLeftX();
-    verify(pdRectangle, atLeast(1)).getLowerLeftY();
-    verify(pdRectangle).getUpperRightX();
-    verify(pdRectangle).getUpperRightY();
-    verify(pdRectangle).setLowerLeftX(-10.0f);
-    verify(pdRectangle).setLowerLeftY(-19.5f);
-    verify(pdRectangle).setUpperRightX(30.0f);
-    verify(pdRectangle).setUpperRightY(20.5f);
-    verify(pdColor, atLeast(1)).getColorSpace();
-    verify(pdColor, atLeast(1)).getComponents();
-    verify(pdColor).getPatternName();
-    verify(annotation).getAppearance();
-    verify(annotation).getColor();
-    verify(annotation, atLeast(1)).getRectangle();
-    verify(annotation).setRectangle(isA(PDRectangle.class));
-    verify(annotation).getInkList();
-    verify(annotation).getBorderStyle();
-    verify(annotation).getConstantOpacity();
-    verify(pdBorderStyleDictionary, atLeast(1)).getStyle();
-    verify(pdBorderStyleDictionary).getWidth();
-    PDAppearanceDictionary appearance = pdInkAppearanceHandler.getAppearance();
-    PDAppearanceStream appearanceStream = appearance.getDownAppearance().getAppearanceStream();
-    assertEquals(22, appearanceStream.getStream().getLength());
-    PDAppearanceStream appearanceStream2 = appearance.getNormalAppearance().getAppearanceStream();
-    assertEquals(22, appearanceStream2.getStream().getLength());
-    PDAppearanceStream appearanceStream3 = appearance.getRolloverAppearance().getAppearanceStream();
-    assertEquals(22, appearanceStream3.getStream().getLength());
-    PDAppearanceStream appearanceStream4 =
-        pdInkAppearanceHandler.getDownAppearance().getAppearanceStream();
-    assertEquals(22, appearanceStream4.getStream().getLength());
-    PDAppearanceStream appearanceStream5 =
-        pdInkAppearanceHandler.getRolloverAppearance().getAppearanceStream();
-    assertEquals(22, appearanceStream5.getStream().getLength());
-    assertEquals(22, appearanceStream.getContentStream().getLength());
-    assertEquals(22, appearanceStream2.getContentStream().getLength());
-    assertEquals(22, appearanceStream3.getContentStream().getLength());
-    assertEquals(22, appearanceStream4.getContentStream().getLength());
-    assertEquals(22, appearanceStream5.getContentStream().getLength());
-    float[][] values = appearanceStream4.getMatrix().getValues();
-    assertEquals(3, values.length);
-    assertArrayEquals(new float[] {-10.0f, -10.0f, 1.0f}, values[2], 0.0f);
-  }
-
-  /**
-   * Test {@link PDInkAppearanceHandler#generateNormalAppearance()}.
-   *
-   * <p>Method under test: {@link PDInkAppearanceHandler#generateNormalAppearance()}
-   */
-  @Test
-  @DisplayName("Test generateNormalAppearance()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDInkAppearanceHandler.generateNormalAppearance()"})
-  void testGenerateNormalAppearance15() throws IOException {
-    // Arrange
-    COSName cosName = mock(COSName.class);
-    doThrow(new IOException()).when(cosName).writePDF(Mockito.<OutputStream>any());
-
-    PDColor pdColor = mock(PDColor.class);
-    when(pdColor.getPatternName()).thenReturn(cosName);
-    when(pdColor.getColorSpace()).thenReturn(new PDPattern(new PDResources()));
-    when(pdColor.getComponents()).thenReturn(new float[] {10.0f, 0.5f, 10.0f, 0.5f});
-
-    PDBorderStyleDictionary pdBorderStyleDictionary = mock(PDBorderStyleDictionary.class);
-    when(pdBorderStyleDictionary.getDashStyle()).thenReturn(new PDLineDashPattern());
-    when(pdBorderStyleDictionary.getWidth()).thenReturn(10.0f);
-    when(pdBorderStyleDictionary.getStyle()).thenReturn("D");
-
-    COSArray cosArray = mock(COSArray.class);
-    when(cosArray.isDirect()).thenReturn(true);
-    when(cosArray.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
-
-    PDRectangle pdRectangle = mock(PDRectangle.class);
-    when(pdRectangle.getLowerLeftX()).thenReturn(10.0f);
-    when(pdRectangle.getLowerLeftY()).thenReturn(10.0f);
-    when(pdRectangle.getUpperRightX()).thenReturn(10.0f);
-    when(pdRectangle.getUpperRightY()).thenReturn(10.0f);
-    when(pdRectangle.getCOSArray()).thenReturn(cosArray);
-    doNothing().when(pdRectangle).setLowerLeftX(anyFloat());
-    doNothing().when(pdRectangle).setLowerLeftY(anyFloat());
-    doNothing().when(pdRectangle).setUpperRightX(anyFloat());
-    doNothing().when(pdRectangle).setUpperRightY(anyFloat());
-
-    PDAnnotationInk annotation = mock(PDAnnotationInk.class);
-    when(annotation.getConstantOpacity()).thenReturn(10.0f);
-    when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
-    doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
-    when(annotation.getRectangle()).thenReturn(pdRectangle);
-    when(annotation.getInkList())
-        .thenReturn(new float[][] {new float[] {10.0f, 0.5f, 10.0f, 0.5f}});
-    when(annotation.getBorderStyle()).thenReturn(pdBorderStyleDictionary);
-    when(annotation.getColor()).thenReturn(pdColor);
-    PDInkAppearanceHandler pdInkAppearanceHandler = new PDInkAppearanceHandler(annotation);
-
-    // Act
-    pdInkAppearanceHandler.generateNormalAppearance();
-
-    // Assert
-    verify(cosArray).getUpdateState();
-    verify(cosArray).isDirect();
-    verify(cosName).writePDF(isA(OutputStream.class));
-    verify(pdRectangle).getCOSArray();
-    verify(pdRectangle, atLeast(1)).getLowerLeftX();
-    verify(pdRectangle, atLeast(1)).getLowerLeftY();
-    verify(pdRectangle).getUpperRightX();
-    verify(pdRectangle).getUpperRightY();
-    verify(pdRectangle).setLowerLeftX(-10.0f);
-    verify(pdRectangle).setLowerLeftY(-19.5f);
-    verify(pdRectangle).setUpperRightX(30.0f);
-    verify(pdRectangle).setUpperRightY(20.5f);
-    verify(pdColor, atLeast(1)).getColorSpace();
-    verify(pdColor, atLeast(1)).getComponents();
-    verify(pdColor).getPatternName();
-    verify(annotation).getAppearance();
-    verify(annotation).getColor();
-    verify(annotation, atLeast(1)).getRectangle();
-    verify(annotation).setRectangle(isA(PDRectangle.class));
-    verify(annotation).getInkList();
-    verify(annotation).getBorderStyle();
-    verify(annotation).getConstantOpacity();
-    verify(pdBorderStyleDictionary).getDashStyle();
-    verify(pdBorderStyleDictionary, atLeast(1)).getStyle();
-    verify(pdBorderStyleDictionary).getWidth();
-    PDAppearanceDictionary appearance = pdInkAppearanceHandler.getAppearance();
-    PDAppearanceStream appearanceStream = appearance.getDownAppearance().getAppearanceStream();
-    assertEquals(22, appearanceStream.getStream().getLength());
-    PDAppearanceStream appearanceStream2 = appearance.getNormalAppearance().getAppearanceStream();
-    assertEquals(22, appearanceStream2.getStream().getLength());
-    PDAppearanceStream appearanceStream3 = appearance.getRolloverAppearance().getAppearanceStream();
-    assertEquals(22, appearanceStream3.getStream().getLength());
-    PDAppearanceStream appearanceStream4 =
-        pdInkAppearanceHandler.getDownAppearance().getAppearanceStream();
-    assertEquals(22, appearanceStream4.getStream().getLength());
-    PDAppearanceStream appearanceStream5 =
-        pdInkAppearanceHandler.getRolloverAppearance().getAppearanceStream();
-    assertEquals(22, appearanceStream5.getStream().getLength());
-    assertEquals(22, appearanceStream.getContentStream().getLength());
-    assertEquals(22, appearanceStream2.getContentStream().getLength());
-    assertEquals(22, appearanceStream3.getContentStream().getLength());
-    assertEquals(22, appearanceStream4.getContentStream().getLength());
-    assertEquals(22, appearanceStream5.getContentStream().getLength());
-    float[][] values = appearanceStream4.getMatrix().getValues();
-    assertEquals(3, values.length);
-    assertArrayEquals(new float[] {-10.0f, -10.0f, 1.0f}, values[2], 0.0f);
-  }
-
-  /**
-   * Test {@link PDInkAppearanceHandler#generateNormalAppearance()}.
-   *
-   * <p>Method under test: {@link PDInkAppearanceHandler#generateNormalAppearance()}
-   */
-  @Test
-  @DisplayName("Test generateNormalAppearance()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDInkAppearanceHandler.generateNormalAppearance()"})
-  void testGenerateNormalAppearance16() {
-    // Arrange
-    PDColor pdColor = mock(PDColor.class);
-    when(pdColor.getColorSpace()).thenReturn(PDDeviceGray.INSTANCE);
-    when(pdColor.getComponents()).thenReturn(new float[] {10.0f, 0.5f, 10.0f, 0.5f});
-
-    PDLineDashPattern pdLineDashPattern = mock(PDLineDashPattern.class);
-    when(pdLineDashPattern.getDashArray()).thenReturn(new float[] {10.0f, 0.0f, 10.0f, 0.0f});
-
-    PDBorderStyleDictionary pdBorderStyleDictionary = mock(PDBorderStyleDictionary.class);
-    when(pdBorderStyleDictionary.getDashStyle()).thenReturn(pdLineDashPattern);
-    when(pdBorderStyleDictionary.getWidth()).thenReturn(10.0f);
-    when(pdBorderStyleDictionary.getStyle()).thenReturn("D");
-
-    COSArray cosArray = mock(COSArray.class);
-    when(cosArray.isDirect()).thenReturn(true);
-    when(cosArray.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
-
-    PDRectangle pdRectangle = mock(PDRectangle.class);
-    when(pdRectangle.getLowerLeftX()).thenReturn(10.0f);
-    when(pdRectangle.getLowerLeftY()).thenReturn(10.0f);
-    when(pdRectangle.getUpperRightX()).thenReturn(10.0f);
-    when(pdRectangle.getUpperRightY()).thenReturn(10.0f);
-    when(pdRectangle.getCOSArray()).thenReturn(cosArray);
-    doNothing().when(pdRectangle).setLowerLeftX(anyFloat());
-    doNothing().when(pdRectangle).setLowerLeftY(anyFloat());
-    doNothing().when(pdRectangle).setUpperRightX(anyFloat());
-    doNothing().when(pdRectangle).setUpperRightY(anyFloat());
-
-    PDAnnotationInk annotation = mock(PDAnnotationInk.class);
-    when(annotation.getConstantOpacity()).thenReturn(10.0f);
-    when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
-    doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
-    when(annotation.getRectangle()).thenReturn(pdRectangle);
-    when(annotation.getInkList())
-        .thenReturn(new float[][] {new float[] {10.0f, 0.5f, 10.0f, 0.5f}});
-    when(annotation.getBorderStyle()).thenReturn(pdBorderStyleDictionary);
-    when(annotation.getColor()).thenReturn(pdColor);
-    PDInkAppearanceHandler pdInkAppearanceHandler = new PDInkAppearanceHandler(annotation);
-
-    // Act
-    pdInkAppearanceHandler.generateNormalAppearance();
-
-    // Assert
-    verify(cosArray).getUpdateState();
-    verify(cosArray).isDirect();
-    verify(pdRectangle).getCOSArray();
-    verify(pdRectangle, atLeast(1)).getLowerLeftX();
-    verify(pdRectangle, atLeast(1)).getLowerLeftY();
-    verify(pdRectangle).getUpperRightX();
-    verify(pdRectangle).getUpperRightY();
-    verify(pdRectangle).setLowerLeftX(-10.0f);
-    verify(pdRectangle).setLowerLeftY(-19.5f);
-    verify(pdRectangle).setUpperRightX(30.0f);
-    verify(pdRectangle).setUpperRightY(20.5f);
-    verify(pdLineDashPattern).getDashArray();
-    verify(pdColor, atLeast(1)).getColorSpace();
-    verify(pdColor, atLeast(1)).getComponents();
-    verify(annotation).getAppearance();
-    verify(annotation).getColor();
-    verify(annotation, atLeast(1)).getRectangle();
-    verify(annotation).setRectangle(isA(PDRectangle.class));
-    verify(annotation, atLeast(1)).getInkList();
-    verify(annotation).getBorderStyle();
-    verify(annotation).getConstantOpacity();
-    verify(pdBorderStyleDictionary).getDashStyle();
-    verify(pdBorderStyleDictionary, atLeast(1)).getStyle();
-    verify(pdBorderStyleDictionary).getWidth();
-    PDAppearanceStream appearanceStream =
-        pdInkAppearanceHandler.getDownAppearance().getAppearanceStream();
-    float[][] values = appearanceStream.getMatrix().getValues();
-    assertEquals(3, values.length);
-    PDAppearanceDictionary appearance = pdInkAppearanceHandler.getAppearance();
-    PDAppearanceStream appearanceStream2 = appearance.getDownAppearance().getAppearanceStream();
-    assertEquals(74, appearanceStream2.getStream().getLength());
-    PDAppearanceStream appearanceStream3 = appearance.getNormalAppearance().getAppearanceStream();
-    assertEquals(74, appearanceStream3.getStream().getLength());
-    PDAppearanceStream appearanceStream4 = appearance.getRolloverAppearance().getAppearanceStream();
-    assertEquals(74, appearanceStream4.getStream().getLength());
-    assertEquals(74, appearanceStream.getStream().getLength());
-    PDAppearanceStream appearanceStream5 =
-        pdInkAppearanceHandler.getRolloverAppearance().getAppearanceStream();
-    assertEquals(74, appearanceStream5.getStream().getLength());
-    assertEquals(74, appearanceStream2.getContentStream().getLength());
-    assertEquals(74, appearanceStream3.getContentStream().getLength());
-    assertEquals(74, appearanceStream4.getContentStream().getLength());
-    assertEquals(74, appearanceStream.getContentStream().getLength());
-    assertEquals(74, appearanceStream5.getContentStream().getLength());
-    assertArrayEquals(new float[] {-10.0f, -10.0f, 1.0f}, values[2], 0.0f);
-  }
-
-  /**
-   * Test {@link PDInkAppearanceHandler#generateNormalAppearance()}.
-   *
    * <ul>
-   *   <li>Given {@link PDColor} {@link PDColor#getColorSpace()} return {@link
-   *       PDDeviceN#PDDeviceN()}.
+   *   <li>Given {@link PDBorderStyleDictionary} {@link PDBorderStyleDictionary#getStyle()} return {@code U}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDInkAppearanceHandler#generateNormalAppearance()}
+   * <p>
+   * Method under test: {@link PDInkAppearanceHandler#generateNormalAppearance()}
    */
   @Test
-  @DisplayName("Test generateNormalAppearance(); given PDColor getColorSpace() return PDDeviceN()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test generateNormalAppearance(); given PDBorderStyleDictionary getStyle() return 'U'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDInkAppearanceHandler.generateNormalAppearance()"})
-  void testGenerateNormalAppearance_givenPDColorGetColorSpaceReturnPDDeviceN() {
+  void testGenerateNormalAppearance_givenPDBorderStyleDictionaryGetStyleReturnU() {
     // Arrange
-    PDColor pdColor = mock(PDColor.class);
-    when(pdColor.getColorSpace()).thenReturn(new PDDeviceN());
-    when(pdColor.getComponents()).thenReturn(new float[] {10.0f, 0.5f, 10.0f, 0.5f});
-
     PDBorderStyleDictionary pdBorderStyleDictionary = mock(PDBorderStyleDictionary.class);
     when(pdBorderStyleDictionary.getWidth()).thenReturn(10.0f);
-    when(pdBorderStyleDictionary.getStyle()).thenReturn("Style");
-
+    when(pdBorderStyleDictionary.getStyle()).thenReturn("U");
     COSArray cosArray = mock(COSArray.class);
     when(cosArray.isDirect()).thenReturn(true);
     when(cosArray.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
-
     PDRectangle pdRectangle = mock(PDRectangle.class);
     when(pdRectangle.getLowerLeftX()).thenReturn(10.0f);
     when(pdRectangle.getLowerLeftY()).thenReturn(10.0f);
@@ -1343,16 +1009,14 @@ class PDInkAppearanceHandlerDiffblueTest {
     doNothing().when(pdRectangle).setLowerLeftY(anyFloat());
     doNothing().when(pdRectangle).setUpperRightX(anyFloat());
     doNothing().when(pdRectangle).setUpperRightY(anyFloat());
-
     PDAnnotationInk annotation = mock(PDAnnotationInk.class);
     when(annotation.getConstantOpacity()).thenReturn(10.0f);
     when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
     doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
     when(annotation.getRectangle()).thenReturn(pdRectangle);
-    when(annotation.getInkList())
-        .thenReturn(new float[][] {new float[] {10.0f, 0.5f, 10.0f, 0.5f}});
+    when(annotation.getInkList()).thenReturn(new float[][]{new float[]{10.0f, 0.5f, 10.0f, 0.5f}});
     when(annotation.getBorderStyle()).thenReturn(pdBorderStyleDictionary);
-    when(annotation.getColor()).thenReturn(pdColor);
+    when(annotation.getColor()).thenReturn(new PDColor(new COSArray(), PDDeviceGray.INSTANCE));
     PDInkAppearanceHandler pdInkAppearanceHandler = new PDInkAppearanceHandler(annotation);
 
     // Act
@@ -1366,12 +1030,10 @@ class PDInkAppearanceHandlerDiffblueTest {
     verify(pdRectangle, atLeast(1)).getLowerLeftY();
     verify(pdRectangle).getUpperRightX();
     verify(pdRectangle).getUpperRightY();
-    verify(pdRectangle).setLowerLeftX(-10.0f);
-    verify(pdRectangle).setLowerLeftY(-19.5f);
-    verify(pdRectangle).setUpperRightX(30.0f);
-    verify(pdRectangle).setUpperRightY(20.5f);
-    verify(pdColor, atLeast(1)).getColorSpace();
-    verify(pdColor, atLeast(1)).getComponents();
+    verify(pdRectangle).setLowerLeftX(eq(-10.0f));
+    verify(pdRectangle).setLowerLeftY(eq(-19.5f));
+    verify(pdRectangle).setUpperRightX(eq(30.0f));
+    verify(pdRectangle).setUpperRightY(eq(20.5f));
     verify(annotation).getAppearance();
     verify(annotation).getColor();
     verify(annotation, atLeast(1)).getRectangle();
@@ -1381,137 +1043,24 @@ class PDInkAppearanceHandlerDiffblueTest {
     verify(annotation).getConstantOpacity();
     verify(pdBorderStyleDictionary, atLeast(1)).getStyle();
     verify(pdBorderStyleDictionary).getWidth();
-    PDAppearanceStream appearanceStream =
-        pdInkAppearanceHandler.getDownAppearance().getAppearanceStream();
+    PDAppearanceStream appearanceStream = pdInkAppearanceHandler.getDownAppearance().getAppearanceStream();
     float[][] values = appearanceStream.getMatrix().getValues();
     assertEquals(3, values.length);
     PDAppearanceDictionary appearance = pdInkAppearanceHandler.getAppearance();
     PDAppearanceStream appearanceStream2 = appearance.getDownAppearance().getAppearanceStream();
-    assertEquals(51, appearanceStream2.getStream().getLength());
+    assertEquals(45, appearanceStream2.getStream().getLength());
     PDAppearanceStream appearanceStream3 = appearance.getNormalAppearance().getAppearanceStream();
-    assertEquals(51, appearanceStream3.getStream().getLength());
+    assertEquals(45, appearanceStream3.getStream().getLength());
     PDAppearanceStream appearanceStream4 = appearance.getRolloverAppearance().getAppearanceStream();
-    assertEquals(51, appearanceStream4.getStream().getLength());
-    assertEquals(51, appearanceStream.getStream().getLength());
-    PDAppearanceStream appearanceStream5 =
-        pdInkAppearanceHandler.getRolloverAppearance().getAppearanceStream();
-    assertEquals(51, appearanceStream5.getStream().getLength());
-    assertEquals(51, appearanceStream2.getContentStream().getLength());
-    assertEquals(51, appearanceStream3.getContentStream().getLength());
-    assertEquals(51, appearanceStream4.getContentStream().getLength());
-    assertEquals(51, appearanceStream.getContentStream().getLength());
-    assertEquals(51, appearanceStream5.getContentStream().getLength());
-    assertArrayEquals(new float[] {-10.0f, -10.0f, 1.0f}, values[2], 0.0f);
-  }
-
-  /**
-   * Test {@link PDInkAppearanceHandler#generateNormalAppearance()}.
-   *
-   * <ul>
-   *   <li>Then calls {@link PDLineDashPattern#getDashArray()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDInkAppearanceHandler#generateNormalAppearance()}
-   */
-  @Test
-  @DisplayName("Test generateNormalAppearance(); then calls getDashArray()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDInkAppearanceHandler.generateNormalAppearance()"})
-  void testGenerateNormalAppearance_thenCallsGetDashArray() throws IOException {
-    // Arrange
-    COSName cosName = mock(COSName.class);
-    doThrow(new IOException()).when(cosName).writePDF(Mockito.<OutputStream>any());
-
-    PDColor pdColor = mock(PDColor.class);
-    when(pdColor.getPatternName()).thenReturn(cosName);
-    when(pdColor.getColorSpace()).thenReturn(new PDPattern(new PDResources()));
-    when(pdColor.getComponents()).thenReturn(new float[] {10.0f, 0.5f, 10.0f, 0.5f});
-
-    PDLineDashPattern pdLineDashPattern = mock(PDLineDashPattern.class);
-    when(pdLineDashPattern.getDashArray()).thenReturn(new float[] {10.0f, 0.0f, 10.0f, 0.0f});
-
-    PDBorderStyleDictionary pdBorderStyleDictionary = mock(PDBorderStyleDictionary.class);
-    when(pdBorderStyleDictionary.getDashStyle()).thenReturn(pdLineDashPattern);
-    when(pdBorderStyleDictionary.getWidth()).thenReturn(10.0f);
-    when(pdBorderStyleDictionary.getStyle()).thenReturn("D");
-
-    COSArray cosArray = mock(COSArray.class);
-    when(cosArray.isDirect()).thenReturn(true);
-    when(cosArray.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
-
-    PDRectangle pdRectangle = mock(PDRectangle.class);
-    when(pdRectangle.getLowerLeftX()).thenReturn(10.0f);
-    when(pdRectangle.getLowerLeftY()).thenReturn(10.0f);
-    when(pdRectangle.getUpperRightX()).thenReturn(10.0f);
-    when(pdRectangle.getUpperRightY()).thenReturn(10.0f);
-    when(pdRectangle.getCOSArray()).thenReturn(cosArray);
-    doNothing().when(pdRectangle).setLowerLeftX(anyFloat());
-    doNothing().when(pdRectangle).setLowerLeftY(anyFloat());
-    doNothing().when(pdRectangle).setUpperRightX(anyFloat());
-    doNothing().when(pdRectangle).setUpperRightY(anyFloat());
-
-    PDAnnotationInk annotation = mock(PDAnnotationInk.class);
-    when(annotation.getConstantOpacity()).thenReturn(10.0f);
-    when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
-    doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
-    when(annotation.getRectangle()).thenReturn(pdRectangle);
-    when(annotation.getInkList())
-        .thenReturn(new float[][] {new float[] {10.0f, 0.5f, 10.0f, 0.5f}});
-    when(annotation.getBorderStyle()).thenReturn(pdBorderStyleDictionary);
-    when(annotation.getColor()).thenReturn(pdColor);
-    PDInkAppearanceHandler pdInkAppearanceHandler = new PDInkAppearanceHandler(annotation);
-
-    // Act
-    pdInkAppearanceHandler.generateNormalAppearance();
-
-    // Assert
-    verify(cosArray).getUpdateState();
-    verify(cosArray).isDirect();
-    verify(cosName).writePDF(isA(OutputStream.class));
-    verify(pdRectangle).getCOSArray();
-    verify(pdRectangle, atLeast(1)).getLowerLeftX();
-    verify(pdRectangle, atLeast(1)).getLowerLeftY();
-    verify(pdRectangle).getUpperRightX();
-    verify(pdRectangle).getUpperRightY();
-    verify(pdRectangle).setLowerLeftX(-10.0f);
-    verify(pdRectangle).setLowerLeftY(-19.5f);
-    verify(pdRectangle).setUpperRightX(30.0f);
-    verify(pdRectangle).setUpperRightY(20.5f);
-    verify(pdLineDashPattern).getDashArray();
-    verify(pdColor, atLeast(1)).getColorSpace();
-    verify(pdColor, atLeast(1)).getComponents();
-    verify(pdColor).getPatternName();
-    verify(annotation).getAppearance();
-    verify(annotation).getColor();
-    verify(annotation, atLeast(1)).getRectangle();
-    verify(annotation).setRectangle(isA(PDRectangle.class));
-    verify(annotation).getInkList();
-    verify(annotation).getBorderStyle();
-    verify(annotation).getConstantOpacity();
-    verify(pdBorderStyleDictionary).getDashStyle();
-    verify(pdBorderStyleDictionary, atLeast(1)).getStyle();
-    verify(pdBorderStyleDictionary).getWidth();
-    PDAppearanceDictionary appearance = pdInkAppearanceHandler.getAppearance();
-    PDAppearanceStream appearanceStream = appearance.getDownAppearance().getAppearanceStream();
-    assertEquals(22, appearanceStream.getStream().getLength());
-    PDAppearanceStream appearanceStream2 = appearance.getNormalAppearance().getAppearanceStream();
-    assertEquals(22, appearanceStream2.getStream().getLength());
-    PDAppearanceStream appearanceStream3 = appearance.getRolloverAppearance().getAppearanceStream();
-    assertEquals(22, appearanceStream3.getStream().getLength());
-    PDAppearanceStream appearanceStream4 =
-        pdInkAppearanceHandler.getDownAppearance().getAppearanceStream();
-    assertEquals(22, appearanceStream4.getStream().getLength());
-    PDAppearanceStream appearanceStream5 =
-        pdInkAppearanceHandler.getRolloverAppearance().getAppearanceStream();
-    assertEquals(22, appearanceStream5.getStream().getLength());
-    assertEquals(22, appearanceStream.getContentStream().getLength());
-    assertEquals(22, appearanceStream2.getContentStream().getLength());
-    assertEquals(22, appearanceStream3.getContentStream().getLength());
-    assertEquals(22, appearanceStream4.getContentStream().getLength());
-    assertEquals(22, appearanceStream5.getContentStream().getLength());
-    float[][] values = appearanceStream4.getMatrix().getValues();
-    assertEquals(3, values.length);
-    assertArrayEquals(new float[] {-10.0f, -10.0f, 1.0f}, values[2], 0.0f);
+    assertEquals(45, appearanceStream4.getStream().getLength());
+    assertEquals(45, appearanceStream.getStream().getLength());
+    PDAppearanceStream appearanceStream5 = pdInkAppearanceHandler.getRolloverAppearance().getAppearanceStream();
+    assertEquals(45, appearanceStream5.getStream().getLength());
+    assertEquals(45, appearanceStream2.getContentStream().getLength());
+    assertEquals(45, appearanceStream3.getContentStream().getLength());
+    assertEquals(45, appearanceStream4.getContentStream().getLength());
+    assertEquals(45, appearanceStream.getContentStream().getLength());
+    assertEquals(45, appearanceStream5.getContentStream().getLength());
+    assertArrayEquals(new float[]{-10.0f, -10.0f, 1.0f}, values[2], 0.0f);
   }
 }

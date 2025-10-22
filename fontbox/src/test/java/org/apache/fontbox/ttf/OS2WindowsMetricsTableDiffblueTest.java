@@ -5,12 +5,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -22,13 +23,12 @@ import org.junit.jupiter.api.Test;
 class OS2WindowsMetricsTableDiffblueTest {
   /**
    * Test {@link OS2WindowsMetricsTable#OS2WindowsMetricsTable()}.
-   *
-   * <p>Method under test: default or parameterless constructor of {@link OS2WindowsMetricsTable}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link OS2WindowsMetricsTable}
    */
   @Test
   @DisplayName("Test new OS2WindowsMetricsTable()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void OS2WindowsMetricsTable.<init>()"})
   void testNewOS2WindowsMetricsTable() {
     // Arrange and Act
@@ -76,15 +76,13 @@ class OS2WindowsMetricsTableDiffblueTest {
     assertEquals((short) 0, actualOs2WindowsMetricsTable.getSuperscriptYOffset());
     assertEquals((short) 0, actualOs2WindowsMetricsTable.getSuperscriptYSize());
     assertFalse(actualOs2WindowsMetricsTable.getInitialized());
-    assertArrayEquals(
-        new byte[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, actualOs2WindowsMetricsTable.getPanose());
+    assertArrayEquals(new byte[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, actualOs2WindowsMetricsTable.getPanose());
   }
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link OS2WindowsMetricsTable#setAchVendId(String)}
    *   <li>{@link OS2WindowsMetricsTable#setAverageCharWidth(short)}
@@ -159,79 +157,44 @@ class OS2WindowsMetricsTableDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "String OS2WindowsMetricsTable.getAchVendId()",
-    "short OS2WindowsMetricsTable.getAverageCharWidth()",
-    "int OS2WindowsMetricsTable.getBreakChar()",
-    "int OS2WindowsMetricsTable.getCapHeight()",
-    "long OS2WindowsMetricsTable.getCodePageRange1()",
-    "long OS2WindowsMetricsTable.getCodePageRange2()",
-    "int OS2WindowsMetricsTable.getDefaultChar()",
-    "int OS2WindowsMetricsTable.getFamilyClass()",
-    "int OS2WindowsMetricsTable.getFirstCharIndex()",
-    "int OS2WindowsMetricsTable.getFsSelection()",
-    "short OS2WindowsMetricsTable.getFsType()",
-    "int OS2WindowsMetricsTable.getHeight()",
-    "int OS2WindowsMetricsTable.getLastCharIndex()",
-    "int OS2WindowsMetricsTable.getMaxContext()",
-    "byte[] OS2WindowsMetricsTable.getPanose()",
-    "short OS2WindowsMetricsTable.getStrikeoutPosition()",
-    "short OS2WindowsMetricsTable.getStrikeoutSize()",
-    "short OS2WindowsMetricsTable.getSubscriptXOffset()",
-    "short OS2WindowsMetricsTable.getSubscriptXSize()",
-    "short OS2WindowsMetricsTable.getSubscriptYOffset()",
-    "short OS2WindowsMetricsTable.getSubscriptYSize()",
-    "short OS2WindowsMetricsTable.getSuperscriptXOffset()",
-    "short OS2WindowsMetricsTable.getSuperscriptXSize()",
-    "short OS2WindowsMetricsTable.getSuperscriptYOffset()",
-    "short OS2WindowsMetricsTable.getSuperscriptYSize()",
-    "int OS2WindowsMetricsTable.getTypoAscender()",
-    "int OS2WindowsMetricsTable.getTypoDescender()",
-    "int OS2WindowsMetricsTable.getTypoLineGap()",
-    "long OS2WindowsMetricsTable.getUnicodeRange1()",
-    "long OS2WindowsMetricsTable.getUnicodeRange2()",
-    "long OS2WindowsMetricsTable.getUnicodeRange3()",
-    "long OS2WindowsMetricsTable.getUnicodeRange4()",
-    "int OS2WindowsMetricsTable.getVersion()",
-    "int OS2WindowsMetricsTable.getWeightClass()",
-    "int OS2WindowsMetricsTable.getWidthClass()",
-    "int OS2WindowsMetricsTable.getWinAscent()",
-    "int OS2WindowsMetricsTable.getWinDescent()",
-    "void OS2WindowsMetricsTable.setAchVendId(String)",
-    "void OS2WindowsMetricsTable.setAverageCharWidth(short)",
-    "void OS2WindowsMetricsTable.setCodePageRange1(long)",
-    "void OS2WindowsMetricsTable.setCodePageRange2(long)",
-    "void OS2WindowsMetricsTable.setFamilyClass(int)",
-    "void OS2WindowsMetricsTable.setFirstCharIndex(int)",
-    "void OS2WindowsMetricsTable.setFsSelection(int)",
-    "void OS2WindowsMetricsTable.setFsType(short)",
-    "void OS2WindowsMetricsTable.setLastCharIndex(int)",
-    "void OS2WindowsMetricsTable.setPanose(byte[])",
-    "void OS2WindowsMetricsTable.setStrikeoutPosition(short)",
-    "void OS2WindowsMetricsTable.setStrikeoutSize(short)",
-    "void OS2WindowsMetricsTable.setSubscriptXOffset(short)",
-    "void OS2WindowsMetricsTable.setSubscriptXSize(short)",
-    "void OS2WindowsMetricsTable.setSubscriptYOffset(short)",
-    "void OS2WindowsMetricsTable.setSubscriptYSize(short)",
-    "void OS2WindowsMetricsTable.setSuperscriptXOffset(short)",
-    "void OS2WindowsMetricsTable.setSuperscriptXSize(short)",
-    "void OS2WindowsMetricsTable.setSuperscriptYOffset(short)",
-    "void OS2WindowsMetricsTable.setSuperscriptYSize(short)",
-    "void OS2WindowsMetricsTable.setTypoAscender(int)",
-    "void OS2WindowsMetricsTable.setTypoDescender(int)",
-    "void OS2WindowsMetricsTable.setTypoLineGap(int)",
-    "void OS2WindowsMetricsTable.setUnicodeRange1(long)",
-    "void OS2WindowsMetricsTable.setUnicodeRange2(long)",
-    "void OS2WindowsMetricsTable.setUnicodeRange3(long)",
-    "void OS2WindowsMetricsTable.setUnicodeRange4(long)",
-    "void OS2WindowsMetricsTable.setVersion(int)",
-    "void OS2WindowsMetricsTable.setWeightClass(int)",
-    "void OS2WindowsMetricsTable.setWidthClass(int)",
-    "void OS2WindowsMetricsTable.setWinAscent(int)",
-    "void OS2WindowsMetricsTable.setWinDescent(int)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String OS2WindowsMetricsTable.getAchVendId()",
+      "short OS2WindowsMetricsTable.getAverageCharWidth()", "int OS2WindowsMetricsTable.getBreakChar()",
+      "int OS2WindowsMetricsTable.getCapHeight()", "long OS2WindowsMetricsTable.getCodePageRange1()",
+      "long OS2WindowsMetricsTable.getCodePageRange2()", "int OS2WindowsMetricsTable.getDefaultChar()",
+      "int OS2WindowsMetricsTable.getFamilyClass()", "int OS2WindowsMetricsTable.getFirstCharIndex()",
+      "int OS2WindowsMetricsTable.getFsSelection()", "short OS2WindowsMetricsTable.getFsType()",
+      "int OS2WindowsMetricsTable.getHeight()", "int OS2WindowsMetricsTable.getLastCharIndex()",
+      "int OS2WindowsMetricsTable.getMaxContext()", "byte[] OS2WindowsMetricsTable.getPanose()",
+      "short OS2WindowsMetricsTable.getStrikeoutPosition()", "short OS2WindowsMetricsTable.getStrikeoutSize()",
+      "short OS2WindowsMetricsTable.getSubscriptXOffset()", "short OS2WindowsMetricsTable.getSubscriptXSize()",
+      "short OS2WindowsMetricsTable.getSubscriptYOffset()", "short OS2WindowsMetricsTable.getSubscriptYSize()",
+      "short OS2WindowsMetricsTable.getSuperscriptXOffset()", "short OS2WindowsMetricsTable.getSuperscriptXSize()",
+      "short OS2WindowsMetricsTable.getSuperscriptYOffset()", "short OS2WindowsMetricsTable.getSuperscriptYSize()",
+      "int OS2WindowsMetricsTable.getTypoAscender()", "int OS2WindowsMetricsTable.getTypoDescender()",
+      "int OS2WindowsMetricsTable.getTypoLineGap()", "long OS2WindowsMetricsTable.getUnicodeRange1()",
+      "long OS2WindowsMetricsTable.getUnicodeRange2()", "long OS2WindowsMetricsTable.getUnicodeRange3()",
+      "long OS2WindowsMetricsTable.getUnicodeRange4()", "int OS2WindowsMetricsTable.getVersion()",
+      "int OS2WindowsMetricsTable.getWeightClass()", "int OS2WindowsMetricsTable.getWidthClass()",
+      "int OS2WindowsMetricsTable.getWinAscent()", "int OS2WindowsMetricsTable.getWinDescent()",
+      "void OS2WindowsMetricsTable.setAchVendId(String)", "void OS2WindowsMetricsTable.setAverageCharWidth(short)",
+      "void OS2WindowsMetricsTable.setCodePageRange1(long)", "void OS2WindowsMetricsTable.setCodePageRange2(long)",
+      "void OS2WindowsMetricsTable.setFamilyClass(int)", "void OS2WindowsMetricsTable.setFirstCharIndex(int)",
+      "void OS2WindowsMetricsTable.setFsSelection(int)", "void OS2WindowsMetricsTable.setFsType(short)",
+      "void OS2WindowsMetricsTable.setLastCharIndex(int)", "void OS2WindowsMetricsTable.setPanose(byte[])",
+      "void OS2WindowsMetricsTable.setStrikeoutPosition(short)", "void OS2WindowsMetricsTable.setStrikeoutSize(short)",
+      "void OS2WindowsMetricsTable.setSubscriptXOffset(short)", "void OS2WindowsMetricsTable.setSubscriptXSize(short)",
+      "void OS2WindowsMetricsTable.setSubscriptYOffset(short)", "void OS2WindowsMetricsTable.setSubscriptYSize(short)",
+      "void OS2WindowsMetricsTable.setSuperscriptXOffset(short)",
+      "void OS2WindowsMetricsTable.setSuperscriptXSize(short)",
+      "void OS2WindowsMetricsTable.setSuperscriptYOffset(short)",
+      "void OS2WindowsMetricsTable.setSuperscriptYSize(short)", "void OS2WindowsMetricsTable.setTypoAscender(int)",
+      "void OS2WindowsMetricsTable.setTypoDescender(int)", "void OS2WindowsMetricsTable.setTypoLineGap(int)",
+      "void OS2WindowsMetricsTable.setUnicodeRange1(long)", "void OS2WindowsMetricsTable.setUnicodeRange2(long)",
+      "void OS2WindowsMetricsTable.setUnicodeRange3(long)", "void OS2WindowsMetricsTable.setUnicodeRange4(long)",
+      "void OS2WindowsMetricsTable.setVersion(int)", "void OS2WindowsMetricsTable.setWeightClass(int)",
+      "void OS2WindowsMetricsTable.setWidthClass(int)", "void OS2WindowsMetricsTable.setWinAscent(int)",
+      "void OS2WindowsMetricsTable.setWinDescent(int)"})
   void testGettersAndSetters() throws UnsupportedEncodingException {
     // Arrange
     OS2WindowsMetricsTable os2WindowsMetricsTable = new OS2WindowsMetricsTable();
@@ -350,142 +313,22 @@ class OS2WindowsMetricsTableDiffblueTest {
 
   /**
    * Test {@link OS2WindowsMetricsTable#read(TrueTypeFont, TTFDataStream)}.
-   *
    * <ul>
-   *   <li>Given {@link OS2WindowsMetricsTable#FAMILY_CLASS_SCRIPTS}.
-   *   <li>Then {@link OS2WindowsMetricsTable#OS2WindowsMetricsTable()} CapHeight is one.
+   *   <li>Given {@code AXAXAXAX} Bytes is {@code UTF-8}.</li>
+   *   <li>Then {@link OS2WindowsMetricsTable#OS2WindowsMetricsTable()} AchVendId is {@code String}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link OS2WindowsMetricsTable#read(TrueTypeFont, TTFDataStream)}
+   * <p>
+   * Method under test: {@link OS2WindowsMetricsTable#read(TrueTypeFont, TTFDataStream)}
    */
   @Test
-  @DisplayName(
-      "Test read(TrueTypeFont, TTFDataStream); given FAMILY_CLASS_SCRIPTS; then OS2WindowsMetricsTable() CapHeight is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test read(TrueTypeFont, TTFDataStream); given 'AXAXAXAX' Bytes is 'UTF-8'; then OS2WindowsMetricsTable() AchVendId is 'String'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void OS2WindowsMetricsTable.read(TrueTypeFont, TTFDataStream)"})
-  void testRead_givenFamily_class_scripts_thenOS2WindowsMetricsTableCapHeightIsOne()
-      throws IOException {
+  void testRead_givenAxaxaxaxBytesIsUtf8_thenOS2WindowsMetricsTableAchVendIdIsString() throws IOException {
     // Arrange
     OS2WindowsMetricsTable os2WindowsMetricsTable = new OS2WindowsMetricsTable();
-    RandomAccessReadDataStream fontData =
-        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
-    TrueTypeFont ttf = new TrueTypeFont(fontData);
-
-    RandomAccessReadDataStream data = mock(RandomAccessReadDataStream.class);
-    when(data.read(anyInt())).thenReturn("AXAXAXAX".getBytes("UTF-8"));
-    when(data.readUnsignedShort()).thenReturn(OS2WindowsMetricsTable.FAMILY_CLASS_SCRIPTS);
-    when(data.readString(anyInt())).thenReturn("String");
-    when(data.readUnsignedInt()).thenReturn(1L);
-    when(data.readSignedShort()).thenReturn((short) 1);
-
-    // Act
-    os2WindowsMetricsTable.read(ttf, data);
-
-    // Assert
-    verify(data).read(10);
-    verify(data, atLeast(1)).readSignedShort();
-    verify(data).readString(4);
-    verify(data, atLeast(1)).readUnsignedInt();
-    verify(data, atLeast(1)).readUnsignedShort();
-    assertEquals(1, os2WindowsMetricsTable.getCapHeight());
-    assertEquals(1, os2WindowsMetricsTable.getHeight());
-    assertEquals(
-        OS2WindowsMetricsTable.FAMILY_CLASS_SCRIPTS, os2WindowsMetricsTable.getBreakChar());
-    assertEquals(
-        OS2WindowsMetricsTable.FAMILY_CLASS_SCRIPTS, os2WindowsMetricsTable.getDefaultChar());
-    assertEquals(
-        OS2WindowsMetricsTable.FAMILY_CLASS_SCRIPTS, os2WindowsMetricsTable.getFirstCharIndex());
-    assertEquals(
-        OS2WindowsMetricsTable.FAMILY_CLASS_SCRIPTS, os2WindowsMetricsTable.getFsSelection());
-    assertEquals(
-        OS2WindowsMetricsTable.FAMILY_CLASS_SCRIPTS, os2WindowsMetricsTable.getLastCharIndex());
-    assertEquals(
-        OS2WindowsMetricsTable.FAMILY_CLASS_SCRIPTS, os2WindowsMetricsTable.getMaxContext());
-    assertEquals(OS2WindowsMetricsTable.FAMILY_CLASS_SCRIPTS, os2WindowsMetricsTable.getVersion());
-    assertEquals(
-        OS2WindowsMetricsTable.FAMILY_CLASS_SCRIPTS, os2WindowsMetricsTable.getWeightClass());
-    assertEquals(
-        OS2WindowsMetricsTable.FAMILY_CLASS_SCRIPTS, os2WindowsMetricsTable.getWidthClass());
-    assertEquals(
-        OS2WindowsMetricsTable.FAMILY_CLASS_SCRIPTS, os2WindowsMetricsTable.getWinAscent());
-    assertEquals(
-        OS2WindowsMetricsTable.FAMILY_CLASS_SCRIPTS, os2WindowsMetricsTable.getWinDescent());
-    assertArrayEquals("AXAXAXAX".getBytes("UTF-8"), os2WindowsMetricsTable.getPanose());
-  }
-
-  /**
-   * Test {@link OS2WindowsMetricsTable#read(TrueTypeFont, TTFDataStream)}.
-   *
-   * <ul>
-   *   <li>Given zero.
-   *   <li>Then {@link OS2WindowsMetricsTable#OS2WindowsMetricsTable()} FirstCharIndex is zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link OS2WindowsMetricsTable#read(TrueTypeFont, TTFDataStream)}
-   */
-  @Test
-  @DisplayName(
-      "Test read(TrueTypeFont, TTFDataStream); given zero; then OS2WindowsMetricsTable() FirstCharIndex is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void OS2WindowsMetricsTable.read(TrueTypeFont, TTFDataStream)"})
-  void testRead_givenZero_thenOS2WindowsMetricsTableFirstCharIndexIsZero() throws IOException {
-    // Arrange
-    OS2WindowsMetricsTable os2WindowsMetricsTable = new OS2WindowsMetricsTable();
-    RandomAccessReadDataStream fontData =
-        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
-    TrueTypeFont ttf = new TrueTypeFont(fontData);
-
-    RandomAccessReadDataStream data = mock(RandomAccessReadDataStream.class);
-    when(data.read(anyInt())).thenReturn("AXAXAXAX".getBytes("UTF-8"));
-    when(data.readUnsignedShort()).thenReturn(0);
-    when(data.readString(anyInt())).thenReturn("String");
-    when(data.readUnsignedInt()).thenReturn(1L);
-    when(data.readSignedShort()).thenReturn((short) 1);
-
-    // Act
-    os2WindowsMetricsTable.read(ttf, data);
-
-    // Assert
-    verify(data).read(10);
-    verify(data, atLeast(1)).readSignedShort();
-    verify(data).readString(4);
-    verify(data, atLeast(1)).readUnsignedInt();
-    verify(data, atLeast(1)).readUnsignedShort();
-    assertEquals(0, os2WindowsMetricsTable.getFirstCharIndex());
-    assertEquals(0, os2WindowsMetricsTable.getFsSelection());
-    assertEquals(0, os2WindowsMetricsTable.getLastCharIndex());
-    assertEquals(0, os2WindowsMetricsTable.getVersion());
-    assertEquals(0, os2WindowsMetricsTable.getWeightClass());
-    assertEquals(0, os2WindowsMetricsTable.getWidthClass());
-    assertEquals(0, os2WindowsMetricsTable.getWinAscent());
-    assertEquals(0, os2WindowsMetricsTable.getWinDescent());
-    assertArrayEquals("AXAXAXAX".getBytes("UTF-8"), os2WindowsMetricsTable.getPanose());
-  }
-
-  /**
-   * Test {@link OS2WindowsMetricsTable#read(TrueTypeFont, TTFDataStream)}.
-   *
-   * <ul>
-   *   <li>Then {@link OS2WindowsMetricsTable#OS2WindowsMetricsTable()} FirstCharIndex is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link OS2WindowsMetricsTable#read(TrueTypeFont, TTFDataStream)}
-   */
-  @Test
-  @DisplayName(
-      "Test read(TrueTypeFont, TTFDataStream); then OS2WindowsMetricsTable() FirstCharIndex is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void OS2WindowsMetricsTable.read(TrueTypeFont, TTFDataStream)"})
-  void testRead_thenOS2WindowsMetricsTableFirstCharIndexIsOne() throws IOException {
-    // Arrange
-    OS2WindowsMetricsTable os2WindowsMetricsTable = new OS2WindowsMetricsTable();
-    RandomAccessReadDataStream fontData =
-        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
-    TrueTypeFont ttf = new TrueTypeFont(fontData);
-
+    TrueTypeFont ttf = new TrueTypeFont(
+        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
     RandomAccessReadDataStream data = mock(RandomAccessReadDataStream.class);
     when(data.read(anyInt())).thenReturn("AXAXAXAX".getBytes("UTF-8"));
     when(data.readUnsignedShort()).thenReturn(1);
@@ -497,19 +340,44 @@ class OS2WindowsMetricsTableDiffblueTest {
     os2WindowsMetricsTable.read(ttf, data);
 
     // Assert
-    verify(data).read(10);
+    verify(data).read(eq(10));
     verify(data, atLeast(1)).readSignedShort();
-    verify(data).readString(4);
+    verify(data).readString(eq(4));
     verify(data, atLeast(1)).readUnsignedInt();
     verify(data, atLeast(1)).readUnsignedShort();
+    assertEquals("String", os2WindowsMetricsTable.getAchVendId());
+    assertEquals(1, os2WindowsMetricsTable.getFamilyClass());
     assertEquals(1, os2WindowsMetricsTable.getFirstCharIndex());
     assertEquals(1, os2WindowsMetricsTable.getFsSelection());
     assertEquals(1, os2WindowsMetricsTable.getLastCharIndex());
+    assertEquals(1, os2WindowsMetricsTable.getTypoAscender());
+    assertEquals(1, os2WindowsMetricsTable.getTypoDescender());
+    assertEquals(1, os2WindowsMetricsTable.getTypoLineGap());
     assertEquals(1, os2WindowsMetricsTable.getVersion());
     assertEquals(1, os2WindowsMetricsTable.getWeightClass());
     assertEquals(1, os2WindowsMetricsTable.getWidthClass());
     assertEquals(1, os2WindowsMetricsTable.getWinAscent());
     assertEquals(1, os2WindowsMetricsTable.getWinDescent());
-    assertArrayEquals("AXAXAXAX".getBytes("UTF-8"), os2WindowsMetricsTable.getPanose());
+    assertEquals(1L, os2WindowsMetricsTable.getCodePageRange1());
+    assertEquals(1L, os2WindowsMetricsTable.getCodePageRange2());
+    assertEquals(1L, os2WindowsMetricsTable.getUnicodeRange1());
+    assertEquals(1L, os2WindowsMetricsTable.getUnicodeRange2());
+    assertEquals(1L, os2WindowsMetricsTable.getUnicodeRange3());
+    assertEquals(1L, os2WindowsMetricsTable.getUnicodeRange4());
+    assertEquals((short) 1, os2WindowsMetricsTable.getAverageCharWidth());
+    assertEquals((short) 1, os2WindowsMetricsTable.getFsType());
+    assertEquals((short) 1, os2WindowsMetricsTable.getStrikeoutPosition());
+    assertEquals((short) 1, os2WindowsMetricsTable.getStrikeoutSize());
+    assertEquals((short) 1, os2WindowsMetricsTable.getSubscriptXOffset());
+    assertEquals((short) 1, os2WindowsMetricsTable.getSubscriptXSize());
+    assertEquals((short) 1, os2WindowsMetricsTable.getSubscriptYOffset());
+    assertEquals((short) 1, os2WindowsMetricsTable.getSubscriptYSize());
+    assertEquals((short) 1, os2WindowsMetricsTable.getSuperscriptXOffset());
+    assertEquals((short) 1, os2WindowsMetricsTable.getSuperscriptXSize());
+    assertEquals((short) 1, os2WindowsMetricsTable.getSuperscriptYOffset());
+    assertEquals((short) 1, os2WindowsMetricsTable.getSuperscriptYSize());
+    assertTrue(os2WindowsMetricsTable.getInitialized());
+    byte[] expectedPanose = "AXAXAXAX".getBytes("UTF-8");
+    assertArrayEquals(expectedPanose, os2WindowsMetricsTable.getPanose());
   }
 }

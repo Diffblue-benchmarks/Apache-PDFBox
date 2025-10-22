@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.github.jaiimageio.impl.plugins.tiff.TIFFFieldNode;
 import com.github.jaiimageio.plugins.tiff.TIFFField;
@@ -36,31 +35,29 @@ import org.w3c.dom.Element;
 class FDFDictionaryDiffblueTest {
   /**
    * Test {@link FDFDictionary#FDFDictionary(COSDictionary)}.
-   *
-   * <p>Method under test: {@link FDFDictionary#FDFDictionary(COSDictionary)}
+   * <p>
+   * Method under test: {@link FDFDictionary#FDFDictionary(COSDictionary)}
    */
   @Test
   @DisplayName("Test new FDFDictionary(COSDictionary)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFDictionary.<init>(COSDictionary)"})
   void testNewFDFDictionary() {
     // Arrange
     COSDictionary fdfDictionary = new COSDictionary();
 
     // Act and Assert
-    assertSame(fdfDictionary, new FDFDictionary(fdfDictionary).getCOSObject());
+    assertSame(fdfDictionary, (new FDFDictionary(fdfDictionary)).getCOSObject());
   }
 
   /**
    * Test {@link FDFDictionary#FDFDictionary()}.
-   *
-   * <p>Method under test: {@link FDFDictionary#FDFDictionary()}
+   * <p>
+   * Method under test: {@link FDFDictionary#FDFDictionary()}
    */
   @Test
   @DisplayName("Test new FDFDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFDictionary.<init>()"})
   void testNewFDFDictionary2() throws IOException {
     // Arrange and Act
@@ -82,21 +79,17 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#FDFDictionary(Element)}.
-   *
-   * <p>Method under test: {@link FDFDictionary#FDFDictionary(Element)}
+   * <p>
+   * Method under test: {@link FDFDictionary#FDFDictionary(Element)}
    */
   @Test
   @DisplayName("Test new FDFDictionary(Element)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFDictionary.<init>(Element)"})
   void testNewFDFDictionary3() throws IOException {
-    // Arrange
-    TIFFTag tag = new TIFFTag("Name", TIFFTag.TIFF_SRATIONAL, 1);
-
-    // Act
-    FDFDictionary actualFdfDictionary =
-        new FDFDictionary(new TIFFFieldNode(new TIFFField(tag, 42)));
+    // Arrange and Act
+    FDFDictionary actualFdfDictionary = new FDFDictionary(
+        new TIFFFieldNode(new TIFFField(new TIFFTag("Name", TIFFTag.TIFF_SRATIONAL, 1), 42)));
 
     // Assert
     assertEquals("PDFDocEncoding", actualFdfDictionary.getEncoding());
@@ -114,23 +107,21 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#FDFDictionary(Element)}.
-   *
    * <ul>
-   *   <li>Given {@link IIOMetadataNode#IIOMetadataNode()}.
+   *   <li>Given {@link IIOMetadataNode#IIOMetadataNode(String)} with {@code foo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#FDFDictionary(Element)}
+   * <p>
+   * Method under test: {@link FDFDictionary#FDFDictionary(Element)}
    */
   @Test
-  @DisplayName("Test new FDFDictionary(Element); given IIOMetadataNode()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new FDFDictionary(Element); given IIOMetadataNode(String) with 'foo'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFDictionary.<init>(Element)"})
-  void testNewFDFDictionary_givenIIOMetadataNode() throws IOException {
+  void testNewFDFDictionary_givenIIOMetadataNodeWithFoo() throws IOException {
     // Arrange
-    IIOMetadataNode fdfXML = new IIOMetadataNode();
-    IIOMetadataNode iioMetadataNode = new IIOMetadataNode();
-    fdfXML.insertBefore(iioMetadataNode, new IIOMetadataNode());
+    IIOMetadataNode fdfXML = new IIOMetadataNode("foo");
+    IIOMetadataNode iioMetadataNode = new IIOMetadataNode("foo");
+    fdfXML.insertBefore(iioMetadataNode, new IIOMetadataNode("foo"));
 
     // Act
     FDFDictionary actualFdfDictionary = new FDFDictionary(fdfXML);
@@ -151,24 +142,19 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#FDFDictionary(Element)}.
-   *
    * <ul>
-   *   <li>When {@link IIOMetadataNode#IIOMetadataNode()}.
-   *   <li>Then return Encoding is {@code PDFDocEncoding}.
+   *   <li>When {@link IIOMetadataNode#IIOMetadataNode(String)} with {@code foo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#FDFDictionary(Element)}
+   * <p>
+   * Method under test: {@link FDFDictionary#FDFDictionary(Element)}
    */
   @Test
-  @DisplayName(
-      "Test new FDFDictionary(Element); when IIOMetadataNode(); then return Encoding is 'PDFDocEncoding'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new FDFDictionary(Element); when IIOMetadataNode(String) with 'foo'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFDictionary.<init>(Element)"})
-  void testNewFDFDictionary_whenIIOMetadataNode_thenReturnEncodingIsPDFDocEncoding()
-      throws IOException {
+  void testNewFDFDictionary_whenIIOMetadataNodeWithFoo() throws IOException {
     // Arrange and Act
-    FDFDictionary actualFdfDictionary = new FDFDictionary(new IIOMetadataNode());
+    FDFDictionary actualFdfDictionary = new FDFDictionary(new IIOMetadataNode("foo"));
 
     // Assert
     assertEquals("PDFDocEncoding", actualFdfDictionary.getEncoding());
@@ -186,17 +172,15 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#writeXML(Writer)}.
-   *
    * <ul>
-   *   <li>Given {@link FDFDictionary#FDFDictionary()} Fields is {@link ArrayList#ArrayList()}.
+   *   <li>Given {@link FDFDictionary#FDFDictionary()} Fields is {@link ArrayList#ArrayList()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#writeXML(Writer)}
+   * <p>
+   * Method under test: {@link FDFDictionary#writeXML(Writer)}
    */
   @Test
   @DisplayName("Test writeXML(Writer); given FDFDictionary() Fields is ArrayList()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFDictionary.writeXML(Writer)"})
   void testWriteXML_givenFDFDictionaryFieldsIsArrayList() throws IOException {
     // Arrange
@@ -213,19 +197,16 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#writeXML(Writer)}.
-   *
    * <ul>
-   *   <li>Given {@link FDFDictionary#FDFDictionary()}.
-   *   <li>Then {@link StringWriter#StringWriter()} toString is empty string.
+   *   <li>Given {@link FDFDictionary#FDFDictionary()}.</li>
+   *   <li>Then {@link StringWriter#StringWriter()} toString is empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#writeXML(Writer)}
+   * <p>
+   * Method under test: {@link FDFDictionary#writeXML(Writer)}
    */
   @Test
-  @DisplayName(
-      "Test writeXML(Writer); given FDFDictionary(); then StringWriter() toString is empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test writeXML(Writer); given FDFDictionary(); then StringWriter() toString is empty string")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFDictionary.writeXML(Writer)"})
   void testWriteXML_givenFDFDictionary_thenStringWriterToStringIsEmptyString() throws IOException {
     // Arrange
@@ -241,17 +222,15 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#writeXML(Writer)}.
-   *
    * <ul>
-   *   <li>Then {@link StringWriter#StringWriter()} toString is {@code <f href="" />}.
+   *   <li>Then {@link StringWriter#StringWriter()} toString is {@code <f href="" />}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#writeXML(Writer)}
+   * <p>
+   * Method under test: {@link FDFDictionary#writeXML(Writer)}
    */
   @Test
   @DisplayName("Test writeXML(Writer); then StringWriter() toString is '<f href=\"\" />'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFDictionary.writeXML(Writer)"})
   void testWriteXML_thenStringWriterToStringIsFHref() throws IOException {
     // Arrange
@@ -268,17 +247,15 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#writeXML(Writer)}.
-   *
    * <ul>
-   *   <li>Then {@link StringWriter#StringWriter()} toString is {@code <f href="null" />}.
+   *   <li>Then {@link StringWriter#StringWriter()} toString is {@code <f href="null" />}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#writeXML(Writer)}
+   * <p>
+   * Method under test: {@link FDFDictionary#writeXML(Writer)}
    */
   @Test
   @DisplayName("Test writeXML(Writer); then StringWriter() toString is '<f href=\"null\" />'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFDictionary.writeXML(Writer)"})
   void testWriteXML_thenStringWriterToStringIsFHrefNull() throws IOException {
     // Arrange
@@ -295,17 +272,16 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#getCOSObject()}.
-   *
-   * <p>Method under test: {@link FDFDictionary#getCOSObject()}
+   * <p>
+   * Method under test: {@link FDFDictionary#getCOSObject()}
    */
   @Test
   @DisplayName("Test getCOSObject()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSDictionary FDFDictionary.getCOSObject()"})
   void testGetCOSObject() {
     // Arrange and Act
-    COSDictionary actualCOSObject = new FDFDictionary().getCOSObject();
+    COSDictionary actualCOSObject = (new FDFDictionary()).getCOSObject();
 
     // Assert
     COSUpdateState updateState = actualCOSObject.getUpdateState();
@@ -323,37 +299,33 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#getFile()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFDictionary#FDFDictionary()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link FDFDictionary#FDFDictionary()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getFile()}
+   * <p>
+   * Method under test: {@link FDFDictionary#getFile()}
    */
   @Test
   @DisplayName("Test getFile(); given FDFDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDFileSpecification FDFDictionary.getFile()"})
   void testGetFile_givenFDFDictionary_thenReturnNull() throws IOException {
     // Arrange, Act and Assert
-    assertNull(new FDFDictionary().getFile());
+    assertNull((new FDFDictionary()).getFile());
   }
 
   /**
    * Test {@link FDFDictionary#getFile()}.
-   *
    * <ul>
-   *   <li>Then COSObject return {@link COSString}.
+   *   <li>Then COSObject return {@link COSString}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getFile()}
+   * <p>
+   * Method under test: {@link FDFDictionary#getFile()}
    */
   @Test
   @DisplayName("Test getFile(); then COSObject return COSString")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDFileSpecification FDFDictionary.getFile()"})
   void testGetFile_thenCOSObjectReturnCOSString() throws IOException {
     // Arrange
@@ -374,22 +346,20 @@ class FDFDictionaryDiffblueTest {
     assertNull(cOSObject.getKey());
     assertFalse(cOSObject.isDirect());
     assertFalse(((COSString) cOSObject).getForceHexForm());
-    assertArrayEquals(new byte[] {}, ((COSString) cOSObject).getBytes());
+    assertArrayEquals(new byte[]{}, ((COSString) cOSObject).getBytes());
   }
 
   /**
    * Test {@link FDFDictionary#getFile()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDComplexFileSpecification}.
+   *   <li>Then return {@link PDComplexFileSpecification}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getFile()}
+   * <p>
+   * Method under test: {@link FDFDictionary#getFile()}
    */
   @Test
   @DisplayName("Test getFile(); then return PDComplexFileSpecification")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDFileSpecification FDFDictionary.getFile()"})
   void testGetFile_thenReturnPDComplexFileSpecification() throws IOException {
     // Arrange
@@ -418,64 +388,17 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#setFile(PDFileSpecification)}.
-   *
    * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   *   <li>Given {@link FDFDictionary#FDFDictionary()}.</li>
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link FDFDictionary#FDFDictionary()} COSObject size is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#setFile(PDFileSpecification)}
+   * <p>
+   * Method under test: {@link FDFDictionary#setFile(PDFileSpecification)}
    */
   @Test
-  @DisplayName(
-      "Test setFile(PDFileSpecification); given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFDictionary.setFile(PDFileSpecification)"})
-  void testSetFile_givenCOSObjectKeyWithNumIsOneAndGenIsOne() throws IOException {
-    // Arrange
-    FDFDictionary fdfDictionary = new FDFDictionary();
-
-    COSDictionary dict = new COSDictionary();
-    dict.setKey(new COSObjectKey(1L, 1));
-
-    // Act
-    fdfDictionary.setFile(new PDComplexFileSpecification(dict));
-
-    // Assert
-    PDFileSpecification file = fdfDictionary.getFile();
-    assertTrue(file instanceof PDComplexFileSpecification);
-    assertNull(((PDComplexFileSpecification) file).getFileDescription());
-    assertNull(((PDComplexFileSpecification) file).getFileDos());
-    assertNull(((PDComplexFileSpecification) file).getFileMac());
-    assertNull(((PDComplexFileSpecification) file).getFileUnicode());
-    assertNull(((PDComplexFileSpecification) file).getFileUnix());
-    assertNull(((PDComplexFileSpecification) file).getFilename());
-    assertNull(file.getFile());
-    assertNull(((PDComplexFileSpecification) file).getEmbeddedFile());
-    assertNull(((PDComplexFileSpecification) file).getEmbeddedFileDos());
-    assertNull(((PDComplexFileSpecification) file).getEmbeddedFileMac());
-    assertNull(((PDComplexFileSpecification) file).getEmbeddedFileUnicode());
-    assertNull(((PDComplexFileSpecification) file).getEmbeddedFileUnix());
-    assertFalse(((PDComplexFileSpecification) file).isVolatile());
-    assertSame(dict, file.getCOSObject());
-  }
-
-  /**
-   * Test {@link FDFDictionary#setFile(PDFileSpecification)}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFDictionary#FDFDictionary()}.
-   *   <li>When {@code null}.
-   *   <li>Then {@link FDFDictionary#FDFDictionary()} COSObject size is zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#setFile(PDFileSpecification)}
-   */
-  @Test
-  @DisplayName(
-      "Test setFile(PDFileSpecification); given FDFDictionary(); when 'null'; then FDFDictionary() COSObject size is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setFile(PDFileSpecification); given FDFDictionary(); when 'null'; then FDFDictionary() COSObject size is zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFDictionary.setFile(PDFileSpecification)"})
   void testSetFile_givenFDFDictionary_whenNull_thenFDFDictionaryCOSObjectSizeIsZero() {
     // Arrange
@@ -492,95 +415,17 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#setFile(PDFileSpecification)}.
-   *
    * <ul>
-   *   <li>Given {@code true}.
-   *   <li>When {@link COSDictionary#COSDictionary()} Direct is {@code true}.
+   *   <li>Then {@link FDFDictionary#FDFDictionary()} File {@link PDComplexFileSpecification}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#setFile(PDFileSpecification)}
+   * <p>
+   * Method under test: {@link FDFDictionary#setFile(PDFileSpecification)}
    */
   @Test
-  @DisplayName(
-      "Test setFile(PDFileSpecification); given 'true'; when COSDictionary() Direct is 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setFile(PDFileSpecification); then FDFDictionary() File PDComplexFileSpecification")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFDictionary.setFile(PDFileSpecification)"})
-  void testSetFile_givenTrue_whenCOSDictionaryDirectIsTrue() throws IOException {
-    // Arrange
-    FDFDictionary fdfDictionary = new FDFDictionary();
-
-    COSDictionary dict = new COSDictionary();
-    dict.setDirect(true);
-
-    // Act
-    fdfDictionary.setFile(new PDComplexFileSpecification(dict));
-
-    // Assert
-    PDFileSpecification file = fdfDictionary.getFile();
-    assertTrue(file instanceof PDComplexFileSpecification);
-    assertNull(((PDComplexFileSpecification) file).getFileDescription());
-    assertNull(((PDComplexFileSpecification) file).getFileDos());
-    assertNull(((PDComplexFileSpecification) file).getFileMac());
-    assertNull(((PDComplexFileSpecification) file).getFileUnicode());
-    assertNull(((PDComplexFileSpecification) file).getFileUnix());
-    assertNull(((PDComplexFileSpecification) file).getFilename());
-    assertNull(file.getFile());
-    assertNull(((PDComplexFileSpecification) file).getEmbeddedFile());
-    assertNull(((PDComplexFileSpecification) file).getEmbeddedFileDos());
-    assertNull(((PDComplexFileSpecification) file).getEmbeddedFileMac());
-    assertNull(((PDComplexFileSpecification) file).getEmbeddedFileUnicode());
-    assertNull(((PDComplexFileSpecification) file).getEmbeddedFileUnix());
-    assertFalse(((PDComplexFileSpecification) file).isVolatile());
-    assertSame(dict, file.getCOSObject());
-  }
-
-  /**
-   * Test {@link FDFDictionary#setFile(PDFileSpecification)}.
-   *
-   * <ul>
-   *   <li>Then {@link FDFDictionary#FDFDictionary()} File {@link PDSimpleFileSpecification}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#setFile(PDFileSpecification)}
-   */
-  @Test
-  @DisplayName(
-      "Test setFile(PDFileSpecification); then FDFDictionary() File PDSimpleFileSpecification")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFDictionary.setFile(PDFileSpecification)"})
-  void testSetFile_thenFDFDictionaryFilePDSimpleFileSpecification() throws IOException {
-    // Arrange
-    FDFDictionary fdfDictionary = new FDFDictionary();
-
-    // Act
-    fdfDictionary.setFile(new PDSimpleFileSpecification());
-
-    // Assert
-    PDFileSpecification file = fdfDictionary.getFile();
-    assertTrue(file instanceof PDSimpleFileSpecification);
-    assertEquals("", file.getFile());
-    COSDictionary cOSObject = fdfDictionary.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link FDFDictionary#setFile(PDFileSpecification)}.
-   *
-   * <ul>
-   *   <li>When {@link PDComplexFileSpecification#PDComplexFileSpecification()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#setFile(PDFileSpecification)}
-   */
-  @Test
-  @DisplayName("Test setFile(PDFileSpecification); when PDComplexFileSpecification()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFDictionary.setFile(PDFileSpecification)"})
-  void testSetFile_whenPDComplexFileSpecification() throws IOException {
+  void testSetFile_thenFDFDictionaryFilePDComplexFileSpecification() throws IOException {
     // Arrange
     FDFDictionary fdfDictionary = new FDFDictionary();
 
@@ -606,19 +451,45 @@ class FDFDictionaryDiffblueTest {
   }
 
   /**
-   * Test {@link FDFDictionary#getID()}.
-   *
+   * Test {@link FDFDictionary#setFile(PDFileSpecification)}.
    * <ul>
-   *   <li>Given {@link FDFDictionary#FDFDictionary()} ID is {@link COSArray#COSArray()}.
-   *   <li>Then return toList Empty.
+   *   <li>Then {@link FDFDictionary#FDFDictionary()} File {@link PDSimpleFileSpecification}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getID()}
+   * <p>
+   * Method under test: {@link FDFDictionary#setFile(PDFileSpecification)}
+   */
+  @Test
+  @DisplayName("Test setFile(PDFileSpecification); then FDFDictionary() File PDSimpleFileSpecification")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void FDFDictionary.setFile(PDFileSpecification)"})
+  void testSetFile_thenFDFDictionaryFilePDSimpleFileSpecification() throws IOException {
+    // Arrange
+    FDFDictionary fdfDictionary = new FDFDictionary();
+
+    // Act
+    fdfDictionary.setFile(new PDSimpleFileSpecification());
+
+    // Assert
+    PDFileSpecification file = fdfDictionary.getFile();
+    assertTrue(file instanceof PDSimpleFileSpecification);
+    assertEquals("", file.getFile());
+    COSDictionary cOSObject = fdfDictionary.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+  }
+
+  /**
+   * Test {@link FDFDictionary#getID()}.
+   * <ul>
+   *   <li>Given {@link FDFDictionary#FDFDictionary()} ID is {@link COSArray#COSArray()}.</li>
+   *   <li>Then return toList Empty.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link FDFDictionary#getID()}
    */
   @Test
   @DisplayName("Test getID(); given FDFDictionary() ID is COSArray(); then return toList Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSArray FDFDictionary.getID()"})
   void testGetID_givenFDFDictionaryIdIsCOSArray_thenReturnToListEmpty() {
     // Arrange
@@ -636,74 +507,36 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#getID()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFDictionary#FDFDictionary()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link FDFDictionary#FDFDictionary()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getID()}
+   * <p>
+   * Method under test: {@link FDFDictionary#getID()}
    */
   @Test
   @DisplayName("Test getID(); given FDFDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSArray FDFDictionary.getID()"})
   void testGetID_givenFDFDictionary_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new FDFDictionary().getID());
+    assertNull((new FDFDictionary()).getID());
   }
 
   /**
    * Test {@link FDFDictionary#setID(COSArray)}.
-   *
    * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   *   <li>Given {@link FDFDictionary#FDFDictionary()}.</li>
+   *   <li>Then {@link FDFDictionary#FDFDictionary()} COSObject Values size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#setID(COSArray)}
+   * <p>
+   * Method under test: {@link FDFDictionary#setID(COSArray)}
    */
   @Test
-  @DisplayName("Test setID(COSArray); given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setID(COSArray); given FDFDictionary(); then FDFDictionary() COSObject Values size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFDictionary.setID(COSArray)"})
-  void testSetID_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
-    // Arrange
-    FDFDictionary fdfDictionary = new FDFDictionary();
-
-    COSArray id = new COSArray(new ArrayList<>());
-    id.setDirect(false);
-    id.setKey(new COSObjectKey(1L, 1));
-
-    // Act
-    fdfDictionary.setID(id);
-
-    // Assert
-    COSDictionary cOSObject = fdfDictionary.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    assertSame(id, fdfDictionary.getID());
-  }
-
-  /**
-   * Test {@link FDFDictionary#setID(COSArray)}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFDictionary#FDFDictionary()}.
-   *   <li>When {@link COSArray#COSArray()}.
-   *   <li>Then {@link FDFDictionary#FDFDictionary()} ID is {@link COSArray#COSArray()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#setID(COSArray)}
-   */
-  @Test
-  @DisplayName(
-      "Test setID(COSArray); given FDFDictionary(); when COSArray(); then FDFDictionary() ID is COSArray()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFDictionary.setID(COSArray)"})
-  void testSetID_givenFDFDictionary_whenCOSArray_thenFDFDictionaryIdIsCOSArray() {
+  void testSetID_givenFDFDictionary_thenFDFDictionaryCOSObjectValuesSizeIsOne() {
     // Arrange
     FDFDictionary fdfDictionary = new FDFDictionary();
     COSArray id = new COSArray();
@@ -720,20 +553,17 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#setID(COSArray)}.
-   *
    * <ul>
-   *   <li>Given {@link FDFDictionary#FDFDictionary()}.
-   *   <li>When {@code null}.
-   *   <li>Then {@link FDFDictionary#FDFDictionary()} COSObject size is zero.
+   *   <li>Given {@link FDFDictionary#FDFDictionary()}.</li>
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link FDFDictionary#FDFDictionary()} COSObject size is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#setID(COSArray)}
+   * <p>
+   * Method under test: {@link FDFDictionary#setID(COSArray)}
    */
   @Test
-  @DisplayName(
-      "Test setID(COSArray); given FDFDictionary(); when 'null'; then FDFDictionary() COSObject size is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setID(COSArray); given FDFDictionary(); when 'null'; then FDFDictionary() COSObject size is zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFDictionary.setID(COSArray)"})
   void testSetID_givenFDFDictionary_whenNull_thenFDFDictionaryCOSObjectSizeIsZero() {
     // Arrange
@@ -749,54 +579,17 @@ class FDFDictionaryDiffblueTest {
   }
 
   /**
-   * Test {@link FDFDictionary#setID(COSArray)}.
-   *
-   * <ul>
-   *   <li>Given {@code null}.
-   *   <li>When {@link COSArray#COSArray(List)} with cosObjectables is {@link ArrayList#ArrayList()}
-   *       Key is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#setID(COSArray)}
-   */
-  @Test
-  @DisplayName(
-      "Test setID(COSArray); given 'null'; when COSArray(List) with cosObjectables is ArrayList() Key is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFDictionary.setID(COSArray)"})
-  void testSetID_givenNull_whenCOSArrayWithCosObjectablesIsArrayListKeyIsNull() {
-    // Arrange
-    FDFDictionary fdfDictionary = new FDFDictionary();
-
-    COSArray id = new COSArray(new ArrayList<>());
-    id.setDirect(false);
-    id.setKey(null);
-
-    // Act
-    fdfDictionary.setID(id);
-
-    // Assert
-    COSDictionary cOSObject = fdfDictionary.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    assertSame(id, fdfDictionary.getID());
-  }
-
-  /**
    * Test {@link FDFDictionary#getFields()}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link FDFField#FDFField()}.
-   *   <li>Then return size is one.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link FDFField#FDFField()}.</li>
+   *   <li>Then return size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getFields()}
+   * <p>
+   * Method under test: {@link FDFDictionary#getFields()}
    */
   @Test
   @DisplayName("Test getFields(); given ArrayList() add FDFField(); then return size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List FDFDictionary.getFields()"})
   void testGetFields_givenArrayListAddFDFField_thenReturnSizeIsOne() throws IOException {
     // Arrange
@@ -833,18 +626,16 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#getFields()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFDictionary#FDFDictionary()} Fields is {@link ArrayList#ArrayList()}.
-   *   <li>Then return Empty.
+   *   <li>Given {@link FDFDictionary#FDFDictionary()} Fields is {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getFields()}
+   * <p>
+   * Method under test: {@link FDFDictionary#getFields()}
    */
   @Test
   @DisplayName("Test getFields(); given FDFDictionary() Fields is ArrayList(); then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List FDFDictionary.getFields()"})
   void testGetFields_givenFDFDictionaryFieldsIsArrayList_thenReturnEmpty() {
     // Arrange
@@ -857,40 +648,35 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#getFields()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFDictionary#FDFDictionary()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link FDFDictionary#FDFDictionary()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getFields()}
+   * <p>
+   * Method under test: {@link FDFDictionary#getFields()}
    */
   @Test
   @DisplayName("Test getFields(); given FDFDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List FDFDictionary.getFields()"})
   void testGetFields_givenFDFDictionary_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new FDFDictionary().getFields());
+    assertNull((new FDFDictionary()).getFields());
   }
 
   /**
    * Test {@link FDFDictionary#setFields(List)}.
-   *
    * <ul>
-   *   <li>Given {@link FDFDictionary#FDFDictionary()}.
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then {@link FDFDictionary#FDFDictionary()} Fields Empty.
+   *   <li>Given {@link FDFDictionary#FDFDictionary()}.</li>
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then {@link FDFDictionary#FDFDictionary()} Fields Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#setFields(List)}
+   * <p>
+   * Method under test: {@link FDFDictionary#setFields(List)}
    */
   @Test
-  @DisplayName(
-      "Test setFields(List); given FDFDictionary(); when ArrayList(); then FDFDictionary() Fields Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setFields(List); given FDFDictionary(); when ArrayList(); then FDFDictionary() Fields Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFDictionary.setFields(List)"})
   void testSetFields_givenFDFDictionary_whenArrayList_thenFDFDictionaryFieldsEmpty() {
     // Arrange
@@ -908,22 +694,18 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#setFields(List)}.
-   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()}.
-   *   <li>Then {@link FDFDictionary#FDFDictionary()} Fields first ClearFieldFlags is {@code null}.
+   *   <li>Given {@link FDFField#FDFField()}.</li>
+   *   <li>Then {@link FDFDictionary#FDFDictionary()} Fields first ClearFieldFlags is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#setFields(List)}
+   * <p>
+   * Method under test: {@link FDFDictionary#setFields(List)}
    */
   @Test
-  @DisplayName(
-      "Test setFields(List); given FDFField(); then FDFDictionary() Fields first ClearFieldFlags is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setFields(List); given FDFField(); then FDFDictionary() Fields first ClearFieldFlags is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFDictionary.setFields(List)"})
-  void testSetFields_givenFDFField_thenFDFDictionaryFieldsFirstClearFieldFlagsIsNull()
-      throws IOException {
+  void testSetFields_givenFDFField_thenFDFDictionaryFieldsFirstClearFieldFlagsIsNull() throws IOException {
     // Arrange
     FDFDictionary fdfDictionary = new FDFDictionary();
 
@@ -958,18 +740,16 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#setFields(List)}.
-   *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField()}.
-   *   <li>Then {@link FDFDictionary#FDFDictionary()} Fields size is two.
+   *   <li>Given {@link FDFField#FDFField()}.</li>
+   *   <li>Then {@link FDFDictionary#FDFDictionary()} Fields size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#setFields(List)}
+   * <p>
+   * Method under test: {@link FDFDictionary#setFields(List)}
    */
   @Test
   @DisplayName("Test setFields(List); given FDFField(); then FDFDictionary() Fields size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFDictionary.setFields(List)"})
   void testSetFields_givenFDFField_thenFDFDictionaryFieldsSizeIsTwo() throws IOException {
     // Arrange
@@ -1007,19 +787,16 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#setFields(List)}.
-   *
    * <ul>
-   *   <li>Given {@code null}.
-   *   <li>Then {@link FDFDictionary#FDFDictionary()} Fields first COSObject is {@code null}.
+   *   <li>Given {@code null}.</li>
+   *   <li>Then {@link FDFDictionary#FDFDictionary()} Fields first COSObject is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#setFields(List)}
+   * <p>
+   * Method under test: {@link FDFDictionary#setFields(List)}
    */
   @Test
-  @DisplayName(
-      "Test setFields(List); given 'null'; then FDFDictionary() Fields first COSObject is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setFields(List); given 'null'; then FDFDictionary() Fields first COSObject is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFDictionary.setFields(List)"})
   void testSetFields_givenNull_thenFDFDictionaryFieldsFirstCOSObjectIsNull() {
     // Arrange
@@ -1042,19 +819,16 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#getStatus()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFDictionary#FDFDictionary()} Status is empty string.
-   *   <li>Then return empty string.
+   *   <li>Given {@link FDFDictionary#FDFDictionary()} Status is empty string.</li>
+   *   <li>Then return empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getStatus()}
+   * <p>
+   * Method under test: {@link FDFDictionary#getStatus()}
    */
   @Test
-  @DisplayName(
-      "Test getStatus(); given FDFDictionary() Status is empty string; then return empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getStatus(); given FDFDictionary() Status is empty string; then return empty string")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String FDFDictionary.getStatus()"})
   void testGetStatus_givenFDFDictionaryStatusIsEmptyString_thenReturnEmptyString() {
     // Arrange
@@ -1067,18 +841,16 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#getStatus()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFDictionary#FDFDictionary()} Status is {@code Status}.
-   *   <li>Then return {@code Status}.
+   *   <li>Given {@link FDFDictionary#FDFDictionary()} Status is {@code Status}.</li>
+   *   <li>Then return {@code Status}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getStatus()}
+   * <p>
+   * Method under test: {@link FDFDictionary#getStatus()}
    */
   @Test
   @DisplayName("Test getStatus(); given FDFDictionary() Status is 'Status'; then return 'Status'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String FDFDictionary.getStatus()"})
   void testGetStatus_givenFDFDictionaryStatusIsStatus_thenReturnStatus() {
     // Arrange
@@ -1091,72 +863,36 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#getStatus()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFDictionary#FDFDictionary()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link FDFDictionary#FDFDictionary()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getStatus()}
+   * <p>
+   * Method under test: {@link FDFDictionary#getStatus()}
    */
   @Test
   @DisplayName("Test getStatus(); given FDFDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String FDFDictionary.getStatus()"})
   void testGetStatus_givenFDFDictionary_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new FDFDictionary().getStatus());
+    assertNull((new FDFDictionary()).getStatus());
   }
 
   /**
    * Test {@link FDFDictionary#setStatus(String)}.
-   *
    * <ul>
-   *   <li>Given {@link FDFDictionary#FDFDictionary()}.
-   *   <li>When {@code null}.
-   *   <li>Then {@link FDFDictionary#FDFDictionary()} COSObject size is zero.
+   *   <li>Given {@link FDFDictionary#FDFDictionary()}.</li>
+   *   <li>Then {@link FDFDictionary#FDFDictionary()} Status is {@code Status}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#setStatus(String)}
+   * <p>
+   * Method under test: {@link FDFDictionary#setStatus(String)}
    */
   @Test
-  @DisplayName(
-      "Test setStatus(String); given FDFDictionary(); when 'null'; then FDFDictionary() COSObject size is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setStatus(String); given FDFDictionary(); then FDFDictionary() Status is 'Status'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFDictionary.setStatus(String)"})
-  void testSetStatus_givenFDFDictionary_whenNull_thenFDFDictionaryCOSObjectSizeIsZero() {
-    // Arrange
-    FDFDictionary fdfDictionary = new FDFDictionary();
-
-    // Act
-    fdfDictionary.setStatus(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = fdfDictionary.getCOSObject();
-    assertEquals(0, cOSObject.size());
-    assertTrue(cOSObject.getValues().isEmpty());
-  }
-
-  /**
-   * Test {@link FDFDictionary#setStatus(String)}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFDictionary#FDFDictionary()}.
-   *   <li>When {@code Status}.
-   *   <li>Then {@link FDFDictionary#FDFDictionary()} Status is {@code Status}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#setStatus(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test setStatus(String); given FDFDictionary(); when 'Status'; then FDFDictionary() Status is 'Status'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFDictionary.setStatus(String)"})
-  void testSetStatus_givenFDFDictionary_whenStatus_thenFDFDictionaryStatusIsStatus() {
+  void testSetStatus_givenFDFDictionary_thenFDFDictionaryStatusIsStatus() {
     // Arrange
     FDFDictionary fdfDictionary = new FDFDictionary();
 
@@ -1172,18 +908,16 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#getPages()}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link FDFPage#FDFPage()}.
-   *   <li>Then return size is one.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link FDFPage#FDFPage()}.</li>
+   *   <li>Then return size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getPages()}
+   * <p>
+   * Method under test: {@link FDFDictionary#getPages()}
    */
   @Test
   @DisplayName("Test getPages(); given ArrayList() add FDFPage(); then return size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List FDFDictionary.getPages()"})
   void testGetPages_givenArrayListAddFDFPage_thenReturnSizeIsOne() {
     // Arrange
@@ -1217,18 +951,16 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#getPages()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFDictionary#FDFDictionary()} Pages is {@link ArrayList#ArrayList()}.
-   *   <li>Then return Empty.
+   *   <li>Given {@link FDFDictionary#FDFDictionary()} Pages is {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getPages()}
+   * <p>
+   * Method under test: {@link FDFDictionary#getPages()}
    */
   @Test
   @DisplayName("Test getPages(); given FDFDictionary() Pages is ArrayList(); then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List FDFDictionary.getPages()"})
   void testGetPages_givenFDFDictionaryPagesIsArrayList_thenReturnEmpty() {
     // Arrange
@@ -1241,40 +973,35 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#getPages()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFDictionary#FDFDictionary()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link FDFDictionary#FDFDictionary()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getPages()}
+   * <p>
+   * Method under test: {@link FDFDictionary#getPages()}
    */
   @Test
   @DisplayName("Test getPages(); given FDFDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List FDFDictionary.getPages()"})
   void testGetPages_givenFDFDictionary_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new FDFDictionary().getPages());
+    assertNull((new FDFDictionary()).getPages());
   }
 
   /**
    * Test {@link FDFDictionary#setPages(List)}.
-   *
    * <ul>
-   *   <li>Given {@link FDFDictionary#FDFDictionary()}.
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then {@link FDFDictionary#FDFDictionary()} Pages Empty.
+   *   <li>Given {@link FDFDictionary#FDFDictionary()}.</li>
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then {@link FDFDictionary#FDFDictionary()} Pages Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#setPages(List)}
+   * <p>
+   * Method under test: {@link FDFDictionary#setPages(List)}
    */
   @Test
-  @DisplayName(
-      "Test setPages(List); given FDFDictionary(); when ArrayList(); then FDFDictionary() Pages Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setPages(List); given FDFDictionary(); when ArrayList(); then FDFDictionary() Pages Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFDictionary.setPages(List)"})
   void testSetPages_givenFDFDictionary_whenArrayList_thenFDFDictionaryPagesEmpty() {
     // Arrange
@@ -1292,19 +1019,16 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#setPages(List)}.
-   *
    * <ul>
-   *   <li>Given {@link FDFPage#FDFPage()}.
-   *   <li>Then {@link FDFDictionary#FDFDictionary()} Pages first Templates is {@code null}.
+   *   <li>Given {@link FDFPage#FDFPage()}.</li>
+   *   <li>Then {@link FDFDictionary#FDFDictionary()} Pages first Templates is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#setPages(List)}
+   * <p>
+   * Method under test: {@link FDFDictionary#setPages(List)}
    */
   @Test
-  @DisplayName(
-      "Test setPages(List); given FDFPage(); then FDFDictionary() Pages first Templates is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setPages(List); given FDFPage(); then FDFDictionary() Pages first Templates is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFDictionary.setPages(List)"})
   void testSetPages_givenFDFPage_thenFDFDictionaryPagesFirstTemplatesIsNull() {
     // Arrange
@@ -1326,18 +1050,16 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#setPages(List)}.
-   *
    * <ul>
-   *   <li>Given {@link FDFPage#FDFPage()}.
-   *   <li>Then {@link FDFDictionary#FDFDictionary()} Pages size is two.
+   *   <li>Given {@link FDFPage#FDFPage()}.</li>
+   *   <li>Then {@link FDFDictionary#FDFDictionary()} Pages size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#setPages(List)}
+   * <p>
+   * Method under test: {@link FDFDictionary#setPages(List)}
    */
   @Test
   @DisplayName("Test setPages(List); given FDFPage(); then FDFDictionary() Pages size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFDictionary.setPages(List)"})
   void testSetPages_givenFDFPage_thenFDFDictionaryPagesSizeIsTwo() {
     // Arrange
@@ -1360,19 +1082,16 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#setPages(List)}.
-   *
    * <ul>
-   *   <li>Given {@code null}.
-   *   <li>Then {@link FDFDictionary#FDFDictionary()} Pages first COSObject is {@code null}.
+   *   <li>Given {@code null}.</li>
+   *   <li>Then {@link FDFDictionary#FDFDictionary()} Pages first COSObject is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#setPages(List)}
+   * <p>
+   * Method under test: {@link FDFDictionary#setPages(List)}
    */
   @Test
-  @DisplayName(
-      "Test setPages(List); given 'null'; then FDFDictionary() Pages first COSObject is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setPages(List); given 'null'; then FDFDictionary() Pages first COSObject is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFDictionary.setPages(List)"})
   void testSetPages_givenNull_thenFDFDictionaryPagesFirstCOSObjectIsNull() {
     // Arrange
@@ -1395,18 +1114,16 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#getEncoding()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFDictionary#FDFDictionary()} Encoding is {@code UTF-8}.
-   *   <li>Then return {@code UTF-8}.
+   *   <li>Given {@link FDFDictionary#FDFDictionary()} Encoding is {@code UTF-8}.</li>
+   *   <li>Then return {@code UTF-8}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getEncoding()}
+   * <p>
+   * Method under test: {@link FDFDictionary#getEncoding()}
    */
   @Test
   @DisplayName("Test getEncoding(); given FDFDictionary() Encoding is 'UTF-8'; then return 'UTF-8'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String FDFDictionary.getEncoding()"})
   void testGetEncoding_givenFDFDictionaryEncodingIsUtf8_thenReturnUtf8() {
     // Arrange
@@ -1419,50 +1136,45 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#getEncoding()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFDictionary#FDFDictionary()}.
-   *   <li>Then return {@code PDFDocEncoding}.
+   *   <li>Given {@link FDFDictionary#FDFDictionary()}.</li>
+   *   <li>Then return {@code PDFDocEncoding}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getEncoding()}
+   * <p>
+   * Method under test: {@link FDFDictionary#getEncoding()}
    */
   @Test
   @DisplayName("Test getEncoding(); given FDFDictionary(); then return 'PDFDocEncoding'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String FDFDictionary.getEncoding()"})
   void testGetEncoding_givenFDFDictionary_thenReturnPDFDocEncoding() {
     // Arrange, Act and Assert
-    assertEquals("PDFDocEncoding", new FDFDictionary().getEncoding());
+    assertEquals("PDFDocEncoding", (new FDFDictionary()).getEncoding());
   }
 
   /**
    * Test {@link FDFDictionary#setEncoding(String)}.
-   *
    * <ul>
-   *   <li>Given {@link FDFDictionary#FDFDictionary()}.
-   *   <li>When {@code f}.
-   *   <li>Then {@link FDFDictionary#FDFDictionary()} Encoding is {@code f}.
+   *   <li>Given {@link FDFDictionary#FDFDictionary()}.</li>
+   *   <li>When {@code annots}.</li>
+   *   <li>Then {@link FDFDictionary#FDFDictionary()} Encoding is {@code annots}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#setEncoding(String)}
+   * <p>
+   * Method under test: {@link FDFDictionary#setEncoding(String)}
    */
   @Test
-  @DisplayName(
-      "Test setEncoding(String); given FDFDictionary(); when 'f'; then FDFDictionary() Encoding is 'f'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setEncoding(String); given FDFDictionary(); when 'annots'; then FDFDictionary() Encoding is 'annots'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFDictionary.setEncoding(String)"})
-  void testSetEncoding_givenFDFDictionary_whenF_thenFDFDictionaryEncodingIsF() {
+  void testSetEncoding_givenFDFDictionary_whenAnnots_thenFDFDictionaryEncodingIsAnnots() {
     // Arrange
     FDFDictionary fdfDictionary = new FDFDictionary();
 
     // Act
-    fdfDictionary.setEncoding("f");
+    fdfDictionary.setEncoding("annots");
 
     // Assert
-    assertEquals("f", fdfDictionary.getEncoding());
+    assertEquals("annots", fdfDictionary.getEncoding());
     COSDictionary cOSObject = fdfDictionary.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
@@ -1470,20 +1182,17 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#setEncoding(String)}.
-   *
    * <ul>
-   *   <li>Given {@link FDFDictionary#FDFDictionary()}.
-   *   <li>When {@code UTF-8}.
-   *   <li>Then {@link FDFDictionary#FDFDictionary()} Encoding is {@code UTF-8}.
+   *   <li>Given {@link FDFDictionary#FDFDictionary()}.</li>
+   *   <li>When {@code UTF-8}.</li>
+   *   <li>Then {@link FDFDictionary#FDFDictionary()} Encoding is {@code UTF-8}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#setEncoding(String)}
+   * <p>
+   * Method under test: {@link FDFDictionary#setEncoding(String)}
    */
   @Test
-  @DisplayName(
-      "Test setEncoding(String); given FDFDictionary(); when 'UTF-8'; then FDFDictionary() Encoding is 'UTF-8'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setEncoding(String); given FDFDictionary(); when 'UTF-8'; then FDFDictionary() Encoding is 'UTF-8'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFDictionary.setEncoding(String)"})
   void testSetEncoding_givenFDFDictionary_whenUtf8_thenFDFDictionaryEncodingIsUtf8() {
     // Arrange
@@ -1500,80 +1209,18 @@ class FDFDictionaryDiffblueTest {
   }
 
   /**
-   * Test {@link FDFDictionary#setEncoding(String)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link FDFDictionary#FDFDictionary()} Encoding is {@code PDFDocEncoding}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#setEncoding(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test setEncoding(String); when 'null'; then FDFDictionary() Encoding is 'PDFDocEncoding'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFDictionary.setEncoding(String)"})
-  void testSetEncoding_whenNull_thenFDFDictionaryEncodingIsPDFDocEncoding() {
-    // Arrange
-    FDFDictionary fdfDictionary = new FDFDictionary();
-
-    // Act
-    fdfDictionary.setEncoding(null);
-
-    // Assert that nothing has changed
-    assertEquals("PDFDocEncoding", fdfDictionary.getEncoding());
-    COSDictionary cOSObject = fdfDictionary.getCOSObject();
-    assertEquals(0, cOSObject.size());
-    assertTrue(cOSObject.getValues().isEmpty());
-  }
-
-  /**
    * Test {@link FDFDictionary#getAnnotations()}.
-   *
-   * <p>Method under test: {@link FDFDictionary#getAnnotations()}
-   */
-  @Test
-  @DisplayName("Test getAnnotations()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List FDFDictionary.getAnnotations()"})
-  void testGetAnnotations() throws IOException {
-    // Arrange
-    ArrayList<FDFAnnotation> annots = new ArrayList<>();
-    annots.add(new FDFAnnotationCaret(new COSDictionary()));
-
-    FDFDictionary fdfDictionary = new FDFDictionary(new COSDictionary());
-    fdfDictionary.setAnnotations(annots);
-
-    // Act
-    List<FDFAnnotation> actualAnnotations = fdfDictionary.getAnnotations();
-
-    // Assert
-    assertEquals(1, actualAnnotations.size());
-    assertNull(actualAnnotations.get(0));
-  }
-
-  /**
-   * Test {@link FDFDictionary#getAnnotations()}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link
-   *       FDFAnnotationCaret#FDFAnnotationCaret(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link FDFAnnotationCaret#FDFAnnotationCaret(COSDictionary)} with a is {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getAnnotations()}
+   * <p>
+   * Method under test: {@link FDFDictionary#getAnnotations()}
    */
   @Test
-  @DisplayName(
-      "Test getAnnotations(); given ArrayList() add FDFAnnotationCaret(COSDictionary) with a is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getAnnotations(); given ArrayList() add FDFAnnotationCaret(COSDictionary) with a is COSDictionary()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List FDFDictionary.getAnnotations()"})
-  void testGetAnnotations_givenArrayListAddFDFAnnotationCaretWithAIsCOSDictionary()
-      throws IOException {
+  void testGetAnnotations_givenArrayListAddFDFAnnotationCaretWithAIsCOSDictionary() throws IOException {
     // Arrange
     ArrayList<FDFAnnotation> annots = new ArrayList<>();
     annots.add(new FDFAnnotationCaret(new COSDictionary()));
@@ -1591,18 +1238,16 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#getAnnotations()}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@code null}.
-   *   <li>Then return first is {@code null}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@code null}.</li>
+   *   <li>Then return first is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getAnnotations()}
+   * <p>
+   * Method under test: {@link FDFDictionary#getAnnotations()}
    */
   @Test
   @DisplayName("Test getAnnotations(); given ArrayList() add 'null'; then return first is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List FDFDictionary.getAnnotations()"})
   void testGetAnnotations_givenArrayListAddNull_thenReturnFirstIsNull() throws IOException {
     // Arrange
@@ -1622,22 +1267,18 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#getAnnotations()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFDictionary#FDFDictionary()} Annotations is {@link ArrayList#ArrayList()}.
-   *   <li>Then return Empty.
+   *   <li>Given {@link FDFDictionary#FDFDictionary()} Annotations is {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getAnnotations()}
+   * <p>
+   * Method under test: {@link FDFDictionary#getAnnotations()}
    */
   @Test
-  @DisplayName(
-      "Test getAnnotations(); given FDFDictionary() Annotations is ArrayList(); then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getAnnotations(); given FDFDictionary() Annotations is ArrayList(); then return Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List FDFDictionary.getAnnotations()"})
-  void testGetAnnotations_givenFDFDictionaryAnnotationsIsArrayList_thenReturnEmpty()
-      throws IOException {
+  void testGetAnnotations_givenFDFDictionaryAnnotationsIsArrayList_thenReturnEmpty() throws IOException {
     // Arrange
     FDFDictionary fdfDictionary = new FDFDictionary();
     fdfDictionary.setAnnotations(new ArrayList<>());
@@ -1648,37 +1289,33 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#getAnnotations()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFDictionary#FDFDictionary()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link FDFDictionary#FDFDictionary()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getAnnotations()}
+   * <p>
+   * Method under test: {@link FDFDictionary#getAnnotations()}
    */
   @Test
   @DisplayName("Test getAnnotations(); given FDFDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List FDFDictionary.getAnnotations()"})
   void testGetAnnotations_givenFDFDictionary_thenReturnNull() throws IOException {
     // Arrange, Act and Assert
-    assertNull(new FDFDictionary().getAnnotations());
+    assertNull((new FDFDictionary()).getAnnotations());
   }
 
   /**
    * Test {@link FDFDictionary#getAnnotations()}.
-   *
    * <ul>
-   *   <li>Then first return {@link FDFAnnotationCaret}.
+   *   <li>Then first return {@link FDFAnnotationCaret}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getAnnotations()}
+   * <p>
+   * Method under test: {@link FDFDictionary#getAnnotations()}
    */
   @Test
   @DisplayName("Test getAnnotations(); then first return FDFAnnotationCaret")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List FDFDictionary.getAnnotations()"})
   void testGetAnnotations_thenFirstReturnFDFAnnotationCaret() throws IOException {
     // Arrange
@@ -1698,17 +1335,15 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#getAnnotations()}.
-   *
    * <ul>
-   *   <li>Then first return {@link FDFAnnotationCircle}.
+   *   <li>Then first return {@link FDFAnnotationCircle}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getAnnotations()}
+   * <p>
+   * Method under test: {@link FDFDictionary#getAnnotations()}
    */
   @Test
   @DisplayName("Test getAnnotations(); then first return FDFAnnotationCircle")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List FDFDictionary.getAnnotations()"})
   void testGetAnnotations_thenFirstReturnFDFAnnotationCircle() throws IOException {
     // Arrange
@@ -1728,17 +1363,15 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#getAnnotations()}.
-   *
    * <ul>
-   *   <li>Then first return {@link FDFAnnotationFileAttachment}.
+   *   <li>Then first return {@link FDFAnnotationFileAttachment}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getAnnotations()}
+   * <p>
+   * Method under test: {@link FDFDictionary#getAnnotations()}
    */
   @Test
   @DisplayName("Test getAnnotations(); then first return FDFAnnotationFileAttachment")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List FDFDictionary.getAnnotations()"})
   void testGetAnnotations_thenFirstReturnFDFAnnotationFileAttachment() throws IOException {
     // Arrange
@@ -1758,17 +1391,15 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#getAnnotations()}.
-   *
    * <ul>
-   *   <li>Then first return {@link FDFAnnotationFreeText}.
+   *   <li>Then first return {@link FDFAnnotationFreeText}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getAnnotations()}
+   * <p>
+   * Method under test: {@link FDFDictionary#getAnnotations()}
    */
   @Test
   @DisplayName("Test getAnnotations(); then first return FDFAnnotationFreeText")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List FDFDictionary.getAnnotations()"})
   void testGetAnnotations_thenFirstReturnFDFAnnotationFreeText() throws IOException {
     // Arrange
@@ -1796,17 +1427,15 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#getAnnotations()}.
-   *
    * <ul>
-   *   <li>Then first return {@link FDFAnnotationHighlight}.
+   *   <li>Then first return {@link FDFAnnotationHighlight}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getAnnotations()}
+   * <p>
+   * Method under test: {@link FDFDictionary#getAnnotations()}
    */
   @Test
   @DisplayName("Test getAnnotations(); then first return FDFAnnotationHighlight")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List FDFDictionary.getAnnotations()"})
   void testGetAnnotations_thenFirstReturnFDFAnnotationHighlight() throws IOException {
     // Arrange
@@ -1826,17 +1455,15 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#getAnnotations()}.
-   *
    * <ul>
-   *   <li>Then first return {@link FDFAnnotationInk}.
+   *   <li>Then first return {@link FDFAnnotationInk}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getAnnotations()}
+   * <p>
+   * Method under test: {@link FDFDictionary#getAnnotations()}
    */
   @Test
   @DisplayName("Test getAnnotations(); then first return FDFAnnotationInk")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List FDFDictionary.getAnnotations()"})
   void testGetAnnotations_thenFirstReturnFDFAnnotationInk() throws IOException {
     // Arrange
@@ -1856,17 +1483,15 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#getAnnotations()}.
-   *
    * <ul>
-   *   <li>Then first return {@link FDFAnnotationLine}.
+   *   <li>Then first return {@link FDFAnnotationLine}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getAnnotations()}
+   * <p>
+   * Method under test: {@link FDFDictionary#getAnnotations()}
    */
   @Test
   @DisplayName("Test getAnnotations(); then first return FDFAnnotationLine")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List FDFDictionary.getAnnotations()"})
   void testGetAnnotations_thenFirstReturnFDFAnnotationLine() throws IOException {
     // Arrange
@@ -1898,17 +1523,15 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#getAnnotations()}.
-   *
    * <ul>
-   *   <li>Then first return {@link FDFAnnotationLink}.
+   *   <li>Then first return {@link FDFAnnotationLink}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getAnnotations()}
+   * <p>
+   * Method under test: {@link FDFDictionary#getAnnotations()}
    */
   @Test
   @DisplayName("Test getAnnotations(); then first return FDFAnnotationLink")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List FDFDictionary.getAnnotations()"})
   void testGetAnnotations_thenFirstReturnFDFAnnotationLink() throws IOException {
     // Arrange
@@ -1928,17 +1551,15 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#getAnnotations()}.
-   *
    * <ul>
-   *   <li>Then first return {@link FDFAnnotationPolygon}.
+   *   <li>Then first return {@link FDFAnnotationPolygon}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getAnnotations()}
+   * <p>
+   * Method under test: {@link FDFDictionary#getAnnotations()}
    */
   @Test
   @DisplayName("Test getAnnotations(); then first return FDFAnnotationPolygon")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List FDFDictionary.getAnnotations()"})
   void testGetAnnotations_thenFirstReturnFDFAnnotationPolygon() throws IOException {
     // Arrange
@@ -1958,17 +1579,15 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#getAnnotations()}.
-   *
    * <ul>
-   *   <li>Then first return {@link FDFAnnotationPolyline}.
+   *   <li>Then first return {@link FDFAnnotationPolyline}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getAnnotations()}
+   * <p>
+   * Method under test: {@link FDFDictionary#getAnnotations()}
    */
   @Test
   @DisplayName("Test getAnnotations(); then first return FDFAnnotationPolyline")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List FDFDictionary.getAnnotations()"})
   void testGetAnnotations_thenFirstReturnFDFAnnotationPolyline() throws IOException {
     // Arrange
@@ -1993,17 +1612,15 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#getAnnotations()}.
-   *
    * <ul>
-   *   <li>Then first return {@link FDFAnnotationSound}.
+   *   <li>Then first return {@link FDFAnnotationSound}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getAnnotations()}
+   * <p>
+   * Method under test: {@link FDFDictionary#getAnnotations()}
    */
   @Test
   @DisplayName("Test getAnnotations(); then first return FDFAnnotationSound")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List FDFDictionary.getAnnotations()"})
   void testGetAnnotations_thenFirstReturnFDFAnnotationSound() throws IOException {
     // Arrange
@@ -2023,17 +1640,15 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#getAnnotations()}.
-   *
    * <ul>
-   *   <li>Then first return {@link FDFAnnotationSquare}.
+   *   <li>Then first return {@link FDFAnnotationSquare}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getAnnotations()}
+   * <p>
+   * Method under test: {@link FDFDictionary#getAnnotations()}
    */
   @Test
   @DisplayName("Test getAnnotations(); then first return FDFAnnotationSquare")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List FDFDictionary.getAnnotations()"})
   void testGetAnnotations_thenFirstReturnFDFAnnotationSquare() throws IOException {
     // Arrange
@@ -2052,23 +1667,106 @@ class FDFDictionaryDiffblueTest {
   }
 
   /**
-   * Test {@link FDFDictionary#setAnnotations(List)}.
-   *
+   * Test {@link FDFDictionary#getAnnotations()}.
    * <ul>
-   *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret()}.
-   *   <li>Then {@link FDFDictionary#FDFDictionary()} Annotations size is one.
+   *   <li>Then first return {@link FDFAnnotationSquiggly}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#setAnnotations(List)}
+   * <p>
+   * Method under test: {@link FDFDictionary#getAnnotations()}
    */
   @Test
-  @DisplayName(
-      "Test setAnnotations(List); given FDFAnnotationCaret(); then FDFDictionary() Annotations size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getAnnotations(); then first return FDFAnnotationSquiggly")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List FDFDictionary.getAnnotations()"})
+  void testGetAnnotations_thenFirstReturnFDFAnnotationSquiggly() throws IOException {
+    // Arrange
+    ArrayList<FDFAnnotation> annots = new ArrayList<>();
+    annots.add(new FDFAnnotationSquiggly());
+
+    FDFDictionary fdfDictionary = new FDFDictionary();
+    fdfDictionary.setAnnotations(annots);
+
+    // Act
+    List<FDFAnnotation> actualAnnotations = fdfDictionary.getAnnotations();
+
+    // Assert
+    assertEquals(1, actualAnnotations.size());
+    assertTrue(actualAnnotations.get(0) instanceof FDFAnnotationSquiggly);
+  }
+
+  /**
+   * Test {@link FDFDictionary#getAnnotations()}.
+   * <ul>
+   *   <li>Then first return {@link FDFAnnotationStamp}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link FDFDictionary#getAnnotations()}
+   */
+  @Test
+  @DisplayName("Test getAnnotations(); then first return FDFAnnotationStamp")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List FDFDictionary.getAnnotations()"})
+  void testGetAnnotations_thenFirstReturnFDFAnnotationStamp() throws IOException {
+    // Arrange
+    ArrayList<FDFAnnotation> annots = new ArrayList<>();
+    annots.add(new FDFAnnotationStamp());
+
+    FDFDictionary fdfDictionary = new FDFDictionary();
+    fdfDictionary.setAnnotations(annots);
+
+    // Act
+    List<FDFAnnotation> actualAnnotations = fdfDictionary.getAnnotations();
+
+    // Assert
+    assertEquals(1, actualAnnotations.size());
+    assertTrue(actualAnnotations.get(0) instanceof FDFAnnotationStamp);
+  }
+
+  /**
+   * Test {@link FDFDictionary#setAnnotations(List)}.
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then {@link FDFDictionary#FDFDictionary()} Annotations is {@link ArrayList#ArrayList()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link FDFDictionary#setAnnotations(List)}
+   */
+  @Test
+  @DisplayName("Test setAnnotations(List); given ArrayList(); then FDFDictionary() Annotations is ArrayList()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFDictionary.setAnnotations(List)"})
-  void testSetAnnotations_givenFDFAnnotationCaret_thenFDFDictionaryAnnotationsSizeIsOne()
-      throws IOException {
+  void testSetAnnotations_givenArrayList_thenFDFDictionaryAnnotationsIsArrayList() throws IOException {
+    // Arrange
+    FDFDictionary fdfDictionary = new FDFDictionary();
+
+    ArrayList<FDFAnnotation> annots = new ArrayList<>();
+    annots.addAll(new ArrayList<>());
+    annots.add(null);
+
+    // Act
+    fdfDictionary.setAnnotations(annots);
+
+    // Assert
+    COSDictionary cOSObject = fdfDictionary.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    assertEquals(annots, fdfDictionary.getAnnotations());
+  }
+
+  /**
+   * Test {@link FDFDictionary#setAnnotations(List)}.
+   * <ul>
+   *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret()}.</li>
+   *   <li>Then {@link FDFDictionary#FDFDictionary()} Annotations size is one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link FDFDictionary#setAnnotations(List)}
+   */
+  @Test
+  @DisplayName("Test setAnnotations(List); given FDFAnnotationCaret(); then FDFDictionary() Annotations size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void FDFDictionary.setAnnotations(List)"})
+  void testSetAnnotations_givenFDFAnnotationCaret_thenFDFDictionaryAnnotationsSizeIsOne() throws IOException {
     // Arrange
     FDFDictionary fdfDictionary = new FDFDictionary();
 
@@ -2086,22 +1784,18 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#setAnnotations(List)}.
-   *
    * <ul>
-   *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret()}.
-   *   <li>Then {@link FDFDictionary#FDFDictionary()} Annotations size is two.
+   *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret()}.</li>
+   *   <li>Then {@link FDFDictionary#FDFDictionary()} Annotations size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#setAnnotations(List)}
+   * <p>
+   * Method under test: {@link FDFDictionary#setAnnotations(List)}
    */
   @Test
-  @DisplayName(
-      "Test setAnnotations(List); given FDFAnnotationCaret(); then FDFDictionary() Annotations size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setAnnotations(List); given FDFAnnotationCaret(); then FDFDictionary() Annotations size is two")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFDictionary.setAnnotations(List)"})
-  void testSetAnnotations_givenFDFAnnotationCaret_thenFDFDictionaryAnnotationsSizeIsTwo()
-      throws IOException {
+  void testSetAnnotations_givenFDFAnnotationCaret_thenFDFDictionaryAnnotationsSizeIsTwo() throws IOException {
     // Arrange
     FDFDictionary fdfDictionary = new FDFDictionary();
 
@@ -2120,52 +1814,16 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#setAnnotations(List)}.
-   *
    * <ul>
-   *   <li>Given {@code null}.
-   *   <li>Then {@link FDFDictionary#FDFDictionary()} Annotations is {@link ArrayList#ArrayList()}.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then {@link FDFDictionary#FDFDictionary()} Annotations Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#setAnnotations(List)}
+   * <p>
+   * Method under test: {@link FDFDictionary#setAnnotations(List)}
    */
   @Test
-  @DisplayName(
-      "Test setAnnotations(List); given 'null'; then FDFDictionary() Annotations is ArrayList()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFDictionary.setAnnotations(List)"})
-  void testSetAnnotations_givenNull_thenFDFDictionaryAnnotationsIsArrayList() throws IOException {
-    // Arrange
-    FDFDictionary fdfDictionary = new FDFDictionary();
-
-    ArrayList<FDFAnnotation> annots = new ArrayList<>();
-    annots.add(null);
-
-    // Act
-    fdfDictionary.setAnnotations(annots);
-
-    // Assert
-    COSDictionary cOSObject = fdfDictionary.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    assertEquals(annots, fdfDictionary.getAnnotations());
-  }
-
-  /**
-   * Test {@link FDFDictionary#setAnnotations(List)}.
-   *
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then {@link FDFDictionary#FDFDictionary()} Annotations Empty.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#setAnnotations(List)}
-   */
-  @Test
-  @DisplayName(
-      "Test setAnnotations(List); when ArrayList(); then FDFDictionary() Annotations Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setAnnotations(List); when ArrayList(); then FDFDictionary() Annotations Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFDictionary.setAnnotations(List)"})
   void testSetAnnotations_whenArrayList_thenFDFDictionaryAnnotationsEmpty() throws IOException {
     // Arrange
@@ -2183,19 +1841,16 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#getDifferences()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFDictionary#FDFDictionary()} Differences is {@link COSStream#COSStream()}.
-   *   <li>Then return {@link COSStream#COSStream()}.
+   *   <li>Given {@link FDFDictionary#FDFDictionary()} Differences is {@link COSStream#COSStream()}.</li>
+   *   <li>Then return {@link COSStream#COSStream()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getDifferences()}
+   * <p>
+   * Method under test: {@link FDFDictionary#getDifferences()}
    */
   @Test
-  @DisplayName(
-      "Test getDifferences(); given FDFDictionary() Differences is COSStream(); then return COSStream()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getDifferences(); given FDFDictionary() Differences is COSStream(); then return COSStream()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSStream FDFDictionary.getDifferences()"})
   void testGetDifferences_givenFDFDictionaryDifferencesIsCOSStream_thenReturnCOSStream() {
     // Arrange
@@ -2209,44 +1864,39 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#getDifferences()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFDictionary#FDFDictionary()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link FDFDictionary#FDFDictionary()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getDifferences()}
+   * <p>
+   * Method under test: {@link FDFDictionary#getDifferences()}
    */
   @Test
   @DisplayName("Test getDifferences(); given FDFDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSStream FDFDictionary.getDifferences()"})
   void testGetDifferences_givenFDFDictionary_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new FDFDictionary().getDifferences());
+    assertNull((new FDFDictionary()).getDifferences());
   }
 
   /**
    * Test {@link FDFDictionary#getDifferences()}.
-   *
    * <ul>
-   *   <li>Then return Key is {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen
-   *       is one.
+   *   <li>Then return Key is {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getDifferences()}
+   * <p>
+   * Method under test: {@link FDFDictionary#getDifferences()}
    */
   @Test
-  @DisplayName(
-      "Test getDifferences(); then return Key is COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getDifferences(); then return Key is COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSStream FDFDictionary.getDifferences()"})
   void testGetDifferences_thenReturnKeyIsCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
     COSStream diff = new COSStream();
     COSObjectKey key = new COSObjectKey(1L, 1);
+
     diff.setKey(key);
 
     FDFDictionary fdfDictionary = new FDFDictionary();
@@ -2258,21 +1908,77 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#setDifferences(COSStream)}.
-   *
    * <ul>
-   *   <li>When {@link COSStream#COSStream()}.
-   *   <li>Then {@link FDFDictionary#FDFDictionary()} Differences is {@link COSStream#COSStream()}.
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#setDifferences(COSStream)}
+   * <p>
+   * Method under test: {@link FDFDictionary#setDifferences(COSStream)}
    */
   @Test
-  @DisplayName(
-      "Test setDifferences(COSStream); when COSStream(); then FDFDictionary() Differences is COSStream()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setDifferences(COSStream); given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFDictionary.setDifferences(COSStream)"})
-  void testSetDifferences_whenCOSStream_thenFDFDictionaryDifferencesIsCOSStream() {
+  void testSetDifferences_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
+    // Arrange
+    FDFDictionary fdfDictionary = new FDFDictionary();
+
+    COSStream diff = new COSStream();
+    diff.setKey(new COSObjectKey(1L, 1));
+
+    // Act
+    fdfDictionary.setDifferences(diff);
+
+    // Assert
+    COSDictionary cOSObject = fdfDictionary.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    assertSame(diff, fdfDictionary.getDifferences());
+  }
+
+  /**
+   * Test {@link FDFDictionary#setDifferences(COSStream)}.
+   * <ul>
+   *   <li>Given {@code true}.</li>
+   *   <li>When {@link COSStream#COSStream()} Direct is {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link FDFDictionary#setDifferences(COSStream)}
+   */
+  @Test
+  @DisplayName("Test setDifferences(COSStream); given 'true'; when COSStream() Direct is 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void FDFDictionary.setDifferences(COSStream)"})
+  void testSetDifferences_givenTrue_whenCOSStreamDirectIsTrue() {
+    // Arrange
+    FDFDictionary fdfDictionary = new FDFDictionary();
+
+    COSStream diff = new COSStream();
+    diff.setDirect(true);
+
+    // Act
+    fdfDictionary.setDifferences(diff);
+
+    // Assert
+    COSDictionary cOSObject = fdfDictionary.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    assertSame(diff, fdfDictionary.getDifferences());
+  }
+
+  /**
+   * Test {@link FDFDictionary#setDifferences(COSStream)}.
+   * <ul>
+   *   <li>When {@link COSStream#COSStream()}.</li>
+   *   <li>Then {@link FDFDictionary#FDFDictionary()} COSObject Values size is one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link FDFDictionary#setDifferences(COSStream)}
+   */
+  @Test
+  @DisplayName("Test setDifferences(COSStream); when COSStream(); then FDFDictionary() COSObject Values size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void FDFDictionary.setDifferences(COSStream)"})
+  void testSetDifferences_whenCOSStream_thenFDFDictionaryCOSObjectValuesSizeIsOne() {
     // Arrange
     FDFDictionary fdfDictionary = new FDFDictionary();
     COSStream diff = new COSStream();
@@ -2289,19 +1995,16 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#setDifferences(COSStream)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link FDFDictionary#FDFDictionary()} COSObject size is zero.
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link FDFDictionary#FDFDictionary()} COSObject size is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#setDifferences(COSStream)}
+   * <p>
+   * Method under test: {@link FDFDictionary#setDifferences(COSStream)}
    */
   @Test
-  @DisplayName(
-      "Test setDifferences(COSStream); when 'null'; then FDFDictionary() COSObject size is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setDifferences(COSStream); when 'null'; then FDFDictionary() COSObject size is zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFDictionary.setDifferences(COSStream)"})
   void testSetDifferences_whenNull_thenFDFDictionaryCOSObjectSizeIsZero() {
     // Arrange
@@ -2318,19 +2021,16 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#getTarget()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFDictionary#FDFDictionary()} Target is empty string.
-   *   <li>Then return empty string.
+   *   <li>Given {@link FDFDictionary#FDFDictionary()} Target is empty string.</li>
+   *   <li>Then return empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getTarget()}
+   * <p>
+   * Method under test: {@link FDFDictionary#getTarget()}
    */
   @Test
-  @DisplayName(
-      "Test getTarget(); given FDFDictionary() Target is empty string; then return empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getTarget(); given FDFDictionary() Target is empty string; then return empty string")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String FDFDictionary.getTarget()"})
   void testGetTarget_givenFDFDictionaryTargetIsEmptyString_thenReturnEmptyString() {
     // Arrange
@@ -2343,18 +2043,16 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#getTarget()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFDictionary#FDFDictionary()} Target is {@code Target}.
-   *   <li>Then return {@code Target}.
+   *   <li>Given {@link FDFDictionary#FDFDictionary()} Target is {@code Target}.</li>
+   *   <li>Then return {@code Target}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getTarget()}
+   * <p>
+   * Method under test: {@link FDFDictionary#getTarget()}
    */
   @Test
   @DisplayName("Test getTarget(); given FDFDictionary() Target is 'Target'; then return 'Target'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String FDFDictionary.getTarget()"})
   void testGetTarget_givenFDFDictionaryTargetIsTarget_thenReturnTarget() {
     // Arrange
@@ -2367,72 +2065,36 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#getTarget()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFDictionary#FDFDictionary()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link FDFDictionary#FDFDictionary()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getTarget()}
+   * <p>
+   * Method under test: {@link FDFDictionary#getTarget()}
    */
   @Test
   @DisplayName("Test getTarget(); given FDFDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String FDFDictionary.getTarget()"})
   void testGetTarget_givenFDFDictionary_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new FDFDictionary().getTarget());
+    assertNull((new FDFDictionary()).getTarget());
   }
 
   /**
    * Test {@link FDFDictionary#setTarget(String)}.
-   *
    * <ul>
-   *   <li>Given {@link FDFDictionary#FDFDictionary()}.
-   *   <li>When {@code null}.
-   *   <li>Then {@link FDFDictionary#FDFDictionary()} COSObject size is zero.
+   *   <li>Given {@link FDFDictionary#FDFDictionary()}.</li>
+   *   <li>Then {@link FDFDictionary#FDFDictionary()} Target is {@code Target}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#setTarget(String)}
+   * <p>
+   * Method under test: {@link FDFDictionary#setTarget(String)}
    */
   @Test
-  @DisplayName(
-      "Test setTarget(String); given FDFDictionary(); when 'null'; then FDFDictionary() COSObject size is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setTarget(String); given FDFDictionary(); then FDFDictionary() Target is 'Target'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFDictionary.setTarget(String)"})
-  void testSetTarget_givenFDFDictionary_whenNull_thenFDFDictionaryCOSObjectSizeIsZero() {
-    // Arrange
-    FDFDictionary fdfDictionary = new FDFDictionary();
-
-    // Act
-    fdfDictionary.setTarget(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = fdfDictionary.getCOSObject();
-    assertEquals(0, cOSObject.size());
-    assertTrue(cOSObject.getValues().isEmpty());
-  }
-
-  /**
-   * Test {@link FDFDictionary#setTarget(String)}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFDictionary#FDFDictionary()}.
-   *   <li>When {@code Target}.
-   *   <li>Then {@link FDFDictionary#FDFDictionary()} Target is {@code Target}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#setTarget(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test setTarget(String); given FDFDictionary(); when 'Target'; then FDFDictionary() Target is 'Target'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFDictionary.setTarget(String)"})
-  void testSetTarget_givenFDFDictionary_whenTarget_thenFDFDictionaryTargetIsTarget() {
+  void testSetTarget_givenFDFDictionary_thenFDFDictionaryTargetIsTarget() {
     // Arrange
     FDFDictionary fdfDictionary = new FDFDictionary();
 
@@ -2448,18 +2110,16 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#getEmbeddedFDFs()}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@code null}.
-   *   <li>Then return first is {@code null}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@code null}.</li>
+   *   <li>Then return first is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getEmbeddedFDFs()}
+   * <p>
+   * Method under test: {@link FDFDictionary#getEmbeddedFDFs()}
    */
   @Test
   @DisplayName("Test getEmbeddedFDFs(); given ArrayList() add 'null'; then return first is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List FDFDictionary.getEmbeddedFDFs()"})
   void testGetEmbeddedFDFs_givenArrayListAddNull_thenReturnFirstIsNull() throws IOException {
     // Arrange
@@ -2479,23 +2139,18 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#getEmbeddedFDFs()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFDictionary#FDFDictionary()} EmbeddedFDFs is {@link
-   *       ArrayList#ArrayList()}.
-   *   <li>Then return Empty.
+   *   <li>Given {@link FDFDictionary#FDFDictionary()} EmbeddedFDFs is {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getEmbeddedFDFs()}
+   * <p>
+   * Method under test: {@link FDFDictionary#getEmbeddedFDFs()}
    */
   @Test
-  @DisplayName(
-      "Test getEmbeddedFDFs(); given FDFDictionary() EmbeddedFDFs is ArrayList(); then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getEmbeddedFDFs(); given FDFDictionary() EmbeddedFDFs is ArrayList(); then return Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List FDFDictionary.getEmbeddedFDFs()"})
-  void testGetEmbeddedFDFs_givenFDFDictionaryEmbeddedFDFsIsArrayList_thenReturnEmpty()
-      throws IOException {
+  void testGetEmbeddedFDFs_givenFDFDictionaryEmbeddedFDFsIsArrayList_thenReturnEmpty() throws IOException {
     // Arrange
     FDFDictionary fdfDictionary = new FDFDictionary();
     fdfDictionary.setEmbeddedFDFs(new ArrayList<>());
@@ -2506,37 +2161,33 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#getEmbeddedFDFs()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFDictionary#FDFDictionary()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link FDFDictionary#FDFDictionary()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getEmbeddedFDFs()}
+   * <p>
+   * Method under test: {@link FDFDictionary#getEmbeddedFDFs()}
    */
   @Test
   @DisplayName("Test getEmbeddedFDFs(); given FDFDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List FDFDictionary.getEmbeddedFDFs()"})
   void testGetEmbeddedFDFs_givenFDFDictionary_thenReturnNull() throws IOException {
     // Arrange, Act and Assert
-    assertNull(new FDFDictionary().getEmbeddedFDFs());
+    assertNull((new FDFDictionary()).getEmbeddedFDFs());
   }
 
   /**
    * Test {@link FDFDictionary#getEmbeddedFDFs()}.
-   *
    * <ul>
-   *   <li>Then first COSObject return {@link COSString}.
+   *   <li>Then first COSObject return {@link COSString}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getEmbeddedFDFs()}
+   * <p>
+   * Method under test: {@link FDFDictionary#getEmbeddedFDFs()}
    */
   @Test
   @DisplayName("Test getEmbeddedFDFs(); then first COSObject return COSString")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List FDFDictionary.getEmbeddedFDFs()"})
   void testGetEmbeddedFDFs_thenFirstCOSObjectReturnCOSString() throws IOException {
     // Arrange
@@ -2562,22 +2213,20 @@ class FDFDictionaryDiffblueTest {
     assertNull(cOSObject.getKey());
     assertFalse(cOSObject.isDirect());
     assertFalse(((COSString) cOSObject).getForceHexForm());
-    assertArrayEquals(new byte[] {}, ((COSString) cOSObject).getBytes());
+    assertArrayEquals(new byte[]{}, ((COSString) cOSObject).getBytes());
   }
 
   /**
    * Test {@link FDFDictionary#getEmbeddedFDFs()}.
-   *
    * <ul>
-   *   <li>Then first return {@link PDComplexFileSpecification}.
+   *   <li>Then first return {@link PDComplexFileSpecification}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getEmbeddedFDFs()}
+   * <p>
+   * Method under test: {@link FDFDictionary#getEmbeddedFDFs()}
    */
   @Test
   @DisplayName("Test getEmbeddedFDFs(); then first return PDComplexFileSpecification")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List FDFDictionary.getEmbeddedFDFs()"})
   void testGetEmbeddedFDFs_thenFirstReturnPDComplexFileSpecification() throws IOException {
     // Arrange
@@ -2611,19 +2260,16 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#setEmbeddedFDFs(List)}.
-   *
    * <ul>
-   *   <li>Given {@code null}.
-   *   <li>Then {@link FDFDictionary#FDFDictionary()} EmbeddedFDFs is {@link ArrayList#ArrayList()}.
+   *   <li>Given {@code null}.</li>
+   *   <li>Then {@link FDFDictionary#FDFDictionary()} EmbeddedFDFs is {@link ArrayList#ArrayList()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#setEmbeddedFDFs(List)}
+   * <p>
+   * Method under test: {@link FDFDictionary#setEmbeddedFDFs(List)}
    */
   @Test
-  @DisplayName(
-      "Test setEmbeddedFDFs(List); given 'null'; then FDFDictionary() EmbeddedFDFs is ArrayList()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setEmbeddedFDFs(List); given 'null'; then FDFDictionary() EmbeddedFDFs is ArrayList()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFDictionary.setEmbeddedFDFs(List)"})
   void testSetEmbeddedFDFs_givenNull_thenFDFDictionaryEmbeddedFDFsIsArrayList() throws IOException {
     // Arrange
@@ -2644,22 +2290,17 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#setEmbeddedFDFs(List)}.
-   *
    * <ul>
-   *   <li>Then {@link FDFDictionary#FDFDictionary()} EmbeddedFDFs first {@link
-   *       PDComplexFileSpecification}.
+   *   <li>Then {@link FDFDictionary#FDFDictionary()} EmbeddedFDFs first {@link PDComplexFileSpecification}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#setEmbeddedFDFs(List)}
+   * <p>
+   * Method under test: {@link FDFDictionary#setEmbeddedFDFs(List)}
    */
   @Test
-  @DisplayName(
-      "Test setEmbeddedFDFs(List); then FDFDictionary() EmbeddedFDFs first PDComplexFileSpecification")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setEmbeddedFDFs(List); then FDFDictionary() EmbeddedFDFs first PDComplexFileSpecification")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFDictionary.setEmbeddedFDFs(List)"})
-  void testSetEmbeddedFDFs_thenFDFDictionaryEmbeddedFDFsFirstPDComplexFileSpecification()
-      throws IOException {
+  void testSetEmbeddedFDFs_thenFDFDictionaryEmbeddedFDFsFirstPDComplexFileSpecification() throws IOException {
     // Arrange
     FDFDictionary fdfDictionary = new FDFDictionary();
 
@@ -2691,22 +2332,17 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#setEmbeddedFDFs(List)}.
-   *
    * <ul>
-   *   <li>Then {@link FDFDictionary#FDFDictionary()} EmbeddedFDFs first {@link
-   *       PDSimpleFileSpecification}.
+   *   <li>Then {@link FDFDictionary#FDFDictionary()} EmbeddedFDFs first {@link PDSimpleFileSpecification}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#setEmbeddedFDFs(List)}
+   * <p>
+   * Method under test: {@link FDFDictionary#setEmbeddedFDFs(List)}
    */
   @Test
-  @DisplayName(
-      "Test setEmbeddedFDFs(List); then FDFDictionary() EmbeddedFDFs first PDSimpleFileSpecification")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setEmbeddedFDFs(List); then FDFDictionary() EmbeddedFDFs first PDSimpleFileSpecification")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFDictionary.setEmbeddedFDFs(List)"})
-  void testSetEmbeddedFDFs_thenFDFDictionaryEmbeddedFDFsFirstPDSimpleFileSpecification()
-      throws IOException {
+  void testSetEmbeddedFDFs_thenFDFDictionaryEmbeddedFDFsFirstPDSimpleFileSpecification() throws IOException {
     // Arrange
     FDFDictionary fdfDictionary = new FDFDictionary();
 
@@ -2726,17 +2362,15 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#setEmbeddedFDFs(List)}.
-   *
    * <ul>
-   *   <li>Then {@link FDFDictionary#FDFDictionary()} EmbeddedFDFs size is two.
+   *   <li>Then {@link FDFDictionary#FDFDictionary()} EmbeddedFDFs size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#setEmbeddedFDFs(List)}
+   * <p>
+   * Method under test: {@link FDFDictionary#setEmbeddedFDFs(List)}
    */
   @Test
   @DisplayName("Test setEmbeddedFDFs(List); then FDFDictionary() EmbeddedFDFs size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFDictionary.setEmbeddedFDFs(List)"})
   void testSetEmbeddedFDFs_thenFDFDictionaryEmbeddedFDFsSizeIsTwo() throws IOException {
     // Arrange
@@ -2771,19 +2405,16 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#setEmbeddedFDFs(List)}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then {@link FDFDictionary#FDFDictionary()} EmbeddedFDFs Empty.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then {@link FDFDictionary#FDFDictionary()} EmbeddedFDFs Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#setEmbeddedFDFs(List)}
+   * <p>
+   * Method under test: {@link FDFDictionary#setEmbeddedFDFs(List)}
    */
   @Test
-  @DisplayName(
-      "Test setEmbeddedFDFs(List); when ArrayList(); then FDFDictionary() EmbeddedFDFs Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setEmbeddedFDFs(List); when ArrayList(); then FDFDictionary() EmbeddedFDFs Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFDictionary.setEmbeddedFDFs(List)"})
   void testSetEmbeddedFDFs_whenArrayList_thenFDFDictionaryEmbeddedFDFsEmpty() throws IOException {
     // Arrange
@@ -2801,37 +2432,33 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#getJavaScript()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFDictionary#FDFDictionary()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link FDFDictionary#FDFDictionary()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getJavaScript()}
+   * <p>
+   * Method under test: {@link FDFDictionary#getJavaScript()}
    */
   @Test
   @DisplayName("Test getJavaScript(); given FDFDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"FDFJavaScript FDFDictionary.getJavaScript()"})
   void testGetJavaScript_givenFDFDictionary_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new FDFDictionary().getJavaScript());
+    assertNull((new FDFDictionary()).getJavaScript());
   }
 
   /**
    * Test {@link FDFDictionary#getJavaScript()}.
-   *
    * <ul>
-   *   <li>Then return After is {@code null}.
+   *   <li>Then return After is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getJavaScript()}
+   * <p>
+   * Method under test: {@link FDFDictionary#getJavaScript()}
    */
   @Test
   @DisplayName("Test getJavaScript(); then return After is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"FDFJavaScript FDFDictionary.getJavaScript()"})
   void testGetJavaScript_thenReturnAfterIsNull() {
     // Arrange
@@ -2861,94 +2488,18 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#setJavaScript(FDFJavaScript)}.
-   *
    * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   *   <li>Given {@link FDFDictionary#FDFDictionary()}.</li>
+   *   <li>Then {@link FDFDictionary#FDFDictionary()} JavaScript After is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#setJavaScript(FDFJavaScript)}
+   * <p>
+   * Method under test: {@link FDFDictionary#setJavaScript(FDFJavaScript)}
    */
   @Test
-  @DisplayName(
-      "Test setJavaScript(FDFJavaScript); given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setJavaScript(FDFJavaScript); given FDFDictionary(); then FDFDictionary() JavaScript After is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFDictionary.setJavaScript(FDFJavaScript)"})
-  void testSetJavaScript_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
-    // Arrange
-    FDFDictionary fdfDictionary = new FDFDictionary();
-
-    COSDictionary javaScript = new COSDictionary();
-    javaScript.setKey(new COSObjectKey(1L, 1));
-
-    // Act
-    fdfDictionary.setJavaScript(new FDFJavaScript(javaScript));
-
-    // Assert
-    FDFJavaScript javaScript2 = fdfDictionary.getJavaScript();
-    assertNull(javaScript2.getAfter());
-    assertNull(javaScript2.getBefore());
-    assertNull(javaScript2.getDoc());
-    COSDictionary cOSObject = fdfDictionary.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    assertSame(javaScript, javaScript2.getCOSObject());
-  }
-
-  /**
-   * Test {@link FDFDictionary#setJavaScript(FDFJavaScript)}.
-   *
-   * <ul>
-   *   <li>Given {@code true}.
-   *   <li>When {@link COSDictionary#COSDictionary()} Direct is {@code true}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#setJavaScript(FDFJavaScript)}
-   */
-  @Test
-  @DisplayName(
-      "Test setJavaScript(FDFJavaScript); given 'true'; when COSDictionary() Direct is 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFDictionary.setJavaScript(FDFJavaScript)"})
-  void testSetJavaScript_givenTrue_whenCOSDictionaryDirectIsTrue() {
-    // Arrange
-    FDFDictionary fdfDictionary = new FDFDictionary();
-
-    COSDictionary javaScript = new COSDictionary();
-    javaScript.setDirect(true);
-
-    // Act
-    fdfDictionary.setJavaScript(new FDFJavaScript(javaScript));
-
-    // Assert
-    FDFJavaScript javaScript2 = fdfDictionary.getJavaScript();
-    assertNull(javaScript2.getAfter());
-    assertNull(javaScript2.getBefore());
-    assertNull(javaScript2.getDoc());
-    COSDictionary cOSObject = fdfDictionary.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    assertSame(javaScript, javaScript2.getCOSObject());
-  }
-
-  /**
-   * Test {@link FDFDictionary#setJavaScript(FDFJavaScript)}.
-   *
-   * <ul>
-   *   <li>When {@link FDFJavaScript#FDFJavaScript()}.
-   *   <li>Then {@link FDFDictionary#FDFDictionary()} JavaScript After is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#setJavaScript(FDFJavaScript)}
-   */
-  @Test
-  @DisplayName(
-      "Test setJavaScript(FDFJavaScript); when FDFJavaScript(); then FDFDictionary() JavaScript After is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFDictionary.setJavaScript(FDFJavaScript)"})
-  void testSetJavaScript_whenFDFJavaScript_thenFDFDictionaryJavaScriptAfterIsNull() {
+  void testSetJavaScript_givenFDFDictionary_thenFDFDictionaryJavaScriptAfterIsNull() {
     // Arrange
     FDFDictionary fdfDictionary = new FDFDictionary();
 
@@ -2967,19 +2518,16 @@ class FDFDictionaryDiffblueTest {
 
   /**
    * Test {@link FDFDictionary#setJavaScript(FDFJavaScript)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link FDFDictionary#FDFDictionary()} COSObject size is zero.
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link FDFDictionary#FDFDictionary()} COSObject size is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#setJavaScript(FDFJavaScript)}
+   * <p>
+   * Method under test: {@link FDFDictionary#setJavaScript(FDFJavaScript)}
    */
   @Test
-  @DisplayName(
-      "Test setJavaScript(FDFJavaScript); when 'null'; then FDFDictionary() COSObject size is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setJavaScript(FDFJavaScript); when 'null'; then FDFDictionary() COSObject size is zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFDictionary.setJavaScript(FDFJavaScript)"})
   void testSetJavaScript_whenNull_thenFDFDictionaryCOSObjectSizeIsZero() {
     // Arrange

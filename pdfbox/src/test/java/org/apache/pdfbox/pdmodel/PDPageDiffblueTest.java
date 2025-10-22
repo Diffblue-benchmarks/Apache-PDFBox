@@ -11,15 +11,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.ArgumentMatchers.isNull;
-import static org.mockito.Mockito.anyBoolean;
 import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -35,7 +34,6 @@ import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.cos.COSObjectKey;
 import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.cos.COSUpdateState;
-import org.apache.pdfbox.pdmodel.common.COSArrayList;
 import org.apache.pdfbox.pdmodel.common.COSObjectable;
 import org.apache.pdfbox.pdmodel.common.PDImmutableRectangle;
 import org.apache.pdfbox.pdmodel.common.PDMetadata;
@@ -71,13 +69,11 @@ import org.mockito.Mockito;
 class PDPageDiffblueTest {
   /**
    * Test getters and setters.
-   *
    * <ul>
-   *   <li>Then ResourceCache return {@link DefaultResourceCache}.
+   *   <li>Then ResourceCache return {@link DefaultResourceCache}.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link PDPage#PDPage(COSDictionary, ResourceCache)}
    *   <li>{@link PDPage#getResourceCache()}
@@ -85,13 +81,9 @@ class PDPageDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters; then ResourceCache return DefaultResourceCache")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PDPage.<init>(COSDictionary)",
-    "void PDPage.<init>(COSDictionary, ResourceCache)",
-    "ResourceCache PDPage.getResourceCache()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDPage.<init>(COSDictionary)", "void PDPage.<init>(COSDictionary, ResourceCache)",
+      "ResourceCache PDPage.getResourceCache()"})
   void testGettersAndSetters_thenResourceCacheReturnDefaultResourceCache() {
     // Arrange
     COSDictionary pageDictionary = new COSDictionary();
@@ -109,29 +101,22 @@ class PDPageDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
    * <ul>
-   *   <li>When {@link COSDictionary#COSDictionary()}.
-   *   <li>Then return ResourceCache is {@code null}.
+   *   <li>When {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then return ResourceCache is {@code null}.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link PDPage#PDPage(COSDictionary)}
    *   <li>{@link PDPage#getResourceCache()}
    * </ul>
    */
   @Test
-  @DisplayName(
-      "Test getters and setters; when COSDictionary(); then return ResourceCache is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PDPage.<init>(COSDictionary)",
-    "void PDPage.<init>(COSDictionary, ResourceCache)",
-    "ResourceCache PDPage.getResourceCache()"
-  })
+  @DisplayName("Test getters and setters; when COSDictionary(); then return ResourceCache is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDPage.<init>(COSDictionary)", "void PDPage.<init>(COSDictionary, ResourceCache)",
+      "ResourceCache PDPage.getResourceCache()"})
   void testGettersAndSetters_whenCOSDictionary_thenReturnResourceCacheIsNull() {
     // Arrange
     COSDictionary pageDictionary = new COSDictionary();
@@ -146,19 +131,16 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#PDPage(PDRectangle)}.
-   *
    * <ul>
-   *   <li>When {@link PDRectangle#A0}.
-   *   <li>Then return ArtBox UpperRightX is {@code 2383.937}.
+   *   <li>When {@link PDRectangle#A0}.</li>
+   *   <li>Then return ArtBox UpperRightX is {@code 2383.937}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#PDPage(PDRectangle)}
+   * <p>
+   * Method under test: {@link PDPage#PDPage(PDRectangle)}
    */
   @Test
-  @DisplayName(
-      "Test new PDPage(PDRectangle); when A0; then return ArtBox UpperRightX is '2383.937'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new PDPage(PDRectangle); when A0; then return ArtBox UpperRightX is '2383.937'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDPage.<init>(PDRectangle)"})
   void testNewPDPage_whenA0_thenReturnArtBoxUpperRightXIs2383937() {
     // Arrange and Act
@@ -177,23 +159,47 @@ class PDPageDiffblueTest {
   }
 
   /**
-   * Test {@link PDPage#getContentStreams()}.
-   *
+   * Test {@link PDPage#PDPage(PDRectangle)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDStream#PDStream(COSDocument)} with
-   *       document is {@link COSDocument#COSDocument()}.
+   *   <li>When {@link PDRectangle#PDRectangle()}.</li>
+   *   <li>Then return ArtBox Height is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getContentStreams()}
+   * <p>
+   * Method under test: {@link PDPage#PDPage(PDRectangle)}
    */
   @Test
-  @DisplayName(
-      "Test getContentStreams(); given ArrayList() add PDStream(COSDocument) with document is COSDocument()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new PDPage(PDRectangle); when PDRectangle(); then return ArtBox Height is zero")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDPage.<init>(PDRectangle)"})
+  void testNewPDPage_whenPDRectangle_thenReturnArtBoxHeightIsZero() {
+    // Arrange and Act
+    PDPage actualPdPage = new PDPage(new PDRectangle());
+
+    // Assert
+    PDRectangle artBox = actualPdPage.getArtBox();
+    assertEquals(0.0f, artBox.getHeight());
+    assertEquals(0.0f, artBox.getUpperRightX());
+    assertEquals(0.0f, artBox.getUpperRightY());
+    assertEquals(0.0f, artBox.getWidth());
+    assertSame(artBox, actualPdPage.getBBox());
+    assertSame(artBox, actualPdPage.getBleedBox());
+    assertSame(artBox, actualPdPage.getCropBox());
+    assertSame(artBox, actualPdPage.getMediaBox());
+  }
+
+  /**
+   * Test {@link PDPage#getContentStreams()}.
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDStream#PDStream(COSDocument)} with document is {@link COSDocument#COSDocument()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPage#getContentStreams()}
+   */
+  @Test
+  @DisplayName("Test getContentStreams(); given ArrayList() add PDStream(COSDocument) with document is COSDocument()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Iterator PDPage.getContentStreams()"})
-  void testGetContentStreams_givenArrayListAddPDStreamWithDocumentIsCOSDocument()
-      throws IOException {
+  void testGetContentStreams_givenArrayListAddPDStreamWithDocumentIsCOSDocument() throws IOException {
     // Arrange
     ArrayList<PDStream> contents = new ArrayList<>();
     contents.add(new PDStream(new COSDocument()));
@@ -220,19 +226,16 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getContentStreams()}.
-   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()} Contents is {@link ArrayList#ArrayList()}.
-   *   <li>Then return not hasNext.
+   *   <li>Given {@link PDPage#PDPage()} Contents is {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return not hasNext.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getContentStreams()}
+   * <p>
+   * Method under test: {@link PDPage#getContentStreams()}
    */
   @Test
-  @DisplayName(
-      "Test getContentStreams(); given PDPage() Contents is ArrayList(); then return not hasNext")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getContentStreams(); given PDPage() Contents is ArrayList(); then return not hasNext")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Iterator PDPage.getContentStreams()"})
   void testGetContentStreams_givenPDPageContentsIsArrayList_thenReturnNotHasNext() {
     // Arrange
@@ -245,22 +248,17 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getContentStreams()}.
-   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()} Contents is {@link PDStream#PDStream(COSDocument)} with
-   *       document is {@link COSDocument#COSDocument()}.
+   *   <li>Given {@link PDPage#PDPage()} Contents is {@link PDStream#PDStream(COSDocument)} with document is {@link COSDocument#COSDocument()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getContentStreams()}
+   * <p>
+   * Method under test: {@link PDPage#getContentStreams()}
    */
   @Test
-  @DisplayName(
-      "Test getContentStreams(); given PDPage() Contents is PDStream(COSDocument) with document is COSDocument()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getContentStreams(); given PDPage() Contents is PDStream(COSDocument) with document is COSDocument()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Iterator PDPage.getContentStreams()"})
-  void testGetContentStreams_givenPDPageContentsIsPDStreamWithDocumentIsCOSDocument()
-      throws IOException {
+  void testGetContentStreams_givenPDPageContentsIsPDStreamWithDocumentIsCOSDocument() throws IOException {
     // Arrange
     PDPage pdPage = new PDPage();
     pdPage.setContents(new PDStream(new COSDocument()));
@@ -284,38 +282,34 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getContentStreams()}.
-   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()}.
-   *   <li>Then return not hasNext.
+   *   <li>Given {@link PDPage#PDPage()}.</li>
+   *   <li>Then return not hasNext.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getContentStreams()}
+   * <p>
+   * Method under test: {@link PDPage#getContentStreams()}
    */
   @Test
   @DisplayName("Test getContentStreams(); given PDPage(); then return not hasNext")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Iterator PDPage.getContentStreams()"})
   void testGetContentStreams_givenPDPage_thenReturnNotHasNext() {
     // Arrange, Act and Assert
-    assertFalse(new PDPage().getContentStreams().hasNext());
+    assertFalse((new PDPage()).getContentStreams().hasNext());
   }
 
   /**
    * Test {@link PDPage#getContents()}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link COSName#A}.
-   *   <li>Then return read is one.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link COSName#A}.</li>
+   *   <li>Then return read is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getContents()}
+   * <p>
+   * Method under test: {@link PDPage#getContents()}
    */
   @Test
   @DisplayName("Test getContents(); given ArrayList() add A; then return read is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.io.InputStream PDPage.getContents()"})
   void testGetContents_givenArrayListAddA_thenReturnReadIsOne() throws IOException {
     // Arrange
@@ -331,23 +325,21 @@ class PDPageDiffblueTest {
     // Act and Assert
     byte[] byteArray = new byte[1];
     assertEquals(1, pdPage.getContents().read(byteArray));
-    assertArrayEquals(new byte[] {'\n'}, byteArray);
+    assertArrayEquals(new byte[]{'\n'}, byteArray);
   }
 
   /**
    * Test {@link PDPage#getContents()}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@code null}.
-   *   <li>Then return read is one.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@code null}.</li>
+   *   <li>Then return read is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getContents()}
+   * <p>
+   * Method under test: {@link PDPage#getContents()}
    */
   @Test
   @DisplayName("Test getContents(); given ArrayList() add 'null'; then return read is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.io.InputStream PDPage.getContents()"})
   void testGetContents_givenArrayListAddNull_thenReturnReadIsOne() throws IOException {
     // Arrange
@@ -363,24 +355,20 @@ class PDPageDiffblueTest {
     // Act and Assert
     byte[] byteArray = new byte[1];
     assertEquals(1, pdPage.getContents().read(byteArray));
-    assertArrayEquals(new byte[] {'\n'}, byteArray);
+    assertArrayEquals(new byte[]{'\n'}, byteArray);
   }
 
   /**
    * Test {@link PDPage#getContents()}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDStream#PDStream(COSDocument)} with
-   *       document is {@link COSDocument#COSDocument()}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDStream#PDStream(COSDocument)} with document is {@link COSDocument#COSDocument()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getContents()}
+   * <p>
+   * Method under test: {@link PDPage#getContents()}
    */
   @Test
-  @DisplayName(
-      "Test getContents(); given ArrayList() add PDStream(COSDocument) with document is COSDocument()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getContents(); given ArrayList() add PDStream(COSDocument) with document is COSDocument()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.io.InputStream PDPage.getContents()"})
   void testGetContents_givenArrayListAddPDStreamWithDocumentIsCOSDocument() throws IOException {
     // Arrange
@@ -391,25 +379,20 @@ class PDPageDiffblueTest {
     pdPage.setContents(contents);
 
     // Act and Assert
-    int actualReadResult = pdPage.getContents().read(new byte[] {});
-    assertEquals(-1, actualReadResult);
+    assertEquals(-1, pdPage.getContents().read(new byte[]{}));
   }
 
   /**
    * Test {@link PDPage#getContents()}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDStream#PDStream(COSDocument)} with
-   *       document is {@link COSDocument#COSDocument()}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDStream#PDStream(COSDocument)} with document is {@link COSDocument#COSDocument()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getContents()}
+   * <p>
+   * Method under test: {@link PDPage#getContents()}
    */
   @Test
-  @DisplayName(
-      "Test getContents(); given ArrayList() add PDStream(COSDocument) with document is COSDocument()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getContents(); given ArrayList() add PDStream(COSDocument) with document is COSDocument()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.io.InputStream PDPage.getContents()"})
   void testGetContents_givenArrayListAddPDStreamWithDocumentIsCOSDocument2() throws IOException {
     // Arrange
@@ -421,76 +404,62 @@ class PDPageDiffblueTest {
     pdPage.setContents(contents);
 
     // Act and Assert
-    int actualReadResult = pdPage.getContents().read(new byte[] {});
-    assertEquals(-1, actualReadResult);
+    assertEquals(-1, pdPage.getContents().read(new byte[]{}));
   }
 
   /**
    * Test {@link PDPage#getContents()}.
-   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()} Contents is {@link ArrayList#ArrayList()}.
-   *   <li>Then return read is minus one.
+   *   <li>Given {@link PDPage#PDPage()} Contents is {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return read is minus one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getContents()}
+   * <p>
+   * Method under test: {@link PDPage#getContents()}
    */
   @Test
-  @DisplayName(
-      "Test getContents(); given PDPage() Contents is ArrayList(); then return read is minus one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getContents(); given PDPage() Contents is ArrayList(); then return read is minus one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.io.InputStream PDPage.getContents()"})
-  void testGetContents_givenPDPageContentsIsArrayList_thenReturnReadIsMinusOne()
-      throws IOException {
+  void testGetContents_givenPDPageContentsIsArrayList_thenReturnReadIsMinusOne() throws IOException {
     // Arrange
     PDPage pdPage = new PDPage();
     pdPage.setContents(new ArrayList<>());
 
     // Act and Assert
-    int actualReadResult = pdPage.getContents().read(new byte[] {});
-    assertEquals(-1, actualReadResult);
+    assertEquals(-1, pdPage.getContents().read(new byte[]{}));
   }
 
   /**
    * Test {@link PDPage#getContents()}.
-   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()}.
-   *   <li>Then return read is minus one.
+   *   <li>Given {@link PDPage#PDPage()}.</li>
+   *   <li>Then return read is minus one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getContents()}
+   * <p>
+   * Method under test: {@link PDPage#getContents()}
    */
   @Test
   @DisplayName("Test getContents(); given PDPage(); then return read is minus one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.io.InputStream PDPage.getContents()"})
   void testGetContents_givenPDPage_thenReturnReadIsMinusOne() throws IOException {
     // Arrange, Act and Assert
-    int actualReadResult = new PDPage().getContents().read(new byte[] {});
-    assertEquals(-1, actualReadResult);
+    assertEquals(-1, (new PDPage()).getContents().read(new byte[]{}));
   }
 
   /**
    * Test {@link PDPage#getContents()}.
-   *
    * <ul>
-   *   <li>Given {@link PDStream#PDStream(COSDocument)} with document is {@link
-   *       COSDocument#COSDocument()} Filters is {@link ArrayList#ArrayList()}.
+   *   <li>Given {@link PDStream#PDStream(COSDocument)} with document is {@link COSDocument#COSDocument()} Filters is {@link ArrayList#ArrayList()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getContents()}
+   * <p>
+   * Method under test: {@link PDPage#getContents()}
    */
   @Test
-  @DisplayName(
-      "Test getContents(); given PDStream(COSDocument) with document is COSDocument() Filters is ArrayList()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getContents(); given PDStream(COSDocument) with document is COSDocument() Filters is ArrayList()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.io.InputStream PDPage.getContents()"})
-  void testGetContents_givenPDStreamWithDocumentIsCOSDocumentFiltersIsArrayList()
-      throws IOException {
+  void testGetContents_givenPDStreamWithDocumentIsCOSDocumentFiltersIsArrayList() throws IOException {
     // Arrange
     PDStream contents = new PDStream(new COSDocument());
     contents.setFilters(new ArrayList<>());
@@ -501,22 +470,44 @@ class PDPageDiffblueTest {
     // Act and Assert
     byte[] byteArray = new byte[1];
     assertEquals(1, pdPage.getContents().read(byteArray));
-    assertArrayEquals(new byte[] {'\n'}, byteArray);
+    assertArrayEquals(new byte[]{'\n'}, byteArray);
   }
 
   /**
    * Test {@link PDPage#getContents()}.
-   *
    * <ul>
-   *   <li>Then return read is one.
+   *   <li>Then return read is eight.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getContents()}
+   * <p>
+   * Method under test: {@link PDPage#getContents()}
+   */
+  @Test
+  @DisplayName("Test getContents(); then return read is eight")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"java.io.InputStream PDPage.getContents()"})
+  void testGetContents_thenReturnReadIsEight() throws IOException {
+    // Arrange
+    PDPage pdPage = new PDPage();
+    PDDocument doc = new PDDocument();
+    pdPage.setContents(new PDMetadata(doc, new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
+
+    // Act and Assert
+    byte[] byteArray = new byte[8];
+    assertEquals(8, pdPage.getContents().read(byteArray));
+    assertArrayEquals("AXAXAXAX".getBytes("UTF-8"), byteArray);
+  }
+
+  /**
+   * Test {@link PDPage#getContents()}.
+   * <ul>
+   *   <li>Then return read is one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPage#getContents()}
    */
   @Test
   @DisplayName("Test getContents(); then return read is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.io.InputStream PDPage.getContents()"})
   void testGetContents_thenReturnReadIsOne() throws IOException {
     // Arrange
@@ -526,24 +517,20 @@ class PDPageDiffblueTest {
     // Act and Assert
     byte[] byteArray = new byte[1];
     assertEquals(1, pdPage.getContents().read(byteArray));
-    assertArrayEquals(new byte[] {'\n'}, byteArray);
+    assertArrayEquals(new byte[]{'\n'}, byteArray);
   }
 
   /**
    * Test {@link PDPage#hasContents()}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDStream#PDStream(COSDocument)} with
-   *       document is {@link COSDocument#COSDocument()}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDStream#PDStream(COSDocument)} with document is {@link COSDocument#COSDocument()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#hasContents()}
+   * <p>
+   * Method under test: {@link PDPage#hasContents()}
    */
   @Test
-  @DisplayName(
-      "Test hasContents(); given ArrayList() add PDStream(COSDocument) with document is COSDocument()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test hasContents(); given ArrayList() add PDStream(COSDocument) with document is COSDocument()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDPage.hasContents()"})
   void testHasContents_givenArrayListAddPDStreamWithDocumentIsCOSDocument() {
     // Arrange
@@ -559,18 +546,16 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#hasContents()}.
-   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()} Contents is {@link ArrayList#ArrayList()}.
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link PDPage#PDPage()} Contents is {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#hasContents()}
+   * <p>
+   * Method under test: {@link PDPage#hasContents()}
    */
   @Test
   @DisplayName("Test hasContents(); given PDPage() Contents is ArrayList(); then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDPage.hasContents()"})
   void testHasContents_givenPDPageContentsIsArrayList_thenReturnFalse() {
     // Arrange
@@ -583,19 +568,15 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#hasContents()}.
-   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()} Contents is {@link PDStream#PDStream(COSDocument)} with
-   *       document is {@link COSDocument#COSDocument()}.
+   *   <li>Given {@link PDPage#PDPage()} Contents is {@link PDStream#PDStream(COSDocument)} with document is {@link COSDocument#COSDocument()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#hasContents()}
+   * <p>
+   * Method under test: {@link PDPage#hasContents()}
    */
   @Test
-  @DisplayName(
-      "Test hasContents(); given PDPage() Contents is PDStream(COSDocument) with document is COSDocument()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test hasContents(); given PDPage() Contents is PDStream(COSDocument) with document is COSDocument()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDPage.hasContents()"})
   void testHasContents_givenPDPageContentsIsPDStreamWithDocumentIsCOSDocument() {
     // Arrange
@@ -608,60 +589,55 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#hasContents()}.
-   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()}.
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link PDPage#PDPage()}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#hasContents()}
+   * <p>
+   * Method under test: {@link PDPage#hasContents()}
    */
   @Test
   @DisplayName("Test hasContents(); given PDPage(); then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDPage.hasContents()"})
   void testHasContents_givenPDPage_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new PDPage().hasContents());
+    assertFalse((new PDPage()).hasContents());
   }
 
   /**
    * Test {@link PDPage#getResources()}.
-   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDPage#PDPage()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getResources()}
+   * <p>
+   * Method under test: {@link PDPage#getResources()}
    */
   @Test
   @DisplayName("Test getResources(); given PDPage(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDResources PDPage.getResources()"})
   void testGetResources_givenPDPage_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDPage().getResources());
+    assertNull((new PDPage()).getResources());
   }
 
   /**
    * Test {@link PDPage#setResources(PDResources)}.
-   *
-   * <p>Method under test: {@link PDPage#setResources(PDResources)}
+   * <p>
+   * Method under test: {@link PDPage#setResources(PDResources)}
    */
   @Test
   @DisplayName("Test setResources(PDResources)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDPage.setResources(PDResources)"})
   void testSetResources() {
     // Arrange
     COSDictionary pageDictionary = mock(COSDictionary.class);
     doNothing().when(pageDictionary).setItem(Mockito.<COSName>any(), Mockito.<COSObjectable>any());
     PDPage pdPage = new PDPage(pageDictionary);
-    PDResources resources = mock(PDResources.class);
+    PDResources resources = new PDResources();
 
     // Act
     pdPage.setResources(resources);
@@ -673,77 +649,41 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#setResources(PDResources)}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#isDirect()} throw {@link
-   *       IllegalArgumentException#IllegalArgumentException()}.
+   *   <li>Given {@link COSDictionary} {@link COSDictionary#removeItem(COSName)} does nothing.</li>
+   *   <li>Then calls {@link COSDictionary#removeItem(COSName)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setResources(PDResources)}
+   * <p>
+   * Method under test: {@link PDPage#setResources(PDResources)}
    */
   @Test
-  @DisplayName(
-      "Test setResources(PDResources); given COSDictionary isDirect() throw IllegalArgumentException()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setResources(PDResources); given COSDictionary removeItem(COSName) does nothing; then calls removeItem(COSName)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDPage.setResources(PDResources)"})
-  void testSetResources_givenCOSDictionaryIsDirectThrowIllegalArgumentException() {
+  void testSetResources_givenCOSDictionaryRemoveItemDoesNothing_thenCallsRemoveItem() {
     // Arrange
-    PDPage pdPage = new PDPage();
+    COSDictionary pageDictionary = mock(COSDictionary.class);
+    doNothing().when(pageDictionary).removeItem(Mockito.<COSName>any());
 
-    COSDictionary cosDictionary = mock(COSDictionary.class);
-    when(cosDictionary.isDirect()).thenThrow(new IllegalArgumentException());
+    // Act
+    (new PDPage(pageDictionary)).setResources(null);
 
-    PDResources resources = mock(PDResources.class);
-    when(resources.getCOSObject()).thenReturn(cosDictionary);
-
-    // Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> pdPage.setResources(resources));
-    verify(cosDictionary).isDirect();
-    verify(resources).getCOSObject();
-  }
-
-  /**
-   * Test {@link PDPage#setResources(PDResources)}.
-   *
-   * <ul>
-   *   <li>Given {@link IllegalArgumentException#IllegalArgumentException()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setResources(PDResources)}
-   */
-  @Test
-  @DisplayName("Test setResources(PDResources); given IllegalArgumentException()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDPage.setResources(PDResources)"})
-  void testSetResources_givenIllegalArgumentException() {
-    // Arrange
-    PDPage pdPage = new PDPage();
-
-    PDResources resources = mock(PDResources.class);
-    when(resources.getCOSObject()).thenThrow(new IllegalArgumentException());
-
-    // Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> pdPage.setResources(resources));
-    verify(resources).getCOSObject();
+    // Assert that nothing has changed
+    verify(pageDictionary).removeItem(isA(COSName.class));
   }
 
   /**
    * Test {@link PDPage#getStructParents()}.
-   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()} StructParents is minus one.
-   *   <li>Then return minus one.
+   *   <li>Given {@link PDPage#PDPage()} StructParents is minus one.</li>
+   *   <li>Then return minus one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getStructParents()}
+   * <p>
+   * Method under test: {@link PDPage#getStructParents()}
    */
   @Test
-  @DisplayName(
-      "Test getStructParents(); given PDPage() StructParents is minus one; then return minus one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getStructParents(); given PDPage() StructParents is minus one; then return minus one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int PDPage.getStructParents()"})
   void testGetStructParents_givenPDPageStructParentsIsMinusOne_thenReturnMinusOne() {
     // Arrange
@@ -756,33 +696,30 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getStructParents()}.
-   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()}.
-   *   <li>Then return minus one.
+   *   <li>Given {@link PDPage#PDPage()}.</li>
+   *   <li>Then return minus one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getStructParents()}
+   * <p>
+   * Method under test: {@link PDPage#getStructParents()}
    */
   @Test
   @DisplayName("Test getStructParents(); given PDPage(); then return minus one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int PDPage.getStructParents()"})
   void testGetStructParents_givenPDPage_thenReturnMinusOne() {
     // Arrange, Act and Assert
-    assertEquals(-1, new PDPage().getStructParents());
+    assertEquals(-1, (new PDPage()).getStructParents());
   }
 
   /**
    * Test {@link PDPage#setStructParents(int)}.
-   *
-   * <p>Method under test: {@link PDPage#setStructParents(int)}
+   * <p>
+   * Method under test: {@link PDPage#setStructParents(int)}
    */
   @Test
   @DisplayName("Test setStructParents(int)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDPage.setStructParents(int)"})
   void testSetStructParents() {
     // Arrange
@@ -800,19 +737,16 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getBBox()}.
-   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()} CropBox is {@link PDRectangle#A0}.
-   *   <li>Then return COSArray toList size is four.
+   *   <li>Given {@link PDPage#PDPage()} CropBox is {@link PDRectangle#A0}.</li>
+   *   <li>Then return COSArray toList size is four.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getBBox()}
+   * <p>
+   * Method under test: {@link PDPage#getBBox()}
    */
   @Test
-  @DisplayName(
-      "Test getBBox(); given PDPage() CropBox is A0; then return COSArray toList size is four")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getBBox(); given PDPage() CropBox is A0; then return COSArray toList size is four")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDRectangle PDPage.getBBox()"})
   void testGetBBox_givenPDPageCropBoxIsA0_thenReturnCOSArrayToListSizeIsFour() {
     // Arrange
@@ -838,22 +772,20 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getBBox()}.
-   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()}.
-   *   <li>Then return COSArray toList size is four.
+   *   <li>Given {@link PDPage#PDPage()}.</li>
+   *   <li>Then return COSArray toList size is four.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getBBox()}
+   * <p>
+   * Method under test: {@link PDPage#getBBox()}
    */
   @Test
   @DisplayName("Test getBBox(); given PDPage(); then return COSArray toList size is four")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDRectangle PDPage.getBBox()"})
   void testGetBBox_givenPDPage_thenReturnCOSArrayToListSizeIsFour() {
     // Arrange and Act
-    PDRectangle actualBBox = new PDPage().getBBox();
+    PDRectangle actualBBox = (new PDPage()).getBBox();
 
     // Assert
     COSArray cOSArray = actualBBox.getCOSArray();
@@ -871,19 +803,15 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getBBox()}.
-   *
    * <ul>
-   *   <li>Then {@link PDPage#PDPage(COSDictionary)} with pageDictionary is {@link
-   *       COSDictionary#COSDictionary()} ArtBox is {@link PDRectangle#LETTER}.
+   *   <li>Then {@link PDPage#PDPage(COSDictionary)} with pageDictionary is {@link COSDictionary#COSDictionary()} ArtBox is {@link PDRectangle#LETTER}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getBBox()}
+   * <p>
+   * Method under test: {@link PDPage#getBBox()}
    */
   @Test
-  @DisplayName(
-      "Test getBBox(); then PDPage(COSDictionary) with pageDictionary is COSDictionary() ArtBox is LETTER")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getBBox(); then PDPage(COSDictionary) with pageDictionary is COSDictionary() ArtBox is LETTER")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDRectangle PDPage.getBBox()"})
   void testGetBBox_thenPDPageWithPageDictionaryIsCOSDictionaryArtBoxIsLetter() {
     // Arrange
@@ -893,7 +821,7 @@ class PDPageDiffblueTest {
     PDRectangle actualBBox = pdPage.getBBox();
 
     // Assert
-    PDRectangle pdRectangle = PDRectangle.LETTER;
+    PDRectangle pdRectangle = actualBBox.LETTER;
     assertSame(pdRectangle, pdPage.getArtBox());
     assertSame(pdRectangle, actualBBox);
     assertSame(pdRectangle, pdPage.getBleedBox());
@@ -903,24 +831,20 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getBBox()}.
-   *
    * <ul>
-   *   <li>Then return Height is {@code -2.14748288E9}.
+   *   <li>Then return Height is {@code -2.14748288E9}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getBBox()}
+   * <p>
+   * Method under test: {@link PDPage#getBBox()}
    */
   @Test
   @DisplayName("Test getBBox(); then return Height is '-2.14748288E9'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDRectangle PDPage.getBBox()"})
   void testGetBBox_thenReturnHeightIs214748288e9() {
     // Arrange
     PDPage pdPage = new PDPage();
-    PDRectangle cropBox =
-        new PDRectangle(2.14748365E9f, 2.14748365E9f, 2.14748365E9f, 2.14748365E9f);
-    pdPage.setCropBox(cropBox);
+    pdPage.setCropBox(new PDRectangle(2.14748365E9f, 2.14748365E9f, 2.14748365E9f, 2.14748365E9f));
 
     // Act
     PDRectangle actualBBox = pdPage.getBBox();
@@ -934,17 +858,16 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getMatrix()}.
-   *
-   * <p>Method under test: {@link PDPage#getMatrix()}
+   * <p>
+   * Method under test: {@link PDPage#getMatrix()}
    */
   @Test
   @DisplayName("Test getMatrix()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Matrix PDPage.getMatrix()"})
   void testGetMatrix() {
     // Arrange and Act
-    Matrix actualMatrix = new PDPage().getMatrix();
+    Matrix actualMatrix = (new PDPage()).getMatrix();
 
     // Assert
     assertEquals(0.0f, actualMatrix.getShearX());
@@ -957,29 +880,27 @@ class PDPageDiffblueTest {
     assertEquals(1.0f, actualMatrix.getScalingFactorY());
     float[][] values = actualMatrix.getValues();
     assertEquals(3, values.length);
-    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
-    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
-    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
+    assertArrayEquals(new float[]{0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[]{0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[]{1.0f, 0.0f, 0.0f}, values[0], 0.0f);
   }
 
   /**
    * Test {@link PDPage#getMediaBox()}.
-   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()}.
-   *   <li>Then return COSArray toList size is four.
+   *   <li>Given {@link PDPage#PDPage()}.</li>
+   *   <li>Then return COSArray toList size is four.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getMediaBox()}
+   * <p>
+   * Method under test: {@link PDPage#getMediaBox()}
    */
   @Test
   @DisplayName("Test getMediaBox(); given PDPage(); then return COSArray toList size is four")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDRectangle PDPage.getMediaBox()"})
   void testGetMediaBox_givenPDPage_thenReturnCOSArrayToListSizeIsFour() {
     // Arrange and Act
-    PDRectangle actualMediaBox = new PDPage().getMediaBox();
+    PDRectangle actualMediaBox = (new PDPage()).getMediaBox();
 
     // Assert
     COSArray cOSArray = actualMediaBox.getCOSArray();
@@ -1003,19 +924,15 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getMediaBox()}.
-   *
    * <ul>
-   *   <li>Then {@link PDPage#PDPage(COSDictionary)} with pageDictionary is {@link
-   *       COSDictionary#COSDictionary()} ArtBox is {@link PDRectangle#LETTER}.
+   *   <li>Then {@link PDPage#PDPage(COSDictionary)} with pageDictionary is {@link COSDictionary#COSDictionary()} ArtBox is {@link PDRectangle#LETTER}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getMediaBox()}
+   * <p>
+   * Method under test: {@link PDPage#getMediaBox()}
    */
   @Test
-  @DisplayName(
-      "Test getMediaBox(); then PDPage(COSDictionary) with pageDictionary is COSDictionary() ArtBox is LETTER")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getMediaBox(); then PDPage(COSDictionary) with pageDictionary is COSDictionary() ArtBox is LETTER")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDRectangle PDPage.getMediaBox()"})
   void testGetMediaBox_thenPDPageWithPageDictionaryIsCOSDictionaryArtBoxIsLetter() {
     // Arrange
@@ -1025,7 +942,7 @@ class PDPageDiffblueTest {
     PDRectangle actualMediaBox = pdPage.getMediaBox();
 
     // Assert
-    PDRectangle pdRectangle = PDRectangle.LETTER;
+    PDRectangle pdRectangle = actualMediaBox.LETTER;
     assertSame(pdRectangle, pdPage.getArtBox());
     assertSame(pdRectangle, pdPage.getBBox());
     assertSame(pdRectangle, pdPage.getBleedBox());
@@ -1035,29 +952,28 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#setMediaBox(PDRectangle)}.
-   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()}.
-   *   <li>When {@link PDRectangle#A0}.
-   *   <li>Then {@link PDPage#PDPage()} ArtBox is {@link PDRectangle#A0}.
+   *   <li>Given {@link PDPage#PDPage()}.</li>
+   *   <li>When {@link PDRectangle#A0}.</li>
+   *   <li>Then {@link PDPage#PDPage()} ArtBox is {@link PDRectangle#A0} {@link PDRectangle#A0}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setMediaBox(PDRectangle)}
+   * <p>
+   * Method under test: {@link PDPage#setMediaBox(PDRectangle)}
    */
   @Test
-  @DisplayName("Test setMediaBox(PDRectangle); given PDPage(); when A0; then PDPage() ArtBox is A0")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setMediaBox(PDRectangle); given PDPage(); when A0; then PDPage() ArtBox is A0 A0")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDPage.setMediaBox(PDRectangle)"})
-  void testSetMediaBox_givenPDPage_whenA0_thenPDPageArtBoxIsA0() {
+  void testSetMediaBox_givenPDPage_whenA0_thenPDPageArtBoxIsA0A0() {
     // Arrange
     PDPage pdPage = new PDPage();
+    PDRectangle mediaBox = PDRectangle.A0;
 
     // Act
-    pdPage.setMediaBox(PDRectangle.A0);
+    pdPage.setMediaBox(mediaBox);
 
     // Assert
-    PDRectangle pdRectangle = PDRectangle.A0;
+    PDRectangle pdRectangle = mediaBox.A0;
     assertSame(pdRectangle, pdPage.getArtBox());
     assertSame(pdRectangle, pdPage.getBBox());
     assertSame(pdRectangle, pdPage.getBleedBox());
@@ -1067,52 +983,46 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#setMediaBox(PDRectangle)}.
-   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()}.
-   *   <li>When {@link PDRectangle#LETTER}.
-   *   <li>Then {@link PDPage#PDPage()} ArtBox is {@link PDRectangle#LETTER}.
+   *   <li>Given {@link PDPage#PDPage()}.</li>
+   *   <li>When {@link PDRectangle#PDRectangle()}.</li>
+   *   <li>Then {@link PDPage#PDPage()} ArtBox is {@link PDRectangle#PDRectangle()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setMediaBox(PDRectangle)}
+   * <p>
+   * Method under test: {@link PDPage#setMediaBox(PDRectangle)}
    */
   @Test
-  @DisplayName(
-      "Test setMediaBox(PDRectangle); given PDPage(); when LETTER; then PDPage() ArtBox is LETTER")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setMediaBox(PDRectangle); given PDPage(); when PDRectangle(); then PDPage() ArtBox is PDRectangle()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDPage.setMediaBox(PDRectangle)"})
-  void testSetMediaBox_givenPDPage_whenLetter_thenPDPageArtBoxIsLetter() {
+  void testSetMediaBox_givenPDPage_whenPDRectangle_thenPDPageArtBoxIsPDRectangle() {
     // Arrange
     PDPage pdPage = new PDPage();
+    PDRectangle mediaBox = new PDRectangle();
 
     // Act
-    pdPage.setMediaBox(PDRectangle.LETTER);
+    pdPage.setMediaBox(mediaBox);
 
     // Assert
-    PDRectangle pdRectangle = PDRectangle.LETTER;
-    assertSame(pdRectangle, pdPage.getArtBox());
-    assertSame(pdRectangle, pdPage.getBBox());
-    assertSame(pdRectangle, pdPage.getBleedBox());
-    assertSame(pdRectangle, pdPage.getCropBox());
-    assertSame(pdRectangle, pdPage.getMediaBox());
+    assertSame(mediaBox, pdPage.getArtBox());
+    assertSame(mediaBox, pdPage.getBBox());
+    assertSame(mediaBox, pdPage.getBleedBox());
+    assertSame(mediaBox, pdPage.getCropBox());
+    assertSame(mediaBox, pdPage.getMediaBox());
   }
 
   /**
    * Test {@link PDPage#getCropBox()}.
-   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()} CropBox is {@link PDRectangle#A0}.
-   *   <li>Then return COSArray toList size is four.
+   *   <li>Given {@link PDPage#PDPage()} CropBox is {@link PDRectangle#A0}.</li>
+   *   <li>Then return COSArray toList size is four.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getCropBox()}
+   * <p>
+   * Method under test: {@link PDPage#getCropBox()}
    */
   @Test
-  @DisplayName(
-      "Test getCropBox(); given PDPage() CropBox is A0; then return COSArray toList size is four")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getCropBox(); given PDPage() CropBox is A0; then return COSArray toList size is four")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDRectangle PDPage.getCropBox()"})
   void testGetCropBox_givenPDPageCropBoxIsA0_thenReturnCOSArrayToListSizeIsFour() {
     // Arrange
@@ -1138,22 +1048,20 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getCropBox()}.
-   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()}.
-   *   <li>Then return COSArray toList size is four.
+   *   <li>Given {@link PDPage#PDPage()}.</li>
+   *   <li>Then return COSArray toList size is four.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getCropBox()}
+   * <p>
+   * Method under test: {@link PDPage#getCropBox()}
    */
   @Test
   @DisplayName("Test getCropBox(); given PDPage(); then return COSArray toList size is four")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDRectangle PDPage.getCropBox()"})
   void testGetCropBox_givenPDPage_thenReturnCOSArrayToListSizeIsFour() {
     // Arrange and Act
-    PDRectangle actualCropBox = new PDPage().getCropBox();
+    PDRectangle actualCropBox = (new PDPage()).getCropBox();
 
     // Assert
     COSArray cOSArray = actualCropBox.getCOSArray();
@@ -1171,19 +1079,15 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getCropBox()}.
-   *
    * <ul>
-   *   <li>Then {@link PDPage#PDPage(COSDictionary)} with pageDictionary is {@link
-   *       COSDictionary#COSDictionary()} ArtBox is {@link PDRectangle#LETTER}.
+   *   <li>Then {@link PDPage#PDPage(COSDictionary)} with pageDictionary is {@link COSDictionary#COSDictionary()} ArtBox is {@link PDRectangle#LETTER}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getCropBox()}
+   * <p>
+   * Method under test: {@link PDPage#getCropBox()}
    */
   @Test
-  @DisplayName(
-      "Test getCropBox(); then PDPage(COSDictionary) with pageDictionary is COSDictionary() ArtBox is LETTER")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getCropBox(); then PDPage(COSDictionary) with pageDictionary is COSDictionary() ArtBox is LETTER")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDRectangle PDPage.getCropBox()"})
   void testGetCropBox_thenPDPageWithPageDictionaryIsCOSDictionaryArtBoxIsLetter() {
     // Arrange
@@ -1193,7 +1097,7 @@ class PDPageDiffblueTest {
     PDRectangle actualCropBox = pdPage.getCropBox();
 
     // Assert
-    PDRectangle pdRectangle = PDRectangle.LETTER;
+    PDRectangle pdRectangle = actualCropBox.LETTER;
     assertSame(pdRectangle, pdPage.getArtBox());
     assertSame(pdRectangle, pdPage.getBBox());
     assertSame(pdRectangle, pdPage.getBleedBox());
@@ -1203,24 +1107,20 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getCropBox()}.
-   *
    * <ul>
-   *   <li>Then return Height is {@code -2.14748288E9}.
+   *   <li>Then return Height is {@code -2.14748288E9}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getCropBox()}
+   * <p>
+   * Method under test: {@link PDPage#getCropBox()}
    */
   @Test
   @DisplayName("Test getCropBox(); then return Height is '-2.14748288E9'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDRectangle PDPage.getCropBox()"})
   void testGetCropBox_thenReturnHeightIs214748288e9() {
     // Arrange
     PDPage pdPage = new PDPage();
-    PDRectangle cropBox =
-        new PDRectangle(2.14748365E9f, 2.14748365E9f, 2.14748365E9f, 2.14748365E9f);
-    pdPage.setCropBox(cropBox);
+    pdPage.setCropBox(new PDRectangle(2.14748365E9f, 2.14748365E9f, 2.14748365E9f, 2.14748365E9f));
 
     // Act
     PDRectangle actualCropBox = pdPage.getCropBox();
@@ -1234,281 +1134,19 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#setCropBox(PDRectangle)}.
-   *
-   * <p>Method under test: {@link PDPage#setCropBox(PDRectangle)}
-   */
-  @Test
-  @DisplayName("Test setCropBox(PDRectangle)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDPage.setCropBox(PDRectangle)"})
-  void testSetCropBox() {
-    // Arrange
-    PDPage pdPage = new PDPage();
-
-    COSArray cosArray = new COSArray(new ArrayList<>());
-    cosArray.setDirect(false);
-    cosArray.setKey(new COSObjectKey(1L, 1));
-
-    PDRectangle cropBox = mock(PDRectangle.class);
-    when(cropBox.getCOSArray()).thenReturn(cosArray);
-
-    // Act
-    pdPage.setCropBox(cropBox);
-
-    // Assert
-    verify(cropBox).getCOSArray();
-    PDRectangle artBox = pdPage.getArtBox();
-    assertEquals(0.0f, artBox.getHeight());
-    PDRectangle bBox = pdPage.getBBox();
-    assertEquals(0.0f, bBox.getHeight());
-    PDRectangle bleedBox = pdPage.getBleedBox();
-    assertEquals(0.0f, bleedBox.getHeight());
-    PDRectangle cropBox2 = pdPage.getCropBox();
-    assertEquals(0.0f, cropBox2.getHeight());
-    assertEquals(0.0f, artBox.getUpperRightX());
-    assertEquals(0.0f, bBox.getUpperRightX());
-    assertEquals(0.0f, bleedBox.getUpperRightX());
-    assertEquals(0.0f, cropBox2.getUpperRightX());
-    assertEquals(0.0f, artBox.getUpperRightY());
-    assertEquals(0.0f, bBox.getUpperRightY());
-    assertEquals(0.0f, bleedBox.getUpperRightY());
-    assertEquals(0.0f, cropBox2.getUpperRightY());
-    assertEquals(0.0f, artBox.getWidth());
-    assertEquals(0.0f, bBox.getWidth());
-    assertEquals(0.0f, bleedBox.getWidth());
-    assertEquals(0.0f, cropBox2.getWidth());
-  }
-
-  /**
-   * Test {@link PDPage#setCropBox(PDRectangle)}.
-   *
-   * <p>Method under test: {@link PDPage#setCropBox(PDRectangle)}
-   */
-  @Test
-  @DisplayName("Test setCropBox(PDRectangle)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDPage.setCropBox(PDRectangle)"})
-  void testSetCropBox2() {
-    // Arrange
-    PDPage pdPage = new PDPage();
-
-    COSArray cosArray = mock(COSArray.class);
-    when(cosArray.isDirect()).thenReturn(true);
-    when(cosArray.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
-    doNothing().when(cosArray).setDirect(anyBoolean());
-    doNothing().when(cosArray).setKey(Mockito.<COSObjectKey>any());
-    cosArray.setDirect(false);
-    cosArray.setKey(null);
-
-    PDRectangle cropBox = mock(PDRectangle.class);
-    when(cropBox.getCOSArray()).thenReturn(cosArray);
-
-    // Act
-    pdPage.setCropBox(cropBox);
-
-    // Assert
-    verify(cosArray).getUpdateState();
-    verify(cosArray).isDirect();
-    verify(cosArray).setDirect(false);
-    verify(cosArray).setKey(isNull());
-    verify(cropBox).getCOSArray();
-    List<? extends COSBase> toListResult = pdPage.getMediaBox().getCOSArray().toList();
-    assertEquals(4, toListResult.size());
-    COSBase getResult = toListResult.get(0);
-    assertTrue(getResult instanceof COSFloat);
-    COSBase getResult2 = toListResult.get(1);
-    assertTrue(getResult2 instanceof COSFloat);
-    COSBase getResult3 = toListResult.get(2);
-    assertTrue(getResult3 instanceof COSFloat);
-    COSBase getResult4 = toListResult.get(3);
-    assertTrue(getResult4 instanceof COSFloat);
-    assertNull(getResult.getKey());
-    assertNull(getResult3.getKey());
-    assertNull(getResult4.getKey());
-    assertFalse(getResult.isDirect());
-    assertFalse(getResult3.isDirect());
-    assertFalse(getResult4.isDirect());
-    assertEquals(getResult, getResult2);
-  }
-
-  /**
-   * Test {@link PDPage#setCropBox(PDRectangle)}.
-   *
-   * <p>Method under test: {@link PDPage#setCropBox(PDRectangle)}
-   */
-  @Test
-  @DisplayName("Test setCropBox(PDRectangle)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDPage.setCropBox(PDRectangle)"})
-  void testSetCropBox3() {
-    // Arrange
-    COSDictionary pageDictionary = mock(COSDictionary.class);
-    doNothing().when(pageDictionary).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
-    PDPage pdPage = new PDPage(pageDictionary);
-
-    COSArray cosArray = mock(COSArray.class);
-    doNothing().when(cosArray).setDirect(anyBoolean());
-    doNothing().when(cosArray).setKey(Mockito.<COSObjectKey>any());
-    cosArray.setDirect(false);
-    cosArray.setKey(null);
-
-    PDRectangle cropBox = mock(PDRectangle.class);
-    when(cropBox.getCOSArray()).thenReturn(cosArray);
-
-    // Act
-    pdPage.setCropBox(cropBox);
-
-    // Assert that nothing has changed
-    verify(cosArray).setDirect(false);
-    verify(cosArray).setKey(isNull());
-    verify(pageDictionary).setItem(isA(COSName.class), isA(COSBase.class));
-    verify(cropBox).getCOSArray();
-    PDRectangle artBox = pdPage.getArtBox();
-    assertTrue(artBox instanceof PDImmutableRectangle);
-    assertEquals(612.0f, artBox.getUpperRightX());
-    assertEquals(612.0f, artBox.getWidth());
-    assertEquals(792.0f, artBox.getHeight());
-    assertEquals(792.0f, artBox.getUpperRightY());
-  }
-
-  /**
-   * Test {@link PDPage#setCropBox(PDRectangle)}.
-   *
    * <ul>
-   *   <li>Given {@link COSArray#COSArray(List)} with cosObjectables is {@link
-   *       ArrayList#ArrayList()} Key is {@code null}.
+   *   <li>Given {@link PDPage#PDPage()}.</li>
+   *   <li>When {@link PDRectangle#A0}.</li>
+   *   <li>Then {@link PDPage#PDPage()} BBox UpperRightX is six hundred twelve.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setCropBox(PDRectangle)}
+   * <p>
+   * Method under test: {@link PDPage#setCropBox(PDRectangle)}
    */
   @Test
-  @DisplayName(
-      "Test setCropBox(PDRectangle); given COSArray(List) with cosObjectables is ArrayList() Key is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setCropBox(PDRectangle); given PDPage(); when A0; then PDPage() BBox UpperRightX is six hundred twelve")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDPage.setCropBox(PDRectangle)"})
-  void testSetCropBox_givenCOSArrayWithCosObjectablesIsArrayListKeyIsNull() {
-    // Arrange
-    PDPage pdPage = new PDPage();
-
-    COSArray cosArray = new COSArray(new ArrayList<>());
-    cosArray.setDirect(false);
-    cosArray.setKey(null);
-
-    PDRectangle cropBox = mock(PDRectangle.class);
-    when(cropBox.getCOSArray()).thenReturn(cosArray);
-
-    // Act
-    pdPage.setCropBox(cropBox);
-
-    // Assert
-    verify(cropBox).getCOSArray();
-    PDRectangle artBox = pdPage.getArtBox();
-    assertEquals(0.0f, artBox.getHeight());
-    PDRectangle bBox = pdPage.getBBox();
-    assertEquals(0.0f, bBox.getHeight());
-    PDRectangle bleedBox = pdPage.getBleedBox();
-    assertEquals(0.0f, bleedBox.getHeight());
-    PDRectangle cropBox2 = pdPage.getCropBox();
-    assertEquals(0.0f, cropBox2.getHeight());
-    assertEquals(0.0f, artBox.getUpperRightX());
-    assertEquals(0.0f, bBox.getUpperRightX());
-    assertEquals(0.0f, bleedBox.getUpperRightX());
-    assertEquals(0.0f, cropBox2.getUpperRightX());
-    assertEquals(0.0f, artBox.getUpperRightY());
-    assertEquals(0.0f, bBox.getUpperRightY());
-    assertEquals(0.0f, bleedBox.getUpperRightY());
-    assertEquals(0.0f, cropBox2.getUpperRightY());
-    assertEquals(0.0f, artBox.getWidth());
-    assertEquals(0.0f, bBox.getWidth());
-    assertEquals(0.0f, bleedBox.getWidth());
-    assertEquals(0.0f, cropBox2.getWidth());
-  }
-
-  /**
-   * Test {@link PDPage#setCropBox(PDRectangle)}.
-   *
-   * <ul>
-   *   <li>Given {@link IllegalArgumentException#IllegalArgumentException()}.
-   *   <li>Then throw {@link IllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setCropBox(PDRectangle)}
-   */
-  @Test
-  @DisplayName(
-      "Test setCropBox(PDRectangle); given IllegalArgumentException(); then throw IllegalArgumentException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDPage.setCropBox(PDRectangle)"})
-  void testSetCropBox_givenIllegalArgumentException_thenThrowIllegalArgumentException() {
-    // Arrange
-    PDPage pdPage = new PDPage();
-
-    PDRectangle cropBox = mock(PDRectangle.class);
-    when(cropBox.getCOSArray()).thenThrow(new IllegalArgumentException());
-
-    // Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> pdPage.setCropBox(cropBox));
-    verify(cropBox).getCOSArray();
-  }
-
-  /**
-   * Test {@link PDPage#setCropBox(PDRectangle)}.
-   *
-   * <ul>
-   *   <li>Given {@code null}.
-   *   <li>When {@link PDRectangle} {@link PDRectangle#getCOSArray()} return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setCropBox(PDRectangle)}
-   */
-  @Test
-  @DisplayName(
-      "Test setCropBox(PDRectangle); given 'null'; when PDRectangle getCOSArray() return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDPage.setCropBox(PDRectangle)"})
-  void testSetCropBox_givenNull_whenPDRectangleGetCOSArrayReturnNull() {
-    // Arrange
-    PDPage pdPage = new PDPage();
-
-    PDRectangle cropBox = mock(PDRectangle.class);
-    when(cropBox.getCOSArray()).thenReturn(null);
-
-    // Act
-    pdPage.setCropBox(cropBox);
-
-    // Assert that nothing has changed
-    verify(cropBox).getCOSArray();
-    PDRectangle artBox = pdPage.getArtBox();
-    assertEquals(612.0f, artBox.getUpperRightX());
-    assertEquals(612.0f, artBox.getWidth());
-    assertEquals(792.0f, artBox.getHeight());
-    assertEquals(792.0f, artBox.getUpperRightY());
-  }
-
-  /**
-   * Test {@link PDPage#setCropBox(PDRectangle)}.
-   *
-   * <ul>
-   *   <li>Given {@link PDPage#PDPage()}.
-   *   <li>When {@link PDRectangle#A0}.
-   *   <li>Then {@link PDPage#PDPage()} BBox COSArray toList size is four.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setCropBox(PDRectangle)}
-   */
-  @Test
-  @DisplayName(
-      "Test setCropBox(PDRectangle); given PDPage(); when A0; then PDPage() BBox COSArray toList size is four")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDPage.setCropBox(PDRectangle)"})
-  void testSetCropBox_givenPDPage_whenA0_thenPDPageBBoxCOSArrayToListSizeIsFour() {
+  void testSetCropBox_givenPDPage_whenA0_thenPDPageBBoxUpperRightXIsSixHundredTwelve() {
     // Arrange
     PDPage pdPage = new PDPage();
 
@@ -1516,96 +1154,79 @@ class PDPageDiffblueTest {
     pdPage.setCropBox(PDRectangle.A0);
 
     // Assert
-    List<? extends COSBase> toListResult = pdPage.getBBox().getCOSArray().toList();
-    assertEquals(4, toListResult.size());
-    assertTrue(toListResult.get(0) instanceof COSFloat);
-    assertTrue(toListResult.get(1) instanceof COSFloat);
-    List<? extends COSBase> toListResult2 = pdPage.getBleedBox().getCOSArray().toList();
-    assertEquals(4, toListResult2.size());
-    assertTrue(toListResult2.get(0) instanceof COSFloat);
-    assertTrue(toListResult2.get(1) instanceof COSFloat);
-    List<? extends COSBase> toListResult3 = pdPage.getCropBox().getCOSArray().toList();
-    assertEquals(4, toListResult3.size());
-    assertTrue(toListResult3.get(0) instanceof COSFloat);
-    assertTrue(toListResult3.get(1) instanceof COSFloat);
+    PDRectangle bBox = pdPage.getBBox();
+    assertEquals(612.0f, bBox.getUpperRightX());
+    PDRectangle bleedBox = pdPage.getBleedBox();
+    assertEquals(612.0f, bleedBox.getUpperRightX());
+    PDRectangle cropBox = pdPage.getCropBox();
+    assertEquals(612.0f, cropBox.getUpperRightX());
+    assertEquals(612.0f, bBox.getWidth());
+    assertEquals(612.0f, bleedBox.getWidth());
+    assertEquals(612.0f, cropBox.getWidth());
+    assertEquals(792.0f, bBox.getHeight());
+    assertEquals(792.0f, bleedBox.getHeight());
+    assertEquals(792.0f, cropBox.getHeight());
+    assertEquals(792.0f, bBox.getUpperRightY());
+    assertEquals(792.0f, bleedBox.getUpperRightY());
+    assertEquals(792.0f, cropBox.getUpperRightY());
   }
 
   /**
    * Test {@link PDPage#setCropBox(PDRectangle)}.
-   *
    * <ul>
-   *   <li>Then calls {@link COSUpdateState#setOriginDocumentState(COSDocumentState)}.
+   *   <li>Given {@link PDPage#PDPage()}.</li>
+   *   <li>When {@link PDRectangle#PDRectangle()}.</li>
+   *   <li>Then {@link PDPage#PDPage()} ArtBox Height is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setCropBox(PDRectangle)}
+   * <p>
+   * Method under test: {@link PDPage#setCropBox(PDRectangle)}
    */
   @Test
-  @DisplayName("Test setCropBox(PDRectangle); then calls setOriginDocumentState(COSDocumentState)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setCropBox(PDRectangle); given PDPage(); when PDRectangle(); then PDPage() ArtBox Height is zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDPage.setCropBox(PDRectangle)"})
-  void testSetCropBox_thenCallsSetOriginDocumentState() {
+  void testSetCropBox_givenPDPage_whenPDRectangle_thenPDPageArtBoxHeightIsZero() {
     // Arrange
     PDPage pdPage = new PDPage();
 
-    COSUpdateState cosUpdateState = mock(COSUpdateState.class);
-    doNothing().when(cosUpdateState).setOriginDocumentState(Mockito.<COSDocumentState>any());
-
-    COSArray cosArray = mock(COSArray.class);
-    when(cosArray.isDirect()).thenReturn(true);
-    when(cosArray.getUpdateState()).thenReturn(cosUpdateState);
-    doNothing().when(cosArray).setDirect(anyBoolean());
-    doNothing().when(cosArray).setKey(Mockito.<COSObjectKey>any());
-    cosArray.setDirect(false);
-    cosArray.setKey(null);
-
-    PDRectangle cropBox = mock(PDRectangle.class);
-    when(cropBox.getCOSArray()).thenReturn(cosArray);
-
     // Act
-    pdPage.setCropBox(cropBox);
+    pdPage.setCropBox(new PDRectangle());
 
     // Assert
-    verify(cosArray).getUpdateState();
-    verify(cosArray).isDirect();
-    verify(cosArray).setDirect(false);
-    verify(cosArray).setKey(isNull());
-    verify(cosUpdateState).setOriginDocumentState(isNull());
-    verify(cropBox).getCOSArray();
-    List<? extends COSBase> toListResult = pdPage.getMediaBox().getCOSArray().toList();
-    assertEquals(4, toListResult.size());
-    COSBase getResult = toListResult.get(0);
-    assertTrue(getResult instanceof COSFloat);
-    COSBase getResult2 = toListResult.get(1);
-    assertTrue(getResult2 instanceof COSFloat);
-    COSBase getResult3 = toListResult.get(2);
-    assertTrue(getResult3 instanceof COSFloat);
-    COSBase getResult4 = toListResult.get(3);
-    assertTrue(getResult4 instanceof COSFloat);
-    assertNull(getResult.getKey());
-    assertNull(getResult3.getKey());
-    assertNull(getResult4.getKey());
-    assertFalse(getResult.isDirect());
-    assertFalse(getResult3.isDirect());
-    assertFalse(getResult4.isDirect());
-    assertEquals(getResult, getResult2);
+    PDRectangle artBox = pdPage.getArtBox();
+    assertEquals(0.0f, artBox.getHeight());
+    PDRectangle bBox = pdPage.getBBox();
+    assertEquals(0.0f, bBox.getHeight());
+    PDRectangle bleedBox = pdPage.getBleedBox();
+    assertEquals(0.0f, bleedBox.getHeight());
+    PDRectangle cropBox = pdPage.getCropBox();
+    assertEquals(0.0f, cropBox.getHeight());
+    assertEquals(0.0f, artBox.getUpperRightX());
+    assertEquals(0.0f, bBox.getUpperRightX());
+    assertEquals(0.0f, bleedBox.getUpperRightX());
+    assertEquals(0.0f, cropBox.getUpperRightX());
+    assertEquals(0.0f, artBox.getUpperRightY());
+    assertEquals(0.0f, bBox.getUpperRightY());
+    assertEquals(0.0f, bleedBox.getUpperRightY());
+    assertEquals(0.0f, cropBox.getUpperRightY());
+    assertEquals(0.0f, artBox.getWidth());
+    assertEquals(0.0f, bBox.getWidth());
+    assertEquals(0.0f, bleedBox.getWidth());
+    assertEquals(0.0f, cropBox.getWidth());
   }
 
   /**
    * Test {@link PDPage#setCropBox(PDRectangle)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDPage#PDPage()} ArtBox UpperRightX is six hundred twelve.
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link PDPage#PDPage()} ArtBox UpperRightX is six hundred twelve.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setCropBox(PDRectangle)}
+   * <p>
+   * Method under test: {@link PDPage#setCropBox(PDRectangle)}
    */
   @Test
-  @DisplayName(
-      "Test setCropBox(PDRectangle); when 'null'; then PDPage() ArtBox UpperRightX is six hundred twelve")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setCropBox(PDRectangle); when 'null'; then PDPage() ArtBox UpperRightX is six hundred twelve")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDPage.setCropBox(PDRectangle)"})
   void testSetCropBox_whenNull_thenPDPageArtBoxUpperRightXIsSixHundredTwelve() {
     // Arrange
@@ -1624,19 +1245,16 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getBleedBox()}.
-   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()} BleedBox is {@link PDRectangle#A0}.
-   *   <li>Then return COSArray toList size is four.
+   *   <li>Given {@link PDPage#PDPage()} BleedBox is {@link PDRectangle#A0}.</li>
+   *   <li>Then return COSArray toList size is four.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getBleedBox()}
+   * <p>
+   * Method under test: {@link PDPage#getBleedBox()}
    */
   @Test
-  @DisplayName(
-      "Test getBleedBox(); given PDPage() BleedBox is A0; then return COSArray toList size is four")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getBleedBox(); given PDPage() BleedBox is A0; then return COSArray toList size is four")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDRectangle PDPage.getBleedBox()"})
   void testGetBleedBox_givenPDPageBleedBoxIsA0_thenReturnCOSArrayToListSizeIsFour() {
     // Arrange
@@ -1662,19 +1280,16 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getBleedBox()}.
-   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()} CropBox is {@link PDRectangle#A0}.
-   *   <li>Then return COSArray toList size is four.
+   *   <li>Given {@link PDPage#PDPage()} CropBox is {@link PDRectangle#A0}.</li>
+   *   <li>Then return COSArray toList size is four.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getBleedBox()}
+   * <p>
+   * Method under test: {@link PDPage#getBleedBox()}
    */
   @Test
-  @DisplayName(
-      "Test getBleedBox(); given PDPage() CropBox is A0; then return COSArray toList size is four")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getBleedBox(); given PDPage() CropBox is A0; then return COSArray toList size is four")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDRectangle PDPage.getBleedBox()"})
   void testGetBleedBox_givenPDPageCropBoxIsA0_thenReturnCOSArrayToListSizeIsFour() {
     // Arrange
@@ -1700,22 +1315,20 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getBleedBox()}.
-   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()}.
-   *   <li>Then return COSArray toList size is four.
+   *   <li>Given {@link PDPage#PDPage()}.</li>
+   *   <li>Then return COSArray toList size is four.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getBleedBox()}
+   * <p>
+   * Method under test: {@link PDPage#getBleedBox()}
    */
   @Test
   @DisplayName("Test getBleedBox(); given PDPage(); then return COSArray toList size is four")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDRectangle PDPage.getBleedBox()"})
   void testGetBleedBox_givenPDPage_thenReturnCOSArrayToListSizeIsFour() {
     // Arrange and Act
-    PDRectangle actualBleedBox = new PDPage().getBleedBox();
+    PDRectangle actualBleedBox = (new PDPage()).getBleedBox();
 
     // Assert
     COSArray cOSArray = actualBleedBox.getCOSArray();
@@ -1733,19 +1346,15 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getBleedBox()}.
-   *
    * <ul>
-   *   <li>Then {@link PDPage#PDPage(COSDictionary)} with pageDictionary is {@link
-   *       COSDictionary#COSDictionary()} ArtBox is {@link PDRectangle#LETTER}.
+   *   <li>Then {@link PDPage#PDPage(COSDictionary)} with pageDictionary is {@link COSDictionary#COSDictionary()} ArtBox is {@link PDRectangle#LETTER}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getBleedBox()}
+   * <p>
+   * Method under test: {@link PDPage#getBleedBox()}
    */
   @Test
-  @DisplayName(
-      "Test getBleedBox(); then PDPage(COSDictionary) with pageDictionary is COSDictionary() ArtBox is LETTER")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getBleedBox(); then PDPage(COSDictionary) with pageDictionary is COSDictionary() ArtBox is LETTER")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDRectangle PDPage.getBleedBox()"})
   void testGetBleedBox_thenPDPageWithPageDictionaryIsCOSDictionaryArtBoxIsLetter() {
     // Arrange
@@ -1755,7 +1364,7 @@ class PDPageDiffblueTest {
     PDRectangle actualBleedBox = pdPage.getBleedBox();
 
     // Assert
-    PDRectangle pdRectangle = PDRectangle.LETTER;
+    PDRectangle pdRectangle = actualBleedBox.LETTER;
     assertSame(pdRectangle, pdPage.getArtBox());
     assertSame(pdRectangle, pdPage.getBBox());
     assertSame(pdRectangle, actualBleedBox);
@@ -1765,24 +1374,20 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getBleedBox()}.
-   *
    * <ul>
-   *   <li>Then return Height is {@code -2.14748288E9}.
+   *   <li>Then return Height is {@code -2.14748288E9}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getBleedBox()}
+   * <p>
+   * Method under test: {@link PDPage#getBleedBox()}
    */
   @Test
   @DisplayName("Test getBleedBox(); then return Height is '-2.14748288E9'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDRectangle PDPage.getBleedBox()"})
   void testGetBleedBox_thenReturnHeightIs214748288e9() {
     // Arrange
     PDPage pdPage = new PDPage();
-    PDRectangle cropBox =
-        new PDRectangle(2.14748365E9f, 2.14748365E9f, 2.14748365E9f, 2.14748365E9f);
-    pdPage.setCropBox(cropBox);
+    pdPage.setCropBox(new PDRectangle(2.14748365E9f, 2.14748365E9f, 2.14748365E9f, 2.14748365E9f));
 
     // Act
     PDRectangle actualBleedBox = pdPage.getBleedBox();
@@ -1796,109 +1401,47 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#setBleedBox(PDRectangle)}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#isDirect()} throw {@link
-   *       IllegalArgumentException#IllegalArgumentException()}.
+   *   <li>Given {@link PDPage#PDPage()}.</li>
+   *   <li>When {@link PDRectangle#PDRectangle()}.</li>
+   *   <li>Then {@link PDPage#PDPage()} BleedBox Height is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setBleedBox(PDRectangle)}
+   * <p>
+   * Method under test: {@link PDPage#setBleedBox(PDRectangle)}
    */
   @Test
-  @DisplayName(
-      "Test setBleedBox(PDRectangle); given COSDictionary isDirect() throw IllegalArgumentException()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setBleedBox(PDRectangle); given PDPage(); when PDRectangle(); then PDPage() BleedBox Height is zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDPage.setBleedBox(PDRectangle)"})
-  void testSetBleedBox_givenCOSDictionaryIsDirectThrowIllegalArgumentException() {
+  void testSetBleedBox_givenPDPage_whenPDRectangle_thenPDPageBleedBoxHeightIsZero() {
     // Arrange
     PDPage pdPage = new PDPage();
-
-    COSDictionary cosDictionary = mock(COSDictionary.class);
-    when(cosDictionary.isDirect()).thenThrow(new IllegalArgumentException());
-
-    PDRectangle bleedBox = mock(PDRectangle.class);
-    when(bleedBox.getCOSObject()).thenReturn(cosDictionary);
-
-    // Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> pdPage.setBleedBox(bleedBox));
-    verify(cosDictionary).isDirect();
-    verify(bleedBox).getCOSObject();
-  }
-
-  /**
-   * Test {@link PDPage#setBleedBox(PDRectangle)}.
-   *
-   * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#setItem(COSName, COSObjectable)} does
-   *       nothing.
-   *   <li>Then calls {@link COSDictionary#setItem(COSName, COSObjectable)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setBleedBox(PDRectangle)}
-   */
-  @Test
-  @DisplayName(
-      "Test setBleedBox(PDRectangle); given COSDictionary setItem(COSName, COSObjectable) does nothing; then calls setItem(COSName, COSObjectable)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDPage.setBleedBox(PDRectangle)"})
-  void testSetBleedBox_givenCOSDictionarySetItemDoesNothing_thenCallsSetItem() {
-    // Arrange
-    COSDictionary pageDictionary = mock(COSDictionary.class);
-    doNothing().when(pageDictionary).setItem(Mockito.<COSName>any(), Mockito.<COSObjectable>any());
 
     // Act
-    new PDPage(pageDictionary).setBleedBox(mock(PDRectangle.class));
+    pdPage.setBleedBox(new PDRectangle());
 
     // Assert
-    verify(pageDictionary).setItem(isA(COSName.class), isA(COSObjectable.class));
+    PDRectangle bleedBox = pdPage.getBleedBox();
+    assertEquals(0.0f, bleedBox.getHeight());
+    assertEquals(0.0f, bleedBox.getUpperRightX());
+    assertEquals(0.0f, bleedBox.getUpperRightY());
+    assertEquals(0.0f, bleedBox.getWidth());
   }
 
   /**
    * Test {@link PDPage#setBleedBox(PDRectangle)}.
-   *
    * <ul>
-   *   <li>Given {@link IllegalArgumentException#IllegalArgumentException()}.
+   *   <li>When {@link PDRectangle#A0}.</li>
+   *   <li>Then {@link PDPage#PDPage()} BleedBox UpperRightX is six hundred twelve.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setBleedBox(PDRectangle)}
+   * <p>
+   * Method under test: {@link PDPage#setBleedBox(PDRectangle)}
    */
   @Test
-  @DisplayName("Test setBleedBox(PDRectangle); given IllegalArgumentException()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setBleedBox(PDRectangle); when A0; then PDPage() BleedBox UpperRightX is six hundred twelve")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDPage.setBleedBox(PDRectangle)"})
-  void testSetBleedBox_givenIllegalArgumentException() {
-    // Arrange
-    PDPage pdPage = new PDPage();
-
-    PDRectangle bleedBox = mock(PDRectangle.class);
-    when(bleedBox.getCOSObject()).thenThrow(new IllegalArgumentException());
-
-    // Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> pdPage.setBleedBox(bleedBox));
-    verify(bleedBox).getCOSObject();
-  }
-
-  /**
-   * Test {@link PDPage#setBleedBox(PDRectangle)}.
-   *
-   * <ul>
-   *   <li>Given {@link PDPage#PDPage()}.
-   *   <li>When {@link PDRectangle#A0}.
-   *   <li>Then {@link PDPage#PDPage()} BleedBox LowerLeftX is zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setBleedBox(PDRectangle)}
-   */
-  @Test
-  @DisplayName(
-      "Test setBleedBox(PDRectangle); given PDPage(); when A0; then PDPage() BleedBox LowerLeftX is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDPage.setBleedBox(PDRectangle)"})
-  void testSetBleedBox_givenPDPage_whenA0_thenPDPageBleedBoxLowerLeftXIsZero() {
+  void testSetBleedBox_whenA0_thenPDPageBleedBoxUpperRightXIsSixHundredTwelve() {
     // Arrange
     PDPage pdPage = new PDPage();
 
@@ -1907,102 +1450,25 @@ class PDPageDiffblueTest {
 
     // Assert
     PDRectangle bleedBox = pdPage.getBleedBox();
-    assertEquals(0.0f, bleedBox.getLowerLeftX());
-    assertEquals(0.0f, bleedBox.getLowerLeftY());
     assertEquals(612.0f, bleedBox.getUpperRightX());
     assertEquals(612.0f, bleedBox.getWidth());
     assertEquals(792.0f, bleedBox.getHeight());
     assertEquals(792.0f, bleedBox.getUpperRightY());
-    COSArray expectedCOSObject = bleedBox.getCOSArray();
-    assertSame(expectedCOSObject, bleedBox.getCOSObject());
-  }
-
-  /**
-   * Test {@link PDPage#setBleedBox(PDRectangle)}.
-   *
-   * <ul>
-   *   <li>Given {@link PDPage#PDPage()}.
-   *   <li>When {@link PDRectangle#LETTER}.
-   *   <li>Then {@link PDPage#PDPage()} BleedBox LowerLeftX is zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setBleedBox(PDRectangle)}
-   */
-  @Test
-  @DisplayName(
-      "Test setBleedBox(PDRectangle); given PDPage(); when LETTER; then PDPage() BleedBox LowerLeftX is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDPage.setBleedBox(PDRectangle)"})
-  void testSetBleedBox_givenPDPage_whenLetter_thenPDPageBleedBoxLowerLeftXIsZero() {
-    // Arrange
-    PDPage pdPage = new PDPage();
-
-    // Act
-    pdPage.setBleedBox(PDRectangle.LETTER);
-
-    // Assert
-    PDRectangle bleedBox = pdPage.getBleedBox();
-    assertEquals(0.0f, bleedBox.getLowerLeftX());
-    assertEquals(0.0f, bleedBox.getLowerLeftY());
-    assertEquals(612.0f, bleedBox.getUpperRightX());
-    assertEquals(612.0f, bleedBox.getWidth());
-    assertEquals(792.0f, bleedBox.getHeight());
-    assertEquals(792.0f, bleedBox.getUpperRightY());
-    COSArray expectedCOSObject = bleedBox.getCOSArray();
-    assertSame(expectedCOSObject, bleedBox.getCOSObject());
   }
 
   /**
    * Test {@link PDPage#getTrimBox()}.
-   *
-   * <p>Method under test: {@link PDPage#getTrimBox()}
+   * <p>
+   * Method under test: {@link PDPage#getTrimBox()}
    */
   @Test
   @DisplayName("Test getTrimBox()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDRectangle PDPage.getTrimBox()"})
   void testGetTrimBox() {
     // Arrange
-    PDPage pdPage = new PDPage();
-    PDRectangle trimBox =
-        new PDRectangle(2.14748365E9f, 2.14748365E9f, 2.14748365E9f, 2.14748365E9f);
-    pdPage.setTrimBox(trimBox);
-
-    // Act
-    PDRectangle actualTrimBox = pdPage.getTrimBox();
-
-    // Assert
-    COSArray cOSArray = actualTrimBox.getCOSArray();
-    List<? extends COSBase> toListResult = cOSArray.toList();
-    assertEquals(4, toListResult.size());
-    COSBase getResult = toListResult.get(1);
-    assertTrue(getResult instanceof COSFloat);
-    assertEquals(-2.14748288E9f, actualTrimBox.getHeight());
-    assertEquals(-2.14748301E9f, actualTrimBox.getWidth());
-    assertEquals(2.14748365E9f, actualTrimBox.getLowerLeftX());
-    assertEquals(2.14748365E9f, actualTrimBox.getLowerLeftY());
-    assertEquals(toListResult.get(0), getResult);
-    assertSame(cOSArray, actualTrimBox.getCOSObject());
-  }
-
-  /**
-   * Test {@link PDPage#getTrimBox()}.
-   *
-   * <p>Method under test: {@link PDPage#getTrimBox()}
-   */
-  @Test
-  @DisplayName("Test getTrimBox()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDRectangle PDPage.getTrimBox()"})
-  void testGetTrimBox2() {
-    // Arrange
     PDPage pdPage = new PDPage(new COSDictionary());
-    PDRectangle trimBox =
-        new PDRectangle(2.14748365E9f, 2.14748365E9f, 2.14748365E9f, 2.14748365E9f);
-    pdPage.setTrimBox(trimBox);
+    pdPage.setTrimBox(new PDRectangle(2.14748365E9f, 2.14748365E9f, 2.14748365E9f, 2.14748365E9f));
 
     // Act
     PDRectangle actualTrimBox = pdPage.getTrimBox();
@@ -2013,28 +1479,30 @@ class PDPageDiffblueTest {
     assertEquals(4, toListResult.size());
     COSBase getResult = toListResult.get(1);
     assertTrue(getResult instanceof COSFloat);
-    assertEquals(-2.14748288E9f, actualTrimBox.getHeight());
-    assertEquals(-2.14748301E9f, actualTrimBox.getWidth());
-    assertEquals(2.14748365E9f, actualTrimBox.getLowerLeftX());
-    assertEquals(2.14748365E9f, actualTrimBox.getLowerLeftY());
+    PDRectangle artBox = pdPage.getArtBox();
+    assertTrue(artBox instanceof PDImmutableRectangle);
     assertEquals(toListResult.get(0), getResult);
     assertSame(cOSArray, actualTrimBox.getCOSObject());
+    PDRectangle pdRectangle = actualTrimBox.LETTER;
+    assertSame(pdRectangle, artBox);
+    assertSame(pdRectangle, pdPage.getBBox());
+    assertSame(pdRectangle, pdPage.getBleedBox());
+    assertSame(pdRectangle, pdPage.getCropBox());
+    assertSame(pdRectangle, pdPage.getMediaBox());
   }
 
   /**
    * Test {@link PDPage#getTrimBox()}.
-   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()} TrimBox is {@link PDRectangle#A0}.
-   *   <li>Then return LowerLeftX is zero.
+   *   <li>Given {@link PDPage#PDPage()} TrimBox is {@link PDRectangle#A0}.</li>
+   *   <li>Then return LowerLeftX is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getTrimBox()}
+   * <p>
+   * Method under test: {@link PDPage#getTrimBox()}
    */
   @Test
   @DisplayName("Test getTrimBox(); given PDPage() TrimBox is A0; then return LowerLeftX is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDRectangle PDPage.getTrimBox()"})
   void testGetTrimBox_givenPDPageTrimBoxIsA0_thenReturnLowerLeftXIsZero() {
     // Arrange
@@ -2053,129 +1521,71 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getTrimBox()}.
-   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDPage#PDPage()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getTrimBox()}
+   * <p>
+   * Method under test: {@link PDPage#getTrimBox()}
    */
   @Test
   @DisplayName("Test getTrimBox(); given PDPage(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDRectangle PDPage.getTrimBox()"})
   void testGetTrimBox_givenPDPage_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDPage().getTrimBox());
+    assertNull((new PDPage()).getTrimBox());
   }
 
   /**
-   * Test {@link PDPage#setTrimBox(PDRectangle)}.
-   *
+   * Test {@link PDPage#getTrimBox()}.
    * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#isDirect()} throw {@link
-   *       IllegalArgumentException#IllegalArgumentException()}.
+   *   <li>Then return Height is {@code -2.14748288E9}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setTrimBox(PDRectangle)}
+   * <p>
+   * Method under test: {@link PDPage#getTrimBox()}
    */
   @Test
-  @DisplayName(
-      "Test setTrimBox(PDRectangle); given COSDictionary isDirect() throw IllegalArgumentException()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDPage.setTrimBox(PDRectangle)"})
-  void testSetTrimBox_givenCOSDictionaryIsDirectThrowIllegalArgumentException() {
+  @DisplayName("Test getTrimBox(); then return Height is '-2.14748288E9'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"PDRectangle PDPage.getTrimBox()"})
+  void testGetTrimBox_thenReturnHeightIs214748288e9() {
     // Arrange
     PDPage pdPage = new PDPage();
-
-    COSDictionary cosDictionary = mock(COSDictionary.class);
-    when(cosDictionary.isDirect()).thenThrow(new IllegalArgumentException());
-
-    PDRectangle trimBox = mock(PDRectangle.class);
-    when(trimBox.getCOSObject()).thenReturn(cosDictionary);
-
-    // Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> pdPage.setTrimBox(trimBox));
-    verify(cosDictionary).isDirect();
-    verify(trimBox).getCOSObject();
-  }
-
-  /**
-   * Test {@link PDPage#setTrimBox(PDRectangle)}.
-   *
-   * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#setItem(COSName, COSObjectable)} does
-   *       nothing.
-   *   <li>Then calls {@link COSDictionary#setItem(COSName, COSObjectable)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setTrimBox(PDRectangle)}
-   */
-  @Test
-  @DisplayName(
-      "Test setTrimBox(PDRectangle); given COSDictionary setItem(COSName, COSObjectable) does nothing; then calls setItem(COSName, COSObjectable)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDPage.setTrimBox(PDRectangle)"})
-  void testSetTrimBox_givenCOSDictionarySetItemDoesNothing_thenCallsSetItem() {
-    // Arrange
-    COSDictionary pageDictionary = mock(COSDictionary.class);
-    doNothing().when(pageDictionary).setItem(Mockito.<COSName>any(), Mockito.<COSObjectable>any());
+    pdPage.setTrimBox(new PDRectangle(2.14748365E9f, 2.14748365E9f, 2.14748365E9f, 2.14748365E9f));
 
     // Act
-    new PDPage(pageDictionary).setTrimBox(mock(PDRectangle.class));
+    PDRectangle actualTrimBox = pdPage.getTrimBox();
 
     // Assert
-    verify(pageDictionary).setItem(isA(COSName.class), isA(COSObjectable.class));
+    COSArray cOSArray = actualTrimBox.getCOSArray();
+    List<? extends COSBase> toListResult = cOSArray.toList();
+    assertEquals(4, toListResult.size());
+    COSBase getResult = toListResult.get(1);
+    assertTrue(getResult instanceof COSFloat);
+    assertEquals(-2.14748288E9f, actualTrimBox.getHeight());
+    assertEquals(-2.14748301E9f, actualTrimBox.getWidth());
+    assertEquals(2.14748365E9f, actualTrimBox.getLowerLeftX());
+    assertEquals(2.14748365E9f, actualTrimBox.getLowerLeftY());
+    assertEquals(toListResult.get(0), getResult);
+    assertSame(cOSArray, actualTrimBox.getCOSObject());
   }
 
   /**
    * Test {@link PDPage#setTrimBox(PDRectangle)}.
-   *
    * <ul>
-   *   <li>Given {@link IllegalArgumentException#IllegalArgumentException()}.
+   *   <li>Given {@link PDPage#PDPage()}.</li>
+   *   <li>When {@link PDRectangle#A0}.</li>
+   *   <li>Then {@link PDPage#PDPage()} TrimBox UpperRightX is six hundred twelve.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setTrimBox(PDRectangle)}
+   * <p>
+   * Method under test: {@link PDPage#setTrimBox(PDRectangle)}
    */
   @Test
-  @DisplayName("Test setTrimBox(PDRectangle); given IllegalArgumentException()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setTrimBox(PDRectangle); given PDPage(); when A0; then PDPage() TrimBox UpperRightX is six hundred twelve")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDPage.setTrimBox(PDRectangle)"})
-  void testSetTrimBox_givenIllegalArgumentException() {
-    // Arrange
-    PDPage pdPage = new PDPage();
-
-    PDRectangle trimBox = mock(PDRectangle.class);
-    when(trimBox.getCOSObject()).thenThrow(new IllegalArgumentException());
-
-    // Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> pdPage.setTrimBox(trimBox));
-    verify(trimBox).getCOSObject();
-  }
-
-  /**
-   * Test {@link PDPage#setTrimBox(PDRectangle)}.
-   *
-   * <ul>
-   *   <li>Given {@link PDPage#PDPage()}.
-   *   <li>When {@link PDRectangle#A0}.
-   *   <li>Then {@link PDPage#PDPage()} TrimBox LowerLeftX is zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setTrimBox(PDRectangle)}
-   */
-  @Test
-  @DisplayName(
-      "Test setTrimBox(PDRectangle); given PDPage(); when A0; then PDPage() TrimBox LowerLeftX is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDPage.setTrimBox(PDRectangle)"})
-  void testSetTrimBox_givenPDPage_whenA0_thenPDPageTrimBoxLowerLeftXIsZero() {
+  void testSetTrimBox_givenPDPage_whenA0_thenPDPageTrimBoxUpperRightXIsSixHundredTwelve() {
     // Arrange
     PDPage pdPage = new PDPage();
 
@@ -2184,67 +1594,53 @@ class PDPageDiffblueTest {
 
     // Assert
     PDRectangle trimBox = pdPage.getTrimBox();
-    assertEquals(0.0f, trimBox.getLowerLeftX());
-    assertEquals(0.0f, trimBox.getLowerLeftY());
     assertEquals(612.0f, trimBox.getUpperRightX());
     assertEquals(612.0f, trimBox.getWidth());
     assertEquals(792.0f, trimBox.getHeight());
     assertEquals(792.0f, trimBox.getUpperRightY());
-    COSArray expectedCOSObject = trimBox.getCOSArray();
-    assertSame(expectedCOSObject, trimBox.getCOSObject());
   }
 
   /**
    * Test {@link PDPage#setTrimBox(PDRectangle)}.
-   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()}.
-   *   <li>When {@link PDRectangle#LETTER}.
-   *   <li>Then {@link PDPage#PDPage()} TrimBox LowerLeftX is zero.
+   *   <li>Given {@link PDPage#PDPage()}.</li>
+   *   <li>When {@link PDRectangle#PDRectangle()}.</li>
+   *   <li>Then {@link PDPage#PDPage()} TrimBox Height is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setTrimBox(PDRectangle)}
+   * <p>
+   * Method under test: {@link PDPage#setTrimBox(PDRectangle)}
    */
   @Test
-  @DisplayName(
-      "Test setTrimBox(PDRectangle); given PDPage(); when LETTER; then PDPage() TrimBox LowerLeftX is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setTrimBox(PDRectangle); given PDPage(); when PDRectangle(); then PDPage() TrimBox Height is zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDPage.setTrimBox(PDRectangle)"})
-  void testSetTrimBox_givenPDPage_whenLetter_thenPDPageTrimBoxLowerLeftXIsZero() {
+  void testSetTrimBox_givenPDPage_whenPDRectangle_thenPDPageTrimBoxHeightIsZero() {
     // Arrange
     PDPage pdPage = new PDPage();
 
     // Act
-    pdPage.setTrimBox(PDRectangle.LETTER);
+    pdPage.setTrimBox(new PDRectangle());
 
     // Assert
     PDRectangle trimBox = pdPage.getTrimBox();
-    assertEquals(0.0f, trimBox.getLowerLeftX());
-    assertEquals(0.0f, trimBox.getLowerLeftY());
-    assertEquals(612.0f, trimBox.getUpperRightX());
-    assertEquals(612.0f, trimBox.getWidth());
-    assertEquals(792.0f, trimBox.getHeight());
-    assertEquals(792.0f, trimBox.getUpperRightY());
-    COSArray expectedCOSObject = trimBox.getCOSArray();
-    assertSame(expectedCOSObject, trimBox.getCOSObject());
+    assertEquals(0.0f, trimBox.getHeight());
+    assertEquals(0.0f, trimBox.getUpperRightX());
+    assertEquals(0.0f, trimBox.getUpperRightY());
+    assertEquals(0.0f, trimBox.getWidth());
   }
 
   /**
    * Test {@link PDPage#getArtBox()}.
-   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()} ArtBox is {@link PDRectangle#A0}.
-   *   <li>Then return COSArray toList size is four.
+   *   <li>Given {@link PDPage#PDPage()} ArtBox is {@link PDRectangle#A0}.</li>
+   *   <li>Then return COSArray toList size is four.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getArtBox()}
+   * <p>
+   * Method under test: {@link PDPage#getArtBox()}
    */
   @Test
-  @DisplayName(
-      "Test getArtBox(); given PDPage() ArtBox is A0; then return COSArray toList size is four")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getArtBox(); given PDPage() ArtBox is A0; then return COSArray toList size is four")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDRectangle PDPage.getArtBox()"})
   void testGetArtBox_givenPDPageArtBoxIsA0_thenReturnCOSArrayToListSizeIsFour() {
     // Arrange
@@ -2270,19 +1666,16 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getArtBox()}.
-   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()} CropBox is {@link PDRectangle#A0}.
-   *   <li>Then return COSArray toList size is four.
+   *   <li>Given {@link PDPage#PDPage()} CropBox is {@link PDRectangle#A0}.</li>
+   *   <li>Then return COSArray toList size is four.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getArtBox()}
+   * <p>
+   * Method under test: {@link PDPage#getArtBox()}
    */
   @Test
-  @DisplayName(
-      "Test getArtBox(); given PDPage() CropBox is A0; then return COSArray toList size is four")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getArtBox(); given PDPage() CropBox is A0; then return COSArray toList size is four")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDRectangle PDPage.getArtBox()"})
   void testGetArtBox_givenPDPageCropBoxIsA0_thenReturnCOSArrayToListSizeIsFour() {
     // Arrange
@@ -2308,28 +1701,27 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getArtBox()}.
-   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage(COSDictionary)} with pageDictionary is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@link PDRectangle#LETTER}.
+   *   <li>Given {@link PDPage#PDPage(COSDictionary)} with pageDictionary is {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then return {@link PDRectangle#LETTER}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getArtBox()}
+   * <p>
+   * Method under test: {@link PDPage#getArtBox()}
    */
   @Test
-  @DisplayName(
-      "Test getArtBox(); given PDPage(COSDictionary) with pageDictionary is COSDictionary(); then return LETTER")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getArtBox(); given PDPage(COSDictionary) with pageDictionary is COSDictionary(); then return LETTER")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDRectangle PDPage.getArtBox()"})
   void testGetArtBox_givenPDPageWithPageDictionaryIsCOSDictionary_thenReturnLetter() {
     // Arrange
     PDPage pdPage = new PDPage(new COSDictionary());
 
-    // Act and Assert
-    PDRectangle pdRectangle = PDRectangle.LETTER;
-    assertSame(pdRectangle, pdPage.getArtBox());
+    // Act
+    PDRectangle actualArtBox = pdPage.getArtBox();
+
+    // Assert
+    PDRectangle pdRectangle = actualArtBox.LETTER;
+    assertSame(pdRectangle, actualArtBox);
     assertSame(pdRectangle, pdPage.getBBox());
     assertSame(pdRectangle, pdPage.getBleedBox());
     assertSame(pdRectangle, pdPage.getCropBox());
@@ -2338,22 +1730,20 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getArtBox()}.
-   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()}.
-   *   <li>Then return COSArray toList size is four.
+   *   <li>Given {@link PDPage#PDPage()}.</li>
+   *   <li>Then return COSArray toList size is four.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getArtBox()}
+   * <p>
+   * Method under test: {@link PDPage#getArtBox()}
    */
   @Test
   @DisplayName("Test getArtBox(); given PDPage(); then return COSArray toList size is four")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDRectangle PDPage.getArtBox()"})
   void testGetArtBox_givenPDPage_thenReturnCOSArrayToListSizeIsFour() {
     // Arrange and Act
-    PDRectangle actualArtBox = new PDPage().getArtBox();
+    PDRectangle actualArtBox = (new PDPage()).getArtBox();
 
     // Assert
     COSArray cOSArray = actualArtBox.getCOSArray();
@@ -2371,24 +1761,20 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getArtBox()}.
-   *
    * <ul>
-   *   <li>Then return Height is {@code -2.14748288E9}.
+   *   <li>Then return Height is {@code -2.14748288E9}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getArtBox()}
+   * <p>
+   * Method under test: {@link PDPage#getArtBox()}
    */
   @Test
   @DisplayName("Test getArtBox(); then return Height is '-2.14748288E9'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDRectangle PDPage.getArtBox()"})
   void testGetArtBox_thenReturnHeightIs214748288e9() {
     // Arrange
     PDPage pdPage = new PDPage();
-    PDRectangle cropBox =
-        new PDRectangle(2.14748365E9f, 2.14748365E9f, 2.14748365E9f, 2.14748365E9f);
-    pdPage.setCropBox(cropBox);
+    pdPage.setCropBox(new PDRectangle(2.14748365E9f, 2.14748365E9f, 2.14748365E9f, 2.14748365E9f));
 
     // Act
     PDRectangle actualArtBox = pdPage.getArtBox();
@@ -2402,187 +1788,51 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#setArtBox(PDRectangle)}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#isDirect()} throw {@link
-   *       IllegalArgumentException#IllegalArgumentException()}.
+   *   <li>Given {@link PDPage#PDPage()}.</li>
+   *   <li>When {@link PDRectangle#PDRectangle()}.</li>
+   *   <li>Then {@link PDPage#PDPage()} BBox COSArray toList size is four.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setArtBox(PDRectangle)}
+   * <p>
+   * Method under test: {@link PDPage#setArtBox(PDRectangle)}
    */
   @Test
-  @DisplayName(
-      "Test setArtBox(PDRectangle); given COSDictionary isDirect() throw IllegalArgumentException()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setArtBox(PDRectangle); given PDPage(); when PDRectangle(); then PDPage() BBox COSArray toList size is four")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDPage.setArtBox(PDRectangle)"})
-  void testSetArtBox_givenCOSDictionaryIsDirectThrowIllegalArgumentException() {
-    // Arrange
-    PDPage pdPage = new PDPage();
-
-    COSDictionary cosDictionary = mock(COSDictionary.class);
-    when(cosDictionary.isDirect()).thenThrow(new IllegalArgumentException());
-
-    PDRectangle artBox = mock(PDRectangle.class);
-    when(artBox.getCOSObject()).thenReturn(cosDictionary);
-
-    // Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> pdPage.setArtBox(artBox));
-    verify(cosDictionary).isDirect();
-    verify(artBox).getCOSObject();
-  }
-
-  /**
-   * Test {@link PDPage#setArtBox(PDRectangle)}.
-   *
-   * <ul>
-   *   <li>Given {@link IllegalArgumentException#IllegalArgumentException()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setArtBox(PDRectangle)}
-   */
-  @Test
-  @DisplayName("Test setArtBox(PDRectangle); given IllegalArgumentException()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDPage.setArtBox(PDRectangle)"})
-  void testSetArtBox_givenIllegalArgumentException() {
-    // Arrange
-    PDPage pdPage = new PDPage();
-
-    PDRectangle artBox = mock(PDRectangle.class);
-    when(artBox.getCOSObject()).thenThrow(new IllegalArgumentException());
-
-    // Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> pdPage.setArtBox(artBox));
-    verify(artBox).getCOSObject();
-  }
-
-  /**
-   * Test {@link PDPage#setArtBox(PDRectangle)}.
-   *
-   * <ul>
-   *   <li>Given {@link PDPage#PDPage()}.
-   *   <li>When {@link PDRectangle#A0}.
-   *   <li>Then {@link PDPage#PDPage()} BBox LowerLeftX is zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setArtBox(PDRectangle)}
-   */
-  @Test
-  @DisplayName(
-      "Test setArtBox(PDRectangle); given PDPage(); when A0; then PDPage() BBox LowerLeftX is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDPage.setArtBox(PDRectangle)"})
-  void testSetArtBox_givenPDPage_whenA0_thenPDPageBBoxLowerLeftXIsZero() {
+  void testSetArtBox_givenPDPage_whenPDRectangle_thenPDPageBBoxCOSArrayToListSizeIsFour() {
     // Arrange
     PDPage pdPage = new PDPage();
 
     // Act
-    pdPage.setArtBox(PDRectangle.A0);
+    pdPage.setArtBox(new PDRectangle());
 
     // Assert
-    PDRectangle bBox = pdPage.getBBox();
-    assertEquals(0.0f, bBox.getLowerLeftX());
-    assertEquals(0.0f, bBox.getLowerLeftY());
-    assertEquals(612.0f, bBox.getUpperRightX());
-    assertEquals(612.0f, bBox.getWidth());
-    assertEquals(792.0f, bBox.getHeight());
-    assertEquals(792.0f, bBox.getUpperRightY());
-    assertSame(bBox, pdPage.getBleedBox());
-    assertSame(bBox, pdPage.getCropBox());
-    assertSame(bBox, pdPage.getMediaBox());
-    COSArray expectedCOSObject = bBox.getCOSArray();
-    assertSame(expectedCOSObject, bBox.getCOSObject());
-  }
-
-  /**
-   * Test {@link PDPage#setArtBox(PDRectangle)}.
-   *
-   * <ul>
-   *   <li>Given {@link PDPage#PDPage()}.
-   *   <li>When {@link PDRectangle#LETTER}.
-   *   <li>Then {@link PDPage#PDPage()} BBox LowerLeftX is zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setArtBox(PDRectangle)}
-   */
-  @Test
-  @DisplayName(
-      "Test setArtBox(PDRectangle); given PDPage(); when LETTER; then PDPage() BBox LowerLeftX is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDPage.setArtBox(PDRectangle)"})
-  void testSetArtBox_givenPDPage_whenLetter_thenPDPageBBoxLowerLeftXIsZero() {
-    // Arrange
-    PDPage pdPage = new PDPage();
-
-    // Act
-    pdPage.setArtBox(PDRectangle.LETTER);
-
-    // Assert
-    PDRectangle bBox = pdPage.getBBox();
-    assertEquals(0.0f, bBox.getLowerLeftX());
-    assertEquals(0.0f, bBox.getLowerLeftY());
-    assertEquals(612.0f, bBox.getUpperRightX());
-    assertEquals(612.0f, bBox.getWidth());
-    assertEquals(792.0f, bBox.getHeight());
-    assertEquals(792.0f, bBox.getUpperRightY());
-    assertSame(bBox, pdPage.getBleedBox());
-    assertSame(bBox, pdPage.getCropBox());
-    assertSame(bBox, pdPage.getMediaBox());
-    COSArray expectedCOSObject = bBox.getCOSArray();
-    assertSame(expectedCOSObject, bBox.getCOSObject());
-  }
-
-  /**
-   * Test {@link PDPage#setArtBox(PDRectangle)}.
-   *
-   * <ul>
-   *   <li>Then {@link PDPage#PDPage(COSDictionary)} with pageDictionary is {@link COSDictionary}
-   *       BleedBox is {@link PDRectangle#LETTER}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setArtBox(PDRectangle)}
-   */
-  @Test
-  @DisplayName(
-      "Test setArtBox(PDRectangle); then PDPage(COSDictionary) with pageDictionary is COSDictionary BleedBox is LETTER")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDPage.setArtBox(PDRectangle)"})
-  void testSetArtBox_thenPDPageWithPageDictionaryIsCOSDictionaryBleedBoxIsLetter() {
-    // Arrange
-    COSDictionary pageDictionary = mock(COSDictionary.class);
-    doNothing().when(pageDictionary).setItem(Mockito.<COSName>any(), Mockito.<COSObjectable>any());
-    PDPage pdPage = new PDPage(pageDictionary);
-
-    // Act
-    pdPage.setArtBox(mock(PDRectangle.class));
-
-    // Assert that nothing has changed
-    verify(pageDictionary).setItem(isA(COSName.class), isA(COSObjectable.class));
-    PDRectangle pdRectangle = PDRectangle.LETTER;
-    assertSame(pdRectangle, pdPage.getBleedBox());
-    assertSame(pdRectangle, pdPage.getCropBox());
-    assertSame(pdRectangle, pdPage.getMediaBox());
+    List<? extends COSBase> toListResult = pdPage.getBBox().getCOSArray().toList();
+    assertEquals(4, toListResult.size());
+    assertTrue(toListResult.get(0) instanceof COSFloat);
+    assertTrue(toListResult.get(1) instanceof COSFloat);
+    assertTrue(toListResult.get(2) instanceof COSFloat);
+    assertTrue(toListResult.get(3) instanceof COSFloat);
+    PDRectangle artBox = pdPage.getArtBox();
+    assertEquals(0.0f, artBox.getHeight());
+    assertEquals(0.0f, artBox.getUpperRightX());
+    assertEquals(0.0f, artBox.getUpperRightY());
+    assertEquals(0.0f, artBox.getWidth());
   }
 
   /**
    * Test {@link PDPage#getRotation()}.
-   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()} Rotation is ninety.
-   *   <li>Then return ninety.
+   *   <li>Given {@link PDPage#PDPage()} Rotation is ninety.</li>
+   *   <li>Then return ninety.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getRotation()}
+   * <p>
+   * Method under test: {@link PDPage#getRotation()}
    */
   @Test
   @DisplayName("Test getRotation(); given PDPage() Rotation is ninety; then return ninety")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int PDPage.getRotation()"})
   void testGetRotation_givenPDPageRotationIsNinety_thenReturnNinety() {
     // Arrange
@@ -2595,18 +1845,16 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getRotation()}.
-   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()} Rotation is one.
-   *   <li>Then return zero.
+   *   <li>Given {@link PDPage#PDPage()} Rotation is one.</li>
+   *   <li>Then return zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getRotation()}
+   * <p>
+   * Method under test: {@link PDPage#getRotation()}
    */
   @Test
   @DisplayName("Test getRotation(); given PDPage() Rotation is one; then return zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int PDPage.getRotation()"})
   void testGetRotation_givenPDPageRotationIsOne_thenReturnZero() {
     // Arrange
@@ -2619,40 +1867,35 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getRotation()}.
-   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()}.
-   *   <li>Then return zero.
+   *   <li>Given {@link PDPage#PDPage()}.</li>
+   *   <li>Then return zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getRotation()}
+   * <p>
+   * Method under test: {@link PDPage#getRotation()}
    */
   @Test
   @DisplayName("Test getRotation(); given PDPage(); then return zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int PDPage.getRotation()"})
   void testGetRotation_givenPDPage_thenReturnZero() {
     // Arrange, Act and Assert
-    assertEquals(0, new PDPage().getRotation());
+    assertEquals(0, (new PDPage()).getRotation());
   }
 
   /**
    * Test {@link PDPage#setRotation(int)}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#setInt(COSName, int)} does nothing.
-   *   <li>When one.
-   *   <li>Then calls {@link COSDictionary#setInt(COSName, int)}.
+   *   <li>Given {@link COSDictionary} {@link COSDictionary#setInt(COSName, int)} does nothing.</li>
+   *   <li>When one.</li>
+   *   <li>Then calls {@link COSDictionary#setInt(COSName, int)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setRotation(int)}
+   * <p>
+   * Method under test: {@link PDPage#setRotation(int)}
    */
   @Test
-  @DisplayName(
-      "Test setRotation(int); given COSDictionary setInt(COSName, int) does nothing; when one; then calls setInt(COSName, int)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setRotation(int); given COSDictionary setInt(COSName, int) does nothing; when one; then calls setInt(COSName, int)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDPage.setRotation(int)"})
   void testSetRotation_givenCOSDictionarySetIntDoesNothing_whenOne_thenCallsSetInt() {
     // Arrange
@@ -2660,7 +1903,7 @@ class PDPageDiffblueTest {
     doNothing().when(pageDictionary).setInt(Mockito.<COSName>any(), anyInt());
 
     // Act
-    new PDPage(pageDictionary).setRotation(1);
+    (new PDPage(pageDictionary)).setRotation(1);
 
     // Assert
     verify(pageDictionary).setInt(isA(COSName.class), eq(1));
@@ -2668,18 +1911,15 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#setContents(List)} with {@code List}.
-   *
    * <ul>
-   *   <li>Then {@link PDPage#PDPage()} ContentStreams next DecodeParms is {@code null}.
+   *   <li>Then {@link PDPage#PDPage()} ContentStreams next DecodeParms is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setContents(List)}
+   * <p>
+   * Method under test: {@link PDPage#setContents(List)}
    */
   @Test
-  @DisplayName(
-      "Test setContents(List) with 'List'; then PDPage() ContentStreams next DecodeParms is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setContents(List) with 'List'; then PDPage() ContentStreams next DecodeParms is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDPage.setContents(List)"})
   void testSetContentsWithList_thenPDPageContentStreamsNextDecodeParmsIsNull() throws IOException {
     // Arrange
@@ -2704,45 +1944,17 @@ class PDPageDiffblueTest {
   }
 
   /**
-   * Test {@link PDPage#setContents(PDStream)} with {@code PDStream}.
-   *
-   * <ul>
-   *   <li>Then throw {@link IllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setContents(PDStream)}
-   */
-  @Test
-  @DisplayName("Test setContents(PDStream) with 'PDStream'; then throw IllegalArgumentException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDPage.setContents(PDStream)"})
-  void testSetContentsWithPDStream_thenThrowIllegalArgumentException() {
-    // Arrange
-    PDPage pdPage = new PDPage();
-
-    PDStream contents = mock(PDStream.class);
-    when(contents.getCOSObject()).thenThrow(new IllegalArgumentException());
-
-    // Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> pdPage.setContents(contents));
-    verify(contents).getCOSObject();
-  }
-
-  /**
    * Test {@link PDPage#getThreadBeads()}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@code null}.
-   *   <li>Then return first is {@code null}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@code null}.</li>
+   *   <li>Then return first is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getThreadBeads()}
+   * <p>
+   * Method under test: {@link PDPage#getThreadBeads()}
    */
   @Test
   @DisplayName("Test getThreadBeads(); given ArrayList() add 'null'; then return first is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDPage.getThreadBeads()"})
   void testGetThreadBeads_givenArrayListAddNull_thenReturnFirstIsNull() {
     // Arrange
@@ -2762,19 +1974,16 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getThreadBeads()}.
-   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()} ThreadBeads is {@link ArrayList#ArrayList()}.
-   *   <li>Then return Empty.
+   *   <li>Given {@link PDPage#PDPage()} ThreadBeads is {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getThreadBeads()}
+   * <p>
+   * Method under test: {@link PDPage#getThreadBeads()}
    */
   @Test
-  @DisplayName(
-      "Test getThreadBeads(); given PDPage() ThreadBeads is ArrayList(); then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getThreadBeads(); given PDPage() ThreadBeads is ArrayList(); then return Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDPage.getThreadBeads()"})
   void testGetThreadBeads_givenPDPageThreadBeadsIsArrayList_thenReturnEmpty() {
     // Arrange
@@ -2787,37 +1996,33 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getThreadBeads()}.
-   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()}.
-   *   <li>Then return Empty.
+   *   <li>Given {@link PDPage#PDPage()}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getThreadBeads()}
+   * <p>
+   * Method under test: {@link PDPage#getThreadBeads()}
    */
   @Test
   @DisplayName("Test getThreadBeads(); given PDPage(); then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDPage.getThreadBeads()"})
   void testGetThreadBeads_givenPDPage_thenReturnEmpty() {
     // Arrange, Act and Assert
-    assertTrue(new PDPage().getThreadBeads().isEmpty());
+    assertTrue((new PDPage()).getThreadBeads().isEmpty());
   }
 
   /**
    * Test {@link PDPage#getThreadBeads()}.
-   *
    * <ul>
-   *   <li>Then return first COSObject Key is {@code null}.
+   *   <li>Then return first COSObject Key is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getThreadBeads()}
+   * <p>
+   * Method under test: {@link PDPage#getThreadBeads()}
    */
   @Test
   @DisplayName("Test getThreadBeads(); then return first COSObject Key is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDPage.getThreadBeads()"})
   void testGetThreadBeads_thenReturnFirstCOSObjectKeyIsNull() {
     // Arrange
@@ -2856,54 +2061,21 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#setThreadBeads(List)}.
-   *
    * <ul>
-   *   <li>Then {@link PDPage#PDPage(COSDictionary)} with pageDictionary is {@link COSDictionary}
-   *       ThreadBeads Empty.
+   *   <li>Then throw {@link IllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setThreadBeads(List)}
-   */
-  @Test
-  @DisplayName(
-      "Test setThreadBeads(List); then PDPage(COSDictionary) with pageDictionary is COSDictionary ThreadBeads Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDPage.setThreadBeads(List)"})
-  void testSetThreadBeads_thenPDPageWithPageDictionaryIsCOSDictionaryThreadBeadsEmpty() {
-    // Arrange
-    COSDictionary pageDictionary = mock(COSDictionary.class);
-    doNothing().when(pageDictionary).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
-    PDPage pdPage = new PDPage(pageDictionary);
-
-    // Act
-    pdPage.setThreadBeads(new ArrayList<>());
-
-    // Assert that nothing has changed
-    verify(pageDictionary).setItem(isA(COSName.class), isA(COSBase.class));
-    assertTrue(pdPage.getThreadBeads().isEmpty());
-  }
-
-  /**
-   * Test {@link PDPage#setThreadBeads(List)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link IllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setThreadBeads(List)}
+   * <p>
+   * Method under test: {@link PDPage#setThreadBeads(List)}
    */
   @Test
   @DisplayName("Test setThreadBeads(List); then throw IllegalArgumentException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDPage.setThreadBeads(List)"})
   void testSetThreadBeads_thenThrowIllegalArgumentException() {
     // Arrange
     PDPage pdPage = new PDPage();
-
     PDThreadBead pdThreadBead = mock(PDThreadBead.class);
-    when(pdThreadBead.getCOSObject()).thenThrow(new IllegalArgumentException());
+    when(pdThreadBead.getCOSObject()).thenThrow(new IllegalArgumentException("foo"));
 
     ArrayList<PDThreadBead> beads = new ArrayList<>();
     beads.add(pdThreadBead);
@@ -2915,44 +2087,39 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getMetadata()}.
-   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDPage#PDPage()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getMetadata()}
+   * <p>
+   * Method under test: {@link PDPage#getMetadata()}
    */
   @Test
   @DisplayName("Test getMetadata(); given PDPage(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDMetadata PDPage.getMetadata()"})
   void testGetMetadata_givenPDPage_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDPage().getMetadata());
+    assertNull((new PDPage()).getMetadata());
   }
 
   /**
    * Test {@link PDPage#getMetadata()}.
-   *
    * <ul>
-   *   <li>Then return COSObject Key is {@link COSObjectKey#COSObjectKey(long, int)} with num is one
-   *       and gen is one.
+   *   <li>Then return COSObject Key is {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getMetadata()}
+   * <p>
+   * Method under test: {@link PDPage#getMetadata()}
    */
   @Test
-  @DisplayName(
-      "Test getMetadata(); then return COSObject Key is COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getMetadata(); then return COSObject Key is COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDMetadata PDPage.getMetadata()"})
   void testGetMetadata_thenReturnCOSObjectKeyIsCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
     COSStream str = new COSStream();
     COSObjectKey key = new COSObjectKey(1L, 1);
+
     str.setKey(key);
     PDMetadata meta = new PDMetadata(str);
 
@@ -2965,17 +2132,15 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getMetadata()}.
-   *
    * <ul>
-   *   <li>Then return DecodeParms is {@code null}.
+   *   <li>Then return DecodeParms is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getMetadata()}
+   * <p>
+   * Method under test: {@link PDPage#getMetadata()}
    */
   @Test
   @DisplayName("Test getMetadata(); then return DecodeParms is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDMetadata PDPage.getMetadata()"})
   void testGetMetadata_thenReturnDecodeParmsIsNull() throws IOException {
     // Arrange
@@ -3001,29 +2166,24 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#setMetadata(PDMetadata)}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#setItem(COSName, COSObjectable)} does
-   *       nothing.
-   *   <li>Then calls {@link COSDictionary#setItem(COSName, COSObjectable)}.
+   *   <li>Given {@link COSDictionary} {@link COSDictionary#setItem(COSName, COSObjectable)} does nothing.</li>
+   *   <li>Then calls {@link COSDictionary#setItem(COSName, COSObjectable)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setMetadata(PDMetadata)}
+   * <p>
+   * Method under test: {@link PDPage#setMetadata(PDMetadata)}
    */
   @Test
-  @DisplayName(
-      "Test setMetadata(PDMetadata); given COSDictionary setItem(COSName, COSObjectable) does nothing; then calls setItem(COSName, COSObjectable)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setMetadata(PDMetadata); given COSDictionary setItem(COSName, COSObjectable) does nothing; then calls setItem(COSName, COSObjectable)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDPage.setMetadata(PDMetadata)"})
   void testSetMetadata_givenCOSDictionarySetItemDoesNothing_thenCallsSetItem() {
     // Arrange
     COSDictionary pageDictionary = mock(COSDictionary.class);
     doNothing().when(pageDictionary).setItem(Mockito.<COSName>any(), Mockito.<COSObjectable>any());
-    PDPage pdPage = new PDPage(pageDictionary);
 
     // Act
-    pdPage.setMetadata(new PDMetadata(mock(COSStream.class)));
+    (new PDPage(pageDictionary)).setMetadata(mock(PDMetadata.class));
 
     // Assert
     verify(pageDictionary).setItem(isA(COSName.class), isA(COSObjectable.class));
@@ -3031,119 +2191,19 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#setMetadata(PDMetadata)}.
-   *
    * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   *   <li>Given {@link COSUpdateState#COSUpdateState(COSUpdateInfo)} with updateInfo is {@link COSArray#COSArray()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setMetadata(PDMetadata)}
+   * <p>
+   * Method under test: {@link PDPage#setMetadata(PDMetadata)}
    */
   @Test
-  @DisplayName(
-      "Test setMetadata(PDMetadata); given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDPage.setMetadata(PDMetadata)"})
-  void testSetMetadata_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
-    // Arrange
-    PDPage pdPage = new PDPage();
-
-    COSStream str = mock(COSStream.class);
-    when(str.isDirect()).thenReturn(false);
-    when(str.getKey()).thenReturn(new COSObjectKey(1L, 1));
-
-    // Act
-    pdPage.setMetadata(new PDMetadata(str));
-
-    // Assert
-    verify(str, atLeast(1)).getKey();
-    verify(str).isDirect();
-    assertEquals(0, pdPage.getMetadata().getDecodedStreamLength());
-  }
-
-  /**
-   * Test {@link PDPage#setMetadata(PDMetadata)}.
-   *
-   * <ul>
-   *   <li>Given {@link COSUpdateState#COSUpdateState(COSUpdateInfo)} with updateInfo is {@link
-   *       COSArray#COSArray()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setMetadata(PDMetadata)}
-   */
-  @Test
-  @DisplayName(
-      "Test setMetadata(PDMetadata); given COSUpdateState(COSUpdateInfo) with updateInfo is COSArray()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setMetadata(PDMetadata); given COSUpdateState(COSUpdateInfo) with updateInfo is COSArray()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDPage.setMetadata(PDMetadata)"})
   void testSetMetadata_givenCOSUpdateStateWithUpdateInfoIsCOSArray() {
     // Arrange
     PDPage pdPage = new PDPage();
-
-    COSStream str = mock(COSStream.class);
-    when(str.isDirect()).thenReturn(false);
-    when(str.getKey()).thenReturn(null);
-    when(str.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
-
-    // Act
-    pdPage.setMetadata(new PDMetadata(str));
-
-    // Assert
-    verify(str).getKey();
-    verify(str).isDirect();
-    verify(str).getUpdateState();
-    assertEquals(0, pdPage.getMetadata().getDecodedStreamLength());
-  }
-
-  /**
-   * Test {@link PDPage#setMetadata(PDMetadata)}.
-   *
-   * <ul>
-   *   <li>Given {@link IllegalArgumentException#IllegalArgumentException()}.
-   *   <li>Then throw {@link IllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setMetadata(PDMetadata)}
-   */
-  @Test
-  @DisplayName(
-      "Test setMetadata(PDMetadata); given IllegalArgumentException(); then throw IllegalArgumentException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDPage.setMetadata(PDMetadata)"})
-  void testSetMetadata_givenIllegalArgumentException_thenThrowIllegalArgumentException() {
-    // Arrange
-    PDPage pdPage = new PDPage();
-
-    COSStream str = mock(COSStream.class);
-    when(str.isDirect()).thenThrow(new IllegalArgumentException());
-
-    // Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> pdPage.setMetadata(new PDMetadata(str)));
-    verify(str).isDirect();
-  }
-
-  /**
-   * Test {@link PDPage#setMetadata(PDMetadata)}.
-   *
-   * <ul>
-   *   <li>Given {@code true}.
-   *   <li>When {@link COSStream} {@link COSStream#isDirect()} return {@code true}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setMetadata(PDMetadata)}
-   */
-  @Test
-  @DisplayName(
-      "Test setMetadata(PDMetadata); given 'true'; when COSStream isDirect() return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDPage.setMetadata(PDMetadata)"})
-  void testSetMetadata_givenTrue_whenCOSStreamIsDirectReturnTrue() {
-    // Arrange
-    PDPage pdPage = new PDPage();
-
     COSStream str = mock(COSStream.class);
     when(str.isDirect()).thenReturn(true);
     when(str.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
@@ -3159,35 +2219,59 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#setMetadata(PDMetadata)}.
-   *
    * <ul>
-   *   <li>Then calls {@link COSUpdateState#setOriginDocumentState(COSDocumentState)}.
+   *   <li>Given {@code false}.</li>
+   *   <li>When {@link COSStream} {@link COSBase#isDirect()} return {@code false}.</li>
+   *   <li>Then calls {@link COSBase#getKey()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setMetadata(PDMetadata)}
+   * <p>
+   * Method under test: {@link PDPage#setMetadata(PDMetadata)}
+   */
+  @Test
+  @DisplayName("Test setMetadata(PDMetadata); given 'false'; when COSStream isDirect() return 'false'; then calls getKey()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDPage.setMetadata(PDMetadata)"})
+  void testSetMetadata_givenFalse_whenCOSStreamIsDirectReturnFalse_thenCallsGetKey() {
+    // Arrange
+    PDPage pdPage = new PDPage();
+    COSStream str = mock(COSStream.class);
+    when(str.isDirect()).thenReturn(false);
+    when(str.getKey()).thenReturn(new COSObjectKey(1L, 1));
+
+    // Act
+    pdPage.setMetadata(new PDMetadata(str));
+
+    // Assert
+    verify(str, atLeast(1)).getKey();
+    verify(str).isDirect();
+    assertEquals(0, pdPage.getMetadata().getDecodedStreamLength());
+  }
+
+  /**
+   * Test {@link PDPage#setMetadata(PDMetadata)}.
+   * <ul>
+   *   <li>Then calls {@link COSUpdateState#setOriginDocumentState(COSDocumentState)}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPage#setMetadata(PDMetadata)}
    */
   @Test
   @DisplayName("Test setMetadata(PDMetadata); then calls setOriginDocumentState(COSDocumentState)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDPage.setMetadata(PDMetadata)"})
   void testSetMetadata_thenCallsSetOriginDocumentState() {
     // Arrange
     PDPage pdPage = new PDPage();
-
     COSUpdateState cosUpdateState = mock(COSUpdateState.class);
     doNothing().when(cosUpdateState).setOriginDocumentState(Mockito.<COSDocumentState>any());
-
     COSStream str = mock(COSStream.class);
-    when(str.isDirect()).thenReturn(false);
-    when(str.getKey()).thenReturn(null);
+    when(str.isDirect()).thenReturn(true);
     when(str.getUpdateState()).thenReturn(cosUpdateState);
 
     // Act
     pdPage.setMetadata(new PDMetadata(str));
 
     // Assert
-    verify(str).getKey();
     verify(str).isDirect();
     verify(str).getUpdateState();
     verify(cosUpdateState).setOriginDocumentState(isNull());
@@ -3196,18 +2280,15 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#setMetadata(PDMetadata)}.
-   *
    * <ul>
-   *   <li>Then {@link PDPage#PDPage()} Metadata DecodedStreamLength is minus one.
+   *   <li>Then {@link PDPage#PDPage()} Metadata DecodedStreamLength is minus one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setMetadata(PDMetadata)}
+   * <p>
+   * Method under test: {@link PDPage#setMetadata(PDMetadata)}
    */
   @Test
-  @DisplayName(
-      "Test setMetadata(PDMetadata); then PDPage() Metadata DecodedStreamLength is minus one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setMetadata(PDMetadata); then PDPage() Metadata DecodedStreamLength is minus one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDPage.setMetadata(PDMetadata)"})
   void testSetMetadata_thenPDPageMetadataDecodedStreamLengthIsMinusOne() {
     // Arrange
@@ -3225,21 +2306,19 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getActions()}.
-   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()}.
+   *   <li>Given {@link PDPage#PDPage()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getActions()}
+   * <p>
+   * Method under test: {@link PDPage#getActions()}
    */
   @Test
   @DisplayName("Test getActions(); given PDPage()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDPageAdditionalActions PDPage.getActions()"})
   void testGetActions_givenPDPage() {
     // Arrange and Act
-    PDPageAdditionalActions actualActions = new PDPage().getActions();
+    PDPageAdditionalActions actualActions = (new PDPage()).getActions();
 
     // Assert
     COSDictionary cOSObject = actualActions.getCOSObject();
@@ -3260,18 +2339,15 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getActions()}.
-   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()} Actions is {@link
-   *       PDPageAdditionalActions#PDPageAdditionalActions()}.
+   *   <li>Given {@link PDPage#PDPage()} Actions is {@link PDPageAdditionalActions#PDPageAdditionalActions()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getActions()}
+   * <p>
+   * Method under test: {@link PDPage#getActions()}
    */
   @Test
   @DisplayName("Test getActions(); given PDPage() Actions is PDPageAdditionalActions()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDPageAdditionalActions PDPage.getActions()"})
   void testGetActions_givenPDPageActionsIsPDPageAdditionalActions() {
     // Arrange
@@ -3300,78 +2376,64 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#setActions(PDPageAdditionalActions)}.
-   *
    * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   *   <li>Given {@link COSDictionary} {@link COSDictionary#setItem(COSName, COSObjectable)} does nothing.</li>
+   *   <li>Then calls {@link COSDictionary#setItem(COSName, COSObjectable)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setActions(PDPageAdditionalActions)}
+   * <p>
+   * Method under test: {@link PDPage#setActions(PDPageAdditionalActions)}
    */
   @Test
-  @DisplayName(
-      "Test setActions(PDPageAdditionalActions); given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setActions(PDPageAdditionalActions); given COSDictionary setItem(COSName, COSObjectable) does nothing; then calls setItem(COSName, COSObjectable)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDPage.setActions(PDPageAdditionalActions)"})
-  void testSetActions_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
+  void testSetActions_givenCOSDictionarySetItemDoesNothing_thenCallsSetItem() {
     // Arrange
-    PDPage pdPage = new PDPage();
-
-    COSDictionary a = new COSDictionary();
-    a.setKey(new COSObjectKey(1L, 1));
+    COSDictionary pageDictionary = mock(COSDictionary.class);
+    doNothing().when(pageDictionary).setItem(Mockito.<COSName>any(), Mockito.<COSObjectable>any());
 
     // Act
-    pdPage.setActions(new PDPageAdditionalActions(a));
+    (new PDPage(pageDictionary)).setActions(mock(PDPageAdditionalActions.class));
 
     // Assert
-    assertSame(a, pdPage.getActions().getCOSObject());
+    verify(pageDictionary).setItem(isA(COSName.class), isA(COSObjectable.class));
   }
 
   /**
    * Test {@link PDPage#setActions(PDPageAdditionalActions)}.
-   *
    * <ul>
-   *   <li>Given {@code true}.
-   *   <li>When {@link COSDictionary#COSDictionary()} Direct is {@code true}.
+   *   <li>Then throw {@link IllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setActions(PDPageAdditionalActions)}
+   * <p>
+   * Method under test: {@link PDPage#setActions(PDPageAdditionalActions)}
    */
   @Test
-  @DisplayName(
-      "Test setActions(PDPageAdditionalActions); given 'true'; when COSDictionary() Direct is 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setActions(PDPageAdditionalActions); then throw IllegalArgumentException")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDPage.setActions(PDPageAdditionalActions)"})
-  void testSetActions_givenTrue_whenCOSDictionaryDirectIsTrue() {
+  void testSetActions_thenThrowIllegalArgumentException() {
     // Arrange
     PDPage pdPage = new PDPage();
+    PDPageAdditionalActions actions = mock(PDPageAdditionalActions.class);
+    when(actions.getCOSObject()).thenThrow(new IllegalArgumentException("foo"));
 
-    COSDictionary a = new COSDictionary();
-    a.setDirect(true);
-
-    // Act
-    pdPage.setActions(new PDPageAdditionalActions(a));
-
-    // Assert
-    assertSame(a, pdPage.getActions().getCOSObject());
+    // Act and Assert
+    assertThrows(IllegalArgumentException.class, () -> pdPage.setActions(actions));
+    verify(actions).getCOSObject();
   }
 
   /**
    * Test {@link PDPage#getTransition()}.
-   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()} Transition is {@link PDTransition#PDTransition()}.
-   *   <li>Then return {@link PDTransition#PDTransition()}.
+   *   <li>Given {@link PDPage#PDPage()} Transition is {@link PDTransition#PDTransition()}.</li>
+   *   <li>Then return {@link PDTransition#PDTransition()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getTransition()}
+   * <p>
+   * Method under test: {@link PDPage#getTransition()}
    */
   @Test
-  @DisplayName(
-      "Test getTransition(); given PDPage() Transition is PDTransition(); then return PDTransition()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getTransition(); given PDPage() Transition is PDTransition(); then return PDTransition()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDTransition PDPage.getTransition()"})
   void testGetTransition_givenPDPageTransitionIsPDTransition_thenReturnPDTransition() {
     // Arrange
@@ -3385,48 +2447,43 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getTransition()}.
-   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDPage#PDPage()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getTransition()}
+   * <p>
+   * Method under test: {@link PDPage#getTransition()}
    */
   @Test
   @DisplayName("Test getTransition(); given PDPage(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDTransition PDPage.getTransition()"})
   void testGetTransition_givenPDPage_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDPage().getTransition());
+    assertNull((new PDPage()).getTransition());
   }
 
   /**
-   * Test {@link PDPage#setTransition(PDTransition, float)} with {@code transition}, {@code
-   * duration}.
-   *
+   * Test {@link PDPage#setTransition(PDTransition, float)} with {@code transition}, {@code duration}.
    * <ul>
-   *   <li>Then calls {@link COSDictionary#setItem(COSName, COSBase)}.
+   *   <li>Then calls {@link COSDictionary#setItem(COSName, COSBase)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setTransition(PDTransition, float)}
+   * <p>
+   * Method under test: {@link PDPage#setTransition(PDTransition, float)}
    */
   @Test
-  @DisplayName(
-      "Test setTransition(PDTransition, float) with 'transition', 'duration'; then calls setItem(COSName, COSBase)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setTransition(PDTransition, float) with 'transition', 'duration'; then calls setItem(COSName, COSBase)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDPage.setTransition(PDTransition, float)"})
   void testSetTransitionWithTransitionDuration_thenCallsSetItem() {
     // Arrange
     COSDictionary pageDictionary = mock(COSDictionary.class);
     doNothing().when(pageDictionary).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
     doNothing().when(pageDictionary).setItem(Mockito.<COSName>any(), Mockito.<COSObjectable>any());
+    PDPage pdPage = new PDPage(pageDictionary);
 
     // Act
-    new PDPage(pageDictionary).setTransition(mock(PDTransition.class), 10.0f);
+    pdPage.setTransition(new PDTransition(), 10.0f);
 
     // Assert that nothing has changed
     verify(pageDictionary).setItem(isA(COSName.class), isA(COSBase.class));
@@ -3434,159 +2491,41 @@ class PDPageDiffblueTest {
   }
 
   /**
-   * Test {@link PDPage#setTransition(PDTransition, float)} with {@code transition}, {@code
-   * duration}.
-   *
-   * <ul>
-   *   <li>Then throw {@link IllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setTransition(PDTransition, float)}
-   */
-  @Test
-  @DisplayName(
-      "Test setTransition(PDTransition, float) with 'transition', 'duration'; then throw IllegalArgumentException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDPage.setTransition(PDTransition, float)"})
-  void testSetTransitionWithTransitionDuration_thenThrowIllegalArgumentException() {
-    // Arrange
-    PDPage pdPage = new PDPage();
-
-    PDTransition transition = mock(PDTransition.class);
-    when(transition.getCOSObject()).thenThrow(new IllegalArgumentException());
-
-    // Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> pdPage.setTransition(transition, 10.0f));
-    verify(transition).getCOSObject();
-  }
-
-  /**
    * Test {@link PDPage#setTransition(PDTransition)} with {@code transition}.
-   *
    * <ul>
-   *   <li>Then calls {@link COSDictionary#setItem(COSName, COSObjectable)}.
+   *   <li>Then calls {@link COSDictionary#setItem(COSName, COSObjectable)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setTransition(PDTransition)}
+   * <p>
+   * Method under test: {@link PDPage#setTransition(PDTransition)}
    */
   @Test
-  @DisplayName(
-      "Test setTransition(PDTransition) with 'transition'; then calls setItem(COSName, COSObjectable)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setTransition(PDTransition) with 'transition'; then calls setItem(COSName, COSObjectable)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDPage.setTransition(PDTransition)"})
   void testSetTransitionWithTransition_thenCallsSetItem() {
     // Arrange
     COSDictionary pageDictionary = mock(COSDictionary.class);
     doNothing().when(pageDictionary).setItem(Mockito.<COSName>any(), Mockito.<COSObjectable>any());
+    PDPage pdPage = new PDPage(pageDictionary);
 
     // Act
-    new PDPage(pageDictionary).setTransition(mock(PDTransition.class));
+    pdPage.setTransition(new PDTransition());
 
     // Assert that nothing has changed
     verify(pageDictionary).setItem(isA(COSName.class), isA(COSObjectable.class));
   }
 
   /**
-   * Test {@link PDPage#setTransition(PDTransition)} with {@code transition}.
-   *
+   * Test {@link PDPage#getAnnotations(AnnotationFilter)} with {@code AnnotationFilter}.
    * <ul>
-   *   <li>Then throw {@link IllegalArgumentException}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setTransition(PDTransition)}
+   * <p>
+   * Method under test: {@link PDPage#getAnnotations(AnnotationFilter)}
    */
   @Test
-  @DisplayName(
-      "Test setTransition(PDTransition) with 'transition'; then throw IllegalArgumentException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDPage.setTransition(PDTransition)"})
-  void testSetTransitionWithTransition_thenThrowIllegalArgumentException() {
-    // Arrange
-    PDPage pdPage = new PDPage();
-
-    PDTransition transition = mock(PDTransition.class);
-    when(transition.getCOSObject()).thenThrow(new IllegalArgumentException());
-
-    // Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> pdPage.setTransition(transition));
-    verify(transition).getCOSObject();
-  }
-
-  /**
-   * Test {@link PDPage#getAnnotations(AnnotationFilter)} with {@code AnnotationFilter}.
-   *
-   * <p>Method under test: {@link PDPage#getAnnotations(AnnotationFilter)}
-   */
-  @Test
-  @DisplayName("Test getAnnotations(AnnotationFilter) with 'AnnotationFilter'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List PDPage.getAnnotations(AnnotationFilter)"})
-  void testGetAnnotationsWithAnnotationFilter() throws IOException {
-    // Arrange
-    ArrayList<PDAnnotation> annotations = new ArrayList<>();
-    annotations.add(new PDAnnotationCaret(new COSDictionary()));
-
-    PDPage pdPage = new PDPage();
-    pdPage.setAnnotations(annotations);
-
-    AnnotationFilter annotationFilter = mock(AnnotationFilter.class);
-    when(annotationFilter.accept(Mockito.<PDAnnotation>any())).thenReturn(false);
-
-    // Act
-    List<PDAnnotation> actualAnnotations = pdPage.getAnnotations(annotationFilter);
-
-    // Assert
-    verify(annotationFilter).accept(isA(PDAnnotation.class));
-    assertTrue(actualAnnotations.isEmpty());
-  }
-
-  /**
-   * Test {@link PDPage#getAnnotations(AnnotationFilter)} with {@code AnnotationFilter}.
-   *
-   * <p>Method under test: {@link PDPage#getAnnotations(AnnotationFilter)}
-   */
-  @Test
-  @DisplayName("Test getAnnotations(AnnotationFilter) with 'AnnotationFilter'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List PDPage.getAnnotations(AnnotationFilter)"})
-  void testGetAnnotationsWithAnnotationFilter2() throws IOException {
-    // Arrange
-    ArrayList<PDAnnotation> annotations = new ArrayList<>();
-    annotations.add(new PDAnnotationFileAttachment());
-
-    PDPage pdPage = new PDPage();
-    pdPage.setAnnotations(annotations);
-
-    AnnotationFilter annotationFilter = mock(AnnotationFilter.class);
-    when(annotationFilter.accept(Mockito.<PDAnnotation>any())).thenReturn(false);
-
-    // Act
-    List<PDAnnotation> actualAnnotations = pdPage.getAnnotations(annotationFilter);
-
-    // Assert
-    verify(annotationFilter).accept(isA(PDAnnotation.class));
-    assertTrue(actualAnnotations.isEmpty());
-  }
-
-  /**
-   * Test {@link PDPage#getAnnotations(AnnotationFilter)} with {@code AnnotationFilter}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getAnnotations(AnnotationFilter)}
-   */
-  @Test
-  @DisplayName(
-      "Test getAnnotations(AnnotationFilter) with 'AnnotationFilter'; given ArrayList() add 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getAnnotations(AnnotationFilter) with 'AnnotationFilter'; given ArrayList() add 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDPage.getAnnotations(AnnotationFilter)"})
   void testGetAnnotationsWithAnnotationFilter_givenArrayListAddNull() throws IOException {
     // Arrange
@@ -3602,28 +2541,23 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getAnnotations(AnnotationFilter)} with {@code AnnotationFilter}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDAnnotationCaret#PDAnnotationCaret()}.
+   *   <li>Given {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getAnnotations(AnnotationFilter)}
+   * <p>
+   * Method under test: {@link PDPage#getAnnotations(AnnotationFilter)}
    */
   @Test
-  @DisplayName(
-      "Test getAnnotations(AnnotationFilter) with 'AnnotationFilter'; given ArrayList() add PDAnnotationCaret()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getAnnotations(AnnotationFilter) with 'AnnotationFilter'; given 'false'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDPage.getAnnotations(AnnotationFilter)"})
-  void testGetAnnotationsWithAnnotationFilter_givenArrayListAddPDAnnotationCaret()
-      throws IOException {
+  void testGetAnnotationsWithAnnotationFilter_givenFalse() throws IOException {
     // Arrange
     ArrayList<PDAnnotation> annotations = new ArrayList<>();
     annotations.add(new PDAnnotationCaret());
 
     PDPage pdPage = new PDPage();
     pdPage.setAnnotations(annotations);
-
     AnnotationFilter annotationFilter = mock(AnnotationFilter.class);
     when(annotationFilter.accept(Mockito.<PDAnnotation>any())).thenReturn(false);
 
@@ -3637,468 +2571,35 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getAnnotations(AnnotationFilter)} with {@code AnnotationFilter}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDAnnotationCircle#PDAnnotationCircle()}.
+   *   <li>Given {@link PDPage#PDPage()}.</li>
+   *   <li>When {@link AnnotationFilter}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getAnnotations(AnnotationFilter)}
+   * <p>
+   * Method under test: {@link PDPage#getAnnotations(AnnotationFilter)}
    */
   @Test
-  @DisplayName(
-      "Test getAnnotations(AnnotationFilter) with 'AnnotationFilter'; given ArrayList() add PDAnnotationCircle()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getAnnotations(AnnotationFilter) with 'AnnotationFilter'; given PDPage(); when AnnotationFilter")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDPage.getAnnotations(AnnotationFilter)"})
-  void testGetAnnotationsWithAnnotationFilter_givenArrayListAddPDAnnotationCircle()
-      throws IOException {
-    // Arrange
-    ArrayList<PDAnnotation> annotations = new ArrayList<>();
-    annotations.add(new PDAnnotationCircle());
-
-    PDPage pdPage = new PDPage();
-    pdPage.setAnnotations(annotations);
-
-    AnnotationFilter annotationFilter = mock(AnnotationFilter.class);
-    when(annotationFilter.accept(Mockito.<PDAnnotation>any())).thenReturn(false);
-
-    // Act
-    List<PDAnnotation> actualAnnotations = pdPage.getAnnotations(annotationFilter);
-
-    // Assert
-    verify(annotationFilter).accept(isA(PDAnnotation.class));
-    assertTrue(actualAnnotations.isEmpty());
-  }
-
-  /**
-   * Test {@link PDPage#getAnnotations(AnnotationFilter)} with {@code AnnotationFilter}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link
-   *       PDAnnotationFreeText#PDAnnotationFreeText()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getAnnotations(AnnotationFilter)}
-   */
-  @Test
-  @DisplayName(
-      "Test getAnnotations(AnnotationFilter) with 'AnnotationFilter'; given ArrayList() add PDAnnotationFreeText()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List PDPage.getAnnotations(AnnotationFilter)"})
-  void testGetAnnotationsWithAnnotationFilter_givenArrayListAddPDAnnotationFreeText()
-      throws IOException {
-    // Arrange
-    ArrayList<PDAnnotation> annotations = new ArrayList<>();
-    annotations.add(new PDAnnotationFreeText());
-
-    PDPage pdPage = new PDPage();
-    pdPage.setAnnotations(annotations);
-
-    AnnotationFilter annotationFilter = mock(AnnotationFilter.class);
-    when(annotationFilter.accept(Mockito.<PDAnnotation>any())).thenReturn(false);
-
-    // Act
-    List<PDAnnotation> actualAnnotations = pdPage.getAnnotations(annotationFilter);
-
-    // Assert
-    verify(annotationFilter).accept(isA(PDAnnotation.class));
-    assertTrue(actualAnnotations.isEmpty());
-  }
-
-  /**
-   * Test {@link PDPage#getAnnotations(AnnotationFilter)} with {@code AnnotationFilter}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link
-   *       PDAnnotationHighlight#PDAnnotationHighlight()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getAnnotations(AnnotationFilter)}
-   */
-  @Test
-  @DisplayName(
-      "Test getAnnotations(AnnotationFilter) with 'AnnotationFilter'; given ArrayList() add PDAnnotationHighlight()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List PDPage.getAnnotations(AnnotationFilter)"})
-  void testGetAnnotationsWithAnnotationFilter_givenArrayListAddPDAnnotationHighlight()
-      throws IOException {
-    // Arrange
-    ArrayList<PDAnnotation> annotations = new ArrayList<>();
-    annotations.add(new PDAnnotationHighlight());
-
-    PDPage pdPage = new PDPage();
-    pdPage.setAnnotations(annotations);
-
-    AnnotationFilter annotationFilter = mock(AnnotationFilter.class);
-    when(annotationFilter.accept(Mockito.<PDAnnotation>any())).thenReturn(false);
-
-    // Act
-    List<PDAnnotation> actualAnnotations = pdPage.getAnnotations(annotationFilter);
-
-    // Assert
-    verify(annotationFilter).accept(isA(PDAnnotation.class));
-    assertTrue(actualAnnotations.isEmpty());
-  }
-
-  /**
-   * Test {@link PDPage#getAnnotations(AnnotationFilter)} with {@code AnnotationFilter}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDAnnotationInk#PDAnnotationInk()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getAnnotations(AnnotationFilter)}
-   */
-  @Test
-  @DisplayName(
-      "Test getAnnotations(AnnotationFilter) with 'AnnotationFilter'; given ArrayList() add PDAnnotationInk()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List PDPage.getAnnotations(AnnotationFilter)"})
-  void testGetAnnotationsWithAnnotationFilter_givenArrayListAddPDAnnotationInk()
-      throws IOException {
-    // Arrange
-    ArrayList<PDAnnotation> annotations = new ArrayList<>();
-    annotations.add(new PDAnnotationInk());
-
-    PDPage pdPage = new PDPage();
-    pdPage.setAnnotations(annotations);
-
-    AnnotationFilter annotationFilter = mock(AnnotationFilter.class);
-    when(annotationFilter.accept(Mockito.<PDAnnotation>any())).thenReturn(false);
-
-    // Act
-    List<PDAnnotation> actualAnnotations = pdPage.getAnnotations(annotationFilter);
-
-    // Assert
-    verify(annotationFilter).accept(isA(PDAnnotation.class));
-    assertTrue(actualAnnotations.isEmpty());
-  }
-
-  /**
-   * Test {@link PDPage#getAnnotations(AnnotationFilter)} with {@code AnnotationFilter}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDAnnotationLine#PDAnnotationLine()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getAnnotations(AnnotationFilter)}
-   */
-  @Test
-  @DisplayName(
-      "Test getAnnotations(AnnotationFilter) with 'AnnotationFilter'; given ArrayList() add PDAnnotationLine()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List PDPage.getAnnotations(AnnotationFilter)"})
-  void testGetAnnotationsWithAnnotationFilter_givenArrayListAddPDAnnotationLine()
-      throws IOException {
-    // Arrange
-    ArrayList<PDAnnotation> annotations = new ArrayList<>();
-    annotations.add(new PDAnnotationLine());
-
-    PDPage pdPage = new PDPage();
-    pdPage.setAnnotations(annotations);
-
-    AnnotationFilter annotationFilter = mock(AnnotationFilter.class);
-    when(annotationFilter.accept(Mockito.<PDAnnotation>any())).thenReturn(false);
-
-    // Act
-    List<PDAnnotation> actualAnnotations = pdPage.getAnnotations(annotationFilter);
-
-    // Assert
-    verify(annotationFilter).accept(isA(PDAnnotation.class));
-    assertTrue(actualAnnotations.isEmpty());
-  }
-
-  /**
-   * Test {@link PDPage#getAnnotations(AnnotationFilter)} with {@code AnnotationFilter}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDAnnotationLink#PDAnnotationLink()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getAnnotations(AnnotationFilter)}
-   */
-  @Test
-  @DisplayName(
-      "Test getAnnotations(AnnotationFilter) with 'AnnotationFilter'; given ArrayList() add PDAnnotationLink()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List PDPage.getAnnotations(AnnotationFilter)"})
-  void testGetAnnotationsWithAnnotationFilter_givenArrayListAddPDAnnotationLink()
-      throws IOException {
-    // Arrange
-    ArrayList<PDAnnotation> annotations = new ArrayList<>();
-    annotations.add(new PDAnnotationLink());
-
-    PDPage pdPage = new PDPage();
-    pdPage.setAnnotations(annotations);
-
-    AnnotationFilter annotationFilter = mock(AnnotationFilter.class);
-    when(annotationFilter.accept(Mockito.<PDAnnotation>any())).thenReturn(false);
-
-    // Act
-    List<PDAnnotation> actualAnnotations = pdPage.getAnnotations(annotationFilter);
-
-    // Assert
-    verify(annotationFilter).accept(isA(PDAnnotation.class));
-    assertTrue(actualAnnotations.isEmpty());
-  }
-
-  /**
-   * Test {@link PDPage#getAnnotations(AnnotationFilter)} with {@code AnnotationFilter}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link
-   *       PDAnnotationPolygon#PDAnnotationPolygon()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getAnnotations(AnnotationFilter)}
-   */
-  @Test
-  @DisplayName(
-      "Test getAnnotations(AnnotationFilter) with 'AnnotationFilter'; given ArrayList() add PDAnnotationPolygon()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List PDPage.getAnnotations(AnnotationFilter)"})
-  void testGetAnnotationsWithAnnotationFilter_givenArrayListAddPDAnnotationPolygon()
-      throws IOException {
-    // Arrange
-    ArrayList<PDAnnotation> annotations = new ArrayList<>();
-    annotations.add(new PDAnnotationPolygon());
-
-    PDPage pdPage = new PDPage();
-    pdPage.setAnnotations(annotations);
-
-    AnnotationFilter annotationFilter = mock(AnnotationFilter.class);
-    when(annotationFilter.accept(Mockito.<PDAnnotation>any())).thenReturn(false);
-
-    // Act
-    List<PDAnnotation> actualAnnotations = pdPage.getAnnotations(annotationFilter);
-
-    // Assert
-    verify(annotationFilter).accept(isA(PDAnnotation.class));
-    assertTrue(actualAnnotations.isEmpty());
-  }
-
-  /**
-   * Test {@link PDPage#getAnnotations(AnnotationFilter)} with {@code AnnotationFilter}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link
-   *       PDAnnotationPolyline#PDAnnotationPolyline()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getAnnotations(AnnotationFilter)}
-   */
-  @Test
-  @DisplayName(
-      "Test getAnnotations(AnnotationFilter) with 'AnnotationFilter'; given ArrayList() add PDAnnotationPolyline()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List PDPage.getAnnotations(AnnotationFilter)"})
-  void testGetAnnotationsWithAnnotationFilter_givenArrayListAddPDAnnotationPolyline()
-      throws IOException {
-    // Arrange
-    ArrayList<PDAnnotation> annotations = new ArrayList<>();
-    annotations.add(new PDAnnotationPolyline());
-
-    PDPage pdPage = new PDPage();
-    pdPage.setAnnotations(annotations);
-
-    AnnotationFilter annotationFilter = mock(AnnotationFilter.class);
-    when(annotationFilter.accept(Mockito.<PDAnnotation>any())).thenReturn(false);
-
-    // Act
-    List<PDAnnotation> actualAnnotations = pdPage.getAnnotations(annotationFilter);
-
-    // Assert
-    verify(annotationFilter).accept(isA(PDAnnotation.class));
-    assertTrue(actualAnnotations.isEmpty());
-  }
-
-  /**
-   * Test {@link PDPage#getAnnotations(AnnotationFilter)} with {@code AnnotationFilter}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDAnnotationPopup#PDAnnotationPopup()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getAnnotations(AnnotationFilter)}
-   */
-  @Test
-  @DisplayName(
-      "Test getAnnotations(AnnotationFilter) with 'AnnotationFilter'; given ArrayList() add PDAnnotationPopup()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List PDPage.getAnnotations(AnnotationFilter)"})
-  void testGetAnnotationsWithAnnotationFilter_givenArrayListAddPDAnnotationPopup()
-      throws IOException {
-    // Arrange
-    ArrayList<PDAnnotation> annotations = new ArrayList<>();
-    annotations.add(new PDAnnotationPopup());
-
-    PDPage pdPage = new PDPage();
-    pdPage.setAnnotations(annotations);
-
-    AnnotationFilter annotationFilter = mock(AnnotationFilter.class);
-    when(annotationFilter.accept(Mockito.<PDAnnotation>any())).thenReturn(false);
-
-    // Act
-    List<PDAnnotation> actualAnnotations = pdPage.getAnnotations(annotationFilter);
-
-    // Assert
-    verify(annotationFilter).accept(isA(PDAnnotation.class));
-    assertTrue(actualAnnotations.isEmpty());
-  }
-
-  /**
-   * Test {@link PDPage#getAnnotations(AnnotationFilter)} with {@code AnnotationFilter}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link
-   *       PDAnnotationRubberStamp#PDAnnotationRubberStamp()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getAnnotations(AnnotationFilter)}
-   */
-  @Test
-  @DisplayName(
-      "Test getAnnotations(AnnotationFilter) with 'AnnotationFilter'; given ArrayList() add PDAnnotationRubberStamp()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List PDPage.getAnnotations(AnnotationFilter)"})
-  void testGetAnnotationsWithAnnotationFilter_givenArrayListAddPDAnnotationRubberStamp()
-      throws IOException {
-    // Arrange
-    ArrayList<PDAnnotation> annotations = new ArrayList<>();
-    annotations.add(new PDAnnotationRubberStamp());
-
-    PDPage pdPage = new PDPage();
-    pdPage.setAnnotations(annotations);
-
-    AnnotationFilter annotationFilter = mock(AnnotationFilter.class);
-    when(annotationFilter.accept(Mockito.<PDAnnotation>any())).thenReturn(false);
-
-    // Act
-    List<PDAnnotation> actualAnnotations = pdPage.getAnnotations(annotationFilter);
-
-    // Assert
-    verify(annotationFilter).accept(isA(PDAnnotation.class));
-    assertTrue(actualAnnotations.isEmpty());
-  }
-
-  /**
-   * Test {@link PDPage#getAnnotations(AnnotationFilter)} with {@code AnnotationFilter}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDAnnotationSound#PDAnnotationSound()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getAnnotations(AnnotationFilter)}
-   */
-  @Test
-  @DisplayName(
-      "Test getAnnotations(AnnotationFilter) with 'AnnotationFilter'; given ArrayList() add PDAnnotationSound()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List PDPage.getAnnotations(AnnotationFilter)"})
-  void testGetAnnotationsWithAnnotationFilter_givenArrayListAddPDAnnotationSound()
-      throws IOException {
-    // Arrange
-    ArrayList<PDAnnotation> annotations = new ArrayList<>();
-    annotations.add(new PDAnnotationSound());
-
-    PDPage pdPage = new PDPage();
-    pdPage.setAnnotations(annotations);
-
-    AnnotationFilter annotationFilter = mock(AnnotationFilter.class);
-    when(annotationFilter.accept(Mockito.<PDAnnotation>any())).thenReturn(false);
-
-    // Act
-    List<PDAnnotation> actualAnnotations = pdPage.getAnnotations(annotationFilter);
-
-    // Assert
-    verify(annotationFilter).accept(isA(PDAnnotation.class));
-    assertTrue(actualAnnotations.isEmpty());
-  }
-
-  /**
-   * Test {@link PDPage#getAnnotations(AnnotationFilter)} with {@code AnnotationFilter}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDAnnotationSquare#PDAnnotationSquare()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getAnnotations(AnnotationFilter)}
-   */
-  @Test
-  @DisplayName(
-      "Test getAnnotations(AnnotationFilter) with 'AnnotationFilter'; given ArrayList() add PDAnnotationSquare()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List PDPage.getAnnotations(AnnotationFilter)"})
-  void testGetAnnotationsWithAnnotationFilter_givenArrayListAddPDAnnotationSquare()
-      throws IOException {
-    // Arrange
-    ArrayList<PDAnnotation> annotations = new ArrayList<>();
-    annotations.add(new PDAnnotationSquare());
-
-    PDPage pdPage = new PDPage();
-    pdPage.setAnnotations(annotations);
-
-    AnnotationFilter annotationFilter = mock(AnnotationFilter.class);
-    when(annotationFilter.accept(Mockito.<PDAnnotation>any())).thenReturn(false);
-
-    // Act
-    List<PDAnnotation> actualAnnotations = pdPage.getAnnotations(annotationFilter);
-
-    // Assert
-    verify(annotationFilter).accept(isA(PDAnnotation.class));
-    assertTrue(actualAnnotations.isEmpty());
-  }
-
-  /**
-   * Test {@link PDPage#getAnnotations(AnnotationFilter)} with {@code AnnotationFilter}.
-   *
-   * <ul>
-   *   <li>Given {@link PDPage#PDPage()}.
-   *   <li>When {@link AnnotationFilter}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getAnnotations(AnnotationFilter)}
-   */
-  @Test
-  @DisplayName(
-      "Test getAnnotations(AnnotationFilter) with 'AnnotationFilter'; given PDPage(); when AnnotationFilter")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List PDPage.getAnnotations(AnnotationFilter)"})
-  void testGetAnnotationsWithAnnotationFilter_givenPDPage_whenAnnotationFilter()
-      throws IOException {
+  void testGetAnnotationsWithAnnotationFilter_givenPDPage_whenAnnotationFilter() throws IOException {
     // Arrange, Act and Assert
-    assertTrue(new PDPage().getAnnotations(mock(AnnotationFilter.class)).isEmpty());
+    assertTrue((new PDPage()).getAnnotations(mock(AnnotationFilter.class)).isEmpty());
   }
 
   /**
    * Test {@link PDPage#getAnnotations(AnnotationFilter)} with {@code AnnotationFilter}.
-   *
    * <ul>
-   *   <li>Given {@code true}.
-   *   <li>Then return size is one.
+   *   <li>Then first return {@link PDAnnotationCaret}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getAnnotations(AnnotationFilter)}
+   * <p>
+   * Method under test: {@link PDPage#getAnnotations(AnnotationFilter)}
    */
   @Test
-  @DisplayName(
-      "Test getAnnotations(AnnotationFilter) with 'AnnotationFilter'; given 'true'; then return size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getAnnotations(AnnotationFilter) with 'AnnotationFilter'; then first return PDAnnotationCaret")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDPage.getAnnotations(AnnotationFilter)"})
-  void testGetAnnotationsWithAnnotationFilter_givenTrue_thenReturnSizeIsOne() throws IOException {
+  void testGetAnnotationsWithAnnotationFilter_thenFirstReturnPDAnnotationCaret() throws IOException {
     // Arrange
     ArrayList<PDAnnotation> annotations = new ArrayList<>();
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
@@ -4106,7 +2607,6 @@ class PDPageDiffblueTest {
 
     PDPage pdPage = new PDPage();
     pdPage.setAnnotations(annotations);
-
     AnnotationFilter annotationFilter = mock(AnnotationFilter.class);
     when(annotationFilter.accept(Mockito.<PDAnnotation>any())).thenReturn(true);
 
@@ -4123,31 +2623,501 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getAnnotations(AnnotationFilter)} with {@code AnnotationFilter}.
-   *
    * <ul>
-   *   <li>Then throw {@link IllegalArgumentException}.
+   *   <li>Then first return {@link PDAnnotationCircle}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getAnnotations(AnnotationFilter)}
+   * <p>
+   * Method under test: {@link PDPage#getAnnotations(AnnotationFilter)}
    */
   @Test
-  @DisplayName(
-      "Test getAnnotations(AnnotationFilter) with 'AnnotationFilter'; then throw IllegalArgumentException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getAnnotations(AnnotationFilter) with 'AnnotationFilter'; then first return PDAnnotationCircle")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDPage.getAnnotations(AnnotationFilter)"})
-  void testGetAnnotationsWithAnnotationFilter_thenThrowIllegalArgumentException()
-      throws IOException {
+  void testGetAnnotationsWithAnnotationFilter_thenFirstReturnPDAnnotationCircle() throws IOException {
+    // Arrange
+    ArrayList<PDAnnotation> annotations = new ArrayList<>();
+    PDAnnotationCircle pdAnnotationCircle = new PDAnnotationCircle();
+    annotations.add(pdAnnotationCircle);
+
+    PDPage pdPage = new PDPage();
+    pdPage.setAnnotations(annotations);
+    AnnotationFilter annotationFilter = mock(AnnotationFilter.class);
+    when(annotationFilter.accept(Mockito.<PDAnnotation>any())).thenReturn(true);
+
+    // Act
+    List<PDAnnotation> actualAnnotations = pdPage.getAnnotations(annotationFilter);
+
+    // Assert
+    verify(annotationFilter).accept(isA(PDAnnotation.class));
+    assertEquals(1, actualAnnotations.size());
+    PDAnnotation getResult = actualAnnotations.get(0);
+    assertTrue(getResult instanceof PDAnnotationCircle);
+    assertEquals(pdAnnotationCircle, getResult);
+  }
+
+  /**
+   * Test {@link PDPage#getAnnotations(AnnotationFilter)} with {@code AnnotationFilter}.
+   * <ul>
+   *   <li>Then first return {@link PDAnnotationFileAttachment}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPage#getAnnotations(AnnotationFilter)}
+   */
+  @Test
+  @DisplayName("Test getAnnotations(AnnotationFilter) with 'AnnotationFilter'; then first return PDAnnotationFileAttachment")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List PDPage.getAnnotations(AnnotationFilter)"})
+  void testGetAnnotationsWithAnnotationFilter_thenFirstReturnPDAnnotationFileAttachment() throws IOException {
+    // Arrange
+    ArrayList<PDAnnotation> annotations = new ArrayList<>();
+    PDAnnotationFileAttachment pdAnnotationFileAttachment = new PDAnnotationFileAttachment();
+    annotations.add(pdAnnotationFileAttachment);
+
+    PDPage pdPage = new PDPage();
+    pdPage.setAnnotations(annotations);
+    AnnotationFilter annotationFilter = mock(AnnotationFilter.class);
+    when(annotationFilter.accept(Mockito.<PDAnnotation>any())).thenReturn(true);
+
+    // Act
+    List<PDAnnotation> actualAnnotations = pdPage.getAnnotations(annotationFilter);
+
+    // Assert
+    verify(annotationFilter).accept(isA(PDAnnotation.class));
+    assertEquals(1, actualAnnotations.size());
+    PDAnnotation getResult = actualAnnotations.get(0);
+    assertTrue(getResult instanceof PDAnnotationFileAttachment);
+    assertEquals(pdAnnotationFileAttachment, getResult);
+  }
+
+  /**
+   * Test {@link PDPage#getAnnotations(AnnotationFilter)} with {@code AnnotationFilter}.
+   * <ul>
+   *   <li>Then first return {@link PDAnnotationFreeText}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPage#getAnnotations(AnnotationFilter)}
+   */
+  @Test
+  @DisplayName("Test getAnnotations(AnnotationFilter) with 'AnnotationFilter'; then first return PDAnnotationFreeText")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List PDPage.getAnnotations(AnnotationFilter)"})
+  void testGetAnnotationsWithAnnotationFilter_thenFirstReturnPDAnnotationFreeText() throws IOException {
+    // Arrange
+    ArrayList<PDAnnotation> annotations = new ArrayList<>();
+    PDAnnotationFreeText pdAnnotationFreeText = new PDAnnotationFreeText();
+    annotations.add(pdAnnotationFreeText);
+
+    PDPage pdPage = new PDPage();
+    pdPage.setAnnotations(annotations);
+    AnnotationFilter annotationFilter = mock(AnnotationFilter.class);
+    when(annotationFilter.accept(Mockito.<PDAnnotation>any())).thenReturn(true);
+
+    // Act
+    List<PDAnnotation> actualAnnotations = pdPage.getAnnotations(annotationFilter);
+
+    // Assert
+    verify(annotationFilter).accept(isA(PDAnnotation.class));
+    assertEquals(1, actualAnnotations.size());
+    PDAnnotation getResult = actualAnnotations.get(0);
+    assertTrue(getResult instanceof PDAnnotationFreeText);
+    assertEquals(pdAnnotationFreeText, getResult);
+  }
+
+  /**
+   * Test {@link PDPage#getAnnotations(AnnotationFilter)} with {@code AnnotationFilter}.
+   * <ul>
+   *   <li>Then first return {@link PDAnnotationHighlight}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPage#getAnnotations(AnnotationFilter)}
+   */
+  @Test
+  @DisplayName("Test getAnnotations(AnnotationFilter) with 'AnnotationFilter'; then first return PDAnnotationHighlight")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List PDPage.getAnnotations(AnnotationFilter)"})
+  void testGetAnnotationsWithAnnotationFilter_thenFirstReturnPDAnnotationHighlight() throws IOException {
+    // Arrange
+    ArrayList<PDAnnotation> annotations = new ArrayList<>();
+    PDAnnotationHighlight pdAnnotationHighlight = new PDAnnotationHighlight();
+    annotations.add(pdAnnotationHighlight);
+
+    PDPage pdPage = new PDPage();
+    pdPage.setAnnotations(annotations);
+    AnnotationFilter annotationFilter = mock(AnnotationFilter.class);
+    when(annotationFilter.accept(Mockito.<PDAnnotation>any())).thenReturn(true);
+
+    // Act
+    List<PDAnnotation> actualAnnotations = pdPage.getAnnotations(annotationFilter);
+
+    // Assert
+    verify(annotationFilter).accept(isA(PDAnnotation.class));
+    assertEquals(1, actualAnnotations.size());
+    PDAnnotation getResult = actualAnnotations.get(0);
+    assertTrue(getResult instanceof PDAnnotationHighlight);
+    assertEquals(pdAnnotationHighlight, getResult);
+  }
+
+  /**
+   * Test {@link PDPage#getAnnotations(AnnotationFilter)} with {@code AnnotationFilter}.
+   * <ul>
+   *   <li>Then first return {@link PDAnnotationInk}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPage#getAnnotations(AnnotationFilter)}
+   */
+  @Test
+  @DisplayName("Test getAnnotations(AnnotationFilter) with 'AnnotationFilter'; then first return PDAnnotationInk")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List PDPage.getAnnotations(AnnotationFilter)"})
+  void testGetAnnotationsWithAnnotationFilter_thenFirstReturnPDAnnotationInk() throws IOException {
+    // Arrange
+    ArrayList<PDAnnotation> annotations = new ArrayList<>();
+    PDAnnotationInk pdAnnotationInk = new PDAnnotationInk();
+    annotations.add(pdAnnotationInk);
+
+    PDPage pdPage = new PDPage();
+    pdPage.setAnnotations(annotations);
+    AnnotationFilter annotationFilter = mock(AnnotationFilter.class);
+    when(annotationFilter.accept(Mockito.<PDAnnotation>any())).thenReturn(true);
+
+    // Act
+    List<PDAnnotation> actualAnnotations = pdPage.getAnnotations(annotationFilter);
+
+    // Assert
+    verify(annotationFilter).accept(isA(PDAnnotation.class));
+    assertEquals(1, actualAnnotations.size());
+    PDAnnotation getResult = actualAnnotations.get(0);
+    assertTrue(getResult instanceof PDAnnotationInk);
+    assertEquals(pdAnnotationInk, getResult);
+  }
+
+  /**
+   * Test {@link PDPage#getAnnotations(AnnotationFilter)} with {@code AnnotationFilter}.
+   * <ul>
+   *   <li>Then first return {@link PDAnnotationLine}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPage#getAnnotations(AnnotationFilter)}
+   */
+  @Test
+  @DisplayName("Test getAnnotations(AnnotationFilter) with 'AnnotationFilter'; then first return PDAnnotationLine")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List PDPage.getAnnotations(AnnotationFilter)"})
+  void testGetAnnotationsWithAnnotationFilter_thenFirstReturnPDAnnotationLine() throws IOException {
+    // Arrange
+    ArrayList<PDAnnotation> annotations = new ArrayList<>();
+    PDAnnotationLine pdAnnotationLine = new PDAnnotationLine();
+    annotations.add(pdAnnotationLine);
+
+    PDPage pdPage = new PDPage();
+    pdPage.setAnnotations(annotations);
+    AnnotationFilter annotationFilter = mock(AnnotationFilter.class);
+    when(annotationFilter.accept(Mockito.<PDAnnotation>any())).thenReturn(true);
+
+    // Act
+    List<PDAnnotation> actualAnnotations = pdPage.getAnnotations(annotationFilter);
+
+    // Assert
+    verify(annotationFilter).accept(isA(PDAnnotation.class));
+    assertEquals(1, actualAnnotations.size());
+    PDAnnotation getResult = actualAnnotations.get(0);
+    assertTrue(getResult instanceof PDAnnotationLine);
+    assertEquals(pdAnnotationLine, getResult);
+  }
+
+  /**
+   * Test {@link PDPage#getAnnotations(AnnotationFilter)} with {@code AnnotationFilter}.
+   * <ul>
+   *   <li>Then first return {@link PDAnnotationLink}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPage#getAnnotations(AnnotationFilter)}
+   */
+  @Test
+  @DisplayName("Test getAnnotations(AnnotationFilter) with 'AnnotationFilter'; then first return PDAnnotationLink")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List PDPage.getAnnotations(AnnotationFilter)"})
+  void testGetAnnotationsWithAnnotationFilter_thenFirstReturnPDAnnotationLink() throws IOException {
+    // Arrange
+    ArrayList<PDAnnotation> annotations = new ArrayList<>();
+    PDAnnotationLink pdAnnotationLink = new PDAnnotationLink();
+    annotations.add(pdAnnotationLink);
+
+    PDPage pdPage = new PDPage();
+    pdPage.setAnnotations(annotations);
+    AnnotationFilter annotationFilter = mock(AnnotationFilter.class);
+    when(annotationFilter.accept(Mockito.<PDAnnotation>any())).thenReturn(true);
+
+    // Act
+    List<PDAnnotation> actualAnnotations = pdPage.getAnnotations(annotationFilter);
+
+    // Assert
+    verify(annotationFilter).accept(isA(PDAnnotation.class));
+    assertEquals(1, actualAnnotations.size());
+    PDAnnotation getResult = actualAnnotations.get(0);
+    assertTrue(getResult instanceof PDAnnotationLink);
+    assertEquals(pdAnnotationLink, getResult);
+  }
+
+  /**
+   * Test {@link PDPage#getAnnotations(AnnotationFilter)} with {@code AnnotationFilter}.
+   * <ul>
+   *   <li>Then first return {@link PDAnnotationPolygon}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPage#getAnnotations(AnnotationFilter)}
+   */
+  @Test
+  @DisplayName("Test getAnnotations(AnnotationFilter) with 'AnnotationFilter'; then first return PDAnnotationPolygon")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List PDPage.getAnnotations(AnnotationFilter)"})
+  void testGetAnnotationsWithAnnotationFilter_thenFirstReturnPDAnnotationPolygon() throws IOException {
+    // Arrange
+    ArrayList<PDAnnotation> annotations = new ArrayList<>();
+    PDAnnotationPolygon pdAnnotationPolygon = new PDAnnotationPolygon();
+    annotations.add(pdAnnotationPolygon);
+
+    PDPage pdPage = new PDPage();
+    pdPage.setAnnotations(annotations);
+    AnnotationFilter annotationFilter = mock(AnnotationFilter.class);
+    when(annotationFilter.accept(Mockito.<PDAnnotation>any())).thenReturn(true);
+
+    // Act
+    List<PDAnnotation> actualAnnotations = pdPage.getAnnotations(annotationFilter);
+
+    // Assert
+    verify(annotationFilter).accept(isA(PDAnnotation.class));
+    assertEquals(1, actualAnnotations.size());
+    PDAnnotation getResult = actualAnnotations.get(0);
+    assertTrue(getResult instanceof PDAnnotationPolygon);
+    assertEquals(pdAnnotationPolygon, getResult);
+  }
+
+  /**
+   * Test {@link PDPage#getAnnotations(AnnotationFilter)} with {@code AnnotationFilter}.
+   * <ul>
+   *   <li>Then first return {@link PDAnnotationPolyline}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPage#getAnnotations(AnnotationFilter)}
+   */
+  @Test
+  @DisplayName("Test getAnnotations(AnnotationFilter) with 'AnnotationFilter'; then first return PDAnnotationPolyline")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List PDPage.getAnnotations(AnnotationFilter)"})
+  void testGetAnnotationsWithAnnotationFilter_thenFirstReturnPDAnnotationPolyline() throws IOException {
+    // Arrange
+    ArrayList<PDAnnotation> annotations = new ArrayList<>();
+    PDAnnotationPolyline pdAnnotationPolyline = new PDAnnotationPolyline();
+    annotations.add(pdAnnotationPolyline);
+
+    PDPage pdPage = new PDPage();
+    pdPage.setAnnotations(annotations);
+    AnnotationFilter annotationFilter = mock(AnnotationFilter.class);
+    when(annotationFilter.accept(Mockito.<PDAnnotation>any())).thenReturn(true);
+
+    // Act
+    List<PDAnnotation> actualAnnotations = pdPage.getAnnotations(annotationFilter);
+
+    // Assert
+    verify(annotationFilter).accept(isA(PDAnnotation.class));
+    assertEquals(1, actualAnnotations.size());
+    PDAnnotation getResult = actualAnnotations.get(0);
+    assertTrue(getResult instanceof PDAnnotationPolyline);
+    assertEquals(pdAnnotationPolyline, getResult);
+  }
+
+  /**
+   * Test {@link PDPage#getAnnotations(AnnotationFilter)} with {@code AnnotationFilter}.
+   * <ul>
+   *   <li>Then first return {@link PDAnnotationPopup}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPage#getAnnotations(AnnotationFilter)}
+   */
+  @Test
+  @DisplayName("Test getAnnotations(AnnotationFilter) with 'AnnotationFilter'; then first return PDAnnotationPopup")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List PDPage.getAnnotations(AnnotationFilter)"})
+  void testGetAnnotationsWithAnnotationFilter_thenFirstReturnPDAnnotationPopup() throws IOException {
+    // Arrange
+    ArrayList<PDAnnotation> annotations = new ArrayList<>();
+    PDAnnotationPopup pdAnnotationPopup = new PDAnnotationPopup();
+    annotations.add(pdAnnotationPopup);
+
+    PDPage pdPage = new PDPage();
+    pdPage.setAnnotations(annotations);
+    AnnotationFilter annotationFilter = mock(AnnotationFilter.class);
+    when(annotationFilter.accept(Mockito.<PDAnnotation>any())).thenReturn(true);
+
+    // Act
+    List<PDAnnotation> actualAnnotations = pdPage.getAnnotations(annotationFilter);
+
+    // Assert
+    verify(annotationFilter).accept(isA(PDAnnotation.class));
+    assertEquals(1, actualAnnotations.size());
+    PDAnnotation getResult = actualAnnotations.get(0);
+    assertTrue(getResult instanceof PDAnnotationPopup);
+    assertEquals(pdAnnotationPopup, getResult);
+  }
+
+  /**
+   * Test {@link PDPage#getAnnotations(AnnotationFilter)} with {@code AnnotationFilter}.
+   * <ul>
+   *   <li>Then first return {@link PDAnnotationRubberStamp}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPage#getAnnotations(AnnotationFilter)}
+   */
+  @Test
+  @DisplayName("Test getAnnotations(AnnotationFilter) with 'AnnotationFilter'; then first return PDAnnotationRubberStamp")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List PDPage.getAnnotations(AnnotationFilter)"})
+  void testGetAnnotationsWithAnnotationFilter_thenFirstReturnPDAnnotationRubberStamp() throws IOException {
+    // Arrange
+    ArrayList<PDAnnotation> annotations = new ArrayList<>();
+    PDAnnotationRubberStamp pdAnnotationRubberStamp = new PDAnnotationRubberStamp();
+    annotations.add(pdAnnotationRubberStamp);
+
+    PDPage pdPage = new PDPage();
+    pdPage.setAnnotations(annotations);
+    AnnotationFilter annotationFilter = mock(AnnotationFilter.class);
+    when(annotationFilter.accept(Mockito.<PDAnnotation>any())).thenReturn(true);
+
+    // Act
+    List<PDAnnotation> actualAnnotations = pdPage.getAnnotations(annotationFilter);
+
+    // Assert
+    verify(annotationFilter).accept(isA(PDAnnotation.class));
+    assertEquals(1, actualAnnotations.size());
+    PDAnnotation getResult = actualAnnotations.get(0);
+    assertTrue(getResult instanceof PDAnnotationRubberStamp);
+    assertEquals(pdAnnotationRubberStamp, getResult);
+  }
+
+  /**
+   * Test {@link PDPage#getAnnotations(AnnotationFilter)} with {@code AnnotationFilter}.
+   * <ul>
+   *   <li>Then first return {@link PDAnnotationSound}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPage#getAnnotations(AnnotationFilter)}
+   */
+  @Test
+  @DisplayName("Test getAnnotations(AnnotationFilter) with 'AnnotationFilter'; then first return PDAnnotationSound")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List PDPage.getAnnotations(AnnotationFilter)"})
+  void testGetAnnotationsWithAnnotationFilter_thenFirstReturnPDAnnotationSound() throws IOException {
+    // Arrange
+    ArrayList<PDAnnotation> annotations = new ArrayList<>();
+    PDAnnotationSound pdAnnotationSound = new PDAnnotationSound();
+    annotations.add(pdAnnotationSound);
+
+    PDPage pdPage = new PDPage();
+    pdPage.setAnnotations(annotations);
+    AnnotationFilter annotationFilter = mock(AnnotationFilter.class);
+    when(annotationFilter.accept(Mockito.<PDAnnotation>any())).thenReturn(true);
+
+    // Act
+    List<PDAnnotation> actualAnnotations = pdPage.getAnnotations(annotationFilter);
+
+    // Assert
+    verify(annotationFilter).accept(isA(PDAnnotation.class));
+    assertEquals(1, actualAnnotations.size());
+    PDAnnotation getResult = actualAnnotations.get(0);
+    assertTrue(getResult instanceof PDAnnotationSound);
+    assertEquals(pdAnnotationSound, getResult);
+  }
+
+  /**
+   * Test {@link PDPage#getAnnotations(AnnotationFilter)} with {@code AnnotationFilter}.
+   * <ul>
+   *   <li>Then first return {@link PDAnnotationSquare}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPage#getAnnotations(AnnotationFilter)}
+   */
+  @Test
+  @DisplayName("Test getAnnotations(AnnotationFilter) with 'AnnotationFilter'; then first return PDAnnotationSquare")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List PDPage.getAnnotations(AnnotationFilter)"})
+  void testGetAnnotationsWithAnnotationFilter_thenFirstReturnPDAnnotationSquare() throws IOException {
+    // Arrange
+    ArrayList<PDAnnotation> annotations = new ArrayList<>();
+    PDAnnotationSquare pdAnnotationSquare = new PDAnnotationSquare();
+    annotations.add(pdAnnotationSquare);
+
+    PDPage pdPage = new PDPage();
+    pdPage.setAnnotations(annotations);
+    AnnotationFilter annotationFilter = mock(AnnotationFilter.class);
+    when(annotationFilter.accept(Mockito.<PDAnnotation>any())).thenReturn(true);
+
+    // Act
+    List<PDAnnotation> actualAnnotations = pdPage.getAnnotations(annotationFilter);
+
+    // Assert
+    verify(annotationFilter).accept(isA(PDAnnotation.class));
+    assertEquals(1, actualAnnotations.size());
+    PDAnnotation getResult = actualAnnotations.get(0);
+    assertTrue(getResult instanceof PDAnnotationSquare);
+    assertEquals(pdAnnotationSquare, getResult);
+  }
+
+  /**
+   * Test {@link PDPage#getAnnotations(AnnotationFilter)} with {@code AnnotationFilter}.
+   * <ul>
+   *   <li>Then first return {@link PDAnnotationUnknown}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPage#getAnnotations(AnnotationFilter)}
+   */
+  @Test
+  @DisplayName("Test getAnnotations(AnnotationFilter) with 'AnnotationFilter'; then first return PDAnnotationUnknown")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List PDPage.getAnnotations(AnnotationFilter)"})
+  void testGetAnnotationsWithAnnotationFilter_thenFirstReturnPDAnnotationUnknown() throws IOException {
+    // Arrange
+    ArrayList<PDAnnotation> annotations = new ArrayList<>();
+    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret(new COSDictionary());
+    annotations.add(pdAnnotationCaret);
+
+    PDPage pdPage = new PDPage();
+    pdPage.setAnnotations(annotations);
+    AnnotationFilter annotationFilter = mock(AnnotationFilter.class);
+    when(annotationFilter.accept(Mockito.<PDAnnotation>any())).thenReturn(true);
+
+    // Act
+    List<PDAnnotation> actualAnnotations = pdPage.getAnnotations(annotationFilter);
+
+    // Assert
+    verify(annotationFilter).accept(isA(PDAnnotation.class));
+    assertEquals(1, actualAnnotations.size());
+    PDAnnotation getResult = actualAnnotations.get(0);
+    assertTrue(getResult instanceof PDAnnotationUnknown);
+    assertEquals(pdAnnotationCaret, getResult);
+  }
+
+  /**
+   * Test {@link PDPage#getAnnotations(AnnotationFilter)} with {@code AnnotationFilter}.
+   * <ul>
+   *   <li>Then throw {@link IllegalArgumentException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPage#getAnnotations(AnnotationFilter)}
+   */
+  @Test
+  @DisplayName("Test getAnnotations(AnnotationFilter) with 'AnnotationFilter'; then throw IllegalArgumentException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List PDPage.getAnnotations(AnnotationFilter)"})
+  void testGetAnnotationsWithAnnotationFilter_thenThrowIllegalArgumentException() throws IOException {
     // Arrange
     ArrayList<PDAnnotation> annotations = new ArrayList<>();
     annotations.add(new PDAnnotationCaret());
 
     PDPage pdPage = new PDPage();
     pdPage.setAnnotations(annotations);
-
     AnnotationFilter annotationFilter = mock(AnnotationFilter.class);
-    when(annotationFilter.accept(Mockito.<PDAnnotation>any()))
-        .thenThrow(new IllegalArgumentException());
+    when(annotationFilter.accept(Mockito.<PDAnnotation>any())).thenThrow(new IllegalArgumentException("Caret"));
 
     // Act and Assert
     assertThrows(IllegalArgumentException.class, () -> pdPage.getAnnotations(annotationFilter));
@@ -4156,22 +3126,18 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getAnnotations(AnnotationFilter)} with {@code AnnotationFilter}.
-   *
    * <ul>
-   *   <li>When {@link AnnotationFilter}.
-   *   <li>Then return Empty.
+   *   <li>When {@link AnnotationFilter}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getAnnotations(AnnotationFilter)}
+   * <p>
+   * Method under test: {@link PDPage#getAnnotations(AnnotationFilter)}
    */
   @Test
-  @DisplayName(
-      "Test getAnnotations(AnnotationFilter) with 'AnnotationFilter'; when AnnotationFilter; then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getAnnotations(AnnotationFilter) with 'AnnotationFilter'; when AnnotationFilter; then return Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDPage.getAnnotations(AnnotationFilter)"})
-  void testGetAnnotationsWithAnnotationFilter_whenAnnotationFilter_thenReturnEmpty()
-      throws IOException {
+  void testGetAnnotationsWithAnnotationFilter_whenAnnotationFilter_thenReturnEmpty() throws IOException {
     // Arrange
     PDPage pdPage = new PDPage();
     pdPage.setAnnotations(new ArrayList<>());
@@ -4182,18 +3148,16 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getAnnotations()}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@code null}.
-   *   <li>Then return Empty.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@code null}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getAnnotations()}
+   * <p>
+   * Method under test: {@link PDPage#getAnnotations()}
    */
   @Test
   @DisplayName("Test getAnnotations(); given ArrayList() add 'null'; then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDPage.getAnnotations()"})
   void testGetAnnotations_givenArrayListAddNull_thenReturnEmpty() throws IOException {
     // Arrange
@@ -4209,19 +3173,16 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getAnnotations()}.
-   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()} Annotations is {@link ArrayList#ArrayList()}.
-   *   <li>Then return Empty.
+   *   <li>Given {@link PDPage#PDPage()} Annotations is {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getAnnotations()}
+   * <p>
+   * Method under test: {@link PDPage#getAnnotations()}
    */
   @Test
-  @DisplayName(
-      "Test getAnnotations(); given PDPage() Annotations is ArrayList(); then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getAnnotations(); given PDPage() Annotations is ArrayList(); then return Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDPage.getAnnotations()"})
   void testGetAnnotations_givenPDPageAnnotationsIsArrayList_thenReturnEmpty() throws IOException {
     // Arrange
@@ -4234,37 +3195,33 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getAnnotations()}.
-   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()}.
-   *   <li>Then return Empty.
+   *   <li>Given {@link PDPage#PDPage()}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getAnnotations()}
+   * <p>
+   * Method under test: {@link PDPage#getAnnotations()}
    */
   @Test
   @DisplayName("Test getAnnotations(); given PDPage(); then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDPage.getAnnotations()"})
   void testGetAnnotations_givenPDPage_thenReturnEmpty() throws IOException {
     // Arrange, Act and Assert
-    assertTrue(new PDPage().getAnnotations().isEmpty());
+    assertTrue((new PDPage()).getAnnotations().isEmpty());
   }
 
   /**
    * Test {@link PDPage#getAnnotations()}.
-   *
    * <ul>
-   *   <li>Then first return {@link PDAnnotationCaret}.
+   *   <li>Then first return {@link PDAnnotationCaret}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getAnnotations()}
+   * <p>
+   * Method under test: {@link PDPage#getAnnotations()}
    */
   @Test
   @DisplayName("Test getAnnotations(); then first return PDAnnotationCaret")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDPage.getAnnotations()"})
   void testGetAnnotations_thenFirstReturnPDAnnotationCaret() throws IOException {
     // Arrange
@@ -4287,17 +3244,15 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getAnnotations()}.
-   *
    * <ul>
-   *   <li>Then first return {@link PDAnnotationCircle}.
+   *   <li>Then first return {@link PDAnnotationCircle}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getAnnotations()}
+   * <p>
+   * Method under test: {@link PDPage#getAnnotations()}
    */
   @Test
   @DisplayName("Test getAnnotations(); then first return PDAnnotationCircle")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDPage.getAnnotations()"})
   void testGetAnnotations_thenFirstReturnPDAnnotationCircle() throws IOException {
     // Arrange
@@ -4320,17 +3275,15 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getAnnotations()}.
-   *
    * <ul>
-   *   <li>Then first return {@link PDAnnotationFileAttachment}.
+   *   <li>Then first return {@link PDAnnotationFileAttachment}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getAnnotations()}
+   * <p>
+   * Method under test: {@link PDPage#getAnnotations()}
    */
   @Test
   @DisplayName("Test getAnnotations(); then first return PDAnnotationFileAttachment")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDPage.getAnnotations()"})
   void testGetAnnotations_thenFirstReturnPDAnnotationFileAttachment() throws IOException {
     // Arrange
@@ -4353,17 +3306,15 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getAnnotations()}.
-   *
    * <ul>
-   *   <li>Then first return {@link PDAnnotationFreeText}.
+   *   <li>Then first return {@link PDAnnotationFreeText}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getAnnotations()}
+   * <p>
+   * Method under test: {@link PDPage#getAnnotations()}
    */
   @Test
   @DisplayName("Test getAnnotations(); then first return PDAnnotationFreeText")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDPage.getAnnotations()"})
   void testGetAnnotations_thenFirstReturnPDAnnotationFreeText() throws IOException {
     // Arrange
@@ -4386,17 +3337,15 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getAnnotations()}.
-   *
    * <ul>
-   *   <li>Then first return {@link PDAnnotationHighlight}.
+   *   <li>Then first return {@link PDAnnotationHighlight}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getAnnotations()}
+   * <p>
+   * Method under test: {@link PDPage#getAnnotations()}
    */
   @Test
   @DisplayName("Test getAnnotations(); then first return PDAnnotationHighlight")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDPage.getAnnotations()"})
   void testGetAnnotations_thenFirstReturnPDAnnotationHighlight() throws IOException {
     // Arrange
@@ -4419,17 +3368,15 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getAnnotations()}.
-   *
    * <ul>
-   *   <li>Then first return {@link PDAnnotationInk}.
+   *   <li>Then first return {@link PDAnnotationInk}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getAnnotations()}
+   * <p>
+   * Method under test: {@link PDPage#getAnnotations()}
    */
   @Test
   @DisplayName("Test getAnnotations(); then first return PDAnnotationInk")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDPage.getAnnotations()"})
   void testGetAnnotations_thenFirstReturnPDAnnotationInk() throws IOException {
     // Arrange
@@ -4452,17 +3399,15 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getAnnotations()}.
-   *
    * <ul>
-   *   <li>Then first return {@link PDAnnotationLine}.
+   *   <li>Then first return {@link PDAnnotationLine}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getAnnotations()}
+   * <p>
+   * Method under test: {@link PDPage#getAnnotations()}
    */
   @Test
   @DisplayName("Test getAnnotations(); then first return PDAnnotationLine")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDPage.getAnnotations()"})
   void testGetAnnotations_thenFirstReturnPDAnnotationLine() throws IOException {
     // Arrange
@@ -4485,17 +3430,15 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getAnnotations()}.
-   *
    * <ul>
-   *   <li>Then first return {@link PDAnnotationLink}.
+   *   <li>Then first return {@link PDAnnotationLink}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getAnnotations()}
+   * <p>
+   * Method under test: {@link PDPage#getAnnotations()}
    */
   @Test
   @DisplayName("Test getAnnotations(); then first return PDAnnotationLink")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDPage.getAnnotations()"})
   void testGetAnnotations_thenFirstReturnPDAnnotationLink() throws IOException {
     // Arrange
@@ -4518,17 +3461,15 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getAnnotations()}.
-   *
    * <ul>
-   *   <li>Then first return {@link PDAnnotationPolygon}.
+   *   <li>Then first return {@link PDAnnotationPolygon}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getAnnotations()}
+   * <p>
+   * Method under test: {@link PDPage#getAnnotations()}
    */
   @Test
   @DisplayName("Test getAnnotations(); then first return PDAnnotationPolygon")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDPage.getAnnotations()"})
   void testGetAnnotations_thenFirstReturnPDAnnotationPolygon() throws IOException {
     // Arrange
@@ -4551,17 +3492,15 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getAnnotations()}.
-   *
    * <ul>
-   *   <li>Then first return {@link PDAnnotationPolyline}.
+   *   <li>Then first return {@link PDAnnotationPolyline}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getAnnotations()}
+   * <p>
+   * Method under test: {@link PDPage#getAnnotations()}
    */
   @Test
   @DisplayName("Test getAnnotations(); then first return PDAnnotationPolyline")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDPage.getAnnotations()"})
   void testGetAnnotations_thenFirstReturnPDAnnotationPolyline() throws IOException {
     // Arrange
@@ -4584,17 +3523,15 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getAnnotations()}.
-   *
    * <ul>
-   *   <li>Then first return {@link PDAnnotationPopup}.
+   *   <li>Then first return {@link PDAnnotationPopup}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getAnnotations()}
+   * <p>
+   * Method under test: {@link PDPage#getAnnotations()}
    */
   @Test
   @DisplayName("Test getAnnotations(); then first return PDAnnotationPopup")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDPage.getAnnotations()"})
   void testGetAnnotations_thenFirstReturnPDAnnotationPopup() throws IOException {
     // Arrange
@@ -4617,17 +3554,15 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getAnnotations()}.
-   *
    * <ul>
-   *   <li>Then first return {@link PDAnnotationRubberStamp}.
+   *   <li>Then first return {@link PDAnnotationRubberStamp}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getAnnotations()}
+   * <p>
+   * Method under test: {@link PDPage#getAnnotations()}
    */
   @Test
   @DisplayName("Test getAnnotations(); then first return PDAnnotationRubberStamp")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDPage.getAnnotations()"})
   void testGetAnnotations_thenFirstReturnPDAnnotationRubberStamp() throws IOException {
     // Arrange
@@ -4650,17 +3585,46 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getAnnotations()}.
-   *
    * <ul>
-   *   <li>Then first return {@link PDAnnotationUnknown}.
+   *   <li>Then first return {@link PDAnnotationSound}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getAnnotations()}
+   * <p>
+   * Method under test: {@link PDPage#getAnnotations()}
+   */
+  @Test
+  @DisplayName("Test getAnnotations(); then first return PDAnnotationSound")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List PDPage.getAnnotations()"})
+  void testGetAnnotations_thenFirstReturnPDAnnotationSound() throws IOException {
+    // Arrange
+    ArrayList<PDAnnotation> annotations = new ArrayList<>();
+    PDAnnotationSound pdAnnotationSound = new PDAnnotationSound();
+    annotations.add(pdAnnotationSound);
+
+    PDPage pdPage = new PDPage();
+    pdPage.setAnnotations(annotations);
+
+    // Act
+    List<PDAnnotation> actualAnnotations = pdPage.getAnnotations();
+
+    // Assert
+    assertEquals(1, actualAnnotations.size());
+    PDAnnotation getResult = actualAnnotations.get(0);
+    assertTrue(getResult instanceof PDAnnotationSound);
+    assertEquals(pdAnnotationSound, getResult);
+  }
+
+  /**
+   * Test {@link PDPage#getAnnotations()}.
+   * <ul>
+   *   <li>Then first return {@link PDAnnotationUnknown}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPage#getAnnotations()}
    */
   @Test
   @DisplayName("Test getAnnotations(); then first return PDAnnotationUnknown")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDPage.getAnnotations()"})
   void testGetAnnotations_thenFirstReturnPDAnnotationUnknown() throws IOException {
     // Arrange
@@ -4683,22 +3647,18 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#setAnnotations(List)}.
-   *
    * <ul>
-   *   <li>Given {@link PDAnnotationCaret#PDAnnotationCaret()}.
-   *   <li>Then {@link PDPage#PDPage()} Annotations size is one.
+   *   <li>Given {@link PDAnnotationCaret#PDAnnotationCaret()}.</li>
+   *   <li>Then {@link PDPage#PDPage()} Annotations size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setAnnotations(List)}
+   * <p>
+   * Method under test: {@link PDPage#setAnnotations(List)}
    */
   @Test
-  @DisplayName(
-      "Test setAnnotations(List); given PDAnnotationCaret(); then PDPage() Annotations size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setAnnotations(List); given PDAnnotationCaret(); then PDPage() Annotations size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDPage.setAnnotations(List)"})
-  void testSetAnnotations_givenPDAnnotationCaret_thenPDPageAnnotationsSizeIsOne()
-      throws IOException {
+  void testSetAnnotations_givenPDAnnotationCaret_thenPDPageAnnotationsSizeIsOne() throws IOException {
     // Arrange
     PDPage pdPage = new PDPage();
 
@@ -4719,22 +3679,18 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#setAnnotations(List)}.
-   *
    * <ul>
-   *   <li>Given {@link PDAnnotationCaret#PDAnnotationCaret()}.
-   *   <li>Then {@link PDPage#PDPage()} Annotations size is two.
+   *   <li>Given {@link PDAnnotationCaret#PDAnnotationCaret()}.</li>
+   *   <li>Then {@link PDPage#PDPage()} Annotations size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setAnnotations(List)}
+   * <p>
+   * Method under test: {@link PDPage#setAnnotations(List)}
    */
   @Test
-  @DisplayName(
-      "Test setAnnotations(List); given PDAnnotationCaret(); then PDPage() Annotations size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setAnnotations(List); given PDAnnotationCaret(); then PDPage() Annotations size is two")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDPage.setAnnotations(List)"})
-  void testSetAnnotations_givenPDAnnotationCaret_thenPDPageAnnotationsSizeIsTwo()
-      throws IOException {
+  void testSetAnnotations_givenPDAnnotationCaret_thenPDPageAnnotationsSizeIsTwo() throws IOException {
     // Arrange
     PDPage pdPage = new PDPage();
 
@@ -4757,14 +3713,12 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#equals(Object)}, and {@link PDPage#hashCode()}.
-   *
    * <ul>
-   *   <li>When other is same.
-   *   <li>Then return equal.
+   *   <li>When other is same.</li>
+   *   <li>Then return equal.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link PDPage#equals(Object)}
    *   <li>{@link PDPage#hashCode()}
@@ -4772,8 +3726,7 @@ class PDPageDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is same; then return equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDPage.equals(Object)", "int PDPage.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsSame_thenReturnEqual() {
     // Arrange
@@ -4787,18 +3740,16 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#equals(Object)}
+   * <p>
+   * Method under test: {@link PDPage#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDPage.equals(Object)", "int PDPage.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual() {
     // Arrange
@@ -4810,18 +3761,16 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is {@code null}.
-   *   <li>Then return not equal.
+   *   <li>When other is {@code null}.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#equals(Object)}
+   * <p>
+   * Method under test: {@link PDPage#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is 'null'; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDPage.equals(Object)", "int PDPage.hashCode()"})
   void testEquals_whenOtherIsNull_thenReturnNotEqual() {
     // Arrange, Act and Assert
@@ -4830,18 +3779,16 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is wrong type.
-   *   <li>Then return not equal.
+   *   <li>When other is wrong type.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#equals(Object)}
+   * <p>
+   * Method under test: {@link PDPage#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is wrong type; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDPage.equals(Object)", "int PDPage.hashCode()"})
   void testEquals_whenOtherIsWrongType_thenReturnNotEqual() {
     // Arrange, Act and Assert
@@ -4850,18 +3797,16 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getViewports()}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@code null}.
-   *   <li>Then return Empty.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@code null}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getViewports()}
+   * <p>
+   * Method under test: {@link PDPage#getViewports()}
    */
   @Test
   @DisplayName("Test getViewports(); given ArrayList() add 'null'; then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDPage.getViewports()"})
   void testGetViewports_givenArrayListAddNull_thenReturnEmpty() {
     // Arrange
@@ -4877,20 +3822,16 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getViewports()}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link
-   *       PDViewportDictionary#PDViewportDictionary()}.
-   *   <li>Then return size is one.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDViewportDictionary#PDViewportDictionary()}.</li>
+   *   <li>Then return size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getViewports()}
+   * <p>
+   * Method under test: {@link PDPage#getViewports()}
    */
   @Test
-  @DisplayName(
-      "Test getViewports(); given ArrayList() add PDViewportDictionary(); then return size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getViewports(); given ArrayList() add PDViewportDictionary(); then return size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDPage.getViewports()"})
   void testGetViewports_givenArrayListAddPDViewportDictionary_thenReturnSizeIsOne() {
     // Arrange
@@ -4920,18 +3861,16 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getViewports()}.
-   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()} Viewports is {@link ArrayList#ArrayList()}.
-   *   <li>Then return Empty.
+   *   <li>Given {@link PDPage#PDPage()} Viewports is {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getViewports()}
+   * <p>
+   * Method under test: {@link PDPage#getViewports()}
    */
   @Test
   @DisplayName("Test getViewports(); given PDPage() Viewports is ArrayList(); then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDPage.getViewports()"})
   void testGetViewports_givenPDPageViewportsIsArrayList_thenReturnEmpty() {
     // Arrange
@@ -4944,109 +3883,36 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getViewports()}.
-   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDPage#PDPage()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getViewports()}
+   * <p>
+   * Method under test: {@link PDPage#getViewports()}
    */
   @Test
   @DisplayName("Test getViewports(); given PDPage(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDPage.getViewports()"})
   void testGetViewports_givenPDPage_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDPage().getViewports());
+    assertNull((new PDPage()).getViewports());
   }
 
   /**
    * Test {@link PDPage#setViewports(List)}.
-   *
    * <ul>
-   *   <li>Then {@link PDPage#PDPage()} Viewports size is one.
+   *   <li>Given {@link PDViewportDictionary#PDViewportDictionary()}.</li>
+   *   <li>Then {@link PDPage#PDPage()} Viewports size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setViewports(List)}
+   * <p>
+   * Method under test: {@link PDPage#setViewports(List)}
    */
   @Test
-  @DisplayName("Test setViewports(List); then PDPage() Viewports size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setViewports(List); given PDViewportDictionary(); then PDPage() Viewports size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDPage.setViewports(List)"})
-  void testSetViewports_thenPDPageViewportsSizeIsOne() {
-    // Arrange
-    PDPage pdPage = new PDPage();
-
-    COSArrayList<PDViewportDictionary> viewports = new COSArrayList<>();
-    viewports.add(new PDViewportDictionary());
-
-    // Act
-    pdPage.setViewports(viewports);
-
-    // Assert
-    List<PDViewportDictionary> viewports2 = pdPage.getViewports();
-    assertEquals(1, viewports2.size());
-    PDViewportDictionary getResult = viewports2.get(0);
-    assertEquals("Viewport", getResult.getType());
-    assertNull(getResult.getName());
-    assertNull(getResult.getBBox());
-    assertNull(getResult.getMeasure());
-  }
-
-  /**
-   * Test {@link PDPage#setViewports(List)}.
-   *
-   * <ul>
-   *   <li>Then {@link PDPage#PDPage()} Viewports size is two.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setViewports(List)}
-   */
-  @Test
-  @DisplayName("Test setViewports(List); then PDPage() Viewports size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDPage.setViewports(List)"})
-  void testSetViewports_thenPDPageViewportsSizeIsTwo() {
-    // Arrange
-    PDPage pdPage = new PDPage();
-
-    COSArrayList<PDViewportDictionary> viewports = new COSArrayList<>();
-    viewports.add(new PDViewportDictionary());
-    viewports.add(new PDViewportDictionary());
-
-    // Act
-    pdPage.setViewports(viewports);
-
-    // Assert
-    List<PDViewportDictionary> viewports2 = pdPage.getViewports();
-    assertEquals(2, viewports2.size());
-    PDViewportDictionary getResult = viewports2.get(1);
-    assertEquals("Viewport", getResult.getType());
-    assertNull(getResult.getName());
-    assertNull(getResult.getBBox());
-    assertNull(getResult.getMeasure());
-  }
-
-  /**
-   * Test {@link PDPage#setViewports(List)}.
-   *
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()} add {@link
-   *       PDViewportDictionary#PDViewportDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setViewports(List)}
-   */
-  @Test
-  @DisplayName("Test setViewports(List); when ArrayList() add PDViewportDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDPage.setViewports(List)"})
-  void testSetViewports_whenArrayListAddPDViewportDictionary() {
+  void testSetViewports_givenPDViewportDictionary_thenPDPageViewportsSizeIsOne() {
     // Arrange
     PDPage pdPage = new PDPage();
 
@@ -5067,19 +3933,51 @@ class PDPageDiffblueTest {
   }
 
   /**
-   * Test {@link PDPage#getUserUnit()}.
-   *
+   * Test {@link PDPage#setViewports(List)}.
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()} UserUnit is {@link Float#NaN}.
-   *   <li>Then return one.
+   *   <li>Given {@link PDViewportDictionary#PDViewportDictionary()}.</li>
+   *   <li>Then {@link PDPage#PDPage()} Viewports size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getUserUnit()}
+   * <p>
+   * Method under test: {@link PDPage#setViewports(List)}
+   */
+  @Test
+  @DisplayName("Test setViewports(List); given PDViewportDictionary(); then PDPage() Viewports size is two")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDPage.setViewports(List)"})
+  void testSetViewports_givenPDViewportDictionary_thenPDPageViewportsSizeIsTwo() {
+    // Arrange
+    PDPage pdPage = new PDPage();
+
+    ArrayList<PDViewportDictionary> viewports = new ArrayList<>();
+    viewports.add(new PDViewportDictionary());
+    viewports.add(new PDViewportDictionary());
+
+    // Act
+    pdPage.setViewports(viewports);
+
+    // Assert
+    List<PDViewportDictionary> viewports2 = pdPage.getViewports();
+    assertEquals(2, viewports2.size());
+    PDViewportDictionary getResult = viewports2.get(1);
+    assertEquals("Viewport", getResult.getType());
+    assertNull(getResult.getName());
+    assertNull(getResult.getBBox());
+    assertNull(getResult.getMeasure());
+  }
+
+  /**
+   * Test {@link PDPage#getUserUnit()}.
+   * <ul>
+   *   <li>Given {@link PDPage#PDPage()} UserUnit is {@link Float#NaN}.</li>
+   *   <li>Then return one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDPage#getUserUnit()}
    */
   @Test
   @DisplayName("Test getUserUnit(); given PDPage() UserUnit is NaN; then return one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"float PDPage.getUserUnit()"})
   void testGetUserUnit_givenPDPageUserUnitIsNaN_thenReturnOne() {
     // Arrange
@@ -5092,18 +3990,16 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getUserUnit()}.
-   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()} UserUnit is one.
-   *   <li>Then return one.
+   *   <li>Given {@link PDPage#PDPage()} UserUnit is one.</li>
+   *   <li>Then return one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getUserUnit()}
+   * <p>
+   * Method under test: {@link PDPage#getUserUnit()}
    */
   @Test
   @DisplayName("Test getUserUnit(); given PDPage() UserUnit is one; then return one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"float PDPage.getUserUnit()"})
   void testGetUserUnit_givenPDPageUserUnitIsOne_thenReturnOne() {
     // Arrange
@@ -5116,43 +4012,38 @@ class PDPageDiffblueTest {
 
   /**
    * Test {@link PDPage#getUserUnit()}.
-   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()}.
-   *   <li>Then return one.
+   *   <li>Given {@link PDPage#PDPage()}.</li>
+   *   <li>Then return one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#getUserUnit()}
+   * <p>
+   * Method under test: {@link PDPage#getUserUnit()}
    */
   @Test
   @DisplayName("Test getUserUnit(); given PDPage(); then return one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"float PDPage.getUserUnit()"})
   void testGetUserUnit_givenPDPage_thenReturnOne() {
     // Arrange, Act and Assert
-    assertEquals(1.0f, new PDPage().getUserUnit());
+    assertEquals(1.0f, (new PDPage()).getUserUnit());
   }
 
   /**
    * Test {@link PDPage#setUserUnit(float)}.
-   *
    * <ul>
-   *   <li>Given {@link PDPage#PDPage()}.
-   *   <li>When zero.
-   *   <li>Then throw {@link IllegalArgumentException}.
+   *   <li>Given {@link PDPage#PDPage()}.</li>
+   *   <li>When zero.</li>
+   *   <li>Then throw {@link IllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPage#setUserUnit(float)}
+   * <p>
+   * Method under test: {@link PDPage#setUserUnit(float)}
    */
   @Test
-  @DisplayName(
-      "Test setUserUnit(float); given PDPage(); when zero; then throw IllegalArgumentException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setUserUnit(float); given PDPage(); when zero; then throw IllegalArgumentException")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDPage.setUserUnit(float)"})
   void testSetUserUnit_givenPDPage_whenZero_thenThrowIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> new PDPage().setUserUnit(0.0f));
+    assertThrows(IllegalArgumentException.class, () -> (new PDPage()).setUserUnit(0.0f));
   }
 }

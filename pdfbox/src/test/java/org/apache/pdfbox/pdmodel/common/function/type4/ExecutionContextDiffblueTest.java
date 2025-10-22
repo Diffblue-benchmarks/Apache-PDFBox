@@ -2,7 +2,6 @@ package org.apache.pdfbox.pdmodel.common.function.type4;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -11,9 +10,8 @@ import org.junit.jupiter.api.Test;
 class ExecutionContextDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ExecutionContext#ExecutionContext(Operators)}
    *   <li>{@link ExecutionContext#getOperators()}
@@ -22,13 +20,9 @@ class ExecutionContextDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ExecutionContext.<init>(Operators)",
-    "Operators ExecutionContext.getOperators()",
-    "java.util.Stack ExecutionContext.getStack()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ExecutionContext.<init>(Operators)", "Operators ExecutionContext.getOperators()",
+      "java.util.Stack ExecutionContext.getStack()"})
   void testGettersAndSetters() {
     // Arrange
     Operators operatorSet = new Operators();

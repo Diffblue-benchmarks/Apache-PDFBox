@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSIncrement;
@@ -17,31 +16,29 @@ import org.junit.jupiter.api.Test;
 class PDActionJavaScriptDiffblueTest {
   /**
    * Test {@link PDActionJavaScript#PDActionJavaScript(COSDictionary)}.
-   *
-   * <p>Method under test: {@link PDActionJavaScript#PDActionJavaScript(COSDictionary)}
+   * <p>
+   * Method under test: {@link PDActionJavaScript#PDActionJavaScript(COSDictionary)}
    */
   @Test
   @DisplayName("Test new PDActionJavaScript(COSDictionary)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDActionJavaScript.<init>(COSDictionary)"})
   void testNewPDActionJavaScript() {
     // Arrange
     COSDictionary a = new COSDictionary();
 
     // Act and Assert
-    assertSame(a, new PDActionJavaScript(a).getCOSObject());
+    assertSame(a, (new PDActionJavaScript(a)).getCOSObject());
   }
 
   /**
    * Test {@link PDActionJavaScript#PDActionJavaScript()}.
-   *
-   * <p>Method under test: {@link PDActionJavaScript#PDActionJavaScript()}
+   * <p>
+   * Method under test: {@link PDActionJavaScript#PDActionJavaScript()}
    */
   @Test
   @DisplayName("Test new PDActionJavaScript()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDActionJavaScript.<init>()"})
   void testNewPDActionJavaScript2() {
     // Arrange and Act
@@ -68,18 +65,16 @@ class PDActionJavaScriptDiffblueTest {
 
   /**
    * Test {@link PDActionJavaScript#PDActionJavaScript(String)}.
-   *
    * <ul>
-   *   <li>When {@code Js}.
-   *   <li>Then return Action is {@code Js}.
+   *   <li>When {@code Js}.</li>
+   *   <li>Then return Action is {@code Js}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionJavaScript#PDActionJavaScript(String)}
+   * <p>
+   * Method under test: {@link PDActionJavaScript#PDActionJavaScript(String)}
    */
   @Test
   @DisplayName("Test new PDActionJavaScript(String); when 'Js'; then return Action is 'Js'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDActionJavaScript.<init>(String)"})
   void testNewPDActionJavaScript_whenJs_thenReturnActionIsJs() {
     // Arrange and Act
@@ -106,18 +101,16 @@ class PDActionJavaScriptDiffblueTest {
 
   /**
    * Test {@link PDActionJavaScript#PDActionJavaScript(String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return Action is {@code null}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return Action is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionJavaScript#PDActionJavaScript(String)}
+   * <p>
+   * Method under test: {@link PDActionJavaScript#PDActionJavaScript(String)}
    */
   @Test
   @DisplayName("Test new PDActionJavaScript(String); when 'null'; then return Action is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDActionJavaScript.<init>(String)"})
   void testNewPDActionJavaScript_whenNull_thenReturnActionIsNull() {
     // Arrange and Act
@@ -144,19 +137,16 @@ class PDActionJavaScriptDiffblueTest {
 
   /**
    * Test {@link PDActionJavaScript#setAction(String)}.
-   *
    * <ul>
-   *   <li>Given {@link PDActionJavaScript#PDActionJavaScript()}.
-   *   <li>Then {@link PDActionJavaScript#PDActionJavaScript()} Action is {@code S Action}.
+   *   <li>Given {@link PDActionJavaScript#PDActionJavaScript()}.</li>
+   *   <li>Then {@link PDActionJavaScript#PDActionJavaScript()} Action is {@code S Action}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionJavaScript#setAction(String)}
+   * <p>
+   * Method under test: {@link PDActionJavaScript#setAction(String)}
    */
   @Test
-  @DisplayName(
-      "Test setAction(String); given PDActionJavaScript(); then PDActionJavaScript() Action is 'S Action'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setAction(String); given PDActionJavaScript(); then PDActionJavaScript() Action is 'S Action'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDActionJavaScript.setAction(String)"})
   void testSetAction_givenPDActionJavaScript_thenPDActionJavaScriptActionIsSAction() {
     // Arrange
@@ -173,92 +163,56 @@ class PDActionJavaScriptDiffblueTest {
   }
 
   /**
-   * Test {@link PDActionJavaScript#setAction(String)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDActionJavaScript#PDActionJavaScript()} COSObject Values size is two.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionJavaScript#setAction(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test setAction(String); when 'null'; then PDActionJavaScript() COSObject Values size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDActionJavaScript.setAction(String)"})
-  void testSetAction_whenNull_thenPDActionJavaScriptCOSObjectValuesSizeIsTwo() {
-    // Arrange
-    PDActionJavaScript pdActionJavaScript = new PDActionJavaScript();
-
-    // Act
-    pdActionJavaScript.setAction(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdActionJavaScript.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-  }
-
-  /**
    * Test {@link PDActionJavaScript#getAction()}.
-   *
    * <ul>
-   *   <li>Given {@link PDActionJavaScript#PDActionJavaScript(String)} with js is empty string.
-   *   <li>Then return empty string.
+   *   <li>Given {@link PDActionJavaScript#PDActionJavaScript(String)} with js is empty string.</li>
+   *   <li>Then return empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionJavaScript#getAction()}
+   * <p>
+   * Method under test: {@link PDActionJavaScript#getAction()}
    */
   @Test
-  @DisplayName(
-      "Test getAction(); given PDActionJavaScript(String) with js is empty string; then return empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getAction(); given PDActionJavaScript(String) with js is empty string; then return empty string")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDActionJavaScript.getAction()"})
   void testGetAction_givenPDActionJavaScriptWithJsIsEmptyString_thenReturnEmptyString() {
     // Arrange, Act and Assert
-    assertEquals("", new PDActionJavaScript("").getAction());
+    assertEquals("", (new PDActionJavaScript("")).getAction());
   }
 
   /**
    * Test {@link PDActionJavaScript#getAction()}.
-   *
    * <ul>
-   *   <li>Given {@link PDActionJavaScript#PDActionJavaScript(String)} with {@code Js}.
-   *   <li>Then return {@code Js}.
+   *   <li>Given {@link PDActionJavaScript#PDActionJavaScript(String)} with {@code Js}.</li>
+   *   <li>Then return {@code Js}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionJavaScript#getAction()}
+   * <p>
+   * Method under test: {@link PDActionJavaScript#getAction()}
    */
   @Test
   @DisplayName("Test getAction(); given PDActionJavaScript(String) with 'Js'; then return 'Js'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDActionJavaScript.getAction()"})
   void testGetAction_givenPDActionJavaScriptWithJs_thenReturnJs() {
     // Arrange, Act and Assert
-    assertEquals("Js", new PDActionJavaScript("Js").getAction());
+    assertEquals("Js", (new PDActionJavaScript("Js")).getAction());
   }
 
   /**
    * Test {@link PDActionJavaScript#getAction()}.
-   *
    * <ul>
-   *   <li>Given {@link PDActionJavaScript#PDActionJavaScript()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDActionJavaScript#PDActionJavaScript()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionJavaScript#getAction()}
+   * <p>
+   * Method under test: {@link PDActionJavaScript#getAction()}
    */
   @Test
   @DisplayName("Test getAction(); given PDActionJavaScript(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDActionJavaScript.getAction()"})
   void testGetAction_givenPDActionJavaScript_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDActionJavaScript().getAction());
+    assertNull((new PDActionJavaScript()).getAction());
   }
 }

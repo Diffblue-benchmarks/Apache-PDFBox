@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import org.apache.pdfbox.cos.COSBase;
@@ -19,22 +18,19 @@ import org.junit.jupiter.api.Test;
 class PDStructureElementNameTreeNodeDiffblueTest {
   /**
    * Test {@link PDStructureElementNameTreeNode#PDStructureElementNameTreeNode(COSDictionary)}.
-   *
-   * <p>Method under test: {@link
-   * PDStructureElementNameTreeNode#PDStructureElementNameTreeNode(COSDictionary)}
+   * <p>
+   * Method under test: {@link PDStructureElementNameTreeNode#PDStructureElementNameTreeNode(COSDictionary)}
    */
   @Test
   @DisplayName("Test new PDStructureElementNameTreeNode(COSDictionary)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDStructureElementNameTreeNode.<init>(COSDictionary)"})
   void testNewPDStructureElementNameTreeNode() {
     // Arrange
     COSDictionary dic = new COSDictionary();
 
     // Act
-    PDStructureElementNameTreeNode actualPdStructureElementNameTreeNode =
-        new PDStructureElementNameTreeNode(dic);
+    PDStructureElementNameTreeNode actualPdStructureElementNameTreeNode = new PDStructureElementNameTreeNode(dic);
 
     // Assert
     assertNull(actualPdStructureElementNameTreeNode.getParent());
@@ -43,18 +39,16 @@ class PDStructureElementNameTreeNodeDiffblueTest {
 
   /**
    * Test {@link PDStructureElementNameTreeNode#PDStructureElementNameTreeNode()}.
-   *
-   * <p>Method under test: {@link PDStructureElementNameTreeNode#PDStructureElementNameTreeNode()}
+   * <p>
+   * Method under test: {@link PDStructureElementNameTreeNode#PDStructureElementNameTreeNode()}
    */
   @Test
   @DisplayName("Test new PDStructureElementNameTreeNode()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDStructureElementNameTreeNode.<init>()"})
   void testNewPDStructureElementNameTreeNode2() throws IOException {
     // Arrange and Act
-    PDStructureElementNameTreeNode actualPdStructureElementNameTreeNode =
-        new PDStructureElementNameTreeNode();
+    PDStructureElementNameTreeNode actualPdStructureElementNameTreeNode = new PDStructureElementNameTreeNode();
 
     // Assert
     assertNull(actualPdStructureElementNameTreeNode.getLowerLimit());
@@ -73,23 +67,20 @@ class PDStructureElementNameTreeNodeDiffblueTest {
 
   /**
    * Test {@link PDStructureElementNameTreeNode#convertCOSToPD(COSBase)}.
-   *
-   * <p>Method under test: {@link PDStructureElementNameTreeNode#convertCOSToPD(COSBase)}
+   * <p>
+   * Method under test: {@link PDStructureElementNameTreeNode#convertCOSToPD(COSBase)}
    */
   @Test
   @DisplayName("Test convertCOSToPD(COSBase)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDStructureElement PDStructureElementNameTreeNode.convertCOSToPD(COSBase)"})
   void testConvertCOSToPD() throws IOException {
     // Arrange
-    PDStructureElementNameTreeNode pdStructureElementNameTreeNode =
-        new PDStructureElementNameTreeNode();
+    PDStructureElementNameTreeNode pdStructureElementNameTreeNode = new PDStructureElementNameTreeNode();
     COSDictionary base = new COSDictionary();
 
     // Act
-    PDStructureElement actualConvertCOSToPDResult =
-        pdStructureElementNameTreeNode.convertCOSToPD(base);
+    PDStructureElement actualConvertCOSToPDResult = pdStructureElementNameTreeNode.convertCOSToPD(base);
 
     // Assert
     assertNull(actualConvertCOSToPDResult.getActualText());
@@ -110,25 +101,21 @@ class PDStructureElementNameTreeNodeDiffblueTest {
 
   /**
    * Test {@link PDStructureElementNameTreeNode#createChildNode(COSDictionary)}.
-   *
-   * <p>Method under test: {@link PDStructureElementNameTreeNode#createChildNode(COSDictionary)}
+   * <p>
+   * Method under test: {@link PDStructureElementNameTreeNode#createChildNode(COSDictionary)}
    */
   @Test
   @DisplayName("Test createChildNode(COSDictionary)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "PDNameTreeNode PDStructureElementNameTreeNode.createChildNode(COSDictionary)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"PDNameTreeNode PDStructureElementNameTreeNode.createChildNode(COSDictionary)"})
   void testCreateChildNode() throws IOException {
     // Arrange
-    PDStructureElementNameTreeNode pdStructureElementNameTreeNode =
-        new PDStructureElementNameTreeNode();
+    PDStructureElementNameTreeNode pdStructureElementNameTreeNode = new PDStructureElementNameTreeNode();
     COSDictionary dic = new COSDictionary();
 
     // Act
-    PDNameTreeNode<PDStructureElement> actualCreateChildNodeResult =
-        pdStructureElementNameTreeNode.createChildNode(dic);
+    PDNameTreeNode<PDStructureElement> actualCreateChildNodeResult = pdStructureElementNameTreeNode
+        .createChildNode(dic);
 
     // Assert
     assertTrue(actualCreateChildNodeResult instanceof PDStructureElementNameTreeNode);

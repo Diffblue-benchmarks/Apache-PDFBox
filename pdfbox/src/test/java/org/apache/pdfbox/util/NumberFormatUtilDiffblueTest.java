@@ -2,7 +2,6 @@ package org.apache.pdfbox.util;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.UnsupportedEncodingException;
 import org.junit.jupiter.api.DisplayName;
@@ -12,18 +11,16 @@ import org.junit.jupiter.api.Test;
 class NumberFormatUtilDiffblueTest {
   /**
    * Test {@link NumberFormatUtil#formatFloatFast(float, int, byte[])}.
-   *
    * <ul>
-   *   <li>When {@code 0.5}.
-   *   <li>Then return three.
+   *   <li>When {@code 0.5}.</li>
+   *   <li>Then return three.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link NumberFormatUtil#formatFloatFast(float, int, byte[])}
+   * <p>
+   * Method under test: {@link NumberFormatUtil#formatFloatFast(float, int, byte[])}
    */
   @Test
   @DisplayName("Test formatFloatFast(float, int, byte[]); when '0.5'; then return three")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int NumberFormatUtil.formatFloatFast(float, int, byte[])"})
   void testFormatFloatFast_when05_thenReturnThree() throws UnsupportedEncodingException {
     // Arrange
@@ -36,22 +33,20 @@ class NumberFormatUtilDiffblueTest {
 
   /**
    * Test {@link NumberFormatUtil#formatFloatFast(float, int, byte[])}.
-   *
    * <ul>
-   *   <li>When {@code -1.0E-5}.
-   *   <li>Then return eight.
+   *   <li>When {@code -1.0E-5}.</li>
+   *   <li>Then return eight.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link NumberFormatUtil#formatFloatFast(float, int, byte[])}
+   * <p>
+   * Method under test: {@link NumberFormatUtil#formatFloatFast(float, int, byte[])}
    */
   @Test
   @DisplayName("Test formatFloatFast(float, int, byte[]); when '-1.0E-5'; then return eight")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int NumberFormatUtil.formatFloatFast(float, int, byte[])"})
   void testFormatFloatFast_when10e5_thenReturnEight() throws UnsupportedEncodingException {
     // Arrange
-    byte[] asciiBuffer = new byte[] {'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'};
+    byte[] asciiBuffer = new byte[]{'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'};
 
     // Act and Assert
     assertEquals(8, NumberFormatUtil.formatFloatFast(-1.0E-5f, 5, asciiBuffer));
@@ -60,25 +55,21 @@ class NumberFormatUtilDiffblueTest {
 
   /**
    * Test {@link NumberFormatUtil#formatFloatFast(float, int, byte[])}.
-   *
    * <ul>
-   *   <li>When {@code -9.223372E18}.
-   *   <li>Then array of {@code byte} with {@code A} and {@code X} is {@code AXAXAXAX} Bytes is
-   *       {@code UTF-8}.
+   *   <li>When {@code -9.223372E18}.</li>
+   *   <li>Then array of {@code byte} with {@code A} and {@code X} is {@code AXAXAXAX} Bytes is {@code UTF-8}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link NumberFormatUtil#formatFloatFast(float, int, byte[])}
+   * <p>
+   * Method under test: {@link NumberFormatUtil#formatFloatFast(float, int, byte[])}
    */
   @Test
-  @DisplayName(
-      "Test formatFloatFast(float, int, byte[]); when '-9.223372E18'; then array of byte with 'A' and 'X' is 'AXAXAXAX' Bytes is 'UTF-8'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test formatFloatFast(float, int, byte[]); when '-9.223372E18'; then array of byte with 'A' and 'X' is 'AXAXAXAX' Bytes is 'UTF-8'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int NumberFormatUtil.formatFloatFast(float, int, byte[])"})
   void testFormatFloatFast_when9223372e18_thenArrayOfByteWithAAndXIsAxaxaxaxBytesIsUtf8()
       throws UnsupportedEncodingException {
     // Arrange
-    byte[] asciiBuffer = new byte[] {'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'};
+    byte[] asciiBuffer = new byte[]{'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'};
 
     // Act and Assert
     assertEquals(-1, NumberFormatUtil.formatFloatFast(-9.223372E18f, 5, asciiBuffer));
@@ -87,25 +78,21 @@ class NumberFormatUtilDiffblueTest {
 
   /**
    * Test {@link NumberFormatUtil#formatFloatFast(float, int, byte[])}.
-   *
    * <ul>
-   *   <li>When {@code 9.223373E18}.
-   *   <li>Then array of {@code byte} with {@code A} and {@code X} is {@code AXAXAXAX} Bytes is
-   *       {@code UTF-8}.
+   *   <li>When {@code 9.223373E18}.</li>
+   *   <li>Then array of {@code byte} with {@code A} and {@code X} is {@code AXAXAXAX} Bytes is {@code UTF-8}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link NumberFormatUtil#formatFloatFast(float, int, byte[])}
+   * <p>
+   * Method under test: {@link NumberFormatUtil#formatFloatFast(float, int, byte[])}
    */
   @Test
-  @DisplayName(
-      "Test formatFloatFast(float, int, byte[]); when '9.223373E18'; then array of byte with 'A' and 'X' is 'AXAXAXAX' Bytes is 'UTF-8'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test formatFloatFast(float, int, byte[]); when '9.223373E18'; then array of byte with 'A' and 'X' is 'AXAXAXAX' Bytes is 'UTF-8'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int NumberFormatUtil.formatFloatFast(float, int, byte[])"})
   void testFormatFloatFast_when9223373e18_thenArrayOfByteWithAAndXIsAxaxaxaxBytesIsUtf8()
       throws UnsupportedEncodingException {
     // Arrange
-    byte[] asciiBuffer = new byte[] {'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'};
+    byte[] asciiBuffer = new byte[]{'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'};
 
     // Act and Assert
     assertEquals(-1, NumberFormatUtil.formatFloatFast(9.223373E18f, 5, asciiBuffer));
@@ -114,19 +101,16 @@ class NumberFormatUtilDiffblueTest {
 
   /**
    * Test {@link NumberFormatUtil#formatFloatFast(float, int, byte[])}.
-   *
    * <ul>
-   *   <li>When {@link Float#NaN}.
-   *   <li>Then {@code AXAXAXAX} Bytes is {@code UTF-8}.
+   *   <li>When {@link Float#NaN}.</li>
+   *   <li>Then {@code AXAXAXAX} Bytes is {@code UTF-8}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link NumberFormatUtil#formatFloatFast(float, int, byte[])}
+   * <p>
+   * Method under test: {@link NumberFormatUtil#formatFloatFast(float, int, byte[])}
    */
   @Test
-  @DisplayName(
-      "Test formatFloatFast(float, int, byte[]); when NaN; then 'AXAXAXAX' Bytes is 'UTF-8'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test formatFloatFast(float, int, byte[]); when NaN; then 'AXAXAXAX' Bytes is 'UTF-8'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int NumberFormatUtil.formatFloatFast(float, int, byte[])"})
   void testFormatFloatFast_whenNaN_thenAxaxaxaxBytesIsUtf8() throws UnsupportedEncodingException {
     // Arrange
@@ -139,25 +123,20 @@ class NumberFormatUtilDiffblueTest {
 
   /**
    * Test {@link NumberFormatUtil#formatFloatFast(float, int, byte[])}.
-   *
    * <ul>
-   *   <li>When six.
-   *   <li>Then array of {@code byte} with {@code A} and {@code X} is {@code AXAXAXAX} Bytes is
-   *       {@code UTF-8}.
+   *   <li>When six.</li>
+   *   <li>Then array of {@code byte} with {@code A} and {@code X} is {@code AXAXAXAX} Bytes is {@code UTF-8}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link NumberFormatUtil#formatFloatFast(float, int, byte[])}
+   * <p>
+   * Method under test: {@link NumberFormatUtil#formatFloatFast(float, int, byte[])}
    */
   @Test
-  @DisplayName(
-      "Test formatFloatFast(float, int, byte[]); when six; then array of byte with 'A' and 'X' is 'AXAXAXAX' Bytes is 'UTF-8'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test formatFloatFast(float, int, byte[]); when six; then array of byte with 'A' and 'X' is 'AXAXAXAX' Bytes is 'UTF-8'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int NumberFormatUtil.formatFloatFast(float, int, byte[])"})
-  void testFormatFloatFast_whenSix_thenArrayOfByteWithAAndXIsAxaxaxaxBytesIsUtf8()
-      throws UnsupportedEncodingException {
+  void testFormatFloatFast_whenSix_thenArrayOfByteWithAAndXIsAxaxaxaxBytesIsUtf8() throws UnsupportedEncodingException {
     // Arrange
-    byte[] asciiBuffer = new byte[] {'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'};
+    byte[] asciiBuffer = new byte[]{'A', 'X', 'A', 'X', 'A', 'X', 'A', 'X'};
 
     // Act and Assert
     assertEquals(-1, NumberFormatUtil.formatFloatFast(9.223372E18f, 6, asciiBuffer));
@@ -166,18 +145,16 @@ class NumberFormatUtilDiffblueTest {
 
   /**
    * Test {@link NumberFormatUtil#formatFloatFast(float, int, byte[])}.
-   *
    * <ul>
-   *   <li>When ten.
-   *   <li>Then return two.
+   *   <li>When ten.</li>
+   *   <li>Then return two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link NumberFormatUtil#formatFloatFast(float, int, byte[])}
+   * <p>
+   * Method under test: {@link NumberFormatUtil#formatFloatFast(float, int, byte[])}
    */
   @Test
   @DisplayName("Test formatFloatFast(float, int, byte[]); when ten; then return two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int NumberFormatUtil.formatFloatFast(float, int, byte[])"})
   void testFormatFloatFast_whenTen_thenReturnTwo() throws UnsupportedEncodingException {
     // Arrange
@@ -190,18 +167,16 @@ class NumberFormatUtilDiffblueTest {
 
   /**
    * Test {@link NumberFormatUtil#formatFloatFast(float, int, byte[])}.
-   *
    * <ul>
-   *   <li>When zero.
-   *   <li>Then return one.
+   *   <li>When zero.</li>
+   *   <li>Then return one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link NumberFormatUtil#formatFloatFast(float, int, byte[])}
+   * <p>
+   * Method under test: {@link NumberFormatUtil#formatFloatFast(float, int, byte[])}
    */
   @Test
   @DisplayName("Test formatFloatFast(float, int, byte[]); when zero; then return one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int NumberFormatUtil.formatFloatFast(float, int, byte[])"})
   void testFormatFloatFast_whenZero_thenReturnOne() throws UnsupportedEncodingException {
     // Arrange

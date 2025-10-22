@@ -9,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.ArgumentMatchers.isNull;
-import static org.mockito.Mockito.anyBoolean;
 import static org.mockito.Mockito.anyFloat;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doNothing;
@@ -17,31 +16,24 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.NavigableSet;
 import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBase;
-import org.apache.pdfbox.cos.COSBoolean;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSDocument;
 import org.apache.pdfbox.cos.COSDocumentState;
 import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSName;
-import org.apache.pdfbox.cos.COSObject;
 import org.apache.pdfbox.cos.COSObjectKey;
 import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.cos.COSUpdateState;
 import org.apache.pdfbox.pdmodel.common.COSObjectable;
-import org.apache.pdfbox.pdmodel.common.PDDestinationOrAction;
 import org.apache.pdfbox.pdmodel.common.PDMetadata;
-import org.apache.pdfbox.pdmodel.common.PDPageLabels;
 import org.apache.pdfbox.pdmodel.documentinterchange.logicalstructure.PDMarkInfo;
 import org.apache.pdfbox.pdmodel.documentinterchange.logicalstructure.PDStructureElement;
 import org.apache.pdfbox.pdmodel.documentinterchange.logicalstructure.PDStructureTreeRoot;
@@ -71,41 +63,34 @@ import org.mockito.Mockito;
 class PDDocumentCatalogDiffblueTest {
   /**
    * Test {@link PDDocumentCatalog#PDDocumentCatalog(PDDocument, COSDictionary)}.
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#PDDocumentCatalog(PDDocument, COSDictionary)}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#PDDocumentCatalog(PDDocument, COSDictionary)}
    */
   @Test
   @DisplayName("Test new PDDocumentCatalog(PDDocument, COSDictionary)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDDocumentCatalog.<init>(PDDocument, COSDictionary)"})
   void testNewPDDocumentCatalog() {
     // Arrange
     PDDocument doc = new PDDocument();
     COSDictionary rootDictionary = new COSDictionary();
 
-    // Act
-    PDDocumentCatalog actualPdDocumentCatalog = new PDDocumentCatalog(doc, rootDictionary);
-
-    // Assert
-    assertSame(rootDictionary, actualPdDocumentCatalog.getCOSObject());
+    // Act and Assert
+    assertSame(rootDictionary, (new PDDocumentCatalog(doc, rootDictionary)).getCOSObject());
   }
 
   /**
    * Test {@link PDDocumentCatalog#PDDocumentCatalog(PDDocument)}.
-   *
    * <ul>
-   *   <li>When {@link PDDocument#PDDocument()}.
-   *   <li>Then return Language is {@code null}.
+   *   <li>When {@link PDDocument#PDDocument()}.</li>
+   *   <li>Then return Language is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#PDDocumentCatalog(PDDocument)}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#PDDocumentCatalog(PDDocument)}
    */
   @Test
-  @DisplayName(
-      "Test new PDDocumentCatalog(PDDocument); when PDDocument(); then return Language is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new PDDocumentCatalog(PDDocument); when PDDocument(); then return Language is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDDocumentCatalog.<init>(PDDocument)"})
   void testNewPDDocumentCatalog_whenPDDocument_thenReturnLanguageIsNull() throws IOException {
     // Arrange and Act
@@ -134,22 +119,19 @@ class PDDocumentCatalogDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalog#getAcroForm(PDDocumentFixup)} with {@code PDDocumentFixup}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getAcroForm(PDDocumentFixup)}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#getAcroForm(PDDocumentFixup)}
    */
   @Test
   @DisplayName("Test getAcroForm(PDDocumentFixup) with 'PDDocumentFixup'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAcroForm PDDocumentCatalog.getAcroForm(PDDocumentFixup)"})
   void testGetAcroFormWithPDDocumentFixup_thenReturnNull() {
     // Arrange
     PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument());
-
     PDDocumentFixup acroFormFixup = mock(PDDocumentFixup.class);
     doNothing().when(acroFormFixup).apply();
 
@@ -163,94 +145,62 @@ class PDDocumentCatalogDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalog#getAcroForm(PDDocumentFixup)} with {@code PDDocumentFixup}.
-   *
    * <ul>
-   *   <li>Then throw {@link IllegalArgumentException}.
+   *   <li>Then throw {@link IllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getAcroForm(PDDocumentFixup)}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#getAcroForm(PDDocumentFixup)}
    */
   @Test
-  @DisplayName(
-      "Test getAcroForm(PDDocumentFixup) with 'PDDocumentFixup'; then throw IllegalArgumentException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getAcroForm(PDDocumentFixup) with 'PDDocumentFixup'; then throw IllegalArgumentException")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAcroForm PDDocumentCatalog.getAcroForm(PDDocumentFixup)"})
   void testGetAcroFormWithPDDocumentFixup_thenThrowIllegalArgumentException() {
     // Arrange
     PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument());
-
     PDDocumentFixup acroFormFixup = mock(PDDocumentFixup.class);
-    doThrow(new IllegalArgumentException()).when(acroFormFixup).apply();
+    doThrow(new IllegalArgumentException("foo")).when(acroFormFixup).apply();
 
     // Act and Assert
-    assertThrows(
-        IllegalArgumentException.class, () -> pdDocumentCatalog.getAcroForm(acroFormFixup));
+    assertThrows(IllegalArgumentException.class, () -> pdDocumentCatalog.getAcroForm(acroFormFixup));
     verify(acroFormFixup).apply();
   }
 
   /**
-   * Test {@link PDDocumentCatalog#getAcroForm(PDDocumentFixup)} with {@code PDDocumentFixup}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getAcroForm(PDDocumentFixup)}
-   */
-  @Test
-  @DisplayName(
-      "Test getAcroForm(PDDocumentFixup) with 'PDDocumentFixup'; when 'null'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDAcroForm PDDocumentCatalog.getAcroForm(PDDocumentFixup)"})
-  void testGetAcroFormWithPDDocumentFixup_whenNull_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new PDDocumentCatalog(new PDDocument()).getAcroForm(null));
-  }
-
-  /**
    * Test {@link PDDocumentCatalog#getAcroForm()}.
-   *
    * <ul>
-   *   <li>Given {@link COSDocument#COSDocument()} Trailer is {@link COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link COSDocument#COSDocument()} Trailer is {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getAcroForm()}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#getAcroForm()}
    */
   @Test
-  @DisplayName(
-      "Test getAcroForm(); given COSDocument() Trailer is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getAcroForm(); given COSDocument() Trailer is COSDictionary(); then return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAcroForm PDDocumentCatalog.getAcroForm()"})
   void testGetAcroForm_givenCOSDocumentTrailerIsCOSDictionary_thenReturnNull() {
     // Arrange
     COSDocument doc = new COSDocument();
     doc.setTrailer(new COSDictionary());
     PDDocument doc2 = new PDDocument(doc);
-    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(doc2, new COSDictionary());
 
     // Act and Assert
-    assertNull(pdDocumentCatalog.getAcroForm());
+    assertNull((new PDDocumentCatalog(doc2, new COSDictionary())).getAcroForm());
   }
 
   /**
    * Test {@link PDDocumentCatalog#getAcroForm()}.
-   *
    * <ul>
-   *   <li>Given {@link PDDocument#PDDocument()} addPage {@link PDPage#PDPage()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDDocument#PDDocument()} addPage {@link PDPage#PDPage()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getAcroForm()}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#getAcroForm()}
    */
   @Test
   @DisplayName("Test getAcroForm(); given PDDocument() addPage PDPage(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAcroForm PDDocumentCatalog.getAcroForm()"})
   void testGetAcroForm_givenPDDocumentAddPagePDPage_thenReturnNull() throws IOException {
     // Arrange
@@ -259,46 +209,38 @@ class PDDocumentCatalogDiffblueTest {
     doc.addSignature(new PDSignature());
 
     // Act and Assert
-    assertNull(new PDDocumentCatalog(doc).getAcroForm());
+    assertNull((new PDDocumentCatalog(doc)).getAcroForm());
   }
 
   /**
    * Test {@link PDDocumentCatalog#getAcroForm()}.
-   *
    * <ul>
-   *   <li>Given {@link PDDocumentCatalog#PDDocumentCatalog(PDDocument)} with doc is {@link
-   *       PDDocument#PDDocument()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDDocumentCatalog#PDDocumentCatalog(PDDocument)} with doc is {@link PDDocument#PDDocument()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getAcroForm()}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#getAcroForm()}
    */
   @Test
-  @DisplayName(
-      "Test getAcroForm(); given PDDocumentCatalog(PDDocument) with doc is PDDocument(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getAcroForm(); given PDDocumentCatalog(PDDocument) with doc is PDDocument(); then return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAcroForm PDDocumentCatalog.getAcroForm()"})
   void testGetAcroForm_givenPDDocumentCatalogWithDocIsPDDocument_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDDocumentCatalog(new PDDocument()).getAcroForm());
+    assertNull((new PDDocumentCatalog(new PDDocument())).getAcroForm());
   }
 
   /**
    * Test {@link PDDocumentCatalog#setAcroForm(PDAcroForm)}.
-   *
    * <ul>
-   *   <li>Then {@link PDAcroForm#PDAcroForm(PDDocument)} with doc is {@link
-   *       PDDocument#PDDocument()} DefaultAppearance is empty string.
+   *   <li>Then {@link PDAcroForm#PDAcroForm(PDDocument)} with doc is {@link PDDocument#PDDocument()} DefaultAppearance is empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#setAcroForm(PDAcroForm)}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#setAcroForm(PDAcroForm)}
    */
   @Test
-  @DisplayName(
-      "Test setAcroForm(PDAcroForm); then PDAcroForm(PDDocument) with doc is PDDocument() DefaultAppearance is empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setAcroForm(PDAcroForm); then PDAcroForm(PDDocument) with doc is PDDocument() DefaultAppearance is empty string")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDDocumentCatalog.setAcroForm(PDAcroForm)"})
   void testSetAcroForm_thenPDAcroFormWithDocIsPDDocumentDefaultAppearanceIsEmptyString() {
     // Arrange
@@ -321,32 +263,26 @@ class PDDocumentCatalogDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalog#getPages()}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#getCOSName(COSName)} return {@link
-   *       COSName#A}.
-   *   <li>Then return Count is zero.
+   *   <li>Given {@link COSDictionary} {@link COSDictionary#getCOSName(COSName)} return {@link COSName#A}.</li>
+   *   <li>Then return Count is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getPages()}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#getPages()}
    */
   @Test
-  @DisplayName(
-      "Test getPages(); given COSDictionary getCOSName(COSName) return A; then return Count is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getPages(); given COSDictionary getCOSName(COSName) return A; then return Count is zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDPageTree PDDocumentCatalog.getPages()"})
   void testGetPages_givenCOSDictionaryGetCOSNameReturnA_thenReturnCountIsZero() {
     // Arrange
     COSDictionary cosDictionary = mock(COSDictionary.class);
     when(cosDictionary.getCOSName(Mockito.<COSName>any())).thenReturn(COSName.A);
-
     COSDictionary rootDictionary = mock(COSDictionary.class);
     when(rootDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(cosDictionary);
-    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument(), rootDictionary);
 
     // Act
-    PDPageTree actualPages = pdDocumentCatalog.getPages();
+    PDPageTree actualPages = (new PDDocumentCatalog(new PDDocument(), rootDictionary)).getPages();
 
     // Assert
     verify(rootDictionary).getCOSDictionary(isA(COSName.class));
@@ -357,27 +293,24 @@ class PDDocumentCatalogDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalog#getPages()}.
-   *
    * <ul>
-   *   <li>Then return COSObject is {@link COSDictionary#COSDictionary()}.
+   *   <li>Then return COSObject is {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getPages()}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#getPages()}
    */
   @Test
   @DisplayName("Test getPages(); then return COSObject is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDPageTree PDDocumentCatalog.getPages()"})
   void testGetPages_thenReturnCOSObjectIsCOSDictionary() {
     // Arrange
     COSDictionary rootDictionary = mock(COSDictionary.class);
     COSDictionary cosDictionary = new COSDictionary();
     when(rootDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(cosDictionary);
-    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument(), rootDictionary);
 
     // Act
-    PDPageTree actualPages = pdDocumentCatalog.getPages();
+    PDPageTree actualPages = (new PDDocumentCatalog(new PDDocument(), rootDictionary)).getPages();
 
     // Assert
     verify(rootDictionary).getCOSDictionary(isA(COSName.class));
@@ -386,66 +319,58 @@ class PDDocumentCatalogDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalog#getPages()}.
-   *
    * <ul>
-   *   <li>Then throw {@link IllegalArgumentException}.
+   *   <li>Then throw {@link IllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getPages()}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#getPages()}
    */
   @Test
   @DisplayName("Test getPages(); then throw IllegalArgumentException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDPageTree PDDocumentCatalog.getPages()"})
   void testGetPages_thenThrowIllegalArgumentException() {
     // Arrange
     COSDictionary cosDictionary = mock(COSDictionary.class);
-    when(cosDictionary.getCOSName(Mockito.<COSName>any()))
-        .thenThrow(new IllegalArgumentException());
-
+    when(cosDictionary.getCOSName(Mockito.<COSName>any())).thenThrow(new IllegalArgumentException("foo"));
     COSDictionary rootDictionary = mock(COSDictionary.class);
     when(rootDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(cosDictionary);
-    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument(), rootDictionary);
 
     // Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> pdDocumentCatalog.getPages());
+    assertThrows(IllegalArgumentException.class,
+        () -> (new PDDocumentCatalog(new PDDocument(), rootDictionary)).getPages());
     verify(rootDictionary).getCOSDictionary(isA(COSName.class));
     verify(cosDictionary).getCOSName(isA(COSName.class));
   }
 
   /**
    * Test {@link PDDocumentCatalog#getViewerPreferences()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getViewerPreferences()}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#getViewerPreferences()}
    */
   @Test
   @DisplayName("Test getViewerPreferences(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDViewerPreferences PDDocumentCatalog.getViewerPreferences()"})
   void testGetViewerPreferences_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDDocumentCatalog(new PDDocument()).getViewerPreferences());
+    assertNull((new PDDocumentCatalog(new PDDocument())).getViewerPreferences());
   }
 
   /**
    * Test {@link PDDocumentCatalog#getViewerPreferences()}.
-   *
    * <ul>
-   *   <li>Then return PrintScaling is {@code AppDefault}.
+   *   <li>Then return PrintScaling is {@code AppDefault}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getViewerPreferences()}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#getViewerPreferences()}
    */
   @Test
   @DisplayName("Test getViewerPreferences(); then return PrintScaling is 'AppDefault'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDViewerPreferences PDDocumentCatalog.getViewerPreferences()"})
   void testGetViewerPreferences_thenReturnPrintScalingIsAppDefault() {
     // Arrange
@@ -474,103 +399,81 @@ class PDDocumentCatalogDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalog#setViewerPreferences(PDViewerPreferences)}.
-   *
    * <ul>
-   *   <li>Then not {@link PDViewerPreferences#PDViewerPreferences()} COSObject UpdateState Updated.
+   *   <li>Given {@link COSDictionary} {@link COSDictionary#setItem(COSName, COSObjectable)} does nothing.</li>
+   *   <li>Then calls {@link COSDictionary#setItem(COSName, COSObjectable)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#setViewerPreferences(PDViewerPreferences)}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#setViewerPreferences(PDViewerPreferences)}
    */
   @Test
-  @DisplayName(
-      "Test setViewerPreferences(PDViewerPreferences); then not PDViewerPreferences() COSObject UpdateState Updated")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setViewerPreferences(PDViewerPreferences); given COSDictionary setItem(COSName, COSObjectable) does nothing; then calls setItem(COSName, COSObjectable)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDDocumentCatalog.setViewerPreferences(PDViewerPreferences)"})
-  void testSetViewerPreferences_thenNotPDViewerPreferencesCOSObjectUpdateStateUpdated() {
+  void testSetViewerPreferences_givenCOSDictionarySetItemDoesNothing_thenCallsSetItem() {
     // Arrange
     COSDictionary rootDictionary = mock(COSDictionary.class);
     doNothing().when(rootDictionary).setItem(Mockito.<COSName>any(), Mockito.<COSObjectable>any());
-    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument(), rootDictionary);
-    PDViewerPreferences prefs = new PDViewerPreferences();
 
     // Act
-    pdDocumentCatalog.setViewerPreferences(prefs);
+    (new PDDocumentCatalog(new PDDocument(), rootDictionary)).setViewerPreferences(mock(PDViewerPreferences.class));
 
     // Assert that nothing has changed
     verify(rootDictionary).setItem(isA(COSName.class), isA(COSObjectable.class));
-    COSDictionary cOSObject = prefs.getCOSObject();
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
-    assertFalse(cOSObject.getUpdateState().isUpdated());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
   }
 
   /**
-   * Test {@link PDDocumentCatalog#getDocumentOutline()}.
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getDocumentOutline()}
+   * Test {@link PDDocumentCatalog#setViewerPreferences(PDViewerPreferences)}.
+   * <ul>
+   *   <li>Then throw {@link IllegalArgumentException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#setViewerPreferences(PDViewerPreferences)}
    */
   @Test
-  @DisplayName("Test getDocumentOutline()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDDocumentOutline PDDocumentCatalog.getDocumentOutline()"})
-  void testGetDocumentOutline() {
+  @DisplayName("Test setViewerPreferences(PDViewerPreferences); then throw IllegalArgumentException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDDocumentCatalog.setViewerPreferences(PDViewerPreferences)"})
+  void testSetViewerPreferences_thenThrowIllegalArgumentException() {
     // Arrange
     PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument());
-    pdDocumentCatalog.setDocumentOutline(new PDDocumentOutline());
+    PDViewerPreferences prefs = mock(PDViewerPreferences.class);
+    when(prefs.getCOSObject()).thenThrow(new IllegalArgumentException("foo"));
 
     // Act and Assert
-    COSDictionary cOSObject = pdDocumentCatalog.getDocumentOutline().getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertTrue(updateState.getOriginDocumentState().isAcceptingUpdates());
-    assertTrue(updateState.isUpdated());
-    assertTrue(cOSObject.isNeedToBeUpdated());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertEquals(1, toIncrementResult.getObjects().size());
-    Iterator<COSBase> iteratorResult = toIncrementResult.iterator();
-    COSBase actualNextResult = iteratorResult.next();
-    assertFalse(iteratorResult.hasNext());
-    assertSame(cOSObject, actualNextResult);
+    assertThrows(IllegalArgumentException.class, () -> pdDocumentCatalog.setViewerPreferences(prefs));
+    verify(prefs).getCOSObject();
   }
 
   /**
    * Test {@link PDDocumentCatalog#getDocumentOutline()}.
-   *
    * <ul>
-   *   <li>Given {@link PDDocumentCatalog#PDDocumentCatalog(PDDocument)} with doc is {@link
-   *       PDDocument#PDDocument()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDDocumentCatalog#PDDocumentCatalog(PDDocument)} with doc is {@link PDDocument#PDDocument()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getDocumentOutline()}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#getDocumentOutline()}
    */
   @Test
-  @DisplayName(
-      "Test getDocumentOutline(); given PDDocumentCatalog(PDDocument) with doc is PDDocument(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getDocumentOutline(); given PDDocumentCatalog(PDDocument) with doc is PDDocument(); then return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDDocumentOutline PDDocumentCatalog.getDocumentOutline()"})
   void testGetDocumentOutline_givenPDDocumentCatalogWithDocIsPDDocument_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDDocumentCatalog(new PDDocument()).getDocumentOutline());
+    assertNull((new PDDocumentCatalog(new PDDocument())).getDocumentOutline());
   }
 
   /**
    * Test {@link PDDocumentCatalog#getDocumentOutline()}.
-   *
    * <ul>
-   *   <li>Then return COSObject UpdateState OriginDocumentState is {@code null}.
+   *   <li>Then return COSObject UpdateState OriginDocumentState is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getDocumentOutline()}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#getDocumentOutline()}
    */
   @Test
-  @DisplayName(
-      "Test getDocumentOutline(); then return COSObject UpdateState OriginDocumentState is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getDocumentOutline(); then return COSObject UpdateState OriginDocumentState is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDDocumentOutline PDDocumentCatalog.getDocumentOutline()"})
   void testGetDocumentOutline_thenReturnCOSObjectUpdateStateOriginDocumentStateIsNull() {
     // Arrange
@@ -592,13 +495,12 @@ class PDDocumentCatalogDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalog#setDocumentOutline(PDDocumentOutline)}.
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#setDocumentOutline(PDDocumentOutline)}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#setDocumentOutline(PDDocumentOutline)}
    */
   @Test
   @DisplayName("Test setDocumentOutline(PDDocumentOutline)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDDocumentCatalog.setDocumentOutline(PDDocumentOutline)"})
   void testSetDocumentOutline() {
     // Arrange
@@ -621,38 +523,32 @@ class PDDocumentCatalogDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalog#getThreads()}.
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getThreads()}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#getThreads()}
    */
   @Test
   @DisplayName("Test getThreads()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDDocumentCatalog.getThreads()"})
   void testGetThreads() {
     // Arrange
     PDDocument doc = new PDDocument();
-    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(doc, new COSDictionary());
 
     // Act and Assert
-    assertTrue(pdDocumentCatalog.getThreads().isEmpty());
+    assertTrue((new PDDocumentCatalog(doc, new COSDictionary())).getThreads().isEmpty());
   }
 
   /**
    * Test {@link PDDocumentCatalog#getThreads()}.
-   *
    * <ul>
-   *   <li>Given {@link PDDocumentCatalog#PDDocumentCatalog(PDDocument)} with doc is {@link
-   *       PDDocument#PDDocument()} Threads is {@link ArrayList#ArrayList()}.
+   *   <li>Given {@link PDDocumentCatalog#PDDocumentCatalog(PDDocument)} with doc is {@link PDDocument#PDDocument()} Threads is {@link ArrayList#ArrayList()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getThreads()}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#getThreads()}
    */
   @Test
-  @DisplayName(
-      "Test getThreads(); given PDDocumentCatalog(PDDocument) with doc is PDDocument() Threads is ArrayList()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getThreads(); given PDDocumentCatalog(PDDocument) with doc is PDDocument() Threads is ArrayList()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDDocumentCatalog.getThreads()"})
   void testGetThreads_givenPDDocumentCatalogWithDocIsPDDocumentThreadsIsArrayList() {
     // Arrange
@@ -665,35 +561,30 @@ class PDDocumentCatalogDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalog#getThreads()}.
-   *
    * <ul>
-   *   <li>Given {@link PDDocumentCatalog#PDDocumentCatalog(PDDocument)} with doc is {@link
-   *       PDDocument#PDDocument()}.
-   *   <li>Then return Empty.
+   *   <li>Given {@link PDDocumentCatalog#PDDocumentCatalog(PDDocument)} with doc is {@link PDDocument#PDDocument()}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getThreads()}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#getThreads()}
    */
   @Test
-  @DisplayName(
-      "Test getThreads(); given PDDocumentCatalog(PDDocument) with doc is PDDocument(); then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getThreads(); given PDDocumentCatalog(PDDocument) with doc is PDDocument(); then return Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDDocumentCatalog.getThreads()"})
   void testGetThreads_givenPDDocumentCatalogWithDocIsPDDocument_thenReturnEmpty() {
     // Arrange, Act and Assert
-    assertTrue(new PDDocumentCatalog(new PDDocument()).getThreads().isEmpty());
+    assertTrue((new PDDocumentCatalog(new PDDocument())).getThreads().isEmpty());
   }
 
   /**
    * Test {@link PDDocumentCatalog#setThreads(List)}.
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#setThreads(List)}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#setThreads(List)}
    */
   @Test
   @DisplayName("Test setThreads(List)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDDocumentCatalog.setThreads(List)"})
   void testSetThreads() {
     // Arrange
@@ -710,13 +601,12 @@ class PDDocumentCatalogDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalog#setThreads(List)}.
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#setThreads(List)}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#setThreads(List)}
    */
   @Test
   @DisplayName("Test setThreads(List)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDDocumentCatalog.setThreads(List)"})
   void testSetThreads2() {
     // Arrange
@@ -752,94 +642,40 @@ class PDDocumentCatalogDiffblueTest {
   }
 
   /**
-   * Test {@link PDDocumentCatalog#setThreads(List)}.
-   *
-   * <ul>
-   *   <li>Given {@link PDThread#PDThread()}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@link PDThread#PDThread()}.
-   *   <li>Then {@link ArrayList#ArrayList()} size is two.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#setThreads(List)}
-   */
-  @Test
-  @DisplayName(
-      "Test setThreads(List); given PDThread(); when ArrayList() add PDThread(); then ArrayList() size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDDocumentCatalog.setThreads(List)"})
-  void testSetThreads_givenPDThread_whenArrayListAddPDThread_thenArrayListSizeIsTwo() {
-    // Arrange
-    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument());
-
-    ArrayList<PDThread> threads = new ArrayList<>();
-    threads.add(new PDThread());
-    threads.add(new PDThread());
-
-    // Act
-    pdDocumentCatalog.setThreads(threads);
-
-    // Assert
-    assertEquals(2, threads.size());
-    COSDictionary cOSObject = threads.get(1).getCOSObject();
-    assertTrue(cOSObject.getUpdateState().isUpdated());
-    assertTrue(cOSObject.isNeedToBeUpdated());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertEquals(1, toIncrementResult.getObjects().size());
-    Iterator<COSBase> iteratorResult = toIncrementResult.iterator();
-    COSBase actualNextResult = iteratorResult.next();
-    assertFalse(iteratorResult.hasNext());
-    assertSame(cOSObject, actualNextResult);
-    List<PDThread> threads2 = pdDocumentCatalog.getThreads();
-    assertEquals(2, threads2.size());
-    PDThread getResult = threads2.get(1);
-    assertSame(cOSObject, getResult.getCOSObject());
-    assertNull(getResult.getFirstBead());
-    assertNull(getResult.getThreadInfo());
-  }
-
-  /**
    * Test {@link PDDocumentCatalog#getMetadata()}.
-   *
    * <ul>
-   *   <li>Given {@link PDDocumentCatalog#PDDocumentCatalog(PDDocument)} with doc is {@link
-   *       PDDocument#PDDocument()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDDocumentCatalog#PDDocumentCatalog(PDDocument)} with doc is {@link PDDocument#PDDocument()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getMetadata()}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#getMetadata()}
    */
   @Test
-  @DisplayName(
-      "Test getMetadata(); given PDDocumentCatalog(PDDocument) with doc is PDDocument(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getMetadata(); given PDDocumentCatalog(PDDocument) with doc is PDDocument(); then return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDMetadata PDDocumentCatalog.getMetadata()"})
   void testGetMetadata_givenPDDocumentCatalogWithDocIsPDDocument_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDDocumentCatalog(new PDDocument()).getMetadata());
+    assertNull((new PDDocumentCatalog(new PDDocument())).getMetadata());
   }
 
   /**
    * Test {@link PDDocumentCatalog#getMetadata()}.
-   *
    * <ul>
-   *   <li>Then return COSObject Key is {@link COSObjectKey#COSObjectKey(long, int)} with num is one
-   *       and gen is one.
+   *   <li>Then return COSObject Key is {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getMetadata()}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#getMetadata()}
    */
   @Test
-  @DisplayName(
-      "Test getMetadata(); then return COSObject Key is COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getMetadata(); then return COSObject Key is COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDMetadata PDDocumentCatalog.getMetadata()"})
   void testGetMetadata_thenReturnCOSObjectKeyIsCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
     COSStream str = new COSStream();
     COSObjectKey key = new COSObjectKey(1L, 1);
+
     str.setKey(key);
     PDMetadata meta = new PDMetadata(str);
 
@@ -852,17 +688,15 @@ class PDDocumentCatalogDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalog#getMetadata()}.
-   *
    * <ul>
-   *   <li>Then return DecodeParms is {@code null}.
+   *   <li>Then return DecodeParms is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getMetadata()}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#getMetadata()}
    */
   @Test
   @DisplayName("Test getMetadata(); then return DecodeParms is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDMetadata PDDocumentCatalog.getMetadata()"})
   void testGetMetadata_thenReturnDecodeParmsIsNull() throws IOException {
     // Arrange
@@ -888,18 +722,16 @@ class PDDocumentCatalogDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalog#setMetadata(PDMetadata)}.
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#setMetadata(PDMetadata)}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#setMetadata(PDMetadata)}
    */
   @Test
   @DisplayName("Test setMetadata(PDMetadata)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDDocumentCatalog.setMetadata(PDMetadata)"})
   void testSetMetadata() {
     // Arrange
     PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument());
-
     PDMetadata meta = mock(PDMetadata.class);
     when(meta.getCOSObject()).thenReturn(new COSStream());
 
@@ -925,548 +757,47 @@ class PDDocumentCatalogDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalog#setMetadata(PDMetadata)}.
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#setMetadata(PDMetadata)}
-   */
-  @Test
-  @DisplayName("Test setMetadata(PDMetadata)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDDocumentCatalog.setMetadata(PDMetadata)"})
-  void testSetMetadata2() {
-    // Arrange
-    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument());
-
-    COSStream cosStream = new COSStream();
-    COSObjectKey key = new COSObjectKey(1L, 1);
-    cosStream.setKey(key);
-
-    PDMetadata meta = mock(PDMetadata.class);
-    when(meta.getCOSObject()).thenReturn(cosStream);
-
-    // Act
-    pdDocumentCatalog.setMetadata(meta);
-
-    // Assert
-    verify(meta).getCOSObject();
-    assertSame(key, pdDocumentCatalog.getMetadata().getCOSObject().getKey());
-  }
-
-  /**
-   * Test {@link PDDocumentCatalog#setMetadata(PDMetadata)}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#getValues()} return {@link
-   *       ArrayList#ArrayList()}.
-   *   <li>Then calls {@link COSDictionary#getValues()}.
+   *   <li>Given {@link COSDictionary} {@link COSDictionary#setItem(COSName, COSObjectable)} does nothing.</li>
+   *   <li>Then calls {@link COSDictionary#setItem(COSName, COSObjectable)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#setMetadata(PDMetadata)}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#setMetadata(PDMetadata)}
    */
   @Test
-  @DisplayName(
-      "Test setMetadata(PDMetadata); given COSDictionary getValues() return ArrayList(); then calls getValues()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDDocumentCatalog.setMetadata(PDMetadata)"})
-  void testSetMetadata_givenCOSDictionaryGetValuesReturnArrayList_thenCallsGetValues() {
-    // Arrange
-    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument());
-
-    COSDictionary updateInfo = mock(COSDictionary.class);
-    when(updateInfo.getValues()).thenReturn(new ArrayList<>());
-    COSUpdateState cosUpdateState = new COSUpdateState(updateInfo);
-
-    COSStream str = mock(COSStream.class);
-    when(str.isDirect()).thenReturn(false);
-    when(str.getKey()).thenReturn(null);
-    when(str.getUpdateState()).thenReturn(cosUpdateState);
-
-    // Act
-    pdDocumentCatalog.setMetadata(new PDMetadata(str));
-
-    // Assert
-    verify(str).getKey();
-    verify(str).isDirect();
-    verify(str).getUpdateState();
-    verify(updateInfo).getValues();
-    assertEquals(0, pdDocumentCatalog.getMetadata().getDecodedStreamLength());
-    assertTrue(pdDocumentCatalog.getCOSObject().toIncrement().iterator().hasNext());
-  }
-
-  /**
-   * Test {@link PDDocumentCatalog#setMetadata(PDMetadata)}.
-   *
-   * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#getValues()} throw {@link
-   *       IllegalArgumentException#IllegalArgumentException()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#setMetadata(PDMetadata)}
-   */
-  @Test
-  @DisplayName(
-      "Test setMetadata(PDMetadata); given COSDictionary getValues() throw IllegalArgumentException()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDDocumentCatalog.setMetadata(PDMetadata)"})
-  void testSetMetadata_givenCOSDictionaryGetValuesThrowIllegalArgumentException() {
-    // Arrange
-    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument());
-
-    COSDictionary updateInfo = mock(COSDictionary.class);
-    when(updateInfo.getValues()).thenThrow(new IllegalArgumentException());
-    COSUpdateState cosUpdateState = new COSUpdateState(updateInfo);
-
-    COSStream str = mock(COSStream.class);
-    when(str.isDirect()).thenReturn(false);
-    when(str.getKey()).thenReturn(null);
-    when(str.getUpdateState()).thenReturn(cosUpdateState);
-
-    // Act and Assert
-    assertThrows(
-        IllegalArgumentException.class, () -> pdDocumentCatalog.setMetadata(new PDMetadata(str)));
-    verify(str).getKey();
-    verify(str).isDirect();
-    verify(str).getUpdateState();
-    verify(updateInfo).getValues();
-  }
-
-  /**
-   * Test {@link PDDocumentCatalog#setMetadata(PDMetadata)}.
-   *
-   * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#setItem(COSName, COSObjectable)} does
-   *       nothing.
-   *   <li>Then calls {@link COSDictionary#setItem(COSName, COSObjectable)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#setMetadata(PDMetadata)}
-   */
-  @Test
-  @DisplayName(
-      "Test setMetadata(PDMetadata); given COSDictionary setItem(COSName, COSObjectable) does nothing; then calls setItem(COSName, COSObjectable)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setMetadata(PDMetadata); given COSDictionary setItem(COSName, COSObjectable) does nothing; then calls setItem(COSName, COSObjectable)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDDocumentCatalog.setMetadata(PDMetadata)"})
   void testSetMetadata_givenCOSDictionarySetItemDoesNothing_thenCallsSetItem() {
     // Arrange
     COSDictionary rootDictionary = mock(COSDictionary.class);
     doNothing().when(rootDictionary).setItem(Mockito.<COSName>any(), Mockito.<COSObjectable>any());
-    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument(), rootDictionary);
 
     // Act
-    pdDocumentCatalog.setMetadata(mock(PDMetadata.class));
+    (new PDDocumentCatalog(new PDDocument(), rootDictionary)).setMetadata(mock(PDMetadata.class));
 
     // Assert that nothing has changed
     verify(rootDictionary).setItem(isA(COSName.class), isA(COSObjectable.class));
   }
 
   /**
-   * Test {@link PDDocumentCatalog#setMetadata(PDMetadata)}.
-   *
-   * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#setMetadata(PDMetadata)}
-   */
-  @Test
-  @DisplayName(
-      "Test setMetadata(PDMetadata); given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDDocumentCatalog.setMetadata(PDMetadata)"})
-  void testSetMetadata_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
-    // Arrange
-    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument());
-
-    COSStream str = mock(COSStream.class);
-    when(str.isDirect()).thenReturn(false);
-    when(str.getKey()).thenReturn(null);
-    COSObject updateInfo = new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1));
-    when(str.getUpdateState()).thenReturn(new COSUpdateState(updateInfo));
-
-    // Act
-    pdDocumentCatalog.setMetadata(new PDMetadata(str));
-
-    // Assert
-    verify(str).getKey();
-    verify(str).isDirect();
-    verify(str).getUpdateState();
-    assertEquals(0, pdDocumentCatalog.getMetadata().getDecodedStreamLength());
-    assertTrue(pdDocumentCatalog.getCOSObject().toIncrement().iterator().hasNext());
-  }
-
-  /**
-   * Test {@link PDDocumentCatalog#setMetadata(PDMetadata)}.
-   *
-   * <ul>
-   *   <li>Given {@link COSUpdateState#COSUpdateState(COSUpdateInfo)} with updateInfo is {@link
-   *       COSArray#COSArray()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#setMetadata(PDMetadata)}
-   */
-  @Test
-  @DisplayName(
-      "Test setMetadata(PDMetadata); given COSUpdateState(COSUpdateInfo) with updateInfo is COSArray()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDDocumentCatalog.setMetadata(PDMetadata)"})
-  void testSetMetadata_givenCOSUpdateStateWithUpdateInfoIsCOSArray() {
-    // Arrange
-    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument());
-
-    COSStream str = mock(COSStream.class);
-    when(str.isDirect()).thenReturn(false);
-    when(str.getKey()).thenReturn(null);
-    when(str.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
-
-    // Act
-    pdDocumentCatalog.setMetadata(new PDMetadata(str));
-
-    // Assert
-    verify(str).getKey();
-    verify(str).isDirect();
-    verify(str).getUpdateState();
-    assertEquals(0, pdDocumentCatalog.getMetadata().getDecodedStreamLength());
-    assertTrue(pdDocumentCatalog.getCOSObject().toIncrement().iterator().hasNext());
-  }
-
-  /**
-   * Test {@link PDDocumentCatalog#setMetadata(PDMetadata)}.
-   *
-   * <ul>
-   *   <li>Given {@link COSUpdateState#COSUpdateState(COSUpdateInfo)} with updateInfo is {@code
-   *       null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#setMetadata(PDMetadata)}
-   */
-  @Test
-  @DisplayName(
-      "Test setMetadata(PDMetadata); given COSUpdateState(COSUpdateInfo) with updateInfo is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDDocumentCatalog.setMetadata(PDMetadata)"})
-  void testSetMetadata_givenCOSUpdateStateWithUpdateInfoIsNull() {
-    // Arrange
-    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument());
-
-    COSStream str = mock(COSStream.class);
-    when(str.isDirect()).thenReturn(false);
-    when(str.getKey()).thenReturn(null);
-    when(str.getUpdateState()).thenReturn(new COSUpdateState(null));
-
-    // Act
-    pdDocumentCatalog.setMetadata(new PDMetadata(str));
-
-    // Assert
-    verify(str).getKey();
-    verify(str).isDirect();
-    verify(str).getUpdateState();
-    assertEquals(0, pdDocumentCatalog.getMetadata().getDecodedStreamLength());
-    assertTrue(pdDocumentCatalog.getCOSObject().toIncrement().iterator().hasNext());
-  }
-
-  /**
-   * Test {@link PDDocumentCatalog#setMetadata(PDMetadata)}.
-   *
-   * <ul>
-   *   <li>Given {@code true}.
-   *   <li>When {@link COSStream} {@link COSStream#isDirect()} return {@code true}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#setMetadata(PDMetadata)}
-   */
-  @Test
-  @DisplayName(
-      "Test setMetadata(PDMetadata); given 'true'; when COSStream isDirect() return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDDocumentCatalog.setMetadata(PDMetadata)"})
-  void testSetMetadata_givenTrue_whenCOSStreamIsDirectReturnTrue() {
-    // Arrange
-    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument());
-
-    COSStream str = mock(COSStream.class);
-    when(str.isDirect()).thenReturn(true);
-    when(str.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
-
-    // Act
-    pdDocumentCatalog.setMetadata(new PDMetadata(str));
-
-    // Assert
-    verify(str).isDirect();
-    verify(str).getUpdateState();
-    assertEquals(0, pdDocumentCatalog.getMetadata().getDecodedStreamLength());
-    assertTrue(pdDocumentCatalog.getCOSObject().toIncrement().iterator().hasNext());
-  }
-
-  /**
-   * Test {@link PDDocumentCatalog#setMetadata(PDMetadata)}.
-   *
-   * <ul>
-   *   <li>When {@link COSStream} {@link COSStream#isDirect()} throw {@link
-   *       IllegalArgumentException#IllegalArgumentException()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#setMetadata(PDMetadata)}
-   */
-  @Test
-  @DisplayName(
-      "Test setMetadata(PDMetadata); when COSStream isDirect() throw IllegalArgumentException()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDDocumentCatalog.setMetadata(PDMetadata)"})
-  void testSetMetadata_whenCOSStreamIsDirectThrowIllegalArgumentException() {
-    // Arrange
-    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument());
-
-    COSStream str = mock(COSStream.class);
-    when(str.isDirect()).thenThrow(new IllegalArgumentException());
-
-    // Act and Assert
-    assertThrows(
-        IllegalArgumentException.class, () -> pdDocumentCatalog.setMetadata(new PDMetadata(str)));
-    verify(str).isDirect();
-  }
-
-  /**
-   * Test {@link PDDocumentCatalog#setMetadata(PDMetadata)}.
-   *
-   * <ul>
-   *   <li>When {@link PDMetadata} {@link PDMetadata#getCOSObject()} throw {@link
-   *       IllegalArgumentException#IllegalArgumentException()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#setMetadata(PDMetadata)}
-   */
-  @Test
-  @DisplayName(
-      "Test setMetadata(PDMetadata); when PDMetadata getCOSObject() throw IllegalArgumentException()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDDocumentCatalog.setMetadata(PDMetadata)"})
-  void testSetMetadata_whenPDMetadataGetCOSObjectThrowIllegalArgumentException() {
-    // Arrange
-    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument());
-
-    PDMetadata meta = mock(PDMetadata.class);
-    when(meta.getCOSObject()).thenThrow(new IllegalArgumentException());
-
-    // Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> pdDocumentCatalog.setMetadata(meta));
-    verify(meta).getCOSObject();
-  }
-
-  /**
-   * Test {@link PDDocumentCatalog#setOpenAction(PDDestinationOrAction)}.
-   *
-   * <ul>
-   *   <li>Given {@link COSArray} {@link COSArray#isDirect()} throw {@link
-   *       IllegalArgumentException#IllegalArgumentException()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#setOpenAction(PDDestinationOrAction)}
-   */
-  @Test
-  @DisplayName(
-      "Test setOpenAction(PDDestinationOrAction); given COSArray isDirect() throw IllegalArgumentException()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDDocumentCatalog.setOpenAction(PDDestinationOrAction)"})
-  void testSetOpenAction_givenCOSArrayIsDirectThrowIllegalArgumentException() {
-    // Arrange
-    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument());
-
-    COSArray cosArray = mock(COSArray.class);
-    when(cosArray.isDirect()).thenThrow(new IllegalArgumentException());
-
-    PDDestinationOrAction action = mock(PDDestinationOrAction.class);
-    when(action.getCOSObject()).thenReturn(cosArray);
-
-    // Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> pdDocumentCatalog.setOpenAction(action));
-    verify(cosArray).isDirect();
-    verify(action).getCOSObject();
-  }
-
-  /**
-   * Test {@link PDDocumentCatalog#setOpenAction(PDDestinationOrAction)}.
-   *
-   * <ul>
-   *   <li>Given {@link COSArray} {@link COSArray#iterator()} throw {@link
-   *       IllegalArgumentException#IllegalArgumentException()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#setOpenAction(PDDestinationOrAction)}
-   */
-  @Test
-  @DisplayName(
-      "Test setOpenAction(PDDestinationOrAction); given COSArray iterator() throw IllegalArgumentException()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDDocumentCatalog.setOpenAction(PDDestinationOrAction)"})
-  void testSetOpenAction_givenCOSArrayIteratorThrowIllegalArgumentException() {
-    // Arrange
-    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument());
-
-    COSArray updateInfo = mock(COSArray.class);
-    when(updateInfo.iterator()).thenThrow(new IllegalArgumentException());
-    COSUpdateState cosUpdateState = new COSUpdateState(updateInfo);
-
-    COSArray cosArray = mock(COSArray.class);
-    when(cosArray.isDirect()).thenReturn(false);
-    when(cosArray.getKey()).thenReturn(null);
-    when(cosArray.getUpdateState()).thenReturn(cosUpdateState);
-
-    PDDestinationOrAction action = mock(PDDestinationOrAction.class);
-    when(action.getCOSObject()).thenReturn(cosArray);
-
-    // Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> pdDocumentCatalog.setOpenAction(action));
-    verify(cosArray).getUpdateState();
-    verify(updateInfo).iterator();
-    verify(cosArray).getKey();
-    verify(cosArray).isDirect();
-    verify(action).getCOSObject();
-  }
-
-  /**
-   * Test {@link PDDocumentCatalog#setOpenAction(PDDestinationOrAction)}.
-   *
-   * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#setItem(COSName, COSObjectable)} does
-   *       nothing.
-   *   <li>Then calls {@link COSDictionary#setItem(COSName, COSObjectable)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#setOpenAction(PDDestinationOrAction)}
-   */
-  @Test
-  @DisplayName(
-      "Test setOpenAction(PDDestinationOrAction); given COSDictionary setItem(COSName, COSObjectable) does nothing; then calls setItem(COSName, COSObjectable)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDDocumentCatalog.setOpenAction(PDDestinationOrAction)"})
-  void testSetOpenAction_givenCOSDictionarySetItemDoesNothing_thenCallsSetItem() {
-    // Arrange
-    COSDictionary rootDictionary = mock(COSDictionary.class);
-    doNothing().when(rootDictionary).setItem(Mockito.<COSName>any(), Mockito.<COSObjectable>any());
-    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument(), rootDictionary);
-
-    // Act
-    pdDocumentCatalog.setOpenAction(mock(PDDestinationOrAction.class));
-
-    // Assert
-    verify(rootDictionary).setItem(isA(COSName.class), isA(COSObjectable.class));
-  }
-
-  /**
-   * Test {@link PDDocumentCatalog#getOpenAction()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDDocumentCatalog#PDDocumentCatalog(PDDocument)} with doc is {@link
-   *       PDDocument#PDDocument()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getOpenAction()}
-   */
-  @Test
-  @DisplayName(
-      "Test getOpenAction(); given PDDocumentCatalog(PDDocument) with doc is PDDocument(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDDestinationOrAction PDDocumentCatalog.getOpenAction()"})
-  void testGetOpenAction_givenPDDocumentCatalogWithDocIsPDDocument_thenReturnNull()
-      throws IOException {
-    // Arrange, Act and Assert
-    assertNull(new PDDocumentCatalog(new PDDocument()).getOpenAction());
-  }
-
-  /**
    * Test {@link PDDocumentCatalog#getActions()}.
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getActions()}
-   */
-  @Test
-  @DisplayName("Test getActions()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDDocumentCatalogAdditionalActions PDDocumentCatalog.getActions()"})
-  void testGetActions() {
-    // Arrange
-    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument());
-    pdDocumentCatalog.setActions(new PDDocumentCatalogAdditionalActions());
-
-    // Act and Assert
-    COSDictionary cOSObject = pdDocumentCatalog.getActions().getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertTrue(updateState.getOriginDocumentState().isAcceptingUpdates());
-    assertTrue(updateState.isUpdated());
-    assertTrue(cOSObject.isNeedToBeUpdated());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertEquals(1, toIncrementResult.getObjects().size());
-    Iterator<COSBase> iteratorResult = toIncrementResult.iterator();
-    COSBase actualNextResult = iteratorResult.next();
-    assertFalse(iteratorResult.hasNext());
-    assertSame(cOSObject, actualNextResult);
-  }
-
-  /**
-   * Test {@link PDDocumentCatalog#getActions()}.
-   *
    * <ul>
-   *   <li>Given {@link PDDocumentCatalog#PDDocumentCatalog(PDDocument)} with doc is {@link
-   *       PDDocument#PDDocument()}.
+   *   <li>Then return COSObject UpdateState OriginDocumentState is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getActions()}
-   */
-  @Test
-  @DisplayName("Test getActions(); given PDDocumentCatalog(PDDocument) with doc is PDDocument()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDDocumentCatalogAdditionalActions PDDocumentCatalog.getActions()"})
-  void testGetActions_givenPDDocumentCatalogWithDocIsPDDocument() {
-    // Arrange, Act and Assert
-    COSDictionary cOSObject = new PDDocumentCatalog(new PDDocument()).getActions().getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertTrue(updateState.getOriginDocumentState().isAcceptingUpdates());
-    assertTrue(updateState.isUpdated());
-    assertTrue(cOSObject.isNeedToBeUpdated());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertEquals(1, toIncrementResult.getObjects().size());
-    Iterator<COSBase> iteratorResult = toIncrementResult.iterator();
-    COSBase actualNextResult = iteratorResult.next();
-    assertFalse(iteratorResult.hasNext());
-    assertSame(cOSObject, actualNextResult);
-  }
-
-  /**
-   * Test {@link PDDocumentCatalog#getActions()}.
-   *
-   * <ul>
-   *   <li>Then return COSObject UpdateState OriginDocumentState is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getActions()}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#getActions()}
    */
   @Test
   @DisplayName("Test getActions(); then return COSObject UpdateState OriginDocumentState is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDDocumentCatalogAdditionalActions PDDocumentCatalog.getActions()"})
   void testGetActions_thenReturnCOSObjectUpdateStateOriginDocumentStateIsNull() {
     // Arrange
     PDDocument doc = new PDDocument();
-    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(doc, new COSDictionary());
 
     // Act and Assert
-    COSDictionary cOSObject = pdDocumentCatalog.getActions().getCOSObject();
+    COSDictionary cOSObject = (new PDDocumentCatalog(doc, new COSDictionary())).getActions().getCOSObject();
     COSUpdateState updateState = cOSObject.getUpdateState();
     assertNull(updateState.getOriginDocumentState());
     COSIncrement toIncrementResult = cOSObject.toIncrement();
@@ -1478,13 +809,12 @@ class PDDocumentCatalogDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalog#setActions(PDDocumentCatalogAdditionalActions)}.
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#setActions(PDDocumentCatalogAdditionalActions)}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#setActions(PDDocumentCatalogAdditionalActions)}
    */
   @Test
   @DisplayName("Test setActions(PDDocumentCatalogAdditionalActions)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDDocumentCatalog.setActions(PDDocumentCatalogAdditionalActions)"})
   void testSetActions() {
     // Arrange
@@ -1503,67 +833,53 @@ class PDDocumentCatalogDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalog#getNames()}.
-   *
    * <ul>
-   *   <li>Given {@link PDDocumentCatalog#PDDocumentCatalog(PDDocument)} with doc is {@link
-   *       PDDocument#PDDocument()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDDocumentCatalog#PDDocumentCatalog(PDDocument)} with doc is {@link PDDocument#PDDocument()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getNames()}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#getNames()}
    */
   @Test
-  @DisplayName(
-      "Test getNames(); given PDDocumentCatalog(PDDocument) with doc is PDDocument(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getNames(); given PDDocumentCatalog(PDDocument) with doc is PDDocument(); then return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDDocumentNameDictionary PDDocumentCatalog.getNames()"})
   void testGetNames_givenPDDocumentCatalogWithDocIsPDDocument_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDDocumentCatalog(new PDDocument()).getNames());
+    assertNull((new PDDocumentCatalog(new PDDocument())).getNames());
   }
 
   /**
    * Test {@link PDDocumentCatalog#getDests()}.
-   *
    * <ul>
-   *   <li>Given {@link PDDocumentCatalog#PDDocumentCatalog(PDDocument)} with doc is {@link
-   *       PDDocument#PDDocument()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDDocumentCatalog#PDDocumentCatalog(PDDocument)} with doc is {@link PDDocument#PDDocument()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getDests()}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#getDests()}
    */
   @Test
-  @DisplayName(
-      "Test getDests(); given PDDocumentCatalog(PDDocument) with doc is PDDocument(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getDests(); given PDDocumentCatalog(PDDocument) with doc is PDDocument(); then return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDDocumentNameDestinationDictionary PDDocumentCatalog.getDests()"})
   void testGetDests_givenPDDocumentCatalogWithDocIsPDDocument_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDDocumentCatalog(new PDDocument()).getDests());
+    assertNull((new PDDocumentCatalog(new PDDocument())).getDests());
   }
 
   /**
    * Test {@link PDDocumentCatalog#findNamedDestinationPage(PDNamedDestination)}.
-   *
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code foo} is {@code null}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link HashMap#HashMap()} {@code foo} is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#findNamedDestinationPage(PDNamedDestination)}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#findNamedDestinationPage(PDNamedDestination)}
    */
   @Test
-  @DisplayName(
-      "Test findNamedDestinationPage(PDNamedDestination); given HashMap() 'foo' is 'null'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "PDPageDestination PDDocumentCatalog.findNamedDestinationPage(PDNamedDestination)"
-  })
-  void testFindNamedDestinationPage_givenHashMapFooIsNull_thenReturnNull() throws IOException {
+  @DisplayName("Test findNamedDestinationPage(PDNamedDestination); given HashMap() 'foo' is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"PDPageDestination PDDocumentCatalog.findNamedDestinationPage(PDNamedDestination)"})
+  void testFindNamedDestinationPage_givenHashMapFooIsNull() throws IOException {
     // Arrange
     HashMap<String, PDPageDestination> names = new HashMap<>();
     names.put("foo", null);
@@ -1571,39 +887,28 @@ class PDDocumentCatalogDiffblueTest {
     PDDestinationNameTreeNode dests = new PDDestinationNameTreeNode();
     dests.setNames(names);
 
-    PDDocumentNameDictionary names2 =
-        new PDDocumentNameDictionary(new PDDocumentCatalog(new PDDocument()));
+    PDDocumentNameDictionary names2 = new PDDocumentNameDictionary(new PDDocumentCatalog(new PDDocument()));
     names2.setDests(dests);
 
     PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument());
     pdDocumentCatalog.setNames(names2);
 
-    // Act
-    PDPageDestination actualFindNamedDestinationPageResult =
-        pdDocumentCatalog.findNamedDestinationPage(new PDNamedDestination("Dest"));
-
-    // Assert
-    assertNull(actualFindNamedDestinationPageResult);
+    // Act and Assert
+    assertNull(pdDocumentCatalog.findNamedDestinationPage(new PDNamedDestination("Dest")));
   }
 
   /**
    * Test {@link PDDocumentCatalog#findNamedDestinationPage(PDNamedDestination)}.
-   *
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code foo} is {@link
-   *       PDPageFitDestination#PDPageFitDestination()}.
+   *   <li>Given {@link HashMap#HashMap()} {@code foo} is {@link PDPageFitDestination#PDPageFitDestination()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#findNamedDestinationPage(PDNamedDestination)}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#findNamedDestinationPage(PDNamedDestination)}
    */
   @Test
-  @DisplayName(
-      "Test findNamedDestinationPage(PDNamedDestination); given HashMap() 'foo' is PDPageFitDestination()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "PDPageDestination PDDocumentCatalog.findNamedDestinationPage(PDNamedDestination)"
-  })
+  @DisplayName("Test findNamedDestinationPage(PDNamedDestination); given HashMap() 'foo' is PDPageFitDestination()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"PDPageDestination PDDocumentCatalog.findNamedDestinationPage(PDNamedDestination)"})
   void testFindNamedDestinationPage_givenHashMapFooIsPDPageFitDestination() throws IOException {
     // Arrange
     HashMap<String, PDPageDestination> names = new HashMap<>();
@@ -1612,41 +917,29 @@ class PDDocumentCatalogDiffblueTest {
     PDDestinationNameTreeNode dests = new PDDestinationNameTreeNode();
     dests.setNames(names);
 
-    PDDocumentNameDictionary names2 =
-        new PDDocumentNameDictionary(new PDDocumentCatalog(new PDDocument()));
+    PDDocumentNameDictionary names2 = new PDDocumentNameDictionary(new PDDocumentCatalog(new PDDocument()));
     names2.setDests(dests);
 
     PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument());
     pdDocumentCatalog.setNames(names2);
 
-    // Act
-    PDPageDestination actualFindNamedDestinationPageResult =
-        pdDocumentCatalog.findNamedDestinationPage(new PDNamedDestination("Dest"));
-
-    // Assert
-    assertNull(actualFindNamedDestinationPageResult);
+    // Act and Assert
+    assertNull(pdDocumentCatalog.findNamedDestinationPage(new PDNamedDestination("Dest")));
   }
 
   /**
    * Test {@link PDDocumentCatalog#findNamedDestinationPage(PDNamedDestination)}.
-   *
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code foo} is {@link
-   *       PDPageFitHeightDestination#PDPageFitHeightDestination()}.
+   *   <li>Given {@link HashMap#HashMap()} {@code foo} is {@link PDPageFitHeightDestination#PDPageFitHeightDestination()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#findNamedDestinationPage(PDNamedDestination)}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#findNamedDestinationPage(PDNamedDestination)}
    */
   @Test
-  @DisplayName(
-      "Test findNamedDestinationPage(PDNamedDestination); given HashMap() 'foo' is PDPageFitHeightDestination()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "PDPageDestination PDDocumentCatalog.findNamedDestinationPage(PDNamedDestination)"
-  })
-  void testFindNamedDestinationPage_givenHashMapFooIsPDPageFitHeightDestination()
-      throws IOException {
+  @DisplayName("Test findNamedDestinationPage(PDNamedDestination); given HashMap() 'foo' is PDPageFitHeightDestination()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"PDPageDestination PDDocumentCatalog.findNamedDestinationPage(PDNamedDestination)"})
+  void testFindNamedDestinationPage_givenHashMapFooIsPDPageFitHeightDestination() throws IOException {
     // Arrange
     HashMap<String, PDPageDestination> names = new HashMap<>();
     names.put("foo", new PDPageFitHeightDestination());
@@ -1654,41 +947,29 @@ class PDDocumentCatalogDiffblueTest {
     PDDestinationNameTreeNode dests = new PDDestinationNameTreeNode();
     dests.setNames(names);
 
-    PDDocumentNameDictionary names2 =
-        new PDDocumentNameDictionary(new PDDocumentCatalog(new PDDocument()));
+    PDDocumentNameDictionary names2 = new PDDocumentNameDictionary(new PDDocumentCatalog(new PDDocument()));
     names2.setDests(dests);
 
     PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument());
     pdDocumentCatalog.setNames(names2);
 
-    // Act
-    PDPageDestination actualFindNamedDestinationPageResult =
-        pdDocumentCatalog.findNamedDestinationPage(new PDNamedDestination("Dest"));
-
-    // Assert
-    assertNull(actualFindNamedDestinationPageResult);
+    // Act and Assert
+    assertNull(pdDocumentCatalog.findNamedDestinationPage(new PDNamedDestination("Dest")));
   }
 
   /**
    * Test {@link PDDocumentCatalog#findNamedDestinationPage(PDNamedDestination)}.
-   *
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code foo} is {@link
-   *       PDPageFitRectangleDestination#PDPageFitRectangleDestination()}.
+   *   <li>Given {@link HashMap#HashMap()} {@code foo} is {@link PDPageFitRectangleDestination#PDPageFitRectangleDestination()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#findNamedDestinationPage(PDNamedDestination)}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#findNamedDestinationPage(PDNamedDestination)}
    */
   @Test
-  @DisplayName(
-      "Test findNamedDestinationPage(PDNamedDestination); given HashMap() 'foo' is PDPageFitRectangleDestination()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "PDPageDestination PDDocumentCatalog.findNamedDestinationPage(PDNamedDestination)"
-  })
-  void testFindNamedDestinationPage_givenHashMapFooIsPDPageFitRectangleDestination()
-      throws IOException {
+  @DisplayName("Test findNamedDestinationPage(PDNamedDestination); given HashMap() 'foo' is PDPageFitRectangleDestination()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"PDPageDestination PDDocumentCatalog.findNamedDestinationPage(PDNamedDestination)"})
+  void testFindNamedDestinationPage_givenHashMapFooIsPDPageFitRectangleDestination() throws IOException {
     // Arrange
     HashMap<String, PDPageDestination> names = new HashMap<>();
     names.put("foo", new PDPageFitRectangleDestination());
@@ -1696,41 +977,29 @@ class PDDocumentCatalogDiffblueTest {
     PDDestinationNameTreeNode dests = new PDDestinationNameTreeNode();
     dests.setNames(names);
 
-    PDDocumentNameDictionary names2 =
-        new PDDocumentNameDictionary(new PDDocumentCatalog(new PDDocument()));
+    PDDocumentNameDictionary names2 = new PDDocumentNameDictionary(new PDDocumentCatalog(new PDDocument()));
     names2.setDests(dests);
 
     PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument());
     pdDocumentCatalog.setNames(names2);
 
-    // Act
-    PDPageDestination actualFindNamedDestinationPageResult =
-        pdDocumentCatalog.findNamedDestinationPage(new PDNamedDestination("Dest"));
-
-    // Assert
-    assertNull(actualFindNamedDestinationPageResult);
+    // Act and Assert
+    assertNull(pdDocumentCatalog.findNamedDestinationPage(new PDNamedDestination("Dest")));
   }
 
   /**
    * Test {@link PDDocumentCatalog#findNamedDestinationPage(PDNamedDestination)}.
-   *
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code foo} is {@link
-   *       PDPageFitWidthDestination#PDPageFitWidthDestination()}.
+   *   <li>Given {@link HashMap#HashMap()} {@code foo} is {@link PDPageFitWidthDestination#PDPageFitWidthDestination()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#findNamedDestinationPage(PDNamedDestination)}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#findNamedDestinationPage(PDNamedDestination)}
    */
   @Test
-  @DisplayName(
-      "Test findNamedDestinationPage(PDNamedDestination); given HashMap() 'foo' is PDPageFitWidthDestination()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "PDPageDestination PDDocumentCatalog.findNamedDestinationPage(PDNamedDestination)"
-  })
-  void testFindNamedDestinationPage_givenHashMapFooIsPDPageFitWidthDestination()
-      throws IOException {
+  @DisplayName("Test findNamedDestinationPage(PDNamedDestination); given HashMap() 'foo' is PDPageFitWidthDestination()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"PDPageDestination PDDocumentCatalog.findNamedDestinationPage(PDNamedDestination)"})
+  void testFindNamedDestinationPage_givenHashMapFooIsPDPageFitWidthDestination() throws IOException {
     // Arrange
     HashMap<String, PDPageDestination> names = new HashMap<>();
     names.put("foo", new PDPageFitWidthDestination());
@@ -1738,39 +1007,28 @@ class PDDocumentCatalogDiffblueTest {
     PDDestinationNameTreeNode dests = new PDDestinationNameTreeNode();
     dests.setNames(names);
 
-    PDDocumentNameDictionary names2 =
-        new PDDocumentNameDictionary(new PDDocumentCatalog(new PDDocument()));
+    PDDocumentNameDictionary names2 = new PDDocumentNameDictionary(new PDDocumentCatalog(new PDDocument()));
     names2.setDests(dests);
 
     PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument());
     pdDocumentCatalog.setNames(names2);
 
-    // Act
-    PDPageDestination actualFindNamedDestinationPageResult =
-        pdDocumentCatalog.findNamedDestinationPage(new PDNamedDestination("Dest"));
-
-    // Assert
-    assertNull(actualFindNamedDestinationPageResult);
+    // Act and Assert
+    assertNull(pdDocumentCatalog.findNamedDestinationPage(new PDNamedDestination("Dest")));
   }
 
   /**
    * Test {@link PDDocumentCatalog#findNamedDestinationPage(PDNamedDestination)}.
-   *
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code foo} is {@link
-   *       PDPageXYZDestination#PDPageXYZDestination()}.
+   *   <li>Given {@link HashMap#HashMap()} {@code foo} is {@link PDPageXYZDestination#PDPageXYZDestination()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#findNamedDestinationPage(PDNamedDestination)}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#findNamedDestinationPage(PDNamedDestination)}
    */
   @Test
-  @DisplayName(
-      "Test findNamedDestinationPage(PDNamedDestination); given HashMap() 'foo' is PDPageXYZDestination()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "PDPageDestination PDDocumentCatalog.findNamedDestinationPage(PDNamedDestination)"
-  })
+  @DisplayName("Test findNamedDestinationPage(PDNamedDestination); given HashMap() 'foo' is PDPageXYZDestination()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"PDPageDestination PDDocumentCatalog.findNamedDestinationPage(PDNamedDestination)"})
   void testFindNamedDestinationPage_givenHashMapFooIsPDPageXYZDestination() throws IOException {
     // Arrange
     HashMap<String, PDPageDestination> names = new HashMap<>();
@@ -1779,254 +1037,209 @@ class PDDocumentCatalogDiffblueTest {
     PDDestinationNameTreeNode dests = new PDDestinationNameTreeNode();
     dests.setNames(names);
 
-    PDDocumentNameDictionary names2 =
-        new PDDocumentNameDictionary(new PDDocumentCatalog(new PDDocument()));
+    PDDocumentNameDictionary names2 = new PDDocumentNameDictionary(new PDDocumentCatalog(new PDDocument()));
     names2.setDests(dests);
 
     PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument());
     pdDocumentCatalog.setNames(names2);
 
-    // Act
-    PDPageDestination actualFindNamedDestinationPageResult =
-        pdDocumentCatalog.findNamedDestinationPage(new PDNamedDestination("Dest"));
-
-    // Assert
-    assertNull(actualFindNamedDestinationPageResult);
+    // Act and Assert
+    assertNull(pdDocumentCatalog.findNamedDestinationPage(new PDNamedDestination("Dest")));
   }
 
   /**
    * Test {@link PDDocumentCatalog#findNamedDestinationPage(PDNamedDestination)}.
-   *
    * <ul>
-   *   <li>Given {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()} Names is {@link
-   *       HashMap#HashMap()}.
+   *   <li>Given {@link PDDestinationNameTreeNode#PDDestinationNameTreeNode()} Names is {@link HashMap#HashMap()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#findNamedDestinationPage(PDNamedDestination)}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#findNamedDestinationPage(PDNamedDestination)}
    */
   @Test
-  @DisplayName(
-      "Test findNamedDestinationPage(PDNamedDestination); given PDDestinationNameTreeNode() Names is HashMap()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "PDPageDestination PDDocumentCatalog.findNamedDestinationPage(PDNamedDestination)"
-  })
-  void testFindNamedDestinationPage_givenPDDestinationNameTreeNodeNamesIsHashMap()
-      throws IOException {
+  @DisplayName("Test findNamedDestinationPage(PDNamedDestination); given PDDestinationNameTreeNode() Names is HashMap()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"PDPageDestination PDDocumentCatalog.findNamedDestinationPage(PDNamedDestination)"})
+  void testFindNamedDestinationPage_givenPDDestinationNameTreeNodeNamesIsHashMap() throws IOException {
     // Arrange
     PDDestinationNameTreeNode dests = new PDDestinationNameTreeNode();
     dests.setNames(new HashMap<>());
 
-    PDDocumentNameDictionary names =
-        new PDDocumentNameDictionary(new PDDocumentCatalog(new PDDocument()));
+    PDDocumentNameDictionary names = new PDDocumentNameDictionary(new PDDocumentCatalog(new PDDocument()));
     names.setDests(dests);
 
     PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument());
     pdDocumentCatalog.setNames(names);
 
-    // Act
-    PDPageDestination actualFindNamedDestinationPageResult =
-        pdDocumentCatalog.findNamedDestinationPage(new PDNamedDestination("Dest"));
-
-    // Assert
-    assertNull(actualFindNamedDestinationPageResult);
+    // Act and Assert
+    assertNull(pdDocumentCatalog.findNamedDestinationPage(new PDNamedDestination("Dest")));
   }
 
   /**
    * Test {@link PDDocumentCatalog#findNamedDestinationPage(PDNamedDestination)}.
-   *
    * <ul>
-   *   <li>When {@link PDNamedDestination#PDNamedDestination(COSName)} with dest is {@link
-   *       COSName#A}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDPageFitDestination#PDPageFitDestination()} FitBoundingBox is {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#findNamedDestinationPage(PDNamedDestination)}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#findNamedDestinationPage(PDNamedDestination)}
    */
   @Test
-  @DisplayName(
-      "Test findNamedDestinationPage(PDNamedDestination); when PDNamedDestination(COSName) with dest is A; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "PDPageDestination PDDocumentCatalog.findNamedDestinationPage(PDNamedDestination)"
-  })
-  void testFindNamedDestinationPage_whenPDNamedDestinationWithDestIsA_thenReturnNull()
-      throws IOException {
+  @DisplayName("Test findNamedDestinationPage(PDNamedDestination); given PDPageFitDestination() FitBoundingBox is 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"PDPageDestination PDDocumentCatalog.findNamedDestinationPage(PDNamedDestination)"})
+  void testFindNamedDestinationPage_givenPDPageFitDestinationFitBoundingBoxIsTrue() throws IOException {
     // Arrange
-    PDDocumentNameDictionary names =
-        new PDDocumentNameDictionary(new PDDocumentCatalog(new PDDocument()));
+    PDPageFitDestination pdPageFitDestination = new PDPageFitDestination();
+    pdPageFitDestination.setFitBoundingBox(true);
+
+    HashMap<String, PDPageDestination> names = new HashMap<>();
+    names.put("foo", pdPageFitDestination);
+
+    PDDestinationNameTreeNode dests = new PDDestinationNameTreeNode();
+    dests.setNames(names);
+
+    PDDocumentNameDictionary names2 = new PDDocumentNameDictionary(new PDDocumentCatalog(new PDDocument()));
+    names2.setDests(dests);
+
+    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument());
+    pdDocumentCatalog.setNames(names2);
+
+    // Act and Assert
+    assertNull(pdDocumentCatalog.findNamedDestinationPage(new PDNamedDestination("Dest")));
+  }
+
+  /**
+   * Test {@link PDDocumentCatalog#findNamedDestinationPage(PDNamedDestination)}.
+   * <ul>
+   *   <li>When {@link PDNamedDestination#PDNamedDestination(COSName)} with dest is {@link COSName#A}.</li>
+   *   <li>Then return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#findNamedDestinationPage(PDNamedDestination)}
+   */
+  @Test
+  @DisplayName("Test findNamedDestinationPage(PDNamedDestination); when PDNamedDestination(COSName) with dest is A; then return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"PDPageDestination PDDocumentCatalog.findNamedDestinationPage(PDNamedDestination)"})
+  void testFindNamedDestinationPage_whenPDNamedDestinationWithDestIsA_thenReturnNull() throws IOException {
+    // Arrange
+    PDDocumentNameDictionary names = new PDDocumentNameDictionary(new PDDocumentCatalog(new PDDocument()));
     names.setDests(new PDDestinationNameTreeNode());
 
     PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument());
     pdDocumentCatalog.setNames(names);
 
-    // Act
-    PDPageDestination actualFindNamedDestinationPageResult =
-        pdDocumentCatalog.findNamedDestinationPage(new PDNamedDestination(COSName.A));
-
-    // Assert
-    assertNull(actualFindNamedDestinationPageResult);
+    // Act and Assert
+    assertNull(pdDocumentCatalog.findNamedDestinationPage(new PDNamedDestination(COSName.A)));
   }
 
   /**
    * Test {@link PDDocumentCatalog#findNamedDestinationPage(PDNamedDestination)}.
-   *
    * <ul>
-   *   <li>When {@link PDNamedDestination#PDNamedDestination(String)} with dest is empty string.
+   *   <li>When {@link PDNamedDestination#PDNamedDestination(String)} with dest is empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#findNamedDestinationPage(PDNamedDestination)}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#findNamedDestinationPage(PDNamedDestination)}
    */
   @Test
-  @DisplayName(
-      "Test findNamedDestinationPage(PDNamedDestination); when PDNamedDestination(String) with dest is empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "PDPageDestination PDDocumentCatalog.findNamedDestinationPage(PDNamedDestination)"
-  })
-  void testFindNamedDestinationPage_whenPDNamedDestinationWithDestIsEmptyString()
-      throws IOException {
+  @DisplayName("Test findNamedDestinationPage(PDNamedDestination); when PDNamedDestination(String) with dest is empty string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"PDPageDestination PDDocumentCatalog.findNamedDestinationPage(PDNamedDestination)"})
+  void testFindNamedDestinationPage_whenPDNamedDestinationWithDestIsEmptyString() throws IOException {
     // Arrange
-    PDDocumentNameDictionary names =
-        new PDDocumentNameDictionary(new PDDocumentCatalog(new PDDocument()));
+    PDDocumentNameDictionary names = new PDDocumentNameDictionary(new PDDocumentCatalog(new PDDocument()));
     names.setDests(new PDDestinationNameTreeNode());
 
     PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument());
     pdDocumentCatalog.setNames(names);
 
-    // Act
-    PDPageDestination actualFindNamedDestinationPageResult =
-        pdDocumentCatalog.findNamedDestinationPage(new PDNamedDestination(""));
-
-    // Assert
-    assertNull(actualFindNamedDestinationPageResult);
+    // Act and Assert
+    assertNull(pdDocumentCatalog.findNamedDestinationPage(new PDNamedDestination("")));
   }
 
   /**
    * Test {@link PDDocumentCatalog#findNamedDestinationPage(PDNamedDestination)}.
-   *
    * <ul>
-   *   <li>When {@link PDNamedDestination#PDNamedDestination(String)} with {@code Dest}.
-   *   <li>Then return {@code null}.
+   *   <li>When {@link PDNamedDestination#PDNamedDestination(String)} with {@code Dest}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#findNamedDestinationPage(PDNamedDestination)}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#findNamedDestinationPage(PDNamedDestination)}
    */
   @Test
-  @DisplayName(
-      "Test findNamedDestinationPage(PDNamedDestination); when PDNamedDestination(String) with 'Dest'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "PDPageDestination PDDocumentCatalog.findNamedDestinationPage(PDNamedDestination)"
-  })
-  void testFindNamedDestinationPage_whenPDNamedDestinationWithDest_thenReturnNull()
-      throws IOException {
+  @DisplayName("Test findNamedDestinationPage(PDNamedDestination); when PDNamedDestination(String) with 'Dest'; then return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"PDPageDestination PDDocumentCatalog.findNamedDestinationPage(PDNamedDestination)"})
+  void testFindNamedDestinationPage_whenPDNamedDestinationWithDest_thenReturnNull() throws IOException {
     // Arrange
     PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument());
 
-    // Act
-    PDPageDestination actualFindNamedDestinationPageResult =
-        pdDocumentCatalog.findNamedDestinationPage(new PDNamedDestination("Dest"));
-
-    // Assert
-    assertNull(actualFindNamedDestinationPageResult);
+    // Act and Assert
+    assertNull(pdDocumentCatalog.findNamedDestinationPage(new PDNamedDestination("Dest")));
   }
 
   /**
    * Test {@link PDDocumentCatalog#findNamedDestinationPage(PDNamedDestination)}.
-   *
    * <ul>
-   *   <li>When {@link PDNamedDestination#PDNamedDestination(String)} with {@code Dest}.
-   *   <li>Then return {@code null}.
+   *   <li>When {@link PDNamedDestination#PDNamedDestination(String)} with {@code Dest}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#findNamedDestinationPage(PDNamedDestination)}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#findNamedDestinationPage(PDNamedDestination)}
    */
   @Test
-  @DisplayName(
-      "Test findNamedDestinationPage(PDNamedDestination); when PDNamedDestination(String) with 'Dest'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "PDPageDestination PDDocumentCatalog.findNamedDestinationPage(PDNamedDestination)"
-  })
-  void testFindNamedDestinationPage_whenPDNamedDestinationWithDest_thenReturnNull2()
-      throws IOException {
+  @DisplayName("Test findNamedDestinationPage(PDNamedDestination); when PDNamedDestination(String) with 'Dest'; then return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"PDPageDestination PDDocumentCatalog.findNamedDestinationPage(PDNamedDestination)"})
+  void testFindNamedDestinationPage_whenPDNamedDestinationWithDest_thenReturnNull2() throws IOException {
     // Arrange
     PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument());
-    pdDocumentCatalog.setNames(
-        new PDDocumentNameDictionary(new PDDocumentCatalog(new PDDocument())));
+    pdDocumentCatalog.setNames(new PDDocumentNameDictionary(new PDDocumentCatalog(new PDDocument())));
 
-    // Act
-    PDPageDestination actualFindNamedDestinationPageResult =
-        pdDocumentCatalog.findNamedDestinationPage(new PDNamedDestination("Dest"));
-
-    // Assert
-    assertNull(actualFindNamedDestinationPageResult);
+    // Act and Assert
+    assertNull(pdDocumentCatalog.findNamedDestinationPage(new PDNamedDestination("Dest")));
   }
 
   /**
    * Test {@link PDDocumentCatalog#findNamedDestinationPage(PDNamedDestination)}.
-   *
    * <ul>
-   *   <li>When {@link PDNamedDestination#PDNamedDestination(String)} with {@code Dest}.
-   *   <li>Then return {@code null}.
+   *   <li>When {@link PDNamedDestination#PDNamedDestination(String)} with {@code Dest}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#findNamedDestinationPage(PDNamedDestination)}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#findNamedDestinationPage(PDNamedDestination)}
    */
   @Test
-  @DisplayName(
-      "Test findNamedDestinationPage(PDNamedDestination); when PDNamedDestination(String) with 'Dest'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "PDPageDestination PDDocumentCatalog.findNamedDestinationPage(PDNamedDestination)"
-  })
-  void testFindNamedDestinationPage_whenPDNamedDestinationWithDest_thenReturnNull3()
-      throws IOException {
+  @DisplayName("Test findNamedDestinationPage(PDNamedDestination); when PDNamedDestination(String) with 'Dest'; then return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"PDPageDestination PDDocumentCatalog.findNamedDestinationPage(PDNamedDestination)"})
+  void testFindNamedDestinationPage_whenPDNamedDestinationWithDest_thenReturnNull3() throws IOException {
     // Arrange
-    PDDocumentNameDictionary names =
-        new PDDocumentNameDictionary(new PDDocumentCatalog(new PDDocument()));
+    PDDocumentNameDictionary names = new PDDocumentNameDictionary(new PDDocumentCatalog(new PDDocument()));
     names.setDests(new PDDestinationNameTreeNode());
 
     PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument());
     pdDocumentCatalog.setNames(names);
 
-    // Act
-    PDPageDestination actualFindNamedDestinationPageResult =
-        pdDocumentCatalog.findNamedDestinationPage(new PDNamedDestination("Dest"));
-
-    // Assert
-    assertNull(actualFindNamedDestinationPageResult);
+    // Act and Assert
+    assertNull(pdDocumentCatalog.findNamedDestinationPage(new PDNamedDestination("Dest")));
   }
 
   /**
    * Test {@link PDDocumentCatalog#findNamedDestinationPage(PDNamedDestination)}.
-   *
    * <ul>
-   *   <li>When {@link PDNamedDestination#PDNamedDestination()}.
-   *   <li>Then return {@code null}.
+   *   <li>When {@link PDNamedDestination#PDNamedDestination()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#findNamedDestinationPage(PDNamedDestination)}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#findNamedDestinationPage(PDNamedDestination)}
    */
   @Test
-  @DisplayName(
-      "Test findNamedDestinationPage(PDNamedDestination); when PDNamedDestination(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "PDPageDestination PDDocumentCatalog.findNamedDestinationPage(PDNamedDestination)"
-  })
+  @DisplayName("Test findNamedDestinationPage(PDNamedDestination); when PDNamedDestination(); then return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"PDPageDestination PDDocumentCatalog.findNamedDestinationPage(PDNamedDestination)"})
   void testFindNamedDestinationPage_whenPDNamedDestination_thenReturnNull() throws IOException {
     // Arrange
-    PDDocumentNameDictionary names =
-        new PDDocumentNameDictionary(new PDDocumentCatalog(new PDDocument()));
+    PDDocumentNameDictionary names = new PDDocumentNameDictionary(new PDDocumentCatalog(new PDDocument()));
     names.setDests(new PDDestinationNameTreeNode());
 
     PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument());
@@ -2038,22 +1251,14 @@ class PDDocumentCatalogDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalog#setNames(PDDocumentNameDictionary)}.
-   *
-   * <ul>
-   *   <li>Then {@link PDDocumentCatalog#PDDocumentCatalog(PDDocument)} with doc is {@link
-   *       PDDocument#PDDocument()} Names Dests Names size is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#setNames(PDDocumentNameDictionary)}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#setNames(PDDocumentNameDictionary)}
    */
   @Test
-  @DisplayName(
-      "Test setNames(PDDocumentNameDictionary); then PDDocumentCatalog(PDDocument) with doc is PDDocument() Names Dests Names size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setNames(PDDocumentNameDictionary)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDDocumentCatalog.setNames(PDDocumentNameDictionary)"})
-  void testSetNames_thenPDDocumentCatalogWithDocIsPDDocumentNamesDestsNamesSizeIsOne()
-      throws IOException {
+  void testSetNames() throws IOException {
     // Arrange
     PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument());
 
@@ -2062,9 +1267,9 @@ class PDDocumentCatalogDiffblueTest {
 
     PDDestinationNameTreeNode dests = new PDDestinationNameTreeNode();
     dests.setNames(names);
-    PDDocumentCatalog cat = new PDDocumentCatalog(new PDDocument());
+    PDDocument doc = new PDDocument();
 
-    PDDocumentNameDictionary names2 = new PDDocumentNameDictionary(cat, new COSDictionary());
+    PDDocumentNameDictionary names2 = new PDDocumentNameDictionary(new PDDocumentCatalog(doc, new COSDictionary()));
     names2.setDests(dests);
 
     // Act
@@ -2081,116 +1286,84 @@ class PDDocumentCatalogDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalog#getMarkInfo()}.
-   *
    * <ul>
-   *   <li>Given {@link PDDocumentCatalog#PDDocumentCatalog(PDDocument)} with doc is {@link
-   *       PDDocument#PDDocument()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDDocumentCatalog#PDDocumentCatalog(PDDocument)} with doc is {@link PDDocument#PDDocument()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getMarkInfo()}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#getMarkInfo()}
    */
   @Test
-  @DisplayName(
-      "Test getMarkInfo(); given PDDocumentCatalog(PDDocument) with doc is PDDocument(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getMarkInfo(); given PDDocumentCatalog(PDDocument) with doc is PDDocument(); then return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDMarkInfo PDDocumentCatalog.getMarkInfo()"})
   void testGetMarkInfo_givenPDDocumentCatalogWithDocIsPDDocument_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDDocumentCatalog(new PDDocument()).getMarkInfo());
-  }
-
-  /**
-   * Test {@link PDDocumentCatalog#getMarkInfo()}.
-   *
-   * <ul>
-   *   <li>Then return COSObject Key is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getMarkInfo()}
-   */
-  @Test
-  @DisplayName("Test getMarkInfo(); then return COSObject Key is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDMarkInfo PDDocumentCatalog.getMarkInfo()"})
-  void testGetMarkInfo_thenReturnCOSObjectKeyIsNull() {
-    // Arrange
-    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument());
-    pdDocumentCatalog.setMarkInfo(new PDMarkInfo());
-
-    // Act
-    PDMarkInfo actualMarkInfo = pdDocumentCatalog.getMarkInfo();
-
-    // Assert
-    COSDictionary cOSObject = actualMarkInfo.getCOSObject();
-    assertNull(cOSObject.getKey());
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertTrue(updateState.getOriginDocumentState().isAcceptingUpdates());
-    assertTrue(updateState.isUpdated());
-    assertTrue(cOSObject.getValues().isEmpty());
-    assertFalse(cOSObject.isDirect());
-    assertTrue(cOSObject.isNeedToBeUpdated());
-    assertEquals(0, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertEquals(1, toIncrementResult.getObjects().size());
-    Iterator<COSBase> iteratorResult = toIncrementResult.iterator();
-    COSBase actualNextResult = iteratorResult.next();
-    assertFalse(iteratorResult.hasNext());
-    assertSame(cOSObject, actualNextResult);
-    assertFalse(actualMarkInfo.isMarked());
-    assertFalse(actualMarkInfo.isSuspect());
+    assertNull((new PDDocumentCatalog(new PDDocument())).getMarkInfo());
   }
 
   /**
    * Test {@link PDDocumentCatalog#setMarkInfo(PDMarkInfo)}.
-   *
    * <ul>
-   *   <li>Then not {@link PDMarkInfo#PDMarkInfo()} COSObject NeedToBeUpdated.
+   *   <li>Given {@link COSDictionary} {@link COSDictionary#setItem(COSName, COSObjectable)} does nothing.</li>
+   *   <li>Then calls {@link COSDictionary#setItem(COSName, COSObjectable)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#setMarkInfo(PDMarkInfo)}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#setMarkInfo(PDMarkInfo)}
    */
   @Test
-  @DisplayName("Test setMarkInfo(PDMarkInfo); then not PDMarkInfo() COSObject NeedToBeUpdated")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setMarkInfo(PDMarkInfo); given COSDictionary setItem(COSName, COSObjectable) does nothing; then calls setItem(COSName, COSObjectable)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDDocumentCatalog.setMarkInfo(PDMarkInfo)"})
-  void testSetMarkInfo_thenNotPDMarkInfoCOSObjectNeedToBeUpdated() {
+  void testSetMarkInfo_givenCOSDictionarySetItemDoesNothing_thenCallsSetItem() {
     // Arrange
     COSDictionary rootDictionary = mock(COSDictionary.class);
     doNothing().when(rootDictionary).setItem(Mockito.<COSName>any(), Mockito.<COSObjectable>any());
-    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument(), rootDictionary);
-    PDMarkInfo markInfo = new PDMarkInfo();
 
     // Act
-    pdDocumentCatalog.setMarkInfo(markInfo);
+    (new PDDocumentCatalog(new PDDocument(), rootDictionary)).setMarkInfo(mock(PDMarkInfo.class));
 
     // Assert that nothing has changed
     verify(rootDictionary).setItem(isA(COSName.class), isA(COSObjectable.class));
-    COSDictionary cOSObject = markInfo.getCOSObject();
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(cOSObject.getUpdateState().isUpdated());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
+  }
+
+  /**
+   * Test {@link PDDocumentCatalog#setMarkInfo(PDMarkInfo)}.
+   * <ul>
+   *   <li>Then throw {@link IllegalArgumentException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#setMarkInfo(PDMarkInfo)}
+   */
+  @Test
+  @DisplayName("Test setMarkInfo(PDMarkInfo); then throw IllegalArgumentException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDDocumentCatalog.setMarkInfo(PDMarkInfo)"})
+  void testSetMarkInfo_thenThrowIllegalArgumentException() {
+    // Arrange
+    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument());
+    PDMarkInfo markInfo = mock(PDMarkInfo.class);
+    when(markInfo.getCOSObject()).thenThrow(new IllegalArgumentException("foo"));
+
+    // Act and Assert
+    assertThrows(IllegalArgumentException.class, () -> pdDocumentCatalog.setMarkInfo(markInfo));
+    verify(markInfo).getCOSObject();
   }
 
   /**
    * Test {@link PDDocumentCatalog#getOutputIntents()}.
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getOutputIntents()}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#getOutputIntents()}
    */
   @Test
   @DisplayName("Test getOutputIntents()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDDocumentCatalog.getOutputIntents()"})
   void testGetOutputIntents() {
     // Arrange
     COSDictionary dictionary = new COSDictionary();
     COSObjectKey key = new COSObjectKey(1L, 1);
+
     dictionary.setKey(key);
     PDOutputIntent outputIntent = new PDOutputIntent(dictionary);
 
@@ -2207,39 +1380,33 @@ class PDDocumentCatalogDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalog#getOutputIntents()}.
-   *
    * <ul>
-   *   <li>Given {@link PDDocumentCatalog#PDDocumentCatalog(PDDocument)} with doc is {@link
-   *       PDDocument#PDDocument()}.
-   *   <li>Then return Empty.
+   *   <li>Given {@link PDDocumentCatalog#PDDocumentCatalog(PDDocument)} with doc is {@link PDDocument#PDDocument()}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getOutputIntents()}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#getOutputIntents()}
    */
   @Test
-  @DisplayName(
-      "Test getOutputIntents(); given PDDocumentCatalog(PDDocument) with doc is PDDocument(); then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getOutputIntents(); given PDDocumentCatalog(PDDocument) with doc is PDDocument(); then return Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDDocumentCatalog.getOutputIntents()"})
   void testGetOutputIntents_givenPDDocumentCatalogWithDocIsPDDocument_thenReturnEmpty() {
     // Arrange, Act and Assert
-    assertTrue(new PDDocumentCatalog(new PDDocument()).getOutputIntents().isEmpty());
+    assertTrue((new PDDocumentCatalog(new PDDocument())).getOutputIntents().isEmpty());
   }
 
   /**
    * Test {@link PDDocumentCatalog#getOutputIntents()}.
-   *
    * <ul>
-   *   <li>Then return first Info is {@code null}.
+   *   <li>Then return first Info is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getOutputIntents()}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#getOutputIntents()}
    */
   @Test
   @DisplayName("Test getOutputIntents(); then return first Info is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDDocumentCatalog.getOutputIntents()"})
   void testGetOutputIntents_thenReturnFirstInfoIsNull() {
     // Arrange
@@ -2262,188 +1429,13 @@ class PDDocumentCatalogDiffblueTest {
   }
 
   /**
-   * Test {@link PDDocumentCatalog#addOutputIntent(PDOutputIntent)}.
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#addOutputIntent(PDOutputIntent)}
-   */
-  @Test
-  @DisplayName("Test addOutputIntent(PDOutputIntent)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDDocumentCatalog.addOutputIntent(PDOutputIntent)"})
-  void testAddOutputIntent() {
-    // Arrange
-    COSDictionary rootDictionary = mock(COSDictionary.class);
-    when(rootDictionary.getCOSArray(Mockito.<COSName>any())).thenReturn(new COSArray());
-    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument(), rootDictionary);
-
-    COSUpdateState cosUpdateState = mock(COSUpdateState.class);
-    doNothing().when(cosUpdateState).setOriginDocumentState(Mockito.<COSDocumentState>any());
-
-    COSDictionary dictionary = mock(COSDictionary.class);
-    when(dictionary.isDirect()).thenReturn(true);
-    when(dictionary.getUpdateState()).thenReturn(cosUpdateState);
-
-    // Act
-    pdDocumentCatalog.addOutputIntent(new PDOutputIntent(dictionary));
-
-    // Assert
-    verify(dictionary).isDirect();
-    verify(rootDictionary).getCOSArray(isA(COSName.class));
-    verify(dictionary).getUpdateState();
-    verify(cosUpdateState).setOriginDocumentState(isNull());
-    List<PDThread> threads = pdDocumentCatalog.getThreads();
-    assertEquals(1, threads.size());
-    PDThread getResult = threads.get(0);
-    assertNull(getResult.getThreadInfo());
-    assertNull(getResult.getFirstBead());
-  }
-
-  /**
-   * Test {@link PDDocumentCatalog#addOutputIntent(PDOutputIntent)}.
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#addOutputIntent(PDOutputIntent)}
-   */
-  @Test
-  @DisplayName("Test addOutputIntent(PDOutputIntent)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDDocumentCatalog.addOutputIntent(PDOutputIntent)"})
-  void testAddOutputIntent2() {
-    // Arrange
-    COSDictionary rootDictionary = mock(COSDictionary.class);
-    when(rootDictionary.getCOSArray(Mockito.<COSName>any())).thenReturn(null);
-    doNothing().when(rootDictionary).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
-    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument(), rootDictionary);
-
-    COSUpdateState cosUpdateState = mock(COSUpdateState.class);
-    doNothing().when(cosUpdateState).setOriginDocumentState(Mockito.<COSDocumentState>any());
-
-    COSDictionary dictionary = mock(COSDictionary.class);
-    when(dictionary.isDirect()).thenReturn(true);
-    when(dictionary.getUpdateState()).thenReturn(cosUpdateState);
-
-    // Act
-    pdDocumentCatalog.addOutputIntent(new PDOutputIntent(dictionary));
-
-    // Assert that nothing has changed
-    verify(dictionary).isDirect();
-    verify(rootDictionary).getCOSArray(isA(COSName.class));
-    verify(dictionary).getUpdateState();
-    verify(rootDictionary).setItem(isA(COSName.class), isA(COSBase.class));
-    verify(cosUpdateState).setOriginDocumentState(isNull());
-    assertTrue(pdDocumentCatalog.getOutputIntents().isEmpty());
-    assertTrue(pdDocumentCatalog.getThreads().isEmpty());
-  }
-
-  /**
-   * Test {@link PDDocumentCatalog#addOutputIntent(PDOutputIntent)}.
-   *
-   * <ul>
-   *   <li>Given {@link COSArray} {@link COSArray#add(COSBase)} does nothing.
-   *   <li>Then calls {@link COSArray#add(COSBase)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#addOutputIntent(PDOutputIntent)}
-   */
-  @Test
-  @DisplayName(
-      "Test addOutputIntent(PDOutputIntent); given COSArray add(COSBase) does nothing; then calls add(COSBase)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDDocumentCatalog.addOutputIntent(PDOutputIntent)"})
-  void testAddOutputIntent_givenCOSArrayAddDoesNothing_thenCallsAdd() {
-    // Arrange
-    COSArray cosArray = mock(COSArray.class);
-    doNothing().when(cosArray).add(Mockito.<COSBase>any());
-
-    COSDictionary rootDictionary = mock(COSDictionary.class);
-    when(rootDictionary.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
-    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument(), rootDictionary);
-
-    // Act
-    pdDocumentCatalog.addOutputIntent(new PDOutputIntent(mock(COSDictionary.class)));
-
-    // Assert that nothing has changed
-    verify(cosArray).add(isA(COSBase.class));
-    verify(rootDictionary).getCOSArray(isA(COSName.class));
-    assertTrue(pdDocumentCatalog.getThreads().isEmpty());
-  }
-
-  /**
-   * Test {@link PDDocumentCatalog#addOutputIntent(PDOutputIntent)}.
-   *
-   * <ul>
-   *   <li>Given {@link COSArray} {@link COSArray#iterator()} throw {@link
-   *       IllegalArgumentException#IllegalArgumentException()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#addOutputIntent(PDOutputIntent)}
-   */
-  @Test
-  @DisplayName(
-      "Test addOutputIntent(PDOutputIntent); given COSArray iterator() throw IllegalArgumentException()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDDocumentCatalog.addOutputIntent(PDOutputIntent)"})
-  void testAddOutputIntent_givenCOSArrayIteratorThrowIllegalArgumentException() {
-    // Arrange
-    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument());
-
-    COSArray updateInfo = mock(COSArray.class);
-    when(updateInfo.iterator()).thenThrow(new IllegalArgumentException());
-    COSUpdateState cosUpdateState = new COSUpdateState(updateInfo);
-
-    COSDictionary dictionary = mock(COSDictionary.class);
-    when(dictionary.isDirect()).thenReturn(true);
-    when(dictionary.getUpdateState()).thenReturn(cosUpdateState);
-
-    // Act and Assert
-    assertThrows(
-        IllegalArgumentException.class,
-        () -> pdDocumentCatalog.addOutputIntent(new PDOutputIntent(dictionary)));
-    verify(updateInfo).iterator();
-    verify(dictionary).isDirect();
-    verify(dictionary).getUpdateState();
-  }
-
-  /**
-   * Test {@link PDDocumentCatalog#addOutputIntent(PDOutputIntent)}.
-   *
-   * <ul>
-   *   <li>Given {@link IllegalArgumentException#IllegalArgumentException()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#addOutputIntent(PDOutputIntent)}
-   */
-  @Test
-  @DisplayName("Test addOutputIntent(PDOutputIntent); given IllegalArgumentException()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDDocumentCatalog.addOutputIntent(PDOutputIntent)"})
-  void testAddOutputIntent_givenIllegalArgumentException() {
-    // Arrange
-    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument());
-
-    COSDictionary dictionary = mock(COSDictionary.class);
-    when(dictionary.isDirect()).thenThrow(new IllegalArgumentException());
-
-    // Act and Assert
-    assertThrows(
-        IllegalArgumentException.class,
-        () -> pdDocumentCatalog.addOutputIntent(new PDOutputIntent(dictionary)));
-    verify(dictionary).isDirect();
-  }
-
-  /**
    * Test {@link PDDocumentCatalog#setOutputIntents(List)}.
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#setOutputIntents(List)}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#setOutputIntents(List)}
    */
   @Test
   @DisplayName("Test setOutputIntents(List)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDDocumentCatalog.setOutputIntents(List)"})
   void testSetOutputIntents() {
     // Arrange
@@ -2451,8 +1443,61 @@ class PDDocumentCatalogDiffblueTest {
     doNothing().when(rootDictionary).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
     PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument(), rootDictionary);
 
-    PDOutputIntent pdOutputIntent = mock(PDOutputIntent.class);
-    when(pdOutputIntent.getCOSObject()).thenReturn(null);
+    // Act
+    pdDocumentCatalog.setOutputIntents(new ArrayList<>());
+
+    // Assert that nothing has changed
+    verify(rootDictionary).setItem(isA(COSName.class), isA(COSBase.class));
+    assertTrue(pdDocumentCatalog.getOutputIntents().isEmpty());
+  }
+
+  /**
+   * Test {@link PDDocumentCatalog#setOutputIntents(List)}.
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#setOutputIntents(List)}
+   */
+  @Test
+  @DisplayName("Test setOutputIntents(List)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDDocumentCatalog.setOutputIntents(List)"})
+  void testSetOutputIntents2() {
+    // Arrange
+    COSDictionary rootDictionary = mock(COSDictionary.class);
+    doNothing().when(rootDictionary).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
+    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument(), rootDictionary);
+
+    ArrayList<PDOutputIntent> outputIntents = new ArrayList<>();
+    outputIntents.add(new PDOutputIntent(null));
+
+    // Act
+    pdDocumentCatalog.setOutputIntents(outputIntents);
+
+    // Assert that nothing has changed
+    verify(rootDictionary).setItem(isA(COSName.class), isA(COSBase.class));
+    assertTrue(pdDocumentCatalog.getOutputIntents().isEmpty());
+  }
+
+  /**
+   * Test {@link PDDocumentCatalog#setOutputIntents(List)}.
+   * <ul>
+   *   <li>Given {@link COSDictionary} {@link COSBase#isDirect()} return {@code false}.</li>
+   *   <li>Then calls {@link COSBase#getKey()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#setOutputIntents(List)}
+   */
+  @Test
+  @DisplayName("Test setOutputIntents(List); given COSDictionary isDirect() return 'false'; then calls getKey()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDDocumentCatalog.setOutputIntents(List)"})
+  void testSetOutputIntents_givenCOSDictionaryIsDirectReturnFalse_thenCallsGetKey() {
+    // Arrange
+    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument());
+    COSDictionary dictionary = mock(COSDictionary.class);
+    when(dictionary.isDirect()).thenReturn(false);
+    when(dictionary.getKey()).thenReturn(new COSObjectKey(1L, 1));
+    when(dictionary.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
+    PDOutputIntent pdOutputIntent = new PDOutputIntent(dictionary);
 
     ArrayList<PDOutputIntent> outputIntents = new ArrayList<>();
     outputIntents.add(pdOutputIntent);
@@ -2460,110 +1505,73 @@ class PDDocumentCatalogDiffblueTest {
     // Act
     pdDocumentCatalog.setOutputIntents(outputIntents);
 
-    // Assert that nothing has changed
-    verify(rootDictionary).setItem(isA(COSName.class), isA(COSBase.class));
-    verify(pdOutputIntent).getCOSObject();
-    assertTrue(pdDocumentCatalog.getOutputIntents().isEmpty());
+    // Assert
+    verify(dictionary, atLeast(1)).getKey();
+    verify(dictionary).isDirect();
+    verify(dictionary).getUpdateState();
+    List<PDOutputIntent> outputIntents2 = pdDocumentCatalog.getOutputIntents();
+    assertEquals(1, outputIntents2.size());
+    PDOutputIntent getResult = outputIntents2.get(0);
+    assertNull(getResult.getInfo());
+    assertNull(getResult.getOutputCondition());
+    assertNull(getResult.getOutputConditionIdentifier());
+    assertNull(getResult.getRegistryName());
+    assertNull(getResult.getDestOutputIntent());
   }
 
   /**
    * Test {@link PDDocumentCatalog#setOutputIntents(List)}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#getValues()} throw {@link
-   *       IllegalArgumentException#IllegalArgumentException()}.
+   *   <li>Then calls {@link COSUpdateState#setOriginDocumentState(COSDocumentState)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#setOutputIntents(List)}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#setOutputIntents(List)}
    */
   @Test
-  @DisplayName(
-      "Test setOutputIntents(List); given COSDictionary getValues() throw IllegalArgumentException()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setOutputIntents(List); then calls setOriginDocumentState(COSDocumentState)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDDocumentCatalog.setOutputIntents(List)"})
-  void testSetOutputIntents_givenCOSDictionaryGetValuesThrowIllegalArgumentException() {
+  void testSetOutputIntents_thenCallsSetOriginDocumentState() {
     // Arrange
     PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument());
-
-    COSDictionary updateInfo = mock(COSDictionary.class);
-    when(updateInfo.getValues()).thenThrow(new IllegalArgumentException());
-    COSUpdateState cosUpdateState = new COSUpdateState(updateInfo);
-
+    COSUpdateState cosUpdateState = mock(COSUpdateState.class);
+    doNothing().when(cosUpdateState).setOriginDocumentState(Mockito.<COSDocumentState>any());
     COSDictionary dictionary = mock(COSDictionary.class);
     when(dictionary.isDirect()).thenReturn(true);
     when(dictionary.getUpdateState()).thenReturn(cosUpdateState);
-    doNothing().when(dictionary).setDirect(anyBoolean());
-    doNothing().when(dictionary).setKey(Mockito.<COSObjectKey>any());
-    dictionary.setDirect(false);
-    dictionary.setKey(null);
     PDOutputIntent pdOutputIntent = new PDOutputIntent(dictionary);
 
     ArrayList<PDOutputIntent> outputIntents = new ArrayList<>();
     outputIntents.add(pdOutputIntent);
 
-    // Act and Assert
-    assertThrows(
-        IllegalArgumentException.class, () -> pdDocumentCatalog.setOutputIntents(outputIntents));
+    // Act
+    pdDocumentCatalog.setOutputIntents(outputIntents);
+
+    // Assert
     verify(dictionary).isDirect();
-    verify(dictionary).setDirect(false);
-    verify(dictionary).setKey(isNull());
     verify(dictionary, atLeast(1)).getUpdateState();
-    verify(updateInfo).getValues();
-  }
-
-  /**
-   * Test {@link PDDocumentCatalog#setOutputIntents(List)}.
-   *
-   * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#isDirect()} throw {@link
-   *       IllegalArgumentException#IllegalArgumentException()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#setOutputIntents(List)}
-   */
-  @Test
-  @DisplayName(
-      "Test setOutputIntents(List); given COSDictionary isDirect() throw IllegalArgumentException()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDDocumentCatalog.setOutputIntents(List)"})
-  void testSetOutputIntents_givenCOSDictionaryIsDirectThrowIllegalArgumentException() {
-    // Arrange
-    PDDocumentCatalog pdDocumentCatalog =
-        new PDDocumentCatalog(new PDDocument(), mock(COSDictionary.class));
-
-    COSDictionary cosDictionary = mock(COSDictionary.class);
-    when(cosDictionary.isDirect()).thenThrow(new IllegalArgumentException());
-
-    PDOutputIntent pdOutputIntent = mock(PDOutputIntent.class);
-    when(pdOutputIntent.getCOSObject()).thenReturn(cosDictionary);
-
-    ArrayList<PDOutputIntent> outputIntents = new ArrayList<>();
-    outputIntents.add(pdOutputIntent);
-
-    // Act and Assert
-    assertThrows(
-        IllegalArgumentException.class, () -> pdDocumentCatalog.setOutputIntents(outputIntents));
-    verify(cosDictionary).isDirect();
-    verify(pdOutputIntent).getCOSObject();
+    verify(cosUpdateState).setOriginDocumentState(isNull());
+    List<PDOutputIntent> outputIntents2 = pdDocumentCatalog.getOutputIntents();
+    assertEquals(1, outputIntents2.size());
+    PDOutputIntent getResult = outputIntents2.get(0);
+    assertNull(getResult.getInfo());
+    assertNull(getResult.getOutputCondition());
+    assertNull(getResult.getOutputConditionIdentifier());
+    assertNull(getResult.getRegistryName());
+    assertNull(getResult.getDestOutputIntent());
   }
 
   /**
    * Test {@link PDDocumentCatalog#getPageMode()}.
-   *
    * <ul>
-   *   <li>Given {@link PDDocumentCatalog#PDDocumentCatalog(PDDocument)} with doc is {@link
-   *       PDDocument#PDDocument()} PageMode is {@code USE_NONE}.
+   *   <li>Given {@link PDDocumentCatalog#PDDocumentCatalog(PDDocument)} with doc is {@link PDDocument#PDDocument()} PageMode is {@code USE_NONE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getPageMode()}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#getPageMode()}
    */
   @Test
-  @DisplayName(
-      "Test getPageMode(); given PDDocumentCatalog(PDDocument) with doc is PDDocument() PageMode is 'USE_NONE'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getPageMode(); given PDDocumentCatalog(PDDocument) with doc is PDDocument() PageMode is 'USE_NONE'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PageMode PDDocumentCatalog.getPageMode()"})
   void testGetPageMode_givenPDDocumentCatalogWithDocIsPDDocumentPageModeIsUseNone() {
     // Arrange
@@ -2576,39 +1584,33 @@ class PDDocumentCatalogDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalog#getPageMode()}.
-   *
    * <ul>
-   *   <li>Given {@link PDDocumentCatalog#PDDocumentCatalog(PDDocument)} with doc is {@link
-   *       PDDocument#PDDocument()}.
-   *   <li>Then return {@code USE_NONE}.
+   *   <li>Given {@link PDDocumentCatalog#PDDocumentCatalog(PDDocument)} with doc is {@link PDDocument#PDDocument()}.</li>
+   *   <li>Then return {@code USE_NONE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getPageMode()}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#getPageMode()}
    */
   @Test
-  @DisplayName(
-      "Test getPageMode(); given PDDocumentCatalog(PDDocument) with doc is PDDocument(); then return 'USE_NONE'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getPageMode(); given PDDocumentCatalog(PDDocument) with doc is PDDocument(); then return 'USE_NONE'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PageMode PDDocumentCatalog.getPageMode()"})
   void testGetPageMode_givenPDDocumentCatalogWithDocIsPDDocument_thenReturnUseNone() {
     // Arrange, Act and Assert
-    assertEquals(PageMode.USE_NONE, new PDDocumentCatalog(new PDDocument()).getPageMode());
+    assertEquals(PageMode.USE_NONE, (new PDDocumentCatalog(new PDDocument())).getPageMode());
   }
 
   /**
    * Test {@link PDDocumentCatalog#getPageMode()}.
-   *
    * <ul>
-   *   <li>Then return {@code USE_OUTLINES}.
+   *   <li>Then return {@code USE_OUTLINES}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getPageMode()}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#getPageMode()}
    */
   @Test
   @DisplayName("Test getPageMode(); then return 'USE_OUTLINES'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PageMode PDDocumentCatalog.getPageMode()"})
   void testGetPageMode_thenReturnUseOutlines() {
     // Arrange
@@ -2621,13 +1623,12 @@ class PDDocumentCatalogDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalog#setPageMode(PageMode)}.
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#setPageMode(PageMode)}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#setPageMode(PageMode)}
    */
   @Test
   @DisplayName("Test setPageMode(PageMode)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDDocumentCatalog.setPageMode(PageMode)"})
   void testSetPageMode() {
     // Arrange
@@ -2645,13 +1646,12 @@ class PDDocumentCatalogDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalog#getPageLayout()}.
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getPageLayout()}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#getPageLayout()}
    */
   @Test
   @DisplayName("Test getPageLayout()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PageLayout PDDocumentCatalog.getPageLayout()"})
   void testGetPageLayout() {
     // Arrange
@@ -2664,39 +1664,33 @@ class PDDocumentCatalogDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalog#getPageLayout()}.
-   *
    * <ul>
-   *   <li>Given {@link PDDocumentCatalog#PDDocumentCatalog(PDDocument)} with doc is {@link
-   *       PDDocument#PDDocument()}.
-   *   <li>Then return {@code SINGLE_PAGE}.
+   *   <li>Given {@link PDDocumentCatalog#PDDocumentCatalog(PDDocument)} with doc is {@link PDDocument#PDDocument()}.</li>
+   *   <li>Then return {@code SINGLE_PAGE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getPageLayout()}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#getPageLayout()}
    */
   @Test
-  @DisplayName(
-      "Test getPageLayout(); given PDDocumentCatalog(PDDocument) with doc is PDDocument(); then return 'SINGLE_PAGE'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getPageLayout(); given PDDocumentCatalog(PDDocument) with doc is PDDocument(); then return 'SINGLE_PAGE'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PageLayout PDDocumentCatalog.getPageLayout()"})
   void testGetPageLayout_givenPDDocumentCatalogWithDocIsPDDocument_thenReturnSinglePage() {
     // Arrange, Act and Assert
-    assertEquals(PageLayout.SINGLE_PAGE, new PDDocumentCatalog(new PDDocument()).getPageLayout());
+    assertEquals(PageLayout.SINGLE_PAGE, (new PDDocumentCatalog(new PDDocument())).getPageLayout());
   }
 
   /**
    * Test {@link PDDocumentCatalog#getPageLayout()}.
-   *
    * <ul>
-   *   <li>Then return {@code ONE_COLUMN}.
+   *   <li>Then return {@code ONE_COLUMN}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getPageLayout()}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#getPageLayout()}
    */
   @Test
   @DisplayName("Test getPageLayout(); then return 'ONE_COLUMN'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PageLayout PDDocumentCatalog.getPageLayout()"})
   void testGetPageLayout_thenReturnOneColumn() {
     // Arrange
@@ -2709,157 +1703,123 @@ class PDDocumentCatalogDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalog#setPageLayout(PageLayout)}.
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#setPageLayout(PageLayout)}
+   * <ul>
+   *   <li>Given {@link COSDictionary} {@link COSDictionary#setName(COSName, String)} does nothing.</li>
+   *   <li>Then calls {@link COSDictionary#setName(COSName, String)}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#setPageLayout(PageLayout)}
    */
   @Test
-  @DisplayName("Test setPageLayout(PageLayout)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setPageLayout(PageLayout); given COSDictionary setName(COSName, String) does nothing; then calls setName(COSName, String)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDDocumentCatalog.setPageLayout(PageLayout)"})
-  void testSetPageLayout() {
+  void testSetPageLayout_givenCOSDictionarySetNameDoesNothing_thenCallsSetName() {
     // Arrange
     COSDictionary rootDictionary = mock(COSDictionary.class);
     doNothing().when(rootDictionary).setName(Mockito.<COSName>any(), Mockito.<String>any());
-    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument(), rootDictionary);
 
     // Act
-    pdDocumentCatalog.setPageLayout(PageLayout.SINGLE_PAGE);
+    (new PDDocumentCatalog(new PDDocument(), rootDictionary)).setPageLayout(PageLayout.SINGLE_PAGE);
 
-    // Assert that nothing has changed
+    // Assert
     verify(rootDictionary).setName(isA(COSName.class), eq("SinglePage"));
-    assertEquals(PageLayout.SINGLE_PAGE, pdDocumentCatalog.getPageLayout());
   }
 
   /**
    * Test {@link PDDocumentCatalog#getURI()}.
-   *
    * <ul>
-   *   <li>Given {@link PDDocumentCatalog#PDDocumentCatalog(PDDocument)} with doc is {@link
-   *       PDDocument#PDDocument()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDDocumentCatalog#PDDocumentCatalog(PDDocument)} with doc is {@link PDDocument#PDDocument()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getURI()}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#getURI()}
    */
   @Test
-  @DisplayName(
-      "Test getURI(); given PDDocumentCatalog(PDDocument) with doc is PDDocument(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getURI(); given PDDocumentCatalog(PDDocument) with doc is PDDocument(); then return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDURIDictionary PDDocumentCatalog.getURI()"})
   void testGetURI_givenPDDocumentCatalogWithDocIsPDDocument_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDDocumentCatalog(new PDDocument()).getURI());
-  }
-
-  /**
-   * Test {@link PDDocumentCatalog#getURI()}.
-   *
-   * <ul>
-   *   <li>Then return Base is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getURI()}
-   */
-  @Test
-  @DisplayName("Test getURI(); then return Base is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDURIDictionary PDDocumentCatalog.getURI()"})
-  void testGetURI_thenReturnBaseIsNull() {
-    // Arrange
-    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument());
-    pdDocumentCatalog.setURI(new PDURIDictionary());
-
-    // Act
-    PDURIDictionary actualURI = pdDocumentCatalog.getURI();
-
-    // Assert
-    assertNull(actualURI.getBase());
-    COSDictionary cOSObject = actualURI.getCOSObject();
-    assertNull(cOSObject.getKey());
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertTrue(updateState.getOriginDocumentState().isAcceptingUpdates());
-    assertTrue(updateState.isUpdated());
-    assertTrue(cOSObject.getValues().isEmpty());
-    assertFalse(cOSObject.isDirect());
-    assertTrue(cOSObject.isNeedToBeUpdated());
-    assertEquals(0, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertEquals(1, toIncrementResult.getObjects().size());
-    Iterator<COSBase> iteratorResult = toIncrementResult.iterator();
-    COSBase actualNextResult = iteratorResult.next();
-    assertFalse(iteratorResult.hasNext());
-    assertSame(cOSObject, actualNextResult);
+    assertNull((new PDDocumentCatalog(new PDDocument())).getURI());
   }
 
   /**
    * Test {@link PDDocumentCatalog#setURI(PDURIDictionary)}.
-   *
    * <ul>
-   *   <li>Then not {@link PDURIDictionary#PDURIDictionary()} COSObject NeedToBeUpdated.
+   *   <li>Given {@link COSDictionary} {@link COSDictionary#setItem(COSName, COSObjectable)} does nothing.</li>
+   *   <li>Then calls {@link COSDictionary#setItem(COSName, COSObjectable)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#setURI(PDURIDictionary)}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#setURI(PDURIDictionary)}
    */
   @Test
-  @DisplayName("Test setURI(PDURIDictionary); then not PDURIDictionary() COSObject NeedToBeUpdated")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setURI(PDURIDictionary); given COSDictionary setItem(COSName, COSObjectable) does nothing; then calls setItem(COSName, COSObjectable)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDDocumentCatalog.setURI(PDURIDictionary)"})
-  void testSetURI_thenNotPDURIDictionaryCOSObjectNeedToBeUpdated() {
+  void testSetURI_givenCOSDictionarySetItemDoesNothing_thenCallsSetItem() {
     // Arrange
     COSDictionary rootDictionary = mock(COSDictionary.class);
     doNothing().when(rootDictionary).setItem(Mockito.<COSName>any(), Mockito.<COSObjectable>any());
-    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument(), rootDictionary);
-    PDURIDictionary uri = new PDURIDictionary();
 
     // Act
-    pdDocumentCatalog.setURI(uri);
+    (new PDDocumentCatalog(new PDDocument(), rootDictionary)).setURI(mock(PDURIDictionary.class));
 
     // Assert that nothing has changed
     verify(rootDictionary).setItem(isA(COSName.class), isA(COSObjectable.class));
-    COSDictionary cOSObject = uri.getCOSObject();
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(cOSObject.getUpdateState().isUpdated());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
+  }
+
+  /**
+   * Test {@link PDDocumentCatalog#setURI(PDURIDictionary)}.
+   * <ul>
+   *   <li>Then throw {@link IllegalArgumentException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#setURI(PDURIDictionary)}
+   */
+  @Test
+  @DisplayName("Test setURI(PDURIDictionary); then throw IllegalArgumentException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDDocumentCatalog.setURI(PDURIDictionary)"})
+  void testSetURI_thenThrowIllegalArgumentException() {
+    // Arrange
+    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument());
+    PDURIDictionary uri = mock(PDURIDictionary.class);
+    when(uri.getCOSObject()).thenThrow(new IllegalArgumentException("foo"));
+
+    // Act and Assert
+    assertThrows(IllegalArgumentException.class, () -> pdDocumentCatalog.setURI(uri));
+    verify(uri).getCOSObject();
   }
 
   /**
    * Test {@link PDDocumentCatalog#getStructureTreeRoot()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getStructureTreeRoot()}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#getStructureTreeRoot()}
    */
   @Test
   @DisplayName("Test getStructureTreeRoot(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDStructureTreeRoot PDDocumentCatalog.getStructureTreeRoot()"})
   void testGetStructureTreeRoot_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDDocumentCatalog(new PDDocument()).getStructureTreeRoot());
+    assertNull((new PDDocumentCatalog(new PDDocument())).getStructureTreeRoot());
   }
 
   /**
    * Test {@link PDDocumentCatalog#getStructureTreeRoot()}.
-   *
    * <ul>
-   *   <li>Then return Type is {@code StructTreeRoot}.
+   *   <li>Then return Type is {@code StructTreeRoot}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getStructureTreeRoot()}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#getStructureTreeRoot()}
    */
   @Test
   @DisplayName("Test getStructureTreeRoot(); then return Type is 'StructTreeRoot'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDStructureTreeRoot PDDocumentCatalog.getStructureTreeRoot()"})
   void testGetStructureTreeRoot_thenReturnTypeIsStructTreeRoot() {
     // Arrange
@@ -2888,18 +1848,15 @@ class PDDocumentCatalogDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalog#setStructureTreeRoot(PDStructureTreeRoot)}.
-   *
    * <ul>
-   *   <li>Then {@link PDStructureTreeRoot#PDStructureTreeRoot()} K {@link COSArray}.
+   *   <li>Then {@link PDStructureTreeRoot#PDStructureTreeRoot()} K {@link COSArray}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#setStructureTreeRoot(PDStructureTreeRoot)}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#setStructureTreeRoot(PDStructureTreeRoot)}
    */
   @Test
-  @DisplayName(
-      "Test setStructureTreeRoot(PDStructureTreeRoot); then PDStructureTreeRoot() K COSArray")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setStructureTreeRoot(PDStructureTreeRoot); then PDStructureTreeRoot() K COSArray")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDDocumentCatalog.setStructureTreeRoot(PDStructureTreeRoot)"})
   void testSetStructureTreeRoot_thenPDStructureTreeRootKCOSArray() {
     // Arrange
@@ -2930,77 +1887,34 @@ class PDDocumentCatalogDiffblueTest {
   }
 
   /**
-   * Test {@link PDDocumentCatalog#setStructureTreeRoot(PDStructureTreeRoot)}.
-   *
-   * <ul>
-   *   <li>Then {@link PDStructureTreeRoot#PDStructureTreeRoot()} K NeedToBeUpdated.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#setStructureTreeRoot(PDStructureTreeRoot)}
-   */
-  @Test
-  @DisplayName(
-      "Test setStructureTreeRoot(PDStructureTreeRoot); then PDStructureTreeRoot() K NeedToBeUpdated")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDDocumentCatalog.setStructureTreeRoot(PDStructureTreeRoot)"})
-  void testSetStructureTreeRoot_thenPDStructureTreeRootKNeedToBeUpdated() {
-    // Arrange
-    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument());
-
-    COSDictionary dic = new COSDictionary();
-    dic.setKey(new COSObjectKey(1L, 1));
-    PDStructureElement structureElement = new PDStructureElement(dic);
-
-    PDStructureTreeRoot treeRoot = new PDStructureTreeRoot();
-    treeRoot.appendKid(structureElement);
-
-    // Act
-    pdDocumentCatalog.setStructureTreeRoot(treeRoot);
-
-    // Assert
-    COSBase k = treeRoot.getK();
-    assertTrue(k instanceof COSDictionary);
-    assertTrue(((COSDictionary) k).isNeedToBeUpdated());
-    assertTrue(((COSDictionary) k).getUpdateState().isUpdated());
-    assertSame(dic, pdDocumentCatalog.getStructureTreeRoot().getK());
-  }
-
-  /**
    * Test {@link PDDocumentCatalog#getLanguage()}.
-   *
    * <ul>
-   *   <li>Given {@link PDDocumentCatalog#PDDocumentCatalog(PDDocument)} with doc is {@link
-   *       PDDocument#PDDocument()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDDocumentCatalog#PDDocumentCatalog(PDDocument)} with doc is {@link PDDocument#PDDocument()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getLanguage()}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#getLanguage()}
    */
   @Test
-  @DisplayName(
-      "Test getLanguage(); given PDDocumentCatalog(PDDocument) with doc is PDDocument(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getLanguage(); given PDDocumentCatalog(PDDocument) with doc is PDDocument(); then return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDDocumentCatalog.getLanguage()"})
   void testGetLanguage_givenPDDocumentCatalogWithDocIsPDDocument_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDDocumentCatalog(new PDDocument()).getLanguage());
+    assertNull((new PDDocumentCatalog(new PDDocument())).getLanguage());
   }
 
   /**
    * Test {@link PDDocumentCatalog#getLanguage()}.
-   *
    * <ul>
-   *   <li>Then return empty string.
+   *   <li>Then return empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getLanguage()}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#getLanguage()}
    */
   @Test
   @DisplayName("Test getLanguage(); then return empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDDocumentCatalog.getLanguage()"})
   void testGetLanguage_thenReturnEmptyString() {
     // Arrange
@@ -3013,17 +1927,15 @@ class PDDocumentCatalogDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalog#getLanguage()}.
-   *
    * <ul>
-   *   <li>Then return {@code en}.
+   *   <li>Then return {@code en}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getLanguage()}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#getLanguage()}
    */
   @Test
   @DisplayName("Test getLanguage(); then return 'en'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDDocumentCatalog.getLanguage()"})
   void testGetLanguage_thenReturnEn() {
     // Arrange
@@ -3036,30 +1948,24 @@ class PDDocumentCatalogDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalog#setLanguage(String)}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#setString(COSName, String)} does
-   *       nothing.
-   *   <li>When {@code en}.
-   *   <li>Then calls {@link COSDictionary#setString(COSName, String)}.
+   *   <li>Given {@link COSDictionary} {@link COSDictionary#setString(COSName, String)} does nothing.</li>
+   *   <li>Then calls {@link COSDictionary#setString(COSName, String)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#setLanguage(String)}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#setLanguage(String)}
    */
   @Test
-  @DisplayName(
-      "Test setLanguage(String); given COSDictionary setString(COSName, String) does nothing; when 'en'; then calls setString(COSName, String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setLanguage(String); given COSDictionary setString(COSName, String) does nothing; then calls setString(COSName, String)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDDocumentCatalog.setLanguage(String)"})
-  void testSetLanguage_givenCOSDictionarySetStringDoesNothing_whenEn_thenCallsSetString() {
+  void testSetLanguage_givenCOSDictionarySetStringDoesNothing_thenCallsSetString() {
     // Arrange
     COSDictionary rootDictionary = mock(COSDictionary.class);
     doNothing().when(rootDictionary).setString(Mockito.<COSName>any(), Mockito.<String>any());
-    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument(), rootDictionary);
 
     // Act
-    pdDocumentCatalog.setLanguage("en");
+    (new PDDocumentCatalog(new PDDocument(), rootDictionary)).setLanguage("en");
 
     // Assert that nothing has changed
     verify(rootDictionary).setString(isA(COSName.class), eq("en"));
@@ -3067,39 +1973,33 @@ class PDDocumentCatalogDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalog#getVersion()}.
-   *
    * <ul>
-   *   <li>Given {@link PDDocumentCatalog#PDDocumentCatalog(PDDocument)} with doc is {@link
-   *       PDDocument#PDDocument()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDDocumentCatalog#PDDocumentCatalog(PDDocument)} with doc is {@link PDDocument#PDDocument()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getVersion()}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#getVersion()}
    */
   @Test
-  @DisplayName(
-      "Test getVersion(); given PDDocumentCatalog(PDDocument) with doc is PDDocument(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getVersion(); given PDDocumentCatalog(PDDocument) with doc is PDDocument(); then return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDDocumentCatalog.getVersion()"})
   void testGetVersion_givenPDDocumentCatalogWithDocIsPDDocument_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDDocumentCatalog(new PDDocument()).getVersion());
+    assertNull((new PDDocumentCatalog(new PDDocument())).getVersion());
   }
 
   /**
    * Test {@link PDDocumentCatalog#getVersion()}.
-   *
    * <ul>
-   *   <li>Then return {@code 1.0.2}.
+   *   <li>Then return {@code 1.0.2}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getVersion()}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#getVersion()}
    */
   @Test
   @DisplayName("Test getVersion(); then return '1.0.2'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDDocumentCatalog.getVersion()"})
   void testGetVersion_thenReturn102() {
     // Arrange
@@ -3112,29 +2012,24 @@ class PDDocumentCatalogDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalog#setVersion(String)}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#setName(COSName, String)} does nothing.
-   *   <li>When {@code 1.0.2}.
-   *   <li>Then calls {@link COSDictionary#setName(COSName, String)}.
+   *   <li>Given {@link COSDictionary} {@link COSDictionary#setName(COSName, String)} does nothing.</li>
+   *   <li>Then calls {@link COSDictionary#setName(COSName, String)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#setVersion(String)}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#setVersion(String)}
    */
   @Test
-  @DisplayName(
-      "Test setVersion(String); given COSDictionary setName(COSName, String) does nothing; when '1.0.2'; then calls setName(COSName, String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setVersion(String); given COSDictionary setName(COSName, String) does nothing; then calls setName(COSName, String)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDDocumentCatalog.setVersion(String)"})
-  void testSetVersion_givenCOSDictionarySetNameDoesNothing_when102_thenCallsSetName() {
+  void testSetVersion_givenCOSDictionarySetNameDoesNothing_thenCallsSetName() {
     // Arrange
     COSDictionary rootDictionary = mock(COSDictionary.class);
     doNothing().when(rootDictionary).setName(Mockito.<COSName>any(), Mockito.<String>any());
-    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument(), rootDictionary);
 
     // Act
-    pdDocumentCatalog.setVersion("1.0.2");
+    (new PDDocumentCatalog(new PDDocument(), rootDictionary)).setVersion("1.0.2");
 
     // Assert that nothing has changed
     verify(rootDictionary).setName(isA(COSName.class), eq("1.0.2"));
@@ -3142,371 +2037,139 @@ class PDDocumentCatalogDiffblueTest {
 
   /**
    * Test {@link PDDocumentCatalog#getPageLabels()}.
-   *
    * <ul>
-   *   <li>Given {@link PDDocumentCatalog#PDDocumentCatalog(PDDocument)} with doc is {@link
-   *       PDDocument#PDDocument()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDDocumentCatalog#PDDocumentCatalog(PDDocument)} with doc is {@link PDDocument#PDDocument()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getPageLabels()}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#getPageLabels()}
    */
   @Test
-  @DisplayName(
-      "Test getPageLabels(); given PDDocumentCatalog(PDDocument) with doc is PDDocument(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDPageLabels PDDocumentCatalog.getPageLabels()"})
-  void testGetPageLabels_givenPDDocumentCatalogWithDocIsPDDocument_thenReturnNull()
-      throws IOException {
+  @DisplayName("Test getPageLabels(); given PDDocumentCatalog(PDDocument) with doc is PDDocument(); then return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"org.apache.pdfbox.pdmodel.common.PDPageLabels PDDocumentCatalog.getPageLabels()"})
+  void testGetPageLabels_givenPDDocumentCatalogWithDocIsPDDocument_thenReturnNull() throws IOException {
     // Arrange, Act and Assert
-    assertNull(new PDDocumentCatalog(new PDDocument()).getPageLabels());
-  }
-
-  /**
-   * Test {@link PDDocumentCatalog#setPageLabels(PDPageLabels)}.
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#setPageLabels(PDPageLabels)}
-   */
-  @Test
-  @DisplayName("Test setPageLabels(PDPageLabels)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDDocumentCatalog.setPageLabels(PDPageLabels)"})
-  void testSetPageLabels() throws IOException {
-    // Arrange
-    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument());
-
-    COSDictionary cosDictionary = mock(COSDictionary.class);
-    when(cosDictionary.isDirect()).thenReturn(false);
-    when(cosDictionary.getKey()).thenReturn(new COSObjectKey(1L, 1));
-    when(cosDictionary.getUpdateState()).thenReturn(mock(COSUpdateState.class));
-
-    PDPageLabels labels = mock(PDPageLabels.class);
-    when(labels.getCOSObject()).thenReturn(cosDictionary);
-
-    // Act
-    pdDocumentCatalog.setPageLabels(labels);
-
-    // Assert
-    verify(cosDictionary, atLeast(1)).getKey();
-    verify(cosDictionary).isDirect();
-    verify(cosDictionary).getUpdateState();
-    verify(labels).getCOSObject();
-    PDPageLabels pageLabels = pdDocumentCatalog.getPageLabels();
-    COSBase cOSObject = pageLabels.getCOSObject();
-    assertTrue(cOSObject instanceof COSDictionary);
-    NavigableSet<Integer> pageIndices = pageLabels.getPageIndices();
-    assertEquals(1, pageIndices.size());
-    COSIncrement toIncrementResult = ((COSDictionary) cOSObject).toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
-    assertTrue(pageIndices.contains(0));
-    assertTrue(toIncrementResult.getObjects().isEmpty());
-  }
-
-  /**
-   * Test {@link PDDocumentCatalog#setPageLabels(PDPageLabels)}.
-   *
-   * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#getValues()} throw {@link
-   *       IllegalArgumentException#IllegalArgumentException()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#setPageLabels(PDPageLabels)}
-   */
-  @Test
-  @DisplayName(
-      "Test setPageLabels(PDPageLabels); given COSDictionary getValues() throw IllegalArgumentException()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDDocumentCatalog.setPageLabels(PDPageLabels)"})
-  void testSetPageLabels_givenCOSDictionaryGetValuesThrowIllegalArgumentException() {
-    // Arrange
-    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument());
-
-    COSDictionary updateInfo = mock(COSDictionary.class);
-    when(updateInfo.getValues()).thenThrow(new IllegalArgumentException());
-    COSUpdateState cosUpdateState = new COSUpdateState(updateInfo);
-
-    COSDictionary cosDictionary = mock(COSDictionary.class);
-    when(cosDictionary.isDirect()).thenReturn(false);
-    when(cosDictionary.getKey()).thenReturn(null);
-    when(cosDictionary.getUpdateState()).thenReturn(cosUpdateState);
-
-    PDPageLabels labels = mock(PDPageLabels.class);
-    when(labels.getCOSObject()).thenReturn(cosDictionary);
-
-    // Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> pdDocumentCatalog.setPageLabels(labels));
-    verify(cosDictionary).getKey();
-    verify(cosDictionary).isDirect();
-    verify(cosDictionary).getUpdateState();
-    verify(updateInfo).getValues();
-    verify(labels).getCOSObject();
-  }
-
-  /**
-   * Test {@link PDDocumentCatalog#setPageLabels(PDPageLabels)}.
-   *
-   * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#isDirect()} throw {@link
-   *       IllegalArgumentException#IllegalArgumentException()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#setPageLabels(PDPageLabels)}
-   */
-  @Test
-  @DisplayName(
-      "Test setPageLabels(PDPageLabels); given COSDictionary isDirect() throw IllegalArgumentException()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDDocumentCatalog.setPageLabels(PDPageLabels)"})
-  void testSetPageLabels_givenCOSDictionaryIsDirectThrowIllegalArgumentException() {
-    // Arrange
-    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument());
-
-    COSDictionary cosDictionary = mock(COSDictionary.class);
-    when(cosDictionary.isDirect()).thenThrow(new IllegalArgumentException());
-
-    PDPageLabels labels = mock(PDPageLabels.class);
-    when(labels.getCOSObject()).thenReturn(cosDictionary);
-
-    // Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> pdDocumentCatalog.setPageLabels(labels));
-    verify(cosDictionary).isDirect();
-    verify(labels).getCOSObject();
-  }
-
-  /**
-   * Test {@link PDDocumentCatalog#setPageLabels(PDPageLabels)}.
-   *
-   * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#setItem(COSName, COSObjectable)} does
-   *       nothing.
-   *   <li>Then calls {@link COSDictionary#setItem(COSName, COSObjectable)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#setPageLabels(PDPageLabels)}
-   */
-  @Test
-  @DisplayName(
-      "Test setPageLabels(PDPageLabels); given COSDictionary setItem(COSName, COSObjectable) does nothing; then calls setItem(COSName, COSObjectable)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDDocumentCatalog.setPageLabels(PDPageLabels)"})
-  void testSetPageLabels_givenCOSDictionarySetItemDoesNothing_thenCallsSetItem() {
-    // Arrange
-    COSDictionary rootDictionary = mock(COSDictionary.class);
-    doNothing().when(rootDictionary).setItem(Mockito.<COSName>any(), Mockito.<COSObjectable>any());
-    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument(), rootDictionary);
-
-    // Act
-    pdDocumentCatalog.setPageLabels(mock(PDPageLabels.class));
-
-    // Assert that nothing has changed
-    verify(rootDictionary).setItem(isA(COSName.class), isA(COSObjectable.class));
-  }
-
-  /**
-   * Test {@link PDDocumentCatalog#setPageLabels(PDPageLabels)}.
-   *
-   * <ul>
-   *   <li>Given {@link IllegalArgumentException#IllegalArgumentException()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#setPageLabels(PDPageLabels)}
-   */
-  @Test
-  @DisplayName("Test setPageLabels(PDPageLabels); given IllegalArgumentException()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDDocumentCatalog.setPageLabels(PDPageLabels)"})
-  void testSetPageLabels_givenIllegalArgumentException() {
-    // Arrange
-    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument());
-
-    PDPageLabels labels = mock(PDPageLabels.class);
-    when(labels.getCOSObject()).thenThrow(new IllegalArgumentException());
-
-    // Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> pdDocumentCatalog.setPageLabels(labels));
-    verify(labels).getCOSObject();
-  }
-
-  /**
-   * Test {@link PDDocumentCatalog#setPageLabels(PDPageLabels)}.
-   *
-   * <ul>
-   *   <li>Then calls {@link COSUpdateState#setOriginDocumentState(COSDocumentState)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#setPageLabels(PDPageLabels)}
-   */
-  @Test
-  @DisplayName(
-      "Test setPageLabels(PDPageLabels); then calls setOriginDocumentState(COSDocumentState)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDDocumentCatalog.setPageLabels(PDPageLabels)"})
-  void testSetPageLabels_thenCallsSetOriginDocumentState() throws IOException {
-    // Arrange
-    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument());
-
-    COSUpdateState cosUpdateState = mock(COSUpdateState.class);
-    doNothing().when(cosUpdateState).setOriginDocumentState(Mockito.<COSDocumentState>any());
-
-    COSDictionary cosDictionary = mock(COSDictionary.class);
-    when(cosDictionary.isDirect()).thenReturn(false);
-    when(cosDictionary.getKey()).thenReturn(null);
-    when(cosDictionary.getUpdateState()).thenReturn(cosUpdateState);
-
-    PDPageLabels labels = mock(PDPageLabels.class);
-    when(labels.getCOSObject()).thenReturn(cosDictionary);
-
-    // Act
-    pdDocumentCatalog.setPageLabels(labels);
-
-    // Assert
-    verify(cosDictionary).getKey();
-    verify(cosDictionary).isDirect();
-    verify(cosDictionary).getUpdateState();
-    verify(cosUpdateState).setOriginDocumentState(isA(COSDocumentState.class));
-    verify(labels).getCOSObject();
-    PDPageLabels pageLabels = pdDocumentCatalog.getPageLabels();
-    COSBase cOSObject = pageLabels.getCOSObject();
-    assertTrue(cOSObject instanceof COSDictionary);
-    NavigableSet<Integer> pageIndices = pageLabels.getPageIndices();
-    assertEquals(1, pageIndices.size());
-    COSIncrement toIncrementResult = ((COSDictionary) cOSObject).toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
-    assertTrue(pageIndices.contains(0));
-    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertNull((new PDDocumentCatalog(new PDDocument())).getPageLabels());
   }
 
   /**
    * Test {@link PDDocumentCatalog#getOCProperties()}.
-   *
    * <ul>
-   *   <li>Given {@link PDDocumentCatalog#PDDocumentCatalog(PDDocument)} with doc is {@link
-   *       PDDocument#PDDocument()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDDocumentCatalog#PDDocumentCatalog(PDDocument)} with doc is {@link PDDocument#PDDocument()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#getOCProperties()}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#getOCProperties()}
    */
   @Test
-  @DisplayName(
-      "Test getOCProperties(); given PDDocumentCatalog(PDDocument) with doc is PDDocument(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getOCProperties(); given PDDocumentCatalog(PDDocument) with doc is PDDocument(); then return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDOptionalContentProperties PDDocumentCatalog.getOCProperties()"})
   void testGetOCProperties_givenPDDocumentCatalogWithDocIsPDDocument_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDDocumentCatalog(new PDDocument()).getOCProperties());
+    assertNull((new PDDocumentCatalog(new PDDocument())).getOCProperties());
   }
 
   /**
    * Test {@link PDDocumentCatalog#setOCProperties(PDOptionalContentProperties)}.
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#setOCProperties(PDOptionalContentProperties)}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#setOCProperties(PDOptionalContentProperties)}
    */
   @Test
   @DisplayName("Test setOCProperties(PDOptionalContentProperties)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDDocumentCatalog.setOCProperties(PDOptionalContentProperties)"})
   void testSetOCProperties() {
     // Arrange
     COSDictionary rootDictionary = mock(COSDictionary.class);
     doNothing().when(rootDictionary).setItem(Mockito.<COSName>any(), Mockito.<COSObjectable>any());
-    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument(), rootDictionary);
-    PDOptionalContentProperties ocProperties = new PDOptionalContentProperties();
 
     // Act
-    pdDocumentCatalog.setOCProperties(ocProperties);
+    (new PDDocumentCatalog(new PDDocument(), rootDictionary)).setOCProperties(mock(PDOptionalContentProperties.class));
 
     // Assert that nothing has changed
     verify(rootDictionary).setItem(isA(COSName.class), isA(COSObjectable.class));
-    COSIncrement toIncrementResult = ocProperties.getCOSObject().toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
   }
 
   /**
    * Test {@link PDDocumentCatalog#setOCProperties(PDOptionalContentProperties)}.
-   *
    * <ul>
-   *   <li>Given {@link PDDocument} {@link PDDocument#getVersion()} return {@code 1.4}.
-   *   <li>Then calls {@link PDDocument#setVersion(float)}.
+   *   <li>Given {@link PDDocument} {@link PDDocument#getVersion()} return {@code 1.4}.</li>
+   *   <li>Then calls {@link PDDocument#setVersion(float)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#setOCProperties(PDOptionalContentProperties)}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#setOCProperties(PDOptionalContentProperties)}
    */
   @Test
-  @DisplayName(
-      "Test setOCProperties(PDOptionalContentProperties); given PDDocument getVersion() return '1.4'; then calls setVersion(float)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setOCProperties(PDOptionalContentProperties); given PDDocument getVersion() return '1.4'; then calls setVersion(float)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDDocumentCatalog.setOCProperties(PDOptionalContentProperties)"})
   void testSetOCProperties_givenPDDocumentGetVersionReturn14_thenCallsSetVersion() {
     // Arrange
     PDDocument doc = mock(PDDocument.class);
     when(doc.getVersion()).thenReturn(1.4f);
     doNothing().when(doc).setVersion(anyFloat());
-
     COSDictionary rootDictionary = mock(COSDictionary.class);
     doNothing().when(rootDictionary).setItem(Mockito.<COSName>any(), Mockito.<COSObjectable>any());
 
-    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(doc, rootDictionary);
-    PDOptionalContentProperties ocProperties = new PDOptionalContentProperties();
-
     // Act
-    pdDocumentCatalog.setOCProperties(ocProperties);
+    (new PDDocumentCatalog(doc, rootDictionary)).setOCProperties(mock(PDOptionalContentProperties.class));
 
     // Assert that nothing has changed
     verify(rootDictionary).setItem(isA(COSName.class), isA(COSObjectable.class));
     verify(doc).getVersion();
-    verify(doc).setVersion(1.5f);
-    COSIncrement toIncrementResult = ocProperties.getCOSObject().toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
+    verify(doc).setVersion(eq(1.5f));
   }
 
   /**
    * Test {@link PDDocumentCatalog#setOCProperties(PDOptionalContentProperties)}.
-   *
    * <ul>
-   *   <li>Given {@link PDDocument} {@link PDDocument#getVersion()} return ten.
-   *   <li>Then calls {@link PDDocument#getVersion()}.
+   *   <li>Given {@link PDDocument} {@link PDDocument#getVersion()} return ten.</li>
+   *   <li>Then calls {@link PDDocument#getVersion()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalog#setOCProperties(PDOptionalContentProperties)}
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#setOCProperties(PDOptionalContentProperties)}
    */
   @Test
-  @DisplayName(
-      "Test setOCProperties(PDOptionalContentProperties); given PDDocument getVersion() return ten; then calls getVersion()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setOCProperties(PDOptionalContentProperties); given PDDocument getVersion() return ten; then calls getVersion()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDDocumentCatalog.setOCProperties(PDOptionalContentProperties)"})
   void testSetOCProperties_givenPDDocumentGetVersionReturnTen_thenCallsGetVersion() {
     // Arrange
     PDDocument doc = mock(PDDocument.class);
     when(doc.getVersion()).thenReturn(10.0f);
-
     COSDictionary rootDictionary = mock(COSDictionary.class);
     doNothing().when(rootDictionary).setItem(Mockito.<COSName>any(), Mockito.<COSObjectable>any());
 
-    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(doc, rootDictionary);
-    PDOptionalContentProperties ocProperties = new PDOptionalContentProperties();
-
     // Act
-    pdDocumentCatalog.setOCProperties(ocProperties);
+    (new PDDocumentCatalog(doc, rootDictionary)).setOCProperties(mock(PDOptionalContentProperties.class));
 
     // Assert that nothing has changed
     verify(rootDictionary).setItem(isA(COSName.class), isA(COSObjectable.class));
     verify(doc).getVersion();
-    COSIncrement toIncrementResult = ocProperties.getCOSObject().toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
+  }
+
+  /**
+   * Test {@link PDDocumentCatalog#setOCProperties(PDOptionalContentProperties)}.
+   * <ul>
+   *   <li>Then throw {@link IllegalArgumentException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDDocumentCatalog#setOCProperties(PDOptionalContentProperties)}
+   */
+  @Test
+  @DisplayName("Test setOCProperties(PDOptionalContentProperties); then throw IllegalArgumentException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDDocumentCatalog.setOCProperties(PDOptionalContentProperties)"})
+  void testSetOCProperties_thenThrowIllegalArgumentException() {
+    // Arrange
+    PDDocumentCatalog pdDocumentCatalog = new PDDocumentCatalog(new PDDocument());
+    PDOptionalContentProperties ocProperties = mock(PDOptionalContentProperties.class);
+    when(ocProperties.getCOSObject()).thenThrow(new IllegalArgumentException("foo"));
+
+    // Act and Assert
+    assertThrows(IllegalArgumentException.class, () -> pdDocumentCatalog.setOCProperties(ocProperties));
+    verify(ocProperties).getCOSObject();
   }
 }

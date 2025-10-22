@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.junit.jupiter.api.DisplayName;
@@ -15,40 +14,38 @@ import org.junit.jupiter.api.Test;
 class PDTableAttributeObjectDiffblueTest {
   /**
    * Test {@link PDTableAttributeObject#PDTableAttributeObject(COSDictionary)}.
-   *
-   * <p>Method under test: {@link PDTableAttributeObject#PDTableAttributeObject(COSDictionary)}
+   * <p>
+   * Method under test: {@link PDTableAttributeObject#PDTableAttributeObject(COSDictionary)}
    */
   @Test
   @DisplayName("Test new PDTableAttributeObject(COSDictionary)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDTableAttributeObject.<init>(COSDictionary)"})
   void testNewPDTableAttributeObject() {
     // Arrange
     COSDictionary dictionary = new COSDictionary();
 
     // Act and Assert
-    assertSame(dictionary, new PDTableAttributeObject(dictionary).getCOSObject());
+    assertSame(dictionary, (new PDTableAttributeObject(dictionary)).getCOSObject());
   }
 
   /**
    * Test {@link PDTableAttributeObject#PDTableAttributeObject()}.
-   *
-   * <p>Method under test: {@link PDTableAttributeObject#PDTableAttributeObject()}
+   * <p>
+   * Method under test: {@link PDTableAttributeObject#PDTableAttributeObject()}
    */
   @Test
   @DisplayName("Test new PDTableAttributeObject()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDTableAttributeObject.<init>()"})
   void testNewPDTableAttributeObject2() {
     // Arrange and Act
     PDTableAttributeObject actualPdTableAttributeObject = new PDTableAttributeObject();
 
     // Assert
+    assertNull(actualPdTableAttributeObject.getHeaders());
     assertNull(actualPdTableAttributeObject.getScope());
     assertNull(actualPdTableAttributeObject.getSummary());
-    assertNull(actualPdTableAttributeObject.getHeaders());
     COSDictionary cOSObject = actualPdTableAttributeObject.getCOSObject();
     assertNull(cOSObject.getKey());
     assertEquals(1, cOSObject.getValues().size());
@@ -63,38 +60,33 @@ class PDTableAttributeObjectDiffblueTest {
 
   /**
    * Test {@link PDTableAttributeObject#getRowSpan()}.
-   *
    * <ul>
-   *   <li>Given {@link PDTableAttributeObject#PDTableAttributeObject()}.
-   *   <li>Then return one.
+   *   <li>Given {@link PDTableAttributeObject#PDTableAttributeObject()}.</li>
+   *   <li>Then return one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDTableAttributeObject#getRowSpan()}
+   * <p>
+   * Method under test: {@link PDTableAttributeObject#getRowSpan()}
    */
   @Test
   @DisplayName("Test getRowSpan(); given PDTableAttributeObject(); then return one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int PDTableAttributeObject.getRowSpan()"})
   void testGetRowSpan_givenPDTableAttributeObject_thenReturnOne() {
     // Arrange, Act and Assert
-    assertEquals(1, new PDTableAttributeObject().getRowSpan());
+    assertEquals(1, (new PDTableAttributeObject()).getRowSpan());
   }
 
   /**
    * Test {@link PDTableAttributeObject#setRowSpan(int)}.
-   *
    * <ul>
-   *   <li>Then {@link PDTableAttributeObject#PDTableAttributeObject()} COSObject Values size is
-   *       two.
+   *   <li>Then {@link PDTableAttributeObject#PDTableAttributeObject()} COSObject Values size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDTableAttributeObject#setRowSpan(int)}
+   * <p>
+   * Method under test: {@link PDTableAttributeObject#setRowSpan(int)}
    */
   @Test
   @DisplayName("Test setRowSpan(int); then PDTableAttributeObject() COSObject Values size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDTableAttributeObject.setRowSpan(int)"})
   void testSetRowSpan_thenPDTableAttributeObjectCOSObjectValuesSizeIsTwo() {
     // Arrange
@@ -112,38 +104,33 @@ class PDTableAttributeObjectDiffblueTest {
 
   /**
    * Test {@link PDTableAttributeObject#getColSpan()}.
-   *
    * <ul>
-   *   <li>Given {@link PDTableAttributeObject#PDTableAttributeObject()}.
-   *   <li>Then return one.
+   *   <li>Given {@link PDTableAttributeObject#PDTableAttributeObject()}.</li>
+   *   <li>Then return one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDTableAttributeObject#getColSpan()}
+   * <p>
+   * Method under test: {@link PDTableAttributeObject#getColSpan()}
    */
   @Test
   @DisplayName("Test getColSpan(); given PDTableAttributeObject(); then return one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int PDTableAttributeObject.getColSpan()"})
   void testGetColSpan_givenPDTableAttributeObject_thenReturnOne() {
     // Arrange, Act and Assert
-    assertEquals(1, new PDTableAttributeObject().getColSpan());
+    assertEquals(1, (new PDTableAttributeObject()).getColSpan());
   }
 
   /**
    * Test {@link PDTableAttributeObject#setColSpan(int)}.
-   *
    * <ul>
-   *   <li>Then {@link PDTableAttributeObject#PDTableAttributeObject()} COSObject Values size is
-   *       two.
+   *   <li>Then {@link PDTableAttributeObject#PDTableAttributeObject()} COSObject Values size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDTableAttributeObject#setColSpan(int)}
+   * <p>
+   * Method under test: {@link PDTableAttributeObject#setColSpan(int)}
    */
   @Test
   @DisplayName("Test setColSpan(int); then PDTableAttributeObject() COSObject Values size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDTableAttributeObject.setColSpan(int)"})
   void testSetColSpan_thenPDTableAttributeObjectCOSObjectValuesSizeIsTwo() {
     // Arrange
@@ -161,46 +148,40 @@ class PDTableAttributeObjectDiffblueTest {
 
   /**
    * Test {@link PDTableAttributeObject#getHeaders()}.
-   *
    * <ul>
-   *   <li>Given {@link PDTableAttributeObject#PDTableAttributeObject()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDTableAttributeObject#PDTableAttributeObject()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDTableAttributeObject#getHeaders()}
+   * <p>
+   * Method under test: {@link PDTableAttributeObject#getHeaders()}
    */
   @Test
   @DisplayName("Test getHeaders(); given PDTableAttributeObject(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String[] PDTableAttributeObject.getHeaders()"})
   void testGetHeaders_givenPDTableAttributeObject_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDTableAttributeObject().getHeaders());
+    assertNull((new PDTableAttributeObject()).getHeaders());
   }
 
   /**
    * Test {@link PDTableAttributeObject#setHeaders(String[])}.
-   *
    * <ul>
-   *   <li>Then {@link PDTableAttributeObject#PDTableAttributeObject()} COSObject Values size is
-   *       two.
+   *   <li>Then {@link PDTableAttributeObject#PDTableAttributeObject()} COSObject Values size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDTableAttributeObject#setHeaders(String[])}
+   * <p>
+   * Method under test: {@link PDTableAttributeObject#setHeaders(String[])}
    */
   @Test
-  @DisplayName(
-      "Test setHeaders(String[]); then PDTableAttributeObject() COSObject Values size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setHeaders(String[]); then PDTableAttributeObject() COSObject Values size is two")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDTableAttributeObject.setHeaders(String[])"})
   void testSetHeaders_thenPDTableAttributeObjectCOSObjectValuesSizeIsTwo() {
     // Arrange
     PDTableAttributeObject pdTableAttributeObject = new PDTableAttributeObject();
 
     // Act
-    pdTableAttributeObject.setHeaders(new String[] {"Headers"});
+    pdTableAttributeObject.setHeaders(new String[]{"Headers"});
 
     // Assert
     COSDictionary cOSObject = pdTableAttributeObject.getCOSObject();
@@ -211,39 +192,34 @@ class PDTableAttributeObjectDiffblueTest {
 
   /**
    * Test {@link PDTableAttributeObject#getScope()}.
-   *
    * <ul>
-   *   <li>Given {@link PDTableAttributeObject#PDTableAttributeObject()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDTableAttributeObject#PDTableAttributeObject()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDTableAttributeObject#getScope()}
+   * <p>
+   * Method under test: {@link PDTableAttributeObject#getScope()}
    */
   @Test
   @DisplayName("Test getScope(); given PDTableAttributeObject(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDTableAttributeObject.getScope()"})
   void testGetScope_givenPDTableAttributeObject_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDTableAttributeObject().getScope());
+    assertNull((new PDTableAttributeObject()).getScope());
   }
 
   /**
    * Test {@link PDTableAttributeObject#setScope(String)}.
-   *
    * <ul>
-   *   <li>Given {@link PDTableAttributeObject#PDTableAttributeObject()}.
-   *   <li>Then {@link PDTableAttributeObject#PDTableAttributeObject()} Scope is {@code Scope}.
+   *   <li>Given {@link PDTableAttributeObject#PDTableAttributeObject()}.</li>
+   *   <li>Then {@link PDTableAttributeObject#PDTableAttributeObject()} Scope is {@code Scope}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDTableAttributeObject#setScope(String)}
+   * <p>
+   * Method under test: {@link PDTableAttributeObject#setScope(String)}
    */
   @Test
-  @DisplayName(
-      "Test setScope(String); given PDTableAttributeObject(); then PDTableAttributeObject() Scope is 'Scope'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setScope(String); given PDTableAttributeObject(); then PDTableAttributeObject() Scope is 'Scope'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDTableAttributeObject.setScope(String)"})
   void testSetScope_givenPDTableAttributeObject_thenPDTableAttributeObjectScopeIsScope() {
     // Arrange
@@ -262,37 +238,33 @@ class PDTableAttributeObjectDiffblueTest {
 
   /**
    * Test {@link PDTableAttributeObject#getSummary()}.
-   *
    * <ul>
-   *   <li>Given {@link PDTableAttributeObject#PDTableAttributeObject()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDTableAttributeObject#PDTableAttributeObject()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDTableAttributeObject#getSummary()}
+   * <p>
+   * Method under test: {@link PDTableAttributeObject#getSummary()}
    */
   @Test
   @DisplayName("Test getSummary(); given PDTableAttributeObject(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDTableAttributeObject.getSummary()"})
   void testGetSummary_givenPDTableAttributeObject_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDTableAttributeObject().getSummary());
+    assertNull((new PDTableAttributeObject()).getSummary());
   }
 
   /**
    * Test {@link PDTableAttributeObject#setSummary(String)}.
-   *
    * <ul>
-   *   <li>Then {@link PDTableAttributeObject#PDTableAttributeObject()} Summary is {@code Summary}.
+   *   <li>Then {@link PDTableAttributeObject#PDTableAttributeObject()} Summary is {@code Summary}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDTableAttributeObject#setSummary(String)}
+   * <p>
+   * Method under test: {@link PDTableAttributeObject#setSummary(String)}
    */
   @Test
   @DisplayName("Test setSummary(String); then PDTableAttributeObject() Summary is 'Summary'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDTableAttributeObject.setSummary(String)"})
   void testSetSummary_thenPDTableAttributeObjectSummaryIsSummary() {
     // Arrange
@@ -311,21 +283,19 @@ class PDTableAttributeObjectDiffblueTest {
 
   /**
    * Test {@link PDTableAttributeObject#toString()}.
-   *
    * <ul>
-   *   <li>Given {@link PDTableAttributeObject#PDTableAttributeObject()}.
-   *   <li>Then return {@code O=Table}.
+   *   <li>Given {@link PDTableAttributeObject#PDTableAttributeObject()}.</li>
+   *   <li>Then return {@code O=Table}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDTableAttributeObject#toString()}
+   * <p>
+   * Method under test: {@link PDTableAttributeObject#toString()}
    */
   @Test
   @DisplayName("Test toString(); given PDTableAttributeObject(); then return 'O=Table'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDTableAttributeObject.toString()"})
   void testToString_givenPDTableAttributeObject_thenReturnOTable() {
     // Arrange, Act and Assert
-    assertEquals("O=Table", new PDTableAttributeObject().toString());
+    assertEquals("O=Table", (new PDTableAttributeObject()).toString());
   }
 }

@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import org.apache.pdfbox.cos.COSArray;
@@ -19,18 +18,15 @@ import org.junit.jupiter.api.Test;
 class PDLineDashPatternDiffblueTest {
   /**
    * Test {@link PDLineDashPattern#PDLineDashPattern(COSArray, int)}.
-   *
    * <ul>
-   *   <li>Then return COSObject toList first toList size is one.
+   *   <li>Then return COSObject toList first toList size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDLineDashPattern#PDLineDashPattern(COSArray, int)}
+   * <p>
+   * Method under test: {@link PDLineDashPattern#PDLineDashPattern(COSArray, int)}
    */
   @Test
-  @DisplayName(
-      "Test new PDLineDashPattern(COSArray, int); then return COSObject toList first toList size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new PDLineDashPattern(COSArray, int); then return COSObject toList first toList size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDLineDashPattern.<init>(COSArray, int)"})
   void testNewPDLineDashPattern_thenReturnCOSObjectToListFirstToListSizeIsOne() {
     // Arrange
@@ -53,24 +49,21 @@ class PDLineDashPatternDiffblueTest {
     assertTrue(getResult2 instanceof COSFloat);
     assertNull(getResult2.getKey());
     assertFalse(getResult2.isDirect());
-    assertArrayEquals(new float[] {0.0f}, actualPdLineDashPattern.getDashArray(), 0.0f);
+    assertArrayEquals(new float[]{0.0f}, actualPdLineDashPattern.getDashArray(), 0.0f);
   }
 
   /**
    * Test {@link PDLineDashPattern#getCOSObject()}.
-   *
    * <ul>
-   *   <li>Given {@link COSArray#COSArray()} add {@link COSBoolean#FALSE}.
-   *   <li>Then return toList first toList size is one.
+   *   <li>Given {@link COSArray#COSArray()} add {@link COSBoolean#FALSE}.</li>
+   *   <li>Then return toList first toList size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDLineDashPattern#getCOSObject()}
+   * <p>
+   * Method under test: {@link PDLineDashPattern#getCOSObject()}
    */
   @Test
-  @DisplayName(
-      "Test getCOSObject(); given COSArray() add FALSE; then return toList first toList size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getCOSObject(); given COSArray() add FALSE; then return toList first toList size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSBase PDLineDashPattern.getCOSObject()"})
   void testGetCOSObject_givenCOSArrayAddFalse_thenReturnToListFirstToListSizeIsOne() {
     // Arrange
@@ -78,7 +71,7 @@ class PDLineDashPatternDiffblueTest {
     array.add(COSBoolean.FALSE);
 
     // Act
-    COSBase actualCOSObject = new PDLineDashPattern(array, 1).getCOSObject();
+    COSBase actualCOSObject = (new PDLineDashPattern(array, 1)).getCOSObject();
 
     // Assert
     List<? extends COSBase> toListResult = ((COSArray) actualCOSObject).toList();
@@ -96,9 +89,8 @@ class PDLineDashPatternDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link PDLineDashPattern#toString()}
    *   <li>{@link PDLineDashPattern#getPhase()}
@@ -106,8 +98,7 @@ class PDLineDashPatternDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int PDLineDashPattern.getPhase()", "String PDLineDashPattern.toString()"})
   void testGettersAndSetters() {
     // Arrange
@@ -123,16 +114,15 @@ class PDLineDashPatternDiffblueTest {
 
   /**
    * Test {@link PDLineDashPattern#getDashArray()}.
-   *
-   * <p>Method under test: {@link PDLineDashPattern#getDashArray()}
+   * <p>
+   * Method under test: {@link PDLineDashPattern#getDashArray()}
    */
   @Test
   @DisplayName("Test getDashArray()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"float[] PDLineDashPattern.getDashArray()"})
   void testGetDashArray() {
     // Arrange, Act and Assert
-    assertArrayEquals(new float[] {}, new PDLineDashPattern().getDashArray(), 0.0f);
+    assertArrayEquals(new float[]{}, (new PDLineDashPattern()).getDashArray(), 0.0f);
   }
 }

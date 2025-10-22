@@ -8,19 +8,18 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.ArgumentMatchers.isNull;
-import static org.mockito.Mockito.anyBoolean;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.geom.AffineTransform;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import org.apache.pdfbox.cos.COSArray;
@@ -35,18 +34,21 @@ import org.apache.pdfbox.cos.COSObjectKey;
 import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.cos.COSUpdateState;
 import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDDocumentCatalog;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDResources;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.common.PDStream;
-import org.apache.pdfbox.pdmodel.documentinterchange.markedcontent.PDPropertyList;
+import org.apache.pdfbox.pdmodel.font.PDMMType1Font;
 import org.apache.pdfbox.pdmodel.graphics.form.PDFormXObject;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
+import org.apache.pdfbox.pdmodel.graphics.state.PDExtendedGraphicsState;
 import org.apache.pdfbox.pdmodel.interactive.annotation.PDAnnotation;
 import org.apache.pdfbox.pdmodel.interactive.annotation.PDAnnotationCaret;
 import org.apache.pdfbox.pdmodel.interactive.annotation.PDAnnotationCircle;
 import org.apache.pdfbox.pdmodel.interactive.annotation.PDAnnotationFileAttachment;
 import org.apache.pdfbox.pdmodel.interactive.annotation.PDAnnotationFreeText;
+import org.apache.pdfbox.pdmodel.interactive.annotation.PDAnnotationHighlight;
 import org.apache.pdfbox.pdmodel.interactive.annotation.PDAnnotationWidget;
 import org.apache.pdfbox.pdmodel.interactive.digitalsignature.PDSignature;
 import org.apache.pdfbox.pdmodel.interactive.form.PDAcroForm;
@@ -60,17 +62,16 @@ import org.mockito.Mockito;
 class PDVisibleSigBuilderDiffblueTest {
   /**
    * Test new {@link PDVisibleSigBuilder} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link PDVisibleSigBuilder}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link PDVisibleSigBuilder}
    */
   @Test
   @DisplayName("Test new PDVisibleSigBuilder (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDVisibleSigBuilder.<init>()"})
   void testNewPDVisibleSigBuilder() {
     // Arrange, Act and Assert
-    PDFTemplateStructure structure = new PDVisibleSigBuilder().getStructure();
+    PDFTemplateStructure structure = (new PDVisibleSigBuilder()).getStructure();
     assertNull(structure.getAffineTransform());
     assertNull(structure.getAcroFormFields());
     assertNull(structure.getProcSet());
@@ -101,18 +102,133 @@ class PDVisibleSigBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link PDVisibleSigBuilder#createAcroForm(PDDocument)}.
-   *
+   * Test {@link PDVisibleSigBuilder#createTemplate(PDPage)}.
    * <ul>
-   *   <li>When {@link PDDocument#PDDocument()}.
+   *   <li>Then {@link PDPage#PDPage()} COSObject toIncrement iterator next {@link COSDictionary}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#createAcroForm(PDDocument)}
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#createTemplate(PDPage)}
+   */
+  @Test
+  @DisplayName("Test createTemplate(PDPage); then PDPage() COSObject toIncrement iterator next COSDictionary")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDVisibleSigBuilder.createTemplate(PDPage)"})
+  void testCreateTemplate_thenPDPageCOSObjectToIncrementIteratorNextCOSDictionary() throws IOException {
+    // Arrange
+    PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
+    PDPage page = new PDPage();
+
+    // Act
+    pdVisibleSigBuilder.createTemplate(page);
+
+    // Assert
+    Iterator<COSBase> iteratorResult = page.getCOSObject().toIncrement().iterator();
+    COSBase nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof COSDictionary);
+    assertTrue(iteratorResult.hasNext());
+    assertTrue(((COSDictionary) nextResult).toIncrement().iterator().hasNext());
+  }
+
+  /**
+   * Test {@link PDVisibleSigBuilder#createAcroForm(PDDocument)}.
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#createAcroForm(PDDocument)}
+   */
+  @Test
+  @DisplayName("Test createAcroForm(PDDocument)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDVisibleSigBuilder.createAcroForm(PDDocument)"})
+  void testCreateAcroForm() {
+    // Arrange
+    PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
+    PDDocumentCatalog pdDocumentCatalog = mock(PDDocumentCatalog.class);
+    doNothing().when(pdDocumentCatalog).setAcroForm(Mockito.<PDAcroForm>any());
+    PDDocument template = mock(PDDocument.class);
+    when(template.getDocumentCatalog()).thenReturn(pdDocumentCatalog);
+    doNothing().when(template).addPage(Mockito.<PDPage>any());
+    template.addPage(new PDPage());
+
+    // Act
+    pdVisibleSigBuilder.createAcroForm(template);
+
+    // Assert
+    verify(template).addPage(isA(PDPage.class));
+    verify(template).getDocumentCatalog();
+    verify(pdDocumentCatalog).setAcroForm(isA(PDAcroForm.class));
+    PDAcroForm acroForm = pdVisibleSigBuilder.getStructure().getAcroForm();
+    assertEquals("", acroForm.getDefaultAppearance());
+    COSDictionary cOSObject = acroForm.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(acroForm.getDefaultResources());
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(acroForm.getCalcOrder().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+  }
+
+  /**
+   * Test {@link PDVisibleSigBuilder#createAcroForm(PDDocument)}.
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#createAcroForm(PDDocument)}
+   */
+  @Test
+  @DisplayName("Test createAcroForm(PDDocument)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDVisibleSigBuilder.createAcroForm(PDDocument)"})
+  void testCreateAcroForm2() throws IOException {
+    // Arrange
+    PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
+    pdVisibleSigBuilder.appendRawCommands(new ByteArrayOutputStream(1), "org.apache.logging.log4j.util.StackLocator");
+    PDDocumentCatalog pdDocumentCatalog = mock(PDDocumentCatalog.class);
+    doNothing().when(pdDocumentCatalog).setAcroForm(Mockito.<PDAcroForm>any());
+    PDDocument template = mock(PDDocument.class);
+    when(template.getDocumentCatalog()).thenReturn(pdDocumentCatalog);
+    doNothing().when(template).addPage(Mockito.<PDPage>any());
+    template.addPage(null);
+
+    // Act
+    pdVisibleSigBuilder.createAcroForm(template);
+
+    // Assert
+    verify(template).addPage(isNull());
+    verify(template).getDocumentCatalog();
+    verify(pdDocumentCatalog).setAcroForm(isA(PDAcroForm.class));
+    PDAcroForm acroForm = pdVisibleSigBuilder.getStructure().getAcroForm();
+    assertEquals("", acroForm.getDefaultAppearance());
+    COSDictionary cOSObject = acroForm.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(acroForm.getDefaultResources());
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(acroForm.getCalcOrder().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+  }
+
+  /**
+   * Test {@link PDVisibleSigBuilder#createAcroForm(PDDocument)}.
+   * <ul>
+   *   <li>When {@link PDDocument#PDDocument()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#createAcroForm(PDDocument)}
    */
   @Test
   @DisplayName("Test createAcroForm(PDDocument); when PDDocument()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDVisibleSigBuilder.createAcroForm(PDDocument)"})
   void testCreateAcroForm_whenPDDocument() {
     // Arrange
@@ -128,41 +244,30 @@ class PDVisibleSigBuilderDiffblueTest {
     PDAcroForm acroForm2 = pdVisibleSigBuilder.getStructure().getAcroForm();
     assertEquals("/Helv 0 Tf 0 g ", acroForm2.getDefaultAppearance());
     assertNull(acroForm.getXFA());
-    assertNull(acroForm2.getXFA());
     assertNull(acroForm.getScriptingHandler());
-    assertNull(acroForm2.getScriptingHandler());
     assertEquals(0, acroForm.getQ());
-    assertEquals(0, acroForm2.getQ());
     assertFalse(acroForm.getFieldIterator().hasNext());
-    assertFalse(acroForm2.getFieldIterator().hasNext());
     assertFalse(acroForm.getNeedAppearances());
-    assertFalse(acroForm2.getNeedAppearances());
     assertFalse(acroForm.isAppendOnly());
-    assertFalse(acroForm2.isAppendOnly());
     assertFalse(acroForm.isCachingFields());
-    assertFalse(acroForm2.isCachingFields());
     assertFalse(acroForm.isSignaturesExist());
-    assertFalse(acroForm2.isSignaturesExist());
     List<PDField> calcOrder = acroForm.getCalcOrder();
     assertTrue(calcOrder.isEmpty());
     assertTrue(acroForm.getFields().isEmpty());
-    assertTrue(acroForm2.getFields().isEmpty());
     assertSame(calcOrder, acroForm2.getCalcOrder());
   }
 
   /**
    * Test {@link PDVisibleSigBuilder#createAcroForm(PDDocument)}.
-   *
    * <ul>
-   *   <li>When {@link PDDocument#PDDocument()} addPage {@link PDPage#PDPage()}.
+   *   <li>When {@link PDDocument#PDDocument()} addPage {@link PDPage#PDPage()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#createAcroForm(PDDocument)}
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#createAcroForm(PDDocument)}
    */
   @Test
   @DisplayName("Test createAcroForm(PDDocument); when PDDocument() addPage PDPage()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDVisibleSigBuilder.createAcroForm(PDDocument)"})
   void testCreateAcroForm_whenPDDocumentAddPagePDPage() {
     // Arrange
@@ -180,41 +285,31 @@ class PDVisibleSigBuilderDiffblueTest {
     PDAcroForm acroForm2 = pdVisibleSigBuilder.getStructure().getAcroForm();
     assertEquals("/Helv 0 Tf 0 g ", acroForm2.getDefaultAppearance());
     assertNull(acroForm.getXFA());
-    assertNull(acroForm2.getXFA());
     assertNull(acroForm.getScriptingHandler());
-    assertNull(acroForm2.getScriptingHandler());
     assertEquals(0, acroForm.getQ());
-    assertEquals(0, acroForm2.getQ());
     assertFalse(acroForm.getFieldIterator().hasNext());
-    assertFalse(acroForm2.getFieldIterator().hasNext());
     assertFalse(acroForm.getNeedAppearances());
-    assertFalse(acroForm2.getNeedAppearances());
     assertFalse(acroForm.isAppendOnly());
-    assertFalse(acroForm2.isAppendOnly());
     assertFalse(acroForm.isCachingFields());
-    assertFalse(acroForm2.isCachingFields());
     assertFalse(acroForm.isSignaturesExist());
-    assertFalse(acroForm2.isSignaturesExist());
     List<PDField> calcOrder = acroForm.getCalcOrder();
     assertTrue(calcOrder.isEmpty());
     assertTrue(acroForm.getFields().isEmpty());
-    assertTrue(acroForm2.getFields().isEmpty());
     assertSame(calcOrder, acroForm2.getCalcOrder());
   }
 
   /**
    * Test {@link PDVisibleSigBuilder#getStructure()}.
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#getStructure()}
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#getStructure()}
    */
   @Test
   @DisplayName("Test getStructure()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDFTemplateStructure PDVisibleSigBuilder.getStructure()"})
   void testGetStructure() {
     // Arrange and Act
-    PDFTemplateStructure actualStructure = new PDVisibleSigBuilder().getStructure();
+    PDFTemplateStructure actualStructure = (new PDVisibleSigBuilder()).getStructure();
 
     // Assert
     assertNull(actualStructure.getAffineTransform());
@@ -248,13 +343,12 @@ class PDVisibleSigBuilderDiffblueTest {
 
   /**
    * Test {@link PDVisibleSigBuilder#createSignatureField(PDAcroForm)}.
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#createSignatureField(PDAcroForm)}
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#createSignatureField(PDAcroForm)}
    */
   @Test
   @DisplayName("Test createSignatureField(PDAcroForm)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDVisibleSigBuilder.createSignatureField(PDAcroForm)"})
   void testCreateSignatureField() throws IOException {
     // Arrange
@@ -288,13 +382,12 @@ class PDVisibleSigBuilderDiffblueTest {
 
   /**
    * Test {@link PDVisibleSigBuilder#createSignatureField(PDAcroForm)}.
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#createSignatureField(PDAcroForm)}
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#createSignatureField(PDAcroForm)}
    */
   @Test
   @DisplayName("Test createSignatureField(PDAcroForm)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDVisibleSigBuilder.createSignatureField(PDAcroForm)"})
   void testCreateSignatureField2() throws IOException {
     // Arrange
@@ -329,18 +422,15 @@ class PDVisibleSigBuilderDiffblueTest {
 
   /**
    * Test {@link PDVisibleSigBuilder#createSignature(PDSignatureField, PDPage, String)}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()}.
+   *   <li>Given {@link ArrayList#ArrayList()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#createSignature(PDSignatureField, PDPage,
-   * String)}
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#createSignature(PDSignatureField, PDPage, String)}
    */
   @Test
   @DisplayName("Test createSignature(PDSignatureField, PDPage, String); given ArrayList()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDVisibleSigBuilder.createSignature(PDSignatureField, PDPage, String)"})
   void testCreateSignature_givenArrayList() throws IOException {
     // Arrange
@@ -359,34 +449,30 @@ class PDVisibleSigBuilderDiffblueTest {
     float[][] values = widgets.get(0).getPage().getMatrix().getValues();
     assertEquals(3, values.length);
     PDSignature pdSignature = pdVisibleSigBuilder.getStructure().getPdSignature();
-    assertArrayEquals(new byte[] {}, pdSignature.getContents());
+    assertArrayEquals(new byte[]{}, pdSignature.getContents());
     PDSignature signature = pdSignatureField.getSignature();
-    assertArrayEquals(new byte[] {}, signature.getContents());
+    assertArrayEquals(new byte[]{}, signature.getContents());
     PDSignature value = pdSignatureField.getValue();
-    assertArrayEquals(new byte[] {}, value.getContents());
-    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
-    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
-    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
-    assertArrayEquals(new int[] {}, pdSignature.getByteRange());
-    assertArrayEquals(new int[] {}, signature.getByteRange());
-    assertArrayEquals(new int[] {}, value.getByteRange());
+    assertArrayEquals(new byte[]{}, value.getContents());
+    assertArrayEquals(new float[]{0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[]{0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[]{1.0f, 0.0f, 0.0f}, values[0], 0.0f);
+    assertArrayEquals(new int[]{}, pdSignature.getByteRange());
+    assertArrayEquals(new int[]{}, signature.getByteRange());
+    assertArrayEquals(new int[]{}, value.getByteRange());
   }
 
   /**
    * Test {@link PDVisibleSigBuilder#createSignature(PDSignatureField, PDPage, String)}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDAnnotationCaret#PDAnnotationCaret()}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDAnnotationCaret#PDAnnotationCaret()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#createSignature(PDSignatureField, PDPage,
-   * String)}
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#createSignature(PDSignatureField, PDPage, String)}
    */
   @Test
-  @DisplayName(
-      "Test createSignature(PDSignatureField, PDPage, String); given ArrayList() add PDAnnotationCaret()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test createSignature(PDSignatureField, PDPage, String); given ArrayList() add PDAnnotationCaret()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDVisibleSigBuilder.createSignature(PDSignatureField, PDPage, String)"})
   void testCreateSignature_givenArrayListAddPDAnnotationCaret() throws IOException {
     // Arrange
@@ -404,36 +490,29 @@ class PDVisibleSigBuilderDiffblueTest {
 
     // Assert
     PDSignature pdSignature = pdVisibleSigBuilder.getStructure().getPdSignature();
-    assertArrayEquals(new byte[] {}, pdSignature.getContents());
+    assertArrayEquals(new byte[]{}, pdSignature.getContents());
     PDSignature signature = pdSignatureField.getSignature();
-    assertArrayEquals(new byte[] {}, signature.getContents());
+    assertArrayEquals(new byte[]{}, signature.getContents());
     PDSignature value = pdSignatureField.getValue();
-    assertArrayEquals(new byte[] {}, value.getContents());
-    assertArrayEquals(new int[] {}, pdSignature.getByteRange());
-    assertArrayEquals(new int[] {}, signature.getByteRange());
-    assertArrayEquals(new int[] {}, value.getByteRange());
+    assertArrayEquals(new byte[]{}, value.getContents());
+    assertArrayEquals(new int[]{}, pdSignature.getByteRange());
+    assertArrayEquals(new int[]{}, signature.getByteRange());
+    assertArrayEquals(new int[]{}, value.getByteRange());
   }
 
   /**
    * Test {@link PDVisibleSigBuilder#createSignature(PDSignatureField, PDPage, String)}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link
-   *       PDAnnotationCaret#PDAnnotationCaret(COSDictionary)} with field is {@link
-   *       COSDictionary#COSDictionary()}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDAnnotationCaret#PDAnnotationCaret(COSDictionary)} with field is {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#createSignature(PDSignatureField, PDPage,
-   * String)}
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#createSignature(PDSignatureField, PDPage, String)}
    */
   @Test
-  @DisplayName(
-      "Test createSignature(PDSignatureField, PDPage, String); given ArrayList() add PDAnnotationCaret(COSDictionary) with field is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test createSignature(PDSignatureField, PDPage, String); given ArrayList() add PDAnnotationCaret(COSDictionary) with field is COSDictionary()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDVisibleSigBuilder.createSignature(PDSignatureField, PDPage, String)"})
-  void testCreateSignature_givenArrayListAddPDAnnotationCaretWithFieldIsCOSDictionary()
-      throws IOException {
+  void testCreateSignature_givenArrayListAddPDAnnotationCaretWithFieldIsCOSDictionary() throws IOException {
     // Arrange
     PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
     PDSignatureField pdSignatureField = new PDSignatureField(new PDAcroForm(new PDDocument()));
@@ -449,31 +528,27 @@ class PDVisibleSigBuilderDiffblueTest {
 
     // Assert
     PDSignature pdSignature = pdVisibleSigBuilder.getStructure().getPdSignature();
-    assertArrayEquals(new byte[] {}, pdSignature.getContents());
+    assertArrayEquals(new byte[]{}, pdSignature.getContents());
     PDSignature signature = pdSignatureField.getSignature();
-    assertArrayEquals(new byte[] {}, signature.getContents());
+    assertArrayEquals(new byte[]{}, signature.getContents());
     PDSignature value = pdSignatureField.getValue();
-    assertArrayEquals(new byte[] {}, value.getContents());
-    assertArrayEquals(new int[] {}, pdSignature.getByteRange());
-    assertArrayEquals(new int[] {}, signature.getByteRange());
-    assertArrayEquals(new int[] {}, value.getByteRange());
+    assertArrayEquals(new byte[]{}, value.getContents());
+    assertArrayEquals(new int[]{}, pdSignature.getByteRange());
+    assertArrayEquals(new int[]{}, signature.getByteRange());
+    assertArrayEquals(new int[]{}, value.getByteRange());
   }
 
   /**
    * Test {@link PDVisibleSigBuilder#createSignature(PDSignatureField, PDPage, String)}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDAnnotationCircle#PDAnnotationCircle()}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDAnnotationCircle#PDAnnotationCircle()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#createSignature(PDSignatureField, PDPage,
-   * String)}
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#createSignature(PDSignatureField, PDPage, String)}
    */
   @Test
-  @DisplayName(
-      "Test createSignature(PDSignatureField, PDPage, String); given ArrayList() add PDAnnotationCircle()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test createSignature(PDSignatureField, PDPage, String); given ArrayList() add PDAnnotationCircle()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDVisibleSigBuilder.createSignature(PDSignatureField, PDPage, String)"})
   void testCreateSignature_givenArrayListAddPDAnnotationCircle() throws IOException {
     // Arrange
@@ -491,32 +566,27 @@ class PDVisibleSigBuilderDiffblueTest {
 
     // Assert
     PDSignature pdSignature = pdVisibleSigBuilder.getStructure().getPdSignature();
-    assertArrayEquals(new byte[] {}, pdSignature.getContents());
+    assertArrayEquals(new byte[]{}, pdSignature.getContents());
     PDSignature signature = pdSignatureField.getSignature();
-    assertArrayEquals(new byte[] {}, signature.getContents());
+    assertArrayEquals(new byte[]{}, signature.getContents());
     PDSignature value = pdSignatureField.getValue();
-    assertArrayEquals(new byte[] {}, value.getContents());
-    assertArrayEquals(new int[] {}, pdSignature.getByteRange());
-    assertArrayEquals(new int[] {}, signature.getByteRange());
-    assertArrayEquals(new int[] {}, value.getByteRange());
+    assertArrayEquals(new byte[]{}, value.getContents());
+    assertArrayEquals(new int[]{}, pdSignature.getByteRange());
+    assertArrayEquals(new int[]{}, signature.getByteRange());
+    assertArrayEquals(new int[]{}, value.getByteRange());
   }
 
   /**
    * Test {@link PDVisibleSigBuilder#createSignature(PDSignatureField, PDPage, String)}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link
-   *       PDAnnotationFileAttachment#PDAnnotationFileAttachment()}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDAnnotationFileAttachment#PDAnnotationFileAttachment()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#createSignature(PDSignatureField, PDPage,
-   * String)}
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#createSignature(PDSignatureField, PDPage, String)}
    */
   @Test
-  @DisplayName(
-      "Test createSignature(PDSignatureField, PDPage, String); given ArrayList() add PDAnnotationFileAttachment()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test createSignature(PDSignatureField, PDPage, String); given ArrayList() add PDAnnotationFileAttachment()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDVisibleSigBuilder.createSignature(PDSignatureField, PDPage, String)"})
   void testCreateSignature_givenArrayListAddPDAnnotationFileAttachment() throws IOException {
     // Arrange
@@ -534,32 +604,27 @@ class PDVisibleSigBuilderDiffblueTest {
 
     // Assert
     PDSignature pdSignature = pdVisibleSigBuilder.getStructure().getPdSignature();
-    assertArrayEquals(new byte[] {}, pdSignature.getContents());
+    assertArrayEquals(new byte[]{}, pdSignature.getContents());
     PDSignature signature = pdSignatureField.getSignature();
-    assertArrayEquals(new byte[] {}, signature.getContents());
+    assertArrayEquals(new byte[]{}, signature.getContents());
     PDSignature value = pdSignatureField.getValue();
-    assertArrayEquals(new byte[] {}, value.getContents());
-    assertArrayEquals(new int[] {}, pdSignature.getByteRange());
-    assertArrayEquals(new int[] {}, signature.getByteRange());
-    assertArrayEquals(new int[] {}, value.getByteRange());
+    assertArrayEquals(new byte[]{}, value.getContents());
+    assertArrayEquals(new int[]{}, pdSignature.getByteRange());
+    assertArrayEquals(new int[]{}, signature.getByteRange());
+    assertArrayEquals(new int[]{}, value.getByteRange());
   }
 
   /**
    * Test {@link PDVisibleSigBuilder#createSignature(PDSignatureField, PDPage, String)}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link
-   *       PDAnnotationFreeText#PDAnnotationFreeText()}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDAnnotationFreeText#PDAnnotationFreeText()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#createSignature(PDSignatureField, PDPage,
-   * String)}
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#createSignature(PDSignatureField, PDPage, String)}
    */
   @Test
-  @DisplayName(
-      "Test createSignature(PDSignatureField, PDPage, String); given ArrayList() add PDAnnotationFreeText()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test createSignature(PDSignatureField, PDPage, String); given ArrayList() add PDAnnotationFreeText()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDVisibleSigBuilder.createSignature(PDSignatureField, PDPage, String)"})
   void testCreateSignature_givenArrayListAddPDAnnotationFreeText() throws IOException {
     // Arrange
@@ -577,35 +642,67 @@ class PDVisibleSigBuilderDiffblueTest {
 
     // Assert
     PDSignature pdSignature = pdVisibleSigBuilder.getStructure().getPdSignature();
-    assertArrayEquals(new byte[] {}, pdSignature.getContents());
+    assertArrayEquals(new byte[]{}, pdSignature.getContents());
     PDSignature signature = pdSignatureField.getSignature();
-    assertArrayEquals(new byte[] {}, signature.getContents());
+    assertArrayEquals(new byte[]{}, signature.getContents());
     PDSignature value = pdSignatureField.getValue();
-    assertArrayEquals(new byte[] {}, value.getContents());
-    assertArrayEquals(new int[] {}, pdSignature.getByteRange());
-    assertArrayEquals(new int[] {}, signature.getByteRange());
-    assertArrayEquals(new int[] {}, value.getByteRange());
+    assertArrayEquals(new byte[]{}, value.getContents());
+    assertArrayEquals(new int[]{}, pdSignature.getByteRange());
+    assertArrayEquals(new int[]{}, signature.getByteRange());
+    assertArrayEquals(new int[]{}, value.getByteRange());
   }
 
   /**
    * Test {@link PDVisibleSigBuilder#createSignature(PDSignatureField, PDPage, String)}.
-   *
    * <ul>
-   *   <li>Then {@link PDSignatureField#PDSignatureField(PDAcroForm)} with acroForm is {@link
-   *       PDAcroForm#PDAcroForm(PDDocument)} Widgets size is one.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDAnnotationHighlight#PDAnnotationHighlight()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#createSignature(PDSignatureField, PDPage,
-   * String)}
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#createSignature(PDSignatureField, PDPage, String)}
    */
   @Test
-  @DisplayName(
-      "Test createSignature(PDSignatureField, PDPage, String); then PDSignatureField(PDAcroForm) with acroForm is PDAcroForm(PDDocument) Widgets size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test createSignature(PDSignatureField, PDPage, String); given ArrayList() add PDAnnotationHighlight()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDVisibleSigBuilder.createSignature(PDSignatureField, PDPage, String)"})
-  void testCreateSignature_thenPDSignatureFieldWithAcroFormIsPDAcroFormWidgetsSizeIsOne()
-      throws IOException {
+  void testCreateSignature_givenArrayListAddPDAnnotationHighlight() throws IOException {
+    // Arrange
+    PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
+    PDSignatureField pdSignatureField = new PDSignatureField(new PDAcroForm(new PDDocument()));
+
+    ArrayList<PDAnnotation> annotations = new ArrayList<>();
+    annotations.add(new PDAnnotationHighlight());
+
+    PDPage page = new PDPage();
+    page.setAnnotations(annotations);
+
+    // Act
+    pdVisibleSigBuilder.createSignature(pdSignatureField, page, "Signer Name");
+
+    // Assert
+    PDSignature pdSignature = pdVisibleSigBuilder.getStructure().getPdSignature();
+    assertArrayEquals(new byte[]{}, pdSignature.getContents());
+    PDSignature signature = pdSignatureField.getSignature();
+    assertArrayEquals(new byte[]{}, signature.getContents());
+    PDSignature value = pdSignatureField.getValue();
+    assertArrayEquals(new byte[]{}, value.getContents());
+    assertArrayEquals(new int[]{}, pdSignature.getByteRange());
+    assertArrayEquals(new int[]{}, signature.getByteRange());
+    assertArrayEquals(new int[]{}, value.getByteRange());
+  }
+
+  /**
+   * Test {@link PDVisibleSigBuilder#createSignature(PDSignatureField, PDPage, String)}.
+   * <ul>
+   *   <li>Then {@link PDSignatureField#PDSignatureField(PDAcroForm)} with acroForm is {@link PDAcroForm#PDAcroForm(PDDocument)} Widgets size is one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#createSignature(PDSignatureField, PDPage, String)}
+   */
+  @Test
+  @DisplayName("Test createSignature(PDSignatureField, PDPage, String); then PDSignatureField(PDAcroForm) with acroForm is PDAcroForm(PDDocument) Widgets size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDVisibleSigBuilder.createSignature(PDSignatureField, PDPage, String)"})
+  void testCreateSignature_thenPDSignatureFieldWithAcroFormIsPDAcroFormWidgetsSizeIsOne() throws IOException {
     // Arrange
     PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
     PDSignatureField pdSignatureField = new PDSignatureField(new PDAcroForm(new PDDocument()));
@@ -619,38 +716,32 @@ class PDVisibleSigBuilderDiffblueTest {
     float[][] values = widgets.get(0).getPage().getMatrix().getValues();
     assertEquals(3, values.length);
     PDSignature pdSignature = pdVisibleSigBuilder.getStructure().getPdSignature();
-    assertArrayEquals(new byte[] {}, pdSignature.getContents());
+    assertArrayEquals(new byte[]{}, pdSignature.getContents());
     PDSignature signature = pdSignatureField.getSignature();
-    assertArrayEquals(new byte[] {}, signature.getContents());
+    assertArrayEquals(new byte[]{}, signature.getContents());
     PDSignature value = pdSignatureField.getValue();
-    assertArrayEquals(new byte[] {}, value.getContents());
-    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
-    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
-    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
-    assertArrayEquals(new int[] {}, pdSignature.getByteRange());
-    assertArrayEquals(new int[] {}, signature.getByteRange());
-    assertArrayEquals(new int[] {}, value.getByteRange());
+    assertArrayEquals(new byte[]{}, value.getContents());
+    assertArrayEquals(new float[]{0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[]{0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[]{1.0f, 0.0f, 0.0f}, values[0], 0.0f);
+    assertArrayEquals(new int[]{}, pdSignature.getByteRange());
+    assertArrayEquals(new int[]{}, signature.getByteRange());
+    assertArrayEquals(new int[]{}, value.getByteRange());
   }
 
   /**
    * Test {@link PDVisibleSigBuilder#createSignature(PDSignatureField, PDPage, String)}.
-   *
    * <ul>
-   *   <li>Then {@link PDVisibleSigBuilder} (default constructor) Structure PdSignature Name is
-   *       {@code null}.
+   *   <li>Then {@link PDVisibleSigBuilder} (default constructor) Structure PdSignature Name is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#createSignature(PDSignatureField, PDPage,
-   * String)}
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#createSignature(PDSignatureField, PDPage, String)}
    */
   @Test
-  @DisplayName(
-      "Test createSignature(PDSignatureField, PDPage, String); then PDVisibleSigBuilder (default constructor) Structure PdSignature Name is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test createSignature(PDSignatureField, PDPage, String); then PDVisibleSigBuilder (default constructor) Structure PdSignature Name is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDVisibleSigBuilder.createSignature(PDSignatureField, PDPage, String)"})
-  void testCreateSignature_thenPDVisibleSigBuilderStructurePdSignatureNameIsNull()
-      throws IOException {
+  void testCreateSignature_thenPDVisibleSigBuilderStructurePdSignatureNameIsNull() throws IOException {
     // Arrange
     PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
     PDSignatureField pdSignatureField = new PDSignatureField(new PDAcroForm(new PDDocument()));
@@ -668,65 +759,197 @@ class PDVisibleSigBuilderDiffblueTest {
     COSDictionary cOSObject = signature.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
-    assertArrayEquals(new byte[] {}, pdSignature.getContents());
-    assertArrayEquals(new byte[] {}, signature.getContents());
-    assertArrayEquals(new byte[] {}, value.getContents());
-    assertArrayEquals(new int[] {}, pdSignature.getByteRange());
-    assertArrayEquals(new int[] {}, signature.getByteRange());
-    assertArrayEquals(new int[] {}, value.getByteRange());
+    assertArrayEquals(new byte[]{}, pdSignature.getContents());
+    assertArrayEquals(new byte[]{}, signature.getContents());
+    assertArrayEquals(new byte[]{}, value.getContents());
+    assertArrayEquals(new int[]{}, pdSignature.getByteRange());
+    assertArrayEquals(new int[]{}, signature.getByteRange());
+    assertArrayEquals(new int[]{}, value.getByteRange());
   }
 
   /**
    * Test {@link PDVisibleSigBuilder#createAcroFormDictionary(PDAcroForm, PDSignatureField)}.
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#createAcroFormDictionary(PDAcroForm,
-   * PDSignatureField)}
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#createAcroFormDictionary(PDAcroForm, PDSignatureField)}
    */
   @Test
   @DisplayName("Test createAcroFormDictionary(PDAcroForm, PDSignatureField)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PDVisibleSigBuilder.createAcroFormDictionary(PDAcroForm, PDSignatureField)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDVisibleSigBuilder.createAcroFormDictionary(PDAcroForm, PDSignatureField)"})
   void testCreateAcroFormDictionary() throws IOException {
     // Arrange
     PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
-
-    PDAcroForm acroForm = mock(PDAcroForm.class);
-    doNothing().when(acroForm).setDefaultAppearance(Mockito.<String>any());
-    ArrayList<PDField> pdFieldList = new ArrayList<>();
-    when(acroForm.getFields()).thenReturn(pdFieldList);
-    COSDictionary cosDictionary = new COSDictionary();
-    when(acroForm.getCOSObject()).thenReturn(cosDictionary);
-    doNothing().when(acroForm).setAppendOnly(anyBoolean());
-    doNothing().when(acroForm).setSignaturesExist(anyBoolean());
-    PDSignatureField signatureField = new PDSignatureField(new PDAcroForm(new PDDocument()));
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.isDirect()).thenReturn(true);
+    when(cosDictionary.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
+    PDSignatureField signatureField = mock(PDSignatureField.class);
+    when(signatureField.getCOSObject()).thenReturn(cosDictionary);
 
     // Act
     pdVisibleSigBuilder.createAcroFormDictionary(acroForm, signatureField);
 
     // Assert
-    verify(acroForm).getCOSObject();
-    verify(acroForm).getFields();
-    verify(acroForm).setAppendOnly(true);
-    verify(acroForm).setDefaultAppearance("/sylfaen 0 Tf 0 g");
-    verify(acroForm).setSignaturesExist(true);
-    assertEquals(1, signatureField.getWidgets().size());
-    PDFTemplateStructure structure = pdVisibleSigBuilder.getStructure();
-    assertSame(pdFieldList, structure.getAcroFormFields());
-    assertSame(cosDictionary, structure.getAcroFormDictionary());
+    verify(cosDictionary).isDirect();
+    verify(cosDictionary).getUpdateState();
+    verify(signatureField).getCOSObject();
+    List<PDField> acroFormFields = pdVisibleSigBuilder.getStructure().getAcroFormFields();
+    assertEquals(1, acroFormFields.size());
+    assertFalse(acroForm.getFieldIterator().hasNext());
+    assertFalse(acroForm.getFieldTree().iterator().hasNext());
+    assertTrue(acroForm.getFields().isEmpty());
+    assertSame(signatureField, acroFormFields.get(0));
+  }
+
+  /**
+   * Test {@link PDVisibleSigBuilder#createAcroFormDictionary(PDAcroForm, PDSignatureField)}.
+   * <ul>
+   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#createAcroFormDictionary(PDAcroForm, PDSignatureField)}
+   */
+  @Test
+  @DisplayName("Test createAcroFormDictionary(PDAcroForm, PDSignatureField); given COSDictionary()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDVisibleSigBuilder.createAcroFormDictionary(PDAcroForm, PDSignatureField)"})
+  void testCreateAcroFormDictionary_givenCOSDictionary() throws IOException {
+    // Arrange
+    PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    PDSignatureField signatureField = mock(PDSignatureField.class);
+    when(signatureField.getCOSObject()).thenReturn(new COSDictionary());
+
+    // Act
+    pdVisibleSigBuilder.createAcroFormDictionary(acroForm, signatureField);
+
+    // Assert
+    verify(signatureField).getCOSObject();
+    List<PDField> acroFormFields = pdVisibleSigBuilder.getStructure().getAcroFormFields();
+    assertEquals(1, acroFormFields.size());
+    assertFalse(acroForm.getFieldIterator().hasNext());
+    assertFalse(acroForm.getFieldTree().iterator().hasNext());
+    assertTrue(acroForm.getFields().isEmpty());
+    assertSame(signatureField, acroFormFields.get(0));
+  }
+
+  /**
+   * Test {@link PDVisibleSigBuilder#createAcroFormDictionary(PDAcroForm, PDSignatureField)}.
+   * <ul>
+   *   <li>Given {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#createAcroFormDictionary(PDAcroForm, PDSignatureField)}
+   */
+  @Test
+  @DisplayName("Test createAcroFormDictionary(PDAcroForm, PDSignatureField); given 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDVisibleSigBuilder.createAcroFormDictionary(PDAcroForm, PDSignatureField)"})
+  void testCreateAcroFormDictionary_givenNull() throws IOException {
+    // Arrange
+    PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    PDSignatureField signatureField = mock(PDSignatureField.class);
+    when(signatureField.getCOSObject()).thenReturn(null);
+
+    // Act
+    pdVisibleSigBuilder.createAcroFormDictionary(acroForm, signatureField);
+
+    // Assert
+    verify(signatureField).getCOSObject();
+    List<PDField> acroFormFields = pdVisibleSigBuilder.getStructure().getAcroFormFields();
+    assertEquals(1, acroFormFields.size());
+    assertFalse(acroForm.getFieldIterator().hasNext());
+    assertFalse(acroForm.getFieldTree().iterator().hasNext());
+    assertTrue(acroForm.getFields().isEmpty());
+    assertSame(signatureField, acroFormFields.get(0));
+  }
+
+  /**
+   * Test {@link PDVisibleSigBuilder#createAcroFormDictionary(PDAcroForm, PDSignatureField)}.
+   * <ul>
+   *   <li>Then calls {@link COSBase#getKey()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#createAcroFormDictionary(PDAcroForm, PDSignatureField)}
+   */
+  @Test
+  @DisplayName("Test createAcroFormDictionary(PDAcroForm, PDSignatureField); then calls getKey()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDVisibleSigBuilder.createAcroFormDictionary(PDAcroForm, PDSignatureField)"})
+  void testCreateAcroFormDictionary_thenCallsGetKey() throws IOException {
+    // Arrange
+    PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.isDirect()).thenReturn(false);
+    when(cosDictionary.getKey()).thenReturn(new COSObjectKey(1L, 1));
+    PDSignatureField signatureField = mock(PDSignatureField.class);
+    when(signatureField.getCOSObject()).thenReturn(cosDictionary);
+
+    // Act
+    pdVisibleSigBuilder.createAcroFormDictionary(acroForm, signatureField);
+
+    // Assert
+    verify(cosDictionary, atLeast(1)).getKey();
+    verify(cosDictionary).isDirect();
+    verify(signatureField).getCOSObject();
+    List<PDField> acroFormFields = pdVisibleSigBuilder.getStructure().getAcroFormFields();
+    assertEquals(1, acroFormFields.size());
+    assertFalse(acroForm.getFieldIterator().hasNext());
+    assertFalse(acroForm.getFieldTree().iterator().hasNext());
+    assertTrue(acroForm.getFields().isEmpty());
+    assertSame(signatureField, acroFormFields.get(0));
+  }
+
+  /**
+   * Test {@link PDVisibleSigBuilder#createAcroFormDictionary(PDAcroForm, PDSignatureField)}.
+   * <ul>
+   *   <li>Then calls {@link COSUpdateState#setOriginDocumentState(COSDocumentState)}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#createAcroFormDictionary(PDAcroForm, PDSignatureField)}
+   */
+  @Test
+  @DisplayName("Test createAcroFormDictionary(PDAcroForm, PDSignatureField); then calls setOriginDocumentState(COSDocumentState)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDVisibleSigBuilder.createAcroFormDictionary(PDAcroForm, PDSignatureField)"})
+  void testCreateAcroFormDictionary_thenCallsSetOriginDocumentState() throws IOException {
+    // Arrange
+    PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    COSUpdateState cosUpdateState = mock(COSUpdateState.class);
+    doNothing().when(cosUpdateState).setOriginDocumentState(Mockito.<COSDocumentState>any());
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.isDirect()).thenReturn(true);
+    when(cosDictionary.getUpdateState()).thenReturn(cosUpdateState);
+    PDSignatureField signatureField = mock(PDSignatureField.class);
+    when(signatureField.getCOSObject()).thenReturn(cosDictionary);
+
+    // Act
+    pdVisibleSigBuilder.createAcroFormDictionary(acroForm, signatureField);
+
+    // Assert
+    verify(cosDictionary).isDirect();
+    verify(cosDictionary).getUpdateState();
+    verify(cosUpdateState).setOriginDocumentState(isNull());
+    verify(signatureField).getCOSObject();
+    List<PDField> acroFormFields = pdVisibleSigBuilder.getStructure().getAcroFormFields();
+    assertEquals(1, acroFormFields.size());
+    assertFalse(acroForm.getFieldIterator().hasNext());
+    assertFalse(acroForm.getFieldTree().iterator().hasNext());
+    assertTrue(acroForm.getFields().isEmpty());
+    assertSame(signatureField, acroFormFields.get(0));
   }
 
   /**
    * Test {@link PDVisibleSigBuilder#createAffineTransform(AffineTransform)}.
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#createAffineTransform(AffineTransform)}
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#createAffineTransform(AffineTransform)}
    */
   @Test
   @DisplayName("Test createAffineTransform(AffineTransform)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDVisibleSigBuilder.createAffineTransform(AffineTransform)"})
   void testCreateAffineTransform() {
     // Arrange
@@ -742,13 +965,12 @@ class PDVisibleSigBuilderDiffblueTest {
 
   /**
    * Test {@link PDVisibleSigBuilder#createProcSetArray()}.
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#createProcSetArray()}
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#createProcSetArray()}
    */
   @Test
   @DisplayName("Test createProcSetArray()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDVisibleSigBuilder.createProcSetArray()"})
   void testCreateProcSetArray() {
     // Arrange
@@ -770,17 +992,15 @@ class PDVisibleSigBuilderDiffblueTest {
 
   /**
    * Test {@link PDVisibleSigBuilder#createProcSetArray()}.
-   *
    * <ul>
-   *   <li>Given {@link PDVisibleSigBuilder} (default constructor).
+   *   <li>Given {@link PDVisibleSigBuilder} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#createProcSetArray()}
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#createProcSetArray()}
    */
   @Test
   @DisplayName("Test createProcSetArray(); given PDVisibleSigBuilder (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDVisibleSigBuilder.createProcSetArray()"})
   void testCreateProcSetArray_givenPDVisibleSigBuilder() {
     // Arrange
@@ -800,20 +1020,19 @@ class PDVisibleSigBuilderDiffblueTest {
 
   /**
    * Test {@link PDVisibleSigBuilder#createFormatterRectangle(int[])}.
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#createFormatterRectangle(int[])}
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#createFormatterRectangle(int[])}
    */
   @Test
   @DisplayName("Test createFormatterRectangle(int[])")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDVisibleSigBuilder.createFormatterRectangle(int[])"})
   void testCreateFormatterRectangle() {
     // Arrange
     PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
 
     // Act
-    pdVisibleSigBuilder.createFormatterRectangle(new int[] {1000, 1, 1000, 1});
+    pdVisibleSigBuilder.createFormatterRectangle(new int[]{1000, 1, 1000, 1});
 
     // Assert
     PDRectangle formatterRectangle = pdVisibleSigBuilder.getStructure().getFormatterRectangle();
@@ -841,13 +1060,12 @@ class PDVisibleSigBuilderDiffblueTest {
 
   /**
    * Test {@link PDVisibleSigBuilder#createHolderFormStream(PDDocument)}.
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#createHolderFormStream(PDDocument)}
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#createHolderFormStream(PDDocument)}
    */
   @Test
   @DisplayName("Test createHolderFormStream(PDDocument)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDVisibleSigBuilder.createHolderFormStream(PDDocument)"})
   void testCreateHolderFormStream() throws IOException {
     // Arrange
@@ -871,13 +1089,12 @@ class PDVisibleSigBuilderDiffblueTest {
 
   /**
    * Test {@link PDVisibleSigBuilder#createHolderFormResources()}.
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#createHolderFormResources()}
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#createHolderFormResources()}
    */
   @Test
   @DisplayName("Test createHolderFormResources()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDVisibleSigBuilder.createHolderFormResources()"})
   void testCreateHolderFormResources() {
     // Arrange
@@ -908,17 +1125,13 @@ class PDVisibleSigBuilderDiffblueTest {
 
   /**
    * Test {@link PDVisibleSigBuilder#createHolderForm(PDResources, PDStream, PDRectangle)}.
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#createHolderForm(PDResources, PDStream,
-   * PDRectangle)}
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#createHolderForm(PDResources, PDStream, PDRectangle)}
    */
   @Test
   @DisplayName("Test createHolderForm(PDResources, PDStream, PDRectangle)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PDVisibleSigBuilder.createHolderForm(PDResources, PDStream, PDRectangle)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDVisibleSigBuilder.createHolderForm(PDResources, PDStream, PDRectangle)"})
   void testCreateHolderForm() {
     // Arrange
     PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
@@ -934,68 +1147,53 @@ class PDVisibleSigBuilderDiffblueTest {
     COSStream cOSObject = holderFormStream.getCOSObject();
     assertEquals(6, cOSObject.getValues().size());
     assertEquals(6, cOSObject.size());
-    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
-    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
-    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
+    assertArrayEquals(new float[]{0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[]{0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[]{1.0f, 0.0f, 0.0f}, values[0], 0.0f);
   }
 
   /**
    * Test {@link PDVisibleSigBuilder#createHolderForm(PDResources, PDStream, PDRectangle)}.
-   *
    * <ul>
-   *   <li>Then {@link PDVisibleSigBuilder} (default constructor) Structure HolderForm BBox is
-   *       {@code null}.
+   *   <li>Then {@link PDVisibleSigBuilder} (default constructor) Structure HolderForm BBox is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#createHolderForm(PDResources, PDStream,
-   * PDRectangle)}
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#createHolderForm(PDResources, PDStream, PDRectangle)}
    */
   @Test
-  @DisplayName(
-      "Test createHolderForm(PDResources, PDStream, PDRectangle); then PDVisibleSigBuilder (default constructor) Structure HolderForm BBox is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PDVisibleSigBuilder.createHolderForm(PDResources, PDStream, PDRectangle)"
-  })
+  @DisplayName("Test createHolderForm(PDResources, PDStream, PDRectangle); then PDVisibleSigBuilder (default constructor) Structure HolderForm BBox is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDVisibleSigBuilder.createHolderForm(PDResources, PDStream, PDRectangle)"})
   void testCreateHolderForm_thenPDVisibleSigBuilderStructureHolderFormBBoxIsNull() {
     // Arrange
     PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
     PDResources holderFormResources = new PDResources();
 
     // Act
-    pdVisibleSigBuilder.createHolderForm(
-        holderFormResources, new PDStream(new COSDocument()), null);
+    pdVisibleSigBuilder.createHolderForm(holderFormResources, new PDStream(new COSDocument()), null);
 
     // Assert
     PDFormXObject holderForm = pdVisibleSigBuilder.getStructure().getHolderForm();
     assertNull(holderForm.getBBox());
     float[][] values = holderForm.getMatrix().getValues();
     assertEquals(3, values.length);
-    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
-    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
-    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
+    assertArrayEquals(new float[]{0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[]{0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[]{1.0f, 0.0f, 0.0f}, values[0], 0.0f);
   }
 
   /**
    * Test {@link PDVisibleSigBuilder#createHolderForm(PDResources, PDStream, PDRectangle)}.
-   *
    * <ul>
-   *   <li>Then {@link PDVisibleSigBuilder} (default constructor) Structure HolderForm Resources is
-   *       {@code null}.
+   *   <li>Then {@link PDVisibleSigBuilder} (default constructor) Structure HolderForm Resources is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#createHolderForm(PDResources, PDStream,
-   * PDRectangle)}
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#createHolderForm(PDResources, PDStream, PDRectangle)}
    */
   @Test
-  @DisplayName(
-      "Test createHolderForm(PDResources, PDStream, PDRectangle); then PDVisibleSigBuilder (default constructor) Structure HolderForm Resources is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PDVisibleSigBuilder.createHolderForm(PDResources, PDStream, PDRectangle)"
-  })
+  @DisplayName("Test createHolderForm(PDResources, PDStream, PDRectangle); then PDVisibleSigBuilder (default constructor) Structure HolderForm Resources is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDVisibleSigBuilder.createHolderForm(PDResources, PDStream, PDRectangle)"})
   void testCreateHolderForm_thenPDVisibleSigBuilderStructureHolderFormResourcesIsNull() {
     // Arrange
     PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
@@ -1008,24 +1206,20 @@ class PDVisibleSigBuilderDiffblueTest {
     assertNull(holderForm.getResources());
     float[][] values = holderForm.getMatrix().getValues();
     assertEquals(3, values.length);
-    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
-    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
-    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
+    assertArrayEquals(new float[]{0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[]{0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[]{1.0f, 0.0f, 0.0f}, values[0], 0.0f);
   }
 
   /**
    * Test {@link PDVisibleSigBuilder#createAppearanceDictionary(PDFormXObject, PDSignatureField)}.
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#createAppearanceDictionary(PDFormXObject,
-   * PDSignatureField)}
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#createAppearanceDictionary(PDFormXObject, PDSignatureField)}
    */
   @Test
   @DisplayName("Test createAppearanceDictionary(PDFormXObject, PDSignatureField)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PDVisibleSigBuilder.createAppearanceDictionary(PDFormXObject, PDSignatureField)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDVisibleSigBuilder.createAppearanceDictionary(PDFormXObject, PDSignatureField)"})
   void testCreateAppearanceDictionary() throws IOException {
     // Arrange
     PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
@@ -1043,24 +1237,17 @@ class PDVisibleSigBuilderDiffblueTest {
 
   /**
    * Test {@link PDVisibleSigBuilder#createAppearanceDictionary(PDFormXObject, PDSignatureField)}.
-   *
    * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#createAppearanceDictionary(PDFormXObject,
-   * PDSignatureField)}
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#createAppearanceDictionary(PDFormXObject, PDSignatureField)}
    */
   @Test
-  @DisplayName(
-      "Test createAppearanceDictionary(PDFormXObject, PDSignatureField); given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PDVisibleSigBuilder.createAppearanceDictionary(PDFormXObject, PDSignatureField)"
-  })
-  void testCreateAppearanceDictionary_givenCOSObjectKeyWithNumIsOneAndGenIsOne()
-      throws IOException {
+  @DisplayName("Test createAppearanceDictionary(PDFormXObject, PDSignatureField); given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDVisibleSigBuilder.createAppearanceDictionary(PDFormXObject, PDSignatureField)"})
+  void testCreateAppearanceDictionary_givenCOSObjectKeyWithNumIsOneAndGenIsOne() throws IOException {
     // Arrange
     PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
 
@@ -1080,13 +1267,12 @@ class PDVisibleSigBuilderDiffblueTest {
 
   /**
    * Test {@link PDVisibleSigBuilder#createInnerFormStream(PDDocument)}.
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#createInnerFormStream(PDDocument)}
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#createInnerFormStream(PDDocument)}
    */
   @Test
   @DisplayName("Test createInnerFormStream(PDDocument)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDVisibleSigBuilder.createInnerFormStream(PDDocument)"})
   void testCreateInnerFormStream() throws IOException {
     // Arrange
@@ -1110,13 +1296,12 @@ class PDVisibleSigBuilderDiffblueTest {
 
   /**
    * Test {@link PDVisibleSigBuilder#createInnerFormResource()}.
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#createInnerFormResource()}
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#createInnerFormResource()}
    */
   @Test
   @DisplayName("Test createInnerFormResource()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDVisibleSigBuilder.createInnerFormResource()"})
   void testCreateInnerFormResource() {
     // Arrange
@@ -1147,17 +1332,13 @@ class PDVisibleSigBuilderDiffblueTest {
 
   /**
    * Test {@link PDVisibleSigBuilder#createInnerForm(PDResources, PDStream, PDRectangle)}.
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#createInnerForm(PDResources, PDStream,
-   * PDRectangle)}
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#createInnerForm(PDResources, PDStream, PDRectangle)}
    */
   @Test
   @DisplayName("Test createInnerForm(PDResources, PDStream, PDRectangle)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PDVisibleSigBuilder.createInnerForm(PDResources, PDStream, PDRectangle)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDVisibleSigBuilder.createInnerForm(PDResources, PDStream, PDRectangle)"})
   void testCreateInnerForm() {
     // Arrange
     PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
@@ -1173,30 +1354,23 @@ class PDVisibleSigBuilderDiffblueTest {
     COSStream cOSObject = innerFormStream.getCOSObject();
     assertEquals(6, cOSObject.getValues().size());
     assertEquals(6, cOSObject.size());
-    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
-    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
-    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
+    assertArrayEquals(new float[]{0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[]{0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[]{1.0f, 0.0f, 0.0f}, values[0], 0.0f);
   }
 
   /**
    * Test {@link PDVisibleSigBuilder#createInnerForm(PDResources, PDStream, PDRectangle)}.
-   *
    * <ul>
-   *   <li>Then {@link PDVisibleSigBuilder} (default constructor) Structure InnerForm BBox is {@code
-   *       null}.
+   *   <li>Then {@link PDVisibleSigBuilder} (default constructor) Structure InnerForm BBox is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#createInnerForm(PDResources, PDStream,
-   * PDRectangle)}
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#createInnerForm(PDResources, PDStream, PDRectangle)}
    */
   @Test
-  @DisplayName(
-      "Test createInnerForm(PDResources, PDStream, PDRectangle); then PDVisibleSigBuilder (default constructor) Structure InnerForm BBox is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PDVisibleSigBuilder.createInnerForm(PDResources, PDStream, PDRectangle)"
-  })
+  @DisplayName("Test createInnerForm(PDResources, PDStream, PDRectangle); then PDVisibleSigBuilder (default constructor) Structure InnerForm BBox is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDVisibleSigBuilder.createInnerForm(PDResources, PDStream, PDRectangle)"})
   void testCreateInnerForm_thenPDVisibleSigBuilderStructureInnerFormBBoxIsNull() {
     // Arrange
     PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
@@ -1210,30 +1384,23 @@ class PDVisibleSigBuilderDiffblueTest {
     assertNull(innerForm.getBBox());
     float[][] values = innerForm.getMatrix().getValues();
     assertEquals(3, values.length);
-    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
-    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
-    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
+    assertArrayEquals(new float[]{0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[]{0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[]{1.0f, 0.0f, 0.0f}, values[0], 0.0f);
   }
 
   /**
    * Test {@link PDVisibleSigBuilder#createInnerForm(PDResources, PDStream, PDRectangle)}.
-   *
    * <ul>
-   *   <li>Then {@link PDVisibleSigBuilder} (default constructor) Structure InnerForm Resources is
-   *       {@code null}.
+   *   <li>Then {@link PDVisibleSigBuilder} (default constructor) Structure InnerForm Resources is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#createInnerForm(PDResources, PDStream,
-   * PDRectangle)}
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#createInnerForm(PDResources, PDStream, PDRectangle)}
    */
   @Test
-  @DisplayName(
-      "Test createInnerForm(PDResources, PDStream, PDRectangle); then PDVisibleSigBuilder (default constructor) Structure InnerForm Resources is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PDVisibleSigBuilder.createInnerForm(PDResources, PDStream, PDRectangle)"
-  })
+  @DisplayName("Test createInnerForm(PDResources, PDStream, PDRectangle); then PDVisibleSigBuilder (default constructor) Structure InnerForm Resources is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDVisibleSigBuilder.createInnerForm(PDResources, PDStream, PDRectangle)"})
   void testCreateInnerForm_thenPDVisibleSigBuilderStructureInnerFormResourcesIsNull() {
     // Arrange
     PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
@@ -1246,57 +1413,23 @@ class PDVisibleSigBuilderDiffblueTest {
     assertNull(innerForm.getResources());
     float[][] values = innerForm.getMatrix().getValues();
     assertEquals(3, values.length);
-    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
-    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
-    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
+    assertArrayEquals(new float[]{0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[]{0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[]{1.0f, 0.0f, 0.0f}, values[0], 0.0f);
   }
 
   /**
    * Test {@link PDVisibleSigBuilder#insertInnerFormToHolderResources(PDFormXObject, PDResources)}.
-   *
-   * <p>Method under test: {@link
-   * PDVisibleSigBuilder#insertInnerFormToHolderResources(PDFormXObject, PDResources)}
-   */
-  @Test
-  @DisplayName("Test insertInnerFormToHolderResources(PDFormXObject, PDResources)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PDVisibleSigBuilder.insertInnerFormToHolderResources(PDFormXObject, PDResources)"
-  })
-  void testInsertInnerFormToHolderResources() {
-    // Arrange
-    PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
-
-    // Act
-    pdVisibleSigBuilder.insertInnerFormToHolderResources(null, new PDResources());
-
-    // Assert
-    COSName innerFormName = pdVisibleSigBuilder.getStructure().getInnerFormName();
-    assertEquals("FRM", innerFormName.getName());
-    assertNull(innerFormName.getKey());
-    assertFalse(innerFormName.isDirect());
-    assertFalse(innerFormName.isEmpty());
-  }
-
-  /**
-   * Test {@link PDVisibleSigBuilder#insertInnerFormToHolderResources(PDFormXObject, PDResources)}.
-   *
    * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * PDVisibleSigBuilder#insertInnerFormToHolderResources(PDFormXObject, PDResources)}
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#insertInnerFormToHolderResources(PDFormXObject, PDResources)}
    */
   @Test
-  @DisplayName(
-      "Test insertInnerFormToHolderResources(PDFormXObject, PDResources); given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PDVisibleSigBuilder.insertInnerFormToHolderResources(PDFormXObject, PDResources)"
-  })
+  @DisplayName("Test insertInnerFormToHolderResources(PDFormXObject, PDResources); given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDVisibleSigBuilder.insertInnerFormToHolderResources(PDFormXObject, PDResources)"})
   void testInsertInnerFormToHolderResources_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
     PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
@@ -1320,23 +1453,17 @@ class PDVisibleSigBuilderDiffblueTest {
 
   /**
    * Test {@link PDVisibleSigBuilder#insertInnerFormToHolderResources(PDFormXObject, PDResources)}.
-   *
    * <ul>
-   *   <li>Given {@code true}.
-   *   <li>When {@link COSStream#COSStream()} Direct is {@code true}.
+   *   <li>Given {@code true}.</li>
+   *   <li>When {@link COSStream#COSStream()} Direct is {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * PDVisibleSigBuilder#insertInnerFormToHolderResources(PDFormXObject, PDResources)}
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#insertInnerFormToHolderResources(PDFormXObject, PDResources)}
    */
   @Test
-  @DisplayName(
-      "Test insertInnerFormToHolderResources(PDFormXObject, PDResources); given 'true'; when COSStream() Direct is 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PDVisibleSigBuilder.insertInnerFormToHolderResources(PDFormXObject, PDResources)"
-  })
+  @DisplayName("Test insertInnerFormToHolderResources(PDFormXObject, PDResources); given 'true'; when COSStream() Direct is 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDVisibleSigBuilder.insertInnerFormToHolderResources(PDFormXObject, PDResources)"})
   void testInsertInnerFormToHolderResources_givenTrue_whenCOSStreamDirectIsTrue() {
     // Arrange
     PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
@@ -1360,22 +1487,16 @@ class PDVisibleSigBuilderDiffblueTest {
 
   /**
    * Test {@link PDVisibleSigBuilder#insertInnerFormToHolderResources(PDFormXObject, PDResources)}.
-   *
    * <ul>
-   *   <li>Then {@link PDResources#PDResources()} XObjectNames size is one.
+   *   <li>Then {@link PDResources#PDResources()} XObjectNames size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * PDVisibleSigBuilder#insertInnerFormToHolderResources(PDFormXObject, PDResources)}
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#insertInnerFormToHolderResources(PDFormXObject, PDResources)}
    */
   @Test
-  @DisplayName(
-      "Test insertInnerFormToHolderResources(PDFormXObject, PDResources); then PDResources() XObjectNames size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PDVisibleSigBuilder.insertInnerFormToHolderResources(PDFormXObject, PDResources)"
-  })
+  @DisplayName("Test insertInnerFormToHolderResources(PDFormXObject, PDResources); then PDResources() XObjectNames size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDVisibleSigBuilder.insertInnerFormToHolderResources(PDFormXObject, PDResources)"})
   void testInsertInnerFormToHolderResources_thenPDResourcesXObjectNamesSizeIsOne() {
     // Arrange
     PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
@@ -1396,22 +1517,16 @@ class PDVisibleSigBuilderDiffblueTest {
 
   /**
    * Test {@link PDVisibleSigBuilder#insertInnerFormToHolderResources(PDFormXObject, PDResources)}.
-   *
    * <ul>
-   *   <li>Then {@link PDResources#PDResources()} XObjectNames size is two.
+   *   <li>Then {@link PDResources#PDResources()} XObjectNames size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * PDVisibleSigBuilder#insertInnerFormToHolderResources(PDFormXObject, PDResources)}
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#insertInnerFormToHolderResources(PDFormXObject, PDResources)}
    */
   @Test
-  @DisplayName(
-      "Test insertInnerFormToHolderResources(PDFormXObject, PDResources); then PDResources() XObjectNames size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PDVisibleSigBuilder.insertInnerFormToHolderResources(PDFormXObject, PDResources)"
-  })
+  @DisplayName("Test insertInnerFormToHolderResources(PDFormXObject, PDResources); then PDResources() XObjectNames size is two")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDVisibleSigBuilder.insertInnerFormToHolderResources(PDFormXObject, PDResources)"})
   void testInsertInnerFormToHolderResources_thenPDResourcesXObjectNamesSizeIsTwo() {
     // Arrange
     PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
@@ -1434,13 +1549,12 @@ class PDVisibleSigBuilderDiffblueTest {
 
   /**
    * Test {@link PDVisibleSigBuilder#createImageFormStream(PDDocument)}.
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#createImageFormStream(PDDocument)}
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#createImageFormStream(PDDocument)}
    */
   @Test
   @DisplayName("Test createImageFormStream(PDDocument)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDVisibleSigBuilder.createImageFormStream(PDDocument)"})
   void testCreateImageFormStream() throws IOException {
     // Arrange
@@ -1464,13 +1578,12 @@ class PDVisibleSigBuilderDiffblueTest {
 
   /**
    * Test {@link PDVisibleSigBuilder#createImageFormResources()}.
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#createImageFormResources()}
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#createImageFormResources()}
    */
   @Test
   @DisplayName("Test createImageFormResources()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDVisibleSigBuilder.createImageFormResources()"})
   void testCreateImageFormResources() {
     // Arrange
@@ -1500,74 +1613,19 @@ class PDVisibleSigBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link PDVisibleSigBuilder#createImageForm(PDResources, PDResources, PDStream,
-   * PDRectangle, AffineTransform, PDImageXObject)}.
-   *
+   * Test {@link PDVisibleSigBuilder#createImageForm(PDResources, PDResources, PDStream, PDRectangle, AffineTransform, PDImageXObject)}.
    * <ul>
-   *   <li>Then {@link PDResources#PDResources()} XObjectNames size is one.
+   *   <li>Then {@link PDVisibleSigBuilder} (default constructor) Structure ImageName Name is {@code img2}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#createImageForm(PDResources, PDResources,
-   * PDStream, PDRectangle, AffineTransform, PDImageXObject)}
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#createImageForm(PDResources, PDResources, PDStream, PDRectangle, AffineTransform, PDImageXObject)}
    */
   @Test
-  @DisplayName(
-      "Test createImageForm(PDResources, PDResources, PDStream, PDRectangle, AffineTransform, PDImageXObject); then PDResources() XObjectNames size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test createImageForm(PDResources, PDResources, PDStream, PDRectangle, AffineTransform, PDImageXObject); then PDVisibleSigBuilder (default constructor) Structure ImageName Name is 'img2'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "void PDVisibleSigBuilder.createImageForm(PDResources, PDResources, PDStream, PDRectangle, AffineTransform, PDImageXObject)"
-  })
-  void testCreateImageForm_thenPDResourcesXObjectNamesSizeIsOne() throws IOException {
-    // Arrange
-    PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
-    PDResources imageFormResources = new PDResources();
-    PDResources innerFormResource = new PDResources();
-    PDStream imageFormStream = new PDStream(new COSDocument());
-    AffineTransform at = new AffineTransform();
-
-    // Act
-    pdVisibleSigBuilder.createImageForm(
-        imageFormResources,
-        innerFormResource,
-        imageFormStream,
-        PDRectangle.A0,
-        at,
-        new PDImageXObject(new PDDocument()));
-
-    // Assert
-    Iterable<COSName> xObjectNames = imageFormResources.getXObjectNames();
-    assertTrue(xObjectNames instanceof Set);
-    assertEquals(1, ((Set<COSName>) xObjectNames).size());
-    float[][] values = pdVisibleSigBuilder.getStructure().getImageForm().getMatrix().getValues();
-    assertEquals(3, values.length);
-    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
-    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
-    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
-  }
-
-  /**
-   * Test {@link PDVisibleSigBuilder#createImageForm(PDResources, PDResources, PDStream,
-   * PDRectangle, AffineTransform, PDImageXObject)}.
-   *
-   * <ul>
-   *   <li>Then {@link PDVisibleSigBuilder} (default constructor) Structure ImageName Name is {@code
-   *       img2}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#createImageForm(PDResources, PDResources,
-   * PDStream, PDRectangle, AffineTransform, PDImageXObject)}
-   */
-  @Test
-  @DisplayName(
-      "Test createImageForm(PDResources, PDResources, PDStream, PDRectangle, AffineTransform, PDImageXObject); then PDVisibleSigBuilder (default constructor) Structure ImageName Name is 'img2'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PDVisibleSigBuilder.createImageForm(PDResources, PDResources, PDStream, PDRectangle, AffineTransform, PDImageXObject)"
-  })
-  void testCreateImageForm_thenPDVisibleSigBuilderStructureImageNameNameIsImg2()
-      throws IOException {
+      "void PDVisibleSigBuilder.createImageForm(PDResources, PDResources, PDStream, PDRectangle, AffineTransform, PDImageXObject)"})
+  void testCreateImageForm_thenPDVisibleSigBuilderStructureImageNameNameIsImg2() throws IOException {
     // Arrange
     PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
 
@@ -1578,12 +1636,7 @@ class PDVisibleSigBuilderDiffblueTest {
     AffineTransform at = new AffineTransform();
 
     // Act
-    pdVisibleSigBuilder.createImageForm(
-        imageFormResources,
-        innerFormResource,
-        imageFormStream,
-        PDRectangle.A0,
-        at,
+    pdVisibleSigBuilder.createImageForm(imageFormResources, innerFormResource, imageFormStream, PDRectangle.A0, at,
         new PDImageXObject(new PDDocument()));
 
     // Assert
@@ -1591,81 +1644,32 @@ class PDVisibleSigBuilderDiffblueTest {
     assertTrue(xObjectNames instanceof Set);
     PDFTemplateStructure structure = pdVisibleSigBuilder.getStructure();
     assertEquals("img2", structure.getImageName().getName());
+    COSDictionary cOSObject = imageFormResources.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
     assertEquals(2, ((Set<COSName>) xObjectNames).size());
     float[][] values = structure.getImageForm().getMatrix().getValues();
     assertEquals(3, values.length);
-    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
-    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
-    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
+    assertArrayEquals(new float[]{0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[]{0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[]{1.0f, 0.0f, 0.0f}, values[0], 0.0f);
   }
 
   /**
-   * Test {@link PDVisibleSigBuilder#createImageForm(PDResources, PDResources, PDStream,
-   * PDRectangle, AffineTransform, PDImageXObject)}.
-   *
+   * Test {@link PDVisibleSigBuilder#createImageForm(PDResources, PDResources, PDStream, PDRectangle, AffineTransform, PDImageXObject)}.
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then array length is three.
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link PDVisibleSigBuilder} (default constructor) Structure ImageForm BBox is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#createImageForm(PDResources, PDResources,
-   * PDStream, PDRectangle, AffineTransform, PDImageXObject)}
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#createImageForm(PDResources, PDResources, PDStream, PDRectangle, AffineTransform, PDImageXObject)}
    */
   @Test
-  @DisplayName(
-      "Test createImageForm(PDResources, PDResources, PDStream, PDRectangle, AffineTransform, PDImageXObject); when 'null'; then array length is three")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test createImageForm(PDResources, PDResources, PDStream, PDRectangle, AffineTransform, PDImageXObject); when 'null'; then PDVisibleSigBuilder (default constructor) Structure ImageForm BBox is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "void PDVisibleSigBuilder.createImageForm(PDResources, PDResources, PDStream, PDRectangle, AffineTransform, PDImageXObject)"
-  })
-  void testCreateImageForm_whenNull_thenArrayLengthIsThree() throws IOException {
-    // Arrange
-    PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
-    PDResources imageFormResources = new PDResources();
-    PDResources innerFormResource = new PDResources();
-    PDStream imageFormStream = new PDStream(new COSDocument());
-
-    // Act
-    pdVisibleSigBuilder.createImageForm(
-        imageFormResources,
-        innerFormResource,
-        imageFormStream,
-        PDRectangle.A0,
-        new AffineTransform(),
-        null);
-
-    // Assert
-    float[][] values = pdVisibleSigBuilder.getStructure().getImageForm().getMatrix().getValues();
-    assertEquals(3, values.length);
-    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
-    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
-    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
-  }
-
-  /**
-   * Test {@link PDVisibleSigBuilder#createImageForm(PDResources, PDResources, PDStream,
-   * PDRectangle, AffineTransform, PDImageXObject)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDVisibleSigBuilder} (default constructor) Structure ImageForm BBox is {@code
-   *       null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#createImageForm(PDResources, PDResources,
-   * PDStream, PDRectangle, AffineTransform, PDImageXObject)}
-   */
-  @Test
-  @DisplayName(
-      "Test createImageForm(PDResources, PDResources, PDStream, PDRectangle, AffineTransform, PDImageXObject); when 'null'; then PDVisibleSigBuilder (default constructor) Structure ImageForm BBox is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PDVisibleSigBuilder.createImageForm(PDResources, PDResources, PDStream, PDRectangle, AffineTransform, PDImageXObject)"
-  })
-  void testCreateImageForm_whenNull_thenPDVisibleSigBuilderStructureImageFormBBoxIsNull()
-      throws IOException {
+      "void PDVisibleSigBuilder.createImageForm(PDResources, PDResources, PDStream, PDRectangle, AffineTransform, PDImageXObject)"})
+  void testCreateImageForm_whenNull_thenPDVisibleSigBuilderStructureImageFormBBoxIsNull() throws IOException {
     // Arrange
     PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
     PDResources imageFormResources = new PDResources();
@@ -1674,12 +1678,7 @@ class PDVisibleSigBuilderDiffblueTest {
     AffineTransform at = new AffineTransform();
 
     // Act
-    pdVisibleSigBuilder.createImageForm(
-        imageFormResources,
-        innerFormResource,
-        imageFormStream,
-        null,
-        at,
+    pdVisibleSigBuilder.createImageForm(imageFormResources, innerFormResource, imageFormStream, null, at,
         new PDImageXObject(new PDDocument()));
 
     // Assert
@@ -1690,31 +1689,27 @@ class PDVisibleSigBuilderDiffblueTest {
     COSStream cOSObject = imageFormStream.getCOSObject();
     assertEquals(6, cOSObject.getValues().size());
     assertEquals(6, cOSObject.size());
-    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
-    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
-    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertArrayEquals(new float[]{0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[]{0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[]{1.0f, 0.0f, 0.0f}, values[0], 0.0f);
   }
 
   /**
    * Test {@link PDVisibleSigBuilder#createBackgroundLayerForm(PDResources, PDRectangle)}.
-   *
    * <ul>
-   *   <li>Then {@link PDResources#PDResources()} COSObject toIncrement Objects Empty.
+   *   <li>Then {@link PDResources#PDResources()} COSObject toIncrement Objects Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#createBackgroundLayerForm(PDResources,
-   * PDRectangle)}
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#createBackgroundLayerForm(PDResources, PDRectangle)}
    */
   @Test
-  @DisplayName(
-      "Test createBackgroundLayerForm(PDResources, PDRectangle); then PDResources() COSObject toIncrement Objects Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PDVisibleSigBuilder.createBackgroundLayerForm(PDResources, PDRectangle)"
-  })
-  void testCreateBackgroundLayerForm_thenPDResourcesCOSObjectToIncrementObjectsEmpty()
-      throws IOException {
+  @DisplayName("Test createBackgroundLayerForm(PDResources, PDRectangle); then PDResources() COSObject toIncrement Objects Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDVisibleSigBuilder.createBackgroundLayerForm(PDResources, PDRectangle)"})
+  void testCreateBackgroundLayerForm_thenPDResourcesCOSObjectToIncrementObjectsEmpty() throws IOException {
     // Arrange
     PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
     pdVisibleSigBuilder.createTemplate(new PDPage());
@@ -1736,695 +1731,268 @@ class PDVisibleSigBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link PDVisibleSigBuilder#injectProcSetArray(PDFormXObject, PDPage, PDResources,
-   * PDResources, PDResources, COSArray)}.
-   *
+   * Test {@link PDVisibleSigBuilder#injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray)}.
    * <ul>
-   *   <li>Given {@link PDPropertyList}.
-   *   <li>Then calls {@link PDResources#put(COSName, PDPropertyList)}.
+   *   <li>Given {@link COSUpdateState#COSUpdateState(COSUpdateInfo)} with updateInfo is {@link COSArray#COSArray()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#injectProcSetArray(PDFormXObject, PDPage,
-   * PDResources, PDResources, PDResources, COSArray)}
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray)}
    */
   @Test
-  @DisplayName(
-      "Test injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray); given PDPropertyList; then calls put(COSName, PDPropertyList)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray); given COSUpdateState(COSUpdateInfo) with updateInfo is COSArray()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "void PDVisibleSigBuilder.injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray)"
-  })
-  void testInjectProcSetArray_givenPDPropertyList_thenCallsPut() {
+      "void PDVisibleSigBuilder.injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray)"})
+  void testInjectProcSetArray_givenCOSUpdateStateWithUpdateInfoIsCOSArray() {
     // Arrange
     PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
-
-    PDResources pdResources = mock(PDResources.class);
-    when(pdResources.getCOSObject()).thenReturn(new COSDictionary());
-
     PDFormXObject innerForm = mock(PDFormXObject.class);
-    when(innerForm.getResources()).thenReturn(pdResources);
-
+    when(innerForm.getResources()).thenReturn(new PDResources());
     COSDictionary cosDictionary = mock(COSDictionary.class);
     doNothing().when(cosDictionary).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
-
     PDPage page = mock(PDPage.class);
     when(page.getCOSObject()).thenReturn(cosDictionary);
-
-    COSDictionary cosDictionary2 = mock(COSDictionary.class);
-    doNothing().when(cosDictionary2).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
-
-    PDResources innerFormResources = mock(PDResources.class);
-    when(innerFormResources.getCOSObject()).thenReturn(cosDictionary2);
-
-    COSDictionary cosDictionary3 = mock(COSDictionary.class);
-    doNothing().when(cosDictionary3).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
-
-    PDResources imageFormResources = mock(PDResources.class);
-    when(imageFormResources.getCOSObject()).thenReturn(cosDictionary3);
-    doNothing().when(imageFormResources).put(Mockito.<COSName>any(), Mockito.<PDPropertyList>any());
-    imageFormResources.put(COSName.A, mock(PDPropertyList.class));
+    PDResources innerFormResources = new PDResources();
+    PDResources imageFormResources = new PDResources();
     PDResources holderFormResources = new PDResources();
-
     COSArray procSet = mock(COSArray.class);
-    when(procSet.isDirect()).thenReturn(false);
-    when(procSet.getKey()).thenReturn(null);
+    when(procSet.isDirect()).thenReturn(true);
     when(procSet.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
 
     // Act
-    pdVisibleSigBuilder.injectProcSetArray(
-        innerForm, page, innerFormResources, imageFormResources, holderFormResources, procSet);
+    pdVisibleSigBuilder.injectProcSetArray(innerForm, page, innerFormResources, imageFormResources, holderFormResources,
+        procSet);
 
     // Assert
     verify(procSet, atLeast(1)).getUpdateState();
-    verify(procSet, atLeast(1)).getKey();
     verify(procSet, atLeast(1)).isDirect();
     verify(cosDictionary).setItem(isA(COSName.class), isA(COSBase.class));
-    verify(cosDictionary2).setItem(isA(COSName.class), isA(COSBase.class));
-    verify(cosDictionary3).setItem(isA(COSName.class), isA(COSBase.class));
     verify(page).getCOSObject();
-    verify(pdResources).getCOSObject();
-    verify(innerFormResources).getCOSObject();
-    verify(imageFormResources).getCOSObject();
-    verify(imageFormResources).put(isA(COSName.class), isA(PDPropertyList.class));
     verify(innerForm).getResources();
-    COSDictionary cOSObject = holderFormResources.getCOSObject();
+    COSDictionary cOSObject = innerFormResources.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
   }
 
   /**
-   * Test {@link PDVisibleSigBuilder#injectProcSetArray(PDFormXObject, PDPage, PDResources,
-   * PDResources, PDResources, COSArray)}.
-   *
+   * Test {@link PDVisibleSigBuilder#injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray)}.
    * <ul>
-   *   <li>Given {@link PDPropertyList}.
-   *   <li>Then calls {@link PDResources#put(COSName, PDPropertyList)}.
+   *   <li>Given {@code false}.</li>
+   *   <li>Then calls {@link COSBase#getKey()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#injectProcSetArray(PDFormXObject, PDPage,
-   * PDResources, PDResources, PDResources, COSArray)}
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray)}
    */
   @Test
-  @DisplayName(
-      "Test injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray); given PDPropertyList; then calls put(COSName, PDPropertyList)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray); given 'false'; then calls getKey()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "void PDVisibleSigBuilder.injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray)"
-  })
-  void testInjectProcSetArray_givenPDPropertyList_thenCallsPut2() {
+      "void PDVisibleSigBuilder.injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray)"})
+  void testInjectProcSetArray_givenFalse_thenCallsGetKey() {
     // Arrange
     PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
-
-    PDResources pdResources = mock(PDResources.class);
-    when(pdResources.getCOSObject()).thenReturn(new COSDictionary());
-
     PDFormXObject innerForm = mock(PDFormXObject.class);
-    when(innerForm.getResources()).thenReturn(pdResources);
-
+    when(innerForm.getResources()).thenReturn(new PDResources());
     COSDictionary cosDictionary = mock(COSDictionary.class);
     doNothing().when(cosDictionary).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
-
     PDPage page = mock(PDPage.class);
     when(page.getCOSObject()).thenReturn(cosDictionary);
-
-    COSDictionary cosDictionary2 = mock(COSDictionary.class);
-    doNothing().when(cosDictionary2).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
-
-    PDResources innerFormResources = mock(PDResources.class);
-    when(innerFormResources.getCOSObject()).thenReturn(cosDictionary2);
-
-    COSDictionary cosDictionary3 = mock(COSDictionary.class);
-    doNothing().when(cosDictionary3).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
-
-    PDResources imageFormResources = mock(PDResources.class);
-    when(imageFormResources.getCOSObject()).thenReturn(cosDictionary3);
-    doNothing().when(imageFormResources).put(Mockito.<COSName>any(), Mockito.<PDPropertyList>any());
-    imageFormResources.put(COSName.A, mock(PDPropertyList.class));
-
-    COSDictionary cosDictionary4 = mock(COSDictionary.class);
-    doNothing().when(cosDictionary4).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
-
-    PDResources holderFormResources = mock(PDResources.class);
-    when(holderFormResources.getCOSObject()).thenReturn(cosDictionary4);
-
+    PDResources innerFormResources = new PDResources();
+    PDResources imageFormResources = new PDResources();
+    PDResources holderFormResources = new PDResources();
     COSArray procSet = mock(COSArray.class);
     when(procSet.isDirect()).thenReturn(false);
-    when(procSet.getKey()).thenReturn(null);
-    when(procSet.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
+    when(procSet.getKey()).thenReturn(new COSObjectKey(1L, 1));
 
     // Act
-    pdVisibleSigBuilder.injectProcSetArray(
-        innerForm, page, innerFormResources, imageFormResources, holderFormResources, procSet);
+    pdVisibleSigBuilder.injectProcSetArray(innerForm, page, innerFormResources, imageFormResources, holderFormResources,
+        procSet);
 
     // Assert
-    verify(procSet).getUpdateState();
-    verify(procSet).getKey();
-    verify(procSet).isDirect();
+    verify(procSet, atLeast(1)).getKey();
+    verify(procSet, atLeast(1)).isDirect();
     verify(cosDictionary).setItem(isA(COSName.class), isA(COSBase.class));
-    verify(cosDictionary2).setItem(isA(COSName.class), isA(COSBase.class));
-    verify(cosDictionary3).setItem(isA(COSName.class), isA(COSBase.class));
-    verify(cosDictionary4).setItem(isA(COSName.class), isA(COSBase.class));
     verify(page).getCOSObject();
-    verify(pdResources).getCOSObject();
-    verify(innerFormResources).getCOSObject();
-    verify(imageFormResources).getCOSObject();
-    verify(holderFormResources).getCOSObject();
-    verify(imageFormResources).put(isA(COSName.class), isA(PDPropertyList.class));
     verify(innerForm).getResources();
+    COSDictionary cOSObject = innerFormResources.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
   }
 
   /**
-   * Test {@link PDVisibleSigBuilder#injectProcSetArray(PDFormXObject, PDPage, PDResources,
-   * PDResources, PDResources, COSArray)}.
-   *
+   * Test {@link PDVisibleSigBuilder#injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray)}.
    * <ul>
-   *   <li>Then calls {@link COSUpdateState#setOriginDocumentState(COSDocumentState)}.
+   *   <li>Then calls {@link COSDictionary#setItem(COSName, COSBase)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#injectProcSetArray(PDFormXObject, PDPage,
-   * PDResources, PDResources, PDResources, COSArray)}
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray)}
    */
   @Test
-  @DisplayName(
-      "Test injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray); then calls setOriginDocumentState(COSDocumentState)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray); then calls setItem(COSName, COSBase)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "void PDVisibleSigBuilder.injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray)"
-  })
+      "void PDVisibleSigBuilder.injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray)"})
+  void testInjectProcSetArray_thenCallsSetItem() {
+    // Arrange
+    PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
+    PDFormXObject innerForm = mock(PDFormXObject.class);
+    when(innerForm.getResources()).thenReturn(new PDResources());
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    doNothing().when(cosDictionary).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
+    PDPage page = mock(PDPage.class);
+    when(page.getCOSObject()).thenReturn(cosDictionary);
+    PDResources innerFormResources = new PDResources();
+    PDResources imageFormResources = new PDResources();
+    PDResources holderFormResources = new PDResources();
+
+    // Act
+    pdVisibleSigBuilder.injectProcSetArray(innerForm, page, innerFormResources, imageFormResources, holderFormResources,
+        new COSArray());
+
+    // Assert
+    verify(cosDictionary).setItem(isA(COSName.class), isA(COSBase.class));
+    verify(page).getCOSObject();
+    verify(innerForm).getResources();
+    COSDictionary cOSObject = innerFormResources.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDVisibleSigBuilder#injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray)}.
+   * <ul>
+   *   <li>Then calls {@link COSUpdateState#setOriginDocumentState(COSDocumentState)}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray)}
+   */
+  @Test
+  @DisplayName("Test injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray); then calls setOriginDocumentState(COSDocumentState)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void PDVisibleSigBuilder.injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray)"})
   void testInjectProcSetArray_thenCallsSetOriginDocumentState() {
     // Arrange
     PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
-
-    PDResources pdResources = mock(PDResources.class);
-    when(pdResources.getCOSObject()).thenReturn(new COSDictionary());
-
     PDFormXObject innerForm = mock(PDFormXObject.class);
-    when(innerForm.getResources()).thenReturn(pdResources);
-
+    when(innerForm.getResources()).thenReturn(new PDResources());
     COSDictionary cosDictionary = mock(COSDictionary.class);
     doNothing().when(cosDictionary).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
-
     PDPage page = mock(PDPage.class);
     when(page.getCOSObject()).thenReturn(cosDictionary);
-
-    COSDictionary cosDictionary2 = mock(COSDictionary.class);
-    doNothing().when(cosDictionary2).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
-
-    PDResources innerFormResources = mock(PDResources.class);
-    when(innerFormResources.getCOSObject()).thenReturn(cosDictionary2);
-
-    COSDictionary cosDictionary3 = mock(COSDictionary.class);
-    doNothing().when(cosDictionary3).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
-
-    PDResources imageFormResources = mock(PDResources.class);
-    when(imageFormResources.getCOSObject()).thenReturn(cosDictionary3);
-    doNothing().when(imageFormResources).put(Mockito.<COSName>any(), Mockito.<PDPropertyList>any());
-    imageFormResources.put(COSName.A, mock(PDPropertyList.class));
-
-    COSDictionary cosDictionary4 = mock(COSDictionary.class);
-    doNothing().when(cosDictionary4).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
-
-    PDResources holderFormResources = mock(PDResources.class);
-    when(holderFormResources.getCOSObject()).thenReturn(cosDictionary4);
-
+    PDResources innerFormResources = new PDResources();
+    PDResources imageFormResources = new PDResources();
+    PDResources holderFormResources = new PDResources();
     COSUpdateState cosUpdateState = mock(COSUpdateState.class);
     doNothing().when(cosUpdateState).setOriginDocumentState(Mockito.<COSDocumentState>any());
-
     COSArray procSet = mock(COSArray.class);
-    when(procSet.isDirect()).thenReturn(false);
-    when(procSet.getKey()).thenReturn(null);
+    when(procSet.isDirect()).thenReturn(true);
     when(procSet.getUpdateState()).thenReturn(cosUpdateState);
 
     // Act
-    pdVisibleSigBuilder.injectProcSetArray(
-        innerForm, page, innerFormResources, imageFormResources, holderFormResources, procSet);
-
-    // Assert
-    verify(procSet).getUpdateState();
-    verify(procSet).getKey();
-    verify(procSet).isDirect();
-    verify(cosDictionary).setItem(isA(COSName.class), isA(COSBase.class));
-    verify(cosDictionary2).setItem(isA(COSName.class), isA(COSBase.class));
-    verify(cosDictionary3).setItem(isA(COSName.class), isA(COSBase.class));
-    verify(cosDictionary4).setItem(isA(COSName.class), isA(COSBase.class));
-    verify(cosUpdateState).setOriginDocumentState(isNull());
-    verify(page).getCOSObject();
-    verify(pdResources).getCOSObject();
-    verify(innerFormResources).getCOSObject();
-    verify(imageFormResources).getCOSObject();
-    verify(holderFormResources).getCOSObject();
-    verify(imageFormResources).put(isA(COSName.class), isA(PDPropertyList.class));
-    verify(innerForm).getResources();
-  }
-
-  /**
-   * Test {@link PDVisibleSigBuilder#injectProcSetArray(PDFormXObject, PDPage, PDResources,
-   * PDResources, PDResources, COSArray)}.
-   *
-   * <ul>
-   *   <li>Then {@link PDResources#PDResources()} COSObject Values size is two.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#injectProcSetArray(PDFormXObject, PDPage,
-   * PDResources, PDResources, PDResources, COSArray)}
-   */
-  @Test
-  @DisplayName(
-      "Test injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray); then PDResources() COSObject Values size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PDVisibleSigBuilder.injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray)"
-  })
-  void testInjectProcSetArray_thenPDResourcesCOSObjectValuesSizeIsTwo() {
-    // Arrange
-    PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
-
-    PDResources pdResources = mock(PDResources.class);
-    when(pdResources.getCOSObject()).thenReturn(new COSDictionary());
-
-    PDFormXObject innerForm = mock(PDFormXObject.class);
-    when(innerForm.getResources()).thenReturn(pdResources);
-
-    COSDictionary cosDictionary = mock(COSDictionary.class);
-    doNothing().when(cosDictionary).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
-
-    PDPage page = mock(PDPage.class);
-    when(page.getCOSObject()).thenReturn(cosDictionary);
-
-    PDResources innerFormResources = mock(PDResources.class);
-    when(innerFormResources.getCOSObject()).thenReturn(new COSDictionary());
-
-    PDPropertyList properties = mock(PDPropertyList.class);
-    when(properties.getCOSObject()).thenReturn(new COSDictionary());
-
-    PDResources imageFormResources = new PDResources();
-    imageFormResources.put(COSName.A, properties);
-    PDResources holderFormResources = new PDResources();
-
-    COSArray procSet = mock(COSArray.class);
-    when(procSet.isDirect()).thenReturn(false);
-    when(procSet.getKey()).thenReturn(null);
-    when(procSet.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
-
-    // Act
-    pdVisibleSigBuilder.injectProcSetArray(
-        innerForm, page, innerFormResources, imageFormResources, holderFormResources, procSet);
+    pdVisibleSigBuilder.injectProcSetArray(innerForm, page, innerFormResources, imageFormResources, holderFormResources,
+        procSet);
 
     // Assert
     verify(procSet, atLeast(1)).getUpdateState();
-    verify(procSet, atLeast(1)).getKey();
     verify(procSet, atLeast(1)).isDirect();
     verify(cosDictionary).setItem(isA(COSName.class), isA(COSBase.class));
+    verify(cosUpdateState, atLeast(1)).setOriginDocumentState(isNull());
     verify(page).getCOSObject();
-    verify(pdResources).getCOSObject();
-    verify(innerFormResources).getCOSObject();
-    verify(properties).getCOSObject();
     verify(innerForm).getResources();
-    COSDictionary cOSObject = imageFormResources.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
+    COSDictionary cOSObject = innerFormResources.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
   }
 
   /**
-   * Test {@link PDVisibleSigBuilder#injectProcSetArray(PDFormXObject, PDPage, PDResources,
-   * PDResources, PDResources, COSArray)}.
-   *
+   * Test {@link PDVisibleSigBuilder#injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray)}.
    * <ul>
-   *   <li>Then {@link PDResources#PDResources()} COSObject Values size is two.
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link PDResources#PDResources()} COSObject size is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#injectProcSetArray(PDFormXObject, PDPage,
-   * PDResources, PDResources, PDResources, COSArray)}
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray)}
    */
   @Test
-  @DisplayName(
-      "Test injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray); then PDResources() COSObject Values size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray); when 'null'; then PDResources() COSObject size is zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "void PDVisibleSigBuilder.injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray)"
-  })
-  void testInjectProcSetArray_thenPDResourcesCOSObjectValuesSizeIsTwo2() {
+      "void PDVisibleSigBuilder.injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray)"})
+  void testInjectProcSetArray_whenNull_thenPDResourcesCOSObjectSizeIsZero() {
     // Arrange
     PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
-
-    PDResources pdResources = mock(PDResources.class);
-    when(pdResources.getCOSObject()).thenReturn(new COSDictionary());
-
     PDFormXObject innerForm = mock(PDFormXObject.class);
-    when(innerForm.getResources()).thenReturn(pdResources);
-
+    when(innerForm.getResources()).thenReturn(new PDResources());
     COSDictionary cosDictionary = mock(COSDictionary.class);
     doNothing().when(cosDictionary).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
-
     PDPage page = mock(PDPage.class);
     when(page.getCOSObject()).thenReturn(cosDictionary);
-
-    COSDictionary cosDictionary2 = mock(COSDictionary.class);
-    doNothing().when(cosDictionary2).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
-
-    PDResources innerFormResources = mock(PDResources.class);
-    when(innerFormResources.getCOSObject()).thenReturn(cosDictionary2);
-
-    PDPropertyList properties = mock(PDPropertyList.class);
-    when(properties.getCOSObject()).thenReturn(new COSDictionary());
-
+    PDResources innerFormResources = new PDResources();
     PDResources imageFormResources = new PDResources();
-    imageFormResources.put(COSName.A, properties);
-    PDResources holderFormResources = new PDResources();
-
-    COSArray procSet = mock(COSArray.class);
-    when(procSet.isDirect()).thenReturn(false);
-    when(procSet.getKey()).thenReturn(null);
-    when(procSet.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
 
     // Act
-    pdVisibleSigBuilder.injectProcSetArray(
-        innerForm, page, innerFormResources, imageFormResources, holderFormResources, procSet);
+    pdVisibleSigBuilder.injectProcSetArray(innerForm, page, innerFormResources, imageFormResources, new PDResources(),
+        null);
 
-    // Assert
-    verify(procSet, atLeast(1)).getUpdateState();
-    verify(procSet, atLeast(1)).getKey();
-    verify(procSet, atLeast(1)).isDirect();
-    verify(cosDictionary).setItem(isA(COSName.class), isA(COSBase.class));
-    verify(cosDictionary2).setItem(isA(COSName.class), isA(COSBase.class));
+    // Assert that nothing has changed
+    verify(cosDictionary).setItem(isA(COSName.class), (COSBase) isNull());
     verify(page).getCOSObject();
-    verify(pdResources).getCOSObject();
-    verify(innerFormResources).getCOSObject();
-    verify(properties).getCOSObject();
     verify(innerForm).getResources();
-    COSDictionary cOSObject = imageFormResources.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
+    COSDictionary cOSObject = innerFormResources.getCOSObject();
+    assertEquals(0, cOSObject.size());
+    assertTrue(cOSObject.getValues().isEmpty());
   }
 
   /**
-   * Test {@link PDVisibleSigBuilder#injectProcSetArray(PDFormXObject, PDPage, PDResources,
-   * PDResources, PDResources, COSArray)}.
-   *
+   * Test {@link PDVisibleSigBuilder#injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray)}.
    * <ul>
-   *   <li>When {@link PDPage} {@link PDPage#getCOSObject()} return {@link
-   *       COSDictionary#COSDictionary()}.
+   *   <li>When {@link PDPage} {@link PDPage#getCOSObject()} return {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#injectProcSetArray(PDFormXObject, PDPage,
-   * PDResources, PDResources, PDResources, COSArray)}
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray)}
    */
   @Test
-  @DisplayName(
-      "Test injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray); when PDPage getCOSObject() return COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray); when PDPage getCOSObject() return COSDictionary()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "void PDVisibleSigBuilder.injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray)"
-  })
+      "void PDVisibleSigBuilder.injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray)"})
   void testInjectProcSetArray_whenPDPageGetCOSObjectReturnCOSDictionary() {
     // Arrange
     PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
-
-    PDResources pdResources = mock(PDResources.class);
-    when(pdResources.getCOSObject()).thenReturn(new COSDictionary());
-
     PDFormXObject innerForm = mock(PDFormXObject.class);
-    when(innerForm.getResources()).thenReturn(pdResources);
-
+    when(innerForm.getResources()).thenReturn(new PDResources());
     PDPage page = mock(PDPage.class);
     when(page.getCOSObject()).thenReturn(new COSDictionary());
     PDResources innerFormResources = new PDResources();
-
-    PDPropertyList properties = mock(PDPropertyList.class);
-    when(properties.getCOSObject()).thenReturn(new COSDictionary());
-
     PDResources imageFormResources = new PDResources();
-    imageFormResources.put(COSName.A, properties);
     PDResources holderFormResources = new PDResources();
 
-    COSArray procSet = mock(COSArray.class);
-    when(procSet.isDirect()).thenReturn(false);
-    when(procSet.getKey()).thenReturn(null);
-    when(procSet.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
-
     // Act
-    pdVisibleSigBuilder.injectProcSetArray(
-        innerForm, page, innerFormResources, imageFormResources, holderFormResources, procSet);
+    pdVisibleSigBuilder.injectProcSetArray(innerForm, page, innerFormResources, imageFormResources, holderFormResources,
+        new COSArray());
 
     // Assert
-    verify(procSet, atLeast(1)).getUpdateState();
-    verify(procSet, atLeast(1)).getKey();
-    verify(procSet, atLeast(1)).isDirect();
     verify(page).getCOSObject();
-    verify(pdResources).getCOSObject();
-    verify(properties).getCOSObject();
     verify(innerForm).getResources();
     COSDictionary cOSObject = innerFormResources.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDVisibleSigBuilder#injectProcSetArray(PDFormXObject, PDPage, PDResources,
-   * PDResources, PDResources, COSArray)}.
-   *
-   * <ul>
-   *   <li>When {@link PDResources#PDResources()} {@link COSName#A} is {@link PDPropertyList}.
-   *   <li>Then calls {@link PDPropertyList#getCOSObject()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#injectProcSetArray(PDFormXObject, PDPage,
-   * PDResources, PDResources, PDResources, COSArray)}
-   */
-  @Test
-  @DisplayName(
-      "Test injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray); when PDResources() A is PDPropertyList; then calls getCOSObject()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PDVisibleSigBuilder.injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray)"
-  })
-  void testInjectProcSetArray_whenPDResourcesAIsPDPropertyList_thenCallsGetCOSObject() {
-    // Arrange
-    PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
-
-    PDResources pdResources = mock(PDResources.class);
-    when(pdResources.getCOSObject()).thenReturn(new COSDictionary());
-
-    PDFormXObject innerForm = mock(PDFormXObject.class);
-    when(innerForm.getResources()).thenReturn(pdResources);
-
-    COSDictionary cosDictionary = mock(COSDictionary.class);
-    doNothing().when(cosDictionary).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
-
-    PDPage page = mock(PDPage.class);
-    when(page.getCOSObject()).thenReturn(cosDictionary);
-    PDResources innerFormResources = new PDResources();
-
-    PDPropertyList properties = mock(PDPropertyList.class);
-    when(properties.getCOSObject()).thenReturn(new COSDictionary());
-
-    PDResources imageFormResources = new PDResources();
-    imageFormResources.put(COSName.A, properties);
-    PDResources holderFormResources = new PDResources();
-
-    COSArray procSet = mock(COSArray.class);
-    when(procSet.isDirect()).thenReturn(false);
-    when(procSet.getKey()).thenReturn(null);
-    when(procSet.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
-
-    // Act
-    pdVisibleSigBuilder.injectProcSetArray(
-        innerForm, page, innerFormResources, imageFormResources, holderFormResources, procSet);
-
-    // Assert
-    verify(procSet, atLeast(1)).getUpdateState();
-    verify(procSet, atLeast(1)).getKey();
-    verify(procSet, atLeast(1)).isDirect();
-    verify(cosDictionary).setItem(isA(COSName.class), isA(COSBase.class));
-    verify(page).getCOSObject();
-    verify(pdResources).getCOSObject();
-    verify(properties).getCOSObject();
-    verify(innerForm).getResources();
-    COSDictionary cOSObject = innerFormResources.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDVisibleSigBuilder#injectProcSetArray(PDFormXObject, PDPage, PDResources,
-   * PDResources, PDResources, COSArray)}.
-   *
-   * <ul>
-   *   <li>When {@link PDResources} {@link PDResources#getCOSObject()} return {@link
-   *       COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#injectProcSetArray(PDFormXObject, PDPage,
-   * PDResources, PDResources, PDResources, COSArray)}
-   */
-  @Test
-  @DisplayName(
-      "Test injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray); when PDResources getCOSObject() return COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PDVisibleSigBuilder.injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray)"
-  })
-  void testInjectProcSetArray_whenPDResourcesGetCOSObjectReturnCOSDictionary() {
-    // Arrange
-    PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
-
-    PDResources pdResources = mock(PDResources.class);
-    when(pdResources.getCOSObject()).thenReturn(new COSDictionary());
-
-    PDFormXObject innerForm = mock(PDFormXObject.class);
-    when(innerForm.getResources()).thenReturn(pdResources);
-
-    COSDictionary cosDictionary = mock(COSDictionary.class);
-    doNothing().when(cosDictionary).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
-
-    PDPage page = mock(PDPage.class);
-    when(page.getCOSObject()).thenReturn(cosDictionary);
-
-    COSDictionary cosDictionary2 = mock(COSDictionary.class);
-    doNothing().when(cosDictionary2).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
-
-    PDResources innerFormResources = mock(PDResources.class);
-    when(innerFormResources.getCOSObject()).thenReturn(cosDictionary2);
-
-    PDResources imageFormResources = mock(PDResources.class);
-    when(imageFormResources.getCOSObject()).thenReturn(new COSDictionary());
-    doNothing().when(imageFormResources).put(Mockito.<COSName>any(), Mockito.<PDPropertyList>any());
-    imageFormResources.put(COSName.A, mock(PDPropertyList.class));
-    PDResources holderFormResources = new PDResources();
-
-    COSArray procSet = mock(COSArray.class);
-    when(procSet.isDirect()).thenReturn(false);
-    when(procSet.getKey()).thenReturn(null);
-    when(procSet.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
-
-    // Act
-    pdVisibleSigBuilder.injectProcSetArray(
-        innerForm, page, innerFormResources, imageFormResources, holderFormResources, procSet);
-
-    // Assert
-    verify(procSet, atLeast(1)).getUpdateState();
-    verify(procSet, atLeast(1)).getKey();
-    verify(procSet, atLeast(1)).isDirect();
-    verify(cosDictionary).setItem(isA(COSName.class), isA(COSBase.class));
-    verify(cosDictionary2).setItem(isA(COSName.class), isA(COSBase.class));
-    verify(page).getCOSObject();
-    verify(pdResources).getCOSObject();
-    verify(innerFormResources).getCOSObject();
-    verify(imageFormResources).getCOSObject();
-    verify(imageFormResources).put(isA(COSName.class), isA(PDPropertyList.class));
-    verify(innerForm).getResources();
-    COSDictionary cOSObject = holderFormResources.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDVisibleSigBuilder#injectProcSetArray(PDFormXObject, PDPage, PDResources,
-   * PDResources, PDResources, COSArray)}.
-   *
-   * <ul>
-   *   <li>When {@link PDResources} {@link PDResources#getCOSObject()} return {@link
-   *       COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#injectProcSetArray(PDFormXObject, PDPage,
-   * PDResources, PDResources, PDResources, COSArray)}
-   */
-  @Test
-  @DisplayName(
-      "Test injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray); when PDResources getCOSObject() return COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PDVisibleSigBuilder.injectProcSetArray(PDFormXObject, PDPage, PDResources, PDResources, PDResources, COSArray)"
-  })
-  void testInjectProcSetArray_whenPDResourcesGetCOSObjectReturnCOSDictionary2() {
-    // Arrange
-    PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
-
-    PDResources pdResources = mock(PDResources.class);
-    when(pdResources.getCOSObject()).thenReturn(new COSDictionary());
-
-    PDFormXObject innerForm = mock(PDFormXObject.class);
-    when(innerForm.getResources()).thenReturn(pdResources);
-
-    COSDictionary cosDictionary = mock(COSDictionary.class);
-    doNothing().when(cosDictionary).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
-
-    PDPage page = mock(PDPage.class);
-    when(page.getCOSObject()).thenReturn(cosDictionary);
-
-    COSDictionary cosDictionary2 = mock(COSDictionary.class);
-    doNothing().when(cosDictionary2).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
-
-    PDResources innerFormResources = mock(PDResources.class);
-    when(innerFormResources.getCOSObject()).thenReturn(cosDictionary2);
-
-    COSDictionary cosDictionary3 = mock(COSDictionary.class);
-    doNothing().when(cosDictionary3).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
-
-    PDResources imageFormResources = mock(PDResources.class);
-    when(imageFormResources.getCOSObject()).thenReturn(cosDictionary3);
-    doNothing().when(imageFormResources).put(Mockito.<COSName>any(), Mockito.<PDPropertyList>any());
-    imageFormResources.put(COSName.A, mock(PDPropertyList.class));
-
-    PDResources holderFormResources = mock(PDResources.class);
-    when(holderFormResources.getCOSObject()).thenReturn(new COSDictionary());
-
-    COSArray procSet = mock(COSArray.class);
-    when(procSet.isDirect()).thenReturn(false);
-    when(procSet.getKey()).thenReturn(null);
-    when(procSet.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
-
-    // Act
-    pdVisibleSigBuilder.injectProcSetArray(
-        innerForm, page, innerFormResources, imageFormResources, holderFormResources, procSet);
-
-    // Assert
-    verify(procSet, atLeast(1)).getUpdateState();
-    verify(procSet, atLeast(1)).getKey();
-    verify(procSet, atLeast(1)).isDirect();
-    verify(cosDictionary).setItem(isA(COSName.class), isA(COSBase.class));
-    verify(cosDictionary2).setItem(isA(COSName.class), isA(COSBase.class));
-    verify(cosDictionary3).setItem(isA(COSName.class), isA(COSBase.class));
-    verify(page).getCOSObject();
-    verify(pdResources).getCOSObject();
-    verify(innerFormResources).getCOSObject();
-    verify(imageFormResources).getCOSObject();
-    verify(holderFormResources).getCOSObject();
-    verify(imageFormResources).put(isA(COSName.class), isA(PDPropertyList.class));
-    verify(innerForm).getResources();
   }
 
   /**
    * Test {@link PDVisibleSigBuilder#appendRawCommands(OutputStream, String)}.
-   *
-   * <ul>
-   *   <li>Then {@link ByteArrayOutputStream#ByteArrayOutputStream()} toByteArray is {@code
-   *       Commands} Bytes is {@code UTF-8}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#appendRawCommands(OutputStream, String)}
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#appendRawCommands(OutputStream, String)}
    */
   @Test
-  @DisplayName(
-      "Test appendRawCommands(OutputStream, String); then ByteArrayOutputStream() toByteArray is 'Commands' Bytes is 'UTF-8'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test appendRawCommands(OutputStream, String)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDVisibleSigBuilder.appendRawCommands(OutputStream, String)"})
-  void testAppendRawCommands_thenByteArrayOutputStreamToByteArrayIsCommandsBytesIsUtf8()
-      throws IOException {
+  void testAppendRawCommands() throws IOException {
     // Arrange
     PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
-    ByteArrayOutputStream os = new ByteArrayOutputStream();
+    ByteArrayOutputStream os = new ByteArrayOutputStream(1);
 
     // Act
     pdVisibleSigBuilder.appendRawCommands(os, "Commands");
@@ -2436,18 +2004,16 @@ class PDVisibleSigBuilderDiffblueTest {
 
   /**
    * Test {@link PDVisibleSigBuilder#createVisualSignature(PDDocument)}.
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#createVisualSignature(PDDocument)}
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#createVisualSignature(PDDocument)}
    */
   @Test
   @DisplayName("Test createVisualSignature(PDDocument)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDVisibleSigBuilder.createVisualSignature(PDDocument)"})
   void testCreateVisualSignature() {
     // Arrange
     PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
-
     PDDocument template = mock(PDDocument.class);
     COSDocument cosDocument = new COSDocument();
     when(template.getDocument()).thenReturn(cosDocument);
@@ -2462,100 +2028,52 @@ class PDVisibleSigBuilderDiffblueTest {
 
   /**
    * Test {@link PDVisibleSigBuilder#createWidgetDictionary(PDSignatureField, PDResources)}.
-   *
-   * <ul>
-   *   <li>Given {@code false}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#createWidgetDictionary(PDSignatureField,
-   * PDResources)}
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#createWidgetDictionary(PDSignatureField, PDResources)}
    */
   @Test
-  @DisplayName("Test createWidgetDictionary(PDSignatureField, PDResources); given 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PDVisibleSigBuilder.createWidgetDictionary(PDSignatureField, PDResources)"
-  })
-  void testCreateWidgetDictionary_givenFalse() throws IOException {
-    // Arrange
-    PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
-    PDSignatureField signatureField = new PDSignatureField(new PDAcroForm(new PDDocument()));
-
-    COSDictionary resourceDictionary = new COSDictionary(new COSDictionary());
-    resourceDictionary.setDirect(false);
-    resourceDictionary.setKey(new COSObjectKey(1L, 1));
-
-    // Act
-    pdVisibleSigBuilder.createWidgetDictionary(signatureField, new PDResources(resourceDictionary));
-
-    // Assert
-    COSDictionary cOSObject = signatureField.getCOSObject();
-    assertEquals(6, cOSObject.getValues().size());
-    assertEquals(6, cOSObject.size());
-    assertSame(cOSObject, pdVisibleSigBuilder.getStructure().getWidgetDictionary());
-  }
-
-  /**
-   * Test {@link PDVisibleSigBuilder#createWidgetDictionary(PDSignatureField, PDResources)}.
-   *
-   * <ul>
-   *   <li>Given {@code true}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#createWidgetDictionary(PDSignatureField,
-   * PDResources)}
-   */
-  @Test
-  @DisplayName("Test createWidgetDictionary(PDSignatureField, PDResources); given 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PDVisibleSigBuilder.createWidgetDictionary(PDSignatureField, PDResources)"
-  })
-  void testCreateWidgetDictionary_givenTrue() throws IOException {
-    // Arrange
-    PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
-    PDSignatureField signatureField = new PDSignatureField(new PDAcroForm(new PDDocument()));
-
-    COSDictionary resourceDictionary = new COSDictionary(new COSDictionary());
-    resourceDictionary.setDirect(true);
-    resourceDictionary.setKey(new COSObjectKey(1L, 1));
-
-    // Act
-    pdVisibleSigBuilder.createWidgetDictionary(signatureField, new PDResources(resourceDictionary));
-
-    // Assert
-    COSDictionary cOSObject = signatureField.getCOSObject();
-    assertEquals(6, cOSObject.getValues().size());
-    assertEquals(6, cOSObject.size());
-    assertSame(cOSObject, pdVisibleSigBuilder.getStructure().getWidgetDictionary());
-  }
-
-  /**
-   * Test {@link PDVisibleSigBuilder#createWidgetDictionary(PDSignatureField, PDResources)}.
-   *
-   * <ul>
-   *   <li>When {@link PDResources#PDResources()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDVisibleSigBuilder#createWidgetDictionary(PDSignatureField,
-   * PDResources)}
-   */
-  @Test
-  @DisplayName("Test createWidgetDictionary(PDSignatureField, PDResources); when PDResources()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PDVisibleSigBuilder.createWidgetDictionary(PDSignatureField, PDResources)"
-  })
-  void testCreateWidgetDictionary_whenPDResources() throws IOException {
+  @DisplayName("Test createWidgetDictionary(PDSignatureField, PDResources)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDVisibleSigBuilder.createWidgetDictionary(PDSignatureField, PDResources)"})
+  void testCreateWidgetDictionary() throws IOException {
     // Arrange
     PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
     PDSignatureField signatureField = new PDSignatureField(new PDAcroForm(new PDDocument()));
 
     // Act
     pdVisibleSigBuilder.createWidgetDictionary(signatureField, new PDResources());
+
+    // Assert
+    COSDictionary cOSObject = signatureField.getCOSObject();
+    assertEquals(6, cOSObject.getValues().size());
+    assertEquals(6, cOSObject.size());
+    assertSame(cOSObject, pdVisibleSigBuilder.getStructure().getWidgetDictionary());
+  }
+
+  /**
+   * Test {@link PDVisibleSigBuilder#createWidgetDictionary(PDSignatureField, PDResources)}.
+   * <ul>
+   *   <li>Given {@link COSName#A}.</li>
+   *   <li>When {@link PDResources#PDResources()} {@link COSName#A} is {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDVisibleSigBuilder#createWidgetDictionary(PDSignatureField, PDResources)}
+   */
+  @Test
+  @DisplayName("Test createWidgetDictionary(PDSignatureField, PDResources); given A; when PDResources() A is PDExtendedGraphicsState()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDVisibleSigBuilder.createWidgetDictionary(PDSignatureField, PDResources)"})
+  void testCreateWidgetDictionary_givenA_whenPDResourcesAIsPDExtendedGraphicsState() throws IOException {
+    // Arrange
+    PDVisibleSigBuilder pdVisibleSigBuilder = new PDVisibleSigBuilder();
+    PDSignatureField signatureField = new PDSignatureField(new PDAcroForm(new PDDocument()));
+
+    PDResources holderFormResources = new PDResources();
+    holderFormResources.put(COSName.A, new PDExtendedGraphicsState());
+    holderFormResources.add(new PDMMType1Font(new COSDictionary()));
+
+    // Act
+    pdVisibleSigBuilder.createWidgetDictionary(signatureField, holderFormResources);
 
     // Assert
     COSDictionary cOSObject = signatureField.getCOSObject();

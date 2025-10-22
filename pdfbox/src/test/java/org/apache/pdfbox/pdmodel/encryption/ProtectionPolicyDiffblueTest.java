@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -13,13 +12,12 @@ import org.junit.jupiter.api.Test;
 class ProtectionPolicyDiffblueTest {
   /**
    * Test {@link ProtectionPolicy#setEncryptionKeyLength(int)}.
-   *
-   * <p>Method under test: {@link ProtectionPolicy#setEncryptionKeyLength(int)}
+   * <p>
+   * Method under test: {@link ProtectionPolicy#setEncryptionKeyLength(int)}
    */
   @Test
   @DisplayName("Test setEncryptionKeyLength(int)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ProtectionPolicy.setEncryptionKeyLength(int)"})
   void testSetEncryptionKeyLength() {
     // Arrange
@@ -34,13 +32,12 @@ class ProtectionPolicyDiffblueTest {
 
   /**
    * Test {@link ProtectionPolicy#setEncryptionKeyLength(int)}.
-   *
-   * <p>Method under test: {@link ProtectionPolicy#setEncryptionKeyLength(int)}
+   * <p>
+   * Method under test: {@link ProtectionPolicy#setEncryptionKeyLength(int)}
    */
   @Test
   @DisplayName("Test setEncryptionKeyLength(int)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ProtectionPolicy.setEncryptionKeyLength(int)"})
   void testSetEncryptionKeyLength2() {
     // Arrange
@@ -55,13 +52,12 @@ class ProtectionPolicyDiffblueTest {
 
   /**
    * Test {@link ProtectionPolicy#setEncryptionKeyLength(int)}.
-   *
-   * <p>Method under test: {@link ProtectionPolicy#setEncryptionKeyLength(int)}
+   * <p>
+   * Method under test: {@link ProtectionPolicy#setEncryptionKeyLength(int)}
    */
   @Test
   @DisplayName("Test setEncryptionKeyLength(int)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ProtectionPolicy.setEncryptionKeyLength(int)"})
   void testSetEncryptionKeyLength3() {
     // Arrange
@@ -76,57 +72,48 @@ class ProtectionPolicyDiffblueTest {
 
   /**
    * Test {@link ProtectionPolicy#setEncryptionKeyLength(int)}.
-   *
    * <ul>
-   *   <li>When one.
-   *   <li>Then throw {@link IllegalArgumentException}.
+   *   <li>When one.</li>
+   *   <li>Then throw {@link IllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProtectionPolicy#setEncryptionKeyLength(int)}
+   * <p>
+   * Method under test: {@link ProtectionPolicy#setEncryptionKeyLength(int)}
    */
   @Test
   @DisplayName("Test setEncryptionKeyLength(int); when one; then throw IllegalArgumentException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ProtectionPolicy.setEncryptionKeyLength(int)"})
   void testSetEncryptionKeyLength_whenOne_thenThrowIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        IllegalArgumentException.class,
-        () -> new PublicKeyProtectionPolicy().setEncryptionKeyLength(1));
+    assertThrows(IllegalArgumentException.class, () -> (new PublicKeyProtectionPolicy()).setEncryptionKeyLength(1));
   }
 
   /**
    * Test {@link ProtectionPolicy#getEncryptionKeyLength()}.
-   *
-   * <p>Method under test: {@link ProtectionPolicy#getEncryptionKeyLength()}
+   * <p>
+   * Method under test: {@link ProtectionPolicy#getEncryptionKeyLength()}
    */
   @Test
   @DisplayName("Test getEncryptionKeyLength()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int ProtectionPolicy.getEncryptionKeyLength()"})
   void testGetEncryptionKeyLength() {
     // Arrange, Act and Assert
-    assertEquals(
-        PDEncryption.DEFAULT_LENGTH, new PublicKeyProtectionPolicy().getEncryptionKeyLength());
+    assertEquals(PDEncryption.DEFAULT_LENGTH, (new PublicKeyProtectionPolicy()).getEncryptionKeyLength());
   }
 
   /**
    * Test {@link ProtectionPolicy#isPreferAES()}.
-   *
    * <ul>
-   *   <li>Given {@link PublicKeyProtectionPolicy} (default constructor) PreferAES is {@code true}.
-   *   <li>Then return {@code true}.
+   *   <li>Given {@link PublicKeyProtectionPolicy} (default constructor) PreferAES is {@code true}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProtectionPolicy#isPreferAES()}
+   * <p>
+   * Method under test: {@link ProtectionPolicy#isPreferAES()}
    */
   @Test
-  @DisplayName(
-      "Test isPreferAES(); given PublicKeyProtectionPolicy (default constructor) PreferAES is 'true'; then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test isPreferAES(); given PublicKeyProtectionPolicy (default constructor) PreferAES is 'true'; then return 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean ProtectionPolicy.isPreferAES()"})
   void testIsPreferAES_givenPublicKeyProtectionPolicyPreferAESIsTrue_thenReturnTrue() {
     // Arrange
@@ -139,34 +126,30 @@ class ProtectionPolicyDiffblueTest {
 
   /**
    * Test {@link ProtectionPolicy#isPreferAES()}.
-   *
    * <ul>
-   *   <li>Given {@link PublicKeyProtectionPolicy} (default constructor).
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link PublicKeyProtectionPolicy} (default constructor).</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProtectionPolicy#isPreferAES()}
+   * <p>
+   * Method under test: {@link ProtectionPolicy#isPreferAES()}
    */
   @Test
-  @DisplayName(
-      "Test isPreferAES(); given PublicKeyProtectionPolicy (default constructor); then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test isPreferAES(); given PublicKeyProtectionPolicy (default constructor); then return 'false'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean ProtectionPolicy.isPreferAES()"})
   void testIsPreferAES_givenPublicKeyProtectionPolicy_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new PublicKeyProtectionPolicy().isPreferAES());
+    assertFalse((new PublicKeyProtectionPolicy()).isPreferAES());
   }
 
   /**
    * Test {@link ProtectionPolicy#setPreferAES(boolean)}.
-   *
-   * <p>Method under test: {@link ProtectionPolicy#setPreferAES(boolean)}
+   * <p>
+   * Method under test: {@link ProtectionPolicy#setPreferAES(boolean)}
    */
   @Test
   @DisplayName("Test setPreferAES(boolean)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ProtectionPolicy.setPreferAES(boolean)"})
   void testSetPreferAES() {
     // Arrange

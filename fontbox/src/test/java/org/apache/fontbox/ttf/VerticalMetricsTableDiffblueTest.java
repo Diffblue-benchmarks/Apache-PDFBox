@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -15,13 +14,12 @@ import org.junit.jupiter.api.Test;
 class VerticalMetricsTableDiffblueTest {
   /**
    * Test {@link VerticalMetricsTable#VerticalMetricsTable()}.
-   *
-   * <p>Method under test: default or parameterless constructor of {@link VerticalMetricsTable}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link VerticalMetricsTable}
    */
   @Test
   @DisplayName("Test new VerticalMetricsTable()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void VerticalMetricsTable.<init>()"})
   void testNewVerticalMetricsTable() {
     // Arrange and Act
@@ -37,32 +35,24 @@ class VerticalMetricsTableDiffblueTest {
 
   /**
    * Test {@link VerticalMetricsTable#read(TrueTypeFont, TTFDataStream)}.
-   *
    * <ul>
-   *   <li>Then throw {@link IOException}.
+   *   <li>Then throw {@link IOException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VerticalMetricsTable#read(TrueTypeFont, TTFDataStream)}
+   * <p>
+   * Method under test: {@link VerticalMetricsTable#read(TrueTypeFont, TTFDataStream)}
    */
   @Test
   @DisplayName("Test read(TrueTypeFont, TTFDataStream); then throw IOException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void VerticalMetricsTable.read(TrueTypeFont, TTFDataStream)"})
   void testRead_thenThrowIOException() throws IOException {
     // Arrange
     VerticalMetricsTable verticalMetricsTable = new VerticalMetricsTable();
-    RandomAccessReadDataStream fontData =
-        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
-    TrueTypeFont ttf = new TrueTypeFont(fontData);
+    TrueTypeFont ttf = new TrueTypeFont(
+        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
 
     // Act and Assert
-    assertThrows(
-        IOException.class,
-        () ->
-            verticalMetricsTable.read(
-                ttf,
-                new RandomAccessReadDataStream(
-                    new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")))));
+    assertThrows(IOException.class, () -> verticalMetricsTable.read(ttf,
+        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")))));
   }
 }

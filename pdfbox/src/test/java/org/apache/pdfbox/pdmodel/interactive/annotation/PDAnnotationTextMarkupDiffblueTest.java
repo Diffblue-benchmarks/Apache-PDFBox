@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import org.apache.pdfbox.cos.COSDictionary;
@@ -16,22 +15,18 @@ import org.junit.jupiter.api.Test;
 class PDAnnotationTextMarkupDiffblueTest {
   /**
    * Test {@link PDAnnotationTextMarkup#PDAnnotationTextMarkup(COSDictionary)}.
-   *
    * <ul>
-   *   <li>When {@link COSDictionary#COSDictionary()}.
-   *   <li>Then return QuadPoints is {@code null}.
+   *   <li>When {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then return QuadPoints is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationTextMarkup#PDAnnotationTextMarkup(COSDictionary)}
+   * <p>
+   * Method under test: {@link PDAnnotationTextMarkup#PDAnnotationTextMarkup(COSDictionary)}
    */
   @Test
-  @DisplayName(
-      "Test new PDAnnotationTextMarkup(COSDictionary); when COSDictionary(); then return QuadPoints is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new PDAnnotationTextMarkup(COSDictionary); when COSDictionary(); then return QuadPoints is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationTextMarkup.<init>(COSDictionary)"})
-  void testNewPDAnnotationTextMarkup_whenCOSDictionary_thenReturnQuadPointsIsNull()
-      throws IOException {
+  void testNewPDAnnotationTextMarkup_whenCOSDictionary_thenReturnQuadPointsIsNull() throws IOException {
     // Arrange
     COSDictionary field = new COSDictionary();
 
@@ -80,22 +75,18 @@ class PDAnnotationTextMarkupDiffblueTest {
 
   /**
    * Test {@link PDAnnotationTextMarkup#PDAnnotationTextMarkup(String)}.
-   *
    * <ul>
-   *   <li>When empty string.
-   *   <li>Then return Subtype is empty string.
+   *   <li>When empty string.</li>
+   *   <li>Then return Subtype is empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationTextMarkup#PDAnnotationTextMarkup(String)}
+   * <p>
+   * Method under test: {@link PDAnnotationTextMarkup#PDAnnotationTextMarkup(String)}
    */
   @Test
-  @DisplayName(
-      "Test new PDAnnotationTextMarkup(String); when empty string; then return Subtype is empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new PDAnnotationTextMarkup(String); when empty string; then return Subtype is empty string")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationTextMarkup.<init>(String)"})
-  void testNewPDAnnotationTextMarkup_whenEmptyString_thenReturnSubtypeIsEmptyString()
-      throws IOException {
+  void testNewPDAnnotationTextMarkup_whenEmptyString_thenReturnSubtypeIsEmptyString() throws IOException {
     // Arrange and Act
     PDAnnotationTextMarkup actualPdAnnotationTextMarkup = new PDAnnotationTextMarkup("");
 
@@ -134,23 +125,21 @@ class PDAnnotationTextMarkupDiffblueTest {
     assertFalse(actualPdAnnotationTextMarkup.isReadOnly());
     assertFalse(actualPdAnnotationTextMarkup.isToggleNoView());
     assertEquals(PDAnnotationMarkup.RT_REPLY, actualPdAnnotationTextMarkup.getReplyType());
-    assertArrayEquals(new float[] {}, actualPdAnnotationTextMarkup.getQuadPoints(), 0.0f);
+    assertArrayEquals(new float[]{}, actualPdAnnotationTextMarkup.getQuadPoints(), 0.0f);
   }
 
   /**
    * Test {@link PDAnnotationTextMarkup#PDAnnotationTextMarkup(String)}.
-   *
    * <ul>
-   *   <li>When {@code Sub Type}.
-   *   <li>Then return {@code Sub Type}.
+   *   <li>When {@code Sub Type}.</li>
+   *   <li>Then return {@code Sub Type}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationTextMarkup#PDAnnotationTextMarkup(String)}
+   * <p>
+   * Method under test: {@link PDAnnotationTextMarkup#PDAnnotationTextMarkup(String)}
    */
   @Test
   @DisplayName("Test new PDAnnotationTextMarkup(String); when 'Sub Type'; then return 'Sub Type'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationTextMarkup.<init>(String)"})
   void testNewPDAnnotationTextMarkup_whenSubType_thenReturnSubType() throws IOException {
     // Arrange and Act
@@ -191,66 +180,60 @@ class PDAnnotationTextMarkupDiffblueTest {
     assertFalse(actualPdAnnotationTextMarkup.isReadOnly());
     assertFalse(actualPdAnnotationTextMarkup.isToggleNoView());
     assertEquals(PDAnnotationMarkup.RT_REPLY, actualPdAnnotationTextMarkup.getReplyType());
-    assertArrayEquals(new float[] {}, actualPdAnnotationTextMarkup.getQuadPoints(), 0.0f);
+    assertArrayEquals(new float[]{}, actualPdAnnotationTextMarkup.getQuadPoints(), 0.0f);
   }
 
   /**
    * Test {@link PDAnnotationTextMarkup#setQuadPoints(float[])}.
-   *
-   * <p>Method under test: {@link PDAnnotationTextMarkup#setQuadPoints(float[])}
+   * <p>
+   * Method under test: {@link PDAnnotationTextMarkup#setQuadPoints(float[])}
    */
   @Test
   @DisplayName("Test setQuadPoints(float[])")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationTextMarkup.setQuadPoints(float[])"})
   void testSetQuadPoints() {
     // Arrange
     PDAnnotationTextMarkup pdAnnotationTextMarkup = new PDAnnotationTextMarkup("Sub Type");
 
     // Act
-    pdAnnotationTextMarkup.setQuadPoints(new float[] {10.0f, 0.5f, 10.0f, 0.5f});
+    pdAnnotationTextMarkup.setQuadPoints(new float[]{10.0f, 0.5f, 10.0f, 0.5f});
 
     // Assert
-    assertArrayEquals(
-        new float[] {10.0f, 0.5f, 10.0f, 0.5f}, pdAnnotationTextMarkup.getQuadPoints(), 0.0f);
+    assertArrayEquals(new float[]{10.0f, 0.5f, 10.0f, 0.5f}, pdAnnotationTextMarkup.getQuadPoints(), 0.0f);
   }
 
   /**
    * Test {@link PDAnnotationTextMarkup#getQuadPoints()}.
-   *
    * <ul>
-   *   <li>Then return empty array of {@code float}.
+   *   <li>Then return empty array of {@code float}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationTextMarkup#getQuadPoints()}
+   * <p>
+   * Method under test: {@link PDAnnotationTextMarkup#getQuadPoints()}
    */
   @Test
   @DisplayName("Test getQuadPoints(); then return empty array of float")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"float[] PDAnnotationTextMarkup.getQuadPoints()"})
   void testGetQuadPoints_thenReturnEmptyArrayOfFloat() {
     // Arrange, Act and Assert
-    assertArrayEquals(new float[] {}, new PDAnnotationTextMarkup("Sub Type").getQuadPoints(), 0.0f);
+    assertArrayEquals(new float[]{}, (new PDAnnotationTextMarkup("Sub Type")).getQuadPoints(), 0.0f);
   }
 
   /**
    * Test {@link PDAnnotationTextMarkup#getQuadPoints()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationTextMarkup#getQuadPoints()}
+   * <p>
+   * Method under test: {@link PDAnnotationTextMarkup#getQuadPoints()}
    */
   @Test
   @DisplayName("Test getQuadPoints(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"float[] PDAnnotationTextMarkup.getQuadPoints()"})
   void testGetQuadPoints_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDAnnotationTextMarkup(new COSDictionary()).getQuadPoints());
+    assertNull((new PDAnnotationTextMarkup(new COSDictionary())).getQuadPoints());
   }
 }

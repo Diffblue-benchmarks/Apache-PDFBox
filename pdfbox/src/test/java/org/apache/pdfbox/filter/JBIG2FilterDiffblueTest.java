@@ -1,7 +1,6 @@
 package org.apache.pdfbox.filter;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -15,87 +14,62 @@ import org.junit.jupiter.api.Test;
 
 class JBIG2FilterDiffblueTest {
   /**
-   * Test {@link JBIG2Filter#decode(InputStream, OutputStream, COSDictionary, int, DecodeOptions)}
-   * with {@code encoded}, {@code decoded}, {@code parameters}, {@code index}, {@code options}.
-   *
-   * <ul>
-   *   <li>Then throw {@link IOException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link JBIG2Filter#decode(InputStream, OutputStream, COSDictionary, int,
-   * DecodeOptions)}
+   * Test {@link JBIG2Filter#decode(InputStream, OutputStream, COSDictionary, int)} with {@code encoded}, {@code decoded}, {@code parameters}, {@code index}.
+   * <p>
+   * Method under test: {@link JBIG2Filter#decode(InputStream, OutputStream, COSDictionary, int)}
    */
   @Test
-  @DisplayName(
-      "Test decode(InputStream, OutputStream, COSDictionary, int, DecodeOptions) with 'encoded', 'decoded', 'parameters', 'index', 'options'; then throw IOException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test decode(InputStream, OutputStream, COSDictionary, int) with 'encoded', 'decoded', 'parameters', 'index'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "org.apache.pdfbox.filter.DecodeResult JBIG2Filter.decode(InputStream, OutputStream, COSDictionary, int, DecodeOptions)"
-  })
-  void testDecodeWithEncodedDecodedParametersIndexOptions_thenThrowIOException()
-      throws IOException {
+      "org.apache.pdfbox.filter.DecodeResult JBIG2Filter.decode(InputStream, OutputStream, COSDictionary, int)"})
+  void testDecodeWithEncodedDecodedParametersIndex() throws IOException {
     // Arrange
     JBIG2Filter jbig2Filter = new JBIG2Filter();
     ByteArrayInputStream encoded = new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"));
-    ByteArrayOutputStream decoded = new ByteArrayOutputStream();
+    ByteArrayOutputStream decoded = new ByteArrayOutputStream(1);
 
     // Act and Assert
-    assertThrows(
-        IOException.class,
+    assertThrows(IOException.class, () -> jbig2Filter.decode(encoded, decoded, new COSDictionary(), 1));
+  }
+
+  /**
+   * Test {@link JBIG2Filter#decode(InputStream, OutputStream, COSDictionary, int, DecodeOptions)} with {@code encoded}, {@code decoded}, {@code parameters}, {@code index}, {@code options}.
+   * <p>
+   * Method under test: {@link JBIG2Filter#decode(InputStream, OutputStream, COSDictionary, int, DecodeOptions)}
+   */
+  @Test
+  @DisplayName("Test decode(InputStream, OutputStream, COSDictionary, int, DecodeOptions) with 'encoded', 'decoded', 'parameters', 'index', 'options'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.apache.pdfbox.filter.DecodeResult JBIG2Filter.decode(InputStream, OutputStream, COSDictionary, int, DecodeOptions)"})
+  void testDecodeWithEncodedDecodedParametersIndexOptions() throws IOException {
+    // Arrange
+    JBIG2Filter jbig2Filter = new JBIG2Filter();
+    ByteArrayInputStream encoded = new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"));
+    ByteArrayOutputStream decoded = new ByteArrayOutputStream(1);
+
+    // Act and Assert
+    assertThrows(IOException.class,
         () -> jbig2Filter.decode(encoded, decoded, new COSDictionary(), 1, DecodeOptions.DEFAULT));
   }
 
   /**
-   * Test {@link JBIG2Filter#decode(InputStream, OutputStream, COSDictionary, int)} with {@code
-   * encoded}, {@code decoded}, {@code parameters}, {@code index}.
-   *
-   * <ul>
-   *   <li>Then throw {@link IOException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link JBIG2Filter#decode(InputStream, OutputStream, COSDictionary, int)}
+   * Test {@link JBIG2Filter#encode(InputStream, OutputStream, COSDictionary)} with {@code input}, {@code encoded}, {@code parameters}.
+   * <p>
+   * Method under test: {@link JBIG2Filter#encode(InputStream, OutputStream, COSDictionary)}
    */
   @Test
-  @DisplayName(
-      "Test decode(InputStream, OutputStream, COSDictionary, int) with 'encoded', 'decoded', 'parameters', 'index'; then throw IOException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.apache.pdfbox.filter.DecodeResult JBIG2Filter.decode(InputStream, OutputStream, COSDictionary, int)"
-  })
-  void testDecodeWithEncodedDecodedParametersIndex_thenThrowIOException() throws IOException {
-    // Arrange
-    JBIG2Filter jbig2Filter = new JBIG2Filter();
-    ByteArrayInputStream encoded = new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"));
-    ByteArrayOutputStream decoded = new ByteArrayOutputStream();
-
-    // Act and Assert
-    assertThrows(
-        IOException.class, () -> jbig2Filter.decode(encoded, decoded, new COSDictionary(), 1));
-  }
-
-  /**
-   * Test {@link JBIG2Filter#encode(InputStream, OutputStream, COSDictionary)} with {@code input},
-   * {@code encoded}, {@code parameters}.
-   *
-   * <p>Method under test: {@link JBIG2Filter#encode(InputStream, OutputStream, COSDictionary)}
-   */
-  @Test
-  @DisplayName(
-      "Test encode(InputStream, OutputStream, COSDictionary) with 'input', 'encoded', 'parameters'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test encode(InputStream, OutputStream, COSDictionary) with 'input', 'encoded', 'parameters'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void JBIG2Filter.encode(InputStream, OutputStream, COSDictionary)"})
   void testEncodeWithInputEncodedParameters() throws IOException {
     // Arrange
     JBIG2Filter jbig2Filter = new JBIG2Filter();
     ByteArrayInputStream input = new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"));
-    ByteArrayOutputStream encoded = new ByteArrayOutputStream();
+    ByteArrayOutputStream encoded = new ByteArrayOutputStream(1);
 
     // Act and Assert
-    assertThrows(
-        UnsupportedOperationException.class,
-        () -> jbig2Filter.encode(input, encoded, new COSDictionary()));
+    assertThrows(UnsupportedOperationException.class, () -> jbig2Filter.encode(input, encoded, new COSDictionary()));
   }
 }

@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.Component;
 import java.awt.Component.BaselineResizeBehavior;
@@ -18,13 +17,12 @@ import org.junit.jupiter.api.Test;
 class UpperPaneDiffblueTest {
   /**
    * Test new {@link UpperPane} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link UpperPane}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link UpperPane}
    */
   @Test
   @DisplayName("Test new UpperPane (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void UpperPane.<init>()"})
   void testNewUpperPane() {
     // Arrange and Act

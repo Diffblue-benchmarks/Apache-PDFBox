@@ -6,7 +6,6 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -20,22 +19,18 @@ import org.mockito.Mockito;
 class COSNullDiffblueTest {
   /**
    * Test {@link COSNull#accept(ICOSVisitor)}.
-   *
    * <ul>
-   *   <li>When {@link COSWriter} {@link COSWriter#visitFromNull(COSNull)} does nothing.
-   *   <li>Then calls {@link COSWriter#visitFromNull(COSNull)}.
+   *   <li>When {@link COSWriter} {@link COSWriter#visitFromNull(COSNull)} does nothing.</li>
+   *   <li>Then calls {@link COSWriter#visitFromNull(COSNull)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSNull#accept(ICOSVisitor)}
+   * <p>
+   * Method under test: {@link COSNull#accept(ICOSVisitor)}
    */
   @Test
-  @DisplayName(
-      "Test accept(ICOSVisitor); when COSWriter visitFromNull(COSNull) does nothing; then calls visitFromNull(COSNull)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test accept(ICOSVisitor); when COSWriter visitFromNull(COSNull) does nothing; then calls visitFromNull(COSNull)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSNull.accept(ICOSVisitor)"})
-  void testAccept_whenCOSWriterVisitFromNullDoesNothing_thenCallsVisitFromNull()
-      throws IOException {
+  void testAccept_whenCOSWriterVisitFromNullDoesNothing_thenCallsVisitFromNull() throws IOException {
     // Arrange
     COSWriter visitor = mock(COSWriter.class);
     doNothing().when(visitor).visitFromNull(Mockito.<COSNull>any());
@@ -49,23 +44,19 @@ class COSNullDiffblueTest {
 
   /**
    * Test {@link COSNull#writePDF(OutputStream)}.
-   *
    * <ul>
-   *   <li>Then {@link ByteArrayOutputStream#ByteArrayOutputStream()} toByteArray is {@code null}
-   *       Bytes is {@code UTF-8}.
+   *   <li>Then {@link ByteArrayOutputStream#ByteArrayOutputStream(int)} with one toByteArray is {@code null} Bytes is {@code UTF-8}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSNull#writePDF(OutputStream)}
+   * <p>
+   * Method under test: {@link COSNull#writePDF(OutputStream)}
    */
   @Test
-  @DisplayName(
-      "Test writePDF(OutputStream); then ByteArrayOutputStream() toByteArray is 'null' Bytes is 'UTF-8'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test writePDF(OutputStream); then ByteArrayOutputStream(int) with one toByteArray is 'null' Bytes is 'UTF-8'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSNull.writePDF(OutputStream)"})
-  void testWritePDF_thenByteArrayOutputStreamToByteArrayIsNullBytesIsUtf8() throws IOException {
+  void testWritePDF_thenByteArrayOutputStreamWithOneToByteArrayIsNullBytesIsUtf8() throws IOException {
     // Arrange
-    ByteArrayOutputStream output = new ByteArrayOutputStream();
+    ByteArrayOutputStream output = new ByteArrayOutputStream(1);
 
     // Act
     COSNull.NULL.writePDF(output);
@@ -77,13 +68,12 @@ class COSNullDiffblueTest {
 
   /**
    * Test {@link COSNull#toString()}.
-   *
-   * <p>Method under test: {@link COSNull#toString()}
+   * <p>
+   * Method under test: {@link COSNull#toString()}
    */
   @Test
   @DisplayName("Test toString()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.lang.String COSNull.toString()"})
   void testToString() {
     // Arrange, Act and Assert

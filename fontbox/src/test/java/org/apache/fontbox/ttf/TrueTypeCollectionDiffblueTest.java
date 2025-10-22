@@ -1,7 +1,6 @@
 package org.apache.fontbox.ttf;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -13,22 +12,19 @@ import org.junit.jupiter.api.Test;
 class TrueTypeCollectionDiffblueTest {
   /**
    * Test {@link TrueTypeCollection#TrueTypeCollection(InputStream)}.
-   *
    * <ul>
-   *   <li>Then throw {@link IOException}.
+   *   <li>Then throw {@link IOException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TrueTypeCollection#TrueTypeCollection(InputStream)}
+   * <p>
+   * Method under test: {@link TrueTypeCollection#TrueTypeCollection(InputStream)}
    */
   @Test
   @DisplayName("Test new TrueTypeCollection(InputStream); then throw IOException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void TrueTypeCollection.<init>(InputStream)"})
   void testNewTrueTypeCollection_thenThrowIOException() throws IOException {
     // Arrange, Act and Assert
-    assertThrows(
-        IOException.class,
+    assertThrows(IOException.class,
         () -> new TrueTypeCollection(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
   }
 }

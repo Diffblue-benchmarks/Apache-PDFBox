@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.Serializable;
 import java.util.HashMap;
@@ -25,23 +24,19 @@ import org.junit.jupiter.api.Test;
 class DebugLogAppenderDiffblueTest {
   /**
    * Test {@link DebugLogAppender#DebugLogAppender(String, Filter, Layout, boolean)}.
-   *
-   * <p>Method under test: {@link DebugLogAppender#DebugLogAppender(String, Filter, Layout,
-   * boolean)}
+   * <p>
+   * Method under test: {@link DebugLogAppender#DebugLogAppender(String, Filter, Layout, boolean)}
    */
   @Test
   @DisplayName("Test new DebugLogAppender(String, Filter, Layout, boolean)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void DebugLogAppender.<init>(String, Filter, Layout, boolean)"})
   void testNewDebugLogAppender() {
     // Arrange
-    ThreadContextMapFilter filter =
-        new ThreadContextMapFilter(new HashMap<>(), true, Result.ACCEPT, Result.ACCEPT);
-    KeyValuePair keyValuePair = KeyValuePair.newBuilder().setKey("A Key").setValue("42").build();
-    KeyValuePair[] additionalFields = new KeyValuePair[] {keyValuePair};
-    GelfLayout layout =
-        new GelfLayout("localhost", additionalFields, CompressionType.GZIP, 1, true);
+    ThreadContextMapFilter filter = new ThreadContextMapFilter(new HashMap<>(), true, Result.ACCEPT, Result.ACCEPT);
+
+    KeyValuePair buildResult = KeyValuePair.newBuilder().setKey("A Key").setValue("42").build();
+    GelfLayout layout = new GelfLayout("localhost", new KeyValuePair[]{buildResult}, CompressionType.GZIP, 1, true);
 
     // Act
     DebugLogAppender actualDebugLogAppender = new DebugLogAppender("Name", filter, layout, true);
@@ -69,28 +64,22 @@ class DebugLogAppenderDiffblueTest {
 
   /**
    * Test {@link DebugLogAppender#createAppender(String, Filter, Layout, boolean)}.
-   *
-   * <p>Method under test: {@link DebugLogAppender#createAppender(String, Filter, Layout, boolean)}
+   * <p>
+   * Method under test: {@link DebugLogAppender#createAppender(String, Filter, Layout, boolean)}
    */
   @Test
   @DisplayName("Test createAppender(String, Filter, Layout, boolean)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "DebugLogAppender DebugLogAppender.createAppender(String, Filter, Layout, boolean)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"DebugLogAppender DebugLogAppender.createAppender(String, Filter, Layout, boolean)"})
   void testCreateAppender() {
     // Arrange
-    ThreadContextMapFilter filter =
-        new ThreadContextMapFilter(new HashMap<>(), true, Result.ACCEPT, Result.ACCEPT);
-    KeyValuePair keyValuePair = KeyValuePair.newBuilder().setKey("A Key").setValue("42").build();
-    KeyValuePair[] additionalFields = new KeyValuePair[] {keyValuePair};
-    GelfLayout layout =
-        new GelfLayout("localhost", additionalFields, CompressionType.GZIP, 1, true);
+    ThreadContextMapFilter filter = new ThreadContextMapFilter(new HashMap<>(), true, Result.ACCEPT, Result.ACCEPT);
+
+    KeyValuePair buildResult = KeyValuePair.newBuilder().setKey("A Key").setValue("42").build();
+    GelfLayout layout = new GelfLayout("localhost", new KeyValuePair[]{buildResult}, CompressionType.GZIP, 1, true);
 
     // Act
-    DebugLogAppender actualCreateAppenderResult =
-        DebugLogAppender.createAppender("Name", filter, layout, true);
+    DebugLogAppender actualCreateAppenderResult = DebugLogAppender.createAppender("Name", filter, layout, true);
 
     // Assert
     assertTrue(actualCreateAppenderResult.getHandler() instanceof DefaultErrorHandler);

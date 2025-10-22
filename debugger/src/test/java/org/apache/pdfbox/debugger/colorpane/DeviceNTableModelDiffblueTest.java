@@ -2,7 +2,6 @@ package org.apache.pdfbox.debugger.colorpane;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.Color;
 import org.junit.jupiter.api.DisplayName;
@@ -12,137 +11,156 @@ import org.junit.jupiter.api.Test;
 class DeviceNTableModelDiffblueTest {
   /**
    * Test {@link DeviceNTableModel#getRowCount()}.
-   *
-   * <ul>
-   *   <li>Then return zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link DeviceNTableModel#getRowCount()}
+   * <p>
+   * Method under test: {@link DeviceNTableModel#getRowCount()}
    */
   @Test
-  @DisplayName("Test getRowCount(); then return zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getRowCount()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int DeviceNTableModel.getRowCount()"})
-  void testGetRowCount_thenReturnZero() {
-    // Arrange
-    DeviceNTableModel deviceNTableModel = new DeviceNTableModel(new DeviceNColorant[] {});
-
-    // Act and Assert
-    assertEquals(0, deviceNTableModel.getRowCount());
+  void testGetRowCount() {
+    // Arrange, Act and Assert
+    assertEquals(1, (new DeviceNTableModel(new DeviceNColorant[]{new DeviceNColorant()})).getRowCount());
   }
 
   /**
    * Test {@link DeviceNTableModel#getColumnCount()}.
-   *
-   * <ul>
-   *   <li>Then return three.
-   * </ul>
-   *
-   * <p>Method under test: {@link DeviceNTableModel#getColumnCount()}
+   * <p>
+   * Method under test: {@link DeviceNTableModel#getColumnCount()}
    */
   @Test
-  @DisplayName("Test getColumnCount(); then return three")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getColumnCount()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int DeviceNTableModel.getColumnCount()"})
-  void testGetColumnCount_thenReturnThree() {
-    // Arrange
-    DeviceNTableModel deviceNTableModel = new DeviceNTableModel(new DeviceNColorant[] {});
-
-    // Act and Assert
-    assertEquals(3, deviceNTableModel.getColumnCount());
+  void testGetColumnCount() {
+    // Arrange, Act and Assert
+    assertEquals(3, (new DeviceNTableModel(new DeviceNColorant[]{new DeviceNColorant()})).getColumnCount());
   }
 
   /**
    * Test {@link DeviceNTableModel#getValueAt(int, int)}.
-   *
    * <ul>
-   *   <li>When minus one.
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeviceNTableModel#getValueAt(int, int)}
+   * <p>
+   * Method under test: {@link DeviceNTableModel#getValueAt(int, int)}
+   */
+  @Test
+  @DisplayName("Test getValueAt(int, int); then return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"java.lang.Object DeviceNTableModel.getValueAt(int, int)"})
+  void testGetValueAt_thenReturnNull() {
+    // Arrange, Act and Assert
+    assertNull((new DeviceNTableModel(new DeviceNColorant[]{new DeviceNColorant()})).getValueAt(0, 0));
+  }
+
+  /**
+   * Test {@link DeviceNTableModel#getValueAt(int, int)}.
+   * <ul>
+   *   <li>When minus one.</li>
+   *   <li>Then return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link DeviceNTableModel#getValueAt(int, int)}
    */
   @Test
   @DisplayName("Test getValueAt(int, int); when minus one; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.lang.Object DeviceNTableModel.getValueAt(int, int)"})
   void testGetValueAt_whenMinusOne_thenReturnNull() {
-    // Arrange
-    DeviceNTableModel deviceNTableModel = new DeviceNTableModel(new DeviceNColorant[] {});
+    // Arrange, Act and Assert
+    assertNull((new DeviceNTableModel(new DeviceNColorant[]{new DeviceNColorant()})).getValueAt(1, -1));
+  }
 
-    // Act and Assert
-    assertNull(deviceNTableModel.getValueAt(1, -1));
+  /**
+   * Test {@link DeviceNTableModel#getValueAt(int, int)}.
+   * <ul>
+   *   <li>When one.</li>
+   *   <li>Then return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link DeviceNTableModel#getValueAt(int, int)}
+   */
+  @Test
+  @DisplayName("Test getValueAt(int, int); when one; then return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"java.lang.Object DeviceNTableModel.getValueAt(int, int)"})
+  void testGetValueAt_whenOne_thenReturnNull() {
+    // Arrange, Act and Assert
+    assertNull((new DeviceNTableModel(new DeviceNColorant[]{new DeviceNColorant()})).getValueAt(0, 1));
+  }
+
+  /**
+   * Test {@link DeviceNTableModel#getValueAt(int, int)}.
+   * <ul>
+   *   <li>When two.</li>
+   *   <li>Then return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link DeviceNTableModel#getValueAt(int, int)}
+   */
+  @Test
+  @DisplayName("Test getValueAt(int, int); when two; then return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"java.lang.Object DeviceNTableModel.getValueAt(int, int)"})
+  void testGetValueAt_whenTwo_thenReturnNull() {
+    // Arrange, Act and Assert
+    assertNull((new DeviceNTableModel(new DeviceNColorant[]{new DeviceNColorant()})).getValueAt(0, 2));
   }
 
   /**
    * Test {@link DeviceNTableModel#getColumnName(int)}.
-   *
    * <ul>
-   *   <li>Then return {@code Maximum}.
+   *   <li>When one.</li>
+   *   <li>Then return {@code Maximum}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeviceNTableModel#getColumnName(int)}
+   * <p>
+   * Method under test: {@link DeviceNTableModel#getColumnName(int)}
    */
   @Test
-  @DisplayName("Test getColumnName(int); then return 'Maximum'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getColumnName(int); when one; then return 'Maximum'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String DeviceNTableModel.getColumnName(int)"})
-  void testGetColumnName_thenReturnMaximum() {
-    // Arrange
-    DeviceNTableModel deviceNTableModel = new DeviceNTableModel(new DeviceNColorant[] {});
-
-    // Act and Assert
-    assertEquals("Maximum", deviceNTableModel.getColumnName(1));
+  void testGetColumnName_whenOne_thenReturnMaximum() {
+    // Arrange, Act and Assert
+    assertEquals("Maximum", (new DeviceNTableModel(new DeviceNColorant[]{new DeviceNColorant()})).getColumnName(1));
   }
 
   /**
    * Test {@link DeviceNTableModel#getColumnClass(int)}.
-   *
    * <ul>
-   *   <li>When minus one.
-   *   <li>Then return {@code null}.
+   *   <li>When minus one.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeviceNTableModel#getColumnClass(int)}
+   * <p>
+   * Method under test: {@link DeviceNTableModel#getColumnClass(int)}
    */
   @Test
   @DisplayName("Test getColumnClass(int); when minus one; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Class DeviceNTableModel.getColumnClass(int)"})
   void testGetColumnClass_whenMinusOne_thenReturnNull() {
-    // Arrange
-    DeviceNTableModel deviceNTableModel = new DeviceNTableModel(new DeviceNColorant[] {});
-
-    // Act and Assert
-    assertNull(deviceNTableModel.getColumnClass(-1));
+    // Arrange, Act and Assert
+    assertNull((new DeviceNTableModel(new DeviceNColorant[]{new DeviceNColorant()})).getColumnClass(-1));
   }
 
   /**
    * Test {@link DeviceNTableModel#getColumnClass(int)}.
-   *
    * <ul>
-   *   <li>When one.
-   *   <li>Then return {@link Color}.
+   *   <li>When one.</li>
+   *   <li>Then return {@link Color}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeviceNTableModel#getColumnClass(int)}
+   * <p>
+   * Method under test: {@link DeviceNTableModel#getColumnClass(int)}
    */
   @Test
   @DisplayName("Test getColumnClass(int); when one; then return Color")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Class DeviceNTableModel.getColumnClass(int)"})
   void testGetColumnClass_whenOne_thenReturnColor() {
-    // Arrange
-    DeviceNTableModel deviceNTableModel = new DeviceNTableModel(new DeviceNColorant[] {});
-
-    // Act
-    Class<?> actualColumnClass = deviceNTableModel.getColumnClass(1);
+    // Arrange and Act
+    Class<?> actualColumnClass = (new DeviceNTableModel(new DeviceNColorant[]{new DeviceNColorant()}))
+        .getColumnClass(1);
 
     // Assert
     Class<Color> expectedColumnClass = Color.class;
@@ -151,25 +169,21 @@ class DeviceNTableModelDiffblueTest {
 
   /**
    * Test {@link DeviceNTableModel#getColumnClass(int)}.
-   *
    * <ul>
-   *   <li>When zero.
-   *   <li>Then return {@link String}.
+   *   <li>When zero.</li>
+   *   <li>Then return {@link String}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeviceNTableModel#getColumnClass(int)}
+   * <p>
+   * Method under test: {@link DeviceNTableModel#getColumnClass(int)}
    */
   @Test
   @DisplayName("Test getColumnClass(int); when zero; then return String")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Class DeviceNTableModel.getColumnClass(int)"})
   void testGetColumnClass_whenZero_thenReturnString() {
-    // Arrange
-    DeviceNTableModel deviceNTableModel = new DeviceNTableModel(new DeviceNColorant[] {});
-
-    // Act
-    Class<?> actualColumnClass = deviceNTableModel.getColumnClass(0);
+    // Arrange and Act
+    Class<?> actualColumnClass = (new DeviceNTableModel(new DeviceNColorant[]{new DeviceNColorant()}))
+        .getColumnClass(0);
 
     // Assert
     Class<String> expectedColumnClass = String.class;

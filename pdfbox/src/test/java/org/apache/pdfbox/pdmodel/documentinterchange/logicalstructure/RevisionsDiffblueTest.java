@@ -1,7 +1,6 @@
 package org.apache.pdfbox.pdmodel.documentinterchange.logicalstructure;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -10,13 +9,12 @@ import org.junit.jupiter.api.Test;
 class RevisionsDiffblueTest {
   /**
    * Test new {@link Revisions} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link Revisions}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link Revisions}
    */
   @Test
   @DisplayName("Test new Revisions (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void Revisions.<init>()"})
   void testNewRevisions() {
     // Arrange and Act
@@ -28,19 +26,16 @@ class RevisionsDiffblueTest {
 
   /**
    * Test {@link Revisions#getObject(int)}.
-   *
    * <ul>
-   *   <li>Given {@link Revisions} (default constructor) addObject {@code Object} and two.
-   *   <li>Then return {@code Object}.
+   *   <li>Given {@link Revisions} (default constructor) addObject {@code Object} and two.</li>
+   *   <li>Then return {@code Object}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Revisions#getObject(int)}
+   * <p>
+   * Method under test: {@link Revisions#getObject(int)}
    */
   @Test
-  @DisplayName(
-      "Test getObject(int); given Revisions (default constructor) addObject 'Object' and two; then return 'Object'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getObject(int); given Revisions (default constructor) addObject 'Object' and two; then return 'Object'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Object Revisions.getObject(int)"})
   void testGetObject_givenRevisionsAddObjectObjectAndTwo_thenReturnObject() {
     // Arrange
@@ -54,19 +49,16 @@ class RevisionsDiffblueTest {
 
   /**
    * Test {@link Revisions#getRevisionNumber(int)}.
-   *
    * <ul>
-   *   <li>Given {@link Revisions} (default constructor) addObject {@code Object} and two.
-   *   <li>Then return ten.
+   *   <li>Given {@link Revisions} (default constructor) addObject {@code Object} and two.</li>
+   *   <li>Then return ten.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Revisions#getRevisionNumber(int)}
+   * <p>
+   * Method under test: {@link Revisions#getRevisionNumber(int)}
    */
   @Test
-  @DisplayName(
-      "Test getRevisionNumber(int); given Revisions (default constructor) addObject 'Object' and two; then return ten")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getRevisionNumber(int); given Revisions (default constructor) addObject 'Object' and two; then return ten")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int Revisions.getRevisionNumber(int)"})
   void testGetRevisionNumber_givenRevisionsAddObjectObjectAndTwo_thenReturnTen() {
     // Arrange
@@ -80,19 +72,16 @@ class RevisionsDiffblueTest {
 
   /**
    * Test {@link Revisions#addObject(Object, int)}.
-   *
    * <ul>
-   *   <li>Given {@link Revisions} (default constructor) addObject {@code Object} and ten.
-   *   <li>Then {@link Revisions} (default constructor) size is two.
+   *   <li>Given {@link Revisions} (default constructor) addObject {@code Object} and ten.</li>
+   *   <li>Then {@link Revisions} (default constructor) size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Revisions#addObject(Object, int)}
+   * <p>
+   * Method under test: {@link Revisions#addObject(Object, int)}
    */
   @Test
-  @DisplayName(
-      "Test addObject(Object, int); given Revisions (default constructor) addObject 'Object' and ten; then Revisions (default constructor) size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test addObject(Object, int); given Revisions (default constructor) addObject 'Object' and ten; then Revisions (default constructor) size is two")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void Revisions.addObject(Object, int)"})
   void testAddObject_givenRevisionsAddObjectObjectAndTen_thenRevisionsSizeIsTwo() {
     // Arrange
@@ -108,19 +97,16 @@ class RevisionsDiffblueTest {
 
   /**
    * Test {@link Revisions#addObject(Object, int)}.
-   *
    * <ul>
-   *   <li>Given {@link Revisions} (default constructor).
-   *   <li>Then {@link Revisions} (default constructor) size is one.
+   *   <li>Given {@link Revisions} (default constructor).</li>
+   *   <li>Then {@link Revisions} (default constructor) size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Revisions#addObject(Object, int)}
+   * <p>
+   * Method under test: {@link Revisions#addObject(Object, int)}
    */
   @Test
-  @DisplayName(
-      "Test addObject(Object, int); given Revisions (default constructor); then Revisions (default constructor) size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test addObject(Object, int); given Revisions (default constructor); then Revisions (default constructor) size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void Revisions.addObject(Object, int)"})
   void testAddObject_givenRevisions_thenRevisionsSizeIsOne() {
     // Arrange
@@ -135,19 +121,16 @@ class RevisionsDiffblueTest {
 
   /**
    * Test {@link Revisions#size()}.
-   *
    * <ul>
-   *   <li>Given {@link Revisions} (default constructor) addObject {@code Object} and ten.
-   *   <li>Then return one.
+   *   <li>Given {@link Revisions} (default constructor) addObject {@code Object} and ten.</li>
+   *   <li>Then return one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Revisions#size()}
+   * <p>
+   * Method under test: {@link Revisions#size()}
    */
   @Test
-  @DisplayName(
-      "Test size(); given Revisions (default constructor) addObject 'Object' and ten; then return one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test size(); given Revisions (default constructor) addObject 'Object' and ten; then return one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int Revisions.size()"})
   void testSize_givenRevisionsAddObjectObjectAndTen_thenReturnOne() {
     // Arrange
@@ -160,18 +143,16 @@ class RevisionsDiffblueTest {
 
   /**
    * Test {@link Revisions#size()}.
-   *
    * <ul>
-   *   <li>Given {@link Revisions} (default constructor).
-   *   <li>Then return zero.
+   *   <li>Given {@link Revisions} (default constructor).</li>
+   *   <li>Then return zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Revisions#size()}
+   * <p>
+   * Method under test: {@link Revisions#size()}
    */
   @Test
   @DisplayName("Test size(); given Revisions (default constructor); then return zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int Revisions.size()"})
   void testSize_givenRevisions_thenReturnZero() {
     // Arrange
@@ -183,18 +164,16 @@ class RevisionsDiffblueTest {
 
   /**
    * Test {@link Revisions#toString()}.
-   *
    * <ul>
-   *   <li>Given {@link Revisions} (default constructor).
-   *   <li>Then return {@code {}}.
+   *   <li>Given {@link Revisions} (default constructor).</li>
+   *   <li>Then return {@code {}}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Revisions#toString()}
+   * <p>
+   * Method under test: {@link Revisions#toString()}
    */
   @Test
   @DisplayName("Test toString(); given Revisions (default constructor); then return '{}'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.lang.String Revisions.toString()"})
   void testToString_givenRevisions_thenReturnLeftCurlyBracketRightCurlyBracket() {
     // Arrange
@@ -206,17 +185,15 @@ class RevisionsDiffblueTest {
 
   /**
    * Test {@link Revisions#toString()}.
-   *
    * <ul>
-   *   <li>Then return {@code {object=Object, revisionNumber=10}}.
+   *   <li>Then return {@code {object=Object, revisionNumber=10}}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Revisions#toString()}
+   * <p>
+   * Method under test: {@link Revisions#toString()}
    */
   @Test
   @DisplayName("Test toString(); then return '{object=Object, revisionNumber=10}'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.lang.String Revisions.toString()"})
   void testToString_thenReturnObjectObjectRevisionNumber10() {
     // Arrange

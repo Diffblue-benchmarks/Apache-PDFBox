@@ -2,7 +2,6 @@ package org.apache.pdfbox.pdmodel.font.encoding;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSName;
@@ -13,9 +12,8 @@ import org.junit.jupiter.api.Test;
 class StandardEncodingDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link StandardEncoding#getCOSObject()}
    *   <li>{@link StandardEncoding#getEncodingName()}
@@ -23,12 +21,8 @@ class StandardEncodingDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "COSBase StandardEncoding.getCOSObject()",
-    "java.lang.String StandardEncoding.getEncodingName()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"COSBase StandardEncoding.getCOSObject()", "java.lang.String StandardEncoding.getEncodingName()"})
   void testGettersAndSetters() {
     // Arrange
     StandardEncoding standardEncoding = StandardEncoding.INSTANCE;

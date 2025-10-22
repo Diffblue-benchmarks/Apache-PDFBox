@@ -4,21 +4,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import org.apache.pdfbox.cos.COSDictionary;
-import org.apache.pdfbox.cos.COSDocument;
 import org.apache.pdfbox.multipdf.PDFMergerUtility.AcroFormMergeMode;
 import org.apache.pdfbox.multipdf.PDFMergerUtility.DocumentMergeMode;
-import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDStructureElementNameTreeNode;
 import org.apache.pdfbox.pdmodel.common.COSObjectable;
 import org.apache.pdfbox.pdmodel.common.PDNameTreeNode;
@@ -31,13 +27,12 @@ import org.junit.jupiter.api.Test;
 class PDFMergerUtilityDiffblueTest {
   /**
    * Test new {@link PDFMergerUtility} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link PDFMergerUtility}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link PDFMergerUtility}
    */
   @Test
   @DisplayName("Test new PDFMergerUtility (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFMergerUtility.<init>()"})
   void testNewPDFMergerUtility() {
     // Arrange and Act
@@ -48,135 +43,25 @@ class PDFMergerUtilityDiffblueTest {
     assertNull(actualPdfMergerUtility.getDestinationFileName());
     assertNull(actualPdfMergerUtility.getDestinationDocumentInformation());
     assertNull(actualPdfMergerUtility.getDestinationMetadata());
-    assertEquals(
-        AcroFormMergeMode.PDFBOX_LEGACY_MODE, actualPdfMergerUtility.getAcroFormMergeMode());
-    assertEquals(
-        DocumentMergeMode.PDFBOX_LEGACY_MODE, actualPdfMergerUtility.getDocumentMergeMode());
+    assertEquals(AcroFormMergeMode.PDFBOX_LEGACY_MODE, actualPdfMergerUtility.getAcroFormMergeMode());
+    assertEquals(DocumentMergeMode.PDFBOX_LEGACY_MODE, actualPdfMergerUtility.getDocumentMergeMode());
     assertFalse(actualPdfMergerUtility.isIgnoreAcroFormErrors());
   }
 
   /**
-   * Test {@link PDFMergerUtility#appendDocument(PDDocument, PDDocument)}.
-   *
-   * <ul>
-   *   <li>Given {@link COSDocument} {@link COSDocument#isClosed()} return {@code true}.
-   *   <li>Then throw {@link IOException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDFMergerUtility#appendDocument(PDDocument, PDDocument)}
-   */
-  @Test
-  @DisplayName(
-      "Test appendDocument(PDDocument, PDDocument); given COSDocument isClosed() return 'true'; then throw IOException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDFMergerUtility.appendDocument(PDDocument, PDDocument)"})
-  void testAppendDocument_givenCOSDocumentIsClosedReturnTrue_thenThrowIOException()
-      throws IOException {
-    // Arrange
-    PDFMergerUtility pdfMergerUtility = new PDFMergerUtility();
-
-    COSDocument cosDocument = mock(COSDocument.class);
-    when(cosDocument.isClosed()).thenReturn(true);
-
-    PDDocument destination = mock(PDDocument.class);
-    when(destination.getDocument()).thenReturn(cosDocument);
-
-    // Act and Assert
-    assertThrows(
-        IOException.class, () -> pdfMergerUtility.appendDocument(destination, new PDDocument()));
-    verify(cosDocument).isClosed();
-    verify(destination).getDocument();
-  }
-
-  /**
-   * Test {@link PDFMergerUtility#appendDocument(PDDocument, PDDocument)}.
-   *
-   * <ul>
-   *   <li>Given {@link COSDocument#COSDocument()}.
-   *   <li>Then throw {@link IOException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDFMergerUtility#appendDocument(PDDocument, PDDocument)}
-   */
-  @Test
-  @DisplayName(
-      "Test appendDocument(PDDocument, PDDocument); given COSDocument(); then throw IOException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDFMergerUtility.appendDocument(PDDocument, PDDocument)"})
-  void testAppendDocument_givenCOSDocument_thenThrowIOException() throws IOException {
-    // Arrange
-    PDFMergerUtility pdfMergerUtility = new PDFMergerUtility();
-
-    COSDocument cosDocument = mock(COSDocument.class);
-    when(cosDocument.isClosed()).thenReturn(true);
-
-    PDDocument destination = mock(PDDocument.class);
-    when(destination.getDocument()).thenReturn(cosDocument);
-
-    PDDocument source = mock(PDDocument.class);
-    when(source.getDocument()).thenReturn(new COSDocument());
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> pdfMergerUtility.appendDocument(destination, source));
-    verify(cosDocument).isClosed();
-    verify(destination).getDocument();
-    verify(source).getDocument();
-  }
-
-  /**
-   * Test {@link PDFMergerUtility#appendDocument(PDDocument, PDDocument)}.
-   *
-   * <ul>
-   *   <li>When {@link PDDocument}.
-   *   <li>Then throw {@link IOException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDFMergerUtility#appendDocument(PDDocument, PDDocument)}
-   */
-  @Test
-  @DisplayName(
-      "Test appendDocument(PDDocument, PDDocument); when PDDocument; then throw IOException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDFMergerUtility.appendDocument(PDDocument, PDDocument)"})
-  void testAppendDocument_whenPDDocument_thenThrowIOException() throws IOException {
-    // Arrange
-    PDFMergerUtility pdfMergerUtility = new PDFMergerUtility();
-    PDDocument destination = mock(PDDocument.class);
-
-    COSDocument cosDocument = mock(COSDocument.class);
-    when(cosDocument.isClosed()).thenReturn(true);
-
-    PDDocument source = mock(PDDocument.class);
-    when(source.getDocument()).thenReturn(cosDocument);
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> pdfMergerUtility.appendDocument(destination, source));
-    verify(cosDocument).isClosed();
-    verify(source).getDocument();
-  }
-
-  /**
    * Test {@link PDFMergerUtility#getIDTreeAsMap(PDNameTreeNode)}.
-   *
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()}.
-   *   <li>When {@link PDStructureElementNameTreeNode#PDStructureElementNameTreeNode()} Names is
-   *       {@link HashMap#HashMap()}.
+   *   <li>Given {@link HashMap#HashMap()}.</li>
+   *   <li>When {@link PDStructureElementNameTreeNode#PDStructureElementNameTreeNode()} Names is {@link HashMap#HashMap()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFMergerUtility#getIDTreeAsMap(PDNameTreeNode)}
+   * <p>
+   * Method under test: {@link PDFMergerUtility#getIDTreeAsMap(PDNameTreeNode)}
    */
   @Test
-  @DisplayName(
-      "Test getIDTreeAsMap(PDNameTreeNode); given HashMap(); when PDStructureElementNameTreeNode() Names is HashMap()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getIDTreeAsMap(PDNameTreeNode); given HashMap(); when PDStructureElementNameTreeNode() Names is HashMap()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Map PDFMergerUtility.getIDTreeAsMap(PDNameTreeNode)"})
-  void testGetIDTreeAsMap_givenHashMap_whenPDStructureElementNameTreeNodeNamesIsHashMap()
-      throws IOException {
+  void testGetIDTreeAsMap_givenHashMap_whenPDStructureElementNameTreeNodeNamesIsHashMap() throws IOException {
     // Arrange
     PDStructureElementNameTreeNode idTree = new PDStructureElementNameTreeNode();
     idTree.setNames(new HashMap<>());
@@ -190,17 +75,15 @@ class PDFMergerUtilityDiffblueTest {
 
   /**
    * Test {@link PDFMergerUtility#getIDTreeAsMap(PDNameTreeNode)}.
-   *
    * <ul>
-   *   <li>Then return size is one.
+   *   <li>Then return size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFMergerUtility#getIDTreeAsMap(PDNameTreeNode)}
+   * <p>
+   * Method under test: {@link PDFMergerUtility#getIDTreeAsMap(PDNameTreeNode)}
    */
   @Test
   @DisplayName("Test getIDTreeAsMap(PDNameTreeNode); then return size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Map PDFMergerUtility.getIDTreeAsMap(PDNameTreeNode)"})
   void testGetIDTreeAsMap_thenReturnSizeIsOne() throws IOException {
     // Arrange
@@ -235,18 +118,16 @@ class PDFMergerUtilityDiffblueTest {
 
   /**
    * Test {@link PDFMergerUtility#getIDTreeAsMap(PDNameTreeNode)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return Empty.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFMergerUtility#getIDTreeAsMap(PDNameTreeNode)}
+   * <p>
+   * Method under test: {@link PDFMergerUtility#getIDTreeAsMap(PDNameTreeNode)}
    */
   @Test
   @DisplayName("Test getIDTreeAsMap(PDNameTreeNode); when 'null'; then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Map PDFMergerUtility.getIDTreeAsMap(PDNameTreeNode)"})
   void testGetIDTreeAsMap_whenNull_thenReturnEmpty() throws IOException {
     // Arrange and Act
@@ -258,24 +139,21 @@ class PDFMergerUtilityDiffblueTest {
 
   /**
    * Test {@link PDFMergerUtility#getIDTreeAsMap(PDNameTreeNode)}.
-   *
    * <ul>
-   *   <li>When {@link PDStructureElementNameTreeNode#PDStructureElementNameTreeNode()}.
-   *   <li>Then return Empty.
+   *   <li>When {@link PDStructureElementNameTreeNode#PDStructureElementNameTreeNode()}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFMergerUtility#getIDTreeAsMap(PDNameTreeNode)}
+   * <p>
+   * Method under test: {@link PDFMergerUtility#getIDTreeAsMap(PDNameTreeNode)}
    */
   @Test
-  @DisplayName(
-      "Test getIDTreeAsMap(PDNameTreeNode); when PDStructureElementNameTreeNode(); then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getIDTreeAsMap(PDNameTreeNode); when PDStructureElementNameTreeNode(); then return Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Map PDFMergerUtility.getIDTreeAsMap(PDNameTreeNode)"})
   void testGetIDTreeAsMap_whenPDStructureElementNameTreeNode_thenReturnEmpty() throws IOException {
     // Arrange and Act
-    Map<String, PDStructureElement> actualIDTreeAsMap =
-        PDFMergerUtility.getIDTreeAsMap(new PDStructureElementNameTreeNode());
+    Map<String, PDStructureElement> actualIDTreeAsMap = PDFMergerUtility
+        .getIDTreeAsMap(new PDStructureElementNameTreeNode());
 
     // Assert
     assertTrue(actualIDTreeAsMap.isEmpty());
@@ -283,20 +161,44 @@ class PDFMergerUtilityDiffblueTest {
 
   /**
    * Test {@link PDFMergerUtility#getNumberTreeAsMap(PDNumberTreeNode)}.
-   *
    * <ul>
-   *   <li>Given {@link COSObjectable} {@link COSObjectable#getCOSObject()} return {@code null}.
+   *   <li>Given {@link HashMap#HashMap()}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFMergerUtility#getNumberTreeAsMap(PDNumberTreeNode)}
+   * <p>
+   * Method under test: {@link PDFMergerUtility#getNumberTreeAsMap(PDNumberTreeNode)}
    */
   @Test
-  @DisplayName(
-      "Test getNumberTreeAsMap(PDNumberTreeNode); given COSObjectable getCOSObject() return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getNumberTreeAsMap(PDNumberTreeNode); given HashMap(); then return Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Map PDFMergerUtility.getNumberTreeAsMap(PDNumberTreeNode)"})
-  void testGetNumberTreeAsMap_givenCOSObjectableGetCOSObjectReturnNull() throws IOException {
+  void testGetNumberTreeAsMap_givenHashMap_thenReturnEmpty() throws IOException {
+    // Arrange
+    Class<COSObjectable> valueClass = COSObjectable.class;
+
+    PDNumberTreeNode tree = new PDNumberTreeNode(valueClass);
+    tree.setNumbers(new HashMap<>());
+
+    // Act
+    Map<Integer, COSObjectable> actualNumberTreeAsMap = PDFMergerUtility.getNumberTreeAsMap(tree);
+
+    // Assert
+    assertTrue(actualNumberTreeAsMap.isEmpty());
+  }
+
+  /**
+   * Test {@link PDFMergerUtility#getNumberTreeAsMap(PDNumberTreeNode)}.
+   * <ul>
+   *   <li>Then return size is one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDFMergerUtility#getNumberTreeAsMap(PDNumberTreeNode)}
+   */
+  @Test
+  @DisplayName("Test getNumberTreeAsMap(PDNumberTreeNode); then return size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map PDFMergerUtility.getNumberTreeAsMap(PDNumberTreeNode)"})
+  void testGetNumberTreeAsMap_thenReturnSizeIsOne() throws IOException {
     // Arrange
     COSObjectable cosObjectable = mock(COSObjectable.class);
     when(cosObjectable.getCOSObject()).thenReturn(null);
@@ -319,47 +221,16 @@ class PDFMergerUtilityDiffblueTest {
 
   /**
    * Test {@link PDFMergerUtility#getNumberTreeAsMap(PDNumberTreeNode)}.
-   *
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()}.
-   *   <li>Then return Empty.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFMergerUtility#getNumberTreeAsMap(PDNumberTreeNode)}
-   */
-  @Test
-  @DisplayName("Test getNumberTreeAsMap(PDNumberTreeNode); given HashMap(); then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Map PDFMergerUtility.getNumberTreeAsMap(PDNumberTreeNode)"})
-  void testGetNumberTreeAsMap_givenHashMap_thenReturnEmpty() throws IOException {
-    // Arrange
-    Class<COSObjectable> valueClass = COSObjectable.class;
-
-    PDNumberTreeNode tree = new PDNumberTreeNode(valueClass);
-    tree.setNumbers(new HashMap<>());
-
-    // Act
-    Map<Integer, COSObjectable> actualNumberTreeAsMap = PDFMergerUtility.getNumberTreeAsMap(tree);
-
-    // Assert
-    assertTrue(actualNumberTreeAsMap.isEmpty());
-  }
-
-  /**
-   * Test {@link PDFMergerUtility#getNumberTreeAsMap(PDNumberTreeNode)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return Empty.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDFMergerUtility#getNumberTreeAsMap(PDNumberTreeNode)}
+   * <p>
+   * Method under test: {@link PDFMergerUtility#getNumberTreeAsMap(PDNumberTreeNode)}
    */
   @Test
   @DisplayName("Test getNumberTreeAsMap(PDNumberTreeNode); when 'null'; then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Map PDFMergerUtility.getNumberTreeAsMap(PDNumberTreeNode)"})
   void testGetNumberTreeAsMap_whenNull_thenReturnEmpty() throws IOException {
     // Arrange and Act
@@ -371,28 +242,23 @@ class PDFMergerUtilityDiffblueTest {
 
   /**
    * Test {@link PDFMergerUtility#getNumberTreeAsMap(PDNumberTreeNode)}.
-   *
    * <ul>
-   *   <li>When {@link PDNumberTreeNode#PDNumberTreeNode(Class)} with valueClass is {@link
-   *       COSObjectable}.
+   *   <li>When {@link PDNumberTreeNode#PDNumberTreeNode(Class)} with valueClass is {@link COSObjectable}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFMergerUtility#getNumberTreeAsMap(PDNumberTreeNode)}
+   * <p>
+   * Method under test: {@link PDFMergerUtility#getNumberTreeAsMap(PDNumberTreeNode)}
    */
   @Test
-  @DisplayName(
-      "Test getNumberTreeAsMap(PDNumberTreeNode); when PDNumberTreeNode(Class) with valueClass is COSObjectable")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getNumberTreeAsMap(PDNumberTreeNode); when PDNumberTreeNode(Class) with valueClass is COSObjectable")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Map PDFMergerUtility.getNumberTreeAsMap(PDNumberTreeNode)"})
-  void testGetNumberTreeAsMap_whenPDNumberTreeNodeWithValueClassIsCOSObjectable()
-      throws IOException {
+  void testGetNumberTreeAsMap_whenPDNumberTreeNodeWithValueClassIsCOSObjectable() throws IOException {
     // Arrange
     Class<COSObjectable> valueClass = COSObjectable.class;
 
     // Act
-    Map<Integer, COSObjectable> actualNumberTreeAsMap =
-        PDFMergerUtility.getNumberTreeAsMap(new PDNumberTreeNode(valueClass));
+    Map<Integer, COSObjectable> actualNumberTreeAsMap = PDFMergerUtility
+        .getNumberTreeAsMap(new PDNumberTreeNode(valueClass));
 
     // Assert
     assertTrue(actualNumberTreeAsMap.isEmpty());

@@ -3,7 +3,6 @@ package org.apache.fontbox.ttf.table.common;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -12,22 +11,19 @@ import org.junit.jupiter.api.Test;
 class CoverageTableFormat2DiffblueTest {
   /**
    * Test {@link CoverageTableFormat2#CoverageTableFormat2(int, RangeRecord[])}.
-   *
    * <ul>
-   *   <li>Then return CoverageFormat is one.
+   *   <li>Then return CoverageFormat is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CoverageTableFormat2#CoverageTableFormat2(int, RangeRecord[])}
+   * <p>
+   * Method under test: {@link CoverageTableFormat2#CoverageTableFormat2(int, RangeRecord[])}
    */
   @Test
-  @DisplayName(
-      "Test new CoverageTableFormat2(int, RangeRecord[]); then return CoverageFormat is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new CoverageTableFormat2(int, RangeRecord[]); then return CoverageFormat is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void CoverageTableFormat2.<init>(int, RangeRecord[])"})
   void testNewCoverageTableFormat2_thenReturnCoverageFormatIsOne() {
     // Arrange
-    RangeRecord[] rangeRecords = new RangeRecord[] {new RangeRecord(1, 1, 1)};
+    RangeRecord[] rangeRecords = new RangeRecord[]{new RangeRecord(1, 1, 1)};
 
     // Act
     CoverageTableFormat2 actualCoverageTableFormat2 = new CoverageTableFormat2(1, rangeRecords);
@@ -36,14 +32,13 @@ class CoverageTableFormat2DiffblueTest {
     assertEquals(1, actualCoverageTableFormat2.getCoverageFormat());
     assertEquals(1, actualCoverageTableFormat2.getSize());
     assertSame(rangeRecords, actualCoverageTableFormat2.getRangeRecords());
-    assertArrayEquals(new int[] {1}, actualCoverageTableFormat2.getGlyphArray());
+    assertArrayEquals(new int[]{1}, actualCoverageTableFormat2.getGlyphArray());
   }
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link CoverageTableFormat2#toString()}
    *   <li>{@link CoverageTableFormat2#getRangeRecords()}
@@ -51,17 +46,13 @@ class CoverageTableFormat2DiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "RangeRecord[] CoverageTableFormat2.getRangeRecords()",
-    "String CoverageTableFormat2.toString()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"RangeRecord[] CoverageTableFormat2.getRangeRecords()", "String CoverageTableFormat2.toString()"})
   void testGettersAndSetters() {
     // Arrange
     RangeRecord rangeRecord = new RangeRecord(1, 1, 1);
-    RangeRecord[] rangeRecords = new RangeRecord[] {rangeRecord};
-    CoverageTableFormat2 coverageTableFormat2 = new CoverageTableFormat2(1, rangeRecords);
+
+    CoverageTableFormat2 coverageTableFormat2 = new CoverageTableFormat2(1, new RangeRecord[]{rangeRecord});
 
     // Act
     String actualToStringResult = coverageTableFormat2.toString();

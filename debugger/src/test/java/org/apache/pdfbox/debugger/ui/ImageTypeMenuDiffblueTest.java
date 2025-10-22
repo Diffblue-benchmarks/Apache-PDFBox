@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.pdfbox.rendering.ImageType;
 import org.junit.jupiter.api.DisplayName;
@@ -14,41 +13,34 @@ import org.junit.jupiter.api.Test;
 class ImageTypeMenuDiffblueTest {
   /**
    * Test {@link ImageTypeMenu#setImageTypeSelection(String)}.
-   *
    * <ul>
-   *   <li>When {@code Selection}.
-   *   <li>Then throw {@link IllegalArgumentException}.
+   *   <li>When {@code Selection}.</li>
+   *   <li>Then throw {@link IllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ImageTypeMenu#setImageTypeSelection(String)}
+   * <p>
+   * Method under test: {@link ImageTypeMenu#setImageTypeSelection(String)}
    */
   @Test
-  @DisplayName(
-      "Test setImageTypeSelection(String); when 'Selection'; then throw IllegalArgumentException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setImageTypeSelection(String); when 'Selection'; then throw IllegalArgumentException")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ImageTypeMenu.setImageTypeSelection(String)"})
   void testSetImageTypeSelection_whenSelection_thenThrowIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        IllegalArgumentException.class,
-        () -> ImageTypeMenu.getInstance().setImageTypeSelection("Selection"));
+    assertThrows(IllegalArgumentException.class, () -> ImageTypeMenu.getInstance().setImageTypeSelection("Selection"));
   }
 
   /**
    * Test {@link ImageTypeMenu#isImageTypeMenu(String)}.
-   *
    * <ul>
-   *   <li>When {@code Action Command}.
-   *   <li>Then return {@code false}.
+   *   <li>When {@code Action Command}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ImageTypeMenu#isImageTypeMenu(String)}
+   * <p>
+   * Method under test: {@link ImageTypeMenu#isImageTypeMenu(String)}
    */
   @Test
   @DisplayName("Test isImageTypeMenu(String); when 'Action Command'; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean ImageTypeMenu.isImageTypeMenu(String)"})
   void testIsImageTypeMenu_whenActionCommand_thenReturnFalse() {
     // Arrange, Act and Assert
@@ -57,18 +49,16 @@ class ImageTypeMenuDiffblueTest {
 
   /**
    * Test {@link ImageTypeMenu#isImageTypeMenu(String)}.
-   *
    * <ul>
-   *   <li>When {@link ImageTypeMenu#IMAGETYPE_ARGB}.
-   *   <li>Then return {@code true}.
+   *   <li>When {@link ImageTypeMenu#IMAGETYPE_ARGB}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ImageTypeMenu#isImageTypeMenu(String)}
+   * <p>
+   * Method under test: {@link ImageTypeMenu#isImageTypeMenu(String)}
    */
   @Test
   @DisplayName("Test isImageTypeMenu(String); when IMAGETYPE_ARGB; then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean ImageTypeMenu.isImageTypeMenu(String)"})
   void testIsImageTypeMenu_whenImagetype_argb_thenReturnTrue() {
     // Arrange, Act and Assert
@@ -77,18 +67,16 @@ class ImageTypeMenuDiffblueTest {
 
   /**
    * Test {@link ImageTypeMenu#isImageTypeMenu(String)}.
-   *
    * <ul>
-   *   <li>When {@link ImageTypeMenu#IMAGETYPE_BITONAL}.
-   *   <li>Then return {@code true}.
+   *   <li>When {@link ImageTypeMenu#IMAGETYPE_BITONAL}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ImageTypeMenu#isImageTypeMenu(String)}
+   * <p>
+   * Method under test: {@link ImageTypeMenu#isImageTypeMenu(String)}
    */
   @Test
   @DisplayName("Test isImageTypeMenu(String); when IMAGETYPE_BITONAL; then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean ImageTypeMenu.isImageTypeMenu(String)"})
   void testIsImageTypeMenu_whenImagetype_bitonal_thenReturnTrue() {
     // Arrange, Act and Assert
@@ -97,18 +85,16 @@ class ImageTypeMenuDiffblueTest {
 
   /**
    * Test {@link ImageTypeMenu#isImageTypeMenu(String)}.
-   *
    * <ul>
-   *   <li>When {@link ImageTypeMenu#IMAGETYPE_GRAY}.
-   *   <li>Then return {@code true}.
+   *   <li>When {@link ImageTypeMenu#IMAGETYPE_GRAY}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ImageTypeMenu#isImageTypeMenu(String)}
+   * <p>
+   * Method under test: {@link ImageTypeMenu#isImageTypeMenu(String)}
    */
   @Test
   @DisplayName("Test isImageTypeMenu(String); when IMAGETYPE_GRAY; then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean ImageTypeMenu.isImageTypeMenu(String)"})
   void testIsImageTypeMenu_whenImagetype_gray_thenReturnTrue() {
     // Arrange, Act and Assert
@@ -117,18 +103,16 @@ class ImageTypeMenuDiffblueTest {
 
   /**
    * Test {@link ImageTypeMenu#isImageTypeMenu(String)}.
-   *
    * <ul>
-   *   <li>When {@link ImageTypeMenu#IMAGETYPE_RGB}.
-   *   <li>Then return {@code true}.
+   *   <li>When {@link ImageTypeMenu#IMAGETYPE_RGB}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ImageTypeMenu#isImageTypeMenu(String)}
+   * <p>
+   * Method under test: {@link ImageTypeMenu#isImageTypeMenu(String)}
    */
   @Test
   @DisplayName("Test isImageTypeMenu(String); when IMAGETYPE_RGB; then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean ImageTypeMenu.isImageTypeMenu(String)"})
   void testIsImageTypeMenu_whenImagetype_rgb_thenReturnTrue() {
     // Arrange, Act and Assert
@@ -137,40 +121,34 @@ class ImageTypeMenuDiffblueTest {
 
   /**
    * Test {@link ImageTypeMenu#getImageType(String)} with {@code String}.
-   *
    * <ul>
-   *   <li>When {@code Action Command}.
-   *   <li>Then throw {@link IllegalArgumentException}.
+   *   <li>When {@code Action Command}.</li>
+   *   <li>Then throw {@link IllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ImageTypeMenu#getImageType(String)}
+   * <p>
+   * Method under test: {@link ImageTypeMenu#getImageType(String)}
    */
   @Test
-  @DisplayName(
-      "Test getImageType(String) with 'String'; when 'Action Command'; then throw IllegalArgumentException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getImageType(String) with 'String'; when 'Action Command'; then throw IllegalArgumentException")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ImageType ImageTypeMenu.getImageType(String)"})
   void testGetImageTypeWithString_whenActionCommand_thenThrowIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        IllegalArgumentException.class, () -> ImageTypeMenu.getImageType("Action Command"));
+    assertThrows(IllegalArgumentException.class, () -> ImageTypeMenu.getImageType("Action Command"));
   }
 
   /**
    * Test {@link ImageTypeMenu#getImageType(String)} with {@code String}.
-   *
    * <ul>
-   *   <li>When {@link ImageTypeMenu#IMAGETYPE_ARGB}.
-   *   <li>Then return {@code ARGB}.
+   *   <li>When {@link ImageTypeMenu#IMAGETYPE_ARGB}.</li>
+   *   <li>Then return {@code ARGB}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ImageTypeMenu#getImageType(String)}
+   * <p>
+   * Method under test: {@link ImageTypeMenu#getImageType(String)}
    */
   @Test
   @DisplayName("Test getImageType(String) with 'String'; when IMAGETYPE_ARGB; then return 'ARGB'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ImageType ImageTypeMenu.getImageType(String)"})
   void testGetImageTypeWithString_whenImagetype_argb_thenReturnArgb() {
     // Arrange, Act and Assert
@@ -179,19 +157,16 @@ class ImageTypeMenuDiffblueTest {
 
   /**
    * Test {@link ImageTypeMenu#getImageType(String)} with {@code String}.
-   *
    * <ul>
-   *   <li>When {@link ImageTypeMenu#IMAGETYPE_BITONAL}.
-   *   <li>Then return {@code BINARY}.
+   *   <li>When {@link ImageTypeMenu#IMAGETYPE_BITONAL}.</li>
+   *   <li>Then return {@code BINARY}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ImageTypeMenu#getImageType(String)}
+   * <p>
+   * Method under test: {@link ImageTypeMenu#getImageType(String)}
    */
   @Test
-  @DisplayName(
-      "Test getImageType(String) with 'String'; when IMAGETYPE_BITONAL; then return 'BINARY'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getImageType(String) with 'String'; when IMAGETYPE_BITONAL; then return 'BINARY'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ImageType ImageTypeMenu.getImageType(String)"})
   void testGetImageTypeWithString_whenImagetype_bitonal_thenReturnBinary() {
     // Arrange, Act and Assert
@@ -200,18 +175,16 @@ class ImageTypeMenuDiffblueTest {
 
   /**
    * Test {@link ImageTypeMenu#getImageType(String)} with {@code String}.
-   *
    * <ul>
-   *   <li>When {@link ImageTypeMenu#IMAGETYPE_GRAY}.
-   *   <li>Then return {@code GRAY}.
+   *   <li>When {@link ImageTypeMenu#IMAGETYPE_GRAY}.</li>
+   *   <li>Then return {@code GRAY}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ImageTypeMenu#getImageType(String)}
+   * <p>
+   * Method under test: {@link ImageTypeMenu#getImageType(String)}
    */
   @Test
   @DisplayName("Test getImageType(String) with 'String'; when IMAGETYPE_GRAY; then return 'GRAY'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ImageType ImageTypeMenu.getImageType(String)"})
   void testGetImageTypeWithString_whenImagetype_gray_thenReturnGray() {
     // Arrange, Act and Assert
@@ -220,18 +193,16 @@ class ImageTypeMenuDiffblueTest {
 
   /**
    * Test {@link ImageTypeMenu#getImageType(String)} with {@code String}.
-   *
    * <ul>
-   *   <li>When {@link ImageTypeMenu#IMAGETYPE_RGB}.
-   *   <li>Then return {@code RGB}.
+   *   <li>When {@link ImageTypeMenu#IMAGETYPE_RGB}.</li>
+   *   <li>Then return {@code RGB}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ImageTypeMenu#getImageType(String)}
+   * <p>
+   * Method under test: {@link ImageTypeMenu#getImageType(String)}
    */
   @Test
   @DisplayName("Test getImageType(String) with 'String'; when IMAGETYPE_RGB; then return 'RGB'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ImageType ImageTypeMenu.getImageType(String)"})
   void testGetImageTypeWithString_whenImagetype_rgb_thenReturnRgb() {
     // Arrange, Act and Assert

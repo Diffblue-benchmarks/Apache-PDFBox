@@ -3,7 +3,6 @@ package org.apache.pdfbox.debugger.ui;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBase;
@@ -14,9 +13,8 @@ import org.junit.jupiter.api.Test;
 class ArrayEntryDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link ArrayEntry}
    *   <li>{@link ArrayEntry#setIndex(int)}
@@ -29,17 +27,10 @@ class ArrayEntryDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ArrayEntry.<init>()",
-    "int ArrayEntry.getIndex()",
-    "COSBase ArrayEntry.getItem()",
-    "COSBase ArrayEntry.getValue()",
-    "void ArrayEntry.setIndex(int)",
-    "void ArrayEntry.setItem(COSBase)",
-    "void ArrayEntry.setValue(COSBase)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ArrayEntry.<init>()", "int ArrayEntry.getIndex()", "COSBase ArrayEntry.getItem()",
+      "COSBase ArrayEntry.getValue()", "void ArrayEntry.setIndex(int)", "void ArrayEntry.setItem(COSBase)",
+      "void ArrayEntry.setValue(COSBase)"})
   void testGettersAndSetters() {
     // Arrange and Act
     ArrayEntry actualArrayEntry = new ArrayEntry();

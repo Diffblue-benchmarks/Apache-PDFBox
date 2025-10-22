@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import org.apache.pdfbox.contentstream.PDFStreamEngine;
@@ -25,9 +24,8 @@ import org.junit.jupiter.api.Test;
 class SetNonStrokingColorDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link SetNonStrokingColor#SetNonStrokingColor(PDFStreamEngine)}
    *   <li>{@link SetNonStrokingColor#getName()}
@@ -35,26 +33,22 @@ class SetNonStrokingColorDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void SetNonStrokingColor.<init>(PDFStreamEngine)",
-    "java.lang.String SetNonStrokingColor.getName()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SetNonStrokingColor.<init>(PDFStreamEngine)",
+      "java.lang.String SetNonStrokingColor.getName()"})
   void testGettersAndSetters() {
     // Arrange, Act and Assert
-    assertEquals("sc", new SetNonStrokingColor(new PDFMarkedContentExtractor()).getName());
+    assertEquals("sc", (new SetNonStrokingColor(new PDFMarkedContentExtractor())).getName());
   }
 
   /**
    * Test {@link SetNonStrokingColor#setColor(PDColor)}.
-   *
-   * <p>Method under test: {@link SetNonStrokingColor#setColor(PDColor)}
+   * <p>
+   * Method under test: {@link SetNonStrokingColor#setColor(PDColor)}
    */
   @Test
   @DisplayName("Test setColor(PDColor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SetNonStrokingColor.setColor(PDColor)"})
   void testSetColor() {
     // Arrange
@@ -73,29 +67,24 @@ class SetNonStrokingColorDiffblueTest {
 
   /**
    * Test {@link SetNonStrokingColor#getColorSpace()}.
-   *
    * <ul>
-   *   <li>Given {@link PDFTextStripperByArea#PDFTextStripperByArea()} processPage {@link
-   *       PDPage#PDPage()}.
-   *   <li>Then return {@link PDDeviceGray#INSTANCE}.
+   *   <li>Given {@link PDFTextStripperByArea#PDFTextStripperByArea()} processPage {@link PDPage#PDPage()}.</li>
+   *   <li>Then return {@link PDDeviceGray#INSTANCE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SetNonStrokingColor#getColorSpace()}
+   * <p>
+   * Method under test: {@link SetNonStrokingColor#getColorSpace()}
    */
   @Test
-  @DisplayName(
-      "Test getColorSpace(); given PDFTextStripperByArea() processPage PDPage(); then return INSTANCE")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getColorSpace(); given PDFTextStripperByArea() processPage PDPage(); then return INSTANCE")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDColorSpace SetNonStrokingColor.getColorSpace()"})
-  void testGetColorSpace_givenPDFTextStripperByAreaProcessPagePDPage_thenReturnInstance()
-      throws IOException {
+  void testGetColorSpace_givenPDFTextStripperByAreaProcessPagePDPage_thenReturnInstance() throws IOException {
     // Arrange
     PDFTextStripperByArea context = new PDFTextStripperByArea();
     context.processPage(new PDPage());
 
     // Act
-    PDColorSpace actualColorSpace = new SetNonStrokingColor(context).getColorSpace();
+    PDColorSpace actualColorSpace = (new SetNonStrokingColor(context)).getColorSpace();
 
     // Assert
     assertSame(((PDDeviceGray) actualColorSpace).INSTANCE, actualColorSpace);

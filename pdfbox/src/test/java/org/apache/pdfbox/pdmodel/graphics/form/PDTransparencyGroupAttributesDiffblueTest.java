@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import org.apache.pdfbox.cos.COSDictionary;
@@ -19,37 +18,33 @@ import org.junit.jupiter.api.Test;
 class PDTransparencyGroupAttributesDiffblueTest {
   /**
    * Test {@link PDTransparencyGroupAttributes#PDTransparencyGroupAttributes(COSDictionary)}.
-   *
-   * <p>Method under test: {@link
-   * PDTransparencyGroupAttributes#PDTransparencyGroupAttributes(COSDictionary)}
+   * <p>
+   * Method under test: {@link PDTransparencyGroupAttributes#PDTransparencyGroupAttributes(COSDictionary)}
    */
   @Test
   @DisplayName("Test new PDTransparencyGroupAttributes(COSDictionary)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDTransparencyGroupAttributes.<init>(COSDictionary)"})
   void testNewPDTransparencyGroupAttributes() {
     // Arrange
     COSDictionary dic = new COSDictionary();
 
     // Act and Assert
-    assertSame(dic, new PDTransparencyGroupAttributes(dic).getCOSObject());
+    assertSame(dic, (new PDTransparencyGroupAttributes(dic)).getCOSObject());
   }
 
   /**
    * Test {@link PDTransparencyGroupAttributes#PDTransparencyGroupAttributes()}.
-   *
-   * <p>Method under test: {@link PDTransparencyGroupAttributes#PDTransparencyGroupAttributes()}
+   * <p>
+   * Method under test: {@link PDTransparencyGroupAttributes#PDTransparencyGroupAttributes()}
    */
   @Test
   @DisplayName("Test new PDTransparencyGroupAttributes()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDTransparencyGroupAttributes.<init>()"})
   void testNewPDTransparencyGroupAttributes2() throws IOException {
     // Arrange and Act
-    PDTransparencyGroupAttributes actualPdTransparencyGroupAttributes =
-        new PDTransparencyGroupAttributes();
+    PDTransparencyGroupAttributes actualPdTransparencyGroupAttributes = new PDTransparencyGroupAttributes();
 
     // Assert
     COSDictionary cOSObject = actualPdTransparencyGroupAttributes.getCOSObject();
@@ -71,17 +66,16 @@ class PDTransparencyGroupAttributesDiffblueTest {
 
   /**
    * Test {@link PDTransparencyGroupAttributes#getCOSObject()}.
-   *
-   * <p>Method under test: {@link PDTransparencyGroupAttributes#getCOSObject()}
+   * <p>
+   * Method under test: {@link PDTransparencyGroupAttributes#getCOSObject()}
    */
   @Test
   @DisplayName("Test getCOSObject()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSDictionary PDTransparencyGroupAttributes.getCOSObject()"})
   void testGetCOSObject() {
     // Arrange and Act
-    COSDictionary actualCOSObject = new PDTransparencyGroupAttributes().getCOSObject();
+    COSDictionary actualCOSObject = (new PDTransparencyGroupAttributes()).getCOSObject();
 
     // Assert
     COSUpdateState updateState = actualCOSObject.getUpdateState();
@@ -99,20 +93,17 @@ class PDTransparencyGroupAttributesDiffblueTest {
 
   /**
    * Test {@link PDTransparencyGroupAttributes#getColorSpace(PDResources)} with {@code PDResources}.
-   *
-   * <p>Method under test: {@link PDTransparencyGroupAttributes#getColorSpace(PDResources)}
+   * <p>
+   * Method under test: {@link PDTransparencyGroupAttributes#getColorSpace(PDResources)}
    */
   @Test
   @DisplayName("Test getColorSpace(PDResources) with 'PDResources'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "org.apache.pdfbox.pdmodel.graphics.color.PDColorSpace PDTransparencyGroupAttributes.getColorSpace(PDResources)"
-  })
+      "org.apache.pdfbox.pdmodel.graphics.color.PDColorSpace PDTransparencyGroupAttributes.getColorSpace(PDResources)"})
   void testGetColorSpaceWithPDResources() throws IOException {
     // Arrange
-    PDTransparencyGroupAttributes pdTransparencyGroupAttributes =
-        new PDTransparencyGroupAttributes();
+    PDTransparencyGroupAttributes pdTransparencyGroupAttributes = new PDTransparencyGroupAttributes();
 
     // Act and Assert
     assertNull(pdTransparencyGroupAttributes.getColorSpace(new PDResources()));
@@ -120,63 +111,56 @@ class PDTransparencyGroupAttributesDiffblueTest {
 
   /**
    * Test {@link PDTransparencyGroupAttributes#getColorSpace()}.
-   *
    * <ul>
-   *   <li>Given {@link PDTransparencyGroupAttributes#PDTransparencyGroupAttributes()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDTransparencyGroupAttributes#PDTransparencyGroupAttributes()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDTransparencyGroupAttributes#getColorSpace()}
+   * <p>
+   * Method under test: {@link PDTransparencyGroupAttributes#getColorSpace()}
    */
   @Test
   @DisplayName("Test getColorSpace(); given PDTransparencyGroupAttributes(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "org.apache.pdfbox.pdmodel.graphics.color.PDColorSpace PDTransparencyGroupAttributes.getColorSpace()"
-  })
+      "org.apache.pdfbox.pdmodel.graphics.color.PDColorSpace PDTransparencyGroupAttributes.getColorSpace()"})
   void testGetColorSpace_givenPDTransparencyGroupAttributes_thenReturnNull() throws IOException {
     // Arrange, Act and Assert
-    assertNull(new PDTransparencyGroupAttributes().getColorSpace());
+    assertNull((new PDTransparencyGroupAttributes()).getColorSpace());
   }
 
   /**
    * Test {@link PDTransparencyGroupAttributes#isIsolated()}.
-   *
    * <ul>
-   *   <li>Given {@link PDTransparencyGroupAttributes#PDTransparencyGroupAttributes()}.
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link PDTransparencyGroupAttributes#PDTransparencyGroupAttributes()}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDTransparencyGroupAttributes#isIsolated()}
+   * <p>
+   * Method under test: {@link PDTransparencyGroupAttributes#isIsolated()}
    */
   @Test
   @DisplayName("Test isIsolated(); given PDTransparencyGroupAttributes(); then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDTransparencyGroupAttributes.isIsolated()"})
   void testIsIsolated_givenPDTransparencyGroupAttributes_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new PDTransparencyGroupAttributes().isIsolated());
+    assertFalse((new PDTransparencyGroupAttributes()).isIsolated());
   }
 
   /**
    * Test {@link PDTransparencyGroupAttributes#isKnockout()}.
-   *
    * <ul>
-   *   <li>Given {@link PDTransparencyGroupAttributes#PDTransparencyGroupAttributes()}.
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link PDTransparencyGroupAttributes#PDTransparencyGroupAttributes()}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDTransparencyGroupAttributes#isKnockout()}
+   * <p>
+   * Method under test: {@link PDTransparencyGroupAttributes#isKnockout()}
    */
   @Test
   @DisplayName("Test isKnockout(); given PDTransparencyGroupAttributes(); then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDTransparencyGroupAttributes.isKnockout()"})
   void testIsKnockout_givenPDTransparencyGroupAttributes_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new PDTransparencyGroupAttributes().isKnockout());
+    assertFalse((new PDTransparencyGroupAttributes()).isKnockout());
   }
 }

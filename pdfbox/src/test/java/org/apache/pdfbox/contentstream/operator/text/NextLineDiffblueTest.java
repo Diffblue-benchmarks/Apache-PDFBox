@@ -9,7 +9,6 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,9 +29,8 @@ import org.mockito.Mockito;
 class NextLineDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link NextLine#NextLine(PDFStreamEngine)}
    *   <li>{@link NextLine#getName()}
@@ -40,23 +38,21 @@ class NextLineDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void NextLine.<init>(PDFStreamEngine)", "String NextLine.getName()"})
   void testGettersAndSetters() {
     // Arrange, Act and Assert
-    assertEquals("T*", new NextLine(new PDFMarkedContentExtractor()).getName());
+    assertEquals("T*", (new NextLine(new PDFMarkedContentExtractor())).getName());
   }
 
   /**
    * Test {@link NextLine#process(Operator, List)}.
-   *
-   * <p>Method under test: {@link NextLine#process(Operator, List)}
+   * <p>
+   * Method under test: {@link NextLine#process(Operator, List)}
    */
   @Test
   @DisplayName("Test process(Operator, List)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void NextLine.process(Operator, List)"})
   void testProcess() throws IOException {
     // Arrange
@@ -76,26 +72,22 @@ class NextLineDiffblueTest {
 
   /**
    * Test {@link NextLine#process(Operator, List)}.
-   *
    * <ul>
-   *   <li>Given {@link COSBoolean#FALSE}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@link COSBoolean#FALSE}.
-   *   <li>Then calls {@link PDGraphicsState#getTextState()}.
+   *   <li>Given {@link COSBoolean#FALSE}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@link COSBoolean#FALSE}.</li>
+   *   <li>Then calls {@link PDGraphicsState#getTextState()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link NextLine#process(Operator, List)}
+   * <p>
+   * Method under test: {@link NextLine#process(Operator, List)}
    */
   @Test
-  @DisplayName(
-      "Test process(Operator, List); given FALSE; when ArrayList() add FALSE; then calls getTextState()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test process(Operator, List); given FALSE; when ArrayList() add FALSE; then calls getTextState()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void NextLine.process(Operator, List)"})
   void testProcess_givenFalse_whenArrayListAddFalse_thenCallsGetTextState() throws IOException {
     // Arrange
     PDGraphicsState pdGraphicsState = mock(PDGraphicsState.class);
     when(pdGraphicsState.getTextState()).thenReturn(new PDTextState());
-
     PDFStreamEngine context = mock(PDFStreamEngine.class);
     doNothing().when(context).processOperator(Mockito.<String>any(), Mockito.<List<COSBase>>any());
     when(context.getGraphicsState()).thenReturn(pdGraphicsState);
@@ -116,26 +108,22 @@ class NextLineDiffblueTest {
 
   /**
    * Test {@link NextLine#process(Operator, List)}.
-   *
    * <ul>
-   *   <li>Given {@link COSBoolean#FALSE}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@link COSBoolean#FALSE}.
-   *   <li>Then calls {@link PDGraphicsState#getTextState()}.
+   *   <li>Given {@link COSBoolean#FALSE}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@link COSBoolean#FALSE}.</li>
+   *   <li>Then calls {@link PDGraphicsState#getTextState()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link NextLine#process(Operator, List)}
+   * <p>
+   * Method under test: {@link NextLine#process(Operator, List)}
    */
   @Test
-  @DisplayName(
-      "Test process(Operator, List); given FALSE; when ArrayList() add FALSE; then calls getTextState()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test process(Operator, List); given FALSE; when ArrayList() add FALSE; then calls getTextState()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void NextLine.process(Operator, List)"})
   void testProcess_givenFalse_whenArrayListAddFalse_thenCallsGetTextState2() throws IOException {
     // Arrange
     PDGraphicsState pdGraphicsState = mock(PDGraphicsState.class);
     when(pdGraphicsState.getTextState()).thenReturn(new PDTextState());
-
     PDFStreamEngine context = mock(PDFStreamEngine.class);
     doNothing().when(context).processOperator(Mockito.<String>any(), Mockito.<List<COSBase>>any());
     when(context.getGraphicsState()).thenReturn(pdGraphicsState);
@@ -157,23 +145,20 @@ class NextLineDiffblueTest {
 
   /**
    * Test {@link NextLine#process(Operator, List)}.
-   *
    * <ul>
-   *   <li>Then calls {@link PDGraphicsState#getTextState()}.
+   *   <li>Then calls {@link PDGraphicsState#getTextState()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link NextLine#process(Operator, List)}
+   * <p>
+   * Method under test: {@link NextLine#process(Operator, List)}
    */
   @Test
   @DisplayName("Test process(Operator, List); then calls getTextState()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void NextLine.process(Operator, List)"})
   void testProcess_thenCallsGetTextState() throws IOException {
     // Arrange
     PDGraphicsState pdGraphicsState = mock(PDGraphicsState.class);
     when(pdGraphicsState.getTextState()).thenReturn(new PDTextState());
-
     PDFStreamEngine context = mock(PDFStreamEngine.class);
     doNothing().when(context).processOperator(Mockito.<String>any(), Mockito.<List<COSBase>>any());
     when(context.getGraphicsState()).thenReturn(pdGraphicsState);
@@ -191,24 +176,20 @@ class NextLineDiffblueTest {
 
   /**
    * Test {@link NextLine#process(Operator, List)}.
-   *
    * <ul>
-   *   <li>Then throw {@link IOException}.
+   *   <li>Then throw {@link IOException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link NextLine#process(Operator, List)}
+   * <p>
+   * Method under test: {@link NextLine#process(Operator, List)}
    */
   @Test
   @DisplayName("Test process(Operator, List); then throw IOException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void NextLine.process(Operator, List)"})
   void testProcess_thenThrowIOException() throws IOException {
     // Arrange
     PDFStreamEngine context = mock(PDFStreamEngine.class);
-    doThrow(new IOException())
-        .when(context)
-        .processOperator(Mockito.<String>any(), Mockito.<List<COSBase>>any());
+    doThrow(new IOException("Td")).when(context).processOperator(Mockito.<String>any(), Mockito.<List<COSBase>>any());
     when(context.getGraphicsState()).thenReturn(new PDGraphicsState(PDRectangle.A0));
     NextLine nextLine = new NextLine(context);
     Operator operator = Operator.getOperator("Operator");

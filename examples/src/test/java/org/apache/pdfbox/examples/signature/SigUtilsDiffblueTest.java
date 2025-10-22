@@ -6,16 +6,13 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.security.cert.CertificateParsingException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Hashtable;
-import org.bouncycastle.asn1.ASN1Encodable;
 import org.bouncycastle.asn1.cms.AttributeTable;
-import org.bouncycastle.asn1.pkcs.PKCSObjectIdentifiers;
 import org.bouncycastle.cms.CMSException;
 import org.bouncycastle.cms.SignerInformation;
 import org.bouncycastle.jce.provider.X509CertificateObject;
@@ -28,24 +25,20 @@ import org.junit.jupiter.api.Test;
 class SigUtilsDiffblueTest {
   /**
    * Test {@link SigUtils#checkCertificateUsage(X509Certificate)}.
-   *
    * <ul>
-   *   <li>Given array of {@code boolean} with {@code false} and {@code false}.
+   *   <li>Given array of {@code boolean} with {@code false} and {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SigUtils#checkCertificateUsage(X509Certificate)}
+   * <p>
+   * Method under test: {@link SigUtils#checkCertificateUsage(X509Certificate)}
    */
   @Test
-  @DisplayName(
-      "Test checkCertificateUsage(X509Certificate); given array of boolean with 'false' and 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test checkCertificateUsage(X509Certificate); given array of boolean with 'false' and 'false'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SigUtils.checkCertificateUsage(X509Certificate)"})
-  void testCheckCertificateUsage_givenArrayOfBooleanWithFalseAndFalse()
-      throws CertificateParsingException {
+  void testCheckCertificateUsage_givenArrayOfBooleanWithFalseAndFalse() throws CertificateParsingException {
     // Arrange
     X509CertificateObject x509Certificate = mock(X509CertificateObject.class);
-    when(x509Certificate.getKeyUsage()).thenReturn(new boolean[] {false, false, true, false});
+    when(x509Certificate.getKeyUsage()).thenReturn(new boolean[]{false, false, true, false});
     when(x509Certificate.getExtendedKeyUsage()).thenReturn(new ArrayList<>());
 
     // Act
@@ -58,24 +51,20 @@ class SigUtilsDiffblueTest {
 
   /**
    * Test {@link SigUtils#checkCertificateUsage(X509Certificate)}.
-   *
    * <ul>
-   *   <li>Given array of {@code boolean} with {@code false} and {@code true}.
+   *   <li>Given array of {@code boolean} with {@code false} and {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SigUtils#checkCertificateUsage(X509Certificate)}
+   * <p>
+   * Method under test: {@link SigUtils#checkCertificateUsage(X509Certificate)}
    */
   @Test
-  @DisplayName(
-      "Test checkCertificateUsage(X509Certificate); given array of boolean with 'false' and 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test checkCertificateUsage(X509Certificate); given array of boolean with 'false' and 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SigUtils.checkCertificateUsage(X509Certificate)"})
-  void testCheckCertificateUsage_givenArrayOfBooleanWithFalseAndTrue()
-      throws CertificateParsingException {
+  void testCheckCertificateUsage_givenArrayOfBooleanWithFalseAndTrue() throws CertificateParsingException {
     // Arrange
     X509CertificateObject x509Certificate = mock(X509CertificateObject.class);
-    when(x509Certificate.getKeyUsage()).thenReturn(new boolean[] {false, true, true, false});
+    when(x509Certificate.getKeyUsage()).thenReturn(new boolean[]{false, true, true, false});
     when(x509Certificate.getExtendedKeyUsage()).thenReturn(new ArrayList<>());
 
     // Act
@@ -88,24 +77,20 @@ class SigUtilsDiffblueTest {
 
   /**
    * Test {@link SigUtils#checkCertificateUsage(X509Certificate)}.
-   *
    * <ul>
-   *   <li>Given array of {@code boolean} with {@code true} and {@code false}.
+   *   <li>Given array of {@code boolean} with {@code true} and {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SigUtils#checkCertificateUsage(X509Certificate)}
+   * <p>
+   * Method under test: {@link SigUtils#checkCertificateUsage(X509Certificate)}
    */
   @Test
-  @DisplayName(
-      "Test checkCertificateUsage(X509Certificate); given array of boolean with 'true' and 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test checkCertificateUsage(X509Certificate); given array of boolean with 'true' and 'false'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SigUtils.checkCertificateUsage(X509Certificate)"})
-  void testCheckCertificateUsage_givenArrayOfBooleanWithTrueAndFalse()
-      throws CertificateParsingException {
+  void testCheckCertificateUsage_givenArrayOfBooleanWithTrueAndFalse() throws CertificateParsingException {
     // Arrange
     X509CertificateObject x509Certificate = mock(X509CertificateObject.class);
-    when(x509Certificate.getKeyUsage()).thenReturn(new boolean[] {true, false, true, false});
+    when(x509Certificate.getKeyUsage()).thenReturn(new boolean[]{true, false, true, false});
     when(x509Certificate.getExtendedKeyUsage()).thenReturn(new ArrayList<>());
 
     // Act
@@ -118,17 +103,15 @@ class SigUtilsDiffblueTest {
 
   /**
    * Test {@link SigUtils#checkCertificateUsage(X509Certificate)}.
-   *
    * <ul>
-   *   <li>Given {@code null}.
+   *   <li>Given {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SigUtils#checkCertificateUsage(X509Certificate)}
+   * <p>
+   * Method under test: {@link SigUtils#checkCertificateUsage(X509Certificate)}
    */
   @Test
   @DisplayName("Test checkCertificateUsage(X509Certificate); given 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SigUtils.checkCertificateUsage(X509Certificate)"})
   void testCheckCertificateUsage_givenNull() throws CertificateParsingException {
     // Arrange
@@ -146,48 +129,40 @@ class SigUtilsDiffblueTest {
 
   /**
    * Test {@link SigUtils#checkCertificateUsage(X509Certificate)}.
-   *
    * <ul>
-   *   <li>Then throw {@link CertificateParsingException}.
+   *   <li>Then throw {@link CertificateParsingException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SigUtils#checkCertificateUsage(X509Certificate)}
+   * <p>
+   * Method under test: {@link SigUtils#checkCertificateUsage(X509Certificate)}
    */
   @Test
-  @DisplayName(
-      "Test checkCertificateUsage(X509Certificate); then throw CertificateParsingException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test checkCertificateUsage(X509Certificate); then throw CertificateParsingException")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SigUtils.checkCertificateUsage(X509Certificate)"})
-  void testCheckCertificateUsage_thenThrowCertificateParsingException()
-      throws CertificateParsingException {
+  void testCheckCertificateUsage_thenThrowCertificateParsingException() throws CertificateParsingException {
     // Arrange
     X509CertificateObject x509Certificate = mock(X509CertificateObject.class);
-    when(x509Certificate.getKeyUsage()).thenReturn(new boolean[] {true, false, true, false});
-    when(x509Certificate.getExtendedKeyUsage()).thenThrow(new CertificateParsingException());
+    when(x509Certificate.getKeyUsage()).thenReturn(new boolean[]{true, false, true, false});
+    when(x509Certificate.getExtendedKeyUsage()).thenThrow(new CertificateParsingException("1.2.840.113583.1.1.5"));
 
     // Act and Assert
-    assertThrows(
-        CertificateParsingException.class, () -> SigUtils.checkCertificateUsage(x509Certificate));
+    assertThrows(CertificateParsingException.class, () -> SigUtils.checkCertificateUsage(x509Certificate));
     verify(x509Certificate).getExtendedKeyUsage();
     verify(x509Certificate).getKeyUsage();
   }
 
   /**
    * Test {@link SigUtils#checkTimeStampCertificateUsage(X509Certificate)}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()}.
-   *   <li>Then calls {@link X509CertificateObject#getExtendedKeyUsage()}.
+   *   <li>Given {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then calls {@link X509CertificateObject#getExtendedKeyUsage()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SigUtils#checkTimeStampCertificateUsage(X509Certificate)}
+   * <p>
+   * Method under test: {@link SigUtils#checkTimeStampCertificateUsage(X509Certificate)}
    */
   @Test
-  @DisplayName(
-      "Test checkTimeStampCertificateUsage(X509Certificate); given ArrayList(); then calls getExtendedKeyUsage()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test checkTimeStampCertificateUsage(X509Certificate); given ArrayList(); then calls getExtendedKeyUsage()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SigUtils.checkTimeStampCertificateUsage(X509Certificate)"})
   void testCheckTimeStampCertificateUsage_givenArrayList_thenCallsGetExtendedKeyUsage()
       throws CertificateParsingException {
@@ -204,19 +179,16 @@ class SigUtilsDiffblueTest {
 
   /**
    * Test {@link SigUtils#checkResponderCertificateUsage(X509Certificate)}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()}.
-   *   <li>Then calls {@link X509CertificateObject#getExtendedKeyUsage()}.
+   *   <li>Given {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then calls {@link X509CertificateObject#getExtendedKeyUsage()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SigUtils#checkResponderCertificateUsage(X509Certificate)}
+   * <p>
+   * Method under test: {@link SigUtils#checkResponderCertificateUsage(X509Certificate)}
    */
   @Test
-  @DisplayName(
-      "Test checkResponderCertificateUsage(X509Certificate); given ArrayList(); then calls getExtendedKeyUsage()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test checkResponderCertificateUsage(X509Certificate); given ArrayList(); then calls getExtendedKeyUsage()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SigUtils.checkResponderCertificateUsage(X509Certificate)"})
   void testCheckResponderCertificateUsage_givenArrayList_thenCallsGetExtendedKeyUsage()
       throws CertificateParsingException {
@@ -233,30 +205,25 @@ class SigUtilsDiffblueTest {
 
   /**
    * Test {@link SigUtils#extractTimeStampTokenFromSignerInformation(SignerInformation)}.
-   *
-   * <p>Method under test: {@link
-   * SigUtils#extractTimeStampTokenFromSignerInformation(SignerInformation)}
+   * <ul>
+   *   <li>Given {@link AttributeTable#AttributeTable(Hashtable)} with {@link Hashtable#Hashtable()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link SigUtils#extractTimeStampTokenFromSignerInformation(SignerInformation)}
    */
   @Test
-  @DisplayName("Test extractTimeStampTokenFromSignerInformation(SignerInformation)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "TimeStampToken SigUtils.extractTimeStampTokenFromSignerInformation(SignerInformation)"
-  })
-  void testExtractTimeStampTokenFromSignerInformation()
+  @DisplayName("Test extractTimeStampTokenFromSignerInformation(SignerInformation); given AttributeTable(Hashtable) with Hashtable()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"TimeStampToken SigUtils.extractTimeStampTokenFromSignerInformation(SignerInformation)"})
+  void testExtractTimeStampTokenFromSignerInformation_givenAttributeTableWithHashtable()
       throws IOException, CMSException, TSPException {
     // Arrange
-    AttributeTable attributeTable = new AttributeTable(new Hashtable());
-    attributeTable.add(
-        PKCSObjectIdentifiers.id_aa_signatureTimeStampToken, mock(ASN1Encodable.class));
-
     SignerInformation signerInformation = mock(SignerInformation.class);
-    when(signerInformation.getUnsignedAttributes()).thenReturn(attributeTable);
+    when(signerInformation.getUnsignedAttributes()).thenReturn(new AttributeTable(new Hashtable()));
 
     // Act
-    TimeStampToken actualExtractTimeStampTokenFromSignerInformationResult =
-        SigUtils.extractTimeStampTokenFromSignerInformation(signerInformation);
+    TimeStampToken actualExtractTimeStampTokenFromSignerInformationResult = SigUtils
+        .extractTimeStampTokenFromSignerInformation(signerInformation);
 
     // Assert
     verify(signerInformation, atLeast(1)).getUnsignedAttributes();
@@ -265,30 +232,24 @@ class SigUtilsDiffblueTest {
 
   /**
    * Test {@link SigUtils#extractTimeStampTokenFromSignerInformation(SignerInformation)}.
-   *
    * <ul>
-   *   <li>Given {@code null}.
+   *   <li>Given {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * SigUtils#extractTimeStampTokenFromSignerInformation(SignerInformation)}
+   * <p>
+   * Method under test: {@link SigUtils#extractTimeStampTokenFromSignerInformation(SignerInformation)}
    */
   @Test
   @DisplayName("Test extractTimeStampTokenFromSignerInformation(SignerInformation); given 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "TimeStampToken SigUtils.extractTimeStampTokenFromSignerInformation(SignerInformation)"
-  })
-  void testExtractTimeStampTokenFromSignerInformation_givenNull()
-      throws IOException, CMSException, TSPException {
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"TimeStampToken SigUtils.extractTimeStampTokenFromSignerInformation(SignerInformation)"})
+  void testExtractTimeStampTokenFromSignerInformation_givenNull() throws IOException, CMSException, TSPException {
     // Arrange
     SignerInformation signerInformation = mock(SignerInformation.class);
     when(signerInformation.getUnsignedAttributes()).thenReturn(null);
 
     // Act
-    TimeStampToken actualExtractTimeStampTokenFromSignerInformationResult =
-        SigUtils.extractTimeStampTokenFromSignerInformation(signerInformation);
+    TimeStampToken actualExtractTimeStampTokenFromSignerInformationResult = SigUtils
+        .extractTimeStampTokenFromSignerInformation(signerInformation);
 
     // Assert
     verify(signerInformation).getUnsignedAttributes();

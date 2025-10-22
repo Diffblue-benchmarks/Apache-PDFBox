@@ -5,13 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.awt.geom.Rectangle2D;
-import java.awt.geom.Rectangle2D.Double;
+import java.awt.Rectangle;
 import java.io.IOException;
 import org.apache.pdfbox.cos.COSDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -23,13 +18,12 @@ import org.junit.jupiter.api.Test;
 class PDFTextStripperByAreaDiffblueTest {
   /**
    * Test {@link PDFTextStripperByArea#PDFTextStripperByArea()}.
-   *
-   * <p>Method under test: default or parameterless constructor of {@link PDFTextStripperByArea}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link PDFTextStripperByArea}
    */
   @Test
   @DisplayName("Test new PDFTextStripperByArea()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFTextStripperByArea.<init>()"})
   void testNewPDFTextStripperByArea() throws IOException {
     // Arrange and Act
@@ -74,9 +68,8 @@ class PDFTextStripperByAreaDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link PDFTextStripperByArea#setShouldSeparateByBeads(boolean)}
    *   <li>{@link PDFTextStripperByArea#getRegions()}
@@ -84,12 +77,9 @@ class PDFTextStripperByAreaDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "java.util.List PDFTextStripperByArea.getRegions()",
-    "void PDFTextStripperByArea.setShouldSeparateByBeads(boolean)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"java.util.List PDFTextStripperByArea.getRegions()",
+      "void PDFTextStripperByArea.setShouldSeparateByBeads(boolean)"})
   void testGettersAndSetters() throws IOException {
     // Arrange
     PDFTextStripperByArea pdfTextStripperByArea = new PDFTextStripperByArea();
@@ -104,25 +94,21 @@ class PDFTextStripperByAreaDiffblueTest {
 
   /**
    * Test {@link PDFTextStripperByArea#extractRegions(PDPage)}.
-   *
    * <ul>
-   *   <li>Given {@link PDFTextStripperByArea#PDFTextStripperByArea()} SortByPosition is {@code
-   *       true}.
+   *   <li>Given {@link PDFTextStripperByArea#PDFTextStripperByArea()} SortByPosition is {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFTextStripperByArea#extractRegions(PDPage)}
+   * <p>
+   * Method under test: {@link PDFTextStripperByArea#extractRegions(PDPage)}
    */
   @Test
-  @DisplayName(
-      "Test extractRegions(PDPage); given PDFTextStripperByArea() SortByPosition is 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test extractRegions(PDPage); given PDFTextStripperByArea() SortByPosition is 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFTextStripperByArea.extractRegions(PDPage)"})
   void testExtractRegions_givenPDFTextStripperByAreaSortByPositionIsTrue() throws IOException {
     // Arrange
     PDFTextStripperByArea pdfTextStripperByArea = new PDFTextStripperByArea();
     pdfTextStripperByArea.setSortByPosition(true);
-    pdfTextStripperByArea.addRegion("us-east-2", new Double());
+    pdfTextStripperByArea.addRegion("us-east-2", new Rectangle(1, 1));
 
     PDPage page = new PDPage();
     page.setContents(new PDStream(new COSDocument()));
@@ -141,22 +127,20 @@ class PDFTextStripperByAreaDiffblueTest {
 
   /**
    * Test {@link PDFTextStripperByArea#extractRegions(PDPage)}.
-   *
    * <ul>
-   *   <li>Then {@link PDFTextStripperByArea#PDFTextStripperByArea()} EndPage is one.
+   *   <li>Then {@link PDFTextStripperByArea#PDFTextStripperByArea()} EndPage is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFTextStripperByArea#extractRegions(PDPage)}
+   * <p>
+   * Method under test: {@link PDFTextStripperByArea#extractRegions(PDPage)}
    */
   @Test
   @DisplayName("Test extractRegions(PDPage); then PDFTextStripperByArea() EndPage is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFTextStripperByArea.extractRegions(PDPage)"})
   void testExtractRegions_thenPDFTextStripperByAreaEndPageIsOne() throws IOException {
     // Arrange
     PDFTextStripperByArea pdfTextStripperByArea = new PDFTextStripperByArea();
-    pdfTextStripperByArea.addRegion("us-east-2", new Double());
+    pdfTextStripperByArea.addRegion("us-east-2", new Rectangle(1, 1));
 
     PDPage page = new PDPage();
     page.setContents(new PDStream(new COSDocument()));
@@ -175,18 +159,15 @@ class PDFTextStripperByAreaDiffblueTest {
 
   /**
    * Test {@link PDFTextStripperByArea#extractRegions(PDPage)}.
-   *
    * <ul>
-   *   <li>Then {@link PDFTextStripperByArea#PDFTextStripperByArea()} TextLineMatrix is {@code
-   *       null}.
+   *   <li>Then {@link PDFTextStripperByArea#PDFTextStripperByArea()} TextLineMatrix is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFTextStripperByArea#extractRegions(PDPage)}
+   * <p>
+   * Method under test: {@link PDFTextStripperByArea#extractRegions(PDPage)}
    */
   @Test
   @DisplayName("Test extractRegions(PDPage); then PDFTextStripperByArea() TextLineMatrix is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFTextStripperByArea.extractRegions(PDPage)"})
   void testExtractRegions_thenPDFTextStripperByAreaTextLineMatrixIsNull() throws IOException {
     // Arrange
@@ -208,23 +189,18 @@ class PDFTextStripperByAreaDiffblueTest {
 
   /**
    * Test {@link PDFTextStripperByArea#extractRegions(PDPage)}.
-   *
    * <ul>
-   *   <li>When {@link PDPage#PDPage()}.
-   *   <li>Then {@link PDFTextStripperByArea#PDFTextStripperByArea()} EndPage is {@link
-   *       Integer#MAX_VALUE}.
+   *   <li>When {@link PDPage#PDPage()}.</li>
+   *   <li>Then {@link PDFTextStripperByArea#PDFTextStripperByArea()} EndPage is {@link Integer#MAX_VALUE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFTextStripperByArea#extractRegions(PDPage)}
+   * <p>
+   * Method under test: {@link PDFTextStripperByArea#extractRegions(PDPage)}
    */
   @Test
-  @DisplayName(
-      "Test extractRegions(PDPage); when PDPage(); then PDFTextStripperByArea() EndPage is MAX_VALUE")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test extractRegions(PDPage); when PDPage(); then PDFTextStripperByArea() EndPage is MAX_VALUE")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFTextStripperByArea.extractRegions(PDPage)"})
-  void testExtractRegions_whenPDPage_thenPDFTextStripperByAreaEndPageIsMax_value()
-      throws IOException {
+  void testExtractRegions_whenPDPage_thenPDFTextStripperByAreaEndPageIsMax_value() throws IOException {
     // Arrange
     PDFTextStripperByArea pdfTextStripperByArea = new PDFTextStripperByArea();
 
@@ -239,25 +215,21 @@ class PDFTextStripperByAreaDiffblueTest {
 
   /**
    * Test {@link PDFTextStripperByArea#extractRegions(PDPage)}.
-   *
    * <ul>
-   *   <li>When {@link PDPage#PDPage()}.
-   *   <li>Then {@link PDFTextStripperByArea#PDFTextStripperByArea()} GraphicsStackSize is zero.
+   *   <li>When {@link PDPage#PDPage()}.</li>
+   *   <li>Then {@link PDFTextStripperByArea#PDFTextStripperByArea()} GraphicsStackSize is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDFTextStripperByArea#extractRegions(PDPage)}
+   * <p>
+   * Method under test: {@link PDFTextStripperByArea#extractRegions(PDPage)}
    */
   @Test
-  @DisplayName(
-      "Test extractRegions(PDPage); when PDPage(); then PDFTextStripperByArea() GraphicsStackSize is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test extractRegions(PDPage); when PDPage(); then PDFTextStripperByArea() GraphicsStackSize is zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDFTextStripperByArea.extractRegions(PDPage)"})
-  void testExtractRegions_whenPDPage_thenPDFTextStripperByAreaGraphicsStackSizeIsZero()
-      throws IOException {
+  void testExtractRegions_whenPDPage_thenPDFTextStripperByAreaGraphicsStackSizeIsZero() throws IOException {
     // Arrange
     PDFTextStripperByArea pdfTextStripperByArea = new PDFTextStripperByArea();
-    pdfTextStripperByArea.addRegion("us-east-2", new Double());
+    pdfTextStripperByArea.addRegion("us-east-2", new Rectangle(1, 1));
 
     // Act
     pdfTextStripperByArea.extractRegions(new PDPage());
@@ -265,36 +237,5 @@ class PDFTextStripperByAreaDiffblueTest {
     // Assert that nothing has changed
     assertEquals(0, pdfTextStripperByArea.getGraphicsStackSize());
     assertTrue(pdfTextStripperByArea.getCharactersByArticle().isEmpty());
-  }
-
-  /**
-   * Test {@link PDFTextStripperByArea#processTextPosition(TextPosition)}.
-   *
-   * <ul>
-   *   <li>Then calls {@link TextPosition#getX()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDFTextStripperByArea#processTextPosition(TextPosition)}
-   */
-  @Test
-  @DisplayName("Test processTextPosition(TextPosition); then calls getX()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDFTextStripperByArea.processTextPosition(TextPosition)"})
-  void testProcessTextPosition_thenCallsGetX() throws IOException {
-    // Arrange
-    PDFTextStripperByArea pdfTextStripperByArea = new PDFTextStripperByArea();
-    pdfTextStripperByArea.addRegion("us-east-2", new Double());
-
-    TextPosition text = mock(TextPosition.class);
-    when(text.getX()).thenReturn(10.0f);
-    when(text.getY()).thenReturn(10.0f);
-
-    // Act
-    pdfTextStripperByArea.processTextPosition(text);
-
-    // Assert
-    verify(text).getX();
-    verify(text).getY();
   }
 }

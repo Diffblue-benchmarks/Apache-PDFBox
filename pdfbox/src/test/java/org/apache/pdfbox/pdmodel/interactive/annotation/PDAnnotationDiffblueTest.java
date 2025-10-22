@@ -11,13 +11,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.Iterator;
 import java.util.List;
 import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBase;
@@ -45,20 +42,17 @@ import org.junit.jupiter.api.Test;
 class PDAnnotationDiffblueTest {
   /**
    * Test {@link PDAnnotation#createAnnotation(COSBase)}.
-   *
    * <ul>
-   *   <li>Given {@link COSName#A}.
-   *   <li>When {@link COSArray#COSArray()} add {@link COSName#A}.
-   *   <li>Then throw {@link IOException}.
+   *   <li>Given {@link COSName#A}.</li>
+   *   <li>When {@link COSArray#COSArray()} add {@link COSName#A}.</li>
+   *   <li>Then throw {@link IOException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
+   * <p>
+   * Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
    */
   @Test
-  @DisplayName(
-      "Test createAnnotation(COSBase); given A; when COSArray() add A; then throw IOException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test createAnnotation(COSBase); given A; when COSArray() add A; then throw IOException")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAnnotation PDAnnotation.createAnnotation(COSBase)"})
   void testCreateAnnotation_givenA_whenCOSArrayAddA_thenThrowIOException() throws IOException {
     // Arrange
@@ -71,19 +65,87 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#createAnnotation(COSBase)}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.
-   *   <li>When {@link COSArray#COSArray()} add {@link COSDictionary#COSDictionary()}.
+   *   <li>Given {@link COSName#A}.</li>
+   *   <li>When {@link COSArray#COSArray()} add {@link COSName#A}.</li>
+   *   <li>Then throw {@link IOException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
+   * <p>
+   * Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
    */
   @Test
-  @DisplayName(
-      "Test createAnnotation(COSBase); given COSDictionary(); when COSArray() add COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test createAnnotation(COSBase); given A; when COSArray() add A; then throw IOException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"PDAnnotation PDAnnotation.createAnnotation(COSBase)"})
+  void testCreateAnnotation_givenA_whenCOSArrayAddA_thenThrowIOException2() throws IOException {
+    // Arrange
+    COSArray base = new COSArray();
+    base.add(COSBoolean.FALSE);
+    base.add(COSName.A);
+
+    // Act and Assert
+    assertThrows(IOException.class, () -> PDAnnotation.createAnnotation(base));
+  }
+
+  /**
+   * Test {@link PDAnnotation#createAnnotation(COSBase)}.
+   * <ul>
+   *   <li>Given {@link COSArray#COSArray()}.</li>
+   *   <li>When {@link COSArray#COSArray()} add {@link COSArray#COSArray()}.</li>
+   *   <li>Then throw {@link IOException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
+   */
+  @Test
+  @DisplayName("Test createAnnotation(COSBase); given COSArray(); when COSArray() add COSArray(); then throw IOException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"PDAnnotation PDAnnotation.createAnnotation(COSBase)"})
+  void testCreateAnnotation_givenCOSArray_whenCOSArrayAddCOSArray_thenThrowIOException() throws IOException {
+    // Arrange
+    COSArray base = new COSArray();
+    base.add((COSBase) new COSArray());
+
+    // Act and Assert
+    assertThrows(IOException.class, () -> PDAnnotation.createAnnotation(base));
+  }
+
+  /**
+   * Test {@link PDAnnotation#createAnnotation(COSBase)}.
+   * <ul>
+   *   <li>Given {@link COSArray#COSArray()}.</li>
+   *   <li>When {@link COSArray#COSArray()} add {@link COSArray#COSArray()}.</li>
+   *   <li>Then throw {@link IOException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
+   */
+  @Test
+  @DisplayName("Test createAnnotation(COSBase); given COSArray(); when COSArray() add COSArray(); then throw IOException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"PDAnnotation PDAnnotation.createAnnotation(COSBase)"})
+  void testCreateAnnotation_givenCOSArray_whenCOSArrayAddCOSArray_thenThrowIOException2() throws IOException {
+    // Arrange
+    COSArray base = new COSArray();
+    base.add(COSBoolean.FALSE);
+    base.add((COSBase) new COSArray());
+
+    // Act and Assert
+    assertThrows(IOException.class, () -> PDAnnotation.createAnnotation(base));
+  }
+
+  /**
+   * Test {@link PDAnnotation#createAnnotation(COSBase)}.
+   * <ul>
+   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>When {@link COSArray#COSArray()} add {@link COSDictionary#COSDictionary()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
+   */
+  @Test
+  @DisplayName("Test createAnnotation(COSBase); given COSDictionary(); when COSArray() add COSDictionary()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAnnotation PDAnnotation.createAnnotation(COSBase)"})
   void testCreateAnnotation_givenCOSDictionary_whenCOSArrayAddCOSDictionary() throws IOException {
     // Arrange
@@ -96,18 +158,60 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#createAnnotation(COSBase)}.
-   *
    * <ul>
-   *   <li>Given {@link COSStream#COSStream()}.
-   *   <li>When {@link COSArray#COSArray()} add {@link COSStream#COSStream()}.
+   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>When {@link COSArray#COSArray()} add {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
+   * <p>
+   * Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
+   */
+  @Test
+  @DisplayName("Test createAnnotation(COSBase); given COSDictionary(); when COSArray() add COSDictionary()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"PDAnnotation PDAnnotation.createAnnotation(COSBase)"})
+  void testCreateAnnotation_givenCOSDictionary_whenCOSArrayAddCOSDictionary2() throws IOException {
+    // Arrange
+    COSArray base = new COSArray();
+    base.add(COSBoolean.FALSE);
+    base.add((COSBase) new COSDictionary());
+
+    // Act and Assert
+    assertThrows(IOException.class, () -> PDAnnotation.createAnnotation(base));
+  }
+
+  /**
+   * Test {@link PDAnnotation#createAnnotation(COSBase)}.
+   * <ul>
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
+   */
+  @Test
+  @DisplayName("Test createAnnotation(COSBase); given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"PDAnnotation PDAnnotation.createAnnotation(COSBase)"})
+  void testCreateAnnotation_givenCOSObjectKeyWithNumIsOneAndGenIsOne() throws IOException {
+    // Arrange
+    COSArray base = new COSArray();
+    base.add((COSBase) new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1)));
+
+    // Act and Assert
+    assertThrows(IOException.class, () -> PDAnnotation.createAnnotation(base));
+  }
+
+  /**
+   * Test {@link PDAnnotation#createAnnotation(COSBase)}.
+   * <ul>
+   *   <li>Given {@link COSStream#COSStream()}.</li>
+   *   <li>When {@link COSArray#COSArray()} add {@link COSStream#COSStream()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
    */
   @Test
   @DisplayName("Test createAnnotation(COSBase); given COSStream(); when COSArray() add COSStream()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAnnotation PDAnnotation.createAnnotation(COSBase)"})
   void testCreateAnnotation_givenCOSStream_whenCOSArrayAddCOSStream() throws IOException {
     // Arrange
@@ -120,23 +224,19 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#createAnnotation(COSBase)}.
-   *
    * <ul>
-   *   <li>Given {@link COSBoolean#FALSE}.
-   *   <li>When {@link COSArray#COSArray()} add {@link COSBoolean#FALSE}.
-   *   <li>Then throw {@link IOException}.
+   *   <li>Given {@link COSBoolean#FALSE}.</li>
+   *   <li>When {@link COSArray#COSArray()} add {@link COSBoolean#FALSE}.</li>
+   *   <li>Then throw {@link IOException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
+   * <p>
+   * Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
    */
   @Test
-  @DisplayName(
-      "Test createAnnotation(COSBase); given FALSE; when COSArray() add FALSE; then throw IOException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test createAnnotation(COSBase); given FALSE; when COSArray() add FALSE; then throw IOException")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAnnotation PDAnnotation.createAnnotation(COSBase)"})
-  void testCreateAnnotation_givenFalse_whenCOSArrayAddFalse_thenThrowIOException()
-      throws IOException {
+  void testCreateAnnotation_givenFalse_whenCOSArrayAddFalse_thenThrowIOException() throws IOException {
     // Arrange
     COSArray base = new COSArray();
     base.add(COSBoolean.FALSE);
@@ -147,23 +247,19 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#createAnnotation(COSBase)}.
-   *
    * <ul>
-   *   <li>Given {@link COSBoolean#FALSE}.
-   *   <li>When {@link COSArray#COSArray()} add {@link COSBoolean#FALSE}.
-   *   <li>Then throw {@link IOException}.
+   *   <li>Given {@link COSBoolean#FALSE}.</li>
+   *   <li>When {@link COSArray#COSArray()} add {@link COSBoolean#FALSE}.</li>
+   *   <li>Then throw {@link IOException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
+   * <p>
+   * Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
    */
   @Test
-  @DisplayName(
-      "Test createAnnotation(COSBase); given FALSE; when COSArray() add FALSE; then throw IOException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test createAnnotation(COSBase); given FALSE; when COSArray() add FALSE; then throw IOException")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAnnotation PDAnnotation.createAnnotation(COSBase)"})
-  void testCreateAnnotation_givenFalse_whenCOSArrayAddFalse_thenThrowIOException2()
-      throws IOException {
+  void testCreateAnnotation_givenFalse_whenCOSArrayAddFalse_thenThrowIOException2() throws IOException {
     // Arrange
     COSArray base = new COSArray();
     base.add(COSBoolean.FALSE);
@@ -175,20 +271,17 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#createAnnotation(COSBase)}.
-   *
    * <ul>
-   *   <li>Given {@link COSInteger#ONE}.
-   *   <li>When {@link COSArray#COSArray()} add {@link COSInteger#ONE}.
-   *   <li>Then throw {@link IOException}.
+   *   <li>Given {@link COSInteger#ONE}.</li>
+   *   <li>When {@link COSArray#COSArray()} add {@link COSInteger#ONE}.</li>
+   *   <li>Then throw {@link IOException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
+   * <p>
+   * Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
    */
   @Test
-  @DisplayName(
-      "Test createAnnotation(COSBase); given ONE; when COSArray() add ONE; then throw IOException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test createAnnotation(COSBase); given ONE; when COSArray() add ONE; then throw IOException")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAnnotation PDAnnotation.createAnnotation(COSBase)"})
   void testCreateAnnotation_givenOne_whenCOSArrayAddOne_thenThrowIOException() throws IOException {
     // Arrange
@@ -201,18 +294,40 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#createAnnotation(COSBase)}.
-   *
    * <ul>
-   *   <li>When {@link COSName#A}.
-   *   <li>Then throw {@link IOException}.
+   *   <li>Given {@link COSInteger#ONE}.</li>
+   *   <li>When {@link COSArray#COSArray()} add {@link COSInteger#ONE}.</li>
+   *   <li>Then throw {@link IOException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
+   * <p>
+   * Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
+   */
+  @Test
+  @DisplayName("Test createAnnotation(COSBase); given ONE; when COSArray() add ONE; then throw IOException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"PDAnnotation PDAnnotation.createAnnotation(COSBase)"})
+  void testCreateAnnotation_givenOne_whenCOSArrayAddOne_thenThrowIOException2() throws IOException {
+    // Arrange
+    COSArray base = new COSArray();
+    base.add(COSBoolean.FALSE);
+    base.add(COSInteger.ONE);
+
+    // Act and Assert
+    assertThrows(IOException.class, () -> PDAnnotation.createAnnotation(base));
+  }
+
+  /**
+   * Test {@link PDAnnotation#createAnnotation(COSBase)}.
+   * <ul>
+   *   <li>When {@link COSName#A}.</li>
+   *   <li>Then throw {@link IOException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
    */
   @Test
   @DisplayName("Test createAnnotation(COSBase); when A; then throw IOException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAnnotation PDAnnotation.createAnnotation(COSBase)"})
   void testCreateAnnotation_whenA_thenThrowIOException() throws IOException {
     // Arrange, Act and Assert
@@ -221,18 +336,16 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#createAnnotation(COSBase)}.
-   *
    * <ul>
-   *   <li>When {@link COSArray#COSArray()}.
-   *   <li>Then throw {@link IOException}.
+   *   <li>When {@link COSArray#COSArray()}.</li>
+   *   <li>Then throw {@link IOException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
+   * <p>
+   * Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
    */
   @Test
   @DisplayName("Test createAnnotation(COSBase); when COSArray(); then throw IOException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAnnotation PDAnnotation.createAnnotation(COSBase)"})
   void testCreateAnnotation_whenCOSArray_thenThrowIOException() throws IOException {
     // Arrange, Act and Assert
@@ -241,19 +354,16 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#createAnnotation(COSBase)}.
-   *
    * <ul>
-   *   <li>When {@link COSDictionary#COSDictionary()}.
-   *   <li>Then return {@link PDAnnotationUnknown}.
+   *   <li>When {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then return {@link PDAnnotationUnknown}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
+   * <p>
+   * Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
    */
   @Test
-  @DisplayName(
-      "Test createAnnotation(COSBase); when COSDictionary(); then return PDAnnotationUnknown")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test createAnnotation(COSBase); when COSDictionary(); then return PDAnnotationUnknown")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAnnotation PDAnnotation.createAnnotation(COSBase)"})
   void testCreateAnnotation_whenCOSDictionary_thenReturnPDAnnotationUnknown() throws IOException {
     // Arrange
@@ -293,41 +403,34 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#createAnnotation(COSBase)}.
-   *
    * <ul>
-   *   <li>When {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   *   <li>When {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
+   * <p>
+   * Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
    */
   @Test
-  @DisplayName(
-      "Test createAnnotation(COSBase); when COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test createAnnotation(COSBase); when COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAnnotation PDAnnotation.createAnnotation(COSBase)"})
   void testCreateAnnotation_whenCOSObjectKeyWithNumIsOneAndGenIsOne() throws IOException {
-    // Arrange
-    COSObject base = new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1));
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> PDAnnotation.createAnnotation(base));
+    // Arrange, Act and Assert
+    assertThrows(IOException.class,
+        () -> PDAnnotation.createAnnotation(new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1))));
   }
 
   /**
    * Test {@link PDAnnotation#createAnnotation(COSBase)}.
-   *
    * <ul>
-   *   <li>When {@link COSBoolean#FALSE}.
-   *   <li>Then throw {@link IOException}.
+   *   <li>When {@link COSBoolean#FALSE}.</li>
+   *   <li>Then throw {@link IOException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
+   * <p>
+   * Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
    */
   @Test
   @DisplayName("Test createAnnotation(COSBase); when FALSE; then throw IOException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAnnotation PDAnnotation.createAnnotation(COSBase)"})
   void testCreateAnnotation_whenFalse_thenThrowIOException() throws IOException {
     // Arrange, Act and Assert
@@ -336,18 +439,16 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#createAnnotation(COSBase)}.
-   *
    * <ul>
-   *   <li>When {@link COSFloat#ONE}.
-   *   <li>Then throw {@link IOException}.
+   *   <li>When {@link COSFloat#ONE}.</li>
+   *   <li>Then throw {@link IOException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
+   * <p>
+   * Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
    */
   @Test
   @DisplayName("Test createAnnotation(COSBase); when ONE; then throw IOException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAnnotation PDAnnotation.createAnnotation(COSBase)"})
   void testCreateAnnotation_whenOne_thenThrowIOException() throws IOException {
     // Arrange, Act and Assert
@@ -356,18 +457,16 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#createAnnotation(COSBase)}.
-   *
    * <ul>
-   *   <li>When {@link COSInteger#ONE}.
-   *   <li>Then throw {@link IOException}.
+   *   <li>When {@link COSInteger#ONE}.</li>
+   *   <li>Then throw {@link IOException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
+   * <p>
+   * Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
    */
   @Test
   @DisplayName("Test createAnnotation(COSBase); when ONE; then throw IOException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAnnotation PDAnnotation.createAnnotation(COSBase)"})
   void testCreateAnnotation_whenOne_thenThrowIOException2() throws IOException {
     // Arrange, Act and Assert
@@ -376,37 +475,48 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#createAnnotation(COSBase)}.
-   *
    * <ul>
-   *   <li>When parseHex {@code 0123456789ABCDEF}.
-   *   <li>Then throw {@link IOException}.
+   *   <li>When parseHex {@code 42}.</li>
+   *   <li>Then throw {@link IOException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
+   * <p>
+   * Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
    */
   @Test
-  @DisplayName(
-      "Test createAnnotation(COSBase); when parseHex '0123456789ABCDEF'; then throw IOException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test createAnnotation(COSBase); when parseHex '42'; then throw IOException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"PDAnnotation PDAnnotation.createAnnotation(COSBase)"})
+  void testCreateAnnotation_whenParseHex42_thenThrowIOException() throws IOException {
+    // Arrange, Act and Assert
+    assertThrows(IOException.class, () -> PDAnnotation.createAnnotation(COSString.parseHex("42")));
+  }
+
+  /**
+   * Test {@link PDAnnotation#createAnnotation(COSBase)}.
+   * <ul>
+   *   <li>When parseHex {@code 0123456789ABCDEF}.</li>
+   *   <li>Then throw {@link IOException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
+   */
+  @Test
+  @DisplayName("Test createAnnotation(COSBase); when parseHex '0123456789ABCDEF'; then throw IOException")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAnnotation PDAnnotation.createAnnotation(COSBase)"})
   void testCreateAnnotation_whenParseHex0123456789abcdef_thenThrowIOException() throws IOException {
     // Arrange, Act and Assert
-    assertThrows(
-        IOException.class,
-        () -> PDAnnotation.createAnnotation(COSString.parseHex("0123456789ABCDEF")));
+    assertThrows(IOException.class, () -> PDAnnotation.createAnnotation(COSString.parseHex("0123456789ABCDEF")));
   }
 
   /**
    * Test {@link PDAnnotation#equals(Object)}, and {@link PDAnnotation#hashCode()}.
-   *
    * <ul>
-   *   <li>When other is same.
-   *   <li>Then return equal.
+   *   <li>When other is same.</li>
+   *   <li>Then return equal.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link PDAnnotation#equals(Object)}
    *   <li>{@link PDAnnotation#hashCode()}
@@ -414,8 +524,7 @@ class PDAnnotationDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is same; then return equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDAnnotation.equals(Object)", "int PDAnnotation.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsSame_thenReturnEqual() {
     // Arrange
@@ -429,18 +538,16 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#equals(Object)}
+   * <p>
+   * Method under test: {@link PDAnnotation#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDAnnotation.equals(Object)", "int PDAnnotation.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual() {
     // Arrange
@@ -452,23 +559,20 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#equals(Object)}
+   * <p>
+   * Method under test: {@link PDAnnotation#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDAnnotation.equals(Object)", "int PDAnnotation.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual2() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
-
     PDAnnotationCircle pdAnnotationCircle = mock(PDAnnotationCircle.class);
     when(pdAnnotationCircle.getCOSObject()).thenReturn(new COSDictionary());
 
@@ -478,18 +582,16 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is {@code null}.
-   *   <li>Then return not equal.
+   *   <li>When other is {@code null}.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#equals(Object)}
+   * <p>
+   * Method under test: {@link PDAnnotation#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is 'null'; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDAnnotation.equals(Object)", "int PDAnnotation.hashCode()"})
   void testEquals_whenOtherIsNull_thenReturnNotEqual() {
     // Arrange, Act and Assert
@@ -498,18 +600,16 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is wrong type.
-   *   <li>Then return not equal.
+   *   <li>When other is wrong type.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#equals(Object)}
+   * <p>
+   * Method under test: {@link PDAnnotation#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is wrong type; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDAnnotation.equals(Object)", "int PDAnnotation.hashCode()"})
   void testEquals_whenOtherIsWrongType_thenReturnNotEqual() {
     // Arrange, Act and Assert
@@ -518,19 +618,16 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#setSubtype(String)}.
-   *
    * <ul>
-   *   <li>Given {@link PDAnnotationCaret#PDAnnotationCaret()}.
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} Subtype is {@code Sub Type}.
+   *   <li>Given {@link PDAnnotationCaret#PDAnnotationCaret()}.</li>
+   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} Subtype is {@code Sub Type}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setSubtype(String)}
+   * <p>
+   * Method under test: {@link PDAnnotation#setSubtype(String)}
    */
   @Test
-  @DisplayName(
-      "Test setSubtype(String); given PDAnnotationCaret(); then PDAnnotationCaret() Subtype is 'Sub Type'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setSubtype(String); given PDAnnotationCaret(); then PDAnnotationCaret() Subtype is 'Sub Type'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.setSubtype(String)"})
   void testSetSubtype_givenPDAnnotationCaret_thenPDAnnotationCaretSubtypeIsSubType() {
     // Arrange
@@ -548,19 +645,15 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#setSubtype(String)}.
-   *
    * <ul>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret(COSDictionary)} with field is {@link
-   *       COSDictionary#COSDictionary()} Subtype is {@code Sub Type}.
+   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret(COSDictionary)} with field is {@link COSDictionary#COSDictionary()} Subtype is {@code Sub Type}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setSubtype(String)}
+   * <p>
+   * Method under test: {@link PDAnnotation#setSubtype(String)}
    */
   @Test
-  @DisplayName(
-      "Test setSubtype(String); then PDAnnotationCaret(COSDictionary) with field is COSDictionary() Subtype is 'Sub Type'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setSubtype(String); then PDAnnotationCaret(COSDictionary) with field is COSDictionary() Subtype is 'Sub Type'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.setSubtype(String)"})
   void testSetSubtype_thenPDAnnotationCaretWithFieldIsCOSDictionarySubtypeIsSubType() {
     // Arrange
@@ -577,109 +670,70 @@ class PDAnnotationDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotation#setSubtype(String)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} Subtype is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setSubtype(String)}
-   */
-  @Test
-  @DisplayName("Test setSubtype(String); when 'null'; then PDAnnotationCaret() Subtype is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAnnotation.setSubtype(String)"})
-  void testSetSubtype_whenNull_thenPDAnnotationCaretSubtypeIsNull() {
-    // Arrange
-    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
-
-    // Act
-    pdAnnotationCaret.setSubtype(null);
-
-    // Assert
-    assertNull(pdAnnotationCaret.getSubtype());
-    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-  }
-
-  /**
    * Test {@link PDAnnotation#getSubtype()}.
-   *
    * <ul>
-   *   <li>Given {@link PDAnnotationCaret#PDAnnotationCaret(COSDictionary)} with field is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDAnnotationCaret#PDAnnotationCaret(COSDictionary)} with field is {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#getSubtype()}
+   * <p>
+   * Method under test: {@link PDAnnotation#getSubtype()}
    */
   @Test
-  @DisplayName(
-      "Test getSubtype(); given PDAnnotationCaret(COSDictionary) with field is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getSubtype(); given PDAnnotationCaret(COSDictionary) with field is COSDictionary(); then return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDAnnotation.getSubtype()"})
   void testGetSubtype_givenPDAnnotationCaretWithFieldIsCOSDictionary_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDAnnotationCaret(new COSDictionary()).getSubtype());
+    assertNull((new PDAnnotationCaret(new COSDictionary())).getSubtype());
   }
 
   /**
    * Test {@link PDAnnotation#getSubtype()}.
-   *
    * <ul>
-   *   <li>Given {@link PDAnnotationCaret#PDAnnotationCaret()}.
-   *   <li>Then return {@link PDAnnotationCaret#SUB_TYPE}.
+   *   <li>Given {@link PDAnnotationCaret#PDAnnotationCaret()}.</li>
+   *   <li>Then return {@link PDAnnotationCaret#SUB_TYPE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#getSubtype()}
+   * <p>
+   * Method under test: {@link PDAnnotation#getSubtype()}
    */
   @Test
   @DisplayName("Test getSubtype(); given PDAnnotationCaret(); then return SUB_TYPE")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDAnnotation.getSubtype()"})
   void testGetSubtype_givenPDAnnotationCaret_thenReturnSub_type() {
     // Arrange, Act and Assert
-    assertEquals(PDAnnotationCaret.SUB_TYPE, new PDAnnotationCaret().getSubtype());
+    assertEquals(PDAnnotationCaret.SUB_TYPE, (new PDAnnotationCaret()).getSubtype());
   }
 
   /**
    * Test {@link PDAnnotation#getRectangle()}.
-   *
    * <ul>
-   *   <li>Given {@link PDAnnotationCaret#PDAnnotationCaret()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDAnnotationCaret#PDAnnotationCaret()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#getRectangle()}
+   * <p>
+   * Method under test: {@link PDAnnotation#getRectangle()}
    */
   @Test
   @DisplayName("Test getRectangle(); given PDAnnotationCaret(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDRectangle PDAnnotation.getRectangle()"})
   void testGetRectangle_givenPDAnnotationCaret_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDAnnotationCaret().getRectangle());
+    assertNull((new PDAnnotationCaret()).getRectangle());
   }
 
   /**
    * Test {@link PDAnnotation#getRectangle()}.
-   *
    * <ul>
-   *   <li>Then return COSArray toList third Key is {@code null}.
+   *   <li>Then return COSArray toList third Key is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#getRectangle()}
+   * <p>
+   * Method under test: {@link PDAnnotation#getRectangle()}
    */
   @Test
   @DisplayName("Test getRectangle(); then return COSArray toList third Key is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDRectangle PDAnnotation.getRectangle()"})
   void testGetRectangle_thenReturnCOSArrayToListThirdKeyIsNull() {
     // Arrange
@@ -710,24 +764,20 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#getRectangle()}.
-   *
    * <ul>
-   *   <li>Then return Height is zero.
+   *   <li>Then return Height is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#getRectangle()}
+   * <p>
+   * Method under test: {@link PDAnnotation#getRectangle()}
    */
   @Test
   @DisplayName("Test getRectangle(); then return Height is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDRectangle PDAnnotation.getRectangle()"})
   void testGetRectangle_thenReturnHeightIsZero() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
-    PDRectangle rectangle =
-        new PDRectangle(2.14748365E9f, 2.14748365E9f, 2.14748365E9f, 2.14748365E9f);
-    pdAnnotationCaret.setRectangle(rectangle);
+    pdAnnotationCaret.setRectangle(new PDRectangle(2.14748365E9f, 2.14748365E9f, 2.14748365E9f, 2.14748365E9f));
 
     // Act
     PDRectangle actualRectangle = pdAnnotationCaret.getRectangle();
@@ -752,72 +802,64 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#setRectangle(PDRectangle)}.
-   *
    * <ul>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} COSObject toIncrement Objects size is
-   *       one.
+   *   <li>When {@link PDRectangle#A0}.</li>
+   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} Rectangle LowerLeftX is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setRectangle(PDRectangle)}
+   * <p>
+   * Method under test: {@link PDAnnotation#setRectangle(PDRectangle)}
    */
   @Test
-  @DisplayName(
-      "Test setRectangle(PDRectangle); then PDAnnotationCaret() COSObject toIncrement Objects size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setRectangle(PDRectangle); when A0; then PDAnnotationCaret() Rectangle LowerLeftX is zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.setRectangle(PDRectangle)"})
-  void testSetRectangle_thenPDAnnotationCaretCOSObjectToIncrementObjectsSizeIsOne() {
+  void testSetRectangle_whenA0_thenPDAnnotationCaretRectangleLowerLeftXIsZero() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
 
     // Act
-    pdAnnotationCaret.setRectangle(PDRectangle.LETTER);
+    pdAnnotationCaret.setRectangle(PDRectangle.A0);
 
     // Assert
-    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertEquals(1, toIncrementResult.getObjects().size());
-    Iterator<COSBase> iteratorResult = toIncrementResult.iterator();
-    COSBase actualNextResult = iteratorResult.next();
-    assertFalse(iteratorResult.hasNext());
-    assertSame(cOSObject, actualNextResult);
     PDRectangle rectangle = pdAnnotationCaret.getRectangle();
-    assertEquals(792.0f, rectangle.getHeight());
-    assertEquals(612.0f, rectangle.getUpperRightX());
-    assertEquals(792.0f, rectangle.getUpperRightY());
-    assertEquals(612.0f, rectangle.getWidth());
+    assertEquals(0.0f, rectangle.getLowerLeftX());
+    assertEquals(0.0f, rectangle.getLowerLeftY());
+    assertEquals(2383.937f, rectangle.getUpperRightX());
+    assertEquals(2383.937f, rectangle.getWidth());
+    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+    assertEquals(3370.3938f, rectangle.getHeight());
+    assertEquals(3370.3938f, rectangle.getUpperRightY());
+    COSArray expectedCOSObject = rectangle.getCOSArray();
+    assertSame(expectedCOSObject, rectangle.getCOSObject());
   }
 
   /**
    * Test {@link PDAnnotation#getAnnotationFlags()}.
-   *
-   * <p>Method under test: {@link PDAnnotation#getAnnotationFlags()}
+   * <p>
+   * Method under test: {@link PDAnnotation#getAnnotationFlags()}
    */
   @Test
   @DisplayName("Test getAnnotationFlags()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int PDAnnotation.getAnnotationFlags()"})
   void testGetAnnotationFlags() {
     // Arrange, Act and Assert
-    assertEquals(0, new PDAnnotationCaret().getAnnotationFlags());
+    assertEquals(0, (new PDAnnotationCaret()).getAnnotationFlags());
   }
 
   /**
    * Test {@link PDAnnotation#setAnnotationFlags(int)}.
-   *
    * <ul>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is {@code
-   *       -1810807491}.
+   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is {@code -1810807491}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setAnnotationFlags(int)}
+   * <p>
+   * Method under test: {@link PDAnnotation#setAnnotationFlags(int)}
    */
   @Test
-  @DisplayName(
-      "Test setAnnotationFlags(int); then PDAnnotationCaret() AnnotationFlags is '-1810807491'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setAnnotationFlags(int); then PDAnnotationCaret() AnnotationFlags is '-1810807491'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.setAnnotationFlags(int)"})
   void testSetAnnotationFlags_thenPDAnnotationCaretAnnotationFlagsIs1810807491() {
     // Arrange
@@ -836,19 +878,16 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#setAnnotationFlags(int)}.
-   *
    * <ul>
-   *   <li>When one.
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is one.
+   *   <li>When one.</li>
+   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setAnnotationFlags(int)}
+   * <p>
+   * Method under test: {@link PDAnnotation#setAnnotationFlags(int)}
    */
   @Test
-  @DisplayName(
-      "Test setAnnotationFlags(int); when one; then PDAnnotationCaret() AnnotationFlags is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setAnnotationFlags(int); when one; then PDAnnotationCaret() AnnotationFlags is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.setAnnotationFlags(int)"})
   void testSetAnnotationFlags_whenOne_thenPDAnnotationCaretAnnotationFlagsIsOne() {
     // Arrange
@@ -869,19 +908,16 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#setAnnotationFlags(int)}.
-   *
    * <ul>
-   *   <li>When seven.
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is seven.
+   *   <li>When seven.</li>
+   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is seven.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setAnnotationFlags(int)}
+   * <p>
+   * Method under test: {@link PDAnnotation#setAnnotationFlags(int)}
    */
   @Test
-  @DisplayName(
-      "Test setAnnotationFlags(int); when seven; then PDAnnotationCaret() AnnotationFlags is seven")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setAnnotationFlags(int); when seven; then PDAnnotationCaret() AnnotationFlags is seven")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.setAnnotationFlags(int)"})
   void testSetAnnotationFlags_whenSeven_thenPDAnnotationCaretAnnotationFlagsIsSeven() {
     // Arrange
@@ -902,17 +938,16 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#getCOSObject()}.
-   *
-   * <p>Method under test: {@link PDAnnotation#getCOSObject()}
+   * <p>
+   * Method under test: {@link PDAnnotation#getCOSObject()}
    */
   @Test
   @DisplayName("Test getCOSObject()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSDictionary PDAnnotation.getCOSObject()"})
   void testGetCOSObject() {
     // Arrange and Act
-    COSDictionary actualCOSObject = new PDAnnotationCaret().getCOSObject();
+    COSDictionary actualCOSObject = (new PDAnnotationCaret()).getCOSObject();
 
     // Assert
     COSUpdateState updateState = actualCOSObject.getUpdateState();
@@ -930,28 +965,26 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#getAppearanceState()}.
-   *
-   * <p>Method under test: {@link PDAnnotation#getAppearanceState()}
+   * <p>
+   * Method under test: {@link PDAnnotation#getAppearanceState()}
    */
   @Test
   @DisplayName("Test getAppearanceState()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSName PDAnnotation.getAppearanceState()"})
   void testGetAppearanceState() {
     // Arrange, Act and Assert
-    assertNull(new PDAnnotationCaret().getAppearanceState());
+    assertNull((new PDAnnotationCaret()).getAppearanceState());
   }
 
   /**
    * Test {@link PDAnnotation#setAppearanceState(String)}.
-   *
-   * <p>Method under test: {@link PDAnnotation#setAppearanceState(String)}
+   * <p>
+   * Method under test: {@link PDAnnotation#setAppearanceState(String)}
    */
   @Test
   @DisplayName("Test setAppearanceState(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.setAppearanceState(String)"})
   void testSetAppearanceState() {
     // Arrange
@@ -973,18 +1006,15 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#setAppearanceState(String)}.
-   *
    * <ul>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AppearanceState Name is {@code As}.
+   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AppearanceState Name is {@code As}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setAppearanceState(String)}
+   * <p>
+   * Method under test: {@link PDAnnotation#setAppearanceState(String)}
    */
   @Test
-  @DisplayName(
-      "Test setAppearanceState(String); then PDAnnotationCaret() AppearanceState Name is 'As'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setAppearanceState(String); then PDAnnotationCaret() AppearanceState Name is 'As'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.setAppearanceState(String)"})
   void testSetAppearanceState_thenPDAnnotationCaretAppearanceStateNameIsAs() {
     // Arrange
@@ -1005,67 +1035,34 @@ class PDAnnotationDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotation#setAppearanceState(String)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} COSObject Values size is two.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setAppearanceState(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test setAppearanceState(String); when 'null'; then PDAnnotationCaret() COSObject Values size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAnnotation.setAppearanceState(String)"})
-  void testSetAppearanceState_whenNull_thenPDAnnotationCaretCOSObjectValuesSizeIsTwo() {
-    // Arrange
-    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
-
-    // Act
-    pdAnnotationCaret.setAppearanceState(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-  }
-
-  /**
    * Test {@link PDAnnotation#getAppearance()}.
-   *
    * <ul>
-   *   <li>Given {@link PDAnnotationCaret#PDAnnotationCaret()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDAnnotationCaret#PDAnnotationCaret()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#getAppearance()}
+   * <p>
+   * Method under test: {@link PDAnnotation#getAppearance()}
    */
   @Test
   @DisplayName("Test getAppearance(); given PDAnnotationCaret(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAppearanceDictionary PDAnnotation.getAppearance()"})
   void testGetAppearance_givenPDAnnotationCaret_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDAnnotationCaret().getAppearance());
+    assertNull((new PDAnnotationCaret()).getAppearance());
   }
 
   /**
    * Test {@link PDAnnotation#getAppearance()}.
-   *
    * <ul>
-   *   <li>Then return COSObject Key is {@code null}.
+   *   <li>Then return COSObject Key is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#getAppearance()}
+   * <p>
+   * Method under test: {@link PDAnnotation#getAppearance()}
    */
   @Test
   @DisplayName("Test getAppearance(); then return COSObject Key is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAppearanceDictionary PDAnnotation.getAppearance()"})
   void testGetAppearance_thenReturnCOSObjectKeyIsNull() {
     // Arrange
@@ -1096,17 +1093,15 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#getAppearance()}.
-   *
    * <ul>
-   *   <li>Then return DownAppearance is {@code null}.
+   *   <li>Then return DownAppearance is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#getAppearance()}
+   * <p>
+   * Method under test: {@link PDAnnotation#getAppearance()}
    */
   @Test
   @DisplayName("Test getAppearance(); then return DownAppearance is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAppearanceDictionary PDAnnotation.getAppearance()"})
   void testGetAppearance_thenReturnDownAppearanceIsNull() {
     // Arrange
@@ -1129,18 +1124,15 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#setAppearance(PDAppearanceDictionary)}.
-   *
    * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setAppearance(PDAppearanceDictionary)}
+   * <p>
+   * Method under test: {@link PDAnnotation#setAppearance(PDAppearanceDictionary)}
    */
   @Test
-  @DisplayName(
-      "Test setAppearance(PDAppearanceDictionary); given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setAppearance(PDAppearanceDictionary); given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.setAppearance(PDAppearanceDictionary)"})
   void testSetAppearance_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
@@ -1162,19 +1154,16 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#setAppearance(PDAppearanceDictionary)}.
-   *
    * <ul>
-   *   <li>Given {@code true}.
-   *   <li>When {@link COSDictionary#COSDictionary()} Direct is {@code true}.
+   *   <li>Given {@code true}.</li>
+   *   <li>When {@link COSDictionary#COSDictionary()} Direct is {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setAppearance(PDAppearanceDictionary)}
+   * <p>
+   * Method under test: {@link PDAnnotation#setAppearance(PDAppearanceDictionary)}
    */
   @Test
-  @DisplayName(
-      "Test setAppearance(PDAppearanceDictionary); given 'true'; when COSDictionary() Direct is 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setAppearance(PDAppearanceDictionary); given 'true'; when COSDictionary() Direct is 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.setAppearance(PDAppearanceDictionary)"})
   void testSetAppearance_givenTrue_whenCOSDictionaryDirectIsTrue() {
     // Arrange
@@ -1196,18 +1185,15 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#setAppearance(PDAppearanceDictionary)}.
-   *
    * <ul>
-   *   <li>Then not {@link PDAnnotationCaret#PDAnnotationCaret()} Appearance DownAppearance Stream.
+   *   <li>Then not {@link PDAnnotationCaret#PDAnnotationCaret()} Appearance DownAppearance Stream.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setAppearance(PDAppearanceDictionary)}
+   * <p>
+   * Method under test: {@link PDAnnotation#setAppearance(PDAppearanceDictionary)}
    */
   @Test
-  @DisplayName(
-      "Test setAppearance(PDAppearanceDictionary); then not PDAnnotationCaret() Appearance DownAppearance Stream")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setAppearance(PDAppearanceDictionary); then not PDAnnotationCaret() Appearance DownAppearance Stream")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.setAppearance(PDAppearanceDictionary)"})
   void testSetAppearance_thenNotPDAnnotationCaretAppearanceDownAppearanceStream() {
     // Arrange
@@ -1234,13 +1220,12 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#getNormalAppearanceStream()}.
-   *
-   * <p>Method under test: {@link PDAnnotation#getNormalAppearanceStream()}
+   * <p>
+   * Method under test: {@link PDAnnotation#getNormalAppearanceStream()}
    */
   @Test
   @DisplayName("Test getNormalAppearanceStream()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAppearanceStream PDAnnotation.getNormalAppearanceStream()"})
   void testGetNormalAppearanceStream() {
     // Arrange
@@ -1253,13 +1238,12 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#getNormalAppearanceStream()}.
-   *
-   * <p>Method under test: {@link PDAnnotation#getNormalAppearanceStream()}
+   * <p>
+   * Method under test: {@link PDAnnotation#getNormalAppearanceStream()}
    */
   @Test
   @DisplayName("Test getNormalAppearanceStream()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAppearanceStream PDAnnotation.getNormalAppearanceStream()"})
   void testGetNormalAppearanceStream2() {
     // Arrange
@@ -1272,13 +1256,12 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#getNormalAppearanceStream()}.
-   *
-   * <p>Method under test: {@link PDAnnotation#getNormalAppearanceStream()}
+   * <p>
+   * Method under test: {@link PDAnnotation#getNormalAppearanceStream()}
    */
   @Test
   @DisplayName("Test getNormalAppearanceStream()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAppearanceStream PDAnnotation.getNormalAppearanceStream()"})
   void testGetNormalAppearanceStream3() {
     // Arrange
@@ -1295,37 +1278,33 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#getNormalAppearanceStream()}.
-   *
    * <ul>
-   *   <li>Given {@link PDAnnotationCaret#PDAnnotationCaret()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDAnnotationCaret#PDAnnotationCaret()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#getNormalAppearanceStream()}
+   * <p>
+   * Method under test: {@link PDAnnotation#getNormalAppearanceStream()}
    */
   @Test
   @DisplayName("Test getNormalAppearanceStream(); given PDAnnotationCaret(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAppearanceStream PDAnnotation.getNormalAppearanceStream()"})
   void testGetNormalAppearanceStream_givenPDAnnotationCaret_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDAnnotationCaret().getNormalAppearanceStream());
+    assertNull((new PDAnnotationCaret()).getNormalAppearanceStream());
   }
 
   /**
    * Test {@link PDAnnotation#getNormalAppearanceStream()}.
-   *
    * <ul>
-   *   <li>Then return Resources is {@code null}.
+   *   <li>Then return Resources is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#getNormalAppearanceStream()}
+   * <p>
+   * Method under test: {@link PDAnnotation#getNormalAppearanceStream()}
    */
   @Test
   @DisplayName("Test getNormalAppearanceStream(); then return Resources is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAppearanceStream PDAnnotation.getNormalAppearanceStream()"})
   void testGetNormalAppearanceStream_thenReturnResourcesIsNull() {
     // Arrange
@@ -1351,34 +1330,30 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#isInvisible()}.
-   *
-   * <p>Method under test: {@link PDAnnotation#isInvisible()}
+   * <p>
+   * Method under test: {@link PDAnnotation#isInvisible()}
    */
   @Test
   @DisplayName("Test isInvisible()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDAnnotation.isInvisible()"})
   void testIsInvisible() {
     // Arrange, Act and Assert
-    assertFalse(new PDAnnotationCaret().isInvisible());
+    assertFalse((new PDAnnotationCaret()).isInvisible());
   }
 
   /**
    * Test {@link PDAnnotation#setInvisible(boolean)}.
-   *
    * <ul>
-   *   <li>When {@code false}.
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is zero.
+   *   <li>When {@code false}.</li>
+   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setInvisible(boolean)}
+   * <p>
+   * Method under test: {@link PDAnnotation#setInvisible(boolean)}
    */
   @Test
-  @DisplayName(
-      "Test setInvisible(boolean); when 'false'; then PDAnnotationCaret() AnnotationFlags is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setInvisible(boolean); when 'false'; then PDAnnotationCaret() AnnotationFlags is zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.setInvisible(boolean)"})
   void testSetInvisible_whenFalse_thenPDAnnotationCaretAnnotationFlagsIsZero() {
     // Arrange
@@ -1397,19 +1372,16 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#setInvisible(boolean)}.
-   *
    * <ul>
-   *   <li>When {@code true}.
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is one.
+   *   <li>When {@code true}.</li>
+   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setInvisible(boolean)}
+   * <p>
+   * Method under test: {@link PDAnnotation#setInvisible(boolean)}
    */
   @Test
-  @DisplayName(
-      "Test setInvisible(boolean); when 'true'; then PDAnnotationCaret() AnnotationFlags is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setInvisible(boolean); when 'true'; then PDAnnotationCaret() AnnotationFlags is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.setInvisible(boolean)"})
   void testSetInvisible_whenTrue_thenPDAnnotationCaretAnnotationFlagsIsOne() {
     // Arrange
@@ -1428,34 +1400,30 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#isHidden()}.
-   *
-   * <p>Method under test: {@link PDAnnotation#isHidden()}
+   * <p>
+   * Method under test: {@link PDAnnotation#isHidden()}
    */
   @Test
   @DisplayName("Test isHidden()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDAnnotation.isHidden()"})
   void testIsHidden() {
     // Arrange, Act and Assert
-    assertFalse(new PDAnnotationCaret().isHidden());
+    assertFalse((new PDAnnotationCaret()).isHidden());
   }
 
   /**
    * Test {@link PDAnnotation#setHidden(boolean)}.
-   *
    * <ul>
-   *   <li>When {@code false}.
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is zero.
+   *   <li>When {@code false}.</li>
+   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setHidden(boolean)}
+   * <p>
+   * Method under test: {@link PDAnnotation#setHidden(boolean)}
    */
   @Test
-  @DisplayName(
-      "Test setHidden(boolean); when 'false'; then PDAnnotationCaret() AnnotationFlags is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setHidden(boolean); when 'false'; then PDAnnotationCaret() AnnotationFlags is zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.setHidden(boolean)"})
   void testSetHidden_whenFalse_thenPDAnnotationCaretAnnotationFlagsIsZero() {
     // Arrange
@@ -1474,19 +1442,16 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#setHidden(boolean)}.
-   *
    * <ul>
-   *   <li>When {@code true}.
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is two.
+   *   <li>When {@code true}.</li>
+   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setHidden(boolean)}
+   * <p>
+   * Method under test: {@link PDAnnotation#setHidden(boolean)}
    */
   @Test
-  @DisplayName(
-      "Test setHidden(boolean); when 'true'; then PDAnnotationCaret() AnnotationFlags is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setHidden(boolean); when 'true'; then PDAnnotationCaret() AnnotationFlags is two")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.setHidden(boolean)"})
   void testSetHidden_whenTrue_thenPDAnnotationCaretAnnotationFlagsIsTwo() {
     // Arrange
@@ -1505,34 +1470,30 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#isPrinted()}.
-   *
-   * <p>Method under test: {@link PDAnnotation#isPrinted()}
+   * <p>
+   * Method under test: {@link PDAnnotation#isPrinted()}
    */
   @Test
   @DisplayName("Test isPrinted()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDAnnotation.isPrinted()"})
   void testIsPrinted() {
     // Arrange, Act and Assert
-    assertFalse(new PDAnnotationCaret().isPrinted());
+    assertFalse((new PDAnnotationCaret()).isPrinted());
   }
 
   /**
    * Test {@link PDAnnotation#setPrinted(boolean)}.
-   *
    * <ul>
-   *   <li>When {@code false}.
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is zero.
+   *   <li>When {@code false}.</li>
+   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setPrinted(boolean)}
+   * <p>
+   * Method under test: {@link PDAnnotation#setPrinted(boolean)}
    */
   @Test
-  @DisplayName(
-      "Test setPrinted(boolean); when 'false'; then PDAnnotationCaret() AnnotationFlags is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setPrinted(boolean); when 'false'; then PDAnnotationCaret() AnnotationFlags is zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.setPrinted(boolean)"})
   void testSetPrinted_whenFalse_thenPDAnnotationCaretAnnotationFlagsIsZero() {
     // Arrange
@@ -1551,19 +1512,16 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#setPrinted(boolean)}.
-   *
    * <ul>
-   *   <li>When {@code true}.
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is four.
+   *   <li>When {@code true}.</li>
+   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is four.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setPrinted(boolean)}
+   * <p>
+   * Method under test: {@link PDAnnotation#setPrinted(boolean)}
    */
   @Test
-  @DisplayName(
-      "Test setPrinted(boolean); when 'true'; then PDAnnotationCaret() AnnotationFlags is four")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setPrinted(boolean); when 'true'; then PDAnnotationCaret() AnnotationFlags is four")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.setPrinted(boolean)"})
   void testSetPrinted_whenTrue_thenPDAnnotationCaretAnnotationFlagsIsFour() {
     // Arrange
@@ -1582,34 +1540,30 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#isNoZoom()}.
-   *
-   * <p>Method under test: {@link PDAnnotation#isNoZoom()}
+   * <p>
+   * Method under test: {@link PDAnnotation#isNoZoom()}
    */
   @Test
   @DisplayName("Test isNoZoom()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDAnnotation.isNoZoom()"})
   void testIsNoZoom() {
     // Arrange, Act and Assert
-    assertFalse(new PDAnnotationCaret().isNoZoom());
+    assertFalse((new PDAnnotationCaret()).isNoZoom());
   }
 
   /**
    * Test {@link PDAnnotation#setNoZoom(boolean)}.
-   *
    * <ul>
-   *   <li>When {@code false}.
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is zero.
+   *   <li>When {@code false}.</li>
+   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setNoZoom(boolean)}
+   * <p>
+   * Method under test: {@link PDAnnotation#setNoZoom(boolean)}
    */
   @Test
-  @DisplayName(
-      "Test setNoZoom(boolean); when 'false'; then PDAnnotationCaret() AnnotationFlags is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setNoZoom(boolean); when 'false'; then PDAnnotationCaret() AnnotationFlags is zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.setNoZoom(boolean)"})
   void testSetNoZoom_whenFalse_thenPDAnnotationCaretAnnotationFlagsIsZero() {
     // Arrange
@@ -1628,19 +1582,16 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#setNoZoom(boolean)}.
-   *
    * <ul>
-   *   <li>When {@code true}.
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is eight.
+   *   <li>When {@code true}.</li>
+   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is eight.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setNoZoom(boolean)}
+   * <p>
+   * Method under test: {@link PDAnnotation#setNoZoom(boolean)}
    */
   @Test
-  @DisplayName(
-      "Test setNoZoom(boolean); when 'true'; then PDAnnotationCaret() AnnotationFlags is eight")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setNoZoom(boolean); when 'true'; then PDAnnotationCaret() AnnotationFlags is eight")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.setNoZoom(boolean)"})
   void testSetNoZoom_whenTrue_thenPDAnnotationCaretAnnotationFlagsIsEight() {
     // Arrange
@@ -1659,34 +1610,30 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#isNoRotate()}.
-   *
-   * <p>Method under test: {@link PDAnnotation#isNoRotate()}
+   * <p>
+   * Method under test: {@link PDAnnotation#isNoRotate()}
    */
   @Test
   @DisplayName("Test isNoRotate()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDAnnotation.isNoRotate()"})
   void testIsNoRotate() {
     // Arrange, Act and Assert
-    assertFalse(new PDAnnotationCaret().isNoRotate());
+    assertFalse((new PDAnnotationCaret()).isNoRotate());
   }
 
   /**
    * Test {@link PDAnnotation#setNoRotate(boolean)}.
-   *
    * <ul>
-   *   <li>When {@code false}.
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is zero.
+   *   <li>When {@code false}.</li>
+   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setNoRotate(boolean)}
+   * <p>
+   * Method under test: {@link PDAnnotation#setNoRotate(boolean)}
    */
   @Test
-  @DisplayName(
-      "Test setNoRotate(boolean); when 'false'; then PDAnnotationCaret() AnnotationFlags is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setNoRotate(boolean); when 'false'; then PDAnnotationCaret() AnnotationFlags is zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.setNoRotate(boolean)"})
   void testSetNoRotate_whenFalse_thenPDAnnotationCaretAnnotationFlagsIsZero() {
     // Arrange
@@ -1705,18 +1652,16 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#setNoRotate(boolean)}.
-   *
    * <ul>
-   *   <li>When {@code true}.
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} NoRotate.
+   *   <li>When {@code true}.</li>
+   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} NoRotate.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setNoRotate(boolean)}
+   * <p>
+   * Method under test: {@link PDAnnotation#setNoRotate(boolean)}
    */
   @Test
   @DisplayName("Test setNoRotate(boolean); when 'true'; then PDAnnotationCaret() NoRotate")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.setNoRotate(boolean)"})
   void testSetNoRotate_whenTrue_thenPDAnnotationCaretNoRotate() {
     // Arrange
@@ -1735,34 +1680,30 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#isNoView()}.
-   *
-   * <p>Method under test: {@link PDAnnotation#isNoView()}
+   * <p>
+   * Method under test: {@link PDAnnotation#isNoView()}
    */
   @Test
   @DisplayName("Test isNoView()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDAnnotation.isNoView()"})
   void testIsNoView() {
     // Arrange, Act and Assert
-    assertFalse(new PDAnnotationCaret().isNoView());
+    assertFalse((new PDAnnotationCaret()).isNoView());
   }
 
   /**
    * Test {@link PDAnnotation#setNoView(boolean)}.
-   *
    * <ul>
-   *   <li>When {@code false}.
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is zero.
+   *   <li>When {@code false}.</li>
+   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setNoView(boolean)}
+   * <p>
+   * Method under test: {@link PDAnnotation#setNoView(boolean)}
    */
   @Test
-  @DisplayName(
-      "Test setNoView(boolean); when 'false'; then PDAnnotationCaret() AnnotationFlags is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setNoView(boolean); when 'false'; then PDAnnotationCaret() AnnotationFlags is zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.setNoView(boolean)"})
   void testSetNoView_whenFalse_thenPDAnnotationCaretAnnotationFlagsIsZero() {
     // Arrange
@@ -1781,18 +1722,16 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#setNoView(boolean)}.
-   *
    * <ul>
-   *   <li>When {@code true}.
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} NoView.
+   *   <li>When {@code true}.</li>
+   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} NoView.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setNoView(boolean)}
+   * <p>
+   * Method under test: {@link PDAnnotation#setNoView(boolean)}
    */
   @Test
   @DisplayName("Test setNoView(boolean); when 'true'; then PDAnnotationCaret() NoView")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.setNoView(boolean)"})
   void testSetNoView_whenTrue_thenPDAnnotationCaretNoView() {
     // Arrange
@@ -1811,34 +1750,83 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#isReadOnly()}.
-   *
-   * <p>Method under test: {@link PDAnnotation#isReadOnly()}
+   * <p>
+   * Method under test: {@link PDAnnotation#isReadOnly()}
    */
   @Test
   @DisplayName("Test isReadOnly()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDAnnotation.isReadOnly()"})
   void testIsReadOnly() {
     // Arrange, Act and Assert
-    assertFalse(new PDAnnotationCaret().isReadOnly());
+    assertFalse((new PDAnnotationCaret()).isReadOnly());
   }
 
   /**
    * Test {@link PDAnnotation#setReadOnly(boolean)}.
-   *
-   * <ul>
-   *   <li>When {@code false}.
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setReadOnly(boolean)}
+   * <p>
+   * Method under test: {@link PDAnnotation#setReadOnly(boolean)}
    */
   @Test
-  @DisplayName(
-      "Test setReadOnly(boolean); when 'false'; then PDAnnotationCaret() AnnotationFlags is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setReadOnly(boolean)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDAnnotation.setReadOnly(boolean)"})
+  void testSetReadOnly() {
+    // Arrange
+    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret(new COSDictionary());
+
+    // Act
+    pdAnnotationCaret.setReadOnly(true);
+
+    // Assert
+    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertTrue(pdAnnotationCaret.isReadOnly());
+    assertEquals(Double.SIZE, pdAnnotationCaret.getAnnotationFlags());
+  }
+
+  /**
+   * Test {@link PDAnnotation#setReadOnly(boolean)}.
+   * <ul>
+   *   <li>Given {@link PDAnnotationCaret#PDAnnotationCaret()}.</li>
+   *   <li>When {@code true}.</li>
+   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} ReadOnly.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDAnnotation#setReadOnly(boolean)}
+   */
+  @Test
+  @DisplayName("Test setReadOnly(boolean); given PDAnnotationCaret(); when 'true'; then PDAnnotationCaret() ReadOnly")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDAnnotation.setReadOnly(boolean)"})
+  void testSetReadOnly_givenPDAnnotationCaret_whenTrue_thenPDAnnotationCaretReadOnly() {
+    // Arrange
+    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
+
+    // Act
+    pdAnnotationCaret.setReadOnly(true);
+
+    // Assert
+    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+    assertTrue(pdAnnotationCaret.isReadOnly());
+    assertEquals(Double.SIZE, pdAnnotationCaret.getAnnotationFlags());
+  }
+
+  /**
+   * Test {@link PDAnnotation#setReadOnly(boolean)}.
+   * <ul>
+   *   <li>When {@code false}.</li>
+   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is zero.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDAnnotation#setReadOnly(boolean)}
+   */
+  @Test
+  @DisplayName("Test setReadOnly(boolean); when 'false'; then PDAnnotationCaret() AnnotationFlags is zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.setReadOnly(boolean)"})
   void testSetReadOnly_whenFalse_thenPDAnnotationCaretAnnotationFlagsIsZero() {
     // Arrange
@@ -1856,65 +1844,54 @@ class PDAnnotationDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotation#setReadOnly(boolean)}.
-   *
-   * <ul>
-   *   <li>When {@code true}.
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} ReadOnly.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setReadOnly(boolean)}
-   */
-  @Test
-  @DisplayName("Test setReadOnly(boolean); when 'true'; then PDAnnotationCaret() ReadOnly")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAnnotation.setReadOnly(boolean)"})
-  void testSetReadOnly_whenTrue_thenPDAnnotationCaretReadOnly() {
-    // Arrange
-    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
-
-    // Act
-    pdAnnotationCaret.setReadOnly(true);
-
-    // Assert
-    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
-    assertEquals(3, cOSObject.getValues().size());
-    assertEquals(3, cOSObject.size());
-    assertTrue(pdAnnotationCaret.isReadOnly());
-    assertEquals(Double.SIZE, pdAnnotationCaret.getAnnotationFlags());
-  }
-
-  /**
    * Test {@link PDAnnotation#isLocked()}.
-   *
-   * <p>Method under test: {@link PDAnnotation#isLocked()}
+   * <p>
+   * Method under test: {@link PDAnnotation#isLocked()}
    */
   @Test
   @DisplayName("Test isLocked()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDAnnotation.isLocked()"})
   void testIsLocked() {
     // Arrange, Act and Assert
-    assertFalse(new PDAnnotationCaret().isLocked());
+    assertFalse((new PDAnnotationCaret()).isLocked());
   }
 
   /**
    * Test {@link PDAnnotation#setLocked(boolean)}.
-   *
-   * <ul>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is one hundred
-   *       twenty-eight.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setLocked(boolean)}
+   * <p>
+   * Method under test: {@link PDAnnotation#setLocked(boolean)}
    */
   @Test
-  @DisplayName(
-      "Test setLocked(boolean); then PDAnnotationCaret() AnnotationFlags is one hundred twenty-eight")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setLocked(boolean)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDAnnotation.setLocked(boolean)"})
+  void testSetLocked() {
+    // Arrange
+    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret(new COSDictionary());
+
+    // Act
+    pdAnnotationCaret.setLocked(true);
+
+    // Assert
+    assertEquals(128, pdAnnotationCaret.getAnnotationFlags());
+    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertTrue(pdAnnotationCaret.isLocked());
+  }
+
+  /**
+   * Test {@link PDAnnotation#setLocked(boolean)}.
+   * <ul>
+   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is one hundred twenty-eight.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDAnnotation#setLocked(boolean)}
+   */
+  @Test
+  @DisplayName("Test setLocked(boolean); then PDAnnotationCaret() AnnotationFlags is one hundred twenty-eight")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.setLocked(boolean)"})
   void testSetLocked_thenPDAnnotationCaretAnnotationFlagsIsOneHundredTwentyEight() {
     // Arrange
@@ -1933,19 +1910,16 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#setLocked(boolean)}.
-   *
    * <ul>
-   *   <li>When {@code false}.
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is zero.
+   *   <li>When {@code false}.</li>
+   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setLocked(boolean)}
+   * <p>
+   * Method under test: {@link PDAnnotation#setLocked(boolean)}
    */
   @Test
-  @DisplayName(
-      "Test setLocked(boolean); when 'false'; then PDAnnotationCaret() AnnotationFlags is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setLocked(boolean); when 'false'; then PDAnnotationCaret() AnnotationFlags is zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.setLocked(boolean)"})
   void testSetLocked_whenFalse_thenPDAnnotationCaretAnnotationFlagsIsZero() {
     // Arrange
@@ -1964,34 +1938,29 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#isToggleNoView()}.
-   *
-   * <p>Method under test: {@link PDAnnotation#isToggleNoView()}
+   * <p>
+   * Method under test: {@link PDAnnotation#isToggleNoView()}
    */
   @Test
   @DisplayName("Test isToggleNoView()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDAnnotation.isToggleNoView()"})
   void testIsToggleNoView() {
     // Arrange, Act and Assert
-    assertFalse(new PDAnnotationCaret().isToggleNoView());
+    assertFalse((new PDAnnotationCaret()).isToggleNoView());
   }
 
   /**
    * Test {@link PDAnnotation#setToggleNoView(boolean)}.
-   *
    * <ul>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is two hundred
-   *       fifty-six.
+   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is two hundred fifty-six.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setToggleNoView(boolean)}
+   * <p>
+   * Method under test: {@link PDAnnotation#setToggleNoView(boolean)}
    */
   @Test
-  @DisplayName(
-      "Test setToggleNoView(boolean); then PDAnnotationCaret() AnnotationFlags is two hundred fifty-six")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setToggleNoView(boolean); then PDAnnotationCaret() AnnotationFlags is two hundred fifty-six")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.setToggleNoView(boolean)"})
   void testSetToggleNoView_thenPDAnnotationCaretAnnotationFlagsIsTwoHundredFiftySix() {
     // Arrange
@@ -2010,19 +1979,16 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#setToggleNoView(boolean)}.
-   *
    * <ul>
-   *   <li>When {@code false}.
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is zero.
+   *   <li>When {@code false}.</li>
+   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setToggleNoView(boolean)}
+   * <p>
+   * Method under test: {@link PDAnnotation#setToggleNoView(boolean)}
    */
   @Test
-  @DisplayName(
-      "Test setToggleNoView(boolean); when 'false'; then PDAnnotationCaret() AnnotationFlags is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setToggleNoView(boolean); when 'false'; then PDAnnotationCaret() AnnotationFlags is zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.setToggleNoView(boolean)"})
   void testSetToggleNoView_whenFalse_thenPDAnnotationCaretAnnotationFlagsIsZero() {
     // Arrange
@@ -2041,34 +2007,29 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#isLockedContents()}.
-   *
-   * <p>Method under test: {@link PDAnnotation#isLockedContents()}
+   * <p>
+   * Method under test: {@link PDAnnotation#isLockedContents()}
    */
   @Test
   @DisplayName("Test isLockedContents()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDAnnotation.isLockedContents()"})
   void testIsLockedContents() {
     // Arrange, Act and Assert
-    assertFalse(new PDAnnotationCaret().isLockedContents());
+    assertFalse((new PDAnnotationCaret()).isLockedContents());
   }
 
   /**
    * Test {@link PDAnnotation#setLockedContents(boolean)}.
-   *
    * <ul>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is five hundred
-   *       twelve.
+   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is five hundred twelve.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setLockedContents(boolean)}
+   * <p>
+   * Method under test: {@link PDAnnotation#setLockedContents(boolean)}
    */
   @Test
-  @DisplayName(
-      "Test setLockedContents(boolean); then PDAnnotationCaret() AnnotationFlags is five hundred twelve")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setLockedContents(boolean); then PDAnnotationCaret() AnnotationFlags is five hundred twelve")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.setLockedContents(boolean)"})
   void testSetLockedContents_thenPDAnnotationCaretAnnotationFlagsIsFiveHundredTwelve() {
     // Arrange
@@ -2087,19 +2048,16 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#setLockedContents(boolean)}.
-   *
    * <ul>
-   *   <li>When {@code false}.
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is zero.
+   *   <li>When {@code false}.</li>
+   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setLockedContents(boolean)}
+   * <p>
+   * Method under test: {@link PDAnnotation#setLockedContents(boolean)}
    */
   @Test
-  @DisplayName(
-      "Test setLockedContents(boolean); when 'false'; then PDAnnotationCaret() AnnotationFlags is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setLockedContents(boolean); when 'false'; then PDAnnotationCaret() AnnotationFlags is zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.setLockedContents(boolean)"})
   void testSetLockedContents_whenFalse_thenPDAnnotationCaretAnnotationFlagsIsZero() {
     // Arrange
@@ -2118,18 +2076,16 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#getContents()}.
-   *
    * <ul>
-   *   <li>Given {@link PDAnnotationCaret#PDAnnotationCaret()} Contents is {@code 42}.
-   *   <li>Then return {@code 42}.
+   *   <li>Given {@link PDAnnotationCaret#PDAnnotationCaret()} Contents is {@code 42}.</li>
+   *   <li>Then return {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#getContents()}
+   * <p>
+   * Method under test: {@link PDAnnotation#getContents()}
    */
   @Test
   @DisplayName("Test getContents(); given PDAnnotationCaret() Contents is '42'; then return '42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDAnnotation.getContents()"})
   void testGetContents_givenPDAnnotationCaretContentsIs42_thenReturn42() {
     // Arrange
@@ -2142,37 +2098,33 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#getContents()}.
-   *
    * <ul>
-   *   <li>Given {@link PDAnnotationCaret#PDAnnotationCaret()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDAnnotationCaret#PDAnnotationCaret()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#getContents()}
+   * <p>
+   * Method under test: {@link PDAnnotation#getContents()}
    */
   @Test
   @DisplayName("Test getContents(); given PDAnnotationCaret(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDAnnotation.getContents()"})
   void testGetContents_givenPDAnnotationCaret_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDAnnotationCaret().getContents());
+    assertNull((new PDAnnotationCaret()).getContents());
   }
 
   /**
    * Test {@link PDAnnotation#getContents()}.
-   *
    * <ul>
-   *   <li>Then return empty string.
+   *   <li>Then return empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#getContents()}
+   * <p>
+   * Method under test: {@link PDAnnotation#getContents()}
    */
   @Test
   @DisplayName("Test getContents(); then return empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDAnnotation.getContents()"})
   void testGetContents_thenReturnEmptyString() {
     // Arrange
@@ -2185,20 +2137,14 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#setContents(String)}.
-   *
-   * <ul>
-   *   <li>When {@code 42}.
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} Contents is {@code 42}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setContents(String)}
+   * <p>
+   * Method under test: {@link PDAnnotation#setContents(String)}
    */
   @Test
-  @DisplayName("Test setContents(String); when '42'; then PDAnnotationCaret() Contents is '42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setContents(String)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.setContents(String)"})
-  void testSetContents_when42_thenPDAnnotationCaretContentsIs42() {
+  void testSetContents() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
 
@@ -2213,63 +2159,52 @@ class PDAnnotationDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotation#setContents(String)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} COSObject Values size is two.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setContents(String)}
+   * Test {@link PDAnnotation#getModifiedDate()}.
+   * <p>
+   * Method under test: {@link PDAnnotation#getModifiedDate()}
    */
   @Test
-  @DisplayName(
-      "Test setContents(String); when 'null'; then PDAnnotationCaret() COSObject Values size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAnnotation.setContents(String)"})
-  void testSetContents_whenNull_thenPDAnnotationCaretCOSObjectValuesSizeIsTwo() {
+  @DisplayName("Test getModifiedDate()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String PDAnnotation.getModifiedDate()"})
+  void testGetModifiedDate() {
+    // Arrange, Act and Assert
+    assertNull((new PDAnnotationCaret()).getModifiedDate());
+  }
+
+  /**
+   * Test {@link PDAnnotation#setModifiedDate(Calendar)} with {@code c}.
+   * <p>
+   * Method under test: {@link PDAnnotation#setModifiedDate(Calendar)}
+   */
+  @Test
+  @DisplayName("Test setModifiedDate(Calendar) with 'c'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDAnnotation.setModifiedDate(Calendar)"})
+  void testSetModifiedDateWithC() {
     // Arrange
-    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
+    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret(new COSDictionary());
 
     // Act
-    pdAnnotationCaret.setContents(null);
+    pdAnnotationCaret.setModifiedDate(new GregorianCalendar(1, 1, 1));
 
-    // Assert that nothing has changed
+    // Assert
     COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
   }
 
   /**
-   * Test {@link PDAnnotation#getModifiedDate()}.
-   *
-   * <p>Method under test: {@link PDAnnotation#getModifiedDate()}
-   */
-  @Test
-  @DisplayName("Test getModifiedDate()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDAnnotation.getModifiedDate()"})
-  void testGetModifiedDate() {
-    // Arrange, Act and Assert
-    assertNull(new PDAnnotationCaret().getModifiedDate());
-  }
-
-  /**
    * Test {@link PDAnnotation#setModifiedDate(Calendar)} with {@code c}.
-   *
    * <ul>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} COSObject Values size is three.
+   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} COSObject Values size is three.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setModifiedDate(Calendar)}
+   * <p>
+   * Method under test: {@link PDAnnotation#setModifiedDate(Calendar)}
    */
   @Test
-  @DisplayName(
-      "Test setModifiedDate(Calendar) with 'c'; then PDAnnotationCaret() COSObject Values size is three")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setModifiedDate(Calendar) with 'c'; then PDAnnotationCaret() COSObject Values size is three")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.setModifiedDate(Calendar)"})
   void testSetModifiedDateWithC_thenPDAnnotationCaretCOSObjectValuesSizeIsThree() {
     // Arrange
@@ -2286,19 +2221,16 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#setModifiedDate(Calendar)} with {@code c}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} COSObject Values size is two.
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} COSObject Values size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setModifiedDate(Calendar)}
+   * <p>
+   * Method under test: {@link PDAnnotation#setModifiedDate(Calendar)}
    */
   @Test
-  @DisplayName(
-      "Test setModifiedDate(Calendar) with 'c'; when 'null'; then PDAnnotationCaret() COSObject Values size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setModifiedDate(Calendar) with 'c'; when 'null'; then PDAnnotationCaret() COSObject Values size is two")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.setModifiedDate(Calendar)"})
   void testSetModifiedDateWithC_whenNull_thenPDAnnotationCaretCOSObjectValuesSizeIsTwo() {
     // Arrange
@@ -2315,21 +2247,14 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#setModifiedDate(String)} with {@code m}.
-   *
-   * <ul>
-   *   <li>When {@code foo}.
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} ModifiedDate is {@code foo}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setModifiedDate(String)}
+   * <p>
+   * Method under test: {@link PDAnnotation#setModifiedDate(String)}
    */
   @Test
-  @DisplayName(
-      "Test setModifiedDate(String) with 'm'; when 'foo'; then PDAnnotationCaret() ModifiedDate is 'foo'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setModifiedDate(String) with 'm'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.setModifiedDate(String)"})
-  void testSetModifiedDateWithM_whenFoo_thenPDAnnotationCaretModifiedDateIsFoo() {
+  void testSetModifiedDateWithM() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
 
@@ -2344,66 +2269,29 @@ class PDAnnotationDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotation#setModifiedDate(String)} with {@code m}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} COSObject Values size is two.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setModifiedDate(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test setModifiedDate(String) with 'm'; when 'null'; then PDAnnotationCaret() COSObject Values size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAnnotation.setModifiedDate(String)"})
-  void testSetModifiedDateWithM_whenNull_thenPDAnnotationCaretCOSObjectValuesSizeIsTwo() {
-    // Arrange
-    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
-
-    // Act
-    pdAnnotationCaret.setModifiedDate((String) null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-  }
-
-  /**
    * Test {@link PDAnnotation#getAnnotationName()}.
-   *
-   * <p>Method under test: {@link PDAnnotation#getAnnotationName()}
+   * <p>
+   * Method under test: {@link PDAnnotation#getAnnotationName()}
    */
   @Test
   @DisplayName("Test getAnnotationName()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDAnnotation.getAnnotationName()"})
   void testGetAnnotationName() {
     // Arrange, Act and Assert
-    assertNull(new PDAnnotationCaret().getAnnotationName());
+    assertNull((new PDAnnotationCaret()).getAnnotationName());
   }
 
   /**
    * Test {@link PDAnnotation#setAnnotationName(String)}.
-   *
-   * <ul>
-   *   <li>When {@code Nm}.
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationName is {@code Nm}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setAnnotationName(String)}
+   * <p>
+   * Method under test: {@link PDAnnotation#setAnnotationName(String)}
    */
   @Test
-  @DisplayName(
-      "Test setAnnotationName(String); when 'Nm'; then PDAnnotationCaret() AnnotationName is 'Nm'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setAnnotationName(String)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.setAnnotationName(String)"})
-  void testSetAnnotationName_whenNm_thenPDAnnotationCaretAnnotationNameIsNm() {
+  void testSetAnnotationName() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
 
@@ -2418,64 +2306,31 @@ class PDAnnotationDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotation#setAnnotationName(String)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} COSObject Values size is two.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setAnnotationName(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test setAnnotationName(String); when 'null'; then PDAnnotationCaret() COSObject Values size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAnnotation.setAnnotationName(String)"})
-  void testSetAnnotationName_whenNull_thenPDAnnotationCaretCOSObjectValuesSizeIsTwo() {
-    // Arrange
-    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
-
-    // Act
-    pdAnnotationCaret.setAnnotationName(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-  }
-
-  /**
    * Test {@link PDAnnotation#getStructParent()}.
-   *
-   * <p>Method under test: {@link PDAnnotation#getStructParent()}
+   * <p>
+   * Method under test: {@link PDAnnotation#getStructParent()}
    */
   @Test
   @DisplayName("Test getStructParent()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int PDAnnotation.getStructParent()"})
   void testGetStructParent() {
     // Arrange, Act and Assert
-    assertEquals(-1, new PDAnnotationCaret().getStructParent());
+    assertEquals(-1, (new PDAnnotationCaret()).getStructParent());
   }
 
   /**
    * Test {@link PDAnnotation#setStructParent(int)}.
-   *
    * <ul>
-   *   <li>When {@code -1810807491}.
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} StructParent is {@code -1810807491}.
+   *   <li>When {@code -1810807491}.</li>
+   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} StructParent is {@code -1810807491}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setStructParent(int)}
+   * <p>
+   * Method under test: {@link PDAnnotation#setStructParent(int)}
    */
   @Test
-  @DisplayName(
-      "Test setStructParent(int); when '-1810807491'; then PDAnnotationCaret() StructParent is '-1810807491'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setStructParent(int); when '-1810807491'; then PDAnnotationCaret() StructParent is '-1810807491'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.setStructParent(int)"})
   void testSetStructParent_when1810807491_thenPDAnnotationCaretStructParentIs1810807491() {
     // Arrange
@@ -2493,18 +2348,43 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#setStructParent(int)}.
-   *
    * <ul>
-   *   <li>When one.
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} StructParent is one.
+   *   <li>When nine.</li>
+   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} StructParent is nine.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setStructParent(int)}
+   * <p>
+   * Method under test: {@link PDAnnotation#setStructParent(int)}
+   */
+  @Test
+  @DisplayName("Test setStructParent(int); when nine; then PDAnnotationCaret() StructParent is nine")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDAnnotation.setStructParent(int)"})
+  void testSetStructParent_whenNine_thenPDAnnotationCaretStructParentIsNine() {
+    // Arrange
+    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
+
+    // Act
+    pdAnnotationCaret.setStructParent(9);
+
+    // Assert
+    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+    assertEquals(9, pdAnnotationCaret.getStructParent());
+  }
+
+  /**
+   * Test {@link PDAnnotation#setStructParent(int)}.
+   * <ul>
+   *   <li>When one.</li>
+   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} StructParent is one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDAnnotation#setStructParent(int)}
    */
   @Test
   @DisplayName("Test setStructParent(int); when one; then PDAnnotationCaret() StructParent is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.setStructParent(int)"})
   void testSetStructParent_whenOne_thenPDAnnotationCaretStructParentIsOne() {
     // Arrange
@@ -2521,33 +2401,13 @@ class PDAnnotationDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotation#getOptionalContent()}.
-   *
-   * <ul>
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#getOptionalContent()}
-   */
-  @Test
-  @DisplayName("Test getOptionalContent(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDPropertyList PDAnnotation.getOptionalContent()"})
-  void testGetOptionalContent_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new PDAnnotationCaret().getOptionalContent());
-  }
-
-  /**
    * Test {@link PDAnnotation#setOptionalContent(PDPropertyList)}.
-   *
-   * <p>Method under test: {@link PDAnnotation#setOptionalContent(PDPropertyList)}
+   * <p>
+   * Method under test: {@link PDAnnotation#setOptionalContent(PDPropertyList)}
    */
   @Test
   @DisplayName("Test setOptionalContent(PDPropertyList)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.setOptionalContent(PDPropertyList)"})
   void testSetOptionalContent() {
     // Arrange
@@ -2555,8 +2415,8 @@ class PDAnnotationDiffblueTest {
 
     COSDictionary cosDictionary = new COSDictionary();
     COSObjectKey key = new COSObjectKey(1L, 1);
-    cosDictionary.setKey(key);
 
+    cosDictionary.setKey(key);
     PDPropertyList oc = mock(PDPropertyList.class);
     when(oc.getCOSObject()).thenReturn(cosDictionary);
 
@@ -2570,22 +2430,19 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#setOptionalContent(PDPropertyList)}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.
+   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setOptionalContent(PDPropertyList)}
+   * <p>
+   * Method under test: {@link PDAnnotation#setOptionalContent(PDPropertyList)}
    */
   @Test
   @DisplayName("Test setOptionalContent(PDPropertyList); given COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.setOptionalContent(PDPropertyList)"})
   void testSetOptionalContent_givenCOSDictionary() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
-
     PDPropertyList oc = mock(PDPropertyList.class);
     COSDictionary cosDictionary = new COSDictionary();
     when(oc.getCOSObject()).thenReturn(cosDictionary);
@@ -2603,17 +2460,15 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#setOptionalContent(PDPropertyList)}.
-   *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()} Direct is {@code true}.
+   *   <li>Given {@link COSDictionary#COSDictionary()} Direct is {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setOptionalContent(PDPropertyList)}
+   * <p>
+   * Method under test: {@link PDAnnotation#setOptionalContent(PDPropertyList)}
    */
   @Test
   @DisplayName("Test setOptionalContent(PDPropertyList); given COSDictionary() Direct is 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.setOptionalContent(PDPropertyList)"})
   void testSetOptionalContent_givenCOSDictionaryDirectIsTrue() {
     // Arrange
@@ -2621,7 +2476,6 @@ class PDAnnotationDiffblueTest {
 
     COSDictionary cosDictionary = new COSDictionary();
     cosDictionary.setDirect(true);
-
     PDPropertyList oc = mock(PDPropertyList.class);
     when(oc.getCOSObject()).thenReturn(cosDictionary);
 
@@ -2638,28 +2492,28 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#setOptionalContent(PDPropertyList)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} COSObject Values size is two.
+   *   <li>Given {@code null}.</li>
+   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} COSObject Values size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setOptionalContent(PDPropertyList)}
+   * <p>
+   * Method under test: {@link PDAnnotation#setOptionalContent(PDPropertyList)}
    */
   @Test
-  @DisplayName(
-      "Test setOptionalContent(PDPropertyList); when 'null'; then PDAnnotationCaret() COSObject Values size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setOptionalContent(PDPropertyList); given 'null'; then PDAnnotationCaret() COSObject Values size is two")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.setOptionalContent(PDPropertyList)"})
-  void testSetOptionalContent_whenNull_thenPDAnnotationCaretCOSObjectValuesSizeIsTwo() {
+  void testSetOptionalContent_givenNull_thenPDAnnotationCaretCOSObjectValuesSizeIsTwo() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
+    PDPropertyList oc = mock(PDPropertyList.class);
+    when(oc.getCOSObject()).thenReturn(null);
 
     // Act
-    pdAnnotationCaret.setOptionalContent(null);
+    pdAnnotationCaret.setOptionalContent(oc);
 
     // Assert that nothing has changed
+    verify(oc).getCOSObject();
     COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
@@ -2667,26 +2521,23 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#setBorder(COSArray)}.
-   *
    * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setBorder(COSArray)}
+   * <p>
+   * Method under test: {@link PDAnnotation#setBorder(COSArray)}
    */
   @Test
-  @DisplayName(
-      "Test setBorder(COSArray); given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setBorder(COSArray); given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.setBorder(COSArray)"})
   void testSetBorder_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
 
-    COSArray borderArray = new COSArray(new ArrayList<>());
-    borderArray.setDirect(false);
+    COSArray borderArray = new COSArray();
     borderArray.setKey(new COSObjectKey(1L, 1));
+    borderArray.setDirect(false);
 
     // Act
     pdAnnotationCaret.setBorder(borderArray);
@@ -2697,34 +2548,28 @@ class PDAnnotationDiffblueTest {
     List<? extends COSBase> toListResult = pdAnnotationCaret.getBorder().toList();
     assertEquals(3, toListResult.size());
     assertEquals(3, cOSObject.size());
-    COSBase expectedGetResult = toListResult.get(0);
-    assertSame(expectedGetResult, toListResult.get(2));
+    assertSame(toListResult.get(0), toListResult.get(2));
   }
 
   /**
    * Test {@link PDAnnotation#setBorder(COSArray)}.
-   *
    * <ul>
-   *   <li>Given {@code null}.
-   *   <li>When {@link COSArray#COSArray(List)} with cosObjectables is {@link ArrayList#ArrayList()}
-   *       Key is {@code null}.
+   *   <li>Given {@code false}.</li>
+   *   <li>When {@link COSArray#COSArray()} Direct is {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setBorder(COSArray)}
+   * <p>
+   * Method under test: {@link PDAnnotation#setBorder(COSArray)}
    */
   @Test
-  @DisplayName(
-      "Test setBorder(COSArray); given 'null'; when COSArray(List) with cosObjectables is ArrayList() Key is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setBorder(COSArray); given 'false'; when COSArray() Direct is 'false'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.setBorder(COSArray)"})
-  void testSetBorder_givenNull_whenCOSArrayWithCosObjectablesIsArrayListKeyIsNull() {
+  void testSetBorder_givenFalse_whenCOSArrayDirectIsFalse() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
 
-    COSArray borderArray = new COSArray(new ArrayList<>());
+    COSArray borderArray = new COSArray();
     borderArray.setDirect(false);
-    borderArray.setKey(null);
 
     // Act
     pdAnnotationCaret.setBorder(borderArray);
@@ -2735,25 +2580,21 @@ class PDAnnotationDiffblueTest {
     List<? extends COSBase> toListResult = pdAnnotationCaret.getBorder().toList();
     assertEquals(3, toListResult.size());
     assertEquals(3, cOSObject.size());
-    COSBase expectedGetResult = toListResult.get(0);
-    assertSame(expectedGetResult, toListResult.get(2));
+    assertSame(toListResult.get(0), toListResult.get(2));
   }
 
   /**
    * Test {@link PDAnnotation#setBorder(COSArray)}.
-   *
    * <ul>
-   *   <li>When {@link COSArray#COSArray()}.
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} COSObject Values size is three.
+   *   <li>When {@link COSArray#COSArray()}.</li>
+   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} COSObject Values size is three.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setBorder(COSArray)}
+   * <p>
+   * Method under test: {@link PDAnnotation#setBorder(COSArray)}
    */
   @Test
-  @DisplayName(
-      "Test setBorder(COSArray); when COSArray(); then PDAnnotationCaret() COSObject Values size is three")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setBorder(COSArray); when COSArray(); then PDAnnotationCaret() COSObject Values size is three")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.setBorder(COSArray)"})
   void testSetBorder_whenCOSArray_thenPDAnnotationCaretCOSObjectValuesSizeIsThree() {
     // Arrange
@@ -2768,26 +2609,21 @@ class PDAnnotationDiffblueTest {
     List<? extends COSBase> toListResult = pdAnnotationCaret.getBorder().toList();
     assertEquals(3, toListResult.size());
     assertEquals(3, cOSObject.size());
-    COSBase expectedGetResult = toListResult.get(0);
-    assertSame(expectedGetResult, toListResult.get(2));
+    assertSame(toListResult.get(0), toListResult.get(2));
   }
 
   /**
    * Test {@link PDAnnotation#setBorder(COSArray)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} Border toList third {@link
-   *       COSInteger}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} Border toList third {@link COSInteger}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setBorder(COSArray)}
+   * <p>
+   * Method under test: {@link PDAnnotation#setBorder(COSArray)}
    */
   @Test
-  @DisplayName(
-      "Test setBorder(COSArray); when 'null'; then PDAnnotationCaret() Border toList third COSInteger")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setBorder(COSArray); when 'null'; then PDAnnotationCaret() Border toList third COSInteger")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.setBorder(COSArray)"})
   void testSetBorder_whenNull_thenPDAnnotationCaretBorderToListThirdCOSInteger() {
     // Arrange
@@ -2807,46 +2643,47 @@ class PDAnnotationDiffblueTest {
 
   /**
    * Test {@link PDAnnotation#setColor(PDColor)}.
-   *
    * <ul>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} Color Pattern.
+   *   <li>Given {@link COSBoolean#FALSE}.</li>
+   *   <li>When {@link COSArray#COSArray()} add {@link COSBoolean#FALSE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setColor(PDColor)}
+   * <p>
+   * Method under test: {@link PDAnnotation#setColor(PDColor)}
    */
   @Test
-  @DisplayName("Test setColor(PDColor); then PDAnnotationCaret() Color Pattern")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setColor(PDColor); given FALSE; when COSArray() add FALSE")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.setColor(PDColor)"})
-  void testSetColor_thenPDAnnotationCaretColorPattern() {
+  void testSetColor_givenFalse_whenCOSArrayAddFalse() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
 
+    COSArray array = new COSArray();
+    array.add(COSBoolean.FALSE);
+
     // Act
-    pdAnnotationCaret.setColor(new PDColor(COSName.A, PDDeviceGray.INSTANCE));
+    pdAnnotationCaret.setColor(new PDColor(array, PDDeviceGray.INSTANCE));
 
     // Assert
     PDColor color = pdAnnotationCaret.getColor();
-    assertTrue(color.isPattern());
-    assertArrayEquals(new float[] {0.0f}, color.getComponents(), 0.0f);
+    assertNull(color.getPatternName());
+    assertFalse(color.isPattern());
+    assertArrayEquals(new float[]{0.0f}, color.getComponents(), 0.0f);
   }
 
   /**
    * Test {@link PDAnnotation#setColor(PDColor)}.
-   *
    * <ul>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} Color PatternName is {@code null}.
+   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} Color ColorSpace is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setColor(PDColor)}
+   * <p>
+   * Method under test: {@link PDAnnotation#setColor(PDColor)}
    */
   @Test
-  @DisplayName("Test setColor(PDColor); then PDAnnotationCaret() Color PatternName is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setColor(PDColor); then PDAnnotationCaret() Color ColorSpace is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.setColor(PDColor)"})
-  void testSetColor_thenPDAnnotationCaretColorPatternNameIsNull() {
+  void testSetColor_thenPDAnnotationCaretColorColorSpaceIsNull() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
 
@@ -2858,144 +2695,96 @@ class PDAnnotationDiffblueTest {
     assertNull(color.getPatternName());
     assertNull(color.getColorSpace());
     assertFalse(color.isPattern());
-    assertArrayEquals(new float[] {}, color.getComponents(), 0.0f);
+    assertArrayEquals(new float[]{}, color.getComponents(), 0.0f);
+  }
+
+  /**
+   * Test {@link PDAnnotation#setColor(PDColor)}.
+   * <ul>
+   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} Color Pattern.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDAnnotation#setColor(PDColor)}
+   */
+  @Test
+  @DisplayName("Test setColor(PDColor); then PDAnnotationCaret() Color Pattern")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDAnnotation.setColor(PDColor)"})
+  void testSetColor_thenPDAnnotationCaretColorPattern() {
+    // Arrange
+    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
+
+    // Act
+    pdAnnotationCaret.setColor(new PDColor(COSName.A, PDDeviceGray.INSTANCE));
+
+    // Assert
+    PDColor color = pdAnnotationCaret.getColor();
+    assertTrue(color.isPattern());
+    assertArrayEquals(new float[]{0.0f}, color.getComponents(), 0.0f);
   }
 
   /**
    * Test {@link PDAnnotation#getColor()}.
-   *
-   * <p>Method under test: {@link PDAnnotation#getColor()}
+   * <p>
+   * Method under test: {@link PDAnnotation#getColor()}
    */
   @Test
   @DisplayName("Test getColor()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDColor PDAnnotation.getColor()"})
   void testGetColor() {
     // Arrange, Act and Assert
-    assertNull(new PDAnnotationCaret().getColor());
+    assertNull((new PDAnnotationCaret()).getColor());
   }
 
   /**
    * Test {@link PDAnnotation#getColor(COSName)} with {@code COSName}.
-   *
    * <ul>
-   *   <li>When {@link COSName#A}.
+   *   <li>When {@link COSName#A}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#getColor(COSName)}
+   * <p>
+   * Method under test: {@link PDAnnotation#getColor(COSName)}
    */
   @Test
   @DisplayName("Test getColor(COSName) with 'COSName'; when A")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDColor PDAnnotation.getColor(COSName)"})
   void testGetColorWithCOSName_whenA() {
     // Arrange, Act and Assert
-    assertNull(new PDAnnotationCaret().getColor(COSName.A));
+    assertNull((new PDAnnotationCaret()).getColor(COSName.A));
   }
 
   /**
    * Test {@link PDAnnotation#getColor(COSName)} with {@code COSName}.
-   *
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#getColor(COSName)}
+   * <p>
+   * Method under test: {@link PDAnnotation#getColor(COSName)}
    */
   @Test
   @DisplayName("Test getColor(COSName) with 'COSName'; when 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDColor PDAnnotation.getColor(COSName)"})
   void testGetColorWithCOSName_whenNull() {
     // Arrange, Act and Assert
-    assertNull(new PDAnnotationCaret().getColor(null));
+    assertNull((new PDAnnotationCaret()).getColor(null));
   }
 
   /**
    * Test {@link PDAnnotation#setPage(PDPage)}.
-   *
    * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} Page is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setPage(PDPage)}
+   * <p>
+   * Method under test: {@link PDAnnotation#setPage(PDPage)}
    */
   @Test
-  @DisplayName("Test setPage(PDPage); given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setPage(PDPage); when 'null'; then PDAnnotationCaret() Page is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.setPage(PDPage)"})
-  void testSetPage_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
-    // Arrange
-    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
-
-    COSDictionary pageDictionary = new COSDictionary();
-    pageDictionary.setKey(new COSObjectKey(1L, 1));
-    PDPage page = new PDPage(pageDictionary);
-
-    // Act
-    pdAnnotationCaret.setPage(page);
-
-    // Assert
-    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
-    assertEquals(3, cOSObject.getValues().size());
-    assertEquals(3, cOSObject.size());
-    assertEquals(page, pdAnnotationCaret.getPage());
-  }
-
-  /**
-   * Test {@link PDAnnotation#setPage(PDPage)}.
-   *
-   * <ul>
-   *   <li>Given {@code true}.
-   *   <li>When {@link COSDictionary#COSDictionary()} Direct is {@code true}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setPage(PDPage)}
-   */
-  @Test
-  @DisplayName("Test setPage(PDPage); given 'true'; when COSDictionary() Direct is 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAnnotation.setPage(PDPage)"})
-  void testSetPage_givenTrue_whenCOSDictionaryDirectIsTrue() {
-    // Arrange
-    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
-
-    COSDictionary pageDictionary = new COSDictionary();
-    pageDictionary.setDirect(true);
-    PDPage page = new PDPage(pageDictionary);
-
-    // Act
-    pdAnnotationCaret.setPage(page);
-
-    // Assert
-    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
-    assertEquals(3, cOSObject.getValues().size());
-    assertEquals(3, cOSObject.size());
-    assertEquals(page, pdAnnotationCaret.getPage());
-  }
-
-  /**
-   * Test {@link PDAnnotation#setPage(PDPage)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} COSObject Values size is two.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setPage(PDPage)}
-   */
-  @Test
-  @DisplayName(
-      "Test setPage(PDPage); when 'null'; then PDAnnotationCaret() COSObject Values size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAnnotation.setPage(PDPage)"})
-  void testSetPage_whenNull_thenPDAnnotationCaretCOSObjectValuesSizeIsTwo() {
+  void testSetPage_whenNull_thenPDAnnotationCaretPageIsNull() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
 
@@ -3003,81 +2792,58 @@ class PDAnnotationDiffblueTest {
     pdAnnotationCaret.setPage(null);
 
     // Assert that nothing has changed
-    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertNull(pdAnnotationCaret.getPage());
+  }
+
+  /**
+   * Test {@link PDAnnotation#setPage(PDPage)}.
+   * <ul>
+   *   <li>When {@link PDPage#PDPage()}.</li>
+   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} Page is {@link PDPage#PDPage()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDAnnotation#setPage(PDPage)}
+   */
+  @Test
+  @DisplayName("Test setPage(PDPage); when PDPage(); then PDAnnotationCaret() Page is PDPage()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDAnnotation.setPage(PDPage)"})
+  void testSetPage_whenPDPage_thenPDAnnotationCaretPageIsPDPage() {
+    // Arrange
+    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
+    PDPage page = new PDPage();
+
+    // Act
+    pdAnnotationCaret.setPage(page);
+
+    // Assert
+    assertEquals(page, pdAnnotationCaret.getPage());
   }
 
   /**
    * Test {@link PDAnnotation#getPage()}.
-   *
-   * <p>Method under test: {@link PDAnnotation#getPage()}
+   * <p>
+   * Method under test: {@link PDAnnotation#getPage()}
    */
   @Test
   @DisplayName("Test getPage()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDPage PDAnnotation.getPage()"})
   void testGetPage() {
     // Arrange, Act and Assert
-    assertNull(new PDAnnotationCaret().getPage());
+    assertNull((new PDAnnotationCaret()).getPage());
   }
 
   /**
    * Test {@link PDAnnotation#constructAppearances(PDDocument)} with {@code PDDocument}.
-   *
-   * <p>Method under test: {@link PDAnnotation#constructAppearances(PDDocument)}
+   * <p>
+   * Method under test: {@link PDAnnotation#constructAppearances(PDDocument)}
    */
   @Test
   @DisplayName("Test constructAppearances(PDDocument) with 'PDDocument'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.constructAppearances(PDDocument)"})
   void testConstructAppearancesWithPDDocument() throws IOException {
-    // Arrange
-    PDAnnotationCircle pdAnnotationCircle = new PDAnnotationCircle();
-    pdAnnotationCircle.setRectangle(PDRectangle.A0);
-
-    // Act
-    pdAnnotationCircle.constructAppearances(new PDDocument());
-
-    // Assert
-    PDRectangle rectangle = pdAnnotationCircle.getRectangle();
-    assertEquals(-0.5f, rectangle.getLowerLeftX());
-    assertEquals(-0.5f, rectangle.getLowerLeftY());
-    PDRectangle rectDifference = pdAnnotationCircle.getRectDifference();
-    assertEquals(0.0f, rectDifference.getHeight());
-    assertEquals(0.0f, rectDifference.getWidth());
-    assertEquals(0.5f, rectDifference.getLowerLeftX());
-    assertEquals(0.5f, rectDifference.getLowerLeftY());
-    assertEquals(0.5f, rectDifference.getUpperRightX());
-    assertEquals(0.5f, rectDifference.getUpperRightY());
-    assertEquals(2384.437f, rectangle.getUpperRightX());
-    assertEquals(2384.937f, rectangle.getWidth());
-    assertEquals(3370.8938f, rectangle.getUpperRightY());
-    assertEquals(3371.3938f, rectangle.getHeight());
-    byte[] byteArray = new byte[51];
-    assertEquals(51, pdAnnotationCircle.getNormalAppearanceStream().getContents().read(byteArray));
-    assertArrayEquals(
-        "1191.9685 3369.8938 m\n1853.8938 3369.8938 2383.437 ".getBytes("UTF-8"), byteArray);
-    assertArrayEquals(
-        new float[] {0.5f, 0.5f, 0.5f, 0.5f}, pdAnnotationCircle.getRectDifferences(), 0.0f);
-  }
-
-  /**
-   * Test {@link PDAnnotation#constructAppearances(PDDocument)} with {@code PDDocument}.
-   *
-   * <p>Method under test: {@link PDAnnotation#constructAppearances(PDDocument)}
-   */
-  @Test
-  @DisplayName("Test constructAppearances(PDDocument) with 'PDDocument'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAnnotation.constructAppearances(PDDocument)"})
-  void testConstructAppearancesWithPDDocument2() throws IOException {
     // Arrange
     PDAnnotationFileAttachment pdAnnotationFileAttachment = new PDAnnotationFileAttachment();
     pdAnnotationFileAttachment.setRectangle(PDRectangle.A0);
@@ -3092,27 +2858,50 @@ class PDAnnotationDiffblueTest {
     assertEquals(18.0f, rectangle.getWidth());
     assertEquals(3352.3938f, rectangle.getLowerLeftY());
     byte[] byteArray = new byte[51];
-    assertEquals(
-        51, pdAnnotationFileAttachment.getNormalAppearanceStream().getContents().read(byteArray));
-    assertArrayEquals(
-        "13.574 9.301 m\n8.926 13.949 l\n7.648 15.227 5.625 15".getBytes("UTF-8"), byteArray);
+    assertEquals(51, pdAnnotationFileAttachment.getNormalAppearanceStream().getContents().read(byteArray));
+    assertArrayEquals("13.574 9.301 m\n8.926 13.949 l\n7.648 15.227 5.625 15".getBytes("UTF-8"), byteArray);
+  }
+
+  /**
+   * Test {@link PDAnnotation#constructAppearances(PDDocument)} with {@code PDDocument}.
+   * <ul>
+   *   <li>Then third element is array of {@code float} with {@code 0.5} and {@code 0.5}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDAnnotation#constructAppearances(PDDocument)}
+   */
+  @Test
+  @DisplayName("Test constructAppearances(PDDocument) with 'PDDocument'; then third element is array of float with '0.5' and '0.5'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDAnnotation.constructAppearances(PDDocument)"})
+  void testConstructAppearancesWithPDDocument_thenThirdElementIsArrayOfFloatWith05And05() {
+    // Arrange
+    PDAnnotationCircle pdAnnotationCircle = new PDAnnotationCircle();
+    pdAnnotationCircle.setRectangle(PDRectangle.A0);
+
+    // Act
+    pdAnnotationCircle.constructAppearances(new PDDocument());
+
+    // Assert
+    float[][] values = pdAnnotationCircle.getNormalAppearanceStream().getMatrix().getValues();
+    assertEquals(3, values.length);
+    assertArrayEquals(new float[]{0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[]{0.5f, 0.5f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[]{1.0f, 0.0f, 0.0f}, values[0], 0.0f);
+    assertArrayEquals(new float[]{0.5f, 0.5f, 0.5f, 0.5f}, pdAnnotationCircle.getRectDifferences(), 0.0f);
   }
 
   /**
    * Test {@link PDAnnotation#constructAppearances()}.
-   *
    * <ul>
-   *   <li>Then {@link PDAnnotationCircle#PDAnnotationCircle()} Rectangle LowerLeftX is {@code
-   *       -0.5}.
+   *   <li>Then {@link PDAnnotationCircle#PDAnnotationCircle()} Rectangle LowerLeftX is {@code -0.5}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#constructAppearances()}
+   * <p>
+   * Method under test: {@link PDAnnotation#constructAppearances()}
    */
   @Test
-  @DisplayName(
-      "Test constructAppearances(); then PDAnnotationCircle() Rectangle LowerLeftX is '-0.5'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test constructAppearances(); then PDAnnotationCircle() Rectangle LowerLeftX is '-0.5'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.constructAppearances()"})
   void testConstructAppearances_thenPDAnnotationCircleRectangleLowerLeftXIs05() throws IOException {
     // Arrange
@@ -3126,43 +2915,29 @@ class PDAnnotationDiffblueTest {
     PDRectangle rectangle = pdAnnotationCircle.getRectangle();
     assertEquals(-0.5f, rectangle.getLowerLeftX());
     assertEquals(-0.5f, rectangle.getLowerLeftY());
-    PDRectangle rectDifference = pdAnnotationCircle.getRectDifference();
-    assertEquals(0.0f, rectDifference.getHeight());
-    assertEquals(0.0f, rectDifference.getWidth());
-    assertEquals(0.5f, rectDifference.getLowerLeftX());
-    assertEquals(0.5f, rectDifference.getLowerLeftY());
-    assertEquals(0.5f, rectDifference.getUpperRightX());
-    assertEquals(0.5f, rectDifference.getUpperRightY());
     assertEquals(2384.437f, rectangle.getUpperRightX());
     assertEquals(2384.937f, rectangle.getWidth());
     assertEquals(3370.8938f, rectangle.getUpperRightY());
     assertEquals(3371.3938f, rectangle.getHeight());
     byte[] byteArray = new byte[51];
     assertEquals(51, pdAnnotationCircle.getNormalAppearanceStream().getContents().read(byteArray));
-    assertArrayEquals(
-        "1191.9685 3369.8938 m\n1853.8938 3369.8938 2383.437 ".getBytes("UTF-8"), byteArray);
-    assertArrayEquals(
-        new float[] {0.5f, 0.5f, 0.5f, 0.5f}, pdAnnotationCircle.getRectDifferences(), 0.0f);
+    assertArrayEquals("1191.9685 3369.8938 m\n1853.8938 3369.8938 2383.437 ".getBytes("UTF-8"), byteArray);
+    assertArrayEquals(new float[]{0.5f, 0.5f, 0.5f, 0.5f}, pdAnnotationCircle.getRectDifferences(), 0.0f);
   }
 
   /**
    * Test {@link PDAnnotation#constructAppearances()}.
-   *
    * <ul>
-   *   <li>Then {@link PDAnnotationFileAttachment#PDAnnotationFileAttachment()} Rectangle Height is
-   *       eighteen.
+   *   <li>Then {@link PDAnnotationFileAttachment#PDAnnotationFileAttachment()} Rectangle Height is eighteen.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#constructAppearances()}
+   * <p>
+   * Method under test: {@link PDAnnotation#constructAppearances()}
    */
   @Test
-  @DisplayName(
-      "Test constructAppearances(); then PDAnnotationFileAttachment() Rectangle Height is eighteen")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test constructAppearances(); then PDAnnotationFileAttachment() Rectangle Height is eighteen")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotation.constructAppearances()"})
-  void testConstructAppearances_thenPDAnnotationFileAttachmentRectangleHeightIsEighteen()
-      throws IOException {
+  void testConstructAppearances_thenPDAnnotationFileAttachmentRectangleHeightIsEighteen() throws IOException {
     // Arrange
     PDAnnotationFileAttachment pdAnnotationFileAttachment = new PDAnnotationFileAttachment();
     pdAnnotationFileAttachment.setRectangle(PDRectangle.A0);
@@ -3177,9 +2952,7 @@ class PDAnnotationDiffblueTest {
     assertEquals(18.0f, rectangle.getWidth());
     assertEquals(3352.3938f, rectangle.getLowerLeftY());
     byte[] byteArray = new byte[51];
-    assertEquals(
-        51, pdAnnotationFileAttachment.getNormalAppearanceStream().getContents().read(byteArray));
-    assertArrayEquals(
-        "13.574 9.301 m\n8.926 13.949 l\n7.648 15.227 5.625 15".getBytes("UTF-8"), byteArray);
+    assertEquals(51, pdAnnotationFileAttachment.getNormalAppearanceStream().getContents().read(byteArray));
+    assertArrayEquals("13.574 9.301 m\n8.926 13.949 l\n7.648 15.227 5.625 15".getBytes("UTF-8"), byteArray);
   }
 }

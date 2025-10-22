@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.Component;
 import java.awt.Component.BaselineResizeBehavior;
@@ -16,13 +15,12 @@ import org.junit.jupiter.api.Test;
 class AddressPaneDiffblueTest {
   /**
    * Test {@link AddressPane#AddressPane(int)}.
-   *
-   * <p>Method under test: {@link AddressPane#AddressPane(int)}
+   * <p>
+   * Method under test: {@link AddressPane#AddressPane(int)}
    */
   @Test
   @DisplayName("Test new AddressPane(int)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void AddressPane.<init>(int)"})
   void testNewAddressPane() {
     // Arrange and Act

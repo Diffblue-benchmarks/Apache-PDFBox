@@ -3,10 +3,8 @@ package org.apache.pdfbox.pdmodel.font;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.util.GregorianCalendar;
@@ -23,44 +21,40 @@ import org.junit.jupiter.api.Test;
 class FontMapperImplDiffblueTest {
   /**
    * Test new {@link FontMapperImpl} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link FontMapperImpl}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link FontMapperImpl}
    */
   @Test
   @DisplayName("Test new FontMapperImpl (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FontMapperImpl.<init>()"})
   void testNewFontMapperImpl() {
     // Arrange, Act and Assert
-    FontProvider provider = new FontMapperImpl().getProvider();
+    FontProvider provider = (new FontMapperImpl()).getProvider();
     assertTrue(provider instanceof FileSystemFontProvider);
-    assertEquals(
-        "TTF: DejaVuSans-Bold: /usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf\n"
-            + "TTF: DejaVuSans: /usr/share/fonts/truetype/dejavu/DejaVuSans.ttf\n"
-            + "TTF: DejaVuSansMono-Bold: /usr/share/fonts/truetype/dejavu/DejaVuSansMono-Bold.ttf\n"
-            + "TTF: DejaVuSansMono: /usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf\n"
-            + "TTF: DejaVuSerif-Bold: /usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf\n"
-            + "TTF: DejaVuSerif: /usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf\n"
-            + "TTF: LiberationMono-Bold: /usr/share/fonts/truetype/liberation/LiberationMono-Bold.ttf\n"
-            + "TTF: LiberationMono-BoldItalic: /usr/share/fonts/truetype/liberation/LiberationMono-BoldItalic.ttf\n"
-            + "TTF: LiberationMono-Italic: /usr/share/fonts/truetype/liberation/LiberationMono-Italic.ttf\n"
-            + "TTF: LiberationMono: /usr/share/fonts/truetype/liberation/LiberationMono-Regular.ttf\n"
-            + "TTF: LiberationSans-Bold: /usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf\n"
-            + "TTF: LiberationSans-BoldItalic: /usr/share/fonts/truetype/liberation/LiberationSans-BoldItalic.ttf\n"
-            + "TTF: LiberationSans-Italic: /usr/share/fonts/truetype/liberation/LiberationSans-Italic.ttf\n"
-            + "TTF: LiberationSans: /usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf\n"
-            + "TTF: LiberationSansNarrow-Bold: /usr/share/fonts/truetype/liberation/LiberationSansNarrow-Bold.ttf\n"
-            + "TTF: LiberationSansNarrow-BoldItalic: /usr/share/fonts/truetype/liberation/LiberationSansNarrow"
-            + "-BoldItalic.ttf\n"
-            + "TTF: LiberationSansNarrow-Italic: /usr/share/fonts/truetype/liberation/LiberationSansNarrow-Italic.ttf"
-            + "\n"
-            + "TTF: LiberationSansNarrow: /usr/share/fonts/truetype/liberation/LiberationSansNarrow-Regular.ttf\n"
-            + "TTF: LiberationSerif-Bold: /usr/share/fonts/truetype/liberation/LiberationSerif-Bold.ttf\n"
-            + "TTF: LiberationSerif-BoldItalic: /usr/share/fonts/truetype/liberation/LiberationSerif-BoldItalic.ttf"
-            + "\n"
-            + "TTF: LiberationSerif-Italic: /usr/share/fonts/truetype/liberation/LiberationSerif-Italic.ttf\n"
-            + "TTF: LiberationSerif: /usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf\n",
+    assertEquals("TTF: DejaVuSans-Bold: /usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf\n"
+        + "TTF: DejaVuSans: /usr/share/fonts/truetype/dejavu/DejaVuSans.ttf\n"
+        + "TTF: DejaVuSansMono-Bold: /usr/share/fonts/truetype/dejavu/DejaVuSansMono-Bold.ttf\n"
+        + "TTF: DejaVuSansMono: /usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf\n"
+        + "TTF: DejaVuSerif-Bold: /usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf\n"
+        + "TTF: DejaVuSerif: /usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf\n"
+        + "TTF: LiberationMono-Bold: /usr/share/fonts/truetype/liberation/LiberationMono-Bold.ttf\n"
+        + "TTF: LiberationMono-BoldItalic: /usr/share/fonts/truetype/liberation/LiberationMono-BoldItalic.ttf\n"
+        + "TTF: LiberationMono-Italic: /usr/share/fonts/truetype/liberation/LiberationMono-Italic.ttf\n"
+        + "TTF: LiberationMono: /usr/share/fonts/truetype/liberation/LiberationMono-Regular.ttf\n"
+        + "TTF: LiberationSans-Bold: /usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf\n"
+        + "TTF: LiberationSans-BoldItalic: /usr/share/fonts/truetype/liberation/LiberationSans-BoldItalic.ttf\n"
+        + "TTF: LiberationSans-Italic: /usr/share/fonts/truetype/liberation/LiberationSans-Italic.ttf\n"
+        + "TTF: LiberationSans: /usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf\n"
+        + "TTF: LiberationSansNarrow-Bold: /usr/share/fonts/truetype/liberation/LiberationSansNarrow-Bold.ttf\n"
+        + "TTF: LiberationSansNarrow-BoldItalic: /usr/share/fonts/truetype/liberation/LiberationSansNarrow"
+        + "-BoldItalic.ttf\n"
+        + "TTF: LiberationSansNarrow-Italic: /usr/share/fonts/truetype/liberation/LiberationSansNarrow-Italic.ttf"
+        + "\n" + "TTF: LiberationSansNarrow: /usr/share/fonts/truetype/liberation/LiberationSansNarrow-Regular.ttf\n"
+        + "TTF: LiberationSerif-Bold: /usr/share/fonts/truetype/liberation/LiberationSerif-Bold.ttf\n"
+        + "TTF: LiberationSerif-BoldItalic: /usr/share/fonts/truetype/liberation/LiberationSerif-BoldItalic.ttf" + "\n"
+        + "TTF: LiberationSerif-Italic: /usr/share/fonts/truetype/liberation/LiberationSerif-Italic.ttf\n"
+        + "TTF: LiberationSerif: /usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf\n",
         provider.toDebugString());
     List<? extends FontInfo> fontInfo = provider.getFontInfo();
     assertEquals(22, fontInfo.size());
@@ -80,13 +74,12 @@ class FontMapperImplDiffblueTest {
 
   /**
    * Test {@link FontMapperImpl#setProvider(FontProvider)}.
-   *
-   * <p>Method under test: {@link FontMapperImpl#setProvider(FontProvider)}
+   * <p>
+   * Method under test: {@link FontMapperImpl#setProvider(FontProvider)}
    */
   @Test
   @DisplayName("Test setProvider(FontProvider)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FontMapperImpl.setProvider(FontProvider)"})
   void testSetProvider() {
     // Arrange
@@ -102,46 +95,42 @@ class FontMapperImplDiffblueTest {
 
   /**
    * Test {@link FontMapperImpl#getProvider()}.
-   *
-   * <p>Method under test: {@link FontMapperImpl#getProvider()}
+   * <p>
+   * Method under test: {@link FontMapperImpl#getProvider()}
    */
   @Test
   @DisplayName("Test getProvider()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"FontProvider FontMapperImpl.getProvider()"})
   void testGetProvider() {
     // Arrange and Act
-    FontProvider actualProvider = new FontMapperImpl().getProvider();
+    FontProvider actualProvider = (new FontMapperImpl()).getProvider();
 
     // Assert
     assertTrue(actualProvider instanceof FileSystemFontProvider);
-    assertEquals(
-        "TTF: DejaVuSans-Bold: /usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf\n"
-            + "TTF: DejaVuSans: /usr/share/fonts/truetype/dejavu/DejaVuSans.ttf\n"
-            + "TTF: DejaVuSansMono-Bold: /usr/share/fonts/truetype/dejavu/DejaVuSansMono-Bold.ttf\n"
-            + "TTF: DejaVuSansMono: /usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf\n"
-            + "TTF: DejaVuSerif-Bold: /usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf\n"
-            + "TTF: DejaVuSerif: /usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf\n"
-            + "TTF: LiberationMono-Bold: /usr/share/fonts/truetype/liberation/LiberationMono-Bold.ttf\n"
-            + "TTF: LiberationMono-BoldItalic: /usr/share/fonts/truetype/liberation/LiberationMono-BoldItalic.ttf\n"
-            + "TTF: LiberationMono-Italic: /usr/share/fonts/truetype/liberation/LiberationMono-Italic.ttf\n"
-            + "TTF: LiberationMono: /usr/share/fonts/truetype/liberation/LiberationMono-Regular.ttf\n"
-            + "TTF: LiberationSans-Bold: /usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf\n"
-            + "TTF: LiberationSans-BoldItalic: /usr/share/fonts/truetype/liberation/LiberationSans-BoldItalic.ttf\n"
-            + "TTF: LiberationSans-Italic: /usr/share/fonts/truetype/liberation/LiberationSans-Italic.ttf\n"
-            + "TTF: LiberationSans: /usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf\n"
-            + "TTF: LiberationSansNarrow-Bold: /usr/share/fonts/truetype/liberation/LiberationSansNarrow-Bold.ttf\n"
-            + "TTF: LiberationSansNarrow-BoldItalic: /usr/share/fonts/truetype/liberation/LiberationSansNarrow"
-            + "-BoldItalic.ttf\n"
-            + "TTF: LiberationSansNarrow-Italic: /usr/share/fonts/truetype/liberation/LiberationSansNarrow-Italic.ttf"
-            + "\n"
-            + "TTF: LiberationSansNarrow: /usr/share/fonts/truetype/liberation/LiberationSansNarrow-Regular.ttf\n"
-            + "TTF: LiberationSerif-Bold: /usr/share/fonts/truetype/liberation/LiberationSerif-Bold.ttf\n"
-            + "TTF: LiberationSerif-BoldItalic: /usr/share/fonts/truetype/liberation/LiberationSerif-BoldItalic.ttf"
-            + "\n"
-            + "TTF: LiberationSerif-Italic: /usr/share/fonts/truetype/liberation/LiberationSerif-Italic.ttf\n"
-            + "TTF: LiberationSerif: /usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf\n",
+    assertEquals("TTF: DejaVuSans-Bold: /usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf\n"
+        + "TTF: DejaVuSans: /usr/share/fonts/truetype/dejavu/DejaVuSans.ttf\n"
+        + "TTF: DejaVuSansMono-Bold: /usr/share/fonts/truetype/dejavu/DejaVuSansMono-Bold.ttf\n"
+        + "TTF: DejaVuSansMono: /usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf\n"
+        + "TTF: DejaVuSerif-Bold: /usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf\n"
+        + "TTF: DejaVuSerif: /usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf\n"
+        + "TTF: LiberationMono-Bold: /usr/share/fonts/truetype/liberation/LiberationMono-Bold.ttf\n"
+        + "TTF: LiberationMono-BoldItalic: /usr/share/fonts/truetype/liberation/LiberationMono-BoldItalic.ttf\n"
+        + "TTF: LiberationMono-Italic: /usr/share/fonts/truetype/liberation/LiberationMono-Italic.ttf\n"
+        + "TTF: LiberationMono: /usr/share/fonts/truetype/liberation/LiberationMono-Regular.ttf\n"
+        + "TTF: LiberationSans-Bold: /usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf\n"
+        + "TTF: LiberationSans-BoldItalic: /usr/share/fonts/truetype/liberation/LiberationSans-BoldItalic.ttf\n"
+        + "TTF: LiberationSans-Italic: /usr/share/fonts/truetype/liberation/LiberationSans-Italic.ttf\n"
+        + "TTF: LiberationSans: /usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf\n"
+        + "TTF: LiberationSansNarrow-Bold: /usr/share/fonts/truetype/liberation/LiberationSansNarrow-Bold.ttf\n"
+        + "TTF: LiberationSansNarrow-BoldItalic: /usr/share/fonts/truetype/liberation/LiberationSansNarrow"
+        + "-BoldItalic.ttf\n"
+        + "TTF: LiberationSansNarrow-Italic: /usr/share/fonts/truetype/liberation/LiberationSansNarrow-Italic.ttf"
+        + "\n" + "TTF: LiberationSansNarrow: /usr/share/fonts/truetype/liberation/LiberationSansNarrow-Regular.ttf\n"
+        + "TTF: LiberationSerif-Bold: /usr/share/fonts/truetype/liberation/LiberationSerif-Bold.ttf\n"
+        + "TTF: LiberationSerif-BoldItalic: /usr/share/fonts/truetype/liberation/LiberationSerif-BoldItalic.ttf" + "\n"
+        + "TTF: LiberationSerif-Italic: /usr/share/fonts/truetype/liberation/LiberationSerif-Italic.ttf\n"
+        + "TTF: LiberationSerif: /usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf\n",
         actualProvider.toDebugString());
     List<? extends FontInfo> fontInfo = actualProvider.getFontInfo();
     assertEquals(22, fontInfo.size());
@@ -167,19 +156,16 @@ class FontMapperImplDiffblueTest {
 
   /**
    * Test {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}.
-   *
    * <ul>
-   *   <li>Given {@code black}.
-   *   <li>When {@link PDFontDescriptor#PDFontDescriptor()} FontName is {@code black}.
+   *   <li>Given {@code black}.</li>
+   *   <li>When {@link PDFontDescriptor#PDFontDescriptor()} FontName is {@code black}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}
+   * <p>
+   * Method under test: {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}
    */
   @Test
-  @DisplayName(
-      "Test getTrueTypeFont(String, PDFontDescriptor); given 'black'; when PDFontDescriptor() FontName is 'black'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getTrueTypeFont(String, PDFontDescriptor); given 'black'; when PDFontDescriptor() FontName is 'black'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"FontMapping FontMapperImpl.getTrueTypeFont(String, PDFontDescriptor)"})
   void testGetTrueTypeFont_givenBlack_whenPDFontDescriptorFontNameIsBlack() throws IOException {
     // Arrange
@@ -201,29 +187,23 @@ class FontMapperImplDiffblueTest {
     assertTrue(tableMap.containsKey("glyf"));
     assertTrue(tableMap.containsKey("kern"));
     assertArrayEquals(
-        new byte[] {
-          0, 1, 0, 0, 0, 19, 1, 0, 0, 4, 0, '0', 'F', 'F', 'T', 'M', 'h', -2, -32, -92, 0, 2, 23,
-          '@', 0, 0, 0, 28, 'G', 'D', 'E', 'F', 0, '\'', 2, -49, 0, 2, 6, '|', 0, 0, 0, '&', 'G',
-          'P', 'O', 'S', -43, '(', -15
-        },
+        new byte[]{0, 1, 0, 0, 0, 19, 1, 0, 0, 4, 0, '0', 'F', 'F', 'T', 'M', 'h', -2, -32, -92, 0, 2, 23, '@', 0, 0, 0,
+            28, 'G', 'D', 'E', 'F', 0, '\'', 2, -49, 0, 2, 6, '|', 0, 0, 0, '&', 'G', 'P', 'O', 'S', -43, '(', -15},
         byteArray);
   }
 
   /**
    * Test {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}.
-   *
    * <ul>
-   *   <li>Given {@code bold}.
-   *   <li>When {@link PDFontDescriptor#PDFontDescriptor()} FontName is {@code bold}.
+   *   <li>Given {@code bold}.</li>
+   *   <li>When {@link PDFontDescriptor#PDFontDescriptor()} FontName is {@code bold}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}
+   * <p>
+   * Method under test: {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}
    */
   @Test
-  @DisplayName(
-      "Test getTrueTypeFont(String, PDFontDescriptor); given 'bold'; when PDFontDescriptor() FontName is 'bold'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getTrueTypeFont(String, PDFontDescriptor); given 'bold'; when PDFontDescriptor() FontName is 'bold'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"FontMapping FontMapperImpl.getTrueTypeFont(String, PDFontDescriptor)"})
   void testGetTrueTypeFont_givenBold_whenPDFontDescriptorFontNameIsBold() throws IOException {
     // Arrange
@@ -245,29 +225,23 @@ class FontMapperImplDiffblueTest {
     assertTrue(tableMap.containsKey("glyf"));
     assertTrue(tableMap.containsKey("kern"));
     assertArrayEquals(
-        new byte[] {
-          0, 1, 0, 0, 0, 19, 1, 0, 0, 4, 0, '0', 'F', 'F', 'T', 'M', 'h', -2, -32, -92, 0, 2, 23,
-          '@', 0, 0, 0, 28, 'G', 'D', 'E', 'F', 0, '\'', 2, -49, 0, 2, 6, '|', 0, 0, 0, '&', 'G',
-          'P', 'O', 'S', -43, '(', -15
-        },
+        new byte[]{0, 1, 0, 0, 0, 19, 1, 0, 0, 4, 0, '0', 'F', 'F', 'T', 'M', 'h', -2, -32, -92, 0, 2, 23, '@', 0, 0, 0,
+            28, 'G', 'D', 'E', 'F', 0, '\'', 2, -49, 0, 2, 6, '|', 0, 0, 0, '&', 'G', 'P', 'O', 'S', -43, '(', -15},
         byteArray);
   }
 
   /**
    * Test {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}.
-   *
    * <ul>
-   *   <li>Given {@code -}.
-   *   <li>When {@link PDFontDescriptor#PDFontDescriptor()} FontName is {@code -}.
+   *   <li>Given {@code -}.</li>
+   *   <li>When {@link PDFontDescriptor#PDFontDescriptor()} FontName is {@code -}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}
+   * <p>
+   * Method under test: {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}
    */
   @Test
-  @DisplayName(
-      "Test getTrueTypeFont(String, PDFontDescriptor); given '-'; when PDFontDescriptor() FontName is '-'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getTrueTypeFont(String, PDFontDescriptor); given '-'; when PDFontDescriptor() FontName is '-'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"FontMapping FontMapperImpl.getTrueTypeFont(String, PDFontDescriptor)"})
   void testGetTrueTypeFont_givenDash_whenPDFontDescriptorFontNameIsDash() throws IOException {
     // Arrange
@@ -278,40 +252,25 @@ class FontMapperImplDiffblueTest {
 
     // Act and Assert
     TrueTypeFont font = fontMapperImpl.getTrueTypeFont("Base Font", fontDescriptor).getFont();
-    assertEquals("LiberationSans", font.getName());
-    assertEquals(139512L, font.getOriginalDataSize());
+    assertTrue(font.getHeader().getModified() instanceof GregorianCalendar);
     Map<String, TTFTable> tableMap = font.getTableMap();
     assertEquals(19, tableMap.size());
-    byte[] byteArray = new byte[51];
-    assertEquals(51, font.getOriginalData().read(byteArray));
-    assertTrue(tableMap.containsKey("OS/2"));
+    assertEquals(3, font.getCmap().getCmaps().length);
     assertTrue(tableMap.containsKey("fpgm"));
-    assertTrue(tableMap.containsKey("glyf"));
-    assertTrue(tableMap.containsKey("kern"));
-    assertArrayEquals(
-        new byte[] {
-          0, 1, 0, 0, 0, 19, 1, 0, 0, 4, 0, '0', 'F', 'F', 'T', 'M', 'h', -2, -32, 'f', 0, 2, ' ',
-          -36, 0, 0, 0, 28, 'G', 'D', 'E', 'F', 0, '\'', 2, -49, 0, 2, 15, -84, 0, 0, 0, '&', 'G',
-          'P', 'O', 'S', 'j', 'w', -101
-        },
-        byteArray);
   }
 
   /**
    * Test {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}.
-   *
    * <ul>
-   *   <li>Given {@code heavy}.
-   *   <li>When {@link PDFontDescriptor#PDFontDescriptor()} FontName is {@code heavy}.
+   *   <li>Given {@code heavy}.</li>
+   *   <li>When {@link PDFontDescriptor#PDFontDescriptor()} FontName is {@code heavy}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}
+   * <p>
+   * Method under test: {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}
    */
   @Test
-  @DisplayName(
-      "Test getTrueTypeFont(String, PDFontDescriptor); given 'heavy'; when PDFontDescriptor() FontName is 'heavy'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getTrueTypeFont(String, PDFontDescriptor); given 'heavy'; when PDFontDescriptor() FontName is 'heavy'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"FontMapping FontMapperImpl.getTrueTypeFont(String, PDFontDescriptor)"})
   void testGetTrueTypeFont_givenHeavy_whenPDFontDescriptorFontNameIsHeavy() throws IOException {
     // Arrange
@@ -333,34 +292,30 @@ class FontMapperImplDiffblueTest {
     assertTrue(tableMap.containsKey("glyf"));
     assertTrue(tableMap.containsKey("kern"));
     assertArrayEquals(
-        new byte[] {
-          0, 1, 0, 0, 0, 19, 1, 0, 0, 4, 0, '0', 'F', 'F', 'T', 'M', 'h', -2, -32, -92, 0, 2, 23,
-          '@', 0, 0, 0, 28, 'G', 'D', 'E', 'F', 0, '\'', 2, -49, 0, 2, 6, '|', 0, 0, 0, '&', 'G',
-          'P', 'O', 'S', -43, '(', -15
-        },
+        new byte[]{0, 1, 0, 0, 0, 19, 1, 0, 0, 4, 0, '0', 'F', 'F', 'T', 'M', 'h', -2, -32, -92, 0, 2, 23, '@', 0, 0, 0,
+            28, 'G', 'D', 'E', 'F', 0, '\'', 2, -49, 0, 2, 6, '|', 0, 0, 0, '&', 'G', 'P', 'O', 'S', -43, '(', -15},
         byteArray);
   }
 
   /**
    * Test {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}.
-   *
    * <ul>
-   *   <li>When {@code ,}.
-   *   <li>Then Font Header Modified return {@link GregorianCalendar}.
+   *   <li>When {@code ,}.</li>
+   *   <li>Then Font Header Modified return {@link GregorianCalendar}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}
+   * <p>
+   * Method under test: {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}
    */
   @Test
-  @DisplayName(
-      "Test getTrueTypeFont(String, PDFontDescriptor); when ','; then Font Header Modified return GregorianCalendar")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getTrueTypeFont(String, PDFontDescriptor); when ','; then Font Header Modified return GregorianCalendar")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"FontMapping FontMapperImpl.getTrueTypeFont(String, PDFontDescriptor)"})
-  void testGetTrueTypeFont_whenComma_thenFontHeaderModifiedReturnGregorianCalendar()
-      throws IOException {
-    // Arrange, Act and Assert
-    TrueTypeFont font = new FontMapperImpl().getTrueTypeFont(",", null).getFont();
+  void testGetTrueTypeFont_whenComma_thenFontHeaderModifiedReturnGregorianCalendar() throws IOException {
+    // Arrange
+    FontMapperImpl fontMapperImpl = new FontMapperImpl();
+
+    // Act and Assert
+    TrueTypeFont font = fontMapperImpl.getTrueTypeFont(",", new PDFontDescriptor()).getFont();
     assertTrue(font.getHeader().getModified() instanceof GregorianCalendar);
     Map<String, TTFTable> tableMap = font.getTableMap();
     assertEquals(19, tableMap.size());
@@ -370,27 +325,23 @@ class FontMapperImplDiffblueTest {
 
   /**
    * Test {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}.
-   *
    * <ul>
-   *   <li>When {@code Helvetica}.
-   *   <li>Then return not Fallback.
+   *   <li>When {@code Helvetica}.</li>
+   *   <li>Then return not Fallback.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}
+   * <p>
+   * Method under test: {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}
    */
   @Test
-  @DisplayName(
-      "Test getTrueTypeFont(String, PDFontDescriptor); when 'Helvetica'; then return not Fallback")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getTrueTypeFont(String, PDFontDescriptor); when 'Helvetica'; then return not Fallback")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"FontMapping FontMapperImpl.getTrueTypeFont(String, PDFontDescriptor)"})
   void testGetTrueTypeFont_whenHelvetica_thenReturnNotFallback() throws IOException {
     // Arrange
     FontMapperImpl fontMapperImpl = new FontMapperImpl();
 
     // Act
-    FontMapping<TrueTypeFont> actualTrueTypeFont =
-        fontMapperImpl.getTrueTypeFont("Helvetica", new PDFontDescriptor());
+    FontMapping<TrueTypeFont> actualTrueTypeFont = fontMapperImpl.getTrueTypeFont("Helvetica", new PDFontDescriptor());
 
     // Assert
     TrueTypeFont font = actualTrueTypeFont.getFont();
@@ -404,24 +355,23 @@ class FontMapperImplDiffblueTest {
 
   /**
    * Test {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then Font Header Modified return {@link GregorianCalendar}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then Font Header Modified return {@link GregorianCalendar}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}
+   * <p>
+   * Method under test: {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}
    */
   @Test
-  @DisplayName(
-      "Test getTrueTypeFont(String, PDFontDescriptor); when 'null'; then Font Header Modified return GregorianCalendar")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getTrueTypeFont(String, PDFontDescriptor); when 'null'; then Font Header Modified return GregorianCalendar")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"FontMapping FontMapperImpl.getTrueTypeFont(String, PDFontDescriptor)"})
-  void testGetTrueTypeFont_whenNull_thenFontHeaderModifiedReturnGregorianCalendar()
-      throws IOException {
-    // Arrange, Act and Assert
-    TrueTypeFont font = new FontMapperImpl().getTrueTypeFont(null, null).getFont();
+  void testGetTrueTypeFont_whenNull_thenFontHeaderModifiedReturnGregorianCalendar() throws IOException {
+    // Arrange
+    FontMapperImpl fontMapperImpl = new FontMapperImpl();
+
+    // Act and Assert
+    TrueTypeFont font = fontMapperImpl.getTrueTypeFont(null, new PDFontDescriptor()).getFont();
     assertTrue(font.getHeader().getModified() instanceof GregorianCalendar);
     Map<String, TTFTable> tableMap = font.getTableMap();
     assertEquals(19, tableMap.size());
@@ -431,67 +381,74 @@ class FontMapperImplDiffblueTest {
 
   /**
    * Test {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}.
-   *
    * <ul>
-   *   <li>When {@link PDFontDescriptor#PDFontDescriptor()}.
-   *   <li>Then return Font Name is {@code LiberationSans}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return Font Name is {@code LiberationSerif}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}
+   * <p>
+   * Method under test: {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}
    */
   @Test
-  @DisplayName(
-      "Test getTrueTypeFont(String, PDFontDescriptor); when PDFontDescriptor(); then return Font Name is 'LiberationSans'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getTrueTypeFont(String, PDFontDescriptor); when 'null'; then return Font Name is 'LiberationSerif'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"FontMapping FontMapperImpl.getTrueTypeFont(String, PDFontDescriptor)"})
-  void testGetTrueTypeFont_whenPDFontDescriptor_thenReturnFontNameIsLiberationSans()
-      throws IOException {
-    // Arrange
-    FontMapperImpl fontMapperImpl = new FontMapperImpl();
-
-    // Act and Assert
-    TrueTypeFont font =
-        fontMapperImpl.getTrueTypeFont("Base Font", new PDFontDescriptor()).getFont();
-    assertEquals("LiberationSans", font.getName());
-    assertEquals(139512L, font.getOriginalDataSize());
-    Map<String, TTFTable> tableMap = font.getTableMap();
-    assertEquals(19, tableMap.size());
+  void testGetTrueTypeFont_whenNull_thenReturnFontNameIsLiberationSerif() throws IOException {
+    // Arrange, Act and Assert
+    TrueTypeFont font = (new FontMapperImpl()).getTrueTypeFont("Base Font", null).getFont();
+    assertEquals("LiberationSerif", font.getName());
+    assertEquals(152408L, font.getOriginalDataSize());
     byte[] byteArray = new byte[51];
     assertEquals(51, font.getOriginalData().read(byteArray));
-    assertTrue(tableMap.containsKey("OS/2"));
-    assertTrue(tableMap.containsKey("fpgm"));
-    assertTrue(tableMap.containsKey("glyf"));
-    assertTrue(tableMap.containsKey("kern"));
-    assertArrayEquals(
-        new byte[] {
-          0, 1, 0, 0, 0, 19, 1, 0, 0, 4, 0, '0', 'F', 'F', 'T', 'M', 'h', -2, -32, 'f', 0, 2, ' ',
-          -36, 0, 0, 0, 28, 'G', 'D', 'E', 'F', 0, '\'', 2, -49, 0, 2, 15, -84, 0, 0, 0, '&', 'G',
-          'P', 'O', 'S', 'j', 'w', -101
-        },
-        byteArray);
+    assertEquals(673, font.getNumberOfGlyphs());
+    assertArrayEquals(new byte[]{0, 1, 0, 0, 0, 19, 1, 0, 0, 4, 0, '0', 'F', 'F', 'T', 'M', 'h', '0', 18, '{', 0, 2,
+        'S', '<', 0, 0, 0, 28, 'G', 'D', 'E', 'F', 0, '\'', 2, -57, 0, 2, 'B', -96, 0, 0, 0, '&', 'G', 'P', 'O', 'S',
+        '\b', -35, -11}, byteArray);
   }
 
   /**
    * Test {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}.
-   *
    * <ul>
-   *   <li>When {@code +}.
-   *   <li>Then Font Header Modified return {@link GregorianCalendar}.
+   *   <li>When {@link PDFontDescriptor#PDFontDescriptor()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}
+   * <p>
+   * Method under test: {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}
    */
   @Test
-  @DisplayName(
-      "Test getTrueTypeFont(String, PDFontDescriptor); when '+'; then Font Header Modified return GregorianCalendar")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getTrueTypeFont(String, PDFontDescriptor); when PDFontDescriptor()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"FontMapping FontMapperImpl.getTrueTypeFont(String, PDFontDescriptor)"})
-  void testGetTrueTypeFont_whenPlusSign_thenFontHeaderModifiedReturnGregorianCalendar()
-      throws IOException {
-    // Arrange, Act and Assert
-    TrueTypeFont font = new FontMapperImpl().getTrueTypeFont("+", null).getFont();
+  void testGetTrueTypeFont_whenPDFontDescriptor() throws IOException {
+    // Arrange
+    FontMapperImpl fontMapperImpl = new FontMapperImpl();
+
+    // Act and Assert
+    TrueTypeFont font = fontMapperImpl.getTrueTypeFont("Base Font", new PDFontDescriptor()).getFont();
+    assertTrue(font.getHeader().getModified() instanceof GregorianCalendar);
+    Map<String, TTFTable> tableMap = font.getTableMap();
+    assertEquals(19, tableMap.size());
+    assertEquals(3, font.getCmap().getCmaps().length);
+    assertTrue(tableMap.containsKey("fpgm"));
+  }
+
+  /**
+   * Test {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}.
+   * <ul>
+   *   <li>When {@code +}.</li>
+   *   <li>Then Font Header Modified return {@link GregorianCalendar}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}
+   */
+  @Test
+  @DisplayName("Test getTrueTypeFont(String, PDFontDescriptor); when '+'; then Font Header Modified return GregorianCalendar")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"FontMapping FontMapperImpl.getTrueTypeFont(String, PDFontDescriptor)"})
+  void testGetTrueTypeFont_whenPlusSign_thenFontHeaderModifiedReturnGregorianCalendar() throws IOException {
+    // Arrange
+    FontMapperImpl fontMapperImpl = new FontMapperImpl();
+
+    // Act and Assert
+    TrueTypeFont font = fontMapperImpl.getTrueTypeFont("+", new PDFontDescriptor()).getFont();
     assertTrue(font.getHeader().getModified() instanceof GregorianCalendar);
     Map<String, TTFTable> tableMap = font.getTableMap();
     assertEquals(19, tableMap.size());
@@ -501,19 +458,16 @@ class FontMapperImplDiffblueTest {
 
   /**
    * Test {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}.
-   *
    * <ul>
-   *   <li>Given {@code black}.
-   *   <li>When {@link PDFontDescriptor#PDFontDescriptor()} FontName is {@code black}.
+   *   <li>Given {@code black}.</li>
+   *   <li>When {@link PDFontDescriptor#PDFontDescriptor()} FontName is {@code black}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}
+   * <p>
+   * Method under test: {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}
    */
   @Test
-  @DisplayName(
-      "Test getFontBoxFont(String, PDFontDescriptor); given 'black'; when PDFontDescriptor() FontName is 'black'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getFontBoxFont(String, PDFontDescriptor); given 'black'; when PDFontDescriptor() FontName is 'black'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"FontMapping FontMapperImpl.getFontBoxFont(String, PDFontDescriptor)"})
   void testGetFontBoxFont_givenBlack_whenPDFontDescriptorFontNameIsBlack() throws IOException {
     // Arrange
@@ -536,29 +490,23 @@ class FontMapperImplDiffblueTest {
     assertTrue(tableMap.containsKey("glyf"));
     assertTrue(tableMap.containsKey("kern"));
     assertArrayEquals(
-        new byte[] {
-          0, 1, 0, 0, 0, 19, 1, 0, 0, 4, 0, '0', 'F', 'F', 'T', 'M', 'h', -2, -32, -92, 0, 2, 23,
-          '@', 0, 0, 0, 28, 'G', 'D', 'E', 'F', 0, '\'', 2, -49, 0, 2, 6, '|', 0, 0, 0, '&', 'G',
-          'P', 'O', 'S', -43, '(', -15
-        },
+        new byte[]{0, 1, 0, 0, 0, 19, 1, 0, 0, 4, 0, '0', 'F', 'F', 'T', 'M', 'h', -2, -32, -92, 0, 2, 23, '@', 0, 0, 0,
+            28, 'G', 'D', 'E', 'F', 0, '\'', 2, -49, 0, 2, 6, '|', 0, 0, 0, '&', 'G', 'P', 'O', 'S', -43, '(', -15},
         byteArray);
   }
 
   /**
    * Test {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}.
-   *
    * <ul>
-   *   <li>Given {@code bold}.
-   *   <li>When {@link PDFontDescriptor#PDFontDescriptor()} FontName is {@code bold}.
+   *   <li>Given {@code bold}.</li>
+   *   <li>When {@link PDFontDescriptor#PDFontDescriptor()} FontName is {@code bold}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}
+   * <p>
+   * Method under test: {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}
    */
   @Test
-  @DisplayName(
-      "Test getFontBoxFont(String, PDFontDescriptor); given 'bold'; when PDFontDescriptor() FontName is 'bold'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getFontBoxFont(String, PDFontDescriptor); given 'bold'; when PDFontDescriptor() FontName is 'bold'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"FontMapping FontMapperImpl.getFontBoxFont(String, PDFontDescriptor)"})
   void testGetFontBoxFont_givenBold_whenPDFontDescriptorFontNameIsBold() throws IOException {
     // Arrange
@@ -581,29 +529,23 @@ class FontMapperImplDiffblueTest {
     assertTrue(tableMap.containsKey("glyf"));
     assertTrue(tableMap.containsKey("kern"));
     assertArrayEquals(
-        new byte[] {
-          0, 1, 0, 0, 0, 19, 1, 0, 0, 4, 0, '0', 'F', 'F', 'T', 'M', 'h', -2, -32, -92, 0, 2, 23,
-          '@', 0, 0, 0, 28, 'G', 'D', 'E', 'F', 0, '\'', 2, -49, 0, 2, 6, '|', 0, 0, 0, '&', 'G',
-          'P', 'O', 'S', -43, '(', -15
-        },
+        new byte[]{0, 1, 0, 0, 0, 19, 1, 0, 0, 4, 0, '0', 'F', 'F', 'T', 'M', 'h', -2, -32, -92, 0, 2, 23, '@', 0, 0, 0,
+            28, 'G', 'D', 'E', 'F', 0, '\'', 2, -49, 0, 2, 6, '|', 0, 0, 0, '&', 'G', 'P', 'O', 'S', -43, '(', -15},
         byteArray);
   }
 
   /**
    * Test {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}.
-   *
    * <ul>
-   *   <li>Given {@code -}.
-   *   <li>When {@link PDFontDescriptor#PDFontDescriptor()} FontName is {@code -}.
+   *   <li>Given {@code -}.</li>
+   *   <li>When {@link PDFontDescriptor#PDFontDescriptor()} FontName is {@code -}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}
+   * <p>
+   * Method under test: {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}
    */
   @Test
-  @DisplayName(
-      "Test getFontBoxFont(String, PDFontDescriptor); given '-'; when PDFontDescriptor() FontName is '-'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getFontBoxFont(String, PDFontDescriptor); given '-'; when PDFontDescriptor() FontName is '-'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"FontMapping FontMapperImpl.getFontBoxFont(String, PDFontDescriptor)"})
   void testGetFontBoxFont_givenDash_whenPDFontDescriptorFontNameIsDash() throws IOException {
     // Arrange
@@ -614,50 +556,6 @@ class FontMapperImplDiffblueTest {
 
     // Act and Assert
     FontBoxFont font = fontMapperImpl.getFontBoxFont("Base Font", fontDescriptor).getFont();
-    assertTrue(font instanceof TrueTypeFont);
-    assertEquals("LiberationSans", font.getName());
-    assertEquals(139512L, ((TrueTypeFont) font).getOriginalDataSize());
-    Map<String, TTFTable> tableMap = ((TrueTypeFont) font).getTableMap();
-    assertEquals(19, tableMap.size());
-    byte[] byteArray = new byte[51];
-    assertEquals(51, ((TrueTypeFont) font).getOriginalData().read(byteArray));
-    assertTrue(tableMap.containsKey("OS/2"));
-    assertTrue(tableMap.containsKey("fpgm"));
-    assertTrue(tableMap.containsKey("glyf"));
-    assertTrue(tableMap.containsKey("kern"));
-    assertArrayEquals(
-        new byte[] {
-          0, 1, 0, 0, 0, 19, 1, 0, 0, 4, 0, '0', 'F', 'F', 'T', 'M', 'h', -2, -32, 'f', 0, 2, ' ',
-          -36, 0, 0, 0, 28, 'G', 'D', 'E', 'F', 0, '\'', 2, -49, 0, 2, 15, -84, 0, 0, 0, '&', 'G',
-          'P', 'O', 'S', 'j', 'w', -101
-        },
-        byteArray);
-  }
-
-  /**
-   * Test {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}.
-   *
-   * <ul>
-   *   <li>Given {@link FontMapperImpl} (default constructor) addSubstitute {@code Times-Roman} and
-   *       {@code +}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}
-   */
-  @Test
-  @DisplayName(
-      "Test getFontBoxFont(String, PDFontDescriptor); given FontMapperImpl (default constructor) addSubstitute 'Times-Roman' and '+'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"FontMapping FontMapperImpl.getFontBoxFont(String, PDFontDescriptor)"})
-  void testGetFontBoxFont_givenFontMapperImplAddSubstituteTimesRomanAndPlusSign()
-      throws IOException {
-    // Arrange
-    FontMapperImpl fontMapperImpl = new FontMapperImpl();
-    fontMapperImpl.addSubstitute("Times-Roman", "+");
-
-    // Act and Assert
-    FontBoxFont font = fontMapperImpl.getFontBoxFont(null, null).getFont();
     assertTrue(((TrueTypeFont) font).getHeader().getModified() instanceof GregorianCalendar);
     assertTrue(font instanceof TrueTypeFont);
     Map<String, TTFTable> tableMap = ((TrueTypeFont) font).getTableMap();
@@ -668,56 +566,16 @@ class FontMapperImplDiffblueTest {
 
   /**
    * Test {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}.
-   *
    * <ul>
-   *   <li>Given {@link FontMapperImpl} (default constructor).
-   *   <li>When {@code Helvetica}.
-   *   <li>Then return not Fallback.
+   *   <li>Given {@code heavy}.</li>
+   *   <li>When {@link PDFontDescriptor#PDFontDescriptor()} FontName is {@code heavy}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}
+   * <p>
+   * Method under test: {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}
    */
   @Test
-  @DisplayName(
-      "Test getFontBoxFont(String, PDFontDescriptor); given FontMapperImpl (default constructor); when 'Helvetica'; then return not Fallback")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"FontMapping FontMapperImpl.getFontBoxFont(String, PDFontDescriptor)"})
-  void testGetFontBoxFont_givenFontMapperImpl_whenHelvetica_thenReturnNotFallback()
-      throws IOException {
-    // Arrange
-    FontMapperImpl fontMapperImpl = new FontMapperImpl();
-
-    // Act
-    FontMapping<FontBoxFont> actualFontBoxFont =
-        fontMapperImpl.getFontBoxFont("Helvetica", new PDFontDescriptor());
-
-    // Assert
-    FontBoxFont font = actualFontBoxFont.getFont();
-    assertTrue(((TrueTypeFont) font).getHeader().getModified() instanceof GregorianCalendar);
-    assertTrue(font instanceof TrueTypeFont);
-    Map<String, TTFTable> tableMap = ((TrueTypeFont) font).getTableMap();
-    assertEquals(19, tableMap.size());
-    assertEquals(3, ((TrueTypeFont) font).getCmap().getCmaps().length);
-    assertFalse(actualFontBoxFont.isFallback());
-    assertTrue(tableMap.containsKey("fpgm"));
-  }
-
-  /**
-   * Test {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}.
-   *
-   * <ul>
-   *   <li>Given {@code heavy}.
-   *   <li>When {@link PDFontDescriptor#PDFontDescriptor()} FontName is {@code heavy}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}
-   */
-  @Test
-  @DisplayName(
-      "Test getFontBoxFont(String, PDFontDescriptor); given 'heavy'; when PDFontDescriptor() FontName is 'heavy'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getFontBoxFont(String, PDFontDescriptor); given 'heavy'; when PDFontDescriptor() FontName is 'heavy'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"FontMapping FontMapperImpl.getFontBoxFont(String, PDFontDescriptor)"})
   void testGetFontBoxFont_givenHeavy_whenPDFontDescriptorFontNameIsHeavy() throws IOException {
     // Arrange
@@ -740,34 +598,30 @@ class FontMapperImplDiffblueTest {
     assertTrue(tableMap.containsKey("glyf"));
     assertTrue(tableMap.containsKey("kern"));
     assertArrayEquals(
-        new byte[] {
-          0, 1, 0, 0, 0, 19, 1, 0, 0, 4, 0, '0', 'F', 'F', 'T', 'M', 'h', -2, -32, -92, 0, 2, 23,
-          '@', 0, 0, 0, 28, 'G', 'D', 'E', 'F', 0, '\'', 2, -49, 0, 2, 6, '|', 0, 0, 0, '&', 'G',
-          'P', 'O', 'S', -43, '(', -15
-        },
+        new byte[]{0, 1, 0, 0, 0, 19, 1, 0, 0, 4, 0, '0', 'F', 'F', 'T', 'M', 'h', -2, -32, -92, 0, 2, 23, '@', 0, 0, 0,
+            28, 'G', 'D', 'E', 'F', 0, '\'', 2, -49, 0, 2, 6, '|', 0, 0, 0, '&', 'G', 'P', 'O', 'S', -43, '(', -15},
         byteArray);
   }
 
   /**
    * Test {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}.
-   *
    * <ul>
-   *   <li>When {@code ,}.
-   *   <li>Then Font Header Modified return {@link GregorianCalendar}.
+   *   <li>When {@code ,}.</li>
+   *   <li>Then Font Header Modified return {@link GregorianCalendar}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}
+   * <p>
+   * Method under test: {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}
    */
   @Test
-  @DisplayName(
-      "Test getFontBoxFont(String, PDFontDescriptor); when ','; then Font Header Modified return GregorianCalendar")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getFontBoxFont(String, PDFontDescriptor); when ','; then Font Header Modified return GregorianCalendar")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"FontMapping FontMapperImpl.getFontBoxFont(String, PDFontDescriptor)"})
-  void testGetFontBoxFont_whenComma_thenFontHeaderModifiedReturnGregorianCalendar()
-      throws IOException {
-    // Arrange, Act and Assert
-    FontBoxFont font = new FontMapperImpl().getFontBoxFont(",", null).getFont();
+  void testGetFontBoxFont_whenComma_thenFontHeaderModifiedReturnGregorianCalendar() throws IOException {
+    // Arrange
+    FontMapperImpl fontMapperImpl = new FontMapperImpl();
+
+    // Act and Assert
+    FontBoxFont font = fontMapperImpl.getFontBoxFont(",", new PDFontDescriptor()).getFont();
     assertTrue(((TrueTypeFont) font).getHeader().getModified() instanceof GregorianCalendar);
     assertTrue(font instanceof TrueTypeFont);
     Map<String, TTFTable> tableMap = ((TrueTypeFont) font).getTableMap();
@@ -778,24 +632,54 @@ class FontMapperImplDiffblueTest {
 
   /**
    * Test {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then Font Header Modified return {@link GregorianCalendar}.
+   *   <li>When {@code Helvetica}.</li>
+   *   <li>Then return not Fallback.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}
+   * <p>
+   * Method under test: {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}
    */
   @Test
-  @DisplayName(
-      "Test getFontBoxFont(String, PDFontDescriptor); when 'null'; then Font Header Modified return GregorianCalendar")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getFontBoxFont(String, PDFontDescriptor); when 'Helvetica'; then return not Fallback")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"FontMapping FontMapperImpl.getFontBoxFont(String, PDFontDescriptor)"})
-  void testGetFontBoxFont_whenNull_thenFontHeaderModifiedReturnGregorianCalendar()
-      throws IOException {
-    // Arrange, Act and Assert
-    FontBoxFont font = new FontMapperImpl().getFontBoxFont(null, null).getFont();
+  void testGetFontBoxFont_whenHelvetica_thenReturnNotFallback() throws IOException {
+    // Arrange
+    FontMapperImpl fontMapperImpl = new FontMapperImpl();
+
+    // Act
+    FontMapping<FontBoxFont> actualFontBoxFont = fontMapperImpl.getFontBoxFont("Helvetica", new PDFontDescriptor());
+
+    // Assert
+    FontBoxFont font = actualFontBoxFont.getFont();
+    assertTrue(((TrueTypeFont) font).getHeader().getModified() instanceof GregorianCalendar);
+    assertTrue(font instanceof TrueTypeFont);
+    Map<String, TTFTable> tableMap = ((TrueTypeFont) font).getTableMap();
+    assertEquals(19, tableMap.size());
+    assertEquals(3, ((TrueTypeFont) font).getCmap().getCmaps().length);
+    assertFalse(actualFontBoxFont.isFallback());
+    assertTrue(tableMap.containsKey("fpgm"));
+  }
+
+  /**
+   * Test {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}.
+   * <ul>
+   *   <li>When {@code null}.</li>
+   *   <li>Then Font Header Modified return {@link GregorianCalendar}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}
+   */
+  @Test
+  @DisplayName("Test getFontBoxFont(String, PDFontDescriptor); when 'null'; then Font Header Modified return GregorianCalendar")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"FontMapping FontMapperImpl.getFontBoxFont(String, PDFontDescriptor)"})
+  void testGetFontBoxFont_whenNull_thenFontHeaderModifiedReturnGregorianCalendar() throws IOException {
+    // Arrange
+    FontMapperImpl fontMapperImpl = new FontMapperImpl();
+
+    // Act and Assert
+    FontBoxFont font = fontMapperImpl.getFontBoxFont(null, new PDFontDescriptor()).getFont();
     assertTrue(((TrueTypeFont) font).getHeader().getModified() instanceof GregorianCalendar);
     assertTrue(font instanceof TrueTypeFont);
     Map<String, TTFTable> tableMap = ((TrueTypeFont) font).getTableMap();
@@ -806,210 +690,109 @@ class FontMapperImplDiffblueTest {
 
   /**
    * Test {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}.
-   *
    * <ul>
-   *   <li>When {@link PDFontDescriptor#PDFontDescriptor()}.
-   *   <li>Then return Font Name is {@code LiberationSans}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return Font Name is {@code LiberationSerif}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}
+   * <p>
+   * Method under test: {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}
    */
   @Test
-  @DisplayName(
-      "Test getFontBoxFont(String, PDFontDescriptor); when PDFontDescriptor(); then return Font Name is 'LiberationSans'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getFontBoxFont(String, PDFontDescriptor); when 'null'; then return Font Name is 'LiberationSerif'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"FontMapping FontMapperImpl.getFontBoxFont(String, PDFontDescriptor)"})
-  void testGetFontBoxFont_whenPDFontDescriptor_thenReturnFontNameIsLiberationSans()
-      throws IOException {
+  void testGetFontBoxFont_whenNull_thenReturnFontNameIsLiberationSerif() throws IOException {
+    // Arrange, Act and Assert
+    FontBoxFont font = (new FontMapperImpl()).getFontBoxFont("Base Font", null).getFont();
+    assertTrue(font instanceof TrueTypeFont);
+    assertEquals("LiberationSerif", font.getName());
+    assertEquals(152408L, ((TrueTypeFont) font).getOriginalDataSize());
+    byte[] byteArray = new byte[51];
+    assertEquals(51, ((TrueTypeFont) font).getOriginalData().read(byteArray));
+    assertEquals(673, ((TrueTypeFont) font).getNumberOfGlyphs());
+    assertArrayEquals(new byte[]{0, 1, 0, 0, 0, 19, 1, 0, 0, 4, 0, '0', 'F', 'F', 'T', 'M', 'h', '0', 18, '{', 0, 2,
+        'S', '<', 0, 0, 0, 28, 'G', 'D', 'E', 'F', 0, '\'', 2, -57, 0, 2, 'B', -96, 0, 0, 0, '&', 'G', 'P', 'O', 'S',
+        '\b', -35, -11}, byteArray);
+  }
+
+  /**
+   * Test {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}.
+   * <ul>
+   *   <li>When {@link PDFontDescriptor#PDFontDescriptor()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}
+   */
+  @Test
+  @DisplayName("Test getFontBoxFont(String, PDFontDescriptor); when PDFontDescriptor()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"FontMapping FontMapperImpl.getFontBoxFont(String, PDFontDescriptor)"})
+  void testGetFontBoxFont_whenPDFontDescriptor() throws IOException {
     // Arrange
     FontMapperImpl fontMapperImpl = new FontMapperImpl();
 
     // Act and Assert
     FontBoxFont font = fontMapperImpl.getFontBoxFont("Base Font", new PDFontDescriptor()).getFont();
+    assertTrue(((TrueTypeFont) font).getHeader().getModified() instanceof GregorianCalendar);
     assertTrue(font instanceof TrueTypeFont);
-    assertEquals("LiberationSans", font.getName());
-    assertEquals(139512L, ((TrueTypeFont) font).getOriginalDataSize());
     Map<String, TTFTable> tableMap = ((TrueTypeFont) font).getTableMap();
     assertEquals(19, tableMap.size());
-    byte[] byteArray = new byte[51];
-    assertEquals(51, ((TrueTypeFont) font).getOriginalData().read(byteArray));
-    assertTrue(tableMap.containsKey("OS/2"));
+    assertEquals(3, ((TrueTypeFont) font).getCmap().getCmaps().length);
     assertTrue(tableMap.containsKey("fpgm"));
-    assertTrue(tableMap.containsKey("glyf"));
-    assertTrue(tableMap.containsKey("kern"));
-    assertArrayEquals(
-        new byte[] {
-          0, 1, 0, 0, 0, 19, 1, 0, 0, 4, 0, '0', 'F', 'F', 'T', 'M', 'h', -2, -32, 'f', 0, 2, ' ',
-          -36, 0, 0, 0, 28, 'G', 'D', 'E', 'F', 0, '\'', 2, -49, 0, 2, 15, -84, 0, 0, 0, '&', 'G',
-          'P', 'O', 'S', 'j', 'w', -101
-        },
-        byteArray);
   }
 
   /**
-   * Test {@link FontMapperImpl#getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)}.
-   *
+   * Test {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}.
    * <ul>
-   *   <li>Given {@link FontMapperImpl} (default constructor) addSubstitute {@code ,} and {@code -}.
-   *   <li>When {@code ,}.
+   *   <li>When {@code +}.</li>
+   *   <li>Then Font Header Modified return {@link GregorianCalendar}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FontMapperImpl#getCIDFont(String, PDFontDescriptor,
-   * PDCIDSystemInfo)}
+   * <p>
+   * Method under test: {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}
    */
   @Test
-  @DisplayName(
-      "Test getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo); given FontMapperImpl (default constructor) addSubstitute ',' and '-'; when ','")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "CIDFontMapping FontMapperImpl.getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)"
-  })
-  void testGetCIDFont_givenFontMapperImplAddSubstituteCommaAndDash_whenComma() throws IOException {
+  @DisplayName("Test getFontBoxFont(String, PDFontDescriptor); when '+'; then Font Header Modified return GregorianCalendar")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"FontMapping FontMapperImpl.getFontBoxFont(String, PDFontDescriptor)"})
+  void testGetFontBoxFont_whenPlusSign_thenFontHeaderModifiedReturnGregorianCalendar() throws IOException {
     // Arrange
     FontMapperImpl fontMapperImpl = new FontMapperImpl();
-    fontMapperImpl.addSubstitute(",", "-");
 
     // Act and Assert
-    FontBoxFont trueTypeFont =
-        fontMapperImpl.getCIDFont(",", new PDFontDescriptor(), null).getTrueTypeFont();
-    assertTrue(
-        ((TrueTypeFont) trueTypeFont).getHeader().getModified() instanceof GregorianCalendar);
-    assertTrue(trueTypeFont instanceof TrueTypeFont);
-    Map<String, TTFTable> tableMap = ((TrueTypeFont) trueTypeFont).getTableMap();
+    FontBoxFont font = fontMapperImpl.getFontBoxFont("+", new PDFontDescriptor()).getFont();
+    assertTrue(((TrueTypeFont) font).getHeader().getModified() instanceof GregorianCalendar);
+    assertTrue(font instanceof TrueTypeFont);
+    Map<String, TTFTable> tableMap = ((TrueTypeFont) font).getTableMap();
     assertEquals(19, tableMap.size());
-    assertEquals(3, ((TrueTypeFont) trueTypeFont).getCmap().getCmaps().length);
+    assertEquals(3, ((TrueTypeFont) font).getCmap().getCmaps().length);
     assertTrue(tableMap.containsKey("fpgm"));
-    OS2WindowsMetricsTable oS2Windows = ((TrueTypeFont) trueTypeFont).getOS2Windows();
-    assertSame(oS2Windows, tableMap.get("OS/2"));
-    assertArrayEquals(new byte[] {2, 11, 6, 4, 2, 2, 2, 2, 2, 4}, oS2Windows.getPanose());
   }
 
   /**
    * Test {@link FontMapperImpl#getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)}.
-   *
    * <ul>
-   *   <li>Given {@link FontMapperImpl} (default constructor) addSubstitute {@code ,} and {@code +}.
-   *   <li>When {@code ,}.
+   *   <li>Given {@link FontMapperImpl} (default constructor) addSubstitute {@code +} and {@code +}.</li>
+   *   <li>When {@code +}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FontMapperImpl#getCIDFont(String, PDFontDescriptor,
-   * PDCIDSystemInfo)}
+   * <p>
+   * Method under test: {@link FontMapperImpl#getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)}
    */
   @Test
-  @DisplayName(
-      "Test getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo); given FontMapperImpl (default constructor) addSubstitute ',' and '+'; when ','")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo); given FontMapperImpl (default constructor) addSubstitute '+' and '+'; when '+'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "CIDFontMapping FontMapperImpl.getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)"
-  })
-  void testGetCIDFont_givenFontMapperImplAddSubstituteCommaAndPlusSign_whenComma()
-      throws IOException {
+      "org.apache.pdfbox.pdmodel.font.CIDFontMapping FontMapperImpl.getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)"})
+  void testGetCIDFont_givenFontMapperImplAddSubstitutePlusSignAndPlusSign_whenPlusSign() throws IOException {
     // Arrange
     FontMapperImpl fontMapperImpl = new FontMapperImpl();
-    fontMapperImpl.addSubstitute(",", "+");
-    fontMapperImpl.addSubstitute(",", "-");
-
-    // Act and Assert
-    FontBoxFont trueTypeFont =
-        fontMapperImpl.getCIDFont(",", new PDFontDescriptor(), null).getTrueTypeFont();
-    assertTrue(
-        ((TrueTypeFont) trueTypeFont).getHeader().getModified() instanceof GregorianCalendar);
-    assertTrue(trueTypeFont instanceof TrueTypeFont);
-    Map<String, TTFTable> tableMap = ((TrueTypeFont) trueTypeFont).getTableMap();
-    assertEquals(19, tableMap.size());
-    assertEquals(3, ((TrueTypeFont) trueTypeFont).getCmap().getCmaps().length);
-    assertTrue(tableMap.containsKey("fpgm"));
-    OS2WindowsMetricsTable oS2Windows = ((TrueTypeFont) trueTypeFont).getOS2Windows();
-    assertSame(oS2Windows, tableMap.get("OS/2"));
-    assertArrayEquals(new byte[] {2, 11, 6, 4, 2, 2, 2, 2, 2, 4}, oS2Windows.getPanose());
-  }
-
-  /**
-   * Test {@link FontMapperImpl#getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)}.
-   *
-   * <ul>
-   *   <li>Given {@link FontMapperImpl} (default constructor) addSubstitute space and space.
-   * </ul>
-   *
-   * <p>Method under test: {@link FontMapperImpl#getCIDFont(String, PDFontDescriptor,
-   * PDCIDSystemInfo)}
-   */
-  @Test
-  @DisplayName(
-      "Test getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo); given FontMapperImpl (default constructor) addSubstitute space and space")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "CIDFontMapping FontMapperImpl.getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)"
-  })
-  void testGetCIDFont_givenFontMapperImplAddSubstituteSpaceAndSpace() throws IOException {
-    // Arrange
-    FontMapperImpl fontMapperImpl = new FontMapperImpl();
-    fontMapperImpl.addSubstitute(" ", " ");
+    fontMapperImpl.addSubstitute("+", "+");
     PDFontDescriptor fontDescriptor = new PDFontDescriptor();
-    PDCIDSystemInfo cidSystemInfo = new PDCIDSystemInfo("Registry", "Ordering", 1);
-
-    // Act
-    CIDFontMapping actualCIDFont =
-        fontMapperImpl.getCIDFont("Courier", fontDescriptor, cidSystemInfo);
-
-    // Assert
-    FontBoxFont trueTypeFont = actualCIDFont.getTrueTypeFont();
-    assertTrue(trueTypeFont instanceof TrueTypeFont);
-    assertEquals("LiberationMono", trueTypeFont.getName());
-    assertNull(((TrueTypeFont) trueTypeFont).getGsub());
-    assertNull(((TrueTypeFont) trueTypeFont).getKerning());
-    assertEquals(108172L, ((TrueTypeFont) trueTypeFont).getOriginalDataSize());
-    byte[] byteArray = new byte[51];
-    assertEquals(51, ((TrueTypeFont) trueTypeFont).getOriginalData().read(byteArray));
-    assertEquals(674, ((TrueTypeFont) trueTypeFont).getNumberOfGlyphs());
-    assertFalse(actualCIDFont.isFallback());
-    Map<String, TTFTable> tableMap = ((TrueTypeFont) trueTypeFont).getTableMap();
-    assertEquals(Short.SIZE, tableMap.size());
-    assertTrue(tableMap.containsKey("OS/2"));
-    assertTrue(tableMap.containsKey("fpgm"));
-    assertTrue(tableMap.containsKey("gasp"));
-    assertTrue(tableMap.containsKey("glyf"));
-    assertEquals(Short.SIZE, ((TrueTypeFont) trueTypeFont).getTables().size());
-    assertArrayEquals(
-        new byte[] {
-          0, 1, 0, 0, 0, 16, 1, 0, 0, 4, 0, 0, 'F', 'F', 'T', 'M', 'g', 'Z', ';', -71, 0, 1, -90,
-          'p', 0, 0, 0, 28, 'G', 'D', 'E', 'F', 0, '\'', 2, -56, 0, 1, -90, 'H', 0, 0, 0, '&', 'O',
-          'S', '/', '2', -7, ' ', 'w'
-        },
-        byteArray);
-  }
-
-  /**
-   * Test {@link FontMapperImpl#getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)}.
-   *
-   * <ul>
-   *   <li>Then TrueTypeFont Header Modified return {@link GregorianCalendar}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FontMapperImpl#getCIDFont(String, PDFontDescriptor,
-   * PDCIDSystemInfo)}
-   */
-  @Test
-  @DisplayName(
-      "Test getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo); then TrueTypeFont Header Modified return GregorianCalendar")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "CIDFontMapping FontMapperImpl.getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)"
-  })
-  void testGetCIDFont_thenTrueTypeFontHeaderModifiedReturnGregorianCalendar() throws IOException {
-    // Arrange
-    FontMapperImpl fontMapperImpl = new FontMapperImpl();
 
     // Act and Assert
-    FontBoxFont trueTypeFont =
-        fontMapperImpl.getCIDFont(null, new PDFontDescriptor(), null).getTrueTypeFont();
-    assertTrue(
-        ((TrueTypeFont) trueTypeFont).getHeader().getModified() instanceof GregorianCalendar);
+    FontBoxFont trueTypeFont = fontMapperImpl
+        .getCIDFont("+", fontDescriptor, new PDCIDSystemInfo("Registry", "Ordering", 1))
+        .getTrueTypeFont();
+    assertTrue(((TrueTypeFont) trueTypeFont).getHeader().getModified() instanceof GregorianCalendar);
     assertTrue(trueTypeFont instanceof TrueTypeFont);
     Map<String, TTFTable> tableMap = ((TrueTypeFont) trueTypeFont).getTableMap();
     assertEquals(19, tableMap.size());
@@ -1017,37 +800,33 @@ class FontMapperImplDiffblueTest {
     assertTrue(tableMap.containsKey("fpgm"));
     OS2WindowsMetricsTable oS2Windows = ((TrueTypeFont) trueTypeFont).getOS2Windows();
     assertSame(oS2Windows, tableMap.get("OS/2"));
-    assertArrayEquals(new byte[] {2, 11, 6, 4, 2, 2, 2, 2, 2, 4}, oS2Windows.getPanose());
+    assertArrayEquals(new byte[]{2, 11, 6, 4, 2, 2, 2, 2, 2, 4}, oS2Windows.getPanose());
   }
 
   /**
    * Test {@link FontMapperImpl#getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)}.
-   *
    * <ul>
-   *   <li>When {@code Base Font}.
+   *   <li>Given {@link FontMapperImpl} (default constructor).</li>
+   *   <li>When {@code Base Font}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FontMapperImpl#getCIDFont(String, PDFontDescriptor,
-   * PDCIDSystemInfo)}
+   * <p>
+   * Method under test: {@link FontMapperImpl#getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)}
    */
   @Test
-  @DisplayName("Test getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo); when 'Base Font'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo); given FontMapperImpl (default constructor); when 'Base Font'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "CIDFontMapping FontMapperImpl.getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)"
-  })
-  void testGetCIDFont_whenBaseFont() throws IOException {
+      "org.apache.pdfbox.pdmodel.font.CIDFontMapping FontMapperImpl.getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)"})
+  void testGetCIDFont_givenFontMapperImpl_whenBaseFont() throws IOException {
     // Arrange
     FontMapperImpl fontMapperImpl = new FontMapperImpl();
     PDFontDescriptor fontDescriptor = new PDFontDescriptor();
-    PDCIDSystemInfo cidSystemInfo = new PDCIDSystemInfo("Registry", "Ordering", 1);
 
     // Act and Assert
-    FontBoxFont trueTypeFont =
-        fontMapperImpl.getCIDFont("Base Font", fontDescriptor, cidSystemInfo).getTrueTypeFont();
-    assertTrue(
-        ((TrueTypeFont) trueTypeFont).getHeader().getModified() instanceof GregorianCalendar);
+    FontBoxFont trueTypeFont = fontMapperImpl
+        .getCIDFont("Base Font", fontDescriptor, new PDCIDSystemInfo("Registry", "Ordering", 1))
+        .getTrueTypeFont();
+    assertTrue(((TrueTypeFont) trueTypeFont).getHeader().getModified() instanceof GregorianCalendar);
     assertTrue(trueTypeFont instanceof TrueTypeFont);
     Map<String, TTFTable> tableMap = ((TrueTypeFont) trueTypeFont).getTableMap();
     assertEquals(19, tableMap.size());
@@ -1055,38 +834,30 @@ class FontMapperImplDiffblueTest {
     assertTrue(tableMap.containsKey("fpgm"));
     OS2WindowsMetricsTable oS2Windows = ((TrueTypeFont) trueTypeFont).getOS2Windows();
     assertSame(oS2Windows, tableMap.get("OS/2"));
-    assertArrayEquals(new byte[] {2, 11, 6, 4, 2, 2, 2, 2, 2, 4}, oS2Windows.getPanose());
+    assertArrayEquals(new byte[]{2, 11, 6, 4, 2, 2, 2, 2, 2, 4}, oS2Windows.getPanose());
   }
 
   /**
    * Test {@link FontMapperImpl#getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)}.
-   *
    * <ul>
-   *   <li>When {@code ,}.
-   *   <li>Then TrueTypeFont Header Modified return {@link GregorianCalendar}.
+   *   <li>Given {@link FontMapperImpl} (default constructor).</li>
+   *   <li>When {@code Base Font}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FontMapperImpl#getCIDFont(String, PDFontDescriptor,
-   * PDCIDSystemInfo)}
+   * <p>
+   * Method under test: {@link FontMapperImpl#getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)}
    */
   @Test
-  @DisplayName(
-      "Test getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo); when ','; then TrueTypeFont Header Modified return GregorianCalendar")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo); given FontMapperImpl (default constructor); when 'Base Font'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "CIDFontMapping FontMapperImpl.getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)"
-  })
-  void testGetCIDFont_whenComma_thenTrueTypeFontHeaderModifiedReturnGregorianCalendar()
-      throws IOException {
+      "org.apache.pdfbox.pdmodel.font.CIDFontMapping FontMapperImpl.getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)"})
+  void testGetCIDFont_givenFontMapperImpl_whenBaseFont2() throws IOException {
     // Arrange
     FontMapperImpl fontMapperImpl = new FontMapperImpl();
 
     // Act and Assert
-    FontBoxFont trueTypeFont =
-        fontMapperImpl.getCIDFont(",", new PDFontDescriptor(), null).getTrueTypeFont();
-    assertTrue(
-        ((TrueTypeFont) trueTypeFont).getHeader().getModified() instanceof GregorianCalendar);
+    FontBoxFont trueTypeFont = fontMapperImpl.getCIDFont("Base Font", new PDFontDescriptor(), null).getTrueTypeFont();
+    assertTrue(((TrueTypeFont) trueTypeFont).getHeader().getModified() instanceof GregorianCalendar);
     assertTrue(trueTypeFont instanceof TrueTypeFont);
     Map<String, TTFTable> tableMap = ((TrueTypeFont) trueTypeFont).getTableMap();
     assertEquals(19, tableMap.size());
@@ -1094,62 +865,108 @@ class FontMapperImplDiffblueTest {
     assertTrue(tableMap.containsKey("fpgm"));
     OS2WindowsMetricsTable oS2Windows = ((TrueTypeFont) trueTypeFont).getOS2Windows();
     assertSame(oS2Windows, tableMap.get("OS/2"));
-    assertArrayEquals(new byte[] {2, 11, 6, 4, 2, 2, 2, 2, 2, 4}, oS2Windows.getPanose());
+    assertArrayEquals(new byte[]{2, 11, 6, 4, 2, 2, 2, 2, 2, 4}, oS2Windows.getPanose());
   }
 
   /**
    * Test {@link FontMapperImpl#getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)}.
-   *
    * <ul>
-   *   <li>When {@code Courier}.
-   *   <li>Then return TrueTypeFont Name is {@code LiberationMono}.
+   *   <li>Given {@link FontMapperImpl} (default constructor).</li>
+   *   <li>When {@code ,}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FontMapperImpl#getCIDFont(String, PDFontDescriptor,
-   * PDCIDSystemInfo)}
+   * <p>
+   * Method under test: {@link FontMapperImpl#getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)}
    */
   @Test
-  @DisplayName(
-      "Test getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo); when 'Courier'; then return TrueTypeFont Name is 'LiberationMono'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo); given FontMapperImpl (default constructor); when ','")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "CIDFontMapping FontMapperImpl.getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)"
-  })
-  void testGetCIDFont_whenCourier_thenReturnTrueTypeFontNameIsLiberationMono() throws IOException {
+      "org.apache.pdfbox.pdmodel.font.CIDFontMapping FontMapperImpl.getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)"})
+  void testGetCIDFont_givenFontMapperImpl_whenComma() throws IOException {
     // Arrange
     FontMapperImpl fontMapperImpl = new FontMapperImpl();
     PDFontDescriptor fontDescriptor = new PDFontDescriptor();
-    PDCIDSystemInfo cidSystemInfo = new PDCIDSystemInfo("Registry", "Ordering", 1);
 
-    // Act
-    CIDFontMapping actualCIDFont =
-        fontMapperImpl.getCIDFont("Courier", fontDescriptor, cidSystemInfo);
-
-    // Assert
-    FontBoxFont trueTypeFont = actualCIDFont.getTrueTypeFont();
+    // Act and Assert
+    FontBoxFont trueTypeFont = fontMapperImpl
+        .getCIDFont(",", fontDescriptor, new PDCIDSystemInfo("Registry", "Ordering", 1))
+        .getTrueTypeFont();
+    assertTrue(((TrueTypeFont) trueTypeFont).getHeader().getModified() instanceof GregorianCalendar);
     assertTrue(trueTypeFont instanceof TrueTypeFont);
-    assertEquals("LiberationMono", trueTypeFont.getName());
-    assertNull(((TrueTypeFont) trueTypeFont).getGsub());
-    assertNull(((TrueTypeFont) trueTypeFont).getKerning());
-    assertEquals(108172L, ((TrueTypeFont) trueTypeFont).getOriginalDataSize());
-    byte[] byteArray = new byte[51];
-    assertEquals(51, ((TrueTypeFont) trueTypeFont).getOriginalData().read(byteArray));
-    assertEquals(674, ((TrueTypeFont) trueTypeFont).getNumberOfGlyphs());
-    assertFalse(actualCIDFont.isFallback());
     Map<String, TTFTable> tableMap = ((TrueTypeFont) trueTypeFont).getTableMap();
-    assertEquals(Short.SIZE, tableMap.size());
-    assertTrue(tableMap.containsKey("OS/2"));
+    assertEquals(19, tableMap.size());
+    assertEquals(3, ((TrueTypeFont) trueTypeFont).getCmap().getCmaps().length);
     assertTrue(tableMap.containsKey("fpgm"));
-    assertTrue(tableMap.containsKey("gasp"));
-    assertTrue(tableMap.containsKey("glyf"));
-    assertEquals(Short.SIZE, ((TrueTypeFont) trueTypeFont).getTables().size());
-    assertArrayEquals(
-        new byte[] {
-          0, 1, 0, 0, 0, 16, 1, 0, 0, 4, 0, 0, 'F', 'F', 'T', 'M', 'g', 'Z', ';', -71, 0, 1, -90,
-          'p', 0, 0, 0, 28, 'G', 'D', 'E', 'F', 0, '\'', 2, -56, 0, 1, -90, 'H', 0, 0, 0, '&', 'O',
-          'S', '/', '2', -7, ' ', 'w'
-        },
-        byteArray);
+    OS2WindowsMetricsTable oS2Windows = ((TrueTypeFont) trueTypeFont).getOS2Windows();
+    assertSame(oS2Windows, tableMap.get("OS/2"));
+    assertArrayEquals(new byte[]{2, 11, 6, 4, 2, 2, 2, 2, 2, 4}, oS2Windows.getPanose());
+  }
+
+  /**
+   * Test {@link FontMapperImpl#getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)}.
+   * <ul>
+   *   <li>Given {@link FontMapperImpl} (default constructor).</li>
+   *   <li>When {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link FontMapperImpl#getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)}
+   */
+  @Test
+  @DisplayName("Test getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo); given FontMapperImpl (default constructor); when 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.apache.pdfbox.pdmodel.font.CIDFontMapping FontMapperImpl.getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)"})
+  void testGetCIDFont_givenFontMapperImpl_whenNull() throws IOException {
+    // Arrange
+    FontMapperImpl fontMapperImpl = new FontMapperImpl();
+    PDFontDescriptor fontDescriptor = new PDFontDescriptor();
+
+    // Act and Assert
+    FontBoxFont trueTypeFont = fontMapperImpl
+        .getCIDFont(null, fontDescriptor, new PDCIDSystemInfo("Registry", "Ordering", 1))
+        .getTrueTypeFont();
+    assertTrue(((TrueTypeFont) trueTypeFont).getHeader().getModified() instanceof GregorianCalendar);
+    assertTrue(trueTypeFont instanceof TrueTypeFont);
+    Map<String, TTFTable> tableMap = ((TrueTypeFont) trueTypeFont).getTableMap();
+    assertEquals(19, tableMap.size());
+    assertEquals(3, ((TrueTypeFont) trueTypeFont).getCmap().getCmaps().length);
+    assertTrue(tableMap.containsKey("fpgm"));
+    OS2WindowsMetricsTable oS2Windows = ((TrueTypeFont) trueTypeFont).getOS2Windows();
+    assertSame(oS2Windows, tableMap.get("OS/2"));
+    assertArrayEquals(new byte[]{2, 11, 6, 4, 2, 2, 2, 2, 2, 4}, oS2Windows.getPanose());
+  }
+
+  /**
+   * Test {@link FontMapperImpl#getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)}.
+   * <ul>
+   *   <li>Given {@link FontMapperImpl} (default constructor).</li>
+   *   <li>When {@code +}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link FontMapperImpl#getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)}
+   */
+  @Test
+  @DisplayName("Test getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo); given FontMapperImpl (default constructor); when '+'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.apache.pdfbox.pdmodel.font.CIDFontMapping FontMapperImpl.getCIDFont(String, PDFontDescriptor, PDCIDSystemInfo)"})
+  void testGetCIDFont_givenFontMapperImpl_whenPlusSign() throws IOException {
+    // Arrange
+    FontMapperImpl fontMapperImpl = new FontMapperImpl();
+    PDFontDescriptor fontDescriptor = new PDFontDescriptor();
+
+    // Act and Assert
+    FontBoxFont trueTypeFont = fontMapperImpl
+        .getCIDFont("+", fontDescriptor, new PDCIDSystemInfo("Registry", "Ordering", 1))
+        .getTrueTypeFont();
+    assertTrue(((TrueTypeFont) trueTypeFont).getHeader().getModified() instanceof GregorianCalendar);
+    assertTrue(trueTypeFont instanceof TrueTypeFont);
+    Map<String, TTFTable> tableMap = ((TrueTypeFont) trueTypeFont).getTableMap();
+    assertEquals(19, tableMap.size());
+    assertEquals(3, ((TrueTypeFont) trueTypeFont).getCmap().getCmaps().length);
+    assertTrue(tableMap.containsKey("fpgm"));
+    OS2WindowsMetricsTable oS2Windows = ((TrueTypeFont) trueTypeFont).getOS2Windows();
+    assertSame(oS2Windows, tableMap.get("OS/2"));
+    assertArrayEquals(new byte[]{2, 11, 6, 4, 2, 2, 2, 2, 2, 4}, oS2Windows.getPanose());
   }
 }

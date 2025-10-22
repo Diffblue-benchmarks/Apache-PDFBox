@@ -7,8 +7,8 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
@@ -33,36 +33,31 @@ import org.mockito.Mockito;
 class TriangleBasedShadingContextDiffblueTest {
   /**
    * Test {@link TriangleBasedShadingContext#createPixelTable(Rectangle)}.
-   *
    * <ul>
-   *   <li>Given {@link PDShadingType4} {@link PDShadingType4#getBackground()} return {@code null}.
+   *   <li>Given {@link PDShadingType4} {@link PDShading#getBackground()} return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TriangleBasedShadingContext#createPixelTable(Rectangle)}
+   * <p>
+   * Method under test: {@link TriangleBasedShadingContext#createPixelTable(Rectangle)}
    */
   @Test
-  @DisplayName(
-      "Test createPixelTable(Rectangle); given PDShadingType4 getBackground() return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test createPixelTable(Rectangle); given PDShadingType4 getBackground() return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void TriangleBasedShadingContext.createPixelTable(Rectangle)"})
   void testCreatePixelTable_givenPDShadingType4GetBackgroundReturnNull() throws IOException {
     // Arrange
     PDShadingType4 shading = mock(PDShadingType4.class);
-    when(shading.collectTriangles(Mockito.<AffineTransform>any(), Mockito.<Matrix>any()))
-        .thenReturn(new ArrayList<>());
+    when(shading.collectTriangles(Mockito.<AffineTransform>any(), Mockito.<Matrix>any())).thenReturn(new ArrayList<>());
     when(shading.getBitsPerFlag()).thenReturn(1);
     when(shading.getBackground()).thenReturn(null);
     when(shading.getColorSpace()).thenReturn(PDDeviceGray.INSTANCE);
     DirectColorModel cm = new DirectColorModel(1, 1, 1, 1);
+
     AffineTransform xform = new AffineTransform();
     Matrix matrix = new Matrix();
-
-    Type4ShadingContext type4ShadingContext =
-        new Type4ShadingContext(shading, cm, xform, matrix, new Rectangle());
+    Type4ShadingContext type4ShadingContext = new Type4ShadingContext(shading, cm, xform, matrix, new Rectangle(1, 1));
 
     // Act
-    type4ShadingContext.createPixelTable(new Rectangle());
+    type4ShadingContext.createPixelTable(new Rectangle(1, 1));
 
     // Assert
     verify(shading).getBackground();
@@ -73,38 +68,33 @@ class TriangleBasedShadingContextDiffblueTest {
 
   /**
    * Test {@link TriangleBasedShadingContext#createPixelTable(Rectangle)}.
-   *
    * <ul>
-   *   <li>Then calls {@link COSArray#toFloatArray()}.
+   *   <li>Then calls {@link COSArray#toFloatArray()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TriangleBasedShadingContext#createPixelTable(Rectangle)}
+   * <p>
+   * Method under test: {@link TriangleBasedShadingContext#createPixelTable(Rectangle)}
    */
   @Test
   @DisplayName("Test createPixelTable(Rectangle); then calls toFloatArray()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void TriangleBasedShadingContext.createPixelTable(Rectangle)"})
   void testCreatePixelTable_thenCallsToFloatArray() throws IOException {
     // Arrange
     COSArray cosArray = mock(COSArray.class);
-    when(cosArray.toFloatArray()).thenReturn(new float[] {10.0f, 0.5f, 10.0f, 0.5f});
-
+    when(cosArray.toFloatArray()).thenReturn(new float[]{10.0f, 0.5f, 10.0f, 0.5f});
     PDShadingType4 shading = mock(PDShadingType4.class);
-    when(shading.collectTriangles(Mockito.<AffineTransform>any(), Mockito.<Matrix>any()))
-        .thenReturn(new ArrayList<>());
+    when(shading.collectTriangles(Mockito.<AffineTransform>any(), Mockito.<Matrix>any())).thenReturn(new ArrayList<>());
     when(shading.getBitsPerFlag()).thenReturn(1);
     when(shading.getBackground()).thenReturn(cosArray);
     when(shading.getColorSpace()).thenReturn(PDDeviceGray.INSTANCE);
     DirectColorModel cm = new DirectColorModel(1, 1, 1, 1);
+
     AffineTransform xform = new AffineTransform();
     Matrix matrix = new Matrix();
-
-    Type4ShadingContext type4ShadingContext =
-        new Type4ShadingContext(shading, cm, xform, matrix, new Rectangle());
+    Type4ShadingContext type4ShadingContext = new Type4ShadingContext(shading, cm, xform, matrix, new Rectangle(1, 1));
 
     // Act
-    type4ShadingContext.createPixelTable(new Rectangle());
+    type4ShadingContext.createPixelTable(new Rectangle(1, 1));
 
     // Assert
     verify(cosArray).toFloatArray();
@@ -116,34 +106,29 @@ class TriangleBasedShadingContextDiffblueTest {
 
   /**
    * Test {@link TriangleBasedShadingContext#calcPixelTable(List, int[][], Rectangle)}.
-   *
-   * <p>Method under test: {@link TriangleBasedShadingContext#calcPixelTable(List, int[][],
-   * Rectangle)}
+   * <p>
+   * Method under test: {@link TriangleBasedShadingContext#calcPixelTable(List, int[][], Rectangle)}
    */
   @Test
   @DisplayName("Test calcPixelTable(List, int[][], Rectangle)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void TriangleBasedShadingContext.calcPixelTable(List, int[][], Rectangle)"})
   void testCalcPixelTable() throws IOException {
     // Arrange
     PDShadingType4 shading = mock(PDShadingType4.class);
-    when(shading.collectTriangles(Mockito.<AffineTransform>any(), Mockito.<Matrix>any()))
-        .thenReturn(new ArrayList<>());
+    when(shading.collectTriangles(Mockito.<AffineTransform>any(), Mockito.<Matrix>any())).thenReturn(new ArrayList<>());
     when(shading.getBitsPerFlag()).thenReturn(1);
     when(shading.getBackground()).thenReturn(null);
     when(shading.getColorSpace()).thenReturn(PDDeviceGray.INSTANCE);
     DirectColorModel cm = new DirectColorModel(1, 1, 1, 1);
+
     AffineTransform xform = new AffineTransform();
     Matrix matrix = new Matrix();
-
-    Type4ShadingContext type4ShadingContext =
-        new Type4ShadingContext(shading, cm, xform, matrix, new Rectangle());
+    Type4ShadingContext type4ShadingContext = new Type4ShadingContext(shading, cm, xform, matrix, new Rectangle(1, 1));
     ArrayList<ShadedTriangle> triangleList = new ArrayList<>();
 
     // Act
-    type4ShadingContext.calcPixelTable(
-        triangleList, new int[][] {new int[] {1, 0, 1, 0}}, new Rectangle());
+    type4ShadingContext.calcPixelTable(triangleList, new int[][]{new int[]{1, 0, 1, 0}}, new Rectangle(1, 1));
 
     // Assert
     verify(shading).getBackground();
@@ -154,36 +139,31 @@ class TriangleBasedShadingContextDiffblueTest {
 
   /**
    * Test {@link TriangleBasedShadingContext#getRaster(int, int, int, int)}.
-   *
    * <ul>
-   *   <li>Given {@link PDShadingType4} {@link PDShadingType4#getBackground()} return {@code null}.
+   *   <li>Given {@link PDShadingType4} {@link PDShading#getBackground()} return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TriangleBasedShadingContext#getRaster(int, int, int, int)}
+   * <p>
+   * Method under test: {@link TriangleBasedShadingContext#getRaster(int, int, int, int)}
    */
   @Test
-  @DisplayName(
-      "Test getRaster(int, int, int, int); given PDShadingType4 getBackground() return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getRaster(int, int, int, int); given PDShadingType4 getBackground() return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Raster TriangleBasedShadingContext.getRaster(int, int, int, int)"})
   void testGetRaster_givenPDShadingType4GetBackgroundReturnNull() throws IOException {
     // Arrange
     PDShadingType4 shading = mock(PDShadingType4.class);
-    when(shading.collectTriangles(Mockito.<AffineTransform>any(), Mockito.<Matrix>any()))
-        .thenReturn(new ArrayList<>());
+    when(shading.collectTriangles(Mockito.<AffineTransform>any(), Mockito.<Matrix>any())).thenReturn(new ArrayList<>());
     when(shading.getBitsPerFlag()).thenReturn(1);
     when(shading.getBackground()).thenReturn(null);
     when(shading.getColorSpace()).thenReturn(PDDeviceGray.INSTANCE);
     DirectColorModel cm = new DirectColorModel(1, 1, 1, 1);
+
     AffineTransform xform = new AffineTransform();
     Matrix matrix = new Matrix();
 
-    Type4ShadingContext type4ShadingContext =
-        new Type4ShadingContext(shading, cm, xform, matrix, new Rectangle());
-
     // Act
-    Raster actualRaster = type4ShadingContext.getRaster(2, 3, 1, 1);
+    Raster actualRaster = (new Type4ShadingContext(shading, cm, xform, matrix, new Rectangle(1, 1))).getRaster(2, 3, 1,
+        1);
 
     // Assert
     verify(shading).getBackground();
@@ -194,108 +174,42 @@ class TriangleBasedShadingContextDiffblueTest {
     assertTrue(dataBuffer instanceof DataBufferByte);
     SampleModel sampleModel = actualRaster.getSampleModel();
     assertTrue(sampleModel instanceof PixelInterleavedSampleModel);
-    assertArrayEquals(new byte[] {0, 0, 0, 0}, ((DataBufferByte) dataBuffer).getData());
-    assertArrayEquals(new int[] {0}, dataBuffer.getOffsets());
-    assertArrayEquals(
-        new int[] {0, 0, 0, 0}, ((PixelInterleavedSampleModel) sampleModel).getBankIndices());
-    assertArrayEquals(
-        new int[] {0, 1, 2, 3}, ((PixelInterleavedSampleModel) sampleModel).getBandOffsets());
-    assertArrayEquals(new int[] {8, 8, 8, 8}, sampleModel.getSampleSize());
+    assertArrayEquals(new byte[]{0, 0, 0, 0}, ((DataBufferByte) dataBuffer).getData());
+    assertArrayEquals(new int[]{0}, dataBuffer.getOffsets());
+    assertArrayEquals(new int[]{0, 0, 0, 0}, ((PixelInterleavedSampleModel) sampleModel).getBankIndices());
+    assertArrayEquals(new int[]{0, 1, 2, 3}, ((PixelInterleavedSampleModel) sampleModel).getBandOffsets());
+    assertArrayEquals(new int[]{8, 8, 8, 8}, sampleModel.getSampleSize());
   }
 
   /**
    * Test {@link TriangleBasedShadingContext#getRaster(int, int, int, int)}.
-   *
    * <ul>
-   *   <li>Given {@link Rectangle#Rectangle()} add two and two.
+   *   <li>Given {@link Rectangle#Rectangle(int, int, int, int)} with four and four and four and four.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TriangleBasedShadingContext#getRaster(int, int, int, int)}
+   * <p>
+   * Method under test: {@link TriangleBasedShadingContext#getRaster(int, int, int, int)}
    */
   @Test
-  @DisplayName("Test getRaster(int, int, int, int); given Rectangle() add two and two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Raster TriangleBasedShadingContext.getRaster(int, int, int, int)"})
-  void testGetRaster_givenRectangleAddTwoAndTwo() throws IOException {
-    // Arrange
-    COSArray cosArray = mock(COSArray.class);
-    when(cosArray.toFloatArray()).thenReturn(new float[] {10.0f, 0.5f, 10.0f, 0.5f});
-
-    PDShadingType4 shading = mock(PDShadingType4.class);
-    when(shading.collectTriangles(Mockito.<AffineTransform>any(), Mockito.<Matrix>any()))
-        .thenReturn(new ArrayList<>());
-    when(shading.getBitsPerFlag()).thenReturn(1);
-    when(shading.getBackground()).thenReturn(cosArray);
-    when(shading.getColorSpace()).thenReturn(PDDeviceGray.INSTANCE);
-
-    Rectangle deviceBounds = new Rectangle();
-    deviceBounds.add(2, 2);
-    DirectColorModel cm = new DirectColorModel(1, 1, 1, 1);
-    AffineTransform xform = new AffineTransform();
-
-    Type4ShadingContext type4ShadingContext =
-        new Type4ShadingContext(shading, cm, xform, new Matrix(), deviceBounds);
-
-    // Act
-    Raster actualRaster = type4ShadingContext.getRaster(2, 3, 1, 1);
-
-    // Assert
-    verify(cosArray).toFloatArray();
-    verify(shading).getBackground();
-    verify(shading).getColorSpace();
-    verify(shading).collectTriangles(isA(AffineTransform.class), isA(Matrix.class));
-    verify(shading).getBitsPerFlag();
-    DataBuffer dataBuffer = actualRaster.getDataBuffer();
-    assertTrue(dataBuffer instanceof DataBufferByte);
-    SampleModel sampleModel = actualRaster.getSampleModel();
-    assertTrue(sampleModel instanceof PixelInterleavedSampleModel);
-    assertArrayEquals(new byte[] {0, 0, 0, 0}, ((DataBufferByte) dataBuffer).getData());
-    assertArrayEquals(new int[] {0}, dataBuffer.getOffsets());
-    assertArrayEquals(
-        new int[] {0, 0, 0, 0}, ((PixelInterleavedSampleModel) sampleModel).getBankIndices());
-    assertArrayEquals(
-        new int[] {0, 1, 2, 3}, ((PixelInterleavedSampleModel) sampleModel).getBandOffsets());
-    assertArrayEquals(new int[] {8, 8, 8, 8}, sampleModel.getSampleSize());
-  }
-
-  /**
-   * Test {@link TriangleBasedShadingContext#getRaster(int, int, int, int)}.
-   *
-   * <ul>
-   *   <li>Given {@link Rectangle#Rectangle(int, int, int, int)} with four and four and four and
-   *       four.
-   * </ul>
-   *
-   * <p>Method under test: {@link TriangleBasedShadingContext#getRaster(int, int, int, int)}
-   */
-  @Test
-  @DisplayName(
-      "Test getRaster(int, int, int, int); given Rectangle(int, int, int, int) with four and four and four and four")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getRaster(int, int, int, int); given Rectangle(int, int, int, int) with four and four and four and four")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Raster TriangleBasedShadingContext.getRaster(int, int, int, int)"})
   void testGetRaster_givenRectangleWithFourAndFourAndFourAndFour() throws IOException {
     // Arrange
     COSArray cosArray = mock(COSArray.class);
-    when(cosArray.toFloatArray()).thenReturn(new float[] {10.0f, 0.5f, 10.0f, 0.5f});
-
+    when(cosArray.toFloatArray()).thenReturn(new float[]{10.0f, 0.5f, 10.0f, 0.5f});
     PDShadingType4 shading = mock(PDShadingType4.class);
-    when(shading.collectTriangles(Mockito.<AffineTransform>any(), Mockito.<Matrix>any()))
-        .thenReturn(new ArrayList<>());
+    when(shading.collectTriangles(Mockito.<AffineTransform>any(), Mockito.<Matrix>any())).thenReturn(new ArrayList<>());
     when(shading.getBitsPerFlag()).thenReturn(1);
     when(shading.getBackground()).thenReturn(cosArray);
     when(shading.getColorSpace()).thenReturn(PDDeviceGray.INSTANCE);
     DirectColorModel cm = new DirectColorModel(1, 1, 1, 1);
+
     AffineTransform xform = new AffineTransform();
     Matrix matrix = new Matrix();
-    Rectangle deviceBounds = new Rectangle(4, 4, 4, 4);
-
-    Type4ShadingContext type4ShadingContext =
-        new Type4ShadingContext(shading, cm, xform, matrix, deviceBounds);
 
     // Act
-    Raster actualRaster = type4ShadingContext.getRaster(2, 3, 1, 1);
+    Raster actualRaster = (new Type4ShadingContext(shading, cm, xform, matrix, new Rectangle(4, 4, 4, 4))).getRaster(2,
+        3, 1, 1);
 
     // Assert
     verify(cosArray).toFloatArray();
@@ -312,55 +226,46 @@ class TriangleBasedShadingContextDiffblueTest {
     assertTrue(dataBuffer instanceof DataBufferByte);
     SampleModel sampleModel = actualRaster.getSampleModel();
     assertTrue(sampleModel instanceof PixelInterleavedSampleModel);
-    Rectangle actualBounds = bounds.getBounds();
-    assertEquals(bounds, actualBounds);
+    assertEquals(bounds, bounds.getBounds());
     assertEquals(bounds, bounds2D);
     assertEquals(bounds, frame);
-    assertArrayEquals(new byte[] {0, 0, 0, 0}, ((DataBufferByte) dataBuffer).getData());
-    assertArrayEquals(new int[] {0}, dataBuffer.getOffsets());
-    assertArrayEquals(
-        new int[] {0, 0, 0, 0}, ((PixelInterleavedSampleModel) sampleModel).getBankIndices());
-    assertArrayEquals(
-        new int[] {0, 1, 2, 3}, ((PixelInterleavedSampleModel) sampleModel).getBandOffsets());
-    assertArrayEquals(new int[] {8, 8, 8, 8}, sampleModel.getSampleSize());
+    assertArrayEquals(new byte[]{0, 0, 0, 0}, ((DataBufferByte) dataBuffer).getData());
+    assertArrayEquals(new int[]{0}, dataBuffer.getOffsets());
+    assertArrayEquals(new int[]{0, 0, 0, 0}, ((PixelInterleavedSampleModel) sampleModel).getBankIndices());
+    assertArrayEquals(new int[]{0, 1, 2, 3}, ((PixelInterleavedSampleModel) sampleModel).getBandOffsets());
+    assertArrayEquals(new int[]{8, 8, 8, 8}, sampleModel.getSampleSize());
   }
 
   /**
    * Test {@link TriangleBasedShadingContext#getRaster(int, int, int, int)}.
-   *
    * <ul>
-   *   <li>Then return DataBuffer Data is array of {@code byte} with minus ten and minus one.
+   *   <li>Given {@link Rectangle#Rectangle(int, int)} with four and one.</li>
+   *   <li>Then Bounds Bounds2D return {@link Rectangle}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TriangleBasedShadingContext#getRaster(int, int, int, int)}
+   * <p>
+   * Method under test: {@link TriangleBasedShadingContext#getRaster(int, int, int, int)}
    */
   @Test
-  @DisplayName(
-      "Test getRaster(int, int, int, int); then return DataBuffer Data is array of byte with minus ten and minus one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getRaster(int, int, int, int); given Rectangle(int, int) with four and one; then Bounds Bounds2D return Rectangle")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Raster TriangleBasedShadingContext.getRaster(int, int, int, int)"})
-  void testGetRaster_thenReturnDataBufferDataIsArrayOfByteWithMinusTenAndMinusOne()
-      throws IOException {
+  void testGetRaster_givenRectangleWithFourAndOne_thenBoundsBounds2DReturnRectangle() throws IOException {
     // Arrange
     COSArray cosArray = mock(COSArray.class);
-    when(cosArray.toFloatArray()).thenReturn(new float[] {10.0f, 0.5f, 10.0f, 0.5f});
-
+    when(cosArray.toFloatArray()).thenReturn(new float[]{10.0f, 0.5f, 10.0f, 0.5f});
     PDShadingType4 shading = mock(PDShadingType4.class);
-    when(shading.collectTriangles(Mockito.<AffineTransform>any(), Mockito.<Matrix>any()))
-        .thenReturn(new ArrayList<>());
+    when(shading.collectTriangles(Mockito.<AffineTransform>any(), Mockito.<Matrix>any())).thenReturn(new ArrayList<>());
     when(shading.getBitsPerFlag()).thenReturn(1);
     when(shading.getBackground()).thenReturn(cosArray);
     when(shading.getColorSpace()).thenReturn(PDDeviceGray.INSTANCE);
     DirectColorModel cm = new DirectColorModel(1, 1, 1, 1);
+
     AffineTransform xform = new AffineTransform();
     Matrix matrix = new Matrix();
 
-    Type4ShadingContext type4ShadingContext =
-        new Type4ShadingContext(shading, cm, xform, matrix, new Rectangle(4, 4));
-
     // Act
-    Raster actualRaster = type4ShadingContext.getRaster(2, 3, 1, 1);
+    Raster actualRaster = (new Type4ShadingContext(shading, cm, xform, matrix, new Rectangle(4, 1))).getRaster(2, 3, 1,
+        1);
 
     // Assert
     verify(cosArray).toFloatArray();
@@ -377,54 +282,102 @@ class TriangleBasedShadingContextDiffblueTest {
     assertTrue(dataBuffer instanceof DataBufferByte);
     SampleModel sampleModel = actualRaster.getSampleModel();
     assertTrue(sampleModel instanceof PixelInterleavedSampleModel);
-    Rectangle actualBounds = bounds.getBounds();
-    assertEquals(bounds, actualBounds);
+    assertEquals(bounds, bounds.getBounds());
     assertEquals(bounds, bounds2D);
     assertEquals(bounds, frame);
-    assertArrayEquals(new byte[] {-10, -1, -1, -1}, ((DataBufferByte) dataBuffer).getData());
-    assertArrayEquals(new int[] {0}, dataBuffer.getOffsets());
-    assertArrayEquals(
-        new int[] {0, 0, 0, 0}, ((PixelInterleavedSampleModel) sampleModel).getBankIndices());
-    assertArrayEquals(
-        new int[] {0, 1, 2, 3}, ((PixelInterleavedSampleModel) sampleModel).getBandOffsets());
-    assertArrayEquals(new int[] {8, 8, 8, 8}, sampleModel.getSampleSize());
+    assertArrayEquals(new byte[]{0, 0, 0, 0}, ((DataBufferByte) dataBuffer).getData());
+    assertArrayEquals(new int[]{0}, dataBuffer.getOffsets());
+    assertArrayEquals(new int[]{0, 0, 0, 0}, ((PixelInterleavedSampleModel) sampleModel).getBankIndices());
+    assertArrayEquals(new int[]{0, 1, 2, 3}, ((PixelInterleavedSampleModel) sampleModel).getBandOffsets());
+    assertArrayEquals(new int[]{8, 8, 8, 8}, sampleModel.getSampleSize());
   }
 
   /**
    * Test {@link TriangleBasedShadingContext#getRaster(int, int, int, int)}.
-   *
    * <ul>
-   *   <li>Then return DataBuffer Data is array of {@code byte} with zero and zero.
+   *   <li>Then return DataBuffer Data is array of {@code byte} with minus ten and minus one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TriangleBasedShadingContext#getRaster(int, int, int, int)}
+   * <p>
+   * Method under test: {@link TriangleBasedShadingContext#getRaster(int, int, int, int)}
    */
   @Test
-  @DisplayName(
-      "Test getRaster(int, int, int, int); then return DataBuffer Data is array of byte with zero and zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getRaster(int, int, int, int); then return DataBuffer Data is array of byte with minus ten and minus one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Raster TriangleBasedShadingContext.getRaster(int, int, int, int)"})
+  void testGetRaster_thenReturnDataBufferDataIsArrayOfByteWithMinusTenAndMinusOne() throws IOException {
+    // Arrange
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.toFloatArray()).thenReturn(new float[]{10.0f, 0.5f, 10.0f, 0.5f});
+    PDShadingType4 shading = mock(PDShadingType4.class);
+    when(shading.collectTriangles(Mockito.<AffineTransform>any(), Mockito.<Matrix>any())).thenReturn(new ArrayList<>());
+    when(shading.getBitsPerFlag()).thenReturn(1);
+    when(shading.getBackground()).thenReturn(cosArray);
+    when(shading.getColorSpace()).thenReturn(PDDeviceGray.INSTANCE);
+
+    Rectangle deviceBounds = new Rectangle(1, 1);
+    deviceBounds.add(new Point(4, 4));
+    DirectColorModel cm = new DirectColorModel(1, 1, 1, 1);
+
+    AffineTransform xform = new AffineTransform();
+
+    // Act
+    Raster actualRaster = (new Type4ShadingContext(shading, cm, xform, new Matrix(), deviceBounds)).getRaster(2, 3, 1,
+        1);
+
+    // Assert
+    verify(cosArray).toFloatArray();
+    verify(shading).getBackground();
+    verify(shading).getColorSpace();
+    verify(shading).collectTriangles(isA(AffineTransform.class), isA(Matrix.class));
+    verify(shading).getBitsPerFlag();
+    Rectangle bounds = actualRaster.getBounds();
+    Rectangle2D bounds2D = bounds.getBounds2D();
+    assertTrue(bounds2D instanceof Rectangle);
+    Rectangle2D frame = bounds.getFrame();
+    assertTrue(frame instanceof Double);
+    DataBuffer dataBuffer = actualRaster.getDataBuffer();
+    assertTrue(dataBuffer instanceof DataBufferByte);
+    SampleModel sampleModel = actualRaster.getSampleModel();
+    assertTrue(sampleModel instanceof PixelInterleavedSampleModel);
+    assertEquals(bounds, bounds.getBounds());
+    assertEquals(bounds, bounds2D);
+    assertEquals(bounds, frame);
+    assertArrayEquals(new byte[]{-10, -1, -1, -1}, ((DataBufferByte) dataBuffer).getData());
+    assertArrayEquals(new int[]{0}, dataBuffer.getOffsets());
+    assertArrayEquals(new int[]{0, 0, 0, 0}, ((PixelInterleavedSampleModel) sampleModel).getBankIndices());
+    assertArrayEquals(new int[]{0, 1, 2, 3}, ((PixelInterleavedSampleModel) sampleModel).getBandOffsets());
+    assertArrayEquals(new int[]{8, 8, 8, 8}, sampleModel.getSampleSize());
+  }
+
+  /**
+   * Test {@link TriangleBasedShadingContext#getRaster(int, int, int, int)}.
+   * <ul>
+   *   <li>Then return DataBuffer Data is array of {@code byte} with zero and zero.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link TriangleBasedShadingContext#getRaster(int, int, int, int)}
+   */
+  @Test
+  @DisplayName("Test getRaster(int, int, int, int); then return DataBuffer Data is array of byte with zero and zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Raster TriangleBasedShadingContext.getRaster(int, int, int, int)"})
   void testGetRaster_thenReturnDataBufferDataIsArrayOfByteWithZeroAndZero() throws IOException {
     // Arrange
     COSArray cosArray = mock(COSArray.class);
-    when(cosArray.toFloatArray()).thenReturn(new float[] {10.0f, 0.5f, 10.0f, 0.5f});
-
+    when(cosArray.toFloatArray()).thenReturn(new float[]{10.0f, 0.5f, 10.0f, 0.5f});
     PDShadingType4 shading = mock(PDShadingType4.class);
-    when(shading.collectTriangles(Mockito.<AffineTransform>any(), Mockito.<Matrix>any()))
-        .thenReturn(new ArrayList<>());
+    when(shading.collectTriangles(Mockito.<AffineTransform>any(), Mockito.<Matrix>any())).thenReturn(new ArrayList<>());
     when(shading.getBitsPerFlag()).thenReturn(1);
     when(shading.getBackground()).thenReturn(cosArray);
     when(shading.getColorSpace()).thenReturn(PDDeviceGray.INSTANCE);
     DirectColorModel cm = new DirectColorModel(1, 1, 1, 1);
+
     AffineTransform xform = new AffineTransform();
     Matrix matrix = new Matrix();
 
-    Type4ShadingContext type4ShadingContext =
-        new Type4ShadingContext(shading, cm, xform, matrix, new Rectangle());
-
     // Act
-    Raster actualRaster = type4ShadingContext.getRaster(2, 3, 1, 1);
+    Raster actualRaster = (new Type4ShadingContext(shading, cm, xform, matrix, new Rectangle(1, 1))).getRaster(2, 3, 1,
+        1);
 
     // Assert
     verify(cosArray).toFloatArray();
@@ -436,51 +389,43 @@ class TriangleBasedShadingContextDiffblueTest {
     assertTrue(dataBuffer instanceof DataBufferByte);
     SampleModel sampleModel = actualRaster.getSampleModel();
     assertTrue(sampleModel instanceof PixelInterleavedSampleModel);
-    assertArrayEquals(new byte[] {0, 0, 0, 0}, ((DataBufferByte) dataBuffer).getData());
-    assertArrayEquals(new int[] {0}, dataBuffer.getOffsets());
-    assertArrayEquals(
-        new int[] {0, 0, 0, 0}, ((PixelInterleavedSampleModel) sampleModel).getBankIndices());
-    assertArrayEquals(
-        new int[] {0, 1, 2, 3}, ((PixelInterleavedSampleModel) sampleModel).getBandOffsets());
-    assertArrayEquals(new int[] {8, 8, 8, 8}, sampleModel.getSampleSize());
+    assertArrayEquals(new byte[]{0, 0, 0, 0}, ((DataBufferByte) dataBuffer).getData());
+    assertArrayEquals(new int[]{0}, dataBuffer.getOffsets());
+    assertArrayEquals(new int[]{0, 0, 0, 0}, ((PixelInterleavedSampleModel) sampleModel).getBankIndices());
+    assertArrayEquals(new int[]{0, 1, 2, 3}, ((PixelInterleavedSampleModel) sampleModel).getBandOffsets());
+    assertArrayEquals(new int[]{8, 8, 8, 8}, sampleModel.getSampleSize());
   }
 
   /**
    * Test {@link TriangleBasedShadingContext#getRaster(int, int, int, int)}.
-   *
    * <ul>
-   *   <li>When minus one.
-   *   <li>Then Bounds Bounds2D return {@link Rectangle}.
+   *   <li>When minus one.</li>
+   *   <li>Then return DataBuffer Data is array of {@code byte} with zero and zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TriangleBasedShadingContext#getRaster(int, int, int, int)}
+   * <p>
+   * Method under test: {@link TriangleBasedShadingContext#getRaster(int, int, int, int)}
    */
   @Test
-  @DisplayName(
-      "Test getRaster(int, int, int, int); when minus one; then Bounds Bounds2D return Rectangle")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getRaster(int, int, int, int); when minus one; then return DataBuffer Data is array of byte with zero and zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Raster TriangleBasedShadingContext.getRaster(int, int, int, int)"})
-  void testGetRaster_whenMinusOne_thenBoundsBounds2DReturnRectangle() throws IOException {
+  void testGetRaster_whenMinusOne_thenReturnDataBufferDataIsArrayOfByteWithZeroAndZero() throws IOException {
     // Arrange
     COSArray cosArray = mock(COSArray.class);
-    when(cosArray.toFloatArray()).thenReturn(new float[] {10.0f, 0.5f, 10.0f, 0.5f});
-
+    when(cosArray.toFloatArray()).thenReturn(new float[]{10.0f, 0.5f, 10.0f, 0.5f});
     PDShadingType4 shading = mock(PDShadingType4.class);
-    when(shading.collectTriangles(Mockito.<AffineTransform>any(), Mockito.<Matrix>any()))
-        .thenReturn(new ArrayList<>());
+    when(shading.collectTriangles(Mockito.<AffineTransform>any(), Mockito.<Matrix>any())).thenReturn(new ArrayList<>());
     when(shading.getBitsPerFlag()).thenReturn(1);
     when(shading.getBackground()).thenReturn(cosArray);
     when(shading.getColorSpace()).thenReturn(PDDeviceGray.INSTANCE);
     DirectColorModel cm = new DirectColorModel(1, 1, 1, 1);
+
     AffineTransform xform = new AffineTransform();
     Matrix matrix = new Matrix();
 
-    Type4ShadingContext type4ShadingContext =
-        new Type4ShadingContext(shading, cm, xform, matrix, new Rectangle());
-
     // Act
-    Raster actualRaster = type4ShadingContext.getRaster(2, -1, 1, 1);
+    Raster actualRaster = (new Type4ShadingContext(shading, cm, xform, matrix, new Rectangle(1, 1))).getRaster(2, -1, 1,
+        1);
 
     // Assert
     verify(cosArray).toFloatArray();
@@ -488,25 +433,14 @@ class TriangleBasedShadingContextDiffblueTest {
     verify(shading).getColorSpace();
     verify(shading).collectTriangles(isA(AffineTransform.class), isA(Matrix.class));
     verify(shading).getBitsPerFlag();
-    Rectangle bounds = actualRaster.getBounds();
-    Rectangle2D bounds2D = bounds.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Rectangle2D frame = bounds.getFrame();
-    assertTrue(frame instanceof Double);
     DataBuffer dataBuffer = actualRaster.getDataBuffer();
     assertTrue(dataBuffer instanceof DataBufferByte);
     SampleModel sampleModel = actualRaster.getSampleModel();
     assertTrue(sampleModel instanceof PixelInterleavedSampleModel);
-    Rectangle actualBounds = bounds.getBounds();
-    assertEquals(bounds, actualBounds);
-    assertEquals(bounds, bounds2D);
-    assertEquals(bounds, frame);
-    assertArrayEquals(new byte[] {0, 0, 0, 0}, ((DataBufferByte) dataBuffer).getData());
-    assertArrayEquals(new int[] {0}, dataBuffer.getOffsets());
-    assertArrayEquals(
-        new int[] {0, 0, 0, 0}, ((PixelInterleavedSampleModel) sampleModel).getBankIndices());
-    assertArrayEquals(
-        new int[] {0, 1, 2, 3}, ((PixelInterleavedSampleModel) sampleModel).getBandOffsets());
-    assertArrayEquals(new int[] {8, 8, 8, 8}, sampleModel.getSampleSize());
+    assertArrayEquals(new byte[]{0, 0, 0, 0}, ((DataBufferByte) dataBuffer).getData());
+    assertArrayEquals(new int[]{0}, dataBuffer.getOffsets());
+    assertArrayEquals(new int[]{0, 0, 0, 0}, ((PixelInterleavedSampleModel) sampleModel).getBankIndices());
+    assertArrayEquals(new int[]{0, 1, 2, 3}, ((PixelInterleavedSampleModel) sampleModel).getBandOffsets());
+    assertArrayEquals(new int[]{8, 8, 8, 8}, sampleModel.getSampleSize());
   }
 }

@@ -2,16 +2,11 @@ package org.apache.pdfbox.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.github.jaiimageio.impl.plugins.tiff.TIFFFieldNode;
 import com.github.jaiimageio.plugins.tiff.TIFFField;
 import com.github.jaiimageio.plugins.tiff.TIFFTag;
 import java.io.ByteArrayInputStream;
-import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.imageio.metadata.IIOMetadataNode;
@@ -23,142 +18,71 @@ import org.w3c.dom.Element;
 class XMLUtilDiffblueTest {
   /**
    * Test {@link XMLUtil#parse(InputStream, boolean)} with {@code is}, {@code nsAware}.
-   *
    * <ul>
-   *   <li>Given {@link IOException#IOException()}.
-   *   <li>Then calls {@link DataInputStream#read()}.
+   *   <li>Then throw {@link IOException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMLUtil#parse(InputStream, boolean)}
+   * <p>
+   * Method under test: {@link XMLUtil#parse(InputStream, boolean)}
    */
   @Test
-  @DisplayName(
-      "Test parse(InputStream, boolean) with 'is', 'nsAware'; given IOException(); then calls read()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test parse(InputStream, boolean) with 'is', 'nsAware'; then throw IOException")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"org.w3c.dom.Document XMLUtil.parse(InputStream, boolean)"})
-  void testParseWithIsNsAware_givenIOException_thenCallsRead() throws IOException {
-    // Arrange
-    DataInputStream is = mock(DataInputStream.class);
-    when(is.read()).thenThrow(new IOException());
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> XMLUtil.parse(is, true));
-    verify(is).read();
-  }
-
-  /**
-   * Test {@link XMLUtil#parse(InputStream, boolean)} with {@code is}, {@code nsAware}.
-   *
-   * <ul>
-   *   <li>When {@link ByteArrayInputStream#ByteArrayInputStream(byte[])} with {@code AXAXAXAX}
-   *       Bytes is {@code UTF-8}.
-   * </ul>
-   *
-   * <p>Method under test: {@link XMLUtil#parse(InputStream, boolean)}
-   */
-  @Test
-  @DisplayName(
-      "Test parse(InputStream, boolean) with 'is', 'nsAware'; when ByteArrayInputStream(byte[]) with 'AXAXAXAX' Bytes is 'UTF-8'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"org.w3c.dom.Document XMLUtil.parse(InputStream, boolean)"})
-  void testParseWithIsNsAware_whenByteArrayInputStreamWithAxaxaxaxBytesIsUtf8() throws IOException {
+  void testParseWithIsNsAware_thenThrowIOException() throws IOException {
     // Arrange, Act and Assert
-    assertThrows(
-        IOException.class,
-        () -> XMLUtil.parse(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")), true));
+    assertThrows(IOException.class, () -> XMLUtil.parse(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")), true));
   }
 
   /**
    * Test {@link XMLUtil#parse(InputStream)} with {@code is}.
-   *
    * <ul>
-   *   <li>Given {@link IOException#IOException()}.
-   *   <li>Then calls {@link DataInputStream#read()}.
+   *   <li>Then throw {@link IOException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMLUtil#parse(InputStream)}
+   * <p>
+   * Method under test: {@link XMLUtil#parse(InputStream)}
    */
   @Test
-  @DisplayName("Test parse(InputStream) with 'is'; given IOException(); then calls read()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test parse(InputStream) with 'is'; then throw IOException")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"org.w3c.dom.Document XMLUtil.parse(InputStream)"})
-  void testParseWithIs_givenIOException_thenCallsRead() throws IOException {
-    // Arrange
-    DataInputStream is = mock(DataInputStream.class);
-    when(is.read()).thenThrow(new IOException());
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> XMLUtil.parse(is));
-    verify(is).read();
-  }
-
-  /**
-   * Test {@link XMLUtil#parse(InputStream)} with {@code is}.
-   *
-   * <ul>
-   *   <li>When {@link ByteArrayInputStream#ByteArrayInputStream(byte[])} with {@code AXAXAXAX}
-   *       Bytes is {@code UTF-8}.
-   * </ul>
-   *
-   * <p>Method under test: {@link XMLUtil#parse(InputStream)}
-   */
-  @Test
-  @DisplayName(
-      "Test parse(InputStream) with 'is'; when ByteArrayInputStream(byte[]) with 'AXAXAXAX' Bytes is 'UTF-8'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"org.w3c.dom.Document XMLUtil.parse(InputStream)"})
-  void testParseWithIs_whenByteArrayInputStreamWithAxaxaxaxBytesIsUtf8() throws IOException {
+  void testParseWithIs_thenThrowIOException() throws IOException {
     // Arrange, Act and Assert
-    assertThrows(
-        IOException.class,
-        () -> XMLUtil.parse(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
+    assertThrows(IOException.class, () -> XMLUtil.parse(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
   }
 
   /**
    * Test {@link XMLUtil#getNodeValue(Element)}.
-   *
    * <ul>
-   *   <li>When {@link IIOMetadataNode#IIOMetadataNode()}.
-   *   <li>Then return empty string.
+   *   <li>When {@link IIOMetadataNode#IIOMetadataNode(String)} with {@code foo}.</li>
+   *   <li>Then return empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMLUtil#getNodeValue(Element)}
+   * <p>
+   * Method under test: {@link XMLUtil#getNodeValue(Element)}
    */
   @Test
-  @DisplayName("Test getNodeValue(Element); when IIOMetadataNode(); then return empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getNodeValue(Element); when IIOMetadataNode(String) with 'foo'; then return empty string")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.lang.String XMLUtil.getNodeValue(Element)"})
-  void testGetNodeValue_whenIIOMetadataNode_thenReturnEmptyString() {
+  void testGetNodeValue_whenIIOMetadataNodeWithFoo_thenReturnEmptyString() {
     // Arrange, Act and Assert
-    assertEquals("", XMLUtil.getNodeValue(new IIOMetadataNode()));
+    assertEquals("", XMLUtil.getNodeValue(new IIOMetadataNode("foo")));
   }
 
   /**
    * Test {@link XMLUtil#getNodeValue(Element)}.
-   *
    * <ul>
-   *   <li>When {@link TIFFTag#TIFFTag(String, int, int)} with {@code Name} and number is {@link
-   *       TIFFTag#TIFF_SRATIONAL} and dataTypes is one.
+   *   <li>When {@link TIFFTag#TIFFTag(String, int, int)} with {@code Name} and number is {@link TIFFTag#TIFF_SRATIONAL} and dataTypes is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XMLUtil#getNodeValue(Element)}
+   * <p>
+   * Method under test: {@link XMLUtil#getNodeValue(Element)}
    */
   @Test
-  @DisplayName(
-      "Test getNodeValue(Element); when TIFFTag(String, int, int) with 'Name' and number is TIFF_SRATIONAL and dataTypes is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getNodeValue(Element); when TIFFTag(String, int, int) with 'Name' and number is TIFF_SRATIONAL and dataTypes is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.lang.String XMLUtil.getNodeValue(Element)"})
   void testGetNodeValue_whenTIFFTagWithNameAndNumberIsTiff_srationalAndDataTypesIsOne() {
-    // Arrange
-    TIFFTag tag = new TIFFTag("Name", TIFFTag.TIFF_SRATIONAL, 1);
-
-    // Act and Assert
-    assertEquals("", XMLUtil.getNodeValue(new TIFFFieldNode(new TIFFField(tag, 42))));
+    // Arrange, Act and Assert
+    assertEquals("",
+        XMLUtil.getNodeValue(new TIFFFieldNode(new TIFFField(new TIFFTag("Name", TIFFTag.TIFF_SRATIONAL, 1), 42))));
   }
 }

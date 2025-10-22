@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import org.apache.pdfbox.cos.COSDictionary;
@@ -19,13 +18,12 @@ import org.junit.jupiter.api.Test;
 class PDAnnotationTextDiffblueTest {
   /**
    * Test {@link PDAnnotationText#PDAnnotationText()}.
-   *
-   * <p>Method under test: {@link PDAnnotationText#PDAnnotationText()}
+   * <p>
+   * Method under test: {@link PDAnnotationText#PDAnnotationText()}
    */
   @Test
   @DisplayName("Test new PDAnnotationText()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationText.<init>()"})
   void testNewPDAnnotationText() throws IOException {
     // Arrange and Act
@@ -74,22 +72,18 @@ class PDAnnotationTextDiffblueTest {
 
   /**
    * Test {@link PDAnnotationText#PDAnnotationText(COSDictionary)}.
-   *
    * <ul>
-   *   <li>When {@link COSDictionary#COSDictionary()}.
-   *   <li>Then return AnnotationName is {@code null}.
+   *   <li>When {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then return AnnotationName is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationText#PDAnnotationText(COSDictionary)}
+   * <p>
+   * Method under test: {@link PDAnnotationText#PDAnnotationText(COSDictionary)}
    */
   @Test
-  @DisplayName(
-      "Test new PDAnnotationText(COSDictionary); when COSDictionary(); then return AnnotationName is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new PDAnnotationText(COSDictionary); when COSDictionary(); then return AnnotationName is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationText.<init>(COSDictionary)"})
-  void testNewPDAnnotationText_whenCOSDictionary_thenReturnAnnotationNameIsNull()
-      throws IOException {
+  void testNewPDAnnotationText_whenCOSDictionary_thenReturnAnnotationNameIsNull() throws IOException {
     // Arrange
     COSDictionary field = new COSDictionary();
 
@@ -141,18 +135,16 @@ class PDAnnotationTextDiffblueTest {
 
   /**
    * Test {@link PDAnnotationText#setOpen(boolean)}.
-   *
    * <ul>
-   *   <li>When {@code false}.
-   *   <li>Then not {@link PDAnnotationText#PDAnnotationText()} Open.
+   *   <li>When {@code false}.</li>
+   *   <li>Then not {@link PDAnnotationText#PDAnnotationText()} Open.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationText#setOpen(boolean)}
+   * <p>
+   * Method under test: {@link PDAnnotationText#setOpen(boolean)}
    */
   @Test
   @DisplayName("Test setOpen(boolean); when 'false'; then not PDAnnotationText() Open")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationText.setOpen(boolean)"})
   void testSetOpen_whenFalse_thenNotPDAnnotationTextOpen() {
     // Arrange
@@ -170,18 +162,16 @@ class PDAnnotationTextDiffblueTest {
 
   /**
    * Test {@link PDAnnotationText#setOpen(boolean)}.
-   *
    * <ul>
-   *   <li>When {@code true}.
-   *   <li>Then {@link PDAnnotationText#PDAnnotationText()} Open.
+   *   <li>When {@code true}.</li>
+   *   <li>Then {@link PDAnnotationText#PDAnnotationText()} Open.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationText#setOpen(boolean)}
+   * <p>
+   * Method under test: {@link PDAnnotationText#setOpen(boolean)}
    */
   @Test
   @DisplayName("Test setOpen(boolean); when 'true'; then PDAnnotationText() Open")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationText.setOpen(boolean)"})
   void testSetOpen_whenTrue_thenPDAnnotationTextOpen() {
     // Arrange
@@ -199,58 +189,81 @@ class PDAnnotationTextDiffblueTest {
 
   /**
    * Test {@link PDAnnotationText#getOpen()}.
-   *
    * <ul>
-   *   <li>Given {@link PDAnnotationText#PDAnnotationText()}.
+   *   <li>Given {@link PDAnnotationText#PDAnnotationText()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationText#getOpen()}
+   * <p>
+   * Method under test: {@link PDAnnotationText#getOpen()}
    */
   @Test
   @DisplayName("Test getOpen(); given PDAnnotationText()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDAnnotationText.getOpen()"})
   void testGetOpen_givenPDAnnotationText() {
     // Arrange, Act and Assert
-    assertFalse(new PDAnnotationText().getOpen());
+    assertFalse((new PDAnnotationText()).getOpen());
   }
 
   /**
    * Test {@link PDAnnotationText#getOpen()}.
-   *
    * <ul>
-   *   <li>Given {@link PDAnnotationText#PDAnnotationText(COSDictionary)} with field is {@link
-   *       COSDictionary#COSDictionary()}.
+   *   <li>Given {@link PDAnnotationText#PDAnnotationText()} Contents is {@code PolygonValue}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationText#getOpen()}
+   * <p>
+   * Method under test: {@link PDAnnotationText#getOpen()}
    */
   @Test
-  @DisplayName(
-      "Test getOpen(); given PDAnnotationText(COSDictionary) with field is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getOpen(); given PDAnnotationText() Contents is 'PolygonValue'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDAnnotationText.getOpen()"})
-  void testGetOpen_givenPDAnnotationTextWithFieldIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertFalse(new PDAnnotationText(new COSDictionary()).getOpen());
+  void testGetOpen_givenPDAnnotationTextContentsIsPolygonValue() {
+    // Arrange
+    PDAnnotationText pdAnnotationText = new PDAnnotationText();
+    pdAnnotationText.setContents("PolygonValue");
+
+    // Act and Assert
+    assertFalse(pdAnnotationText.getOpen());
   }
 
   /**
    * Test {@link PDAnnotationText#setName(String)}.
-   *
    * <ul>
-   *   <li>When {@code Name}.
-   *   <li>Then {@link PDAnnotationText#PDAnnotationText()} Name is {@code Name}.
+   *   <li>When {@code 42}.</li>
+   *   <li>Then {@link PDAnnotationText#PDAnnotationText()} Name is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationText#setName(String)}
+   * <p>
+   * Method under test: {@link PDAnnotationText#setName(String)}
+   */
+  @Test
+  @DisplayName("Test setName(String); when '42'; then PDAnnotationText() Name is '42'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDAnnotationText.setName(String)"})
+  void testSetName_when42_thenPDAnnotationTextNameIs42() {
+    // Arrange
+    PDAnnotationText pdAnnotationText = new PDAnnotationText();
+
+    // Act
+    pdAnnotationText.setName("42");
+
+    // Assert
+    assertEquals("42", pdAnnotationText.getName());
+    COSDictionary cOSObject = pdAnnotationText.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDAnnotationText#setName(String)}.
+   * <ul>
+   *   <li>When {@code Name}.</li>
+   *   <li>Then {@link PDAnnotationText#PDAnnotationText()} Name is {@code Name}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDAnnotationText#setName(String)}
    */
   @Test
   @DisplayName("Test setName(String); when 'Name'; then PDAnnotationText() Name is 'Name'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationText.setName(String)"})
   void testSetName_whenName_thenPDAnnotationTextNameIsName() {
     // Arrange
@@ -267,110 +280,43 @@ class PDAnnotationTextDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotationText#setName(String)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDAnnotationText#PDAnnotationText()} COSObject Values size is two.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationText#setName(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test setName(String); when 'null'; then PDAnnotationText() COSObject Values size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAnnotationText.setName(String)"})
-  void testSetName_whenNull_thenPDAnnotationTextCOSObjectValuesSizeIsTwo() {
-    // Arrange
-    PDAnnotationText pdAnnotationText = new PDAnnotationText();
-
-    // Act
-    pdAnnotationText.setName(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdAnnotationText.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertEquals(PDAnnotationText.NAME_NOTE, pdAnnotationText.getName());
-  }
-
-  /**
-   * Test {@link PDAnnotationText#setName(String)}.
-   *
-   * <ul>
-   *   <li>When {@code Open}.
-   *   <li>Then {@link PDAnnotationText#PDAnnotationText()} Name is {@code Open}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationText#setName(String)}
-   */
-  @Test
-  @DisplayName("Test setName(String); when 'Open'; then PDAnnotationText() Name is 'Open'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAnnotationText.setName(String)"})
-  void testSetName_whenOpen_thenPDAnnotationTextNameIsOpen() {
-    // Arrange
-    PDAnnotationText pdAnnotationText = new PDAnnotationText();
-
-    // Act
-    pdAnnotationText.setName("Open");
-
-    // Assert
-    assertEquals("Open", pdAnnotationText.getName());
-    COSDictionary cOSObject = pdAnnotationText.getCOSObject();
-    assertEquals(3, cOSObject.getValues().size());
-    assertEquals(3, cOSObject.size());
-  }
-
-  /**
    * Test {@link PDAnnotationText#getName()}.
-   *
-   * <p>Method under test: {@link PDAnnotationText#getName()}
+   * <p>
+   * Method under test: {@link PDAnnotationText#getName()}
    */
   @Test
   @DisplayName("Test getName()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDAnnotationText.getName()"})
   void testGetName() {
     // Arrange, Act and Assert
-    assertEquals(PDAnnotationText.NAME_NOTE, new PDAnnotationText().getName());
+    assertEquals(PDAnnotationText.NAME_NOTE, (new PDAnnotationText()).getName());
   }
 
   /**
    * Test {@link PDAnnotationText#getState()}.
-   *
-   * <p>Method under test: {@link PDAnnotationText#getState()}
+   * <p>
+   * Method under test: {@link PDAnnotationText#getState()}
    */
   @Test
   @DisplayName("Test getState()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDAnnotationText.getState()"})
   void testGetState() {
     // Arrange, Act and Assert
-    assertNull(new PDAnnotationText().getState());
+    assertNull((new PDAnnotationText()).getState());
   }
 
   /**
    * Test {@link PDAnnotationText#setState(String)}.
-   *
-   * <ul>
-   *   <li>When {@code MD}.
-   *   <li>Then {@link PDAnnotationText#PDAnnotationText()} State is {@code MD}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationText#setState(String)}
+   * <p>
+   * Method under test: {@link PDAnnotationText#setState(String)}
    */
   @Test
-  @DisplayName("Test setState(String); when 'MD'; then PDAnnotationText() State is 'MD'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setState(String)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationText.setState(String)"})
-  void testSetState_whenMd_thenPDAnnotationTextStateIsMd() {
+  void testSetState() {
     // Arrange
     PDAnnotationText pdAnnotationText = new PDAnnotationText();
 
@@ -385,65 +331,29 @@ class PDAnnotationTextDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotationText#setState(String)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDAnnotationText#PDAnnotationText()} COSObject Values size is two.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationText#setState(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test setState(String); when 'null'; then PDAnnotationText() COSObject Values size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAnnotationText.setState(String)"})
-  void testSetState_whenNull_thenPDAnnotationTextCOSObjectValuesSizeIsTwo() {
-    // Arrange
-    PDAnnotationText pdAnnotationText = new PDAnnotationText();
-
-    // Act
-    pdAnnotationText.setState(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdAnnotationText.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-  }
-
-  /**
    * Test {@link PDAnnotationText#getStateModel()}.
-   *
-   * <p>Method under test: {@link PDAnnotationText#getStateModel()}
+   * <p>
+   * Method under test: {@link PDAnnotationText#getStateModel()}
    */
   @Test
   @DisplayName("Test getStateModel()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDAnnotationText.getStateModel()"})
   void testGetStateModel() {
     // Arrange, Act and Assert
-    assertNull(new PDAnnotationText().getStateModel());
+    assertNull((new PDAnnotationText()).getStateModel());
   }
 
   /**
    * Test {@link PDAnnotationText#setStateModel(String)}.
-   *
-   * <ul>
-   *   <li>When {@code MD}.
-   *   <li>Then {@link PDAnnotationText#PDAnnotationText()} StateModel is {@code MD}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationText#setStateModel(String)}
+   * <p>
+   * Method under test: {@link PDAnnotationText#setStateModel(String)}
    */
   @Test
-  @DisplayName("Test setStateModel(String); when 'MD'; then PDAnnotationText() StateModel is 'MD'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setStateModel(String)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationText.setStateModel(String)"})
-  void testSetStateModel_whenMd_thenPDAnnotationTextStateModelIsMd() {
+  void testSetStateModel() {
     // Arrange
     PDAnnotationText pdAnnotationText = new PDAnnotationText();
 
@@ -458,48 +368,16 @@ class PDAnnotationTextDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotationText#setStateModel(String)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDAnnotationText#PDAnnotationText()} COSObject Values size is two.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationText#setStateModel(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test setStateModel(String); when 'null'; then PDAnnotationText() COSObject Values size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAnnotationText.setStateModel(String)"})
-  void testSetStateModel_whenNull_thenPDAnnotationTextCOSObjectValuesSizeIsTwo() {
-    // Arrange
-    PDAnnotationText pdAnnotationText = new PDAnnotationText();
-
-    // Act
-    pdAnnotationText.setStateModel(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdAnnotationText.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-  }
-
-  /**
    * Test {@link PDAnnotationText#constructAppearances(PDDocument)} with {@code PDDocument}.
-   *
    * <ul>
-   *   <li>Then array length is three.
+   *   <li>Then array length is three.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationText#constructAppearances(PDDocument)}
+   * <p>
+   * Method under test: {@link PDAnnotationText#constructAppearances(PDDocument)}
    */
   @Test
-  @DisplayName(
-      "Test constructAppearances(PDDocument) with 'PDDocument'; then array length is three")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test constructAppearances(PDDocument) with 'PDDocument'; then array length is three")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationText.constructAppearances(PDDocument)"})
   void testConstructAppearancesWithPDDocument_thenArrayLengthIsThree() {
     // Arrange
@@ -512,26 +390,23 @@ class PDAnnotationTextDiffblueTest {
     // Assert
     float[][] values = pdAnnotationText.getNormalAppearanceStream().getMatrix().getValues();
     assertEquals(3, values.length);
-    assertArrayEquals(new float[] {-0.0f, -0.0f, 1.0f}, values[2], 0.0f);
-    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
-    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
+    assertArrayEquals(new float[]{-0.0f, -0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[]{0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[]{1.0f, 0.0f, 0.0f}, values[0], 0.0f);
   }
 
   /**
    * Test {@link PDAnnotationText#constructAppearances(PDDocument)} with {@code PDDocument}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then array length is three.
+   *   <li>When {@code null}.</li>
+   *   <li>Then array length is three.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationText#constructAppearances(PDDocument)}
+   * <p>
+   * Method under test: {@link PDAnnotationText#constructAppearances(PDDocument)}
    */
   @Test
-  @DisplayName(
-      "Test constructAppearances(PDDocument) with 'PDDocument'; when 'null'; then array length is three")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test constructAppearances(PDDocument) with 'PDDocument'; when 'null'; then array length is three")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAnnotationText.constructAppearances(PDDocument)"})
   void testConstructAppearancesWithPDDocument_whenNull_thenArrayLengthIsThree() {
     // Arrange
@@ -544,8 +419,8 @@ class PDAnnotationTextDiffblueTest {
     // Assert
     float[][] values = pdAnnotationText.getNormalAppearanceStream().getMatrix().getValues();
     assertEquals(3, values.length);
-    assertArrayEquals(new float[] {-0.0f, -0.0f, 1.0f}, values[2], 0.0f);
-    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
-    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
+    assertArrayEquals(new float[]{-0.0f, -0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[]{0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[]{1.0f, 0.0f, 0.0f}, values[0], 0.0f);
   }
 }

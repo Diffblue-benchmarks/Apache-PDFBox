@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,9 +18,8 @@ import org.junit.jupiter.api.Test;
 class CFFCIDFontDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link CFFCIDFont#setFdSelect(FDSelect)}
    *   <li>{@link CFFCIDFont#setFontDict(List)}
@@ -39,22 +37,12 @@ class CFFCIDFontDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "FDSelect CFFCIDFont.getFdSelect()",
-    "List CFFCIDFont.getFontDicts()",
-    "String CFFCIDFont.getOrdering()",
-    "List CFFCIDFont.getPrivDicts()",
-    "String CFFCIDFont.getRegistry()",
-    "int CFFCIDFont.getSupplement()",
-    "void CFFCIDFont.setFdSelect(FDSelect)",
-    "void CFFCIDFont.setFontDict(List)",
-    "void CFFCIDFont.setOrdering(String)",
-    "void CFFCIDFont.setPrivDict(List)",
-    "void CFFCIDFont.setRegistry(String)",
-    "void CFFCIDFont.setSupplement(int)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"FDSelect CFFCIDFont.getFdSelect()", "List CFFCIDFont.getFontDicts()",
+      "String CFFCIDFont.getOrdering()", "List CFFCIDFont.getPrivDicts()", "String CFFCIDFont.getRegistry()",
+      "int CFFCIDFont.getSupplement()", "void CFFCIDFont.setFdSelect(FDSelect)", "void CFFCIDFont.setFontDict(List)",
+      "void CFFCIDFont.setOrdering(String)", "void CFFCIDFont.setPrivDict(List)", "void CFFCIDFont.setRegistry(String)",
+      "void CFFCIDFont.setSupplement(int)"})
   void testGettersAndSetters() {
     // Arrange
     CFFCIDFont cffcidFont = new CFFCIDFont();
@@ -88,99 +76,86 @@ class CFFCIDFontDiffblueTest {
 
   /**
    * Test {@link CFFCIDFont#getPath(String)}.
-   *
    * <ul>
-   *   <li>Given {@link CFFCIDFont} (default constructor).
-   *   <li>When {@code Selector}.
-   *   <li>Then throw {@link IllegalArgumentException}.
+   *   <li>Given {@link CFFCIDFont} (default constructor).</li>
+   *   <li>When {@code Selector}.</li>
+   *   <li>Then throw {@link IllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CFFCIDFont#getPath(String)}
+   * <p>
+   * Method under test: {@link CFFCIDFont#getPath(String)}
    */
   @Test
-  @DisplayName(
-      "Test getPath(String); given CFFCIDFont (default constructor); when 'Selector'; then throw IllegalArgumentException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getPath(String); given CFFCIDFont (default constructor); when 'Selector'; then throw IllegalArgumentException")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.awt.geom.GeneralPath CFFCIDFont.getPath(String)"})
-  void testGetPath_givenCFFCIDFont_whenSelector_thenThrowIllegalArgumentException()
-      throws IOException {
+  void testGetPath_givenCFFCIDFont_whenSelector_thenThrowIllegalArgumentException() throws IOException {
     // Arrange, Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> new CFFCIDFont().getPath("Selector"));
+    assertThrows(IllegalArgumentException.class, () -> (new CFFCIDFont()).getPath("Selector"));
   }
 
   /**
    * Test {@link CFFCIDFont#getWidth(String)}.
-   *
    * <ul>
-   *   <li>Given {@link CFFCIDFont} (default constructor).
-   *   <li>When {@code Selector}.
-   *   <li>Then throw {@link IllegalArgumentException}.
+   *   <li>Given {@link CFFCIDFont} (default constructor).</li>
+   *   <li>When {@code Selector}.</li>
+   *   <li>Then throw {@link IllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CFFCIDFont#getWidth(String)}
+   * <p>
+   * Method under test: {@link CFFCIDFont#getWidth(String)}
    */
   @Test
-  @DisplayName(
-      "Test getWidth(String); given CFFCIDFont (default constructor); when 'Selector'; then throw IllegalArgumentException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getWidth(String); given CFFCIDFont (default constructor); when 'Selector'; then throw IllegalArgumentException")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"float CFFCIDFont.getWidth(String)"})
-  void testGetWidth_givenCFFCIDFont_whenSelector_thenThrowIllegalArgumentException()
-      throws IOException {
+  void testGetWidth_givenCFFCIDFont_whenSelector_thenThrowIllegalArgumentException() throws IOException {
     // Arrange, Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> new CFFCIDFont().getWidth("Selector"));
+    assertThrows(IllegalArgumentException.class, () -> (new CFFCIDFont()).getWidth("Selector"));
   }
 
   /**
    * Test {@link CFFCIDFont#hasGlyph(String)}.
-   *
    * <ul>
-   *   <li>When {@code \42}.
-   *   <li>Then return {@code true}.
+   *   <li>When {@code \42}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CFFCIDFont#hasGlyph(String)}
+   * <p>
+   * Method under test: {@link CFFCIDFont#hasGlyph(String)}
    */
   @Test
   @DisplayName("Test hasGlyph(String); when '\\42'; then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean CFFCIDFont.hasGlyph(String)"})
   void testHasGlyph_when42_thenReturnTrue() throws IOException {
     // Arrange, Act and Assert
-    assertTrue(new CFFCIDFont().hasGlyph("\\42"));
+    assertTrue((new CFFCIDFont()).hasGlyph("\\42"));
   }
 
   /**
    * Test {@link CFFCIDFont#hasGlyph(String)}.
-   *
    * <ul>
-   *   <li>When {@code Selector}.
-   *   <li>Then throw {@link IllegalArgumentException}.
+   *   <li>When {@code Selector}.</li>
+   *   <li>Then throw {@link IllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CFFCIDFont#hasGlyph(String)}
+   * <p>
+   * Method under test: {@link CFFCIDFont#hasGlyph(String)}
    */
   @Test
   @DisplayName("Test hasGlyph(String); when 'Selector'; then throw IllegalArgumentException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean CFFCIDFont.hasGlyph(String)"})
   void testHasGlyph_whenSelector_thenThrowIllegalArgumentException() throws IOException {
     // Arrange, Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> new CFFCIDFont().hasGlyph("Selector"));
+    assertThrows(IllegalArgumentException.class, () -> (new CFFCIDFont()).hasGlyph("Selector"));
   }
 
   /**
    * Test new {@link CFFCIDFont} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link CFFCIDFont}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link CFFCIDFont}
    */
   @Test
   @DisplayName("Test new CFFCIDFont (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void CFFCIDFont.<init>()"})
   void testNewCFFCIDFont() {
     // Arrange and Act

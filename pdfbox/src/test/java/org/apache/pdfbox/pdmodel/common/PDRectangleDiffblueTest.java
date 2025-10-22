@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
@@ -28,13 +27,12 @@ import org.junit.jupiter.api.Test;
 class PDRectangleDiffblueTest {
   /**
    * Test {@link PDRectangle#PDRectangle()}.
-   *
-   * <p>Method under test: {@link PDRectangle#PDRectangle()}
+   * <p>
+   * Method under test: {@link PDRectangle#PDRectangle()}
    */
   @Test
   @DisplayName("Test new PDRectangle()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDRectangle.<init>()"})
   void testNewPDRectangle() {
     // Arrange and Act
@@ -66,13 +64,12 @@ class PDRectangleDiffblueTest {
 
   /**
    * Test {@link PDRectangle#PDRectangle(float, float)}.
-   *
-   * <p>Method under test: {@link PDRectangle#PDRectangle(float, float)}
+   * <p>
+   * Method under test: {@link PDRectangle#PDRectangle(float, float)}
    */
   @Test
   @DisplayName("Test new PDRectangle(float, float)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDRectangle.<init>(float, float)"})
   void testNewPDRectangle2() {
     // Arrange and Act
@@ -103,13 +100,12 @@ class PDRectangleDiffblueTest {
 
   /**
    * Test {@link PDRectangle#PDRectangle(float, float, float, float)}.
-   *
-   * <p>Method under test: {@link PDRectangle#PDRectangle(float, float, float, float)}
+   * <p>
+   * Method under test: {@link PDRectangle#PDRectangle(float, float, float, float)}
    */
   @Test
   @DisplayName("Test new PDRectangle(float, float, float, float)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDRectangle.<init>(float, float, float, float)"})
   void testNewPDRectangle3() {
     // Arrange and Act
@@ -140,25 +136,20 @@ class PDRectangleDiffblueTest {
 
   /**
    * Test {@link PDRectangle#PDRectangle(COSArray)}.
-   *
    * <ul>
-   *   <li>Given {@link COSObject#COSObject(COSBase, COSObjectKey)} with object is {@link
-   *       COSBoolean#FALSE} and objectKey is {@link COSObjectKey#COSObjectKey(long, int)}.
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDRectangle#PDRectangle(COSArray)}
+   * <p>
+   * Method under test: {@link PDRectangle#PDRectangle(COSArray)}
    */
   @Test
-  @DisplayName(
-      "Test new PDRectangle(COSArray); given COSObject(COSBase, COSObjectKey) with object is FALSE and objectKey is COSObjectKey(long, int)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new PDRectangle(COSArray); given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDRectangle.<init>(COSArray)"})
-  void testNewPDRectangle_givenCOSObjectWithObjectIsFalseAndObjectKeyIsCOSObjectKey() {
+  void testNewPDRectangle_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
     COSArray array = new COSArray();
-    COSObject object = new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1));
-    array.add((COSBase) object);
+    array.add((COSBase) new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1)));
 
     // Act
     PDRectangle actualPdRectangle = new PDRectangle(array);
@@ -189,18 +180,16 @@ class PDRectangleDiffblueTest {
 
   /**
    * Test {@link PDRectangle#PDRectangle(COSArray)}.
-   *
    * <ul>
-   *   <li>Given {@link COSBoolean#FALSE}.
-   *   <li>When {@link COSArray#COSArray()} add {@link COSBoolean#FALSE}.
+   *   <li>Given {@link COSBoolean#FALSE}.</li>
+   *   <li>When {@link COSArray#COSArray()} add {@link COSBoolean#FALSE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDRectangle#PDRectangle(COSArray)}
+   * <p>
+   * Method under test: {@link PDRectangle#PDRectangle(COSArray)}
    */
   @Test
   @DisplayName("Test new PDRectangle(COSArray); given FALSE; when COSArray() add FALSE")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDRectangle.<init>(COSArray)"})
   void testNewPDRectangle_givenFalse_whenCOSArrayAddFalse() {
     // Arrange
@@ -236,18 +225,16 @@ class PDRectangleDiffblueTest {
 
   /**
    * Test {@link PDRectangle#PDRectangle(COSArray)}.
-   *
    * <ul>
-   *   <li>Given {@link COSFloat#ONE}.
-   *   <li>When {@link COSArray#COSArray()} add {@link COSFloat#ONE}.
+   *   <li>Given {@link COSFloat#ONE}.</li>
+   *   <li>When {@link COSArray#COSArray()} add {@link COSFloat#ONE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDRectangle#PDRectangle(COSArray)}
+   * <p>
+   * Method under test: {@link PDRectangle#PDRectangle(COSArray)}
    */
   @Test
   @DisplayName("Test new PDRectangle(COSArray); given ONE; when COSArray() add ONE")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDRectangle.<init>(COSArray)"})
   void testNewPDRectangle_givenOne_whenCOSArrayAddOne() {
     // Arrange
@@ -270,18 +257,16 @@ class PDRectangleDiffblueTest {
 
   /**
    * Test {@link PDRectangle#PDRectangle(COSArray)}.
-   *
    * <ul>
-   *   <li>Given {@link COSInteger#ONE}.
-   *   <li>When {@link COSArray#COSArray()} add {@link COSInteger#ONE}.
+   *   <li>Given {@link COSInteger#ONE}.</li>
+   *   <li>When {@link COSArray#COSArray()} add {@link COSInteger#ONE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDRectangle#PDRectangle(COSArray)}
+   * <p>
+   * Method under test: {@link PDRectangle#PDRectangle(COSArray)}
    */
   @Test
   @DisplayName("Test new PDRectangle(COSArray); given ONE; when COSArray() add ONE")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDRectangle.<init>(COSArray)"})
   void testNewPDRectangle_givenOne_whenCOSArrayAddOne2() {
     // Arrange
@@ -304,24 +289,19 @@ class PDRectangleDiffblueTest {
 
   /**
    * Test {@link PDRectangle#PDRectangle(BoundingBox)}.
-   *
    * <ul>
-   *   <li>Then return COSArray toList size is four.
+   *   <li>Then return COSArray toList size is four.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDRectangle#PDRectangle(BoundingBox)}
+   * <p>
+   * Method under test: {@link PDRectangle#PDRectangle(BoundingBox)}
    */
   @Test
   @DisplayName("Test new PDRectangle(BoundingBox); then return COSArray toList size is four")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDRectangle.<init>(BoundingBox)"})
   void testNewPDRectangle_thenReturnCOSArrayToListSizeIsFour() {
-    // Arrange
-    BoundingBox box = new BoundingBox(10.0f, 10.0f, 10.0f, 10.0f);
-
-    // Act
-    PDRectangle actualPdRectangle = new PDRectangle(box);
+    // Arrange and Act
+    PDRectangle actualPdRectangle = new PDRectangle(new BoundingBox(10.0f, 10.0f, 10.0f, 10.0f));
 
     // Assert
     COSArray cOSArray = actualPdRectangle.getCOSArray();
@@ -349,19 +329,16 @@ class PDRectangleDiffblueTest {
 
   /**
    * Test {@link PDRectangle#PDRectangle(COSArray)}.
-   *
    * <ul>
-   *   <li>When {@link COSArray#COSArray()}.
-   *   <li>Then COSArray toList first return {@link COSFloat}.
+   *   <li>When {@link COSArray#COSArray()}.</li>
+   *   <li>Then COSArray toList first return {@link COSFloat}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDRectangle#PDRectangle(COSArray)}
+   * <p>
+   * Method under test: {@link PDRectangle#PDRectangle(COSArray)}
    */
   @Test
-  @DisplayName(
-      "Test new PDRectangle(COSArray); when COSArray(); then COSArray toList first return COSFloat")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new PDRectangle(COSArray); when COSArray(); then COSArray toList first return COSFloat")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDRectangle.<init>(COSArray)"})
   void testNewPDRectangle_whenCOSArray_thenCOSArrayToListFirstReturnCOSFloat() {
     // Arrange and Act
@@ -393,19 +370,17 @@ class PDRectangleDiffblueTest {
 
   /**
    * Test {@link PDRectangle#contains(float, float)}.
-   *
    * <ul>
-   *   <li>Given {@link PDRectangle#A0}.
-   *   <li>When {@code -0.5}.
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link PDRectangle#A0}.</li>
+   *   <li>When {@code -0.5}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDRectangle#contains(float, float)}
+   * <p>
+   * Method under test: {@link PDRectangle#contains(float, float)}
    */
   @Test
   @DisplayName("Test contains(float, float); given A0; when '-0.5'; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDRectangle.contains(float, float)"})
   void testContains_givenA0_when05_thenReturnFalse() {
     // Arrange, Act and Assert
@@ -414,19 +389,17 @@ class PDRectangleDiffblueTest {
 
   /**
    * Test {@link PDRectangle#contains(float, float)}.
-   *
    * <ul>
-   *   <li>Given {@link PDRectangle#A0}.
-   *   <li>When {@code -0.5}.
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link PDRectangle#A0}.</li>
+   *   <li>When {@code -0.5}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDRectangle#contains(float, float)}
+   * <p>
+   * Method under test: {@link PDRectangle#contains(float, float)}
    */
   @Test
   @DisplayName("Test contains(float, float); given A0; when '-0.5'; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDRectangle.contains(float, float)"})
   void testContains_givenA0_when05_thenReturnFalse2() {
     // Arrange, Act and Assert
@@ -435,19 +408,17 @@ class PDRectangleDiffblueTest {
 
   /**
    * Test {@link PDRectangle#contains(float, float)}.
-   *
    * <ul>
-   *   <li>Given {@link PDRectangle#A0}.
-   *   <li>When ten.
-   *   <li>Then return {@code true}.
+   *   <li>Given {@link PDRectangle#A0}.</li>
+   *   <li>When ten.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDRectangle#contains(float, float)}
+   * <p>
+   * Method under test: {@link PDRectangle#contains(float, float)}
    */
   @Test
   @DisplayName("Test contains(float, float); given A0; when ten; then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDRectangle.contains(float, float)"})
   void testContains_givenA0_whenTen_thenReturnTrue() {
     // Arrange, Act and Assert
@@ -456,65 +427,54 @@ class PDRectangleDiffblueTest {
 
   /**
    * Test {@link PDRectangle#contains(float, float)}.
-   *
    * <ul>
-   *   <li>Given {@link PDRectangle#PDRectangle()} UpperRightX is ten.
-   *   <li>When ten.
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link PDRectangle#PDRectangle()}.</li>
+   *   <li>When ten.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDRectangle#contains(float, float)}
+   * <p>
+   * Method under test: {@link PDRectangle#contains(float, float)}
    */
   @Test
-  @DisplayName(
-      "Test contains(float, float); given PDRectangle() UpperRightX is ten; when ten; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test contains(float, float); given PDRectangle(); when ten; then return 'false'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDRectangle.contains(float, float)"})
-  void testContains_givenPDRectangleUpperRightXIsTen_whenTen_thenReturnFalse() {
-    // Arrange
-    PDRectangle pdRectangle = new PDRectangle();
-    pdRectangle.setUpperRightX(10.0f);
-
-    // Act and Assert
-    assertFalse(pdRectangle.contains(10.0f, 10.0f));
+  void testContains_givenPDRectangle_whenTen_thenReturnFalse() {
+    // Arrange, Act and Assert
+    assertFalse((new PDRectangle()).contains(10.0f, 10.0f));
   }
 
   /**
    * Test {@link PDRectangle#contains(float, float)}.
-   *
    * <ul>
-   *   <li>Given {@link PDRectangle#PDRectangle()}.
-   *   <li>When ten.
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link PDRectangle#PDRectangle()}.</li>
+   *   <li>When zero.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDRectangle#contains(float, float)}
+   * <p>
+   * Method under test: {@link PDRectangle#contains(float, float)}
    */
   @Test
-  @DisplayName("Test contains(float, float); given PDRectangle(); when ten; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test contains(float, float); given PDRectangle(); when zero; then return 'false'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean PDRectangle.contains(float, float)"})
-  void testContains_givenPDRectangle_whenTen_thenReturnFalse() {
+  void testContains_givenPDRectangle_whenZero_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new PDRectangle().contains(10.0f, 10.0f));
+    assertFalse((new PDRectangle()).contains(0.0f, 10.0f));
   }
 
   /**
    * Test {@link PDRectangle#createRetranslatedRectangle()}.
-   *
-   * <p>Method under test: {@link PDRectangle#createRetranslatedRectangle()}
+   * <p>
+   * Method under test: {@link PDRectangle#createRetranslatedRectangle()}
    */
   @Test
   @DisplayName("Test createRetranslatedRectangle()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDRectangle PDRectangle.createRetranslatedRectangle()"})
   void testCreateRetranslatedRectangle() {
     // Arrange and Act
-    PDRectangle actualCreateRetranslatedRectangleResult =
-        PDRectangle.A0.createRetranslatedRectangle();
+    PDRectangle actualCreateRetranslatedRectangleResult = PDRectangle.A0.createRetranslatedRectangle();
 
     // Assert
     COSArray cOSArray = actualCreateRetranslatedRectangleResult.getCOSArray();
@@ -538,9 +498,8 @@ class PDRectangleDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link PDRectangle#toString()}
    *   <li>{@link PDRectangle#getCOSArray()}
@@ -549,13 +508,9 @@ class PDRectangleDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "COSArray PDRectangle.getCOSArray()",
-    "COSBase PDRectangle.getCOSObject()",
-    "String PDRectangle.toString()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"COSArray PDRectangle.getCOSArray()", "COSBase PDRectangle.getCOSObject()",
+      "String PDRectangle.toString()"})
   void testGettersAndSetters() {
     // Arrange
     PDRectangle pdRectangle = new PDRectangle();
@@ -585,13 +540,12 @@ class PDRectangleDiffblueTest {
 
   /**
    * Test {@link PDRectangle#getLowerLeftX()}.
-   *
-   * <p>Method under test: {@link PDRectangle#getLowerLeftX()}
+   * <p>
+   * Method under test: {@link PDRectangle#getLowerLeftX()}
    */
   @Test
   @DisplayName("Test getLowerLeftX()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"float PDRectangle.getLowerLeftX()"})
   void testGetLowerLeftX() {
     // Arrange, Act and Assert
@@ -600,19 +554,16 @@ class PDRectangleDiffblueTest {
 
   /**
    * Test {@link PDRectangle#setLowerLeftX(float)}.
-   *
    * <ul>
-   *   <li>Given {@link PDRectangle#PDRectangle()}.
-   *   <li>Then {@link PDRectangle#PDRectangle()} COSArray toList size is four.
+   *   <li>Given {@link PDRectangle#PDRectangle()}.</li>
+   *   <li>Then {@link PDRectangle#PDRectangle()} COSArray toList size is four.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDRectangle#setLowerLeftX(float)}
+   * <p>
+   * Method under test: {@link PDRectangle#setLowerLeftX(float)}
    */
   @Test
-  @DisplayName(
-      "Test setLowerLeftX(float); given PDRectangle(); then PDRectangle() COSArray toList size is four")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setLowerLeftX(float); given PDRectangle(); then PDRectangle() COSArray toList size is four")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDRectangle.setLowerLeftX(float)"})
   void testSetLowerLeftX_givenPDRectangle_thenPDRectangleCOSArrayToListSizeIsFour() {
     // Arrange
@@ -637,13 +588,12 @@ class PDRectangleDiffblueTest {
 
   /**
    * Test {@link PDRectangle#getLowerLeftY()}.
-   *
-   * <p>Method under test: {@link PDRectangle#getLowerLeftY()}
+   * <p>
+   * Method under test: {@link PDRectangle#getLowerLeftY()}
    */
   @Test
   @DisplayName("Test getLowerLeftY()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"float PDRectangle.getLowerLeftY()"})
   void testGetLowerLeftY() {
     // Arrange, Act and Assert
@@ -652,19 +602,16 @@ class PDRectangleDiffblueTest {
 
   /**
    * Test {@link PDRectangle#setLowerLeftY(float)}.
-   *
    * <ul>
-   *   <li>Given {@link PDRectangle#PDRectangle()}.
-   *   <li>Then {@link PDRectangle#PDRectangle()} Height is minus ten.
+   *   <li>Given {@link PDRectangle#PDRectangle()}.</li>
+   *   <li>Then {@link PDRectangle#PDRectangle()} Height is minus ten.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDRectangle#setLowerLeftY(float)}
+   * <p>
+   * Method under test: {@link PDRectangle#setLowerLeftY(float)}
    */
   @Test
-  @DisplayName(
-      "Test setLowerLeftY(float); given PDRectangle(); then PDRectangle() Height is minus ten")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setLowerLeftY(float); given PDRectangle(); then PDRectangle() Height is minus ten")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDRectangle.setLowerLeftY(float)"})
   void testSetLowerLeftY_givenPDRectangle_thenPDRectangleHeightIsMinusTen() {
     // Arrange
@@ -680,13 +627,12 @@ class PDRectangleDiffblueTest {
 
   /**
    * Test {@link PDRectangle#getUpperRightX()}.
-   *
-   * <p>Method under test: {@link PDRectangle#getUpperRightX()}
+   * <p>
+   * Method under test: {@link PDRectangle#getUpperRightX()}
    */
   @Test
   @DisplayName("Test getUpperRightX()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"float PDRectangle.getUpperRightX()"})
   void testGetUpperRightX() {
     // Arrange, Act and Assert
@@ -695,19 +641,16 @@ class PDRectangleDiffblueTest {
 
   /**
    * Test {@link PDRectangle#setUpperRightX(float)}.
-   *
    * <ul>
-   *   <li>Given {@link PDRectangle#PDRectangle()}.
-   *   <li>Then {@link PDRectangle#PDRectangle()} UpperRightX is ten.
+   *   <li>Given {@link PDRectangle#PDRectangle()}.</li>
+   *   <li>Then {@link PDRectangle#PDRectangle()} UpperRightX is ten.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDRectangle#setUpperRightX(float)}
+   * <p>
+   * Method under test: {@link PDRectangle#setUpperRightX(float)}
    */
   @Test
-  @DisplayName(
-      "Test setUpperRightX(float); given PDRectangle(); then PDRectangle() UpperRightX is ten")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setUpperRightX(float); given PDRectangle(); then PDRectangle() UpperRightX is ten")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDRectangle.setUpperRightX(float)"})
   void testSetUpperRightX_givenPDRectangle_thenPDRectangleUpperRightXIsTen() {
     // Arrange
@@ -723,13 +666,12 @@ class PDRectangleDiffblueTest {
 
   /**
    * Test {@link PDRectangle#getUpperRightY()}.
-   *
-   * <p>Method under test: {@link PDRectangle#getUpperRightY()}
+   * <p>
+   * Method under test: {@link PDRectangle#getUpperRightY()}
    */
   @Test
   @DisplayName("Test getUpperRightY()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"float PDRectangle.getUpperRightY()"})
   void testGetUpperRightY() {
     // Arrange, Act and Assert
@@ -738,18 +680,16 @@ class PDRectangleDiffblueTest {
 
   /**
    * Test {@link PDRectangle#setUpperRightY(float)}.
-   *
    * <ul>
-   *   <li>Given {@link PDRectangle#PDRectangle()}.
-   *   <li>Then {@link PDRectangle#PDRectangle()} Height is ten.
+   *   <li>Given {@link PDRectangle#PDRectangle()}.</li>
+   *   <li>Then {@link PDRectangle#PDRectangle()} Height is ten.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDRectangle#setUpperRightY(float)}
+   * <p>
+   * Method under test: {@link PDRectangle#setUpperRightY(float)}
    */
   @Test
   @DisplayName("Test setUpperRightY(float); given PDRectangle(); then PDRectangle() Height is ten")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDRectangle.setUpperRightY(float)"})
   void testSetUpperRightY_givenPDRectangle_thenPDRectangleHeightIsTen() {
     // Arrange
@@ -765,13 +705,12 @@ class PDRectangleDiffblueTest {
 
   /**
    * Test {@link PDRectangle#getWidth()}.
-   *
-   * <p>Method under test: {@link PDRectangle#getWidth()}
+   * <p>
+   * Method under test: {@link PDRectangle#getWidth()}
    */
   @Test
   @DisplayName("Test getWidth()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"float PDRectangle.getWidth()"})
   void testGetWidth() {
     // Arrange, Act and Assert
@@ -780,13 +719,12 @@ class PDRectangleDiffblueTest {
 
   /**
    * Test {@link PDRectangle#getHeight()}.
-   *
-   * <p>Method under test: {@link PDRectangle#getHeight()}
+   * <p>
+   * Method under test: {@link PDRectangle#getHeight()}
    */
   @Test
   @DisplayName("Test getHeight()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"float PDRectangle.getHeight()"})
   void testGetHeight() {
     // Arrange, Act and Assert
@@ -795,18 +733,16 @@ class PDRectangleDiffblueTest {
 
   /**
    * Test {@link PDRectangle#transform(Matrix)}.
-   *
    * <ul>
-   *   <li>When {@link Matrix#Matrix()}.
-   *   <li>Then CurrentPoint return {@link Float}.
+   *   <li>When {@link Matrix#Matrix()}.</li>
+   *   <li>Then CurrentPoint return {@link Float}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDRectangle#transform(Matrix)}
+   * <p>
+   * Method under test: {@link PDRectangle#transform(Matrix)}
    */
   @Test
   @DisplayName("Test transform(Matrix); when Matrix(); then CurrentPoint return Float")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"GeneralPath PDRectangle.transform(Matrix)"})
   void testTransform_whenMatrix_thenCurrentPointReturnFloat() {
     // Arrange and Act
@@ -820,13 +756,12 @@ class PDRectangleDiffblueTest {
 
   /**
    * Test {@link PDRectangle#toGeneralPath()}.
-   *
-   * <p>Method under test: {@link PDRectangle#toGeneralPath()}
+   * <p>
+   * Method under test: {@link PDRectangle#toGeneralPath()}
    */
   @Test
   @DisplayName("Test toGeneralPath()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"GeneralPath PDRectangle.toGeneralPath()"})
   void testToGeneralPath() {
     // Arrange and Act

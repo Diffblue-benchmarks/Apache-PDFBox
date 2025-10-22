@@ -3,7 +3,6 @@ package org.apache.fontbox.ttf;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.Dimension;
 import java.awt.Point;
@@ -19,17 +18,16 @@ import org.junit.jupiter.api.Test;
 class GlyphRendererDiffblueTest {
   /**
    * Test {@link GlyphRenderer#GlyphRenderer(GlyphDescription)}.
-   *
-   * <p>Method under test: {@link GlyphRenderer#GlyphRenderer(GlyphDescription)}
+   * <p>
+   * Method under test: {@link GlyphRenderer#GlyphRenderer(GlyphDescription)}
    */
   @Test
   @DisplayName("Test new GlyphRenderer(GlyphDescription)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void GlyphRenderer.<init>(GlyphDescription)"})
   void testNewGlyphRenderer() {
     // Arrange, Act and Assert
-    GeneralPath path = new GlyphRenderer(new GlyfSimpleDescript()).getPath();
+    GeneralPath path = (new GlyphRenderer(new GlyfSimpleDescript())).getPath();
     Rectangle bounds = path.getBounds();
     Rectangle2D bounds2D = bounds.getBounds2D();
     assertTrue(bounds2D instanceof Rectangle);
@@ -64,12 +62,9 @@ class GlyphRendererDiffblueTest {
     assertEquals(0.0d, bounds.getMinY());
     assertEquals(1, path.getWindingRule());
     assertTrue(bounds.isEmpty());
-    Point actualLocation = location.getLocation();
-    assertEquals(location, actualLocation);
-    Dimension actualSize = size.getSize();
-    assertEquals(size, actualSize);
-    Rectangle actualBounds = bounds.getBounds();
-    assertEquals(bounds, actualBounds);
+    assertEquals(location, location.getLocation());
+    assertEquals(size, size.getSize());
+    assertEquals(bounds, bounds.getBounds());
     assertEquals(bounds, bounds2D);
     assertEquals(bounds, frame);
     assertEquals(bounds, bounds2D2);
@@ -77,21 +72,19 @@ class GlyphRendererDiffblueTest {
 
   /**
    * Test {@link GlyphRenderer#getPath()}.
-   *
    * <ul>
-   *   <li>Then Bounds2D return {@link Rectangle2D.Float}.
+   *   <li>Then Bounds2D return {@link Rectangle2D.Float}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link GlyphRenderer#getPath()}
+   * <p>
+   * Method under test: {@link GlyphRenderer#getPath()}
    */
   @Test
   @DisplayName("Test getPath(); then Bounds2D return Float")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"GeneralPath GlyphRenderer.getPath()"})
   void testGetPath_thenBounds2DReturnFloat() {
     // Arrange and Act
-    GeneralPath actualPath = new GlyphRenderer(new GlyfSimpleDescript()).getPath();
+    GeneralPath actualPath = (new GlyphRenderer(new GlyfSimpleDescript())).getPath();
 
     // Assert
     assertTrue(actualPath.getBounds2D() instanceof Float);

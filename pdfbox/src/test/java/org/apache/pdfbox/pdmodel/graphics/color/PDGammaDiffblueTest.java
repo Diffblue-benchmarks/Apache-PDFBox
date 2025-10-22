@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import org.apache.pdfbox.cos.COSArray;
@@ -18,9 +17,8 @@ import org.junit.jupiter.api.Test;
 class PDGammaDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link PDGamma#PDGamma(COSArray)}
    *   <li>{@link PDGamma#getCOSArray()}
@@ -29,13 +27,9 @@ class PDGammaDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PDGamma.<init>(COSArray)",
-    "COSArray PDGamma.getCOSArray()",
-    "COSBase PDGamma.getCOSObject()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDGamma.<init>(COSArray)", "COSArray PDGamma.getCOSArray()",
+      "COSBase PDGamma.getCOSObject()"})
   void testGettersAndSetters() {
     // Arrange
     COSArray array = new COSArray();
@@ -53,13 +47,12 @@ class PDGammaDiffblueTest {
 
   /**
    * Test {@link PDGamma#PDGamma()}.
-   *
-   * <p>Method under test: {@link PDGamma#PDGamma()}
+   * <p>
+   * Method under test: {@link PDGamma#PDGamma()}
    */
   @Test
   @DisplayName("Test new PDGamma()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDGamma.<init>()"})
   void testNewPDGamma() {
     // Arrange and Act
@@ -83,38 +76,34 @@ class PDGammaDiffblueTest {
 
   /**
    * Test {@link PDGamma#getR()}.
-   *
    * <ul>
-   *   <li>Given {@link PDGamma#PDGamma()}.
-   *   <li>Then return zero.
+   *   <li>Given {@link PDGamma#PDGamma()}.</li>
+   *   <li>Then return zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDGamma#getR()}
+   * <p>
+   * Method under test: {@link PDGamma#getR()}
    */
   @Test
   @DisplayName("Test getR(); given PDGamma(); then return zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"float PDGamma.getR()"})
   void testGetR_givenPDGamma_thenReturnZero() {
     // Arrange, Act and Assert
-    assertEquals(0.0f, new PDGamma().getR());
+    assertEquals(0.0f, (new PDGamma()).getR());
   }
 
   /**
    * Test {@link PDGamma#setR(float)}.
-   *
    * <ul>
-   *   <li>Given {@link PDGamma#PDGamma()}.
-   *   <li>Then {@link PDGamma#PDGamma()} COSArray toList size is three.
+   *   <li>Given {@link PDGamma#PDGamma()}.</li>
+   *   <li>Then {@link PDGamma#PDGamma()} COSArray toList size is three.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDGamma#setR(float)}
+   * <p>
+   * Method under test: {@link PDGamma#setR(float)}
    */
   @Test
   @DisplayName("Test setR(float); given PDGamma(); then PDGamma() COSArray toList size is three")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDGamma.setR(float)"})
   void testSetR_givenPDGamma_thenPDGammaCOSArrayToListSizeIsThree() {
     // Arrange
@@ -136,38 +125,34 @@ class PDGammaDiffblueTest {
 
   /**
    * Test {@link PDGamma#getG()}.
-   *
    * <ul>
-   *   <li>Given {@link PDGamma#PDGamma()}.
-   *   <li>Then return zero.
+   *   <li>Given {@link PDGamma#PDGamma()}.</li>
+   *   <li>Then return zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDGamma#getG()}
+   * <p>
+   * Method under test: {@link PDGamma#getG()}
    */
   @Test
   @DisplayName("Test getG(); given PDGamma(); then return zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"float PDGamma.getG()"})
   void testGetG_givenPDGamma_thenReturnZero() {
     // Arrange, Act and Assert
-    assertEquals(0.0f, new PDGamma().getG());
+    assertEquals(0.0f, (new PDGamma()).getG());
   }
 
   /**
    * Test {@link PDGamma#setG(float)}.
-   *
    * <ul>
-   *   <li>Given {@link PDGamma#PDGamma()}.
-   *   <li>Then {@link PDGamma#PDGamma()} COSArray toList size is three.
+   *   <li>Given {@link PDGamma#PDGamma()}.</li>
+   *   <li>Then {@link PDGamma#PDGamma()} COSArray toList size is three.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDGamma#setG(float)}
+   * <p>
+   * Method under test: {@link PDGamma#setG(float)}
    */
   @Test
   @DisplayName("Test setG(float); given PDGamma(); then PDGamma() COSArray toList size is three")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDGamma.setG(float)"})
   void testSetG_givenPDGamma_thenPDGammaCOSArrayToListSizeIsThree() {
     // Arrange
@@ -188,38 +173,34 @@ class PDGammaDiffblueTest {
 
   /**
    * Test {@link PDGamma#getB()}.
-   *
    * <ul>
-   *   <li>Given {@link PDGamma#PDGamma()}.
-   *   <li>Then return zero.
+   *   <li>Given {@link PDGamma#PDGamma()}.</li>
+   *   <li>Then return zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDGamma#getB()}
+   * <p>
+   * Method under test: {@link PDGamma#getB()}
    */
   @Test
   @DisplayName("Test getB(); given PDGamma(); then return zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"float PDGamma.getB()"})
   void testGetB_givenPDGamma_thenReturnZero() {
     // Arrange, Act and Assert
-    assertEquals(0.0f, new PDGamma().getB());
+    assertEquals(0.0f, (new PDGamma()).getB());
   }
 
   /**
    * Test {@link PDGamma#setB(float)}.
-   *
    * <ul>
-   *   <li>Given {@link PDGamma#PDGamma()}.
-   *   <li>Then {@link PDGamma#PDGamma()} COSArray toList size is three.
+   *   <li>Given {@link PDGamma#PDGamma()}.</li>
+   *   <li>Then {@link PDGamma#PDGamma()} COSArray toList size is three.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDGamma#setB(float)}
+   * <p>
+   * Method under test: {@link PDGamma#setB(float)}
    */
   @Test
   @DisplayName("Test setB(float); given PDGamma(); then PDGamma() COSArray toList size is three")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDGamma.setB(float)"})
   void testSetB_givenPDGamma_thenPDGammaCOSArrayToListSizeIsThree() {
     // Arrange

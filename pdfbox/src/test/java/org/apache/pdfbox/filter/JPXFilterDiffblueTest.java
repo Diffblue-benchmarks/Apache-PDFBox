@@ -1,7 +1,6 @@
 package org.apache.pdfbox.filter;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -15,87 +14,68 @@ import org.junit.jupiter.api.Test;
 
 class JPXFilterDiffblueTest {
   /**
-   * Test {@link JPXFilter#decode(InputStream, OutputStream, COSDictionary, int, DecodeOptions)}
-   * with {@code encoded}, {@code decoded}, {@code parameters}, {@code index}, {@code options}.
-   *
+   * Test {@link JPXFilter#decode(InputStream, OutputStream, COSDictionary, int, DecodeOptions)} with {@code encoded}, {@code decoded}, {@code parameters}, {@code index}, {@code options}.
    * <ul>
-   *   <li>Then throw {@link IOException}.
+   *   <li>Then throw {@link IOException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JPXFilter#decode(InputStream, OutputStream, COSDictionary, int,
-   * DecodeOptions)}
+   * <p>
+   * Method under test: {@link JPXFilter#decode(InputStream, OutputStream, COSDictionary, int, DecodeOptions)}
    */
   @Test
-  @DisplayName(
-      "Test decode(InputStream, OutputStream, COSDictionary, int, DecodeOptions) with 'encoded', 'decoded', 'parameters', 'index', 'options'; then throw IOException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test decode(InputStream, OutputStream, COSDictionary, int, DecodeOptions) with 'encoded', 'decoded', 'parameters', 'index', 'options'; then throw IOException")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "org.apache.pdfbox.filter.DecodeResult JPXFilter.decode(InputStream, OutputStream, COSDictionary, int, DecodeOptions)"
-  })
-  void testDecodeWithEncodedDecodedParametersIndexOptions_thenThrowIOException()
-      throws IOException {
+      "org.apache.pdfbox.filter.DecodeResult JPXFilter.decode(InputStream, OutputStream, COSDictionary, int, DecodeOptions)"})
+  void testDecodeWithEncodedDecodedParametersIndexOptions_thenThrowIOException() throws IOException {
     // Arrange
     JPXFilter jpxFilter = new JPXFilter();
     ByteArrayInputStream encoded = new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"));
-    ByteArrayOutputStream decoded = new ByteArrayOutputStream();
+    ByteArrayOutputStream decoded = new ByteArrayOutputStream(1);
 
     // Act and Assert
-    assertThrows(
-        IOException.class,
+    assertThrows(IOException.class,
         () -> jpxFilter.decode(encoded, decoded, new COSDictionary(), 1, DecodeOptions.DEFAULT));
   }
 
   /**
-   * Test {@link JPXFilter#decode(InputStream, OutputStream, COSDictionary, int)} with {@code
-   * encoded}, {@code decoded}, {@code parameters}, {@code index}.
-   *
+   * Test {@link JPXFilter#decode(InputStream, OutputStream, COSDictionary, int)} with {@code encoded}, {@code decoded}, {@code parameters}, {@code index}.
    * <ul>
-   *   <li>Then throw {@link IOException}.
+   *   <li>Then throw {@link IOException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JPXFilter#decode(InputStream, OutputStream, COSDictionary, int)}
+   * <p>
+   * Method under test: {@link JPXFilter#decode(InputStream, OutputStream, COSDictionary, int)}
    */
   @Test
-  @DisplayName(
-      "Test decode(InputStream, OutputStream, COSDictionary, int) with 'encoded', 'decoded', 'parameters', 'index'; then throw IOException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test decode(InputStream, OutputStream, COSDictionary, int) with 'encoded', 'decoded', 'parameters', 'index'; then throw IOException")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "org.apache.pdfbox.filter.DecodeResult JPXFilter.decode(InputStream, OutputStream, COSDictionary, int)"
-  })
+      "org.apache.pdfbox.filter.DecodeResult JPXFilter.decode(InputStream, OutputStream, COSDictionary, int)"})
   void testDecodeWithEncodedDecodedParametersIndex_thenThrowIOException() throws IOException {
     // Arrange
     JPXFilter jpxFilter = new JPXFilter();
     ByteArrayInputStream encoded = new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"));
-    ByteArrayOutputStream decoded = new ByteArrayOutputStream();
+    ByteArrayOutputStream decoded = new ByteArrayOutputStream(1);
 
     // Act and Assert
-    assertThrows(
-        IOException.class, () -> jpxFilter.decode(encoded, decoded, new COSDictionary(), 1));
+    assertThrows(IOException.class, () -> jpxFilter.decode(encoded, decoded, new COSDictionary(), 1));
   }
 
   /**
-   * Test {@link JPXFilter#encode(InputStream, OutputStream, COSDictionary)} with {@code input},
-   * {@code encoded}, {@code parameters}.
-   *
-   * <p>Method under test: {@link JPXFilter#encode(InputStream, OutputStream, COSDictionary)}
+   * Test {@link JPXFilter#encode(InputStream, OutputStream, COSDictionary)} with {@code input}, {@code encoded}, {@code parameters}.
+   * <p>
+   * Method under test: {@link JPXFilter#encode(InputStream, OutputStream, COSDictionary)}
    */
   @Test
-  @DisplayName(
-      "Test encode(InputStream, OutputStream, COSDictionary) with 'input', 'encoded', 'parameters'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test encode(InputStream, OutputStream, COSDictionary) with 'input', 'encoded', 'parameters'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void JPXFilter.encode(InputStream, OutputStream, COSDictionary)"})
   void testEncodeWithInputEncodedParameters() throws IOException {
     // Arrange
     JPXFilter jpxFilter = new JPXFilter();
     ByteArrayInputStream input = new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"));
-    ByteArrayOutputStream encoded = new ByteArrayOutputStream();
+    ByteArrayOutputStream encoded = new ByteArrayOutputStream(1);
 
     // Act and Assert
-    assertThrows(
-        UnsupportedOperationException.class,
-        () -> jpxFilter.encode(input, encoded, new COSDictionary()));
+    assertThrows(UnsupportedOperationException.class, () -> jpxFilter.encode(input, encoded, new COSDictionary()));
   }
 }

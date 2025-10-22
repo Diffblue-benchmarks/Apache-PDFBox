@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,9 +19,8 @@ import org.junit.jupiter.api.Test;
 class PDPushButtonDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link PDPushButton#PDPushButton(PDAcroForm, COSDictionary, PDNonTerminalField)}
    *   <li>{@link PDPushButton#constructAppearances()}
@@ -32,14 +30,10 @@ class PDPushButtonDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PDPushButton.<init>(PDAcroForm, COSDictionary, PDNonTerminalField)",
-    "void PDPushButton.constructAppearances()",
-    "String PDPushButton.getDefaultValue()",
-    "String PDPushButton.getValue()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDPushButton.<init>(PDAcroForm, COSDictionary, PDNonTerminalField)",
+      "void PDPushButton.constructAppearances()", "String PDPushButton.getDefaultValue()",
+      "String PDPushButton.getValue()"})
   void testGettersAndSetters() throws IOException {
     // Arrange
     PDAcroForm acroForm = new PDAcroForm(new PDDocument());
@@ -61,13 +55,12 @@ class PDPushButtonDiffblueTest {
 
   /**
    * Test {@link PDPushButton#PDPushButton(PDAcroForm)}.
-   *
-   * <p>Method under test: {@link PDPushButton#PDPushButton(PDAcroForm)}
+   * <p>
+   * Method under test: {@link PDPushButton#PDPushButton(PDAcroForm)}
    */
   @Test
   @DisplayName("Test new PDPushButton(PDAcroForm)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDPushButton.<init>(PDAcroForm)"})
   void testNewPDPushButton() {
     // Arrange
@@ -101,33 +94,30 @@ class PDPushButtonDiffblueTest {
 
   /**
    * Test {@link PDPushButton#getExportValues()}.
-   *
-   * <p>Method under test: {@link PDPushButton#getExportValues()}
+   * <p>
+   * Method under test: {@link PDPushButton#getExportValues()}
    */
   @Test
   @DisplayName("Test getExportValues()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List PDPushButton.getExportValues()"})
   void testGetExportValues() {
     // Arrange, Act and Assert
-    assertTrue(new PDPushButton(new PDAcroForm(new PDDocument())).getExportValues().isEmpty());
+    assertTrue((new PDPushButton(new PDAcroForm(new PDDocument()))).getExportValues().isEmpty());
   }
 
   /**
    * Test {@link PDPushButton#setExportValues(List)}.
-   *
    * <ul>
-   *   <li>Given {@code foo}.
-   *   <li>Then throw {@link IllegalArgumentException}.
+   *   <li>Given {@code foo}.</li>
+   *   <li>Then throw {@link IllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPushButton#setExportValues(List)}
+   * <p>
+   * Method under test: {@link PDPushButton#setExportValues(List)}
    */
   @Test
   @DisplayName("Test setExportValues(List); given 'foo'; then throw IllegalArgumentException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDPushButton.setExportValues(List)"})
   void testSetExportValues_givenFoo_thenThrowIllegalArgumentException() {
     // Arrange
@@ -142,18 +132,16 @@ class PDPushButtonDiffblueTest {
 
   /**
    * Test {@link PDPushButton#setExportValues(List)}.
-   *
    * <ul>
-   *   <li>Given {@code foo}.
-   *   <li>Then throw {@link IllegalArgumentException}.
+   *   <li>Given {@code foo}.</li>
+   *   <li>Then throw {@link IllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDPushButton#setExportValues(List)}
+   * <p>
+   * Method under test: {@link PDPushButton#setExportValues(List)}
    */
   @Test
   @DisplayName("Test setExportValues(List); given 'foo'; then throw IllegalArgumentException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDPushButton.setExportValues(List)"})
   void testSetExportValues_givenFoo_thenThrowIllegalArgumentException2() {
     // Arrange
@@ -169,31 +157,29 @@ class PDPushButtonDiffblueTest {
 
   /**
    * Test {@link PDPushButton#getValueAsString()}.
-   *
-   * <p>Method under test: {@link PDPushButton#getValueAsString()}
+   * <p>
+   * Method under test: {@link PDPushButton#getValueAsString()}
    */
   @Test
   @DisplayName("Test getValueAsString()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String PDPushButton.getValueAsString()"})
   void testGetValueAsString() {
     // Arrange, Act and Assert
-    assertEquals("", new PDPushButton(new PDAcroForm(new PDDocument())).getValueAsString());
+    assertEquals("", (new PDPushButton(new PDAcroForm(new PDDocument()))).getValueAsString());
   }
 
   /**
    * Test {@link PDPushButton#getOnValues()}.
-   *
-   * <p>Method under test: {@link PDPushButton#getOnValues()}
+   * <p>
+   * Method under test: {@link PDPushButton#getOnValues()}
    */
   @Test
   @DisplayName("Test getOnValues()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.util.Set PDPushButton.getOnValues()"})
   void testGetOnValues() {
     // Arrange, Act and Assert
-    assertTrue(new PDPushButton(new PDAcroForm(new PDDocument())).getOnValues().isEmpty());
+    assertTrue((new PDPushButton(new PDAcroForm(new PDDocument()))).getOnValues().isEmpty());
   }
 }

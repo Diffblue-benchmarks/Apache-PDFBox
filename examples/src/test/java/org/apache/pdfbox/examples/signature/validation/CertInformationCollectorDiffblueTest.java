@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.security.cert.X509Certificate;
@@ -20,33 +19,24 @@ import org.junit.jupiter.api.Test;
 class CertInformationCollectorDiffblueTest {
   /**
    * Test {@link CertInformationCollector#addAllCertsFromHolders(X509CertificateHolder[])}.
-   *
    * <ul>
-   *   <li>Given {@code AXAXAXAX} Bytes is {@code UTF-8}.
+   *   <li>Given {@code AXAXAXAX} Bytes is {@code UTF-8}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * CertInformationCollector#addAllCertsFromHolders(X509CertificateHolder[])}
+   * <p>
+   * Method under test: {@link CertInformationCollector#addAllCertsFromHolders(X509CertificateHolder[])}
    */
   @Test
-  @DisplayName(
-      "Test addAllCertsFromHolders(X509CertificateHolder[]); given 'AXAXAXAX' Bytes is 'UTF-8'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void CertInformationCollector.addAllCertsFromHolders(X509CertificateHolder[])"
-  })
-  void testAddAllCertsFromHolders_givenAxaxaxaxBytesIsUtf8()
-      throws IOException, CertificateProccessingException {
+  @DisplayName("Test addAllCertsFromHolders(X509CertificateHolder[]); given 'AXAXAXAX' Bytes is 'UTF-8'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void CertInformationCollector.addAllCertsFromHolders(X509CertificateHolder[])"})
+  void testAddAllCertsFromHolders_givenAxaxaxaxBytesIsUtf8() throws IOException, CertificateProccessingException {
     // Arrange
     CertInformationCollector certInformationCollector = new CertInformationCollector();
-
     X509CertificateHolder x509CertificateHolder = mock(X509CertificateHolder.class);
     when(x509CertificateHolder.getEncoded()).thenReturn("AXAXAXAX".getBytes("UTF-8"));
 
     // Act
-    certInformationCollector.addAllCertsFromHolders(
-        new X509CertificateHolder[] {x509CertificateHolder});
+    certInformationCollector.addAllCertsFromHolders(new X509CertificateHolder[]{x509CertificateHolder});
 
     // Assert
     verify(x509CertificateHolder).getEncoded();
@@ -54,32 +44,24 @@ class CertInformationCollectorDiffblueTest {
 
   /**
    * Test {@link CertInformationCollector#addAllCertsFromHolders(X509CertificateHolder[])}.
-   *
    * <ul>
-   *   <li>Given {@link IOException#IOException()}.
+   *   <li>Given {@link IOException#IOException(String)} with {@code foo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * CertInformationCollector#addAllCertsFromHolders(X509CertificateHolder[])}
+   * <p>
+   * Method under test: {@link CertInformationCollector#addAllCertsFromHolders(X509CertificateHolder[])}
    */
   @Test
-  @DisplayName("Test addAllCertsFromHolders(X509CertificateHolder[]); given IOException()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void CertInformationCollector.addAllCertsFromHolders(X509CertificateHolder[])"
-  })
-  void testAddAllCertsFromHolders_givenIOException()
-      throws IOException, CertificateProccessingException {
+  @DisplayName("Test addAllCertsFromHolders(X509CertificateHolder[]); given IOException(String) with 'foo'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void CertInformationCollector.addAllCertsFromHolders(X509CertificateHolder[])"})
+  void testAddAllCertsFromHolders_givenIOExceptionWithFoo() throws IOException, CertificateProccessingException {
     // Arrange
     CertInformationCollector certInformationCollector = new CertInformationCollector();
-
     X509CertificateHolder x509CertificateHolder = mock(X509CertificateHolder.class);
-    when(x509CertificateHolder.getEncoded()).thenThrow(new IOException());
+    when(x509CertificateHolder.getEncoded()).thenThrow(new IOException("foo"));
 
     // Act
-    certInformationCollector.addAllCertsFromHolders(
-        new X509CertificateHolder[] {x509CertificateHolder});
+    certInformationCollector.addAllCertsFromHolders(new X509CertificateHolder[]{x509CertificateHolder});
 
     // Assert
     verify(x509CertificateHolder).getEncoded();
@@ -87,9 +69,8 @@ class CertInformationCollectorDiffblueTest {
 
   /**
    * Test CertSignatureInformation getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link CertSignatureInformation}
    *   <li>{@link CertSignatureInformation#setIssuerUrl(String)}
@@ -107,29 +88,22 @@ class CertInformationCollectorDiffblueTest {
    */
   @Test
   @DisplayName("Test CertSignatureInformation getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void CertSignatureInformation.<init>()",
-    "CertSignatureInformation CertSignatureInformation.getAlternativeCertChain()",
-    "CertSignatureInformation CertSignatureInformation.getCertChain()",
-    "X509Certificate CertSignatureInformation.getCertificate()",
-    "String CertSignatureInformation.getCrlUrl()",
-    "X509Certificate CertSignatureInformation.getIssuerCertificate()",
-    "String CertSignatureInformation.getOcspUrl()",
-    "String CertSignatureInformation.getSignatureHash()",
-    "CertSignatureInformation CertSignatureInformation.getTsaCerts()",
-    "boolean CertSignatureInformation.isSelfSigned()",
-    "void CertSignatureInformation.setIssuerUrl(String)",
-    "void CertSignatureInformation.setOcspUrl(String)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void CertSignatureInformation.<init>()",
+      "CertSignatureInformation CertSignatureInformation.getAlternativeCertChain()",
+      "CertSignatureInformation CertSignatureInformation.getCertChain()",
+      "X509Certificate CertSignatureInformation.getCertificate()", "String CertSignatureInformation.getCrlUrl()",
+      "X509Certificate CertSignatureInformation.getIssuerCertificate()", "String CertSignatureInformation.getOcspUrl()",
+      "String CertSignatureInformation.getSignatureHash()",
+      "CertSignatureInformation CertSignatureInformation.getTsaCerts()",
+      "boolean CertSignatureInformation.isSelfSigned()", "void CertSignatureInformation.setIssuerUrl(String)",
+      "void CertSignatureInformation.setOcspUrl(String)"})
   void testCertSignatureInformationGettersAndSetters() {
     // Arrange and Act
     CertSignatureInformation actualCertSignatureInformation = new CertSignatureInformation();
     actualCertSignatureInformation.setIssuerUrl("https://example.org/example");
     actualCertSignatureInformation.setOcspUrl("https://example.org/example");
-    CertSignatureInformation actualAlternativeCertChain =
-        actualCertSignatureInformation.getAlternativeCertChain();
+    CertSignatureInformation actualAlternativeCertChain = actualCertSignatureInformation.getAlternativeCertChain();
     CertSignatureInformation actualCertChain = actualCertSignatureInformation.getCertChain();
     X509Certificate actualCertificate = actualCertSignatureInformation.getCertificate();
     String actualCrlUrl = actualCertSignatureInformation.getCrlUrl();
@@ -152,31 +126,29 @@ class CertInformationCollectorDiffblueTest {
 
   /**
    * Test {@link CertInformationCollector#getCertificateSet()}.
-   *
-   * <p>Method under test: {@link CertInformationCollector#getCertificateSet()}
+   * <p>
+   * Method under test: {@link CertInformationCollector#getCertificateSet()}
    */
   @Test
   @DisplayName("Test getCertificateSet()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.util.Set CertInformationCollector.getCertificateSet()"})
   void testGetCertificateSet() {
     // Arrange, Act and Assert
-    assertTrue(new CertInformationCollector().getCertificateSet().isEmpty());
+    assertTrue((new CertInformationCollector()).getCertificateSet().isEmpty());
   }
 
   /**
    * Test new {@link CertInformationCollector} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link CertInformationCollector}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link CertInformationCollector}
    */
   @Test
   @DisplayName("Test new CertInformationCollector (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void CertInformationCollector.<init>()"})
   void testNewCertInformationCollector() {
     // Arrange, Act and Assert
-    assertTrue(new CertInformationCollector().getCertificateSet().isEmpty());
+    assertTrue((new CertInformationCollector()).getCertificateSet().isEmpty());
   }
 }

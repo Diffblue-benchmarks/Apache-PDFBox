@@ -4,60 +4,46 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.isA;
-import static org.mockito.ArgumentMatchers.isNull;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.Color;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
-import javax.imageio.metadata.IIOMetadataNode;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSFloat;
 import org.apache.pdfbox.cos.COSIncrement;
-import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import org.w3c.dom.Element;
 
 class FDFAnnotationCircleDiffblueTest {
   /**
    * Test {@link FDFAnnotationCircle#FDFAnnotationCircle(COSDictionary)}.
-   *
-   * <p>Method under test: {@link FDFAnnotationCircle#FDFAnnotationCircle(COSDictionary)}
+   * <p>
+   * Method under test: {@link FDFAnnotationCircle#FDFAnnotationCircle(COSDictionary)}
    */
   @Test
   @DisplayName("Test new FDFAnnotationCircle(COSDictionary)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFAnnotationCircle.<init>(COSDictionary)"})
   void testNewFDFAnnotationCircle() {
     // Arrange
     COSDictionary a = new COSDictionary();
 
     // Act and Assert
-    assertSame(a, new FDFAnnotationCircle(a).getCOSObject());
+    assertSame(a, (new FDFAnnotationCircle(a)).getCOSObject());
   }
 
   /**
    * Test {@link FDFAnnotationCircle#FDFAnnotationCircle()}.
-   *
-   * <p>Method under test: {@link FDFAnnotationCircle#FDFAnnotationCircle()}
+   * <p>
+   * Method under test: {@link FDFAnnotationCircle#FDFAnnotationCircle()}
    */
   @Test
   @DisplayName("Test new FDFAnnotationCircle()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFAnnotationCircle.<init>()"})
   void testNewFDFAnnotationCircle2() throws IOException {
     // Arrange and Act
@@ -93,128 +79,57 @@ class FDFAnnotationCircleDiffblueTest {
   }
 
   /**
-   * Test {@link FDFAnnotationCircle#FDFAnnotationCircle(Element)}.
-   *
+   * Test {@link FDFAnnotationCircle#getInteriorColor()}.
    * <ul>
-   *   <li>When {@link IIOMetadataNode#IIOMetadataNode()}.
-   *   <li>Then throw {@link IOException}.
+   *   <li>Given {@link FDFAnnotationCircle#FDFAnnotationCircle()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationCircle#FDFAnnotationCircle(Element)}
+   * <p>
+   * Method under test: {@link FDFAnnotationCircle#getInteriorColor()}
    */
   @Test
-  @DisplayName(
-      "Test new FDFAnnotationCircle(Element); when IIOMetadataNode(); then throw IOException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFAnnotationCircle.<init>(Element)"})
-  void testNewFDFAnnotationCircle_whenIIOMetadataNode_thenThrowIOException() throws IOException {
+  @DisplayName("Test getInteriorColor(); given FDFAnnotationCircle(); then return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Color FDFAnnotationCircle.getInteriorColor()"})
+  void testGetInteriorColor_givenFDFAnnotationCircle_thenReturnNull() {
     // Arrange, Act and Assert
-    assertThrows(IOException.class, () -> new FDFAnnotationCircle(new IIOMetadataNode()));
-  }
-
-  /**
-   * Test {@link FDFAnnotationCircle#setInteriorColor(Color)}.
-   *
-   * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#setItem(COSName, COSBase)} does nothing.
-   *   <li>Then calls {@link COSDictionary#setItem(COSName, COSBase)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationCircle#setInteriorColor(Color)}
-   */
-  @Test
-  @DisplayName(
-      "Test setInteriorColor(Color); given COSDictionary setItem(COSName, COSBase) does nothing; then calls setItem(COSName, COSBase)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFAnnotationCircle.setInteriorColor(Color)"})
-  void testSetInteriorColor_givenCOSDictionarySetItemDoesNothing_thenCallsSetItem() {
-    // Arrange
-    COSDictionary a = mock(COSDictionary.class);
-    doNothing().when(a).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
-
-    // Act
-    new FDFAnnotationCircle(a).setInteriorColor(null);
-
-    // Assert
-    verify(a).setItem(isA(COSName.class), (COSBase) isNull());
+    assertNull((new FDFAnnotationCircle()).getInteriorColor());
   }
 
   /**
    * Test {@link FDFAnnotationCircle#getInteriorColor()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFAnnotationCircle#FDFAnnotationCircle()}.
-   *   <li>Then return {@code null}.
+   *   <li>Then return decode {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationCircle#getInteriorColor()}
+   * <p>
+   * Method under test: {@link FDFAnnotationCircle#getInteriorColor()}
    */
   @Test
-  @DisplayName("Test getInteriorColor(); given FDFAnnotationCircle(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getInteriorColor(); then return decode '42'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Color FDFAnnotationCircle.getInteriorColor()"})
-  void testGetInteriorColor_givenFDFAnnotationCircle_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new FDFAnnotationCircle().getInteriorColor());
-  }
-
-  /**
-   * Test {@link FDFAnnotationCircle#setFringe(PDRectangle)}.
-   *
-   * <ul>
-   *   <li>Then {@link FDFAnnotationCircle#FDFAnnotationCircle()} COSObject toIncrement Objects size
-   *       is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationCircle#setFringe(PDRectangle)}
-   */
-  @Test
-  @DisplayName(
-      "Test setFringe(PDRectangle); then FDFAnnotationCircle() COSObject toIncrement Objects size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFAnnotationCircle.setFringe(PDRectangle)"})
-  void testSetFringe_thenFDFAnnotationCircleCOSObjectToIncrementObjectsSizeIsOne() {
+  void testGetInteriorColor_thenReturnDecode42() throws NumberFormatException {
     // Arrange
     FDFAnnotationCircle fdfAnnotationCircle = new FDFAnnotationCircle();
+    Color color = Color.decode("42");
+    fdfAnnotationCircle.setInteriorColor(color);
 
-    // Act
-    fdfAnnotationCircle.setFringe(PDRectangle.LETTER);
-
-    // Assert
-    COSDictionary cOSObject = fdfAnnotationCircle.getCOSObject();
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertEquals(1, toIncrementResult.getObjects().size());
-    Iterator<COSBase> iteratorResult = toIncrementResult.iterator();
-    COSBase actualNextResult = iteratorResult.next();
-    assertFalse(iteratorResult.hasNext());
-    assertSame(cOSObject, actualNextResult);
-    PDRectangle fringe = fdfAnnotationCircle.getFringe();
-    assertEquals(792.0f, fringe.getHeight());
-    assertEquals(612.0f, fringe.getUpperRightX());
-    assertEquals(792.0f, fringe.getUpperRightY());
-    assertEquals(612.0f, fringe.getWidth());
+    // Act and Assert
+    assertEquals(color, fdfAnnotationCircle.getInteriorColor());
   }
 
   /**
    * Test {@link FDFAnnotationCircle#setFringe(PDRectangle)}.
-   *
    * <ul>
-   *   <li>When {@link PDRectangle#A0}.
-   *   <li>Then {@link FDFAnnotationCircle#FDFAnnotationCircle()} Fringe UpperRightX is {@code
-   *       2383.937}.
+   *   <li>When {@link PDRectangle#A0}.</li>
+   *   <li>Then {@link FDFAnnotationCircle#FDFAnnotationCircle()} Fringe UpperRightX is {@code 2383.937}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationCircle#setFringe(PDRectangle)}
+   * <p>
+   * Method under test: {@link FDFAnnotationCircle#setFringe(PDRectangle)}
    */
   @Test
-  @DisplayName(
-      "Test setFringe(PDRectangle); when A0; then FDFAnnotationCircle() Fringe UpperRightX is '2383.937'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setFringe(PDRectangle); when A0; then FDFAnnotationCircle() Fringe UpperRightX is '2383.937'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFAnnotationCircle.setFringe(PDRectangle)"})
   void testSetFringe_whenA0_thenFDFAnnotationCircleFringeUpperRightXIs2383937() {
     // Arrange
@@ -233,20 +148,16 @@ class FDFAnnotationCircleDiffblueTest {
 
   /**
    * Test {@link FDFAnnotationCircle#setFringe(PDRectangle)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link FDFAnnotationCircle#FDFAnnotationCircle()} COSObject toIncrement Objects
-   *       Empty.
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link FDFAnnotationCircle#FDFAnnotationCircle()} COSObject toIncrement Objects Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationCircle#setFringe(PDRectangle)}
+   * <p>
+   * Method under test: {@link FDFAnnotationCircle#setFringe(PDRectangle)}
    */
   @Test
-  @DisplayName(
-      "Test setFringe(PDRectangle); when 'null'; then FDFAnnotationCircle() COSObject toIncrement Objects Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setFringe(PDRectangle); when 'null'; then FDFAnnotationCircle() COSObject toIncrement Objects Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FDFAnnotationCircle.setFringe(PDRectangle)"})
   void testSetFringe_whenNull_thenFDFAnnotationCircleCOSObjectToIncrementObjectsEmpty() {
     // Arrange
@@ -263,37 +174,33 @@ class FDFAnnotationCircleDiffblueTest {
 
   /**
    * Test {@link FDFAnnotationCircle#getFringe()}.
-   *
    * <ul>
-   *   <li>Given {@link FDFAnnotationCircle#FDFAnnotationCircle()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link FDFAnnotationCircle#FDFAnnotationCircle()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationCircle#getFringe()}
+   * <p>
+   * Method under test: {@link FDFAnnotationCircle#getFringe()}
    */
   @Test
   @DisplayName("Test getFringe(); given FDFAnnotationCircle(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDRectangle FDFAnnotationCircle.getFringe()"})
   void testGetFringe_givenFDFAnnotationCircle_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new FDFAnnotationCircle().getFringe());
+    assertNull((new FDFAnnotationCircle()).getFringe());
   }
 
   /**
    * Test {@link FDFAnnotationCircle#getFringe()}.
-   *
    * <ul>
-   *   <li>Then return COSArray toList third Key is {@code null}.
+   *   <li>Then return COSArray toList third Key is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationCircle#getFringe()}
+   * <p>
+   * Method under test: {@link FDFAnnotationCircle#getFringe()}
    */
   @Test
   @DisplayName("Test getFringe(); then return COSArray toList third Key is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDRectangle FDFAnnotationCircle.getFringe()"})
   void testGetFringe_thenReturnCOSArrayToListThirdKeyIsNull() {
     // Arrange
@@ -324,24 +231,20 @@ class FDFAnnotationCircleDiffblueTest {
 
   /**
    * Test {@link FDFAnnotationCircle#getFringe()}.
-   *
    * <ul>
-   *   <li>Then return Height is zero.
+   *   <li>Then return Height is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationCircle#getFringe()}
+   * <p>
+   * Method under test: {@link FDFAnnotationCircle#getFringe()}
    */
   @Test
   @DisplayName("Test getFringe(); then return Height is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDRectangle FDFAnnotationCircle.getFringe()"})
   void testGetFringe_thenReturnHeightIsZero() {
     // Arrange
     FDFAnnotationCircle fdfAnnotationCircle = new FDFAnnotationCircle();
-    PDRectangle fringe =
-        new PDRectangle(2.14748365E9f, 2.14748365E9f, 2.14748365E9f, 2.14748365E9f);
-    fdfAnnotationCircle.setFringe(fringe);
+    fdfAnnotationCircle.setFringe(new PDRectangle(2.14748365E9f, 2.14748365E9f, 2.14748365E9f, 2.14748365E9f));
 
     // Act
     PDRectangle actualFringe = fdfAnnotationCircle.getFringe();

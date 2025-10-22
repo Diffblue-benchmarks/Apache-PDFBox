@@ -2,7 +2,6 @@ package org.apache.pdfbox.pdmodel.interactive.annotation.handlers;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.interactive.annotation.PDAnnotation;
@@ -14,13 +13,11 @@ import org.junit.jupiter.api.Test;
 class PDSoundAppearanceHandlerDiffblueTest {
   /**
    * Test getters and setters.
-   *
    * <ul>
-   *   <li>When {@link PDAnnotationCaret#PDAnnotationCaret()}.
+   *   <li>When {@link PDAnnotationCaret#PDAnnotationCaret()}.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link PDSoundAppearanceHandler#PDSoundAppearanceHandler(PDAnnotation)}
    *   <li>{@link PDSoundAppearanceHandler#generateDownAppearance()}
@@ -30,22 +27,18 @@ class PDSoundAppearanceHandlerDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters; when PDAnnotationCaret()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PDSoundAppearanceHandler.<init>(PDAnnotation)",
-    "void PDSoundAppearanceHandler.<init>(PDAnnotation, org.apache.pdfbox.pdmodel.PDDocument)",
-    "void PDSoundAppearanceHandler.generateDownAppearance()",
-    "void PDSoundAppearanceHandler.generateNormalAppearance()",
-    "void PDSoundAppearanceHandler.generateRolloverAppearance()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDSoundAppearanceHandler.<init>(PDAnnotation)",
+      "void PDSoundAppearanceHandler.<init>(PDAnnotation, org.apache.pdfbox.pdmodel.PDDocument)",
+      "void PDSoundAppearanceHandler.generateDownAppearance()",
+      "void PDSoundAppearanceHandler.generateNormalAppearance()",
+      "void PDSoundAppearanceHandler.generateRolloverAppearance()"})
   void testGettersAndSetters_whenPDAnnotationCaret() {
     // Arrange
     PDAnnotationCaret annotation = new PDAnnotationCaret();
 
     // Act
-    PDSoundAppearanceHandler actualPdSoundAppearanceHandler =
-        new PDSoundAppearanceHandler(annotation);
+    PDSoundAppearanceHandler actualPdSoundAppearanceHandler = new PDSoundAppearanceHandler(annotation);
     actualPdSoundAppearanceHandler.generateDownAppearance();
     actualPdSoundAppearanceHandler.generateNormalAppearance();
     actualPdSoundAppearanceHandler.generateRolloverAppearance();

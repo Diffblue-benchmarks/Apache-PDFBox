@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import org.apache.pdfbox.cos.COSArray;
@@ -26,31 +25,29 @@ import org.junit.jupiter.api.Test;
 class PDActionThreadDiffblueTest {
   /**
    * Test {@link PDActionThread#PDActionThread(COSDictionary)}.
-   *
-   * <p>Method under test: {@link PDActionThread#PDActionThread(COSDictionary)}
+   * <p>
+   * Method under test: {@link PDActionThread#PDActionThread(COSDictionary)}
    */
   @Test
   @DisplayName("Test new PDActionThread(COSDictionary)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDActionThread.<init>(COSDictionary)"})
   void testNewPDActionThread() {
     // Arrange
     COSDictionary a = new COSDictionary();
 
     // Act and Assert
-    assertSame(a, new PDActionThread(a).getCOSObject());
+    assertSame(a, (new PDActionThread(a)).getCOSObject());
   }
 
   /**
    * Test {@link PDActionThread#PDActionThread()}.
-   *
-   * <p>Method under test: {@link PDActionThread#PDActionThread()}
+   * <p>
+   * Method under test: {@link PDActionThread#PDActionThread()}
    */
   @Test
   @DisplayName("Test new PDActionThread()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDActionThread.<init>()"})
   void testNewPDActionThread2() throws IOException {
     // Arrange and Act
@@ -73,25 +70,21 @@ class PDActionThreadDiffblueTest {
 
   /**
    * Test {@link PDActionThread#getD()}.
-   *
    * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
-   *   <li>Then return {@link COSBoolean#FALSE}.
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
+   *   <li>Then return {@link COSBoolean#FALSE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionThread#getD()}
+   * <p>
+   * Method under test: {@link PDActionThread#getD()}
    */
   @Test
-  @DisplayName(
-      "Test getD(); given COSObjectKey(long, int) with num is one and gen is one; then return FALSE")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getD(); given COSObjectKey(long, int) with num is one and gen is one; then return FALSE")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSBase PDActionThread.getD()"})
   void testGetD_givenCOSObjectKeyWithNumIsOneAndGenIsOne_thenReturnFalse() {
     // Arrange
     PDActionThread pdActionThread = new PDActionThread();
-    COSObject d = new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1));
-    pdActionThread.setD(d);
+    pdActionThread.setD(new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1)));
 
     // Act
     COSBase actualD = pdActionThread.getD();
@@ -102,37 +95,33 @@ class PDActionThreadDiffblueTest {
 
   /**
    * Test {@link PDActionThread#getD()}.
-   *
    * <ul>
-   *   <li>Given {@link PDActionThread#PDActionThread()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDActionThread#PDActionThread()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionThread#getD()}
+   * <p>
+   * Method under test: {@link PDActionThread#getD()}
    */
   @Test
   @DisplayName("Test getD(); given PDActionThread(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSBase PDActionThread.getD()"})
   void testGetD_givenPDActionThread_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDActionThread().getD());
+    assertNull((new PDActionThread()).getD());
   }
 
   /**
    * Test {@link PDActionThread#setD(COSBase)}.
-   *
    * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionThread#setD(COSBase)}
+   * <p>
+   * Method under test: {@link PDActionThread#setD(COSBase)}
    */
   @Test
   @DisplayName("Test setD(COSBase); given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDActionThread.setD(COSBase)"})
   void testSetD_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
@@ -153,22 +142,18 @@ class PDActionThreadDiffblueTest {
 
   /**
    * Test {@link PDActionThread#setD(COSBase)}.
-   *
    * <ul>
-   *   <li>Given {@link PDActionThread#PDActionThread()}.
-   *   <li>When {@link COSArray#COSArray()}.
-   *   <li>Then {@link PDActionThread#PDActionThread()} D is {@link COSArray#COSArray()}.
+   *   <li>When {@link COSArray#COSArray()}.</li>
+   *   <li>Then {@link PDActionThread#PDActionThread()} D is {@link COSArray#COSArray()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionThread#setD(COSBase)}
+   * <p>
+   * Method under test: {@link PDActionThread#setD(COSBase)}
    */
   @Test
-  @DisplayName(
-      "Test setD(COSBase); given PDActionThread(); when COSArray(); then PDActionThread() D is COSArray()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setD(COSBase); when COSArray(); then PDActionThread() D is COSArray()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDActionThread.setD(COSBase)"})
-  void testSetD_givenPDActionThread_whenCOSArray_thenPDActionThreadDIsCOSArray() {
+  void testSetD_whenCOSArray_thenPDActionThreadDIsCOSArray() {
     // Arrange
     PDActionThread pdActionThread = new PDActionThread();
     COSArray d = new COSArray();
@@ -185,80 +170,16 @@ class PDActionThreadDiffblueTest {
 
   /**
    * Test {@link PDActionThread#setD(COSBase)}.
-   *
    * <ul>
-   *   <li>Given {@link PDActionThread#PDActionThread()}.
-   *   <li>When {@link COSBoolean#FALSE}.
-   *   <li>Then {@link PDActionThread#PDActionThread()} D is {@link COSBoolean#FALSE}.
+   *   <li>When {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then {@link PDActionThread#PDActionThread()} D is {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionThread#setD(COSBase)}
+   * <p>
+   * Method under test: {@link PDActionThread#setD(COSBase)}
    */
   @Test
-  @DisplayName(
-      "Test setD(COSBase); given PDActionThread(); when FALSE; then PDActionThread() D is FALSE")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDActionThread.setD(COSBase)"})
-  void testSetD_givenPDActionThread_whenFalse_thenPDActionThreadDIsFalse() {
-    // Arrange
-    PDActionThread pdActionThread = new PDActionThread();
-
-    // Act
-    pdActionThread.setD(COSBoolean.FALSE);
-
-    // Assert
-    COSDictionary cOSObject = pdActionThread.getCOSObject();
-    assertEquals(3, cOSObject.getValues().size());
-    assertEquals(3, cOSObject.size());
-    assertSame(COSBoolean.FALSE, pdActionThread.getD());
-  }
-
-  /**
-   * Test {@link PDActionThread#setD(COSBase)}.
-   *
-   * <ul>
-   *   <li>Given {@link PDActionThread#PDActionThread()}.
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDActionThread#PDActionThread()} COSObject Values size is two.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionThread#setD(COSBase)}
-   */
-  @Test
-  @DisplayName(
-      "Test setD(COSBase); given PDActionThread(); when 'null'; then PDActionThread() COSObject Values size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDActionThread.setD(COSBase)"})
-  void testSetD_givenPDActionThread_whenNull_thenPDActionThreadCOSObjectValuesSizeIsTwo() {
-    // Arrange
-    PDActionThread pdActionThread = new PDActionThread();
-
-    // Act
-    pdActionThread.setD(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdActionThread.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDActionThread#setD(COSBase)}.
-   *
-   * <ul>
-   *   <li>When {@link COSDictionary#COSDictionary()}.
-   *   <li>Then {@link PDActionThread#PDActionThread()} D is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionThread#setD(COSBase)}
-   */
-  @Test
-  @DisplayName(
-      "Test setD(COSBase); when COSDictionary(); then PDActionThread() D is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setD(COSBase); when COSDictionary(); then PDActionThread() D is COSDictionary()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDActionThread.setD(COSBase)"})
   void testSetD_whenCOSDictionary_thenPDActionThreadDIsCOSDictionary() {
     // Arrange
@@ -277,25 +198,22 @@ class PDActionThreadDiffblueTest {
 
   /**
    * Test {@link PDActionThread#setD(COSBase)}.
-   *
    * <ul>
-   *   <li>When {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   *   <li>When {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionThread#setD(COSBase)}
+   * <p>
+   * Method under test: {@link PDActionThread#setD(COSBase)}
    */
   @Test
   @DisplayName("Test setD(COSBase); when COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDActionThread.setD(COSBase)"})
   void testSetD_whenCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
     PDActionThread pdActionThread = new PDActionThread();
-    COSObject d = new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1));
 
     // Act
-    pdActionThread.setD(d);
+    pdActionThread.setD(new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1)));
 
     // Assert
     COSDictionary cOSObject = pdActionThread.getCOSObject();
@@ -304,38 +222,89 @@ class PDActionThreadDiffblueTest {
   }
 
   /**
-   * Test {@link PDActionThread#getFile()}.
-   *
+   * Test {@link PDActionThread#setD(COSBase)}.
    * <ul>
-   *   <li>Given {@link PDActionThread#PDActionThread()}.
-   *   <li>Then return {@code null}.
+   *   <li>When {@link COSBoolean#FALSE}.</li>
+   *   <li>Then {@link PDActionThread#PDActionThread()} D is {@link COSBoolean#FALSE} {@link COSBoolean#FALSE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionThread#getFile()}
+   * <p>
+   * Method under test: {@link PDActionThread#setD(COSBase)}
    */
   @Test
-  @DisplayName("Test getFile(); given PDActionThread(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDFileSpecification PDActionThread.getFile()"})
-  void testGetFile_givenPDActionThread_thenReturnNull() throws IOException {
-    // Arrange, Act and Assert
-    assertNull(new PDActionThread().getFile());
+  @DisplayName("Test setD(COSBase); when FALSE; then PDActionThread() D is FALSE FALSE")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDActionThread.setD(COSBase)"})
+  void testSetD_whenFalse_thenPDActionThreadDIsFalseFalse() {
+    // Arrange
+    PDActionThread pdActionThread = new PDActionThread();
+    COSBoolean d = COSBoolean.FALSE;
+
+    // Act
+    pdActionThread.setD(d);
+
+    // Assert
+    COSDictionary cOSObject = pdActionThread.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+    COSBoolean expectedD = d.FALSE;
+    assertSame(expectedD, pdActionThread.getD());
+  }
+
+  /**
+   * Test {@link PDActionThread#setD(COSBase)}.
+   * <ul>
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link PDActionThread#PDActionThread()} COSObject Values size is two.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDActionThread#setD(COSBase)}
+   */
+  @Test
+  @DisplayName("Test setD(COSBase); when 'null'; then PDActionThread() COSObject Values size is two")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDActionThread.setD(COSBase)"})
+  void testSetD_whenNull_thenPDActionThreadCOSObjectValuesSizeIsTwo() {
+    // Arrange
+    PDActionThread pdActionThread = new PDActionThread();
+
+    // Act
+    pdActionThread.setD(null);
+
+    // Assert that nothing has changed
+    COSDictionary cOSObject = pdActionThread.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
   }
 
   /**
    * Test {@link PDActionThread#getFile()}.
-   *
    * <ul>
-   *   <li>Then COSObject return {@link COSString}.
+   *   <li>Given {@link PDActionThread#PDActionThread()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionThread#getFile()}
+   * <p>
+   * Method under test: {@link PDActionThread#getFile()}
+   */
+  @Test
+  @DisplayName("Test getFile(); given PDActionThread(); then return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"PDFileSpecification PDActionThread.getFile()"})
+  void testGetFile_givenPDActionThread_thenReturnNull() throws IOException {
+    // Arrange, Act and Assert
+    assertNull((new PDActionThread()).getFile());
+  }
+
+  /**
+   * Test {@link PDActionThread#getFile()}.
+   * <ul>
+   *   <li>Then COSObject return {@link COSString}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDActionThread#getFile()}
    */
   @Test
   @DisplayName("Test getFile(); then COSObject return COSString")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDFileSpecification PDActionThread.getFile()"})
   void testGetFile_thenCOSObjectReturnCOSString() throws IOException {
     // Arrange
@@ -356,22 +325,20 @@ class PDActionThreadDiffblueTest {
     assertNull(cOSObject.getKey());
     assertFalse(cOSObject.isDirect());
     assertFalse(((COSString) cOSObject).getForceHexForm());
-    assertArrayEquals(new byte[] {}, ((COSString) cOSObject).getBytes());
+    assertArrayEquals(new byte[]{}, ((COSString) cOSObject).getBytes());
   }
 
   /**
    * Test {@link PDActionThread#getFile()}.
-   *
    * <ul>
-   *   <li>Then return {@link PDComplexFileSpecification}.
+   *   <li>Then return {@link PDComplexFileSpecification}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionThread#getFile()}
+   * <p>
+   * Method under test: {@link PDActionThread#getFile()}
    */
   @Test
   @DisplayName("Test getFile(); then return PDComplexFileSpecification")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDFileSpecification PDActionThread.getFile()"})
   void testGetFile_thenReturnPDComplexFileSpecification() throws IOException {
     // Arrange
@@ -400,168 +367,17 @@ class PDActionThreadDiffblueTest {
 
   /**
    * Test {@link PDActionThread#setFile(PDFileSpecification)}.
-   *
    * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   *   <li>Then {@link PDActionThread#PDActionThread()} File {@link PDComplexFileSpecification}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionThread#setFile(PDFileSpecification)}
+   * <p>
+   * Method under test: {@link PDActionThread#setFile(PDFileSpecification)}
    */
   @Test
-  @DisplayName(
-      "Test setFile(PDFileSpecification); given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setFile(PDFileSpecification); then PDActionThread() File PDComplexFileSpecification")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDActionThread.setFile(PDFileSpecification)"})
-  void testSetFile_givenCOSObjectKeyWithNumIsOneAndGenIsOne() throws IOException {
-    // Arrange
-    PDActionThread pdActionThread = new PDActionThread();
-
-    COSDictionary dict = new COSDictionary();
-    dict.setKey(new COSObjectKey(1L, 1));
-
-    // Act
-    pdActionThread.setFile(new PDComplexFileSpecification(dict));
-
-    // Assert
-    PDFileSpecification file = pdActionThread.getFile();
-    assertTrue(file instanceof PDComplexFileSpecification);
-    assertNull(((PDComplexFileSpecification) file).getFileDescription());
-    assertNull(((PDComplexFileSpecification) file).getFileDos());
-    assertNull(((PDComplexFileSpecification) file).getFileMac());
-    assertNull(((PDComplexFileSpecification) file).getFileUnicode());
-    assertNull(((PDComplexFileSpecification) file).getFileUnix());
-    assertNull(((PDComplexFileSpecification) file).getFilename());
-    assertNull(file.getFile());
-    assertNull(((PDComplexFileSpecification) file).getEmbeddedFile());
-    assertNull(((PDComplexFileSpecification) file).getEmbeddedFileDos());
-    assertNull(((PDComplexFileSpecification) file).getEmbeddedFileMac());
-    assertNull(((PDComplexFileSpecification) file).getEmbeddedFileUnicode());
-    assertNull(((PDComplexFileSpecification) file).getEmbeddedFileUnix());
-    assertFalse(((PDComplexFileSpecification) file).isVolatile());
-    assertSame(dict, file.getCOSObject());
-  }
-
-  /**
-   * Test {@link PDActionThread#setFile(PDFileSpecification)}.
-   *
-   * <ul>
-   *   <li>Given {@code true}.
-   *   <li>When {@link COSDictionary#COSDictionary()} Direct is {@code true}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionThread#setFile(PDFileSpecification)}
-   */
-  @Test
-  @DisplayName(
-      "Test setFile(PDFileSpecification); given 'true'; when COSDictionary() Direct is 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDActionThread.setFile(PDFileSpecification)"})
-  void testSetFile_givenTrue_whenCOSDictionaryDirectIsTrue() throws IOException {
-    // Arrange
-    PDActionThread pdActionThread = new PDActionThread();
-
-    COSDictionary dict = new COSDictionary();
-    dict.setDirect(true);
-
-    // Act
-    pdActionThread.setFile(new PDComplexFileSpecification(dict));
-
-    // Assert
-    PDFileSpecification file = pdActionThread.getFile();
-    assertTrue(file instanceof PDComplexFileSpecification);
-    assertNull(((PDComplexFileSpecification) file).getFileDescription());
-    assertNull(((PDComplexFileSpecification) file).getFileDos());
-    assertNull(((PDComplexFileSpecification) file).getFileMac());
-    assertNull(((PDComplexFileSpecification) file).getFileUnicode());
-    assertNull(((PDComplexFileSpecification) file).getFileUnix());
-    assertNull(((PDComplexFileSpecification) file).getFilename());
-    assertNull(file.getFile());
-    assertNull(((PDComplexFileSpecification) file).getEmbeddedFile());
-    assertNull(((PDComplexFileSpecification) file).getEmbeddedFileDos());
-    assertNull(((PDComplexFileSpecification) file).getEmbeddedFileMac());
-    assertNull(((PDComplexFileSpecification) file).getEmbeddedFileUnicode());
-    assertNull(((PDComplexFileSpecification) file).getEmbeddedFileUnix());
-    assertFalse(((PDComplexFileSpecification) file).isVolatile());
-    assertSame(dict, file.getCOSObject());
-  }
-
-  /**
-   * Test {@link PDActionThread#setFile(PDFileSpecification)}.
-   *
-   * <ul>
-   *   <li>Then {@link PDActionThread#PDActionThread()} File {@link PDSimpleFileSpecification}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionThread#setFile(PDFileSpecification)}
-   */
-  @Test
-  @DisplayName(
-      "Test setFile(PDFileSpecification); then PDActionThread() File PDSimpleFileSpecification")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDActionThread.setFile(PDFileSpecification)"})
-  void testSetFile_thenPDActionThreadFilePDSimpleFileSpecification() throws IOException {
-    // Arrange
-    PDActionThread pdActionThread = new PDActionThread();
-
-    // Act
-    pdActionThread.setFile(new PDSimpleFileSpecification());
-
-    // Assert
-    PDFileSpecification file = pdActionThread.getFile();
-    assertTrue(file instanceof PDSimpleFileSpecification);
-    assertEquals("", file.getFile());
-    COSDictionary cOSObject = pdActionThread.getCOSObject();
-    assertEquals(3, cOSObject.getValues().size());
-    assertEquals(3, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDActionThread#setFile(PDFileSpecification)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDActionThread#PDActionThread()} COSObject Values size is two.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionThread#setFile(PDFileSpecification)}
-   */
-  @Test
-  @DisplayName(
-      "Test setFile(PDFileSpecification); when 'null'; then PDActionThread() COSObject Values size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDActionThread.setFile(PDFileSpecification)"})
-  void testSetFile_whenNull_thenPDActionThreadCOSObjectValuesSizeIsTwo() {
-    // Arrange
-    PDActionThread pdActionThread = new PDActionThread();
-
-    // Act
-    pdActionThread.setFile(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdActionThread.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDActionThread#setFile(PDFileSpecification)}.
-   *
-   * <ul>
-   *   <li>When {@link PDComplexFileSpecification#PDComplexFileSpecification()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionThread#setFile(PDFileSpecification)}
-   */
-  @Test
-  @DisplayName("Test setFile(PDFileSpecification); when PDComplexFileSpecification()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDActionThread.setFile(PDFileSpecification)"})
-  void testSetFile_whenPDComplexFileSpecification() throws IOException {
+  void testSetFile_thenPDActionThreadFilePDComplexFileSpecification() throws IOException {
     // Arrange
     PDActionThread pdActionThread = new PDActionThread();
 
@@ -587,26 +403,76 @@ class PDActionThreadDiffblueTest {
   }
 
   /**
-   * Test {@link PDActionThread#getB()}.
-   *
+   * Test {@link PDActionThread#setFile(PDFileSpecification)}.
    * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
-   *   <li>Then return {@link COSBoolean#FALSE}.
+   *   <li>Then {@link PDActionThread#PDActionThread()} File {@link PDSimpleFileSpecification}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionThread#getB()}
+   * <p>
+   * Method under test: {@link PDActionThread#setFile(PDFileSpecification)}
    */
   @Test
-  @DisplayName(
-      "Test getB(); given COSObjectKey(long, int) with num is one and gen is one; then return FALSE")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setFile(PDFileSpecification); then PDActionThread() File PDSimpleFileSpecification")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDActionThread.setFile(PDFileSpecification)"})
+  void testSetFile_thenPDActionThreadFilePDSimpleFileSpecification() throws IOException {
+    // Arrange
+    PDActionThread pdActionThread = new PDActionThread();
+
+    // Act
+    pdActionThread.setFile(new PDSimpleFileSpecification());
+
+    // Assert
+    PDFileSpecification file = pdActionThread.getFile();
+    assertTrue(file instanceof PDSimpleFileSpecification);
+    assertEquals("", file.getFile());
+    COSDictionary cOSObject = pdActionThread.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDActionThread#setFile(PDFileSpecification)}.
+   * <ul>
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link PDActionThread#PDActionThread()} COSObject Values size is two.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDActionThread#setFile(PDFileSpecification)}
+   */
+  @Test
+  @DisplayName("Test setFile(PDFileSpecification); when 'null'; then PDActionThread() COSObject Values size is two")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDActionThread.setFile(PDFileSpecification)"})
+  void testSetFile_whenNull_thenPDActionThreadCOSObjectValuesSizeIsTwo() {
+    // Arrange
+    PDActionThread pdActionThread = new PDActionThread();
+
+    // Act
+    pdActionThread.setFile(null);
+
+    // Assert that nothing has changed
+    COSDictionary cOSObject = pdActionThread.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDActionThread#getB()}.
+   * <ul>
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
+   *   <li>Then return {@link COSBoolean#FALSE}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDActionThread#getB()}
+   */
+  @Test
+  @DisplayName("Test getB(); given COSObjectKey(long, int) with num is one and gen is one; then return FALSE")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSBase PDActionThread.getB()"})
   void testGetB_givenCOSObjectKeyWithNumIsOneAndGenIsOne_thenReturnFalse() {
     // Arrange
     PDActionThread pdActionThread = new PDActionThread();
-    COSObject b = new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1));
-    pdActionThread.setB(b);
+    pdActionThread.setB(new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1)));
 
     // Act
     COSBase actualB = pdActionThread.getB();
@@ -617,37 +483,33 @@ class PDActionThreadDiffblueTest {
 
   /**
    * Test {@link PDActionThread#getB()}.
-   *
    * <ul>
-   *   <li>Given {@link PDActionThread#PDActionThread()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDActionThread#PDActionThread()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionThread#getB()}
+   * <p>
+   * Method under test: {@link PDActionThread#getB()}
    */
   @Test
   @DisplayName("Test getB(); given PDActionThread(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSBase PDActionThread.getB()"})
   void testGetB_givenPDActionThread_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDActionThread().getB());
+    assertNull((new PDActionThread()).getB());
   }
 
   /**
    * Test {@link PDActionThread#setB(COSBase)}.
-   *
    * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionThread#setB(COSBase)}
+   * <p>
+   * Method under test: {@link PDActionThread#setB(COSBase)}
    */
   @Test
   @DisplayName("Test setB(COSBase); given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDActionThread.setB(COSBase)"})
   void testSetB_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
@@ -668,22 +530,18 @@ class PDActionThreadDiffblueTest {
 
   /**
    * Test {@link PDActionThread#setB(COSBase)}.
-   *
    * <ul>
-   *   <li>Given {@link PDActionThread#PDActionThread()}.
-   *   <li>When {@link COSArray#COSArray()}.
-   *   <li>Then {@link PDActionThread#PDActionThread()} B is {@link COSArray#COSArray()}.
+   *   <li>When {@link COSArray#COSArray()}.</li>
+   *   <li>Then {@link PDActionThread#PDActionThread()} B is {@link COSArray#COSArray()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionThread#setB(COSBase)}
+   * <p>
+   * Method under test: {@link PDActionThread#setB(COSBase)}
    */
   @Test
-  @DisplayName(
-      "Test setB(COSBase); given PDActionThread(); when COSArray(); then PDActionThread() B is COSArray()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setB(COSBase); when COSArray(); then PDActionThread() B is COSArray()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDActionThread.setB(COSBase)"})
-  void testSetB_givenPDActionThread_whenCOSArray_thenPDActionThreadBIsCOSArray() {
+  void testSetB_whenCOSArray_thenPDActionThreadBIsCOSArray() {
     // Arrange
     PDActionThread pdActionThread = new PDActionThread();
     COSArray b = new COSArray();
@@ -700,80 +558,16 @@ class PDActionThreadDiffblueTest {
 
   /**
    * Test {@link PDActionThread#setB(COSBase)}.
-   *
    * <ul>
-   *   <li>Given {@link PDActionThread#PDActionThread()}.
-   *   <li>When {@link COSBoolean#FALSE}.
-   *   <li>Then {@link PDActionThread#PDActionThread()} B is {@link COSBoolean#FALSE}.
+   *   <li>When {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then {@link PDActionThread#PDActionThread()} B is {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionThread#setB(COSBase)}
+   * <p>
+   * Method under test: {@link PDActionThread#setB(COSBase)}
    */
   @Test
-  @DisplayName(
-      "Test setB(COSBase); given PDActionThread(); when FALSE; then PDActionThread() B is FALSE")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDActionThread.setB(COSBase)"})
-  void testSetB_givenPDActionThread_whenFalse_thenPDActionThreadBIsFalse() {
-    // Arrange
-    PDActionThread pdActionThread = new PDActionThread();
-
-    // Act
-    pdActionThread.setB(COSBoolean.FALSE);
-
-    // Assert
-    COSDictionary cOSObject = pdActionThread.getCOSObject();
-    assertEquals(3, cOSObject.getValues().size());
-    assertEquals(3, cOSObject.size());
-    assertSame(COSBoolean.FALSE, pdActionThread.getB());
-  }
-
-  /**
-   * Test {@link PDActionThread#setB(COSBase)}.
-   *
-   * <ul>
-   *   <li>Given {@link PDActionThread#PDActionThread()}.
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDActionThread#PDActionThread()} COSObject Values size is two.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionThread#setB(COSBase)}
-   */
-  @Test
-  @DisplayName(
-      "Test setB(COSBase); given PDActionThread(); when 'null'; then PDActionThread() COSObject Values size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDActionThread.setB(COSBase)"})
-  void testSetB_givenPDActionThread_whenNull_thenPDActionThreadCOSObjectValuesSizeIsTwo() {
-    // Arrange
-    PDActionThread pdActionThread = new PDActionThread();
-
-    // Act
-    pdActionThread.setB(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdActionThread.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDActionThread#setB(COSBase)}.
-   *
-   * <ul>
-   *   <li>When {@link COSDictionary#COSDictionary()}.
-   *   <li>Then {@link PDActionThread#PDActionThread()} B is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionThread#setB(COSBase)}
-   */
-  @Test
-  @DisplayName(
-      "Test setB(COSBase); when COSDictionary(); then PDActionThread() B is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setB(COSBase); when COSDictionary(); then PDActionThread() B is COSDictionary()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDActionThread.setB(COSBase)"})
   void testSetB_whenCOSDictionary_thenPDActionThreadBIsCOSDictionary() {
     // Arrange
@@ -792,22 +586,46 @@ class PDActionThreadDiffblueTest {
 
   /**
    * Test {@link PDActionThread#setB(COSBase)}.
-   *
    * <ul>
-   *   <li>When {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   *   <li>When {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDActionThread#setB(COSBase)}
+   * <p>
+   * Method under test: {@link PDActionThread#setB(COSBase)}
    */
   @Test
   @DisplayName("Test setB(COSBase); when COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDActionThread.setB(COSBase)"})
   void testSetB_whenCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
     PDActionThread pdActionThread = new PDActionThread();
-    COSObject b = new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1));
+
+    // Act
+    pdActionThread.setB(new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1)));
+
+    // Assert
+    COSDictionary cOSObject = pdActionThread.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDActionThread#setB(COSBase)}.
+   * <ul>
+   *   <li>When {@link COSBoolean#FALSE}.</li>
+   *   <li>Then {@link PDActionThread#PDActionThread()} B is {@link COSBoolean#FALSE} {@link COSBoolean#FALSE}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDActionThread#setB(COSBase)}
+   */
+  @Test
+  @DisplayName("Test setB(COSBase); when FALSE; then PDActionThread() B is FALSE FALSE")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDActionThread.setB(COSBase)"})
+  void testSetB_whenFalse_thenPDActionThreadBIsFalseFalse() {
+    // Arrange
+    PDActionThread pdActionThread = new PDActionThread();
+    COSBoolean b = COSBoolean.FALSE;
 
     // Act
     pdActionThread.setB(b);
@@ -816,5 +634,33 @@ class PDActionThreadDiffblueTest {
     COSDictionary cOSObject = pdActionThread.getCOSObject();
     assertEquals(3, cOSObject.getValues().size());
     assertEquals(3, cOSObject.size());
+    COSBoolean expectedB = b.FALSE;
+    assertSame(expectedB, pdActionThread.getB());
+  }
+
+  /**
+   * Test {@link PDActionThread#setB(COSBase)}.
+   * <ul>
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link PDActionThread#PDActionThread()} COSObject Values size is two.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDActionThread#setB(COSBase)}
+   */
+  @Test
+  @DisplayName("Test setB(COSBase); when 'null'; then PDActionThread() COSObject Values size is two")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDActionThread.setB(COSBase)"})
+  void testSetB_whenNull_thenPDActionThreadCOSObjectValuesSizeIsTwo() {
+    // Arrange
+    PDActionThread pdActionThread = new PDActionThread();
+
+    // Act
+    pdActionThread.setB(null);
+
+    // Assert that nothing has changed
+    COSDictionary cOSObject = pdActionThread.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
   }
 }

@@ -3,7 +3,6 @@ package org.apache.pdfbox.io;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -14,17 +13,16 @@ import org.junit.jupiter.api.Test;
 class RandomAccessStreamCacheImplDiffblueTest {
   /**
    * Test {@link RandomAccessStreamCacheImpl#createBuffer()}.
-   *
-   * <p>Method under test: {@link RandomAccessStreamCacheImpl#createBuffer()}
+   * <p>
+   * Method under test: {@link RandomAccessStreamCacheImpl#createBuffer()}
    */
   @Test
   @DisplayName("Test createBuffer()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"RandomAccess RandomAccessStreamCacheImpl.createBuffer()"})
   void testCreateBuffer() throws IOException {
     // Arrange and Act
-    RandomAccess actualCreateBufferResult = new RandomAccessStreamCacheImpl().createBuffer();
+    RandomAccess actualCreateBufferResult = (new RandomAccessStreamCacheImpl()).createBuffer();
 
     // Assert
     assertTrue(actualCreateBufferResult instanceof RandomAccessReadWriteBuffer);
@@ -41,8 +39,7 @@ class RandomAccessStreamCacheImplDiffblueTest {
     assertEquals(RandomAccessReadBuffer.DEFAULT_CHUNK_SIZE_4KB, byteBuffer.capacity());
     assertEquals(RandomAccessReadBuffer.DEFAULT_CHUNK_SIZE_4KB, byteBuffer.limit());
     assertEquals(RandomAccessReadBuffer.DEFAULT_CHUNK_SIZE_4KB, byteBuffer.array().length);
-    assertEquals(
-        RandomAccessReadBuffer.DEFAULT_CHUNK_SIZE_4KB,
+    assertEquals(RandomAccessReadBuffer.DEFAULT_CHUNK_SIZE_4KB,
         ((RandomAccessReadWriteBuffer) actualCreateBufferResult).chunkSize);
   }
 }

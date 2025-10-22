@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSIncrement;
@@ -19,31 +18,29 @@ import org.junit.jupiter.api.Test;
 class PDAppearanceDictionaryDiffblueTest {
   /**
    * Test {@link PDAppearanceDictionary#PDAppearanceDictionary(COSDictionary)}.
-   *
-   * <p>Method under test: {@link PDAppearanceDictionary#PDAppearanceDictionary(COSDictionary)}
+   * <p>
+   * Method under test: {@link PDAppearanceDictionary#PDAppearanceDictionary(COSDictionary)}
    */
   @Test
   @DisplayName("Test new PDAppearanceDictionary(COSDictionary)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAppearanceDictionary.<init>(COSDictionary)"})
   void testNewPDAppearanceDictionary() {
     // Arrange
     COSDictionary dictionary = new COSDictionary();
 
     // Act and Assert
-    assertSame(dictionary, new PDAppearanceDictionary(dictionary).getCOSObject());
+    assertSame(dictionary, (new PDAppearanceDictionary(dictionary)).getCOSObject());
   }
 
   /**
    * Test {@link PDAppearanceDictionary#PDAppearanceDictionary()}.
-   *
-   * <p>Method under test: {@link PDAppearanceDictionary#PDAppearanceDictionary()}
+   * <p>
+   * Method under test: {@link PDAppearanceDictionary#PDAppearanceDictionary()}
    */
   @Test
   @DisplayName("Test new PDAppearanceDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAppearanceDictionary.<init>()"})
   void testNewPDAppearanceDictionary2() {
     // Arrange and Act
@@ -72,17 +69,16 @@ class PDAppearanceDictionaryDiffblueTest {
 
   /**
    * Test {@link PDAppearanceDictionary#getCOSObject()}.
-   *
-   * <p>Method under test: {@link PDAppearanceDictionary#getCOSObject()}
+   * <p>
+   * Method under test: {@link PDAppearanceDictionary#getCOSObject()}
    */
   @Test
   @DisplayName("Test getCOSObject()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSDictionary PDAppearanceDictionary.getCOSObject()"})
   void testGetCOSObject() {
     // Arrange and Act
-    COSDictionary actualCOSObject = new PDAppearanceDictionary().getCOSObject();
+    COSDictionary actualCOSObject = (new PDAppearanceDictionary()).getCOSObject();
 
     // Assert
     COSUpdateState updateState = actualCOSObject.getUpdateState();
@@ -100,49 +96,19 @@ class PDAppearanceDictionaryDiffblueTest {
 
   /**
    * Test {@link PDAppearanceDictionary#getNormalAppearance()}.
-   *
    * <ul>
-   *   <li>Then return COSObject is {@link COSDictionary#COSDictionary()}.
+   *   <li>Then return COSObject UpdateState OriginDocumentState is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAppearanceDictionary#getNormalAppearance()}
+   * <p>
+   * Method under test: {@link PDAppearanceDictionary#getNormalAppearance()}
    */
   @Test
-  @DisplayName("Test getNormalAppearance(); then return COSObject is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDAppearanceEntry PDAppearanceDictionary.getNormalAppearance()"})
-  void testGetNormalAppearance_thenReturnCOSObjectIsCOSDictionary() {
-    // Arrange
-    COSDictionary entry = new COSDictionary();
-    entry.setKey(new COSObjectKey(1L, 1));
-    PDAppearanceEntry entry2 = new PDAppearanceEntry(entry);
-
-    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
-    pdAppearanceDictionary.setNormalAppearance(entry2);
-
-    // Act and Assert
-    assertSame(entry, pdAppearanceDictionary.getNormalAppearance().getCOSObject());
-  }
-
-  /**
-   * Test {@link PDAppearanceDictionary#getNormalAppearance()}.
-   *
-   * <ul>
-   *   <li>Then return COSObject UpdateState OriginDocumentState is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAppearanceDictionary#getNormalAppearance()}
-   */
-  @Test
-  @DisplayName(
-      "Test getNormalAppearance(); then return COSObject UpdateState OriginDocumentState is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getNormalAppearance(); then return COSObject UpdateState OriginDocumentState is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAppearanceEntry PDAppearanceDictionary.getNormalAppearance()"})
   void testGetNormalAppearance_thenReturnCOSObjectUpdateStateOriginDocumentStateIsNull() {
     // Arrange and Act
-    PDAppearanceEntry actualNormalAppearance = new PDAppearanceDictionary().getNormalAppearance();
+    PDAppearanceEntry actualNormalAppearance = (new PDAppearanceDictionary()).getNormalAppearance();
 
     // Assert
     COSDictionary cOSObject = actualNormalAppearance.getCOSObject();
@@ -164,37 +130,32 @@ class PDAppearanceDictionaryDiffblueTest {
 
   /**
    * Test {@link PDAppearanceDictionary#getNormalAppearance()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAppearanceDictionary#getNormalAppearance()}
+   * <p>
+   * Method under test: {@link PDAppearanceDictionary#getNormalAppearance()}
    */
   @Test
   @DisplayName("Test getNormalAppearance(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAppearanceEntry PDAppearanceDictionary.getNormalAppearance()"})
   void testGetNormalAppearance_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDAppearanceDictionary(new COSDictionary()).getNormalAppearance());
+    assertNull((new PDAppearanceDictionary(new COSDictionary())).getNormalAppearance());
   }
 
   /**
    * Test {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceStream)} with {@code ap}.
-   *
    * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceStream)}
+   * <p>
+   * Method under test: {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceStream)}
    */
   @Test
-  @DisplayName(
-      "Test setNormalAppearance(PDAppearanceStream) with 'ap'; given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setNormalAppearance(PDAppearanceStream) with 'ap'; given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAppearanceDictionary.setNormalAppearance(PDAppearanceStream)"})
   void testSetNormalAppearanceWithAp_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
@@ -226,19 +187,16 @@ class PDAppearanceDictionaryDiffblueTest {
 
   /**
    * Test {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceStream)} with {@code ap}.
-   *
    * <ul>
-   *   <li>Given {@code true}.
-   *   <li>When {@link COSStream#COSStream()} Direct is {@code true}.
+   *   <li>Given {@code true}.</li>
+   *   <li>When {@link COSStream#COSStream()} Direct is {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceStream)}
+   * <p>
+   * Method under test: {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceStream)}
    */
   @Test
-  @DisplayName(
-      "Test setNormalAppearance(PDAppearanceStream) with 'ap'; given 'true'; when COSStream() Direct is 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setNormalAppearance(PDAppearanceStream) with 'ap'; given 'true'; when COSStream() Direct is 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAppearanceDictionary.setNormalAppearance(PDAppearanceStream)"})
   void testSetNormalAppearanceWithAp_givenTrue_whenCOSStreamDirectIsTrue() {
     // Arrange
@@ -270,19 +228,15 @@ class PDAppearanceDictionaryDiffblueTest {
 
   /**
    * Test {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceStream)} with {@code ap}.
-   *
    * <ul>
-   *   <li>Then {@link PDAppearanceDictionary#PDAppearanceDictionary()} COSObject Values size is
-   *       one.
+   *   <li>Then {@link PDAppearanceDictionary#PDAppearanceDictionary()} COSObject Values size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceStream)}
+   * <p>
+   * Method under test: {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceStream)}
    */
   @Test
-  @DisplayName(
-      "Test setNormalAppearance(PDAppearanceStream) with 'ap'; then PDAppearanceDictionary() COSObject Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setNormalAppearance(PDAppearanceStream) with 'ap'; then PDAppearanceDictionary() COSObject Values size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAppearanceDictionary.setNormalAppearance(PDAppearanceStream)"})
   void testSetNormalAppearanceWithAp_thenPDAppearanceDictionaryCOSObjectValuesSizeIsOne() {
     // Arrange
@@ -312,19 +266,15 @@ class PDAppearanceDictionaryDiffblueTest {
 
   /**
    * Test {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceStream)} with {@code ap}.
-   *
    * <ul>
-   *   <li>Then {@link PDAppearanceDictionary#PDAppearanceDictionary()} DownAppearance is {@code
-   *       null}.
+   *   <li>Then {@link PDAppearanceDictionary#PDAppearanceDictionary()} DownAppearance is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceStream)}
+   * <p>
+   * Method under test: {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceStream)}
    */
   @Test
-  @DisplayName(
-      "Test setNormalAppearance(PDAppearanceStream) with 'ap'; then PDAppearanceDictionary() DownAppearance is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setNormalAppearance(PDAppearanceStream) with 'ap'; then PDAppearanceDictionary() DownAppearance is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAppearanceDictionary.setNormalAppearance(PDAppearanceStream)"})
   void testSetNormalAppearanceWithAp_thenPDAppearanceDictionaryDownAppearanceIsNull() {
     // Arrange
@@ -344,13 +294,12 @@ class PDAppearanceDictionaryDiffblueTest {
 
   /**
    * Test {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceEntry)} with {@code entry}.
-   *
-   * <p>Method under test: {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceEntry)}
+   * <p>
+   * Method under test: {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceEntry)}
    */
   @Test
   @DisplayName("Test setNormalAppearance(PDAppearanceEntry) with 'entry'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAppearanceDictionary.setNormalAppearance(PDAppearanceEntry)"})
   void testSetNormalAppearanceWithEntry() {
     // Arrange
@@ -371,18 +320,15 @@ class PDAppearanceDictionaryDiffblueTest {
 
   /**
    * Test {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceEntry)} with {@code entry}.
-   *
    * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceEntry)}
+   * <p>
+   * Method under test: {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceEntry)}
    */
   @Test
-  @DisplayName(
-      "Test setNormalAppearance(PDAppearanceEntry) with 'entry'; given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setNormalAppearance(PDAppearanceEntry) with 'entry'; given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAppearanceDictionary.setNormalAppearance(PDAppearanceEntry)"})
   void testSetNormalAppearanceWithEntry_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
@@ -405,19 +351,16 @@ class PDAppearanceDictionaryDiffblueTest {
 
   /**
    * Test {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceEntry)} with {@code entry}.
-   *
    * <ul>
-   *   <li>Given {@code true}.
-   *   <li>When {@link COSDictionary#COSDictionary()} Direct is {@code true}.
+   *   <li>Given {@code true}.</li>
+   *   <li>When {@link COSDictionary#COSDictionary()} Direct is {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceEntry)}
+   * <p>
+   * Method under test: {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceEntry)}
    */
   @Test
-  @DisplayName(
-      "Test setNormalAppearance(PDAppearanceEntry) with 'entry'; given 'true'; when COSDictionary() Direct is 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setNormalAppearance(PDAppearanceEntry) with 'entry'; given 'true'; when COSDictionary() Direct is 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAppearanceDictionary.setNormalAppearance(PDAppearanceEntry)"})
   void testSetNormalAppearanceWithEntry_givenTrue_whenCOSDictionaryDirectIsTrue() {
     // Arrange
@@ -440,21 +383,17 @@ class PDAppearanceDictionaryDiffblueTest {
 
   /**
    * Test {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceEntry)} with {@code entry}.
-   *
    * <ul>
-   *   <li>Then {@link PDAppearanceDictionary#PDAppearanceDictionary()} DownAppearance is {@code
-   *       null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceEntry)}
+   * <p>
+   * Method under test: {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceEntry)}
    */
   @Test
-  @DisplayName(
-      "Test setNormalAppearance(PDAppearanceEntry) with 'entry'; then PDAppearanceDictionary() DownAppearance is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setNormalAppearance(PDAppearanceEntry) with 'entry'; when 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAppearanceDictionary.setNormalAppearance(PDAppearanceEntry)"})
-  void testSetNormalAppearanceWithEntry_thenPDAppearanceDictionaryDownAppearanceIsNull() {
+  void testSetNormalAppearanceWithEntry_whenNull() {
     // Arrange
     PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
 
@@ -471,19 +410,45 @@ class PDAppearanceDictionaryDiffblueTest {
   }
 
   /**
+   * Test {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceEntry)} with {@code entry}.
+   * <ul>
+   *   <li>When {@link PDAppearanceEntry#PDAppearanceEntry(COSDictionary)} with entry is {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceEntry)}
+   */
+  @Test
+  @DisplayName("Test setNormalAppearance(PDAppearanceEntry) with 'entry'; when PDAppearanceEntry(COSDictionary) with entry is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDAppearanceDictionary.setNormalAppearance(PDAppearanceEntry)"})
+  void testSetNormalAppearanceWithEntry_whenPDAppearanceEntryWithEntryIsNull() {
+    // Arrange
+    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
+
+    // Act
+    pdAppearanceDictionary.setNormalAppearance(new PDAppearanceEntry(null));
+
+    // Assert
+    assertNull(pdAppearanceDictionary.getDownAppearance());
+    assertNull(pdAppearanceDictionary.getNormalAppearance());
+    assertNull(pdAppearanceDictionary.getRolloverAppearance());
+    COSDictionary cOSObject = pdAppearanceDictionary.getCOSObject();
+    assertEquals(0, cOSObject.size());
+    assertTrue(cOSObject.getValues().isEmpty());
+  }
+
+  /**
    * Test {@link PDAppearanceDictionary#getRolloverAppearance()}.
-   *
-   * <p>Method under test: {@link PDAppearanceDictionary#getRolloverAppearance()}
+   * <p>
+   * Method under test: {@link PDAppearanceDictionary#getRolloverAppearance()}
    */
   @Test
   @DisplayName("Test getRolloverAppearance()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAppearanceEntry PDAppearanceDictionary.getRolloverAppearance()"})
   void testGetRolloverAppearance() {
     // Arrange and Act
-    PDAppearanceEntry actualRolloverAppearance =
-        new PDAppearanceDictionary().getRolloverAppearance();
+    PDAppearanceEntry actualRolloverAppearance = (new PDAppearanceDictionary()).getRolloverAppearance();
 
     // Assert
     COSDictionary cOSObject = actualRolloverAppearance.getCOSObject();
@@ -505,18 +470,18 @@ class PDAppearanceDictionaryDiffblueTest {
 
   /**
    * Test {@link PDAppearanceDictionary#getRolloverAppearance()}.
-   *
-   * <p>Method under test: {@link PDAppearanceDictionary#getRolloverAppearance()}
+   * <p>
+   * Method under test: {@link PDAppearanceDictionary#getRolloverAppearance()}
    */
   @Test
   @DisplayName("Test getRolloverAppearance()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAppearanceEntry PDAppearanceDictionary.getRolloverAppearance()"})
   void testGetRolloverAppearance2() {
     // Arrange
     COSDictionary entry = new COSDictionary();
     COSObjectKey key = new COSObjectKey(1L, 1);
+
     entry.setKey(key);
     PDAppearanceEntry entry2 = new PDAppearanceEntry(entry);
 
@@ -529,17 +494,15 @@ class PDAppearanceDictionaryDiffblueTest {
 
   /**
    * Test {@link PDAppearanceDictionary#getRolloverAppearance()}.
-   *
    * <ul>
-   *   <li>Then return COSObject is {@link COSDictionary#COSDictionary()}.
+   *   <li>Then return COSObject is {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAppearanceDictionary#getRolloverAppearance()}
+   * <p>
+   * Method under test: {@link PDAppearanceDictionary#getRolloverAppearance()}
    */
   @Test
   @DisplayName("Test getRolloverAppearance(); then return COSObject is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAppearanceEntry PDAppearanceDictionary.getRolloverAppearance()"})
   void testGetRolloverAppearance_thenReturnCOSObjectIsCOSDictionary() {
     // Arrange
@@ -559,32 +522,29 @@ class PDAppearanceDictionaryDiffblueTest {
 
   /**
    * Test {@link PDAppearanceDictionary#getRolloverAppearance()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAppearanceDictionary#getRolloverAppearance()}
+   * <p>
+   * Method under test: {@link PDAppearanceDictionary#getRolloverAppearance()}
    */
   @Test
   @DisplayName("Test getRolloverAppearance(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAppearanceEntry PDAppearanceDictionary.getRolloverAppearance()"})
   void testGetRolloverAppearance_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDAppearanceDictionary(new COSDictionary()).getRolloverAppearance());
+    assertNull((new PDAppearanceDictionary(new COSDictionary())).getRolloverAppearance());
   }
 
   /**
    * Test {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceStream)} with {@code ap}.
-   *
-   * <p>Method under test: {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceStream)}
+   * <p>
+   * Method under test: {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceStream)}
    */
   @Test
   @DisplayName("Test setRolloverAppearance(PDAppearanceStream) with 'ap'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAppearanceDictionary.setRolloverAppearance(PDAppearanceStream)"})
   void testSetRolloverAppearanceWithAp() {
     // Arrange
@@ -614,13 +574,12 @@ class PDAppearanceDictionaryDiffblueTest {
 
   /**
    * Test {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceStream)} with {@code ap}.
-   *
-   * <p>Method under test: {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceStream)}
+   * <p>
+   * Method under test: {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceStream)}
    */
   @Test
   @DisplayName("Test setRolloverAppearance(PDAppearanceStream) with 'ap'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAppearanceDictionary.setRolloverAppearance(PDAppearanceStream)"})
   void testSetRolloverAppearanceWithAp2() {
     // Arrange
@@ -640,18 +599,15 @@ class PDAppearanceDictionaryDiffblueTest {
 
   /**
    * Test {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceStream)} with {@code ap}.
-   *
    * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceStream)}
+   * <p>
+   * Method under test: {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceStream)}
    */
   @Test
-  @DisplayName(
-      "Test setRolloverAppearance(PDAppearanceStream) with 'ap'; given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setRolloverAppearance(PDAppearanceStream) with 'ap'; given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAppearanceDictionary.setRolloverAppearance(PDAppearanceStream)"})
   void testSetRolloverAppearanceWithAp_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
@@ -683,19 +639,16 @@ class PDAppearanceDictionaryDiffblueTest {
 
   /**
    * Test {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceStream)} with {@code ap}.
-   *
    * <ul>
-   *   <li>Given {@code true}.
-   *   <li>When {@link COSStream#COSStream()} Direct is {@code true}.
+   *   <li>Given {@code true}.</li>
+   *   <li>When {@link COSStream#COSStream()} Direct is {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceStream)}
+   * <p>
+   * Method under test: {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceStream)}
    */
   @Test
-  @DisplayName(
-      "Test setRolloverAppearance(PDAppearanceStream) with 'ap'; given 'true'; when COSStream() Direct is 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setRolloverAppearance(PDAppearanceStream) with 'ap'; given 'true'; when COSStream() Direct is 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAppearanceDictionary.setRolloverAppearance(PDAppearanceStream)"})
   void testSetRolloverAppearanceWithAp_givenTrue_whenCOSStreamDirectIsTrue() {
     // Arrange
@@ -726,15 +679,13 @@ class PDAppearanceDictionaryDiffblueTest {
   }
 
   /**
-   * Test {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceEntry)} with {@code
-   * entry}.
-   *
-   * <p>Method under test: {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceEntry)}
+   * Test {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceEntry)} with {@code entry}.
+   * <p>
+   * Method under test: {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceEntry)}
    */
   @Test
   @DisplayName("Test setRolloverAppearance(PDAppearanceEntry) with 'entry'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAppearanceDictionary.setRolloverAppearance(PDAppearanceEntry)"})
   void testSetRolloverAppearanceWithEntry() {
     // Arrange
@@ -752,44 +703,16 @@ class PDAppearanceDictionaryDiffblueTest {
   }
 
   /**
-   * Test {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceEntry)} with {@code
-   * entry}.
-   *
-   * <p>Method under test: {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceEntry)}
-   */
-  @Test
-  @DisplayName("Test setRolloverAppearance(PDAppearanceEntry) with 'entry'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAppearanceDictionary.setRolloverAppearance(PDAppearanceEntry)"})
-  void testSetRolloverAppearanceWithEntry2() {
-    // Arrange
-    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
-
-    // Act
-    pdAppearanceDictionary.setRolloverAppearance((PDAppearanceEntry) null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdAppearanceDictionary.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceEntry)} with {@code
-   * entry}.
-   *
+   * Test {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceEntry)} with {@code entry}.
    * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceEntry)}
+   * <p>
+   * Method under test: {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceEntry)}
    */
   @Test
-  @DisplayName(
-      "Test setRolloverAppearance(PDAppearanceEntry) with 'entry'; given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setRolloverAppearance(PDAppearanceEntry) with 'entry'; given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAppearanceDictionary.setRolloverAppearance(PDAppearanceEntry)"})
   void testSetRolloverAppearanceWithEntry_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
@@ -809,21 +732,17 @@ class PDAppearanceDictionaryDiffblueTest {
   }
 
   /**
-   * Test {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceEntry)} with {@code
-   * entry}.
-   *
+   * Test {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceEntry)} with {@code entry}.
    * <ul>
-   *   <li>Given {@code true}.
-   *   <li>When {@link COSDictionary#COSDictionary()} Direct is {@code true}.
+   *   <li>Given {@code true}.</li>
+   *   <li>When {@link COSDictionary#COSDictionary()} Direct is {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceEntry)}
+   * <p>
+   * Method under test: {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceEntry)}
    */
   @Test
-  @DisplayName(
-      "Test setRolloverAppearance(PDAppearanceEntry) with 'entry'; given 'true'; when COSDictionary() Direct is 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setRolloverAppearance(PDAppearanceEntry) with 'entry'; given 'true'; when COSDictionary() Direct is 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAppearanceDictionary.setRolloverAppearance(PDAppearanceEntry)"})
   void testSetRolloverAppearanceWithEntry_givenTrue_whenCOSDictionaryDirectIsTrue() {
     // Arrange
@@ -843,19 +762,69 @@ class PDAppearanceDictionaryDiffblueTest {
   }
 
   /**
+   * Test {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceEntry)} with {@code entry}.
+   * <ul>
+   *   <li>When {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceEntry)}
+   */
+  @Test
+  @DisplayName("Test setRolloverAppearance(PDAppearanceEntry) with 'entry'; when 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDAppearanceDictionary.setRolloverAppearance(PDAppearanceEntry)"})
+  void testSetRolloverAppearanceWithEntry_whenNull() {
+    // Arrange
+    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
+
+    // Act
+    pdAppearanceDictionary.setRolloverAppearance((PDAppearanceEntry) null);
+
+    // Assert that nothing has changed
+    COSDictionary cOSObject = pdAppearanceDictionary.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceEntry)} with {@code entry}.
+   * <ul>
+   *   <li>When {@link PDAppearanceEntry#PDAppearanceEntry(COSDictionary)} with entry is {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceEntry)}
+   */
+  @Test
+  @DisplayName("Test setRolloverAppearance(PDAppearanceEntry) with 'entry'; when PDAppearanceEntry(COSDictionary) with entry is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDAppearanceDictionary.setRolloverAppearance(PDAppearanceEntry)"})
+  void testSetRolloverAppearanceWithEntry_whenPDAppearanceEntryWithEntryIsNull() {
+    // Arrange
+    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
+
+    // Act
+    pdAppearanceDictionary.setRolloverAppearance(new PDAppearanceEntry(null));
+
+    // Assert that nothing has changed
+    COSDictionary cOSObject = pdAppearanceDictionary.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+  }
+
+  /**
    * Test {@link PDAppearanceDictionary#getDownAppearance()}.
-   *
-   * <p>Method under test: {@link PDAppearanceDictionary#getDownAppearance()}
+   * <p>
+   * Method under test: {@link PDAppearanceDictionary#getDownAppearance()}
    */
   @Test
   @DisplayName("Test getDownAppearance()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAppearanceEntry PDAppearanceDictionary.getDownAppearance()"})
   void testGetDownAppearance() {
     // Arrange
     COSDictionary entry = new COSDictionary();
     COSObjectKey key = new COSObjectKey(1L, 1);
+
     entry.setKey(key);
     PDAppearanceEntry entry2 = new PDAppearanceEntry(entry);
 
@@ -868,17 +837,15 @@ class PDAppearanceDictionaryDiffblueTest {
 
   /**
    * Test {@link PDAppearanceDictionary#getDownAppearance()}.
-   *
    * <ul>
-   *   <li>Then return COSObject is {@link COSDictionary#COSDictionary()}.
+   *   <li>Then return COSObject is {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAppearanceDictionary#getDownAppearance()}
+   * <p>
+   * Method under test: {@link PDAppearanceDictionary#getDownAppearance()}
    */
   @Test
   @DisplayName("Test getDownAppearance(); then return COSObject is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAppearanceEntry PDAppearanceDictionary.getDownAppearance()"})
   void testGetDownAppearance_thenReturnCOSObjectIsCOSDictionary() {
     // Arrange
@@ -898,22 +865,19 @@ class PDAppearanceDictionaryDiffblueTest {
 
   /**
    * Test {@link PDAppearanceDictionary#getDownAppearance()}.
-   *
    * <ul>
-   *   <li>Then return COSObject UpdateState OriginDocumentState is {@code null}.
+   *   <li>Then return COSObject UpdateState OriginDocumentState is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAppearanceDictionary#getDownAppearance()}
+   * <p>
+   * Method under test: {@link PDAppearanceDictionary#getDownAppearance()}
    */
   @Test
-  @DisplayName(
-      "Test getDownAppearance(); then return COSObject UpdateState OriginDocumentState is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getDownAppearance(); then return COSObject UpdateState OriginDocumentState is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAppearanceEntry PDAppearanceDictionary.getDownAppearance()"})
   void testGetDownAppearance_thenReturnCOSObjectUpdateStateOriginDocumentStateIsNull() {
     // Arrange and Act
-    PDAppearanceEntry actualDownAppearance = new PDAppearanceDictionary().getDownAppearance();
+    PDAppearanceEntry actualDownAppearance = (new PDAppearanceDictionary()).getDownAppearance();
 
     // Assert
     COSDictionary cOSObject = actualDownAppearance.getCOSObject();
@@ -935,37 +899,32 @@ class PDAppearanceDictionaryDiffblueTest {
 
   /**
    * Test {@link PDAppearanceDictionary#getDownAppearance()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAppearanceDictionary#getDownAppearance()}
+   * <p>
+   * Method under test: {@link PDAppearanceDictionary#getDownAppearance()}
    */
   @Test
   @DisplayName("Test getDownAppearance(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDAppearanceEntry PDAppearanceDictionary.getDownAppearance()"})
   void testGetDownAppearance_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDAppearanceDictionary(new COSDictionary()).getDownAppearance());
+    assertNull((new PDAppearanceDictionary(new COSDictionary())).getDownAppearance());
   }
 
   /**
    * Test {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceStream)} with {@code ap}.
-   *
    * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceStream)}
+   * <p>
+   * Method under test: {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceStream)}
    */
   @Test
-  @DisplayName(
-      "Test setDownAppearance(PDAppearanceStream) with 'ap'; given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setDownAppearance(PDAppearanceStream) with 'ap'; given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAppearanceDictionary.setDownAppearance(PDAppearanceStream)"})
   void testSetDownAppearanceWithAp_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
@@ -989,19 +948,16 @@ class PDAppearanceDictionaryDiffblueTest {
 
   /**
    * Test {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceStream)} with {@code ap}.
-   *
    * <ul>
-   *   <li>Given {@code true}.
-   *   <li>When {@link COSStream#COSStream()} Direct is {@code true}.
+   *   <li>Given {@code true}.</li>
+   *   <li>When {@link COSStream#COSStream()} Direct is {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceStream)}
+   * <p>
+   * Method under test: {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceStream)}
    */
   @Test
-  @DisplayName(
-      "Test setDownAppearance(PDAppearanceStream) with 'ap'; given 'true'; when COSStream() Direct is 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setDownAppearance(PDAppearanceStream) with 'ap'; given 'true'; when COSStream() Direct is 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAppearanceDictionary.setDownAppearance(PDAppearanceStream)"})
   void testSetDownAppearanceWithAp_givenTrue_whenCOSStreamDirectIsTrue() {
     // Arrange
@@ -1025,19 +981,15 @@ class PDAppearanceDictionaryDiffblueTest {
 
   /**
    * Test {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceStream)} with {@code ap}.
-   *
    * <ul>
-   *   <li>Then {@link PDAppearanceDictionary#PDAppearanceDictionary()} COSObject Values size is
-   *       one.
+   *   <li>Then {@link PDAppearanceDictionary#PDAppearanceDictionary()} COSObject Values size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceStream)}
+   * <p>
+   * Method under test: {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceStream)}
    */
   @Test
-  @DisplayName(
-      "Test setDownAppearance(PDAppearanceStream) with 'ap'; then PDAppearanceDictionary() COSObject Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setDownAppearance(PDAppearanceStream) with 'ap'; then PDAppearanceDictionary() COSObject Values size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAppearanceDictionary.setDownAppearance(PDAppearanceStream)"})
   void testSetDownAppearanceWithAp_thenPDAppearanceDictionaryCOSObjectValuesSizeIsOne() {
     // Arrange
@@ -1057,19 +1009,15 @@ class PDAppearanceDictionaryDiffblueTest {
 
   /**
    * Test {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceStream)} with {@code ap}.
-   *
    * <ul>
-   *   <li>Then {@link PDAppearanceDictionary#PDAppearanceDictionary()} COSObject Values size is
-   *       two.
+   *   <li>Then {@link PDAppearanceDictionary#PDAppearanceDictionary()} COSObject Values size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceStream)}
+   * <p>
+   * Method under test: {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceStream)}
    */
   @Test
-  @DisplayName(
-      "Test setDownAppearance(PDAppearanceStream) with 'ap'; then PDAppearanceDictionary() COSObject Values size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setDownAppearance(PDAppearanceStream) with 'ap'; then PDAppearanceDictionary() COSObject Values size is two")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAppearanceDictionary.setDownAppearance(PDAppearanceStream)"})
   void testSetDownAppearanceWithAp_thenPDAppearanceDictionaryCOSObjectValuesSizeIsTwo() {
     // Arrange
@@ -1091,13 +1039,12 @@ class PDAppearanceDictionaryDiffblueTest {
 
   /**
    * Test {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceEntry)} with {@code entry}.
-   *
-   * <p>Method under test: {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceEntry)}
+   * <p>
+   * Method under test: {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceEntry)}
    */
   @Test
   @DisplayName("Test setDownAppearance(PDAppearanceEntry) with 'entry'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAppearanceDictionary.setDownAppearance(PDAppearanceEntry)"})
   void testSetDownAppearanceWithEntry() {
     // Arrange
@@ -1129,41 +1076,15 @@ class PDAppearanceDictionaryDiffblueTest {
 
   /**
    * Test {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceEntry)} with {@code entry}.
-   *
-   * <p>Method under test: {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceEntry)}
-   */
-  @Test
-  @DisplayName("Test setDownAppearance(PDAppearanceEntry) with 'entry'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAppearanceDictionary.setDownAppearance(PDAppearanceEntry)"})
-  void testSetDownAppearanceWithEntry2() {
-    // Arrange
-    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
-
-    // Act
-    pdAppearanceDictionary.setDownAppearance((PDAppearanceEntry) null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdAppearanceDictionary.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceEntry)} with {@code entry}.
-   *
    * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceEntry)}
+   * <p>
+   * Method under test: {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceEntry)}
    */
   @Test
-  @DisplayName(
-      "Test setDownAppearance(PDAppearanceEntry) with 'entry'; given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setDownAppearance(PDAppearanceEntry) with 'entry'; given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAppearanceDictionary.setDownAppearance(PDAppearanceEntry)"})
   void testSetDownAppearanceWithEntry_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
     // Arrange
@@ -1197,19 +1118,16 @@ class PDAppearanceDictionaryDiffblueTest {
 
   /**
    * Test {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceEntry)} with {@code entry}.
-   *
    * <ul>
-   *   <li>Given {@code true}.
-   *   <li>When {@link COSDictionary#COSDictionary()} Direct is {@code true}.
+   *   <li>Given {@code true}.</li>
+   *   <li>When {@link COSDictionary#COSDictionary()} Direct is {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceEntry)}
+   * <p>
+   * Method under test: {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceEntry)}
    */
   @Test
-  @DisplayName(
-      "Test setDownAppearance(PDAppearanceEntry) with 'entry'; given 'true'; when COSDictionary() Direct is 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setDownAppearance(PDAppearanceEntry) with 'entry'; given 'true'; when COSDictionary() Direct is 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDAppearanceDictionary.setDownAppearance(PDAppearanceEntry)"})
   void testSetDownAppearanceWithEntry_givenTrue_whenCOSDictionaryDirectIsTrue() {
     // Arrange
@@ -1239,5 +1157,55 @@ class PDAppearanceDictionaryDiffblueTest {
     assertTrue(toIncrementResult.getObjects().isEmpty());
     assertSame(entry, pdAppearanceDictionary.getDownAppearance().getCOSObject());
     assertSame(cOSObject, pdAppearanceDictionary.getRolloverAppearance().getCOSObject());
+  }
+
+  /**
+   * Test {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceEntry)} with {@code entry}.
+   * <ul>
+   *   <li>When {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceEntry)}
+   */
+  @Test
+  @DisplayName("Test setDownAppearance(PDAppearanceEntry) with 'entry'; when 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDAppearanceDictionary.setDownAppearance(PDAppearanceEntry)"})
+  void testSetDownAppearanceWithEntry_whenNull() {
+    // Arrange
+    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
+
+    // Act
+    pdAppearanceDictionary.setDownAppearance((PDAppearanceEntry) null);
+
+    // Assert that nothing has changed
+    COSDictionary cOSObject = pdAppearanceDictionary.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceEntry)} with {@code entry}.
+   * <ul>
+   *   <li>When {@link PDAppearanceEntry#PDAppearanceEntry(COSDictionary)} with entry is {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceEntry)}
+   */
+  @Test
+  @DisplayName("Test setDownAppearance(PDAppearanceEntry) with 'entry'; when PDAppearanceEntry(COSDictionary) with entry is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDAppearanceDictionary.setDownAppearance(PDAppearanceEntry)"})
+  void testSetDownAppearanceWithEntry_whenPDAppearanceEntryWithEntryIsNull() {
+    // Arrange
+    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
+
+    // Act
+    pdAppearanceDictionary.setDownAppearance(new PDAppearanceEntry(null));
+
+    // Assert that nothing has changed
+    COSDictionary cOSObject = pdAppearanceDictionary.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
   }
 }

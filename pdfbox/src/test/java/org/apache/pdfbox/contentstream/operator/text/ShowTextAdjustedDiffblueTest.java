@@ -8,7 +8,6 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,9 +26,8 @@ import org.mockito.Mockito;
 class ShowTextAdjustedDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ShowTextAdjusted#ShowTextAdjusted(PDFStreamEngine)}
    *   <li>{@link ShowTextAdjusted#getName()}
@@ -37,36 +35,27 @@ class ShowTextAdjustedDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ShowTextAdjusted.<init>(PDFStreamEngine)",
-    "java.lang.String ShowTextAdjusted.getName()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ShowTextAdjusted.<init>(PDFStreamEngine)", "java.lang.String ShowTextAdjusted.getName()"})
   void testGettersAndSetters() {
     // Arrange, Act and Assert
-    assertEquals("TJ", new ShowTextAdjusted(new PDFMarkedContentExtractor()).getName());
+    assertEquals("TJ", (new ShowTextAdjusted(new PDFMarkedContentExtractor())).getName());
   }
 
   /**
    * Test {@link ShowTextAdjusted#process(Operator, List)}.
-   *
    * <ul>
-   *   <li>Given {@link PDFStreamEngine} {@link PDFStreamEngine#getTextMatrix()} return {@code
-   *       null}.
-   *   <li>Then calls {@link PDFStreamEngine#getTextMatrix()}.
+   *   <li>Given {@link PDFStreamEngine} {@link PDFStreamEngine#getTextMatrix()} return {@code null}.</li>
+   *   <li>Then calls {@link PDFStreamEngine#getTextMatrix()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ShowTextAdjusted#process(Operator, List)}
+   * <p>
+   * Method under test: {@link ShowTextAdjusted#process(Operator, List)}
    */
   @Test
-  @DisplayName(
-      "Test process(Operator, List); given PDFStreamEngine getTextMatrix() return 'null'; then calls getTextMatrix()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test process(Operator, List); given PDFStreamEngine getTextMatrix() return 'null'; then calls getTextMatrix()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ShowTextAdjusted.process(Operator, List)"})
-  void testProcess_givenPDFStreamEngineGetTextMatrixReturnNull_thenCallsGetTextMatrix()
-      throws IOException {
+  void testProcess_givenPDFStreamEngineGetTextMatrixReturnNull_thenCallsGetTextMatrix() throws IOException {
     // Arrange
     PDFStreamEngine context = mock(PDFStreamEngine.class);
     when(context.getTextMatrix()).thenReturn(null);
@@ -85,19 +74,15 @@ class ShowTextAdjustedDiffblueTest {
 
   /**
    * Test {@link ShowTextAdjusted#process(Operator, List)}.
-   *
    * <ul>
-   *   <li>Given {@link PDFStreamEngine} {@link PDFStreamEngine#showTextStrings(COSArray)} does
-   *       nothing.
+   *   <li>Given {@link PDFStreamEngine} {@link PDFStreamEngine#showTextStrings(COSArray)} does nothing.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ShowTextAdjusted#process(Operator, List)}
+   * <p>
+   * Method under test: {@link ShowTextAdjusted#process(Operator, List)}
    */
   @Test
-  @DisplayName(
-      "Test process(Operator, List); given PDFStreamEngine showTextStrings(COSArray) does nothing")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test process(Operator, List); given PDFStreamEngine showTextStrings(COSArray) does nothing")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ShowTextAdjusted.process(Operator, List)"})
   void testProcess_givenPDFStreamEngineShowTextStringsDoesNothing() throws IOException {
     // Arrange
@@ -120,22 +105,20 @@ class ShowTextAdjustedDiffblueTest {
 
   /**
    * Test {@link ShowTextAdjusted#process(Operator, List)}.
-   *
    * <ul>
-   *   <li>Then throw {@link IOException}.
+   *   <li>Then throw {@link IOException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ShowTextAdjusted#process(Operator, List)}
+   * <p>
+   * Method under test: {@link ShowTextAdjusted#process(Operator, List)}
    */
   @Test
   @DisplayName("Test process(Operator, List); then throw IOException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ShowTextAdjusted.process(Operator, List)"})
   void testProcess_thenThrowIOException() throws IOException {
     // Arrange
     PDFStreamEngine context = mock(PDFStreamEngine.class);
-    doThrow(new IOException()).when(context).showTextStrings(Mockito.<COSArray>any());
+    doThrow(new IOException("foo")).when(context).showTextStrings(Mockito.<COSArray>any());
     when(context.getTextMatrix()).thenReturn(new Matrix());
     ShowTextAdjusted showTextAdjusted = new ShowTextAdjusted(context);
     Operator operator = Operator.getOperator("Operator");

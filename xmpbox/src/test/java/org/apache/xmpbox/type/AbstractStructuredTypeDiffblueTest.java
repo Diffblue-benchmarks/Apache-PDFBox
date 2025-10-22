@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.xmpbox.XMPMetadata;
 import org.apache.xmpbox.schema.AdobePDFSchema;
@@ -15,30 +14,26 @@ import org.junit.jupiter.api.Test;
 class AbstractStructuredTypeDiffblueTest {
   /**
    * Test {@link AbstractStructuredType#getNamespace()}.
-   *
-   * <p>Method under test: {@link AbstractStructuredType#getNamespace()}
+   * <p>
+   * Method under test: {@link AbstractStructuredType#getNamespace()}
    */
   @Test
   @DisplayName("Test getNamespace()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String AbstractStructuredType.getNamespace()"})
   void testGetNamespace() {
     // Arrange, Act and Assert
-    assertEquals(
-        "http://ns.adobe.com/pdf/1.3/",
-        new AdobePDFSchema(XMPMetadata.createXMPMetadata()).getNamespace());
+    assertEquals("http://ns.adobe.com/pdf/1.3/", (new AdobePDFSchema(XMPMetadata.createXMPMetadata())).getNamespace());
   }
 
   /**
    * Test {@link AbstractStructuredType#setNamespace(String)}.
-   *
-   * <p>Method under test: {@link AbstractStructuredType#setNamespace(String)}
+   * <p>
+   * Method under test: {@link AbstractStructuredType#setNamespace(String)}
    */
   @Test
   @DisplayName("Test setNamespace(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void AbstractStructuredType.setNamespace(String)"})
   void testSetNamespace() {
     // Arrange
@@ -53,28 +48,26 @@ class AbstractStructuredTypeDiffblueTest {
 
   /**
    * Test {@link AbstractStructuredType#getPrefix()}.
-   *
-   * <p>Method under test: {@link AbstractStructuredType#getPrefix()}
+   * <p>
+   * Method under test: {@link AbstractStructuredType#getPrefix()}
    */
   @Test
   @DisplayName("Test getPrefix()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String AbstractStructuredType.getPrefix()"})
   void testGetPrefix() {
     // Arrange, Act and Assert
-    assertEquals("pdf", new AdobePDFSchema(XMPMetadata.createXMPMetadata()).getPrefix());
+    assertEquals("pdf", (new AdobePDFSchema(XMPMetadata.createXMPMetadata())).getPrefix());
   }
 
   /**
    * Test {@link AbstractStructuredType#setPrefix(String)}.
-   *
-   * <p>Method under test: {@link AbstractStructuredType#setPrefix(String)}
+   * <p>
+   * Method under test: {@link AbstractStructuredType#setPrefix(String)}
    */
   @Test
   @DisplayName("Test setPrefix(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void AbstractStructuredType.setPrefix(String)"})
   void testSetPrefix() {
     // Arrange
@@ -89,28 +82,26 @@ class AbstractStructuredTypeDiffblueTest {
 
   /**
    * Test {@link AbstractStructuredType#getPreferedPrefix()}.
-   *
-   * <p>Method under test: {@link AbstractStructuredType#getPreferedPrefix()}
+   * <p>
+   * Method under test: {@link AbstractStructuredType#getPreferedPrefix()}
    */
   @Test
   @DisplayName("Test getPreferedPrefix()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String AbstractStructuredType.getPreferedPrefix()"})
   void testGetPreferedPrefix() {
     // Arrange, Act and Assert
-    assertEquals("pdf", new AdobePDFSchema(XMPMetadata.createXMPMetadata()).getPreferedPrefix());
+    assertEquals("pdf", (new AdobePDFSchema(XMPMetadata.createXMPMetadata())).getPreferedPrefix());
   }
 
   /**
    * Test {@link AbstractStructuredType#getPropertyValueAsString(String)}.
-   *
-   * <p>Method under test: {@link AbstractStructuredType#getPropertyValueAsString(String)}
+   * <p>
+   * Method under test: {@link AbstractStructuredType#getPropertyValueAsString(String)}
    */
   @Test
   @DisplayName("Test getPropertyValueAsString(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String AbstractStructuredType.getPropertyValueAsString(String)"})
   void testGetPropertyValueAsString() {
     // Arrange
@@ -123,35 +114,29 @@ class AbstractStructuredTypeDiffblueTest {
 
   /**
    * Test {@link AbstractStructuredType#getPropertyValueAsString(String)}.
-   *
    * <ul>
-   *   <li>Given {@link AdobePDFSchema#AdobePDFSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link AdobePDFSchema#AdobePDFSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractStructuredType#getPropertyValueAsString(String)}
+   * <p>
+   * Method under test: {@link AbstractStructuredType#getPropertyValueAsString(String)}
    */
   @Test
-  @DisplayName(
-      "Test getPropertyValueAsString(String); given AdobePDFSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getPropertyValueAsString(String); given AdobePDFSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String AbstractStructuredType.getPropertyValueAsString(String)"})
   void testGetPropertyValueAsString_givenAdobePDFSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull(
-        new AdobePDFSchema(XMPMetadata.createXMPMetadata()).getPropertyValueAsString("Field Name"));
+    assertNull((new AdobePDFSchema(XMPMetadata.createXMPMetadata())).getPropertyValueAsString("Field Name"));
   }
 
   /**
    * Test {@link AbstractStructuredType#getDatePropertyAsCalendar(String)}.
-   *
-   * <p>Method under test: {@link AbstractStructuredType#getDatePropertyAsCalendar(String)}
+   * <p>
+   * Method under test: {@link AbstractStructuredType#getDatePropertyAsCalendar(String)}
    */
   @Test
   @DisplayName("Test getDatePropertyAsCalendar(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.util.Calendar AbstractStructuredType.getDatePropertyAsCalendar(String)"})
   void testGetDatePropertyAsCalendar() {
     // Arrange
@@ -164,13 +149,12 @@ class AbstractStructuredTypeDiffblueTest {
 
   /**
    * Test {@link AbstractStructuredType#getDatePropertyAsCalendar(String)}.
-   *
-   * <p>Method under test: {@link AbstractStructuredType#getDatePropertyAsCalendar(String)}
+   * <p>
+   * Method under test: {@link AbstractStructuredType#getDatePropertyAsCalendar(String)}
    */
   @Test
   @DisplayName("Test getDatePropertyAsCalendar(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.util.Calendar AbstractStructuredType.getDatePropertyAsCalendar(String)"})
   void testGetDatePropertyAsCalendar2() {
     // Arrange
@@ -184,48 +168,39 @@ class AbstractStructuredTypeDiffblueTest {
 
   /**
    * Test {@link AbstractStructuredType#getDatePropertyAsCalendar(String)}.
-   *
    * <ul>
-   *   <li>Given {@link AdobePDFSchema#AdobePDFSchema(XMPMetadata)} with metadata is
-   *       createXMPMetadata.
+   *   <li>Given {@link AdobePDFSchema#AdobePDFSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractStructuredType#getDatePropertyAsCalendar(String)}
+   * <p>
+   * Method under test: {@link AbstractStructuredType#getDatePropertyAsCalendar(String)}
    */
   @Test
-  @DisplayName(
-      "Test getDatePropertyAsCalendar(String); given AdobePDFSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getDatePropertyAsCalendar(String); given AdobePDFSchema(XMPMetadata) with metadata is createXMPMetadata")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.util.Calendar AbstractStructuredType.getDatePropertyAsCalendar(String)"})
   void testGetDatePropertyAsCalendar_givenAdobePDFSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
-    assertNull(
-        new AdobePDFSchema(XMPMetadata.createXMPMetadata())
-            .getDatePropertyAsCalendar("Field Name"));
+    assertNull((new AdobePDFSchema(XMPMetadata.createXMPMetadata())).getDatePropertyAsCalendar("Field Name"));
   }
 
   /**
    * Test {@link AbstractStructuredType#createTextType(String, String)}.
-   *
    * <ul>
-   *   <li>Then return StringValue is {@code 42}.
+   *   <li>Then return StringValue is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractStructuredType#createTextType(String, String)}
+   * <p>
+   * Method under test: {@link AbstractStructuredType#createTextType(String, String)}
    */
   @Test
   @DisplayName("Test createTextType(String, String); then return StringValue is '42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TextType AbstractStructuredType.createTextType(String, String)"})
   void testCreateTextType_thenReturnStringValueIs42() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
 
     // Act
-    TextType actualCreateTextTypeResult =
-        new AdobePDFSchema(metadata).createTextType("Property Name", "42");
+    TextType actualCreateTextTypeResult = (new AdobePDFSchema(metadata)).createTextType("Property Name", "42");
 
     // Assert
     assertEquals("42", actualCreateTextTypeResult.getStringValue());
@@ -240,27 +215,23 @@ class AbstractStructuredTypeDiffblueTest {
 
   /**
    * Test {@link AbstractStructuredType#createArrayProperty(String, Cardinality)}.
-   *
    * <ul>
-   *   <li>Then return {@code Property Name}.
+   *   <li>Then return {@code Property Name}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractStructuredType#createArrayProperty(String, Cardinality)}
+   * <p>
+   * Method under test: {@link AbstractStructuredType#createArrayProperty(String, Cardinality)}
    */
   @Test
   @DisplayName("Test createArrayProperty(String, Cardinality); then return 'Property Name'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ArrayProperty AbstractStructuredType.createArrayProperty(String, Cardinality)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ArrayProperty AbstractStructuredType.createArrayProperty(String, Cardinality)"})
   void testCreateArrayProperty_thenReturnPropertyName() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
 
     // Act
-    ArrayProperty actualCreateArrayPropertyResult =
-        new AdobePDFSchema(metadata).createArrayProperty("Property Name", Cardinality.Simple);
+    ArrayProperty actualCreateArrayPropertyResult = (new AdobePDFSchema(metadata)).createArrayProperty("Property Name",
+        Cardinality.Simple);
 
     // Assert
     assertEquals("Property Name", actualCreateArrayPropertyResult.getPropertyName());

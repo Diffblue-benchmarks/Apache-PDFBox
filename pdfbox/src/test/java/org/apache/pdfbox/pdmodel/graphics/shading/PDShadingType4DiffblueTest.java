@@ -3,7 +3,6 @@ package org.apache.pdfbox.pdmodel.graphics.shading;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.Paint;
 import java.awt.geom.AffineTransform;
@@ -18,9 +17,8 @@ import org.junit.jupiter.api.Test;
 class PDShadingType4DiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link PDShadingType4#PDShadingType4(COSDictionary)}
    *   <li>{@link PDShadingType4#getShadingType()}
@@ -28,12 +26,8 @@ class PDShadingType4DiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PDShadingType4.<init>(COSDictionary)",
-    "int PDShadingType4.getShadingType()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDShadingType4.<init>(COSDictionary)", "int PDShadingType4.getShadingType()"})
   void testGettersAndSetters() {
     // Arrange
     COSDictionary shadingDictionary = new COSDictionary();
@@ -48,32 +42,29 @@ class PDShadingType4DiffblueTest {
 
   /**
    * Test {@link PDShadingType4#getBitsPerFlag()}.
-   *
    * <ul>
-   *   <li>Then return minus one.
+   *   <li>Then return minus one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDShadingType4#getBitsPerFlag()}
+   * <p>
+   * Method under test: {@link PDShadingType4#getBitsPerFlag()}
    */
   @Test
   @DisplayName("Test getBitsPerFlag(); then return minus one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int PDShadingType4.getBitsPerFlag()"})
   void testGetBitsPerFlag_thenReturnMinusOne() {
     // Arrange, Act and Assert
-    assertEquals(-1, new PDShadingType4(new COSDictionary()).getBitsPerFlag());
+    assertEquals(-1, (new PDShadingType4(new COSDictionary())).getBitsPerFlag());
   }
 
   /**
    * Test {@link PDShadingType4#setBitsPerFlag(int)}.
-   *
-   * <p>Method under test: {@link PDShadingType4#setBitsPerFlag(int)}
+   * <p>
+   * Method under test: {@link PDShadingType4#setBitsPerFlag(int)}
    */
   @Test
   @DisplayName("Test setBitsPerFlag(int)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDShadingType4.setBitsPerFlag(int)"})
   void testSetBitsPerFlag() {
     // Arrange
@@ -91,13 +82,12 @@ class PDShadingType4DiffblueTest {
 
   /**
    * Test {@link PDShadingType4#setBitsPerFlag(int)}.
-   *
-   * <p>Method under test: {@link PDShadingType4#setBitsPerFlag(int)}
+   * <p>
+   * Method under test: {@link PDShadingType4#setBitsPerFlag(int)}
    */
   @Test
   @DisplayName("Test setBitsPerFlag(int)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDShadingType4.setBitsPerFlag(int)"})
   void testSetBitsPerFlag2() {
     // Arrange
@@ -115,13 +105,12 @@ class PDShadingType4DiffblueTest {
 
   /**
    * Test {@link PDShadingType4#toPaint(Matrix)}.
-   *
-   * <p>Method under test: {@link PDShadingType4#toPaint(Matrix)}
+   * <p>
+   * Method under test: {@link PDShadingType4#toPaint(Matrix)}
    */
   @Test
   @DisplayName("Test toPaint(Matrix)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Paint PDShadingType4.toPaint(Matrix)"})
   void testToPaint() {
     // Arrange
@@ -138,13 +127,12 @@ class PDShadingType4DiffblueTest {
 
   /**
    * Test {@link PDShadingType4#toPaint(Matrix)}.
-   *
-   * <p>Method under test: {@link PDShadingType4#toPaint(Matrix)}
+   * <p>
+   * Method under test: {@link PDShadingType4#toPaint(Matrix)}
    */
   @Test
   @DisplayName("Test toPaint(Matrix)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Paint PDShadingType4.toPaint(Matrix)"})
   void testToPaint2() {
     // Arrange
@@ -161,17 +149,15 @@ class PDShadingType4DiffblueTest {
 
   /**
    * Test {@link PDShadingType4#toPaint(Matrix)}.
-   *
    * <ul>
-   *   <li>Then return {@link Type6ShadingPaint}.
+   *   <li>Then return {@link Type6ShadingPaint}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDShadingType4#toPaint(Matrix)}
+   * <p>
+   * Method under test: {@link PDShadingType4#toPaint(Matrix)}
    */
   @Test
   @DisplayName("Test toPaint(Matrix); then return Type6ShadingPaint")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Paint PDShadingType4.toPaint(Matrix)"})
   void testToPaint_thenReturnType6ShadingPaint() {
     // Arrange
@@ -190,22 +176,17 @@ class PDShadingType4DiffblueTest {
 
   /**
    * Test {@link PDShadingType4#collectTriangles(AffineTransform, Matrix)}.
-   *
    * <ul>
-   *   <li>Given {@link PDShadingType4#PDShadingType4(COSDictionary)} with shadingDictionary is
-   *       {@link COSDictionary#COSDictionary()}.
+   *   <li>Given {@link PDShadingType4#PDShadingType4(COSDictionary)} with shadingDictionary is {@link COSDictionary#COSDictionary()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDShadingType4#collectTriangles(AffineTransform, Matrix)}
+   * <p>
+   * Method under test: {@link PDShadingType4#collectTriangles(AffineTransform, Matrix)}
    */
   @Test
-  @DisplayName(
-      "Test collectTriangles(AffineTransform, Matrix); given PDShadingType4(COSDictionary) with shadingDictionary is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test collectTriangles(AffineTransform, Matrix); given PDShadingType4(COSDictionary) with shadingDictionary is COSDictionary()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.util.List PDShadingType4.collectTriangles(AffineTransform, Matrix)"})
-  void testCollectTriangles_givenPDShadingType4WithShadingDictionaryIsCOSDictionary()
-      throws IOException {
+  void testCollectTriangles_givenPDShadingType4WithShadingDictionaryIsCOSDictionary() throws IOException {
     // Arrange
     PDShadingType4 pdShadingType4 = new PDShadingType4(new COSDictionary());
     AffineTransform xform = new AffineTransform();
@@ -216,22 +197,17 @@ class PDShadingType4DiffblueTest {
 
   /**
    * Test {@link PDShadingType4#collectTriangles(AffineTransform, Matrix)}.
-   *
    * <ul>
-   *   <li>Given {@link PDShadingType4#PDShadingType4(COSDictionary)} with shadingDictionary is
-   *       {@link COSStream#COSStream()}.
+   *   <li>Given {@link PDShadingType4#PDShadingType4(COSDictionary)} with shadingDictionary is {@link COSStream#COSStream()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDShadingType4#collectTriangles(AffineTransform, Matrix)}
+   * <p>
+   * Method under test: {@link PDShadingType4#collectTriangles(AffineTransform, Matrix)}
    */
   @Test
-  @DisplayName(
-      "Test collectTriangles(AffineTransform, Matrix); given PDShadingType4(COSDictionary) with shadingDictionary is COSStream()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test collectTriangles(AffineTransform, Matrix); given PDShadingType4(COSDictionary) with shadingDictionary is COSStream()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.util.List PDShadingType4.collectTriangles(AffineTransform, Matrix)"})
-  void testCollectTriangles_givenPDShadingType4WithShadingDictionaryIsCOSStream()
-      throws IOException {
+  void testCollectTriangles_givenPDShadingType4WithShadingDictionaryIsCOSStream() throws IOException {
     // Arrange
     PDShadingType4 pdShadingType4 = new PDShadingType4(new COSStream());
     AffineTransform xform = new AffineTransform();

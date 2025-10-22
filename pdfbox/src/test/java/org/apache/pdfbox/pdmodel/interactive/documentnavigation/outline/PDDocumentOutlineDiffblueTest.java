@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.junit.jupiter.api.DisplayName;
@@ -15,13 +14,12 @@ import org.junit.jupiter.api.Test;
 class PDDocumentOutlineDiffblueTest {
   /**
    * Test {@link PDDocumentOutline#PDDocumentOutline()}.
-   *
-   * <p>Method under test: {@link PDDocumentOutline#PDDocumentOutline()}
+   * <p>
+   * Method under test: {@link PDDocumentOutline#PDDocumentOutline()}
    */
   @Test
   @DisplayName("Test new PDDocumentOutline()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDDocumentOutline.<init>()"})
   void testNewPDDocumentOutline() {
     // Arrange and Act
@@ -44,19 +42,16 @@ class PDDocumentOutlineDiffblueTest {
 
   /**
    * Test {@link PDDocumentOutline#PDDocumentOutline(COSDictionary)}.
-   *
    * <ul>
-   *   <li>When {@link COSDictionary#COSDictionary()}.
-   *   <li>Then return FirstChild is {@code null}.
+   *   <li>When {@link COSDictionary#COSDictionary()}.</li>
+   *   <li>Then return FirstChild is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentOutline#PDDocumentOutline(COSDictionary)}
+   * <p>
+   * Method under test: {@link PDDocumentOutline#PDDocumentOutline(COSDictionary)}
    */
   @Test
-  @DisplayName(
-      "Test new PDDocumentOutline(COSDictionary); when COSDictionary(); then return FirstChild is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new PDDocumentOutline(COSDictionary); when COSDictionary(); then return FirstChild is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDDocumentOutline.<init>(COSDictionary)"})
   void testNewPDDocumentOutline_whenCOSDictionary_thenReturnFirstChildIsNull() {
     // Arrange
@@ -78,9 +73,8 @@ class PDDocumentOutlineDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link PDDocumentOutline#closeNode()}
    *   <li>{@link PDDocumentOutline#openNode()}
@@ -89,13 +83,9 @@ class PDDocumentOutlineDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PDDocumentOutline.closeNode()",
-    "boolean PDDocumentOutline.isNodeOpen()",
-    "void PDDocumentOutline.openNode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void PDDocumentOutline.closeNode()", "boolean PDDocumentOutline.isNodeOpen()",
+      "void PDDocumentOutline.openNode()"})
   void testGettersAndSetters() {
     // Arrange
     PDDocumentOutline pdDocumentOutline = new PDDocumentOutline();

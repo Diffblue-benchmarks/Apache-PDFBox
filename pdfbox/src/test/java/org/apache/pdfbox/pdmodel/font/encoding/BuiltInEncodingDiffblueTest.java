@@ -3,7 +3,6 @@ package org.apache.pdfbox.pdmodel.font.encoding;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,18 +13,16 @@ import org.junit.jupiter.api.Test;
 class BuiltInEncodingDiffblueTest {
   /**
    * Test {@link BuiltInEncoding#BuiltInEncoding(Map)}.
-   *
    * <ul>
-   *   <li>Given one.
-   *   <li>Then return NameToCodeMap size is two.
+   *   <li>Given one.</li>
+   *   <li>Then return NameToCodeMap size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BuiltInEncoding#BuiltInEncoding(Map)}
+   * <p>
+   * Method under test: {@link BuiltInEncoding#BuiltInEncoding(Map)}
    */
   @Test
   @DisplayName("Test new BuiltInEncoding(Map); given one; then return NameToCodeMap size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BuiltInEncoding.<init>(Map)"})
   void testNewBuiltInEncoding_givenOne_thenReturnNameToCodeMapSizeIsTwo() {
     // Arrange
@@ -49,19 +46,16 @@ class BuiltInEncodingDiffblueTest {
 
   /**
    * Test {@link BuiltInEncoding#BuiltInEncoding(Map)}.
-   *
    * <ul>
-   *   <li>Given two hundred fifty.
-   *   <li>Then return NameToCodeMap size is one.
+   *   <li>Given two hundred fifty.</li>
+   *   <li>Then return NameToCodeMap size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BuiltInEncoding#BuiltInEncoding(Map)}
+   * <p>
+   * Method under test: {@link BuiltInEncoding#BuiltInEncoding(Map)}
    */
   @Test
-  @DisplayName(
-      "Test new BuiltInEncoding(Map); given two hundred fifty; then return NameToCodeMap size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new BuiltInEncoding(Map); given two hundred fifty; then return NameToCodeMap size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BuiltInEncoding.<init>(Map)"})
   void testNewBuiltInEncoding_givenTwoHundredFifty_thenReturnNameToCodeMapSizeIsOne() {
     // Arrange
@@ -84,18 +78,16 @@ class BuiltInEncodingDiffblueTest {
 
   /**
    * Test {@link BuiltInEncoding#BuiltInEncoding(Map)}.
-   *
    * <ul>
-   *   <li>When {@link HashMap#HashMap()}.
-   *   <li>Then return CodeToNameMap Empty.
+   *   <li>When {@link HashMap#HashMap()}.</li>
+   *   <li>Then return CodeToNameMap Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BuiltInEncoding#BuiltInEncoding(Map)}
+   * <p>
+   * Method under test: {@link BuiltInEncoding#BuiltInEncoding(Map)}
    */
   @Test
   @DisplayName("Test new BuiltInEncoding(Map); when HashMap(); then return CodeToNameMap Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BuiltInEncoding.<init>(Map)"})
   void testNewBuiltInEncoding_whenHashMap_thenReturnCodeToNameMapEmpty() {
     // Arrange and Act
@@ -110,33 +102,29 @@ class BuiltInEncodingDiffblueTest {
 
   /**
    * Test {@link BuiltInEncoding#getCOSObject()}.
-   *
-   * <p>Method under test: {@link BuiltInEncoding#getCOSObject()}
+   * <p>
+   * Method under test: {@link BuiltInEncoding#getCOSObject()}
    */
   @Test
   @DisplayName("Test getCOSObject()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"org.apache.pdfbox.cos.COSBase BuiltInEncoding.getCOSObject()"})
   void testGetCOSObject() {
     // Arrange, Act and Assert
-    assertThrows(
-        UnsupportedOperationException.class,
-        () -> new BuiltInEncoding(new HashMap<>()).getCOSObject());
+    assertThrows(UnsupportedOperationException.class, () -> (new BuiltInEncoding(new HashMap<>())).getCOSObject());
   }
 
   /**
    * Test {@link BuiltInEncoding#getEncodingName()}.
-   *
-   * <p>Method under test: {@link BuiltInEncoding#getEncodingName()}
+   * <p>
+   * Method under test: {@link BuiltInEncoding#getEncodingName()}
    */
   @Test
   @DisplayName("Test getEncodingName()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String BuiltInEncoding.getEncodingName()"})
   void testGetEncodingName() {
     // Arrange, Act and Assert
-    assertEquals("built-in (TTF)", new BuiltInEncoding(new HashMap<>()).getEncodingName());
+    assertEquals("built-in (TTF)", (new BuiltInEncoding(new HashMap<>())).getEncodingName());
   }
 }

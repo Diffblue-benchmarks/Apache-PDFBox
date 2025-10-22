@@ -9,7 +9,6 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -23,18 +22,16 @@ import org.mockito.Mockito;
 class COSNameDiffblueTest {
   /**
    * Test {@link COSName#getPDFName(String)}.
-   *
    * <ul>
-   *   <li>When {@code A Name}.
-   *   <li>Then return Name is {@code A Name}.
+   *   <li>When {@code A Name}.</li>
+   *   <li>Then return Name is {@code A Name}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSName#getPDFName(String)}
+   * <p>
+   * Method under test: {@link COSName#getPDFName(String)}
    */
   @Test
   @DisplayName("Test getPDFName(String); when 'A Name'; then return Name is 'A Name'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSName COSName.getPDFName(String)"})
   void testGetPDFName_whenAName_thenReturnNameIsAName() {
     // Arrange and Act
@@ -49,18 +46,16 @@ class COSNameDiffblueTest {
 
   /**
    * Test {@link COSName#getPDFName(String)}.
-   *
    * <ul>
-   *   <li>When {@code Yes}.
-   *   <li>Then return Name is {@code Yes}.
+   *   <li>When {@code Yes}.</li>
+   *   <li>Then return Name is {@code Yes}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSName#getPDFName(String)}
+   * <p>
+   * Method under test: {@link COSName#getPDFName(String)}
    */
   @Test
   @DisplayName("Test getPDFName(String); when 'Yes'; then return Name is 'Yes'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSName COSName.getPDFName(String)"})
   void testGetPDFName_whenYes_thenReturnNameIsYes() {
     // Arrange and Act
@@ -75,9 +70,8 @@ class COSNameDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link COSName#toString()}
    *   <li>{@link COSName#getName()}
@@ -85,8 +79,7 @@ class COSNameDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String COSName.getName()", "String COSName.toString()"})
   void testGettersAndSetters() {
     // Arrange
@@ -102,14 +95,12 @@ class COSNameDiffblueTest {
 
   /**
    * Test {@link COSName#equals(Object)}, and {@link COSName#hashCode()}.
-   *
    * <ul>
-   *   <li>When other is equal.
-   *   <li>Then return equal.
+   *   <li>When other is equal.</li>
+   *   <li>Then return equal.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link COSName#equals(Object)}
    *   <li>{@link COSName#hashCode()}
@@ -117,8 +108,7 @@ class COSNameDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is equal; then return equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean COSName.equals(Object)", "int COSName.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsEqual_thenReturnEqual() {
     // Arrange
@@ -127,19 +117,18 @@ class COSNameDiffblueTest {
 
     // Act and Assert
     assertEquals(cosName, cosName2);
-    assertEquals(cosName.hashCode(), cosName2.hashCode());
+    int expectedHashCodeResult = cosName.hashCode();
+    assertEquals(expectedHashCodeResult, cosName2.hashCode());
   }
 
   /**
    * Test {@link COSName#equals(Object)}, and {@link COSName#hashCode()}.
-   *
    * <ul>
-   *   <li>When other is same.
-   *   <li>Then return equal.
+   *   <li>When other is same.</li>
+   *   <li>Then return equal.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link COSName#equals(Object)}
    *   <li>{@link COSName#hashCode()}
@@ -147,8 +136,7 @@ class COSNameDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is same; then return equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean COSName.equals(Object)", "int COSName.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsSame_thenReturnEqual() {
     // Arrange
@@ -162,18 +150,16 @@ class COSNameDiffblueTest {
 
   /**
    * Test {@link COSName#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSName#equals(Object)}
+   * <p>
+   * Method under test: {@link COSName#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean COSName.equals(Object)", "int COSName.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual() {
     // Arrange, Act and Assert
@@ -182,18 +168,16 @@ class COSNameDiffblueTest {
 
   /**
    * Test {@link COSName#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is {@code null}.
-   *   <li>Then return not equal.
+   *   <li>When other is {@code null}.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSName#equals(Object)}
+   * <p>
+   * Method under test: {@link COSName#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is 'null'; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean COSName.equals(Object)", "int COSName.hashCode()"})
   void testEquals_whenOtherIsNull_thenReturnNotEqual() {
     // Arrange, Act and Assert
@@ -202,18 +186,16 @@ class COSNameDiffblueTest {
 
   /**
    * Test {@link COSName#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is wrong type.
-   *   <li>Then return not equal.
+   *   <li>When other is wrong type.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSName#equals(Object)}
+   * <p>
+   * Method under test: {@link COSName#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is wrong type; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean COSName.equals(Object)", "int COSName.hashCode()"})
   void testEquals_whenOtherIsWrongType_thenReturnNotEqual() {
     // Arrange, Act and Assert
@@ -222,18 +204,16 @@ class COSNameDiffblueTest {
 
   /**
    * Test {@link COSName#compareTo(COSName)} with {@code COSName}.
-   *
    * <ul>
-   *   <li>When {@link COSName#A}.
-   *   <li>Then return zero.
+   *   <li>When {@link COSName#A}.</li>
+   *   <li>Then return zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSName#compareTo(COSName)}
+   * <p>
+   * Method under test: {@link COSName#compareTo(COSName)}
    */
   @Test
   @DisplayName("Test compareTo(COSName) with 'COSName'; when A; then return zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int COSName.compareTo(COSName)"})
   void testCompareToWithCOSName_whenA_thenReturnZero() {
     // Arrange, Act and Assert
@@ -242,13 +222,12 @@ class COSNameDiffblueTest {
 
   /**
    * Test {@link COSName#isEmpty()}.
-   *
-   * <p>Method under test: {@link COSName#isEmpty()}
+   * <p>
+   * Method under test: {@link COSName#isEmpty()}
    */
   @Test
   @DisplayName("Test isEmpty()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean COSName.isEmpty()"})
   void testIsEmpty() {
     // Arrange, Act and Assert
@@ -257,23 +236,19 @@ class COSNameDiffblueTest {
 
   /**
    * Test {@link COSName#accept(ICOSVisitor)}.
-   *
    * <ul>
-   *   <li>Given {@link COSName#A}.
-   *   <li>When {@link COSWriter} {@link COSWriter#visitFromName(COSName)} does nothing.
-   *   <li>Then calls {@link COSWriter#visitFromName(COSName)}.
+   *   <li>Given {@link COSName#A}.</li>
+   *   <li>When {@link COSWriter} {@link COSWriter#visitFromName(COSName)} does nothing.</li>
+   *   <li>Then calls {@link COSWriter#visitFromName(COSName)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSName#accept(ICOSVisitor)}
+   * <p>
+   * Method under test: {@link COSName#accept(ICOSVisitor)}
    */
   @Test
-  @DisplayName(
-      "Test accept(ICOSVisitor); given A; when COSWriter visitFromName(COSName) does nothing; then calls visitFromName(COSName)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test accept(ICOSVisitor); given A; when COSWriter visitFromName(COSName) does nothing; then calls visitFromName(COSName)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSName.accept(ICOSVisitor)"})
-  void testAccept_givenA_whenCOSWriterVisitFromNameDoesNothing_thenCallsVisitFromName()
-      throws IOException {
+  void testAccept_givenA_whenCOSWriterVisitFromNameDoesNothing_thenCallsVisitFromName() throws IOException {
     // Arrange
     COSWriter visitor = mock(COSWriter.class);
     doNothing().when(visitor).visitFromName(Mockito.<COSName>any());
@@ -287,17 +262,36 @@ class COSNameDiffblueTest {
 
   /**
    * Test {@link COSName#writePDF(OutputStream)}.
-   *
-   * <p>Method under test: {@link COSName#writePDF(OutputStream)}
+   * <p>
+   * Method under test: {@link COSName#writePDF(OutputStream)}
    */
   @Test
   @DisplayName("Test writePDF(OutputStream)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSName.writePDF(OutputStream)"})
   void testWritePDF() throws IOException {
     // Arrange
-    ByteArrayOutputStream output = new ByteArrayOutputStream();
+    ByteArrayOutputStream output = new ByteArrayOutputStream(1);
+
+    // Act
+    COSName.A.writePDF(output);
+
+    // Assert
+    assertArrayEquals(new byte[]{'/', 'A'}, output.toByteArray());
+  }
+
+  /**
+   * Test {@link COSName#writePDF(OutputStream)}.
+   * <p>
+   * Method under test: {@link COSName#writePDF(OutputStream)}
+   */
+  @Test
+  @DisplayName("Test writePDF(OutputStream)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void COSName.writePDF(OutputStream)"})
+  void testWritePDF2() throws IOException {
+    // Arrange
+    ByteArrayOutputStream output = new ByteArrayOutputStream(1);
 
     // Act
     COSName.ABSOLUTE_COLORIMETRIC.writePDF(output);
@@ -309,24 +303,16 @@ class COSNameDiffblueTest {
 
   /**
    * Test {@link COSName#writePDF(OutputStream)}.
-   *
-   * <ul>
-   *   <li>Then {@link ByteArrayOutputStream#ByteArrayOutputStream()} toByteArray is {@code
-   *       /adbe.pkcs7.detached} Bytes is {@code UTF-8}.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSName#writePDF(OutputStream)}
+   * <p>
+   * Method under test: {@link COSName#writePDF(OutputStream)}
    */
   @Test
-  @DisplayName(
-      "Test writePDF(OutputStream); then ByteArrayOutputStream() toByteArray is '/adbe.pkcs7.detached' Bytes is 'UTF-8'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test writePDF(OutputStream)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSName.writePDF(OutputStream)"})
-  void testWritePDF_thenByteArrayOutputStreamToByteArrayIsAdbePkcs7DetachedBytesIsUtf8()
-      throws IOException {
+  void testWritePDF3() throws IOException {
     // Arrange
-    ByteArrayOutputStream output = new ByteArrayOutputStream();
+    ByteArrayOutputStream output = new ByteArrayOutputStream(1);
 
     // Act
     COSName.ADBE_PKCS7_DETACHED.writePDF(output);
@@ -338,24 +324,16 @@ class COSNameDiffblueTest {
 
   /**
    * Test {@link COSName#writePDF(OutputStream)}.
-   *
-   * <ul>
-   *   <li>Then {@link ByteArrayOutputStream#ByteArrayOutputStream()} toByteArray is {@code
-   *       /adbe.x509.rsa_sha1} Bytes is {@code UTF-8}.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSName#writePDF(OutputStream)}
+   * <p>
+   * Method under test: {@link COSName#writePDF(OutputStream)}
    */
   @Test
-  @DisplayName(
-      "Test writePDF(OutputStream); then ByteArrayOutputStream() toByteArray is '/adbe.x509.rsa_sha1' Bytes is 'UTF-8'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test writePDF(OutputStream)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSName.writePDF(OutputStream)"})
-  void testWritePDF_thenByteArrayOutputStreamToByteArrayIsAdbeX509RsaSha1BytesIsUtf8()
-      throws IOException {
+  void testWritePDF4() throws IOException {
     // Arrange
-    ByteArrayOutputStream output = new ByteArrayOutputStream();
+    ByteArrayOutputStream output = new ByteArrayOutputStream(1);
 
     // Act
     COSName.ADBE_X509_RSA_SHA1.writePDF(output);
@@ -363,33 +341,5 @@ class COSNameDiffblueTest {
     // Assert
     byte[] expectedToByteArrayResult = "/adbe.x509.rsa_sha1".getBytes("UTF-8");
     assertArrayEquals(expectedToByteArrayResult, output.toByteArray());
-  }
-
-  /**
-   * Test {@link COSName#writePDF(OutputStream)}.
-   *
-   * <ul>
-   *   <li>Then {@link ByteArrayOutputStream#ByteArrayOutputStream()} toByteArray is array of {@code
-   *       byte} with {@code /} and {@code A}.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSName#writePDF(OutputStream)}
-   */
-  @Test
-  @DisplayName(
-      "Test writePDF(OutputStream); then ByteArrayOutputStream() toByteArray is array of byte with '/' and 'A'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void COSName.writePDF(OutputStream)"})
-  void testWritePDF_thenByteArrayOutputStreamToByteArrayIsArrayOfByteWithSlashAndA()
-      throws IOException {
-    // Arrange
-    ByteArrayOutputStream output = new ByteArrayOutputStream();
-
-    // Act
-    COSName.A.writePDF(output);
-
-    // Assert
-    assertArrayEquals(new byte[] {'/', 'A'}, output.toByteArray());
   }
 }

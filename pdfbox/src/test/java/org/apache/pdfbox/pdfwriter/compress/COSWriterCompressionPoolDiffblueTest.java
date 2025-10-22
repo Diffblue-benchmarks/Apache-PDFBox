@@ -3,24 +3,17 @@ package org.apache.pdfbox.pdfwriter.compress;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSBoolean;
-import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSFloat;
-import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSInteger;
 import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.cos.COSObject;
 import org.apache.pdfbox.cos.COSObjectKey;
-import org.apache.pdfbox.cos.COSUpdateState;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.encryption.PDEncryption;
@@ -32,14 +25,12 @@ import org.junit.jupiter.api.Test;
 class COSWriterCompressionPoolDiffblueTest {
   /**
    * Test {@link COSWriterCompressionPool#COSWriterCompressionPool(PDDocument, CompressParameters)}.
-   *
-   * <p>Method under test: {@link COSWriterCompressionPool#COSWriterCompressionPool(PDDocument,
-   * CompressParameters)}
+   * <p>
+   * Method under test: {@link COSWriterCompressionPool#COSWriterCompressionPool(PDDocument, CompressParameters)}
    */
   @Test
   @DisplayName("Test new COSWriterCompressionPool(PDDocument, CompressParameters)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSWriterCompressionPool.<init>(PDDocument, CompressParameters)"})
   void testNewCOSWriterCompressionPool() throws IOException {
     // Arrange
@@ -47,12 +38,11 @@ class COSWriterCompressionPoolDiffblueTest {
     document.addPage(new PDPage());
 
     // Act
-    COSWriterCompressionPool actualCosWriterCompressionPool =
-        new COSWriterCompressionPool(document, CompressParameters.DEFAULT_COMPRESSION);
+    COSWriterCompressionPool actualCosWriterCompressionPool = new COSWriterCompressionPool(document,
+        CompressParameters.DEFAULT_COMPRESSION);
 
     // Assert
-    List<COSObjectKey> objectStreamObjects =
-        actualCosWriterCompressionPool.getObjectStreamObjects();
+    List<COSObjectKey> objectStreamObjects = actualCosWriterCompressionPool.getObjectStreamObjects();
     assertEquals(2, objectStreamObjects.size());
     COSObjectKey getResult = objectStreamObjects.get(1);
     assertEquals(196608L, getResult.getInternalHash());
@@ -62,28 +52,25 @@ class COSWriterCompressionPoolDiffblueTest {
 
   /**
    * Test {@link COSWriterCompressionPool#COSWriterCompressionPool(PDDocument, CompressParameters)}.
-   *
-   * <p>Method under test: {@link COSWriterCompressionPool#COSWriterCompressionPool(PDDocument,
-   * CompressParameters)}
+   * <p>
+   * Method under test: {@link COSWriterCompressionPool#COSWriterCompressionPool(PDDocument, CompressParameters)}
    */
   @Test
   @DisplayName("Test new COSWriterCompressionPool(PDDocument, CompressParameters)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSWriterCompressionPool.<init>(PDDocument, CompressParameters)"})
   void testNewCOSWriterCompressionPool2() throws IOException {
     // Arrange
     PDDocument document = new PDDocument();
-    document.save(new ByteArrayOutputStream(), CompressParameters.DEFAULT_COMPRESSION);
+    document.save(new ByteArrayOutputStream(1), CompressParameters.DEFAULT_COMPRESSION);
     document.addPage(new PDPage());
 
     // Act
-    COSWriterCompressionPool actualCosWriterCompressionPool =
-        new COSWriterCompressionPool(document, CompressParameters.DEFAULT_COMPRESSION);
+    COSWriterCompressionPool actualCosWriterCompressionPool = new COSWriterCompressionPool(document,
+        CompressParameters.DEFAULT_COMPRESSION);
 
     // Assert
-    List<COSObjectKey> objectStreamObjects =
-        actualCosWriterCompressionPool.getObjectStreamObjects();
+    List<COSObjectKey> objectStreamObjects = actualCosWriterCompressionPool.getObjectStreamObjects();
     assertEquals(2, objectStreamObjects.size());
     COSObjectKey getResult = objectStreamObjects.get(1);
     assertEquals(327680L, getResult.getInternalHash());
@@ -93,19 +80,15 @@ class COSWriterCompressionPoolDiffblueTest {
 
   /**
    * Test {@link COSWriterCompressionPool#COSWriterCompressionPool(PDDocument, CompressParameters)}.
-   *
    * <ul>
-   *   <li>Given {@link PDEncryption#PDEncryption()}.
+   *   <li>Given {@link PDEncryption#PDEncryption()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSWriterCompressionPool#COSWriterCompressionPool(PDDocument,
-   * CompressParameters)}
+   * <p>
+   * Method under test: {@link COSWriterCompressionPool#COSWriterCompressionPool(PDDocument, CompressParameters)}
    */
   @Test
-  @DisplayName(
-      "Test new COSWriterCompressionPool(PDDocument, CompressParameters); given PDEncryption()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new COSWriterCompressionPool(PDDocument, CompressParameters); given PDEncryption()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSWriterCompressionPool.<init>(PDDocument, CompressParameters)"})
   void testNewCOSWriterCompressionPool_givenPDEncryption() throws IOException {
     // Arrange
@@ -114,12 +97,11 @@ class COSWriterCompressionPoolDiffblueTest {
     document.addPage(new PDPage());
 
     // Act
-    COSWriterCompressionPool actualCosWriterCompressionPool =
-        new COSWriterCompressionPool(document, CompressParameters.DEFAULT_COMPRESSION);
+    COSWriterCompressionPool actualCosWriterCompressionPool = new COSWriterCompressionPool(document,
+        CompressParameters.DEFAULT_COMPRESSION);
 
     // Assert
-    List<COSObjectKey> objectStreamObjects =
-        actualCosWriterCompressionPool.getObjectStreamObjects();
+    List<COSObjectKey> objectStreamObjects = actualCosWriterCompressionPool.getObjectStreamObjects();
     assertEquals(2, objectStreamObjects.size());
     COSObjectKey getResult = objectStreamObjects.get(1);
     assertEquals(196608L, getResult.getInternalHash());
@@ -129,28 +111,23 @@ class COSWriterCompressionPoolDiffblueTest {
 
   /**
    * Test {@link COSWriterCompressionPool#COSWriterCompressionPool(PDDocument, CompressParameters)}.
-   *
    * <ul>
-   *   <li>Then return ObjectStreamObjects size is one.
+   *   <li>Then return ObjectStreamObjects size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSWriterCompressionPool#COSWriterCompressionPool(PDDocument,
-   * CompressParameters)}
+   * <p>
+   * Method under test: {@link COSWriterCompressionPool#COSWriterCompressionPool(PDDocument, CompressParameters)}
    */
   @Test
-  @DisplayName(
-      "Test new COSWriterCompressionPool(PDDocument, CompressParameters); then return ObjectStreamObjects size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new COSWriterCompressionPool(PDDocument, CompressParameters); then return ObjectStreamObjects size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSWriterCompressionPool.<init>(PDDocument, CompressParameters)"})
   void testNewCOSWriterCompressionPool_thenReturnObjectStreamObjectsSizeIsOne() throws IOException {
     // Arrange and Act
-    COSWriterCompressionPool actualCosWriterCompressionPool =
-        new COSWriterCompressionPool(new PDDocument(), CompressParameters.DEFAULT_COMPRESSION);
+    COSWriterCompressionPool actualCosWriterCompressionPool = new COSWriterCompressionPool(new PDDocument(),
+        CompressParameters.DEFAULT_COMPRESSION);
 
     // Assert
-    List<COSObjectKey> objectStreamObjects =
-        actualCosWriterCompressionPool.getObjectStreamObjects();
+    List<COSObjectKey> objectStreamObjects = actualCosWriterCompressionPool.getObjectStreamObjects();
     assertEquals(1, objectStreamObjects.size());
     List<COSObjectKey> topLevelObjects = actualCosWriterCompressionPool.getTopLevelObjects();
     assertEquals(1, topLevelObjects.size());
@@ -165,29 +142,22 @@ class COSWriterCompressionPoolDiffblueTest {
 
   /**
    * Test {@link COSWriterCompressionPool#COSWriterCompressionPool(PDDocument, CompressParameters)}.
-   *
    * <ul>
-   *   <li>Then return ObjectStreamObjects size is one.
+   *   <li>Then return ObjectStreamObjects size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSWriterCompressionPool#COSWriterCompressionPool(PDDocument,
-   * CompressParameters)}
+   * <p>
+   * Method under test: {@link COSWriterCompressionPool#COSWriterCompressionPool(PDDocument, CompressParameters)}
    */
   @Test
-  @DisplayName(
-      "Test new COSWriterCompressionPool(PDDocument, CompressParameters); then return ObjectStreamObjects size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new COSWriterCompressionPool(PDDocument, CompressParameters); then return ObjectStreamObjects size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSWriterCompressionPool.<init>(PDDocument, CompressParameters)"})
-  void testNewCOSWriterCompressionPool_thenReturnObjectStreamObjectsSizeIsOne2()
-      throws IOException {
+  void testNewCOSWriterCompressionPool_thenReturnObjectStreamObjectsSizeIsOne2() throws IOException {
     // Arrange and Act
-    COSWriterCompressionPool actualCosWriterCompressionPool =
-        new COSWriterCompressionPool(new PDDocument(), null);
+    COSWriterCompressionPool actualCosWriterCompressionPool = new COSWriterCompressionPool(new PDDocument(), null);
 
     // Assert
-    List<COSObjectKey> objectStreamObjects =
-        actualCosWriterCompressionPool.getObjectStreamObjects();
+    List<COSObjectKey> objectStreamObjects = actualCosWriterCompressionPool.getObjectStreamObjects();
     assertEquals(1, objectStreamObjects.size());
     List<COSObjectKey> topLevelObjects = actualCosWriterCompressionPool.getTopLevelObjects();
     assertEquals(1, topLevelObjects.size());
@@ -202,19 +172,15 @@ class COSWriterCompressionPoolDiffblueTest {
 
   /**
    * Test {@link COSWriterCompressionPool#COSWriterCompressionPool(PDDocument, CompressParameters)}.
-   *
    * <ul>
-   *   <li>Then return ObjectStreamObjects size is six.
+   *   <li>Then return ObjectStreamObjects size is six.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSWriterCompressionPool#COSWriterCompressionPool(PDDocument,
-   * CompressParameters)}
+   * <p>
+   * Method under test: {@link COSWriterCompressionPool#COSWriterCompressionPool(PDDocument, CompressParameters)}
    */
   @Test
-  @DisplayName(
-      "Test new COSWriterCompressionPool(PDDocument, CompressParameters); then return ObjectStreamObjects size is six")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new COSWriterCompressionPool(PDDocument, CompressParameters); then return ObjectStreamObjects size is six")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSWriterCompressionPool.<init>(PDDocument, CompressParameters)"})
   void testNewCOSWriterCompressionPool_thenReturnObjectStreamObjectsSizeIsSix() throws IOException {
     // Arrange
@@ -224,12 +190,11 @@ class COSWriterCompressionPoolDiffblueTest {
     document.addPage(new PDPage());
 
     // Act
-    COSWriterCompressionPool actualCosWriterCompressionPool =
-        new COSWriterCompressionPool(document, CompressParameters.DEFAULT_COMPRESSION);
+    COSWriterCompressionPool actualCosWriterCompressionPool = new COSWriterCompressionPool(document,
+        CompressParameters.DEFAULT_COMPRESSION);
 
     // Assert
-    List<COSObjectKey> objectStreamObjects =
-        actualCosWriterCompressionPool.getObjectStreamObjects();
+    List<COSObjectKey> objectStreamObjects = actualCosWriterCompressionPool.getObjectStreamObjects();
     assertEquals(6, objectStreamObjects.size());
     COSObjectKey getResult = objectStreamObjects.get(3);
     assertEquals(-1, getResult.getStreamIndex());
@@ -256,34 +221,28 @@ class COSWriterCompressionPoolDiffblueTest {
 
   /**
    * Test {@link COSWriterCompressionPool#COSWriterCompressionPool(PDDocument, CompressParameters)}.
-   *
    * <ul>
-   *   <li>Then return ObjectStreamObjects size is three.
+   *   <li>Then return ObjectStreamObjects size is three.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSWriterCompressionPool#COSWriterCompressionPool(PDDocument,
-   * CompressParameters)}
+   * <p>
+   * Method under test: {@link COSWriterCompressionPool#COSWriterCompressionPool(PDDocument, CompressParameters)}
    */
   @Test
-  @DisplayName(
-      "Test new COSWriterCompressionPool(PDDocument, CompressParameters); then return ObjectStreamObjects size is three")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new COSWriterCompressionPool(PDDocument, CompressParameters); then return ObjectStreamObjects size is three")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void COSWriterCompressionPool.<init>(PDDocument, CompressParameters)"})
-  void testNewCOSWriterCompressionPool_thenReturnObjectStreamObjectsSizeIsThree()
-      throws IOException {
+  void testNewCOSWriterCompressionPool_thenReturnObjectStreamObjectsSizeIsThree() throws IOException {
     // Arrange
     PDDocument document = new PDDocument();
     document.addPage(new PDPage());
     document.addPage(new PDPage());
 
     // Act
-    COSWriterCompressionPool actualCosWriterCompressionPool =
-        new COSWriterCompressionPool(document, CompressParameters.DEFAULT_COMPRESSION);
+    COSWriterCompressionPool actualCosWriterCompressionPool = new COSWriterCompressionPool(document,
+        CompressParameters.DEFAULT_COMPRESSION);
 
     // Assert
-    List<COSObjectKey> objectStreamObjects =
-        actualCosWriterCompressionPool.getObjectStreamObjects();
+    List<COSObjectKey> objectStreamObjects = actualCosWriterCompressionPool.getObjectStreamObjects();
     assertEquals(3, objectStreamObjects.size());
     COSObjectKey getResult = objectStreamObjects.get(2);
     assertEquals(-1, getResult.getStreamIndex());
@@ -295,9 +254,8 @@ class COSWriterCompressionPoolDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link COSWriterCompressionPool#getObjectStreamObjects()}
    *   <li>{@link COSWriterCompressionPool#getTopLevelObjects()}
@@ -305,20 +263,16 @@ class COSWriterCompressionPoolDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "List COSWriterCompressionPool.getObjectStreamObjects()",
-    "List COSWriterCompressionPool.getTopLevelObjects()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List COSWriterCompressionPool.getObjectStreamObjects()",
+      "List COSWriterCompressionPool.getTopLevelObjects()"})
   void testGettersAndSetters() throws IOException {
     // Arrange
-    COSWriterCompressionPool cosWriterCompressionPool =
-        new COSWriterCompressionPool(new PDDocument(), CompressParameters.DEFAULT_COMPRESSION);
+    COSWriterCompressionPool cosWriterCompressionPool = new COSWriterCompressionPool(new PDDocument(),
+        CompressParameters.DEFAULT_COMPRESSION);
 
     // Act
-    List<COSObjectKey> actualObjectStreamObjects =
-        cosWriterCompressionPool.getObjectStreamObjects();
+    List<COSObjectKey> actualObjectStreamObjects = cosWriterCompressionPool.getObjectStreamObjects();
     List<COSObjectKey> actualTopLevelObjects = cosWriterCompressionPool.getTopLevelObjects();
 
     // Assert
@@ -338,415 +292,468 @@ class COSWriterCompressionPoolDiffblueTest {
 
   /**
    * Test {@link COSWriterCompressionPool#contains(COSBase)}.
-   *
    * <ul>
-   *   <li>When {@link COSName#A}.
-   *   <li>Then return {@code false}.
+   *   <li>When {@link COSName#A}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSWriterCompressionPool#contains(COSBase)}
+   * <p>
+   * Method under test: {@link COSWriterCompressionPool#contains(COSBase)}
    */
   @Test
-  @DisplayName("Test contains(COSBase); when A; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test contains(COSBase); when A")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean COSWriterCompressionPool.contains(COSBase)"})
-  void testContains_whenA_thenReturnFalse() throws IOException {
+  void testContains_whenA() throws IOException {
     // Arrange, Act and Assert
     assertFalse(
-        new COSWriterCompressionPool(new PDDocument(), CompressParameters.DEFAULT_COMPRESSION)
-            .contains(COSName.A));
+        (new COSWriterCompressionPool(new PDDocument(), CompressParameters.DEFAULT_COMPRESSION)).contains(COSName.A));
   }
 
   /**
    * Test {@link COSWriterCompressionPool#contains(COSBase)}.
-   *
    * <ul>
-   *   <li>When {@link COSObject#COSObject(COSBase, COSObjectKey)} with object is {@link
-   *       COSBoolean#FALSE} and objectKey is {@link COSObjectKey#COSObjectKey(long, int)}.
+   *   <li>When {@link COSObject#COSObject(COSBase, COSObjectKey)} with object is {@link COSName#A} and objectKey is {@link COSObjectKey#COSObjectKey(long, int)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSWriterCompressionPool#contains(COSBase)}
+   * <p>
+   * Method under test: {@link COSWriterCompressionPool#contains(COSBase)}
    */
   @Test
-  @DisplayName(
-      "Test contains(COSBase); when COSObject(COSBase, COSObjectKey) with object is FALSE and objectKey is COSObjectKey(long, int)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test contains(COSBase); when COSObject(COSBase, COSObjectKey) with object is A and objectKey is COSObjectKey(long, int)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean COSWriterCompressionPool.contains(COSBase)"})
+  void testContains_whenCOSObjectWithObjectIsAAndObjectKeyIsCOSObjectKey() throws IOException {
+    // Arrange
+    COSWriterCompressionPool cosWriterCompressionPool = new COSWriterCompressionPool(new PDDocument(),
+        CompressParameters.DEFAULT_COMPRESSION);
+
+    // Act and Assert
+    assertFalse(cosWriterCompressionPool.contains(new COSObject(COSName.A, new COSObjectKey(1237L, 1237))));
+  }
+
+  /**
+   * Test {@link COSWriterCompressionPool#contains(COSBase)}.
+   * <ul>
+   *   <li>When {@link COSObject#COSObject(COSBase, COSObjectKey)} with object is {@link COSObject#COSObject(COSBase, COSObjectKey)} and objectKey is {@link COSObjectKey#COSObjectKey(long, int)}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link COSWriterCompressionPool#contains(COSBase)}
+   */
+  @Test
+  @DisplayName("Test contains(COSBase); when COSObject(COSBase, COSObjectKey) with object is COSObject(COSBase, COSObjectKey) and objectKey is COSObjectKey(long, int)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean COSWriterCompressionPool.contains(COSBase)"})
+  void testContains_whenCOSObjectWithObjectIsCOSObjectAndObjectKeyIsCOSObjectKey() throws IOException {
+    // Arrange
+    COSWriterCompressionPool cosWriterCompressionPool = new COSWriterCompressionPool(new PDDocument(),
+        CompressParameters.DEFAULT_COMPRESSION);
+    COSObject object = new COSObject(COSBoolean.FALSE, new COSObjectKey(1237L, 1237));
+
+    // Act and Assert
+    assertFalse(cosWriterCompressionPool.contains(new COSObject(object, new COSObjectKey(1237L, 1237))));
+  }
+
+  /**
+   * Test {@link COSWriterCompressionPool#contains(COSBase)}.
+   * <ul>
+   *   <li>When {@link COSObject#COSObject(COSBase, COSObjectKey)} with object is {@link COSBoolean#FALSE} and objectKey is {@link COSObjectKey#COSObjectKey(long, int)}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link COSWriterCompressionPool#contains(COSBase)}
+   */
+  @Test
+  @DisplayName("Test contains(COSBase); when COSObject(COSBase, COSObjectKey) with object is FALSE and objectKey is COSObjectKey(long, int)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean COSWriterCompressionPool.contains(COSBase)"})
   void testContains_whenCOSObjectWithObjectIsFalseAndObjectKeyIsCOSObjectKey() throws IOException {
     // Arrange
-    COSWriterCompressionPool cosWriterCompressionPool =
-        new COSWriterCompressionPool(new PDDocument(), CompressParameters.DEFAULT_COMPRESSION);
-    COSObject object = new COSObject(COSBoolean.FALSE, new COSObjectKey(1237L, 1237));
+    COSWriterCompressionPool cosWriterCompressionPool = new COSWriterCompressionPool(new PDDocument(),
+        CompressParameters.DEFAULT_COMPRESSION);
 
-    // Act
-    boolean actualContainsResult = cosWriterCompressionPool.contains(object);
-
-    // Assert
-    assertFalse(actualContainsResult);
+    // Act and Assert
+    assertFalse(cosWriterCompressionPool.contains(new COSObject(COSBoolean.FALSE, new COSObjectKey(1237L, 1237))));
   }
 
   /**
    * Test {@link COSWriterCompressionPool#contains(COSBase)}.
-   *
    * <ul>
-   *   <li>When {@link COSBoolean#FALSE}.
-   *   <li>Then return {@code false}.
+   *   <li>When {@link COSObject#COSObject(COSBase, COSObjectKey)} with object is {@link COSFloat#ONE} and objectKey is {@link COSObjectKey#COSObjectKey(long, int)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSWriterCompressionPool#contains(COSBase)}
+   * <p>
+   * Method under test: {@link COSWriterCompressionPool#contains(COSBase)}
    */
   @Test
-  @DisplayName("Test contains(COSBase); when FALSE; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test contains(COSBase); when COSObject(COSBase, COSObjectKey) with object is ONE and objectKey is COSObjectKey(long, int)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean COSWriterCompressionPool.contains(COSBase)"})
-  void testContains_whenFalse_thenReturnFalse() throws IOException {
-    // Arrange, Act and Assert
-    assertFalse(
-        new COSWriterCompressionPool(new PDDocument(), CompressParameters.DEFAULT_COMPRESSION)
-            .contains(COSBoolean.FALSE));
+  void testContains_whenCOSObjectWithObjectIsOneAndObjectKeyIsCOSObjectKey() throws IOException {
+    // Arrange
+    COSWriterCompressionPool cosWriterCompressionPool = new COSWriterCompressionPool(new PDDocument(),
+        CompressParameters.DEFAULT_COMPRESSION);
+
+    // Act and Assert
+    assertFalse(cosWriterCompressionPool.contains(new COSObject(COSFloat.ONE, new COSObjectKey(1237L, 1237))));
   }
 
   /**
    * Test {@link COSWriterCompressionPool#contains(COSBase)}.
-   *
    * <ul>
-   *   <li>When {@link COSFloat#ONE}.
-   *   <li>Then return {@code false}.
+   *   <li>When {@link COSObject#COSObject(COSBase, COSObjectKey)} with object is {@link COSInteger#ONE} and objectKey is {@link COSObjectKey#COSObjectKey(long, int)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSWriterCompressionPool#contains(COSBase)}
+   * <p>
+   * Method under test: {@link COSWriterCompressionPool#contains(COSBase)}
    */
   @Test
-  @DisplayName("Test contains(COSBase); when ONE; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test contains(COSBase); when COSObject(COSBase, COSObjectKey) with object is ONE and objectKey is COSObjectKey(long, int)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean COSWriterCompressionPool.contains(COSBase)"})
-  void testContains_whenOne_thenReturnFalse() throws IOException {
-    // Arrange, Act and Assert
-    assertFalse(
-        new COSWriterCompressionPool(new PDDocument(), CompressParameters.DEFAULT_COMPRESSION)
-            .contains(COSFloat.ONE));
+  void testContains_whenCOSObjectWithObjectIsOneAndObjectKeyIsCOSObjectKey2() throws IOException {
+    // Arrange
+    COSWriterCompressionPool cosWriterCompressionPool = new COSWriterCompressionPool(new PDDocument(),
+        CompressParameters.DEFAULT_COMPRESSION);
+
+    // Act and Assert
+    assertFalse(cosWriterCompressionPool.contains(new COSObject(COSInteger.ONE, new COSObjectKey(1237L, 1237))));
   }
 
   /**
    * Test {@link COSWriterCompressionPool#contains(COSBase)}.
-   *
    * <ul>
-   *   <li>When {@link COSInteger#ONE}.
-   *   <li>Then return {@code false}.
+   *   <li>When {@link COSBoolean#FALSE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSWriterCompressionPool#contains(COSBase)}
+   * <p>
+   * Method under test: {@link COSWriterCompressionPool#contains(COSBase)}
    */
   @Test
-  @DisplayName("Test contains(COSBase); when ONE; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test contains(COSBase); when FALSE")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean COSWriterCompressionPool.contains(COSBase)"})
-  void testContains_whenOne_thenReturnFalse2() throws IOException {
+  void testContains_whenFalse() throws IOException {
     // Arrange, Act and Assert
-    assertFalse(
-        new COSWriterCompressionPool(new PDDocument(), CompressParameters.DEFAULT_COMPRESSION)
-            .contains(COSInteger.ONE));
+    assertFalse((new COSWriterCompressionPool(new PDDocument(), CompressParameters.DEFAULT_COMPRESSION))
+        .contains(COSBoolean.FALSE));
   }
 
   /**
    * Test {@link COSWriterCompressionPool#contains(COSBase)}.
-   *
    * <ul>
-   *   <li>When {@link COSBoolean#TRUE}.
-   *   <li>Then return {@code false}.
+   *   <li>When {@link COSFloat#ONE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSWriterCompressionPool#contains(COSBase)}
+   * <p>
+   * Method under test: {@link COSWriterCompressionPool#contains(COSBase)}
    */
   @Test
-  @DisplayName("Test contains(COSBase); when TRUE; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test contains(COSBase); when ONE")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean COSWriterCompressionPool.contains(COSBase)"})
-  void testContains_whenTrue_thenReturnFalse() throws IOException {
+  void testContains_whenOne() throws IOException {
     // Arrange, Act and Assert
-    assertFalse(
-        new COSWriterCompressionPool(new PDDocument(), CompressParameters.DEFAULT_COMPRESSION)
-            .contains(COSBoolean.TRUE));
+    assertFalse((new COSWriterCompressionPool(new PDDocument(), CompressParameters.DEFAULT_COMPRESSION))
+        .contains(COSFloat.ONE));
+  }
+
+  /**
+   * Test {@link COSWriterCompressionPool#contains(COSBase)}.
+   * <ul>
+   *   <li>When {@link COSInteger#ONE}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link COSWriterCompressionPool#contains(COSBase)}
+   */
+  @Test
+  @DisplayName("Test contains(COSBase); when ONE")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean COSWriterCompressionPool.contains(COSBase)"})
+  void testContains_whenOne2() throws IOException {
+    // Arrange, Act and Assert
+    assertFalse((new COSWriterCompressionPool(new PDDocument(), CompressParameters.DEFAULT_COMPRESSION))
+        .contains(COSInteger.ONE));
+  }
+
+  /**
+   * Test {@link COSWriterCompressionPool#contains(COSBase)}.
+   * <ul>
+   *   <li>When {@link COSBoolean#TRUE}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link COSWriterCompressionPool#contains(COSBase)}
+   */
+  @Test
+  @DisplayName("Test contains(COSBase); when TRUE")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean COSWriterCompressionPool.contains(COSBase)"})
+  void testContains_whenTrue() throws IOException {
+    // Arrange, Act and Assert
+    assertFalse((new COSWriterCompressionPool(new PDDocument(), CompressParameters.DEFAULT_COMPRESSION))
+        .contains(COSBoolean.TRUE));
   }
 
   /**
    * Test {@link COSWriterCompressionPool#getKey(COSBase)}.
-   *
    * <ul>
-   *   <li>When {@link COSName#A}.
-   *   <li>Then return {@code null}.
+   *   <li>When {@link COSName#A}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSWriterCompressionPool#getKey(COSBase)}
+   * <p>
+   * Method under test: {@link COSWriterCompressionPool#getKey(COSBase)}
    */
   @Test
-  @DisplayName("Test getKey(COSBase); when A; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getKey(COSBase); when A")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSObjectKey COSWriterCompressionPool.getKey(COSBase)"})
-  void testGetKey_whenA_thenReturnNull() throws IOException {
+  void testGetKey_whenA() throws IOException {
     // Arrange, Act and Assert
     assertNull(
-        new COSWriterCompressionPool(new PDDocument(), CompressParameters.DEFAULT_COMPRESSION)
-            .getKey(COSName.A));
+        (new COSWriterCompressionPool(new PDDocument(), CompressParameters.DEFAULT_COMPRESSION)).getKey(COSName.A));
   }
 
   /**
    * Test {@link COSWriterCompressionPool#getKey(COSBase)}.
-   *
    * <ul>
-   *   <li>When {@link COSObject#COSObject(COSBase, COSObjectKey)} with object is {@link
-   *       COSBoolean#FALSE} and objectKey is {@link COSObjectKey#COSObjectKey(long, int)}.
+   *   <li>When {@link COSObject#COSObject(COSBase, COSObjectKey)} with object is {@link COSName#A} and objectKey is {@link COSObjectKey#COSObjectKey(long, int)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSWriterCompressionPool#getKey(COSBase)}
+   * <p>
+   * Method under test: {@link COSWriterCompressionPool#getKey(COSBase)}
    */
   @Test
-  @DisplayName(
-      "Test getKey(COSBase); when COSObject(COSBase, COSObjectKey) with object is FALSE and objectKey is COSObjectKey(long, int)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getKey(COSBase); when COSObject(COSBase, COSObjectKey) with object is A and objectKey is COSObjectKey(long, int)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"COSObjectKey COSWriterCompressionPool.getKey(COSBase)"})
+  void testGetKey_whenCOSObjectWithObjectIsAAndObjectKeyIsCOSObjectKey() throws IOException {
+    // Arrange
+    COSWriterCompressionPool cosWriterCompressionPool = new COSWriterCompressionPool(new PDDocument(),
+        CompressParameters.DEFAULT_COMPRESSION);
+
+    // Act and Assert
+    assertNull(cosWriterCompressionPool.getKey(new COSObject(COSName.A, new COSObjectKey(1237L, 1237))));
+  }
+
+  /**
+   * Test {@link COSWriterCompressionPool#getKey(COSBase)}.
+   * <ul>
+   *   <li>When {@link COSObject#COSObject(COSBase, COSObjectKey)} with object is {@link COSObject#COSObject(COSBase, COSObjectKey)} and objectKey is {@link COSObjectKey#COSObjectKey(long, int)}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link COSWriterCompressionPool#getKey(COSBase)}
+   */
+  @Test
+  @DisplayName("Test getKey(COSBase); when COSObject(COSBase, COSObjectKey) with object is COSObject(COSBase, COSObjectKey) and objectKey is COSObjectKey(long, int)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"COSObjectKey COSWriterCompressionPool.getKey(COSBase)"})
+  void testGetKey_whenCOSObjectWithObjectIsCOSObjectAndObjectKeyIsCOSObjectKey() throws IOException {
+    // Arrange
+    COSWriterCompressionPool cosWriterCompressionPool = new COSWriterCompressionPool(new PDDocument(),
+        CompressParameters.DEFAULT_COMPRESSION);
+    COSObject object = new COSObject(COSBoolean.FALSE, new COSObjectKey(1237L, 1237));
+
+    // Act and Assert
+    assertNull(cosWriterCompressionPool.getKey(new COSObject(object, new COSObjectKey(1237L, 1237))));
+  }
+
+  /**
+   * Test {@link COSWriterCompressionPool#getKey(COSBase)}.
+   * <ul>
+   *   <li>When {@link COSObject#COSObject(COSBase, COSObjectKey)} with object is {@link COSBoolean#FALSE} and objectKey is {@link COSObjectKey#COSObjectKey(long, int)}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link COSWriterCompressionPool#getKey(COSBase)}
+   */
+  @Test
+  @DisplayName("Test getKey(COSBase); when COSObject(COSBase, COSObjectKey) with object is FALSE and objectKey is COSObjectKey(long, int)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSObjectKey COSWriterCompressionPool.getKey(COSBase)"})
   void testGetKey_whenCOSObjectWithObjectIsFalseAndObjectKeyIsCOSObjectKey() throws IOException {
     // Arrange
-    COSWriterCompressionPool cosWriterCompressionPool =
-        new COSWriterCompressionPool(new PDDocument(), CompressParameters.DEFAULT_COMPRESSION);
-    COSObject object = new COSObject(COSBoolean.FALSE, new COSObjectKey(1237L, 1237));
+    COSWriterCompressionPool cosWriterCompressionPool = new COSWriterCompressionPool(new PDDocument(),
+        CompressParameters.DEFAULT_COMPRESSION);
 
-    // Act
-    COSObjectKey actualKey = cosWriterCompressionPool.getKey(object);
-
-    // Assert
-    assertNull(actualKey);
+    // Act and Assert
+    assertNull(cosWriterCompressionPool.getKey(new COSObject(COSBoolean.FALSE, new COSObjectKey(1237L, 1237))));
   }
 
   /**
    * Test {@link COSWriterCompressionPool#getKey(COSBase)}.
-   *
    * <ul>
-   *   <li>When {@link COSBoolean#FALSE}.
-   *   <li>Then return {@code null}.
+   *   <li>When {@link COSObject#COSObject(COSBase, COSObjectKey)} with object is {@link COSFloat#ONE} and objectKey is {@link COSObjectKey#COSObjectKey(long, int)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSWriterCompressionPool#getKey(COSBase)}
+   * <p>
+   * Method under test: {@link COSWriterCompressionPool#getKey(COSBase)}
    */
   @Test
-  @DisplayName("Test getKey(COSBase); when FALSE; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getKey(COSBase); when COSObject(COSBase, COSObjectKey) with object is ONE and objectKey is COSObjectKey(long, int)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSObjectKey COSWriterCompressionPool.getKey(COSBase)"})
-  void testGetKey_whenFalse_thenReturnNull() throws IOException {
-    // Arrange, Act and Assert
-    assertNull(
-        new COSWriterCompressionPool(new PDDocument(), CompressParameters.DEFAULT_COMPRESSION)
-            .getKey(COSBoolean.FALSE));
+  void testGetKey_whenCOSObjectWithObjectIsOneAndObjectKeyIsCOSObjectKey() throws IOException {
+    // Arrange
+    COSWriterCompressionPool cosWriterCompressionPool = new COSWriterCompressionPool(new PDDocument(),
+        CompressParameters.DEFAULT_COMPRESSION);
+
+    // Act and Assert
+    assertNull(cosWriterCompressionPool.getKey(new COSObject(COSFloat.ONE, new COSObjectKey(1237L, 1237))));
   }
 
   /**
    * Test {@link COSWriterCompressionPool#getKey(COSBase)}.
-   *
    * <ul>
-   *   <li>When {@link COSFloat#ONE}.
-   *   <li>Then return {@code null}.
+   *   <li>When {@link COSObject#COSObject(COSBase, COSObjectKey)} with object is {@link COSInteger#ONE} and objectKey is {@link COSObjectKey#COSObjectKey(long, int)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSWriterCompressionPool#getKey(COSBase)}
+   * <p>
+   * Method under test: {@link COSWriterCompressionPool#getKey(COSBase)}
    */
   @Test
-  @DisplayName("Test getKey(COSBase); when ONE; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getKey(COSBase); when COSObject(COSBase, COSObjectKey) with object is ONE and objectKey is COSObjectKey(long, int)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSObjectKey COSWriterCompressionPool.getKey(COSBase)"})
-  void testGetKey_whenOne_thenReturnNull() throws IOException {
-    // Arrange, Act and Assert
-    assertNull(
-        new COSWriterCompressionPool(new PDDocument(), CompressParameters.DEFAULT_COMPRESSION)
-            .getKey(COSFloat.ONE));
+  void testGetKey_whenCOSObjectWithObjectIsOneAndObjectKeyIsCOSObjectKey2() throws IOException {
+    // Arrange
+    COSWriterCompressionPool cosWriterCompressionPool = new COSWriterCompressionPool(new PDDocument(),
+        CompressParameters.DEFAULT_COMPRESSION);
+
+    // Act and Assert
+    assertNull(cosWriterCompressionPool.getKey(new COSObject(COSInteger.ONE, new COSObjectKey(1237L, 1237))));
   }
 
   /**
    * Test {@link COSWriterCompressionPool#getKey(COSBase)}.
-   *
    * <ul>
-   *   <li>When {@link COSInteger#ONE}.
-   *   <li>Then return {@code null}.
+   *   <li>When {@link COSBoolean#FALSE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSWriterCompressionPool#getKey(COSBase)}
+   * <p>
+   * Method under test: {@link COSWriterCompressionPool#getKey(COSBase)}
    */
   @Test
-  @DisplayName("Test getKey(COSBase); when ONE; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getKey(COSBase); when FALSE")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSObjectKey COSWriterCompressionPool.getKey(COSBase)"})
-  void testGetKey_whenOne_thenReturnNull2() throws IOException {
+  void testGetKey_whenFalse() throws IOException {
     // Arrange, Act and Assert
-    assertNull(
-        new COSWriterCompressionPool(new PDDocument(), CompressParameters.DEFAULT_COMPRESSION)
-            .getKey(COSInteger.ONE));
+    assertNull((new COSWriterCompressionPool(new PDDocument(), CompressParameters.DEFAULT_COMPRESSION))
+        .getKey(COSBoolean.FALSE));
   }
 
   /**
    * Test {@link COSWriterCompressionPool#getKey(COSBase)}.
-   *
    * <ul>
-   *   <li>When {@link COSBoolean#TRUE}.
-   *   <li>Then return {@code null}.
+   *   <li>When {@link COSFloat#ONE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSWriterCompressionPool#getKey(COSBase)}
+   * <p>
+   * Method under test: {@link COSWriterCompressionPool#getKey(COSBase)}
    */
   @Test
-  @DisplayName("Test getKey(COSBase); when TRUE; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getKey(COSBase); when ONE")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSObjectKey COSWriterCompressionPool.getKey(COSBase)"})
-  void testGetKey_whenTrue_thenReturnNull() throws IOException {
+  void testGetKey_whenOne() throws IOException {
     // Arrange, Act and Assert
     assertNull(
-        new COSWriterCompressionPool(new PDDocument(), CompressParameters.DEFAULT_COMPRESSION)
-            .getKey(COSBoolean.TRUE));
+        (new COSWriterCompressionPool(new PDDocument(), CompressParameters.DEFAULT_COMPRESSION)).getKey(COSFloat.ONE));
+  }
+
+  /**
+   * Test {@link COSWriterCompressionPool#getKey(COSBase)}.
+   * <ul>
+   *   <li>When {@link COSInteger#ONE}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link COSWriterCompressionPool#getKey(COSBase)}
+   */
+  @Test
+  @DisplayName("Test getKey(COSBase); when ONE")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"COSObjectKey COSWriterCompressionPool.getKey(COSBase)"})
+  void testGetKey_whenOne2() throws IOException {
+    // Arrange, Act and Assert
+    assertNull((new COSWriterCompressionPool(new PDDocument(), CompressParameters.DEFAULT_COMPRESSION))
+        .getKey(COSInteger.ONE));
+  }
+
+  /**
+   * Test {@link COSWriterCompressionPool#getKey(COSBase)}.
+   * <ul>
+   *   <li>When {@link COSBoolean#TRUE}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link COSWriterCompressionPool#getKey(COSBase)}
+   */
+  @Test
+  @DisplayName("Test getKey(COSBase); when TRUE")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"COSObjectKey COSWriterCompressionPool.getKey(COSBase)"})
+  void testGetKey_whenTrue() throws IOException {
+    // Arrange, Act and Assert
+    assertNull((new COSWriterCompressionPool(new PDDocument(), CompressParameters.DEFAULT_COMPRESSION))
+        .getKey(COSBoolean.TRUE));
   }
 
   /**
    * Test {@link COSWriterCompressionPool#getObject(COSObjectKey)}.
-   *
    * <ul>
-   *   <li>When {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
-   *   <li>Then return {@code null}.
+   *   <li>When {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSWriterCompressionPool#getObject(COSObjectKey)}
+   * <p>
+   * Method under test: {@link COSWriterCompressionPool#getObject(COSObjectKey)}
    */
   @Test
-  @DisplayName(
-      "Test getObject(COSObjectKey); when COSObjectKey(long, int) with num is one and gen is one; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getObject(COSObjectKey); when COSObjectKey(long, int) with num is one and gen is one; then return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSBase COSWriterCompressionPool.getObject(COSObjectKey)"})
   void testGetObject_whenCOSObjectKeyWithNumIsOneAndGenIsOne_thenReturnNull() throws IOException {
     // Arrange
-    COSWriterCompressionPool cosWriterCompressionPool =
-        new COSWriterCompressionPool(new PDDocument(), CompressParameters.DEFAULT_COMPRESSION);
+    COSWriterCompressionPool cosWriterCompressionPool = new COSWriterCompressionPool(new PDDocument(),
+        CompressParameters.DEFAULT_COMPRESSION);
 
-    // Act
-    COSBase actualObject = cosWriterCompressionPool.getObject(new COSObjectKey(1L, 1));
-
-    // Assert
-    assertNull(actualObject);
+    // Act and Assert
+    assertNull(cosWriterCompressionPool.getObject(new COSObjectKey(1L, 1)));
   }
 
   /**
    * Test {@link COSWriterCompressionPool#getObject(COSObjectKey)}.
-   *
    * <ul>
-   *   <li>When {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is zero.
-   *   <li>Then return {@link COSDictionary}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSWriterCompressionPool#getObject(COSObjectKey)}
-   */
-  @Test
-  @DisplayName(
-      "Test getObject(COSObjectKey); when COSObjectKey(long, int) with num is one and gen is zero; then return COSDictionary")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"COSBase COSWriterCompressionPool.getObject(COSObjectKey)"})
-  void testGetObject_whenCOSObjectKeyWithNumIsOneAndGenIsZero_thenReturnCOSDictionary()
-      throws IOException {
-    // Arrange
-    COSWriterCompressionPool cosWriterCompressionPool =
-        new COSWriterCompressionPool(new PDDocument(), CompressParameters.DEFAULT_COMPRESSION);
-    COSObjectKey key = new COSObjectKey(1L, 0);
-
-    // Act
-    COSBase actualObject = cosWriterCompressionPool.getObject(key);
-
-    // Assert
-    assertTrue(actualObject instanceof COSDictionary);
-    assertEquals(key, actualObject.getKey());
-    COSUpdateState updateState = ((COSDictionary) actualObject).getUpdateState();
-    assertTrue(updateState.getOriginDocumentState().isAcceptingUpdates());
-    assertTrue(updateState.isUpdated());
-    assertEquals(3, ((COSDictionary) actualObject).getValues().size());
-    assertFalse(actualObject.isDirect());
-    assertTrue(((COSDictionary) actualObject).isNeedToBeUpdated());
-    assertEquals(3, ((COSDictionary) actualObject).size());
-    COSIncrement toIncrementResult = ((COSDictionary) actualObject).toIncrement();
-    assertEquals(2, toIncrementResult.getObjects().size());
-    Iterator<COSBase> iteratorResult = toIncrementResult.iterator();
-    COSBase actualNextResult = iteratorResult.next();
-    COSBase nextResult = iteratorResult.next();
-    assertFalse(iteratorResult.hasNext());
-    assertSame(actualObject, actualNextResult);
-    assertTrue(nextResult instanceof COSDictionary);
-  }
-
-  /**
-   * Test {@link COSWriterCompressionPool#getObject(COSObjectKey)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSWriterCompressionPool#getObject(COSObjectKey)}
+   * <p>
+   * Method under test: {@link COSWriterCompressionPool#getObject(COSObjectKey)}
    */
   @Test
   @DisplayName("Test getObject(COSObjectKey); when 'null'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSBase COSWriterCompressionPool.getObject(COSObjectKey)"})
   void testGetObject_whenNull_thenReturnNull() throws IOException {
     // Arrange, Act and Assert
     assertNull(
-        new COSWriterCompressionPool(new PDDocument(), CompressParameters.DEFAULT_COMPRESSION)
-            .getObject(null));
+        (new COSWriterCompressionPool(new PDDocument(), CompressParameters.DEFAULT_COMPRESSION)).getObject(null));
   }
 
   /**
    * Test {@link COSWriterCompressionPool#getHighestXRefObjectNumber()}.
-   *
-   * <p>Method under test: {@link COSWriterCompressionPool#getHighestXRefObjectNumber()}
+   * <p>
+   * Method under test: {@link COSWriterCompressionPool#getHighestXRefObjectNumber()}
    */
   @Test
   @DisplayName("Test getHighestXRefObjectNumber()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"long COSWriterCompressionPool.getHighestXRefObjectNumber()"})
   void testGetHighestXRefObjectNumber() throws IOException {
     // Arrange, Act and Assert
-    assertEquals(
-        2L,
-        new COSWriterCompressionPool(new PDDocument(), CompressParameters.DEFAULT_COMPRESSION)
-            .getHighestXRefObjectNumber());
+    assertEquals(2L, (new COSWriterCompressionPool(new PDDocument(), CompressParameters.DEFAULT_COMPRESSION))
+        .getHighestXRefObjectNumber());
   }
 
   /**
    * Test {@link COSWriterCompressionPool#createObjectStreams()}.
-   *
    * <ul>
-   *   <li>Then return first PreparedKeys size is one.
+   *   <li>Then return first PreparedKeys size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSWriterCompressionPool#createObjectStreams()}
+   * <p>
+   * Method under test: {@link COSWriterCompressionPool#createObjectStreams()}
    */
   @Test
   @DisplayName("Test createObjectStreams(); then return first PreparedKeys size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List COSWriterCompressionPool.createObjectStreams()"})
   void testCreateObjectStreams_thenReturnFirstPreparedKeysSizeIsOne() throws IOException {
     // Arrange and Act
-    List<COSWriterObjectStream> actualCreateObjectStreamsResult =
-        new COSWriterCompressionPool(new PDDocument(), CompressParameters.DEFAULT_COMPRESSION)
-            .createObjectStreams();
+    List<COSWriterObjectStream> actualCreateObjectStreamsResult = (new COSWriterCompressionPool(new PDDocument(),
+        CompressParameters.DEFAULT_COMPRESSION)).createObjectStreams();
 
     // Assert
     assertEquals(1, actualCreateObjectStreamsResult.size());
@@ -761,17 +768,15 @@ class COSWriterCompressionPoolDiffblueTest {
 
   /**
    * Test {@link COSWriterCompressionPool#createObjectStreams()}.
-   *
    * <ul>
-   *   <li>Then return first PreparedKeys size is two.
+   *   <li>Then return first PreparedKeys size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link COSWriterCompressionPool#createObjectStreams()}
+   * <p>
+   * Method under test: {@link COSWriterCompressionPool#createObjectStreams()}
    */
   @Test
   @DisplayName("Test createObjectStreams(); then return first PreparedKeys size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List COSWriterCompressionPool.createObjectStreams()"})
   void testCreateObjectStreams_thenReturnFirstPreparedKeysSizeIsTwo() throws IOException {
     // Arrange
@@ -779,51 +784,14 @@ class COSWriterCompressionPoolDiffblueTest {
     document.addPage(new PDPage());
 
     // Act
-    List<COSWriterObjectStream> actualCreateObjectStreamsResult =
-        new COSWriterCompressionPool(document, CompressParameters.DEFAULT_COMPRESSION)
-            .createObjectStreams();
+    List<COSWriterObjectStream> actualCreateObjectStreamsResult = (new COSWriterCompressionPool(document,
+        CompressParameters.DEFAULT_COMPRESSION)).createObjectStreams();
 
     // Assert
     assertEquals(1, actualCreateObjectStreamsResult.size());
     List<COSObjectKey> preparedKeys = actualCreateObjectStreamsResult.get(0).getPreparedKeys();
     assertEquals(2, preparedKeys.size());
     COSObjectKey getResult = preparedKeys.get(1);
-    assertEquals(-1, getResult.getStreamIndex());
-    assertEquals(0, getResult.getGeneration());
-    assertEquals(196608L, getResult.getInternalHash());
-    assertEquals(3L, getResult.getNumber());
-  }
-
-  /**
-   * Test {@link COSWriterCompressionPool#createObjectStreams()}.
-   *
-   * <ul>
-   *   <li>Then return size is two.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSWriterCompressionPool#createObjectStreams()}
-   */
-  @Test
-  @DisplayName("Test createObjectStreams(); then return size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List COSWriterCompressionPool.createObjectStreams()"})
-  void testCreateObjectStreams_thenReturnSizeIsTwo() throws IOException {
-    // Arrange
-    PDDocument document = new PDDocument();
-    document.addPage(new PDPage());
-    COSWriterCompressionPool cosWriterCompressionPool =
-        new COSWriterCompressionPool(document, new CompressParameters(1));
-
-    // Act
-    List<COSWriterObjectStream> actualCreateObjectStreamsResult =
-        cosWriterCompressionPool.createObjectStreams();
-
-    // Assert
-    assertEquals(2, actualCreateObjectStreamsResult.size());
-    List<COSObjectKey> preparedKeys = actualCreateObjectStreamsResult.get(1).getPreparedKeys();
-    assertEquals(1, preparedKeys.size());
-    COSObjectKey getResult = preparedKeys.get(0);
     assertEquals(-1, getResult.getStreamIndex());
     assertEquals(0, getResult.getGeneration());
     assertEquals(196608L, getResult.getInternalHash());

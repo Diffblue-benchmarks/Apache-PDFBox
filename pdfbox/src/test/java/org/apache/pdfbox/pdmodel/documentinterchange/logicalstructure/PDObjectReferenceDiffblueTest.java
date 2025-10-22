@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSIncrement;
@@ -20,7 +19,6 @@ import org.apache.pdfbox.pdmodel.common.COSObjectable;
 import org.apache.pdfbox.pdmodel.graphics.PDXObject;
 import org.apache.pdfbox.pdmodel.interactive.annotation.PDAnnotation;
 import org.apache.pdfbox.pdmodel.interactive.annotation.PDAnnotationCaret;
-import org.apache.pdfbox.pdmodel.interactive.annotation.PDAnnotationUnknown;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -28,31 +26,29 @@ import org.junit.jupiter.api.Test;
 class PDObjectReferenceDiffblueTest {
   /**
    * Test {@link PDObjectReference#PDObjectReference(COSDictionary)}.
-   *
-   * <p>Method under test: {@link PDObjectReference#PDObjectReference(COSDictionary)}
+   * <p>
+   * Method under test: {@link PDObjectReference#PDObjectReference(COSDictionary)}
    */
   @Test
   @DisplayName("Test new PDObjectReference(COSDictionary)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDObjectReference.<init>(COSDictionary)"})
   void testNewPDObjectReference() {
     // Arrange
     COSDictionary theDictionary = new COSDictionary();
 
     // Act and Assert
-    assertSame(theDictionary, new PDObjectReference(theDictionary).getCOSObject());
+    assertSame(theDictionary, (new PDObjectReference(theDictionary)).getCOSObject());
   }
 
   /**
    * Test {@link PDObjectReference#PDObjectReference()}.
-   *
-   * <p>Method under test: {@link PDObjectReference#PDObjectReference()}
+   * <p>
+   * Method under test: {@link PDObjectReference#PDObjectReference()}
    */
   @Test
   @DisplayName("Test new PDObjectReference()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDObjectReference.<init>()"})
   void testNewPDObjectReference2() {
     // Arrange and Act
@@ -77,17 +73,16 @@ class PDObjectReferenceDiffblueTest {
 
   /**
    * Test {@link PDObjectReference#getCOSObject()}.
-   *
-   * <p>Method under test: {@link PDObjectReference#getCOSObject()}
+   * <p>
+   * Method under test: {@link PDObjectReference#getCOSObject()}
    */
   @Test
   @DisplayName("Test getCOSObject()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"COSDictionary PDObjectReference.getCOSObject()"})
   void testGetCOSObject() {
     // Arrange and Act
-    COSDictionary actualCOSObject = new PDObjectReference().getCOSObject();
+    COSDictionary actualCOSObject = (new PDObjectReference()).getCOSObject();
 
     // Assert
     COSUpdateState updateState = actualCOSObject.getUpdateState();
@@ -104,34 +99,13 @@ class PDObjectReferenceDiffblueTest {
   }
 
   /**
-   * Test {@link PDObjectReference#getReferencedObject()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDObjectReference#PDObjectReference()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDObjectReference#getReferencedObject()}
-   */
-  @Test
-  @DisplayName("Test getReferencedObject(); given PDObjectReference(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"COSObjectable PDObjectReference.getReferencedObject()"})
-  void testGetReferencedObject_givenPDObjectReference_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new PDObjectReference().getReferencedObject());
-  }
-
-  /**
    * Test {@link PDObjectReference#setReferencedObject(PDAnnotation)} with {@code annotation}.
-   *
-   * <p>Method under test: {@link PDObjectReference#setReferencedObject(PDAnnotation)}
+   * <p>
+   * Method under test: {@link PDObjectReference#setReferencedObject(PDAnnotation)}
    */
   @Test
   @DisplayName("Test setReferencedObject(PDAnnotation) with 'annotation'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDObjectReference.setReferencedObject(PDAnnotation)"})
   void testSetReferencedObjectWithAnnotation() {
     // Arrange
@@ -149,17 +123,16 @@ class PDObjectReferenceDiffblueTest {
 
   /**
    * Test {@link PDObjectReference#setReferencedObject(PDAnnotation)} with {@code annotation}.
-   *
-   * <p>Method under test: {@link PDObjectReference#setReferencedObject(PDAnnotation)}
+   * <p>
+   * Method under test: {@link PDObjectReference#setReferencedObject(PDAnnotation)}
    */
   @Test
   @DisplayName("Test setReferencedObject(PDAnnotation) with 'annotation'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDObjectReference.setReferencedObject(PDAnnotation)"})
   void testSetReferencedObjectWithAnnotation2() {
     // Arrange
-    PDObjectReference pdObjectReference = new PDObjectReference();
+    PDObjectReference pdObjectReference = new PDObjectReference(new COSDictionary());
 
     // Act
     pdObjectReference.setReferencedObject((PDAnnotation) null);
@@ -169,79 +142,13 @@ class PDObjectReferenceDiffblueTest {
   }
 
   /**
-   * Test {@link PDObjectReference#setReferencedObject(PDAnnotation)} with {@code annotation}.
-   *
-   * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDObjectReference#setReferencedObject(PDAnnotation)}
-   */
-  @Test
-  @DisplayName(
-      "Test setReferencedObject(PDAnnotation) with 'annotation'; given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDObjectReference.setReferencedObject(PDAnnotation)"})
-  void testSetReferencedObjectWithAnnotation_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
-    // Arrange
-    PDObjectReference pdObjectReference = new PDObjectReference();
-
-    COSDictionary field = new COSDictionary();
-    field.setKey(new COSObjectKey(1L, 1));
-    PDAnnotationCaret annotation = new PDAnnotationCaret(field);
-
-    // Act
-    pdObjectReference.setReferencedObject(annotation);
-
-    // Assert
-    COSObjectable referencedObject = pdObjectReference.getReferencedObject();
-    assertTrue(referencedObject instanceof PDAnnotationUnknown);
-    assertEquals(annotation, referencedObject);
-  }
-
-  /**
-   * Test {@link PDObjectReference#setReferencedObject(PDAnnotation)} with {@code annotation}.
-   *
-   * <ul>
-   *   <li>Given {@code true}.
-   *   <li>When {@link COSDictionary#COSDictionary()} Direct is {@code true}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDObjectReference#setReferencedObject(PDAnnotation)}
-   */
-  @Test
-  @DisplayName(
-      "Test setReferencedObject(PDAnnotation) with 'annotation'; given 'true'; when COSDictionary() Direct is 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDObjectReference.setReferencedObject(PDAnnotation)"})
-  void testSetReferencedObjectWithAnnotation_givenTrue_whenCOSDictionaryDirectIsTrue() {
-    // Arrange
-    PDObjectReference pdObjectReference = new PDObjectReference();
-
-    COSDictionary field = new COSDictionary();
-    field.setDirect(true);
-    PDAnnotationCaret annotation = new PDAnnotationCaret(field);
-
-    // Act
-    pdObjectReference.setReferencedObject(annotation);
-
-    // Assert
-    COSObjectable referencedObject = pdObjectReference.getReferencedObject();
-    assertTrue(referencedObject instanceof PDAnnotationUnknown);
-    assertEquals(annotation, referencedObject);
-  }
-
-  /**
    * Test {@link PDObjectReference#setReferencedObject(PDXObject)} with {@code xobject}.
-   *
-   * <p>Method under test: {@link PDObjectReference#setReferencedObject(PDXObject)}
+   * <p>
+   * Method under test: {@link PDObjectReference#setReferencedObject(PDXObject)}
    */
   @Test
   @DisplayName("Test setReferencedObject(PDXObject) with 'xobject'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDObjectReference.setReferencedObject(PDXObject)"})
   void testSetReferencedObjectWithXobject() {
     // Arrange
@@ -249,7 +156,6 @@ class PDObjectReferenceDiffblueTest {
 
     COSStream cosStream = new COSStream();
     cosStream.setKey(new COSObjectKey(1L, 1));
-
     PDXObject xobject = mock(PDXObject.class);
     when(xobject.getCOSObject()).thenReturn(cosStream);
 
@@ -265,22 +171,19 @@ class PDObjectReferenceDiffblueTest {
 
   /**
    * Test {@link PDObjectReference#setReferencedObject(PDXObject)} with {@code xobject}.
-   *
    * <ul>
-   *   <li>Given {@link COSStream#COSStream()}.
+   *   <li>Given {@link COSStream#COSStream()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDObjectReference#setReferencedObject(PDXObject)}
+   * <p>
+   * Method under test: {@link PDObjectReference#setReferencedObject(PDXObject)}
    */
   @Test
   @DisplayName("Test setReferencedObject(PDXObject) with 'xobject'; given COSStream()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDObjectReference.setReferencedObject(PDXObject)"})
   void testSetReferencedObjectWithXobject_givenCOSStream() {
     // Arrange
     PDObjectReference pdObjectReference = new PDObjectReference();
-
     PDXObject xobject = mock(PDXObject.class);
     when(xobject.getCOSObject()).thenReturn(new COSStream());
 
@@ -296,18 +199,15 @@ class PDObjectReferenceDiffblueTest {
 
   /**
    * Test {@link PDObjectReference#setReferencedObject(PDXObject)} with {@code xobject}.
-   *
    * <ul>
-   *   <li>Given {@link COSStream#COSStream()} Direct is {@code true}.
+   *   <li>Given {@link COSStream#COSStream()} Direct is {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDObjectReference#setReferencedObject(PDXObject)}
+   * <p>
+   * Method under test: {@link PDObjectReference#setReferencedObject(PDXObject)}
    */
   @Test
-  @DisplayName(
-      "Test setReferencedObject(PDXObject) with 'xobject'; given COSStream() Direct is 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setReferencedObject(PDXObject) with 'xobject'; given COSStream() Direct is 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDObjectReference.setReferencedObject(PDXObject)"})
   void testSetReferencedObjectWithXobject_givenCOSStreamDirectIsTrue() {
     // Arrange
@@ -315,7 +215,6 @@ class PDObjectReferenceDiffblueTest {
 
     COSStream cosStream = new COSStream();
     cosStream.setDirect(true);
-
     PDXObject xobject = mock(PDXObject.class);
     when(xobject.getCOSObject()).thenReturn(cosStream);
 
@@ -331,27 +230,27 @@ class PDObjectReferenceDiffblueTest {
 
   /**
    * Test {@link PDObjectReference#setReferencedObject(PDXObject)} with {@code xobject}.
-   *
    * <ul>
-   *   <li>Then {@link PDObjectReference#PDObjectReference()} COSObject Values size is one.
+   *   <li>Then {@link PDObjectReference#PDObjectReference()} COSObject Values size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDObjectReference#setReferencedObject(PDXObject)}
+   * <p>
+   * Method under test: {@link PDObjectReference#setReferencedObject(PDXObject)}
    */
   @Test
-  @DisplayName(
-      "Test setReferencedObject(PDXObject) with 'xobject'; then PDObjectReference() COSObject Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setReferencedObject(PDXObject) with 'xobject'; then PDObjectReference() COSObject Values size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDObjectReference.setReferencedObject(PDXObject)"})
   void testSetReferencedObjectWithXobject_thenPDObjectReferenceCOSObjectValuesSizeIsOne() {
     // Arrange
     PDObjectReference pdObjectReference = new PDObjectReference();
+    PDXObject xobject = mock(PDXObject.class);
+    when(xobject.getCOSObject()).thenReturn(null);
 
     // Act
-    pdObjectReference.setReferencedObject((PDXObject) null);
+    pdObjectReference.setReferencedObject(xobject);
 
     // Assert that nothing has changed
+    verify(xobject).getCOSObject();
     COSDictionary cOSObject = pdObjectReference.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
@@ -359,72 +258,60 @@ class PDObjectReferenceDiffblueTest {
 
   /**
    * Test {@link PDObjectReference#getPage()}.
-   *
    * <ul>
-   *   <li>Given {@link PDObjectReference#PDObjectReference()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDObjectReference#PDObjectReference()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDObjectReference#getPage()}
+   * <p>
+   * Method under test: {@link PDObjectReference#getPage()}
    */
   @Test
   @DisplayName("Test getPage(); given PDObjectReference(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"PDPage PDObjectReference.getPage()"})
   void testGetPage_givenPDObjectReference_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDObjectReference().getPage());
+    assertNull((new PDObjectReference()).getPage());
   }
 
   /**
    * Test {@link PDObjectReference#setPage(PDPage)}.
-   *
    * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   *   <li>Given {@link PDObjectReference#PDObjectReference()}.</li>
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link PDObjectReference#PDObjectReference()} Page is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDObjectReference#setPage(PDPage)}
+   * <p>
+   * Method under test: {@link PDObjectReference#setPage(PDPage)}
    */
   @Test
-  @DisplayName("Test setPage(PDPage); given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setPage(PDPage); given PDObjectReference(); when 'null'; then PDObjectReference() Page is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDObjectReference.setPage(PDPage)"})
-  void testSetPage_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
+  void testSetPage_givenPDObjectReference_whenNull_thenPDObjectReferencePageIsNull() {
     // Arrange
     PDObjectReference pdObjectReference = new PDObjectReference();
 
-    COSDictionary pageDictionary = new COSDictionary();
-    pageDictionary.setKey(new COSObjectKey(1L, 1));
-    PDPage page = new PDPage(pageDictionary);
-
     // Act
-    pdObjectReference.setPage(page);
+    pdObjectReference.setPage(null);
 
-    // Assert
-    COSDictionary cOSObject = pdObjectReference.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertEquals(page, pdObjectReference.getPage());
+    // Assert that nothing has changed
+    assertNull(pdObjectReference.getPage());
   }
 
   /**
    * Test {@link PDObjectReference#setPage(PDPage)}.
-   *
    * <ul>
-   *   <li>Given {@link PDObjectReference#PDObjectReference()}.
-   *   <li>When {@link PDPage#PDPage()}.
-   *   <li>Then {@link PDObjectReference#PDObjectReference()} Page is {@link PDPage#PDPage()}.
+   *   <li>Given {@link PDObjectReference#PDObjectReference()}.</li>
+   *   <li>When {@link PDPage#PDPage()}.</li>
+   *   <li>Then {@link PDObjectReference#PDObjectReference()} Page is {@link PDPage#PDPage()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PDObjectReference#setPage(PDPage)}
+   * <p>
+   * Method under test: {@link PDObjectReference#setPage(PDPage)}
    */
   @Test
-  @DisplayName(
-      "Test setPage(PDPage); given PDObjectReference(); when PDPage(); then PDObjectReference() Page is PDPage()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setPage(PDPage); given PDObjectReference(); when PDPage(); then PDObjectReference() Page is PDPage()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void PDObjectReference.setPage(PDPage)"})
   void testSetPage_givenPDObjectReference_whenPDPage_thenPDObjectReferencePageIsPDPage() {
     // Arrange
@@ -436,67 +323,5 @@ class PDObjectReferenceDiffblueTest {
 
     // Assert
     assertEquals(page, pdObjectReference.getPage());
-  }
-
-  /**
-   * Test {@link PDObjectReference#setPage(PDPage)}.
-   *
-   * <ul>
-   *   <li>Given {@code true}.
-   *   <li>When {@link COSDictionary#COSDictionary()} Direct is {@code true}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDObjectReference#setPage(PDPage)}
-   */
-  @Test
-  @DisplayName("Test setPage(PDPage); given 'true'; when COSDictionary() Direct is 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDObjectReference.setPage(PDPage)"})
-  void testSetPage_givenTrue_whenCOSDictionaryDirectIsTrue() {
-    // Arrange
-    PDObjectReference pdObjectReference = new PDObjectReference();
-
-    COSDictionary pageDictionary = new COSDictionary();
-    pageDictionary.setDirect(true);
-    PDPage page = new PDPage(pageDictionary);
-
-    // Act
-    pdObjectReference.setPage(page);
-
-    // Assert
-    COSDictionary cOSObject = pdObjectReference.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertEquals(page, pdObjectReference.getPage());
-  }
-
-  /**
-   * Test {@link PDObjectReference#setPage(PDPage)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link PDObjectReference#PDObjectReference()} COSObject Values size is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDObjectReference#setPage(PDPage)}
-   */
-  @Test
-  @DisplayName(
-      "Test setPage(PDPage); when 'null'; then PDObjectReference() COSObject Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDObjectReference.setPage(PDPage)"})
-  void testSetPage_whenNull_thenPDObjectReferenceCOSObjectValuesSizeIsOne() {
-    // Arrange
-    PDObjectReference pdObjectReference = new PDObjectReference();
-
-    // Act
-    pdObjectReference.setPage(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdObjectReference.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
   }
 }

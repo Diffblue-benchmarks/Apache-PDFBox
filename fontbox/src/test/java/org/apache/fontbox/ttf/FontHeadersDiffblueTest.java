@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.UnsupportedEncodingException;
 import org.junit.jupiter.api.DisplayName;
@@ -15,13 +14,12 @@ import org.junit.jupiter.api.Test;
 class FontHeadersDiffblueTest {
   /**
    * Test {@link FontHeaders#setFontFamily(String, String)}.
-   *
-   * <p>Method under test: {@link FontHeaders#setFontFamily(String, String)}
+   * <p>
+   * Method under test: {@link FontHeaders#setFontFamily(String, String)}
    */
   @Test
   @DisplayName("Test setFontFamily(String, String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FontHeaders.setFontFamily(String, String)"})
   void testSetFontFamily() {
     // Arrange
@@ -37,13 +35,12 @@ class FontHeadersDiffblueTest {
 
   /**
    * Test {@link FontHeaders#setOtfROS(String, String, int)}.
-   *
-   * <p>Method under test: {@link FontHeaders#setOtfROS(String, String, int)}
+   * <p>
+   * Method under test: {@link FontHeaders#setOtfROS(String, String, int)}
    */
   @Test
   @DisplayName("Test setOtfROS(String, String, int)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void FontHeaders.setOtfROS(String, String, int)"})
   void testSetOtfROS() {
     // Arrange
@@ -60,9 +57,8 @@ class FontHeadersDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link FontHeaders}
    *   <li>{@link FontHeaders#setError(String)}
@@ -86,28 +82,16 @@ class FontHeadersDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void FontHeaders.<init>()",
-    "String FontHeaders.getError()",
-    "String FontHeaders.getFontFamily()",
-    "String FontHeaders.getFontSubFamily()",
-    "Integer FontHeaders.getHeaderMacStyle()",
-    "String FontHeaders.getName()",
-    "byte[] FontHeaders.getNonOtfTableGCID142()",
-    "OS2WindowsMetricsTable FontHeaders.getOS2Windows()",
-    "String FontHeaders.getOtfOrdering()",
-    "String FontHeaders.getOtfRegistry()",
-    "int FontHeaders.getOtfSupplement()",
-    "boolean FontHeaders.isOpenTypePostScript()",
-    "void FontHeaders.setError(String)",
-    "void FontHeaders.setHeaderMacStyle(Integer)",
-    "void FontHeaders.setIsOTFAndPostScript(boolean)",
-    "void FontHeaders.setName(String)",
-    "void FontHeaders.setNonOtfGcid142(byte[])",
-    "void FontHeaders.setOs2Windows(OS2WindowsMetricsTable)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void FontHeaders.<init>()", "String FontHeaders.getError()", "String FontHeaders.getFontFamily()",
+      "String FontHeaders.getFontSubFamily()", "Integer FontHeaders.getHeaderMacStyle()",
+      "String FontHeaders.getName()", "byte[] FontHeaders.getNonOtfTableGCID142()",
+      "OS2WindowsMetricsTable FontHeaders.getOS2Windows()", "String FontHeaders.getOtfOrdering()",
+      "String FontHeaders.getOtfRegistry()", "int FontHeaders.getOtfSupplement()",
+      "boolean FontHeaders.isOpenTypePostScript()", "void FontHeaders.setError(String)",
+      "void FontHeaders.setHeaderMacStyle(Integer)", "void FontHeaders.setIsOTFAndPostScript(boolean)",
+      "void FontHeaders.setName(String)", "void FontHeaders.setNonOtfGcid142(byte[])",
+      "void FontHeaders.setOs2Windows(OS2WindowsMetricsTable)"})
   void testGettersAndSetters() throws UnsupportedEncodingException {
     // Arrange and Act
     FontHeaders actualFontHeaders = new FontHeaders();

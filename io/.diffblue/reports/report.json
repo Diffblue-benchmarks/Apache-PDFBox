@@ -1,21 +1,21 @@
 {
   "meta" : {
-    "reportVersion" : "2.7"
+    "reportVersion" : "2.6"
   },
   "run" : {
-    "version" : "2025.09.01-44e352d-licensed",
-    "creationTimestamp" : "2025-10-16T11:51:44.216365Z",
+    "version" : "2025.02.02-08b2a5a-licensed",
+    "creationTimestamp" : "2025-10-21T16:22:54.192235Z",
     "command" : "dcover create --exclude-modules org.apache.pdfbox:pdfbox-parent,org.apache.pdfbox:pdfbox-app,org.apache.pdfbox:debugger-app --coverage-reports --upload http://localhost:8080 --project-name Apache-PDFBox --name with-diffblue-tests",
-    "totalTime" : 409.621,
-    "environmentDetectionTime" : 0.633,
-    "indexingTime" : 0.421,
-    "entryPointsTime" : 0.6,
-    "generationTime" : 310.557,
-    "timeToFirstTest" : 65.003,
-    "timeToLastTest" : 366.483,
-    "indexQueryTime" : 4.2540000000000004,
-    "verificationTime" : 15.114,
-    "validationTime" : 25.37
+    "totalTime" : 1064.567,
+    "environmentDetectionTime" : 1.386,
+    "indexingTime" : 0.293,
+    "entryPointsTime" : 1.37,
+    "generationTime" : 977.389,
+    "timeToFirstTest" : 63.756,
+    "timeToLastTest" : 1032.533,
+    "indexQueryTime" : 5.078,
+    "verificationTime" : 13.879,
+    "validationTime" : 18.617
   },
   "codes" : {
     "R000" : "Success",
@@ -33,17 +33,14 @@
     "T010" : "Abstract or interface method",
     "T012" : "Synthetic method",
     "T021" : "Empty method body",
-    "T023" : "Testability unknown",
-    "V000" : "Validated successfully",
-    "V003" : "Tests discarded during validation",
-    "W002" : "Test compiled, but did not pass"
+    "V000" : "Validated successfully"
   },
   "summary" : {
     "classesCount" : 19,
     "methodsCount" : 202,
-    "cumulativeDiffblueTestCount" : 226,
+    "cumulativeDiffblueTestCount" : 208,
     "cumulativeManualTestCount" : 78,
-    "completeTestCount" : 243,
+    "completeTestCount" : 208,
     "incompleteTestCount" : 0,
     "skeletonTestCount" : 0,
     "totalPhysicalLineCount" : 2209,
@@ -55,54 +52,46 @@
       "T004" : 2,
       "T005" : 3,
       "T010" : 14,
-      "T012" : 8,
-      "T021" : 1,
-      "T023" : 4
+      "T012" : 12,
+      "T021" : 1
     },
     "perMethodOutcome" : {
-      "R000" : 126,
+      "R000" : 107,
       "R002" : 3,
       "R004" : 6,
-      "R013" : 14,
+      "R013" : 33,
       "R015" : 1,
       "R081" : 2,
       "T003" : 22,
       "T004" : 2,
       "T010" : 14,
-      "T012" : 8,
-      "T023" : 4
+      "T012" : 12
     },
     "perTestOutcome" : {
-      "R000" : 243
+      "R000" : 208
     },
     "perTestValidation" : {
-      "V000" : 226,
-      "V003" : 17
-    },
-    "warnings" : {
-      "W002" : 1
+      "V000" : 208
     }
   },
   "classes" : {
     "org.apache.pdfbox.io.IOUtils" : {
       "methodsCount" : 15,
-      "completeTestCount" : 14,
+      "completeTestCount" : 10,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 8,
         "T003" : 3,
-        "T012" : 3,
-        "T023" : 1
+        "T012" : 4
       },
       "perMethodOutcome" : {
         "R000" : 7,
         "R004" : 1,
         "T003" : 3,
-        "T012" : 3,
-        "T023" : 1
+        "T012" : 4
       },
       "perTestOutcome" : {
-        "R000" : 14
+        "R000" : 10
       }
     },
     "org.apache.pdfbox.io.MemoryUsageSetting" : {
@@ -127,25 +116,22 @@
     },
     "org.apache.pdfbox.io.NonSeekableRandomAccessReadInputStream" : {
       "methodsCount" : 16,
-      "completeTestCount" : 20,
+      "completeTestCount" : 19,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 12,
         "T001" : 1,
         "T003" : 2,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "R000" : 12,
         "R004" : 1,
         "T003" : 2,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 20
-      },
-      "warnings" : {
-        "W002" : 1
+        "R000" : 19
       }
     },
     "org.apache.pdfbox.io.RandomAccessInputStream" : {
@@ -155,12 +141,12 @@
       "perMethodTestability" : {
         "T000" : 5,
         "T005" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "R000" : 5,
         "R013" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
         "R000" : 10
@@ -198,7 +184,7 @@
     },
     "org.apache.pdfbox.io.RandomAccessReadBuffer" : {
       "methodsCount" : 21,
-      "completeTestCount" : 28,
+      "completeTestCount" : 27,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 18,
@@ -210,12 +196,12 @@
         "T003" : 3
       },
       "perTestOutcome" : {
-        "R000" : 28
+        "R000" : 27
       }
     },
     "org.apache.pdfbox.io.RandomAccessReadBufferedFile" : {
       "methodsCount" : 14,
-      "completeTestCount" : 9,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 11,
@@ -223,13 +209,9 @@
         "T003" : 2
       },
       "perMethodOutcome" : {
-        "R000" : 9,
-        "R013" : 2,
+        "R013" : 11,
         "R081" : 1,
         "T003" : 2
-      },
-      "perTestOutcome" : {
-        "R000" : 9
       }
     },
     "org.apache.pdfbox.io.RandomAccessReadBufferedFile$1" : {
@@ -245,7 +227,7 @@
     },
     "org.apache.pdfbox.io.RandomAccessReadMemoryMappedFile" : {
       "methodsCount" : 15,
-      "completeTestCount" : 10,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 12,
@@ -253,18 +235,14 @@
         "T012" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 10,
-        "R013" : 2,
+        "R013" : 12,
         "T003" : 2,
         "T012" : 1
-      },
-      "perTestOutcome" : {
-        "R000" : 10
       }
     },
     "org.apache.pdfbox.io.RandomAccessReadView" : {
       "methodsCount" : 14,
-      "completeTestCount" : 55,
+      "completeTestCount" : 51,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 12,
@@ -275,12 +253,12 @@
         "T003" : 2
       },
       "perTestOutcome" : {
-        "R000" : 55
+        "R000" : 51
       }
     },
     "org.apache.pdfbox.io.RandomAccessReadWriteBuffer" : {
       "methodsCount" : 6,
-      "completeTestCount" : 9,
+      "completeTestCount" : 8,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 6
@@ -290,7 +268,7 @@
         "R004" : 1
       },
       "perTestOutcome" : {
-        "R000" : 9
+        "R000" : 8
       }
     },
     "org.apache.pdfbox.io.RandomAccessStreamCache" : {
@@ -350,16 +328,14 @@
       "perMethodTestability" : {
         "T000" : 13,
         "T003" : 2,
-        "T012" : 2,
-        "T023" : 1
+        "T012" : 3
       },
       "perMethodOutcome" : {
         "R000" : 8,
         "R013" : 4,
         "R015" : 1,
         "T003" : 2,
-        "T012" : 2,
-        "T023" : 1
+        "T012" : 3
       },
       "perTestOutcome" : {
         "R000" : 15
@@ -367,7 +343,7 @@
     },
     "org.apache.pdfbox.io.ScratchFileBuffer" : {
       "methodsCount" : 18,
-      "completeTestCount" : 20,
+      "completeTestCount" : 18,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 15,
@@ -378,12 +354,12 @@
         "T003" : 3
       },
       "perTestOutcome" : {
-        "R000" : 20
+        "R000" : 18
       }
     },
     "org.apache.pdfbox.io.SequenceRandomAccessRead" : {
       "methodsCount" : 13,
-      "completeTestCount" : 20,
+      "completeTestCount" : 17,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 9,
@@ -398,7 +374,7 @@
         "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 20
+        "R000" : 17
       }
     }
   },
@@ -406,8 +382,17 @@
     "org.apache.pdfbox.io.IOUtils.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        53,
+        58,
+        60,
+        67,
+        68,
+        67,
+        69
+      ]
     },
     "org.apache.pdfbox.io.IOUtils.<init>:()V" : {
       "completeTestCount" : 0,
@@ -420,12 +405,12 @@
       ]
     },
     "org.apache.pdfbox.io.IOUtils.closeAndLogException:(Ljava/io/Closeable;Lorg/apache/logging/log4j/Logger;Ljava/lang/String;Ljava/io/IOException;)Ljava/io/IOException;" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 3
       },
       "lineNumbers" : [
         156,
@@ -455,12 +440,12 @@
       ]
     },
     "org.apache.pdfbox.io.IOUtils.copy:(Ljava/io/InputStream;Ljava/io/OutputStream;)J" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         100
@@ -539,24 +524,24 @@
       ]
     },
     "org.apache.pdfbox.io.IOUtils.populateBuffer:(Ljava/io/InputStream;[B)J" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         116
       ]
     },
     "org.apache.pdfbox.io.IOUtils.toByteArray:(Ljava/io/InputStream;)[B" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         86
@@ -849,8 +834,13 @@
     "org.apache.pdfbox.io.NonSeekableRandomAccessReadInputStream.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        38,
+        39,
+        38
+      ]
     },
     "org.apache.pdfbox.io.NonSeekableRandomAccessReadInputStream.<init>:(Ljava/io/InputStream;)V" : {
       "completeTestCount" : 1,
@@ -891,9 +881,6 @@
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
         "R000" : 1
-      },
-      "warnings" : {
-        "W002" : 1
       },
       "lineNumbers" : [
         81,
@@ -1076,12 +1063,12 @@
       ]
     },
     "org.apache.pdfbox.io.NonSeekableRandomAccessReadInputStream.skip:(I)V" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 3
       },
       "lineNumbers" : [
         97,
@@ -1108,8 +1095,11 @@
     "org.apache.pdfbox.io.RandomAccessInputStream.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        33
+      ]
     },
     "org.apache.pdfbox.io.RandomAccessInputStream.<init>:(Lorg/apache/pdfbox/io/RandomAccessRead;)V" : {
       "completeTestCount" : 1,
@@ -1515,12 +1505,12 @@
       ]
     },
     "org.apache.pdfbox.io.RandomAccessReadBuffer.createBufferFromStream:(Ljava/io/InputStream;)Lorg/apache/pdfbox/io/RandomAccessReadBuffer;" : {
-      "completeTestCount" : 5,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 5
+        "R000" : 4
       },
       "lineNumbers" : [
         393,
@@ -1773,13 +1763,10 @@
       ]
     },
     "org.apache.pdfbox.io.RandomAccessReadBufferedFile.<init>:(Ljava/lang/String;)V" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         87,
         88
@@ -1817,13 +1804,10 @@
       ]
     },
     "org.apache.pdfbox.io.RandomAccessReadBufferedFile.close:()V" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         245,
         246,
@@ -1834,13 +1818,10 @@
       ]
     },
     "org.apache.pdfbox.io.RandomAccessReadBufferedFile.createView:(JJ)Lorg/apache/pdfbox/io/RandomAccessReadView;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         279,
         280,
@@ -1852,13 +1833,10 @@
       ]
     },
     "org.apache.pdfbox.io.RandomAccessReadBufferedFile.getPosition:()J" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         118,
         119
@@ -1874,37 +1852,28 @@
       ]
     },
     "org.apache.pdfbox.io.RandomAccessReadBufferedFile.isEOF:()Z" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         273
       ]
     },
     "org.apache.pdfbox.io.RandomAccessReadBufferedFile.length:()J" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         239
       ]
     },
     "org.apache.pdfbox.io.RandomAccessReadBufferedFile.read:()I" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         192,
         193,
@@ -1916,13 +1885,10 @@
       ]
     },
     "org.apache.pdfbox.io.RandomAccessReadBufferedFile.read:([BII)I" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         210,
         211,
@@ -1960,13 +1926,10 @@
       ]
     },
     "org.apache.pdfbox.io.RandomAccessReadBufferedFile.seek:(J)V" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         132,
         133,
@@ -1996,13 +1959,10 @@
       ]
     },
     "org.apache.pdfbox.io.RandomAccessReadMemoryMappedFile.<init>:(Ljava/lang/String;)V" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         57,
         58
@@ -2051,13 +2011,10 @@
       ]
     },
     "org.apache.pdfbox.io.RandomAccessReadMemoryMappedFile.close:()V" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         110,
         112,
@@ -2068,50 +2025,38 @@
       ]
     },
     "org.apache.pdfbox.io.RandomAccessReadMemoryMappedFile.createView:(JJ)Lorg/apache/pdfbox/io/RandomAccessReadView;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         221
       ]
     },
     "org.apache.pdfbox.io.RandomAccessReadMemoryMappedFile.getPosition:()J" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         143,
         144
       ]
     },
     "org.apache.pdfbox.io.RandomAccessReadMemoryMappedFile.isClosed:()Z" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         205
       ]
     },
     "org.apache.pdfbox.io.RandomAccessReadMemoryMappedFile.isEOF:()Z" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         214,
         215
@@ -2127,26 +2072,20 @@
       ]
     },
     "org.apache.pdfbox.io.RandomAccessReadMemoryMappedFile.length:()J" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         182,
         183
       ]
     },
     "org.apache.pdfbox.io.RandomAccessReadMemoryMappedFile.read:()I" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         153,
         155,
@@ -2154,13 +2093,10 @@
       ]
     },
     "org.apache.pdfbox.io.RandomAccessReadMemoryMappedFile.read:([BII)I" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         166,
         168,
@@ -2171,13 +2107,10 @@
       ]
     },
     "org.apache.pdfbox.io.RandomAccessReadMemoryMappedFile.seek:(J)V" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         127,
         128,
@@ -2325,12 +2258,12 @@
       ]
     },
     "org.apache.pdfbox.io.RandomAccessReadView.read:([BII)I" : {
-      "completeTestCount" : 9,
+      "completeTestCount" : 7,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 9
+        "R000" : 7
       },
       "lineNumbers" : [
         119,
@@ -2352,12 +2285,12 @@
       ]
     },
     "org.apache.pdfbox.io.RandomAccessReadView.rewind:(I)V" : {
-      "completeTestCount" : 7,
+      "completeTestCount" : 5,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 7
+        "R000" : 5
       },
       "lineNumbers" : [
         167,
@@ -2455,12 +2388,12 @@
       ]
     },
     "org.apache.pdfbox.io.RandomAccessReadWriteBuffer.write:([BII)V" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 2
       },
       "lineNumbers" : [
         89,
@@ -2552,8 +2485,11 @@
     "org.apache.pdfbox.io.ScratchFile.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        53
+      ]
     },
     "org.apache.pdfbox.io.ScratchFile.<init>:(Ljava/io/File;)V" : {
       "completeTestCount" : 1,
@@ -2980,12 +2916,12 @@
       ]
     },
     "org.apache.pdfbox.io.ScratchFileBuffer.close:(Z)V" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         429,
@@ -3131,12 +3067,12 @@
       ]
     },
     "org.apache.pdfbox.io.ScratchFileBuffer.seek:(J)V" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         289,
@@ -3178,12 +3114,12 @@
       ]
     },
     "org.apache.pdfbox.io.ScratchFileBuffer.write:([B)V" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         214,
@@ -3191,12 +3127,12 @@
       ]
     },
     "org.apache.pdfbox.io.ScratchFileBuffer.write:([BII)V" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 3
       },
       "lineNumbers" : [
         223,
@@ -3217,12 +3153,12 @@
       ]
     },
     "org.apache.pdfbox.io.SequenceRandomAccessRead.<init>:(Ljava/util/List;)V" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 3
       },
       "lineNumbers" : [
         39,
@@ -3367,12 +3303,12 @@
       ]
     },
     "org.apache.pdfbox.io.SequenceRandomAccessRead.read:()I" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 1
       },
       "lineNumbers" : [
         104,
@@ -3432,6 +3368,5 @@
         172
       ]
     }
-  },
-  "validationMetrics" : { }
+  }
 }

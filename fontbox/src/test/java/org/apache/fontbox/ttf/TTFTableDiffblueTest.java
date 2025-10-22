@@ -2,7 +2,6 @@ package org.apache.fontbox.ttf;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -13,9 +12,8 @@ import org.junit.jupiter.api.Test;
 class TTFTableDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link TTFTable}
    *   <li>{@link TTFTable#setCheckSum(long)}
@@ -33,22 +31,12 @@ class TTFTableDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void TTFTable.<init>()",
-    "long TTFTable.getCheckSum()",
-    "boolean TTFTable.getInitialized()",
-    "long TTFTable.getLength()",
-    "long TTFTable.getOffset()",
-    "String TTFTable.getTag()",
-    "void TTFTable.read(TrueTypeFont, TTFDataStream)",
-    "void TTFTable.readHeaders(TrueTypeFont, TTFDataStream, FontHeaders)",
-    "void TTFTable.setCheckSum(long)",
-    "void TTFTable.setLength(long)",
-    "void TTFTable.setOffset(long)",
-    "void TTFTable.setTag(String)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TTFTable.<init>()", "long TTFTable.getCheckSum()", "boolean TTFTable.getInitialized()",
+      "long TTFTable.getLength()", "long TTFTable.getOffset()", "String TTFTable.getTag()",
+      "void TTFTable.read(TrueTypeFont, TTFDataStream)",
+      "void TTFTable.readHeaders(TrueTypeFont, TTFDataStream, FontHeaders)", "void TTFTable.setCheckSum(long)",
+      "void TTFTable.setLength(long)", "void TTFTable.setOffset(long)", "void TTFTable.setTag(String)"})
   void testGettersAndSetters() throws IOException {
     // Arrange and Act
     TTFTable actualTtfTable = new TTFTable();
@@ -56,17 +44,13 @@ class TTFTableDiffblueTest {
     actualTtfTable.setLength(3L);
     actualTtfTable.setOffset(42L);
     actualTtfTable.setTag("42");
-    RandomAccessReadDataStream fontData =
-        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
-    TrueTypeFont ttf = new TrueTypeFont(fontData);
-    actualTtfTable.read(
-        ttf,
+    TrueTypeFont ttf = new TrueTypeFont(
         new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
-    RandomAccessReadDataStream fontData2 =
-        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
-    TrueTypeFont ttf2 = new TrueTypeFont(fontData2);
-    RandomAccessReadDataStream data =
-        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
+    actualTtfTable.read(ttf, new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
+    TrueTypeFont ttf2 = new TrueTypeFont(
+        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
+    RandomAccessReadDataStream data = new RandomAccessReadDataStream(
+        new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
     FontHeaders outHeaders = new FontHeaders();
     outHeaders.setError("Exception");
     outHeaders.setHeaderMacStyle(1);
